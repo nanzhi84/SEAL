@@ -50,6 +50,20 @@ kind = "changelog"
 path = "docs/generated/**"
 kind = "generated"
 
+# 实验目录：报告与说明纳入文档集；跑出来的产物与历史快照由脚本生成，标记为 generated。
+
+[[kinds]]
+path = "experiments/**"
+kind = "reference"
+
+[[kinds]]
+path = "experiments/**/README.md"
+kind = "readme"
+
+[[kinds]]
+path = "experiments/**/results/**"
+kind = "generated"
+
 [lint]
 select = ["ALL"]
 languages = ["en", "zh", "ja"]
