@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="blueprint" data-mode="auto" data-style="80">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Answer me with HTML 0.4.9">
+<title>SEAL V1：可信 Python 与原生 Scrapy</title>
+<style>
+html[data-theme="blueprint"], html[data-theme="blueprint"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 0px;
+  --shadow: none;
+  --bw: 1.5px;
+  --head-font: var(--font-sans);
+  --bg: #f6f6f3;
+  --paper: #ffffff;
+  --ink: #16181d;
+  --ink-2: #4b5260;
+  --ink-3: #8b929e;
+  --line: #1d2026;
+  --line-2: #d6dae1;
+  --fill: #f3f5f8;
+  --accent: #1d5fbf;
+  --accent-bg: #e4ecf8;
+  --ok: #1d5fbf;
+  --ok-bg: #e4ecf8;
+  --err: #c62828;
+  --err-bg: #fbeaea;
+  --warn: #a8620a;
+  --warn-bg: #fdf3e2;
+  --head-bg: #16181d;
+  --head-fg: #ffffff;
+}
+html[data-theme="blueprint"][data-mode="dark"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="blueprint"][data-mode="auto"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+}
+
+html[data-theme="shadcn"], html[data-theme="shadcn"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 8px;
+  --shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --bw: 1px;
+  --head-font: var(--font-sans);
+  --bg: #fafafa;
+  --paper: #ffffff;
+  --ink: #09090b;
+  --ink-2: #71717a;
+  --ink-3: #a1a1aa;
+  --line: #e4e4e7;
+  --line-2: #f0f0f2;
+  --fill: #f4f4f5;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --ok: #16a34a;
+  --ok-bg: #f0fdf4;
+  --err: #dc2626;
+  --err-bg: #fef2f2;
+  --warn: #d97706;
+  --warn-bg: #fffbeb;
+  --head-bg: #18181b;
+  --head-fg: #fafafa;
+}
+html[data-theme="shadcn"][data-mode="dark"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="shadcn"][data-mode="auto"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+}
+
+html[data-theme="paper"], html[data-theme="paper"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+  --radius: 2px;
+  --shadow: none;
+  --bw: 1px;
+  --head-font: var(--font-serif);
+  --bg: #f5f2ea;
+  --paper: #fdfbf6;
+  --ink: #1f1c17;
+  --ink-2: #57514a;
+  --ink-3: #8c867b;
+  --line: #cbc3b4;
+  --line-2: #e5dfd3;
+  --fill: #f3eee4;
+  --accent: #8c2f1e;
+  --accent-bg: #f5e5df;
+  --ok: #2e6a3b;
+  --ok-bg: #e4efe5;
+  --err: #a3251b;
+  --err-bg: #f7e3e0;
+  --warn: #7f5300;
+  --warn-bg: #f6ecd6;
+  --head-bg: #1f1c17;
+  --head-fg: #fdfbf6;
+}
+html[data-theme="paper"][data-mode="dark"] {
+  --bg: #15130f;
+  --paper: #1c1a15;
+  --ink: #ebe5d8;
+  --ink-2: #b5ad9e;
+  --ink-3: #7b7467;
+  --line: #4a443a;
+  --line-2: #2d2a24;
+  --fill: #242119;
+  --accent: #e59a7d;
+  --accent-bg: #3a2219;
+  --ok: #8cc79a;
+  --ok-bg: #1c3122;
+  --err: #f0928a;
+  --err-bg: #3a1d1a;
+  --warn: #e3b866;
+  --warn-bg: #352a13;
+  --head-bg: #ebe5d8;
+  --head-fg: #15130f;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="paper"][data-mode="auto"] {
+  --bg: #15130f;
+  --paper: #1c1a15;
+  --ink: #ebe5d8;
+  --ink-2: #b5ad9e;
+  --ink-3: #7b7467;
+  --line: #4a443a;
+  --line-2: #2d2a24;
+  --fill: #242119;
+  --accent: #e59a7d;
+  --accent-bg: #3a2219;
+  --ok: #8cc79a;
+  --ok-bg: #1c3122;
+  --err: #f0928a;
+  --err-bg: #3a1d1a;
+  --warn: #e3b866;
+  --warn-bg: #352a13;
+  --head-bg: #ebe5d8;
+  --head-fg: #15130f;
+}
+}
+
+html[lang="ja"][data-theme][data-mode] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans CJK JP", "Noto Sans JP", "PingFang SC", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Answer me with HTML base — uses theme variables only, never hard-coded colors (theme tokens and decorations: themes/<name>.js). Exception: the var() fallbacks of diagrams (flow / sequence) equal the blueprint light tokens, guarded by a test. */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+code, pre, kbd { font-family: var(--font-mono); }
+
+/* ── Toolbar ─────────────────────────────── */
+.am-toolbar {
+  position: fixed; top: 12px; right: 12px; z-index: 10; display: flex; gap: 6px;
+}
+.am-btn {
+  font: 12px/1 var(--font-sans); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 7px 10px; cursor: pointer;
+}
+.am-btn:hover { border-color: var(--ink-3); }
+.am-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Theme and mode lists: a label and a native select inside one button-like box */
+.am-pick {
+  display: flex; align-items: center; gap: 6px; font: 12px/1 var(--font-sans); color: var(--ink-2); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 0 4px 0 10px;
+}
+.am-pick:hover { border-color: var(--ink-3); }
+.am-pick:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.am-pick select {
+  font: inherit; color: var(--ink); background: transparent; border: 0; padding: 6px 2px; cursor: pointer; outline: none;
+}
+.am-pick option { color: var(--ink); background: var(--paper); }
+
+/* ── Header ───────────────────────────────── */
+.am-head { margin: 0 0 20px; padding-right: 300px; }
+.am-head h1 { margin: 0; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
+.am-sub { margin: 4px 0 0; color: var(--ink-2); }
+.am-head-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+.am-head-meta b { font-family: var(--font-mono); font-weight: 400; color: var(--ink-3); margin-right: 6px; }
+.am-intro { margin-top: 12px; max-width: 80ch; }
+
+/* ── sheet template ────────────────────────── */
+.am-sheet { max-width: 1680px; margin: 0 auto; padding: 32px 28px 40px; }
+.am-frame { position: relative; }
+.am-grid {
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 20px; align-items: start;
+}
+.am-ruler { display: none; }
+.am-ruler span { flex: 1; display: flex; align-items: center; justify-content: center; }
+.am-ruler--top, .am-ruler--bottom { left: 18px; right: 18px; height: 18px; }
+.am-ruler--top { top: 0; }
+.am-ruler--bottom { bottom: 0; }
+.am-ruler--left, .am-ruler--right { top: 18px; bottom: 18px; width: 18px; flex-direction: column; }
+.am-ruler--left { left: 0; }
+.am-ruler--right { right: 0; }
+.am-ruler--top span + span, .am-ruler--bottom span + span { border-left: 1px solid var(--line); }
+.am-ruler--left span + span, .am-ruler--right span + span { border-top: 1px solid var(--line); }
+
+/* ── Panels ───────────────────────────────── */
+.am-panel {
+  background: var(--paper); border: var(--bw) solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); min-width: 0; overflow: hidden;
+}
+.am-panel-head {
+  display: flex; align-items: stretch; gap: 0; border-bottom: var(--bw) solid var(--line); min-height: 34px;
+}
+.am-panel-id {
+  display: flex; align-items: center; justify-content: center; min-width: 34px; padding: 0 8px;
+  background: var(--head-bg); color: var(--head-fg); font-weight: 600; font-size: 14px;
+}
+.am-panel-head h2 { margin: 0; padding: 7px 12px; font-size: 15px; font-weight: 600; flex: 1; display: flex; align-items: center; }
+.am-panel-meta { align-self: center; padding: 0 12px; font: 11px/1.3 var(--font-mono); color: var(--ink-2); text-align: right; }
+.am-panel-body { padding: 14px 16px 16px; }
+.am-panel-body > * + * { margin-top: 12px; }
+
+/* ── Markdown body ───────────────────────── */
+.am-md > :first-child { margin-top: 0; }
+.am-md > :last-child { margin-bottom: 0; }
+.am-md p { margin: 0 0 8px; }
+.am-md ul, .am-md ol { margin: 0 0 8px; padding-left: 20px; }
+.am-md li + li { margin-top: 3px; }
+.am-md h3, .am-md h4 { margin: 14px 0 6px; font-size: 13px; }
+.am-md a { color: var(--accent); }
+.am-md blockquote { margin: 0 0 8px; padding: 2px 12px; border-left: 3px solid var(--line-2); color: var(--ink-2); }
+.am-md :not(pre) > code { font-size: 0.9em; background: var(--fill); padding: 1px 5px; border-radius: 4px; }
+.am-md hr { border: 0; border-top: 1px solid var(--line-2); margin: 12px 0; }
+.am-md table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.am-md th {
+  text-align: left; font: 11px/1.3 var(--font-mono); color: var(--ink-2); font-weight: 400;
+  padding: 6px 10px; border-bottom: 1px solid var(--line-2);
+}
+/* th { text-align: left } outranks the align attribute from Markdown alignment, so restore right and center columns explicitly. */
+.am-md th[align="right"] { text-align: right; }
+.am-md th[align="center"] { text-align: center; }
+.am-md td { padding: 7px 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.am-md tbody tr:nth-child(even) td { background: var(--fill); }
+.am-table-wrap { overflow-x: auto; }
+.am-code {
+  margin: 0; padding: 12px 14px; background: var(--fill); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow-x: auto; font-size: 12.5px; line-height: 1.5;
+}
+
+/* ── Status badges ok / no / warn ──────────────── */
+.am-status { white-space: nowrap; font-weight: 500; }
+.am-status--ok { color: var(--ok); }
+.am-status--no { color: var(--err); }
+.am-status--warn { color: var(--warn); }
+.am-status-icon { display: inline-block; width: 1.1em; font-weight: 700; }
+
+/* ── callout ─────────────────────────────── */
+.am-callout {
+  border: 1px solid var(--line-2); border-left: 3px solid var(--accent); background: var(--accent-bg);
+  padding: 10px 14px; border-radius: var(--radius);
+}
+.am-callout--ok { border-left-color: var(--ok); background: var(--ok-bg); }
+.am-callout--warn { border-left-color: var(--warn); background: var(--warn-bg); }
+.am-callout--err { border-left-color: var(--err); background: var(--err-bg); }
+.am-callout-title { font-weight: 600; margin-bottom: 4px; }
+
+/* ── kv title block ─────────────────────────── */
+.am-kv {
+  display: grid; grid-template-columns: repeat(var(--kv-cols, 2), minmax(0, 1fr)); margin: 0;
+  border-top: var(--bw) solid var(--line); border-left: var(--bw) solid var(--line);
+}
+.am-kv-cell { border-right: var(--bw) solid var(--line); border-bottom: var(--bw) solid var(--line); padding: 6px 10px 8px; min-width: 0; }
+.am-kv-cell--wide { grid-column: 1 / -1; }
+.am-kv dt { font: 11px/1.4 var(--font-mono); color: var(--ink-2); }
+.am-kv dd { margin: 2px 0 0; font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.am-kv-cell--wide dd { font-size: 17px; font-weight: 600; }
+
+/* ── timeline ────────────────────────────── */
+.am-timeline { list-style: none; margin: 0; padding: 0; }
+.am-timeline--h { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); padding-top: 4px; }
+.am-timeline--h li { position: relative; text-align: center; padding: 0 6px; }
+.am-timeline--h li::before {
+  content: ""; position: absolute; top: 31px; left: 0; right: 0; border-top: var(--bw) solid var(--line);
+}
+.am-timeline--h li:first-child::before { left: 50%; }
+.am-timeline--h li:last-child::before { right: 50%; }
+.am-tl-when { display: block; font-size: 15px; font-weight: 500; height: 24px; }
+.am-tl-dot {
+  position: relative; display: block; width: 11px; height: 11px; margin: 2px auto 8px;
+  border: var(--bw) solid var(--line); border-radius: 50%; background: var(--paper);
+}
+.am-tl-item--hi .am-tl-dot { background: var(--accent); border-color: var(--accent); }
+.am-tl-title { display: block; font-size: 12.5px; font-weight: 500; }
+.am-tl-text { display: block; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+.am-timeline--v li { position: relative; padding: 0 0 14px 22px; }
+.am-timeline--v li::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: -6px; border-left: var(--bw) solid var(--line-2); }
+.am-timeline--v li:last-child::before { display: none; }
+.am-timeline--v .am-tl-dot { position: absolute; left: 0; top: 4px; margin: 0; }
+.am-timeline--v .am-tl-when { display: inline; height: auto; font: 12px var(--font-mono); color: var(--ink-2); margin-right: 8px; }
+.am-timeline--v .am-tl-title { display: inline; font-size: 14px; }
+.am-timeline--v .am-tl-text { margin-top: 2px; }
+
+/* ── annot sentence notes ──────────────────────── */
+.am-annot + .am-annot { border-top: 1px solid var(--line-2); padding-top: 12px; }
+.am-annot-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.am-annot-meta { font: 11px var(--font-mono); font-weight: 400; color: var(--ink-2); }
+.am-annot-scroll { overflow-x: auto; }
+.am-annot-line {
+  position: relative; display: inline-block; white-space: pre; font: 14px/1.6 var(--font-mono);
+  padding-bottom: calc(var(--rows, 0) * 17px + 14px);
+}
+.am-annot-line--wrap { display: block; white-space: normal; padding-bottom: 10px; }
+.am-annot-line--wrap .am-seg { white-space: nowrap; }
+.am-seg { position: relative; }
+.am-seg::after {
+  content: ""; position: absolute; left: 1px; right: 1px; top: calc(100% + 1px); height: 5px;
+  border: 1px solid var(--accent); border-top: 0;
+}
+.am-seg-n {
+  position: absolute; left: 0; top: calc(100% + 8px + var(--row, 0) * 17px);
+  font: 11px/16px var(--font-sans); color: var(--accent); white-space: nowrap;
+}
+.am-seg--err { color: var(--err); }
+.am-seg--err::after { border-color: var(--err); }
+.am-seg--err .am-seg-n { color: var(--err); }
+.am-annot-caption { font-size: 12px; color: var(--ink-2); }
+
+/* ── limits bars ───────────────────────── */
+.am-lim + .am-lim { margin-top: 14px; }
+.am-lim-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; margin-bottom: 4px; }
+.am-lim-val { font: 12px var(--font-mono); color: var(--accent); white-space: nowrap; }
+.am-lim-track { position: relative; height: 12px; border: 1px solid var(--line-2); background: var(--fill); border-radius: calc(var(--radius) / 2); }
+.am-lim-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent-bg); border-right: 1px solid var(--accent); }
+.am-lim-mark { position: absolute; top: -4px; bottom: -4px; border-left: 2px solid var(--accent); }
+.am-lim.is-over .am-lim-fill { background: var(--err-bg); border-right-color: var(--err); }
+.am-lim.is-over .am-lim-val { color: var(--err); }
+.am-lim-ticks { position: relative; height: 16px; font: 10px/16px var(--font-mono); color: var(--ink-3); }
+.am-lim-ticks span { position: absolute; transform: translateX(-50%); }
+.am-lim-ticks span:first-child { transform: none; }
+.am-lim-note { font-size: 11px; color: var(--ink-2); margin-left: 6px; }
+
+/* ── tree ─────────────────────────── */
+.am-tree { font-size: 13px; }
+.am-tree-root { display: flex; justify-content: center; position: relative; padding-bottom: 18px; }
+.am-tree-root::after { content: ""; position: absolute; bottom: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-root--solo { padding-bottom: 12px; }
+.am-tree-root--solo::after { display: none; }
+.am-tree-box {
+  border: var(--bw) solid var(--line); background: var(--paper); padding: 6px 14px; text-align: center;
+  border-radius: var(--radius); font-weight: 600;
+}
+.am-tree-box small { display: block; font-weight: 400; color: var(--ink-2); font-size: 12px; }
+.am-tree-box--root { background: var(--accent-bg); font-size: 15px; padding: 8px 28px; }
+.am-tree-cols { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); }
+.am-tree-col { position: relative; padding: 18px 8px 0; min-width: 0; }
+.am-tree-col::before { content: ""; position: absolute; top: 0; left: 0; right: 0; border-top: var(--bw) solid var(--line); }
+.am-tree-col:first-child::before { left: 50%; }
+.am-tree-col:last-child::before { right: 50%; }
+.am-tree-col::after { content: ""; position: absolute; top: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-list, .am-tree-list ul { list-style: none; margin: 0; padding: 0; }
+.am-tree-col > .am-tree-list { margin: 8px 0 0 14px; }
+.am-tree-list ul { margin-left: 16px; }
+.am-tree-list li { position: relative; padding: 3px 0 3px 18px; }
+.am-tree-list li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 12px; border-top: 1px solid var(--ink-3); }
+.am-tree-list li::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1px solid var(--ink-3); }
+.am-tree-list li:last-child::after { bottom: auto; height: 0.95em; }
+.am-tree-tag { font: 11px var(--font-mono); color: var(--ink-3); margin-right: 4px; }
+.am-tree code { font: 12px var(--font-mono); }
+.am-tree-sub { display: block; font-size: 11.5px; color: var(--ink-2); }
+.am-tree-hi > .am-tree-label { color: var(--accent); font-weight: 600; }
+
+/* ── Diagrams (flow / sequence) ───────────────── */
+.am-diagram { margin: 0; overflow-x: auto; text-align: center; }
+/* Embedded previews can lose html[data-theme]; the fallbacks keep diagrams readable, and defined theme variables still win. */
+.am-diagram svg { max-width: 100%; height: auto; font-family: var(--font-sans, sans-serif); }
+.am-diagram text { fill: var(--ink, #16181d); font-size: 13px; }
+.am-node-shape { fill: var(--paper, #ffffff); stroke: var(--line, #1d2026); stroke-width: var(--bw, 1.5px); }
+.am-node--hi .am-node-shape { fill: var(--accent-bg, #e4ecf8); stroke: var(--accent, #1d5fbf); }
+.am-node--hi text { fill: var(--accent, #1d5fbf); font-weight: 600; }
+.am-edge { fill: none; stroke: var(--ink-2, #4b5260); stroke-width: 1.3; }
+.am-edge--dashed { stroke-dasharray: 5 4; }
+.am-arrow { fill: var(--ink-2, #4b5260); }
+.am-edge-label rect { fill: var(--paper, #ffffff); }
+.am-diagram .am-edge-label text { fill: var(--accent, #1d5fbf); font-size: 11.5px; }
+.am-cluster { fill: var(--fill, #f3f5f8); stroke: var(--line-2, #d6dae1); stroke-width: 1; stroke-dasharray: 4 3; }
+.am-diagram .am-cluster-label { fill: var(--ink-2, #4b5260); font: 11px var(--font-mono, monospace); }
+.am-lifeline { stroke: var(--ink-3, #8b929e); stroke-width: 1; stroke-dasharray: 4 4; }
+.am-actor { fill: var(--paper, #ffffff); stroke: var(--line, #1d2026); stroke-width: var(--bw, 1.5px); }
+.am-note { fill: var(--warn-bg, #fdf3e2); stroke: var(--warn, #a8620a); stroke-width: 1; }
+.am-diagram .am-step { fill: var(--ink-3, #8b929e); font: 10px var(--font-mono, monospace); }
+
+/* ── doc template ────────────────────────── */
+.am-doc { max-width: 1120px; margin: 0 auto; padding: 40px 28px 64px; }
+.am-doc-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.am-doc-layout--notoc { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+.am-toc { position: sticky; top: 24px; font-size: 13px; }
+.am-toc a { display: block; color: var(--ink-2); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid var(--line-2); }
+.am-toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+.am-doc-body > .am-panel + .am-panel { margin-top: 20px; }
+
+/* ── Responsive and print ─────────────────────────── */
+@media (max-width: 1100px) {
+  .am-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .am-grid > .am-panel { grid-column: auto !important; }
+  .am-grid > .am-panel.am-span-wide { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 760px) {
+  .am-sheet, .am-doc { padding: 56px 12px 24px; }
+  .am-head { padding-right: 0; }
+  .am-grid { grid-template-columns: minmax(0, 1fr); }
+  .am-grid > .am-panel.am-span-wide { grid-column: auto !important; }
+  .am-doc-layout { grid-template-columns: minmax(0, 1fr); }
+  .am-toc { position: static; }
+  .am-timeline--h { grid-template-columns: minmax(0, 1fr); }
+  .am-tree-cols { grid-template-columns: minmax(0, 1fr); }
+  /* Tables and diagrams keep their size: the wrapper scrolls horizontally when they overflow. */
+  .am-md th, .am-md td { min-width: 6em; }
+  .am-diagram svg { max-width: none; }
+}
+.am-colophon { text-align: center; padding: 0 0 28px; font: 11px var(--font-mono); color: var(--ink-3); }
+
+@media print {
+  .am-toolbar { display: none; }
+  body { background: var(--paper); }
+  .am-panel { break-inside: avoid; box-shadow: none; }
+}
+.am-panel--bare { border: 0; background: transparent; box-shadow: none; }
+.am-panel--bare > .am-panel-body { padding: 0; }
+.am-panel--bare .am-kv { background: var(--paper); }
+
+
+html[data-theme="blueprint"] .am-frame { border: 1px solid var(--line); padding: 30px; }
+html[data-theme="blueprint"] .am-frame::before {
+  content: ""; position: absolute; inset: 18px; border: 1px solid var(--line); pointer-events: none;
+}
+html[data-theme="blueprint"] .am-ruler {
+  display: flex; position: absolute; font: 10px/1 var(--font-mono); color: var(--ink-3);
+}
+@media (max-width: 760px) {
+  html[data-theme="blueprint"] .am-frame { padding: 0; border: 0; }
+  html[data-theme="blueprint"] .am-frame::before, html[data-theme="blueprint"] .am-ruler { display: none; }
+}
+
+html[data-theme="shadcn"] .am-panel-id { border-radius: 6px; min-width: 24px; height: 24px; margin: 9px 0 9px 14px; font-size: 12px; }
+html[data-theme="shadcn"] .am-panel-head { border-bottom-width: 1px; }
+html[data-theme="shadcn"] .am-kv { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
+
+html[data-theme="paper"][lang="ja"][data-mode] { --font-serif: "Iowan Old Style", Palatino, Georgia, "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP", "Noto Serif JP", "Songti SC", serif; }
+html[data-theme="paper"] .am-head h1, html[data-theme="paper"] .am-panel-head h2, html[data-theme="paper"] .am-md, html[data-theme="paper"] .am-intro, html[data-theme="paper"] .am-callout { font-family: var(--font-serif); }
+html[data-theme="paper"] .am-head h1 { font-weight: 600; letter-spacing: 0; }
+html[data-theme="paper"] .am-md p, html[data-theme="paper"] .am-md li, html[data-theme="paper"] .am-md blockquote, html[data-theme="paper"] .am-intro { font-size: 15.5px; line-height: 1.75; }
+html[data-theme="paper"] .am-md p { margin-bottom: 12px; }
+html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
+</style>
+</head>
+<body>
+<div class="am-toolbar">
+<label class="am-pick">主题<select data-am="theme"><option value="blueprint" selected>图纸</option><option value="shadcn">卡片</option><option value="paper">纸张</option></select></label>
+<label class="am-pick">明暗<select data-am="mode"><option value="auto" selected>跟随系统</option><option value="light">亮</option><option value="dark">暗</option></select></label>
+<button class="am-btn" type="button" data-am="copy" data-done="已复制 ✓">复制源稿</button>
+</div>
+<main class="am-doc">
+<header class="am-head"><h1>SEAL V1：可信 Python 与原生 Scrapy</h1><p class="am-sub">轻量采集、应用层原文、独立版本与可恢复发布</p><div class="am-intro am-md"><div class="am-md"><p>状态：设计基线，生产管线尚未实现。
+仓库已有独立实验，但它们不等于本架构的端到端验收。
+本轮只修订文档，没有安装依赖、实现业务代码或搭建基础设施。</p>
+</div></div></header>
+<div class="am-doc-layout">
+<nav class="am-toc" aria-label="目录"><a href="#panel-A">A · 先明确可信代码前提</a><a href="#panel-B">B · 完整架构与模块职责</a><a href="#panel-C">C · 归档必须放在正确位置</a><a href="#panel-D">D · 共享版本，不共享启用资格</a><a href="#panel-E">E · 正常自动发布，变更人工审核</a><a href="#panel-F">F · 失败后如何恢复</a><a href="#panel-G">G · M0 到 M3 的实施与验收</a><a href="#panel-H">H · 技术风险与完整规范</a></nav><div class="am-doc-body">
+<section class="am-panel" id="panel-A">
+<header class="am-panel-head"><span class="am-panel-id">A</span><h2>先明确可信代码前提</h2></header>
+<div class="am-panel-body"><div class="am-callout am-callout--info" role="note"><div class="am-callout-title">V1 使用团队审查维护的普通 Python</div><div class="am-callout-body am-md"><p>Recipe 使用分支、循环、分页和共享 helper。
+不执行未经审查的 Agent 代码，不接受外部任意 Python。
+不建设沙箱、可信 Fetcher、RPC 或自定义 Download Handler。</p>
+</div></div>
+<div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>保留的业务能力</th>
+<th>删除或推迟的机制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Source、Python Recipe、YAML 参数、CLI</td>
+<td>DSL、管理服务、Agent 执行接口</td>
+</tr>
+<tr>
+<td>不可变版本、独立 Binding 与 Activation</td>
+<td>自动晋升、审批工作流平台</td>
+</tr>
+<tr>
+<td>Trial、Gold Fixtures、人工核对</td>
+<td>Evaluation 平台、自动评分</td>
+</tr>
+<tr>
+<td>原文、观察、修订、Replay、JSON</td>
+<td>网络取证、签名收据、冻结响应缓存</td>
+</tr>
+</tbody></table></div>
+<p>Scrapy 设置不能阻止恶意 Python 绕网或修改同权限存储。
+哈希用于去重和损坏检查，不提供防篡改证明。
+普通子进程管理生命周期，不是安全隔离。
+未来开放不可信代码时，必须另行设计可信执行边界。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-B">
+<header class="am-panel-head"><span class="am-panel-id">B</span><h2>完整架构与模块职责</h2></header>
+<div class="am-panel-body"><figure class="am-diagram am-flow"><svg viewBox="0 0 541 890" width="541" height="890" role="img" aria-label="流程图：CLI与YAML、版本绑定与审核启用、Procrastinate持久任务、Run应用函数、Scrapy原生调度与下载、获授权来源、解压与ArchiveMiddleware、内容寻址原文目录" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="am-arrow" d="M0,0 L10,5 L0,10 z"/></marker></defs><g></g><g><g data-step="0"><path class="am-edge" d="M358.8,49 L358.8,60.5 Q358.8,72 358.8,83.5 L358.8,95" marker-end="url(#am1-arrow)"/></g><g data-step="1"><path class="am-edge" d="M358.8,130 L358.8,141.5 Q358.8,153 358.8,164.5 L358.8,176" marker-end="url(#am1-arrow)"/></g><g data-step="2"><path class="am-edge" d="M358.8,211 L358.8,222.5 Q358.8,234 358.8,245.5 L358.8,257" marker-end="url(#am1-arrow)"/></g><g data-step="3"><path class="am-edge" d="M358.8,292 L358.8,303.5 Q358.8,315 358.8,326.5 L358.8,338" marker-end="url(#am1-arrow)"/></g><g data-step="4"><path class="am-edge" d="M392.3,373 L414.4,384.5 Q436.4,396 436.4,411.8 L436.4,427.5" marker-end="url(#am1-arrow)"/></g><g data-step="5"><path class="am-edge" d="M325.2,373 L303.2,384.5 Q281.2,396 281.2,407.5 L281.2,419" marker-end="url(#am1-arrow)"/></g><g data-step="6"><path class="am-edge" d="M353.9,464.9 L407.3,479.4 Q460.7,494 460.7,505.5 L460.7,517" marker-end="url(#am1-arrow)"/></g><g data-step="7"><path class="am-edge" d="M281.2,471 L281.2,482.5 Q281.2,494 281.2,505.5 L281.2,517" marker-end="url(#am1-arrow)"/></g><g data-step="8"><path class="am-edge" d="M208.4,464.5 L153.2,479.2 Q98.1,494 98.1,505.5 L98.1,517" marker-end="url(#am1-arrow)"/></g><g data-step="9"><path class="am-edge" d="M98.1,552 L98.1,563.5 Q98.1,575 98.1,586.5 L98.1,598" marker-end="url(#am1-arrow)"/></g><g data-step="10"><path class="am-edge" d="M98.1,633 L98.1,644.5 Q98.1,656 98.1,667.5 L98.1,679" marker-end="url(#am1-arrow)"/></g><g data-step="11"><path class="am-edge" d="M98.1,714 L98.1,725.5 Q98.1,737 98.1,748.5 L98.1,760" marker-end="url(#am1-arrow)"/></g><g data-step="12"><path class="am-edge" d="M98.1,795 L98.1,806.5 Q98.1,818 98.1,829.5 L98.1,841" marker-end="url(#am1-arrow)"/></g></g><g><g class="am-node am-node--rect" data-key="CLI与YAML" data-step="0"><rect class="am-node-shape" x="308.5" y="14" width="100.5" height="35" rx="3"/><text x="358.8" y="31.5" text-anchor="middle" dominant-baseline="central">CLI与YAML</text></g><g class="am-node am-node--rect" data-key="版本绑定与审核启用" data-step="0"><rect class="am-node-shape" x="286.3" y="95" width="145" height="35" rx="3"/><text x="358.8" y="112.5" text-anchor="middle" dominant-baseline="central">版本绑定与审核启用</text></g><g class="am-node am-node--rect" data-key="Procrastinate持久任务" data-step="1"><rect class="am-node-shape" x="278.5" y="176" width="160.6" height="35" rx="3"/><text x="358.8" y="193.5" text-anchor="middle" dominant-baseline="central">Procrastinate持久任务</text></g><g class="am-node am-node--rect" data-key="Run应用函数" data-step="2"><rect class="am-node-shape" x="307.1" y="257" width="103.4" height="35" rx="3"/><text x="358.8" y="274.5" text-anchor="middle" dominant-baseline="central">Run应用函数</text></g><g class="am-node am-node--rect" data-key="Scrapy原生调度与下载" data-step="3"><rect class="am-node-shape" x="278.2" y="338" width="161.1" height="35" rx="3"/><text x="358.8" y="355.5" text-anchor="middle" dominant-baseline="central">Scrapy原生调度与下载</text></g><g class="am-node am-node--rect" data-key="获授权来源" data-step="4"><rect class="am-node-shape" x="389.9" y="427.5" width="93" height="35" rx="3"/><text x="436.4" y="445" text-anchor="middle" dominant-baseline="central">获授权来源</text></g><g class="am-node am-node--rect" data-key="解压与ArchiveMiddleware" data-step="5"><rect class="am-node-shape" x="208.4" y="419" width="145.5" height="52" rx="3"/><text x="281.2" y="436.5" text-anchor="middle" dominant-baseline="central">解压与</text><text x="281.2" y="453.5" text-anchor="middle" dominant-baseline="central">ArchiveMiddleware</text></g><g class="am-node am-node--rect" data-key="内容寻址原文目录" data-step="6"><rect class="am-node-shape" x="394.7" y="517" width="132" height="35" rx="3"/><text x="460.7" y="534.5" text-anchor="middle" dominant-baseline="central">内容寻址原文目录</text></g><g class="am-node am-node--rect" data-key="PostgreSQL观察记录" data-step="7"><rect class="am-node-shape" x="203.6" y="517" width="155.1" height="35" rx="3"/><text x="281.2" y="534.5" text-anchor="middle" dominant-baseline="central">PostgreSQL观察记录</text></g><g class="am-node am-node--rect" data-key="可信Python Spider" data-step="8"><rect class="am-node-shape" x="28.6" y="517" width="139" height="35" rx="3"/><text x="98.1" y="534.5" text-anchor="middle" dominant-baseline="central">可信Python Spider</text></g><g class="am-node am-node--rect" data-key="Item Pipeline校验暂存" data-step="9"><rect class="am-node-shape" x="17.5" y="598" width="161.1" height="35" rx="3"/><text x="98.1" y="615.5" text-anchor="middle" dominant-baseline="central">Item Pipeline校验暂存</text></g><g class="am-node am-node--rect" data-key="结束后固定发布门禁" data-step="10"><rect class="am-node-shape" x="25.6" y="679" width="145" height="35" rx="3"/><text x="98.1" y="696.5" text-anchor="middle" dominant-baseline="central">结束后固定发布门禁</text></g><g class="am-node am-node--rect" data-key="PostgreSQL已发布视图" data-step="11"><rect class="am-node-shape" x="14" y="760" width="168.1" height="35" rx="3"/><text x="98.1" y="777.5" text-anchor="middle" dominant-baseline="central">PostgreSQL已发布视图</text></g><g class="am-node am-node--rect" data-key="下游JSON" data-step="12"><rect class="am-node-shape" x="52.2" y="841" width="91.7" height="35" rx="3"/><text x="98.1" y="858.5" text-anchor="middle" dominant-baseline="central">下游JSON</text></g></g></svg></figure>
+<div class="am-md"><p>图中业务组件是同一应用的模块，不是独立服务。
+默认单机、一个生产 Crawl 执行槽，本地目录保存原文。
+不要求容器、Redis、对象存储产品或第二套工作流引擎。</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>唯一负责者</th>
+<th>负责什么</th>
+<th>不重复建设什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Scrapy</td>
+<td>请求调度、去重、下载、重试、跳转、Cookie、解压</td>
+<td>PostgreSQL URL Frontier、自写 HTTP 客户端</td>
+</tr>
+<tr>
+<td>Procrastinate</td>
+<td>持久 Crawl、周期、执行锁、有限任务重跑</td>
+<td>自研领取队列、DBOS 叠加</td>
+</tr>
+<tr>
+<td>SEAL</td>
+<td>归档、业务版本、校验、审核、发布与撤回</td>
+<td>独立治理服务、复杂执行协议</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel" id="panel-C">
+<header class="am-panel-head"><span class="am-panel-id">C</span><h2>归档必须放在正确位置</h2></header>
+<div class="am-panel-body"><figure class="am-diagram am-seq"><svg viewBox="0 0 801 338" width="801" height="338" role="img" aria-label="时序图：原生下载、HTTP解压610、Archive605、跳转或重试、Spider" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am2-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="am-arrow" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="am-lifeline" x1="54" y1="42" x2="54" y2="334"/><g data-key="原生下载"><rect class="am-actor" x="12" y="8" width="84" height="34" rx="2"/><text x="54" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">原生下载</text></g><line class="am-lifeline" x1="180.8" y1="42" x2="180.8" y2="334"/><g data-key="HTTP解压610"><rect class="am-actor" x="125.2" y="8" width="111.2" height="34" rx="2"/><text x="180.8" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">HTTP解压610</text></g><line class="am-lifeline" x1="357.8" y1="42" x2="357.8" y2="334"/><g data-key="Archive605"><rect class="am-actor" x="309.8" y="8" width="96.1" height="34" rx="2"/><text x="357.8" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">Archive605</text></g><line class="am-lifeline" x1="595.8" y1="42" x2="595.8" y2="334"/><g data-key="跳转或重试"><rect class="am-actor" x="549.3" y="8" width="93" height="34" rx="2"/><text x="595.8" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">跳转或重试</text></g><line class="am-lifeline" x1="746.8" y1="42" x2="746.8" y2="334"/><g data-key="Spider"><rect class="am-actor" x="704.8" y="8" width="84" height="34" rx="2"/><text x="746.8" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">Spider</text></g><g data-step="0"><text x="117.4" y="70" text-anchor="middle">Response body</text><path class="am-edge" d="M54,80 L178.8,80" marker-end="url(#am2-arrow)"/><text class="am-step" x="60" y="74" text-anchor="start">1</text></g><g data-step="1"><text x="269.3" y="110" text-anchor="middle">应用层字节和处理后的头</text><path class="am-edge" d="M180.8,120 L355.8,120" marker-end="url(#am2-arrow)"/><text class="am-step" x="186.8" y="114" text-anchor="start">2</text></g><g data-step="2"><text x="397.8" y="148" dominant-baseline="central">先落盘，再提交观察与快照</text><path class="am-edge" d="M357.8,144 H387.8 V164 H359.8" marker-end="url(#am2-arrow)"/><text class="am-step" x="363.8" y="154" text-anchor="start">3</text></g><g data-step="3"><text x="476.8" y="198" text-anchor="middle">归档成功才继续</text><path class="am-edge" d="M357.8,208 L593.8,208" marker-end="url(#am2-arrow)"/><text class="am-step" x="363.8" y="202" text-anchor="start">4</text></g><g data-step="4"><text x="671.3" y="238" text-anchor="middle">最终响应或错误处理</text><path class="am-edge" d="M595.8,248 L744.8,248" marker-end="url(#am2-arrow)"/><text class="am-step" x="601.8" y="242" text-anchor="start">5</text></g><g data-step="5"><rect class="am-note" x="337.8" y="272" width="429" height="44" rx="2"/><text x="552.3" y="286" text-anchor="middle" dominant-baseline="central" font-size="12">归档失败则不交 callback，并阻断整轮发</text><text x="552.3" y="302" text-anchor="middle" dominant-baseline="central" font-size="12">布</text></g></svg></figure>
+<div class="am-md"><p>响应中间件按优先级从高到低执行。
+将原生 HttpCompression 从 590 调到 610，Archive 设为 605。
+其后为 Redirect 600、MetaRefresh 580、Retry 550。
+Cookie 若启用仍位于 700；实际完整顺序由 M0 验证。</p>
+<ul>
+<li>HTML/PDF 均保存 Response.body，不保存提取正文冒充原文。</li>
+<li>保存每跳状态、URL、最终 URL、时间、哈希和 Run ID。</li>
+<li>重试错误页和跳转响应先归档，网络异常只记失败诊断。</li>
+<li>不存传输层字节，不将压缩前长度当成归档长度。</li>
+<li>不保存 Cookie、Token 或认证头；敏感 body 拒绝准入。</li>
+</ul>
+</div>
+<div class="am-callout am-callout--warn" role="note"><div class="am-callout-title">缓存、观察与 Replay 必须分开</div><div class="am-callout-body am-md"><p>生产与在线 Trial 默认关闭 HTTP 缓存，不主动条件 GET。
+M0 验证缓存 500、304 重验证和错误回退。
+缓存复用不能冒充新的网络观察或新鲜度证明。
+Replay 只查历史输入，缺失即失败，不联网补齐。</p>
+</div></div></div>
+</section>
+<section class="am-panel" id="panel-D">
+<header class="am-panel-head"><span class="am-panel-id">D</span><h2>共享版本，不共享启用资格</h2></header>
+<div class="am-panel-body"><div class="am-tree"><div class="am-tree-root am-tree-root--solo"><div class="am-tree-box am-tree-box--root" data-key="RecipePackage：Python与helper" data-step="0">RecipePackage：Python与helper</div></div><ul class="am-tree-list"><li data-key="不可变RecipeVersion：代码与依赖环境" data-step="1"><span class="am-tree-label">不可变RecipeVersion：代码与依赖环境</span><ul><li data-key="Binding A：来源快照与参数A" data-step="2"><span class="am-tree-label">Binding A：来源快照与参数A</span><ul><li data-key="Review A → Activation A" data-step="3"><span class="am-tree-label">Review A → Activation A</span></li></ul></li><li data-key="Binding B：来源快照与参数B" data-step="4"><span class="am-tree-label">Binding B：来源快照与参数B</span><ul><li data-key="Review B → Activation B" data-step="5"><span class="am-tree-label">Review B → Activation B</span></li></ul></li></ul></li></ul></div>
+<div class="am-md"><p>代码、helper、参数、依赖、执行环境与校验版本都影响验证资格。
+A 升级不能原位替换 B 的代码或运行环境。
+九类业务表保存 Source、RecipeVersion、Binding、Decision、Run、Observation、Document、Revision 和 Result。
+原文、报告、代码包与输入清单使用内容寻址工件。</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>发生什么</th>
+<th>应保存什么</th>
+<th>不应该发生什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>再次获取相同正文</td>
+<td>新 Observation，复用 body</td>
+<td>丢失获取历史或新增内容修订</td>
+</tr>
+<tr>
+<td>正文 A → B → A</td>
+<td>三次 Revision，共用两份 body</td>
+<td>按哈希合并掉返回 A 的历史</td>
+</tr>
+<tr>
+<td>同原文换 Recipe</td>
+<td>新 ProcessingResult</td>
+<td>伪造来源内容变化</td>
+</tr>
+<tr>
+<td>相同输入与处理键重跑</td>
+<td>同输出复用 Result</td>
+<td>不同输出最后写入覆盖</td>
+</tr>
+<tr>
+<td>Recipe 回滚</td>
+<td>新 Activation generation</td>
+<td>删除历史或自动撤回错误结果</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel" id="panel-E">
+<header class="am-panel-head"><span class="am-panel-id">E</span><h2>正常自动发布，变更人工审核</h2></header>
+<div class="am-panel-body"><figure class="am-diagram am-seq"><svg viewBox="0 0 1283 470" width="1283" height="470" role="img" aria-label="时序图：维护者、CLI、Trial、人工审核、Activation、周期Run、固定门禁、JSON" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am3-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="am-arrow" d="M0,0 L10,5 L0,10 z"/></marker></defs><line class="am-lifeline" x1="54" y1="42" x2="54" y2="466"/><g data-key="维护者"><rect class="am-actor" x="12" y="8" width="84" height="34" rx="2"/><text x="54" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">维护者</text></g><line class="am-lifeline" x1="280.4" y1="42" x2="280.4" y2="466"/><g data-key="CLI"><rect class="am-actor" x="238.4" y="8" width="84" height="34" rx="2"/><text x="280.4" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">CLI</text></g><line class="am-lifeline" x1="431.4" y1="42" x2="431.4" y2="466"/><g data-key="Trial"><rect class="am-actor" x="389.4" y="8" width="84" height="34" rx="2"/><text x="431.4" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">Trial</text></g><line class="am-lifeline" x1="634.4" y1="42" x2="634.4" y2="466"/><g data-key="人工审核"><rect class="am-actor" x="592.4" y="8" width="84" height="34" rx="2"/><text x="634.4" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">人工审核</text></g><line class="am-lifeline" x1="749.3" y1="42" x2="749.3" y2="466"/><g data-key="Activation"><rect class="am-actor" x="704.4" y="8" width="89.9" height="34" rx="2"/><text x="749.3" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">Activation</text></g><line class="am-lifeline" x1="887.3" y1="42" x2="887.3" y2="466"/><g data-key="周期Run"><rect class="am-actor" x="845.3" y="8" width="84" height="34" rx="2"/><text x="887.3" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">周期Run</text></g><line class="am-lifeline" x1="1103.3" y1="42" x2="1103.3" y2="466"/><g data-key="固定门禁"><rect class="am-actor" x="1061.3" y="8" width="84" height="34" rx="2"/><text x="1103.3" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">固定门禁</text></g><line class="am-lifeline" x1="1228.3" y1="42" x2="1228.3" y2="466"/><g data-key="JSON"><rect class="am-actor" x="1186.3" y="8" width="84" height="34" rx="2"/><text x="1228.3" y="25" text-anchor="middle" dominant-baseline="central" font-weight="600">JSON</text></g><g data-step="0"><text x="167.2" y="70" text-anchor="middle">注册Source，打包并创建Binding</text><path class="am-edge" d="M54,80 L278.4,80" marker-end="url(#am3-arrow)"/><text class="am-step" x="60" y="74" text-anchor="start">1</text></g><g data-step="1"><text x="355.9" y="110" text-anchor="middle">有限采集与原文归档</text><path class="am-edge" d="M280.4,120 L429.4,120" marker-end="url(#am3-arrow)"/><text class="am-step" x="286.4" y="114" text-anchor="start">2</text></g><g data-step="2"><text x="532.9" y="150" text-anchor="middle">硬校验、独立样本、覆盖范围</text><path class="am-edge" d="M431.4,160 L632.4,160" marker-end="url(#am3-arrow)"/><text class="am-step" x="437.4" y="154" text-anchor="start">3</text></g><g data-step="3"><text x="457.4" y="190" text-anchor="middle">批准确切fingerprint</text><path class="am-edge" d="M634.4,200 L282.4,200" marker-end="url(#am3-arrow)"/><text class="am-step" x="628.4" y="194" text-anchor="end">4</text></g><g data-step="4"><text x="514.9" y="230" text-anchor="middle">手动启用新代次</text><path class="am-edge" d="M280.4,240 L747.3,240" marker-end="url(#am3-arrow)"/><text class="am-step" x="286.4" y="234" text-anchor="start">5</text></g><g data-step="5"><text x="818.3" y="270" text-anchor="middle">固定版本持续采集</text><path class="am-edge" d="M749.3,280 L885.3,280" marker-end="url(#am3-arrow)"/><text class="am-step" x="755.3" y="274" text-anchor="start">6</text></g><g data-step="6"><text x="995.3" y="310" text-anchor="middle">归档、字段、完成性、当前资格</text><path class="am-edge" d="M887.3,320 L1101.3,320" marker-end="url(#am3-arrow)"/><text class="am-step" x="893.3" y="314" text-anchor="start">7</text></g><g data-step="7"><text x="1165.8" y="350" text-anchor="middle">合格则自动发布</text><path class="am-edge" d="M1103.3,360 L1226.3,360" marker-end="url(#am3-arrow)"/><text class="am-step" x="1109.3" y="354" text-anchor="start">8</text></g><g data-step="8"><text x="470.7" y="390" text-anchor="middle">异常阻断并保留诊断</text><path class="am-edge" d="M887.3,400 L56,400" marker-end="url(#am3-arrow)"/><text class="am-step" x="881.3" y="394" text-anchor="end">9</text></g><g data-step="9"><text x="242.7" y="430" text-anchor="middle">修复Recipe，Replay后重新Trial</text><path class="am-edge" d="M54,440 L429.4,440" marker-end="url(#am3-arrow)"/><text class="am-step" x="60" y="434" text-anchor="start">10</text></g></svg></figure>
+<div class="am-md"><p>首次接入、升级和异常修复需要人工核对。
+正常周期无需逐次人工确认。
+没有独立预期文档集合时，覆盖率保持 unknown。
+HTTP 200、Schema 合格、样本正确都不证明全站完整。
+错误结果用独立 withdraw 撤回，下游须消费撤回信息。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-F">
+<header class="am-panel-head"><span class="am-panel-id">F</span><h2>失败后如何恢复</h2></header>
+<div class="am-panel-body"><div class="am-callout am-callout--info" role="note"><div class="am-callout-title">有界整次重跑，不恢复 Python 执行栈</div><div class="am-callout-body am-md"><p>Procrastinate 管任务重跑，Scrapy 管请求重试。
+重跑从固定种子开始，真实重发产生新 Observation。
+复用相同 body 和合格 Result，不伪造获取历史。
+JOBDIR 不作为任意崩溃恢复保证。</p>
+</div></div>
+<div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Worker/Spider 退出</td>
+<td>有限重跑或 needs_repair；显式配置 stalled 恢复</td>
+</tr>
+<tr>
+<td>归档成功，解析失败</td>
+<td>保留原文，修复后 Replay 与 Trial</td>
+</tr>
+<tr>
+<td>暂存成功，发布失败</td>
+<td>完整输入仍有效时重入发布事务</td>
+</tr>
+<tr>
+<td>发布后回报前崩溃</td>
+<td>幂等完成决议，避免重复发布</td>
+</tr>
+<tr>
+<td>旧任务晚到</td>
+<td>检查 attempt epoch、generation、run_seq 与最新修订</td>
+</tr>
+<tr>
+<td>运行中启用新版</td>
+<td>旧 Run 不混用新参数，也不能更新当前指针</td>
+</tr>
+</tbody></table></div>
+<p>执行锁降低重叠，数据库提交校验处理旧进程仍活着的情况。
+暂停阻断提交并请求取消，但不能撤回已发网络请求。
+不新增 URL Frontier、租约系统或另一套下载缓存。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-G">
+<header class="am-panel-head"><span class="am-panel-id">G</span><h2>M0 到 M3 的实施与验收</h2></header>
+<div class="am-panel-body"><ol class="am-timeline am-timeline--v"><li class="am-tl-item"><span class="am-tl-when">M0</span><span class="am-tl-dot"></span><span class="am-tl-title">原生下载与归档PoC</span><span class="am-tl-text">HTML/PDF、压缩、跳转、重试、缓存、历史Replay</span></li><li class="am-tl-item"><span class="am-tl-when">M1</span><span class="am-tl-dot"></span><span class="am-tl-title">单Source纵向路径</span><span class="am-tl-text">CLI注册、Binding、Trial、审核、Activation、JSON</span></li><li class="am-tl-item"><span class="am-tl-when">M2</span><span class="am-tl-dot"></span><span class="am-tl-title">持续与故障恢复</span><span class="am-tl-text">周期复查、修订、幂等、kill恢复、旧任务拒绝</span></li><li class="am-tl-item"><span class="am-tl-when">M3</span><span class="am-tl-dot"></span><span class="am-tl-title">双Source维护路径</span><span class="am-tl-text">共享版本，A失效修复并升级，B保持正确</span></li></ol>
+<div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>用户可观察的关键结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M0</td>
+<td>callback 前原文已存；归档失败零发布；离线 Replay 正确且零请求</td>
+</tr>
+<tr>
+<td>M1</td>
+<td>未审核无法启用；合格周期自动发布；无分母输出 unknown</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>A→A→B→A 四次观察三次修订；崩溃恢复无重复发布</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>只升级 A，不改变 B 的绑定、环境和历史；撤回与回滚独立</td>
+</tr>
+</tbody></table></div>
+<p>未来验收入口：<code>./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0</code>。
+其余阶段替换阶段名和输出目录；当前脚本尚不存在。</p>
+<p>使用隔离测试库、本地测试站点、固定预期与真实 CLI。
+输出 manifest、逐条断言、原文、JSON、版本历史和脱敏日志。
+真实来源另需访问许可与人工核对；仅合成通过不算 V1 交付。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-H">
+<header class="am-panel-head"><span class="am-panel-id">H</span><h2>技术风险与完整规范</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>必须实证的风险</th>
+<th>验证重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中间件与缓存</td>
+<td>真实顺序、解压限制、异常传播、304与错误回退</td>
+</tr>
+<tr>
+<td>文件与数据库</td>
+<td>落盘/提交窗口、孤儿清理、发布无悬空引用</td>
+</tr>
+<tr>
+<td>Worker与框架</td>
+<td>reactor、普通子进程、heartbeat、stalled重跑上限</td>
+</tr>
+<tr>
+<td>并发与版本</td>
+<td>外部事务、执行锁、旧任务拒绝、环境不原位替换</td>
+</tr>
+<tr>
+<td>真实来源</td>
+<td>覆盖未知、PDF页序、敏感响应、重跑成本</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><a href="../plans/v1-information-pipeline.md">Plan：完整架构与接口</a></li>
+<li><a href="../plans/v1-information-pipeline.md#9-m0-%E8%87%B3-m3-%E5%AE%9E%E6%96%BD%E9%A1%BA%E5%BA%8F">Plan：M0–M3 与验收</a></li>
+<li><a href="../plans/v1-information-pipeline.md#10-%E7%AB%AF%E5%88%B0%E7%AB%AF%E5%A4%B1%E8%B4%A5%E6%96%B9%E5%BC%8F%E4%B8%8E%E9%AA%8C%E6%94%B6%E5%B7%A5%E4%BB%B6">Plan：失败方式与可复现工件</a></li>
+<li><a href="../adr/0002-python-recipes-minimal-v1.md">ADR-0002：当前决策、依据与历史变化</a></li>
+<li><a href="../adr/0001-recipe-driven-fixed-pipeline.md">ADR-0001：已被取代的历史方案</a></li>
+</ul>
+<p>本文是 Plan 的派生说明；源稿嵌在本页 am-source 中。
+文档检查不等于框架 PoC、真实来源覆盖或业务验收。</p>
+</div></div>
+</section>
+</div>
+</div>
+</main>
+<footer class="am-colophon">Generated by Answer me with HTML 0.4.9 · 2026-10-08 18:11</footer>
+<textarea id="am-source" hidden readonly aria-hidden="true">---
+title: SEAL V1：可信 Python 与原生 Scrapy
+subtitle: 轻量采集、应用层原文、独立版本与可恢复发布
+lang: zh
+template: doc
+theme: blueprint
+---
+状态：设计基线，生产管线尚未实现。
+仓库已有独立实验，但它们不等于本架构的端到端验收。
+本轮只修订文档，没有安装依赖、实现业务代码或搭建基础设施。
+
+## A 先明确可信代码前提
+```callout info V1 使用团队审查维护的普通 Python
+Recipe 使用分支、循环、分页和共享 helper。
+不执行未经审查的 Agent 代码，不接受外部任意 Python。
+不建设沙箱、可信 Fetcher、RPC 或自定义 Download Handler。
+```
+
+| 保留的业务能力 | 删除或推迟的机制 |
+| --- | --- |
+| Source、Python Recipe、YAML 参数、CLI | DSL、管理服务、Agent 执行接口 |
+| 不可变版本、独立 Binding 与 Activation | 自动晋升、审批工作流平台 |
+| Trial、Gold Fixtures、人工核对 | Evaluation 平台、自动评分 |
+| 原文、观察、修订、Replay、JSON | 网络取证、签名收据、冻结响应缓存 |
+
+Scrapy 设置不能阻止恶意 Python 绕网或修改同权限存储。
+哈希用于去重和损坏检查，不提供防篡改证明。
+普通子进程管理生命周期，不是安全隔离。
+未来开放不可信代码时，必须另行设计可信执行边界。
+
+## B 完整架构与模块职责
+```flow
+CLI与YAML -&gt; 版本绑定与审核启用
+版本绑定与审核启用 -&gt; Procrastinate持久任务
+Procrastinate持久任务 -&gt; Run应用函数
+Run应用函数 -&gt; Scrapy原生调度与下载
+Scrapy原生调度与下载 -&gt; 获授权来源
+Scrapy原生调度与下载 -&gt; 解压与ArchiveMiddleware
+解压与ArchiveMiddleware -&gt; 内容寻址原文目录
+解压与ArchiveMiddleware -&gt; PostgreSQL观察记录
+解压与ArchiveMiddleware -&gt; 可信Python Spider
+可信Python Spider -&gt; Item Pipeline校验暂存
+Item Pipeline校验暂存 -&gt; 结束后固定发布门禁
+结束后固定发布门禁 -&gt; PostgreSQL已发布视图
+PostgreSQL已发布视图 -&gt; 下游JSON
+```
+
+图中业务组件是同一应用的模块，不是独立服务。
+默认单机、一个生产 Crawl 执行槽，本地目录保存原文。
+不要求容器、Redis、对象存储产品或第二套工作流引擎。
+
+| 唯一负责者 | 负责什么 | 不重复建设什么 |
+| --- | --- | --- |
+| Scrapy | 请求调度、去重、下载、重试、跳转、Cookie、解压 | PostgreSQL URL Frontier、自写 HTTP 客户端 |
+| Procrastinate | 持久 Crawl、周期、执行锁、有限任务重跑 | 自研领取队列、DBOS 叠加 |
+| SEAL | 归档、业务版本、校验、审核、发布与撤回 | 独立治理服务、复杂执行协议 |
+
+## C 归档必须放在正确位置
+```sequence num
+participants: 原生下载, HTTP解压610, Archive605, 跳转或重试, Spider
+原生下载 -&gt; HTTP解压610: Response body
+HTTP解压610 -&gt; Archive605: 应用层字节和处理后的头
+Archive605 -&gt; Archive605: 先落盘，再提交观察与快照
+Archive605 -&gt; 跳转或重试: 归档成功才继续
+跳转或重试 -&gt; Spider: 最终响应或错误处理
+note Archive605, Spider: 归档失败则不交 callback，并阻断整轮发布
+```
+
+响应中间件按优先级从高到低执行。
+将原生 HttpCompression 从 590 调到 610，Archive 设为 605。
+其后为 Redirect 600、MetaRefresh 580、Retry 550。
+Cookie 若启用仍位于 700；实际完整顺序由 M0 验证。
+
+- HTML/PDF 均保存 Response.body，不保存提取正文冒充原文。
+- 保存每跳状态、URL、最终 URL、时间、哈希和 Run ID。
+- 重试错误页和跳转响应先归档，网络异常只记失败诊断。
+- 不存传输层字节，不将压缩前长度当成归档长度。
+- 不保存 Cookie、Token 或认证头；敏感 body 拒绝准入。
+
+```callout warn 缓存、观察与 Replay 必须分开
+生产与在线 Trial 默认关闭 HTTP 缓存，不主动条件 GET。
+M0 验证缓存 500、304 重验证和错误回退。
+缓存复用不能冒充新的网络观察或新鲜度证明。
+Replay 只查历史输入，缺失即失败，不联网补齐。
+```
+
+## D 共享版本，不共享启用资格
+```tree
+RecipePackage：Python与helper
+  不可变RecipeVersion：代码与依赖环境
+    Binding A：来源快照与参数A
+      Review A → Activation A
+    Binding B：来源快照与参数B
+      Review B → Activation B
+```
+
+代码、helper、参数、依赖、执行环境与校验版本都影响验证资格。
+A 升级不能原位替换 B 的代码或运行环境。
+九类业务表保存 Source、RecipeVersion、Binding、Decision、Run、Observation、Document、Revision 和 Result。
+原文、报告、代码包与输入清单使用内容寻址工件。
+
+| 发生什么 | 应保存什么 | 不应该发生什么 |
+| --- | --- | --- |
+| 再次获取相同正文 | 新 Observation，复用 body | 丢失获取历史或新增内容修订 |
+| 正文 A → B → A | 三次 Revision，共用两份 body | 按哈希合并掉返回 A 的历史 |
+| 同原文换 Recipe | 新 ProcessingResult | 伪造来源内容变化 |
+| 相同输入与处理键重跑 | 同输出复用 Result | 不同输出最后写入覆盖 |
+| Recipe 回滚 | 新 Activation generation | 删除历史或自动撤回错误结果 |
+
+## E 正常自动发布，变更人工审核
+```sequence num
+维护者 -&gt; CLI: 注册Source，打包并创建Binding
+CLI -&gt; Trial: 有限采集与原文归档
+Trial -&gt; 人工审核: 硬校验、独立样本、覆盖范围
+人工审核 -&gt; CLI: 批准确切fingerprint
+CLI -&gt; Activation: 手动启用新代次
+Activation -&gt; 周期Run: 固定版本持续采集
+周期Run -&gt; 固定门禁: 归档、字段、完成性、当前资格
+固定门禁 -&gt; JSON: 合格则自动发布
+周期Run -&gt; 维护者: 异常阻断并保留诊断
+维护者 -&gt; Trial: 修复Recipe，Replay后重新Trial
+```
+
+首次接入、升级和异常修复需要人工核对。
+正常周期无需逐次人工确认。
+没有独立预期文档集合时，覆盖率保持 unknown。
+HTTP 200、Schema 合格、样本正确都不证明全站完整。
+错误结果用独立 withdraw 撤回，下游须消费撤回信息。
+
+## F 失败后如何恢复
+```callout info 有界整次重跑，不恢复 Python 执行栈
+Procrastinate 管任务重跑，Scrapy 管请求重试。
+重跑从固定种子开始，真实重发产生新 Observation。
+复用相同 body 和合格 Result，不伪造获取历史。
+JOBDIR 不作为任意崩溃恢复保证。
+```
+
+| 场景 | 行为 |
+| --- | --- |
+| Worker/Spider 退出 | 有限重跑或 needs_repair；显式配置 stalled 恢复 |
+| 归档成功，解析失败 | 保留原文，修复后 Replay 与 Trial |
+| 暂存成功，发布失败 | 完整输入仍有效时重入发布事务 |
+| 发布后回报前崩溃 | 幂等完成决议，避免重复发布 |
+| 旧任务晚到 | 检查 attempt epoch、generation、run_seq 与最新修订 |
+| 运行中启用新版 | 旧 Run 不混用新参数，也不能更新当前指针 |
+
+执行锁降低重叠，数据库提交校验处理旧进程仍活着的情况。
+暂停阻断提交并请求取消，但不能撤回已发网络请求。
+不新增 URL Frontier、租约系统或另一套下载缓存。
+
+## G M0 到 M3 的实施与验收
+```timeline v
+M0 | 原生下载与归档PoC | HTML/PDF、压缩、跳转、重试、缓存、历史Replay
+M1 | 单Source纵向路径 | CLI注册、Binding、Trial、审核、Activation、JSON
+M2 | 持续与故障恢复 | 周期复查、修订、幂等、kill恢复、旧任务拒绝
+M3 | 双Source维护路径 | 共享版本，A失效修复并升级，B保持正确
+```
+
+| 阶段 | 用户可观察的关键结果 |
+| --- | --- |
+| M0 | callback 前原文已存；归档失败零发布；离线 Replay 正确且零请求 |
+| M1 | 未审核无法启用；合格周期自动发布；无分母输出 unknown |
+| M2 | A→A→B→A 四次观察三次修订；崩溃恢复无重复发布 |
+| M3 | 只升级 A，不改变 B 的绑定、环境和历史；撤回与回滚独立 |
+
+未来验收入口：`./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0`。
+其余阶段替换阶段名和输出目录；当前脚本尚不存在。
+
+使用隔离测试库、本地测试站点、固定预期与真实 CLI。
+输出 manifest、逐条断言、原文、JSON、版本历史和脱敏日志。
+真实来源另需访问许可与人工核对；仅合成通过不算 V1 交付。
+## H 技术风险与完整规范
+| 必须实证的风险 | 验证重点 |
+| --- | --- |
+| 中间件与缓存 | 真实顺序、解压限制、异常传播、304与错误回退 |
+| 文件与数据库 | 落盘/提交窗口、孤儿清理、发布无悬空引用 |
+| Worker与框架 | reactor、普通子进程、heartbeat、stalled重跑上限 |
+| 并发与版本 | 外部事务、执行锁、旧任务拒绝、环境不原位替换 |
+| 真实来源 | 覆盖未知、PDF页序、敏感响应、重跑成本 |
+
+- [Plan：完整架构与接口](../plans/v1-information-pipeline.md)
+- [Plan：M0–M3 与验收](../plans/v1-information-pipeline.md#9-m0-至-m3-实施顺序)
+- [Plan：失败方式与可复现工件](../plans/v1-information-pipeline.md#10-端到端失败方式与验收工件)
+- [ADR-0002：当前决策、依据与历史变化](../adr/0002-python-recipes-minimal-v1.md)
+- [ADR-0001：已被取代的历史方案](../adr/0001-recipe-driven-fixed-pipeline.md)
+
+本文是 Plan 的派生说明；源稿嵌在本页 am-source 中。
+文档检查不等于框架 PoC、真实来源覆盖或业务验收。
+</textarea>
+<script>
+(() => {
+  const root = document.documentElement;
+  // Each toolbar list sets one root attribute; its options name the values, so the runtime names no theme or mode.
+  for (const [name, attr] of [['theme', 'data-theme'], ['mode', 'data-mode']]) {
+    const select = document.querySelector(`select[data-am="${name}"]`);
+    if (!select) continue;
+    select.value = root.getAttribute(attr);
+    select.addEventListener('change', () => root.setAttribute(attr, select.value));
+  }
+
+  const copyBtn = document.querySelector('[data-am="copy"]');
+  copyBtn?.addEventListener('click', async () => {
+    const nodes = document.querySelectorAll('#am-source');
+    const text = nodes[nodes.length - 1]?.value ?? '';
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      document.body.append(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    const original = copyBtn.textContent;
+    copyBtn.textContent = copyBtn.dataset.done;
+    setTimeout(() => { copyBtn.textContent = original; }, 1400);
+  });
+})();
+(() => {
+// Pure planner for justified ("photo wall") rows on sheet pages. No DOM access.
+//
+// This file must stay inlinable into the page script: top-level declarations only, no imports, and the exports are
+// `planLayout` and the constants the DOM adapter shares (STEP, MAX_SCALE, MIN_SCALE). The page build strips the `export ` keyword,
+// and test/layout-plan.test.js checks that this still works.
+//
+// planLayout({ width, gap, cols, panels }) -> { rows: [{ columns: [{ panels: [index, ...], width }], height }] }
+//
+// Input (all lengths in px):
+//   width   container width
+//   gap     space between columns, and between two panels stacked in one column
+//   cols    most columns in one row (the planner never uses more than MAX_COLUMNS, but spans stay shares of `cols`)
+//   panels  one entry per panel, in reading order:
+//     samples   [{ w, h }] panel height at sampled widths, ascending by w (heights between samples are interpolated)
+//     minWidth  narrowest feasible width (clamped to `width`)
+//     maxWidth  widest useful width; beyond it the panel only gains empty space (default: no limit)
+//     natural   natural diagram width for a diagram-only panel (default: none)
+//     pad       panel width not used by the diagram (padding and border; default 0)
+//     span      the author's width hint in grid columns (default 1); span >= cols keeps the panel alone in its row
+//
+// Output: { rows, maxScale }. Rows are in reading order; a row is a list of columns (at most `cols`); a column holds one panel or two
+// consecutive panels, stacked. For integer inputs the column widths plus the gaps between them equal `width`.
+// Rows are chosen by dynamic programming over break points; widths by a search in STEP px steps. Cost per row:
+//   H = tallest column; waste = sum((H - columnHeight) * columnWidth) + sum over diagrams wider than maxWidth of (w - maxWidth) * h
+//   dev = sum(((w - preferred) / oneColumn)^2) + SCALE_WEIGHT * sum over diagrams of (ln(scale) / ln(MAX_SCALE))^2
+//   cost = waste / 1000 + PREF_WEIGHT * dev * H
+// Scale band: diagrams on one page stay at similar sizes. With the result's `maxScale` as the diagram size limit, a diagram is
+// shown at scale min(maxScale, (width - pad) / natural). The planner tries a few bands [lo, lo * BAND_RATIO] (lo in BAND_LOS) and
+// keeps the cheapest plan in which no diagram is narrower than scale lo and none is shown above the band's top, so the largest and
+// smallest diagram scale on the page differ by at most BAND_RATIO. A panel wider than its diagram's top size keeps the diagram at
+// that size, and the page script must set the diagram's max-width to natural * maxScale. The band starts no higher than the
+// largest scale the page allows the least roomy diagram, so one wide diagram lowers the band for the others.
+// If no band is feasible the plan is made without a band (maxScale = MAX_SCALE); if no plan fits (or the input is unusable) the
+// result is a single column: one panel per row at the full width.
+
+const STEP = 10;
+const MAX_SCALE = 1.25;
+const MIN_SCALE = 0.75; // the narrowest a diagram is shown, as a share of its natural width
+const MAX_COLUMNS = 6; // rows with more columns are unreadable, and the search grows steeply with the column count
+const BAND_RATIO = 1.25; // the largest and smallest diagram scale on a page differ by at most this
+const BAND_LOS = [MIN_SCALE, 0.85, 0.95, 1]; // lower ends tried for the band; lo * BAND_RATIO is the upper end (1.25 means no upper limit)
+const SCALE_WEIGHT = 3;
+const PREF_WEIGHT = 0.15;
+
+function heightAt(samples, w) {
+  const i = samples.findIndex((s) => s.w >= w);
+  if (i === -1) return samples[samples.length - 1].h;
+  if (i === 0) return samples[0].h;
+  const a = samples[i - 1];
+  const b = samples[i];
+  return a.h + ((b.h - a.h) * (w - a.w)) / (b.w - a.w);
+}
+
+// Every way to split `len` consecutive panels into columns of 1 or 2 panels, as lists of column sizes.
+function splits(len) {
+  if (len === 0) return [[]];
+  return [1, 2].filter((k) => k <= len).flatMap((k) => splits(len - k).map((rest) => [k, ...rest]));
+}
+
+function singleColumn(width, panels) {
+  return { rows: panels.map((_, i) => ({ columns: [{ panels: [i], width }], height: 0 })) };
+}
+
+function planLayout({ width, gap = 0, cols = 3, panels }) {
+  const usable = Number.isFinite(width) && width > 0 && panels.every((p) => Array.isArray(p.samples) && p.samples.length > 0);
+  if (!usable) return singleColumn(width, panels);
+
+  // `cols` stays the unit of the author's spans; no row gets more than MAX_COLUMNS columns however large `cols` is.
+  const maxColumns = Math.min(cols, MAX_COLUMNS);
+  const oneColumn = Math.max(1, (width - gap * (cols - 1)) / cols);
+  // Per-panel limits. With a band [lo, lo * BAND_RATIO], a diagram is no narrower than scale lo and shown at most at the top of the
+  // band: a wider panel keeps it at that size and gains empty space, which the cost counts as waste.
+  const prepare = (lo) => panels.map((p) => {
+    const pad = p.pad ?? 0;
+    const diagram = lo > 0 && p.natural > 0;
+    const scaleCap = diagram ? Math.min(MAX_SCALE, lo * BAND_RATIO) : MAX_SCALE;
+    return {
+      ...p,
+      minWidth: Math.min(width, Math.max(Math.ceil(p.minWidth || 0), diagram ? Math.ceil(p.natural * lo + pad) : 0)),
+      maxWidth: Math.min(p.maxWidth ?? Infinity, diagram ? p.natural * scaleCap + pad : Infinity),
+      scaleCap,
+      pad,
+      preferred: Math.min(width, (p.span ?? 1) * oneColumn + ((p.span ?? 1) - 1) * gap),
+      alone: (p.span ?? 1) >= cols,
+    };
+  });
+  let info = prepare(0);
+  // Beyond its maxWidth a panel only gains empty space, so its height stops changing there (matters when a band lowers maxWidth).
+  const heightOf = (p, w) => heightAt(p.samples, Math.min(w, p.maxWidth));
+  const columnHeight = (col, w) => col.reduce((h, k) => h + heightOf(info[k], w), 0) + gap * (col.length - 1);
+
+  function bestColumns(columns) {
+    const avail = width - gap * (columns.length - 1);
+    const mins = columns.map((c) => Math.max(...c.map((k) => info[k].minWidth)));
+    const minsFrom = mins.map((_, n) => mins.slice(n).reduce((s, w) => s + w, 0));
+    if (minsFrom[0] > avail) return null;
+    let best = null;
+    const evaluate = (ws) => {
+      const hs = ws.map((w, n) => columnHeight(columns[n], w));
+      const H = Math.max(...hs);
+      let waste = 0;
+      let dev = 0;
+      ws.forEach((w, n) => {
+        waste += (H - hs[n]) * w;
+        for (const k of columns[n]) {
+          const p = info[k];
+          if (w > p.maxWidth) waste += (w - p.maxWidth) * heightOf(p, w);
+          dev += ((w - p.preferred) / oneColumn) ** 2;
+          if (p.natural > 0) {
+            const scale = Math.min(p.scaleCap, Math.max(w - p.pad, 1) / p.natural);
+            dev += SCALE_WEIGHT * (Math.log(scale) / Math.log(MAX_SCALE)) ** 2;
+          }
+        }
+      });
+      const cost = waste / 1000 + PREF_WEIGHT * dev * H;
+      if (!best || cost < best.cost) best = { cost, ws, height: H, columns };
+    };
+    const choose = (n, used, ws) => {
+      if (n === columns.length - 1) {
+        const w = avail - used;
+        if (w >= mins[n]) evaluate([...ws, w]);
+        return;
+      }
+      for (let w = mins[n]; used + w + minsFrom[n + 1] <= avail; w += STEP) choose(n + 1, used + w, [...ws, w]);
+    };
+    choose(0, 0, []);
+    return best;
+  }
+
+  // Best columns for one row of panels i..j.
+  function bestRow(i, j) {
+    if (j > i && info.slice(i, j + 1).some((p) => p.alone)) return null;
+    let best = null;
+    for (const split of splits(j - i + 1)) {
+      if (split.length > maxColumns) continue;
+      let next = i;
+      const columns = split.map((size) => Array.from({ length: size }, () => next++));
+      const r = bestColumns(columns);
+      if (r && (!best || r.cost < best.cost)) best = r;
+    }
+    return best;
+  }
+
+  // Row breaks in reading order, for the band set up in `info`. A row holds at most 2 * maxColumns panels. Null if nothing fits.
+  function solve() {
+    const n = panels.length;
+    const total = Array(n + 1).fill(Infinity);
+    const from = Array(n + 1).fill(-1);
+    const chosen = Array(n + 1).fill(null);
+    total[0] = 0;
+    for (let j = 1; j <= n; j++) {
+      for (let i = Math.max(0, j - 2 * maxColumns); i < j; i++) {
+        if (total[i] === Infinity) continue;
+        const r = bestRow(i, j - 1);
+        if (r && total[i] + r.cost < total[j]) {
+          total[j] = total[i] + r.cost;
+          from[j] = i;
+          chosen[j] = r;
+        }
+      }
+    }
+    if (total[n] === Infinity) return null;
+    const rows = [];
+    for (let j = n; j > 0; j = from[j]) {
+      const r = chosen[j];
+      rows.unshift({ columns: r.columns.map((panelsInColumn, c) => ({ panels: panelsInColumn, width: r.ws[c] })), height: r.height });
+    }
+    return { rows, cost: total[n] };
+  }
+
+  let best = null;
+  const diagrams = panels.filter((p) => p.natural > 0);
+  if (diagrams.length > 1) {
+    // No diagram can be shown larger than the page allows, so the band cannot start above the smallest of those limits.
+    const reach = Math.min(...diagrams.map((p) => Math.min(MAX_SCALE, Math.max(width - (p.pad ?? 0), 1) / p.natural)));
+    for (const lo of new Set([...BAND_LOS.filter((x) => x < reach), reach])) {
+      info = prepare(lo);
+      const r = solve();
+      if (r && (!best || r.cost < best.cost)) best = { ...r, maxScale: Math.min(MAX_SCALE, lo * BAND_RATIO) };
+    }
+    info = prepare(0);
+  }
+  best ??= solve();
+  return best ? { rows: best.rows, maxScale: best.maxScale ?? MAX_SCALE } : singleColumn(width, panels);
+}
+
+// DOM adapter for the sheet's justified ("photo wall") layout. Not a module: compose.js puts it after src/runtime/layout-plan.js
+// (which defines planLayout and the shared STEP, MAX_SCALE, MIN_SCALE) inside one function scope of the page script.
+//
+// It measures every panel at sampled widths, asks planLayout for rows and column widths, and applies them with flexbox.
+// The rendered HTML keeps the plain CSS grid: with JavaScript off, at the single-column breakpoint, or while printing, the grid is what
+// shows (the planned widths belong to the screen width, so print never gets a mix of the two); after printing the layout comes back.
+
+const grid = document.querySelector('.am-grid');
+const panels = grid ? [...grid.children].filter((el) => el.classList.contains('am-panel')) : [];
+
+if (panels.length > 1) {
+  const SINGLE_COLUMN = '(max-width: 760px)'; // the single-column breakpoint in src/themes/base.css
+  const TWO_COLUMNS = '(max-width: 1100px)'; // below this the CSS grid has two columns
+  const SAMPLE_STEP = 20; // width sampling step, px; the planner interpolates between samples
+  const TEXT_MIN = 260; // text keeps at least about 16 CJK characters per line
+  const TABLE_COL_MIN = 96; // per table column, px
+  const DIAGRAM_MIN = 160;
+  const RESIZE_DELAY = 150;
+  const OVERFLOWING = '.am-table-wrap, .am-diagram, .am-annot-scroll, pre';
+
+  const original = new Map([grid, ...panels, ...grid.querySelectorAll('.am-diagram > svg')].map((el) => [el, el.getAttribute('style')]));
+  const restoreStyle = (el) => (original.get(el) === null ? el.removeAttribute('style') : el.setAttribute('style', original.get(el)));
+
+  // Back to the plain grid markup and styles.
+  const restore = () => {
+    for (const box of grid.querySelectorAll(':scope > .am-col')) box.replaceWith(...box.children);
+    for (const el of original.keys()) restoreStyle(el);
+  };
+
+  // The author's width hint, rendered as data-span only when the author wrote one. The inline grid-column is the no-JavaScript fallback
+  // and may hold spans the server added, so it is never read here.
+  const spanHint = (el) => Number(el.dataset.span) || 1;
+  const diagramOnly = (el) => {
+    const body = el.querySelector(':scope > .am-panel-body');
+    return body && body.children.length === 1 ? body.querySelector(':scope > .am-diagram > svg') : null;
+  };
+  const naturalWidth = (svg) => Number(svg.getAttribute('width')) || 0;
+
+  // Height (and, for panels with tables or code, the narrowest width without sideways scrolling) at sampled widths.
+  // Only one panel is displayed while it is measured, so each width change lays out that panel alone.
+  function measure(width) {
+    grid.style.display = 'block';
+    for (const el of panels) {
+      el.style.display = 'none';
+      el.style.boxSizing = 'border-box';
+      for (const svg of el.querySelectorAll('.am-diagram > svg')) {
+        svg.style.width = '100%';
+        svg.style.maxWidth = `${naturalWidth(svg) * MAX_SCALE}px`;
+      }
+    }
+    const info = panels.map((el) => {
+      const svg = diagramOnly(el);
+      const svgs = [...el.querySelectorAll('.am-diagram > svg')];
+      const scrollers = el.querySelectorAll(OVERFLOWING);
+      const tableCols = Math.max(0, ...[...el.querySelectorAll('table tr:first-child')].map((tr) => tr.children.length));
+      el.style.display = '';
+      el.style.width = `${width}px`;
+      const pad = svg ? el.offsetWidth - svg.parentElement.clientWidth : 0;
+      const natural = svg ? naturalWidth(svg) : 0;
+      const shrunk = Math.max(0, ...svgs.map((s) => naturalWidth(s) * MIN_SCALE)) + (svg ? pad : 34);
+      const floor = svg ? Math.max(DIAGRAM_MIN, natural * MIN_SCALE + pad) : Math.max(TEXT_MIN, shrunk, tableCols * TABLE_COL_MIN + 34);
+      const from = Math.min(width, Math.floor(floor / STEP) * STEP);
+      const samples = [];
+      let fits = null;
+      for (let w = from; ; w += SAMPLE_STEP) {
+        w = Math.min(w, width);
+        el.style.width = `${w}px`;
+        if (fits === null && !svg && scrollers.length && ![...scrollers].some((s) => s.scrollWidth > s.clientWidth + 1)) fits = w;
+        samples.push({ w, h: el.offsetHeight });
+        if (w === width) break;
+      }
+      el.style.display = 'none';
+      return {
+        samples,
+        minWidth: svg ? floor : Math.max(floor, fits ?? (scrollers.length ? width : 0)),
+        maxWidth: svg ? natural * MAX_SCALE + pad : Infinity,
+        natural,
+        pad,
+        span: spanHint(el),
+      };
+    });
+    for (const el of panels) {
+      el.style.display = '';
+      el.style.width = '';
+    }
+    return info;
+  }
+
+  // Each column gets a fixed width. A row adds up to the full width, so flex-wrap breaks rows by itself.
+  // Stacked panels go into a column wrapper whose last panel absorbs the extra height.
+  function apply(plan, gap) {
+    grid.style.display = 'flex';
+    grid.style.flexWrap = 'wrap';
+    grid.style.alignItems = 'stretch';
+    grid.style.gap = `${gap}px`;
+    for (const el of panels) {
+      el.style.gridColumn = '';
+      el.style.gridRow = '';
+      el.style.flex = '0 0 auto';
+    }
+    for (const row of plan.rows) {
+      for (const col of row.columns) {
+        const width = `${col.width}px`;
+        if (col.panels.length === 1) {
+          panels[col.panels[0]].style.width = width;
+          continue;
+        }
+        const box = document.createElement('div');
+        box.className = 'am-col';
+        box.style.cssText = `width:${width};flex:0 0 auto;display:flex;flex-direction:column;gap:${gap}px`;
+        panels[col.panels[0]].before(box);
+        for (const k of col.panels) {
+          panels[k].style.width = '';
+          box.append(panels[k]);
+        }
+        panels[col.panels[col.panels.length - 1]].style.flex = '1 1 auto';
+      }
+    }
+  }
+
+  // Diagram-only panels show their diagram at most at the top of the page's scale band; a wider panel gains empty space instead.
+  function capDiagrams(maxScale) {
+    for (const el of panels) {
+      const svg = diagramOnly(el);
+      if (svg) svg.style.maxWidth = `${naturalWidth(svg) * maxScale}px`;
+    }
+  }
+
+  const containerWidth = () => Math.floor(grid.getBoundingClientRect().width);
+
+  function justify() {
+    if (printing || printQuery.matches) return;
+    try {
+      // A vertical scrollbar can appear or vanish once the rows change height; plan again if the width moved.
+      let planned = -1;
+      for (let pass = 0; pass < 3 && planned !== containerWidth(); pass++) {
+        restore();
+        if (matchMedia(SINGLE_COLUMN).matches) return;
+        planned = containerWidth();
+        const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+        const cols = Math.max(1, Number(getComputedStyle(grid).getPropertyValue('--cols')) || 3);
+        const plan = planLayout({ width: planned, gap, cols: matchMedia(TWO_COLUMNS).matches ? Math.min(cols, 2) : cols, panels: measure(planned) });
+        apply(plan, gap);
+        capDiagrams(plan.maxScale);
+      }
+      // The width never settled: columns planned for another width would overflow or leave gaps, so show the plain grid.
+      if (planned !== containerWidth()) restore();
+    } catch {
+      restore();
+    }
+  }
+
+  // Printing: back to the plain grid (spans and all), and the layout again afterwards. Browsers disagree on which of the
+  // `beforeprint` event and the print media query change fires first, or at all, so listen to both; both are idempotent.
+  // While `printing` is set (beforeprint to afterprint) justify() does nothing, so a late resize cannot bring flex widths into the print layout.
+  let printing = false;
+  const printQuery = matchMedia('print');
+  let timer = 0;
+  const later = () => {
+    clearTimeout(timer);
+    timer = setTimeout(justify, RESIZE_DELAY);
+  };
+  const toPrint = () => {
+    clearTimeout(timer);
+    restore();
+  };
+  justify();
+  addEventListener('resize', later);
+  addEventListener('beforeprint', () => {
+    printing = true;
+    toPrint();
+  });
+  addEventListener('afterprint', () => {
+    printing = false;
+    later();
+  });
+  printQuery.addEventListener('change', (e) => (e.matches ? toPrint() : later()));
+  // Late changes to panel heights: web fonts arriving, and images inside the grid finishing their load (load does not bubble, so capture it).
+  document.fonts?.ready.then(later);
+  grid.addEventListener('load', later, true);
+  // Switching theme changes paddings and fonts, hence panel heights.
+  document.querySelector('[data-am="theme"]')?.addEventListener('click', later);
+}
+})();
+</script>
+</body>
+</html>
