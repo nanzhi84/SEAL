@@ -1,0 +1,55 @@
+include = ["**/*.md", "**/*.markdown"]
+exclude = ["vendor/**", "node_modules/**", ".agents/skills/**"]
+preview = false
+
+# Path mappings assign a default kind; frontmatter `kind` overrides them.
+# When several entries match a path, the last one wins.
+
+[[kinds]]
+path = "README.md"
+kind = "readme"
+
+[[kinds]]
+path = "**/AGENTS.md"
+kind = "howto"
+
+[[kinds]]
+path = "CONTRIBUTING.md"
+kind = "howto"
+
+[[kinds]]
+path = "CHANGELOG.md"
+kind = "changelog"
+
+# Default for the documentation set.
+[[kinds]]
+path = "docs/**"
+kind = "reference"
+
+[[kinds]]
+path = "docs/guides/**"
+kind = "howto"
+
+[[kinds]]
+path = "docs/runbooks/**"
+kind = "runbook"
+
+[[kinds]]
+path = "docs/adr/**"
+kind = "adr"
+
+[[kinds]]
+path = "docs/plans/**"
+kind = "plan"
+
+[[kinds]]
+path = "docs/release-notes/**"
+kind = "changelog"
+
+[[kinds]]
+path = "docs/generated/**"
+kind = "generated"
+
+[lint]
+select = ["ALL"]
+languages = ["en", "zh", "ja"]
