@@ -1,0 +1,377 @@
+{
+  "at": "2026-10-08T08:27:57.500083+00:00",
+  "baseline": false,
+  "command": "acceptance.py",
+  "checks": [
+    {
+      "name": "command:scrapy_test.py replay",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "log": "logs/acceptance_scrapy_test.py_replay.log"
+      }
+    },
+    {
+      "name": "command:scrapy_test.py pdf",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "log": "logs/acceptance_scrapy_test.py_pdf.log"
+      }
+    },
+    {
+      "name": "command:fixture_test.py raw",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "log": "logs/acceptance_fixture_test.py_raw.log"
+      }
+    },
+    {
+      "name": "command:fixture_test.py playwright",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "log": "logs/acceptance_fixture_test.py_playwright.log"
+      }
+    },
+    {
+      "name": "command:quality_audit.py",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "log": "logs/acceptance_quality_audit.py.log"
+      }
+    },
+    {
+      "name": "command:firecrawl_test.py status",
+      "status": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "log": "logs/acceptance_firecrawl_test.py_status.log"
+      }
+    },
+    {
+      "name": "D:company_name",
+      "status": "PASS",
+      "detail": {
+        "expected": "TESCO PLC",
+        "actual": "TESCO PLC"
+      }
+    },
+    {
+      "name": "D:company_number",
+      "status": "PASS",
+      "detail": {
+        "expected": "00445790",
+        "actual": "00445790"
+      }
+    },
+    {
+      "name": "D:registered_office_address",
+      "status": "PASS",
+      "detail": {
+        "expected": "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA",
+        "actual": "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA"
+      }
+    },
+    {
+      "name": "D:company_status",
+      "status": "PASS",
+      "detail": {
+        "expected": "Active",
+        "actual": "Active"
+      }
+    },
+    {
+      "name": "D:company_type",
+      "status": "PASS",
+      "detail": {
+        "expected": "Public limited Company",
+        "actual": "Public limited Company"
+      }
+    },
+    {
+      "name": "D:incorporated_on",
+      "status": "PASS",
+      "detail": {
+        "expected": "27 November 1947",
+        "actual": "27 November 1947"
+      }
+    },
+    {
+      "name": "D:nature_of_business",
+      "status": "PASS",
+      "detail": {
+        "expected": "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating",
+        "actual": "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating"
+      }
+    },
+    {
+      "name": "D:previous_names",
+      "status": "PASS",
+      "detail": {
+        "expected": "TESCO STORES (HOLDINGS) PUBLIC LIMITED COMPANY | TESCO STORES (HOLDINGS) LIMITED",
+        "actual": "TESCO STORES (HOLDINGS) PUBLIC LIMITED COMPANY | TESCO STORES (HOLDINGS) LIMITED"
+      }
+    },
+    {
+      "name": "D:accounts_next_due",
+      "status": "PASS",
+      "detail": {
+        "expected": "26 August 2027",
+        "actual": "26 August 2027"
+      }
+    },
+    {
+      "name": "PDF:page_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_1_locatable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_2_locatable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_3_locatable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_4_locatable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_5_locatable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Replay:deterministic_all",
+      "status": "PASS",
+      "detail": {
+        "checked": 14,
+        "identical_to_live": 13,
+        "deterministic": 14,
+        "changed": [
+          "D_company"
+        ],
+        "items": {
+          "A_list_p1": {
+            "recipe": "court_list",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "3c7ff9bcb0d6d0b457f69422cb08eb2506831c0e7596b5e0622c967caaf2e74e",
+            "body_chars": 0
+          },
+          "A_detail_1": {
+            "recipe": "court_detail",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+            "body_chars": 2959
+          },
+          "A_detail_2": {
+            "recipe": "court_detail",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "fa919ad86d193dcaab2944cea9bb770b1542b96be113a1a5474e90f573c99c8f",
+            "body_chars": 2937
+          },
+          "A_detail_3": {
+            "recipe": "court_detail",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "e75734d0d4a488456673744b5ef55bc30d6eedd480e37a0d2d3d62e2747865f5",
+            "body_chars": 4800
+          },
+          "A_detail_4": {
+            "recipe": "court_detail",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "063805ef0dbf7722ce6e04ee4771f550f186211e00ffa74f9251145ef71d5103",
+            "body_chars": 4212
+          },
+          "A_detail_5": {
+            "recipe": "court_detail",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "9d6065c6571a8f2e189d76967c43506743c15d11eadbae7eed606cede883f05d",
+            "body_chars": 2579
+          },
+          "B_home": {
+            "recipe": "ccgp_list",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "4a8c32789f57b9735adce580234f4d10ef171cfa5861a20c191836967ea2f061",
+            "body_chars": 0
+          },
+          "B_detail_1": {
+            "recipe": "ccgp_detail",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "af0b006f304839cdee6ecb875c6bfe4fb63f7bf886ff66dc543a0d8401260ead",
+            "body_chars": 698
+          },
+          "D_home": {
+            "recipe": "ch_search",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "a36b0c46211780524dd5cd225c08188b015c81cfa0ec8274c20dc6effb038246",
+            "body_chars": 0
+          },
+          "D_company": {
+            "recipe": "ch_company",
+            "identical_to_live": false,
+            "deterministic": true,
+            "raw_sha256": "0bf52d2e529df626c4e6c796c88287d823b9597d911d8a985f37b19506ffa5d4",
+            "body_chars": 510
+          },
+          "E_list": {
+            "recipe": "stats_iframe",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "7b44f745b04c5ccb5bfedfee22a88e6d6c5428444a26d5bbc2d98f9b7a98313f",
+            "body_chars": 0
+          },
+          "H_list": {
+            "recipe": "spp_list",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "490a432ac9ad4949677b23c7afd2635d7c305d80d4f04b1619ae4b7aedc64458",
+            "body_chars": 0
+          },
+          "H_detail_1": {
+            "recipe": "spp_detail",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+            "body_chars": 21078
+          },
+          "A_list_p1__p2": {
+            "recipe": "court_list",
+            "identical_to_live": true,
+            "deterministic": true,
+            "raw_sha256": "049c88f513cf1e870f7c09a11dcfbdd6adb2178d48742ebdfd8d61d731c33ec8",
+            "body_chars": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "Revision:raw_A_B_differ",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Revision:content_A_B_equal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Revision:content_B_C_differ",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Revision:repeat_equal",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Revision:identity_constant",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Revision:two_revisions_four_observations",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Revision:title_change_detected",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Revision:legitimate_body_timestamp_preserved",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "JSON:three_documents",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "JSON:attachment_relation",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "TXT:field_evidence",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "JS:raw_does_not_claim_rendered",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "JS:rendered_target",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "iframe:rendered_target",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Browser:no_external_requests",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "A:two_page_coverage",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "A:five_verified_parent_edges",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Details:seven_exact_bodies",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Details:seven_titles_dates",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:111_rows_independent",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "Firecrawl:honest_missing_key",
+      "status": "PASS",
+      "detail": null
+    }
+  ],
+  "passed": 43,
+  "failed": 0,
+  "scope": "local E2E + archived real response replay; not new live-site success"
+}

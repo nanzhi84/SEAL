@@ -1,0 +1,90 @@
+{
+  "sample_class": "SYNTHETIC",
+  "versions": {},
+  "external_requests": 0,
+  "dynamic": {
+    "target_found": true,
+    "iframe_target_found": true,
+    "frames": [
+      {
+        "url_path": "/dynamic.html",
+        "text": "JS_RECORD_001"
+      },
+      {
+        "url_path": "/frame.html",
+        "text": "IFRAME_RECORD_002"
+      }
+    ],
+    "iframe_urls": [
+      "/frame.html"
+    ]
+  },
+  "mode": "playwright",
+  "finished_at": "2026-10-08T08:39:39.660+00:00",
+  "elapsed_s": 18.18955454195384,
+  "local_requests": [
+    {
+      "path": "/dynamic.html",
+      "at": "2026-10-08T08:39:22.129+00:00",
+      "monotonic": 711454.380326083,
+      "bytes": 229,
+      "status": 200
+    },
+    {
+      "path": "/frame.html",
+      "at": "2026-10-08T08:39:25.135+00:00",
+      "monotonic": 711457.385788416,
+      "bytes": 61,
+      "status": 200
+    }
+  ],
+  "browser_requests": [
+    {
+      "path": "/dynamic.html",
+      "at": "2026-10-08T08:39:22.125+00:00"
+    },
+    {
+      "path": "/frame.html",
+      "at": "2026-10-08T08:39:25.132+00:00"
+    }
+  ],
+  "blocked_external": [],
+  "runner_peak_rss_bytes_macos": 99598336,
+  "memory_scope": "Python process only; excludes browser processes",
+  "scrapy_stats": {
+    "start_time": "2026-10-08 08:39:21.588248+00:00",
+    "memusage/startup": 95207424,
+    "memusage/max": 95207424,
+    "playwright/browser_count": 1,
+    "playwright/context_count": 1,
+    "playwright/context_count/persistent/False": 1,
+    "playwright/context_count/remote/False": 1,
+    "playwright/context_count/max_concurrent": 1,
+    "playwright/page_count": 1,
+    "scheduler/enqueued/memory": 1,
+    "scheduler/enqueued": 1,
+    "scheduler/dequeued/memory": 1,
+    "scheduler/dequeued": 1,
+    "downloader/request_count": 1,
+    "downloader/request_method_count/GET": 1,
+    "downloader/request_bytes": 232,
+    "playwright/page_count/max_concurrent": 1,
+    "playwright/request_count": 2,
+    "playwright/request_count/resource_type/document": 2,
+    "playwright/request_count/method/GET": 2,
+    "playwright/request_count/navigation": 2,
+    "playwright/response_count": 2,
+    "playwright/response_count/resource_type/document": 2,
+    "playwright/response_count/method/GET": 2,
+    "playwright/page_count/closed": 1,
+    "downloader/response_count": 1,
+    "downloader/response_status_count/200": 1,
+    "downloader/response_bytes": 436,
+    "response_received_count": 1,
+    "elapsed_time_seconds": 3.585726207937114,
+    "finish_time": "2026-10-08 08:39:25.173997+00:00",
+    "finish_reason": "finished",
+    "responses_per_minute": 20.0,
+    "items_per_minute": 0.0
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "protocol_version": "paired-live-v1",
+  "status": "AUTHORIZED_FOR_CLIENT_VISIBLE_BUDGET_RUN",
+  "purpose": "Same original candidate URLs, same externally observable functions, same independent oracles. No framework selection until matched observations exist.",
+  "engines": [
+    "scrapy",
+    "firecrawl_cloud"
+  ],
+  "scenarios": {
+    "minimal_content": {
+      "scrapy": "Scrapy + trafilatura (HTML), pypdf (PDF)",
+      "firecrawl_cloud": "Official SDK Scrape URL; native html/markdown/links/metadata/PDF",
+      "compare": "Same required fields and plain-text content contract. Native outputs preserved. Normalization only changes representation, never summarizes or invents fields."
+    },
+    "recipe_controlled": {
+      "scrapy": "Scrapy Response raw bytes -> pinned Python Recipe",
+      "firecrawl_cloud": "Scrape returned raw_html -> the SAME pinned Python Recipe",
+      "compare": "Isolate retrieval/representation differences; Recipe cost counted as SEAL for both."
+    }
+  },
+  "controls": {
+    "manifest_consumer": "one shared manifest, no per-engine target selection",
+    "campaign": "new jointly executed campaign; historical responses cannot fill missing cells",
+    "identity_key": [
+      "campaign_id",
+      "case_id",
+      "url",
+      "function_id",
+      "scenario",
+      "oracle_sha256"
+    ],
+    "time_window_seconds": 300,
+    "order": "alternate which engine goes first across cases; serialize per origin across engines",
+    "client_cache": "Scrapy HTTPCACHE_ENABLED=false; Firecrawl max_age=0, store_in_cache=false; cache hits ineligible",
+    "retries": 0,
+    "redirects": "Client redirects disabled; explicit same-origin robots redirects metered (max 2). Provider intermediate redirects UNKNOWN under approved cloud scope; changed final document URL invalidates content pairing.",
+    "tls_verification": true,
+    "headers": "same declared User-Agent and Accept-Language where supported; service-level egress/renderer differences explicitly uncontrolled",
+    "language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "concurrent_origin_pages": 1,
+    "minimum_seconds_between_origin_page_dispatches": 3,
+    "max_detail_documents_per_source": 5,
+    "source_changes": "same URL alone is insufficient; verify title/date/body against frozen independent oracle for each observation, otherwise SOURCE_CHANGED_OR_UNKNOWN",
+    "missing_oracles": "UNKNOWN; neither HTTP success nor engine agreement can serve as ground truth",
+    "failures": "Preserve both matrix cells. An access restriction stops that URL/origin for BOTH engines; no engine fallback, UA rotation or enhanced-proxy escalation.",
+    "selection_freeze": "No selecting only URLs where one engine succeeded. B uses actual procurement announcement, not news.",
+    "no_aggregate_speed_ranking": "One mixed-source run has no statistical performance claim; client durations include provider infrastructure effects.",
+    "extensions": "Scrapy+Playwright is a separate third group on the exact same E URL and same observable target; not mixed into base scores.",
+    "version_test": "Separate controlled-input test, fixed original_url/filename, same input bytes per version to both pipelines; never part of live-site scores."
+  },
+  "function_contracts": {
+    "list_discovery": [
+      "target_document_links",
+      "next_page_url",
+      "parent_detail_edges",
+      "coverage_against_independent_frozen_set"
+    ],
+    "document_extract": [
+      "source_url",
+      "title",
+      "published_at",
+      "body_text",
+      "document_links",
+      "attachments"
+    ],
+    "pdf_ingestion": [
+      "original_pdf_sha256",
+      "page_count",
+      "per_page_text",
+      "ordered_table_rows",
+      "page_locators"
+    ],
+    "search_interface": [
+      "form_action",
+      "query_parameter",
+      "not_a_claim_of_search_traversal"
+    ],
+    "company_fields": [
+      "company_name",
+      "company_number",
+      "registered_office_address",
+      "company_status",
+      "company_type",
+      "incorporated_on",
+      "nature_of_business",
+      "previous_names",
+      "accounts_next_due"
+    ],
+    "iframe_discovery": [
+      "iframe_target_urls",
+      "no_shell_200_as_body_success"
+    ],
+    "iframe_content": [
+      "source_url",
+      "title",
+      "body_text",
+      "parent_iframe_relation"
+    ]
+  },
+  "cases": [
+    {
+      "id": "A_list_p1",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+      "function_id": "list_discovery",
+      "role": "list"
+    },
+    {
+      "id": "A_list_p2",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+      "function_id": "list_discovery",
+      "role": "list",
+      "parent": "A_list_p1"
+    },
+    {
+      "id": "A_detail_1",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1"
+    },
+    {
+      "id": "A_detail_2",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490511.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1"
+    },
+    {
+      "id": "A_detail_3",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490501.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1"
+    },
+    {
+      "id": "A_detail_4",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490491.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1"
+    },
+    {
+      "id": "A_detail_5",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490481.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1"
+    },
+    {
+      "id": "B_home",
+      "source": "B",
+      "url": "https://www.ccgp.gov.cn/",
+      "function_id": "list_discovery",
+      "role": "list"
+    },
+    {
+      "id": "B_notice_1",
+      "source": "B",
+      "url": "https://www.ccgp.gov.cn/cggg/zygg/gkzb/202610/t20261008_27443141.htm",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "B_home",
+      "navigation_evidence": "results/raw/B_home.raw.html; anchor title 哈尔滨工业大学多参数细胞分析系统公开招标公告",
+      "annotation_status": "PENDING; not an already verified notice result"
+    },
+    {
+      "id": "C_pdf",
+      "source": "C",
+      "url": "https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf",
+      "function_id": "pdf_ingestion",
+      "role": "detail",
+      "provider_extra_operation": "native parsed PDF plus separate parsers=[] original PDF if needed; count full workflow cost, not equal API-call count"
+    },
+    {
+      "id": "D_home",
+      "source": "D",
+      "url": "https://find-and-update.company-information.service.gov.uk/",
+      "function_id": "search_interface",
+      "role": "entry",
+      "policy": "fresh robots resolution required"
+    },
+    {
+      "id": "D_company",
+      "source": "D",
+      "url": "https://find-and-update.company-information.service.gov.uk/company/00445790",
+      "function_id": "company_fields",
+      "role": "detail",
+      "selection": "preselected company for both, NOT discovered search result"
+    },
+    {
+      "id": "E_shell",
+      "source": "E",
+      "url": "https://www.stats.gov.cn/xxgk/list4.html",
+      "function_id": "iframe_discovery",
+      "role": "entry"
+    },
+    {
+      "id": "E_iframe",
+      "source": "E",
+      "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+      "function_id": "iframe_content",
+      "role": "detail",
+      "parent": "E_shell",
+      "navigation_evidence": "results/raw/E_list.raw.html iframe src",
+      "annotation_status": "PENDING"
+    },
+    {
+      "id": "H_list",
+      "source": "H",
+      "url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+      "function_id": "list_discovery",
+      "role": "list"
+    },
+    {
+      "id": "H_detail_1",
+      "source": "H",
+      "url": "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "H_list"
+    }
+  ],
+  "excluded": [
+    {
+      "source": "F",
+      "url": "https://www.creditchina.gov.cn/",
+      "both_engines": "BLOCKED_ACCESS_RESTRICTION",
+      "reason": "historical HTTP 412; no retry with another engine"
+    },
+    {
+      "source": "G",
+      "url": "https://www.nmpa.gov.cn/datasearch/home-index.html",
+      "both_engines": "BLOCKED_ACCESS_RESTRICTION",
+      "reason": "historical HTTP 412; no retry with another engine"
+    }
+  ],
+  "budget": {
+    "proposed_client_http_api_cap": 80,
+    "proposed_firecrawl_credit_cap": 30,
+    "free_only": true,
+    "no_auto_payment": true,
+    "planned_scrapy_source_gets": 16,
+    "planned_shared_robots_initial_gets": 6,
+    "planned_firecrawl_scrapes_including_pdf_original": 17,
+    "planned_credit_usage_queries": 2,
+    "planned_client_requests_before_annotation_or_policy_followups": 41,
+    "planned_credit_reservation_ceiling_for_primary_cohort": 26,
+    "native_structured_extraction": "D_company adds Firecrawl json schema format (+4 reserved credits) to test its built-in capability; same 9-field contract",
+    "origin_subrequests_cap": "Cannot verify via currently available cloud SDK/telemetry",
+    "spent_under_this_protocol": 0,
+    "scope_change_confirmed_by_user": true
+  },
+  "execution_gate": {
+    "status": "APPROVED_BY_USER_FOR_CLIENT_VISIBLE_SCOPE",
+    "strict_origin_metering_available": false,
+    "identified_self_hosted_firecrawl": false,
+    "cloud_calls_allowed_until_scope_resolved": true,
+    "note": "User explicitly agreed to a new independent round: <=80 client HTTP/API calls, <=30 free credits; provider-origin subrequests/spacing UNKNOWN. This does not reset or reuse the exhausted earlier synthetic authorization."
+  },
+  "eligibility": {
+    "requires_all": [
+      "same manifest/campaign/url/function/scenario/oracle",
+      "fresh live Scrapy and live Firecrawl Scrape URL observations",
+      "independently verified content identity",
+      "same field semantics and representation-normalization version",
+      "confirmed compliance/budget scope",
+      "complete failure/status matrix"
+    ],
+    "disqualifies": [
+      "Firecrawl /parse upload vs Scrapy website fetch",
+      "loopback vs live origin",
+      "previous campaign substituted for current engine run",
+      "source or cache age unknown",
+      "unverified oracle",
+      "unequal enabled feature groups"
+    ]
+  }
+}

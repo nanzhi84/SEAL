@@ -1,0 +1,18 @@
+"""Fail closed for inherited live runs: their total network budget is unknowable."""
+import json
+from .common import RESULTS, now_iso, write_json
+
+
+def stop_legacy_network():
+    report = {
+        "status": "BLOCKED", "reason": "HISTORICAL_NETWORK_BUDGET_UNKNOWN",
+        "at": now_iso(), "external_requests_this_run": 0,
+        "historical_declared_top_level_requests": 70,
+        "historical_subrequests_and_redirects": "UNKNOWN",
+        "note": "Do not restart legacy probes or retry F/G access controls. "
+                "Replay/fixtures are available. A new live campaign needs audited "
+                "policy, pre-dispatch metering and an independently approved budget.",
+    }
+    write_json(RESULTS / "network_blocked.json", report)
+    print(json.dumps(report, indent=2))
+    raise SystemExit(2)

@@ -1,0 +1,35 @@
+{
+  "minimal_content": {
+    "body_text": "Current features include\n- File abridged or full accountsNew\n- Change a registered office address\n- View company data and document images\n- Search for disqualified directors\n- Order certificates and certified documentsNew\n- Follow companies",
+    "title": "Search the register",
+    "published_at": null,
+    "error": null,
+    "implementation": "Scrapy Response + trafilatura; no structured schema output",
+    "forms": [
+      {
+        "form_action": "https://find-and-update.company-information.service.gov.uk/search",
+        "query_parameters": [
+          "q"
+        ],
+        "method": "get"
+      }
+    ],
+    "contract_adapter": "shared SEAL HTML attribute adapter, not a native framework feature"
+  },
+  "recipe_controlled": {
+    "forms": [
+      {
+        "form_action": "https://find-and-update.company-information.service.gov.uk/search",
+        "query_parameters": [
+          "q"
+        ],
+        "method": "get"
+      }
+    ]
+  },
+  "raw_path": "scrapy/D_home/response.bin",
+  "raw_sha256": "a36b0c46211780524dd5cd225c08188b015c81cfa0ec8274c20dc6effb038246",
+  "offline_parse_seconds": 0.08962666697334498,
+  "recipe_replay_deterministic": true,
+  "recipe_content_hash": null
+}

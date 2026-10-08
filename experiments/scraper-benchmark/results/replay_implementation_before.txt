@@ -1,0 +1,36 @@
+def run_replay() -> dict:
+    """Offline replay: re-run the recipes over archived raw bytes and compare the
+    result to what the live run produced. Proves deterministic, network-free
+    re-extraction."""
+    from bench import recipes
+    from bench.common import read_json, sha256_text
+    out = {"checked": 0, "identical": 0, "changed": [], "missing_raw": [], "items": {}}
+    for t in targets.TARGETS:
+        raw_path = RAW / f"{t['id']}.raw.html"
+        if not raw_path.exists():
+            continue
+        html = raw_path.read_text(encoding="utf-8", errors="replace")
+        live_path = RESULTS / "parsed" / f"{t['id']}.raw.json"
+        live = read_json(live_path) if live_path.exists() else None
+        snapshot_id = (live or {}).get("_meta", {}).get("snapshot_id", "replay")
+        doc = recipes.apply(t["recipe"], html, t["url"], snapshot_id)
+        out["checked"] += 1
+        replay_payload = json.dumps({k: v for k, v in doc.items() if k != "_meta"},
+                                    ensure_ascii=False, sort_keys=True)
+        live_payload = json.dumps(
+            {k: v for k, v in (live or {}).items() if k != "_meta"},
+            ensure_ascii=False, sort_keys=True)
+        same = replay_payload == live_payload
+        out["identical"] += int(same)
+        if not same:
+            out["changed"].append(t["id"])
+        out["items"][t["id"]] = {
+            "recipe": t["recipe"], "identical": same,
+            "replay_sha256": sha256_text(replay_payload)[:16],
+            "live_sha256": sha256_text(live_payload)[:16],
+            "body_chars": len(doc.get("body_text", "")),
+        }
+    write_json(RESULTS / "replay_check.json", out)
+    print(json.dumps(out, ensure_ascii=False, indent=2)[:2000])
+    return out
+

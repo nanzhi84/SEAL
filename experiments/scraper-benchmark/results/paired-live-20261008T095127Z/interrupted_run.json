@@ -1,0 +1,351 @@
+{
+  "campaign_id": "paired-live-20261008T095127Z",
+  "started_at": "2026-10-08T09:51:27.739+00:00",
+  "status": "STOPPED",
+  "provider_origin_subrequests": "UNKNOWN",
+  "cases": {
+    "A_list_p1": {
+      "id": "A_list_p1",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+      "function_id": "list_discovery",
+      "role": "list",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "A_list_p2": {
+      "id": "A_list_p2",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+      "function_id": "list_discovery",
+      "role": "list",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "A_detail_1": {
+      "id": "A_detail_1",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "A_detail_2": {
+      "id": "A_detail_2",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490511.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "A_detail_3": {
+      "id": "A_detail_3",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490501.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "A_detail_4": {
+      "id": "A_detail_4",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490491.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "A_detail_5": {
+      "id": "A_detail_5",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490481.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "B_home": {
+      "id": "B_home",
+      "source": "B",
+      "url": "https://www.ccgp.gov.cn/",
+      "function_id": "list_discovery",
+      "role": "list",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "B_notice_1": {
+      "id": "B_notice_1",
+      "source": "B",
+      "url": "https://www.ccgp.gov.cn/cggg/zygg/gkzb/202610/t20261008_27443141.htm",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "B_home",
+      "navigation_evidence": "results/raw/B_home.raw.html; anchor title 哈尔滨工业大学多参数细胞分析系统公开招标公告",
+      "annotation_status": "PENDING; not an already verified notice result",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "C_pdf": {
+      "id": "C_pdf",
+      "source": "C",
+      "url": "https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf",
+      "function_id": "pdf_ingestion",
+      "role": "detail",
+      "provider_extra_operation": "native parsed PDF plus separate parsers=[] original PDF if needed; count full workflow cost, not equal API-call count",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "D_home": {
+      "id": "D_home",
+      "source": "D",
+      "url": "https://find-and-update.company-information.service.gov.uk/",
+      "function_id": "search_interface",
+      "role": "entry",
+      "policy": "fresh robots resolution required",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "D_company": {
+      "id": "D_company",
+      "source": "D",
+      "url": "https://find-and-update.company-information.service.gov.uk/company/00445790",
+      "function_id": "company_fields",
+      "role": "detail",
+      "selection": "preselected company for both, NOT discovered search result",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "E_shell": {
+      "id": "E_shell",
+      "source": "E",
+      "url": "https://www.stats.gov.cn/xxgk/list4.html",
+      "function_id": "iframe_discovery",
+      "role": "entry",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "E_iframe": {
+      "id": "E_iframe",
+      "source": "E",
+      "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+      "function_id": "iframe_content",
+      "role": "detail",
+      "parent": "E_shell",
+      "navigation_evidence": "results/raw/E_list.raw.html iframe src",
+      "annotation_status": "PENDING",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "H_list": {
+      "id": "H_list",
+      "source": "H",
+      "url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+      "function_id": "list_discovery",
+      "role": "list",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    },
+    "H_detail_1": {
+      "id": "H_detail_1",
+      "source": "H",
+      "url": "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "H_list",
+      "engines": {
+        "scrapy": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        },
+        "firecrawl_cloud": {
+          "status": "NOT_RUN_CAMPAIGN_STOPPED"
+        }
+      }
+    }
+  },
+  "policies": {
+    "A": {
+      "source": "A",
+      "status": "BLOCKED_POLICY",
+      "requests": [
+        {
+          "url": "https://www.court.gov.cn/robots.txt",
+          "http_status": 200
+        }
+      ],
+      "decisions": {},
+      "reason": "ROBOTS_HTML_SOFT_ERROR_NOT_AN_AUTHORITATIVE_RULESET"
+    },
+    "B": {
+      "source": "B",
+      "status": "ALLOWED_ROBOTS_UNAVAILABLE_4XX",
+      "requests": [
+        {
+          "url": "https://www.ccgp.gov.cn/robots.txt",
+          "http_status": 404
+        }
+      ],
+      "decisions": {
+        "B_home": true,
+        "B_notice_1": true
+      },
+      "crawl_delay_s": 3.01
+    },
+    "C": {
+      "source": "C",
+      "status": "BLOCKED_POLICY",
+      "requests": [
+        {
+          "url": "https://www.nppa.gov.cn/robots.txt",
+          "http_status": 302
+        }
+      ],
+      "decisions": {},
+      "reason": "ROBOTS_CROSS_ORIGIN_REDIRECT_NOT_APPROVED"
+    },
+    "D": {
+      "source": "D",
+      "status": "ALLOWED_ROBOTS_UNAVAILABLE_4XX",
+      "requests": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/robots.txt",
+          "http_status": 404
+        }
+      ],
+      "decisions": {
+        "D_home": true,
+        "D_company": true
+      },
+      "crawl_delay_s": 3.01
+    },
+    "E": {
+      "source": "E",
+      "status": "ALLOWED_ROBOTS_UNAVAILABLE_4XX",
+      "requests": [
+        {
+          "url": "https://www.stats.gov.cn/robots.txt",
+          "http_status": 404
+        }
+      ],
+      "decisions": {
+        "E_shell": true,
+        "E_iframe": true
+      },
+      "crawl_delay_s": 3.01
+    }
+  },
+  "authorization": "User explicitly agreed to <=80 client HTTP/API, <=30 free credits; no auto-payment",
+  "source_sha256": {
+    "paired_live.py": "a6fba686484ab6b570a1b9f55453957bdadd82df1230a61eae9f16202cbf572a",
+    "paired_fetch.py": "ab40748ce12ad4efaf11789f9b03e44cf67d1074c9ac0ba3bd5cb9e9a6cb22ee",
+    "paired_acceptance.py": "c5d876e9f666aa569ad94e8c5880cda27ba1b07f4aecada60fd557f2f6158db0",
+    "bench/paired_meter.py": "42fb6890cac60e3d4a8106912f296ec5b6f82d2469399af31ee7ca843cdedcc5",
+    "bench/recipes.py": "27ec80c042af999875de152cb66257c4d4f02c49a1988b517df43e994d21897e",
+    "bench/extract.py": "39ab9d2df3f84bd49cb03122f868c86f158a2e22d1d396d0387f811a82303a52",
+    "bench/pdfio.py": "a3d0d9600a229bd69586192629ed7461991d75d05b020d5dc0c7b63c848a503b"
+  },
+  "error_type": "RuntimeError",
+  "error_category": "UNAPPROVED_ROBOTS_DISPATCH",
+  "credits_balance_delta": 0,
+  "finished_at": "2026-10-08T09:51:54.172+00:00",
+  "client_requests": 8,
+  "credits_reserved": 0
+}

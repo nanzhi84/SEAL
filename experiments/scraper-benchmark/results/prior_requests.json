@@ -1,0 +1,15 @@
+{
+  "note": "External network requests made outside the instrumented collection phases (reconnaissance, recipe authoring, archived runs). Counted against the total budget for honesty; the instrumented experiment itself is tracked in results/run_log.jsonl.",
+  "items": [
+    {"phase": "curl_connectivity_check", "requests": 5, "credits": 0, "detail": "HEAD/GET to 5 hosts to check reachability"},
+    {"phase": "recon.py", "requests": 16, "credits": 0, "detail": "robots.txt (8) + HEAD entry (8)"},
+    {"phase": "firecrawl_credit_probe", "requests": 2, "credits": 0, "detail": "get_credit_usage + get_queue_status API calls (no page scrape, no credits)"},
+    {"phase": "probe.py", "requests": 11, "credits": 0, "detail": "GET entries with 2 UA profiles (8 primary + 3 UA-diff retries)"},
+    {"phase": "probe_B_plainua", "requests": 1, "credits": 0, "detail": "GET ccgp home with honest UA"},
+    {"phase": "detail_recipe_authoring", "requests": 4, "credits": 0, "detail": "GET A/B/H detail + D company page to author selectors"},
+    {"phase": "scrapy_raw_run1_MISCONFIGURED", "requests": 14, "credits": 0, "detail": "raw harvest whose SETTINGS dict was silently not applied (no 3s delay). Archived under results/raw_run1_impolite/; NOT used for metrics. Counted for honesty."},
+    {"phase": "scrapy_playwright_run1_FAILED", "requests": 2, "credits": 0, "detail": "browser launched, both document loads left creditchina.gov.cn / nmpa.gov.cn, but page.content() failed while the anti-bot page kept navigating; the run then hung and was killed. No content captured. Document loads counted; JS/CSS subresources not individually counted."}
+  ],
+  "total_requests": 55,
+  "total_credits": 0
+}

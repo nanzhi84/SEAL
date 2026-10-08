@@ -1,0 +1,65 @@
+{
+  "formats": [
+    "markdown",
+    "html",
+    "rawHtml",
+    "links",
+    {
+      "type": "json",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "company_name": {
+            "type": "string"
+          },
+          "company_number": {
+            "type": "string"
+          },
+          "registered_office_address": {
+            "type": "string"
+          },
+          "company_status": {
+            "type": "string"
+          },
+          "company_type": {
+            "type": "string"
+          },
+          "incorporated_on": {
+            "type": "string"
+          },
+          "nature_of_business": {
+            "type": "string"
+          },
+          "previous_names": {
+            "type": "string"
+          },
+          "accounts_next_due": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "company_name",
+          "company_number",
+          "registered_office_address",
+          "company_status",
+          "company_type",
+          "incorporated_on",
+          "nature_of_business",
+          "previous_names",
+          "accounts_next_due"
+        ]
+      },
+      "prompt": "Extract exactly the displayed company fields; preserve source spelling and date text. Join multiple SIC codes or previous names with |. Do not infer missing data."
+    }
+  ],
+  "headers": {
+    "User-Agent": "SEAL-Benchmark/1.0 (bounded public-source evaluation)",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"
+  },
+  "only_main_content": true,
+  "timeout": 45000,
+  "max_age": 0,
+  "store_in_cache": false,
+  "proxy": "basic",
+  "skip_tls_verification": false
+}

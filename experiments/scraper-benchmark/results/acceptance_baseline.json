@@ -1,0 +1,112 @@
+{
+  "at": "2026-10-08T08:19:09.500379+00:00",
+  "baseline": true,
+  "command": "acceptance.py --baseline",
+  "checks": [
+    {
+      "name": "D:company_name",
+      "status": "PASS",
+      "detail": {
+        "expected": "TESCO PLC",
+        "actual": "TESCO PLC"
+      }
+    },
+    {
+      "name": "D:company_number",
+      "status": "PASS",
+      "detail": {
+        "expected": "00445790",
+        "actual": "00445790"
+      }
+    },
+    {
+      "name": "D:registered_office_address",
+      "status": "PASS",
+      "detail": {
+        "expected": "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA",
+        "actual": "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA"
+      }
+    },
+    {
+      "name": "D:company_status",
+      "status": "PASS",
+      "detail": {
+        "expected": "Active",
+        "actual": "Active"
+      }
+    },
+    {
+      "name": "D:company_type",
+      "status": "PASS",
+      "detail": {
+        "expected": "Public limited Company",
+        "actual": "Public limited Company"
+      }
+    },
+    {
+      "name": "D:incorporated_on",
+      "status": "PASS",
+      "detail": {
+        "expected": "27 November 1947",
+        "actual": "27 November 1947"
+      }
+    },
+    {
+      "name": "D:nature_of_business",
+      "status": "FAIL",
+      "detail": {
+        "expected": "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating",
+        "actual": ""
+      }
+    },
+    {
+      "name": "D:previous_names",
+      "status": "FAIL",
+      "detail": {
+        "expected": "TESCO STORES (HOLDINGS) PUBLIC LIMITED COMPANY | TESCO STORES (HOLDINGS) LIMITED",
+        "actual": ""
+      }
+    },
+    {
+      "name": "D:accounts_next_due",
+      "status": "FAIL",
+      "detail": {
+        "expected": "26 August 2027",
+        "actual": ""
+      }
+    },
+    {
+      "name": "PDF:page_count",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_1_locatable",
+      "status": "PASS",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_2_locatable",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_3_locatable",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_4_locatable",
+      "status": "FAIL",
+      "detail": null
+    },
+    {
+      "name": "PDF:page_5_locatable",
+      "status": "FAIL",
+      "detail": null
+    }
+  ],
+  "passed": 8,
+  "failed": 7,
+  "scope": "local E2E + archived real response replay; not new live-site success"
+}

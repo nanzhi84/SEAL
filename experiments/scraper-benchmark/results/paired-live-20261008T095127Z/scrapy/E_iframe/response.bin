@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+		<meta name="ColumnName" content="局领导、总师信息">
+		<meta name="ColumnType" content="局领导、总师信息">
+		<meta name="ColumnDescription" content="局领导、总师信息">
+		<meta name="ColumnKeywords" content="局领导、总师信息">
+    <link rel="stylesheet" href="../../images/style_new.css">
+    <link rel="stylesheet" href="../../images/MEPC_xxgk_mCSB_v2019.css">
+
+    <script src="../../images/jquery-1.12.4.min.js"></script>
+    <script src="../../images/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../../images/index.js"></script>
+
+    <link rel="stylesheet" href="../../images/page.css">
+    <SCRIPT LANGUAGE="JavaScript" src="../../js/page.js"></SCRIPT>
+<link href="../../images/outlineTable_new.css" rel="stylesheet" type="text/css">
+
+<link href="../../images/style_1.css" rel="stylesheet" type="text/css" />
+<link href="../../images/outlinetable_1.css" rel="stylesheet" type="text/css"> 
+<script src="../../js/com.trs.util/Common.js"></script>
+    <style>
+        .xxgkNbXq2 {font-size: 16px; padding-top: 0px; padding-bottom: 36px; padding-left: 0px; border-bottom: 2px solid #cccccc; }
+        .xxgkNbXq2 .title {color: #4d4d4d; margin-right: 10px;}
+        .time {color: #999;}
+        .list-item {margin: 30px 0; line-height: 27px; font-size: 16px;}
+        .list-item a{color: #4d4d4d; margin-right: 10px;}
+        .list-item span{color: #999;}
+
+.SearchOfInput {color: #666666; font-size: 12px;}
+.rowOfSearchNew{margin:10px 0px 10px 0px; background-color: #E1DDDD; height: auto; vertical-align: middle; padding: 4px 8px 4px 0px;}
+.searchTipNew{font-weight:bold; color:#5F5F5F; padding:4px 8px;}
+
+    </style>
+<SCRIPT LANGUAGE="JavaScript">
+ <!--
+    var m_sPageName = "index";
+    var m_sPageExt = "html";
+
+    // 覆写点击分页代码的响应函数
+    PageContext.PageNav.go =  function(_iPage,_maxPage){
+        if(_iPage>_maxPage){
+            _iPage = _maxPage;
+        }
+        //大于发布的总页数，跳转到动态应用
+        if(_iPage > 155){
+            window.location.href = top.GovSearchURL + "searPage.jsp?page=" + _iPage;
+            return;
+        }
+        PageContext.params = {"CurrPage":_iPage};
+        var sURL = "";
+        if(_iPage == 1){
+            sURL = m_sPageName + "." + m_sPageExt;
+        }else{
+            sURL = m_sPageName + "_" + (_iPage-1) + "." + m_sPageExt;
+        }
+        //alert("to: " + sURL);
+        window.location.href = sURL;        
+    };
+//-->
+</SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+// 画分页代码以及自动调整窗口大小
+var m_nRecordCount = "8";
+if(m_nRecordCount.length == 0){
+    m_nRecordCount = 0;
+}
+var m_nCurrPage = 0;
+var m_nPageSize = 10;
+
+window.onload = function(){
+    if(m_nRecordCount == 0){
+        m_nRecordCount = getRecordNum();
+    }
+    PageContext["RecordNum"] = m_nRecordCount;
+ PageContext.params["CurrPage"] = m_nCurrPage + 1;
+ PageContext["PageSize"] = m_nPageSize;
+ PageContext.drawNavigator();
+ 
+ if(m_nRecordCount == 0){
+  documentContainer.innerHTML = document.getElementById("divNoObjectFound").innerHTML;
+ }
+ if(m_nCurrPage>0){
+  document.getElementById("documentContainer").start = m_nCurrPage*m_nPageSize+1;
+ }
+ adjustDimension();
+};
+function getRecordNum(){
+    var count = 0;
+    var documentContainer = document.getElementById("documentContainer");
+    var childNodes = documentContainer.childNodes
+    for (var i = 0; i < childNodes.length; i++){
+        if(childNodes[i].nodeType != 1){
+            continue;
+        }
+        if(Element.hasClassName(childNodes[i], "row")){
+            count++
+        }
+    }
+    return count;
+}
+
+
+function adjustDimension(){
+    var minHeight = 650;
+    var realHeight = parseInt(document.body.scrollHeight);
+    if(window.frameElement)
+        window.frameElement.style.height = Math.max(minHeight, realHeight);
+}
+    
+//-->
+</SCRIPT>
+
+<!--第一个检索-->
+
+<script language="JavaScript">
+function executeSearch()
+{  
+      //alert("oooooo!");
+    document.trssearchform.method = 'post'; 
+    document.trssearchform.submit();
+}
+function cancelSearch()
+{  
+    //去掉链接参数中的searchType，searchValue参数
+    var oParams = top.location.search.toQueryParams() || {};
+    delete oParams["searchType"];
+    delete oParams["searchValue"];
+    var sUrl = top.location.href;
+    var match = /^([^\?]+).*$/.exec(sUrl);
+    if(match){
+        sUrl = match[1];
+        var sParams = $toQueryStr(oParams);
+        if(sParams && sParams.length > 0){
+            sUrl += "?" + sParams
+        }
+    }
+    window.top.location.href = sUrl;
+}
+</script>
+</head>
+<body>
+    <div class="xxgkNbXqCenter p_right_Zn">
+
+        <div class="xxgkNbXq2">
+            <span class="title">当前位置：</span><span class="time">信息公开>机关简介>局领导、总师信息</span>
+        </div>
+        <ul class="list">
+ 
+            <li class="list-item">
+                 <a href="./202203/t20220303_1828320.html" target="_blank">党组书记、局长：康义</a>
+                 <span class="time">2024年01月22日</span>
+            </li>
+ 
+            <li class="list-item">
+                 <a href="./202106/t20210629_1818852.html" target="_blank">党组成员、副局长：蔺涛</a>
+                 <span class="time">2023年09月20日</span>
+            </li>
+ 
+            <li class="list-item">
+                 <a href="./202209/t20220907_1887969.html" target="_blank">党组成员、副局长：毛盛勇</a>
+                 <span class="time">2024年01月22日</span>
+            </li>
+ 
+            <li class="list-item">
+                 <a href="./202401/t20240124_1946857.html" target="_blank">党组成员、副局长：阮健弘</a>
+                 <span class="time">2024年01月22日</span>
+            </li>
+ 
+            <li class="list-item">
+                 <a href="./202603/t20260327_1962873.html" target="_blank">党组成员、副局长：雷小武</a>
+                 <span class="time">2026年03月27日</span>
+            </li>
+ 
+            <li class="list-item">
+                 <a href="./202507/t20250708_1960358.html" target="_blank">总统计师：卢山</a>
+                 <span class="time">2025年07月08日</span>
+            </li>
+ 
+            <li class="list-item">
+                 <a href="./202507/t20250708_1960357.html" target="_blank">总经济师：付凌晖</a>
+                 <span class="time">2025年07月08日</span>
+            </li>
+ 
+            <li class="list-item">
+                 <a href="./202507/t20250708_1960356.html" target="_blank">总工程师：张洋</a>
+                 <span class="time">2025年07月08日</span>
+            </li>
+
+
+        </ul>
+      <div class="pageInfo list_navigator" id="list_navigator" style="padding:0px"></div> 
+
+    </div>
+
+
+</body>
+</html>
+
+<script>
+/**
+*由相对路径获取绝对路径
+*/
+function getCanonicalPath(_sPath){
+    //处理掉./的情况
+    _sPath = _sPath.replace(/\/\.\/+/g, "/");
+    if(_sPath.indexOf('../') == -1){
+        return _sPath;
+    }
+    var protocol = "";
+    var colonIndex = _sPath.indexOf("://");
+    if(colonIndex >= 0){
+        protocol = _sPath.substring(0, colonIndex+3);
+        _sPath = _sPath.substring(colonIndex+3);
+    }
+    var aPath = _sPath.split("/");
+    for(var i = 0; i < aPath.length; i++){
+        if(aPath[i] && aPath[i] == ".."){
+            delete aPath[i];
+            //删除前面的一个路径
+            for(var j = i - 1; j >= 0; j--){
+                if(aPath[j]){
+                    delete aPath[j];
+                    break;
+                }
+            }
+        }
+    }
+    var result = "";
+    for(var i = 0; i < aPath.length; i++){
+        if(aPath[i]){
+            result += aPath[i] + "/";
+        }
+    }
+    return protocol + result;
+}
+
+/**
+*获取站点的绝对地址
+*/
+function getPubURL(){
+    var sWebSiteURL = '../../';
+    var sCurrPageURL = window.location.href.replace(/\/[^\/]*$/g, "/");
+    return getCanonicalPath(sCurrPageURL + sWebSiteURL);
+}
+$('pubURL').value = getPubURL();
+$('trssearchform').action = "http://www.stats.gov.cn/govsearch/simp_gov_list.jsp";
+$('advanceSearch').href = "http://www.stats.gov.cn/govsearch/advsearch.jsp";
+</script>

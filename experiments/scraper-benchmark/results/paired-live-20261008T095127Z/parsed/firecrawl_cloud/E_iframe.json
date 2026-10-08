@@ -1,0 +1,66 @@
+{
+  "minimal_content": {
+    "title": "Document",
+    "published_at": null,
+    "body_text": "\n \n     \n\n         \n             当前位置： 信息公开>机关简介>局领导、总师信息 \n         \n         \n \n             \n                  党组书记、局长：康义 \n                  2024年01月22日 \n             \n \n             \n                  党组成员、副局长：蔺涛 \n                  2023年09月20日 \n             \n \n             \n                  党组成员、副局长：毛盛勇 \n                  2024年01月22日 \n             \n \n             \n                  党组成员、副局长：阮健弘 \n                  2024年01月22日 \n             \n \n             \n                  党组成员、副局长：雷小武 \n                  2026年03月27日 \n             \n \n             \n                  总统计师：卢山 \n                  2025年07月08日 \n             \n \n             \n                  总经济师：付凌晖 \n                  2025年07月08日 \n             \n \n             \n                  总工程师：张洋 \n                  2025年07月08日 \n             \n\n\n         \n       共 1 页 8 条记录,每页 10 条记录. 上一页 下一页  \n\n     \n\n\n\n\n\n",
+    "structured": null,
+    "links": [
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202203/t20220303_1828320.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202106/t20210629_1818852.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202209/t20220907_1887969.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202401/t20240124_1946857.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202603/t20260327_1962873.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960358.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960357.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960356.html",
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html#"
+    ],
+    "implementation": "Firecrawl native HTML/JSON; HTML-to-text representation only"
+  },
+  "recipe_controlled": {
+    "source_url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+    "title": "Document",
+    "published_at": null,
+    "body_text": "当前位置：信息公开>机关简介>局领导、总师信息\n \n \n \n \n 党组书记、局长：康义\n 2024年01月22日\n \n \n \n 党组成员、副局长：蔺涛\n 2023年09月20日\n \n \n \n 党组成员、副局长：毛盛勇\n 2024年01月22日\n \n \n \n 党组成员、副局长：阮健弘\n 2024年01月22日\n \n \n \n 党组成员、副局长：雷小武\n 2026年03月27日\n \n \n \n 总统计师：卢山\n 2025年07月08日\n \n \n \n 总经济师：付凌晖\n 2025年07月08日\n \n \n \n 总工程师：张洋\n 2025年07月08日\n \n\n\n \n 共1页8条记录,每页10条记录.上一页下一页 \n\n \n\n\n\n\n\n\n/**\n*由相对路径获取绝对路径\n*/\nfunction getCanonicalPath(_sPath){\n //处理掉./的情况\n _sPath = _sPath.replace(/\\/\\.\\/+/g, \"/\");\n if(_sPath.indexOf('../') == -1){\n return _sPath;\n }\n var protocol = \"\";\n var colonIndex = _sPath.indexOf(\"://\");\n if(colonIndex >= 0){\n protocol = _sPath.substring(0, colonIndex+3);\n _sPath = _sPath.substring(colonIndex+3);\n }\n var aPath = _sPath.split(\"/\");\n for(var i = 0; i < aPath.length; i++){\n if(aPath[i] && aPath[i] == \"..\"){\n delete aPath[i];\n //删除前面的一个路径\n for(var j = i - 1; j >= 0; j--){\n if(aPath[j]){\n delete aPath[j];\n break;\n }\n }\n }\n }\n var result = \"\";\n for(var i = 0; i < aPath.length; i++){\n if(aPath[i]){\n result += aPath[i] + \"/\";\n }\n }\n return protocol + result;\n}\n\n/**\n*获取站点的绝对地址\n*/\nfunction getPubURL(){\n var sWebSiteURL = '../../';\n var sCurrPageURL = window.location.href.replace(/\\/[^\\/]*$/g, \"/\");\n return getCanonicalPath(sCurrPageURL + sWebSiteURL);\n}\n$('pubURL').value = getPubURL();\n$('trssearchform').action = \"http://www.stats.gov.cn/govsearch/simp_gov_list.jsp\";\n$('advanceSearch').href = \"http://www.stats.gov.cn/govsearch/advsearch.jsp\";",
+    "document_links": [
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202203/t20220303_1828320.html",
+        "text": "党组书记、局长：康义"
+      },
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202106/t20210629_1818852.html",
+        "text": "党组成员、副局长：蔺涛"
+      },
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202209/t20220907_1887969.html",
+        "text": "党组成员、副局长：毛盛勇"
+      },
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202401/t20240124_1946857.html",
+        "text": "党组成员、副局长：阮健弘"
+      },
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202603/t20260327_1962873.html",
+        "text": "党组成员、副局长：雷小武"
+      },
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960358.html",
+        "text": "总统计师：卢山"
+      },
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960357.html",
+        "text": "总经济师：付凌晖"
+      },
+      {
+        "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960356.html",
+        "text": "总工程师：张洋"
+      }
+    ],
+    "attachments": []
+  },
+  "raw_path": "firecrawl_cloud/E_iframe/response.html",
+  "raw_sha256": "9b953be976ca8a40f31a1715d4712e848b11abd8f54feacbab0f952985f11fd6",
+  "offline_parse_seconds": 0.0006975419819355011,
+  "recipe_replay_deterministic": true,
+  "recipe_content_hash": "a10487d0e03f46e81f1d51c21d70b9935a7dc5788b09689fb8eeb2a35ca26ca2"
+}

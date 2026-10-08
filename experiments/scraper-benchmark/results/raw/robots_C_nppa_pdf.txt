@@ -1,0 +1,908 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>国家新闻出版署</title>
+    <link rel="icon" href="http://www.nppa.gov.cn/favicon.ico" mce_href="/dir/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./images/common.css">
+    <link rel="stylesheet" href="./images/style.css">
+    <link rel="stylesheet" href="./images/nzs_index.css">
+    <script src="./images/hm.js"></script>
+    <script src="./images/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="./images/ss.js"></script>
+    <link rel="stylesheet" href="./images/swiper-bundle.css">
+    <script src="./images/swiper-bundle.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="./images/respond.min.js"></script>
+    <![endif]-->
+    <link href="./images/font-awesome-4.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        #ad_1{z-index:9999999;}
+        /**********分享**********/
+        .gov_weixin_share .fixed{width:150px;padding:6px;border:1px #d2d2d2 solid;background:#eeeeee;text-align:center;margin:0 0 2px 0;}
+        .gov_weixin_share .fixed p{margin:3px 0 0 0;padding:0;line-height:18px;}
+        .gov_weixin_share{ position:fixed;width:82px;font-size:12px;top:150px;right:0;
+            right:expression(eval(document.documentElement.scrollLeft+document.documentElement.clientWidth-this.offsetWidth)-(parseInt(this.currentStyle.marginLeft,10)||0)-(parseInt(this.currentStyle.marginRight,10)||0));
+            top:expression(eval(document.documentElement.scrollTop+150-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)))}
+        .gov_weixin_share{display: block; width: 258px; font-size: 12px; top: 215px; left: 155px;    z-index: 9;}
+        @media (max-width: 767px) {
+            .gov_weixin_share {
+                left: 15px;
+            }
+            .txtMarquee-left {width: 400px; overflow: hidden;}
+            .bdbd {
+                position: relative;
+                width: 365px !important;
+
+            }
+
+            .bdbd img {
+                width: 365px !important;
+                height: auto !important;
+            }
+
+            .rollss li {
+                background-position: 50px 2px !important;
+                background-size: 20px 20px;
+            }
+
+            .fa-chevron-right:before {
+                content: "" !important;
+            }
+        }
+        .g-text-center {
+            text-align: center;
+            color: #225aa9;
+        }
+
+        .g-font-size-140 {
+            font-size: 140px;
+        }
+
+        .g-line-height-1 {
+            line-height: 1;
+        }
+
+        h1 {
+            font: 1.5rem/1 "Microsoft YaHei", Helvetica, Arial, sans-serif;
+            margin: 0 0 15px;
+        }
+
+        .g-min-height-100vh {
+            min-height: 50vh;
+        }
+
+        .g-flex-centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -moz-box-align: center;
+            -moz-box-pack: center;
+        }
+
+        .g-flex-centered-item {
+            flex: 1 1 0;
+            -moz-box-flex: 1;
+        }
+
+        .g-mb-10 {
+            margin-bottom: 10px;
+        }
+
+        .g-pa-15 {
+            padding: 15px;
+        }
+
+        @media (max-width: 444px) {
+            .g-font-size-100--2xs {
+                font-size: 100px;
+            }
+
+            .g-height-90--2xs {
+                height: 90px;
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        var code; //在全局 定义验证码
+        function createCode() {
+            code = new Array();
+            var codeLength = 4;//验证码的长度
+            // var checkCode =  document.getElementById("checkCode");
+            // checkCode.value = "";
+            var selectChar = new Array(2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+            for (var i = 0; i < codeLength; i++) {
+                var charIndex = Math.floor(Math.random() * 32);
+                code += selectChar[charIndex];
+            }
+            if (code.length != codeLength) {
+                createCode();
+            }
+            //checkCode.value = code;
+            $("#checkCode").val(code);
+        }
+        function SearchFile() {
+            var flag = true;
+            if ($("#col4").val() == "") {
+                $("#col4msg").show();;
+                flag = false;
+            }
+            else {
+                $("#col4msg").hide();;
+            }
+            if ($("#col3").val() == "") {
+                $("#col3msg").show();;
+                flag = false;
+            }
+            else {
+                $("#col3msg").hide();
+            }
+            var inputCode = $("#input1").val().toUpperCase(); //document.getElementById("input1").value.toUpperCase();
+            if (inputCode.length <= 0) {
+                $("#notemedioreport").show();
+                flag = false;
+            }
+            else if (inputCode != $("#checkCode").val().toUpperCase()) {
+                $("#notemediocontentreport").show();
+                createCode();
+                flag = false;
+            }
+            else {
+                $("#notemedioreport").hide();
+                $("#notemediocontentreport").hide();
+            }
+            if (flag) {
+                var col4 = encodeURIComponent($("#col4").val());
+                var col3 = encodeURIComponent($("#col3").val());
+                if ($("#col4").val() != "" && $("#col3").val() != "") {
+                    $("#filessearch").attr("href", "/bsfw/jggs/xzxk/index.html?col3=" + col3 + "&col4=" + col4);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body aos-easing="ease-out-back" aos-duration="1000" aos-delay="0" class="bodyIn">
+<div class="topLine"></div>
+<div class="container">
+    <!---head--->
+    <div class="top">
+        <a href="./" class="logo">
+            <img src="./images/logo.png" height="97" />
+        </a>
+    </div>
+    <div class="topTools clearfix greyStyle">
+        <div class="TopToolsRx">
+            <div class="topSer_x1">
+                <form id="form_{StyleID}" method="get" action="/publishing/search.shtml" target="_blank">
+                    <div class="topSerIntx">
+                        <input placeholder="站内搜索输入" id="word" name="word" type="text" onKeyDown='KeyDown10(event)' />
+                    </div>
+                    <!--<button type="submit" onclick="if ($('#word').val()) {document.getElementById('form_{StyleID}').submit()} else {alert('请输入您要搜索的内容');};return false;"></button>-->
+                    <button type="button"  id="searchButton" onclick="doSearch10();"></button>
+
+                    <div class="topSelx">
+                        <input name="type" id="type" type="hidden" value="title" />
+                        <input name="" type="text" value="类别" readonly="readonly" />
+                        <ul class="topSels" style="display: none;">
+                            <li>标题</li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <a class="topWx" href="http://www.nppa.gov.cn/nppa/contents/745/74565.shtml">
+                <div class="wxTimgx">
+                    <img src="./images/579be273e156b725.jpg" width="196" height="196" />
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="nNav greyStyle">
+        <ul>
+            <li>
+                <a class="nNav_a nNav_a1" id="272" href="./"><i></i>首 页</a>
+            </li>
+            <li>
+                <a class="nNav_a" id="278" href="./xxfb/">
+                    信息发布
+                </a>
+                <div class="subMenu dsNone">
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxfb/tt/">
+                                头条
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxfb/ywxx/">
+                                要闻信息
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxfb/tpxw/">
+                                图片新闻
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxfb/spxw/">
+                                视频新闻
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxfb/tzgs/">
+                                通知公示
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxfb/ywdt/">
+                                业务动态
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxfb/dfgz/">
+                                地方工作
+                            </a>
+                        </dt>
+                    </dl>
+
+                </div>
+            </li>
+            <li>
+                <a class="nNav_a" id="296" href="./bsfw/">
+                    办事服务
+                </a>
+                <div class="subMenu dsNone">
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./bsfw/jggs/">
+                                结果公示
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./bsfw/xksx/">
+                                许可事项
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./bsfw/cyjghcpcx/">
+                                从业机构和产品查询
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./bsfw/ywpt/">
+                                业务平台
+                            </a>
+                        </dt>
+                    </dl>
+
+                </div>
+            </li>
+
+            <li>
+                <a class="nNav_a" id="283" href="./xxgk/">
+                    信息公开
+                </a>
+                <div class="subMenu dsNone">
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxgk/zfxxgkzn/">
+                                政府信息公开指南
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxgk/zfxxgkzd/">
+                                政府信息公开制度
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxgk/fdzdgknr/">
+                                法定主动公开内容
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxgk/zfxxgknb/">
+                                政府信息公开年报
+                            </a>
+                        </dt>
+                    </dl>
+
+                    <dl>
+                        <dt>&nbsp;•&nbsp;
+                            <a href="./xxgk/zcjd/">
+                                政策解读
+                            </a>
+                        </dt>
+                    </dl>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        function KeyDown10(event) {
+            var e = event ? event :(window.event ? window.event : null);
+            if (e.keyCode == 13) {
+                doSearch10();
+            }
+
+        }
+        function doSearch10() {
+            var _param1 = $("#word").val();    // 编码
+            if (_param1 == null || _param1 == "") {
+                alert("请输入搜索条件");
+                return;
+            }
+            var _searchWord = '';
+            _searchWord+="?word="+_param1;
+            window.location = "/search/index.html" + _searchWord;
+        }
+    </script>
+    <!---head END--->
+
+    <div class="hmMain greyStyle" id="gray">
+        <div class="hmMain">
+            <div class="m3pageCon">
+                <main class="g-min-height-100vh g-flex-centered g-pa-15">
+                    <div class="g-text-center g-flex-centered-item">
+                        <h1>很抱歉，您访问的页面不存在或已删除！</h1>
+                        <div class="g-font-size-140 g-font-size-100--2xs g-line-height-1 g-mb-10">
+                            404
+                        </div>
+                        了解国家新闻出版署更多信息，请访问<a href="https://www.nppa.gov.cn/">国家新闻出版署</a>
+                    </div>
+                </main>
+               <script type="text/javascript">
+                    setTimeout(function () { location.href = 'https://www.nppa.gov.cn/'; }, 5000);
+                </script>
+            </div>
+
+        </div>
+
+        <!---foot--->
+        <ul class="hmFrul clearfix">
+
+            <li>
+                <a target="_blank" href="http://www.scio.gov.cn">
+                    <img src="./yqlj/tplj/202111/W020211124578823735814.jpg" />
+                </a>
+            </li>
+
+            <li>
+                <a target="_blank" href="http://www.ncac.gov.cn">
+                    <img src="./yqlj/tplj/202111/W020211124578384782117.jpg" />
+                </a>
+            </li>
+
+            <li>
+                <a target="_blank" href="http://www.chinafilm.gov.cn">
+                    <img src="./yqlj/tplj/202111/W020211124578017871174.jpg" />
+                </a>
+            </li>
+
+            <li>
+                <a target="_blank" href="http://www.shdf.gov.cn">
+                    <img src="./yqlj/tplj/202111/W020211124577671939888.jpg" />
+                </a>
+            </li>
+
+            <li>
+                <a target="_blank" href="http://www.wenming.cn">
+                    <img src="./yqlj/tplj/202111/W020211124577110095378.jpg" />
+                </a>
+            </li>
+
+            <li>
+                <a target="_blank" href="http://press.nppa.gov.cn">
+                    <img src="./yqlj/tplj/202111/W020211124576635428129.jpg" />
+                </a>
+            </li>
+
+            <li>
+                <a target="_blank" href="http://www.nationalreading.gov.cn">
+                    <img src="./yqlj/tplj/202111/W020220917755006235238.jpg" />
+                </a>
+            </li>
+
+            <li>
+                <a target="_blank" href="http://www.zgnjsw.gov.cn">
+                    <img src="./yqlj/tplj/202111/W020211124575334053223.jpg" />
+                </a>
+            </li>
+
+        </ul>
+        <div class="hmBomSelBox clearfix"> <strong>网站链接</strong>
+            <select name="sel" onchange="javascript:window.open(this.options[this.selectedIndex].value);this.selectedIndex=0">
+                <option value="" selected="selected">政府网站</option>
+
+
+                <option value="http://www.gov.cn/">中国政府网</option>
+
+
+                <option value="http://www.fmprc.gov.cn/web">外交部</option>
+
+
+                <option value="http://www.mod.gov.cn">国防部</option>
+
+
+                <option value="http://www.ndrc.gov.cn">国家发展和改革委员会</option>
+
+
+                <option value="http://www.moe.gov.cn">教育部</option>
+
+
+                <option value="http://www.most.gov.cn">科学技术部</option>
+
+
+                <option value="http://www.miit.gov.cn">工业和信息化部</option>
+
+
+                <option value="http://www.seac.gov.cn">国家民族事务委员会</option>
+
+
+                <option value="http://www.mps.gov.cn">公安部</option>
+
+
+                <option value="http://www.mca.gov.cn">民政部</option>
+
+
+                <option value="http://www.moj.gov.cn">司法部</option>
+
+
+                <option value="http://www.mof.gov.cn/index.htm">财政部</option>
+
+
+                <option value="http://www.mohrss.gov.cn">人力资源和社会保障部</option>
+
+
+                <option value="http://www.mnr.gov.cn">自然资源部</option>
+
+
+                <option value="http://www.mee.gov.cn">生态环境部</option>
+
+
+                <option value="http://www.mohurd.gov.cn">住房和城乡建设部</option>
+
+
+                <option value="http://www.mot.gov.cn">交通运输部</option>
+
+
+                <option value="http://www.mwr.gov.cn">水利部</option>
+
+
+                <option value="http://www.moa.gov.cn">农业农村部</option>
+
+
+                <option value="http://www.mofcom.gov.cn">商务部</option>
+
+
+                <option value="http://www.mct.gov.cn">文化和旅游部</option>
+
+
+                <option value="http://www.nhc.gov.cn">国家卫生健康委员会</option>
+
+
+                <option value="http://www.mva.gov.cn">退役军人事务部</option>
+
+
+                <option value="http://www.mem.gov.cn">应急管理部</option>
+
+
+                <option value="http://www.pbc.gov.cn">人民银行</option>
+
+
+                <option value="http://www.audit.gov.cn">审计署</option>
+
+
+                <option value="http://www.moe.gov.cn/jyb_sy/China_Language">国家语言文字工作委员会</option>
+
+
+                <option value="http://www.cnsa.gov.cn">国家航天局</option>
+
+
+                <option value="http://www.caea.gov.cn">国家原子能机构</option>
+
+
+                <option value="http://nnsa.mee.gov.cn">国家核安全局</option>
+
+
+                <option value="http://www.sasac.gov.cn">国务院国有资产监督管理委员会</option>
+
+
+                <option value="http://www.customs.gov.cn">海关总署</option>
+
+
+                <option value="http://www.chinatax.gov.cn">国家税务总局</option>
+
+
+                <option value="http://www.samr.gov.cn">国家市场监督管理总局</option>
+
+
+                <option value="http://www.nrta.gov.cn">国家广播电视总局</option>
+
+
+                <option value="http://www.sport.gov.cn">国家体育总局</option>
+
+
+                <option value="http://www.stats.gov.cn">国家统计局</option>
+
+
+                <option value="http://www.cidca.gov.cn">国家国际发展合作署</option>
+
+
+                <option value="http://www.nhsa.gov.cn">国家医疗保障局</option>
+
+
+                <option value="http://www.counsellor.gov.cn">国务院参事室</option>
+
+
+                <option value="http://www.ggj.gov.cn">国家机关事务管理局</option>
+
+
+                <option value="http://www.cnca.gov.cn">国家认证认可监督管理委员会</option>
+
+
+                <option value="http://www.sac.gov.cn">国家标准化管理委员会</option>
+
+
+                <option value="http://www.sara.gov.cn/gjzjswjhtml/index.html">国家宗教事务局</option>
+
+
+                <option value="http://www.hmo.gov.cn">国务院港澳事务办公室</option>
+
+
+                <option value="http://www.gov.cn/guoqing/2018-06/22/content_5300522.htm">国务院研究室</option>
+
+
+                <option value="http://www.gqb.gov.cn">国务院侨务办公室</option>
+
+
+                <option value="http://www.gwytb.gov.cn">国务院台湾事务办公室</option>
+
+
+                <option value="http://www.cac.gov.cn">国家互联网信息办公室</option>
+
+
+                <option value="http://www.scio.gov.cn/index.htm">国务院新闻办公室</option>
+
+
+                <option value="http://203.192.6.89/xhs">新华通讯社</option>
+
+
+                <option value="http://www.cas.ac.cn">中国科学院</option>
+
+
+                <option value="http://cass.cssn.cn">中国社会科学院</option>
+
+
+                <option value="http://www.cae.cn">中国工程院</option>
+
+
+                <option value="http://www.drc.gov.cn">国务院发展研究中心</option>
+
+
+                <option value="http://www.cnr.cn/">中央广播电视总台</option>
+
+
+                <option value="http://www.cma.gov.cn">中国气象局</option>
+
+
+                <option value="http://www.cbrc.gov.cn">中国银行保险监督管理委员会</option>
+
+
+                <option value="http://www.csrc.gov.cn/pub/newsite">中国证券监督管理委员会</option>
+
+
+                <option value="http://www.ccps.gov.cn">国家行政学院</option>
+
+
+                <option value="http://www.gjxfj.gov.cn">国家信访局</option>
+
+
+                <option value="http://www.chinagrain.gov.cn/index.html">国家粮食和物资储备局</option>
+
+
+                <option value="http://www.nea.gov.cn">国家能源局</option>
+
+
+                <option value="http://www.sastind.gov.cn">国家国防科技工业局</option>
+
+
+                <option value="http://www.tobacco.gov.cn/html">国家烟草专卖局</option>
+
+
+                <option value="http://www.mps.gov.cn/n2254996">国家移民管理局</option>
+
+
+                <option value="http://www.forestry.gov.cn">国家林业和草原局</option>
+
+
+                <option value="http://www.nra.gov.cn">国家铁路局</option>
+
+
+                <option value="http://www.caac.gov.cn/index.html">中国民用航空局</option>
+
+
+                <option value="http://www.spb.gov.cn">国家邮政局</option>
+
+
+                <option value="http://www.sach.gov.cn">国家文物局</option>
+
+
+                <option value="http://www.satcm.gov.cn">国家中医药管理局</option>
+
+
+                <option value="http://www.chinacoal-safety.gov.cn">国家煤矿安全监察局</option>
+
+
+                <option value="http://www.safe.gov.cn">国家外汇管理局</option>
+
+
+                <option value="http://www.nmpa.gov.cn/WS04/CL2042">国家药品监督管理局</option>
+
+
+                <option value="http://www.cnipa.gov.cn">国家知识产权局</option>
+
+
+                <option value="http://www.forestry.gov.cn">国家公园管理局</option>
+
+
+                <option value="http://www.scs.gov.cn">国家公务员局</option>
+
+
+                <option value="http://www.saac.gov.cn">国家档案局</option>
+
+
+                <option value="http://www.gjbmj.gov.cn">国家保密局</option>
+
+
+                <option value="http://www.oscca.gov.cn">国家密码管理局</option>
+
+            </select>
+            <select name="sel" onchange="javascript:window.open(this.options[this.selectedIndex].value);this.selectedIndex=0">
+                <option value="" selected="selected">新闻出版直属单位网站</option>
+
+
+                <option value="http://www.pph166.com/">人民出版社</option>
+
+
+                <option value="http://www.chuban.cc/">中国新闻出版研究院</option>
+
+
+                <option value="https://www.chinaxwcb.com/">中国新闻出版传媒集团有限公司</option>
+
+
+                <option value="http://www.ccopyright.com.cn/">中国版权保护中心（中华版权代理中心）</option>
+
+
+                <option value="https://www.capub.cn/">中国版本图书馆（中央宣传部出版物数据中心）</option>
+
+
+                <option value="http://www.pqsi.org.cn/">中央宣传部出版产品质量监督检测中心（中央宣传部出版物评审...</option>
+
+
+                <option value="https://www.npf.org.cn/web/index.html">国家出版基金规划管理办公室</option>
+
+
+                <option value="http://www.printingmuseum.cn/">中国印刷博物馆</option>
+
+            </select>
+            <select name="sel" onchange="javascript:window.open(this.options[this.selectedIndex].value);this.selectedIndex=0">
+                <option value="" selected="selected">省局网站</option>
+
+
+                <option value="http://www.bjxwcbj.gov.cn/">北京</option>
+
+
+                <option value="http://cbj.sh.gov.cn/">上海</option>
+
+
+                <option value="https://www.jssxwcbj.gov.cn/">江苏</option>
+
+
+                <option value="http://gx.wenming.cn/xwcb/">广西</option>
+
+
+                <option value="http://www.scxwcbdy.gov.cn/">四川</option>
+
+
+                <option value="http://www.ynsxwcbj.gov.cn">云南</option>
+
+            </select>
+        </div>
+        <div class="footer">
+            <div class="foot1">
+                <script type="text/javascript">
+                    document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='https://dcs.conac.cn/js/33/000/0000/60933367/CA330000000609333670006.js' type='text/javascript'%3E%3C/script%3E"));
+                </script>
+            </div>
+            <div class="foot2">
+                国家新闻出版署 主办　中宣部机关服务中心（信息中心） 承办<br>
+                地址：北京市西城区宣武门外大街40号　<br>
+                <p style="background:none;">
+                    <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备19010669号-3</a>　
+                    <img style="padding-top:0px; width: 14px;" src="./images/batb.png" />
+                    <a class="banquan" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010202008758" target="_blank">京公网安备11010202008758号
+                    </a>
+                </p>
+            </div>
+        </div>
+        <!---foot END--->
+    </div>
+</div>
+
+
+<script src="./images/app.js"></script>
+<script src="./images/common.js"></script>
+<script language="javascript">
+    var getId = 272;
+    for(i=0; i<$(".nNav_a").size(); i++){
+        if(parseInt($(".nNav_a").eq(i).attr("id")) == getId){
+            $(".nNav_a").eq(i).addClass("on");
+        }
+    }
+</script>
+
+
+<script language="javascript">
+    if($(".nzsc2Slick").length){
+        $('.nzsc2Slick').slick({
+            autoplay: true,
+            arrows: true,
+            dots:false,
+            infinite: true,
+            speed: 500,
+            autoplaySpeed: 5000,
+            pauseOnHover: false,
+            slidesToShow: 7,
+            responsive: [
+                {
+                    breakpoint: 1199,
+                    settings: {
+                        slidesToShow: 5,
+                    }
+                }, {
+                    breakpoint: 993,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                },
+                {
+                    breakpoint: 993,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }
+            ]
+        });
+    }
+
+    $(function () {
+
+        createCode();
+        setTimeout(function () {
+            if ($("#checkCode").val() == "") {
+                createCode();
+            }
+            if ($("#col4").val() == "" || $("#col3").val() == "")
+                $("tr").each(function () {
+                    if ($(this).attr("id")) {
+                        $(this).remove();
+                    }
+                })
+        }, 10);
+
+        doHeadlineNews();
+        function doHeadlineNews() {
+
+            var _headlineUrl = "./xxfb/tt/202306/t20230612_717746.html";
+            var _headlineTitle = "《习近平谈治国理政》第四卷多语种版出版发行";
+            if (_headlineTitle.length == 0) {
+                _headlineTitle = '《习近平谈治国理政》第四卷多语种版出版发行';
+            }
+
+            var _headlineSource = "";
+            var _relHref = "";
+            var _relTitle = "";
+            var _refSource = "";
+
+
+            var _html = "<div><a target='_blank' style='font-size:"+_headlineSource+"px;' href='" + _headlineUrl + "' >";
+            _html += _headlineTitle.replace('  ', '<br>');
+            _html += "</a></div>";
+            if (_relHref && _relHref.length > 0) {
+                _html += "<div><a target='_blank' style='font-size:"+_refSource+"px;' href='" + _relHref + "' >";
+                _html += _relTitle;
+                _html += "</a></div>";
+            }
+            $("#hotnews-tit").append(_html);
+        }
+        var _searchWord = {
+            "spmc" : '',
+            "page" : 1,
+            "size" : 2
+        };
+        $.ajax({
+            type:"post",
+            url:"/was5/web/search?channelid=267045",
+            //dataType:"JSON",
+            data : _searchWord,
+            success : function(data1){
+                var jsondata = JSON.parse(data1);
+                $("#dataCenter").html("");
+                var _data = jsondata.data;
+                if (_data != null && _data.length > 0) {
+                    for (var i=0;i<2;i++) {
+                        var _spmc = _data[i].spmc;
+                        var docpuburl = _data[i].docpuburl;
+                        if (_spmc!= null && _spmc.length>0) {
+                            var _listr = "<li>";
+                            _listr = _listr + '<a className="nzsc3u1_a" href="'+ docpuburl + '">';
+                            _listr = _listr + '<span>【许可结果】</span>';
+                            _listr = _listr + _spmc;
+                            _listr = _listr + '</a>';
+                            _listr = _listr + '</li>';
+                            $('#ul-resultpub').append(_listr);
+                        }
+                    }
+                }
+            },
+            error:function(jqXHR){
+                console.log("Error: "+jqXHR.status);
+            }
+        });
+    });
+</script>
+<!-----<div class="gov_weixin_share">
+  <div class="gov_wx fixed"> <a href="/nppa/contents/745/74565.shtml"><img width="258" height="258" src="./images/579be273e156b725.jpg" /></a>
+    <p>微信公众号</p>
+  </div>
+
+</div>------>
+</body>
+</html>

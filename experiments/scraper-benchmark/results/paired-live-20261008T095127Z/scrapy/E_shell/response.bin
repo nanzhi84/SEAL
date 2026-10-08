@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>国家统计局信息公开</title>
+		<meta name="ColumnName" content="">
+		<meta name="ColumnType" content="">
+		<meta name="ColumnDescription" content="">
+		<meta name="ColumnKeywords" content="">
+    <link rel="stylesheet" href="./images/style_new.css">
+    <link rel="stylesheet" href="./images/bottom_new.css">
+    <link rel="stylesheet" href="./images/MEPC_xxgk_mCSB_v2019.css">
+<title>国家统计局</title>
+    <style>
+        .xxgkNbXq2 {
+            font-size: 16px;
+            padding-top: 0px;
+            padding-bottom: 36px;
+            padding-left: 0px;
+            border-bottom: 2px solid #cccccc;
+        }
+        .xxgkNbXq2 .title {
+            color: #4d4d4d;
+            margin-right: 10px;
+        }
+        .time {
+            color: #999;
+        }
+.footer {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.box {
+    background-color: #fff;
+}
+.xxgk_SInputBox1 {
+    position: relative;
+    display: inline-block;
+}
+.p_search_2019::before { top: -50px;}
+.p_search_2019::after { top: -50px;}
+.Accessibility {
+               float: right;
+               position: relative;
+               right: 86px;
+               padding: 16px;
+               font-size: 14px;
+               margin-top: -16px;
+}
+    </style>
+<script>
+function Trim(str)
+   { 
+    return str.replace(/(^\s*)|(\s*$)/g, ""); 
+  }
+
+
+function submitForm() {
+      var andsen = document.all.searchform.andsen1.value;
+      andsen = Trim(andsen);
+      andsen = andsen.replace(/   /g, " ");
+      andsen = andsen.replace(/  /g, " ");
+      andsen = andsen.replace(/ /g, "*");
+      document.all.searchform.searchword.value = andsen;
+      if (andsen == '') {
+        alert("请输入检索词");
+        return false;
+      }
+      //document.all.searchform.submit();
+    }
+</script>
+
+</head>
+<body>
+    <div class="box">
+        <div class="wrap">
+            <div class="header">
+                <div class="header-top">
+              <div class="Accessibility">
+                           <a id="toolbarSwitch" style="color:#fff;" src="javascript:void(0)" href=" ">无障碍浏览</ a>
+                           </div>
+                    <img src="./images/logo_tj.png" alt="" />
+                    <a href="https://www.stats.gov.cn" target="_blank" title="返回首页"><img src="./images/text_tj.png" alt="" style="width: 200px;" /></a>
+                </div>
+                <div class="header-bottom">
+                    <a href="https://www.stats.gov.cn/xxgk/list2.html" target="_blank" title="政府信息公开首页"><img src="./images/title.png" alt="" /></a>
+                </div>
+            </div>
+            <div class="main" style="padding-top:88px">
+                <div class="content-wrap">
+                    <div class="p_search_2019 radius6">
+                      <form id="searchform" name="searchform" method="get" action="/xxgk/xxgk_search/index.html" target="_blank"
+              onSubmit="return submitForm()" class="xxgk_SInputBox1">
+              <div class="xxgk_SInputBox">
+                <input type="hidden" id="searchword" />
+                <input class="inp_srh_2019" id="andsen1" name="searchword" placeholder="请输入您要搜索的内容" autocomplete="off" />
+                <span class="btn_srh_2019" id="quickSearch"></span>
+              </div>
+              <div style="font-size:16px;">
+                <label style="margin-right:100px;"><input name="field" type="radio" checked value="xxgk_title" style="width:50px;height:20px;" />搜标题 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label><input name="field" type="radio" value="xxgk_content" style="width:50px;height:20px;" />搜全文
+                </label>
+              </div>
+            </form>
+                    </div>
+                    <div class="content">
+                        <div class="con-left">
+                            <ul class="navbar">
+                                <li class="nav-item" style="line-height:50px;">
+                                    <a href="/xxgk/zcfggz/tjfl2020/" target="myFrame">
+                                        政&emsp;&emsp;策
+                                    </a>
+                                    <i></i>
+                                </li>
+
+
+                               <ul class="sub-nav">
+				  
+				    <li class="sub-nav-item">
+                                      <a>统计法律规范</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./zcfggz/tjfl2020/" target="myFrame">统计法律</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zcfggz/tjxzfg2020/" target="myFrame">统计行政法规</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zcfggz/tjgz/" target="myFrame">统计规章</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zcfggz/gfxwj/" target="myFrame">规范性文件</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zcfggz/tjdfxfg/" target="myFrame">统计地方性法规</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a>统计标准</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./tjbz/gjtjbz/" target="myFrame">国家统计标准</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+                                 
+                               </ul>
+
+                                <li class="nav-item">
+                                    <a href="/xxgk/gkzn/202006/t20200624_1770336.html" target="myFrame">
+                                        政府信息公开指南
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/xxgk/gkzd/" target="myFrame">
+                                        政府信息公开制度
+                                    </a>
+                                </li>
+                                <li class="nav-item active">
+                                   
+                                    <a href="/xxgk/zzjgxx/gjtjjjld/" target="myFrame">
+                                        法定主动公开内容
+                                    </a>
+                                    <i></i>
+                                </li>
+
+
+                               <ul class="sub-nav">
+				  
+				    <li class="sub-nav-item">
+                                      <a >机关简介</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./zzjgxx/gjtjjzn/" target="myFrame">国家统计局职能</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zzjgxx/gjtjjjld/" target="myFrame">局领导、总师信息</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zzjgxx/jgsz/" target="myFrame">机构设置</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zzjgxx/lxfs/" target="myFrame">联系方式</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >统计调查制度</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./tjbzhzd/gjtjdczd/" target="myFrame">国家统计调查制度</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >数据发布</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./sjfb/fbrcb/" target="myFrame">发布日程表</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./sjfb/zxfb2020/" target="myFrame">最新发布</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./sjfb/tjgb2020/" target="myFrame">统计公报</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./sjfb/gjtjjsjfbk/" target="myFrame">国家统计局数据发布库</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./sjfb/pcsj/" target="myFrame">普查数据</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./sjfb/zgtjnb/" target="myFrame">中国统计年鉴</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >解读</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./jd/sjjd2020/" target="myFrame">数据解读</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./jd/zcjd/" target="myFrame">文件解读</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >行政许可</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./xzxk/ksswtjdcjgzgrd2020/" target="myFrame">跨省（区、市）涉外统计调查机构资格认定</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./xzxk/ksswshdcxmsp2020/" target="myFrame">跨省（区、市）涉外社会调查项目审批</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >政府统计调查项目审批</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./zftjdcxmsp/bmtjdcxm/" target="myFrame">部门统计调查项目</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./zftjdcxmsp/dftjdcxm/" target="myFrame">地方统计调查项目</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >统计执法监督</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./tjzfjcxx/zfzgs/" target="myFrame">执法证公示</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./tjzfjcxx/xzcfxxgs/" target="myFrame">行政处罚信息公示</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./tjzfjcxx/tjsyzsxqygsxx/" target="myFrame">统计严重失信企业信息公示</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./tjzfjcxx/tjzfjc/" target="myFrame">统计执法检查和双随机抽查</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./tjzfjcxx/tjwfjb/" target="myFrame">统计违法举报</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >建议提案答复</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./jytadf2020/rddbjy2020/" target="myFrame">人大代表建议</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./jytadf2020/zxwyta2020/" target="myFrame">政协委员提案</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >人事信息</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./rsxx/rsrm/" target="myFrame">人事任免</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./rsxx/gwyzl2020/" target="myFrame">公务员招录</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./rsxx/qsydwzp/" target="myFrame">企事业单位招聘</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./rsxx/tjzyzgks/" target="myFrame">统计专业资格考试</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a >财务信息</a>
+					 <ul class="third-nav" >							
+					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./cwxx/bmys/" target="myFrame">部门预算</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./cwxx/bmjs/" target="myFrame">部门决算</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./cwxx/zfcgxx/" target="myFrame">政府采购信息</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./cwxx/qtcwxx/" target="myFrame">其他财务信息</a>
+                                                </li>
+					      
+					   
+					 </ul>
+                                     </li>
+				  
+                                 
+                               </ul>
+
+                                <li class="nav-item">
+                                    <a href="/xxgk/gknb/tjj_gknb/" target="myFrame">
+                                        政府信息公开年报
+                                    </a>
+                                    <i></i>
+                                </li>
+
+                               <ul class="sub-nav">
+                                    <li class="sub-nav-item">
+                                        <a href="/xxgk/gknb/tjj_gknb/index.html" target="myFrame">国家统计局</a>
+                                    </li>
+                                    <li class="sub-nav-item">
+                                        <a >国家统计局调查总队</a>
+                                        <ul class="third-nav">
+       					   
+					     
+						<li class="third-nav-item">
+                                                   <a href="./gknb/dczd_gknb/dcd_2018/" target="myFrame">2018年</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./gknb/dczd_gknb/dcd_2017/" target="myFrame">2017年</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./gknb/dczd_gknb/dcd_2016/" target="myFrame">2016年</a>
+                                                </li>
+					      
+						<li class="third-nav-item">
+                                                   <a href="./gknb/dczd_gknb/dcd_2015/" target="myFrame">2015年</a>
+                                                </li>
+					      
+					   
+                                        </ul>
+                                    </li>
+                                <li class="sub-nav-item">
+                                        <a href="/xxgk/gknb/wznb/index.html" target="myFrame">网站年报</a>
+                                    </li>
+                                </ul>
+                               <li class="nav-item">
+                                    <a href="/xxgk/zfxxgksq/sq/" target="myFrame">
+                                        政府信息公开申请
+                                    </a>
+                                    <i></i>
+                               </li>
+                               <ul class="sub-nav">
+                                    <li class="sub-nav-item">
+                                        <a href="/xxgk/zfxxgksq/sq/" target="myFrame">申请须知/提交申请</a>
+                                    </li>
+                                    <!--<li class="sub-nav-item">
+                                        <a href="/statsinfo/ysqgk/applyform_add.html" target="_blank">申请表</a>
+                                    </li>-->
+                                    <li class="sub-nav-item">
+                                        <a href="/userCenter/center/lsysqgk" >申请进度/结果查询</a>
+                                    </li>
+<!--
+				  
+				    <li class="sub-nav-item">
+                                      <a href="./zfxxgksq/sq/" target="myFrame">申请须知</a>
+			            </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a href="./zfxxgksq/sqb/" target="myFrame">申请表</a>
+			            </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a href="./zfxxgksq/sqcx/" target="myFrame">申请进度查询</a>
+			            </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a href="./zfxxgksq/ysqgkgrxq/" target="myFrame">依申请公开个人详情</a>
+			            </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a href="./zfxxgksq/ysqgkywb/" target="myFrame">依申请公开英文版</a>
+			            </li>
+				  
+				    <li class="sub-nav-item">
+                                      <a href="./zfxxgksq/ysqgkyl/" target="myFrame">依申请公开预览</a>
+			            </li>
+				  
+-->                                 
+                               </ul>
+ 
+                            </ul>
+                        </div>
+                        <div class="con-right">
+                            <div class="p_right_box">
+                                <div style="height: 40px;"></div>
+                                <div class="iframe" style="width: 720px;margin: 0 auto;">
+                                    <iframe src="https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html" frameborder="no" name="myFrame" border="0" marginwidth="0" marginheight="0" scrolling="no" style="width: 720px;height: 1000px;"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             
+
+        </div>
+       <div class="footer" sytle="width:100%; margin:0px auto;">
+                 <iframe frameborder="0" marginheight="0" marginwidth="0" name="top" src="https://www.stats.gov.cn/xxgk/bottom_new.html" scrolling="no" style="width:100%; height: 180px;"></iframe>
+      </div>
+            </div> 
+    </div>
+    <script src="./images/jquery-1.12.4.min.js"></script>
+    <script src="./images/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="./images/index.js"></script>
+    <script src="./images/esdToolsInit.js" type="text/javascript"></script>
+<script>
+$('#quickSearch').click(function() {$('#searchform').submit();});
+</script>
+
+</body>
+</html>
+#

@@ -1,0 +1,80 @@
+{
+  "method": "Human-labelled original HTML, not copied from either extractor's parsed output. Independently validated with stdlib HTMLParser; raw excerpts and line ranges retained. Existing company annotation rechecked against this round's source.",
+  "normalization": "Ignore whitespace only. Preserve Chinese/English punctuation, case, dates, URLs, order. No NFKC, translation or semantic guessing.",
+  "source_review": {
+    "D_company": "scrapy/D_company/response.bin lines 315-484 reviewed, including accounts period END versus due-by date; all nine labels reconfirmed",
+    "D_home": "scrapy/D_home/response.bin lines 231-241; GET form action /search, input name q",
+    "E_shell": "scrapy/E_shell/response.bin lines 499 and 511, two iframe src; raw parent has zero of eight roster names",
+    "E_iframe": "scrapy/E_iframe/response.bin lines 148-198, ul.list, eight ordered name/role/date/link tuples; HTML title Document, business ColumnName 局领导、总师信息"
+  },
+  "D_home": {
+    "source_title": "Search the register - Find and update company information - GOV.UK",
+    "form_action": "https://find-and-update.company-information.service.gov.uk/search",
+    "query_parameter": "q",
+    "method": "get"
+  },
+  "D_company": {
+    "company_name": "TESCO PLC",
+    "company_number": "00445790",
+    "registered_office_address": "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA",
+    "company_status": "Active",
+    "company_type": "Public limited Company",
+    "incorporated_on": "27 November 1947",
+    "nature_of_business": "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating",
+    "previous_names": "TESCO STORES (HOLDINGS) PUBLIC LIMITED COMPANY | TESCO STORES (HOLDINGS) LIMITED",
+    "accounts_next_due": "26 August 2027"
+  },
+  "E_shell": {
+    "source_title": "国家统计局信息公开",
+    "iframe_target_urls": [
+      "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+      "https://www.stats.gov.cn/xxgk/bottom_new.html"
+    ]
+  },
+  "E_iframe": {
+    "html_title": "Document",
+    "business_title": "局领导、总师信息",
+    "rows": [
+      [
+        "党组书记、局长：康义",
+        "2024年01月22日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202203/t20220303_1828320.html"
+      ],
+      [
+        "党组成员、副局长：蔺涛",
+        "2023年09月20日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202106/t20210629_1818852.html"
+      ],
+      [
+        "党组成员、副局长：毛盛勇",
+        "2024年01月22日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202209/t20220907_1887969.html"
+      ],
+      [
+        "党组成员、副局长：阮健弘",
+        "2024年01月22日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202401/t20240124_1946857.html"
+      ],
+      [
+        "党组成员、副局长：雷小武",
+        "2026年03月27日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202603/t20260327_1962873.html"
+      ],
+      [
+        "总统计师：卢山",
+        "2025年07月08日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960358.html"
+      ],
+      [
+        "总经济师：付凌晖",
+        "2025年07月08日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960357.html"
+      ],
+      [
+        "总工程师：张洋",
+        "2025年07月08日",
+        "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/202507/t20250708_1960356.html"
+      ]
+    ]
+  }
+}

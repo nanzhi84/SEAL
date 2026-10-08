@@ -1,0 +1,1803 @@
+{
+  "generated_at": "2026-10-08T09:09:13.706+00:00",
+  "environment": {
+    "python": "3.14.6 (main, Jun 11 2026, 03:55:33) [Clang 22.1.3 ]",
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "packages": {
+      "itemloaders": "1.5.0",
+      "platformdirs": "4.12.4",
+      "websockets": "17.2",
+      "w3lib": "2.5.0",
+      "Scrapy": "2.19.0",
+      "pyOpenSSL": "26.4.0",
+      "greenlet": "3.5.6",
+      "nest-asyncio": "1.6.0",
+      "lxml": "6.1.3",
+      "packaging": "26.3",
+      "pypdf": "6.19.0",
+      "service-identity": "26.1.0",
+      "Incremental": "24.11.0",
+      "pytz": "2026.5",
+      "requests": "2.34.2",
+      "defusedxml": "0.7.1",
+      "yarl": "1.25.1",
+      "babel": "2.18.0",
+      "hyperlink": "21.0.0",
+      "pydantic_core": "2.46.5",
+      "trafilatura": "2.3.1",
+      "Twisted": "26.4.0",
+      "propcache": "0.5.4",
+      "itemadapter": "0.13.1",
+      "cssselect": "1.5.0",
+      "httpcore": "1.0.9",
+      "htmldate": "1.11.0",
+      "aiohappyeyeballs": "2.7.1",
+      "cryptography": "50.0.2",
+      "playwright": "1.63.0",
+      "requests-file": "3.0.1",
+      "jmespath": "1.1.0",
+      "parsel": "1.12.1",
+      "constantly": "23.10.4",
+      "tld": "0.13.2",
+      "scrapy-playwright": "0.0.48",
+      "dateparser": "1.4.3",
+      "urllib3": "2.8.0",
+      "aiohttp": "3.14.4",
+      "h11": "0.16.0",
+      "pydantic": "2.13.5",
+      "pycparser": "3.0",
+      "courlan": "1.4.0",
+      "python-dateutil": "2.9.0.post0",
+      "PyDispatcher": "2.0.7",
+      "lxml_html_clean": "0.4.5",
+      "python-dotenv": "1.2.4",
+      "frozenlist": "1.8.0",
+      "cffi": "2.1.1",
+      "aiosignal": "1.4.0",
+      "certifi": "2026.7.22",
+      "jusText": "3.0.2",
+      "tldextract": "5.4.0",
+      "filelock": "4.0.12",
+      "annotated-types": "0.8.0",
+      "tzlocal": "5.4.4",
+      "regex": "2026.9.29",
+      "typing-inspection": "0.4.4",
+      "Automat": "25.4.16",
+      "firecrawl-py": "4.49.3",
+      "attrs": "26.1.0",
+      "brotli": "1.2.0",
+      "zope.interface": "8.6",
+      "httpx": "0.28.1",
+      "typing_extensions": "4.16.0",
+      "pyee": "13.0.1",
+      "queuelib": "1.10.0",
+      "charset-normalizer": "3.5.2",
+      "Protego": "0.7.0",
+      "anyio": "4.15.1",
+      "six": "1.17.0",
+      "multidict": "6.9.1",
+      "idna": "3.20"
+    },
+    "firecrawl_api_key_present": false,
+    "self_host_url_present": false,
+    "proxy_environment_present": true,
+    "proxy_note": "inherited local outbound path; value deliberately not logged; not rotated",
+    "production_changes": false
+  },
+  "scope": "archived real-site evidence + offline/loopback E2E + separately authorized real cloud Parse on synthetic HTML",
+  "credential_update": {
+    "credential_supplied_by_user": true,
+    "credential_value_recorded": false,
+    "api_credential_validated": true,
+    "current_status": "AUTHORIZED_SYNTHETIC_PARSE_CAMPAIGN_COMPLETED",
+    "campaign": "results/firecrawl_fixture-20261008-approved1",
+    "authorized_budget": {
+      "api_calls": 6,
+      "credits": 4,
+      "target_website_requests": 0
+    },
+    "actual": {
+      "api_calls": 6,
+      "credits": 4,
+      "target_website_requests": 0
+    },
+    "new_network_authorization_remaining": {
+      "api_calls": 0,
+      "credits": 0
+    },
+    "live_site_status": "NOT_TESTED; current approval covered synthetic uploads only",
+    "prior_firecrawl_status": "Historical missing-environment check retained; does not describe the successful approved campaign",
+    "credential_handling": "Injected into one child process in memory from user's supplied credential; no secret value in experiment files."
+  },
+  "sites": {
+    "A": {
+      "scrapy": {
+        "status": "PASS_ARCHIVED_SAMPLE",
+        "detail": "2 lists / 5 details; 40/40 links on these pages only",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "NOT_TESTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    },
+    "B": {
+      "scrapy": {
+        "status": "PARTIAL",
+        "detail": "home + 1 news article; procurement notices NOT_TESTED; historical 403/UA retry tainted",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "NOT_TESTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    },
+    "C": {
+      "scrapy": {
+        "status": "PASS_ARCHIVED_SAMPLE",
+        "detail": "107131 bytes; 5 pages; 111/111 independently checked table rows",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "NOT_TESTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    },
+    "D": {
+      "scrapy": {
+        "status": "BLOCKED_POLICY",
+        "detail": "robots transport failed; offline 9/9 fields after Recipe repair; search NOT_TESTED",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "NOT_TESTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    },
+    "E": {
+      "scrapy": {
+        "status": "PARTIAL",
+        "detail": "200 shell, empty body, 2 iframe URLs; child documents not fetched",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "NOT_TESTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    },
+    "F": {
+      "scrapy": {
+        "status": "ACCESS_RESTRICTED",
+        "detail": "HTTP 412 in urllib preflight, not Scrapy parser failure",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "FAILED_TAINTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    },
+    "G": {
+      "scrapy": {
+        "status": "ACCESS_RESTRICTED",
+        "detail": "HTTP 412 in urllib preflight, not Scrapy parser failure",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "FAILED_TAINTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    },
+    "H": {
+      "scrapy": {
+        "status": "PASS_ARCHIVED_SAMPLE",
+        "detail": "1 list / 1 batch document; 30 links not independently graded",
+        "evidence_source": "inherited live artifacts; F/G preflight only"
+      },
+      "firecrawl": {
+        "status": "NOT_TESTED",
+        "reason": "new authorization only covers synthetic Parse uploads",
+        "historical_status": "BLOCKED due to missing environment key; now credential validated"
+      },
+      "scrapy_playwright": {
+        "status": "NOT_TESTED",
+        "detail": "prior restricted-site attempts excluded; no replay as real-site success"
+      }
+    }
+  },
+  "quality": {
+    "details": [
+      {
+        "target": "A_detail_1",
+        "title_exact": true,
+        "date_exact": true,
+        "body_exact": true,
+        "body_chars_non_whitespace": 2905,
+        "title_oracle": "指导性案例279号：西某工业软件有限公司诉广州沃某模具有限公司侵害计算机软件著作权纠纷案",
+        "date_oracle": "2026-02-28",
+        "body_marker": "<div class=\"txt_txt\">",
+        "body_oracle_sha256": "a176cb2558ff8355ec00bc0dfb6058c127dc2cdade32c03d78d96bf156e1b45b",
+        "raw_sha256": "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+        "attachments_exact": true,
+        "attachments_expected": 0,
+        "generic": {
+          "title_exact": true,
+          "date_exact": true,
+          "body_exact": true,
+          "expected_segments": 19,
+          "segments_present": 19,
+          "body_chars": 2945
+        }
+      },
+      {
+        "target": "A_detail_2",
+        "title_exact": true,
+        "date_exact": true,
+        "body_exact": true,
+        "body_chars_non_whitespace": 2877,
+        "title_oracle": "指导性案例278号：福建恒某科技有限公司诉泉州日某流量仪器仪表有限公司因恶意提起知识产权诉讼损害责任纠纷案",
+        "date_oracle": "2026-02-28",
+        "body_marker": "<div class=\"txt_txt\">",
+        "body_oracle_sha256": "e8a57546fce6ad5e1c708d1340847d6884a039fb1e3f11a0868a5196426af890",
+        "raw_sha256": "fa919ad86d193dcaab2944cea9bb770b1542b96be113a1a5474e90f573c99c8f",
+        "attachments_exact": true,
+        "attachments_expected": 0,
+        "generic": {
+          "title_exact": true,
+          "date_exact": true,
+          "body_exact": true,
+          "expected_segments": 21,
+          "segments_present": 21,
+          "body_chars": 2923
+        }
+      },
+      {
+        "target": "A_detail_3",
+        "title_exact": true,
+        "date_exact": true,
+        "body_exact": true,
+        "body_chars_non_whitespace": 4696,
+        "title_oracle": "指导性案例277号：江苏宏某旋转补偿器科技有限公司诉江苏远某波纹管有限公司等侵害发明专利权纠纷案",
+        "date_oracle": "2026-02-28",
+        "body_marker": "<div class=\"txt_txt\">",
+        "body_oracle_sha256": "d680ad382f3eb37ac9b144b822a6242b874b73c7d9fa64fdce79201b16c3452e",
+        "raw_sha256": "e75734d0d4a488456673744b5ef55bc30d6eedd480e37a0d2d3d62e2747865f5",
+        "attachments_exact": true,
+        "attachments_expected": 0,
+        "generic": {
+          "title_exact": true,
+          "date_exact": true,
+          "body_exact": true,
+          "expected_segments": 21,
+          "segments_present": 21,
+          "body_chars": 4722
+        }
+      },
+      {
+        "target": "A_detail_4",
+        "title_exact": true,
+        "date_exact": true,
+        "body_exact": true,
+        "body_chars_non_whitespace": 4156,
+        "title_oracle": "指导性案例276号：诺某股份有限公司诉国家知识产权局、第三人戴某良发明专利权无效行政纠纷案",
+        "date_oracle": "2026-02-28",
+        "body_marker": "<div class=\"txt_txt\">",
+        "body_oracle_sha256": "f225465b318cfd8922306520286eeb8da52ae62cc36ff1c19c50e6987f9ca152",
+        "raw_sha256": "063805ef0dbf7722ce6e04ee4771f550f186211e00ffa74f9251145ef71d5103",
+        "attachments_exact": true,
+        "attachments_expected": 0,
+        "generic": {
+          "title_exact": true,
+          "date_exact": true,
+          "body_exact": true,
+          "expected_segments": 20,
+          "segments_present": 20,
+          "body_chars": 4198
+        }
+      },
+      {
+        "target": "A_detail_5",
+        "title_exact": true,
+        "date_exact": true,
+        "body_exact": true,
+        "body_chars_non_whitespace": 2529,
+        "title_oracle": "指导性案例275号：江苏省金某种业科技有限公司诉江苏亲某农业产业发展有限公司侵害植物新品种权纠纷案",
+        "date_oracle": "2026-02-28",
+        "body_marker": "<div class=\"txt_txt\">",
+        "body_oracle_sha256": "b20fe798d81def854f4a8da049541697f12229833c4733c75c0a35eb6457b4f5",
+        "raw_sha256": "9d6065c6571a8f2e189d76967c43506743c15d11eadbae7eed606cede883f05d",
+        "attachments_exact": true,
+        "attachments_expected": 0,
+        "generic": {
+          "title_exact": true,
+          "date_exact": true,
+          "body_exact": true,
+          "expected_segments": 17,
+          "segments_present": 17,
+          "body_chars": 2567
+        }
+      },
+      {
+        "target": "B_detail_1",
+        "title_exact": true,
+        "date_exact": true,
+        "body_exact": true,
+        "body_chars_non_whitespace": 692,
+        "title_oracle": "财政部发布2025年全国政府采购简要情况",
+        "date_oracle": "2026-09-28",
+        "body_marker": "<div class=\"vF_detail_content\">",
+        "body_oracle_sha256": "352270dc70eb45ea013cada657cef32f8bda2f85a65ecc2a7680423e45ed672f",
+        "raw_sha256": "af0b006f304839cdee6ecb875c6bfe4fb63f7bf886ff66dc543a0d8401260ead",
+        "attachments_exact": true,
+        "attachments_expected": 0,
+        "generic": {
+          "title_exact": false,
+          "date_exact": true,
+          "body_exact": false,
+          "expected_segments": 4,
+          "segments_present": 4,
+          "body_chars": 754
+        }
+      },
+      {
+        "target": "H_detail_1",
+        "title_exact": true,
+        "date_exact": true,
+        "body_exact": true,
+        "body_chars_non_whitespace": 20825,
+        "title_oracle": "第六十三批指导性案例",
+        "date_oracle": "2026-08-05",
+        "body_marker": "<div id=\"fontzoom\">",
+        "body_oracle_sha256": "16041835fbeb92dc91591bb6eed55abe707f2fe52372717074864dcf66924f0b",
+        "raw_sha256": "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+        "attachments_exact": true,
+        "attachments_expected": 0,
+        "generic": {
+          "title_exact": false,
+          "date_exact": true,
+          "body_exact": false,
+          "expected_segments": 170,
+          "segments_present": 170,
+          "body_chars": 20788
+        }
+      }
+    ],
+    "discovery": {
+      "expected": 40,
+      "found": 40,
+      "matched": 40,
+      "coverage": 1.0,
+      "parent_edges": 5,
+      "pagination_url_correct": true,
+      "scope": "two archived pages only; whole-site discovery UNKNOWN",
+      "live_discovery_to_fetch_e2e": "NOT_PROVEN; original details were seed targets"
+    },
+    "pdf": {
+      "expected_rows": 111,
+      "recovered_rows": 111,
+      "matched_rows": 111,
+      "ordered": true,
+      "page_ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          23,
+          49
+        ],
+        [
+          50,
+          76
+        ],
+        [
+          77,
+          103
+        ],
+        [
+          104,
+          111
+        ]
+      ],
+      "page_ranges_correct": true,
+      "scope": "one born-digital 5-page table, not scanned/OCR/multi-column generalization"
+    },
+    "field_evidence": {
+      "checked": 30,
+      "valid": 30,
+      "fields": [
+        {
+          "target": "A_detail_1",
+          "field": "title",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_1",
+          "field": "published_at",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_1",
+          "field": "body_text",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_2",
+          "field": "title",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_2",
+          "field": "published_at",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_2",
+          "field": "body_text",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_3",
+          "field": "title",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_3",
+          "field": "published_at",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_3",
+          "field": "body_text",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_4",
+          "field": "title",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_4",
+          "field": "published_at",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_4",
+          "field": "body_text",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_5",
+          "field": "title",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_5",
+          "field": "published_at",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "A_detail_5",
+          "field": "body_text",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "B_detail_1",
+          "field": "title",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "B_detail_1",
+          "field": "published_at",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "B_detail_1",
+          "field": "body_text",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "H_detail_1",
+          "field": "title",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "H_detail_1",
+          "field": "published_at",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "H_detail_1",
+          "field": "body_text",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "company_name",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "company_number",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "registered_office_address",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "company_status",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "company_type",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "incorporated_on",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "nature_of_business",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "previous_names",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        },
+        {
+          "target": "D_company",
+          "field": "accounts_next_due",
+          "quote_resolves": true,
+          "snapshot_hash_linked": true
+        }
+      ],
+      "limitation": "XPath + prefix quote, not byte offsets or full-field structured proof"
+    }
+  },
+  "scrapy_historical_live": {
+    "requests": 15,
+    "http_200": 15,
+    "quality_note": "15 HTTP responses != 15 successful documents",
+    "wall_seconds": 20.051139582996257,
+    "response_bytes_scrapy_stat": 500569,
+    "saved_response_body_bytes": 556108,
+    "download_latency_median_seconds": 0.467,
+    "download_latency_range_seconds": [
+      0.076,
+      3.72
+    ],
+    "peak_rss_bytes_scrapy_sampled": 87949312,
+    "timing_caveat": "single mixed-site run, scheduling + delay included, historical policy caveats; no speed ranking"
+  },
+  "budget": {
+    "maximum_external_requests": 80,
+    "maximum_firecrawl_credits": 30,
+    "historical_declared_top_level_requests": 70,
+    "actual_total_external_requests": null,
+    "unknown_reason": "browser subrequests / redirect hops not fully logged; two historical API probes unsubstantiated",
+    "new_target_website_requests_this_continuation": 0,
+    "new_firecrawl_api_requests_this_continuation": 6,
+    "new_firecrawl_credits_this_continuation": 4,
+    "separately_authorized_cloud_budget": {
+      "api_calls": 6,
+      "credits": 4,
+      "target_site_requests": 0
+    },
+    "historical_actual_firecrawl_credits": null,
+    "historic_declared_credits": 0,
+    "cash_payment_initiated_this_continuation": 0,
+    "whole_experiment_cash_cost": "UNKNOWN; no billing evidence / no machine or bandwidth dollar metering",
+    "strict_budget_compliance": "UNKNOWN; fail closed, no further target traffic",
+    "research_traffic": {
+      "context7_resolve_calls": 2,
+      "context7_query_calls": 3,
+      "official_docs_fetch_urls": 3,
+      "note": "research/control-plane calls excluded from target benchmark; provider fanout unknown"
+    }
+  },
+  "local_e2e": {
+    "raw_fixture_seconds": 18.626861500088125,
+    "raw_fixture_requests": 7,
+    "playwright_fixture_seconds": 18.18955454195384,
+    "playwright_fixture_requests": 2,
+    "playwright_external_requests": 0,
+    "raw_runner_peak_rss_bytes": 94175232,
+    "playwright_runner_peak_rss_bytes": 99598336,
+    "memory_scope": "Python runner; browser process tree not measured",
+    "list_replay": {
+      "sample_class": "REAL_ARCHIVE_LOCAL_HTTP_REPLAY",
+      "list_count": 2,
+      "details": [
+        {
+          "source_url": "https://www.court.gov.cn/shenpan/xiangqing/490481.html",
+          "title": "指导性案例275号：江苏省金某种业科技有限公司诉江苏亲某农业产业发展有限公司侵害植物新品种权纠纷案",
+          "body_chars": 2579,
+          "matches_archived": true
+        },
+        {
+          "source_url": "https://www.court.gov.cn/shenpan/xiangqing/490491.html",
+          "title": "指导性案例276号：诺某股份有限公司诉国家知识产权局、第三人戴某良发明专利权无效行政纠纷案",
+          "body_chars": 4212,
+          "matches_archived": true
+        },
+        {
+          "source_url": "https://www.court.gov.cn/shenpan/xiangqing/490501.html",
+          "title": "指导性案例277号：江苏宏某旋转补偿器科技有限公司诉江苏远某波纹管有限公司等侵害发明专利权纠纷案",
+          "body_chars": 4800,
+          "matches_archived": true
+        },
+        {
+          "source_url": "https://www.court.gov.cn/shenpan/xiangqing/490511.html",
+          "title": "指导性案例278号：福建恒某科技有限公司诉泉州日某流量仪器仪表有限公司因恶意提起知识产权诉讼损害责任纠纷案",
+          "body_chars": 2937,
+          "matches_archived": true
+        },
+        {
+          "source_url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+          "title": "指导性案例279号：西某工业软件有限公司诉广州沃某模具有限公司侵害计算机软件著作权纠纷案",
+          "body_chars": 2959,
+          "matches_archived": true
+        }
+      ],
+      "edges": [
+        {
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "detail_url": "https://www.court.gov.cn/shenpan/xiangqing/490481.html"
+        },
+        {
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "detail_url": "https://www.court.gov.cn/shenpan/xiangqing/490491.html"
+        },
+        {
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "detail_url": "https://www.court.gov.cn/shenpan/xiangqing/490501.html"
+        },
+        {
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "detail_url": "https://www.court.gov.cn/shenpan/xiangqing/490511.html"
+        },
+        {
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "detail_url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html"
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "status": 200,
+          "at_monotonic": 711472.23464325
+        },
+        {
+          "url": "https://www.court.gov.cn/shenpan/xiangqing/490481.html",
+          "status": 200,
+          "at_monotonic": 711475.237468375
+        },
+        {
+          "url": "https://www.court.gov.cn/shenpan/xiangqing/490491.html",
+          "status": 200,
+          "at_monotonic": 711478.236903708
+        },
+        {
+          "url": "https://www.court.gov.cn/shenpan/xiangqing/490501.html",
+          "status": 200,
+          "at_monotonic": 711481.238003583
+        },
+        {
+          "url": "https://www.court.gov.cn/shenpan/xiangqing/490511.html",
+          "status": 200,
+          "at_monotonic": 711484.240138041
+        },
+        {
+          "url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+          "status": 200,
+          "at_monotonic": 711487.240116458
+        },
+        {
+          "url": "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+          "status": 200,
+          "at_monotonic": 711490.240767
+        }
+      ],
+      "external_requests": 0,
+      "request_count": 7,
+      "elapsed_s": 18.6121302919928,
+      "all_bodies_match_archived": true
+    },
+    "acceptance": {
+      "at": "2026-10-08T08:39:58.839758+00:00",
+      "baseline": false,
+      "command": "acceptance.py",
+      "checks": [
+        {
+          "name": "command:scrapy_test.py replay",
+          "status": "PASS",
+          "detail": {
+            "exit_code": 0,
+            "log": "logs/acceptance_20261008T083902427713_scrapy_test.py_replay.log"
+          }
+        },
+        {
+          "name": "command:scrapy_test.py pdf",
+          "status": "PASS",
+          "detail": {
+            "exit_code": 0,
+            "log": "logs/acceptance_20261008T083902525060_scrapy_test.py_pdf.log"
+          }
+        },
+        {
+          "name": "command:fixture_test.py raw",
+          "status": "PASS",
+          "detail": {
+            "exit_code": 0,
+            "log": "logs/acceptance_20261008T083921342914_fixture_test.py_raw.log"
+          }
+        },
+        {
+          "name": "command:fixture_test.py playwright",
+          "status": "PASS",
+          "detail": {
+            "exit_code": 0,
+            "log": "logs/acceptance_20261008T083939742058_fixture_test.py_playwright.log"
+          }
+        },
+        {
+          "name": "command:list_replay.py",
+          "status": "PASS",
+          "detail": {
+            "exit_code": 0,
+            "log": "logs/acceptance_20261008T083958570805_list_replay.py.log"
+          }
+        },
+        {
+          "name": "command:quality_audit.py",
+          "status": "PASS",
+          "detail": {
+            "exit_code": 0,
+            "log": "logs/acceptance_20261008T083958630981_quality_audit.py.log"
+          }
+        },
+        {
+          "name": "command:firecrawl_test.py status",
+          "status": "PASS",
+          "detail": {
+            "exit_code": 0,
+            "log": "logs/acceptance_20261008T083958838783_firecrawl_test.py_status.log"
+          }
+        },
+        {
+          "name": "D:company_name",
+          "status": "PASS",
+          "detail": {
+            "expected": "TESCO PLC",
+            "actual": "TESCO PLC"
+          }
+        },
+        {
+          "name": "D:company_number",
+          "status": "PASS",
+          "detail": {
+            "expected": "00445790",
+            "actual": "00445790"
+          }
+        },
+        {
+          "name": "D:registered_office_address",
+          "status": "PASS",
+          "detail": {
+            "expected": "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA",
+            "actual": "Tesco House, Shire Park, Kestrel Way, Welwyn Garden City, United Kingdom, AL7 1GA"
+          }
+        },
+        {
+          "name": "D:company_status",
+          "status": "PASS",
+          "detail": {
+            "expected": "Active",
+            "actual": "Active"
+          }
+        },
+        {
+          "name": "D:company_type",
+          "status": "PASS",
+          "detail": {
+            "expected": "Public limited Company",
+            "actual": "Public limited Company"
+          }
+        },
+        {
+          "name": "D:incorporated_on",
+          "status": "PASS",
+          "detail": {
+            "expected": "27 November 1947",
+            "actual": "27 November 1947"
+          }
+        },
+        {
+          "name": "D:nature_of_business",
+          "status": "PASS",
+          "detail": {
+            "expected": "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating",
+            "actual": "47110 - Retail sale in non-specialised stores with food, beverages or tobacco predominating"
+          }
+        },
+        {
+          "name": "D:previous_names",
+          "status": "PASS",
+          "detail": {
+            "expected": "TESCO STORES (HOLDINGS) PUBLIC LIMITED COMPANY | TESCO STORES (HOLDINGS) LIMITED",
+            "actual": "TESCO STORES (HOLDINGS) PUBLIC LIMITED COMPANY | TESCO STORES (HOLDINGS) LIMITED"
+          }
+        },
+        {
+          "name": "D:accounts_next_due",
+          "status": "PASS",
+          "detail": {
+            "expected": "26 August 2027",
+            "actual": "26 August 2027"
+          }
+        },
+        {
+          "name": "PDF:page_count",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "PDF:page_1_locatable",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "PDF:page_2_locatable",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "PDF:page_3_locatable",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "PDF:page_4_locatable",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "PDF:page_5_locatable",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Replay:deterministic_all",
+          "status": "PASS",
+          "detail": {
+            "checked": 14,
+            "identical_to_live": 13,
+            "deterministic": 14,
+            "changed": [
+              "D_company"
+            ],
+            "items": {
+              "A_list_p1": {
+                "recipe": "court_list",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "3c7ff9bcb0d6d0b457f69422cb08eb2506831c0e7596b5e0622c967caaf2e74e",
+                "body_chars": 0
+              },
+              "A_detail_1": {
+                "recipe": "court_detail",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+                "body_chars": 2959
+              },
+              "A_detail_2": {
+                "recipe": "court_detail",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "fa919ad86d193dcaab2944cea9bb770b1542b96be113a1a5474e90f573c99c8f",
+                "body_chars": 2937
+              },
+              "A_detail_3": {
+                "recipe": "court_detail",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "e75734d0d4a488456673744b5ef55bc30d6eedd480e37a0d2d3d62e2747865f5",
+                "body_chars": 4800
+              },
+              "A_detail_4": {
+                "recipe": "court_detail",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "063805ef0dbf7722ce6e04ee4771f550f186211e00ffa74f9251145ef71d5103",
+                "body_chars": 4212
+              },
+              "A_detail_5": {
+                "recipe": "court_detail",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "9d6065c6571a8f2e189d76967c43506743c15d11eadbae7eed606cede883f05d",
+                "body_chars": 2579
+              },
+              "B_home": {
+                "recipe": "ccgp_list",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "4a8c32789f57b9735adce580234f4d10ef171cfa5861a20c191836967ea2f061",
+                "body_chars": 0
+              },
+              "B_detail_1": {
+                "recipe": "ccgp_detail",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "af0b006f304839cdee6ecb875c6bfe4fb63f7bf886ff66dc543a0d8401260ead",
+                "body_chars": 698
+              },
+              "D_home": {
+                "recipe": "ch_search",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "a36b0c46211780524dd5cd225c08188b015c81cfa0ec8274c20dc6effb038246",
+                "body_chars": 0
+              },
+              "D_company": {
+                "recipe": "ch_company",
+                "identical_to_live": false,
+                "deterministic": true,
+                "raw_sha256": "0bf52d2e529df626c4e6c796c88287d823b9597d911d8a985f37b19506ffa5d4",
+                "body_chars": 510
+              },
+              "E_list": {
+                "recipe": "stats_iframe",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "7b44f745b04c5ccb5bfedfee22a88e6d6c5428444a26d5bbc2d98f9b7a98313f",
+                "body_chars": 0
+              },
+              "H_list": {
+                "recipe": "spp_list",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "490a432ac9ad4949677b23c7afd2635d7c305d80d4f04b1619ae4b7aedc64458",
+                "body_chars": 0
+              },
+              "H_detail_1": {
+                "recipe": "spp_detail",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+                "body_chars": 21078
+              },
+              "A_list_p1__p2": {
+                "recipe": "court_list",
+                "identical_to_live": true,
+                "deterministic": true,
+                "raw_sha256": "049c88f513cf1e870f7c09a11dcfbdd6adb2178d48742ebdfd8d61d731c33ec8",
+                "body_chars": 0
+              }
+            }
+          }
+        },
+        {
+          "name": "Revision:raw_A_B_differ",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Revision:content_A_B_equal",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Revision:content_B_C_differ",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Revision:repeat_equal",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Revision:identity_constant",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Revision:two_revisions_four_observations",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Revision:title_change_detected",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Revision:legitimate_body_timestamp_preserved",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "JSON:three_documents",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "JSON:attachment_relation",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "TXT:field_evidence",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "JS:raw_does_not_claim_rendered",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "JS:rendered_target",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "iframe:rendered_target",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Browser:no_external_requests",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Browser:subrequests_metered_and_paced",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Discovery:real_response_callback_walk",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "A:two_page_coverage",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "A:five_verified_parent_edges",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Details:seven_exact_bodies",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Details:seven_titles_dates",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "PDF:111_rows_independent",
+          "status": "PASS",
+          "detail": null
+        },
+        {
+          "name": "Firecrawl:honest_missing_key",
+          "status": "PASS",
+          "detail": null
+        }
+      ],
+      "passed": 46,
+      "failed": 0,
+      "scope": "local E2E + archived real response replay; not new live-site success"
+    }
+  },
+  "revision": {
+    "raw_hashes": {
+      "a": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264",
+      "b": "99619784fe4b54cf62f50abc2eb7922f8817530a084a4ffc11fc1e5ee83f5323",
+      "c": "d88c2224c5f03ea446eda6c07ea3bf8b02fdb89168c28065258cc4ef4e32daf8",
+      "a_repeat": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264"
+    },
+    "content_hashes": {
+      "a": "6dc783ab6b56255863202e888ad8412d3386888a7ea84fd2e715622dbc2ab023",
+      "b": "6dc783ab6b56255863202e888ad8412d3386888a7ea84fd2e715622dbc2ab023",
+      "c": "c991f8710cacb3cf3c86f172078673281c0d6daec1e6948bbda3e035ec9f835e",
+      "a_repeat": "6dc783ab6b56255863202e888ad8412d3386888a7ea84fd2e715622dbc2ab023"
+    },
+    "observations": 4,
+    "revisions": 2,
+    "added_by": "SEAL experiment layer, not Scrapy/Firecrawl"
+  },
+  "replay": {
+    "checked": 14,
+    "identical_to_live": 13,
+    "deterministic": 14,
+    "changed": [
+      "D_company"
+    ],
+    "items": {
+      "A_list_p1": {
+        "recipe": "court_list",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "3c7ff9bcb0d6d0b457f69422cb08eb2506831c0e7596b5e0622c967caaf2e74e",
+        "body_chars": 0
+      },
+      "A_detail_1": {
+        "recipe": "court_detail",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+        "body_chars": 2959
+      },
+      "A_detail_2": {
+        "recipe": "court_detail",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "fa919ad86d193dcaab2944cea9bb770b1542b96be113a1a5474e90f573c99c8f",
+        "body_chars": 2937
+      },
+      "A_detail_3": {
+        "recipe": "court_detail",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "e75734d0d4a488456673744b5ef55bc30d6eedd480e37a0d2d3d62e2747865f5",
+        "body_chars": 4800
+      },
+      "A_detail_4": {
+        "recipe": "court_detail",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "063805ef0dbf7722ce6e04ee4771f550f186211e00ffa74f9251145ef71d5103",
+        "body_chars": 4212
+      },
+      "A_detail_5": {
+        "recipe": "court_detail",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "9d6065c6571a8f2e189d76967c43506743c15d11eadbae7eed606cede883f05d",
+        "body_chars": 2579
+      },
+      "B_home": {
+        "recipe": "ccgp_list",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "4a8c32789f57b9735adce580234f4d10ef171cfa5861a20c191836967ea2f061",
+        "body_chars": 0
+      },
+      "B_detail_1": {
+        "recipe": "ccgp_detail",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "af0b006f304839cdee6ecb875c6bfe4fb63f7bf886ff66dc543a0d8401260ead",
+        "body_chars": 698
+      },
+      "D_home": {
+        "recipe": "ch_search",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "a36b0c46211780524dd5cd225c08188b015c81cfa0ec8274c20dc6effb038246",
+        "body_chars": 0
+      },
+      "D_company": {
+        "recipe": "ch_company",
+        "identical_to_live": false,
+        "deterministic": true,
+        "raw_sha256": "0bf52d2e529df626c4e6c796c88287d823b9597d911d8a985f37b19506ffa5d4",
+        "body_chars": 510
+      },
+      "E_list": {
+        "recipe": "stats_iframe",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "7b44f745b04c5ccb5bfedfee22a88e6d6c5428444a26d5bbc2d98f9b7a98313f",
+        "body_chars": 0
+      },
+      "H_list": {
+        "recipe": "spp_list",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "490a432ac9ad4949677b23c7afd2635d7c305d80d4f04b1619ae4b7aedc64458",
+        "body_chars": 0
+      },
+      "H_detail_1": {
+        "recipe": "spp_detail",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+        "body_chars": 21078
+      },
+      "A_list_p1__p2": {
+        "recipe": "court_list",
+        "identical_to_live": true,
+        "deterministic": true,
+        "raw_sha256": "049c88f513cf1e870f7c09a11dcfbdd6adb2178d48742ebdfd8d61d731c33ec8",
+        "body_chars": 0
+      }
+    }
+  },
+  "pdf_detail": {
+    "raw_bytes": 107131,
+    "raw_sha256": "48aac4d1a8230aec91ec160a3fc4bcfe77fa5c8179c483d4e23a22445f2c683a",
+    "page_count": 5,
+    "extraction_seconds": 0.038,
+    "error": null,
+    "parser": "pypdf",
+    "metadata": {
+      "/Author": "",
+      "/Comments": "",
+      "/Company": "",
+      "/CreationDate": "D:20170524112329+03'23'",
+      "/Creator": "",
+      "/Keywords": "",
+      "/ModDate": "D:20170524112329+03'23'",
+      "/Producer": "",
+      "/SourceModified": "D:20170524112329+03'23'",
+      "/Subject": "",
+      "/Title": "",
+      "/Trapped": "False"
+    },
+    "page_char_counts": [
+      711,
+      841,
+      857,
+      834,
+      482
+    ],
+    "table_rows_recovered": 111,
+    "table_row_samples": [
+      [
+        "1",
+        "佛山市锋隆电子有限公司",
+        "IFPI A100-123"
+      ],
+      [
+        "2",
+        "北京云成激光唱盘有限公司",
+        "IFPI A200-224"
+      ],
+      [
+        "3",
+        "珠海经济特区海纳激光制作有限公司",
+        "IFPI B400-409,411-418"
+      ],
+      [
+        "4",
+        "江苏新广联科技股份有限公司",
+        "IFPI D200-254"
+      ],
+      [
+        "5",
+        "海南震宇光盘有限公司",
+        "IFPI D400-412"
+      ]
+    ],
+    "table_row_last": [
+      [
+        "109",
+        "北京华信翔龙光盘有限公司",
+        "IFPI ZAL00-12"
+      ],
+      [
+        "110",
+        "普宁市益宁科技有限公司",
+        "IFPI ZAM00-01"
+      ],
+      [
+        "111",
+        "中航御铭（安阳）科技有限公司",
+        "IFPI ZAN00-13"
+      ]
+    ],
+    "locator_example": {
+      "span": [
+        0,
+        60
+      ],
+      "page": 1
+    }
+  },
+  "firecrawl": {
+    "historical_environment_check": {
+      "at": "2026-10-08T08:39:58.804+00:00",
+      "status": "BLOCKED",
+      "requested_mode": "status",
+      "reason": "MISSING_FIRECRAWL_API_KEY",
+      "key_present": false,
+      "custom_endpoint_configured": false,
+      "cloud_scrape": "BLOCKED",
+      "cloud_parse_fixtures": "BLOCKED",
+      "self_hosted": "NOT_TESTED",
+      "external_requests_this_run": 0,
+      "credits_this_run": 0,
+      "historical_credit_probe": "DECLARED_ONLY; no response artifact retained",
+      "underlying_provider_requests": "UNKNOWN / no job started this run"
+    },
+    "approved_fixture_campaign": {
+      "at": "2026-10-08T09:09:13.616+00:00",
+      "sample_class": "SYNTHETIC_CLOUD_PARSE",
+      "request_count": 6,
+      "requests_with_responses": 6,
+      "target_website_requests": 0,
+      "budget_requests_ok": true,
+      "documents": [
+        {
+          "name": "a",
+          "input_hash_verified": true,
+          "body_nonempty": true,
+          "body_chars": 619,
+          "expected_segments": 5,
+          "matched_segments": 5,
+          "metadata_title": "指导性案例999号：某甲诉某乙合同纠纷案 - 中华人民共和国最高人民法院",
+          "metadata_published_at": null,
+          "footer_markers": [],
+          "navigation_markers": [
+            "所在位置",
+            "字号",
+            "打印本页"
+          ],
+          "raw_html_bytes_equal_input": true,
+          "limitation": "long-segment containment, not a general Markdown-to-plain-text completeness score"
+        },
+        {
+          "name": "b",
+          "input_hash_verified": true,
+          "body_nonempty": true,
+          "body_chars": 619,
+          "expected_segments": 5,
+          "matched_segments": 5,
+          "metadata_title": "指导性案例999号：某甲诉某乙合同纠纷案 - 中华人民共和国最高人民法院",
+          "metadata_published_at": null,
+          "footer_markers": [],
+          "navigation_markers": [
+            "所在位置",
+            "字号",
+            "打印本页"
+          ],
+          "raw_html_bytes_equal_input": true,
+          "limitation": "long-segment containment, not a general Markdown-to-plain-text completeness score"
+        },
+        {
+          "name": "c",
+          "input_hash_verified": true,
+          "body_nonempty": true,
+          "body_chars": 619,
+          "expected_segments": 5,
+          "matched_segments": 5,
+          "metadata_title": "指导性案例999号：某甲诉某乙合同纠纷案 - 中华人民共和国最高人民法院",
+          "metadata_published_at": null,
+          "footer_markers": [],
+          "navigation_markers": [
+            "所在位置",
+            "字号",
+            "打印本页"
+          ],
+          "raw_html_bytes_equal_input": true,
+          "limitation": "long-segment containment, not a general Markdown-to-plain-text completeness score"
+        },
+        {
+          "name": "a_repeat",
+          "input_hash_verified": true,
+          "body_nonempty": true,
+          "body_chars": 619,
+          "expected_segments": 5,
+          "matched_segments": 5,
+          "metadata_title": "指导性案例999号：某甲诉某乙合同纠纷案 - 中华人民共和国最高人民法院",
+          "metadata_published_at": null,
+          "footer_markers": [],
+          "navigation_markers": [
+            "所在位置",
+            "字号",
+            "打印本页"
+          ],
+          "raw_html_bytes_equal_input": true,
+          "limitation": "long-segment containment, not a general Markdown-to-plain-text completeness score"
+        }
+      ],
+      "content_assertions": {
+        "all_nonempty": true,
+        "noise_stable": false,
+        "body_change_detected": true,
+        "fixed_input_deterministic": true
+      },
+      "status": "COMPLETED_WITH_IDENTITY_CONFOUND",
+      "identity_control": {
+        "source_urls": {
+          "a": "https://parse.firecrawl.dev/uploads/version_a.html",
+          "b": "https://parse.firecrawl.dev/uploads/version_b.html",
+          "c": "https://parse.firecrawl.dev/uploads/version_c.html",
+          "a_repeat": "https://parse.firecrawl.dev/uploads/version_a.html"
+        },
+        "held_constant_A_B_C": false,
+        "noise_test_verdict": "CONFOUNDED_BY_UPLOAD_FILENAME; not a framework noise-removal failure",
+        "native_A_B_diff": [
+          "--- \n",
+          "+++ \n",
+          "@@ -5,7 +5,7 @@\n",
+          " - 来源：最高人民法院新闻局",
+          " - 发布时间：2026-03-01 09:00:00",
+          " ",
+          "-- 字号： [小](https://parse.firecrawl.dev/uploads/version_a.html#) [大](https://parse.firecrawl.dev/uploads/version_a.html#)",
+          "+- 字号： [小](https://parse.firecrawl.dev/uploads/version_b.html#) [大](https://parse.firecrawl.dev/uploads/version_b.html#)",
+          " - [打印本页](javascript:;)",
+          " ",
+          " 指导性案例999号"
+        ],
+        "only_filename_links_differ_A_B": true,
+        "body_change_after_diagnostic_link_normalization": true,
+        "normalization_is": "offline diagnosis, not re-executed provider output"
+      },
+      "seal_recipe_replay_on_provider_raw_html": {
+        "records": {
+          "a": {
+            "content_hash": "6dc783ab6b56255863202e888ad8412d3386888a7ea84fd2e715622dbc2ab023",
+            "result": {
+              "source_url": "http://fixture.invalid/document/999",
+              "title": "指导性案例999号：某甲诉某乙合同纠纷案",
+              "published_at": "2026-03-01",
+              "body_text": "指导性案例999号\n 关键词\n 民事/合同纠纷/违约责任/损害赔偿\n 裁判要点\n 当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n 基本案情\n 某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n 裁判结果\n 人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币二十万元。",
+              "document_links": [],
+              "attachments": [],
+              "source_label": "来源：最高人民法院新闻局",
+              "_evidence": {
+                "title": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264",
+                  "css": "div.detail div.title",
+                  "xpath": "/html/body/div[2]/div/div[1]",
+                  "quote": "指导性案例999号：某甲诉某乙合同纠纷案"
+                },
+                "published_at": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264",
+                  "css": "div.detail_mes ul.message li:nth-child(2)",
+                  "xpath": "/html/body/div[2]/div/div[2]/ul[1]/li[2]",
+                  "quote": "发布时间：2026-03-01 09:00:00"
+                },
+                "body_text": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264",
+                  "css": "div.txt_txt",
+                  "xpath": "/html/body/div[2]/div/div[3]/div",
+                  "quote": "\n        指导性案例999号\n        关键词\n        民事/合同纠纷/违约责任/损害赔偿\n        裁判要点\n        当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n        基本案情\n        某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n        裁判结果\n        人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币二十万元。\n      "
+                }
+              }
+            }
+          },
+          "b": {
+            "content_hash": "6dc783ab6b56255863202e888ad8412d3386888a7ea84fd2e715622dbc2ab023",
+            "result": {
+              "source_url": "http://fixture.invalid/document/999",
+              "title": "指导性案例999号：某甲诉某乙合同纠纷案",
+              "published_at": "2026-03-01",
+              "body_text": "指导性案例999号\n 关键词\n 民事/合同纠纷/违约责任/损害赔偿\n 裁判要点\n 当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n 基本案情\n 某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n 裁判结果\n 人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币二十万元。",
+              "document_links": [],
+              "attachments": [],
+              "source_label": "来源：最高人民法院新闻局",
+              "_evidence": {
+                "title": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "99619784fe4b54cf62f50abc2eb7922f8817530a084a4ffc11fc1e5ee83f5323",
+                  "css": "div.detail div.title",
+                  "xpath": "/html/body/div[2]/div/div[1]",
+                  "quote": "指导性案例999号：某甲诉某乙合同纠纷案"
+                },
+                "published_at": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "99619784fe4b54cf62f50abc2eb7922f8817530a084a4ffc11fc1e5ee83f5323",
+                  "css": "div.detail_mes ul.message li:nth-child(2)",
+                  "xpath": "/html/body/div[2]/div/div[2]/ul[1]/li[2]",
+                  "quote": "发布时间：2026-03-01 09:00:00"
+                },
+                "body_text": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "99619784fe4b54cf62f50abc2eb7922f8817530a084a4ffc11fc1e5ee83f5323",
+                  "css": "div.txt_txt",
+                  "xpath": "/html/body/div[2]/div/div[3]/div",
+                  "quote": "\n        指导性案例999号\n        关键词\n        民事/合同纠纷/违约责任/损害赔偿\n        裁判要点\n        当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n        基本案情\n        某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n        裁判结果\n        人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币二十万元。\n      "
+                }
+              }
+            }
+          },
+          "c": {
+            "content_hash": "c991f8710cacb3cf3c86f172078673281c0d6daec1e6948bbda3e035ec9f835e",
+            "result": {
+              "source_url": "http://fixture.invalid/document/999",
+              "title": "指导性案例999号：某甲诉某乙合同纠纷案",
+              "published_at": "2026-03-01",
+              "body_text": "指导性案例999号\n 关键词\n 民事/合同纠纷/违约责任/损害赔偿\n 裁判要点\n 当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n 基本案情\n 某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n 裁判结果\n 人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币三十万元。",
+              "document_links": [],
+              "attachments": [],
+              "source_label": "来源：最高人民法院新闻局",
+              "_evidence": {
+                "title": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "d88c2224c5f03ea446eda6c07ea3bf8b02fdb89168c28065258cc4ef4e32daf8",
+                  "css": "div.detail div.title",
+                  "xpath": "/html/body/div[2]/div/div[1]",
+                  "quote": "指导性案例999号：某甲诉某乙合同纠纷案"
+                },
+                "published_at": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "d88c2224c5f03ea446eda6c07ea3bf8b02fdb89168c28065258cc4ef4e32daf8",
+                  "css": "div.detail_mes ul.message li:nth-child(2)",
+                  "xpath": "/html/body/div[2]/div/div[2]/ul[1]/li[2]",
+                  "quote": "发布时间：2026-03-01 09:00:00"
+                },
+                "body_text": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "d88c2224c5f03ea446eda6c07ea3bf8b02fdb89168c28065258cc4ef4e32daf8",
+                  "css": "div.txt_txt",
+                  "xpath": "/html/body/div[2]/div/div[3]/div",
+                  "quote": "\n        指导性案例999号\n        关键词\n        民事/合同纠纷/违约责任/损害赔偿\n        裁判要点\n        当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n        基本案情\n        某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n        裁判结果\n        人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币三十万元。\n      "
+                }
+              }
+            }
+          },
+          "a_repeat": {
+            "content_hash": "6dc783ab6b56255863202e888ad8412d3386888a7ea84fd2e715622dbc2ab023",
+            "result": {
+              "source_url": "http://fixture.invalid/document/999",
+              "title": "指导性案例999号：某甲诉某乙合同纠纷案",
+              "published_at": "2026-03-01",
+              "body_text": "指导性案例999号\n 关键词\n 民事/合同纠纷/违约责任/损害赔偿\n 裁判要点\n 当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n 基本案情\n 某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n 裁判结果\n 人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币二十万元。",
+              "document_links": [],
+              "attachments": [],
+              "source_label": "来源：最高人民法院新闻局",
+              "_evidence": {
+                "title": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264",
+                  "css": "div.detail div.title",
+                  "xpath": "/html/body/div[2]/div/div[1]",
+                  "quote": "指导性案例999号：某甲诉某乙合同纠纷案"
+                },
+                "published_at": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264",
+                  "css": "div.detail_mes ul.message li:nth-child(2)",
+                  "xpath": "/html/body/div[2]/div/div[2]/ul[1]/li[2]",
+                  "quote": "发布时间：2026-03-01 09:00:00"
+                },
+                "body_text": {
+                  "kind": "html_xpath",
+                  "snapshot_id": "b7dee5d90ea0383f6fae0ef79c00ce214da1aeb1801af13a9e6d2469c414e264",
+                  "css": "div.txt_txt",
+                  "xpath": "/html/body/div[2]/div/div[3]/div",
+                  "quote": "\n        指导性案例999号\n        关键词\n        民事/合同纠纷/违约责任/损害赔偿\n        裁判要点\n        当事人一方不履行合同义务或者履行合同义务不符合约定的，应当承担继续履行、采取补救措施或者赔偿损失等违约责任。守约方主张的可得利益损失，以违约方订立合同时预见或者应当预见到的损失为限。\n        基本案情\n        某甲与某乙签订买卖合同，约定由某乙向某甲交付货物一批，价款为人民币一百五十万元。合同履行期限届满后，某乙仅交付部分货物，剩余货物迟迟未予交付。某甲诉至人民法院，请求判令某乙继续履行并赔偿损失。\n        裁判结果\n        人民法院判决某乙于判决生效之日起十日内继续履行合同，并赔偿某甲损失人民币二十万元。\n      "
+                }
+              }
+            }
+          }
+        },
+        "matches_local_scrapy_hashes": {
+          "a": true,
+          "b": true,
+          "c": true,
+          "a_repeat": true
+        },
+        "A_B_equal": true,
+        "B_C_different": true,
+        "added_by": "SEAL Python Recipe over real returned raw_html, not native Firecrawl extraction"
+      },
+      "cost": {
+        "credit_balance_delta": 4,
+        "caveat": "Account delta is attributable only if no other jobs share this account",
+        "cash_cost": "free-only account verified by operator; no paid plan activation",
+        "api_calls": 6,
+        "underlying_origin_requests": 0
+      },
+      "credits_reported_by_documents": 4,
+      "budget_credits_ok": true,
+      "parse_seconds": {
+        "min": 1.0147980840411037,
+        "max": 1.2485719999531284,
+        "median": 1.0656138539779931
+      },
+      "minimum_api_start_interval_seconds": 4.019999980926514,
+      "response_artifact_hashes_match_http_bytes": true,
+      "limitations": [
+        "Parse on synthetic HTML is not live-site Scrape, Crawl, PDF or browser rendering",
+        "No quality metric is assigned to documents never returned by the service"
+      ]
+    }
+  },
+  "code_size": {
+    "files": {
+      "acceptance.py": {
+        "physical_lines": 120,
+        "nonblank_noncomment_lines": 107
+      },
+      "bench/__init__.py": {
+        "physical_lines": 10,
+        "nonblank_noncomment_lines": 7
+      },
+      "bench/checks.py": {
+        "physical_lines": 97,
+        "nonblank_noncomment_lines": 79
+      },
+      "bench/common.py": {
+        "physical_lines": 186,
+        "nonblank_noncomment_lines": 139
+      },
+      "bench/extract.py": {
+        "physical_lines": 167,
+        "nonblank_noncomment_lines": 137
+      },
+      "bench/firecrawl_http.py": {
+        "physical_lines": 72,
+        "nonblank_noncomment_lines": 62
+      },
+      "bench/network_policy.py": {
+        "physical_lines": 18,
+        "nonblank_noncomment_lines": 16
+      },
+      "bench/pdfio.py": {
+        "physical_lines": 66,
+        "nonblank_noncomment_lines": 56
+      },
+      "bench/recipes.py": {
+        "physical_lines": 236,
+        "nonblank_noncomment_lines": 198
+      },
+      "bench/revision.py": {
+        "physical_lines": 31,
+        "nonblank_noncomment_lines": 24
+      },
+      "bench/settings.py": {
+        "physical_lines": 64,
+        "nonblank_noncomment_lines": 47
+      },
+      "bench/spiders.py": {
+        "physical_lines": 181,
+        "nonblank_noncomment_lines": 151
+      },
+      "bench/targets.py": {
+        "physical_lines": 66,
+        "nonblank_noncomment_lines": 46
+      },
+      "cloud_acceptance.py": {
+        "physical_lines": 116,
+        "nonblank_noncomment_lines": 108
+      },
+      "firecrawl_test.py": {
+        "physical_lines": 229,
+        "nonblank_noncomment_lines": 200
+      },
+      "fixture_test.py": {
+        "physical_lines": 238,
+        "nonblank_noncomment_lines": 206
+      },
+      "list_replay.py": {
+        "physical_lines": 113,
+        "nonblank_noncomment_lines": 94
+      },
+      "probe.py": {
+        "physical_lines": 110,
+        "nonblank_noncomment_lines": 97
+      },
+      "quality_audit.py": {
+        "physical_lines": 195,
+        "nonblank_noncomment_lines": 166
+      },
+      "recon.py": {
+        "physical_lines": 180,
+        "nonblank_noncomment_lines": 161
+      },
+      "scrapy_test.py": {
+        "physical_lines": 215,
+        "nonblank_noncomment_lines": 186
+      },
+      "summarize.py": {
+        "physical_lines": 166,
+        "nonblank_noncomment_lines": 152
+      }
+    },
+    "recipe_function_physical_lines": {
+      "_text": 5,
+      "court_list": 27,
+      "court_detail": 18,
+      "ccgp_list": 4,
+      "ccgp_detail": 17,
+      "spp_list": 12,
+      "spp_detail": 17,
+      "companies_house_company": 50,
+      "companies_house_search": 9,
+      "stats_iframe_page": 11,
+      "stats_generic_page": 5,
+      "apply": 5
+    },
+    "note": "actual code size, not development hours; shared harness != per-source cost"
+  },
+  "per_source_recipe_lines": {
+    "A": 45,
+    "B": 21,
+    "D": 59,
+    "E": 11,
+    "H": 29
+  },
+  "not_tested": [
+    "Firecrawl live-site quality/latency/cost, PDF, self-host; filename-controlled A/B Parse retest",
+    "real procurement notice, actual attachment download, Companies House search",
+    "E iframe follow/render, authorized public JSON API, PDF scans/OCR",
+    "document disappearance, complete scheduled revision workflow, Agent isolation enforcement"
+  ]
+}

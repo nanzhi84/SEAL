@@ -1,0 +1,499 @@
+{
+  "campaign_id": "paired-live-20261008T095127Z",
+  "started_at": "2026-10-08T09:56:02.790+00:00",
+  "status": "COLLECTION_FINISHED_NOT_QUALITY_GRADED",
+  "provider_origin_subrequests": "UNKNOWN",
+  "cases": {
+    "A_list_p1": {
+      "id": "A_list_p1",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+      "function_id": "list_discovery",
+      "role": "list",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "A_list_p2": {
+      "id": "A_list_p2",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+      "function_id": "list_discovery",
+      "role": "list",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "A_detail_1": {
+      "id": "A_detail_1",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "A_detail_2": {
+      "id": "A_detail_2",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490511.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "A_detail_3": {
+      "id": "A_detail_3",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490501.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "A_detail_4": {
+      "id": "A_detail_4",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490491.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "A_detail_5": {
+      "id": "A_detail_5",
+      "source": "A",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490481.html",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "A_list_p1",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "B_home": {
+      "id": "B_home",
+      "source": "B",
+      "url": "https://www.ccgp.gov.cn/",
+      "function_id": "list_discovery",
+      "role": "list",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_ACCESS_STOP"
+        },
+        "firecrawl_cloud": {
+          "status": "FETCHED",
+          "requested_url": "https://www.ccgp.gov.cn/",
+          "http_status": 403,
+          "final_url": "https://www.ccgp.gov.cn/",
+          "raw_path": "firecrawl_cloud/B_home/response.html",
+          "document_path": "firecrawl_cloud/B_home/document.json",
+          "elapsed_s": 3.4587642080150545,
+          "credits_used": 1,
+          "started_at": "2026-10-08T09:56:02.793+00:00",
+          "cache_state": null,
+          "provider_error": "Forbidden",
+          "ledger_id": 9,
+          "access_restriction_detected": true
+        }
+      }
+    },
+    "B_notice_1": {
+      "id": "B_notice_1",
+      "source": "B",
+      "url": "https://www.ccgp.gov.cn/cggg/zygg/gkzb/202610/t20261008_27443141.htm",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "B_home",
+      "navigation_evidence": "results/raw/B_home.raw.html; anchor title 哈尔滨工业大学多参数细胞分析系统公开招标公告",
+      "annotation_status": "PENDING; not an already verified notice result",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_ACCESS_STOP"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_ACCESS_STOP"
+        }
+      }
+    },
+    "C_pdf": {
+      "id": "C_pdf",
+      "source": "C",
+      "url": "https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf",
+      "function_id": "pdf_ingestion",
+      "role": "detail",
+      "provider_extra_operation": "native parsed PDF plus separate parsers=[] original PDF if needed; count full workflow cost, not equal API-call count",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "D_home": {
+      "id": "D_home",
+      "source": "D",
+      "url": "https://find-and-update.company-information.service.gov.uk/",
+      "function_id": "search_interface",
+      "role": "entry",
+      "policy": "fresh robots resolution required",
+      "engines": {
+        "scrapy": {
+          "requested_url": "https://find-and-update.company-information.service.gov.uk/",
+          "status": "FETCHED",
+          "http_status": 200,
+          "final_url": "https://find-and-update.company-information.service.gov.uk/",
+          "raw_path": "scrapy/D_home/response.bin",
+          "bytes": 32688,
+          "flags": [],
+          "encoding": "utf-8",
+          "download_latency_s": 1.1295328330015764,
+          "headers": {
+            "Content-Type": "text/html;charset=UTF-8",
+            "Content-Encoding": "",
+            "ETag": "",
+            "Last-Modified": "",
+            "Location": ""
+          },
+          "worker_elapsed_s": 1.6942357500083745,
+          "scrapy_request_count": 1,
+          "python_peak_rss_bytes_macos": 90619904,
+          "started_at": "2026-10-08T09:56:09.260+00:00",
+          "ledger_id": 10
+        },
+        "firecrawl_cloud": {
+          "status": "FETCHED",
+          "requested_url": "https://find-and-update.company-information.service.gov.uk/",
+          "http_status": 200,
+          "final_url": "https://find-and-update.company-information.service.gov.uk/",
+          "raw_path": "firecrawl_cloud/D_home/response.html",
+          "document_path": "firecrawl_cloud/D_home/document.json",
+          "elapsed_s": 8.744065250037238,
+          "credits_used": 1,
+          "started_at": "2026-10-08T09:56:14.169+00:00",
+          "cache_state": null,
+          "provider_error": null,
+          "ledger_id": 11
+        }
+      }
+    },
+    "D_company": {
+      "id": "D_company",
+      "source": "D",
+      "url": "https://find-and-update.company-information.service.gov.uk/company/00445790",
+      "function_id": "company_fields",
+      "role": "detail",
+      "selection": "preselected company for both, NOT discovered search result",
+      "engines": {
+        "scrapy": {
+          "requested_url": "https://find-and-update.company-information.service.gov.uk/company/00445790",
+          "status": "FETCHED",
+          "http_status": 200,
+          "final_url": "https://find-and-update.company-information.service.gov.uk/company/00445790",
+          "raw_path": "scrapy/D_company/response.bin",
+          "bytes": 36866,
+          "flags": [],
+          "encoding": "utf-8",
+          "download_latency_s": 1.0068455829750746,
+          "headers": {
+            "Content-Type": "text/html;charset=UTF-8",
+            "Content-Encoding": "",
+            "ETag": "",
+            "Last-Modified": "",
+            "Location": ""
+          },
+          "worker_elapsed_s": 1.5639547910541296,
+          "scrapy_request_count": 1,
+          "python_peak_rss_bytes_macos": 90816512,
+          "started_at": "2026-10-08T09:56:32.022+00:00",
+          "ledger_id": 13
+        },
+        "firecrawl_cloud": {
+          "status": "FETCHED",
+          "requested_url": "https://find-and-update.company-information.service.gov.uk/company/00445790",
+          "http_status": 200,
+          "final_url": "https://find-and-update.company-information.service.gov.uk/company/00445790",
+          "raw_path": "firecrawl_cloud/D_company/response.html",
+          "document_path": "firecrawl_cloud/D_company/document.json",
+          "elapsed_s": 9.109486000030302,
+          "credits_used": 5,
+          "started_at": "2026-10-08T09:56:22.915+00:00",
+          "cache_state": null,
+          "provider_error": null,
+          "ledger_id": 12
+        }
+      }
+    },
+    "E_shell": {
+      "id": "E_shell",
+      "source": "E",
+      "url": "https://www.stats.gov.cn/xxgk/list4.html",
+      "function_id": "iframe_discovery",
+      "role": "entry",
+      "engines": {
+        "scrapy": {
+          "requested_url": "https://www.stats.gov.cn/xxgk/list4.html",
+          "status": "FETCHED",
+          "http_status": 200,
+          "final_url": "https://www.stats.gov.cn/xxgk/list4.html",
+          "raw_path": "scrapy/E_shell/response.bin",
+          "bytes": 22372,
+          "flags": [],
+          "encoding": "utf-8",
+          "download_latency_s": 0.2933382079936564,
+          "headers": {
+            "Content-Type": "text/html",
+            "Content-Encoding": "",
+            "ETag": "",
+            "Last-Modified": "",
+            "Location": ""
+          },
+          "worker_elapsed_s": 0.4595666249515489,
+          "scrapy_request_count": 1,
+          "python_peak_rss_bytes_macos": 90505216,
+          "started_at": "2026-10-08T09:56:36.819+00:00",
+          "ledger_id": 14
+        },
+        "firecrawl_cloud": {
+          "status": "FETCHED",
+          "requested_url": "https://www.stats.gov.cn/xxgk/list4.html",
+          "http_status": 200,
+          "final_url": "https://www.stats.gov.cn/xxgk/list4.html",
+          "raw_path": "firecrawl_cloud/E_shell/response.html",
+          "document_path": "firecrawl_cloud/E_shell/document.json",
+          "elapsed_s": 12.453935542027466,
+          "credits_used": 1,
+          "started_at": "2026-10-08T09:56:40.503+00:00",
+          "cache_state": null,
+          "provider_error": null,
+          "ledger_id": 15
+        }
+      }
+    },
+    "E_iframe": {
+      "id": "E_iframe",
+      "source": "E",
+      "url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+      "function_id": "iframe_content",
+      "role": "detail",
+      "parent": "E_shell",
+      "navigation_evidence": "results/raw/E_list.raw.html iframe src",
+      "annotation_status": "PENDING",
+      "engines": {
+        "scrapy": {
+          "requested_url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+          "status": "FETCHED",
+          "http_status": 200,
+          "final_url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+          "raw_path": "scrapy/E_iframe/response.bin",
+          "bytes": 8416,
+          "flags": [],
+          "encoding": "utf-8",
+          "download_latency_s": 0.22417333291377872,
+          "headers": {
+            "Content-Type": "text/html",
+            "Content-Encoding": "",
+            "ETag": "",
+            "Last-Modified": "",
+            "Location": ""
+          },
+          "worker_elapsed_s": 0.3605681660119444,
+          "scrapy_request_count": 1,
+          "python_peak_rss_bytes_macos": 90521600,
+          "started_at": "2026-10-08T09:57:13.131+00:00",
+          "ledger_id": 17
+        },
+        "firecrawl_cloud": {
+          "status": "FETCHED",
+          "requested_url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+          "http_status": 200,
+          "final_url": "https://www.stats.gov.cn/xxgk/zzjgxx/gjtjjjld/index.html",
+          "raw_path": "firecrawl_cloud/E_iframe/response.html",
+          "document_path": "firecrawl_cloud/E_iframe/document.json",
+          "elapsed_s": 20.17774370801635,
+          "credits_used": 1,
+          "started_at": "2026-10-08T09:56:52.956+00:00",
+          "cache_state": null,
+          "provider_error": null,
+          "ledger_id": 16
+        }
+      }
+    },
+    "H_list": {
+      "id": "H_list",
+      "source": "H",
+      "url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+      "function_id": "list_discovery",
+      "role": "list",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    },
+    "H_detail_1": {
+      "id": "H_detail_1",
+      "source": "H",
+      "url": "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+      "function_id": "document_extract",
+      "role": "detail",
+      "parent": "H_list",
+      "engines": {
+        "scrapy": {
+          "status": "BLOCKED_POLICY"
+        },
+        "firecrawl_cloud": {
+          "status": "BLOCKED_POLICY"
+        }
+      }
+    }
+  },
+  "policies": {
+    "A": {
+      "source": "A",
+      "status": "BLOCKED_POLICY",
+      "requests": [
+        {
+          "url": "https://www.court.gov.cn/robots.txt",
+          "http_status": 200
+        }
+      ],
+      "decisions": {},
+      "reason": "ROBOTS_HTML_SOFT_ERROR_NOT_AN_AUTHORITATIVE_RULESET"
+    },
+    "B": {
+      "source": "B",
+      "status": "ALLOWED_ROBOTS_UNAVAILABLE_4XX",
+      "requests": [
+        {
+          "url": "https://www.ccgp.gov.cn/robots.txt",
+          "http_status": 404
+        }
+      ],
+      "decisions": {
+        "B_home": true,
+        "B_notice_1": true
+      },
+      "crawl_delay_s": 3.01
+    },
+    "C": {
+      "source": "C",
+      "status": "BLOCKED_POLICY",
+      "requests": [
+        {
+          "url": "https://www.nppa.gov.cn/robots.txt",
+          "http_status": 302
+        }
+      ],
+      "decisions": {},
+      "reason": "ROBOTS_CROSS_ORIGIN_REDIRECT_NOT_APPROVED"
+    },
+    "D": {
+      "source": "D",
+      "status": "ALLOWED_ROBOTS_UNAVAILABLE_4XX",
+      "requests": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/robots.txt",
+          "http_status": 404
+        }
+      ],
+      "decisions": {
+        "D_home": true,
+        "D_company": true
+      },
+      "crawl_delay_s": 3.01
+    },
+    "E": {
+      "source": "E",
+      "status": "ALLOWED_ROBOTS_UNAVAILABLE_4XX",
+      "requests": [
+        {
+          "url": "https://www.stats.gov.cn/robots.txt",
+          "http_status": 404
+        }
+      ],
+      "decisions": {
+        "E_shell": true,
+        "E_iframe": true
+      },
+      "crawl_delay_s": 3.01
+    },
+    "H": {
+      "source": "H",
+      "status": "BLOCKED_POLICY",
+      "decisions": {},
+      "reason": "UNRESOLVED_ROBOTS_REDIRECT_AFTER_PRE_DISPATCH_GUARD"
+    }
+  },
+  "authorization": "User explicitly agreed to <=80 client HTTP/API, <=30 free credits; no auto-payment",
+  "source_sha256": {
+    "paired_live.py": "434069877243db693c63bf09e612eaf058c00be051d4c3d3b39c4f6609490e71",
+    "paired_fetch.py": "ab40748ce12ad4efaf11789f9b03e44cf67d1074c9ac0ba3bd5cb9e9a6cb22ee",
+    "paired_acceptance.py": "c5d876e9f666aa569ad94e8c5880cda27ba1b07f4aecada60fd557f2f6158db0",
+    "bench/paired_meter.py": "0a9a21a01a6c3152c9c6879e813c59e9d8c7f23d48debbd5f053987c2c3eeb6a",
+    "bench/recipes.py": "27ec80c042af999875de152cb66257c4d4f02c49a1988b517df43e994d21897e",
+    "bench/extract.py": "39ab9d2df3f84bd49cb03122f868c86f158a2e22d1d396d0387f811a82303a52",
+    "bench/pdfio.py": "a3d0d9600a229bd69586192629ed7461991d75d05b020d5dc0c7b63c848a503b"
+  },
+  "recovery": {
+    "prior_artifact": "interrupted_run.json",
+    "requests_already_spent": 8,
+    "no_budget_reset": true,
+    "no_repeated_content_request": true,
+    "repair": "requests normalizes redirect URLs; meter now compares prepared URLs",
+    "H_policy": "302 seen, next dispatch blocked before send; no policy refetch"
+  },
+  "credits_balance_delta": 9,
+  "finished_at": "2026-10-08T09:57:17.616+00:00",
+  "client_requests": 18,
+  "credits_reserved": 9
+}
