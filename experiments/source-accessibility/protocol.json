@@ -1,0 +1,15 @@
+{
+  "scope": "491 map rows; public entry GET plus at most one same-host content candidate and one pagination candidate per unique URL; no production mutation",
+  "failure_contracts": [
+    "All map rows retain IDs, duplicates and footer noise; no row omitted",
+    "HTTP 200, navigation text and links alone are not verified article extraction",
+    "Input fields on a portal do not imply news content requires input",
+    "Unknown robots from the same-day baseline permits a bounded diagnostic GET, not an unrestricted crawl; explicit denied paths stop",
+    "Login, CAPTCHA and WAF are reported, never bypassed; no identity or private subject query submitted",
+    "Each attempted request has a status or typed error; zero retries; failures are not permanent unavailability claims",
+    "Raw bodies are hashed; sensitive-pattern bodies are not retained; no cookie or credential headers retained",
+    "Classification is evidence-tiered and can be reproduced offline; content snippets are evidence, not full business acceptance"
+  ],
+  "network": {"workers": 8, "per_host": 1, "delay_seconds": 1.5, "timeout_seconds": 12, "max_bytes": 5242880, "redirects": 4, "retries": 0, "cookies": false, "proxy": false, "tls_verify": true},
+  "classification": {"A": "公开正文样本已取得", "B": "静态内容链接候选，详情未确认", "C": "查询输入或服务办理入口", "D": "JS/API/iframe，需要适配", "E": "限制访问或本轮失败，机制待确认", "F": "入口可读，但未确认正文渠道", "X": "原地图页脚噪声"}
+}

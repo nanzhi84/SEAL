@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-09",
+  "local_failures": [
+    {
+      "source": "dd-004",
+      "stage": "detail URL construction",
+      "error": "UnicodeEncodeError",
+      "resolution": "percent-encode non-ASCII request URL; one supplemental request returned HTTP 200; content extraction remains UNVERIFIED"
+    },
+    {
+      "source": "amac_managers / amac_sales / amac_trustees",
+      "stage": "supplemental JSON response passed to HTML form inspection",
+      "error": "ValueError: Cannot use css on a Selector of type json",
+      "resolution": "recover saved JSON bytes using ledger sha256; skip HTML inspection for ACCESSIBLE_JSON; verify business payload fields offline"
+    }
+  ],
+  "notes": "Request ledger preserves network outcomes. This record preserves the separate local analysis failure; it is not a network failure."
+}

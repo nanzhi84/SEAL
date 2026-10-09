@@ -1,0 +1,43 @@
+{
+  "started_at": "2026-10-09T07:58:49.313157+00:00",
+  "python": "3.12.13 (main, Jun 11 2026, 03:55:21) [Clang 22.1.3 ]",
+  "map_sha256": "f0259f31e31a530fe692d715482f986197c39c418c8f5715370f1599ddd4f448",
+  "baseline": "experiments/due-diligence/golden/entries.json",
+  "protocol": {
+    "scope": "491 map rows; public entry GET plus at most one same-host content candidate and one pagination candidate per unique URL; no production mutation",
+    "failure_contracts": [
+      "All map rows retain IDs, duplicates and footer noise; no row omitted",
+      "HTTP 200, navigation text and links alone are not verified article extraction",
+      "Input fields on a portal do not imply news content requires input",
+      "Unknown robots from the same-day baseline permits a bounded diagnostic GET, not an unrestricted crawl; explicit denied paths stop",
+      "Login, CAPTCHA and WAF are reported, never bypassed; no identity or private subject query submitted",
+      "Each attempted request has a status or typed error; zero retries; failures are not permanent unavailability claims",
+      "Raw bodies are hashed; sensitive-pattern bodies are not retained; no cookie or credential headers retained",
+      "Classification is evidence-tiered and can be reproduced offline; content snippets are evidence, not full business acceptance"
+    ],
+    "network": {
+      "workers": 8,
+      "per_host": 1,
+      "delay_seconds": 1.5,
+      "timeout_seconds": 12,
+      "max_bytes": 5242880,
+      "redirects": 4,
+      "retries": 0,
+      "cookies": false,
+      "proxy": false,
+      "tls_verify": true
+    },
+    "classification": {
+      "A": "公开正文样本已取得",
+      "B": "静态内容链接候选，详情未确认",
+      "C": "查询输入或服务办理入口",
+      "D": "JS/API/iframe，需要适配",
+      "E": "限制访问或本轮失败，机制待确认",
+      "F": "入口可读，但未确认正文渠道",
+      "X": "原地图页脚噪声"
+    }
+  },
+  "scope": "fresh GET per unique URL except baseline robots-denied paths and footer noise; optional one detail and next page; classifications require separate offline review",
+  "finished_at": "2026-10-09T08:01:29.504544+00:00",
+  "completed": 478
+}

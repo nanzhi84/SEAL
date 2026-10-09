@@ -22,7 +22,7 @@ V1.1 删除 Trial、Gold Comparison、Review 和发布门禁。候选 Binding �
 - [V1.1 可视化](docs/generated/v1.1-runtime.html)：Plan 的唯一单页派生物。
 - [V1 Plan](docs/plans/v1-information-pipeline.md)、[ADR-0002](docs/adr/0002-python-recipes-minimal-v1.md)、[V1 可视化](docs/generated/v1-overview.html)：原样保留的历史设计，不是当前 CLI 合同。
 - [ADR-0001](docs/adr/0001-recipe-driven-fixed-pipeline.md)：早期历史提案。
-- [独立实验](experiments/scraper-benchmark/README.md)、[尽调入口地图](docs/reference/due-diligence-source-map.md)、[尽调地图实验](docs/reference/due-diligence-source-experiment.md)：历史研究及其工件，不由 Runtime 使用，也不代表 V1.1 质量验收。
+- [独立实验](experiments/scraper-benchmark/README.md)、[Source 适配与审计总表](docs/reference/source-adaptation.md)：历史研究及其工件，不由 Runtime 使用，也不代表 V1.1 质量验收。
 - [协作准则](AGENTS.md)：文档使用 seiso 管理，每个计划只配一个 Generated。
 
 ## 安装与升级

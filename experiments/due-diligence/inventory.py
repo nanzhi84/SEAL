@@ -7,7 +7,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parents[2]
-MAP = ROOT / "docs" / "reference" / "due-diligence-source-map.md"
+MAP = ROOT / "experiments" / "due-diligence" / "inputs" / "source-map.md"
 SENSITIVE = re.compile(r"token|password|secret|session|auth|api.?key|signature", re.I)
 TRACKING = re.compile(r"^(?:utm_|qhclickid|saasdianping|addrid)", re.I)
 

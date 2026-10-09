@@ -12,7 +12,7 @@ from content import parse_content, response_for
 from inventory import ROOT, inventory, write_json
 
 HERE = Path(__file__).resolve().parent
-DOCS = ROOT / "docs/reference"
+DOCS = HERE / "reference-snapshot"
 
 LABELS = {
     "ACCESSIBLE_HTML": "公开HTML可提取",
@@ -209,9 +209,9 @@ def write_report(rows, fixtures, campaigns):
         "## 工件与复验",
         "",
         "- [491 条 CSV 明细](due-diligence/entries.csv)：Excel 可打开，含地图行号、URL、结果、原因、范围与原文路径。",
-        "- [机器可读汇总](due-diligence/summary.json)、[完整结果](../../experiments/due-diligence/golden/entries.json)、[golden 清单](../../experiments/due-diligence/golden/fixtures.json)。",
-        "- [独立核对合同](../../experiments/due-diligence/reviewed.json)、[离线验收结果](../../experiments/due-diligence/golden/verification.json)。",
-        "- [首次实验](../../experiments/due-diligence/results/map-20261009/manifest.json)、[中断补测](../../experiments/due-diligence/results/map-20261009-resume/manifest.json)和[本地异常单项补测](../../experiments/due-diligence/results/map-20261009-local-recovery/manifest.json)分别保留，不用补测掩盖首次失败。",
+        "- [机器可读汇总](due-diligence/summary.json)、[完整结果](../golden/entries.json)、[golden 清单](../golden/fixtures.json)。",
+        "- [独立核对合同](../reviewed.json)、[离线验收结果](../golden/verification.json)。",
+        "- [首次实验](../results/map-20261009/manifest.json)、[中断补测](../results/map-20261009-resume/manifest.json)和[本地异常单项补测](../results/map-20261009-local-recovery/manifest.json)分别保留，不用补测掩盖首次失败。",
         "",
         "```bash",
         "uv sync --frozen",
@@ -260,7 +260,7 @@ def write_report(rows, fixtures, campaigns):
         "",
         "首次运行有334次OSError，402条被标为中断。现场文件描述符软上限为256，跨大量域名复用连接造成耗尽是诊断推断；首轮未记录errno，不能声称已确证。补测显式关闭连接复用，并增加异常因果类记录，402条均完成且没有Spider异常。首轮校验保留2个FAIL（中断和异常），402条补测的工件校验为449/449 PASS。另外dd-069首轮报本地OSError，单独补测一次后确认WAF脚本挑战，停止；首轮其余88条终态未重跑。",
         "",
-        "离线复查另纠正7个noscript提示页，保留修复前失败断言，并用相同原文复验。WAF误判也保留修复前后断言。纠正解析没有重复请求源站。1份携带会话标识的robots脚本和1份WAF挑战原文已移除，仅保留摘要与[移除记录](../../experiments/due-diligence/review/redactions.json)，未进入golden；不将脱敏文本冒称原文。基金业协会三个名录页确认了HTML及其GET数据接口引用，但API未验证，不计作名单抓取成功。",
+        "离线复查另纠正7个noscript提示页，保留修复前失败断言，并用相同原文复验。WAF误判也保留修复前后断言。纠正解析没有重复请求源站。1份携带会话标识的robots脚本和1份WAF挑战原文已移除，仅保留摘要与[移除记录](../review/redactions.json)，未进入golden；不将脱敏文本冒称原文。基金业协会三个名录页确认了HTML及其GET数据接口引用，但API未验证，不计作名单抓取成功。",
         "",
         "实现由地图注册表、受控采集、分类、内容提取、冻结工件、离线验收六部分组成。491 行使用共享的 public-entry-probe.v1 入口 Recipe 与逐行 URL 配置；7 行另有可执行内容提取参数。**这不是 491 个已完成生产接入的业务 Recipe**，没有写入 SEAL 生产数据库、审核或启用 Source。",
         "",
