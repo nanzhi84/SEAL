@@ -1,0 +1,40 @@
+{
+  "methods": [
+    "GET"
+  ],
+  "identity": "business_key",
+  "output_schema": "record.v1",
+  "archive_approved": true,
+  "poll_seconds": 86400,
+  "recheck_seconds": 86400,
+  "concurrency": 1,
+  "delay": 1.5,
+  "budget": {
+    "requests": 12,
+    "seconds": 90,
+    "response_bytes": 5242880
+  },
+  "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)",
+  "id": "v12_dd_102",
+  "research_ids": [
+    "dd-102"
+  ],
+  "entry_urls": [
+    "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html"
+  ],
+  "allowed_hosts": [
+    "www.safe.gov.cn"
+  ],
+  "allowed_path_prefixes": [
+    "/beijing/xzcfxxgs/",
+    "/www/illegal"
+  ],
+  "host_path_scopes": {
+    "www.safe.gov.cn": [
+      "/beijing/xzcfxxgs/",
+      "/www/illegal"
+    ]
+  },
+  "seed_role": "detail",
+  "scope": "北京外汇局公开处罚栏目及siteid=beijing静态iframe；不提交统一信用代码筛选或验证码，本版iframe业务模板尚未验。"
+}

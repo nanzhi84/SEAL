@@ -1,0 +1,705 @@
+{
+  "artifact_version": 1,
+  "scope": "Read-only evidence and source mechanism audit; not production Evaluation",
+  "base_commit": "ee39884",
+  "classification_input_sha256": "2265f1c05fceafde6ae917a9722f193f5e779139ff0a3cac94794b4e62c0451b",
+  "registry_summary": {
+    "registry_rows": 491,
+    "registry_classification_counts": {
+      "A": 34,
+      "B": 73,
+      "C": 4,
+      "D": 32,
+      "E": 122,
+      "F": 136,
+      "G": 87,
+      "X": 3
+    },
+    "abc_rows": 111,
+    "abc_classification_counts": {
+      "A": 34,
+      "B": 73,
+      "C": 4
+    },
+    "abc_priority_counts": {
+      "P0": 3,
+      "P1": 35,
+      "P2": 73
+    },
+    "baseline_partition_verified": true,
+    "classification_source": "experiments/source-accessibility/results/classification/entries.csv",
+    "priority_and_manual_state_authority": "docs/reference/source-adaptation.md#9-source-适配与审计总表",
+    "priority_basis": "P0/P1/P2 values are read from the frozen classification CSV and refer to the sole maintained source table; no new human adaptation/audit statuses are maintained here"
+  },
+  "class_mechanism_summary": {
+    "A": {
+      "count": 34,
+      "research_ids": [
+        "dd-017",
+        "dd-019",
+        "dd-039",
+        "dd-040",
+        "dd-041",
+        "dd-053",
+        "dd-102",
+        "dd-108",
+        "dd-115",
+        "dd-116",
+        "dd-123",
+        "dd-131",
+        "dd-139",
+        "dd-142",
+        "dd-153",
+        "dd-159",
+        "dd-183",
+        "dd-198",
+        "dd-209",
+        "dd-246",
+        "dd-265",
+        "dd-320",
+        "dd-323",
+        "dd-324",
+        "dd-326",
+        "dd-327",
+        "dd-329",
+        "dd-337",
+        "dd-348",
+        "dd-375",
+        "dd-385",
+        "dd-423",
+        "dd-434",
+        "dd-482"
+      ],
+      "priority_counts": {
+        "P0": 3,
+        "P1": 31
+      },
+      "proposed_recipe_families": [
+        "v12-reviewed-source-samples",
+        "heterogeneous-public-records"
+      ],
+      "enumerability": "Static article/list/table channels can enumerate observed pages; classification does not establish whole-site or historical completeness",
+      "pagination": "HTML anchors or an inspected static JS page naming rule; native Scrapy deduplication plus finite Source/sample limits",
+      "attachments": "Explicit business PDF/document links only; static same-host iframe is an input resource, not a rendered browser session",
+      "identity": "Detail URL for documents; stable business field for multi-row tables, never row position",
+      "selected_evidence_ids": [
+        "dd-017",
+        "dd-041",
+        "dd-116",
+        "dd-102"
+      ],
+      "scope": "Machine-derived mechanism grouping, not an adaptation/audit status ledger or bulk adaptation acceptance"
+    },
+    "B": {
+      "count": 73,
+      "research_ids": [
+        "dd-004",
+        "dd-016",
+        "dd-033",
+        "dd-045",
+        "dd-046",
+        "dd-050",
+        "dd-051",
+        "dd-054",
+        "dd-059",
+        "dd-060",
+        "dd-061",
+        "dd-062",
+        "dd-066",
+        "dd-077",
+        "dd-079",
+        "dd-084",
+        "dd-085",
+        "dd-088",
+        "dd-097",
+        "dd-106",
+        "dd-133",
+        "dd-151",
+        "dd-160",
+        "dd-188",
+        "dd-197",
+        "dd-201",
+        "dd-206",
+        "dd-208",
+        "dd-211",
+        "dd-215",
+        "dd-220",
+        "dd-225",
+        "dd-227",
+        "dd-229",
+        "dd-231",
+        "dd-237",
+        "dd-238",
+        "dd-262",
+        "dd-299",
+        "dd-318",
+        "dd-322",
+        "dd-328",
+        "dd-331",
+        "dd-332",
+        "dd-333",
+        "dd-338",
+        "dd-339",
+        "dd-340",
+        "dd-341",
+        "dd-345",
+        "dd-346",
+        "dd-350",
+        "dd-352",
+        "dd-357",
+        "dd-369",
+        "dd-370",
+        "dd-372",
+        "dd-374",
+        "dd-380",
+        "dd-389",
+        "dd-410",
+        "dd-445",
+        "dd-448",
+        "dd-449",
+        "dd-450",
+        "dd-455",
+        "dd-466",
+        "dd-468",
+        "dd-474",
+        "dd-479",
+        "dd-481",
+        "dd-484",
+        "dd-485"
+      ],
+      "priority_counts": {
+        "P2": 73
+      },
+      "proposed_recipe_families": [
+        "v12-reviewed-source-samples",
+        "heterogeneous-public-records"
+      ],
+      "enumerability": "Candidate HTML/attachment links are enumerable on sampled pages; linked business bodies still require verification",
+      "pagination": "Only inspected explicit links or source-specific static rules; a readable entry is not pagination acceptance",
+      "attachments": "Archive explicit static PDF/XLS/DOC business links; parse supported text PDF/TXT/CSV and retain unsupported Excel/OCR failures",
+      "identity": "Business document or attachment URL, with parent discovery/input lineage",
+      "selected_evidence_ids": [
+        "dd-468",
+        "dd-004"
+      ],
+      "scope": "Machine-derived mechanism grouping, not an adaptation/audit status ledger or bulk adaptation acceptance"
+    },
+    "C": {
+      "count": 4,
+      "research_ids": [
+        "dd-009",
+        "dd-247",
+        "dd-248",
+        "dd-250"
+      ],
+      "priority_counts": {
+        "P1": 4
+      },
+      "proposed_recipe_families": [
+        "heterogeneous-public-records",
+        "source-specific-public-query"
+      ],
+      "enumerability": "Frozen public query/API parameters enumerate a bounded result set; no claims about precise entity matching or complete register coverage",
+      "pagination": "Source-specific pageNo/pageSize JSON envelope or explicit HTML query page links; page reordering does not change Record identity",
+      "attachments": "None required by the inspected C samples; no unobserved attachment endpoints are invented",
+      "identity": "Stable API business key must be verified from response bytes; HTML query results may use public company IDs/detail URLs",
+      "selected_evidence_ids": [
+        "dd-247",
+        "dd-009",
+        "dd-248",
+        "dd-250"
+      ],
+      "scope": "Machine-derived mechanism grouping, not an adaptation/audit status ledger or bulk adaptation acceptance"
+    }
+  },
+  "selected_primary": {
+    "A": [
+      "dd-116",
+      "dd-102"
+    ],
+    "B": [
+      "dd-468",
+      "dd-004"
+    ],
+    "C": [
+      "dd-247",
+      "dd-009"
+    ]
+  },
+  "substitution_review": {
+    "C": {
+      "candidates": [
+        "dd-248",
+        "dd-250"
+      ],
+      "decision": "BLOCKED",
+      "reason": "Same AMAC host is outside network policy; JSON bytes are also missing"
+    },
+    "A_B": {
+      "decision": "No substitute claimed",
+      "reason": "Missing details/iframe contents/attachments and common network boundary cannot be repaired by relabelling historical entry HTML"
+    }
+  },
+  "shared_requirements": [
+    "Bound source by business column/path, not whole domain",
+    "Separate fixed business parameters, pagination controls, and user inputs",
+    "Record identity must not be HTTP page URL or array offset",
+    "Use Scrapy requests for lists, details, iframes and business attachments",
+    "Replay must recompute typed locators from retained response bytes",
+    "Page limit or missing response keeps business coverage unknown",
+    "quality_status remains not_evaluated"
+  ],
+  "T1_mechanism_audit": "PASS",
+  "T0_real_C_route_comparison": "BLOCKED",
+  "T7S_two_real_sources_per_class": "BLOCKED",
+  "two_live_collection_rounds": "BLOCKED",
+  "valid_new_runtime_sources_per_class": {
+    "A": 0,
+    "B": 0,
+    "C": 0
+  },
+  "samples": [
+    {
+      "research_id": "dd-017",
+      "class": "A",
+      "name": "指导案例",
+      "entry_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+      "sample_url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+      "candidate_url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+      "mechanisms": [
+        "html_list_detail",
+        "numbered_pagination"
+      ],
+      "parameters": "无需主体输入；下一页77_2.html；content仅站内搜索",
+      "business_scope": "人工读取的样本正文；字段断言见selected-checks.json；历史全量尚未验收",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009/bodies/9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+        "exists": false,
+        "expected_sha256": "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_detail_response_missing"
+      ]
+    },
+    {
+      "research_id": "dd-041",
+      "class": "A",
+      "name": "指导性案例",
+      "entry_url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+      "sample_url": "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+      "candidate_url": "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+      "mechanisms": [
+        "html_list_detail",
+        "js_declared_pagination"
+      ],
+      "parameters": "无需主体输入；下一页index_2.shtml；qt仅站内搜索",
+      "business_scope": "人工读取的样本正文；字段断言见selected-checks.json；历史全量尚未验收",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009/bodies/62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+        "exists": false,
+        "expected_sha256": "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_detail_response_missing"
+      ]
+    },
+    {
+      "research_id": "dd-116",
+      "class": "A",
+      "name": "海口市监局",
+      "entry_url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/",
+      "sample_url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+      "candidate_url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+      "mechanisms": [
+        "html_list_detail",
+        "js_declared_pagination"
+      ],
+      "parameters": "无需主体输入；下一页index_1.shtml；title仅站内搜索",
+      "business_scope": "人工读取的样本正文；字段断言见selected-checks.json；历史全量尚未验收",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009/bodies/a06f99002c1afffee0d3e7c2248222edb0d59eb70eb2666b2d7545ec4b03ac97",
+        "exists": false,
+        "expected_sha256": "a06f99002c1afffee0d3e7c2248222edb0d59eb70eb2666b2d7545ec4b03ac97"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_detail_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/6a4cea775dbeb7d5f17fd2b8e47d310eefb828e6e29d6523710589b74aa389e8",
+        "exists": true,
+        "expected_sha256": "6a4cea775dbeb7d5f17fd2b8e47d310eefb828e6e29d6523710589b74aa389e8",
+        "bytes": 28407,
+        "sha256": "6a4cea775dbeb7d5f17fd2b8e47d310eefb828e6e29d6523710589b74aa389e8",
+        "hash_verified": true,
+        "url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/",
+        "fetched_at": "2026-10-08T16:19:28.297539+00:00",
+        "encoding": "utf-8",
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      }
+    },
+    {
+      "research_id": "dd-102",
+      "class": "A",
+      "name": "外汇局",
+      "entry_url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+      "sample_url": "https://www.safe.gov.cn/www/illegal?siteid=beijing",
+      "candidate_url": "",
+      "mechanisms": [
+        "static_iframe",
+        "html_table",
+        "fixed_siteid",
+        "numbered_pagination"
+      ],
+      "parameters": "siteid=beijing、page；筛选POST irregularityno=统一社会信用代码/组织机构代码，未提交",
+      "business_scope": "仅以上明确描述的公开内容与参数；未验证全量、主体完整核验或长期稳定性",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009-extra/sanitized/76c73c27b8559a50e2eb50b3d240ac2e3bc3d610bba00468ce911beba710014a",
+        "exists": false,
+        "expected_sha256": "76c73c27b8559a50e2eb50b3d240ac2e3bc3d610bba00468ce911beba710014a"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_iframe_business_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/2df85a5c09895934fdd34b1f3fe183bd9ade1685de4ef6b1ec13a07ed8bb7e48",
+        "exists": true,
+        "expected_sha256": "2df85a5c09895934fdd34b1f3fe183bd9ade1685de4ef6b1ec13a07ed8bb7e48",
+        "bytes": 13801,
+        "sha256": "2df85a5c09895934fdd34b1f3fe183bd9ade1685de4ef6b1ec13a07ed8bb7e48",
+        "hash_verified": true,
+        "url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "fetched_at": "2026-10-08T16:19:39.668437+00:00",
+        "encoding": null,
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      }
+    },
+    {
+      "research_id": "dd-468",
+      "class": "B",
+      "name": "[教育部]高校名单",
+      "entry_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+      "sample_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+      "candidate_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+      "mechanisms": [
+        "html_document",
+        "static_xls_attachment"
+      ],
+      "parameters": "页面字段线索，必填性未验：GET https://so.moe.gov.cn/s [qt]",
+      "business_scope": "仅入口及最多一篇站内样本；不代表原清单所指核验业务已可用",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009/bodies/587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+        "exists": false,
+        "expected_sha256": "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+        "equivalent_retained_bytes": "experiments/due-diligence/results/map-20261009-resume/bodies/587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+        "equivalent_hash_verified": true
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_xls_attachment_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+        "exists": true,
+        "expected_sha256": "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+        "bytes": 13623,
+        "sha256": "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+        "hash_verified": true,
+        "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "fetched_at": "2026-10-08T16:19:38.574123+00:00",
+        "encoding": "utf-8",
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      }
+    },
+    {
+      "research_id": "dd-004",
+      "class": "B",
+      "name": "深圳商事主体信用监管公示平台",
+      "entry_url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+      "sample_url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+      "candidate_url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/恢复经营主体登记（备案）决定书-深圳市诺亚信高科技集团有限公司.pdf",
+      "mechanisms": [
+        "html_announcement_list",
+        "static_pdf_attachment",
+        "gb18030"
+      ],
+      "parameters": "静态公告无需输入；type为栏目枚举；企业核验跳转GSXT",
+      "business_scope": "仅以上明确描述的公开内容与参数；未验证全量、主体完整核验或长期稳定性",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009/bodies/49836210f52c94acb8448cd47a28cdc1d50dddee2f8a8297ad80f8927cfa1ecc",
+        "exists": false,
+        "expected_sha256": "49836210f52c94acb8448cd47a28cdc1d50dddee2f8a8297ad80f8927cfa1ecc"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_pdf_attachment_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/6d322004761d75d7e5b8f87f71d75e58d209005dd4e4f4c906b50379c90f9923",
+        "exists": true,
+        "expected_sha256": "6d322004761d75d7e5b8f87f71d75e58d209005dd4e4f4c906b50379c90f9923",
+        "bytes": 32607,
+        "sha256": "6d322004761d75d7e5b8f87f71d75e58d209005dd4e4f4c906b50379c90f9923",
+        "hash_verified": true,
+        "url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+        "fetched_at": "2026-10-08T16:19:28.415173+00:00",
+        "encoding": "gb18030",
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      }
+    },
+    {
+      "research_id": "dd-247",
+      "class": "C",
+      "name": "公募基金管理人",
+      "entry_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+      "sample_url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=&registerAddr=&officeAddr=",
+      "candidate_url": "https://www.amac.org.cn/hydj/xxgcddesdjs/202506/t20250610_26744.html",
+      "mechanisms": [
+        "multi_record_json_api",
+        "fixed_blank_filters",
+        "numbered_pagination"
+      ],
+      "parameters": "pageNo,pageSize,houseName,registerAddr,officeAddr；后三项可空",
+      "business_scope": "仅以上明确描述的公开内容与参数；未验证全量、主体完整核验或长期稳定性",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009-extra/bodies/249511bb0e884e9a8eb8c8a82f99fc0658352da8d05d8c0664933c9e0380668a",
+        "exists": false,
+        "expected_sha256": "249511bb0e884e9a8eb8c8a82f99fc0658352da8d05d8c0664933c9e0380668a"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_json_business_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/256331c335f56fa1c1dd4fa22bf5fe7c8b34224d70e17af7a8bdfc166b4b2246",
+        "exists": true,
+        "expected_sha256": "256331c335f56fa1c1dd4fa22bf5fe7c8b34224d70e17af7a8bdfc166b4b2246",
+        "bytes": 319582,
+        "sha256": "256331c335f56fa1c1dd4fa22bf5fe7c8b34224d70e17af7a8bdfc166b4b2246",
+        "hash_verified": true,
+        "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+        "fetched_at": "2026-10-08T16:19:45.296304+00:00",
+        "encoding": "utf-8",
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      },
+      "json_contract_from_real_html": {
+        "records_pointer": "/data/data/dataList",
+        "total_pointer": "/data/data/total",
+        "displayed_fields": [
+          "houseName",
+          "registerAddr",
+          "officeAddr",
+          "website",
+          "phone"
+        ],
+        "detail_url_rendered": false,
+        "stable_business_key": "UNVERIFIED; JSON response bytes are missing",
+        "business_response_route_comparison": "BLOCKED"
+      }
+    },
+    {
+      "research_id": "dd-009",
+      "class": "C",
+      "name": "英国公司注册处（Companies House）",
+      "entry_url": "https://find-and-update.company-information.service.gov.uk/",
+      "sample_url": "https://find-and-update.company-information.service.gov.uk/search?q=TESCO",
+      "candidate_url": "",
+      "mechanisms": [
+        "fixed_public_query",
+        "html_result_list",
+        "numbered_pagination"
+      ],
+      "parameters": "q=企业名称/编号；page为候选分页参数，未验",
+      "business_scope": "仅以上明确描述的公开内容与参数；未验证全量、主体完整核验或长期稳定性",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009-extra/bodies/e7d2b1dbecd674075e1c277f252e6648309ced27fcc144b8a2b84b9ab457d458",
+        "exists": false,
+        "expected_sha256": "e7d2b1dbecd674075e1c277f252e6648309ced27fcc144b8a2b84b9ab457d458"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_fixed_query_result_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/a36b0c46211780524dd5cd225c08188b015c81cfa0ec8274c20dc6effb038246",
+        "exists": true,
+        "expected_sha256": "a36b0c46211780524dd5cd225c08188b015c81cfa0ec8274c20dc6effb038246",
+        "bytes": 32688,
+        "sha256": "a36b0c46211780524dd5cd225c08188b015c81cfa0ec8274c20dc6effb038246",
+        "hash_verified": true,
+        "url": "https://find-and-update.company-information.service.gov.uk/",
+        "fetched_at": "2026-10-08T16:19:19.046994+00:00",
+        "encoding": "utf-8",
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      }
+    },
+    {
+      "research_id": "dd-248",
+      "class": "C",
+      "name": "公募基金销售机构",
+      "entry_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjxsjggs/",
+      "sample_url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=10&orgName=&regAddr=&orgType=&startTime=&endTime=",
+      "candidate_url": "https://www.amac.org.cn/hydj/xxgcddesdjs/202506/t20250610_26744.html",
+      "mechanisms": [
+        "multi_record_json_api",
+        "fixed_blank_filters",
+        "numbered_pagination"
+      ],
+      "parameters": "pageNo,pageSize,orgName,regAddr,orgType,startTime,endTime；筛选可空",
+      "business_scope": "仅以上明确描述的公开内容与参数；未验证全量、主体完整核验或长期稳定性",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009-extra/bodies/695e173646eca6fa52c0fe22db0353b543ca6ffc6731155b85b29ab3d20c01e9",
+        "exists": false,
+        "expected_sha256": "695e173646eca6fa52c0fe22db0353b543ca6ffc6731155b85b29ab3d20c01e9"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_json_business_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/f0d3156b348cd88ed7ce9d4f374d412e4bcdef48442a125591abf32c85377da0",
+        "exists": true,
+        "expected_sha256": "f0d3156b348cd88ed7ce9d4f374d412e4bcdef48442a125591abf32c85377da0",
+        "bytes": 327772,
+        "sha256": "f0d3156b348cd88ed7ce9d4f374d412e4bcdef48442a125591abf32c85377da0",
+        "hash_verified": true,
+        "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjxsjggs/",
+        "fetched_at": "2026-10-08T16:19:42.970146+00:00",
+        "encoding": "utf-8",
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      },
+      "json_contract_from_real_html": {
+        "records_pointer": "/data/data/dataList",
+        "total_pointer": "/data/data/total",
+        "displayed_fields": [
+          "orgName",
+          "regAddr",
+          "orgType",
+          "checkTime"
+        ],
+        "detail_url_rendered": false,
+        "stable_business_key": "UNVERIFIED; JSON response bytes are missing",
+        "business_response_route_comparison": "BLOCKED"
+      }
+    },
+    {
+      "research_id": "dd-250",
+      "class": "C",
+      "name": "基金托管机构",
+      "entry_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+      "sample_url": "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+      "candidate_url": "https://www.amac.org.cn/hydj/xxgcddesdjs/202506/t20250610_26744.html",
+      "mechanisms": [
+        "multi_record_json_api",
+        "numbered_pagination"
+      ],
+      "parameters": "pageNo,pageSize",
+      "business_scope": "仅以上明确描述的公开内容与参数；未验证全量、主体完整核验或长期稳定性",
+      "latest_research_body": {
+        "path": "experiments/source-accessibility/results/20261009-extra/bodies/f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879",
+        "exists": false,
+        "expected_sha256": "f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879"
+      },
+      "runtime_acceptance": "BLOCKED",
+      "source_id": null,
+      "binding_id": null,
+      "run_ids": [],
+      "record_ids": [],
+      "replay_run_ids": [],
+      "blockers": [
+        "restricted_network_destination",
+        "required_live_runtime_rounds_missing",
+        "required_json_business_response_missing"
+      ],
+      "historical_entry_body": {
+        "path": "experiments/due-diligence/results/map-20261009-resume/bodies/5bd3a97b589e21ad7ee492dbeaf635b1baf2f2685d184674967f20c8abedd222",
+        "exists": true,
+        "expected_sha256": "5bd3a97b589e21ad7ee492dbeaf635b1baf2f2685d184674967f20c8abedd222",
+        "bytes": 319087,
+        "sha256": "5bd3a97b589e21ad7ee492dbeaf635b1baf2f2685d184674967f20c8abedd222",
+        "hash_verified": true,
+        "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+        "fetched_at": "2026-10-08T16:19:33.540137+00:00",
+        "encoding": "utf-8",
+        "scope": "Historical entry response only; does not establish V1.2 collection acceptance"
+      },
+      "json_contract_from_real_html": {
+        "records_pointer": "/data/data/dataList",
+        "total_pointer": "/data/data/total",
+        "displayed_fields": [
+          "trustName",
+          "regAddr"
+        ],
+        "detail_url_rendered": false,
+        "stable_business_key": "UNVERIFIED; JSON response bytes are missing",
+        "business_response_route_comparison": "BLOCKED"
+      }
+    }
+  ]
+}

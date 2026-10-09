@@ -16,7 +16,7 @@ def fresh_install(h):
         c.execute("CREATE DATABASE fresh_install")
     try:
         h.env["SEAL_DATABASE_URL"] = original.rsplit("/", 1)[0] + "/fresh_install"
-        h.check("empty_database_install", h.cli("db", "migrate")["schema"], "v1.1")
+        h.check("empty_database_install", h.cli("db", "migrate")["schema"], "v1.2")
         h.cli("db", "migrate")
         h.config("fresh")
         run = h.cli("run", "fresh", "--binding", h.binding("fresh"))
@@ -189,7 +189,7 @@ with connect() as c:
     )
     before = preserved()
     migrated = h.cli("db", "migrate")
-    h.check("incremental_migration_v11", migrated["schema"], "v1.1")
+    h.check("incremental_migration_v11", migrated["schema"], "v1.2")
     h.check("v1_immutable_history_unchanged", preserved(), before)
     state = h.cli("inspect", "source", "legacy")
     h.check("v1_default_paused_for_upgrade", state["source"]["paused"], True)

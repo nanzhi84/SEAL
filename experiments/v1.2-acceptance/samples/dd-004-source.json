@@ -1,0 +1,40 @@
+{
+  "methods": [
+    "GET"
+  ],
+  "identity": "business_key",
+  "output_schema": "record.v1",
+  "archive_approved": true,
+  "poll_seconds": 86400,
+  "recheck_seconds": 86400,
+  "concurrency": 1,
+  "delay": 1.5,
+  "budget": {
+    "requests": 12,
+    "seconds": 90,
+    "response_bytes": 5242880
+  },
+  "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)",
+  "id": "v12_dd_004",
+  "research_ids": [
+    "dd-004"
+  ],
+  "entry_urls": [
+    "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx"
+  ],
+  "allowed_hosts": [
+    "amr.sz.gov.cn"
+  ],
+  "allowed_path_prefixes": [
+    "/xyjggs.webui/xyjggs/index.aspx",
+    "/xyjggs.webui/xyjggs/document/"
+  ],
+  "host_path_scopes": {
+    "amr.sz.gov.cn": [
+      "/xyjggs.webui/xyjggs/index.aspx",
+      "/xyjggs.webui/xyjggs/document/"
+    ]
+  },
+  "seed_role": "list",
+  "scope": "深圳公开入口中的静态PDF公告，最多两份；不访问JS企业查询、GSXT、登录或验证码渠道。"
+}
