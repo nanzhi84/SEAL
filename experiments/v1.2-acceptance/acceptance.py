@@ -90,7 +90,9 @@ class Harness(LegacyHarness):
                 str(p): hashlib.sha256(p.read_bytes()).hexdigest()
                 for folder in ("src", "experiments/v1.2-acceptance", "recipes")
                 for p in Path(folder).rglob("*")
-                if p.is_file() and "__pycache__" not in p.parts
+                if p.is_file()
+                and "__pycache__" not in p.parts
+                and not p.is_relative_to(Path("experiments/v1.2-acceptance/results"))
             },
             scope="Runtime synthetic contracts: isolated PostgreSQL + loopback sources",
             real_source_acceptance={
