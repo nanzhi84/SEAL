@@ -1,0 +1,3286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript">
+    var UC="uc";
+    var AUTH="auth2";
+    var FLOW="flow";
+    var CC="cc";
+    var XWKFORM="cc";
+    var XWKSTAT="helper";
+    var ZUUL="root";
+    var PT="pt";
+    var ATTA = "atta";
+    var DFORM ="dform";
+    var myZuul = 'http://zuul.c:2011/';
+    //附件上传
+    var ctx = "";
+    var API = "/api/";
+    var MENU = "uc";
+    var uctServiceName = "uc";
+    var attaServiceName = "atta";
+    var flowServiceName = "flow";
+    var statServiceName = 'zbs';
+    var pdfServiceName ="atta";
+    var myUserId = '';
+    var userEname = '';
+    var myUserEname = '';
+    var myUserCname = '';
+    var deptId = '';
+    var deptCname = '';
+    var deptIds = "";
+    var deptEname = "";
+    var userType = "";
+    //alert(deptId);
+    var orgId = '';
+    var systemType = '';
+    var userRoles= '';
+    var roles= '';
+    var pageRoot = '';
+    window.HOST_TYPE='2'
+    var xwkDict = {};
+</script>
+<link rel="stylesheet" href="/zbxUI/adminlte/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/zbxUI/font/css/font-awesome.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/css/adminlte.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/sweetalert2/bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/toastr/toastr.min.css">
+<link rel="stylesheet" type="text/css" href="/zbxUI/js/easyui/themes/gray/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/zbxUI/js/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/table/bootstrap-table.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/table/bootstrap-table-fixed-columns.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/select2/css/select2.min.css">
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-migrate.min.js"></script>
+<script>
+    jQuery.browser={};(function(){jQuery.browser.msie=false; jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+</script>
+
+<script type="text/javascript" src="/zbxUI/adminlte/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/sweetalert2/sweetalert2.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/toastr/toastr.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/moment.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/zh-cn.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/daterangepicker.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.js"></script>
+
+
+<script src="/zbxUI/adminlte/select2/js/select2.full.min.js"></script>
+<script src="/zbxUI/adminlte/select2/i18n/zh-CN.js"></script>
+
+<script type="text/javascript" src="/zbxUI/adminlte/js/adminlte.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/md5.js"></script>
+
+<script src="/zbxUI/adminlte/table/bootstrap-table.min.js"></script>
+<script src="/zbxUI/adminlte/table/bootstrap-table-zh-CN.js"></script>
+<script src="/zbxUI/adminlte/table/bootstrap-table-fixed-columns.min.js"></script>
+
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/additional-methods.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/messages_zh.js"></script>
+<script type="text/javascript" src="/zbxUI/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/zbxUI/js/baiduTemplate.js"></script>
+<script type="text/javascript" src="/zbxUI/js/keditor/kindeditor.js"></script>
+<script type="text/javascript" src="/zbxUI/js/echart/echarts2.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.form.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/jsencrypt.js"></script>
+<script type="text/javascript" src="/zbxUI/js/distpicker.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/xwkTools.min.js?20221207"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/zbxTools.min.2.0.js?20230720"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/baseTools.min.2.0.js?20221207"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/charTools2.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<script type="text/javascript">
+    function getFumFldDesc(){
+        var sumFldDesc = "";
+        $(".sumFld").each(function(){
+            if(this.checked){
+                sumFldDesc += ","+$(this).next().html();
+                //seriesName.push($(this).next().html());
+            }
+        });
+        if(sumFldDesc!=""){
+            return sumFldDesc.substring(1);
+        }else{
+            return "";
+        }
+    }
+    function getFumFld(){
+        var sumFld = "";//seriesName =[];
+        $(".sumFld").each(function(){
+            if(this.checked){
+                sumFld += ","+$(this).val();
+            }
+        });
+        if(sumFld!=""){
+            return sumFld.substring(1);
+        }else{
+            return "";
+        }
+    }
+    function getDictList(cateEname,fatherValue){
+        if(doNull(fatherValue)=="")fatherValue="0"
+        var temp;
+        //var this_url = ctx+"/dicts/getItems/"+cateEname+"/"+fatherValue;
+        var this_url = "/zbxUI/data/"+cateEname+".json";
+        if(debug)alert(this_url);
+        $.ajax({
+            type:'get',
+            url:this_url,
+            dataType:'json',
+            async:false,
+            success: function(myData){
+                if(debug)console.log(myData);
+                temp=eval(myData);
+            }
+        });
+        return temp;
+    }
+    function  dictSelectHtml(dictItemList,inputTextName,defaultValue,id,onchangeFunction){
+        if(doNull(defaultValue)=="")defaultValue="";
+        if(doNull(onchangeFunction)!="")onchangeFunction=" onchange='"+onchangeFunction+"(this)'";
+        var dictStr="<select myid='"+doNull(id)+"' name='"+inputTextName+"' "+onchangeFunction+">";
+        dictItemList.forEach(function(val,index){
+            if(dictItemList[index].id==defaultValue){
+                dictStr +="<option value='"+dictItemList[index].id+"' selected>"+dictItemList[index].text+"</option>"
+            }else{
+                dictStr +="<option value='"+dictItemList[index].id+"'>"+dictItemList[index].text+"</option>"
+            }
+        });
+        dictStr +="</select>";
+        return dictStr;
+    }
+    function loadPtDict(selectid,catename,defaultValue){
+        var dlist = getDictList(catename);
+        var selectObj = document.getElementById(selectid);
+        dlist.forEach(function(val,index){
+            if(dlist[index].id==defaultValue){
+                selectObj.options.add(new Option(dlist[index].text,dlist[index].id,true,true));
+            }else{
+                selectObj.options.add(new Option(dlist[index].text,dlist[index].id));
+            }
+        });
+    }
+    function adminMenu(syscode){
+        if(doNull(syscode)==""){
+            syscode=myServer;
+            if(syscode.indexOf(".")>-1){
+                syscode=syscode.split(".")[0];
+            }
+        }
+        toHtml('zbx/menu/menu-tree','sysCode='+syscode);
+    }
+    function reloadWindow(){
+        window.location.reload();
+    }
+
+    function mobileExist(mobile){
+        var x = apiGet("/exist/mobile/"+mobile,"",UC);
+        if(x){
+           if(x.result=="T"){
+               return true;
+           }else{
+               return false;
+           }
+        }
+        return false;
+    }
+    function userExist(userEname){
+        var x = apiGet("/exist/"+userEname,"",UC);
+        if(x){
+            if(x.result=="T"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+    function emailExist(email){
+        var x = apiGet("/exist/email","email="+email,UC);
+        if(x){
+            if(x.result=="T"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+</script>
+
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/static/dpmweb/qzcq/images/favicon.ico">
+<link rel="stylesheet" href="/static/dpmweb/qzcq/css/public.css">
+ <link rel="stylesheet" href="/static/dpmweb/qzcq/css/style.css">
+<!--<link rel="stylesheet" href="/static/dpmweb/css/qyy.css"> -->
+<link rel="stylesheet" href="/static/dpmweb/js/swiper/swiper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ffcalendar/css/calendar.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.css">
+<link rel="stylesheet" href="/static/dpmweb/js/social-share/share-infodetail.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/picture-editing/cropper/cropper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.all.css">
+<link rel="stylesheet" href="/static/dpmweb/js/viewer/viewer.min.css">
+<script src="/static/dpmweb/js/swiper/swiper.min.js"></script>
+<!-- <script src="/static/dpmweb/js/ffcalendar/js/calendar.js"></script> -->
+<script src="/static/dpmweb/js/dpm.js"></script>
+<script src="/static/dpmweb/js/jquery.media.js"></script>
+<script src="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.min.js"></script>
+<script src="/static/dpmweb/js/social-share/social-share.js"></script>
+<script src="/static/dpmweb/js/qrcode.js"></script>
+<script src="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.min.all.js"></script>
+
+<script src="/static/dpmweb/js/picture-editing/cropper/cropper.js"></script>
+<script src="/static/dpmweb/js/moment.min.js"></script>
+<script src="/static/dpmweb/js/validator.js"></script>
+<script src="/static/dpmweb/js/highcharts.js"></script>
+<script src="/zbxUI/js/jquery.steps.min.js"></script>
+<script src="/static/dpmweb/js/picker.js"></script>
+<script src="/static/dpmweb/js/viewer/viewer-jquery.min.js"></script>
+<script src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+<script src="/static/dpmweb/js/pdf.min.js"></script>
+<script>
+    var editorFlagEntity = null;//getEntity('/web/configurate/editor_flag');
+    var editorFlag = "T";
+    if (null != editorFlagEntity) {
+        editorFlag = editorFlagEntity.configValue;
+    }
+    //获取保证金支付方式文本
+    function pubBailMethodText(proId) {
+        var pub = apiGet("/web/detail/pub/" + proId).entity;
+        var pubBailMethod = pub.pubBailMethod;
+        if (doNull(pubBailMethod) != '') {
+            var pubBailMethodText = "";
+            if (pubBailMethod.indexOf('2') > -1 && pubBailMethod.indexOf('4') > -1) {
+                pubBailMethodText = "银行转账，其他";
+            } else if (pubBailMethod.indexOf('2') > -1) {
+                pubBailMethodText = "银行转账";
+            } else if (pubBailMethod.indexOf('4') > -1) {
+                pubBailMethodText = "其他";
+            }
+        }
+        return pubBailMethodText;
+    }
+
+    $(function () {
+        //当前页面导航高亮
+        var pathName = window.location.pathname;
+        var mainNav = $('.main-menu ul >li');
+        console.log(mainNav)
+        if (pathName == "/qzcq/index") {
+            mainNav.eq(0).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/c/news" || pathName == "/qzcq/c/news/tzgg" || pathName == "/qzcq/c/news/djwh" || pathName == "/qzcq/c/news/xxgk" ) {
+            mainNav.eq(1).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/p/pro/index") {
+            mainNav.eq(2).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/p/notice/list" || pathName =="/qzcq/p/dpub/demand-list?noticeType=demand") {
+            mainNav.eq(3).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/p/item/index") {
+            mainNav.eq(4).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/c/djwh") {
+            mainNav.eq(5).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/c/fwzn/zlxz" || pathName == "/qzcq/c/fwzn/jjzd" || pathName == "/qzcq/c/fwzn/ywlc" || pathName == "/qzcq/c/fwzn/jygz" || pathName == "/qzcq/c/fwzn/sfbz" ) {
+            mainNav.eq(6).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/c/zcfg/gj" || pathName == "/qzcq/c/zcfg/df" || pathName == "/qzcq/c/zcfg/zcjd"  ) {
+            mainNav.eq(7).addClass('active').siblings().removeClass('active')
+        }
+       else if (pathName == "/qzcq/c/zzfw") {
+            mainNav.eq(8).addClass('active').siblings().removeClass('active')
+        }
+        else if (pathName == "/qzcq/c/gywm/zxjj" || pathName == "/qzcq/c/gywm/lxfs" || pathName == "/qzcq/c/gywm/zzjg") {
+            mainNav.eq(9).addClass('active').siblings().removeClass('active')
+        }
+        else {
+            mainNav.removeClass('active')
+        }
+
+        // 返回顶部
+        $('.to_top').click(function () {
+            $('body,html').animate({ scrollTop: 0 }, 300);
+        })
+
+    })
+
+
+    //单位转换成万元
+    function toWan(v) {
+        if (doNull(v) == "" && v != 0) {
+            return "";
+        }
+        return (parseFloat(v) / 10000).toFixed(6);
+    }
+
+    //单位转换成元
+    function toUtrnYuan(v) {
+        if (doNull(v) === "") { return ""; }
+        return parseFloat(v).toFixed(2);
+    }
+
+    //单位转换成元
+    function toYuan(v) {
+        if (doNull(v) == "") { return ""; }
+        return (parseFloat(v) * 10000).toFixed(2);
+    }
+
+    //是否负数
+    function isLessThenZero(numStr) {
+        return Number(numStr) < 0;
+    }
+
+    // 优化支持负数的大写
+    function getChinese(currencyDigits) {
+        var lessFlag = false;
+        if (isLessThenZero(currencyDigits)) {
+            lessFlag = true;
+        }
+        currencyDigits = Math.abs(Number(currencyDigits));
+        var MAXIMUM_NUMBER = 99999999999.99;
+        var CN_ZERO = "零";
+        var CN_ONE = "壹";
+        var CN_TWO = "贰";
+        var CN_THREE = "叁";
+        var CN_FOUR = "肆";
+        var CN_FIVE = "伍";
+        var CN_SIX = "陆";
+        var CN_SEVEN = "柒";
+        var CN_EIGHT = "捌";
+        var CN_NINE = "玖";
+        var CN_TEN = "拾";
+        var CN_HUNDRED = "佰";
+        var CN_THOUSAND = "仟";
+        var CN_TEN_THOUSAND = "万";
+        var CN_HUNDRED_MILLION = "亿";
+        var CN_SYMBOL = "人民币";
+        var CN_DOLLAR = "元";
+        var CN_TEN_CENT = "角";
+        var CN_CENT = "分";
+        var CN_INTEGER = "整";
+
+        var integral;
+        var decimal;
+        var outputCharacters;
+        var parts;
+        var digits, radices, bigRadices, decimals;
+        var zeroCount;
+        var i, p, d;
+        var quotient, modulus;
+
+        currencyDigits = currencyDigits.toString();
+        currencyDigits = currencyDigits.replace(/,/g, "");
+        currencyDigits = currencyDigits.replace(/^0+/, "");
+
+        parts = currencyDigits.split(".");
+        if (parts.length > 1) {
+            integral = parts[0];
+            decimal = parts[1];
+            decimal = decimal.substr(0, 2);
+        }
+        else {
+            integral = parts[0];
+            decimal = "";
+        }
+        digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE);
+        radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+        bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION);
+        decimals = new Array(CN_TEN_CENT, CN_CENT);
+
+        outputCharacters = "";
+        if (Number(integral) > 0) {
+            zeroCount = 0;
+            for (i = 0; i < integral.length; i++) {
+                p = integral.length - i - 1;
+                d = integral.substr(i, 1);
+                quotient = p / 4;
+                modulus = p % 4;
+                if (d == "0") {
+                    zeroCount++;
+                }
+                else {
+                    if (zeroCount > 0) {
+                        outputCharacters += digits[0];
+                    }
+                    zeroCount = 0;
+                    outputCharacters += digits[Number(d)] + radices[modulus];
+                }
+                if (modulus == 0 && zeroCount < 4) {
+                    outputCharacters += bigRadices[quotient];
+                    zeroCount = 0;
+                }
+            }
+            outputCharacters += CN_DOLLAR;
+        }
+
+        if (decimal != "") {
+            for (i = 0; i < decimal.length; i++) {
+                d = decimal.substr(i, 1);
+                if (d != "0") {
+                    outputCharacters += digits[Number(d)] + decimals[i];
+                }
+            }
+        }
+
+        if (outputCharacters == "") {
+            outputCharacters = CN_ZERO + CN_DOLLAR;
+        }
+        if (decimal == "") {
+            outputCharacters += CN_INTEGER;
+        }
+        outputCharacters = lessFlag ? '负' + outputCharacters : outputCharacters;
+        return outputCharacters;
+    }
+
+    //万元大写
+    function ChineseMillion(obj, obj2) {
+        var currencyDigits;
+        if (obj2 != null) {
+            currencyDigits = obj;
+        } else {
+            currencyDigits = $(obj).val();
+        }
+
+        var MAXIMUM_NUMBER = 99999999999.99;
+        var CN_ZERO = "零";
+        var CN_ONE = "壹";
+        var CN_TWO = "贰";
+        var CN_THREE = "叁";
+        var CN_FOUR = "肆";
+        var CN_FIVE = "伍";
+        var CN_SIX = "陆";
+        var CN_SEVEN = "柒";
+        var CN_EIGHT = "捌";
+        var CN_NINE = "玖";
+        var CN_TEN = "拾";
+        var CN_HUNDRED = "佰";
+        var CN_THOUSAND = "仟";
+        var CN_TEN_THOUSAND = "万";
+        var CN_HUNDRED_MILLION = "亿";
+        var CN_SYMBOL = "人民币";
+        var CN_DOLLAR = "元";
+        var CN_TEN_CENT = "角";
+        var CN_CENT = "分";
+        var CN_INTEGER = "整";
+        var CN_MINUS = "负";
+        var CN_TEN_THOUSAND_HUNDRED_MILLION = "万亿";
+
+        var integral;
+        var decimal;
+        var outputCharacters;
+        var parts;
+        var digits, radices, bigRadices, decimals;
+        var zeroCount;
+        var i, p, d;
+        var quotient, modulus;
+
+        currencyDigits = currencyDigits.toString();
+        currencyDigits = currencyDigits.replace(/,/g, "");
+        currencyDigits = currencyDigits.replace(/^0+/, "");
+        if (currencyDigits.indexOf(".") == -1) {
+            currencyDigits += ".000000";
+        }
+        parts = currencyDigits.split(".");
+        outputCharacters = "";
+        //"-0"
+        if (parts[0].indexOf("-") == 0 && Number(parts[0]) == 0) {
+            outputCharacters = CN_MINUS;
+        }
+        if (parts.length > 1) {
+            integral = Number(parts[0]) * 10000;
+            integral = integral.toString();
+            decimal = parts[1];
+            decimal = decimal.substr(0, 6);
+        }
+        else {
+            integral = parts[0];
+            decimal = "";
+        }
+
+        digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE);
+        radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+        bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION, CN_TEN_THOUSAND_HUNDRED_MILLION);
+        decimals = new Array(CN_THOUSAND, CN_HUNDRED, CN_TEN, CN_DOLLAR, CN_TEN_CENT, CN_CENT);
+
+
+        if (Number(integral) < 0) {
+            integral = Math.abs(Number(integral));
+            integral = integral.toString();
+            outputCharacters = CN_MINUS;
+        }
+
+        if (Number(integral) > 0) {
+            zeroCount = 0;
+            for (i = 0; i < integral.length; i++) {
+                p = integral.length - i - 1;
+                d = integral.substr(i, 1);
+                quotient = p / 4;
+                modulus = p % 4;
+                if (d == "0") {
+                    zeroCount++;
+                }
+                else {
+                    if (zeroCount > 0) {
+                        outputCharacters += digits[0];
+                    }
+                    zeroCount = 0;
+                    outputCharacters += digits[Number(d)] + radices[modulus];
+                }
+                if (modulus == 0 && zeroCount < 4) {
+                    outputCharacters += bigRadices[quotient];
+                    zeroCount = 0;
+                }
+
+            }
+            //outputCharacters += CN_TEN_THOUSAND;
+        }
+
+        if (decimal != "") {
+            for (i = 0; i < decimal.length; i++) {
+                d = decimal.substr(i, 1);
+                if (d != "0") {
+                    outputCharacters += digits[Number(d)] + decimals[i];
+                }
+            }
+        }
+
+        if (outputCharacters == "" || outputCharacters == CN_MINUS) {
+            outputCharacters = CN_ZERO + CN_TEN_THOUSAND;
+        }
+        if (decimal == "") {
+            outputCharacters += CN_INTEGER;
+        }
+        outputCharacters = outputCharacters;
+        if (obj2 != null) {
+            //var id=$(obj).attr("id");
+            // $("nobr").remove("#nobr_"+id);
+            //$(obj).parent().append('<nobr id="nobr_'+id+'">' + outputCharacters + '</nobr>');
+            return outputCharacters;
+        } else {
+            $(obj).parent().find('nobr').remove();
+            $(obj).parent().append('<nobr>' + outputCharacters + '</nobr>');
+        }
+    }
+    //数字价格(元)==》汉字价格(元)
+    function bigTxtYuan(textId, val) {
+        var vt = getChinese(val);
+        $("#" + textId).html("(" + vt + ")");
+    }
+    //数字价格(万元)==》汉字价格(万元)
+    function bigTxtWanYuan(textId, val) {
+        var vt = ChineseMillion(val, '-');
+        $("#" + textId).html("(" + vt + ")");
+    }
+    // 附件类型的反显
+    function getAttaType(originalFlag, electronicFlag, copyFlag) {
+        var str = "";
+        if (originalFlag == "T") {
+            str += "原件 ";
+        }
+        if (copyFlag == "T") {
+            str += "复印件 ";
+        }
+        if (electronicFlag == "T") {
+            str += "电子版 "
+        }
+        return str;
+    }
+
+    // 获取当前location
+    function getUrl() {
+        var url = "/qzcq/index";
+        // var url = "/qzcq/p/login";
+        /*var domainName = window.location.protocol;
+        url = domainName + url;*/
+        return url;
+    }
+
+    // 获取当前location添加?u=wtf
+    function getOutUrl(){
+        var url="/qzcq/index";
+        // var url="/qzcq/p/login?u=wtf";
+        /*var domainName = window.location.protocol;
+        url = domainName+url;*/
+        return url;
+    }
+
+    function createProDo(templateCode, proId) {
+        xwkPost(ATTA, "/createWord/" + templateCode + "?proId=" + proId, "", createDoOk)
+    }
+    function createCertDo(templateCode, proId) {
+        var cert = apiGet("my/cert/" + proId).entity;
+        xwkPost(ATTA, "/createWord/" + templateCode + "?certId=" + cert.certId, "", createDoOk)
+    }
+    function createDoOk(data) {
+        xwkPost(ATTA, "/download/", "fullFileName=" + data.message, downCallback);
+    }
+    function downCallback(data) {
+        var token = data.message;
+        window.open("/api/" + ATTA + "/download/?token=" + token);
+    }
+
+    function getAttaType(originalFlag, electronicFlag, copyFlag) {
+        var str = "";
+        if (originalFlag == "T") {
+            str += "原件 ";
+        }
+        if (copyFlag == "T") {
+            str += "复印件 ";
+        }
+        if (electronicFlag == "T") {
+            str += "电子版 "
+        }
+        return str;
+    }
+
+    /*==============附件相关start================*/
+    function batchUploadCb(res, formName) {
+        if (res.result == 'T') {
+            var id = formName.split("_")[1];
+            var fileUrls = res.message;
+            var storeIds = res.entity;
+            if (doNull(fileUrls) != '') {
+                fileUrls = fileUrls.substr(0, fileUrls.length - 1)
+                storeIds = storeIds.substr(0, storeIds.length - 1)
+            }
+            apiPut('/proAtta/' + id, 'templateUrl=' + fileUrls.replaceAll(",", "|") + '&storeIds=' + storeIds.replaceAll(",", "|"), proAttaList);
+        } else {
+            XWK.alert(res.message);
+        }
+    }
+    function proAttaListCb() {
+        $("div[id^='attaList_']").each(function () {
+            var id = $(this).attr("id").split("_")[1];
+            proAttaFileList(id, "attaList_");
+        })
+    }
+    function proAttaFileList(id, boxName) {
+        xwkLoad(ATTA, "/store/?objId=" + id + "&attaKey=dpm_proAtta_file", "atta-list_html", boxName + id);
+    }
+    function quickBatchUpload(id, callback) {
+        // 批量存储时，无法对应到proAttaId，所以id为pro或者packId，将返回值存储在proAtta中
+        attaUpload('dpm_proAtta_file', id, '项目公开附件', callback)
+    }
+    function continueUpload(proAttaId, proAttaName, callback) {
+        attaUpload('dpm_proAtta_file', proAttaId, proAttaName, callback);
+    }
+    // 删除附件信息
+    function delProAtta(index, storeIds, electronicUrl, proAttaId, callback) {
+        XWK.confirm.xwkDelete(ATTA, '/store/' + storeIds.split('|')[index], '该附件', function () {
+            var electronicUrlArr = electronicUrl.split("|");
+            var storeIdsArr = storeIds.split("|");
+            electronicUrlArr.splice(index, 1);
+            storeIdsArr.splice(index, 1);
+            // 组装字段
+            var newTemp = "";
+            var newIds = "";
+            for (var i = 0; i < electronicUrlArr.length; i++) {
+                newTemp += electronicUrlArr[i] + "|";
+            }
+            for (var i = 0; i < storeIdsArr.length; i++) {
+                newIds += storeIdsArr[i] + "|";
+            }
+            // 修改proAtta的信息
+            apiPut("/proAtta/" + proAttaId, "electronicUrl=" + newTemp.substring(0, newTemp.length - 1) + "&storeIds=" + newIds.substring(0, newIds.length - 1), callback);
+        })
+    }
+    //渲染详情页附件
+    function loadPubAtta(proId, tableView) {
+        if (document.getElementById("important_electronicUrl_file")) {
+            var proAttaImportantList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_important").rows;
+            if (proAttaImportantList.length > 0) {
+                var electronicUrl = proAttaImportantList[0].electronicUrl;
+                var storeIds = proAttaImportantList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#important_electronicUrl_file').empty();
+                    $('#' + tableView).find('#important_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("bidMethodContent_electronicUrl_file")) {
+            var proAttaBidMethodList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_bidMethodContent").rows;
+            if (proAttaBidMethodList.length > 0) {
+                var electronicUrl = proAttaBidMethodList[0].electronicUrl;
+                var storeIds = proAttaBidMethodList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#bidMethodContent_electronicUrl_file').empty();
+                    $('#' + tableView).find('#bidMethodContent_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("buyerCondition_electronicUrl_file")) {
+            var proAttaBuyerList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_buyerCondition").rows;
+            if (proAttaBuyerList.length > 0) {
+                var electronicUrl = proAttaBuyerList[0].electronicUrl;
+                var storeIds = proAttaBuyerList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#buyerCondition_electronicUrl_file').empty();
+                    $('#' + tableView).find('#buyerCondition_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("sellerConditions_electronicUrl_file")) {
+            var proAttaSellerList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_sellerConditions").rows;
+            if (proAttaSellerList.length > 0) {
+                var electronicUrl = proAttaSellerList[0].electronicUrl;
+                var storeIds = proAttaSellerList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#sellerConditions_electronicUrl_file').empty();
+                    $('#' + tableView).find('#sellerConditions_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("capitalIncreasePlan_electronicUrl_file")) {
+            var proAttaCapitalIncreasePlanList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_capitalIncreasePlan").rows;
+            if (proAttaCapitalIncreasePlanList.length > 0) {
+                var electronicUrl = proAttaCapitalIncreasePlanList[0].electronicUrl;
+                var storeIds = proAttaCapitalIncreasePlanList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#capitalIncreasePlan_electronicUrl_file').empty();
+                    $('#' + tableView).find('#capitalIncreasePlan_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("dealCondition_electronicUrl_file")) {
+            var proAttaDealConditionList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_dealCondition").rows;
+            if (proAttaDealConditionList.length > 0) {
+                var electronicUrl = proAttaDealConditionList[0].electronicUrl;
+                var storeIds = proAttaDealConditionList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#dealCondition_electronicUrl_file').empty();
+                    $('#' + tableView).find('#dealCondition_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("pubOthers_electronicUrl_file")) {
+            var proAttaPubOthersList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubOthers").rows;
+            if (proAttaPubOthersList.length > 0) {
+                var electronicUrl = proAttaPubOthersList[0].electronicUrl;
+                var storeIds = proAttaPubOthersList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#pubOthers_electronicUrl_file').empty();
+                    $('#' + tableView).find('#pubOthers_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("bailMemo_electronicUrl_file")) {
+            var proAttaBailMemoList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubBailMemo").rows;
+            if (proAttaBailMemoList.length > 0) {
+                var electronicUrl = proAttaBailMemoList[0].electronicUrl;
+                var storeIds = proAttaBailMemoList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#bailMemo_electronicUrl_file').empty();
+                    $('#' + tableView).find('#bailMemo_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("seWay_electronicUrl_file")) {
+            var proAttaSeWayList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_seWay").rows;
+            if (proAttaSeWayList.length > 0) {
+                var electronicUrl = proAttaSeWayList[0].electronicUrl;
+                var storeIds = proAttaSeWayList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#seWay_electronicUrl_file').empty();
+                    $('#' + tableView).find('#seWay_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("pubWayDesc_electronicUrl_file")) {
+            var proAttaPubWayDescList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubWayDesc").rows;
+            if (proAttaPubWayDescList.length > 0) {
+                var electronicUrl = proAttaPubWayDescList[0].electronicUrl;
+                var storeIds = proAttaPubWayDescList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#pubWayDesc_electronicUrl_file').empty();
+                    $('#' + tableView).find('#pubWayDesc_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("pubBailMemo_electronicUrl_file")) {
+            var proAttaPubBailMemoList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubBailMemo").rows;
+            if (proAttaPubBailMemoList.length > 0) {
+                var electronicUrl = proAttaPubBailMemoList[0].electronicUrl;
+                var storeIds = proAttaPubBailMemoList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#pubBailMemo_electronicUrl_file').empty();
+                    $('#' + tableView).find('#pubBailMemo_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("buyerPromise_electronicUrl_file")) {
+            var proAttaBuyerPromiseList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_buyerPromise").rows;
+            if (proAttaBuyerPromiseList.length > 0) {
+                var electronicUrl = proAttaBuyerPromiseList[0].electronicUrl;
+                var storeIds = proAttaBuyerPromiseList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#buyerPromise_electronicUrl_file').empty();
+                    $('#' + tableView).find('#buyerPromise_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+    }
+    //删除单附件
+    function delProAttaSingle(type, storeIds, proAttaId, callback) {
+        XWK.confirm.xwkDelete(ATTA, '/store/' + storeIds, '该附件', function () {
+            // 修改proAtta的信息
+            if (doNull(proAttaId) != '') {
+                apiPut("/proAtta/" + proAttaId, type + "=&storeIds=", callback);
+            }
+        })
+    }
+    /*==============附件相关end================*/
+    function updateModel() {
+        alert("该模板需要根据您的需求定制，请联系系统建设单位！");
+    }
+    function printBill() {
+        alert("该单据需要根据您的需求定制，请联系系统建设单位！");
+    }
+    function getMainStatus(mainStatus, exceptionStatus) {
+        if (exceptionStatus != null && exceptionStatus != 0) {
+            if (exceptionStatus == '1') {
+                return "中止";
+            } else if (exceptionStatus == '3') {
+                return "终结";
+            } else if (exceptionStatus == '4') {
+                return "流拍";
+            } else if (exceptionStatus == '5') {
+                return "异常结束";
+            }
+        } else {
+            if (mainStatus == 0) {
+                return "录入中";
+            } else if (mainStatus == 10) {
+                return "审核中";
+            } else if (mainStatus == 1) {
+                return "退回";
+            } else if (mainStatus == 2) {
+                return "已撤回";
+            } else if (mainStatus == 5) {
+                return "待认领";
+            } else if (mainStatus == 30) {
+                return "挂牌中";
+            } else if (mainStatus == 40) {
+                return "等待竞价";
+            } else if (mainStatus == 70) {
+                return "竞价中";
+            } else if (mainStatus >= 79 && mainStatus < 100) {
+                return "已成交";
+            } else if (mainStatus == 100) {
+                return "已归档";
+            }
+        }
+
+    }
+    function iconChange(obj, id, type) {
+        if ($(obj).attr("class").indexOf("fa-xmark") > -1) {
+            $(obj).removeClass().addClass("fas fa-check text-success");
+            apiPut('/proAtta/' + id, type + 'Flag=T');
+        } else {
+            $(obj).removeClass().addClass("fas fa-xmark text-danger");
+            apiPut('/proAtta/' + id, type + 'Flag=F');
+        }
+    }
+    /*====================签章合同=================*/
+    function downloadFile(contactId) {
+        apiPost('/web/fdd/downloadContract/' + contactId + '?fileIdType=contactId', '', downloadFileCb);
+    }
+    function downloadFileCb(data) {
+        console.log(data);
+        window.open(data.message);
+    }
+    function myLoadEditor(idName, width, height, defRemark) {
+        if (doNull(editorFlag) == "F") {
+            return;
+        }
+        if (doNull(width) == "") width = document.getElementById(idName).style.width;
+        if (doNull(height) == "") height = document.getElementById(idName).style.height;
+        if (doNull(width) == "") width = '100%';
+        if (doNull(height) == "") height = 500;
+        if (doNull(defRemark) == "") defRemark = '';
+        //window.editor = KindEditor.create('#'+idName,{
+        KindEditor.create('#' + idName, {
+            resizeType: 1,
+            width: width,
+            height: height,
+            afterFocus: function (e) {//鼠标获取焦点
+                if (this.html() == defRemark) { this.html(defRemark); }
+            },
+            afterBlur: function (e) {
+                this.sync();
+                if (this.html() == "" || $('#' + idName).val().replace(/\s/g, "") == "") { this.html(defRemark); }
+            },
+            /* afterChange : function() {
+                 $('.word_count1').html(this.count()); //字数统计包含HTML代码
+                 $('.word_count2').html(this.count('text'));  //字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字
+                 var limitNum = 2000;  //设定限制字数
+                 var pattern = "0/"+limitNum;
+                 $('.word_surplus').html(pattern); //输入显示
+                 if(this.count('text') > limitNum) {
+                     pattern = ('字数超过限制，请适当删除部分内容');
+                     //超过字数限制自动截取
+                     var strValue = this.html();
+                      strValue = strValue.substring(0,limitNum);
+                     this.html(strValue);
+                 } else {
+                 //计算剩余字数
+                     //var result = limitNum - this.count('text');
+                     pattern = this.count('text') + '/'+limitNum;
+                 }
+                 $('#'+idName+'_num').html(pattern); //输入显示
+             },*/
+            allowImageUpload: true
+        });
+    }
+
+    //=====数字位数大写等处理=====start===
+
+    function getTitleName(thsTitle) {
+        $("#div_title").attr('title', thsTitle);
+        $("#main ul li a span").first().html(thsTitle);
+    }
+
+    //只能输入数字（包含小数）
+    function numberType(obj) {
+        var va = obj.value;
+        if (isNaN(va)) {
+            obj.value = '';
+            XWK.alert('请输入正确的数值！', 'error');
+            return;
+        }
+        va = Number(va);
+        var flag = /^\d+(\.\d+)?$/.test(va);
+        if (!flag) {
+            obj.value = va.replace(/[^\d\.]/g, '');
+        } else {
+            obj.value = va;
+        }
+    }
+    //只能输入数字（包含小数和负数）
+    function numberTypeFloat(obj) {
+        var va = obj.value;
+        if (isNaN(va)) {
+            obj.value = '';
+            XWK.alert('请输入正确的数值！', 'error');
+            return;
+        }
+        va = Number(va);
+        var flag = /^(-)?\d+(\.\d+)?$/.test(va);
+        if (!flag) {
+            obj.value = va.replace(/[^\d\.-]/g, '');
+        } else {
+            obj.value = va;
+        }
+    }
+    //只能输入数字（不包含小数和负数）
+    function numberTypeInt(obj) {
+        var va = obj.value;
+        if (isNaN(va)) {
+            obj.value = '';
+            XWK.alert('请输入正确的数值！', 'error');
+            return;
+        }
+        va = Number(va);
+        var flag = /^[0-9]*$/.test(va);
+        if (!flag) {
+            //alert("请您输入正整数！")
+            obj.value = va.replace(/[^\d]/g, '');
+        } else {
+            obj.value = va;
+        }
+    }
+    //保留小数位数
+    function numberPoint(obj, length) {
+        var va = obj.value;
+        var vaback = va;
+        if (/^-/.test(va)) {
+            numberTypeFloat(obj);
+        } else {
+            numberType(obj);
+        }
+        var va = obj.value;
+        if (va == '' && vaback == 'T') {
+            obj.value = vaback;
+        }
+        if (isNaN(va) && vaback != 'T') {
+            obj.value = "";
+            return;
+        }
+        if (doNull(va) != '' && doNull(length) != '') {
+            var s = va.indexOf('.');
+            if (s == 0) {
+                obj.value = "";
+                return;
+            }
+            var s2 = va.indexOf('-.');
+            if (s2 == 0) {
+                obj.value = "";
+                return;
+            }
+            if (s < 0) {
+                var zero = ".";
+                for (var i = 0; i < length; i++) {
+                    zero += "0";
+                }
+                obj.value = va + zero;
+            } else {
+                var len = va.substring(s + 1, va.length).length;//小数点后数字的长度
+                if (len < length) {
+                    for (var j = 0; j < length - len; j++) {
+                        obj.value += "0";
+                    }
+                } else {
+                    obj.value = obj.value.substring(0, s + 1 + length);
+                }
+
+            }
+        }
+    }
+    //=====数字位数大写等处理=====end===
+    function uenV(obj) {
+        var va = obj.value;
+        var flag = /^[a-zA-Z][a-zA-Z0-9_]{5,31}$/.test(va);
+        if (!flag) {
+            XWK.alert("用户名应为6-30位字符，必须包含英文字母，支持英文字母、数字、_的组合。用户名注册后不可修改！","error");
+            obj.value = ''
+            // return /^[a-zA-Z][a-zA-Z0-9_]{5,15}$/i.test(value);
+        }
+    }
+    function getProPricePub(proId) {
+        var proUtrz = getEntity("/web/utrz/details/pro/" + proId);
+        if (null != proUtrz) {
+            return proUtrz.proPricePub;
+        }
+    }
+
+    function loadCms() {
+        $("xwk_cms").each(function () {
+            loadComp(this, $(this).attr("type"), $(this).attr("code"))
+        })
+    }
+    function loadComp(obj, type, code) {
+        $.ajax({
+            type: 'get',
+            url: "/web/qzcq/" + type + "/" + code,
+            dataType: 'text',
+            success: function (myData) {
+                $(obj).html(myData);
+            }
+        });
+    }
+    function capFirstLetter(string, proCode) {
+        if (string == "utrh" || string == "utrl") {
+            string = "utrm";
+        }
+        if ("HA2021DF500030,HA2020DF500048,HA2020DF500044,HA2020DF500034,HA2020DF500033".indexOf(proCode) >= 0) {
+            string = "utrg";
+        }
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
+    //中间数据服务层项目数据判断项目状态代码
+    function getProStatusMainStatusAndExp(mainStatus, exceptionStatus, proType, dealTime, pubFlag) {
+        if (exceptionStatus == "0") {
+            if (parseFloat(mainStatus) == 30) {
+                return "挂牌中";
+            } else if (parseFloat(mainStatus) == 37) {
+                return "已终结";
+            } else if (parseFloat(mainStatus) == 40) {
+                return "已终结";
+            } else if (parseFloat(mainStatus) >= 79) {
+                return "已成交";
+            }
+        } else if (exceptionStatus == "3" || exceptionStatus == "4") {
+            return "已终结";
+        }
+    }
+
+    //保留N位小数
+    function decFixed(v,num){
+        if(doNull(v)==""){ return "";}
+        return (parseFloat(v)).toFixed(num);
+    }
+
+    //判断项目状态代码，修改前请与领导确认。涉及很多页面反显
+    function getMainStartAndExp(mainStatus, exceptionStatus, proType, dealTime, pubFlag) {
+
+        if (proType == 'P3' || proType == 'PG6') {
+            if (exceptionStatus == "1") {
+                return "已中止";
+            } else if (exceptionStatus == "3") {
+                return "已终结";
+            } else if (parseFloat(mainStatus) == 30 && exceptionStatus == "0") {
+                return "挂牌中";
+            } else {
+                return "已撤牌";
+            }
+        } else {
+            if (exceptionStatus == "1") {
+                return "已中止";
+            } else if (exceptionStatus == "3") {
+                return "已终结";
+            } else if (exceptionStatus == "4") {
+                return "已流拍";
+            } else if (exceptionStatus == "5") {
+                return "已结束";
+            } else {
+                if (parseFloat(mainStatus) == 30) {
+                    return "挂牌中";
+                } else if (parseFloat(mainStatus) > 37 && doNull(dealTime) == '') {
+                    return "交易中";
+                } else if (doNull(dealTime) != '') {
+                    return "已成交";
+                } else if (parseFloat(mainStatus) == 37) {
+                    return "已撤牌";
+                }
+            }
+        }
+
+    }
+    function getCompArea(proId) {
+        var comp = apiGet("/web/detail/comp/" + proId).entity;
+        return doNull(comp.city);
+    }
+
+    /// 项目列表查看方法
+    function toDetail(proId, packId, proName, sysName, proTmp, objType, proCode) {
+        if (sysName === 'QZDPM'){
+            window.open("/qzcq/detail/pubInfo/" + proId);
+        } else {
+            window.open("/qzcq/detail/dmpPubInfo/" + proId);
+        }
+    }
+
+    function getPriceText(v) {
+        if (v == "utrn") {
+            return "流转价格"
+        } else if (v == "utrz") {
+            return "拟募集资金总额"
+        } else if (v == "utrl") {
+            return "出租底价"
+        } else {
+            return "出让底价"
+        }
+    }
+
+    function getNoticeTypeName(noticeType) {
+        var noticeTypeName = "";
+        switch (noticeType) {
+            case 'A01':
+                noticeTypeName = "最新公告";
+                break;
+            case 'A02':
+                noticeTypeName = "预公告";
+                break;
+            case 'A03':
+                noticeTypeName = "成交公告";
+                break;
+            case 'A04':
+                noticeTypeName = "变更公告";
+                break;
+            case 'A05':
+                noticeTypeName = "终结公告";
+                break;
+            case 'A06':
+                noticeTypeName = "补充公告";
+                break;
+            case 'A07':
+                noticeTypeName = "延期公告";
+                break;
+            case 'A08':
+                noticeTypeName = "产权交易决策及批准";
+                break;
+            case 'A09':
+                noticeTypeName = "成交公示";
+                break;
+            case 'A12':
+                noticeTypeName = "摇号公告";
+                break;
+            default:
+                noticeTypeName = "其他公告";
+        }
+
+        return noticeTypeName;
+    }
+
+    //根据竞价方式返回竞价方式文本
+    function getBidMethodTxt(v) {
+        var s;
+        if (v==='B01' || v==='jingjia') {
+            s = "网络动态";
+        } else if (v==='B02' || v==='baojia') {
+            s = "网络一次";
+        } else if (v==='B03' || v==='_jingjia') {
+            s = "网络反向动态";
+        } else if (v==='B04' || v==='_baojia') {
+            s = "网络反向一次";
+        } else{
+            s = '其他';
+        }
+        return s;
+    }
+
+    //根据系统sysName返回中文名称
+    function getSysNameTxt(sysName, isSimple) {
+        var s;
+        switch(sysName){
+            case "utrl":
+                s = "资产租赁";
+                break;
+            case "utrm":
+                s = "资产转让";
+                break;
+            case "utrg":
+                s = "产权转让";
+                break;
+            case "utrz":
+                s = "企业增资";
+                break;
+            case "utrp":
+                s = "资产采购";
+                break;
+        }
+
+        return s;
+    }
+
+    //根据系统名称返回转出方名称
+    function getSellerNameByMidSysName(sysName, isSimple){
+        var s;
+        if ("S02" === sysName) {
+            s = "转让方";
+        } else if ("S03" === sysName) {
+            s = "采购方";
+        } else if ("S01" === sysName) {
+            s = "出租方";
+        } else if ("S04" === sysName) {
+            s = "发包方";
+        } else {
+            s = '转出方';
+        }
+        return s;
+    }
+
+    //根据系统名称返回受让方名称
+    function getBuyerNameByMidSysName(sysName, isSimple){
+        var s;
+        if ("S02" === sysName) {
+            s = "受让方";
+        } else if ("S03" === sysName) {
+            s = "供应商";
+        } else if ("S01" === sysName) {
+            s = "承租方";
+        } else if ("S04" === sysName) {
+            s = "中标方";
+        } else {
+            s = '受让方';
+        }
+        return s;
+    }
+
+    //根据系统名称返回转出方名称
+    function getSellerNameBySysName(sysName, tradeDirection, isSimple) {
+        var s;
+        if (isSimple) {
+            if ("utrz" === sysName) {
+                s = "融资"
+            } else if ("utrg" === sysName) {
+                s = "转让";
+            } else if ("utrp" === sysName || ("utrn" === sysName && "purchase" === tradeDirection)) {
+                s = "采购";
+            } else if ("utrl" === sysName || ("utrn" === sysName && "lease" === tradeDirection)) {
+                s = "出租";
+            } else if ("utrn" === sysName && "invite" === tradeDirection) {
+                s = "招标";
+            } else {
+                s = '转出';
+            }
+        } else {
+            if ("utrz" === sysName) {
+                s = "融资方"
+            } else if ("utrg" === sysName) {
+                s = "转让方";
+            } else if ("utrp" === sysName || ("utrn" === sysName && "purchase" === tradeDirection)) {
+                s = "采购方";
+            } else if ("utrl" === sysName || ("utrn" === sysName && "lease" === tradeDirection)) {
+                s = "出租方";
+            } else if ("utrn" === sysName && "invite" === tradeDirection) {
+                s = "发包方";
+            } else {
+                s = '转出方';
+            }
+        }
+        return s;
+    }
+
+    //跳转公告详情页
+    function toNoticeDetail(obj, noticeId, noticeType, noticeCode, proId) {
+        obj.target = "_blank";
+        obj.href = "/qzcq/p/notice/detail?noticeType=" + noticeType + "&noticeId=" + noticeId + "&noticeTypeName=" + getNoticeTypeName(noticeType);
+        // window.location.href = "/qzcq/p/notice/detail?noticeType=" + noticeType + "&noticeId=" + noticeId + "&noticeTypeName=" + noticeTypeName;
+    }
+
+    //根据系统名称返回受让方名称
+    function getBuyerNameBySysName(sysName, tradeDirection, isSimple) {
+        var s;
+        if (isSimple) {
+            if ("utrz" === sysName) {
+                s = "增资";
+            } else if ("utrp" === sysName || ("utrn" === sysName && "purchase" === tradeDirection)) {
+                s = "供应";
+            } else if ("utrl" === sysName || ("utrn" === sysName && "lease" === tradeDirection)) {
+                s = "承租";
+            } else if ("utrn" === sysName && "invite" === tradeDirection) {
+                s = "中标";
+            } else {
+                s = '受让';
+            }
+        } else {
+            if ("utrz" === sysName) {
+                s = "增资方";
+            } else if ("utrp" === sysName || ("utrn" === sysName && "purchase" === tradeDirection)) {
+                s = "供应商";
+            } else if ("utrl" === sysName || ("utrn" === sysName && "lease" === tradeDirection)) {
+                s = "承租方";
+            } else if ("utrn" === sysName && "invite" === tradeDirection) {
+                s = "中标方";
+            } else {
+                s = '受让方';
+            }
+        }
+
+        return s;
+    }
+
+    function removeProvinceName(str, target) {
+        if (doNull(str) === '') {
+            return '';
+        }
+
+        // 分割字符串为数组
+        const parts = str.split('/');
+
+        // 移除省份名称
+        const cityPart = parts.slice(target).join('/');  // 去除省份名称后的剩余部分
+
+        return cityPart;
+    }
+
+    function getPrice(sysName, proPrice, proPriceHigh, unit) {
+        if (doNull(sysName) == "utrn") {
+            if (doNull(unit).indexOf("万元") > -1) {
+                return toWan(proPrice) + checkUnit(unit);
+            } else {
+                return toUtrnYuan(proPrice) + checkUnit(unit);
+            }
+        }else  if (doNull(sysName) == "utrz") {
+            var price = toWan(proPrice) + "<em>万元</em>";
+            if (doNull(proPriceHigh) != '') {
+                price += "-" + toWan(proPriceHigh) + "<em>万元</em>"
+            }
+            return price;
+        } else if (doNull(sysName) == "utrl") {
+            if (doNull(unit).indexOf("万元") > -1) {
+                return toWan(proPrice) + "<em>" + unit + "</em>";
+            } else {
+                return proPrice + "<em>" + unit + "</em>";
+            }
+        } else {
+            if (Number.parseFloat(doNull(proPrice)) == 0) {
+                return "面议"
+            } else if (proPrice == null) {
+                return "待定"
+            } else {
+                return toWan(proPrice) + "<em>" + doNull(unit) + "</em>";
+            }
+        }
+        /*else{
+                  return toWan(proPrice)+"万元";
+              }*/
+    }
+
+    function getUtrnPrice(sysName, proPrice, proPriceHigh, pubWay, priceUnit, unit) {
+        if (doNull(unit).indexOf("万元") > -1) {
+            return toWan(proPrice) + checkUnit(pubWay, priceUnit, unit);
+        } else {
+            return toUtrnYuan(proPrice) + checkUnit(pubWay, priceUnit, unit);
+        }
+    }
+
+    function checkUnit(pubWay, priceUnit, unit) {
+        if (pubWay !== 'T') {
+            return "<em>" + doNull(priceUnit) + doNull(unit) + "</em>";
+        } else {
+            return "<em>" + doNull(priceUnit) + "</em>";
+        }
+    }
+
+    function useIdgetPersonAddress(idNumber) {
+        var provinceCity=[]
+        if (idNumber.length === 18) {
+            var provinceCode = idNumber.substring(0, 2); // 提取前6位作为省级地址码
+            var cityCode = idNumber.substring(0, 4); // 提取前9位作为市级地址码
+            // 如果市级地址码的第四位是0，将其改为1
+            if (cityCode[3] === '0') {
+                cityCode = cityCode.substring(0, 3) + '1';
+            }
+            provinceCity.push(provinceCode+'0000')
+            provinceCity.push(cityCode+'00')
+
+        }
+        if(provinceCity.length>0){
+            return provinceCity
+        }else {
+            return false
+        }
+
+    }
+    function useIdgetBusinessAddress(idNumber) {
+        var provinceCity=[]
+        if (idNumber.length === 18) {
+            var provinceCityCode = idNumber.substring(2, 8); // 提取前6位作为省级地址码
+            var provinceCode = provinceCityCode.substring(0, 2); // 提取前6位作为省级地址码
+            var cityCode = provinceCityCode.substring(0, 4); // 提取前9位作为市级地址码
+            // 如果市级地址码的第四位是0，将其改为1
+            if (cityCode[3] === '0') {
+                cityCode = cityCode.substring(0, 3) + '1';
+            }
+            provinceCity.push(provinceCode+'0000')
+            provinceCity.push(cityCode+'00')
+
+        }
+        if(provinceCity.length>0){
+            return provinceCity
+        }else {
+            return false
+        }
+
+    }
+    // 通过id和key获取proatta
+    function proAttakByKey(id, key){
+        var attaList = getRows("/web/proAtta/byType/"+key+"/"+id);
+        if(attaList && attaList.length > 0){
+            return attaList[0].templateUrl;
+        }else{
+            return ""
+        }
+    }
+
+    function setRoute(r,flowForm){
+        if(doNull(flowForm) == ''){
+            flowForm = 'flowAuditForm';
+        }
+        $("#"+flowForm).find("input[name='logResult']").val(r);
+        if(doNull(r)=="T"){
+            $("#logTxt").removeClass("is-invalid");
+            $("#logTxt").removeAttr("required");
+        }else{
+            $("#logTxt").attr("class","form-control is-invalid");
+            $("#logTxt").attr("required","required");
+        }
+    }
+
+    //我要报名
+    function registerApply(packId, proId, sysName, proType) {
+        if (ifLogin()) {
+            //判断是否已提交报名
+            var buyer = '';
+            if (doNull(packId) !== '') {
+                var pub = getEntity("/web/detail/pub/"+packId);
+                if (doNull(pub) !== '' && pub.transWay === '2') {
+                    buyer = apiGet("/my/findBuyerByProId/" + proId).entity;
+                } else {
+                    buyer = apiGet("/my/findBuyerByPackId/" + packId).entity;
+                }
+            } else {
+                buyer = apiGet("/my/findBuyerByProId/" + proId).entity;
+            }
+            if (doNull(buyer) != '') {
+                if (doNull(buyer.mainStatus) == 0 || doNull(buyer.mainStatus) == 1) {
+                    XWK.alert("您已提交信息，需要到个人中心-我的报名项目中完善信息后提交审核！");
+                } else {
+                    XWK.alert("您已经报过名了！");
+                }
+            } else {
+                LG.to('/my/user/', 'my/buyer/apply&packId=' + packId + '&proId=' + proId + '&sysName=' + sysName + '&proType=' + proType + '', '报名');
+            }
+        } else {
+            if (doNull(window.location.pathname) === "/qzcq/p/pro/pro-list/") {
+                window.location.href = "/qzcq/p/login?toUrl=" + window.location.pathname + window.location.search
+            } else {
+                window.location.href = "/qzcq/p/login?toUrl=" + window.location.pathname
+            }
+        }
+    }
+    //竞价页面报名方法
+    function itemApply(packId, proId) {
+        // TODO: implement pack 逻辑
+        //从竞价点击报名packId会是0导致竞价文件显示错误
+        if (doNull(packId) === '' || packId === '0'){
+            packId = '';
+        }
+        var entity = "";
+        if (packId !== '') {
+            entity = apiGet("/my/pack/" + packId).entity;
+        } else {
+            entity = apiGet("/my/pro/" + proId).entity;
+        }
+        registerApply(packId, proId, entity.sysName, entity.proType);
+    }
+    //判断是否登录
+    function ifLogin() {
+        var loginUser = 'LoginUser(userId=, userEname=null, userCname=null, deptId=null, deptIds=null, deptEname=null, deptCname=null, orgId=null, orgIds=null, orgEname=null, orgCname=null, clientId=null, roles=null, ipAddress=null, initPwdFlag=null, passwordSSHA=null)'
+        var loginUserCname = ''
+        var flag = false
+        if (loginUser && loginUserCname) {
+            flag = true
+        }
+        console.log(flag)
+        return flag
+    }
+
+    function mobileExist(obj) {
+        var x = apiGet("/web/user/mobileExist/" + obj.value);
+        if (x) {
+            if (x.result != "T") {
+                obj.value='';
+                XWK.alert('此手机号已经存在！', 'error');
+            }
+        }
+    }
+</script>
+<script type="text/javascript" src="/static/dpmweb/js/utrn.js?202408251"></script>
+<!--站点采集-->
+<script src="/static/dpmweb/qz/js/das-sdk.js"></script>
+<script src="/static/dpmweb/qz/js/das-qzcq-init.js"></script>
+
+<title>泉州产权交易中心</title>
+<script>
+    var myServer = "dpm";
+    var DPUB = "dpub";
+    var DPM = "dpm";
+    var DMP = "qzdmp";
+    var pageRoot = "qzcqweb";
+    var BID = "bid";
+    var MC = "mc";
+    var AUCTION = "auction";
+    var isAuth = apiGet("/web/getConfig/isAuth");
+    var dictKv = apiGet("/dict/kvMap");
+</script>
+    <title>泉州产权交易中心</title>
+</head>
+<form id="pro-list_form">
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="rows" value="10">
+    <input type="hidden" name="mainStatus" id="mainStatus">
+    <input type="hidden" name="model" id="model">
+    <input type="hidden" name="ctyCode" id="ctyCode">
+    <input type="hidden" name="orderBy" id="orderBy" value="p.create_time, p.real_pub_start_time desc">
+</form>
+
+<body>
+<!-- 手机导航 -->
+    <div class="mm-page mm-slideout">
+<div class="page-header">
+	<!-- 状态 -->
+<div class="header-statebar">
+	<div class="w1360 justify-between align-center">	
+		<span class="now-time" style="display:none;" id="NowtimeHref">
+					<script type="text/javascript">
+                        today = new Date();
+                        var hours = today.getHours();
+                        var minutes = today.getMinutes();
+                        var seconds = today.getSeconds();
+                        var timeValue = "<em>" + ((hours > 12) ? hours - 12 : hours); timeValue += ((minutes < 10) ? ":0" : ":") + minutes + "</em>";
+                        timeValue += (hours >= 12) ? "pm" : "am";
+                        function initArray() {
+                            this.length = initArray.arguments.length
+                            for (var i = 0; i < this.length; i++)
+                                this[i + 1] = initArray.arguments[i]
+                        }
+
+                        var d = new initArray("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+                        document.write(today.getFullYear(), "年", today.getMonth() + 1, "月", today.getDate(), "日&nbsp;", d[today.getDay() + 1]);
+                    </script>
+				</span>
+
+            <span id="userCenter" class="userin">您好， 
+            	<a href="javascript:void(0)" onclick="goUserCenter()" class="btn"><i class="fal fa-user"></i>用户中心</a>
+            </span>
+		<!--<a id="userLogout" href="javascript:logoutweb(getUrl())" title="退出"><i class="fa fa-power-off"></i></a>-->
+			
+	  	<div class="justify-between align-center">
+			<p class="lgoin">
+				<a id="registerHref"  href="/qzcq/p/register" target="_blank"><i class="fa fa-pencil"></i>注册</a>
+		        <a id="loginHref" href="/qzcq/p/login" target="_blank"><i class="fa fa-user"></i>用户登录</a>
+		        <a href="/qzcq/p/login?u=wtf" target="_blank"><i class="fa fa-handshake"></i>委托方登录</a>
+		        <a href="/qzcq/c/fwzn/jjzd" target="_blank"><i class="fa fa-book"></i>操作指南</a>
+
+		   </p>
+		    </div>
+	</div>
+</div>
+<!-- 头部 -->
+	<div class="header-container">
+		<div class="w1360 justify-between align-center">
+		   <p class="logo">
+		   	<img src="/static/dpmweb/qzcq/images/logo.png" alt="泉州产权交易中心">
+		   	<span class="slogan"><img src="/static/dpmweb/qzcq/images/top-zongzhi.png" alt="公开 公平 公正"></span>
+		   	<!--<span class="slogan">公开 ● 公平 ● 公正</span>-->
+		   </p>
+		   
+		   	<span class="search">
+				<form id="advsSearch" method="get">
+					<span class="sea_selbox">
+						<select id="searchType">
+							<option value="1"> 项目 </option>
+							<option value="2"> 资讯 </option>
+						</select>
+					</span>
+					<input type="text" name="key" placeholder="请输入关键词进行搜索">
+					<input type="submit" value="" onclick="advsSearch()">
+				</form>
+			</span>
+
+		  
+		</div>
+	</div>
+</div>
+<script>
+	function goUserCenter(){
+		if(doNull("") == "base"){
+			window.location.href = "/qzcq/my";
+		}else{
+			window.location.href = "/qzcq/my/seller";
+		}
+	}
+		
+$(function() {
+
+		$("#advsSearch").find("input[type='submit']").submit(function() {
+			advsSearch();
+		});
+	})
+
+	function advsSearch(){
+		if($("#searchType").val() == "1"){
+			$("#advsSearch").attr("action", "/qzcq/p/pro/index");
+			//$("#advsSearch").find("input[name='sysName']").val("utrg");
+		}else if($("#searchType").val() == "2"){
+			$("#advsSearch").attr("action", "/qzcq/p/html/search");
+		}
+		//$("#advsSearch").submit();
+	}
+
+ 		if(doNull('') == '') {
+			//$('#loginHref').show()
+			//$('#registerHref').show()
+			$('#NowtimeHref').show()
+			$('#userCenter').hide()
+			$('#userLogout').hide()
+		} else {
+			//$('#loginHref').hide()
+			//$('#registerHref').hide()
+			$('#NowtimeHref').hide()
+			$('#userCenter').show()
+			$('#userLogout').show()
+		}
+
+</script>
+<!-- pc导航 -->
+<div class="menu-handler" id="menu-handler">
+  <span class="burger burger-1 trans"></span>
+  <span class="burger burger-2 trans-fast"></span>
+  <span class="burger burger-3 trans"></span>
+  </div>
+<div class="main-menu">
+	<div class="menu-content w1360">
+		<ul>
+			<li class="active">
+				<a href="/qzcq/index"><span>首页 </span> </a>
+			</li>
+			<li>
+				<a href="/qzcq/p/notice/announcement-list"><span>新闻资讯 </span>
+					<ol>
+						<a href="/qzcq/p/notice/announcement-list"> 通知公告</a>
+						<a href="/qzcq/c/news/zxdt"> 中心动态</a>
+	          			<a href="/qzcq/c/news/hyxw"> 行业新闻</a>
+					</ol>
+				</a>
+			</li>
+			<li>
+				<a href="/qzcq/p/pro/index"><span>项目中心</span></a>
+
+					<ol>
+						<a href="/qzcq/p/pro/index"> 国有产权</a>
+						<a href="/qzcq/p/pro/index?sysName=utrn"> 农村产权</a>
+	          <a href="/qzcq/p/pro/index?sysName=tdky"> 土地矿业</a>
+					</ol>
+
+			</li>
+				<li>
+				<a href="/qzcq/p/notice/list?noticeType=A02"><span>交易公告 </span>
+					<ol>
+<!--						<a href="/qzcq/p/notice/list?noticeType=A01">最新公告</a>-->
+						<a href="/qzcq/p/notice/list?noticeType=A02">预公告</a>
+						<a href="/qzcq/p/notice/list?noticeType=A03">成交公告</a>
+						<a href="/qzcq/p/notice/list?noticeType=A04">变更公告</a>
+						<a href="/qzcq/p/notice/list?noticeType=A05">终结公告</a>
+						<a href="/qzcq/p/notice/list?noticeType=A06">补充公告</a>
+					<!--<a href="/qzcq/p/notice/list?noticeType=A07">延期公告</a>
+						<a href="/qzcq/p/notice/list?noticeType=A08" style="line-height: 120%; padding:10px 0;">产权交易决策<br />及批准</a>-->
+						<a href="/qzcq/p/notice/list?noticeType=A09">成交公示</a>
+						<a href="/qzcq/p/notice/list?noticeType=A12">摇号公告</a>
+	         <!-- <a href="/qzcq/p/notice/list?noticeType=A99">其他公告</a>-->
+						<!--<a href="/qzcq/c/notice/yhjhxrgg" style="white-space: nowrap;">摇号公告</a>
+						<a href="/qzcq/p/dpub/demand-list?noticeType=demand">需求公告</a>
+						<a href="/qzcq/p/notice/list?noticeType=pause">终止公告</a>
+						<a href="/qzcq/p/notice/list?noticeType=resume">恢复公告</a>-->
+					</ol>
+				</a>
+			</li>
+				<li>
+				<a href="/qzcq/p/item/index"><span>竞价大厅</span></a>
+			</li>
+			<li>
+				<a href="/qzcq/c/djwh"><span>党建文化 </span></a>
+			</li>
+			<li>
+				<a href="/qzcq/c/fwzn/zlxz">
+					<span>服务指南 </span>
+					<ol>
+						<a href="/qzcq/c/fwzn/zlxz">资料下载 </a>
+						<a href="/qzcq/c/fwzn/jjzd">竞价指导</a>
+						<a href="/qzcq/c/fwzn/ywlc">业务流程</a>
+						<a href="/qzcq/c/fwzn/jygz">交易规则</a>
+						<a href="/qzcq/c/fwzn/sfbz">收费标准 </a>
+
+					</ol>
+				</a>
+			</li>
+			<li>
+				<a href="/qzcq/c/zcfg/gj">
+					<span>政策法规 </span>
+					<ol>
+						<a href="/qzcq/c/zcfg/gj"> 国家 </a>
+						<a href="/qzcq/c/zcfg/df"> 地方 </a>
+						<a href="/qzcq/c/zcfg/zcjd"> 政策解答</a>
+					</ol>
+				</a>
+			</li>
+			<li>
+				<a href="/qzcq/c/zzfw/zzfwjj">
+			<span>增值服务</span>
+				<ol>
+					  <a href="/qzcq/c/zzfw/zzfwjj">服务简介</a>
+						<a href="/qzcq/c/zzfw/lybh">履约保函</a>
+						<a href="/qzcq/c/zzfw/fcjysdb">速贷保</a>
+						<a href="/qzcq/c/zzfw/qzdk">权证贷款代办</a>
+					</ol>
+				</a>
+			</li>
+			<li>
+				<a href="/qzcq/c/gywm/zxjj">
+					<span> 关于我们 </span>
+					<ol>
+						<a href="/qzcq/c/gywm/zxjj"> 中心简介 </a>
+						<a href="/qzcq/c/gywm/zzjg"> 组织机构 </a>
+						<a href="/qzcq/c/gywm/lxfs"> 联系方式</a>
+					</ol>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<script>
+	
+    //手机dao导航
+    var clicked=false;// 记录按钮是否已经被点击过
+    $(".menu-handler").click(function(){
+        $(this).toggleClass('active');
+        $('.main-menu').slideDown()
+	    if ($(this).hasClass('active')) {
+	    	 $('.main-menu').show()
+	    	}
+	    	 else {
+	    	 	 $('.main-menu').slideUp()
+	    	 }
+
+    })
+
+
+</script><!-- 横幅 -->
+<div class="banBox poHiiden">
+    <xwk_cms type="component" code="bannerimg"></xwk_cms>
+</div>
+<!--交易品种&用户入口-->
+<div class="idxOne mt20">
+    <div class="w1360 shadowbox p20 clearfix">
+        <!-- 交易品种  -->
+        <div class="jypz-content">
+            <div class="jypz-content-one justify-between mb20">
+                <ul class="jypzinfo jypzinfo-gycq justify-between">
+                    <h2 class="flexcenter"><a><span>国</span><span>有</span><span>产</span><span>权</span></a></h2>
+                    <li>
+                        <a href="/qzcq/p/pro/index?sysName=utrl">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-zl.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-zl-w.png"></span>-->
+                            </p>
+                            <span>资产租赁</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qzcq/p/pro/index?sysName=utrm">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-zc.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-zc-w.png"></span>-->
+                            </p>
+                            <span>资产转让</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qzcq/p/pro/index?sysName=utrg">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-cq.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-cq-w.png"></span>-->
+                            </p>
+                            <span>产权转让</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qzcq/p/pro/index?sysName=utrz">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-zz.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-zz-w.png"></span>-->
+                            </p>
+                            <span>企业增资</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qzcq/p/pro/index?sysName=utrp">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-cg.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-cg-w.png"></span>-->
+                            </p>
+                            <span>采购</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="jypzinfo jypzinfo-tdky justify-between">
+                    <h2 class="h2-tdcy flexcenter"><a><span>土</span><span>地</span><span>矿</span><span>业</span></a>
+                    </h2>
+                    <li class="li-tdcy">
+                        <a href="/qzcq/p/pro/index?sysName=tdky&proType=M13">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-tdcr.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-tdcr-w.png"></span>-->
+                            </p>
+                            <span>土地出让</span>
+                        </a>
+                    </li>
+                    <li class="li-tdcy">
+                        <a href="/qzcq/p/pro/index?sysName=tdky&proType=M14">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-kyq.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-kyq-w.png"></span>-->
+                            </p>
+                            <span>矿业权</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <div class="jypz-content-two">
+                <ul class="jypzinfo jypzinfo-nccq justify-between">
+                    <h2 class="flexcenter"><a><span>农</span><span>村</span><span>产</span><span>权</span></a></h2>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M15'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-ncjtzc.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-ncjtzc-w.png"></span>-->
+                            </p>
+                            <span>农村集体经营性资产</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M16'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-nclq.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-nclq-w.png"></span>-->
+                            </p>
+                            <span>林权</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M17'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-nctd.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-nctd-w.png"></span>-->
+                            </p>
+                            <span>农村土地经营权</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M18'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-ncsh.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-ncsh-w.png"></span>-->
+                            </p>
+                            <span>“四荒”使用权</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M19'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-ncscss.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-ncscss-w.png"></span>-->
+                            </p>
+                            <span>农村生产设施设备</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M20'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-nczb.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-nczb-w.png"></span>-->
+                            </p>
+                            <span>工程建设项目采购</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M21'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-nccg.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-nccg-w.png"></span>-->
+                            </p>
+                            <span>货物和服务采购</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a herf="javascript:void(0);" onclick="window.location='/qzcq/p/pro/index?sysName=utrn&proType=M22'">
+                            <p class="ico">
+                                <img src="/static/dpmweb/qzcq/images/index/ico-ncxxsl.png">
+<!--                                <span><img src="/static/dpmweb/qzcq/images/index/ico-ncxxsl-w.png"></span>-->
+                            </p>
+                            <span>小型水利设施使用权</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 用户入口 -->
+        <ul class="yhrk-content flexBoxnocenter">
+            <a href="/qzcq/p/register" target="_blank" class="zc">
+                <span>注册</span>
+            </a>
+            <a href="/qzcq/p/login" target="_blank" class="dl">
+                <span>用户登录</span>
+            </a>
+
+            <a href="/qzcq/p/login?u=wtf" target="_blank" class="dl2">
+                <span>委托方登录</span>
+            </a>
+
+            <a href="/qzcq/c/fwzn/jjzd" target="_blank" class="zn">
+                <span>操作指南</span>
+            </a>
+
+        </ul>
+        <!-- 用户入口end -->
+    </div>
+</div>
+<!-- 新闻资讯 -->
+<div class="idxnews mt20">
+    <div class="w1360 shadowbox clearfix">
+        <div class="idxnewsLeft fl">
+            <xwk_cms type="component" code="zxdtimg"></xwk_cms>
+        </div>
+        <div class="idxnewsRight p20 fr">
+            <div class="tabs">
+                <ul>
+                    <li class="active">
+                        <a target="_blank" href="/qzcq/p/notice/announcement-list">通知公告</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/qzcq/c/news/zxdt">中心动态</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="/qzcq/c/news/hyxw">行业新闻</a>
+                    </li>
+                </ul>
+                <a target="_blank" href="/qzcq/p/notice/announcement-list" class="more">更多&gt;</a>
+            </div>
+            <div class="wrap poHiiden swiper-container-horizontal">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                    	<!--<ul class="idxnews-list idx-gglist" id="tzggListBox"></ul>-->
+                    	<h3 class="sub-tabs">
+                    		<a class="tabhover" onmouseover="dataShow('tzgg',this)" data-type="A001" data-target="tzggListBox" href="/qzcq/p/notice/announcement-list" target="_blank">通知</a>
+                    		<a onmouseover="dataShow('jcypz',this)" data-type="A08" data-target="jcypzListBox" href="/qzcq/p/notice/list?noticeType=A08" target="_blank">产权交易决策及批准</a>
+                    		<a onmouseover="dataShow('ygg',this)" data-type="A02" data-target="yggListBox" href="/qzcq/p/notice/list?noticeType=A02" target="_blank">预公告</a>
+                    	</h3>
+                    	<div class="tabcon">
+                    	<ul class="idxnews-list idx-gglist tzgg" id="tzggListBox"></ul>
+                        <ul style="display: none;" class="idxnews-list idx-gglist jcypz" id="jcypzListBox"></ul>
+                        <ul style="display: none;" class="idxnews-list idx-gglist ygg" id="yggListBox"></ul>
+                          </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list">
+                            <xwk_cms type="component" code="zxdt"></xwk_cms>
+                        </ul>
+                    </div>
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list">
+                            <xwk_cms type="component" code="hyxw"></xwk_cms>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- 新闻资讯 end-->
+<!--通栏广告 -->
+<div class="idx-advbanner mt20">
+    <div class="w1360 clearfix">
+        <ul>
+            <xwk_cms type="component" code="advbannerimg"></xwk_cms>
+        </ul>
+    </div>
+</div>
+<!--通栏广告 end-->
+<!--通栏广告2 -->
+<div class="idx-advbanner mt20">
+    <div class="w1360 clearfix">
+        <ul>
+            <xwk_cms type="component" code="advbannertwoimg"></xwk_cms>
+        </ul>
+    </div>
+</div>
+<!--通栏广告2 end-->
+<!-- 项目中心 -->
+<div class="idx-xmzx mt20">
+    <div class="w1360 shadowbox p20 clearfix relative">
+        <div class="idx-tit">
+            <h2>项目中心</h2>
+            <ul class="idx-xmzxType">
+                <a href="javascript:void(0)" class="active" onclick="loadProList({proRelation: 'R01'})">全部项目</a>
+                <a href="javascript:void(0)" onclick="loadProList({sysName: 'utrg'})">产权转让</a>
+                <a href="javascript:void(0)" onclick="loadProList({sysName: 'utrz'})">企业增资</a>
+                <a href="javascript:void(0)" onclick="loadProList({sysName: 'utrm'})">资产转让</a>
+                <a href="javascript:void(0)" onclick="loadProList({sysName: 'utrl'})">租赁项目 </a>
+                <a href="javascript:void(0)" onclick="loadProList({sysName: 'utrp'})">采购项目</a>
+                <a href="javascript:void(0)" onclick="loadProList({sysName: 'utrn'})">农村产权</a>
+                <a href="javascript:void(0)" onclick="loadProList({sysName: 'tdky'})">土地矿业</a>
+                <a href="javascript:void(0)" onclick="loadProList({proType: 'M09'})">石方资源</a>
+                <a href="javascript:void(0)" onclick="loadProList({proRelation: 'R03'})">县市区项目</a>
+                <a href="javascript:void(0)" onclick="loadProList({proRelation: 'R04'})">异地项目</a>
+                <a href="javascript:void(0)" onclick="loadProList({proRelation: 'R99'})">其他</a>
+            </ul>
+            <a target="_blank" href="/qzcq/p/pro/index" class="more">更多&gt;</a>
+        </div>
+        <div class="idx-prolist" id="xmpdBox">
+
+        </div>
+    </div>
+</div>
+<!-- 项目中心 end-->
+
+<!--竞价看板 -->
+<div class="idx-jjbox mt20">
+    <div class="w1360 clearfix relative">
+        <h2 class="idx-jjtit"><span>产权竞价大厅</span><a target="_blank" href="/qzcq/p/item/index" class="more">更多&gt;</a>
+        </h2>
+        <iframe src="/qzcq/p/item/kanban" style="height: 520px; border:0; width: 100%; overflow: hidden"></iframe>
+    </div>
+    <!--权益云竞价-->
+    <!--<div class="w1360 clearfix">
+        <div class="qyy-jjdt fl">
+            <iframe src="https://www.unibid.cn/portal/pro/dtbjOrg-qz.jsp?size=6&amp;ifPage=T&amp;org=QZ" width="100%"
+                    height="398" scrolling="no" frameborder="0"></iframe>
+        </div>
+        <div class="qyy-jjlink fr">
+            <a class="b1" target="_blank" href="https://www.unibid.cn/portal/page?to=regUser">权益云账号注册</a>
+            <a class="b2" target="_blank" href="https://www.unibid.cn/portal/page.action?to=buyPros">权益云账号登录</a>
+            <a class="b3" target="_blank" href="/qzcq/c/fwzn/jjzd">竞价指导</a>
+            <a class="b4" target="_blank" href="https://www.unibid.cn/portal/pro/sessions.jsp?org=QZ">竞价专场</a>
+        </div>
+    </div>-->
+</div>
+<!--竞价看板end-->
+<!--交易公告 &资料下载-->
+<div class="mt20">
+    <div class="w1360 clearfix">
+        <div class="fl w2 shadowbox idx-jygg p20">
+            <h2 class="idx-tit idx-tit2">
+                <span>交易公告</span>
+                <a target="_blank" href="/qzcq/p/notice/list?noticeType=A02&noticeTypeName=预公告" class="more">更多&gt;</a>
+            </h2>
+            <div class="tabs gg_tabs">
+                <ul>
+                    <li class="active">
+                        <a target="_blank"
+                           data-type="A03"
+                           data-target="noticeListBox"
+                           href="/qzcq/p/notice/list?noticeType=A03&noticeTypeName=成交公告">成交公告</a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                           data-type="A09"
+                           data-target="cjgsListBox"
+                           href="/qzcq/p/notice/list?noticeType=A09&noticeTypeName=成交公示">成交公示</a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                           data-type="A04"
+                           data-target="bgggListBox"
+                           href="/qzcq/p/notice/list?noticeType=A04&noticeTypeName=变更公告">变更公告</a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                           data-type="A06"
+                           data-target="bcggListBox"
+                           href="/qzcq/p/notice/list?noticeType=A06&noticeTypeName=补充公告">补充公告</a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                           data-type="A05"
+                           data-target="zjggListBox"
+                           href="/qzcq/p/notice/list?noticeType=A05&noticeTypeName=终结公告">终结公告</a>
+                    </li>
+                    <li>
+                        <a target="_blank"
+                           data-type="A12"
+                           data-target="yhggListBox"
+                           href="/qzcq/p/notice/list?noticeType=A12&noticeTypeName=摇号公告">摇号公告</a>
+                    </li>
+                </ul>
+                <!--<a target="_blank" href="/qzcq/p/notice/list?noticeType=deal" class="more">更多&gt;</a>-->
+            </div>
+            <div class="wrap poHiiden swiper-container-horizontal">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list idx-gglist" id="noticeListBox"></ul>
+                    </div>
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list idx-gglist" id="cjgsListBox"></ul>
+                    </div>
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list idx-gglist" id="bgggListBox"></ul>
+                    </div>
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list idx-gglist" id="bcggListBox"></ul>
+                    </div>
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list idx-gglist" id="zjggListBox"></ul>
+                    </div>
+                    <div class="swiper-slide">
+                        <ul class="idxnews-list idx-gglist" id="yhggListBox"></ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="fr w2 shadowbox idx-zlxz p20">
+            <h2 class="idx-tit idx-tit2">
+                <span>资料下载</span>
+                <a target="_blank" href="/qzcq/c/fwzn/zlxz" class="more">更多&gt;</a>
+            </h2>
+            <ul class="idxnews-list idx-zlxzlist">
+                <xwk_cms type="component" code="zlxz"></xwk_cms>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!--交易公告 &资料下载end-->
+<!--广告图片链接 -->
+<div class="idx-advpic mt20">
+    <div class="w1360 clearfix">
+        <ul class="idx-advplist">
+            <xwk_cms type="component" code="advpicimg"></xwk_cms>
+        </ul>
+    </div>
+</div>
+<!--广告图片链接 end-->
+<!--即将到期房产公示 -->
+<div class="idx-fcgs mt20">
+    <div class="w1360 shadowbox p20 clearfix">
+        <h2 class="idx-tit">
+            <span>即将到期房产公示</span> <!--<a target="_blank" href="#" class="more">更多&gt;</a>-->
+        </h2>
+        <div class="idx-prolist">
+            <div class="col-10">
+                <form id="house-proList_form" class="form-inline">
+                    <input type="hidden" name="page" value="1">
+                    <input type="hidden" name="rows" value="6">
+                </form>
+            </div>
+            <table class="table table-hover border-top" id="house-proList_table" style="font-size: 16px; line-height: 24px;">
+                <tr>
+                    <th>项目名称</th>
+                    <th>地区</th>
+                    <th>到期时间</th>
+                    <th></th>
+                </tr>
+            </table>
+            <div id="house-proList_page" class="page"></div>
+        </div>
+    </div>
+</div>
+<!--即将到期房产公示 end-->
+
+<!--泉州国资阳光集中采购平台&延期项目推介-->
+<div class="mt20">
+    <div class="w1360 clearfix">
+        <!--泉州国资阳光集中采购平台-->
+        <div class="idx-ygcgpt fl">
+            <iframe src="https://www.qzgzcg.cn/tradeListOut.html" width="100%" height="425" scrolling="no"
+                    frameborder="0"></iframe>
+        </div>
+        <!--延期项目推介-->
+        <div class="shadowbox idx-yqxmtj p20 fr">
+            <h2 class="idx-tit">
+                <span>延期项目推介</span> <a target="_blank" href="/qzcq/c/yqxmtj" class="more">更多&gt;</a>
+            </h2>
+            <div id="marquee2" class="marqueetop">
+                <div style="height:1000px;">
+                    <ul id="marquee2_1">
+                      <xwk_cms type="component" code="yqxmtjimg"></xwk_cms>
+                    </ul>
+                    <ul id="marquee2_2">
+                    </ul>
+                </div>
+            </div>
+            <!--延期项目推介end-->
+        </div>
+    </div>
+    <!--泉州国资阳光集中采购平台&延期项目推介end-->
+    <!--友情链接-->
+    <div class="idx-yqlj mt20 mb30">
+        <div class="w1360 shadowbox p20 clearfix">
+            <h2 class="idx-tit">
+                <span>友情链接</span>
+                <a target="_blank" href="/qzcq/c/yqlj" class="more">更多&gt;</a>
+            </h2>
+            <div class="idx-yqljlist">
+                <xwk_cms type="component" code="yqljimg"></xwk_cms>
+            </div>
+        </div>
+    </div>
+</div>
+    <!---友情链接end-->
+
+    <!--项目推介取数据-->
+    <script type="text/template" id="xmtj-prolist_html">
+        <? for ( var i = 0; i < rows.length; i++) {?>
+        <dl class="item-info">
+            <span class="label status_<?=rows[i].mainStatus?>">
+            <i class="state-bm "></i>
+            <?=getProStatusMainStatusAndExp(rows[i].mainStatus,rows[i].exceptionStatus,rows[i].proType,rows[i].dealTime,rows[i].pubFlag)?>
+            </span>
+
+            <dt class="pic "
+                onclick="toDetail( '<?=rows[i].proId?>', '<?=rows[i].packId?>', '<?=rows[i].proName?>', '<?=rows[i].sysSource?>', '<?=rows[i].proTmp?>', '<?=rows[i].objType?>', '<?=rows[i].orgProNo?>') ">
+                <?if(doNull(rows[i].picUrl) == ''){?>
+                    <img src="/static/dpmweb/qzcq/images/detail-default.png " alt="默认图片 ">
+                <?}else{?>
+                    <img src="<?=rows[i].picUrl?>" alt="项目图片">
+                <?}?>
+            </dt>
+            <dd class="cont">
+                <h3 class="tit">
+                    <?if(doNull(rows[i].sysSource) == 'QZDPM'){?>
+                        <a class="name" href="/qzcq/detail/pubInfo/<?=rows[i].proId?>" target="_blank" title="<?=rows[i].proName?>">
+                    <?}else{?>
+                        <a class="name" href="/qzcq/detail/dmpPubInfo/<?=rows[i].proId?>" target="_blank" title="<?=rows[i].proName?>">
+                    <?}?>
+                </h3>
+                <div class="txt">
+                    <p class="ProPrice">
+                        <label><?=getPriceText(rows[i].sysName)?>：</label>
+                        <span class="red price">
+							<?if(doNull(rows[i].proPrice) == '详见公告' || doNull(rows[i].proPrice) == '0' || doNull(rows[i].proPrice) == ''){?>
+                                详见公告
+                            <?}else{?>
+                                <?=rows[i].proPrice?><?=rows[i].priceUnit?>
+                            <?}?>
+						</span>
+                    </p>
+                    <p class="proArea align-center">
+                        <i class="icon icon-pro-area"></i>
+                        <?=removeProvinceName(rows[i].proArea, 1)?>
+                    </p>
+                    <p class="ProTime align-center">
+                        <i class="icon icon-pro-time"></i>
+                        <?=rows[i].realPubStartTime?>
+                    </p>
+                </div>
+            </dd>
+        </dl>
+        <?}?>
+    </script>
+    <!--项目中心取数据-->
+    <script type="text/template" id="xmpd-prolist_html">
+        <li class="pro-li pro-header flex-row justify-between">
+            <span class="td-state">项目状态</span>
+            <span class="td-number">项目编号</span>
+            <span class="td-name">项目名称</span>
+            <span class="td-price">挂牌价格</span>
+            <span class="td-date">挂牌日期</span>
+        </li>
+        <? for ( var i = 0; i < rows.length; i++) {?>
+        <li class="pro-li flex-row justify-between">
+            <span class="td-state">
+                <i> <?=getProStatusMainStatusAndExp(rows[i].mainStatus,rows[i].exceptionStatus,rows[i].proType,rows[i].dealTime,rows[i].pubFlag)?> </i>
+            </span>
+            <span class="td-number"><?=rows[i].proCode?></span>
+            <span class="td-name">
+                <?if(doNull(rows[i].sysSource) == 'QZDPM'){?>
+                <a class="name" href="/qzcq/detail/pubInfo/<?=rows[i].proId?>" target="_blank" title="<?=rows[i].proName?>"><?=rows[i].proName?></a>
+                <?}else{?>
+                <a class="name" href="/qzcq/detail/dmpPubInfo/<?=rows[i].proId?>" target="_blank" title="<?=rows[i].proName?>"><?=rows[i].proName?></a>
+                <?}?>
+			</span>
+            <span class="td-price">
+				<?if(doNull(rows[i].proPrice) == '详见公告' || doNull(rows[i].proPrice) == '0' || doNull(rows[i].proPrice) == ''){?>
+                详见公告
+                <?}else{?>
+                    <?=rows[i].proPrice?><?=rows[i].priceUnit?>
+                <?}?>
+			</span>
+            <span class="td-date"><?=doNull(rows[i].pubStartTime)?></span>
+        </li>
+        <?}?>
+    </script>
+    <!--成交公示数据-->
+    <script type="text/template" id="cjgs-list_html">
+        <? for ( var i = 0; i < rows.length; i++) {?>
+        <li>
+            <a target="_blank" href="/qzcq/p/notice/detail?noticeType=preDeal&noticeId=<?=rows[i].noticeId?>">
+                <?=doNull(rows[i].noticeName)?>
+            </a>
+        </li>
+        <?}?>
+    </script>
+
+    <!--通知公告公告数据模板-->
+    <script type="text/template" id="announcement-list_html">
+        <? for ( var i = 0; i < rows.length; i++) {?>
+        <li>
+            <a target="_blank" href="/qzcq/p/notice/detail?noticeType=<?=rows[i].announceType?>&noticeId=<?=rows[i].announceId?>">
+                <?=doNull(rows[i].title,"---")?>
+            </a>
+        </li>
+        <?}?>
+    </script>
+
+    <!--公告数据模板-->
+    <script type="text/template" id="notice-list_html">
+        <? for ( var i = 0; i < rows.length; i++) {?>
+        <li>
+            <a target="_blank" href="/qzcq/p/notice/detail?noticeType=<?=rows[i].announceType?>&noticeId=<?=rows[i].announceId?>">
+                <?=doNull(rows[i].title)?>
+            </a>
+            <span><?=rows[i].announceStartTime?></span>
+        </li>
+
+        <?}?>
+    </script>
+
+    <!--即将到期房产公示取数据-->
+    <script type="text/template" id="house-proList_html">
+        <? for ( var i = 0; i < rows.length; i++) {?>
+        <tr>
+            <td class="td-name">
+                <?if(doNull(rows[i].sysSource) == 'QZDPM'){?>
+                    <a class="name" href="/qzcq/detail/pubInfo/<?=rows[i].proId?>" target="_blank" title="<?=rows[i].itemName?>"><?=rows[i].itemName?></a>
+                <?}else{?>
+                    <a class="name" href="/qzcq/detail/dmpPubInfo/<?=rows[i].proId?>" target="_blank" title="<?=rows[i].itemName?>"><?=rows[i].itemName?></a>
+                <?}?>
+            </td>
+            <td class="text-center"><?=doNull(rows[i].countryName)?></td>
+            <td class="text-center"><?=doNull(rows[i].dealTime)?></td>
+            <td class="text-right"><a href="javascript:void(0)" title="<?=rows[i].itemName?>" onclick="MD.go('my/dpub/intention-edit?proId=<?=rows[i].proId?>&proName=<?=rows[i].itemName?>','增加意向信息')"><span style="color: #0189FF">我有意向&gt;</span></a></td>
+        </tr>
+        <?}?>
+    </script>
+
+    <script>
+        $(function () {
+            //initPage();
+            loadCms();
+            //项目推荐
+            //apiLoad('/web/pro/utrn/home?rows=4&proStatus=all', 'xmtj-prolist_html', 'xmtjBox');
+            //项目频道
+            loadProList({proRelation: 'R01'});
+            //成交公示
+            //apiLoad('/web/noticeList?rows=6&noticeType=preDeal', 'cjgs-list_html', 'cjgsListBox');
+            xwkLoad(DMP, '/web/announcement?rows=5&orderBy=is_top desc,is_new desc,announce_start_time desc', 'announcement-list_html', 'tzggListBox');
+              //预公告
+             /*xwkLoad(DMP, '/web/announcement?rows=5&announceType=A02', 'announcement-list_html', 'yggListBox');
+             //产权交易决策及批准
+             xwkLoad(DMP, '/web/announcement?rows=5&announceType=A08', 'announcement-list_html', 'jcypzListBox');*/
+
+            //成交公告
+            xwkLoad(DMP, '/web/announcement?rows=6&announceType=A03', 'notice-list_html', 'noticeListBox');
+            //成交公示
+            /*xwkLoad(DMP, '/web/announcement?rows=6&announceType=A09', 'notice-list_html', 'cjgsListBox');
+            //补充公告
+            xwkLoad(DMP, '/web/announcement?rows=6&announceType=A06', 'notice-list_html', 'bcggListBox');
+            //终结公告
+            xwkLoad(DMP, '/web/announcement?rows=6&announceType=A05', 'notice-list_html', 'zjggListBox');
+            //变更公告
+            xwkLoad(DMP, '/web/announcement?rows=6&announceType=A04', 'notice-list_html', 'bgggListBox');
+            //摇号公告
+            xwkLoad(DMP, '/web/announcement?rows=6&announceType=A12', 'notice-list_html', 'yhggListBox');*/
+
+
+            // 即将到期房产公示数据
+            xwkSearchSubmit(DMP,'/web/items','house-proList');
+
+            //项目频道品类地区点击
+            $(".idx-xmzxType a").click(function () {
+                $(this).addClass('active').siblings().removeClass("active");
+            });
+
+            //公司新闻切换
+            var idxnewsRight = new Swiper('.idxnewsRight  .wrap', {
+                speed: 500,
+                spaceBetween: 20,
+                initialSlide: 0,
+            })
+            $(".idxnewsRight .tabs li").on('click mouseenter', function () {
+                var i = $(this).index();
+                $(this).addClass('active').siblings().removeClass('active');
+                idxnewsRight.slideTo(i);
+
+                var href = $(this).find('a').attr('href');
+                $(this).parent().parent().find('.more').attr('href', href);
+            })
+
+            //交易公告
+            var idxJygg = new Swiper('.idx-jygg .wrap', {
+                speed: 500,
+                spaceBetween: 20,
+                initialSlide: 0,
+            })
+            $(".idx-jygg .tabs li").on('click mouseenter', function () {
+                var i = $(this).index();
+                $(this).addClass('active').siblings().removeClass('active');
+                idxJygg.slideTo(i);
+
+                var href = $(this).find('a').attr('href');
+                $(this).parent().parent().find('.more').attr('href', href);
+
+                var dataType = $(this).find('a').attr('data-type');
+                var dataTarget = $(this).find('a').attr('data-target');
+                xwkLoad(DMP, '/web/announcement?rows=6&announceType='+dataType, 'notice-list_html', dataTarget);
+            })
+
+        })
+
+        //通知公告
+        function dataShow(contDiv,obj){
+            $("."+ contDiv).show().siblings().hide();
+            $(obj).addClass("tabhover");
+            $(obj).siblings().removeClass("tabhover");
+
+            var dataType = $(obj).attr('data-type');
+            var dataTarget = $(obj).attr('data-target');
+            if (dataType === 'A001') {
+                xwkLoad(DMP, '/web/announcement?rows=5&orderBy=is_top desc,is_new desc,announce_start_time desc', 'announcement-list_html', 'tzggListBox');
+            } else {
+                xwkLoad(DMP, '/web/announcement?rows=6&announceType=' + dataType, 'notice-list_html', dataTarget);
+            }
+	    }
+        function loadProList(params) {
+            // 定义基础URL和默认参数
+            let baseUrl = '/web/pro';
+            let defaultParams = new URLSearchParams({proStatus: '', rows: 5, page: 1});
+
+            // 如果传入的参数是对象，则将其添加到URLSearchParams中
+            if (typeof params === 'object' && params !== null) {
+                Object.keys(params).forEach(key => {
+                    if (params[key] !== undefined && params[key] !== '') {
+                        defaultParams.append(key, params[key]);
+                    }
+                });
+            }
+
+            let fullUrl = baseUrl + "?" + defaultParams.toString();
+
+            xwkLoad(DMP, fullUrl, 'xmpd-prolist_html', 'xmpdBox');
+        }
+
+        //延期项目推介无缝滚动代码
+
+        function marquee(i, direction) {
+            var obj = document.getElementById("marquee" + i);
+            var obj1 = document.getElementById("marquee" + i + "_1");
+            var obj2 = document.getElementById("marquee" + i + "_2");
+            if (direction == "up") {
+                if (obj2.offsetTop - obj.scrollTop <= 0) {
+                    obj.scrollTop -= (obj1.offsetHeight + 20);
+                } else {
+                    var tmp = obj.scrollTop;
+                    obj.scrollTop++;
+                    if (obj.scrollTop == tmp) {
+                        obj.scrollTop = 1;
+                    }
+                }
+            } else {
+                if (obj2.offsetWidth - obj.scrollLeft <= 0) {
+                    obj.scrollLeft -= obj1.offsetWidth;
+                } else {
+                    obj.scrollLeft++;
+                }
+            }
+        }
+
+        function marqueeStart(i, direction) {
+            var obj = document.getElementById("marquee" + i);
+            var obj1 = document.getElementById("marquee" + i + "_1");
+            var obj2 = document.getElementById("marquee" + i + "_2");
+
+            obj2.innerHTML = obj1.innerHTML;
+            var marqueeVar = window.setInterval("marquee(" + i + ", '" + direction + "')", 20);
+            obj.onmouseover = function () {
+                window.clearInterval(marqueeVar);
+            }
+            obj.onmouseout = function () {
+                marqueeVar = window.setInterval("marquee(" + i + ", '" + direction + "')", 20);
+            }
+        }
+
+        marqueeStart(2, "up");
+    </script>
+<div class="app-footer clearfix">
+	<div class="footer-content-one">
+		<ul class="w1360 flexBox">
+			<li class="footer-lxfs">
+				<p>电 话：0595-22189025、0595-22189091、0595-22819006</p>
+				<p>传 真：0595-22189023</p>
+				<p>Email：qzcq@qzcq0595.com</p>
+				<p>地 址：泉州市丰泽区海星街100号东海大厦A幢市政务服务中心4楼 </p>
+				<p>邮 编：362000</p>
+				<p>技术支持：
+					<a href="https://www.zbxsoft.com/" target="_blank">北京中百信软件技术有限公司</a>
+				</p>
+			</li>
+			<li class="footer-gzh clearfix">
+				<p><a><img src="/static/dpmweb/qzcq/images/gzh-wx.png"></a><em>微信公众号</em></p>
+				<p><a><img src="/static/dpmweb/qzcq/images/wx-qrcode.jpg"></a><em>微信小程序</em></p>
+				<p><a><img src="/static/dpmweb/qzcq/images/gzh-dy.png"></a><em>抖音</em></p>	
+				<p><a><img src="/static/dpmweb/qzcq/images/gzh-qtt.png"></a><em>泉碳通小程序</em></p>	
+			</li>
+	</div>
+
+	<ul class="footer-copyright">
+		<span>copyright©2024&nbsp;&nbsp;版权所有：泉州市产权交易中心</span>
+		<span><a href="https://beian.miit.gov.cn/">闽ICP备09039516号-1</a></span>
+		<span><a href="https://beian.mps.gov.cn/#/query/webSearch" class="gab"><img src="/static/dpmweb/qzcq/images/gongan.png">闽公网安备 35050302000134号</a></span>
+	</ul>
+
+</div>    </div>
+</body>
+<div class="helpflex">
+	<ul id="helper-ul fz14">
+		<div class="text-right mb-0">
+			<i style="font-size: 18px; opacity: 0.8; cursor: pointer;" onClick="hiden()">×</i>
+		</div>
+		<li>
+			<a href="javascritp:void(0);">
+				<div class="pic">
+					<img src="/static/dpmweb/qzcq/images/sider/ico-xcx.png">
+					<span><img src="/static/dpmweb/qzcq/images/sider/ico-xcx-w.png"></span>
+				</div>
+				<p>小程序</p>
+				<div class="wpic">
+					<img src="/static/dpmweb/qzcq/images/wx-qrcode.jpg" />
+				</div>
+			</a>
+		</li>
+		<li>
+				<a href="/qzcq/a/fwzn/b95cabc9bf2a41d289b97b31bc14e126" target="_blank">
+					<div class="pic">
+						<img src="/static/dpmweb/qzcq/images/sider/ico-zcbm.png">
+						<span><img src="/static/dpmweb/qzcq/images/sider/ico-zcbm-w.png"></span>
+					</div>
+					<p>报名注册流程</p>
+				</a>
+			</li>
+			<li>
+				<a href="/qzcq/a/fwzn/a5ed0dfed76249e8841227e92cf2796d" target="_blank">
+					<div class="pic">
+						<img src="/static/dpmweb/qzcq/images/sider/ico-cyjj.png">
+						<span><img src="/static/dpmweb/qzcq/images/sider/ico-cyjj-w.png"></span>
+					</div>
+					<p>参与竞价流程</p>
+				</a>
+			</li>
+		<li>
+				<a href="/qzcq/a/fwzn/44a18be4209143419c6fded3d19620ed" target="_blank">
+					<div class="pic">
+						<img src="/static/dpmweb/qzcq/images/sider/ico-dzqz.png">
+						<span><img src="/static/dpmweb/qzcq/images/sider/ico-dzqz-w.png"></span>
+					</div>
+					<p>电子签章流程</p>
+				</a>
+			</li>
+		<!--				<li>
+					<a href="/qzcq/p/login" target="_blank">
+						<div class="pic">
+							<img src="/static/dpmweb/qzcq/images/sider/yonghudengl.png">
+							<span><img src="/static/dpmweb/qzcq/images/sider/yonghudengl-w.png"></span>
+						</div>
+						<p>用户登录</p>
+					</a>
+				</li>
+				<li>
+					<a href="/qzcq/p/register">
+						<div class="pic">
+							<img src="/static/dpmweb/qzcq/images/sider/yonghuzhuce.png">
+							<span><img src="/static/dpmweb/qzcq/images/sider/yonghuzhuce-w.png"></span>
+						</div>
+						<p>用户注册</p>
+					</a>
+				</li>
+				<li>
+					<a href="/qzcq/p/login?u=wtf">
+						<div class="pic">
+							<img src="/static/dpmweb/qzcq/images/sider/weituofangdenglu.png">
+							<span><img src="/static/dpmweb/qzcq/images/sider/weituofangdenglu-w.png"></span>
+						</div>
+						<p>委托方登录</p>
+					</a>
+				</li>
+		-->
+
+		<!--<li>
+			<a href="javascritp:void(0);" id="to_top">
+				<div class="pic">
+					<img src="/static/dpmweb/qzcq/images/sider/fanhuidingbu.png" alt="返回顶部">
+					<span><img src="/static/dpmweb/qzcq/images/sider/fanhuidingbu-w.png"></span>
+				</div>
+				<p>返回顶部</p>
+			</a>
+		</li>-->
+	</ul>
+</div>
+
+<div class="modal fade full" id="modal-message" data-backdrop="static" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<div class="modal-header-right">
+					<button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+					<button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+				</div>
+			</div>
+			<div class="modal-body" id="modalBox-message" style="min-height:250px; max-height: 550px; overflow: auto; padding:0;"></div>
+		</div>
+	</div>
+</div>
+<script>
+	function hiden() {
+		$(".helpflex").hide();
+	}
+	$(function() {
+		ifViewDetail()
+	})
+
+	function ifViewDetail() {
+		const path = window.location.pathname
+
+		if(path.indexOf('/qzcq/detail/pro/') !== -1) {
+			$('#customerService').show()
+		}
+	}
+
+	// 返回顶部
+	$('#to_top').click(function() {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 300);
+	})
+</script>
+<style>
+
+	@media screen and (min-width:1600px) {
+		.helpflex {
+			right: calc((100% - 1360px) / 4 - 37.5px);
+		}
+	}
+
+	
+</style><!--悬浮公告框-->
+<style>
+	.float-noticebox {
+		position: fixed;
+		bottom: 150px;
+		left: 20px;
+		z-index: 999;
+		width: 210px;
+	}
+	
+	.float-noticebox .close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 999;
+		cursor: pointer;
+		width: 20px;
+		height: 20px;
+		line-height: 18px;
+		font-size: 18px;
+		font-weight: lighter;
+		text-align: center;
+		border-radius: 100%;
+		color: #fff;
+		background: rgba(0, 0, 0, 0.4);
+	}
+	
+	.float-noticebox ul {
+		position: relative;
+		max-height: 100vh;
+		padding-top: 20px;
+	}
+	
+	.float-noticebox ul li {
+		width: 100%;
+		margin-bottom: 15px;
+		padding: 1px;
+		background: #fff;
+	}
+	
+	.float-noticebox ul li img {
+		width: 100%;
+		height: 154px;
+	}
+	/*20261008新增*/
+	.float-noticebox ul li .txt {
+		display: none;
+	}
+	
+	.float-noticebox:not(:has(li)) {
+		display: none !important;
+	}
+</style>
+<div class="float-noticebox">
+	<ul id="float-notice-container">
+		<a onclick="hide()" class="close">×</a>
+		<xwk_cms type="component" code="sypcimg"></xwk_cms>
+	</ul>
+</div>
+<!--悬浮公告框end-->
+<script type="text/javascript">
+	function hide() {
+		$(".float-noticebox").hide();
+	}
+	// 延迟10秒执行
+	setTimeout(function() {
+
+		$(function() {
+			$('.float-noticebox:not(:has(li))').hide();
+		});
+	}, 10000); // 10秒
+</script><!--20221129 侧边栏-->
+<div class="control-sidebar bg-white full" id="modal-sd"  data-backdrop="static" tabindex="-1">
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-sd"></div>
+</div>
+
+<div class="control-sidebar-inner  bg-white full" id="modal-si"  data-backdrop="static" tabindex="-1">
+    <!-- Control sidebar content goes here -->
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-inner-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-si"> </div>
+</div>
+<!--20200717 new bootstrapbox start-->
+<div class="modal fade full" id="modal-xl" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl" style="min-width: 90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <div class="modal-header-right">
+                    <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                        <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                    </button>
+                    <button type="button" class="close" data-dismiss="modal" title="关闭">
+                        <i class="fal fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBox-xl" style="min-height:550px; overflow: inherit"></div>
+        </div>
+    </div>
+</div>
+<!--大-->
+	<div class="modal fade full" id="modal-lg" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-lg" style="min-height:250px; max-height: 550px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--中-->
+    <div class="modal fade full" id="modal-md" data-backdrop="static"  tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-md" style="min-height:250px;  max-height: 450px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--小-->
+    <div class="modal fade full" id="modal-sm" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-sm"  style="min-height:250px; max-height: 350px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--不带关闭按钮-->
+<div class="modal fade" id="modal-noclose" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body" id="modalBox-noclose"  style="min-height:450px; max-height: 550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--删除-->
+<div class="modal fade" id="modal-del" data-backdrop="static"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-trash-o"></i> 删除提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;">确定删除<text id="modalBox-del"></text>吗？</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary modal-del-commit" data-dismiss="modal" onclick="xwkDelete(XWK.apiServiceName,XWK.apiUrl,XWK.callBack)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-confirm" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-window-restore"></i> 操作提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;"><text id="modalBox-confirm"></text></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary modal-confirm-commit" data-dismiss="modal" onclick="apiSubmit(XWK.apiUrl,XWK.formName,XWK.callBack,XWK.apiMethod,XWK.apiServiceName,XWK.contentType)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-loading" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-dog"></i> 运行中</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:150px">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--mainbox弹框-->
+<div class="my-main-box" id="myMainBox" style="display:none"></div>
+<div class="my-main-box" id="mainBox_1" style="display:none;z-index:860;"></div>
+<div class="my-main-box" id="mainBox_2" style="display:none;z-index:861;"></div>
+<div class="my-main-box" id="mainBox_3" style="display:none;z-index:862;"></div>
+<!--加载中。。。。-->
+<div id="xwkLoading" style="display:none">
+    <div style="position: absolute;top: 0;left: 0;width: 100%;height: calc(100vh);z-index: 9999;background: #000;opacity:0.3"></div>
+    <div style="position: absolute; top: calc(50vh); left: 49%; z-index: 10000; width: 100%;">
+        <div class="spinner-border text-white" role="status">
+            <span class="sr-only">加载中...</span>
+        </div>
+    </div>
+</div>
+<!--加载图片中。。。。-->
+<div id="xwkPicLoading" style="display:none">
+    <div style="position: absolute;top: 0;left: 0;width: 100%;height: calc(100vh);z-index: 9999;background: #000;opacity:0.3"></div>
+    <div style="position: absolute; top: calc(50vh); left: 25%; z-index: 10000; width: 50%;">
+        <div class="progress">
+             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+         </div>
+         <p class="text-center">加载中...</p>
+    </div>
+</div>
+<!--页面加载loading信息-->
+<div class="preloader flex-column justify-content-center align-items-center">
+    <!--img class="animation__shake" src="/zbxUI/images/loading.gif" alt="玄武库logo" height="60" width="60"-->
+</div>
+<!--loading遮罩-->
+<div id="xwk_loading" style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 9999;background: #000;opacity:0.4;">
+    <div style="position: absolute; top: calc(50vh); left: 50%; z-index: 10000; width: 100%; color: #fff;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p style="margin-left: -80px;font-size: 18px; margin-top: 20px;">数据加载中，请稍候...</p>
+    </div>
+</div>
+<!--附件-->
+<div id="attaHiddenDiv" style="display:none"></div>
+<div id="flowPicWin" closed="true"  draggable="false" resizable="false" modal="true"  class="easyui-window" title="查看流程图" style="width:1200px;height:550px; position:relative;">
+    <img id="flowPic"></img>
+    <div id="redBox" style="display: none;"></div>
+</div>
+<script>
+function taskcount(){
+    // 老工作流
+	/*var tc= getTaskCount("");
+	if(document.getElementById("taskCountBox")){
+		if(tc > 0){
+            $("#taskCountBox").addClass("numtip");
+			$("#taskCountBox").html(tc);
+		}else{
+			$("#taskCountBox").html("");
+			$("#taskCountBox").removeClass("numtip");
+		}
+	}
+	if(document.getElementById("taskCountLeftBox")){
+		if(tc > 0){
+            $("#taskCountLeftBox").addClass("numtip");
+			$("#taskCountLeftBox").html(tc);
+		}else{
+			$("#taskCountLeftBox").html("");
+			$("#taskCountLeftBox").removeClass("numtip");
+		}
+	}*/
+    // 新工作流
+    var tc6 = xwkGetCount("flow.v6","/my/count");
+    if(document.getElementById("myTaskCount")){
+        if(tc6 > 0){
+            $("#myTaskCount").addClass("numtip");
+            $("#myTaskCount").html(tc6);
+        }else{
+            $("#myTaskCount").html("");
+            $("#myTaskCount").removeClass("numtip");
+        }
+    }
+    if(document.getElementById("taskCountBox6")){
+        if(tc6 > 0){
+            $("#taskCountBox6").addClass("numtip");
+            $("#taskCountBox6").html(tc6);
+        }else{
+            $("#taskCountBox6").html("");
+            $("#taskCountBox6").removeClass("numtip");
+        }
+    }
+}
+
+function msgCount(){
+    if(doNull(MC)==""){
+        var MC = "mc";
+    }
+    var tc = xwkGetEntity(MC,"/my/webMsgCount");
+    if(document.getElementById("myMsgCount")){
+        if(tc > 0){
+            $("#myMsgCount").addClass("numtip");
+            $("#myMsgCount").html(tc);
+        }else{
+            $("#myMsgCount").html("");
+            $("#myMsgCount").removeClass("numtip");
+        }
+    }
+    if(document.getElementById("noticeCountBox")){
+        if(tc > 0){
+            $("#noticeCountBox").addClass("numtip");
+            $("#noticeCountBox").html(tc);
+        }else{
+            $("#noticeCountBox").html("");
+            $("#noticeCountBox").removeClass("numtip");
+        }
+    }
+}
+
+//老的消息系统
+function noticecount(){
+	var tc= getListCount(UC+"-msg","readFlag=F&toUserEname=");
+	if(document.getElementById("noticeCountBox")){
+		if(tc > 0){
+            $("#noticeCountBox").addClass("numtip");
+			$("#noticeCountBox").html(tc);
+		}else{
+			$("#noticeCountBox").html("");
+			$("#noticeCountBox").removeClass("numtip");
+		}
+
+	}
+}
+$(function(){
+	//如果页面上有taskCountBox,定时取待办数量 （每分钟）
+	if(document.getElementById("taskCountBox") || document.getElementById("taskCountBox6") || document.getElementById("myTaskCount") ||document.getElementById("taskCountLeftBox")){
+		taskcount();
+		setInterval("taskcount()",60000);
+	}
+	//如果页面上有noticeCountBox,定时取消息数量 （每分钟）
+	if(document.getElementById("noticeCountBox") || document.getElementById("myMsgCount")){
+		//noticecount();
+        msgCount();
+		setInterval("msgCount()",60000);
+	}
+
+	if(!Array.indexOf){
+		Array.prototype.indexOf = function(obj){
+			for(var i=0; i<this.length; i++){
+		         if(this[i]==obj){
+		             return i;
+		         }
+		    }
+		    return -1;
+		}
+	}
+	//IE兼容trim方法
+	String.prototype.trim=function() {
+        return this.replace(/(^\s*)|(\s*$)/g, "");
+    }
+});
+
+function logout(toUrl){
+    var url = '/login/logout';
+    if(toUrl){
+        url = '/login/logout?toUrl=' + toUrl;
+    }
+	$.messager.confirm('提示', '您确定工作已经保存，并退出该系统?', function(r){
+		if (r){
+			window.location.href = url;
+		}
+	});
+}
+
+function logoutweb(toUrl){
+    var url = '/login/logout';
+    if(toUrl){
+        url = '/login/logout?toUrl=' + toUrl;
+    }
+    if(confirm('您确定工作已经保存，并退出该系统?')) {
+        window.location.href = url;
+    }
+}
+function definePic6(id)	{
+    var purl = "/api/flow.v6/pic/byDefineId/"+id;
+    $("#flowPic").attr('src',purl);
+    $("#flowPicWin").dialog('open');
+}
+
+function flowPic(processInsId,divBox){
+    if(doNull(divBox)=="")divBox="modalBox-lg";
+    boxTitle="查看流程图";
+    if(processInsId.length<15){
+        viewFlowPic(processInsId,divBox)
+    }else{
+        xwkTo("flow.v6","/getXY/"+processInsId,"/flow/v2/pic6",divBox)
+    }
+}
+function flowLogs(processInsId,divBox,htmlName){
+    if(doNull(divBox)=="")divBox="flowLogBox";
+    if(processInsId.length<15){
+        if(doNull(htmlName)=="")htmlName = 'zbx/flow/flowLog-list';
+        toList(flowServiceName+'-flowLog','processInsId='+processInsId,divBox,htmlName);
+    }else{
+        if(doNull(htmlName)=="")htmlName = '/flow/v2/flow-log?processInsId='+processInsId;
+        go(htmlName,divBox);
+    }
+}
+</script>
+</html>

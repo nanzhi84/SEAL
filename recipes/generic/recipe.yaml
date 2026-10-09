@@ -1,0 +1,11 @@
+family: generic-public-document
+entrypoint: recipe:GenericSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  properties:
+    links: {type: string, minLength: 1}
+    next_page: {type: string, minLength: 1}
+    title: {type: string, minLength: 1}
+    body: {type: string, minLength: 1}
+    date: {type: string, minLength: 1}

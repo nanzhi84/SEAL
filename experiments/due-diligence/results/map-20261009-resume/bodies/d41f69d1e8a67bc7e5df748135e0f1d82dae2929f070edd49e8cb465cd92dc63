@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="zh-HK" class="news-hkex">
+
+<head>
+    <title>披露易</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description=" content="查閱香港交易所上市公司最新的監管公告和公開披露，以及與上市相關的交易所報告。" />
+    <link href="/ncms/images/favicon.ico" rel="icon" />
+    <link href="/ncms/css/main_index.css" rel="stylesheet">
+    <link rel="alternate" hreflang="en" href="https://www.hkexnews.hk/index.htm" >
+    <link rel="alternate" hreflang="zh-HK" href="https://www.hkexnews.hk/index_c.htm" >
+    <link rel="alternate" hreflang="zh-CN" href="https://sc.hkexnews.hk/TuniS/www.hkexnews.hk/index_c.htm" >
+    <link rel="alternate" hreflang="x-default" href="https://www.hkexnews.hk/" >
+    <script type="text/javascript" src="/ncms/script/hkex_app.js"></script>
+    <script type="text/javascript" src="/ncms/script/hkex_settings.js"></script>
+    <script type="text/javascript" src="/ncms/script/hkex_widget.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript" src="/ncms/script/vendor_index.js"></script>
+    <!-- CMS Control Ticker START -->
+    <script type="text/javascript" src="/ncms/script/hkex_ticker_index_c.js"></script>
+    <!-- CMS Control Ticker END -->
+
+    <!-- CMS Control Header START -->
+    <script type="text/javascript" src="/ncms/script/hkex_head_c.js"></script>
+    <!-- CMS Control Header END -->
+
+    <!-- CMS Control Banner START -->
+    <script type="text/javascript" src="/ncms/script/hkex_banner_index_c.js"></script>
+    <!-- CMS Control Banner END -->
+
+    <div id="skip-to-content"></div>
+
+    <section class="search-component">
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist" id="main-search-component-a">
+                <li role="presentation" class="active panel nav-item-lci">
+                    <a class="tab" href="#listed-company" aria-controls="listed-company" role="tab" data-toggle="tab">
+                        <div class="search-icon"></div>上市公司公告
+                    </a>
+                    <div class="fancy-note-tooltip">
+                        <a href="#" class="fancy-note-label tooltip" data-toggle="popup" data-target="#cms-lci-explanatory-note"></a>
+                    </div>
+                    <div class="fancy-note-tooltip content-search-visible">
+                        <a href="#" class="fancy-note-label tooltip" data-toggle="popup" data-target="#cms-content-search-explanatory-note"></a>
+                    </div>
+                    <a class="collapse-panel collapsed" data-toggle="collapse" data-parent="#main-search-component-a" aria-expanded="false" aria-controls="listed-company-collapse" href="#listed-company-collapse">
+                        <div class="search-icon"></div>上市公司公告
+                    </a>
+                    <div class="tab-content collapse" id="listed-company-collapse">
+
+                    </div>
+                </li>
+                <li role="presentation" class="panel">
+                    <a class="tab" href="#ccass-shareholding" aria-controls="ccass-shareholding" role="tab" data-toggle="tab">
+                        <div class="search-icon"></div>中央結算系統持股紀錄
+                    </a>
+                    <div class="fancy-note-tooltip">
+                        <a href="#" class="fancy-note-label tooltip" data-target="#cms-ccass-explanatory-note"></a>
+                    </div>
+                    <a class="collapse-panel collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="ccass-shareholding-collapse" href="#ccass-shareholding-collapse" data-parent="#main-search-component-a">
+                        <div class="search-icon"></div>股權披露
+                    </a>
+                    <div class="tab-content collapse" id="ccass-shareholding-collapse">
+
+                    </div>
+                </li>
+                <li>
+                    <a class="quick-link cms-control-link" href="#" data-link-target="#cms-disclosure-of-interests">
+                        <div class="search-icon"></div>披露權益
+                    </a>
+                </li>
+                <li class="right-link-tab mobile-hidden tablet-hidden">
+                    <a class="right-link cms-control-link" href="#" data-link-target="#cms-search-guide">搜尋提示</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content" id="tab-panel-group">
+                <!-- listed-company -->
+                <div role="tabpanel" class="tab-pane active" id="listed-company">
+                    <div class="fancy-note-wrapper">
+                        <div class="fancy-note mobileOnly">
+                            <a href="#" class="fancy-note-label" data-toggle="popup" data-target="#cms-lci-explanatory-note">說明注釋</a>
+                        </div>
+                        <div class="fancy-note mobileOnly content-search-visible">
+                            <a href="#" class="fancy-note-label" data-toggle="popup" data-target="#cms-content-search-explanatory-note">說明注釋</a>
+                        </div>
+                        <div class="fancy-note mobileOnly">
+                            <a class="right-link cms-control-link" href="#" data-link-target="#cms-search-guide">搜尋提示</a>
+                        </div>
+                    </div>
+                    <ul class="scroll_tabs scroll_tabs_container" role="tablist" data-left-arrow-img="/ncms/images/left-arrow-session.svg" data-right-arrow-img="/ncms/images/right-arrow-session.svg">
+                        <li data-value="tab-panel-title-search" class="tab_selected"><a href="#" title="標題搜尋">標題搜尋</a></li>
+                        <li data-value="tab-panel-content-search"><a href="#" title="內容搜尋">內容搜尋</a></li>
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div data-include-html="homeLCITitleSearch_c.html" role="tabpanel" class="tab-pane active" id="tab-panel-title-search">
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div data-include-html="homeLCIContentSearch_c.html" role="tabpanel" class="tab-pane" id="tab-panel-content-search">
+                        </div>
+                    </div>
+                </div>
+                <!-- listed-company end -->
+                <!-- ccass-shareholding -->
+                <div role="tabpanel" class="tab-pane" id="ccass-shareholding" data-include-html="homeCCASSSearch_c.html"></div>
+                <!-- ccass-shareholding end -->
+            </div>
+        </div>
+    </section>
+    <!-- CMS Control Search Session START -->
+    <script type="text/javascript" src="/ncms/script/hkex_search_index_c.js"></script>
+    <!-- CMS Control Search Session END -->
+
+    <div class="l-content">
+        <div class="container">
+            <div class="l-content__primary">
+                <!-- CMS Control LLCI START -->
+                <div data-include-html="homeLLCI_c.html" id="home-LLCI">
+                </div>
+                <!-- CMS Control LLCI END -->
+            </div>
+            <div class="l-content__aside">
+                <!-- CMS Control IPO Widget START -->
+                <script type="text/javascript" src="/ncms/script/hkex_ipo_index_c.js"></script>
+                <!-- CMS Control IPO Widget END -->
+
+                <!-- CMS Control Exchange Report START -->
+                <script type="text/javascript" src="/ncms/script/hkex_exchange_report_index_c.js"></script>
+                <!-- CMS Control Exchange Report END -->
+
+                <!-- CMS Control Document Submission START -->
+                <script type="text/javascript" src="/ncms/script/hkex_doc_submission_index_c.js"></script>
+                <!-- CMS Control Document Submission END -->
+            </div>
+            <div class="l-content__primary">
+                <!-- CMS Control Twin Card Widget START -->
+                <script type="text/javascript" src="/ncms/script/hkex_card_index_c.js"></script>
+                <!-- CMS Control Twin Card Widget END -->
+                <!-- CMS Control Quick Links START -->
+                <script type="text/javascript" src="/ncms/script/hkex_useful_info_index_c.js"></script>
+                <!-- CMS Control Quick Links END -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CMS Control Footer START -->
+    <script type="text/javascript" src="/ncms/script/hkex_foot_c.js"></script>
+    <!-- CMS Control Footer END -->
+    <script>
+    (function ($) {
+        includeHTML();
+    })(window.hkexCMS);
+    </script>
+    <!-- NEWS Main Scripts START -->
+    <script type="text/javascript" src="/ncms/script/main_index.js"></script>
+    <!-- NEWS Main Scripts END -->
+<script type="text/javascript" nonce="f1c386620c8901bd66c3546ad4cf7e76" src="/UH6UYbrFG/fg/bd/PeRsbfnmzlQSKY/mkcOcVEiaVYk/dzgOAg/UkR5/GV08cWMR?v=37cec5fe-9539-1244-608e-3ab2c10c174b" defer></script></body>
+</html>

@@ -1,0 +1,956 @@
+﻿<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>国家金融监督管理总局</title>
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="SiteName" content="">
+    <meta name="SiteDomain" content="">
+    <meta name="SiteIDCode" content="">
+    <meta name="ColumnName" content="">
+    <meta name="ColumnDescription" content="">
+    <meta name="ColumnKeywords" content="">
+    <meta name="ColumnType" content="">
+    <meta http-equiv="Window-target" content="_top">
+    <meta property="og:image" content="/cn/static/images/share.jpg">
+    <link rel="Shortcut Icon" href="/cn/static/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/cn/css/common/base.css?v=20200108" rel="stylesheet" />
+    <link href="/cn/css/common/Common.css?v=20200108" rel="stylesheet" />
+    <link href="/cn/css/index/Index.css?v=20200108" rel="stylesheet" />
+    <link href="/cn/css/common/piaochuang.css" rel="stylesheet" />
+    <!--[if lt IE 9]>
+       <script src="/cn/js/common/html5shiv.min.js"></script>
+       <script src="/cn/js/common/respond.js"></script>
+    <![endif]-->
+    <!--[if lt IE 10]>
+       <link href="/cn/css/index/index-ie8.css" rel="stylesheet" />
+    <![endif]-->
+    
+    <style>
+        .consumerLine:hover {
+            color: #216fbc;
+            cursor: pointer;
+        }
+        .slideBox a {
+            color: white;
+        }
+        .piao-hengfu1-close{
+            text-align: right;
+            margin-top: -10px;
+            cursor: pointer;
+        }
+
+        .jinrongWord{
+            width: 20px;
+            display: inline-block;
+            position: absolute;
+            right: 0;
+            padding: 13px 30px 0 0;
+            zoom: 0.8;
+            line-height: 1.1;
+            top: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+       
+        <div  style="display: none">
+                <img src="/cn/static/images/share.jpg"   />
+            </div>   
+    <div class="main ng-cloak" id="mainIndex" ng-app="myApp" ng-click="indexCtrlClick()" ng-controller="indexCtrl">
+        <tpl src="/cn/view/components/HeaderIndex.html"></tpl>
+        <div class="content-headerIndex" style="width: 100%;">
+        <div class="content index">
+            <link href="/cn/css/common/jquery-superslide.css" rel="stylesheet" />
+
+            <!-- 固定飘窗 -->
+            <!-- <div class="piao-left1" id="piaoLeft1">                                                                                                                                                                                                                                       
+                <a ng-href="{{piao_left1.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{piao_left1.advImgurl}}" />
+                    <div ng-show="showSVG">
+                        <svg style="width:70px;height:140px;">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{piao_left1.advImgurl}}" x="0" y="0" width="70" height="140"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+                    </div>
+                </a>
+                <p class="piao-left1-close">
+                    <a>关闭</a>
+                </p>
+            </div>
+            <div class="piao-left2" id="piaoLeft2">
+                <a ng-href="{{piao_left2.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{piao_left2.advImgurl}}" />
+                    <div ng-show="showSVG">
+                        <svg style="width:70px;height:140px;">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{piao_left2.advImgurl}}" x="0" y="0" width="70" height="140"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+                    </div>
+                </a>
+                <p class="piao-left2-close">
+                    <a>关闭</a>
+                </p>
+            </div>
+            <div class="piao-left3" id="piaoLeft3">
+                <a ng-href="{{piao_left3.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{piao_left3.advImgurl}}" />
+                    <div ng-show="showSVG">
+                        <svg style="width:70px;height:140px;">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{piao_left3.advImgurl}}" x="0" y="0" width="70" height="140"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+        
+                    </div>
+                </a>
+                <p class="piao-left3-close">
+                    <a>关闭</a>
+                </p>
+            </div>
+            <div class="piao-right1" id="piaoRight1">
+                <a ng-href="{{piao_right1.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{piao_right1.advImgurl}}" />
+                    <div ng-show="showSVG">
+                        <svg style="width:70px;height:140px;">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{piao_right1.advImgurl}}" x="0" y="0" width="70" height="140"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+                      
+                    </div>
+                </a>
+                <p class="piao-right1-close">
+                    <a>关闭</a>
+                </p>
+            </div>
+            <div class="piao-right2" id="piaoRight2">
+                <a ng-href="{{piao_right2.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{piao_right2.advImgurl}}" />
+                    <div ng-show="showSVG">
+                        <svg style="width:70px;height:140px;">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{piao_right2.advImgurl}}" x="0" y="0" width="70" height="140"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+                     
+                    </div>
+                </a>
+                <p class="piao-right2-close">
+                    <a>关闭</a>
+                </p>
+            </div>
+            <div class="piao-right3" id="piaoRight3">
+                <a ng-href="{{piao_right3.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{piao_right3.advImgurl}}" />
+                    <div ng-show="showSVG">
+                    
+                        <svg style="width:70px;height:140px;">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{piao_right3.advImgurl}}" x="0" y="0" width="70" height="140"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+                    </div>
+                </a>
+                <p class="piao-right3-close">
+                    <a>关闭</a>
+                </p>
+            </div> -->
+
+            <!-- 浮动飘窗 -->
+            <div id="piaoFuDong" class="piao-fudong">
+                <p class="piao-fudong-close">
+                    <a>关闭</a>
+                </p>
+                <a ng-href="{{piao_fudong.advUrl}}">
+                    <img ng-show="!showSVG" ng-src="{{piao_fudong.advImgurl}}">
+                    <div ng-show="showSVG">
+                        <svg style="width:100px;height:100px;">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{piao_fudong.advImgurl}}" x="0" y="0" width="100" height="100"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+                        <!-- <svg style="width:100px;height:100px;"><image xmlns:xlink="http://www.w3.org/1999/xlink" ng-href="{{piao_fudong.advImgurl}}" x="0" y="0" width="100" height="100"  filter="{{svgGrayscaleFilter}}"></image></svg> -->
+                    </div>
+                </a>
+            </div>
+
+            <!-- 弹出层弹窗 -->
+            <!-- <div>
+                <a id="welcome"></a>
+            </div>
+            <div id="moaModal" class="tanchuang">             
+                <img ng-src="/cn/static/{{image_path}}/Index/welcome.jpg"/><br>
+                <span>欢迎访问中国银行保险监督管理委员会！</span>
+            </div>    -->
+
+            <!-- <div id="piaoJuBao" style="position: fixed; width: 238px; right: 0; z-index: 5;" ng-show="piaoJuBaoFlag">
+                <img ng-show="!showSVG" ng-src="/cn/static/images/common/jubao.png" />
+                <div ng-show="showSVG">
+                    <svg style="width:238px; height:120px;">
+                        <image xmlns:xlink="http://www.w3.org/1999/xlink" 
+                        xlink:href="/cn/static/images/common/jubao.png"
+                        ng-attr-xlink:href="/cn/static/images/common/jubao.png" x="0" y="0"
+                        width="238" height="120" filter="{{svgGrayscaleFilter}}"></image>
+                    </svg>
+                </div>
+                <p id="piao-jubao-close" ng-click="piaoJuBaoFlag=false">
+                    <span style="float: right; font-size: 12px;cursor: pointer;margin-top: -5px;">× 关闭</span>
+                </p>
+            </div> -->
+
+            <div >
+                <!-- style="position: relative; width:100%" -->
+                <div id="leftHengFu" class="index-hengfu" >
+                    <div class="hengfu-bottom" ng-repeat="hengfu in LPics" style="margin-bottom: 0px;"  ng-style="{'pointer-events':!hengfu.showLeftImg ? 'auto':'none'}">
+                        <a ng-href="{{hengfu.advUrl}}" target="_blank">
+                            <img ng-show="!showSVG" ng-style="{ 'visibility': !hengfu.showLeftImg ? 'inherit' : 'hidden','opacity':!hengfu.showLeftImg ? 1:0, }"  ng-src="{{hengfu.advImgurl}}" width="100%" height="110px" />
+                            <div ng-show="showSVG" ng-style="{ 'visibility': !hengfu.showLeftImg ? 'inherit' : 'hidden','opacity':!hengfu.showLeftImg ? 1:0, }" >
+                                <svg viewbox="0 0 100 110" width="100%" height="110px" preserveAspectRatio="none slice" overflow="visible">
+                                    <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="" preserveAspectRatio="none slice" overflow="visible"
+                                        ng-attr-xlink:href="{{hengfu.advImgurl}}" x="0" y="0" width="100px" height="110px"
+                                        filter="{{svgGrayscaleFilter}}"></image>
+                                </svg>
+                            </div>
+                            <p class="piao-hengfu1-close" ng-click="closeImage($index,'left')" ng-style="{ 'visibility': !hengfu.showLeftImg ? 'inherit' : 'hidden','opacity':!hengfu.showLeftImg ? 1:0, }"  >
+                              
+                                <a >关闭</a>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+                <div class="row mb25">
+                    <div class="col-lg-6" id="index_lunbo">
+                        <!-- 轮播 -->
+                        <div id="slideBox" class="slideBox" style="margin-top: 14px;">
+                            <div class="hd">
+                                <p class="slide-title" style="padding-right:60px;" ng-repeat="x in index_tupianxinwen"
+                                    ng-bind-html="x.docSubtitle|trustHtml"></p>
+
+                                <ul>
+                                    <li></li>
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                            <div class="bd">
+                                <ul>
+                                    <li ng-repeat="x in index_tupianxinwen">
+                                        <a ng-href="{{x.titleJumpUrl}}"
+                                            target="_blank">
+                                            <img ng-show="!showSVG" ng-src="{{x.urlOtherName}}" width="550" height="380" />
+                                            <div ng-show="showSVG">
+                                                <!-- <svg style="width:550px;height:380px;">
+                                                    <image xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                    [xlink:href]="x.urlOtherName" x="0" y="0" width="550" height="380"
+                                                        filter="{{svgGrayscaleFilter}}"></image>
+                                                </svg> -->
+                                                <svg style="width:550px;height:380px;"  preserveAspectRatio="none meet" overflow="visible">
+                                                    <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="" 
+                                                        ng-attr-xlink:href="{{x.urlOtherName}}" x="0" y="0" width="550"  preserveAspectRatio="none meet" overflow="visible"
+                                                        height="380" filter="{{svgGrayscaleFilter}}"></image>
+                                                </svg>
+
+                                                <!-- <svg style="width:550px;height:380px;"><image xmlns:xlink="http://www.w3.org/1999/xlink" ng-href="{{x.urlOtherName}}" x="0" y="0" width="550" height="380" filter="{{svgGrayscaleFilter}}"></image></svg> -->
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+                            <a class="prev" href="javascript:void(0)"></a>
+                            <a class="next" href="javascript:void(0)"></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="margin-top: 14px;">
+                        <div class="list mh" style="height: 380px;">
+                            <div class="tabs"
+                                ng-attr-style="background-image: url(/cn/static/{{image_path}}/common/line_03.jpg);">
+                                <div class="tab">
+                                    <img ng-src="/cn/static/{{image_path}}/common/shizhengyaowen.png" />
+                                    <a
+                                      list-panel-id="index-shizhengyaowen"
+                                      >时政要闻</a
+                                    >
+                                  </div>
+                                  <div class="tab">
+                                    <a
+                                      list-panel-id="index-guowuyuanxinxi"
+                                      ng-href=""
+                                      >国务院信息</a
+                                    >
+                                  </div>
+                                <div class="tab active">
+                                    <a 
+                                    list-panel-id="index-zongjujianguandongtai"
+                                    ng-href="{{index_jianguandongtai_item}}">总局监管动态</a>
+                                </div>
+                            </div>
+                            <div class="panels"  >
+                                    <div class="panel" id="index-shizhengyaowen" style="padding: 15px 0 0 0;">
+                                      <div class="panel-row" ng-repeat="x in shizhengyaowen" >
+                                        <span class="title">
+                                          <a
+                                            style="width: 84%;"
+                                            ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                            target="_blank"
+                                            title="{{ x.docSubtitle | trimHtml }}"
+                                            ng-hide="x.docSubtitle|isAHtml"
+                                            ng-bind-html="x.docSubtitle|trustHtml"
+                                          ></a>
+                                          <span
+                                            class="shouye-title"
+                                            ng-show="x.docSubtitle|isAHtml"
+                                            ng-bind-html="x.docSubtitle|trustHtml"
+                                          ></span>
+                                        </span>
+                                        <span class="date" style="margin-right: 10px;">{{ x.publishDate | dateFormat }}</span>
+                                      </div>
+                                    </div>
+                                <div class="panel" id="index-guowuyuanxinxi"  style="padding: 15px 0 0 0;">
+                                    <div class="panel-row" ng-repeat="x in guowuyuan" ng-click="clickGov(x.title,x.pubDate)" >
+                                        <span class="title">
+                                            <a  style="width: 84%;" ng-href="{{x.link}}" title="{{x.title}}" target="_blank">{{x.title}}</a>
+                                        </span>
+                                        <span class="date" style="margin-right: 10px;">{{x.pubDate | dateFormat}}</span>
+                                    </div>
+                                </div>
+                                <div class="panel active" id="index-zongjujianguandongtai" style="margin-top: -10px;">
+                                    <div class="jgdt-brief">
+                                        <div class="jgdt-brief-title">
+                                            <a style="width: 84%;" ng-href="/cn/view/pages/ItemDetail.html?docId={{jgdt_brief.docId}}&itemId={{jgdt_brief_itemId}}"
+                                                title="{{jgdt_brief.docSubtitle|trimHtml}}" target="_blank"
+                                                ng-hide="jgdt_brief.docSubtitle|isAHtml"
+                                                ng-bind-html="jgdt_brief.docSubtitle|trustHtml"></a>
+                                            <span   class="shouye-title" ng-show="jgdt_brief.docSubtitle|isAHtml" target="_blank"
+                                                ng-bind-html="jgdt_brief.docSubtitle|trustHtml"></span>
+                                        </div>
+                                        <p>
+                                            <span id="jgdt-brief-subtitle">{{jgdt_brief.docSummary | ellipsis:60}}
+                                                <a ng-href="/cn/view/pages/ItemDetail.html?docId={{jgdt_brief.docId}}&itemId={{jgdt_brief_itemId}}"
+                                                    target="_blank">{{jgdt_brief.docSummary!=""&&jgdt_brief.docSummary!=undefined?jgdt_brief_docSummary_xiangqing:""}}</a>
+                                            </span>
+                                       </p>
+                                    </div>
+                                    <div class="panels" id="xunshijubaoPosition" style="margin-top: 5px;">
+                                        <div class="panel active">
+                                            <div class="panel-row" ng-repeat="x in jianguandongtai">
+                                                <span class="title index-title">
+                                                    <a class="zongjujianguandongtai" ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                                        title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                                        ng-hide="x.docSubtitle|isAHtml" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                                    <span ng-show="x.docSubtitle|isAHtml" target="_blank"
+                                                        ng-bind-html="x.docSubtitle|trustHtml"></span>
+                                                </span>
+                                            </div>
+                                            <div class="list-more" style="margin-right: 10px;">
+                                                <a ng-href="{{index_jianguandongtai_item}}" class="list-more-jgdt">更多>></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="rightHengFu" class="index-hengfu">
+                    <div class="hengfu-bottom" ng-repeat="hengfu in RPics"  style="margin-bottom: 0px; " ng-style="{'pointer-events':!hengfu.showRightImg ? 'auto':'none'}" >
+                    <a ng-href="{{hengfu.advUrl}}" target="_blank" >
+                            <img ng-show="!showSVG"
+                                ng-style="{ 'visibility': !hengfu.showRightImg ? 'inherit' : 'hidden','opacity':!hengfu.showRightImg ? 1:0, }"
+                                ng-src="{{hengfu.advImgurl}}" width="100%" height="110px" />
+                            <div ng-show="showSVG"  ng-style="{ 'visibility': !hengfu.showRightImg ? 'inherit' : 'hidden','opacity':!hengfu.showRightImg ? 1:0, }">
+                                <svg viewbox="0 0 100 110" width="100%" height="110px" preserveAspectRatio="none slice"
+                                    overflow="visible">
+                                    <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="" preserveAspectRatio="none slice"
+                                        overflow="visible" ng-attr-xlink:href="{{hengfu.advImgurl}}" x="0" y="0" width="100px"
+                                        height="110px" filter="{{svgGrayscaleFilter}}"></image>
+                                </svg>
+                            </div>
+                            <p class="piao-hengfu1-close" ng-click="closeImage($index,'right')"
+                                ng-style="{ 'visibility': !hengfu.showRightImg ? 'inherit' : 'hidden','opacity':!hengfu.showRightImg ? 1:0, }">
+                                <a>关闭</a>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- 飘窗上的横幅位置可展示多个 -->
+            <div id="hengFu1" class="index-hengfu">
+                <div class="hengfu-bottom" ng-repeat="hengfu in hengfu1">
+                    <a ng-href="{{hengfu.advUrl}}" target="_blank">
+                        <img ng-show="!showSVG" ng-src="{{hengfu.advImgurl}}" width="100%" height="110px" />
+                        <div ng-show="showSVG">
+                            <!-- <svg viewbox="0 0 1100 110" width="1100px" height="110px" preserveAspectRatio="none meet">
+                                <image xmlns:xlink="http://www.w3.org/1999/xlink" [xlink:href]="hengfu.advImgurl" x="0"
+                                    y="0" width="1100px" height="110px" filter="{{svgGrayscaleFilter}}"></image>
+                            </svg> -->
+                            <svg viewbox="0 0 1100 110" width="1100px" height="110px" preserveAspectRatio="none slice" overflow="visible">
+                                <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="" preserveAspectRatio="none slice" overflow="visible"
+                                    ng-attr-xlink:href="{{hengfu.advImgurl}}" x="0" y="0" width="1100px" height="110px"
+                                    filter="{{svgGrayscaleFilter}}"></image>
+                            </svg>
+
+                            <!-- <svg viewbox="0 0 1100 110" width="1100px" height="110px" preserveAspectRatio="none meet"><image xmlns:xlink="http://www.w3.org/1999/xlink" ng-href="{{hengfu.advImgurl}}" x="0" y="0" width="1100px" height="110px"  filter="{{svgGrayscaleFilter}}"></image></svg> -->
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row mb25" style="margin-bottom: 1px;">
+                <!-- chendm -->
+                <div class="marquee" style="display: none;">
+                    <div class="gonggaotongzhi">
+                        <img ng-src="/cn/static/{{image_path}}/common/ggtz.png" />
+                        <span>
+                            <a ng-href="{{index_gonggaotongzhi_item}}">公告通知</a>
+                        </span>
+                    </div>
+                    <div id="scroll_div" class="scroll_div">
+                        <div id="scroll_begin">
+                            <ul>
+                                <li class="" ng-repeat="x in gonggaotongzhi">
+                                    <a ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                        target="_blank" ng-bind-html="x.docSubtitle|trustHtml" ></a>
+                                    <span class="date" >{{x.publishDate | dateFormat2}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="scroll_end">
+                            <ul>
+                                <li class="" ng-repeat="x in gonggaotongzhi">
+                                    <a ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                        target="_blank" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                    <span class="date">{{x.publishDate | dateFormat2}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="txtMarquee-left">
+                        <div class="bd">
+                            <ul>
+                                <li class="txtMarquee-left-bd-li" ng-repeat="x in gonggaotongzhi">
+                                    <a ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                        target="_blank" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                    <span class="date">{{x.publishDate | dateFormat2}}</span>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hengFu2" class="index-hengfu hengfu-bottom">
+                <a ng-href="{{hengfu2.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{hengfu2.advImgurl}}" width="100%" height="110px" />
+                    <div ng-show="showSVG">
+                        <svg viewbox="0 0 1100 110" width="1100px" height="110px" preserveAspectRatio="none slice" overflow="visible">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                ng-attr-xlink:href="{{hengfu2.advImgurl}}" x="0" y="0" width="1100px" height="110px" preserveAspectRatio="none slice" overflow="visible"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                        </svg>
+                        <!-- <svg viewbox="0 0 1100 110" width="1100px" height="110px" preserveAspectRatio="none meet"><image xmlns:xlink="http://www.w3.org/1999/xlink" ng-href="{{hengfu2.advImgurl}}" x="0" y="0" width="1100px" height="110px"  filter="{{svgGrayscaleFilter}}"></image></svg> -->
+                    </div>
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-lg-6" style="width: 49.2%;">
+                    <div class="list mh">
+                        <div class="tabs"
+                            ng-attr-style="background-image: url(/cn/static/{{image_path}}/common/line_03.jpg);">
+                            <div class="tab active">
+                                <img ng-src="/cn/static/{{image_path}}/common/zcfg.png" />
+                                <a ng-href="{{index_zhengcefagui_item}}" list-panel-id="index-zhengcefagui">政策法规</a>
+                            </div>
+                            <div class="tab">
+                                <a ng-href="{{index_zhengcejiedu_item}}" list-panel-id="index-zhengcejiedu">政策解读</a>
+                            </div>
+                            <div class="tab">
+                                <a ng-href="{{index_zhengqiuyijian_item}}" list-panel-id="index-zhengqiuyijian">征求意见</a>
+                            </div>
+                        </div>
+
+                        <div class="panels">
+                            <div class="panel active" id="index-zhengcefagui">
+                                <div class="panel-row" ng-repeat="x in index_zhengcefagui">
+                                    <span class="title">
+                                        <a style="width: 84%;" ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                            title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                            ng-hide="x.docSubtitle|isAHtml" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                       <span  class="shouye-title" ng-show="x.docSubtitle|isAHtml" target="_blank"
+                                            ng-bind-html="x.docSubtitle|trustHtml"></span>
+                                    </span>
+                                    <span class="date" style="margin-right: 10px;">{{x.publishDate | dateFormat}}</span>
+                                </div>
+                                <div class="list-more" style="margin-right: 10px;">
+                                    <a ng-href="{{index_zhengcefagui_item}}">更多>></a>
+                                </div>
+                            </div>
+                            <div class="panel" id="index-zhengcejiedu">
+                                <div class="panel-row" ng-repeat="x in index_zhengcejiedu">
+                                    <span class="title">
+                                        <a style="width: 84%;" ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                            title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                            ng-hide="x.docSubtitle|isAHtml" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                        <span  class="shouye-title" ng-show="x.docSubtitle|isAHtml" target="_blank"
+                                            ng-bind-html="x.docSubtitle|trustHtml"></span>
+                                    </span>
+                                    <span class="date" style="margin-right: 10px;">{{x.publishDate | dateFormat}}</span>
+                                </div>
+                                <div class="list-more" style="margin-right: 10px;">
+                                    <a ng-href="{{index_zhengcejiedu_item}}">更多>></a>
+                                </div>
+                            </div>
+                            <div class="panel" id="index-zhengqiuyijian">
+                                <div class="panel-row" ng-repeat="x in zhengqiuyijian">
+                                    <span class="title">
+                                        <a style="width:84% " ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                            title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                            ng-hide="x.docSubtitle|isAHtml" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                        <span ng-show="x.docSubtitle|isAHtml" target="_blank"
+                                            ng-bind-html="x.docSubtitle|trustHtml"></span>
+                                    </span>
+                                    <span class="date" style="margin-right: 10px;">{{x.publishDate | dateFormat}}</span>
+                                </div>
+                                <div class="list-more" style="margin-right: 10px;">
+                                    <a ng-href="{{index_zhengqiuyijian_item}}">更多>></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="list mh list-margin-left" style="margin-right: -10px;">
+                      <div
+                        class="tabs"
+                        ng-attr-style="background-image: url(/cn/static/{{image_path}}/common/line_03.jpg);"
+                      >
+                        <div class="tab active">
+                          <img
+                            ng-src="/cn/static/{{ image_path }}/common/ggtz.png"
+                          />
+                          <a
+                            ng-href="{{index_gonggaotongzhi_item}}"
+                            >公告通知</a
+                          >
+                        </div>
+                      </div>
+        
+                      <div class="panels">
+                        <div class="panel active">
+                          <div class="panel-row" ng-repeat="x in gonggaotongzhi">
+                            <span class="title">
+                              <a
+                                style="width: 84%;"
+                                ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                target="_blank"
+                                title="{{ x.docSubtitle | trimHtml }}"
+                                ng-hide="x.docSubtitle|isAHtml"
+                                ng-bind-html="x.docSubtitle|trustHtml"
+                              ></a>
+                              <span
+                              class="shouye-title"
+                                ng-show="x.docSubtitle|isAHtml"
+                                ng-bind-html="x.docSubtitle|trustHtml"
+                              ></span>
+                            </span>
+                            <span class="date" style="margin-right: 10px;">{{ x.publishDate | dateFormat }}</span>
+                          </div>
+                          <div class="list-more" style="margin-right: 10px;">
+                            <a
+                              ng-href="{{index_gonggaotongzhi_item}}"
+                              >更多>></a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+            </div>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-lg-6" style="width: 49.2%;">
+                    <div class="list mh">
+                        <div class="tabs"
+                            ng-attr-style="background-image: url(/cn/static/{{image_path}}/common/line_03.jpg);">
+                            <div class="tab active">
+                                <img
+                                    ng-src="/cn/static/{{ image_path }}/common/tongjixinxi.png"
+                                />
+                                <a
+                                    ng-href="{{tongjixinxi_item}}"
+                                    >统计信息</a
+                                >
+                            </div>
+
+                        </div>
+                        <div class="panels">
+                            <div class="panel active">
+                              <div class="panel-row" ng-repeat="x in tongjixinxi">
+                                <span class="title">
+                                  <a
+                                   style="width: 84%;"
+                                    ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                    target="_blank"
+                                    title="{{ x.docSubtitle | trimHtml }}"
+                                    ng-hide="x.docSubtitle|isAHtml"
+                                    ng-bind-html="x.docSubtitle|trustHtml"
+                                  ></a>
+                                  <span
+                                   class="shouye-title"
+                                    ng-show="x.docSubtitle|isAHtml"
+                                    ng-bind-html="x.docSubtitle|trustHtml"
+                                  ></span>
+                                </span>
+                                <span class="date" style="margin-right: 10px;">{{ x.publishDate | dateFormat }}</span>
+                              </div>
+                              <div class="list-more" style="margin-right: 10px;">
+                                <a
+                                  ng-href="{{tongjixinxi_item}}"
+                                  >更多>></a
+                                >
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="list mh list-margin-left" style="margin-right: -10px;">
+                        <div class="tabs"
+                            ng-attr-style="background-image: url(/cn/static/{{image_path}}/common/line_03.jpg);">
+                            <div class="tab active">
+                                <img ng-src="/cn/static/{{image_path}}/common/zfxxgk.png" />
+                                <a ng-href="{{index_zhengfuxinxigongkai}}" list-panel-id="index-zhengfuxinxigongkai"
+                                    target="_blank">政府信息公开</a>
+                            </div>
+                          
+                        </div>
+
+                        <div class="panels">
+                            <div class="panel active" id="index-zhengfuxinxigongkai">
+                                <div class="panel-row" ng-repeat="x in zfxx_zuijingengxin">
+                                    <span class="title">
+                                        <span ng-if="x.itemName=='法律行政法规'">
+                                            <a style="width: 84%;" ng-href="/cn/view/pages/governmentDetail.html?docId={{x.docId}}&itemId={{x.itemId}}&generaltype=0"
+                                                title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                                ng-hide="x.docSubtitle|isAHtml"
+                                                ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                        </span>
+                                         <!-- bak年报 -->
+                                           <!-- change年报 -->
+                                        <span ng-if="x.itemName!='法律行政法规'&& x.itemName!='年度报告'">
+                                                <a style="width: 84%;" ng-href="/cn/view/pages/governmentDetail.html?docId={{x.docId}}&itemId={{x.itemId}}&generaltype={{index_xingzhengxuke_generaltype}}"
+                                                    title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                                    ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                            </span>
+                                            <span ng-if="x.itemName!='法律行政法规'&& x.itemName=='年度报告'&& x.isgtyear">
+                                                <a style="width: 84%;" ng-href="/cn/view/pages/zhengwuxinxi/zhengfuxinxi.html?signIndex=3&year={{x.year}}&docId={{x.docId}}"
+                                                    title="{{x.docSubtitle|trimHtml}}" 
+                                                    ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                            </span>
+                                            <span ng-if="x.itemName!='法律行政法规'&& x.itemName=='年度报告' && !x.isgtyear">
+                                                <a style="width: 84%;" ng-href="/cn/view/pages/governmentDetail.html?docId={{x.docId}}&itemId={{x.itemId}}&generaltype={{index_xingzhengxuke_generaltype}}"
+                                                    title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                                    ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                            </span>
+                                             <!-- change年报 -->
+                                        <span  class="shouye-title" ng-show="x.docSubtitle|isAHtml" target="_blank"
+                                            ng-bind-html="x.docSubtitle|trustHtml"></span>
+                                    </span>
+                                    <span class="date" style="margin-right: 10px;">{{x.publishDate | dateFormat}}</span>
+                                </div>
+                                <div class="list-more" style="margin-right: 10px;">
+                                    <a ng-href="{{index_zhengfuxinxigongkai}}" target="_blank">更多>></a>
+                                </div>
+                            </div>
+                            <div class="panel" id="index-xingzhengxuke">
+                                <div class="panel-row" ng-repeat="x in index_xingzhengxuke">
+                                    <span class="title">
+                                        <a style="width: 84%;" ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}&generaltype={{index_xingzhengxuke_generaltype}}"
+                                            title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                            ng-hide="x.docSubtitle|isAHtml" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                        <span  class="shouye-title" ng-show="x.docSubtitle|isAHtml" target="_blank"
+                                            ng-bind-html="x.docSubtitle|trustHtml"></span>
+                                    </span>
+                                    <span class="date" style="margin-right: 10px;">{{x.publishDate | dateFormat}}</span>
+                                </div>
+                                <div class="list-more" style="margin-right: 10px;">
+                                    <a ng-href="{{index_xingzhengxuke_item}}">更多>></a>
+                                </div>
+                            </div>
+                            <div class="panel" id="index-xingzhengchufa">
+                                <div class="panel-row" ng-repeat="x in index_xingzhengchufa">
+                                    <span class="title">
+                                        <a style="width: 84%;" ng-href="/cn/view/pages/ItemDetail.html?docId={{x.docId}}&itemId={{x.itemId}}"
+                                            title="{{x.docSubtitle|trimHtml}}" target="_blank"
+                                            ng-hide="x.docSubtitle|isAHtml" ng-bind-html="x.docSubtitle|trustHtml"></a>
+                                        <span  class="shouye-title" ng-show="x.docSubtitle|isAHtml" target="_blank"
+                                            ng-bind-html="x.docSubtitle|trustHtml"></span>
+                                    </span>
+                                    <span class="date" style="margin-right: 10px;">{{x.publishDate | dateFormat}}</span>
+                                </div>
+                                <div class="list-more" style="margin-right: 10px;">
+                                    <a ng-href="{{index_xingzhengchufa_item}}">更多>></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hengFu3" class="index-hengfu" style="margin-bottom: 0px;">
+                <a ng-href="{{hengfu3.advUrl}}" target="_blank">
+                    <img ng-show="!showSVG" ng-src="{{hengfu3.advImgurl}}" width="100%" height="110px" />
+                    <!-- <img  ng-src="{{hengfu3.advImgurl}}" width="100%" height="110px" /> -->
+                     <div  ng-show="showSVG">
+                    <svg viewbox="0 0 1100 110" width="1100px" height="110px" preserveAspectRatio="none meet">
+                        <image xmlns:xlink="http://www.w3.org/1999/xlink"  preserveAspectRatio="none meet" xlink:href=""
+                            ng-attr-xlink:href="{{hengfu3.advImgurl}}" x="0" y="0" width="1100px" height="110px"
+                            filter="{{svgGrayscaleFilter}}"></image>
+                    </svg>
+                   </div>
+            </a>
+        </div>
+        <!-- 飘窗轮播 -->
+        <div class="row" style="margin-top: 20px" ng-if="pcLength">
+            <div class="marqueepc">
+                <a class="prev l" href="javascript:void(0)" ng-click="scollLeftFun()" id="scollLeft" ng-show="flag"></a>
+                <div id="scroll_picDiv" class="scroll_picDiv" style="margin:0 auto;"  ng-style="{'width': pcLength==1 ? '1056px' : '1064px'}">
+                    <!-- ng-class="flag?'scroll_picDiv':'change_picDiv'" -->
+                    <div id="scroll_picStart" class="l">
+                        <ul>
+                            <li class="" ng-repeat="x in picArr">
+                                <a ng-href="{{x.advUrl}}" target="_blank">
+                                    <img ng-show="!showSVG" ng-src="{{x.advImgurl}}" class="scroll_img" 
+                                        ng-style="{'width': getWidth(pcLength)}" />
+                                    <!-- <div ng-show="showSVG">
+                                        <svg class="scroll_img">
+                                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                                ng-attr-xlink:href="{{x.advImgurl}}" x="0" y="0" height="90"
+                                                ng-style="{'width': getWidth(pcLength)}"
+                                                filter="{{svgGrayscaleFilter}}">
+                                            </image>
+                                            </image>
+                                        </svg>
+                                    </div> -->
+                                    <div ng-show="showSVG">
+                                        <!-- <svg class="scroll_img">
+                                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                                ng-attr-xlink:href="{{x.advImgurl}}" x="0" y="0" width="245" height="90"
+                                                filter="{{svgGrayscaleFilter}}"></image>
+                                        </svg> -->
+                                        <svg ng-attr-viewbox="0 0 {{ImgWidth}} 90" ng-attr-width="{{ImgWidth}}px" height="90px"   preserveAspectRatio="none meet" overflow="visible" >
+                                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="" preserveAspectRatio="none meet" overflow="visible"
+                                            ng-attr-xlink:href="{{x.advImgurl}}" x="0" y="0" height="90px" ng-attr-width="{{ImgWidth}}px"  
+                                            filter="{{svgGrayscaleFilter}}">
+                                            </image>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="scroll_picEnd" class="r" ng-show="flag">
+                        <ul>
+                            <li class="" ng-repeat=" x in picArr">
+                                <a ng-href="{{x.advUrl}}" target="_blank">
+                                    <img ng-show="!showSVG" ng-src="{{x.advImgurl}}" class="scroll_img" />
+                                    <!-- <div ng-show="showSVG">
+                                        <svg class="scroll_img">
+                                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                                ng-attr-xlink:href="{{x.advImgurl}}" x="0" y="0" width="245" height="90"
+                                                filter="{{svgGrayscaleFilter}}"></image>
+                                        </svg>
+                                    </div> -->
+                                    <div ng-show="showSVG">
+                                        <!-- <svg class="scroll_img">
+                                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                                ng-attr-xlink:href="{{x.advImgurl}}" x="0" y="0" width="245" height="90"
+                                                filter="{{svgGrayscaleFilter}}"></image>
+                                        </svg> -->
+                                        <svg ng-attr-viewbox="0 0 {{ImgWidth}} 90" ng-attr-width="{{ImgWidth}}px" height="90px"   preserveAspectRatio="none meet" overflow="visible" >
+                                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="" preserveAspectRatio="none meet" overflow="visible"
+                                            ng-attr-xlink:href="{{x.advImgurl}}" x="0" y="0" height="90px" ng-attr-width="{{ImgWidth}}px"  
+                                            filter="{{svgGrayscaleFilter}}">
+                                            </image>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="txtMarquee-left" ng-show="flag">
+                    <div class="bd">
+                        <ul>
+                            <li class="txtMarquee-left-bd-li" ng-repeat="x in picArr">
+                                <a ng-href="{{x.advUrl}}" target="_blank" class="date">
+                                    <img ng-show="!showSVG" ng-src="{{x.advImgurl}}" />
+                                    <div ng-show="showSVG">
+                                        <svg class="scroll_img" width="245px" height="90px" viewbox="0 0 245 90" preserveAspectRatio="none meet" overflow="visible">
+                                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""
+                                                ng-attr-xlink:href="{{x.advImgurl}}" x="0" y="0" width="245" height="90" preserveAspectRatio="none meet" overflow="visible"
+                                                filter="{{svgGrayscaleFilter}}"></image>
+                                        </svg>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <a class="next r" href="javascript:void(0)" ng-click="scollRightFun()" id="scollRight"
+                    ng-show="flag"></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="list" style="background:none;background-color:none;padding: 0;margin: 0 auto;">
+                <div class="tabs list-tabs-bottom">
+                    <div class="tab active">
+                        <a ng-href="{{index_paichujigou_item}}" list-panel-id="paichujigou">派出机构</a>
+                    </div>
+                    <div class="other">
+                    </div>
+                </div>
+
+                <div class="panels">
+                    <div class="panel active" id="paichujigou">
+                        <div class="index-paichujigou">
+                            <span ng-repeat="x in index_paichujigou_span" ng-if="x.orgName!='总会'">
+                                <a ng-href="/branch/{{x.agencyShortlink}}/view/pages/index/index.html"
+                                    target="_blank">{{x.orgName.replace("监管局", "")}}</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    <div class="row zxxj" id="">
+        <div class="row0">
+            <div style="width:22.5%;">
+                <img ng-src="/cn/static/{{image_path}}/common/icon1.png" />
+                <div>
+                    <h3 style="font-size: 16px;">
+                        <a ng-href="{{index_woyaozixun_item}}">政务咨询</a>
+                    </h3>
+                    欢迎您使用政务咨询在线
+                    <br /> 留言功能
+                </div>
+            </div>
+
+            <div class="l3" style="width:28.5%;">
+                <img ng-src="/cn/static/{{image_path}}/common/icon2.png" />
+                <div>
+                    <h3 style="font-size: 16px;">信访咨询</h3>
+                    <div ng-bind-html="index_pcjg.xfTelNo|trustHtml" class="index-xfzx"></div>
+                    <div ng-bind-html="index_pcjg.xfDate|trustHtml" class="index-xfzx"></div>
+                </div>
+            </div>
+            <div class="l3 wrap_telephone_box" style="width:31.5%;position: relative;">
+                <img ng-src="/cn/static/{{image_path}}/common/icon3.png" />
+                <div>
+                    <h3 style="font-size: 16px;">金融消费者和投资者服务热线</h3>
+                    <div class="consumerLine" ng-click="showConsumerLine($event)">请点击查看电话号码</div>
+                </div>
+                <div ng-show="jinrongImg" class="jinrongImg" >
+                    <img ng-show="!showSVG" ng-src="/cn/static/images/Index/jinrongxiaofei.jpg" style="width: 89px;" />
+                    <div ng-show="showSVG" style="height: 89px;">
+                        <svg width="80px" viewBox="0 0 80 89" preserveAspectRatio="xMidYMid meet" overflow="hidden">
+                            <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/cn/static/images/Index/jinrongxiaofei.jpg"
+                                ng-attr-xlink:href="/cn/static/images/Index/jinrongxiaofei.jpg" x="0" y="0" width="89" height="89"
+                                filter="{{svgGrayscaleFilter}}"></image>
+                               
+                        </svg>
+                    </div>
+                    <div class="jinrongWord">微 信 扫 一 扫</div>
+                  </div>
+                <div ng-show="telephoneBox" class="telephone_box">
+                    <div class="telephone_box_triangle"></div>
+                    <div style="display: flex;align-items: center;">
+                        <img ng-src="/cn/static/{{image_path}}/Index/jinrongIcon.png"/ style="width: 15px;">
+                        <span 
+                        class="jrxfzbh"
+                        style="cursor:pointer;margin-left: 5px;line-height: 35px;" 
+                        ng-click="showJinrongImg($event)">金融消费者保护服务平台</span>
+                      </div>
+                    <div class="dashed-line" style=" border-bottom: 1px dashed #ccc;width: 93%;"></div>
+                    <p style="margin-top: 5px;"><b>银行业保险业消费投诉热线：</b>12378</p>
+                    <p><b>证券期货基金投资者服务热线：</b>12386</p>
+                    <p><b>中国人民银行咨询服务热线：</b>12363</p>
+                </div>
+            </div>
+            <div>
+                <img ng-src="/cn/static/{{image_path}}/common/icon4.png" />
+                <div>
+                    
+                    <h3 style="font-size: 16px;margin-top: 15px;">
+                        <a ng-href="{{index_jijianjiancha_url}}" target="_blank">纪检监察举报</a>
+                    </h3>
+                </div>
+            </div>
+            <span class="clearfix"></span>
+        </div>
+    </div>
+    <div class="row footer-above" id="footer-aboveIndex" style="margin-bottom: -26px;">
+        <div class="row1">
+            <div class="row">
+                <div style="width:19%;position: relative;top: 20px;">
+                    <div>
+                        <a ng-href="ht{{footer_chinesegov_url}}" target="_blank">链接：中国政府网</a>
+                    </div>
+                </div>
+                <div style="position: relative;top: 20px;margin-right: 96px;">
+                    <div>
+                        <!-- <img ng-src="/cn/static/{{image_path}}/common/bicon3.png" /> -->
+                        <a ng-href="ht{{index_guowuyuan_url}}" target="_blank">国务院办公厅开通“国家政务服务投诉与建议”小程序</a>
+                    </div>
+                </div>
+                <div style="width:24%;position: relative;top: 20px;">
+                    <div>
+                        <!-- <img ng-src="/cn/static/{{image_path}}/common/bicon5.png" /> -->
+                        <a href="guozhai.html" target="_blank">国债及其他债券收益率曲线</a>
+                    </div>
+                    <div>
+                        &nbsp;
+                    </div>
+                </div>
+                <div style="text-align:right;position: relative;top: 13px;float: right;">
+                    <a ng-href="{{index_niandubaobiao_item}}" target="_blank">
+                        <img ng-src="/cn/static/{{image_path}}/common/zfwzndbb.png" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <tpl src="/cn/view/components/FooterIndex.html"></tpl>
+    
+    </div>
+    
+    <!--common-->
+    <script src="/cn/js/common/jquery/jquery.1.12.4.min.js"></script>
+    <script src="/cn/js/common/jquery.SuperSlide.2.1.3.js"></script>
+    <script src="/cn/js/common/angular.1.2.32.min.js"></script>
+    <script src="/cn/js/common/jquery.float-ad.js"></script>
+    <!--custom-->
+    <script src="/cn/js/common/Script.js?v=20200108"></script>
+    <script src="/cn/js/common/Nav.js?v=20200108"></script>
+    <!-- <script src="/cn/js/common/grayscale.js"></script> -->
+    <!-- <script src="/cn/js/index/index.js?v=20200108"></script> -->
+    <script src="/cn/js/index/index.js?v=20200108"></script>
+    <!-- 无障碍脚本 -->
+    <script src="/cn/js/common/esdToolsInit.js"></script>
+</body>
+
+</html>

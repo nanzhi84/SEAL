@@ -1,0 +1,2562 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="css/css.css?v=20260410" rel="stylesheet"/>
+    <link type="text/css" href="css/se.css" rel="stylesheet"/>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+    <link rel="bookmark" type="image/x-icon" href="favicon.ico"/>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/person.js"></script>
+    <script type="text/javascript" src="js/koala.min.1.5.js"></script>
+    <script type="text/javascript" src="js/easyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/zzbox/jquery.zxxbox.3.0.js"></script>
+    <script type="text/javascript" src="js/lhgdialog/lhgdialog.min.js?skin=idialog"></script>
+    <script src="js/jquery.skippr.min.js"></script>
+    <script src="js/hcharts/highcharts.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/hcharts/highcharts-more.js"></script>
+    <script src="js/hcharts/exporting.js"></script>
+    <script src="js/hcharts/oldie.js"></script>
+    <script src="js/hcharts/data.js"></script>
+    <script src="js/hcharts/grid-light.js"></script>
+    <script src="js/hcharts/highcharts-zh_CN.js"></script>
+    <script src="js/swiper.min.js"></script>
+        <script type="text/javascript">
+        var val = 1;
+        function guanggao() {
+            
+        }
+    </script>
+    <script>
+        var basePath = "https://www.china-see.com:443/";
+        $(function () {
+            quick_EntryInit();
+            getIsShowStatus();
+            setGuangGaoIsShow();
+            /* 	$('#skippr').skippr({
+             autoPlay: true
+             }); */
+            //$(".showdowbox").fadeIn();
+            var cli_height = $(window).height();
+            var box_height = $(".box").height();
+            var box_top = (cli_height - box_height) / 4;
+            $(".showdowbox .box").css({
+                top: box_top
+            });
+            $(".box .btn").click(function () {
+                $(".showdowbox").fadeOut();
+            })
+
+            $(".ad_leftbar .bottom").click(function () {
+                $(".ad_leftbar").fadeOut();
+            });
+            $(".ad_rightbar .bottom").click(function () {
+                $(".ad_rightbar").fadeOut();
+            });
+            getIndexNum('6');
+            getIndexNum('7');
+            getIndexNum('8');
+            //initENActive();
+        });
+        //        function initENActive(){
+        //            $(".tab_EN a").click(function() {
+        //                var type = $(this).attr("id");
+        //                getIndexNumData("year",type)
+        //                $(this).addClass("active").siblings().removeClass("active");
+        //                var tabI = $(".tab_EN a").index(this);
+        //                $(".tab_en_con > div").eq(tabI).show().siblings().hide();
+        //            });
+        //        }
+
+        function getIndexNum(type) {
+            $.ajax({
+                type: 'post',
+                url: basePath + 'loadIndexByPage.do',
+                dataType: 'json',
+                data: {
+                    'showType': type
+                },
+                success: function (json) {
+                    var data = json.list;
+                    if (data.length > 0) {
+                        if(type=='6'){
+                            $("#indexNum6").text(data[0].showValue);
+                        }else if(type=="7"){
+                            $("#indexNum7").text(data[0].showValue);
+                        }else{
+                            $("#indexNum8").text(data[0].showValue);
+                        }
+                    }
+                },// end success
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.messager.alert('温馨提示', '服务器繁忙，请联系管理员');
+                }// end error
+            });// end ajax
+        }
+
+        function setGuangGaoIsShow() {
+            var flag = getCookie("isRepeat");
+            if (flag == "yes") {
+                var obj = document.getElementById("dingwei");
+                obj.style.display = "none";
+            }
+        }
+
+        function setCookie() {
+            document.cookie = "isRepeat=yes";
+
+        }
+
+        function getCookie(name) {
+            var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+            if (arr = document.cookie.match(reg))
+                return unescape(arr[2]);
+            else
+                return null;
+        }
+
+        //获取风险公告状态.
+        function getIsShowStatus() {
+            $.post(basePath + "getRiskShowStatus.do", {
+                "type": "riskInfo"
+            }, function (data) {
+                if (data) {
+                    $(".showdowbox").fadeIn();
+                } else {
+                    $(".showdowbox").fadeOut();
+                }
+            });
+            $.post(basePath + "getRiskShowStatus.do", {
+                "type": "riskLeft"
+            }, function (data) {
+                if (data) {
+                    $(".ad_leftbar").fadeIn();
+                } else {
+                    $(".ad_leftbar").fadeOut();
+                }
+            });
+            $.post(basePath + "getRiskShowStatus.do", {
+                "type": "riskRight"
+            }, function (data) {
+                if (data) {
+                    $(".ad_rightbar").fadeIn();
+                } else {
+                    $(".ad_rightbar").fadeOut();
+                }
+            });
+        }
+  function quick_EntryInit(){
+            var one = new Swiper('.one-itemBox', {
+                slidesPerView: 6,
+                spaceBetween: 10,
+                loop: false,
+                navigation: {
+                    nextEl: '.oneRight',
+                    prevEl: '.oneLeft',
+                }
+            });
+
+            var two = new Swiper('.two-itemBox', {
+                slidesPerView: 6,
+                spaceBetween: 10,
+                loop: false,
+                navigation: {
+                    nextEl: '.twoRight',
+                    prevEl: '.twoLeft',
+                }
+            });
+      $("#oneRight").click(function() {
+          $(".oneRight").trigger("click");
+      });
+      $("#oneLeft").click(function() {
+          $(".oneLeft").trigger("click");
+      });
+      $("#twoRight").click(function() {
+          $(".twoRight").trigger("click");
+      });
+      $("#twoLeft").click(function() {
+          $(".twoLeft").trigger("click");
+      });
+
+      if ($(".oneNum>div").length > 6) {
+          $("#oneRight").show();
+          $("#oneLeft").show();
+      }
+
+      if ($(".twoNum>div").length > 6) {
+          $("#twoRight").show();
+          $("#twoLeft").show();
+      }
+  }
+
+    </script>
+
+    <!--[if IE 6]>
+    <script type="text/javascript" src="js/DD_belatedPNG.js" mce_src="js/DD_belatedPNG.js"></script>
+    <script type="text/javascript">  DD_belatedPNG.fix('div,span,a:hover,*');  </script>
+    <![endif]-->
+
+    <!--[if lte IE 6]>
+    <style type="text/css">
+        body {
+            behavior: url("css/csshover.htc");
+        }
+    </style>
+    <![endif]-->
+    <style>
+        .showdowbox {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            position: fixed;
+            display: none;
+        }
+
+        .showdowbox .box {
+            position: relative;
+            padding: 20px 30px 30px 30px;
+            margin: 0 auto;
+            width: 600px;
+            background: #fff;
+            border: 1px #ccc solid;
+            border-radius: 5px;
+            color: #666;
+            line-height: 30px;
+            font-size: 15px;
+        }
+
+        .showdowbox .box .info {
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .showdowbox .box .info p {
+            margin: 0 0 12px 0;
+        }
+
+        .showdowbox .box h2 {
+            margin: 0 0 10px 0;
+            text-align: center;
+            font-weight: bold;
+            line-height: 40px;
+            border-bottom: 1px #ddd solid;
+        }
+
+        .showdowbox .box .btn {
+            margin: 30px auto 0 auto;
+            width: 100px;
+            line-height: 40px;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .ad_leftbar {
+            position: fixed;
+            padding: 5px;
+            left: 10px;
+            top: 160px;
+            width: 118px;
+            height: 280px;
+            border: 1px #ddd solid;
+            display: none;
+        }
+
+        .ad_rightbar {
+            position: fixed;
+            padding: 0px;
+            right: 10px;
+            top: 160px;
+            width: 118px;
+            height: 280px;
+            border: 1px #ddd solid;
+            display: none;
+        }
+
+        .ad_leftbar .bottom, .ad_rightbar .bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 20px;
+            background: #999;
+            text-align: center;
+            width: 128px;
+            font-size: 12px;
+            line-height: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+
+
+    <title>上海股权托管交易中心</title>
+</head>
+<body onload="guanggao()">
+<div class="showdowbox">
+    <div class="box">
+        <h2>风险揭示公告</h2>
+        <div class="info">
+            
+<div>
+	<p class="MsoNormal" style="text-align: left; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">上海股权托管交易中心是按国务院指示精神，经上海市人民政府批准依法设立的从事非上市公司股权托管交易及相关业务的市场组织，设有股份转让系统（<span>E</span>板，<span>www.china-see.com</span>）、中小企业股权报价系统（<span>Q</span>板，<span>www.china-seeq.com</span>），并提供相应的投融资服务。
+		</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">鉴于近期一些企业、市场从业机构对于潜在投资者做出故意夸大或保证（及变相保证）投资回报，淡化模糊投资风险等混淆视听的误导性宣传，进行涉嫌非法集资的活动。我中心为保护中小投资者的利益，以正视听，维护上海股权托管交易市场秩序，充分提示市场参与各方注意投资风险，特就有关事项公告如下：</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.1pt; background: white;"
+		align="left">
+		<b><span
+			style="font-size: 12.0pt; font-family: 宋体; color: #404040;">一、上海股权托管交易市场<span>E</span>板和<span>Q</span>板是两个错位发展的板块
+		</span></b><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">E</span><span
+			style="font-size: 12.0pt; font-family: 宋体; color: #404040;">板和<span>Q</span>板是针对不同企业和投资者需求为导向而设置的板块，正因两个板块面向的对象不同，二者之间的各个方面都存在着明显的区别：
+		</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<table class="MsoNormalTable ke-zeroborder"
+		style="width: 100.0%; background: white;" border="0" cellpadding="0"
+		cellspacing="0" width="100%">
+		<tbody>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal"
+						style="text-align: left; text-indent: 28.0pt; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">&nbsp;</span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">E</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">板<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">Q</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">板<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">中介服务<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">必须聘请<span>E</span>板推荐机构、会计师事务所、律师事务所等中介机构共同为企业提供改制、申请挂牌服务<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">只需委托<span>Q</span>板推荐机构一家中介即可完成申报备案<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">挂牌条件<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">1</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">业务基本独立，具有持续经营能力；</span><span
+							style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">2</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">不存在显著的同业竞争、显失公允的关联交易、额度较大的股东侵占资产等损害投资者利益的行为；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">3</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">在经营和管理上具备风险控制能力；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">4</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">治理结构健全，运作规范；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">5</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">股份的发行、转让合法合规；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">6</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">注册资本中存在非货币出资的，应设立满一个会计年度；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal"
+						style="margin-left: 18.0pt; text-align: left; text-indent: -18.0pt; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">7</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">上海股交中心要求的其他条件。</span><span
+							style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">企业存在下列情况之一的，不得在<span>Q</span>板挂牌：
+						</span><span
+							style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">1</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">无固定的办公场所；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">2</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">无满足企业正常运作的人员；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">3</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">企业被国家有关部门吊销营业执照或其他合法执业证照；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">4</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">存在重大违法违规行为或被国家相关部门予以严重处罚；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">5</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">企业的董事、监事、经营管理人员存在《公司法》第一百四十六条所列属的或违反国家其他相关法律法规的情形；</span><span
+							style="font-size: 11.0pt; font-family: 宋体; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal"
+						style="margin-left: 18.0pt; text-align: left; text-indent: -18.0pt; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">6</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">、</span><span
+							style="font-size: 7.0pt; font-family: &amp; quot; color: #404040;">&nbsp;</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">本中心认定的其他情形。</span><span
+							style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">企业形式<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">境内股份有限公司<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">境内企业，形式不限<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">股东或出资人数<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">股东不超过<span>200</span>人<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">股份有限公司股东不超过<span>200</span>人，有限责任公司不超过<span>50</span>人，其他组织形式的出资人数须符合国家相关法律法规等规范性文件的规定<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">投资者<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">专业投资机构、符合投资者条件的自然人<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">符合国家法律法规的投资者<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">信息披露<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">挂牌前披露公司股份转让说明书、公司章程、法律意见书、审计报告。</span><span
+							style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">挂牌后必须披露年报、中报，鼓励披露季报。其中，年报须经审计。<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">挂牌前需进行基本信息披露。</span><span
+							style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+					</p>
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">挂牌后除基本信息披露外，实行自主信息披露，不强制要求披露财务信息。<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">委托<span>/</span>报价<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">意向委托、定价委托、成交确认委托<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">投资者可以通过报价系统网站进行线上自主意向报价信息发布<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">成交方式<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">协议转让，投资者可以通过交易系统进行线上交易，交易系统将验证交易双方的股份和资金，并按照相关规则完成清算交收。<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">通过网上确立意向，网下意向双方经谈判达成协议和完成必要的程序，签署股权转让协议、办理过户登记<span>/</span>记录手续。有限公司的股权转让须在工商行政管理部门进行工商变更记录。<span></span></span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">涨跌幅<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">30%</span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">-</span>
+					</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="border: solid windowtext 1.0pt;" valign="bottom"
+					width="20%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">最低交易<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="41%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">10000</span><span
+							style="font-size: 12.0pt; font-family: 宋体; color: #404040;">股起<span></span></span>
+					</p>
+				</td>
+				<td style="border: solid windowtext 1.0pt;" width="39%">
+					<p class="MsoNormal" style="text-align: left; background: white;"
+						align="left">
+						<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">-</span>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.1pt; background: white;"
+		align="left">
+		<b><span
+			style="font-size: 12.0pt; font-family: 宋体; color: #404040;">二、投资者应注意在上海股权托管交易市场“挂牌”与在沪、深证券市场“上市”的不同内涵</span></b><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">“上市”是指股份有限公司向投资者发行的股票在公开的证券交易场所流通转让，通常情况下，“上市”主要是指股票在沪、深证券交易所流通转让的行为。而“挂牌”主要是指股份在沪、深证券交易所以外的场所转让的行为。</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.1pt; background: white;"
+		align="left">
+		<b><span
+			style="font-size: 12.0pt; font-family: 宋体; color: #404040;">三、上海股权托管交易市场具有投资风险特征与适合参与者</span></b><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">不论是场内市场还是场外市场，都可能遇到包含但不限于宏观经济风险、政策风险、企业经营风险、技术风险、交易风险、违约风险、违法违规风险和不可抗力因素导致的风险等，相关风险可能导致投资本金部分甚至全部损失。</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">上海股权托管交易市场挂牌公司较上市公司而言，具有规模相对较小、抗风险能力相对较弱等特点，较为适合具有较强风险防范意识和风险承受能力的专业投资者入场参与。</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">我中心谨此再次提醒市场参与各方充分理解上述风险提示信息，敬请关注风险、理性投资，务必牢记“投资有风险，入市需谨慎”。</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">广大潜在投资者如对于市场中相关投资产品及宣传内容有任何疑问，可拨打我中心服务热线（<span>4006251000</span>）寻求咨询。
+		</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">特此公告。</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">&nbsp;</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal"
+		style="text-align: left; text-indent: 28.0pt; background: white;"
+		align="left">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">&nbsp;</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal" style="text-align: right; background: white;"
+		align="right">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">上海股权托管交易中心</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+	<p class="MsoNormal" style="text-align: right; background: white;"
+		align="right">
+		<span style="font-size: 12.0pt; font-family: 宋体; color: #404040;">&nbsp;2015</span><span
+			style="font-size: 12.0pt; font-family: 宋体; color: #404040;">年<span>11</span>月
+		</span><span
+			style="font-size: 13.5pt; font-family: &amp; quot; color: #404040;"></span>
+	</p>
+</div>
+        </div>
+        <div class="btn">关闭公告</div>
+    </div>
+</div>
+<div class="ad_leftbar">
+    <a href="http://www.china-see.com/marketServiceDetail.do?articleId=23528&articleType=investor_edu"
+       target="_blank"><img src="images/ad_leftpic.jpg"/></a>
+    <div class="bottom">关闭</div>
+</div>
+<!--<div class="ad_rightbar">
+    <img src="images/ad_rightpic.jpg" onclick="showFinance();"/>
+    <div class="bottom">关闭</div>
+</div>-->
+<div class="allPages">
+    
+
+
+ <div class="header">
+       <div class="hd_color"></div>
+       <div class="hd_cont">
+       		<div class="hd_contL">
+            	<div class="hd_contL1">
+                	<a href="https://www.china-see.com:443/index.do"><img src="https://www.china-see.com:443/images/logo.png" /></a>
+                </div>
+                <div class="hd_contL2">
+                	<a href="https://www.china-see.com:443/index.do">
+                    	<img src="https://www.china-see.com:443/images/logo1.jpg" />
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="hd_contR">
+            	<img src="https://www.china-see.com:443/images/telephone.jpg" />
+            </div>
+            
+		   <div class="hd_contC" style="cursor: pointer;" onclick="showZnkf();">
+			   <img style="width:23px;" src="https://www.china-see.com:443/images/znkf.png"/>虚拟客服
+		   </div>
+            <div class="posi">
+            	<input type="text" class="text1" id="search_key" />
+            		<a href="#" class="dianji"><img src="https://www.china-see.com:443/images/arrow2.jpg" />
+            	</a>
+            </div>
+            <div class="clear"></div>
+       </div>
+   </div>
+<div class="nav">
+	<div class="navList" id="navList">
+		<ul>
+			<li><a href="https://www.china-see.com:443/index.do" class="wordspc">首页</a></li>
+			<li id="nva_li_1"><a id="1" href="https://www.china-see.com:443/disclosure.do">信息披露</a></li>
+			<li id="nva_li_2"><a id="2" href="https://www.china-see.com:443/stockInfo.do?hang=E">市场数据</a></li>
+			<li id="nva_li_3"><a id="3" href="https://www.china-see.com:443/company.do">市场服务</a></li>
+			<li id="nva_li_4"><a id="4" href="https://www.china-see.com:443/lawRule.do">法律规则</a></li>
+			<li id="nva_li_5"><a id="5" href="https://www.china-see.com:443/countStudy.do">市场研究</a></li>
+			<li  id="nva_li_6" class="last"><a id="6" href="https://www.china-see.com:443/about.do">关于我们</a></li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	<div class="menuD" id="menuD" style="display: none;">
+		<div class="menuDL">
+			<span class="posi"></span>
+			<h3>
+				<a href="https://www.china-see.com:443/disclosure.do?articleType=listing">中心公告</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=listing">&nbsp;&nbsp;--挂牌公告</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=increase">&nbsp;&nbsp;--非公开发行通知</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=aoubt_user">&nbsp;&nbsp;--关于中介公告</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=risk">&nbsp;&nbsp;--风险揭示公告</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=other">&nbsp;&nbsp;--休市及其他公告</a></li>
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/disclosure.do?articleType=illegalDis">市场监管</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=illegalDis">&nbsp;&nbsp;--企业监管</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=supAdvice">&nbsp;&nbsp;--中介监管</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=supOther">&nbsp;&nbsp;--其他监管</a></li>
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/disclosure.do?articleType=user">中介公告</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/disclosure.do?articleType=member_info">E板审核信息</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=member_info">&nbsp;&nbsp;--审委会委员</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=notice_info">&nbsp;&nbsp;--公告通知</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=pre_info">&nbsp;&nbsp;--预先披露</a></li>
+			</ul>
+			
+		</div>
+		<div class="menuDR">
+			<h3>
+				<a href="https://www.china-see.com:443/disclosure.do?articleType=zwh_member_info">N板注册信息</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=zwh_member_info">&nbsp;&nbsp;--注委会委员</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=zwh_notice_info">&nbsp;&nbsp;--公告通知</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=zwh_pre_info">&nbsp;&nbsp;--预先披露</a></li>
+			</ul>
+			
+			<h3>
+				<a href="https://www.china-see.com:443/disclosure.do?articleType=lwh_member_info">遴委会公告</a>
+			</h3>
+			<ul>
+
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=lwh_notice_info">&nbsp;&nbsp;--公告通知</a></li>
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/disclosure.do?articleType=pre_company_e">挂牌公司公告</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=pre_company_e">&nbsp;&nbsp;--挂牌前公告</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=temporary_e">&nbsp;&nbsp;--临时公告</a></li>
+				<li><a href="https://www.china-see.com:443/disclosure.do?articleType=regularly_e">&nbsp;&nbsp;--定期公告</a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="menuD1" style="display: none;">
+		<div class="menuDL">
+			<span class="posi"></span>
+			<h3>
+				 <a href="https://www.china-see.com:443/stockInfo.do?hang=E">E板股份转让</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/stockInfo.do?hang=E">&nbsp;&nbsp;--E板行情信息</a></li>
+				<li><a href="https://www.china-see.com:443/dealInfo.do">&nbsp;&nbsp;--E板成交信息</a></li>
+				<li><a href="https://www.china-see.com:443/priceInfo.do?priceType=E">&nbsp;&nbsp;--E板报价信息</a></li>
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/stockInfo.do?hang=N">N板股份转让</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/stockInfo.do?hang=N">&nbsp;&nbsp;--N板行情信息</a></li>
+				<li><a href="https://www.china-see.com:443/dealInfoN.do?queryType=init">&nbsp;&nbsp;--N板成交信息</a></li>
+				<li><a href="https://www.china-see.com:443/priceInfo.do?priceType=N">&nbsp;&nbsp;--N板报价信息</a></li>
+			</ul>
+		</div>
+		<div class="menuDR">
+			
+				<h3>
+					<a href="https://www.china-see.com:443/stockInfo.do?hang=EJ">E板基本信披层股份转让</a>
+				</h3>
+				<ul>
+					<li><a href="https://www.china-see.com:443/stockInfo.do?hang=EJ">&nbsp;&nbsp;--E板基本信披层行情信息</a></li>
+					<li><a href="https://www.china-see.com:443/dealInfoEJ.do?queryType=init">&nbsp;&nbsp;--E板基本信披层成交信息</a></li>
+					<li><a href="https://www.china-see.com:443/priceInfo.do?priceType=EJ">&nbsp;&nbsp;--E板基本信披层报价信息</a></li>
+				</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/dealTipInfo.do?hang=E">E板交易提示</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/dealTipInfo.do?hang=EJ">E板基本信披层交易提示</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/dealTipInfo.do?hang=N">N板交易提示</a>
+			</h3>
+		</div>
+	</div>
+	<div class="menuD2" style="display: none;">
+		<div class="menuDL">
+			<span class="posi"></span>
+			<h3>
+				<a href="https://www.china-see.com:443/customerholdEN.do">投资者服务</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/customerholdEN.do?">&nbsp;&nbsp;--股东持股查询</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=investor_edu">&nbsp;&nbsp;--投资者教育</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=investor_account">&nbsp;&nbsp;--开户业务</a></li>
+				<li><a href="https://www.china-see.com:443/customerholdENChange.do">&nbsp;&nbsp;--挂牌企业股东信息变更</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=investor_download">&nbsp;&nbsp;--下载专区</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=investor_question">&nbsp;&nbsp;--常见问题解答</a></li>
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/company.do">企业服务</a>
+			</h3>
+			<ul>
+				
+				<li><a href="https://www.china-see.com:443/company.do">&nbsp;&nbsp;--E板挂牌企业</a></li>
+				<li><a href="https://www.china-see.com:443/companyEJ.do">&nbsp;&nbsp;--E板基本信披层挂牌企业</a></li>
+				
+				<li><a href="https://www.china-see.com:443/companyN.do">&nbsp;&nbsp;--N板挂牌企业</a></li>
+				
+				<li><a href="https://www.china-see.com:443/compholderEN.do">&nbsp;&nbsp;--股东名册打印</a></li>
+				<li><a href="https://www.china-see.com:443/compholderENChange.do">&nbsp;&nbsp;--挂牌公司联系信息变更</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=company_download">&nbsp;&nbsp;--下载专区</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=company_question">&nbsp;&nbsp;--常见问题解答</a></li>
+			</ul>
+		</div>
+		<div class="menuDR">
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=user_list&userType=1$5&jgType=1">中介服务</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=user_in_service">&nbsp;&nbsp;--资格申请</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=user_list&userType=1$5&jgType=1">&nbsp;&nbsp;--中介列表</a></li>
+				
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=user_download">&nbsp;&nbsp;--下载专区</a></li>
+				
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=partners_list&otherType=1">业务合作机构</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=partners_list&otherType=1">&nbsp;&nbsp;--综合金融服务</a></li>
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=partners_list&otherType=2">&nbsp;&nbsp;--投融资服务</a></li>
+				
+				<li><a href="https://www.china-see.com:443/marketService.do?articleType=partners_list&otherType=3">&nbsp;&nbsp;--上市培育服务</a></li>
+				
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=review_query">项目审核进度</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=policy_support">政策支持</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=cooperation">战略合作</a>
+			</h3>
+			<h3>
+				<a href="orgInfoJd.do">孵化基地</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=trz_fw">投融资活动</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=train">培训活动</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/marketService.do?articleType=xdfw">信贷服务</a>
+			</h3>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="menuD3" style="display: none;">
+		<div class="menuDL">
+			<span class="posi"></span>
+			<h3>
+				<a href="https://www.china-see.com:443/lawRule.do?articleType=lawRule">法律规章</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/lawRule.do?articleType=ywgze">业务规则</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/lawRule.do?articleType=ywgze">--E板</a></li>
+				<li><a href="https://www.china-see.com:443/lawRule.do?articleType=ywgzn">&nbsp--N板</a></li>
+				<!--<li><a href="https://www.china-see.com:443/lawRule.do?articleType=ywgzej">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--E板基本信披层</a></li>-->
+				<li><a href="https://www.china-see.com:443/lawRule.do?articleType=ywgzqw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--Q板完整信披层</a></li>
+				<li><a href="https://www.china-see.com:443/lawRule.do?articleType=ywgzq">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--Q板基本信披层</a></li>
+				<li><a href="https://www.china-see.com:443/lawRule.do?articleType=ywgzkzz">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--可转债</a></li>
+				<li><a href="https://www.china-see.com:443/lawRule.do?articleType=ywgzqt">&nbsp;--其它</a></li>
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/lawRule.do?articleType=lawgpywn">业务指南</a>
+			</h3>
+			<ul>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawgpywn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--挂牌业务</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawfgkfx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--非公开发行</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawkzz">&nbsp;&nbsp;&nbsp;&nbsp;--可转债</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawbgcz">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--并购重组</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawgqjl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--股权激励</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawdjtg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--登记托管</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawxxpl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--信息披露</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawzjgl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--中介管理</a></li>
+			<li><a href="https://www.china-see.com:443/lawRule.do?articleType=lawzh">--综合</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="menuD4" style="display: none;">
+		<div class="menuDL">
+			<span class="posi"></span>
+			
+			<h3>
+				<a href="https://www.china-see.com:443/countStudy.do?articleType=countData">市场概况</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/countStudy.do?articleType=centerBook">中心刊物</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/countStudy.do?articleType=researchInfo">资讯研究</a>
+			</h3>
+		</div>
+	</div>
+	<div class="menuD5" style="display: none;">
+		<div class="menuDL">
+			<span class="posi"></span>
+			<h3>
+				<a href="https://www.china-see.com:443/about.do?articleType=central">中心介绍</a>
+			</h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=centerInfo_basic">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--中心概况</a></li>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=evolution">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--发展历程</a></li>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=central">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--领导介绍</a></li>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=organization">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--组织架构</a></li>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=qualifications">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--荣誉资质</a></li>
+				<li><a href="https://www.china-see.com:443/orgInfo.do">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--分支机构</a></li>
+				
+
+
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/about.do?articleType=lastestNews">最新动态</a>
+			</h3>
+
+			<h3><a href="https://www.china-see.com:443/about.do?articleType=report">社会责任</a></h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=report">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--社会责任报告</a></li>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=state">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--社会责任实践</a></li>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=emergency">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--突发事件</a></li>
+			</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/about.do?articleType=notice">诚聘英才</a></h3>
+			<ul>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=notice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--招聘公告</a></li>
+				<li><a href="https://www.china-see.com:443/about.do?articleType=guide">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--应聘指南</a></li>
+			</ul>
+		</div>
+	    <div class="menuDR">
+			<h3><a href="https://www.china-see.com:443/about.do?articleType=qywh">企业文化</a></h3>
+			<h3><a href="https://www.china-see.com:443/about.do?articleType=investment">其他重大事项</a></h3>
+				<ul>
+					<li><a href="https://www.china-see.com:443/about.do?articleType=investment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--投资发展</a></li>
+					<li><a href="https://www.china-see.com:443/about.do?articleType=reform">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--改革重组</a></li>
+					<li><a href="https://www.china-see.com:443/about.do?articleType=property">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--产权交易</a></li>
+					<li><a href="https://www.china-see.com:443/about.do?articleType=leasehold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--不动产租赁</a></li>
+					<li><a href="https://www.china-see.com:443/about.do?articleType=bidding">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--招标</a></li>
+				</ul>
+			<h3>
+				<a href="https://www.china-see.com:443/about.do?articleType=contactus">联系我们</a>
+			</h3>
+			<h3>
+				<a href="https://www.china-see.com:443/video.do">视频展示区</a>
+			</h3>
+			<h3>
+				<a onclick="showZxly();">留言信箱</a>
+			</h3>
+		</div>
+	</div>
+	<div id="chatWindow" style="display: none;">
+		<div class="header">虚拟客服</div>
+		<div class="messages">
+			<div class="message bot">您好！欢迎来到上海股权托管交易中心官网，我是您的在线虚拟客服小see。为了更好地为您提供服务，我想先了解一下您的咨询事项？</div>
+		</div>
+		<div class="options" id="cnxw">
+			<div class="question">猜您想问：</div>
+			<div class="radio-group">
+				<input type="radio" id="option1" name="userChoice" value="业务咨询">
+				<label for="option1">业务咨询</label>
+			</div>
+			<div class="radio-group">
+				<input type="radio" id="option2" name="userChoice" value="合作交流">
+				<label for="option2">合作交流</label>
+			</div>
+			<div class="radio-group">
+				<input type="radio" id="option3" name="userChoice" value="改进建议">
+				<label for="option3">改进建议</label>
+			</div>
+			<div class="radio-group">
+				<input type="radio" id="option4" name="userChoice" value="其他事项">
+				<label for="option4">其他事项</label>
+			</div>
+		</div>
+		<button style="margin-left: 262px;width: 44px;background: #89bcf4;border-color: #89bcf4; color: #fff;" onclick="closeZnkfWin();">关闭</button>
+	</div>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script src="/conversion/conversion/layer/layer.js"></script>
+	<link rel="stylesheet" type="text/css" href="/js/easyUI/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="/js/easyUI/themes/icon.css">
+	<script type="text/javascript" src="/js/easyUI/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="/js/zzbox/jquery.zxxbox.3.0.js"></script>
+	<script>
+		var userChoice;
+		$(document).ready(function() {
+			$('input[type="radio"]').change(function() {
+				userChoice = $(this).val();
+				var responseText = '';
+				var responseDiv='';
+				switch (userChoice) {
+					case '业务咨询':
+						responseText = '非常感谢您的确认！关于“业务咨询”，您可通过官网“快捷服务”栏目来检索您希望了解的相关业务（如专精特新专板、认股权、基金份额业务等），点击进入网页可详细了解相关业务情况，您也可通过拨打上海股交中心官方服务热线：400-625-1000，直接与我们取得联系。请问您是否还有其他需要咨询的问题？';
+						responseDiv = '<div class="message user">您选择了: <span style="font-weight: bold;">'+userChoice+'</span> <br/>'+responseText+'<br/>' +
+								'<a onclick="closeZnkf();" style="color:#3280bf;font-weight: bold;text-decoration-line: underline;">无需进一步帮助，谢谢</a>'+
+								' </div>';
+
+						break;
+					case '合作交流':
+						responseText = '非常感谢您的确认！关于“合作交流”，您可通过拨打上海股交中心官方服务热线：400-625-1000，直接与我们取得联系。如果您希望详细留言说明，那么请点击下方的<span style="font-weight: bold;">“在线留言”</span>，进入我们的在线留言系统。在那里，您可以留下您的详细信息和问题，我们的工作人员会尽快回复您。';
+						break;
+					case '改进建议':
+						responseText = '非常感谢您愿意给我们提供建议！关于“改进建议”，您可通过拨打上海股交中心官方服务热线：400-625-1000，直接与我们取得联系。如果您希望详细留言说明，那么请点击下方的<span style="font-weight: bold;">“在线留言”</span>，进入我们的在线留言系统。在那里，您可以留下您的宝贵建议，我们会认真考虑并评估您的建议。';
+						break;
+					case '其他事项':
+						responseText = '非常感谢您的确认！您可通过拨打上海股交中心官方服务热线：400-625-1000，直接与我们取得联系。如果您希望详细留言说明，请点击下方的<span style="font-weight: bold;">“在线留言”</span>，进入我们的在线留言系统。在那里，您可以留下您的宝贵建议，我们的工作人员会尽快回复您。';
+						break;
+				}
+				if(responseDiv==''){
+					responseDiv = '<div class="message user">您选择了: <span style="color: color:#3280bf;font-weight: bold;">'+userChoice+'</span><br>'+responseText+'<br>' +
+							'<a onclick="showZxly();" style="color:#3280bf;font-weight: bold;text-decoration-line: underline;">(1)在线留言，进入留言系统</a><br>'+
+							'<a onclick="closeZnkf();" style="color:#3280bf;font-weight: bold;text-decoration-line: underline;">(2)无需进一步帮助，谢谢</a><br>'+
+							' </div>';
+				}
+				// 清空原有的消息并插入新的消息
+				$('#chatWindow .messages').children().remove();
+				$('#chatWindow .messages').append(responseDiv);
+				$("#cnxw").hide();
+			});
+		});
+		function showZnkf(){
+			$("#chatWindow").show();
+			$("#cnxw").show();
+		}
+	    function closeZnkf(){
+			//$("#chatWindow").hide();不再关闭，返回答复信息。
+			var responseText = '非常感谢您对上海股交中心的关心和支持！如果您日后还有任何关于业务咨询、合作交流、改进建议或其他问题，也欢迎随时联系我们。祝您一切顺利！';
+			var responseDiv = '<div class="message user">'+responseText+'</div>';
+			// 清空原有的消息并插入新的消息
+			$('#chatWindow .messages').children().remove();
+			$('#chatWindow .messages').append(responseDiv);
+		}
+		function closeZnkfWin(){
+			var responseText = '您好！欢迎来到上海股权托管交易中心官网，我是您的在线虚拟客服小see。为了更好地为您提供服务，我想先了解一下您的咨询事项？';
+			var responseDiv = '<div class="message user">'+responseText+'</div>';
+			// 清空原有的消息并插入新的消息
+			$('#chatWindow .messages').children().remove();
+			$('#chatWindow .messages').append(responseDiv);
+			$('input[type="radio"]').prop('checked', false);
+			$("#chatWindow").hide();
+		}
+		var basePath = "https://www.china-see.com:443/";
+		var layIndex = null;
+		var feedBackUrl = null;
+		function showZxly(){
+			feedBackUrl = basePath+'pg/feedback.jsp?userChoice='+userChoice;
+			feedBackUrl=encodeURI(feedBackUrl)
+			feedBackUrl=encodeURI(feedBackUrl)
+			 ShowBoxZxly(feedBackUrl,"在线留言","730px","750px");
+		}
+		function ShowBoxZxly(url,title,height,width) {
+			layIndex = $.dialog({ title: title, content: 'url:' + url + '', width: width, height: height, lock: true, min: false, max: false, fixed: true, drag: true, resize: true, padding: 0 });
+		}
+		function closeZxlyWindowBox(responseMessage){
+			$.messager.alert('温馨提示',responseMessage,"",layIndex.close());
+		}
+	</script>
+</div>
+
+    <div class="banner">
+        <div id="dingwei">
+            
+        </div>
+        <div id="fsD1" class="focus">
+            <div id="D1pic1" class="fPic">
+                
+                <div class="fcon" style="display: none;">
+                    <a target="_blank" href="https://www.china-see.com/attached/file/20250917/20250917175235_183.mp4"><img src="/attached/file/20250918/20250918175658_921.jpg"
+                                                                            style="opacity: 1;"></a>
+                    <div class="posi">
+                        <p class="shouye_lunbo_info">我们的业务：<br><br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;公司挂牌&nbsp&nbsp&nbsp&nbsp;股份交易<br>
+<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;股份托管&nbsp&nbsp&nbsp&nbsp;定向增资<br>
+<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;并购重组&nbsp&nbsp&nbsp;
+
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="fcon" style="display: none;">
+                    <a target="_blank" href="https://www.china-see.com/aboutDetail.do?articleId=664977058&amp;amp;articleType=lastestNews"><img src="/attached/file/20250102/20250102134341_951.jpg"
+                                                                            style="opacity: 1;"></a>
+                    <div class="posi">
+                        <p class="shouye_lunbo_info"><br>
+我们的目标：<br><br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;规模可观&nbsp&nbsp&nbsp&nbsp;服务一流<br>
+<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;国内领先&nbsp&nbsp&nbsp&nbsp;国际知名<br>
+
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="fcon" style="display: none;">
+                    <a target="_blank" href="https://zone.china-see.com/srdi/home"><img src="/attached/file/20231225/20231225155413_218.png"
+                                                                            style="opacity: 1;"></a>
+                    <div class="posi">
+                        <p class="shouye_lunbo_info"><br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;上海股权托管交易中心<br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;欢   迎   您 ！
+
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="fcon" style="display: none;">
+                    <a target="_blank" href="https://www.china-see.com/fund/fund.jsp"><img src="/attached/file/20250110/20250110165746_81.png"
+                                                                            style="opacity: 1;"></a>
+                    <div class="posi">
+                        <p class="shouye_lunbo_info"><span style="line-height:25px;">&nbsp;&nbsp;我们的定位：<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;股&nbsp份&nbsp交&nbsp易&nbsp中&nbsp心<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资&nbsp源&nbsp集&nbsp聚&nbsp中&nbsp心<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上&nbsp市&nbsp孵&nbsp化&nbsp中&nbsp心<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金&nbsp融&nbsp创&nbsp新&nbsp中&nbsp心<br></span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="fcon" style="display: none;">
+                    <a target="_blank" href="https://www.china-see.com/fund/fund.jsp"><img src="/attached/file/20240323/20240323151152_436.png"
+                                                                            style="opacity: 1;"></a>
+                    <div class="posi">
+                        <p class="shouye_lunbo_info"><br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;上海股权托管交易中心<br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;欢   迎   您 ！
+
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="fcon" style="display: none;">
+                    <a target="_blank" href="https://www.china-see.com/aboutDetail.do?articleId=664976843&articleType=lastestNews"><img src="/attached/file/20241209/20241209140358.png"
+                                                                            style="opacity: 1;"></a>
+                    <div class="posi">
+                        <p class="shouye_lunbo_info"><br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;上海股权托管交易中心<br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp;欢   迎   您 ！
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="fbg">
+                <div class="D1fBt" id="D1fBt">
+                    <a href="javascript:void(0)" hidefocus="true" target="_self" class=""><i>1</i></a>
+                    <a href="javascript:void(0)" hidefocus="true" target="_self" class=""><i>2</i></a>
+                    <a href="javascript:void(0)" hidefocus="true" target="_self" class=""><i>3</i></a>
+                    <a href="javascript:void(0)" hidefocus="true" target="_self" class=""><i>4</i></a>
+                    <a href="javascript:void(0)" hidefocus="true" target="_self" class=""><i>5</i></a>
+                   <a href="javascript:void(0)" hidefocus="true" target="_self" class=""><i>6</i></a>
+                </div>
+            </div>
+            <span class="prev"></span> <span class="next"></span>
+        </div>
+
+
+        <div class="clear"></div>
+
+
+    </div>
+    <div class="WrapCon">
+        <div class="quick-bar">
+            <div class="quick-title">快<br />捷<br />服<br />务</div>
+            <div class="quick-icon">
+
+                <!--第一行-->
+                <div class="one">
+                    <a href="javascript:;" id="oneLeft">
+                        <span class="iconfont icon-jiantou_liebiaoxiangzuo"></span>
+                    </a>
+                    <a href="javascript:;" id="oneRight">
+                        <span class="iconfont icon-jiantou_liebiaoxiangyou"></span>
+                    </a>
+
+                    <div class="swiper-container one-itemBox clearfix">
+                        <div class="swiper-wrapper oneNum">
+
+                            
+                            <div class="swiper-slide">
+                                <a target="_blank" href="https://zone.china-see.com/srdi/home"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231225/20231225160849_252.png"></p>专精特新专板</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a target="_blank" href="https://zone.china-see.com/warrant/home"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124093927_712.png"></p>认股权</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a target="_blank" href="https://www.china-see.com/fund/fund.jsp"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124093938_851.png"></p>基金份额</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a target="_blank" href="https://www.china-see.com/disclosure.do?articleType=listing_n"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094002_642.png"></p>科技创新板</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a target="_blank" href="https://www.china-see.com/disclosure.do?articleType=listing_e"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124093952_636.png"></p>E板</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a target="_blank" href="https://www.china-seeq.com"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094013_342.png"></p>展示板</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a target="_blank" href="https://www.china-see.com/zg/des.jsp"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094030_982.png"></p>转股资产</a>
+                            </div>
+                            
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next oneRight"></div>
+                        <div class="swiper-button-prev oneLeft"></div>
+                    </div>
+                </div>
+
+
+                <!--第二行-->
+                <div class="two">
+                    <a href="javascript:;" id="twoLeft">
+                        <span class="iconfont icon-jiantou_liebiaoxiangzuo"></span>
+                    </a>
+                    <a href="javascript:;" id="twoRight">
+                        <span class="iconfont icon-jiantou_liebiaoxiangyou"></span>
+                    </a>
+
+                    <div class="swiper-container two-itemBox clearfix">
+                        <div class="swiper-wrapper twoNum">
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com:7070/gzw/page.html#/pc/loginGjzx"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/gz.png"></p>企业价值估值</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com/marketService.do?articleType=train"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094224_779.png"></p>企业培训服务</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com/marketService.do?articleType=investor_download"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094214_338.png"></p>投资者服务</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com/marketService.do?articleType=user_in_service"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094142_514.png"></p>中介服务</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.sh-sed.com"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094128_478.png"></p>登记托管</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://gpjg.china-see.com/index"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124100654_311.png"></p>业务办理</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com/marketService.do?articleType=xdfw"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094041_602.png"></p>信贷服务</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com/marketService.do?articleType=trz_fw"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094119_689.png"></p>投融资服务</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com/disclosure.do?articleType=illegalDis"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094101_750.png"></p>市场监管</a>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <a  target="_blank"  href="https://www.china-see.com/stockInfo.do?hang=N"><p><img style="height: 50px;width: 50px;" src="/attached/file/20231124/20231124094052_157.png"></p>行情数据</a>
+                            </div>
+                            
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next twoRight"></div>
+                        <div class="swiper-button-prev twoLeft"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="DWrapCon">
+            <div class="DWrapConL">
+                <div class="DWrapConLup">
+                    <div class="navClass">
+                        <ul>
+                            <li><a href="about.do?articleType=lastestNews" class="current">新闻动态</a></li>
+                        </ul>
+                        <a href="about.do?articleType=lastestNews" class="posi">更多</a>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="DWrLupSub">
+                        
+                        <dl>
+                            <dt>
+                                <a href="aboutDetail.do?articleId=664978921&articleType=lastestNews">上海临港新片区经济发展有限公司一行来访上海股权托管交易中心
+                                </a>
+                            </dt>
+                            <dd>
+                                
+                                <div class="DWrLupSubL">
+                                    <a href="aboutDetail.do?articleId=664978921&articleType=lastestNews"><img
+                                            style="width:142px;height:93px;" src="/attached/image/20260914/20260914142430_737.png"/></a>
+                                </div>
+                                <div class="DWrLupSubR">
+                                    <a href="aboutDetail.do?articleId=664978921&articleType=lastestNews">
+                                        近日，上海临港新片区经济发展有限公司党委副书记、总经理逄淑光一行来访上海股权托管交易中心，双方围绕深化“浦江之光”行动、推动临港新片区集成电路产业与资本市场精准对接等议题进行深入...
+                                    </a>
+                                </div>
+                                
+                                <div class="clear"></div>
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a href="aboutDetail.do?articleId=664978916&articleType=lastestNews">合肥科创集团、安徽省股权托管交易中心一行到访上海股交中心调研交流
+                                </a>
+                            </dt>
+                            <dd>
+                                
+                                <div class="DWrLupSubL">
+                                    <a href="aboutDetail.do?articleId=664978916&articleType=lastestNews"><img
+                                            style="width:142px;height:93px;" src="/attached/image/20260907/20260907101732_470.jpg"/></a>
+                                </div>
+                                <div class="DWrLupSubR">
+                                    <a href="aboutDetail.do?articleId=664978916&articleType=lastestNews">
+                                        近日，合肥科创集团副总经理姚瑞、安徽省股权托管交易中心总经理助理孟环良一行到访上海股交中心开展调研交流。上海股交中心副总经理、上海股权托管登记中心总经理丁颖芳接待来访一行。双方围...
+                                    </a>
+                                </div>
+                                
+                                <div class="clear"></div>
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a href="aboutDetail.do?articleId=664978817&articleType=lastestNews">上海银行党委副书记牛韧一行到访上海股交中心
+                                </a>
+                            </dt>
+                            <dd>
+                                
+                                <div class="DWrLupSubL">
+                                    <a href="aboutDetail.do?articleId=664978817&articleType=lastestNews"><img
+                                            style="width:142px;height:93px;" src="/attached/image/20260720/20260720100652_376.jpg"/></a>
+                                </div>
+                                <div class="DWrLupSubR">
+                                    <a href="aboutDetail.do?articleId=664978817&articleType=lastestNews">
+                                        上海银行党委副书记牛韧一行到访上海股交中心开展座谈交流，深化对接合作、共探科创服务新路径。上海股交中心党委书记、董事长徐军接待了来访一行。牛韧对上海股交中心在服务实体经济、培育科...
+                                    </a>
+                                </div>
+                                
+                                <div class="clear"></div>
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a href="aboutDetail.do?articleId=664978818&articleType=lastestNews">上海金融业联合会一行拜访上海股权托管交易中心
+                                </a>
+                            </dt>
+                            <dd>
+                                
+                                <div class="DWrLupSubL">
+                                    <a href="aboutDetail.do?articleId=664978818&articleType=lastestNews"><img
+                                            style="width:142px;height:93px;" src="/attached/image/20260720/20260720101011_572.png"/></a>
+                                </div>
+                                <div class="DWrLupSubR">
+                                    <a href="aboutDetail.do?articleId=664978818&articleType=lastestNews">
+                                        6月26日上午，上海金融业联合会副秘书长马乐莺一行拜访上海股权托管交易中心，与上海股权托管交易中心副总经理丁颖芳等开展座谈交流，双方围绕国家级大学科技园科创企业金融服务、股权产品...
+                                    </a>
+                                </div>
+                                
+                                <div class="clear"></div>
+                            </dd>
+                        </dl>
+                        
+                    </div>
+                </div>
+                <div class="DWrapConLdw">
+                    <div class="navClass" id="navClass">
+                        <ul>
+                            <li class="current" id="navClass1">
+                                <a href="javascript:void(0);">中心公告</a>
+                            </li>
+                            <li id="navClass2"><a href="javascript:void(0);">挂牌公告</a></li>
+                            <li class="last" id="navClass3"><a href="javascript:void(0);">定增公告</a></li>
+                        </ul>
+                        <a href="disclosure.do?articleType=listing" class="posi">更多</a>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="DWrLdwSub" id="DWrLdwSub_center"
+                         style="display: block;">
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978951&articleType=3_1_5">关于对部分中介机构予以终止其资格的决定
+                                </a>
+                            </dt>
+                            <dd>2026-09-29
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978933&articleType=3_1_5">关于2026年中秋、国庆节假期休市的公告 沪股交〔2026〕281号 
+                                </a>
+                            </dt>
+                            <dd>2026-09-21
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978918&articleType=3_1_5">关于拟对部分中介机构采取有关措施的公告
+                                </a>
+                            </dt>
+                            <dd>2026-09-08
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978917&articleType=3_1_4">关于未按规定披露2025年年度报告挂牌企业风险揭示公告
+                                </a>
+                            </dt>
+                            <dd>2026-09-08
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978908&articleType=3_1_5">关于对部分挂牌企业采取有关措施的公告
+                                </a>
+                            </dt>
+                            <dd>2026-09-02
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978872&articleType=3_1_4">关于未按规定披露2025年年度报告挂牌企业风险揭示公告
+                                </a>
+                            </dt>
+                            <dd>2026-08-04
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978814&articleType=3_1_5">关于对部分挂牌企业予以终止挂牌的决定 沪股交〔2026〕222号
+                                </a>
+                            </dt>
+                            <dd>2026-07-16
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978810&articleType=3_1_5">关于做好上海股权托管交易中心科技创新板、股份转让系统挂牌公司2026年半年度报告披露工作的通知 沪股交〔2026〕223号
+                                </a>
+                            </dt>
+                            <dd>2026-07-15
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978803&articleType=3_1_5">关于移动端开户、交易功能服务渠道整合的通知
+                                </a>
+                            </dt>
+                            <dd>2026-07-07
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978729&articleType=3_1_5">关于2026年端午节假期休市的公告 沪股交〔2026〕180号
+                                </a>
+                            </dt>
+                            <dd>2026-06-16
+                            </dd>
+                        </dl>
+                        
+                    </div>
+                    <div class="DWrLdwSub" id="DWrLdwSub_guapai"
+                         style="display: none;">
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978678&articleType=3_1_1_8">关于同意上海海菠国际旅行社股份有限公司办理股份转让系统基本信披层挂牌手续的通知 沪股交〔2026〕164号
+                                </a>
+                            </dt>
+                            <dd>2026-05-29
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978661&articleType=3_1_1_8">关于同意上海汉桌文化旅游股份有限公司办理股份转让系统基本信披层挂牌手续的通知 沪股交〔2026〕161号
+                                </a>
+                            </dt>
+                            <dd>2026-05-26
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978740&articleType=3_1_1_8"> 关于同意上海汉桌文化旅游股份有限公司办理股份转让系统基本信披层挂牌手续的通知 沪股交〔2026〕161号
+                                </a>
+                            </dt>
+                            <dd>2026-05-25
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978530&articleType=3_1_1_4">关于同意上海衣靓智能科技股份有限公司办理科技创新板挂牌手续的通知 沪股交〔2026〕133号
+                                </a>
+                            </dt>
+                            <dd>2026-04-28
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978415&articleType=3_1_1_8">关于同意上海世网街高维科技股份有限公司办理股份转让系统基本信披层挂牌手续的通知 沪股交〔2026〕50号
+                                </a>
+                            </dt>
+                            <dd>2026-02-03
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978375&articleType=3_1_1_8">关于同意上海汇环数智科技股份有限公司办理股份转让系统基本信披层挂牌手续的通知 沪股交〔2026〕45号
+                                </a>
+                            </dt>
+                            <dd>2026-01-30
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978311&articleType=3_1_1_4">关于同意盒得来云网（上海）科技股份有限公司办理科技创新板挂牌手续的通知 沪股交〔2025〕421号
+                                </a>
+                            </dt>
+                            <dd>2025-12-26
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978294&articleType=3_1_1_4">关于同意上海相约江丰数字科技股份有限公司办理科技创新板挂牌手续的通知 沪股交[2025]403号
+                                </a>
+                            </dt>
+                            <dd>2025-12-18
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978007&articleType=3_1_1_4">关于同意新时空（上海）教育科技股份有限公司办理科技创新板挂牌手续的通知 沪股交[2025]232号
+                                </a>
+                            </dt>
+                            <dd>2025-07-29
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978024&articleType=3_1_1_4">关于同意乐德堂（上海）数字医疗科技股份有限公司办理科技创新板挂牌手续的通知 沪股交[2025]227号
+                                </a>
+                            </dt>
+                            <dd>2025-07-25
+                            </dd>
+                        </dl>
+                        
+                    </div>
+                    <div class="DWrLdwSub" id="DWrLdwSub_gain" style="display: none;">
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978303&articleType=3_1_2">关于同意上海曜业泽固建筑股份有限公司非公开发行股票的通知 沪股交[2025]413号
+                                </a>
+                            </dt>
+                            <dd>2025-12-22
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978221&articleType=3_1_2">关于同意上海越社电子科技股份有限公司非公开发行股票的通知 沪股交[2025]355号
+                                </a>
+                            </dt>
+                            <dd>2025-11-19
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664978183&articleType=3_1_2">关于同意上海行谦致远建筑工程管理股份有限公司非公开发行股票的通知 沪股交〔2025〕328号
+                                </a>
+                            </dt>
+                            <dd>2025-10-30
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664977936&articleType=3_1_2">关于上海禾荣农业科技发展股份有限公司非公开发行股票未完成发行的公告
+                                </a>
+                            </dt>
+                            <dd>2025-07-08
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664977520&articleType=3_1_2">关于同意上海霆枫泽奕企业管理咨询股份有限公司非公开发行股票的通知 沪股交[2025]139号
+                                </a>
+                            </dt>
+                            <dd>2025-04-30
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664977519&articleType=3_1_2">关于同意上海兴浚泽智企业管理咨询股份有限公司非公开发行股票的通知 沪股交〔2025〕138号
+                                </a>
+                            </dt>
+                            <dd>2025-04-30
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664977203&articleType=3_1_2">关于同意上海行谦致远建筑工程管理股份有限公司非公开发行股票的通知 沪股交〔2025〕88号
+                                </a>
+                            </dt>
+                            <dd>2025-03-21
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664976999&articleType=3_1_2">关于同意上海衡元高分子材料股份有限公司非公开发行股票的通知 沪股交〔2024〕648号
+                                </a>
+                            </dt>
+                            <dd>2024-12-24
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664976964&articleType=3_1_2">关于同意上海开腾信号技术股份有限公司非公开发行股票的通知 沪股交〔2024〕634号
+                                </a>
+                            </dt>
+                            <dd>2024-12-16
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt>
+                                <a target="_blank"
+                                   href="disclosureDetail.do?articleId=664976688&articleType=3_1_2">关于同意上海越社电子科技股份有限公司非公开发行股票的通知 沪股交〔2024〕450号
+                                </a>
+                            </dt>
+                            <dd>2024-09-02
+                            </dd>
+                        </dl>
+                        
+                    </div>
+                </div>
+                
+<!--展示区-->
+						<div class="DWrapConLup">
+							<div style="height:20px;"></div>
+							<div class="navClass">
+								<ul>
+									<li><a href="/video.do" class="current">展示区</a></li>
+								</ul>
+								<a href="/video.do" class="posi">更多</a>
+								<div class="clear"></div>
+							</div>
+
+							<div style="clear:both;"></div>
+							<div class="linkBar">
+								<div class="swiper-container showPic">
+									<div class="swiper-wrapper">
+ 
+										<div class="swiper-slide">
+											<a href="/videoShow.do?videoId=9" target="_blank">
+												<img src="/attached/image/20250917/20250917175226_882.png" alt="" />
+											</a>
+										</div>
+									  	
+										<div class="swiper-slide">
+											<a href="/videoShow.do?videoId=8" target="_blank">
+												<img src="/attached/image/20250624/20250624151915_867.png" alt="" />
+											</a>
+										</div>									
+                          
+                            	
+										<div class="swiper-slide">
+											<a href="/videoShow.do?videoId=7" target="_blank">
+												<img src="/attached/image/20250516/20250516103422_676.png" alt="" />
+											</a>
+										</div>									
+                          
+                            	
+										<div class="swiper-slide">
+											<a href="/videoShow.do?videoId=6" target="_blank">
+												<img src="/attached/file/20231229/20231229_xcp.png" alt="" />
+											</a>
+										</div>									
+                          
+                            	
+										<div class="swiper-slide">
+											<a href="/videoShow.do?videoId=5" target="_blank">
+												<img src="/attached/image/20200914/20200914100210_244.png" alt="" />
+											</a>
+										</div>									
+                          
+                            	
+										<div class="swiper-slide">
+											<a href="/videoShow.do?videoId=4" target="_blank">
+												<img src="/attached/image/20150804/20150804135144_259.png" alt="" />
+											</a>
+										</div>									
+                          
+                            
+
+										
+
+									</div>
+									<!-- 如果需要分页器 -->
+									<div class="swiper-pagination"></div>
+									<!-- 如果需要导航按钮 -->
+									<div class="swiper-button-prev1" style="display: none;"></div>
+									<div class="swiper-button-next1" style="display: none;"></div>
+
+								</div>
+								<div class="showLeft"></div>
+								<div class="showRight"></div>
+							</div>
+						</div>
+						<!--展示区-->                
+                <!--友情链接开始-->
+                <div class="DWrapConLup">
+                    <div style="height:20px;"></div>
+                    <div class="navClass">
+                        <ul>
+                            <li><a href="about.do?articleType=lastestNews" class="current">友情链接</a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div style="clear:both;"></div>
+                    <div class="linkBar">
+                        <div class="swiper-container linkPic">
+                            <div class="swiper-wrapper">
+                                
+                                <div class="swiper-slide">
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQEAAACXCAYAAAAVpO4XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAADWBSURBVHhe7d0HuF1VlQdwx5mxjmUsyNhHHccZbGBBUVHGAgiEDimQQksiSIeANBuI2FBRQDoIKAhIFUISAlIVqdJFekggCQkJJXXN/Z33dnJyct97977c95Ln3f98+8u7+5576l7/Vfba67wkMjIy2hqZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIy2hyZBDIySli0aFHccccdMXXq1M6eZfH444/H3XffHYsXL+7sGfjIJJDRliDs9fDII4/E29/+9thpp52WE/SFCxfG1ltvHe973/ti+vTpnb3Loqv9rsrIJJDRdqDJd95553jggQc6e5bitttui5e97GWx3nrrFUJfxvz582PNNdeM17zmNXH//fd39i7F7bffXuz373//e2fPwEAmgYy2wzHHHBP/9E//FN/5znc6e5biscceize96U3x/ve/P+bOndvZ24E5c+YU/W9+85vjiSee6Oxdir322qvY79lnn93ZMzCQSSCj7XDDDTfEv/7rv8b666+/nLafNm1arL766vGud70rnn322c7eDogTrLbaavHud797OYKYN29efPrTn45XvepVceedd3b2LgU3Yfbs2auku5BJIKPtMGPGjELICftTTz3V2dsBvr6YgPbMM8909naAELMEPv7xj8eLL77Y2dsBLsAb3vCG+N///d/CYqiCdfDhD384/vKXv3T2rDrIJJDRdqCNBw0aVFgDf/zjHzt7O0Cjf+xjHyv8/vvuu6+ztwMChZMnTy4siSouuuii+Od//ucYNWrUctr+hRdeiC984QvxL//yLzF+/PjO3lUHmQQy2hKXXXZZDBkyZLmpQO7BpptuGm9961vjySef7OxdCiRRb3rw4Ycfjm222Sauueaazp6lmDRpUrz85S+Pj3zkI8u5GKsCMglkDGgs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" alt="" />
+                                </div>
+                                
+                                <div class="swiper-slide">
+                                    <a href="http://www.sh-sed.com/" target="_blank"><img src="/attached/image/20220113/20220113144429_420.png" alt="" /></a><br />
+                                </div>
+                                
+                                <div class="swiper-slide">
+                                    <a href="http://www.china-seeic.com/" target="_blank"><a href="https://www.china-seeic.com/" target="_blank"><img src="/attached/image/20210428/20210428085512_564.png" alt="" /></a></a>
+                                </div>
+                                
+                                <div class="swiper-slide">
+                                    <a href="http://www.see-jf.com/" target="_blank"><img src="/attached/image/20210428/20210428085415_899.png" alt="" /></a>
+                                </div>
+                                
+                            </div>
+                            <!-- 如果需要分页器 -->
+                            <div class="swiper-pagination"></div>
+                            <!-- 如果需要导航按钮 -->
+                            <div class="swiper-button-prev" style="display: none;"></div>
+                            <div class="swiper-button-next" style="display: none;"></div>
+
+                        </div>
+                        <div class="link_leftBtn"></div>
+                        <div class="link_rightBtn"></div>
+                    </div>
+                </div>
+                <!--友情链接结束-->
+            </div>
+            <div class="DWrapConR">
+                <!-- <div class="indexNum">
+                    <span id="indexNum"></span>
+                    </div> -->
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <div class="swiper-container indexBar">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="tab_index_title">
+                                碳中和指数
+                                <p id="indexNum8"></p>
+                            </div>
+                            <div class="botcho">
+                                <div class="bota" id="ZS0003" style="width: 100%;height: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="tab_index_title">
+                                N板综合指数
+                                <p id="indexNum6"></p>
+                            </div>
+                            <div class="botcho">
+                                <div class="bota" id="ZS0001" style="width: 100%;height: 100%"></div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="tab_index_title">
+                                E板综合指数
+                                <p id="indexNum7"></p>
+                            </div>
+                            <div class="botcho">
+                                <div class="bota" id="ZS0002" style="width: 100%;height: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 如果需要分页器 -->
+                    <div class="swiper-pagination"></div>
+
+                    <!-- 如果需要导航按钮 -->
+
+                    <div class="swiper-button-prev tab_leftBtn_prev" style="display: none;"></div>
+                    <div class="swiper-button-next tab_rightBtn_next" style="display: none;"></div>
+
+
+                    <div class="tab_leftBtn"></div>
+                    <div class="tab_rightBtn"></div>
+
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <div class="DWrapConRSub1">
+                    <h1>
+                        市场概况 <a href="countStudy.do?articleType=countData" class="posi">更多</a>
+                    </h1>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-see.com:6565/warrant/home">认股权笔数
+                            </a>
+                        </dt>
+                        <dd>88笔
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-see.com/fund/fund.jsp">份额转让金额
+                            </a>
+                        </dt>
+                        <dd>379.10亿元
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-see.com/fund/fund.jsp">份额质押金额
+                            </a>
+                        </dt>
+                        <dd>240.22亿元
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-see.com:6565/srdi/home">专精特新专板企业
+                            </a>
+                        </dt>
+                        <dd>605家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-see.com/companyN.do">N板挂牌企业
+                            </a>
+                        </dt>
+                        <dd>282家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="http://www.china-see.com/company.do">E板挂牌企业 
+                            </a>
+                        </dt>
+                        <dd>309家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-seeq.com/">Q板展示企业
+                            </a>
+                        </dt>
+                        <dd>857家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-seeq.com/">其中：绿色Q板企业
+                            </a>
+                        </dt>
+                        <dd>102家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.china-seeq.com/">其中：科创展示板企业
+                            </a>
+                        </dt>
+                        <dd>2家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="https://www.sh-sed.com/#/BusinessDirectory">纯托管企业
+                            </a>
+                        </dt>
+                        <dd>277家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="void(0);">服务库企业
+                            </a>
+                        </dt>
+                        <dd>11168家
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="void(0);">股权融资
+                            </a>
+                        </dt>
+                        <dd>2091.94亿元
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt>
+                            <a href="void(0);">债权融资
+                            </a>
+                        </dt>
+                        <dd>1334.74亿元
+                        </dd>
+                    </dl>
+                    
+                </div>
+                <div class="DWrapConRSub2">
+                    <h1>
+                        市场行情<a href="stockInfo.do?hang=E" class="posi">更多</a>
+                    </h1>
+                    <table border="0px" cellpadding="0px" cellspacing="0px">
+                        <tr>
+                            <th width="87">股权名称</th>
+                            <th width="92" align="right">前均价（元）</th>
+                            <th width="129" align="right" style="padding-right: 19px;">累计成交量（股）</th>
+                        </tr>
+                        
+                        <tr>
+                            <td align="center">兴浚泽智
+                            </td>
+                            <td align="right" class="Nch96">1.090
+                            </td>
+                            <td align="right" class="fontColor" style="padding-right: 19px;">1454180000
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="center">泽崟企管
+                            </td>
+                            <td align="right" class="Nch96">1.000
+                            </td>
+                            <td align="right" class="fontColor" style="padding-right: 19px;">1353060000
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="center">越社电子
+                            </td>
+                            <td align="right" class="Nch96">1.000
+                            </td>
+                            <td align="right" class="fontColor" style="padding-right: 19px;">1161580000
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="center">行谦致远
+                            </td>
+                            <td align="right" class="Nch96">1.010
+                            </td>
+                            <td align="right" class="fontColor" style="padding-right: 19px;">820424000
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td align="center">霆枫泽奕
+                            </td>
+                            <td align="right" class="Nch96">1.030
+                            </td>
+                            <td align="right" class="fontColor" style="padding-right: 19px;">659320000
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div class="DWrapConRSub5">
+                    <div class="mydemo" style="cursor:pointer;background-image: url(images/fund.jpg);height:130px"
+                         onclick="window.open('/fund/fund.jsp')"><a target="_blank"
+                                                                           href="/fund/fund.jsp"></a>
+                    </div>
+                    <div class="mydemo" style="cursor:pointer;background-image: url(images/chinaicon2.jpg);height:130px"
+                         onclick="window.open('/zg/des.jsp')"><a target="_blank"
+                                                                           href="/zg/des.jsp"></a>
+                    </div>
+                    <div class="DWrapConRSub3" style="padding:30px 0 0 0; height:170px;">
+                        <div class="mydemo" style="cursor:pointer;background-image: url(images/chinaicon1.jpg);height:130px"
+                             onclick="window.open('https://www.china-seeq.com')"><a target="_blank"
+                                                                                         href="https://www.china-seeq.com/"></a>
+                        </div>
+
+                        <!-- <div style="background-image: url(images/bg1.jpg)"><a target="_blank" href="http://www.china-seeq.com/"></a></div> -->
+
+                    </div>
+				
+				<div class="mydemo" style="cursor:pointer;background-image: url(images/chinaicon3.png);height:130px" onclick="window.open('https://www.china-see.com:6565/srdi/')"><a target="_blank" href="https://www.china-see.com:6565/srdi/"></a>
+					</div>                    
+
+                </div>
+                
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Qfast.add('widgets', {path: "js/terminator2.2.min.js", type: "js", requires: ['fx']});
+            Qfast(false, 'widgets', function () {
+                K.tabs({
+                    id: 'fsD1',   //焦点图包裹id
+                    conId: "D1pic1",  //** 大图域包裹id
+                    tabId: "D1fBt",
+                    tabTn: "a",
+                    conCn: '.fcon', //** 大图域配置class
+                    auto: 1,   //自动播放 1或0
+                    effect: 'fade',   //效果配置
+                    eType: 'click', //** 鼠标事件
+                    pageBt: true,//是否有按钮切换页码
+                    bns: ['.prev', '.next'],//** 前后按钮配置class
+                    interval: 3000  //** 停顿时间
+                });
+            });
+            getIndexNumData("year",'ZS0003');
+            getIndexNumData("year",'ZS0001');
+            getIndexNumData("year",'ZS0002');
+        });
+
+        //        $('.topcho >div').click(function(){
+        //            getIndexNumData(this.id,'ZS0003');
+        //            $(this).addClass('topa').siblings().removeClass('topa');
+        //        })
+        function getIndexNumData(period,type){
+            $.ajax({
+                type: 'post',
+                url: basePath + 'getIndexNum.do',
+                dataType: 'json',
+                data: {
+                    'period': period,
+                    'type':type
+                },
+                success: function (json) {
+                    initHighchat(json,type);
+                    console.info(type+"----------"+json);
+                },// end success
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $.messager.alert('温馨提示', '服务器繁忙，请联系管理员');
+                }// end error
+            });// end ajax
+        }
+        var chart = null;
+        function initHighchat(json,type) {
+            var type_id=type;
+            if(type=="ZS0001"){
+                type="N板"
+            }else if(type=="ZS0002"){
+                type="E板"
+            }else{
+                type="碳中和"
+            }
+            var data = json.data
+            var max =json.max+50;
+            var min = json.min;
+            chart = Highcharts.chart(type_id, {
+                chart: {
+                    zoomType: 'x'
+                },
+                title: {
+                    text: type+'指数数据走势图'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        millisecond: '%H:%M:%S.%L',
+                        second: '%H:%M:%S',
+                        minute: '%H:%M',
+                        hour: '%H:%M',
+                        day: '%m-%d',
+                        week: '%m-%d',
+                        month: '%Y-%m',
+                        year: '%Y'
+                    }
+                },
+                tooltip:
+                {
+                    formatter: function () {
+                        var d = new Date(this.x);
+                        var month = (d.getMonth() + 1)<10?"0"+(d.getMonth() + 1):(d.getMonth() + 1);
+                        var s = '<b>' + d.getFullYear() + '-' + month +'</b>';
+                        s += '<br/><span style="color:' + this.point.series.color + '">' + this.point.series.name + ': ' +
+                                this.point.y.toFixed(2) + ' </span>';
+                        return s;
+                    }
+                }
+                ,
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    max:max,
+                    min:min,
+                    tickPixelInterval:10
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    area: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[0]],
+                                [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                            ]
+                        },
+                        marker: {
+                            radius: 2
+                        },
+                        lineWidth: 1,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+                series: [{
+                    type: 'area',
+                    name: '指数',
+                    data: data
+                }]
+            });
+        }
+        var banner = new Swiper('.indexBar', {
+            spaceBetween: 0,
+            centeredSlides: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+
+            },
+            navigation: {
+                nextEl: '.tab_leftBtn_prev',
+                prevEl: '.tab_rightBtn_next',
+
+            }
+        });
+
+        $(".tab_leftBtn").click(function() {
+            $(".tab_leftBtn_prev").trigger("click");
+        });
+        $(".tab_rightBtn").click(function() {
+            $(".tab_rightBtn_next").trigger("click");
+        });
+    </script>
+    <script>
+        var linkPic = new Swiper('.linkPic', {
+            slidesPerView: 2,
+            spaceBetween: 10,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        $(".link_rightBtn").click(function() {
+            $(".swiper-button-next").trigger("click");
+        });
+        $(".link_leftBtn").click(function() {
+            $(".swiper-button-prev").trigger("click");
+        });
+//展示区
+				var showPic = new Swiper('.showPic', {
+					slidesPerView: 2,
+					spaceBetween: 15,
+					loop: true,
+					autoplay: {
+						delay: 6000,
+						disableOnInteraction: false,
+					},
+				
+					navigation: {
+						nextEl: '.swiper-button-next1',
+						prevEl: '.swiper-button-prev1',
+					},
+				});
+				
+				$(".showRight").click(function() {
+					$(".swiper-button-next1").trigger("click");
+				});
+				$(".showLeft").click(function() {
+					$(".swiper-button-prev1").trigger("click");
+				});        
+    </script>
+    
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/easyUI/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/js/zzbox/jquery.zxxbox.3.0.js"></script>
+<script type="text/javascript" src="/js/lhgdialog/lhgdialog.min.js?skin=idialog"></script>
+<script type="text/javascript">
+var basePath = "https://www.china-see.com:443/";
+var isF10 = true;
+var countStudy = false;
+function showLogin(code){
+	ShowBox(basePath+'pg/login_tt.jsp?stockCode='+code,'用户登录',490,300);
+}
+function showLoginDX(stockCode){
+    ShowBox(basePath+'pg/login_dx.jsp?articleId='+ariticleIdDx+"&stockCode="+stockCode,'用户登录',490,300);
+}
+function showFinance(){
+	ShowBox(basePath+'pg/finance.jsp',"",590,530);
+}
+var diatt=null;
+function ShowBox(url, title, width, height) {
+	diatt = $.dialog({ title: title, content: 'url:' + url + '', width: width, height: height, lock: true, min: false, max: false, fixed: true, drag: true, resize: true, padding: 0 });
+}
+
+function loginSuccess2(stockCode){
+    $.zxxbox.remind("恭喜您登录成功", null, {
+        title : '温馨提示'
+    });
+    if(isF10){
+        window.location.href=basePath+"f10.do?stockCode="+stockCode+"&hang=E";
+    }else if(countStudy){
+		window.location.href=basePath+"countStudyDetail.do?articleId="+ariticleIdDx+"&articleType=researchInfo";
+	}else{
+        var articleTypeUrl = "null";
+        if(articleTypeUrl==8){
+            articleTypeUrl="temporary_e";
+		}else{
+            articleTypeUrl="regularly_e";
+		}
+		url_bak = basePath+"disclosureDetail.do?articleId="+ariticleIdDx+"&articleType="+articleTypeUrl;
+        if(urlJumpType=="nobank"){
+            window.location.href =url_bak;
+        }else{
+            window.open(url_bak);
+        }
+    }
+}
+function closeBox(){
+	diatt.close();
+}
+function loginSuccess1(stockCode){
+	$.zxxbox.remind("恭喜您登录成功", null, {
+		title : '温馨提示'
+	});
+	if(isF10){
+		window.location.href=basePath+"f10.do?stockCode="+stockCode+"&hang=E";
+	}else{
+		var articleTypeUrl = "null";
+		if(articleTypeUrl==null){
+			if(articleTypett=='3_5_2_2'){
+				articleTypeUrl="temporary_e";
+			}else{
+				articleTypeUrl="regularly_e";
+			}
+		}
+		if(articleTypeUrl=="regularly_e"||articleTypeUrl=="temporary_e"){
+			url_bak = basePath+"searchDetail.do?articleId="+ariticleIdtt+"&articleType="+articleTypeUrl;
+		}else{
+			url_bak = basePath+"disclosureDetail.do?articleId="+ariticleIdtt+"&articleType="+articleTypeUrl;
+		}	
+		if(urlJumpType=="nobank"){
+				window.location.href =url_bak;
+		}else{
+			window.open(url_bak);
+		}
+	}
+}
+function getQueryString(name) {  
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");  
+    var r = window.location.search.substr(1).match(reg);  
+    if (r != null) return unescape(r[2]);  
+    return null;  
+} 
+</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+<div class="footer">
+	<P>
+		<a href="https://www.china-see.com:443/about.do?articleType=notice">诚聘英才</a><a href="https://www.china-see.com:443/otherArticle.do?articleType=webSite">网站地图</a><a
+			href="https://www.china-see.com:443/otherArticle.do?articleType=flsm">法律声明</a>
+	</P>
+	<p class="last">Copyright © 2011 上海股权托管交易中心 版权所有 <a target="_blank" href="https://beian.miit.gov.cn/"  style="color:#999;">沪ICP备11034367号-2<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502008041" style="color:#999;"><img src="images/beian.png" /> 沪公网安备 31011502008041号</a></p>
+</div>
+</html>
+
+</div>
+</body>
+</html>

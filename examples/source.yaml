@@ -1,0 +1,17 @@
+# Fill authorized scope and confirm archival permission before enabling.
+id: public_notices
+entry_urls: [https://example.org/notices/]
+allowed_hosts: [example.org]
+allowed_path_prefixes: [/notices/]
+methods: [GET, HEAD]
+identity: canonical_url
+output_schema: generic_document.v1
+archive_approved: false
+scope: Replace with the reviewed column, pagination and archival permission scope.
+seed_role: list
+poll_seconds: 3600
+recheck_seconds: 86400
+budget: {requests: 100, seconds: 120, response_bytes: 10485760}
+concurrency: 2
+delay: 0.5
+robots: true

@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="zn-cn">
+
+<head>
+	<meta charset="UTF-8">
+	<title>信用广东</title>
+	<meta name="keywords" content="信用广东网,信用广东,信用">
+	<meta name="description" content="“信用广东网”网站（https://credit.gd.gov.cn）是广东省发展和改革委员会主办的广东省公共信用信息统一对外发布、接受外部查询和异议受理等的平台。网站按照统一的标准规范，全面整合我省有关行业和部门记录的社会成员信用信息，建立企业、个人、事业单位和社会组织信用信息公共数据库，实现省级行业、部门之间信用信息的互通共享，并向各地级以上市的公共信用信息管理系统开放。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta name="renderer" content="webkit">
+	<meta name="SiteName" content="信用广东">
+	<meta name="SiteDomain" content="credit.gd.gov.cn">
+	<meta name="SiteIDCode" content="4400000079">
+	<meta name="ColumnName" content="信用广东">
+	<meta name="ColumnDescription" content="信用信息统一对外发布、接受外部查询和异议受理等的平台">
+	<meta name="ColumnKeywords" content="信用广东">
+
+	<meta name="ColumnType" content="首页">
+
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">
+
+	<link rel="icon" href="./static/img/gdcredit.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="./static/css/build.min.css?v=1.1.2610081">
+	<link rel="stylesheet" href="./static/css/components.css?v=1.1.2610081">
+
+</head>
+
+<body>
+	<!-- 头部 -->
+	<div>
+		<div class="h50 lh50 ng-header">
+			<div class="main-width" id="header">
+				<div class="fl White fs14">
+					欢迎来到信用广东
+					<span class="mr10 ml10 White">|</span>
+					<span class="mr10 White">诚·满广东</span>
+					<span class="mr10 White">信·达天下</span>
+				</div>
+				<div id="scrollobj" class="fl" style="white-space:nowrap;overflow:hidden">
+					<span></span>
+				</div>
+				<div class="fr hiddom" id="header-right">
+					<!--[if $userType]-->
+					<!--[if $userType == 9]-->
+					<span class="dib ml10 fs14 White">
+						<a href="./page/user/legal/baseInfoPersonal.html" class="mr10">
+							<!--[$userName]-->
+						</a>
+					</span>
+					<!--[else]-->
+					<span class="dib ml10 fs14 White">
+						<a href="./page/user/legal/baseInfo.html" class="mr10">
+							<!--[$userName]-->
+						</a>
+					</span>
+					<!--[/if]-->
+
+					<span class="mr10 White hiddom <!--[if $userName]-->show<!--[/if]-->">|</span>
+					<a class="hovera White mr10 fs14 hiddom <!--[if $userName]-->show<!--[/if]-->" href="javascript:;" onclick="logout()">退出</a>
+
+					<!--[else]-->
+
+					<!-- <a href="javascript:;" onclick="showdenlu()" class="mr10 ml10 White fs14">登录</a> -->
+
+					<!--[/if]-->
+					<!-- <span class="mr10 White">|</span>
+					<a href="./page/helpCenter/index.html" class="mr10 White fs14">帮助中心</a> -->
+					<!-- <span class="mr10 White">|</span> -->
+					<a class="cup White fs14" href="https://credit.gd.gov.cn/page/cms/cmsContent.html?contentId=1749855162926551040&channelCode=ZFWZGZ_NDBB">信用广东网工作年度报表（2025年度）</a>
+					<span class="wzaline White">|</span>
+					<a href="javascript:;" class="wzabtn" onclick="aria.start()" clickhide="false">无障碍阅读</a>
+					<span class="wzaline White">|</span>
+					<a href="javascript:;" class="wzaelder" onclick="aria.oldFixedStart()" clickhide="false">适老版</a>
+				</div>
+			</div>
+		</div>
+		<div class="h150" id="headerdiv" data-val="close">
+			<div class="main-width pr">
+				<a href="javascript:;" onclick="goToPage('index.html')" class="home-logo" title="信用广东logo"></a>
+
+				<div class="header-search">
+					<div class="home-search">
+						<ul class="clear">
+							<li class="searchitem hover">信用档案 <span></span></li>
+							<li class="searchitem">站内文章<span></span></li>
+							<li class="hot-s-icon cup" onclick="goToPage('page/hotSearch/index.html')"></li>
+						</ul>
+					</div>
+					<div class="clear">
+						<div class="home-search-div">
+							<input type="text" id="key" placeholder="请输入主体名称或统一社会信用代码">
+							<button id="search">
+								<img src=".//static/img/searchicon.png" alt="" class="w15 pb3 pr5">
+								<span>查询</span>
+							</button>
+						</div>
+					</div>
+					<div class="clear">
+						<div class="hot-search">
+							<div class="hot-search-title"></div>
+							<div class="hot-search-home">
+								<div class="hot-search-silder hotsearch" id="hotRecord">
+									<!--[each $data]-->
+									<div class="luoslider">
+										<!--[each $item]-->
+										<a href="javascript:;" class="oh1" title="<!--[$item.ztmc]-->" onclick="hotSearchToFileDetail('<!--[$item.masterdataid]-->','<!--[$item.eid]-->')">
+											<!--[$item.ztmc]-->
+										</a>
+										<!--[/each]-->
+									</div>
+									<!--[/each]-->
+								</div>
+							</div>
+							<div class="fr fs13"><a href="javascript:;" onclick="goToPage('page/hotSearch/index.html')">更多></a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="header-gn">
+					<ul class="clear">
+						<li class="d1">
+							<!-- <span class="c1"></span> -->
+							<p>我要查</p>
+							<div class="clear tips-bg1" style="width: 310px;">
+								<a href="javascript:;" onclick="toPage('page/creditPublic/xzxk.html')" style="width: 130px;">行政许可</a>
+								<a href="javascript:;" onclick="toPage('page/creditPublic/xzcf.html')" style="width: 130px;">行政处罚</a>
+								<a href="javascript:;" onclick="toPage('page/creditPublic/sxjlmd/index.html')" style="width: 130px;">守信激励主体名单</a>
+								<a href="javascript:;" onclick="toPage('page/creditPublic/sxcjmd/index.html')" style="width: 130px;">失信惩戒主体名单</a>
+							</div>
+						</li>
+						<li class="d2">
+							<!-- <span class="c2"></span> -->
+							<p>我要办</p>
+							<div class="clear tips-bg2" style="width:375px;left:-137px">
+								<a href="javascript:;" onclick="toPage('page/serveHall/creditRepair.html')" style="width:100px">信用修复</a>
+								<a href="javascript:;" onclick="toPage('page/serveHall/creditObjection.html')" style="width:180px">信用异议</a>
+								<a href="javascript:;" onclick="toPage('page/serveHall/commitment.html')" style="width:100px">自主承诺</a>
+								<a href="javascript:;" onclick="toPage('page/serveHall/noIllegal.html')" style="width:220px">专项信用报告</a>
+							</div>
+						</li>
+						<li class="d3">
+							<!-- <span class="c3"></span> -->
+							<p>我要用</p>
+							<div class="clear min tips-bg3">
+								<a href="javascript:;" onclick="toPage('page/creditEasyLoan/index.html')" style="text-align:center">信易贷</a>
+								<!--<a href="javascript:;">信易+</a>-->
+							</div>
+						</li>
+						<li class="d4">
+							<!-- <span class="c4"></span> -->
+							<p>我要看</p>
+							<div class="clear tips-bg4" style="left: -105px;">
+								<a href="javascript:;" onclick="toPage('page/creditDynamics/index.html?channelCode=XYDT')">信用动态</a>
+								<a href="javascript:;" onclick="toPage('page/creditDynamics/regulation.html?channelCode=ZCFG')">政策法规</a>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="main-width">
+			<div class="nav-list">
+				<ul class="clear">
+					<li class="hover" onclick="toPage('index.html')">
+						<a href="javascript:;" class="nav-a"><span class="m1">首页</span></a>
+					</li>
+					<li onclick="toPage('page/serveHall/index.html')">
+						<a href="javascript:;" class="nav-a"><span class="m2">服务大厅</span></a>
+					</li>
+					<li onclick="toPage('page/creditPublic/index.html')">
+						<a href="javascript:;" class="nav-a"><span class="m3">信用公示</span></a>
+					</li>
+					<li onclick="toPage('page/creditDynamics/index.html?channelCode=XYDT')">
+						<a href="javascript:;" class="nav-a"><span class="m4">信用动态</span></a>
+					</li>
+					<li onclick="toPage('page/creditDynamics/regulation.html?channelCode=ZCFG')">
+						<a href="javascript:;" class="nav-a"><span class="m5">政策法规</span></a>
+					</li>
+					<li onclick="toPage('page/creditIndustry/index.html')">
+						<a href="javascript:;" class="nav-a"><span class="m6">行业信用</span></a>
+					</li>
+					<!-- <li onclick="toPage('page/creditDynamics/govern.html')">
+						<a href="javascript:;" class="nav-a"><span class="m7">专项治理</span></a>
+					</li> -->
+					<!-- 个人信用栏目已下线 - demand-2000647
+					<li onclick="toPage('page/personalCredit/index.html')">
+						<a href="javascript:;" class="nav-a"><span class="m7">个人信用</span></a>
+					</li>
+					-->
+					<li onclick="toPage('page/creditCommitment/index.html')">
+						<a href="javascript:;" class="nav-a"><span class="m8">信用承诺</span></a>
+					</li>
+					<li class="close" id="navOpen">
+						<span class="m8"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 跳转提示 -->
+		<div id="junpTip" class="pr hiddom">
+			<!-- <div class="pa r10 t10 colorea3e3e fs30 hover closeJunpTip">×</div> -->
+			<div class="wxts">温馨提示</div>
+			<div class="fs16 tc">您将要链接的地址</div>
+			<div id="junpTipUrl" class="fs16 tc color0063ba mt8 mb8"></div>
+			<div class="fs16 tc">已离开信用广东网站</div>
+			<div class="junpTipisOk junpTipisOk0">确 定</div>
+			<div class="tc mt20">
+				<input class="mt2 vm noJunpTip" type="checkbox" value="">
+				<span class="vm color999">不再显示该对话框</span>
+			</div>
+		</div>
+
+		<div id="junpTip1" class="pr hiddom">
+			<!-- <div class="pa r10 t10 colorea3e3e fs30 hover closeJunpTip">×</div> -->
+			<div class="wxts">温馨提示</div>
+			<div class="fs16 tc">您将要链接到旧版地址</div>
+			<div id="junpTipUrl1" class="fs16 tc color0063ba mt8 mb8"></div>
+			<div class="fs16 tc">旧版仅供查询浏览使用，不再支持相关业务办理</div>
+			<div class="junpTipisOk junpTipisOk1">确 定</div>
+			<div class="tc mt20">
+				<input class="mt2 vm noJunpTip" type="checkbox" value="">
+				<span class="vm color999">不再显示该对话框</span>
+			</div>
+		</div>
+
+		<div id="icService" class="pr hiddom icService">
+			<div class="sContent">
+				<div class="sHeader">
+					<div class="serviceIcon"></div>
+					<div class="sTitle1">
+						<span class="ai-service-text">智能客服</span>
+						<span class="ai-intelligent-text">AI智能客服</span>
+					</div>
+					<div class="sTitle2">专门为您提供咨询服务！</div>
+				</div>
+				<div class="sBody">
+					<div class="aiSelectBtn">
+						<span class="ai-switch-btn"></span>
+						<span class="simple-switch-btn active"></span>
+					</div>
+					<div class="left">
+						<div class="conversation">
+							<div class="conversationBody" path="./">
+								<div class="h50"></div>
+								<div class="conversationItem">
+									<div class="headIcon">
+										<img alt="">
+									</div>
+									<div class="replyBox">
+										<p>您好，我是智能客服粤粤信，请问有什么可以帮助您？</p>
+									</div>
+								</div>
+
+								<div class="conversationItem">
+									<div class="headIcon">
+										<img alt="">
+									</div>
+									<div class="replyBox" style="min-width: 250px;">
+										<div class="problemList" id="recommendProblem">
+											<div class="problemTitle">相关推荐问题：</div>
+											<div class="titleList">
+												<ul>
+													<li onclick="getButton('如何查询信用报告？')">如何查询信用报告？</li>
+													<!--[each $recommendProblem as $item $i]-->
+													<li onclick="getRegularPorAnswer('<!--[$item.ask]-->', 'recommendProblem')">
+														<!--[$item.ask]-->
+													</li>
+													<!--[/each]-->
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div id="conversation" class="hiddom">
+									<!--[each $conversationList as $item $i]-->
+
+									<!--[if $item.type == 1]-->
+									<div class="conversationItem">
+										<div class="headIcon">
+											<img alt="">
+										</div>
+										<div class="replyBox">
+											<div class="editionList">
+												<div class="editionTitle">请选择您需要的报告版本</div>
+												<div class="buttonList">
+													<div onclick="getAnswer('公开版', true, '公开版')">公开版</div>
+													<div onclick="getAnswer('企业版', true, '企业版')">企业版</div>
+													<div onclick="getAnswer('专项信用报告', true, '专项信用报告')">专项信用报告</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<!--[/if]-->
+
+									<!--[if $item.type == 2]-->
+									<div class="conversationItem">
+										<div class="headIcon">
+											<img alt="">
+										</div>
+										<div class="replyBox" style="min-width: 250px;">
+											<div class="problemList">
+												<div class="problemTitle">已为您找到以下相关问题：</div>
+												<div class="titleList">
+													<ul>
+														<!--[each $item.list as $item2 $y]-->
+														<li onclick="getAnswer('<!--[$y]-->', false, '<!--[$item2.ask]-->', '<!--[$item2.id]-->', '<!--[$item2.partakeEvaluate]-->')">
+															<!--[$item2.ask]-->
+														</li>
+														<!--[/each]-->
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--[/if]-->
+
+									<!--[if $item.type == 3]-->
+									<div class="conversationItem">
+										<div class="headIcon">
+											<img alt="">
+										</div>
+										<div class="replyBox">
+											<div style="white-space: pre-wrap;">
+												<!--[$item.text|escape]-->
+											</div>
+											<!--[if $item.partakeEvaluate == 1]-->
+											<div class="help">
+												<div class="isHelp <!--[$item.help == 1?'hasChose_y':'']-->" id="y<!--[$i]-->" onclick="selectHelp('<!--[$item.id]-->','y<!--[$i]-->','<!--[$i]-->' )">有帮助
+												</div>
+												<div class="noHelp <!--[$item.help == 2?'hasChose_n':'']-->" id="n<!--[$i]-->" onclick="selectHelp('<!--[$item.id]-->','n<!--[$i]-->','<!--[$i]-->' )">无帮助
+												</div>
+											</div>
+											<!--[/if]-->
+										</div>
+									</div>
+									<!--[/if]-->
+
+									<!--[if $item.type == 4]-->
+									<div class="conversationItem tr">
+										<div class="replyBox2">
+											<p>
+												<!--[$item.text|escape]-->
+											</p>
+										</div>
+									</div>
+									<!--[/if]-->
+
+									<!--[if $item.type == 5]-->
+									<div class="conversationItem tc">
+										<div class="replyBox3">
+											<p>
+												<!--[$item.text|escape]-->
+											</p>
+										</div>
+									</div>
+									<!--[/if]-->
+
+									<!--[if $item.type == 6]-->
+									<div class="conversationItem">
+										<div class="headIcon">
+											<img alt="">
+										</div>
+										<div class="replyBox">
+											<div>
+												很抱歉，这个问题我回答不了，如需更多帮助，请<a href="http://drc.gd.gov.cn/hdjlpt" target="_blank">点击这里</a>留言。
+											</div>
+										</div>
+									</div>
+									<!--[/if]-->
+
+									<!--[/each]-->
+								</div>
+
+							</div>
+
+						</div>
+						<div class="inputArea">
+							<div>
+								<textarea rows="5" id="business" placeholder="请输入您想咨询或办理的业务..." maxlength="100" class="conversationTextarea"></textarea>
+							</div>
+							<div class="buttonArea">
+								<div class="NumberWords" id="textLength">
+									0/100
+								</div>
+								<div class="button"><button onclick="conversationSend()">发送</button></div>
+							</div>
+						</div>
+					</div>
+					<div class="right">
+						<div class="mt20 mb20 rtitle">
+							业务导航
+						</div>
+						<div class="rcontent1">
+							<div class="rcitem1" onclick="goToPage('page/serveHall/creditReport.html','_blank')">
+								<div class="icbg1"></div>
+								信用报告<br><span>（公开版）</span>
+							</div>
+							<div class="rcitem1" onclick="goToPage('page/serveHall/noIllegal.html','_blank')">
+								<div class="icbg2"></div>
+								专项信用报告
+							</div>
+							<div class="rcitem1" onclick="goToPage('page/serveHall/creditRepair.html','_blank')">
+								<div class="icbg3"></div>
+								信用修复
+							</div>
+							<div class="rcitem1" onclick="goToPage('page/serveHall/creditObjection.html','_blank')">
+								<div class="icbg4"></div>
+								信用异议
+							</div>
+						</div>
+						<div class="rtitle mb20">
+							常见问题
+						</div>
+						<div class="rcontent2" id="rcontent2">
+							<!--[each $commonProblem as $item $i]-->
+							<div class="rcitem2 oh1" onclick="getRegularPorAnswer('<!--[$item.ask]-->', 'commonProblem')" title="<!--[$item.ask]-->">
+								<span class="hl<!--[$i + 1]-->">
+									<!--[$i + 1]-->
+								</span>
+								<!--[$item.ask]-->
+							</div>
+							<!--[/each]-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="leftNav">
+			<div class="navitem nav-login" onclick="showdenlu()">
+				<a href="javascript:;">登录</a>
+			</div>
+			<div class="navitem nav-service" onclick="openIcService()">
+				<a href="javascript:;">智能客服</a>
+			</div>
+			<div class="navitem nav-Applet">
+				<a href="javascript:;">小程序</a>
+			</div>
+			<div class="navitem nav-help" onclick="goToPage('page/helpCenter/index.html')">
+				<a href="./page/helpCenter/index.html">帮助中心</a>
+			</div>
+			<div class="hiddom Applet">
+				<img src=".//static/img/index_/qrcode2.png" alt="" class="wp100">
+			</div>
+		</div>
+
+	</div>
+	<script>
+		function toPage(url) {
+			if (!url) return false
+			if (url.indexOf('page') != -1) { //非首页
+				if (document.location.href.indexOf(url) != -1) {
+					/* $('#navOpen').click() */
+				} else {
+					goToPage(url)
+				}
+			} else { //首页
+				if (document.location.href.indexOf('page') == -1) {
+					if ($('#headerdiv').attr('data-val') == 'open') {
+						$('#navOpen').click()
+					}
+				} else {
+					goToPage(url)
+				}
+			}
+		}
+	</script>
+	<div id="showdenlu" class="showdenlu">
+		<div class="pa w350 tc pb30 pl33 pr33 showdenlucon">
+			<div class="pa t0 r0 w40 h40 bkblue" onclick="clocedenlu()">
+				<!-- <img class="w20 mt10 dib" src="../static/img/close.png"> -->
+				<span class="headlog-close"></span>
+			</div>
+			<div class="fs20 fwb tc pt70">正在登录到信用广东</div>
+			<!-- <img class="w158 mt35 mb35" src="../static/img/loginUser.png"> -->
+			<div class="loginUser"></div>
+
+			<!-- 正式环境 -->
+			<div class="login-btn mt15">
+				<a href="javascript:;" onclick="goToUUC()" style="color:#fff !important">广东省统一身份认证平台登录/注册</a>
+			</div>
+
+			<!-- <div class="mt10 fs14" style="color: #999;">请使用企业身份登录</div> -->
+		</div>
+	</div>
+	<div id="denluchenggongcon" class="hiddom">
+		<div id="denluchenggong">
+			<!-- <img src="../static/img/dengluchenggong.png"> -->
+			<div class="db mt30 mr0 ml0 w150 h150 mb20 db dengluchenggong" style="margin-left: auto;margin-right: auto;">
+			</div>
+			<div class="fs18 tc" style="color: #20ba9b;">登录成功</div>
+			<div class="tc fs14" style="color: #666;">
+				正在返回页面（<span id="miaoid">3</span>）秒
+			</div>
+			<button onclick="fanhui()" style="width: 300px;margin-left: auto;margin-right: auto;" class="login-btn mt15 db mb40">立即返回</button>
+		</div>
+	</div>
+	<!-- body -->
+	<style>
+		.mincon {
+			padding: 0 0 40px;
+			width: 1200px;
+		}
+	</style>
+	<div class="mainbody hiddom">
+		<div class="mincon">
+			<div class="pl32 pr30 index-topBg">
+				<!-- <div class="fs26 pt20 tl">
+				新闻动态
+			</div> -->
+				<div class="clear pt30">
+					<div class="lunbo pr ovh w570 fl" style="height: 315px;" id="top">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<!--[each $records]-->
+								<div class="swiper-slide red-slide" style="height: 315px;">
+									<div class="pr">
+										<div class="imgcon">
+											<!--[if $item.isState]-->
+											<a href="javascript:;">
+												<img src="<!--[$item.titleImg]-->" class="cls-img">
+											</a>
+											<!--[else]-->
+											<a target="_blank" href="./page/cms/cmsContent.html?contentId=<!--[$item.id]-->&channelCode=<!--[$item.channelCode]-->">
+												<img data-src="/gdcreditwebApi2/cmsfile/web/forwardGetFile?id=<!--[$item.titleImg]-->" onerror="this.src='./static/img/watermark2.png';" class="cls-img">
+											</a>
+											<!--[/if]-->
+										</div>
+										<div class="swiper-title">
+											<span class="owt">
+												<!--[$item.title]-->
+											</span>
+										</div>
+									</div>
+								</div>
+								<!--[/each]-->
+							</div>
+							<div class="pagination r10" style="left:auto"></div>
+							<!-- <a class="arrow-left" href="#"></a>
+				    <a class="arrow-right" href="#"></a> -->
+						</div>
+					</div>
+					<div class="fl w538 pl24 white-bg h315">
+						<div class="clear index-tabList lh26 c1">
+							<div class="fl pl22 pr22 pb11 pt11 cup index-tabList-actived">新闻头条</div>
+							<div class="fl pl22 pr22 pb11 pt11 cup" onclick="goToPage('http://www.gd.gov.cn/xxts/', 'y')">政声传递</div>
+							<div class="fr pr11 pb11 pt11 c2 fs14 cup gdhover" id="more">更多></div>
+						</div>
+						<div class="index-gjp">
+							<div class="wp60"></div>
+							<div class="wp100"></div>
+							<div class="wp100"></div>
+							<div class="wp60"></div>
+							<div class="wp80"></div>
+							<div class="wp80"></div>
+						</div>
+						<div>
+							<div id="index-tab-1" class="mt16 dbzx">
+								<!--[each $records]-->
+								<div class="pr pr80 pb21 bbt">
+									<span class="index-tabText c333 w427 cup" onclick="goToPage('page/cms/cmsContent.html?contentId=<!--[$item.id]-->&channelCode=<!--[$item.channelCode]-->')">
+										<!--[$item.title|reportNullFilter]-->
+									</span>
+									<div class="pa t0 r0 fs14 lh21 c3">
+										<!--[$item.releaseDate | substr 0,10]-->
+									</div>
+								</div>
+								<!--[/each]-->
+							</div>
+							<div id="index-tab-2" class="mt16 dbzx hiddom">
+								<!--[each $records]-->
+								<div class="pr pr80 pb21 bbt">
+									<span class="index-tabText c333 w427 cup" onclick="goToPage('<!--[$item.externalLink]-->','y')">
+										<!--[$item.title|reportNullFilter]-->
+									</span>
+									<div class="pa t0 r0 fs14 lh21 c3">
+										<!--[$item.releaseDate | substr 0,10]-->
+									</div>
+								</div>
+								<!--[/each]-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="white-bg pr mt30">
+				<div class="fs18 tl pl30 pr30 c1 fwb">
+					信用应用
+				</div>
+				<div class="mt10 h310 pl15 pr15 ofh">
+					<div class="pro_push h310">
+						<a class="arrow-left3 prev" href="javascript:;"></a>
+						<div class="pro_frUl_m">
+							<div class="index-slide-img">
+								<a href="./page/serveHall/noIllegal.html">
+									<img src="./static/img/index_/index-slide-img-3.png">
+									<div class="p10 index-slide-content">
+										<div class="fs16 mt13 fwb c1">专项信用报告</div>
+										<div class="fs14 lh26 mt11 index-slide-text">为信用主体提供专项信用报告查询、打印服务
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<div class="index-slide-img">
+								<a href="./page/serveHall/creditReport.html">
+									<img src="./static/img/index_/index-slide-img-2.png">
+									<div class="p15 index-slide-content">
+										<div class="fs16 mt8 fwb c1">信用报告(公开版)</div>
+										<div class="fs14 lh26 mt11 index-slide-text">为信用主体提供信用记录报告查询、打印服务</div>
+									</div>
+								</a>
+							</div>
+
+							<div class="index-slide-img">
+								<a href="./page/serveHall/creditRepair.html">
+									<img src="./static/img/index_/index-slide-img-5.png">
+									<div class="p15 index-slide-content">
+										<div class="fs16 mt8 fwb c1">信用修复</div>
+										<div class="fs14 lh26 mt11 index-slide-text">依据国家政策法规要求，提供行政处罚数据的信用修复</div>
+
+									</div>
+								</a>
+							</div>
+
+							<div class="index-slide-img">
+								<a href="./page/finanCredit/index.html">
+									<img src="./static/img/index/yjr-rk-xyyy.png">
+									<div class="p15 index-slide-content">
+										<div class="fs16 mt8 fwb c1">融资信用产品专区</div>
+										<div class="fs14 lh26 mt11 index-slide-text">以信用为核心，为重点支持对象及小微企业提供高效线上融资服务</div>
+									</div>
+								</a>
+							</div>
+
+							<div class="index-slide-img">
+								<a href="./page/serveHall/creditObjection.html">
+									<img src="./static/img/index_/index-slide-img-4.png">
+									<div class="p15 index-slide-content">
+										<div class="fs16 mt8 fwb c1">信用异议</div>
+										<!-- <div class="fs16 lh26 mt11 index-slide-text">若信息存在异议，可在线提出信用异议申请</div> -->
+										<div class="fs14 lh26 mt11 index-slide-text">若认为网站公示的自身信用信息存在错误、遗漏，可在线提出异议申请</div>
+									</div>
+								</a>
+							</div>
+
+							<div class="index-slide-img">
+								<a href="./page/serveHall/commitment.html">
+									<img src="./static/img/index_/index-slide-img-1.png">
+									<div class="p15 index-slide-content">
+										<div class="fs16 mt8 fwb c1">自主承诺</div>
+										<div class="fs14 lh26 mt11 index-slide-text">
+											信用主体可在线作出信用承诺
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<!-- 先隐藏 -->
+
+							<!-- <div class="index-slide-img">
+							<a href="./page/trainingCourseware/index.html">
+								<img src="./static/img/index_/index-slide-img-6.png">
+								<div class="p15 index-slide-content">
+									<div class="fs20 mt10">信用培训</div>
+									<div class="fs15 lh26 mt10 index-slide-text">为市场主体提供诚信宣传教育以及失信案例剖析</div>
+								</div>
+							</a>
+						</div> -->
+						</div>
+						<a class="arrow-right3 next" href="javascript:;"></a>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="tabs mt10">
+				<div class="fs18 fwb c1 tl pr">
+					信用公示
+					<span class="fr c2 fs14 lh26 cup gdhover fwn" onclick="goToPage('page/creditPublic/index.html')">更多></span>
+				</div>
+				<div class="tabsContent pr mt10">
+					<div class="tabsTop">
+						<div class="tabsItem activeL">
+							<div class="tabsItem-1">
+								<p class="fs16 fwb">行政许可</p>
+							</div>
+						</div>
+						<div class="tabsItem">
+							<div class="tabsItem-2">
+								<p class="fs16 fwb">行政处罚</p>
+							</div>
+						</div>
+						<div class="tabsItem">
+							<div class="tabsItem-3">
+								<p class="fs16 fwb">守信激励主体名单</p>
+							</div>
+						</div>
+						<div class="tabsItem">
+							<div class="tabsItem-4">
+								<p class="fs16 fwb">失信惩戒主体名单</p>
+							</div>
+						</div>
+					</div>
+					<div style="background: #F9F9F9; max-height: 316px;" class="ofh h316">
+						<div class="tabsBodyItem" id="xzxk_">
+							<!--[if !$rows.length]-->
+							<div class="pt50 pb50">
+								<div class="tc nodata">
+									<img src="./static/img/loadingData.png">
+									<p class="c3 fs14 mt15">数据加载中...</p>
+								</div>
+							</div>
+							<!--[else]-->
+							<ul class="substanceList tylist">
+								<!--[each $rows]-->
+								<li>
+									<a href="./page/creditPublic/xzxkdet.html?id=<!--[$item.ID]-->">
+										<span class="oh1 w260 pl15 gdhover c1">
+											<!--[$item.xk_xdr_mc]-->
+										</span>
+										<span class="fr c2 fs14">
+											<!--[$item.xk_jdrq | substr 0,10]-->
+										</span>
+									</a>
+								</li>
+								<!--[/each]-->
+							</ul>
+							<span class="c2 fs14 cup gdhover pa r10 b0 pt5 pb18" onclick="goToPage('page/creditPublic/xzxk.html')">更多></span>
+							<!--[/if]-->
+						</div>
+						<div class="tabsBodyItem hiddom" id="xzcf_">
+							<!--[if !$rows.length]-->
+							<div class="pt50 pb50">
+								<div class="tc nodata">
+									<img src="./static/img/loadingData.png">
+									<p class="c3 fs14 mt15">数据加载中...</p>
+								</div>
+							</div>
+							<!--[else]-->
+							<ul class="substanceList tylist">
+								<!--[each $rows]-->
+								<li>
+									<a href="./page/creditPublic/xzcfdet.html?id=<!--[$item.ID]-->">
+										<span class="oh1 w260 pl15 gdhover c1">
+											<!--[$item.cf_xdr_mc]-->
+										</span>
+										<span class="fr c2 fs14">
+											<!--[$item.cf_jdrq | substr 0,10]-->
+										</span>
+									</a>
+								</li>
+								<!--[/each]-->
+							</ul>
+							<span class="c2 fs14 cup gdhover pa r10 b0 pt5 pb18" onclick="goToPage('page/creditPublic/xzcf.html')">更多></span>
+							<!--[/if]-->
+						</div>
+						<div class="tabsBodyItem hiddom" id="cssx_">
+							<!--[if !$rows.length]-->
+							<div class="pt50 pb50">
+								<div class="tc nodata">
+									<img src="./static/img/loadingData.png">
+									<p class="c3 fs14 mt15">数据加载中...</p>
+								</div>
+							</div>
+							<!--[else]-->
+							<ul class="substanceList tylist">
+								<!--[each $rows]-->
+								<li>
+									<a href="./page/creditPublic/detail.html?tableName=<!--[$item.TABLENAME]-->&type=<!--[$item.MDMC]-->&id=<!--[$item.MATEDATAID]-->">
+										<span class="oh1 w260 pl15 gdhover c1">
+											<!--[$item.ZTMC]-->
+										</span>
+										<span class="fr c2 fs14">
+											<!--[$item.UPDATETIME | substr 0,10]-->
+										</span>
+									</a>
+								</li>
+								<!--[/each]-->
+							</ul>
+							<span class="c2 fs14 cup gdhover pa r10 b0 pt5 pb18" onclick="goToPage('page/creditPublic/sxjlmd/index.html')">更多></span>
+							<!--[/if]-->
+						</div>
+						<div class="tabsBodyItem hiddom" id="yzsx_">
+							<!--[if !$rows.length]-->
+							<div class="pt50 pb50">
+								<div class="tc nodata">
+									<img src="./static/img/loadingData.png">
+									<p class="c3 fs14 mt15">数据加载中...</p>
+								</div>
+							</div>
+							<!--[else]-->
+							<ul class="substanceList tylist">
+								<!--[each $rows]-->
+								<li>
+									<a href="./page/creditPublic/detail.html?tableName=<!--[$item.TABLENAME]-->&type=<!--[$item.MDMC]-->&id=<!--[$item.MATEDATAID]-->">
+										<span class="oh1 w260 pl15 gdhover c1">
+											<!--[$item.ZTMC]-->
+										</span>
+										<span class="fr c2 fs14">
+											<!--[$item.UPDATETIME | substr 0,10]-->
+										</span>
+									</a>
+								</li>
+								<!--[/each]-->
+							</ul>
+							<span class="c2 fs14 cup gdhover pa r10 b0 pt5 pb18" onclick="goToPage('page/creditPublic/sxcjmd/index.html')">更多></span>
+							<!--[/if]-->
+						</div>
+					</div>
+				</div>
+				<div class="tabsLink">
+					<ul>
+						<li class="tst-1" onclick="goToPage('page/creditPublic/zdgzmd/index.html')">
+							<span></span>
+							<a href="javascript:;">其他失信主体名单</a>
+						</li>
+						<li class="tst-2" onclick="goToPage('page/creditPublic/dfsxmd/index.html')">
+							<span></span>
+							<a href="javascript:;">其他守信主体名单</a>
+						</li>
+						<li class="tst-3" onclick="goToPage('page/creditPublic/fyzxbgt.html')">
+							<span></span>
+							<a href="javascript:;">法院执行信息曝光台</a>
+						</li>
+						<li class="tst-4" style="margin-bottom: 0;" onclick="goToPage('page/creditPublic/jyycml/provinceIunfo.html')">
+							<span></span>
+							<a href="javascript:;">经营(活动)异常名录</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="topic mt30">
+				<div class="fs18 tl c1 fwb rrr">
+					专题专栏
+				</div>
+				<div class="mt5 h150">
+					<div class="pro_push_z pr h150">
+						<a class="arrow-left3 prev" href="javascript:;"></a>
+						<div class="topicContent_m h150">
+							<div class="topicItem">
+								<a href="javascript:;" onclick="goToPage('/page/complaint/index.html')">
+									<img src="./static/img/index_/topic-6.png">
+								</a>
+							</div>
+							<div class="topicItem">
+								<a href="javascript:;" onclick="goToPage('/page/creditPunishment/index.html')">
+									<img src="./static/img/index_/topic-1.png">
+								</a>
+							</div>
+							<!-- <div class="topicItem">
+							<a href="javascript:;" onclick="goToPage('/page/creditDynamics/regulation.html?channelCode=CXWLX')">
+								<img src="./static/img/index_/topic-2.png">
+							</a>
+						</div> -->
+							<div class="topicItem">
+								<a href="javascript:;" onclick="goToPage('/page/creditEasyLoan/index.html')">
+									<img src="./static/img/index_/topic-4.png">
+								</a>
+							</div>
+							<!-- <div class="topicItem">
+							<a onclick="junpTip('https://www.creditchina.gov.cn/home/zxzl/')" href="javascript:;">
+								<img src="./static/img/index_/topic-5.png">
+							</a>
+						</div> -->
+							<div class="topicItem">
+								<a href="javascript:;" onclick="goToPage('/page/ndbg/index.html')">
+									<img src="./static/img/index_/topic-3.png">
+								</a>
+							</div>
+
+							<!-- <div class="topicItem">
+							<a href="http://zxgk.court.gov.cn/shixin/" target="_blank">
+								<img src="./static/img/index_/topic-5.png">
+							</a>
+						</div>
+						
+						<div class="topicItem">
+							<a href="http://zxgk.court.gov.cn/xgl/" target="_blank">
+								<img src="./static/img/index_/topic-6.png">
+							</a>
+						</div> -->
+						</div>
+						<a class="arrow-right3 next" href="javascript:;"></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="links pl30 pr30 mt30">
+				<div class="fs18 tl c1 fwb">
+					友情链接
+				</div>
+				<div class="linksWrapper mt10">
+					<div class="ofh">
+						<div class="linksItem cup links_active">
+							<span class="linksBg1"></span>
+							共建单位
+						</div>
+						<div class="linksItem cup ml24 mr24">
+							<span class="linksBg2"></span>
+							信用网站
+						</div>
+						<div class="linksItem cup">
+							<span class="linksBg3"></span>
+							部门直通车
+						</div>
+					</div>
+					<div>
+						<div class="linksItemWrap">
+							<div class="gjdw">
+								<div class="gjdw-hd">
+									<ul></ul>
+								</div>
+								<div class="gjdw-wrap">
+									<ul>
+										<li>
+											<a onclick="junpTip('http://drc.gd.gov.cn/')" href="javascript:;">省发展改革委</a>
+											<a onclick="junpTip('https://www.cagd.gov.cn/')" href="javascript:;">省委网信办</a>
+											<a onclick="junpTip('http://gd.wenming.cn/')" href="javascript:;">省委文明办</a>
+											<a onclick="junpTip('https://www.gdzf.org.cn/')" href="javascript:;">省委政法委</a>
+											<a onclick="junpTip('http://www.gdbb.gov.cn/')" href="javascript:;">省委编办</a>
+											<a onclick="junpTip('http://gdstc.gd.gov.cn/')" href="javascript:;">省科技厅</a>
+											<a onclick="junpTip('http://gdii.gd.gov.cn/')" href="javascript:;">省工业和信息化厅</a>
+											<a onclick="junpTip('http://edu.gd.gov.cn/')" href="javascript:;">省教育厅</a>
+											<a onclick="junpTip('http://gdga.gd.gov.cn/')" href="javascript:;">省公安厅</a>
+											<a onclick="junpTip('http://czt.gd.gov.cn/')" href="javascript:;">省财政厅</a>
+											<a onclick="junpTip('http://smzt.gd.gov.cn/')" href="javascript:;">省民政厅</a>
+											<a onclick="junpTip('http://sft.gd.gov.cn/')" href="javascript:;">省司法厅</a>
+											<a onclick="junpTip('http://hrss.gd.gov.cn/')" href="javascript:;">省人力资源社会保障厅</a>
+											<a onclick="junpTip('http://zfcxjst.gd.gov.cn/')" href="javascript:;">省住房城乡建设厅</a>
+											<a onclick="junpTip('http://nr.gd.gov.cn/')" href="javascript:;">省自然资源厅</a>
+											<a onclick="junpTip('http://gdee.gd.gov.cn/')" href="javascript:;">省生态环境厅</a>
+											<a onclick="junpTip('http://td.gd.gov.cn/')" href="javascript:;">省交通运输厅</a>
+											<a onclick="junpTip('http://com.gd.gov.cn/')" href="javascript:;">省商务厅</a>
+											<a onclick="junpTip('http://slt.gd.gov.cn/')" href="javascript:;">省水利厅</a>
+											<a onclick="junpTip('http://dara.gd.gov.cn/')" href="javascript:;">省农业农村厅</a>
+										</li>
+										<li>
+											<a onclick="junpTip('http://whly.gd.gov.cn/')" href="javascript:;">省文化和旅游厅</a>
+											<a onclick="junpTip('http://amr.gd.gov.cn/')" href="javascript:;">省市场监管局</a>
+											<a onclick="junpTip('http://wsjkw.gd.gov.cn/')" href="javascript:;">省卫生健康委</a>
+											<a onclick="junpTip('http://yjgl.gd.gov.cn/')" href="javascript:;">省应急管理厅</a>
+											<a onclick="junpTip('http://zfsg.gd.gov.cn/')" href="javascript:;">省政务服务和数据管理局</a>
+											<a onclick="junpTip('http://www.gd.jcy.gov.cn/')" href="javascript:;">省检察院</a>
+											<a onclick="junpTip('http://lyj.gd.gov.cn/')" href="javascript:;">省林业局</a>
+											<a onclick="junpTip('https://www.gdcourts.gov.cn/')" href="javascript:;">省法院</a>
+											<a onclick="junpTip('http://www.gdgcc.gov.cn/')" href="javascript:;">省工商联</a>
+											<a onclick="junpTip('http://guangzhou.pbc.gov.cn/')" href="javascript:;">人民银行广州分行</a>
+											<a onclick="junpTip('http://gdfs.customs.gov.cn/')" href="javascript:;">海关总署广东分署</a>
+											<a onclick="junpTip('https://guangdong.chinatax.gov.cn/')" href="javascript:;">省税务局</a>
+											<a onclick="junpTip('https://www.nfra.gov.cn/branch/guangdong/view/pages/index/index.html')" href="javascript:;">广东金融监管局</a>
+											<a onclick="junpTip('http://www.csrc.gov.cn/')" href="javascript:;">广东证监局</a>
+											<a onclick="junpTip('http://www.gd.news.cn/')" href="javascript:;">新华社广东分社</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="linksItemWrap hiddom">
+							<div class="xywz">
+								<div class="xywz-hd">
+									<ul></ul>
+								</div>
+								<div class="xywz-wrap">
+									<ul>
+										<li>
+											<a onclick="junpTip('https://www.creditchina.gov.cn/')" href="javascript:;">信用中国</a>
+											<a onclick="junpTip('http://creditbj.jxj.beijing.gov.cn/')" href="javascript:;">信用中国（北京）</a>
+											<a onclick="junpTip('https://credit.fzgg.tj.gov.cn/')" href="javascript:;">信用中国（天津）</a>
+											<a onclick="junpTip('https://credit.fgw.sh.gov.cn/')" href="javascript:;">信用中国（上海）</a>
+											<a onclick="junpTip('http://xy.hebei.gov.cn/')" href="javascript:;">信用中国（河北）</a>
+											<a onclick="junpTip('http://creditsx.fgw.shanxi.gov.cn/')" href="javascript:;">信用中国（山西）</a>
+											<a onclick="junpTip('http://credit.jl.gov.cn/')" href="javascript:;">信用中国（吉林）</a>
+											<a onclick="junpTip('http://xyln.ln.gov.cn/')" href="javascript:;">信用中国（辽宁）</a>
+											<a onclick="junpTip('http://cx.guizhou.gov.cn/')" href="javascript:;">信用中国（贵州）</a>
+											<a onclick="junpTip('https://credit.shandong.gov.cn/')" href="javascript:;">信用中国（山东）</a>
+											<a onclick="junpTip('http://credit.zj.gov.cn/')" href="javascript:;">信用中国（浙江）</a>
+											<a onclick="junpTip('http://credit.ah.gov.cn/')" href="javascript:;">信用中国（安徽）</a>
+											<a onclick="junpTip('https://www.creditxj.gov.cn/')" href="javascript:;">信用中国（新疆）</a>
+											<a onclick="junpTip('http://xy.fujian.gov.cn/')" href="javascript:;">信用中国（福建）</a>
+											<a onclick="junpTip('https://credit.henan.gov.cn/')" href="javascript:;">信用中国（河南）</a>
+											<a onclick="junpTip('https://www.creditjx.gov.cn/')" href="javascript:;">信用中国（江西）</a>
+											<a onclick="junpTip('http://credit.hubei.gov.cn/')" href="javascript:;">信用中国（湖北）</a>
+											<a onclick="junpTip('https://credit.fgw.hunan.gov.cn/')" href="javascript:;">信用中国（湖南）</a>
+											<a onclick="junpTip('https://credit.sc.gov.cn/')" href="javascript:;">信用中国（四川）</a>
+											<a onclick="junpTip('http://credit.gansu.gov.cn/')" href="javascript:;">信用中国（甘肃）</a>
+										</li>
+										<li>
+											<a onclick="junpTip('http://xyhn.hainan.gov.cn/')" href="javascript:;">信用中国（海南）</a>
+											<a onclick="junpTip('https://www.qhcredit.gov.cn/')" href="javascript:;">信用中国（青海）</a>
+											<a onclick="junpTip('https://www.xycq.gov.cn/')" href="javascript:;">信用中国（重庆）</a>
+											<a onclick="junpTip('http://credit.jiangsu.gov.cn/')" href="javascript:;">信用中国（江苏）</a>
+											<a onclick="junpTip('http://yncredit.yn.gov.cn/')" href="javascript:;">信用中国（云南）</a>
+											<a onclick="junpTip('https://credit.drc.xizang.gov.cn/')" href="javascript:;">信用中国（西藏）</a>
+											<a onclick="junpTip('http://credit.shaanxi.gov.cn/')" href="javascript:;">信用中国（陕西）</a>
+											<a onclick="junpTip('http://fgw.nmg.gov.cn/xynmg/html/index.html')" href="javascript:;">信用中国（内蒙古）</a>
+											<a onclick="junpTip('http://xygx.fgw.gxzf.gov.cn/')" href="javascript:;">信用中国（广西）</a>
+											<a onclick="junpTip('https://credit.xjbt.gov.cn/')" href="javascript:;">信用中国（兵团）</a>
+											<a onclick="junpTip('https://credit.nx.gov.cn/')" href="javascript:;">信用中国（宁夏）</a>
+											<a onclick="junpTip('https://credit.hlj.gov.cn/')" href="javascript:;">信用中国（黑龙江）</a>
+											<a onclick="junpTip('https://credit.gz.gov.cn/')" href="javascript:;">信用中国（广州）</a>
+											<a onclick="junpTip('https://www.szcredit.com.cn/#/index')" href="javascript:;">信用中国（深圳）</a>
+											<a onclick="junpTip('http://credit.zhuhai.gov.cn/')" href="javascript:;">信用中国（珠海）</a>
+											<a onclick="junpTip('https://credit.shantou.gov.cn')" href="javascript:;">信用中国（汕头）</a>
+											<a onclick="junpTip('https://www.credit.foshan.gov.cn/')" href="javascript:;">信用中国（佛山）</a>
+											<a onclick="junpTip('http://credit.sg.gov.cn/sgxy/')" href="javascript:;">信用中国（韶关）</a>
+											<a onclick="junpTip('https://hyxy.heyuan.gov.cn/homepage/creditindex/toMainIndex')" href="javascript:;">信用中国（河源）</a>
+											<a onclick="junpTip('http://credit.meizhou.gov.cn/')" href="javascript:;">信用中国（梅州）</a>
+										</li>
+										<li>
+											<a onclick="junpTip('https://xyhz.huizhou.gov.cn/homepage/creditindex/toMainIndex')" href="javascript:;">信用中国（惠州）</a>
+											<a onclick="junpTip('http://credit.shanwei.gov.cn/homepage/creditindex/toMain')" href="javascript:;">信用中国（汕尾）</a>
+											<a onclick="junpTip('https://credit.dg.gov.cn/new_dgxy')" href="javascript:;">信用中国（东莞）</a>
+											<a onclick="junpTip('https://credit.zs.gov.cn/HOMEPAGE.html?navPage=0')" href="javascript:;">信用中国（中山）</a>
+											<a onclick="junpTip('https://xyjm.jiangmen.gov.cn/')" href="javascript:;">信用中国（江门）</a>
+											<a onclick="junpTip('https://credit.yangjiang.gov.cn/')" href="javascript:;">信用中国（阳江）</a>
+											<a onclick="junpTip('https://credit.zhanjiang.gov.cn/')" href="javascript:;">信用中国（湛江）</a>
+											<a onclick="junpTip('https://mmxy.maoming.gov.cn/gzmh/home')">信用中国（茂名）</a>
+											<a onclick="junpTip('https://credit.zhaoqing.gov.cn/')" href="javascript:;">信用中国（肇庆）</a>
+											<a onclick="junpTip('https://xyqy.gdqy.gov.cn/')" href="javascript:;">信用中国（清远）</a>
+											<a onclick="junpTip('https://credit.chaozhou.gov.cn/')" href="javascript:;">信用中国（潮州）</a>
+											<a onclick="junpTip('http://credit.jieyang.gov.cn/')" href="javascript:;">信用中国（揭阳）</a>
+											<a onclick="junpTip('https://credit.yunfu.gov.cn/')" href="javascript:;">信用中国（云浮）</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="linksItemWrap hiddom">
+							<div class="bmztc">
+								<div class="bmztc-hd">
+									<ul></ul>
+								</div>
+								<div class="bmztc-wrap">
+									<ul>
+										<li>
+											<a onclick="junpTip('http://www.gsxt.gov.cn/index.html')" href="javascript:;">全国企业信用信息公示系统</a>
+											<a onclick="junpTip('http://zxgk.court.gov.cn/shixin/')" href="javascript:;">全国法院失信被执行人名单信息公布与查询</a>
+											<!-- <a onclick="junpTip('http://amr.gd.gov.cn/sz/login')" href="javascript:;">守合同重信用企业网上公示系统</a> -->
+											<!-- <a onclick="junpTip('http://210.76.74.212/IntoGD/')" href="javascript:;">进粤企业和人员诚信信息登记平台</a> -->
+											<a onclick="junpTip('https://gd.122.gov.cn/')" href="javascript:;">交通违法查询</a>
+											<a onclick="junpTip('http://www.csrc.gov.cn/pub/zjhpublicofgd')" href="javascript:;">广东证券期货监督管理信息公开目录</a>
+											<!-- <a onclick="junpTip('http://www.gdsy.gov.cn/')" href="javascript:;">事业单位法人年度报告</a> -->
+											<a onclick="junpTip('https://gjsy.scopsr.gov.cn/')" href="javascript:;">机关赋码和事业单位登记管理平台</a>
+											<a onclick="junpTip('http://zbtb.gd.gov.cn')" href="javascript:;">广东省招标投标监管网</a>
+											<a onclick="junpTip('http://zhsl.gdwater.gov.cn:880/jsscxyxxpt/jgThinking/#/home')" href="javascript:;">广东水利建设与管理信用信息平台</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hlw-dc hiddom">
+		<div class="hlw-dc-box">
+			<p>重要提醒</p>
+			<!-- 信用修复短信提醒服务公告（点击弹出详情） -->
+			<div class="hlw-new" onclick="openNoticeModal()">关于开展信用修复短信提醒服务的公告<span class="badge">新</span></div>
+			<div>近期发现有机构假冒本网站工作人员联系企业开展有偿辅导，本网站声明，信用广东网站为公众提供免费公益性公共信用服务，从未组织或委托任何机构开展有偿公共信用服务辅导或培训。请谨防上当受骗！对于上述不法行为，本网站将依法追究责任。</div>
+		</div>
+		<a onclick="junpTip('https://www.gov.cn/zhengce/zczhjd/')" href="javascript:;" class="index_link_1"><img src="./static/img/index_/index_link_1.jpg"></a>
+		<a onclick="junpTip('https://tousu.www.gov.cn/dc/2023myjj/index.htm')" href="javascript:;"><img src="./static/img/index_/hlwEnter.png"></a>
+		<img src="./static/img/index_/hlwQrcode.png">
+		<!-- <img src="./static/img/index_/wjqrcode.png" alt=""> -->
+		<div class="floatWindow_close" title="关闭" onclick="closeFloatWindow()">
+			<img src="./static/img/close3.png">
+		</div>
+	</div>
+
+	<!-- 公告详情弹窗（点击浮窗公告条目弹出） -->
+	<div class="hlw-overlay" id="hlwOverlay">
+		<div class="hlw-modal">
+			<div class="hlw-modal-head">
+				<span>温馨提醒</span>
+				<button type="button" title="关闭" onclick="closeNoticeModal()">×</button>
+			</div>
+			<div class="hlw-modal-body">
+				<p>为便利信用主体在纠正失信行为、履行相关义务后及时完成信用修复，广东省发展和改革委员会推出信用修复短信提醒服务，在行政处罚信息公示期满后，向相关主体发送提醒短信。</p>
+				<div class="hlw-modal-warn">开展信用修复不收取任何费用，请信用主体提高警惕，谨防冒用名义收费等诈骗行为，避免上当受骗。</div>
+			</div>
+			<div class="hlw-modal-foot">
+				<button type="button" class="hlw-btn-primary" onclick="closeNoticeModal()">我已知晓</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+
+	<div class="indexFooter mt30" id="footer">
+		<!-- footer -->
+
+		<div class="footer pt25 pb25 footer_">
+			<div class="main-width pr" style="z-index: 5;">
+				<div class="fottterimgcon pa">
+					<a href="javascript:;" class="footer-img1">
+						<!-- <span class="jiucuopng" onclick="Link('4406000069')"></span> -->
+						<script id="_jiucuo_" async sitecode="4400000079" src="https://zfwzgl.www.gov.cn/exposure/jiucuo.js"></script>
+						<span id="_span_jiucuo"></span>
+					</a>
+					<a href="http://bszs.conac.cn/sitename?method=show&id=0B029824F3B74212E053012819AC74C7" target="_blank" class="footer-img2">
+						<span class="redpng"></span>
+					</a>
+				</div>
+				<div class="footercon">
+					<div class="footerspan">
+						<div>©版权所有：
+							<a class="footera" href="javascript:" onclick="goToPage('index.html')">信用广东</a>
+							<span class="dib ml4 mr4">|</span>
+							<a class="footera" href="javascript:" onclick="goToPage('/page/helpCenter/index.html?code=WZSM')">网站声明</a>
+							<span class="dib ml4 mr4">|</span>
+							<a class="footera" href="javascript:" onclick="goToPage('/page/helpCenter/index.html?code=GYWM')">关于我们</a>
+							<span class="dib ml4 mr4">|</span>
+							<a class="footera" href="javascript:;" onclick="goToPage('/page/externalLink/sitemap.html')">网站地图</a>
+						</div>
+					</div>
+				</div>
+				<div class="footercon mt8">
+					<div class="footerspan">
+						<span>主办单位：广东省发展和改革委员会</span>
+						<!--<span>主办单位：主办单位公司</span>-->
+					</div>
+					<div class="footerspan">
+						<span>承办单位：广东省投资和信用中心</span>
+						<!--<span>承办单位：承办单位公司</span>-->
+					</div>
+				</div>
+				<div class="footercon mt8">
+					<div class="footerspan">
+						<span>网站标识码：4400000079</span>
+					</div>
+					<div class="footerspan">
+						<span><a class="footera" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">备案号：粤ICP备2022065133号</a>
+						</span>
+					</div>
+					<div class="footerspan gongan-div">
+						<span><span class="gongan"></span><a class="footera" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44010402001761">
+								粤公网安备 44010402001761号</a></span>
+					</div>
+				</div>
+				<div class="fottterimgcon pa" style="right: 270px; top: -10px;">
+
+					<!-- <a href="javascript:;" class="footer-img0">
+					<span class="foot0"></span>
+				</a> -->
+
+					<a onclick="junpTip('http://www.gdzwfw.gov.cn/portal/branch-hall?orgCode=006939756')" href="javascript:;" class="footer-img5">
+						<span class="foot1"></span>
+					</a>
+					<a onclick="junpTip('http://drc.gd.gov.cn/hdjlpt')" href="javascript:;" class="footer-img6">
+						<span class="foot2"></span>
+					</a>
+					<a onclick="junpTip('http://wza.isc.org.cn/rzpt/bsgl/dt/20240425/3293.html')" href="javascript:;" class="footer-img7">
+						<span class="foot3"></span>
+					</a>
+					<a href="javascript:;" class="footer-img3">
+						<span class="qrcode1"></span>
+					</a>
+					<a href="javascript:;" class="footer-img4">
+						<span class="qrcode2"></span>
+					</a>
+				</div>
+				<div id="version" data-val="1.1.2610081" class="hiddom"></div>
+			</div>
+		</div>
+
+	</div>
+	<script src="https://hm.baidu.com/hm.js?a530f4bee8ba327a3ef31347051b5ef7"> </script>
+	<script defer="defer" async type="text/javascript" src="//gov.govwza.cn/dist/aria.js?appid=266ec5cde363c5aea8f28a3fdb0f8de9" charset="utf-8" id="ariascripts"></script>
+	<!-- footer -->
+
+	<script src="./utils/importJs.js"></script>
+	<script>
+		//用户保存新闻头条/政声传递的tab 防止错乱bug
+		var hotNewsIndex = 0;
+		//打开
+		console.log(document.referrer)
+		if (!document.referrer || document.referrer.indexOf('baidu') != -1) {
+			$('.nav-list .clear li').removeClass('hover')
+			var height = document.documentElement.clientHeight - 250 > 500 ? document.documentElement.clientHeight - 250 : 500
+			$('#headerdiv').attr('data-val', 'open')
+			$('#headerdiv').animate({
+				height: height
+			}, function() {
+				$('.mainbody').hide()
+			})
+			$('.home-logo').animate({
+				top: "55px",
+				left: "380px"
+			})
+			$('.header-search').animate({
+				top: "150px",
+				right: "300px",
+				marginTop: "55px"
+			})
+			$('.header-gn').toggle(200)
+			$('.hot-search').toggle(200)
+			$('#navOpen').addClass('open')
+			$('#navOpen').removeClass('close')
+			$('.home-search').hide()
+		} else {
+			$('#headerdiv').attr('data-val', 'close')
+			$('.mainbody').show()
+		}
+		setTimeout(function() {
+			var vis = 4
+			if ($('body').hasClass('UseInMobile')) {
+				vis = 1
+				toPage('index.html')
+			}
+			$(".pro_push").slide({
+				mainCell: ".pro_frUl_m",
+				autoPage: true,
+				effect: "leftLoop",
+				autoPlay: false,
+				vis: vis
+			});
+			$(".pro_push_z").slide({
+				mainCell: ".topicContent_m",
+				autoPage: true,
+				effect: "leftLoop",
+				autoPlay: false,
+				vis: vis
+			});
+		}, 1000)
+		/* $(".pro_push").slide({
+			mainCell: ".pro_frUl_m",
+			autoPage: true,
+			effect: "leftLoop",
+			autoPlay: false,
+			vis: 4
+		});
+
+		$(".pro_push_z").slide({
+			mainCell: ".topicContent_m",
+			autoPage: true,
+			effect: "leftLoop",
+			autoPlay: false,
+			vis: 4
+		}); */
+		//友情链接
+		var xywz = null
+		var bmztc = null
+		$(".linksItem").mouseover(function() {
+			$(this).addClass('links_active')
+			$(this).siblings().each(function() {
+				$(this).removeClass('links_active')
+			})
+			$('.linksItemWrap').eq($(this).index()).removeClass('hiddom').siblings().addClass('hiddom')
+			if ($(this).index() == 1 && !xywz) {
+				//信用网站
+				xywz = $(".xywz").slide({
+					titCell: ".xywz-hd ul",
+					mainCell: ".xywz-wrap ul",
+					autoPage: true,
+					effect: "leftLoop",
+					autoPlay: true,
+					vis: 1
+				})
+			}
+			if ($(this).index() == 2 && !bmztc) {
+				//信用网站
+				bmztc = $(".bmztc").slide({
+					titCell: ".bmztc-hd ul",
+					mainCell: ".bmztc-wrap ul",
+					autoPage: false,
+					effect: "leftLoop",
+					autoPlay: false,
+					vis: 1
+				})
+			}
+		})
+		//共建单位
+		$(".gjdw").slide({
+			titCell: ".gjdw-hd ul",
+			mainCell: ".gjdw-wrap ul",
+			autoPage: true,
+			effect: "leftLoop",
+			autoPlay: true,
+			vis: 1
+		})
+		//对比国内和省内六篇文章，选择最新六篇
+		function getNewContent(list) {
+			for (var i = 0; i < list.length; i++) {
+				list[i].releaseDate = list[i].releaseDate + ' ' + list[i].createTime.split(' ')[1]
+			}
+			list.sort(function(a, b) {
+				return b.releaseDate < a.releaseDate ? -1 : 1
+			})
+			if (hotNewsIndex == 0) {
+				Fxtpl.render('index-tab-1', {
+					records: list.slice(0, 6)
+				});
+				//隐藏骨架屏
+				$('.index-gjp').hide()
+			}
+		}
+		loadHostContent()
+		// 获取国内和省内各六篇文章
+		function loadHostContent() {
+			/* ajax({
+				url: "/cmscontent/web/queryByPageGdContent",
+				type: "GET",
+				data: { 'channelCode': 'XYDT_GN', 'rows': 5 },
+				success: function (res) {
+					var gn = []
+					gn = res.data.records
+				}
+			}); */
+			/* ajax({
+				url: "/cmscontent/web/queryByPageGdContent",
+				type: "GET",
+				data: { 'channelCode': 'XYDT_SN', 'rows': 6 },
+				success: function (res) {
+					var sn = []
+					sn = res.data.records
+					getNewContent(sn)
+				}
+			}); */
+			ajax({
+				url: "/cmscontent/web/queryByPageGdContent",
+				type: "GET",
+				data: {
+					'channelCode': 'XYDT_GN',
+					'rows': 6
+				},
+				success: function(res) {
+					var gn = []
+					gn = res.data.records
+					ajax({
+						url: "/cmscontent/web/queryByPageGdContent",
+						type: "GET",
+						data: {
+							'channelCode': 'XYDT_SN',
+							'rows': 6
+						},
+						success: function(res) {
+							var sn = []
+							for (var i = 0; i < res.data.records.length; i++) {
+								if (contains(gn, res.data.records[i].id)) {
+									sn.push(res.data.records[i])
+								}
+							}
+							getNewContent(gn.concat(sn))
+						}
+					});
+				}
+			});
+		}
+
+		function contains(gn, val) {
+			for (var j = 0; j < gn.length; j++) {
+				if (val == gn[j].id) {
+					return false
+					break
+				}
+			}
+			return true
+		}
+		//加载轮播资讯
+		loadTopCms();
+
+		function loadTopCms() {
+			ajax({
+				url: "/cmscontent/web/queryByPageGdContent",
+				type: "GET",
+				data: {
+					'channelCode': 'HOT_NEWS',
+					'rows': 5,
+					'isCarousel': 1,
+				},
+				success: function(res) {
+					//过滤，至少是有图片的才显示
+					var newArr = []
+					res.data.records.forEach(function(item) {
+						if (item.titleImg) {
+							newArr.push(item)
+						}
+					})
+					res.data.records = newArr
+					//国庆
+					res.data.records.unshift({
+						isState: true,
+						titleImg: './static/img/index_/gq77.png',
+						title: '着力推动高质量发展全面深化改革开放'
+					})
+					Fxtpl.render('top', res.data);
+					//加载轮播效果
+					handleMySwiper()
+					$("body").on("click", "#navOpen", function() {
+						//click事件可自行多个方法，点击开关后再执行轮播图初始化
+						handleMySwiper()
+					})
+					$('.cls-img').each(function() {
+						$(this).attr('src', $(this).attr('data-src'))
+					})
+				}
+			});
+		}
+		var mySwiper = null
+
+		function handleMySwiper() {
+			if ($('#headerdiv').attr('data-val') == 'close' && $('.mainbody').css('display') == 'block' && !mySwiper) {
+				//加载轮播效果
+				mySwiper = new Swiper('.swiper-container', {
+					pagination: '.pagination',
+					paginationClickable: true,
+					loop: true,
+					grabCursor: false,
+					autoplay: 3000
+				})
+			}
+		}
+		/**
+		 * 加载cms内容
+		 * @param {Object} channelCode 栏目编码
+		 * @param {Object} domId
+		 * @param {Object} rows 查询条数
+		 */
+		function loadCmsContent(channelCode, domId, rows) {
+			ajax({
+				url: "/cmscontent/web/queryByPageGdContent",
+				type: "GET",
+				data: {
+					'channelCode': channelCode,
+					'rows': rows
+				},
+				success: function(res) {
+					Fxtpl.render(domId, res.data);
+				}
+			});
+		}
+		$("#more").on('click', function() {
+			goToPage("page/creditDynamics/index.html?channelCode=XYDT")
+		})
+		$('.index-tabList .cup:not(.fr)').on('mouseover', function() {
+			$(this).addClass('index-tabList-actived')
+			$(this).siblings().removeClass('index-tabList-actived')
+			$("#more").unbind("click")
+			hotNewsIndex = $(this).index()
+			if ($(this).index() == 1) {
+				//加载政声传递
+				loadZSContent()
+				$("#more").on('click', function() {
+					goToPage('http://www.gd.gov.cn/xxts/', 'y')
+				})
+			}
+			if ($(this).index() == 0) {
+				//新闻动态
+				loadHostContent()
+				$("#more").on('click', function() {
+					goToPage("page/creditDynamics/index.html?channelCode=XYDT")
+				})
+			}
+			$('.dbzx').eq($(this).index()).removeClass('hiddom').siblings().addClass('hiddom');
+		})
+		//加载政声传递列表数据
+		function loadZSContent() {
+			$.ajax({
+				url: 'https://app.gd.gov.cn/xxts/pushinfo_json.php',
+				dataType: "jsonp",
+				jsonp: "pushInfoJsonpCallBack",
+				jsonpCallback: "pushInfoJsonpCallBack",
+				success: function(res) {
+					$.each(res, function(index, item) {
+						item.channelName = '政声传递'
+						item.description = ''
+						item.origin = '广东省人民政府门户网站'
+						item.releaseDate = item.pubDate
+						item.externalLink = item.link
+					})
+					if (hotNewsIndex == 1) {
+						Fxtpl.render('index-tab-2', {
+							records: res.slice(0, 6)
+						});
+					}
+				}
+			});
+		}
+		//加载信用承诺
+		/* loadXycn();
+		function loadXycn() {
+			ajax({
+				url: "/promise/web/pageList",
+				type: "GET",
+				data: { 'rows': 5 },
+				success: function (res) {
+					Fxtpl.render("xycn", res.data);
+				}
+			});
+		} */
+		//加载行政处罚
+		// loadInfoClsDataByLucene('t_xydak_sgs_xzcfxx_', 'xzcf', 5, JSON.stringify([{ CF_JDRQ: "desc" }]));
+		//加载行政许可
+		// loadInfoClsDataByLucene('t_xydak_sgs_xzxkxx_', 'xzxk', 5, JSON.stringify([{ XK_JDRQ: "desc" }]));
+		//加载数据更新情况
+		//loadInfoClsData('V_STATISTICS_DEPT_REPORTS', 'deptReports', 100);
+		/**
+		 * 查询目录数据
+		 * @param {Object} clsCode 目录编码
+		 * @param {Object} domId
+		 * @param {Object} rows 查询条数
+		 * @param {Object} orderArgs 排序参数
+		 */
+		function loadInfoClsData(clsCode, domId, rows, orderArgs) {
+			ajax({
+				url: "/infoclass/web/pageLoadDataByInclsCode",
+				type: "GET",
+				data: {
+					'clsCode': clsCode,
+					'rows': rows,
+					orderArgs: orderArgs
+				},
+				success: function(res) {
+					Fxtpl.render(domId, res.data);
+					if (domId == 'deptReports') {
+						$('.gundong').liMarquee({
+							direction: 'up',
+							circular: true,
+							scrollamount: 20
+							//runshort:false
+						});
+					}
+				}
+			});
+		}
+
+		function loadInfoClsDataByLucene(clsCode, domId, rows, orderArgs) {
+			/* Fxtpl.render(domId, null); */
+			ajax({
+				url: "/luceneidx/web/booleanQueryListByPageV2",
+				type: "POST",
+				timeout: 60000,
+				data: {
+					'tableName': clsCode,
+					'rows': rows,
+					orderArgs: orderArgs
+				},
+				success: function(res) {
+					res.data.rows = res.data.rows.slice(0, 14)
+					Fxtpl.render(domId, res.data);
+					if (domId == 'deptReports') {
+						$('.gundong').liMarquee({
+							direction: 'up',
+							circular: true,
+							scrollamount: 20
+							//runshort:false
+						});
+					}
+				}
+			});
+		}
+		loadInfoClsDataByLucene('v_ztk_03_sgs_xzxk', 'xzxk_', 20, JSON.stringify([{
+			xk_jdrq_sort: "desc"
+		}]));
+		$(".tabsItem").mouseover(function() {
+			$(this).addClass('activeL')
+			$(this).siblings().each(function() {
+				$(this).removeClass('activeL')
+			})
+			$('.tabsBodyItem').eq($(this).index()).removeClass('hiddom').siblings().addClass('hiddom');
+			if ($(this).index() == 0) {
+				//加载行政许可
+				loadInfoClsDataByLucene('v_ztk_03_sgs_xzxk', 'xzxk_', 20, JSON.stringify([{
+					xk_jdrq_sort: "desc"
+				}]));
+			} else if ($(this).index() == 1) {
+				//加载行政处罚
+				loadInfoClsDataByLucene('v_ztk_03_sgs_xzcf', 'xzcf_', 20, JSON.stringify([{
+					cf_jdrq_sort: "desc"
+				}]));
+			} else if ($(this).index() == 2) {
+				loadInfoClsDataByLucene('T_XYYYK_GSLM_CSSXZTMD', 'cssx_', 14, JSON.stringify([{
+					'UPDATETIME': "desc"
+				}]));
+			} else if ($(this).index() == 3) {
+				loadInfoClsDataByLucene('T_XYYYK_GSLM_YZSXZTMD', 'yzsx_', 14, JSON.stringify([{
+					'UPDATETIME': "desc"
+				}]));
+			}
+		})
+		//显示浮窗
+		if (!sessionStorage.getItem('floatWindowhide')) {
+			$('.hlw-dc').show()
+		}
+		//关闭浮窗
+		function closeFloatWindow() {
+			$('.hlw-dc').hide()
+			sessionStorage.setItem('floatWindowhide', '1')
+		}
+		//公告详情弹窗
+		function openNoticeModal() {
+			$('#hlwOverlay').addClass('show')
+		}
+
+		function closeNoticeModal() {
+			$('#hlwOverlay').removeClass('show')
+		}
+		//点遮罩关闭
+		$('#hlwOverlay').on('click', function(e) {
+			if (e.target === this) {
+				closeNoticeModal()
+			}
+		})
+		//Esc关闭
+		$(document).on('keydown', function(e) {
+			if (e.keyCode === 27) {
+				closeNoticeModal()
+			}
+		})
+	</script>
+</body>
+
+</html>

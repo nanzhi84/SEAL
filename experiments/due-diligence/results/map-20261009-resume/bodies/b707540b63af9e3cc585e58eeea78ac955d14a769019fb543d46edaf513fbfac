@@ -1,0 +1,1446 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="gb2312">
+<title>湖南省联合产权交易所</title>
+<meta name="viewport" content="width=1200">
+<meta name="renderer" content="webkit"/>
+<meta name="force-rendering" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+<link rel="stylesheet" href="2023/css/styles.css?v=3.0" />
+<link rel="stylesheet" href="2023/css/slick.css?v=3.0" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<script src="2023/js/jquery.js?v=3.0" type="text/javascript"></script>
+    <input name="xmbdbh" type="hidden" id="xmbdbh" value=""/>
+    <input name="title" type="hidden" id="title"  value=""/>
+    <input name="objPriceRange" type="hidden" id="objPriceRange"  value=""/>
+    <input name="xmss" type="hidden" id="xmss"  value="1"/>
+    <input name="xmlb" type="hidden" id="xmlb"  value=""/>
+    <input name="xmjzrq" type="hidden" id="xmjzrq"  value=""/>
+
+
+<!--下滑弹出注册窗-->
+<script language="javascript">
+function showR3D(num){
+   for(var i=1;i<4;i++){
+       $("#a_"+i).attr("class","");
+       $("#b_"+i).hide();
+   }
+   $("#a_"+num).attr("class","d3-1-1"); 
+   $("#b_"+num).show();
+}
+</script>
+<script language="javaScript">
+function IsPC() {
+   var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
+}
+
+//链接地址带参数
+var urlString = document.location.search;
+ var paraString = "";
+   if(urlString != null){
+     paraString = urlString.substring(urlString.indexOf("=")+1,urlString.length);
+}
+
+var host = location.hostname;
+if((host=="www.hnaee.com" ||  host=="hnaee.com") && !IsPC()&&!paraString)
+{
+	document.location.href="/hnaee/155/default.htm";
+}
+</script>
+  <script type="text/javascript">
+  
+  function showPage(pagen,count){
+  $("#page").val(pagen);
+  document.getElementById("findexmxObj").submit();
+	//window.location.href="/creatorCMS/appManage/objectManage/findFontObjectList.page?rows="+18+"&page="+pagen+"&pageType=1"
+	//+"&xmbdbh="+xmbdbh+"&title="+encodeURI(encodeURI(title))+"&objPriceRange="+objPriceRange+"&xmss="+xmss+"&xmlb="+xmlb+"&xmjzrq="+xmjzrq;
+  }
+
+      function onFaEnlist(fid){
+		  var flag=true;
+		    if(!flag){
+		  	  parent.$(".openlogin").click();
+		    }else{
+		    $.post("/creatorCMS/appManage/enlistManage/saveFaEnlistInfo.page",{"fid":fid},function(str){
+		    	 //投资未认证
+		    	 if(str=="tzwrz"){
+		    	   var isRz = confirm("请实名认证后进行报名,是否进入实名认证!");
+		    	    if(isRz){
+		    	     window.open("/rums/index.jsp");
+		    	    }
+		    	 }else if(str=="success"){
+		    	  var  isRes= confirm("您已报名成功,是否进入系统上传报名资料!"); 
+		    	    if(isRes){
+		    	     window.open("/rums/index.jsp");
+		    	    }
+		    	 }else{
+		    	   alert(str);
+		    	 }
+		    });
+		    }
+		}
+		//ejy报名
+		function ejyOnEnter(projectNo){
+		
+		}
+  </script>
+<script type="text/javascript">
+//设置价格
+ function toSetXmjg(xmjg){
+    $("#temXmjg").val(xmjg);
+ }
+ 
+
+//项目区域查询数据
+ function findObjByXmqy(xmqy){
+
+ $("#qypageTypel").val(1);
+ $("#qyxmqyl").val(xmqy);
+ document.getElementById("findeObjqyId").submit();
+
+ }
+</script>
+<script type="text/javascript">
+//设置价格
+ function toSetXmjg(xmjg){
+    $("#temXmjg").val(xmjg);
+ }
+ 
+ //设置价格
+ function toSetSslb(xmss){
+    $("#xmlbXmss").val(xmss);
+ }
+
+ $.extend({
+  show_more_init:function(){
+    $(".sub-menu li").click(function(){ 
+      $(this).addClass('current').siblings().removeClass();
+    });
+  }
+ });
+ 
+  $(document).ready(function(){
+  $.show_more_init();
+  $("#xmlbXmss").val(1);
+  });
+  
+   //项目类别查询数据
+ function findObjByXmLb(xmlb){
+
+   var xmlbXmss=$("#xmlbXmssl").val();
+    $("#lbpageTypel").val(1);
+     $("#xmlbxmssl").val(xmlbXmss);
+     $("#xmlbsl").val(xmlb);
+     document.getElementById("findeObjlbId").submit();
+
+ }
+ 
+</script>
+
+<script type="text/javascript">
+ //设置价格
+ function toSetXmjg(xmjg){
+
+    $("#temXmjg").val(xmjg);
+ }
+ 
+ //设置价格
+ function toSetSslb(xmss){
+    $("#xmlbXmss").val(xmss);
+ }
+ $.extend({
+  show_more_init3:function(){
+    $(".sub-menu li").click(function(){ 
+      $(this).addClass('current').siblings().removeClass();
+    });
+  }
+ });
+ 
+$(document).ready(function(){
+  $.show_more_init3();
+  $("#temobjPriceRange").val(1);
+ });
+ 
+  //价格查询
+ function findJgXmlb(xmlb){
+  var objPriceRange=$("#temobjPriceRange").val();
+  window.open("/hnaee/xmzx.jsp?xmlb="+xmlb+"&pageType=1&objPriceRange="+objPriceRange);
+ }
+
+  function toSetXmlb(lb){
+    $("#temXmlb").val(lb);
+    var xmss=$("#temXmss").val();
+    var xmlb=$("#temXmlb").val();
+  document.getElementById("xmshuju").src="/creatorCMS/appManage/objectManage/findFontObjectList.page?rows=18&page=1&xmss="+xmss+"&xmlb="+xmlb+"&pageType=0";
+ }
+
+</script>
+</head>
+
+<body style="background:#f7fbfe;">
+<script src="2023/head.js?v=3.0" charset="GBK"></script>
+<!-- 侧边栏导航  -->
+<div class="aside">
+  <ul>
+    <li>
+      <div class="ico-img a01"></div><span>公众号</span>
+      <div class="show-s"><img src="2023/images/aside_gzh.png"></div>
+    </li>
+    <li>
+      <div class="ico-img a02"></div><span>碳绿潇湘<br/>小程序</span>
+      <div class="show-s"><img src="2023/images/6F3F7ADF0DBA7F3748853F65EE480883.jpg"></div>
+    </li>
+    <li onclick="window.open('/hnaee/97/103/default.htm')">
+      <div class="ico-img a03"></div> <span>联系我们</span>
+    </li>
+    <li><div class="ico-img a04" title="返回顶部"></div></li>
+  </ul>
+</div>
+<!-- 侧边栏导航 / -->
+<div class="topbanner"> 
+<div>
+  <!-- <img src="images/gg1.png"> -->
+  <div class="slide ad-banner-1">
+    <!--<div>
+      <div class="ad-banner-box skin_blue">
+        <div class="contant"><a href="#"><img src="/cms/siteResource/site1/_template/2023/images/ad01.jpg" alt=""></a></div>
+      </div>
+    </div>
+    <div>
+      <div class="ad-banner-box skin_blue">
+        <div class="contant"><a href="#"><img src="/cms/siteResource/site1/_template/2023/images/ad02.jpg" alt=""></a></div>
+      </div>
+    </div>
+    <div>
+      <div class="ad-banner-box skin_blue">
+        <div class="contant"><a href="#"><img src="/cms/siteResource/site1/_template/2023/images/ad03.jpg" alt=""></a></div>
+      </div>
+    </div>-->
+
+
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://hnaee.com/creatorCMS/appManage/objectManage/openXmContentWin.page?id=315686&form=H#title' target='_blank' title='湘潭市国有资产经营管理有限责任公司资产招商专场'><img border='0' src='uploadfiles/202607/20260706103753254.png'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://zcph.bbwcq.com/project_pitch/' target='_blank' title='广西国有资产资源盘活首期优质项目全国推介会'><img border='0' src='uploadfiles/202605/20260515103523633.jpg'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://www.hnaee.com/creatorCMS/appManage/objectManage/openXmContentWin.page?id=308560&form=H#title' target='_blank' title='湖南高速土地资源经营有限公司一批土地、房产招商公告'><img border='0' src='uploadfiles/202601/20260127175451426.png'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://www.hnaee.com/creatorCMS/appManage/objectManage/openXmContentWin.page?id=312807&form=H#title' target='_blank' title='一批优质房产、土地资产招商'><img border='0' src='uploadfiles/202604/20260423160409526.jpg'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://www.hnaee.com/creatorCMS/appManage/objectManage/openXmContentWin.page?id=302500#title' target='_blank' title='湖南建投地产资产管理公司招商专场'><img border='0' src='uploadfiles/202508/20250806101901914.png'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://www.hnaee.com/creatorCMS/appManage/objectManage/openXmContentWin.page?id=288809&form=H#title' target='_blank' title='中建五局第三建设有限公司资产招商'><img border='0' src='uploadfiles/202410/20241023203506149.png'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://www.hnaee.com/creatorCMS/appManage/objectManage/openXmContentWin.page?id=286023&form=H#title' target='_blank' title='湖南省农业信贷融资担保有限公司抵债资产招商'><img border='0' src='uploadfiles/202407/20240730105025875.jpg'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://www.hnaee.com/creatorCMS/appManage/objectManage/openXmContentWin.page?id=283256&form=H#title' target='_blank' title='湘潭佳程建材有限公司土地、厂房和设备招商公告'><img border='0' src='uploadfiles/202404/20240415163118531.jpg'></a>
+      </div>
+    </div>
+   
+  <div>
+      <div class="ad-banner-box skin_blue">
+        <a href='https://www.hunaneex.com/home' target='_blank' title='热烈庆祝湖南省环境权益交易平台正式上线'><img border='0' src='uploadfiles/202402/20240227104458918.png'></a>
+      </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+<div class="contant" style="margin-bottom: 30px;">
+  <form action="/hnaee/xmzx.jsp" id="findeObjlbId"  method="post"  target="_blank" >
+    <input type="hidden" id="lbpageTypel"  name="pageType"  />
+    <input type="hidden" id="xmlbxmssl"  name="xmss" />
+    <input type="hidden" name="rows" value="10" />
+    <input type="hidden" name="page" value="1" />
+   <input type="hidden" id="xmlbsl"  name="xmlb" />
+ </form>
+  <ul class="categoryTopList">
+    <li><a href="javascript:void(0);" onclick="findObjByXmLb(1);"><img src="2023/images/ico_hnaee_category_gq@2x.png" /></a><p>股权</p></a></li>
+    <li><a href="javascript:void(0);" onclick="findObjByXmLb(2);"><img src="2023/images/ico_hnaee_category_zzkg@2x.png" /></a><p>增资扩股</p></a></li>
+    <li><a href="javascript:void(0);" onclick="findObjByXmLb(3);"><img src="2023/images/ico_hnaee_category_fc@2x.png" /></a><p>房产</p></a></li>
+    <li><a href="javascript:void(0);" onclick="findObjByXmLb(5);"><img src="2023/images/ico_hnaee_category_jdc@2x.png" /></a><p>机动车</p></a></li>
+    <li><a href="javascript:void(0);" onclick="findObjByXmLb(6);"><img src="2023/images/ico_hnaee_category_sb@2x.png" /></a><p>设备</p></a></li>
+    <li><a href="javascript:void(0);" onclick="findObjByXmLb(9);"><img src="2023/images/ico_hnaee_category_zq@2x.png" /></a><p>债权</p></a></li>
+    <li><a href="javascript:void(0);" onclick="findObjByXmLb(8);"><img src="2023/images/ico_hnaee_category_zpq@2x.png" /></a><p>租赁权</p></a></li>
+   <!-- <li><a href="javascript:void(0);" onclick="findObjByXmLb(11);"><img src="/cms/siteResource/site1/_template/2023/images/ico_hnaee_category_hjqy@2x.png" /></a><p>环境权益</p></a></li>-->
+<li><a href="https://www.hunaneex.com/" target="_blank"><img src="//www.hnaee.com/hnaee/2023/images/ico_hnaee_category_hjqy@2x.png" /></a><p>环境权益</p></a></li>
+  </ul>
+</div>
+<div class="contant">
+  <div class="lxzyfd">
+    <div class="lxingfl" style="padding: 0;">
+      <div class="slider single-item">
+        
+          <div>
+              <div class="sli-qybox">
+                <a href='1/2/content_4373.html' target='_blank' title='湖南省农村产权交易中心揭牌 撬动乡村“价值重估”'><img border='0' src='uploadfiles/202608/20260827092544851_s.png'></a>
+                  <div class="sli-qy">
+                    <a href='1/2/content_4373.html' target='_blank'>湖南省农村产权交易中心揭牌 撬动乡村“价值重</a>
+                  </div>
+              </div>
+          </div>
+        
+          <div>
+              <div class="sli-qybox">
+                <a href='1/2/content_4372.html' target='_blank' title='湖南省农村产权交易中心正式揭牌运营'><img border='0' src='uploadfiles/202608/20260827093107250.jpg'></a>
+                  <div class="sli-qy">
+                    <a href='1/2/content_4372.html' target='_blank'>湖南省农村产权交易中心正式揭牌运营</a>
+                  </div>
+              </div>
+          </div>
+        
+          <div>
+              <div class="sli-qybox">
+                <a href='1/2/content_4369.html' target='_blank' title='数字化赋能土地流转 湖南春耕别有新意'><img border='0' src='uploadfiles/202606/20260622161848970_s.png'></a>
+                  <div class="sli-qy">
+                    <a href='1/2/content_4369.html' target='_blank'>数字化赋能土地流转 湖南春耕别有新意</a>
+                  </div>
+              </div>
+          </div>
+        
+          <div>
+              <div class="sli-qybox">
+                <a href='1/2/content_4368.html' target='_blank' title='麻阳打造湖南首个碳中和龙舟赛事 探索“体育+生态”新路径'><img border='0' src='uploadfiles/202606/20260622161248438_s.jpg'></a>
+                  <div class="sli-qy">
+                    <a href='1/2/content_4368.html' target='_blank'>麻阳打造湖南首个碳中和龙舟赛事 探索“体育+</a>
+                  </div>
+              </div>
+          </div>
+        
+          <div>
+              <div class="sli-qybox">
+                <a href='1/2/content_4347.html' target='_blank' title='青春健走护河湖 志愿同行守青绿  ——湖南联交所协办全省“走娃”公益健走活动'><img border='0' src='uploadfiles/202605/20260511111402471.png'></a>
+                  <div class="sli-qy">
+                    <a href='1/2/content_4347.html' target='_blank'>青春健走护河湖 志愿同行守青绿  ——湖南联</a>
+                  </div>
+              </div>
+          </div>
+        
+    </div>
+    </div>
+    <div class="bensuodt">
+      <div class="bsdongtaifd">
+        <div class="bsdtleft">本所动态</div>
+        <!--<div class="bsdtright">点击量</div>-->
+		<a href='1/2/default.htm' target='_blank'>更多>></a>
+      </div>
+
+		
+			 <div class="bsdongtaifd newsbsdt">
+				<div class="bsdtwzleft"><a href='1/2/content_4379.html' target='_blank'>湘林碳票赋能生态修复 两宗创新实践入选湖南省</a></div>
+				<div class="bsdtriqi">09-30</div>
+				<!--<div class="bsdtriqi">2345</div>-->
+			</div>
+        
+			 <div class="bsdongtaifd newsbsdt">
+				<div class="bsdtwzleft"><a href='1/2/content_4380.html' target='_blank'>湖南以认购“碳票”抵消省运会碳排放</a></div>
+				<div class="bsdtriqi">09-14</div>
+				<!--<div class="bsdtriqi">2345</div>-->
+			</div>
+        
+			 <div class="bsdongtaifd newsbsdt">
+				<div class="bsdtwzleft"><a href='1/2/content_4373.html' target='_blank'>湖南省农村产权交易中心揭牌 撬动乡村“价值重</a></div>
+				<div class="bsdtriqi">08-27</div>
+				<!--<div class="bsdtriqi">2345</div>-->
+			</div>
+        
+			 <div class="bsdongtaifd newsbsdt">
+				<div class="bsdtwzleft"><a href='1/2/content_4372.html' target='_blank'>湖南省农村产权交易中心正式揭牌运营</a></div>
+				<div class="bsdtriqi">08-27</div>
+				<!--<div class="bsdtriqi">2345</div>-->
+			</div>
+        
+			 <div class="bsdongtaifd newsbsdt">
+				<div class="bsdtwzleft"><a href='1/2/content_4374.html' target='_blank'>全省首张长株潭生态绿心碳票落地长沙 湘林碳票</a></div>
+				<div class="bsdtriqi">08-17</div>
+				<!--<div class="bsdtriqi">2345</div>-->
+			</div>
+        
+			 <div class="bsdongtaifd newsbsdt">
+				<div class="bsdtwzleft"><a href='1/2/content_4369.html' target='_blank'>数字化赋能土地流转 湖南春耕别有新意</a></div>
+				<div class="bsdtriqi">06-05</div>
+				<!--<div class="bsdtriqi">2345</div>-->
+			</div>
+        
+      
+    </div>
+  </div>
+</div>
+<div class="xiangmuzc" style="margin-bottom:0;">
+  <div class="contant dinbianju">
+    <div class="zhubiaoti xmbg">项目专场</div>
+    <div class="dinbianju kx-banner-1">
+      <div class="ks-banner-1-box">
+       <!-- <div><a href=""><img src="/cms/siteResource/site1/_template/2023/images/ztpic1.png"></a></div>
+        <div><a href=""><img src="/cms/siteResource/site1/_template/2023/images/ztpic1.png"></a></div>
+        <div><a href=""><img src="/cms/siteResource/site1/_template/2023/images/ztpic1.png"></a></div>-->
+		 
+			<div><a target='_blank' title='中国信达资产管理股份有限公司湖南省分公司招商专场' href='https://www.hnaee.com/hnaee/194/default.htm?v=0141377C767047C6BA080A5E049989DB' class='imga'><img border='0' src='uploadfiles/202603/20260310161914949.png'></a></div>
+		 
+			<div><a target='_blank' title='湖南联交所涉案财物处置专场' href='https://www.hnaee.com/hnaee/194/default.htm?v=B120CAE219384315B842C59BAB44BC38' class='imga'><img border='0' src='uploadfiles/202403/20240314164441898.png'></a></div>
+		 
+			<div><a target='_blank' title='湘潭市国有资产交易专场' href='https://www.hnaee.com/hnaee/194/default.htm?v=AEFF18AE9A8443E698ADB908032A4CD3' class='imga'><img border='0' src='uploadfiles/202311/20231124100220338.jpg'></a></div>
+		 
+      </div>
+      <div class="slideCount">
+        <div class="slideNum"> <span class="currentNum"></span>/<span class="totalNum"></span> </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="background: #f7fbfe; padding:30px 0;">
+<div class="contant">
+  <div class="xiangmuzx">
+    <div class="xiangmuzxleft xmzxbg">项目中心</div>
+    <div class="tongyyoubiaoqian">
+		<a href="javascript:;" data-id="1">国有资产</a>
+		<a href="javascript:;" data-id="13">采购</a>
+		<a href="javascript:;" data-id="3">非国有资产</a>
+		<a href="javascript:;" data-id="7">油茶分所</a>
+		<a href="javascript:;" data-id="6">预披露项目</a>
+		<a href="javascript:;" data-id="2">涉案资产</a>
+		<a href="https://www.hnaee.com/hnaee/xmzx.jsp" target="_blank">意向挂牌</a>
+		<a href="https://www.hnaee.com/hnaee/xmzx.jsp" target="_blank">其他机构</a>
+	</div>
+    <a href="https://www.hnaee.com/hnaee/xmzx.jsp" target="_blank" class="more">更多</a> 
+</div>
+  <div class="erjibiaoti">
+    <div class="erjibiaotileft guyouzcbg">国有资产</div>
+    <div class="tongyerjlanileft">
+      <a href="javascript:funGetXmzxInfoListGYZC();" class="zcxuanzhondq">全部</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(1);">股权</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(2);">增资扩股</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(3);">房产</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(4);">土地使用权</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(5);">机动车</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(6);">设备</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(7);">信托受益权</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(8);">租赁权</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(9);">债权</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(11);">油茶林权</a>
+      <a href="javascript:funGetXmzxInfoListGYZC(10);">其他</a>
+	</div>
+	<a href="/hnaee/xmzx.jsp" target="_blank" class="more">更多</a> </div>
+  <div class="tongyflist">
+
+    <ul id="gyzcList"></ul>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="erjibiaoti">
+    <div class="erjibiaotileft guyouzcbg3">意向挂牌</div>
+    <div class="tongyerjlanileft">
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5);" class="zcxuanzhondq">全部</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,1);">股权</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,2);">增资扩股</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,3);">房产</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,4);">土地使用权</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,5);">机动车</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,6);">设备</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,7);">信托受益权</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,8);">租赁权</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,9);">债权</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,11);">油茶林权</a>
+      <a href="javascript:void(0);" onclick="funGetXmzxInfoListYXGP(5,10);">其他</a>
+	</div>
+    <a href="/hnaee/xmzx.jsp" target="_blank" class="more">更多</a> </div>
+  <div class="tongyflist">
+    <ul id="yxgpList"></ul>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="erjibiaoti">
+    <div class="erjibiaotileft2 guyouzcbg2">
+      其他机构</div>
+    <div class="tongyerjlanileft">
+      <a href="javascript:funGetXmzxInfoListQTJG(4);" class="zcxuanzhondq">全部</a>
+      <!--a href="javascript:void(0);" onclick="funGetXmzxInfoListQTJG(4,10);">其他机构</a-->
+	</div>
+		<a href="/hnaee/xmzx.jsp" target="_blank" class="more">更多</a>
+	</div>
+  <div class="tongyflist">
+    <ul id="qtjgList">
+    </ul>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div class="banner2" style="margin-bottom:0;">
+    <div><a href="/hnaee/xmMarket.jsp" target="_blank"><img src="2023/images/gg2.png"></a></div>
+    <div><a href="https://www.ejy365.com/" target="_blank"><img src="2023/images/e.png"></a></div>
+  </div>
+</div>
+</div>
+<div class="jiaoyi" style="background: #f1f6fc;">
+  <div class="contant">
+    <div class="xiangmuzx">
+      <div class="xiangmuzxleft xmzxbg"><a href="https://www.ejy365.com/newlogin" target="_blank">E交易竞价大厅</a></div>
+      <!--<div class="tongyyoubiaoqian2"><a href="">更多+</a></div>-->
+    </div>
+    <div class="waiqianjiaoyi"><iframe src="//api.ejy365.com/e-jy/portal/jjdt/list?orgId=101024&pages=1&pageSize=8&t=2" frameborder="0" scrolling="No" width="100%" height="100%"></iframe></div>
+    <div class="waiqianjiaoyi-aui-flex">
+	<iframe src="https://api.ejy365.com/e-jy/portal/jjdt/list_mobile?pages=1&pageSize=10&orgId=101024" frameborder="0" id="xmshuju" name="xmshuju" scrolling="No" width="100%" height="1213" style="margin-top:0px; "></iframe>
+    </div>
+  </div>
+</div>
+<div class="contant">
+  <div class="zttuijian">
+    <div class="zttuijianleft"><img src="2023/images/zt1.png"></div>
+    <div class="ztkuang">
+      <div class="ztlistpic">
+        <!--<div><a href=""><img src="images/zt2.png"></a></div>
+        <div><a href=""><img src="images/zt3.png"></a></div>
+        <div><a href=""><img src="images/zt4.png"></a></div>
+        <div><a href=""><img src="images/zt5.png"></a></div>
+        <div><a href=""><img src="images/zt2.png"></a></div>
+        <div><a href=""><img src="images/zt3.png"></a></div>
+        <div><a href=""><img src="/cms/siteResource/site1/_template/2023/images/zt4.png"></a></div>
+        <div><a href=""><img src="/cms/siteResource/site1/_template/2023/images/zt5.png"></a></div>-->
+		
+			<div><a href='https://pms.hnchasing.com/' target="_blank"><img height='135px' width='269px' border='0' src='uploadfiles/202211/20221111151009591.jpg'> </a></div>
+		
+			<div><a href='http://www.hnaee.com/hnaee/118/content_3585.html' target="_blank"><img height='135px' width='269px' border='0' src='uploadfiles/202003/20200324163513710.jpg'> </a></div>
+		
+      </div>
+    </div>
+  </div>
+  <div class="chengjiaolan">
+    <div class="chengjiaolanleft">
+      <div class="xiangmuzx">
+        <div class="xiangmuzxleft xmzxbg">成交公告</div>
+        <div class="tongyyoubiaoqian2"><a href="/hnaee/xmwcgg.jsp" target="_blank">更多+</a></div>
+      </div>
+      <!--<table  CellPadding="0" CellSpacing="0" class="zybiaoge">
+        <tr class="toububg">
+          <td >项目编号</td>
+          <td >项目名称</td>
+          <td>挂牌价格(万元)</td>
+          <td>成交价格(万元) </td>
+        </tr>
+        <tr>
+          <td >[ N0124ESSB230127 ]</td>
+          <td >23台旧冷却水泵、科林冷干机等...</td>
+          <td>25.7619</td>
+          <td>25.7619</td>
+        </tr>
+        <tr class="bianse">
+          <td >[ N0124ESSB230127 ]</td>
+          <td >23台旧冷却水泵、科林冷干机等...</td>
+          <td>25.7619</td>
+          <td>25.7619</td>
+        </tr>
+        <tr>
+          <td >[ N0124ESSB230127 ]</td>
+          <td >23台旧冷却水泵、科林冷干机等...</td>
+          <td>25.7619</td>
+          <td>25.7619</td>
+        </tr>
+        <tr class="bianse">
+          <td >[ N0124ESSB230127 ]</td>
+          <td >23台旧冷却水泵、科林冷干机等...</td>
+          <td>25.7619</td>
+          <td>25.7619</td>
+        </tr>
+        <tr>
+          <td >[ N0124ESSB230127 ]</td>
+          <td >23台旧冷却水泵、科林冷干机等...</td>
+          <td>25.7619</td>
+          <td>25.7619</td>
+        </tr>
+      </table>-->
+	  <iframe src="/creatorCMS/appManage/xmgg/findFontXmwcggList.page?rows=7&page=1&xmtype=1" frameborder="0" id="wcgg" name="wcgg" scrolling="No" width="100%" height="100% " style="margin-top:0px; "></iframe>
+    </div>
+    <div class="zdtuijianxm">
+      <div class="zdtjtop">
+        <div class="zdtjtopleft">重点推介项目</div>
+      </div>
+      <div class="tuijiantuBox">
+
+
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320040"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_1ee660f205314cba9f2b785c8b87e7ac.jpg" rel="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_1ee660f205314cba9f2b785c8b87e7ac.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="废旧钢筋头、临时仰拱废拱架及钢护筒等材料一批 （预估总重量约40吨）(国资监测编号GR2026HN1003819)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320040"
+					   target="_blank">废旧钢筋头、临时仰拱废拱架及钢护筒等材料一批 （预估总重量约40吨）(国资监测编号GR2026HN1003819)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320039"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_fc1548a2751a4c7898ae0ffe3452dc96.png" rel="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_fc1548a2751a4c7898ae0ffe3452dc96.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="废旧钢筋头、工角槽边角料、螺旋管及临边护栏等边角余料一批 （预估重量约300吨）(国资监测编号GR2026HN1003820)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320039"
+					   target="_blank">废旧钢筋头、工角槽边角料、螺旋管及临边护栏等边角余料一批 （预估重量约300吨）(国资监测编号GR2026HN1003820)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320038"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_c80eb5041ff64f0e90c25d90b4469934.png" rel="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_c80eb5041ff64f0e90c25d90b4469934.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="废旧无牌车载泵一台(国资监测编号GR2026HN1003818)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320038"
+					   target="_blank">废旧无牌车载泵一台(国资监测编号GR2026HN1003818)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320037"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_d9f6a57da4f44fe0a73dee64457a92f1.jpg" rel="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_d9f6a57da4f44fe0a73dee64457a92f1.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="【湖南省高速公路集团有限公司怀化分公司】湘AVR497翼虎牌CAF6450A43小型普通客车(国资监测编号GR2026HN1003817)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320037"
+					   target="_blank">【湖南省高速公路集团有限公司怀化分公司】湘AVR497翼虎牌CAF6450A43小型普通客车(国资监测编号GR2026HN1003817)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320027"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_31a35924af2246a2828c9c6692a63067.jpg" rel="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_31a35924af2246a2828c9c6692a63067.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="株洲市芦淞区董家塅茅屋街路28号地块招商(国资监测编号GR2026HN1003807)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320027"
+					   target="_blank">株洲市芦淞区董家塅茅屋街路28号地块招商(国资监测编号GR2026HN1003807)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320036"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_d4b2e63786c74aee8248377a96c8fab7.JPG" rel="http://cqjy.ejy365.com/upload/doc/2026/09/30/mid_d4b2e63786c74aee8248377a96c8fab7.JPG" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="（益阳高速）一批报废办公、生活设备资产(国资监测编号GR2026HN1003816)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320036"
+					   target="_blank">（益阳高速）一批报废办公、生活设备资产(国资监测编号GR2026HN1003816)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320035"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/11/mid_db11aef5c6bb4366a5a765919b42d773.jpg" rel="http://cqjy.ejy365.com/upload/doc/2026/09/11/mid_db11aef5c6bb4366a5a765919b42d773.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="长沙市开福区芙蓉中路一段161号新时代新时代商务广场2701、2719房产(二次挂牌)(国资监测编号GR2026HN1003619-2)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320035"
+					   target="_blank">长沙市开福区芙蓉中路一段161号新时代新时代商务广场2701、2719房产(二次挂牌)(国资监测编号GR2026HN1003619-2)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320034"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/07/31/mid_d05c94b375ab429181209d33ffc00f6e.png" rel="http://cqjy.ejy365.com/upload/doc/2026/07/31/mid_d05c94b375ab429181209d33ffc00f6e.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="长沙理工大学《实验教学与仪器》杂志发行权授权使用、广告等经营业务合作商招选(国资监测编号GR2026HN1002766-3)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320034"
+					   target="_blank">长沙理工大学《实验教学与仪器》杂志发行权授权使用、广告等经营业务合作商招选(国资监测编号GR2026HN1002766-3)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320033"><img width="320px" height="261px" src="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_6bf505dd5adf4748a5109ff182dd78ba.jpg" rel="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_6bf505dd5adf4748a5109ff182dd78ba.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="长沙市雨花区芙蓉中路三段569号陆都小区9栋201住宅房地产(国资监测编号GR2026HN1003813)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320033"
+					   target="_blank">长沙市雨花区芙蓉中路三段569号陆都小区9栋201住宅房地产(国资监测编号GR2026HN1003813)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320032"><img width="320px" height="261px" src="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_91ef58d4829e4e239136db482a7e3444.png" rel="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_91ef58d4829e4e239136db482a7e3444.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="长沙市天心区新开铺路18号新新家园综合楼B座701-718住宅(国资监测编号GR2026HN1003812)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320032"
+					   target="_blank">长沙市天心区新开铺路18号新新家园综合楼B座701-718住宅(国资监测编号GR2026HN1003812)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320031"><img width="320px" height="261px" src="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_ee931e4d55b144f88e04e1573be7891b.png" rel="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_ee931e4d55b144f88e04e1573be7891b.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="长沙市雨花区马王堆南路79号西子花苑14号栋1804住宅房地产(国资监测编号GR2026HN1003811)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320031"
+					   target="_blank">长沙市雨花区马王堆南路79号西子花苑14号栋1804住宅房地产(国资监测编号GR2026HN1003811)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320030"><img width="320px" height="261px" src="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_3250b4f92f944716beb88885eeef408e.png" rel="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_3250b4f92f944716beb88885eeef408e.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="长沙市雨花区人民东路168号左岸右岸2号栋1906住宅房地产(国资监测编号GR2026HN1003810)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320030"
+					   target="_blank">长沙市雨花区人民东路168号左岸右岸2号栋1906住宅房地产(国资监测编号GR2026HN1003810)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320029"><img width="320px" height="261px" src="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_e23cf73cde60422383d7789af1f452a3.jpg" rel="https://cqjy.ejy365.com/upload/doc/2026/09/29/mid_e23cf73cde60422383d7789af1f452a3.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="郴州市苏仙南路108、208、109、209号房地产(国资监测编号GR2026HN1003809)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320029"
+					   target="_blank">郴州市苏仙南路108、208、109、209号房地产(国资监测编号GR2026HN1003809)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320028"><img width="320px" height="261px" src="https://cqjy.ejy365.com/upload/doc/2026/09/30/mid_af49ca81856d4d559b5b66fd55612311.png" rel="https://cqjy.ejy365.com/upload/doc/2026/09/30/mid_af49ca81856d4d559b5b66fd55612311.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="【高速联网】一批设备资产(国资监测编号GR2026HN1003808)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320028"
+					   target="_blank">【高速联网】一批设备资产(国资监测编号GR2026HN1003808)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320026"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_adfa864d734641d8b5f0ea9896ba984c.jpg" rel="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_adfa864d734641d8b5f0ea9896ba984c.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="2026年长沙电力职业技术学院第二批报废物资（危废）(国资监测编号GR2026HN1003806)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320026"
+					   target="_blank">2026年长沙电力职业技术学院第二批报废物资（危废）(国资监测编号GR2026HN1003806)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320025"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_86cc4bd00b4a4cc98a4f2fed503d2f49.jpg" rel="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_86cc4bd00b4a4cc98a4f2fed503d2f49.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="2026年长沙电力职业技术学院第二批报废物资（普废）(国资监测编号GR2026HN1003805)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320025"
+					   target="_blank">2026年长沙电力职业技术学院第二批报废物资（普废）(国资监测编号GR2026HN1003805)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320024"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/07/10/mid_347256978bb0479583b7f55a47ec1427.jpg" rel="http://cqjy.ejy365.com/upload/doc/2026/07/10/mid_347256978bb0479583b7f55a47ec1427.jpg" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="湖南警察学院北综合楼一楼第01号门面(二次挂牌)(国资监测编号GR2026HN1002145-2)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320024"
+					   target="_blank">湖南警察学院北综合楼一楼第01号门面(二次挂牌)(国资监测编号GR2026HN1002145-2)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320023"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_a33259822a7844a39061e3019da12e02.png" rel="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_a33259822a7844a39061e3019da12e02.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="标的9长沙市岳麓区湘仪路48号门面招租(国资监测编号GR2026HN1003800)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320023"
+					   target="_blank">标的9长沙市岳麓区湘仪路48号门面招租(国资监测编号GR2026HN1003800)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320022"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_5326644d7b1a433c8f507a28db51d168.png" rel="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_5326644d7b1a433c8f507a28db51d168.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="标的8长沙市岳麓区湘仪路27号门面招租(国资监测编号GR2026HN1003799)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320022"
+					   target="_blank">标的8长沙市岳麓区湘仪路27号门面招租(国资监测编号GR2026HN1003799)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+
+    
+        <div>
+          <div class="tuijiantu">
+            <div class="tjtutop">
+			  
+				
+				<a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320021"><img width="320px" height="261px" src="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_fdad79ac84d14397aa2026d5749d565d.png" rel="http://cqjy.ejy365.com/upload/doc/2026/09/29/mid_fdad79ac84d14397aa2026d5749d565d.png" /></a>
+				
+
+			</div>
+            <div class="zhuantixiangxi">
+				
+					<a title="标的7长沙市岳麓区湘仪路26号门面招租(国资监测编号GR2026HN1003798)" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id=320021"
+					   target="_blank">标的7长沙市岳麓区湘仪路26号门面招租(国资监测编号GR2026HN1003798)
+					</a>
+				
+
+			</div>
+          </div>
+        </div>
+
+<!--
+       <div>
+          <div class="tuijiantu">
+            <div class="tjtutop"><a href=""><img src="/cms/siteResource/site1/_template/2023/images/zt8.png"></a></div>
+            <div class="zhuantixiangxi">1长沙市开福区福元西路109号珠江·星环项目一楼1030商铺(二次挂牌...98-2)</div>
+          </div>
+        </div>
+-->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="ejy_huiyuan_baoming">
+ <div class="theme-popover">
+  <div class="theme-poptit">
+   <a href="javascript:;" title="关闭" class="close">×</a>
+   ?竞买人会员登录
+  </div>
+  <div class="theme-popbod dform">
+   <form class="theme-signin" name="loginform" action="" method="post">
+   <p><strong>会员：</strong><input class="ipt" type="text" name="username" value="" size="20"/></p>
+   <p><strong>密码：</strong><input class="ipt" type="password" name="password" value="" size="20"/></p>
+   <p><strong>???</strong><input 
+   class="ejy_huiyuan_baoming_btn ejy_huiyuan_dl" type="button" value=" 登 录 "/>
+   <a class="ejy_huiyuan_baoming_btn" target="_blank" style="background-color:#fea63a;border:#fea63a" href="http://www.e-jy.com.cn/ejyhy/HuiYuanInfoMis2_CZCQ/Pages/HuiYuanRegisterTwo/Agree.aspx">我要注册</a></p>
+   </form>
+   <font id="error" style="font-size: 12px;color: red;"></font>
+  </div>
+ </div>
+ <div class="theme-popover-mask"></div>
+ </div>
+
+
+<script src="2023/footer.js?v=3.0" charset="GBK"></script>
+<script src="2023/js/common.js?v=3.0" type="text/javascript"></script> 
+<script src="2023/js/slick.js?v=3.0" type="text/javascript"></script> 
+<script type="text/javascript">
+    // 侧边导航
+    $('.aside li').hover(function () {
+        $(this).find('.show-s').animate({ 'right': '90px' }).show();
+    }, function () {
+        $(this).find('.show-s').animate({ 'right': '90px' }).hide();
+    })
+    $('.aside li:last-child').click(function () {
+        $("body,html").animate({
+            "scrollTop": 0
+        }, 300)
+    })
+  $('.single-item').slick({
+      arrows: true,
+      dots: true,
+      autoplay: true,
+      autoplaySpeed: 6000
+  });
+            $('.ad-banner-1').slick({
+                  dots: true,
+                  infinite: true,
+                  autoplay: true,
+                  autoplaySpeed: 6000,
+                  /*fade: true,*/
+                  arrows:true,
+                 /* cssEase: 'linear'*/
+            })
+
+            $('.ks-banner-1-box').slick({
+                  arrows: true,
+                  dots: false,
+                  infinite: true,
+                  autoplay: true,
+                  autoplaySpeed: 6000,
+
+                  onInit:function(event, slick) {
+                       $(".currentNum").html('01');
+                       $(".totalNum").html(getNum(event.slideCount));
+                  },
+                  onAfterChange:function(event, slick) {
+                        var i = (slick ? slick : 0) + 1;
+                        $(".currentNum").html(getNum(i));
+                       $(".totalNum").html(getNum(this.slideCount));
+                  }
+
+            })
+            function getNum(num) {
+                  if (num < 10) {
+                  num = '0' + num
+                  }
+                  return num;
+            }
+
+            $('.ztlistpic').slick({
+                  dots: true,
+                  infinite: true,
+                  autoplay:true,
+                  speed: 300,
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+            });
+
+            
+            $('.tuijiantuBox').slick({
+infinite: true,
+                  autoplay:true,
+                  speed: 300,
+                  autoplaySpeed: 2000,
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+            });
+
+            $(".fleitop ul li").click(function() {
+                  $(this).addClass('curr').siblings().removeClass("curr");
+                  let index = $(this).index();
+                  $(".tab-con-box").hide().eq(index).show();
+            });
+
+            $(".zclist ul li").click(function() {
+                  $(this).addClass('zclistmr').siblings().removeClass("zclistmr");
+            });
+            function showWin(url){
+                  window.open(url);
+            }
+
+            $(".tongyerjlanileft a").click(function(){
+              $(this).addClass('zcxuanzhondq').siblings().removeClass("zcxuanzhondq");
+            });
+
+            $(".tongyyoubiaoqian a").click(function(){
+              $(this).addClass('zcxuanzhondq').siblings().removeClass("zcxuanzhondq");
+              $(".tongyerjlanileft a").removeClass("zcxuanzhondq").first().addClass('zcxuanzhondq');
+              if( $(this).text()==="意向挂牌" || $(this).text()==="成员所及其他机构"){
+                            return;
+              }
+              $('.guyouzcbg').text($(this).text());
+              $("#xmss").val($(this).data("id")); //绑定获取
+              funGetXmzxInfoListGYZC();
+            });
+
+            funGetXmzxInfoListGYZC();
+            funGetXmzxInfoListQTJG(4);
+            funGetXmzxInfoListYXGP(5);
+
+            //国有资产1
+            function funGetXmzxInfoListGYZC(xmlb){
+              $.ajax({
+                type: "GET",
+                url: "/creatorCMS/appManage/objectManage/getXmzxInfoList.page",
+                dataType: "json",
+                data: {
+                  "ext_4": $("#xmss").val(),//项目所属
+                  "ext_5": xmlb,
+                  "ext_6": 0,
+                  "count":16,
+                },
+                success: function (result) {
+                  if(result.totalSize > 0){
+                    var msglist = result.data;
+                    var str = '';
+                    var totSize = result.totalSize;
+                    if(result.totalSize>=17){
+                      totSize = 16
+                    }
+                    for(var i =0;i<totSize;i++){
+                      str+='<li>';
+                      if(msglist[i].xmtp!=null && msglist[i].xmtp!=""){
+                        str+='<div class="zcpiclst"><a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank"><img style="width:280px;height:268px;" src="'+msglist[i].xmtp+'"></a></div>';
+                      }else{
+ if (msglist[i].objectType!=null && msglist[i].objectType != "" && msglist[i].objectType===1) {
+                        str+='<div class="zcpiclst"><a href="'+msglist[i].broUrl+'" target="_blank"><img src="/hnaee/2023/images/defaultImg.jpg" rel="暂无图片"/></a></div>';
+                      }else{
+                        str+='<div class="zcpiclst"><a title="'+msglist[i].title+'" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank"><img src="/hnaee/2023/images/defaultImg.jpg" rel="暂无图片"/></a></div>';
+                      }
+                      }
+                      str+='<div class="zcpiclst-info">';
+                      if (msglist[i].isEnter===0) {
+                        if (msglist[i].systemAdd===0) {
+                          str+='<div class="fbiaoqian"><a id="'+msglist[i].projectNo+'" class="ejy_huiyuan_bm tbzi2" href="javascript:;">点击报名</a></div>';
+                        }else{
+                          str+='<div class="fbiaoqian"><a href="javascript:onFaEnlist('+msglist[i].id+');" target="_blank" class="tbzi2">点击报名</a></div>';
+                        }
+                      }else{
+                        str+='<div class="fbiaoqian2"><a>点击报名</a></div>';
+                      }
+
+                      if (msglist[i].objectType!=null && msglist[i].objectType != "" && msglist[i].objectType===1) {
+                        str+='<div class="zcdizhitext"><a title="'+msglist[i].title+'" href="'+msglist[i].broUrl+'" target="_blank">'+msglist[i].title+'</a></div>';
+                      }else{
+                        str+='<div class="zcdizhitext"><a title="'+msglist[i].title+'" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank">'+msglist[i].title+'</a></div>';
+                      }
+
+                      str+='<div class="chengjiaojia">';
+                      if(msglist[i].isNotShowFromPrice!=null && msglist[i].isNotShowFromPrice!="" && msglist[i].isNotShowFromPrice!="null" && msglist[i].isNotShowFromPrice===1){
+                        str+='<div class="cjjiaoleft">挂牌价格(万元) :<span>'+msglist[i].xmqpj+'</span></div>'
+                      }else{
+                        str+='<div class="cjjiaoleft">挂牌价格(万元) :<span>'+msglist[i].xmqpj+'</span></div>'
+                      }
+                      str+='<div class="cjjiaoright">点击量:'+msglist[i].hits+'</div></div>';
+                      str+='</div></li>';
+                    }
+                    $("#gyzcList").html("");
+                    $("#gyzcList").html(str);
+                  }else{
+                    $("#gyzcList").html("<div class=\"noinfo\">暂无数据！</div>");
+                  }
+                },
+                error:function(){
+                  console.log("出错了");
+                }
+              });
+            }
+
+            //成员所及其他机构
+            function funGetXmzxInfoListQTJG(xmss,xmlb){
+              $.ajax({
+                type: "GET",
+                url: "/creatorCMS/appManage/objectManage/getXmzxInfoList.page",
+                dataType: "json",
+                data: {
+                  "ext_4": xmss,
+                  "ext_5": xmlb,
+                  "ext_6": 0,
+                },
+                success: function (result) {
+                  if(result.totalSize > 0){
+                    var msglist = result.data;
+                    var str = '';
+                    var totSize = result.totalSize;
+                    if(result.totalSize>=5){
+                      totSize = 4
+                    }
+                    for(var i =0;i<totSize;i++){
+                      str+='<li>';
+                      if(msglist[i].xmtp!=null && msglist[i].xmtp!=""){
+						str+='<div class="zcpiclst"><a href="'+msglist[i].broUrl+'" target="_blank"><img style="width:280px;height:268px;" src="'+msglist[i].xmtp+'"></a></div>';
+                      }else{
+						if (msglist[i].objectType!=null && msglist[i].objectType != "" && msglist[i].objectType===1) {
+                        str+='<div class="zcpiclst"><a href="'+msglist[i].broUrl+'" target="_blank"><img src="/hnaee/2023/images/defaultImg.jpg" rel="暂无图片"/></a></div>';
+                      }else{
+                        str+='<div class="zcpiclst"><a title="'+msglist[i].title+'" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank"><img src="/hnaee/2023/images/defaultImg.jpg" rel="暂无图片"/></a></div>';
+                      }
+                      }
+                      str+='<div class="zcpiclst-info">';
+                      if (msglist[i].isEnter===0) {
+                        if (msglist[i].systemAdd===0) {
+                          str+='<div class="fbiaoqian"><a id="'+msglist[i].projectNo+'" class="ejy_huiyuan_bm tbzi2" href="javascript:;">点击报名</a></div>';
+                        }else{
+                          str+='<div class="fbiaoqian"><a href="javascript:onFaEnlist('+msglist[i].id+');" target="_blank" class="tbzi2">点击报名</a></div>';
+                        }
+                      }else{
+                        str+='<div class="fbiaoqian2"><a>点击报名</a></div>';
+                      }
+
+                      if (msglist[i].objectType!=null && msglist[i].objectType != "" && msglist[i].objectType===1) {
+                        str+='<div class="zcdizhitext"><a title="'+msglist[i].title+'" href="'+msglist[i].broUrl+'" target="_blank">'+msglist[i].title+'</a></div>';
+                      }else{
+                        str+='<div class="zcdizhitext"><a title="'+msglist[i].title+'" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank">'+msglist[i].title+'</a></div>';
+                      }
+
+                      str+='<div class="chengjiaojia">';
+                      if(msglist[i].isNotShowFromPrice!=null && msglist[i].isNotShowFromPrice!="" && msglist[i].isNotShowFromPrice!="null" && msglist[i].isNotShowFromPrice===1){
+                        str+='<div class="cjjiaoleft">挂牌价格(万元) :<span>'+msglist[i].xmqpj+'</span></div>'
+                      }else{
+                        str+='<div class="cjjiaoleft">挂牌价格(万元) :<span>'+msglist[i].xmqpj+'</span></div>'
+                      }
+                      str+='<div class="cjjiaoright">点击量:'+msglist[i].hits+'</div></div>';
+                      str+='</div></li>';
+                    }
+                    $("#qtjgList").html("");
+                    $("#qtjgList").html(str);
+                  }else{
+                    $("#qtjgList").html("<div class=\"noinfo\">暂无数据！</div>");
+                  }
+                },
+                error:function(){
+                  console.log("出错了");
+                }
+              });
+            }
+
+            //意向挂牌
+            function funGetXmzxInfoListYXGP(xmss,xmlb){
+              $.ajax({
+                type: "GET",
+                url: "/creatorCMS/appManage/objectManage/getXmzxInfoList.page",
+                dataType: "json",
+                data: {
+                  "ext_4": xmss,
+                  "ext_5": xmlb,
+                  "ext_6": 0,
+                },
+                success: function (result) {
+                  if(result.totalSize > 0){
+                    var msglist = result.data;
+                    var str = '';
+                    var totSize = result.totalSize;
+                    if(result.totalSize>=5){
+                      totSize = 4
+                    }
+                    for(var i =0;i<totSize;i++){
+                      str+='<li>';
+                      if(msglist[i].xmtp!=null && msglist[i].xmtp!=""){
+                        str+='<div class="zcpiclst"><a href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank"><img style="width:280px;height:268px;" src="'+msglist[i].xmtp+'"></a></div>';
+                      }else{
+ if (msglist[i].objectType!=null && msglist[i].objectType != "" && msglist[i].objectType===1) {
+                        str+='<div class="zcpiclst"><a href="'+msglist[i].broUrl+'" target="_blank"><img src="/hnaee/2023/images/defaultImg.jpg" rel="暂无图片"/></a></div>';
+                      }else{
+                        str+='<div class="zcpiclst"><a title="'+msglist[i].title+'" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank"><img src="/hnaee/2023/images/defaultImg.jpg" rel="暂无图片"/></a></div>';
+                      }
+                      }
+                      str+='<div class="zcpiclst-info">';
+                      if (msglist[i].isEnter===0) {
+                        if (msglist[i].systemAdd===0) {
+                          str+='<div class="fbiaoqian"><a id="'+msglist[i].projectNo+'" class="ejy_huiyuan_bm tbzi2" href="javascript:;">点击报名</a></div>';
+                        }else{
+                          str+='<div class="fbiaoqian"><a href="javascript:onFaEnlist('+msglist[i].id+');" target="_blank" class="tbzi2">点击报名</a></div>';
+                        }
+                      }else{
+                        str+='<div class="fbiaoqian2"><a>点击报名</a></div>';
+                      }
+
+                      if (msglist[i].objectType!=null && msglist[i].objectType != "" && msglist[i].objectType===1) {
+                        str+='<div class="zcdizhitext"><a title="'+msglist[i].title+'" href="'+msglist[i].broUrl+'" target="_blank">'+msglist[i].title+'</a></div>';
+                      }else{
+                        str+='<div class="zcdizhitext"><a title="'+msglist[i].title+'" href="/creatorCMS/appManage/objectManage/openXmContentWin.page?id='+msglist[i].id+'" target="_blank">'+msglist[i].title+'</a></div>';
+                      }
+
+                      str+='<div class="chengjiaojia">';
+                      if(msglist[i].isNotShowFromPrice!=null && msglist[i].isNotShowFromPrice!="" && msglist[i].isNotShowFromPrice!="null" && msglist[i].isNotShowFromPrice===1){
+                        str+='<div class="cjjiaoleft">挂牌价格(万元) :<span>'+msglist[i].xmqpj+'</span></div>'
+                      }else{
+                        str+='<div class="cjjiaoleft">挂牌价格(万元) :<span>'+msglist[i].xmqpj+'</span></div>'
+                      }
+                      str+='<div class="cjjiaoright">点击量:'+msglist[i].hits+'</div></div>';
+                      str+='</div></li>';
+                    }
+                    $("#yxgpList").html("");
+                    $("#yxgpList").html(str);
+                  }else{
+                    $("#yxgpList").html("<div class=\"noinfo\">暂无数据！</div>");
+                  }
+                },
+                error:function(){
+                  console.log("出错了");
+                }
+              });
+            }
+      </script>
+<!-- e交易引用 -->
+	  <link type="text/css" href="/hnaee/ejy/css/style.css" media="all" rel="stylesheet">
+      <script language="javascript" src="/hnaee/2023/js/ejy.js?v=3.0"></script>
+<script language="javascript" src="/hnaee/ejy/js/window.open.util.js?20180822"></script>
+</div></div></body>
+</html>
+
+
+

@@ -1,0 +1,1625 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1"/>
+		<title>全国人民法庭信息网</title>
+		
+		<link rel="stylesheet" href="/r/cms/www/qgrmftxxw/css/com.css" />
+	    <link rel="stylesheet" href="/r/cms/www/qgrmftxxw/css/public.css" />
+	    <link rel="stylesheet" href="/r/cms/www/qgrmftxxw/css/zTreeStyle.css"/>
+	    <link rel="stylesheet" href="/r/cms/www/qgrmftxxw/css/sy.css"/> 
+        <script type="text/javascript" src="/r/cms/www/qgrmftxxw/js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="/r/cms/www/qgrmftxxw/js/common.js"></script>
+        <script type="text/javascript" src="/r/cms/www/qgrmftxxw/js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="/r/cms/www/qgrmftxxw/js/jquery.SuperSlide.2.1.1.js"></script>
+	</head>
+	<body>
+		<div class="fd-public">
+        <!-- 头部 -->
+<script src="/r/cms/front.js" type="text/javascript"></script>
+<script>
+            $(function() {
+            	Cms.siteFlow("", location.href, document.referrer, "true");
+            }); 
+        </script>
+<div class="fd-header">
+            <div class="fd-div">
+                <div class="fd-left" style="line-height: 36px;">
+                    <ul>
+                        <span id="date" class="date"></span>
+                        <span id="week" class="week"></span>
+                        <a href="/0/index.jhtml" class="qgrmftxxw">全国人民法庭信息网</a>
+                    </ul>
+                </div>
+                <div class="fd-right">
+                    <ul>
+                        <li class="fd-tgsm" style="cursor: pointer;"><a onclick="openDialog()" style="color: #990000;font-size: 12px;">投稿说明</a></li>
+                        <li class="fd-dsr"><a href="http://ssfw.court.gov.cn/ssfww" target="_blank" style="color: #990000;font-size: 12px;">当事人服务入口</a></li>
+                        <li>
+                        <form action="/search.jspx" target="_blank">
+	                        <li>
+	                            <input style="height: 21px;" type="text" class="search" name="q" title="全站搜索" value="全站搜索" onfocus="if(this.value=='全站搜索')this.value=''" onblur="if(this.value=='')this.value='全站搜索'" maxlength="24" autocomplete="off"/>
+	                        </li>
+	                        <li style=" margin-left: 58px;">
+	                            <input type="hidden" name="sitepath" value="0">
+	                        	<input type="submit" class="submit" value=""/>
+	                            <img src="/r/cms/www/qgrmftxxw/images/search.png" alt="" />
+	                        </li>
+                        </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+         <div class="fd-header-logo">
+            <div>
+                <div class="fd-logoOuter">
+                    <img src="/r/cms/www/qgrmftxxw/images/logo.png" alt="" />
+                </div>
+                <div class="fd-logoOuter-bottom">
+                    <div class="fd-logoOuterTitlt">全国人民法庭信息网</div>
+                    <div class="fd-logoTextOuter"><img src="/r/cms/www/qgrmftxxw/images/ftjjLogo.png" alt=""></div>
+                </div>
+                <p style="clear: both;"></p>
+            </div>
+        </div>
+        <div class="fd-dl white_content" id="light" style="display: none; ">
+	<div class="fd-sm">
+	<p class="fd-bt">投稿说明</p>
+	 <p class="fd-yx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本网站采取电子邮箱投稿方式，投稿电子邮箱地址为</p>
+        <div class="fd-lm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p>可供投稿栏目为法庭新闻、工作动态、法庭党建、法庭信息公开、业务指导、经典案例、基层治理、先进团体、先进个人以及不忘初心牢记使命和司法为民专题等， 请投稿人按照稿件所属栏目对稿件进行命名， 命名规则为：【栏目】+稿件名称+【作者姓名+单位（所在法院、法庭）+联系方式】，并投稿到页面上方指定邮箱，管理员会对投稿稿件进行审核，审核成功后稿件将被发布到网站相应栏目。</p></div>
+	</div>
+        <img class="qxx" onclick = "closeDialog()" src="/r/cms/www/qgrmftxxw/img/xx.png"/>
+</div>
+<div id="fade" class="black_overlay"style="display: none; ">
+</div> 
+<style>
+    .qxx{
+        float: right;
+	    top: 29px;
+	    position: absolute;
+	    right: 15px;
+	    width: 16px; 
+    }
+	.black_overlay{ 
+            display: none; 
+           position: fixed;
+            top: 0%; 
+            left: 0%; 
+            width: 100%; 
+            height: 100%; 
+            background-color: black; 
+            z-index:1001; 
+            -moz-opacity: 0.4; 
+            opacity:.40; 
+            filter: alpha(opacity=88); 
+        } 
+       .white_content { 
+           position: fixed;
+		    top: 26%;
+		    left: 39%; 
+            z-index: 1200;
+        } 
+        .fd-sm{
+	        width: 370px;
+		    height: 390px;
+		    margin-top: 10px;
+		    background: #fff;
+		    border-radius: 13px;
+        }
+        .fd-bt{
+       	    font-size: 24px;
+		    text-align: center;
+		    color: #333;
+		    padding-top: 14px;
+        }
+        .fd-yx{
+       		font-size: 18px;
+		    padding: 0 11px;
+		    padding-top: 14px;
+		    position: relative;
+		    padding-bottom: 14px;
+		    line-height: 30px;
+        }
+        .fd-lm p{
+       	    font-size: 16px;
+		    color: #999;
+		    line-height: 26px;
+		    padding: 0 20px;
+            margin-top: -15px;
+        }
+</style>
+        <script>
+        function openDialog(){
+            document.getElementById('light').style.display='block';
+            document.getElementById('fade').style.display='block'
+            
+        }
+        function closeDialog(){
+            document.getElementById('light').style.display='none';
+            document.getElementById('fade').style.display='none';
+        }
+        </script>        <!-- logo -->
+        <!-- 中心 -->
+        <div class="fd-body">
+            <div class="fd-div">
+<div class="fd-title">
+    <ul>
+        <a href="/0/index.jhtml"><li class="fdLiActive">首页</li></a>
+		<!-- 法庭新闻 -->
+			<a href="http://rmft.court.gov.cn:80/0/ftxw/index.jhtml"><li >法庭新闻</li></a>
+		<!-- 工作动态 -->
+			<a href="http://rmft.court.gov.cn:80/0/gzdt/index.jhtml"><li >工作动态</li></a>
+		<!-- 法庭党建 -->
+			<a href="http://rmft.court.gov.cn:80/0/ftdj/index.jhtml"><li >法庭党建</li></a>
+		<!-- 法庭信息公开 -->
+			<a href="http://rmft.court.gov.cn:80/0/ftxxgk/index.jhtml"><li style="width: 132px;" >法庭信息公开</li></a>
+		<!-- 业务指导 -->
+			<a href="http://rmft.court.gov.cn:80/0/ywzd/index.jhtml"><li >业务指导</li></a>
+		<!-- 经典案例 -->
+			<a href="http://rmft.court.gov.cn:80/0/jdal/index.jhtml"><li >经典案例</li></a>
+		<!-- 基层治理 -->
+			<a href="http://rmft.court.gov.cn:80/0/jczl/index.jhtml"><li >基层治理</li></a>
+    </ul>
+</div>                <div class="fd-inner">
+                    <div>
+                        <div class="fd-sy">
+                            <!-- 头条 -->
+                            <div class="fd-tt">
+                                <div class="fd-tt_logo">
+                                    <img src="/r/cms/www/qgrmftxxw/images/tt_logo.png" alt="">
+                                </div>
+                                <div class="fd-tt-right">
+                                <a href="http://rmft.court.gov.cn:80/0/ftxw/400.jhtml" target="_blank" title="最高人民法院江必新副院长莅临海西中院调研指导人民法庭工作">
+                                    <div class="fd-tt-right_top">
+最高人民法院江必新副院长莅临海西中院调研指导人民法庭工作                                    </div>
+                                    <div class="fd-tt-right_bottom">                                        <span>
+9月12日，最高人民法院江必新副院长莅临青海省海西州中级人民法院调研指导人民法庭工作，并召开座谈会。青海省高级人民法院党...                                        </span>
+                                        <span class="fd-ydqw">
+                                            [阅读全文]
+                                        </span>
+                                    </div>
+                                 </a>
+                                </div>
+                            </div>
+                            <!-- 新闻 -->
+                            <div class="fd-xw">
+                                <div>
+                                    <div class="fd-xw_left">
+					                    <div class="bd">
+								                        <ul class="fd-xwBg">
+										                        <a href="http://rmft.court.gov.cn:80/1150/ftxw/3887.jhtml" target="_blank" title="沪苏法庭共建  绘就跨域司法协作新“枫”景"><img src="http://rmft.court.gov.cn/u/cms/www/202404/07142927lsua.jpg" width="609px" height="365px"></a>
+						                            		<div class="fd-xw-boTitle">
+								                                <p style="width: 438px;"><a href="http://rmft.court.gov.cn:80/1150/ftxw/3887.jhtml" target="_blank" title="沪苏法庭共建  绘就跨域司法协作新“枫”景" style="color: #fff;font-size: 14px;">沪苏法庭共建  绘就跨域司法协作新“枫”景</a></p>
+								                            </div>
+								                        </ul>
+								                        <ul class="fd-xwBg">
+										                        <a href="http://rmft.court.gov.cn:80/1150/ftxw/3886.jhtml" target="_blank" title="法润乡土  五和善治"><img src="http://rmft.court.gov.cn/u/cms/www/202404/02102546ft8m.jpg" width="609px" height="365px"></a>
+						                            		<div class="fd-xw-boTitle">
+								                                <p style="width: 438px;"><a href="http://rmft.court.gov.cn:80/1150/ftxw/3886.jhtml" target="_blank" title="法润乡土  五和善治" style="color: #fff;font-size: 14px;">法润乡土  五和善治</a></p>
+								                            </div>
+								                        </ul>
+								                        <ul class="fd-xwBg">
+										                        <a href="http://rmft.court.gov.cn:80/1150/ftxw/3884.jhtml" target="_blank" title="浦法“枫”景 | 永宁法庭发布永宁街道辖区涉诉案件态势分析及诉源治理白皮书"><img src="http://rmft.court.gov.cn/u/cms/www/202402/06163453jke5.jpg" width="609px" height="365px"></a>
+						                            		<div class="fd-xw-boTitle">
+								                                <p style="width: 438px;"><a href="http://rmft.court.gov.cn:80/1150/ftxw/3884.jhtml" target="_blank" title="浦法“枫”景 | 永宁法庭发布永宁街道辖区涉诉案件态势分析及诉源治理白皮书" style="color: #fff;font-size: 14px;">浦法“枫”景 | 永宁法庭发布永宁街道辖区涉诉案件态势分析及...</a></p>
+								                            </div>
+								                        </ul>
+								                        <ul class="fd-xwBg">
+										                        <a href="http://rmft.court.gov.cn:80/1150/ftxw/3873.jhtml" target="_blank" title="海门法院包场法庭 | 积极探索“三阶六步法”  实现连续7个季度案件零发改"><img src="http://rmft.court.gov.cn/u/cms/www/202401/08115741b5te.jpg" width="609px" height="365px"></a>
+						                            		<div class="fd-xw-boTitle">
+								                                <p style="width: 438px;"><a href="http://rmft.court.gov.cn:80/1150/ftxw/3873.jhtml" target="_blank" title="海门法院包场法庭 | 积极探索“三阶六步法”  实现连续7个季度案件零发改" style="color: #fff;font-size: 14px;">海门法院包场法庭 | 积极探索“三阶六步法”  实现连续7个季度...</a></p>
+								                            </div>
+								                        </ul>
+								                        <ul class="fd-xwBg">
+										                        <a href="http://rmft.court.gov.cn:80/1150/ftxw/3872.jhtml" target="_blank" title="仪征法院马集法庭 | 打造“法庭＋”  为诉源治理减分母"><img src="http://rmft.court.gov.cn/u/cms/www/202401/08111748r4ws.jpg" width="609px" height="365px"></a>
+						                            		<div class="fd-xw-boTitle">
+								                                <p style="width: 438px;"><a href="http://rmft.court.gov.cn:80/1150/ftxw/3872.jhtml" target="_blank" title="仪征法院马集法庭 | 打造“法庭＋”  为诉源治理减分母" style="color: #fff;font-size: 14px;">仪征法院马集法庭 | 打造“法庭＋”  为诉源治理减分母</a></p>
+								                            </div>
+								                        </ul>
+					                    </div>
+					                    <div class="hd fd-djCir">
+					                        <ul>
+								                        <li></li>
+								                        <li></li>
+								                        <li></li>
+								                        <li></li>
+								                        <li></li>
+					                        </ul>
+					                    </div>
+									</div>
+									<script type="text/javascript">
+					                    jQuery(".fd-xw_left").slide({mainCell:".bd",effect:"leftLoop",autoPlay:true});
+					                </script>
+                                    <div class="fd-xw_right">
+                                        <div class="fd-xw_logo">
+                                            <img src="/r/cms/www/qgrmftxxw/images/sy_xw.png" alt="">
+                                        </div>
+                                        <div class="fd-xw_title">
+                                            <div class="fd-xw_more">
+                                                <a class="fd-more" href="http://rmft.court.gov.cn:80/0/ftxw/index.jhtml">更多</a>
+                                                <img src="/r/cms/www/qgrmftxxw/images/right_cir.png" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="fd-zxyw">
+                                            <div class="fd-zxyw_title">
+                                                <div><a href="http://rmft.court.gov.cn:80/1150/ftxw/3888.jhtml" target="_blank" title="省法院李玉生副院长调研指导南京市雨花台区人民法院板桥人民法庭工作">省法院李玉生副院长调研指导南京市...</a></div>
+                                                <div>2024-04-21</div>
+                                                <div class="border-bottomStyle"></div>
+                                            </div>
+                                            <ul>
+		                                            <li><a href="http://rmft.court.gov.cn:80/1150/ftxw/3887.jhtml"   title="沪苏法庭共建  绘就跨域司法协作新“枫”景">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>沪苏法庭共建  绘就跨域司法协作新“枫”景</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-04-07</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/1150/ftxw/3886.jhtml"   title="法润乡土  五和善治">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>法润乡土  五和善治</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-04-02</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/1150/ftxw/3884.jhtml"   title="浦法“枫”景 | 永宁法庭发布永宁街道辖区涉诉案件态势分析及诉源治理白皮书">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>浦法“枫”景 | 永宁法庭发布永宁街道辖区涉诉案件态势分析及...</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-02-06</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/2050/ftxw/3877.jhtml"   title="叶县法院三常路法庭：发布诉源治理白皮书 助力基层社会治理">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>叶县法院三常路法庭：发布诉源治理白皮书 助力基层社会治理</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-01-17</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/2050/ftxw/3875.jhtml"   title="沁阳法院西万法庭开展《未成年人网络保护条例》普法宣传活动">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>沁阳法院西万法庭开展《未成年人网络保护条例》普法宣传活动</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-01-10</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/1150/ftxw/3873.jhtml"   title="海门法院包场法庭 | 积极探索“三阶六步法”  实现连续7个季度案件零发改">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>海门法院包场法庭 | 积极探索“三阶六步法”  实现连续7个季度...</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-01-08</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
+                            </div>
+                            <!-- 地图 -->
+                            <div class="fd-dt">
+                                <div class="fd-dt_logo">
+                                    <img src="/r/cms/www/qgrmftxxw/images/dt_logo.png" alt="">
+                                </div>
+                                <div class="fd-dt_title">
+                                </div>
+                                <div class="fd-dt_content">
+                                    <div class="fd-dt_left">
+                                        <div id="fd-city_name">全国</div>
+                                        <div id="fd-city_xjbt" style="display: none;">
+                                            <div class="fd-city_active">新疆
+                                                <div class="fd-city_trangle"></div>
+                                            </div>
+                                            <div>新疆兵团
+                                                <div class="fd-city_trangle" style="display: none;"></div>
+                                            </div>
+                                        </div>
+                                        <div id="fd-city_area">
+                                            <div id="area">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                                <div id="city_area"></div>
+                                                <div class="fd-city_bottom">
+                                                    <div>
+                                                        <table>
+                                                            <tr>
+                                                                <td>法官:</td>
+                                                                <td id="fgrs">151128人</td>
+                                                                <td>新收:</td>
+                                                                <td id="xssl">3545986件</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>法官助理:</td>
+                                                                <td id="fgzl">18861人</td>
+                                                                <td>已结:</td>
+                                                                <td id="yjsl">3121237件</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>书记员:</td>
+                                                                <td id="sjyrs">125729人</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fd-city_time">
+                                        </div>
+                                        <a class="fd-city_button" href="">
+                                        	    进入专页
+                                           <!--  <img src="/r/cms/www/qgrmftxxw/images/return_sy.png" alt=""> -->
+                                        </a> 
+                                    </div>
+                                    <div id="main"></div>
+                                    <div id="ztree_outr">
+                                        <div id="ztree" class="ztree"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 不忘初心，司法为民 -->
+                            <div class="fd-bwcx">
+                                <div>
+                                <a href="http://rmft.court.gov.cn:80/0/bwcx/index.jhtml">
+                                <img src="/r/cms/www/qgrmftxxw/images/bwcx.png"></a>
+                                </div>
+                                <div>
+                                <a href="http://rmft.court.gov.cn:80/0/sfwm/index.jhtml">
+                                <img src="/r/cms/www/qgrmftxxw/images/sfwm.png"></a>
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>
+                            <!-- 工作动态 -->
+                            <div class="fd-gzdt">
+                                <div>
+                                    <div class="fd-gz_logo">
+                                        <img src="/r/cms/www/qgrmftxxw/images/gzdt.png" alt="">
+                                    </div>
+                                    <div class="fd-gz_title">
+                                        <div class="fd-gz_more">
+                                            <a class="fd-more" href="http://rmft.court.gov.cn:80/0/gzdt/index.jhtml">更多</a>
+                                            <img src="/r/cms/www/qgrmftxxw/images/right_cir.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="fd-gzdtL">
+                                        <div class="fd-gzdtL-top">
+                                        <a href="http://rmft.court.gov.cn:80/1150/gzdt/3892.jhtml" target="_blank" title="南京溧水法院洪蓝法庭到护理院开展巡回审判">
+                                            <div class="fd-left">
+                                                <img src="/r/cms/www/no_picture.gif" alt="">
+                                            </div>
+                                            <div class="fd-right">
+                                                <div class="fd-gzdtinner">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为进一步增强老年人法治意识，5月9日上午，溧水法院洪蓝法庭将审判法庭“搬”到南京金牛护理院，巡回开庭审理一起建筑设备租赁合同纠纷案，给年事已高且行动不便的老人们提供了一场普法宣传“...
+                                                </div>
+                                                <span class="fd-ydqw">[阅读全文]</span>
+                                            </div>
+                                         </a>   
+                                        </div>
+                                        <div class="fd-gzdL-bottom">
+                                            <ul>
+		                                            <li><a href="http://rmft.court.gov.cn:80/2050/gzdt/3881.jhtml" title="悉心调解化心结 兄弟释嫌续亲情" target="_blank">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>悉心调解化心结 兄弟释嫌续亲情</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-01-25</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/2050/gzdt/3880.jhtml" title="代表委员联动合奏多元解纷“交响乐”" target="_blank">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>代表委员联动合奏多元解纷“交响乐”</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-01-25</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/2050/gzdt/3878.jhtml" title="禹州法院郭连法庭：坚持能动司法，护航发制品行业发展" target="_blank">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>禹州法院郭连法庭：坚持能动司法，护航发制品行业发展</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-01-17</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+		                                            <li><a href="http://rmft.court.gov.cn:80/2050/gzdt/3874.jhtml" title="虞城法院站集法庭：为民服务调解快 减轻诉累受称赞" target="_blank">
+		                                                <div class="fd-left">
+		                                                    <span class="fd-redTitle"></span>
+		                                                    <span>虞城法院站集法庭：为民服务调解快 减轻诉累受称赞</span>
+		                                                </div>
+		                                                </a>
+		                                                <div class="fd-right">
+		                                                    <span>2024-01-10</span>
+		                                                </div>
+		                                                <div class="border-bottomStyle"></div>
+		                                            </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="fd-gz_logo">
+                                        <img src="/r/cms/www/qgrmftxxw/images/jdal.png" alt="">
+                                    </div>
+                                    <div class="fd-gz_title">
+                                        <div class="fd-gz_more">
+                                            <a class="fd-more" href="http://rmft.court.gov.cn:80/0/jdal/index.jhtml">更多</a>
+                                            <img src="/r/cms/www/qgrmftxxw/images/right_cir.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="fd-jdal">
+                                        <ul>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3842.jhtml" title="房屋租赁陷僵局   破局重启新生机" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>房屋租赁陷僵局   破局重启新生机</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-11-12</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3829.jhtml" title="情暖重阳 法护夕阳 | 扬州中院能动司法保护老年人合法权益" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>情暖重阳 法护夕阳 | 扬州中院能动司法保护老年人合法权益</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-10-21</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3803.jhtml" title="父母离婚后，不直接抚养的一方能否要求子女尽赡养义务？" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>父母离婚后，不直接抚养的一方能否要求子女尽赡养义务？</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-08-11</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3802.jhtml" title="雇员受伤，组织者应否担责？" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>雇员受伤，组织者应否担责？</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-08-11</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3801.jhtml" title="彩礼，离婚时候还能要回吗？" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>彩礼，离婚时候还能要回吗？</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-08-11</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3799.jhtml" title="家门口安装摄像头，可能涉嫌侵犯邻居隐私权" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>家门口安装摄像头，可能涉嫌侵犯邻居隐私权</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-08-09</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3795.jhtml" title="多次饮酒后溺亡，同饮者应按过错程度担责" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>多次饮酒后溺亡，同饮者应按过错程度担责</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-08-09</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jdal/3794.jhtml" title="对继子女所有的房屋，在享有居住权的生父过世后继母是否享有居住权" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>对继子女所有的房屋，在享有居住权的生父过世后继母是否享有居...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-08-09</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p style="clear: both"></p>
+                            </div>
+                            <!-- 先进典型 -->
+                            <div class="fd-xjdx">
+                                <div class="fd-xjdx_logo">
+                                    <img src="/r/cms/www/qgrmftxxw/images/xjdx.png" alt="">
+                                </div>
+                                <div class="fd-xjdx_title">
+                                    <div class="fd-xjgeJt">
+                                        <span class="fd-xjjige">先进个人 </span>
+                                        <span>先进集体 </span>
+                                    </div>
+                                    <div class="fd-xjdx_more">
+                                        <a class="fd-more" href="http://rmft.court.gov.cn:80/0/xjdx/index.jhtml">更多</a>
+                                        <img src="/r/cms/www/qgrmftxxw/images/right_cir.png" alt="">
+                                    </div>
+                                </div>
+                                <!-- 先进个人 -->
+                                <div class="fd-xjdx-inner" style="display:block">
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/2050/xjgr/3847.jhtml" title="【身边榜样 】 李飞：扎根基层，“三心”办案" target="_blank">
+                                        <img src="/r/cms/www/no_picture.gif" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>【身边榜样 】 李飞：扎根基层，“...</span>
+                                        </p></a>
+                                    </div>
+                                    
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/1150/xjgr/3756.jhtml" title="让青春之花在新征程上绚丽绽放" target="_blank">
+                                        <img src="/r/cms/www/no_picture.gif" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>让青春之花在新征程上绚丽绽放</span>
+                                        </p></a>
+                                    </div>
+                                    
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/1150/xjgr/3728.jhtml" title="一颗剑胆琴心      逐梦法治之路" target="_blank">
+                                        <img src="/r/cms/www/no_picture.gif" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>一颗剑胆琴心      逐梦法治之路</span>
+                                        </p></a>
+                                    </div>
+                                    
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/1150/xjgr/3725.jhtml" title="人民法庭的光荣" target="_blank">
+                                        <img src="/r/cms/www/no_picture.gif" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>人民法庭的光荣</span>
+                                        </p></a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- 先进集体 -->
+                                <div class="fd-xjdx-inner" style="display:none">
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/1150/xjjt/3736.jhtml" title="系统谋划   集成运行   效能彰显" target="_blank">
+                                        <img src="/r/cms/www/no_picture.gif" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>系统谋划   集成运行   效能彰显</span>
+                                        </p>
+                                    </a>
+                                    </div>
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/2050/xjjt/3550.jhtml" title="西峡法院事迹展播丨全国法院先进集体——双龙法庭" target="_blank">
+                                        <img src="/r/cms/www/no_picture.gif" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>西峡法院事迹展播丨全国法院先进集...</span>
+                                        </p>
+                                    </a>
+                                    </div>
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/1/xjjt/3512.jhtml" title="首都边疆守望者——怀柔法院汤河口法庭" target="_blank">
+                                        <img src="http://rmft.court.gov.cn/u/cms/www/202204/24162128e4p0.jpg" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>首都边疆守望者——怀柔法院汤河口...</span>
+                                        </p>
+                                    </a>
+                                    </div>
+                                    <div class="fd-inner-div">
+                                    <a href="http://rmft.court.gov.cn:80/1/xjjt/3296.jhtml" title="顺义法院牛栏山法庭党支部“三个一工程” 扎实推进党史学习教育" target="_blank">
+                                        <img src="http://rmft.court.gov.cn/u/cms/www/202111/041524055y7k.jpg" alt="">
+                                        <p>
+                                            <span class="fd-redTitle"></span>
+                                            <span>顺义法院牛栏山法庭党支部“三个一...</span>
+                                        </p>
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 业务指导，法庭党建，基层治理 -->
+                            <div class="fd-yFj">
+                                <div class="fd-ywzd">
+                                    <div class="fd-ywzd_logo">
+                                        <img src="/r/cms/www/qgrmftxxw/images/ywzd.png" alt="">
+                                    </div>
+                                    <div class="fd-ywzd_title">
+                                        <div class="fd-ywzd_more">
+                                            <a class="fd-more" href="http://rmft.court.gov.cn:80/0/ywzd/index.jhtml">更多</a>
+                                            <img src="/r/cms/www/qgrmftxxw/images/right_cir.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="fd-ywzd-inner">
+                                        <ul>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/ywzd/3885.jhtml" title="江苏人民法庭品牌建设：打造卓越司法服务的力量之源" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>江苏人民法庭品牌建设：打造卓越司...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2024-02-23</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/ywzd/3876.jhtml" title="对人民法庭安全管理工作的几点思考" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>对人民法庭安全管理工作的几点思考</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2024-01-11</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/ywzd/3787.jhtml" title="兴化法院反映城乡结合区涉未成年人的性犯罪三点原因需引起关注" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>兴化法院反映城乡结合区涉未成年人...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-07-26</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/ywzd/3775.jhtml" title="转变审判理念   “一杆子”化解纠纷" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>转变审判理念   “一杆子”化解纠纷</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-06-17</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/ywzd/3589.jhtml" title="学习百年党史   汲取智慧力量   助力人民法庭精准施策服务乡村振兴" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>学习百年党史   汲取智慧力量   助...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2022-06-20</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="fd-ftjs">
+                                    <div class="fd-ftjs_logo">
+                                        <img src="/r/cms/www/qgrmftxxw/images/ftdj.png" alt="">
+                                    </div>
+                                    <div class="fd-ftjs_title">
+                                        <div class="fd-ftjs_more">
+                                            <a class="fd-more" href="http://rmft.court.gov.cn:80/0/ftdj/index.jhtml">更多</a>
+                                            <img src="/r/cms/www/qgrmftxxw/images/right_cir.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="fd-ftjs-inner">
+                                        <ul>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/ftdj/3835.jhtml" title="迈皋桥法庭 | 将指导人民调解融入基层治理大局" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>迈皋桥法庭 | 将指导人民调解融入...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-11-12</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/ftdj/3813.jhtml" title="法徽熠熠，珺璟如晔，照我满怀冰雪" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>法徽熠熠，珺璟如晔，照我满怀冰雪</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-09-15</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/2050/ftdj/3654.jhtml" title="金水法院丰庆法庭与马渡村、黄岗庙村、来童寨村开展党员联建活动" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>金水法院丰庆法庭与马渡村、黄岗庙...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2022-09-06</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/2050/ftdj/3646.jhtml" title="结对子、促共建、齐发展" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>结对子、促共建、齐发展</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2022-08-26</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1/ftdj/3514.jhtml" title="网格治理突出到底到边，党建统领彰显红色基因" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>网格治理突出到底到边，党建统领彰...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2022-04-24</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="fd-jczl">
+                                    <div class="fd-jczl_logo">
+                                        <img src="/r/cms/www/qgrmftxxw/images/jczl.png" alt="">
+                                    </div>
+                                    <div class="fd-jczl_title">
+                                        <div class="fd-jczl_more">
+                                            <a class="fd-more" href="http://rmft.court.gov.cn:80/0/jczl/index.jhtml">更多</a>
+                                            <img src="/r/cms/www/qgrmftxxw/images/right_cir.png" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="fd-jczl-inner">
+                                        <ul>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jczl/3891.jhtml" title="小法庭大民生  构建多维治理新格局" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>小法庭大民生  构建多维治理新格局</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2024-04-28</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jczl/3883.jhtml" title="司法服务基层社会治理的理论构思与实践展开" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>司法服务基层社会治理的理论构思与...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2024-01-29</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jczl/3839.jhtml" title="江溪法庭程加干法官 | 实地勘查  沉浸办案" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>江溪法庭程加干法官 | 实地勘查  ...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-11-12</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jczl/3837.jhtml" title="江溪法庭陈莹法官 | 摄像头前加装小挡板  巧妙化解隐私权纠纷" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>江溪法庭陈莹法官 | 摄像头前加装...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-11-12</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                            <li><a href="http://rmft.court.gov.cn:80/1150/jczl/3798.jhtml" title="大东法庭聚焦“四度” 集中化解土地纠纷获赞誉" target="_blank">
+                                                <div class="fd-left">
+                                                    <span class="fd-redTitle"></span>
+                                                    <span>大东法庭聚焦“四度” 集中化解土...</span>
+                                                </div>
+                                                </a>
+                                                <div class="fd-right">
+                                                    <span>2023-08-09</span>
+                                                </div>
+                                                <div class="border-bottomStyle"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>
+                            <!-- 徽章logo -->
+                           <div class="fd-badge">
+                                <a href="http://www.court.gov.cn/" target="_blank"><img src="/r/cms/www/qgrmftxxw/images/wang1.png" alt=""></a>
+                                <a href="http://wenshu.court.gov.cn/" target="_blank"><img src="/r/cms/www/qgrmftxxw/images/wang2.png" alt=""></a>
+                                <a href="http://tingshen.court.gov.cn/" target="_blank"><img src="/r/cms/www/qgrmftxxw/images/wang3.png" alt=""></a>
+                                <a href="https://splcgk.court.gov.cn/gzfwww/" target="_blank"><img src="/r/cms/www/qgrmftxxw/images/wang4.png" alt=""></a>
+                                <a href="http://zxgk.court.gov.cn/" target="_blank"><img src="/r/cms/www/qgrmftxxw/images/wang5.png" alt=""></a>
+                                <a href="http://cjdh.court.gov.cn/" target="_blank"><img src="/r/cms/www/qgrmftxxw/images/wang6.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部 -->
+<div class="fd-footer">
+            <div class="fd-top">
+                <div style=""> 网站群：
+           	              				 		<a href="http://rmft.court.gov.cn/1/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=48')" target="_blank">北京</a>\
+              				 		<a href="http://rmft.court.gov.cn/51/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=49')" target="_blank">天津</a>\
+              				 		<a href="http://rmft.court.gov.cn/100/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=50')" target="_blank">河北</a>\
+              				 		<a href="http://rmft.court.gov.cn/300/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=51')" target="_blank">山西</a>\
+              				 		<a href="http://rmft.court.gov.cn/451/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=52')" target="_blank">内蒙古</a>\
+              				 		<a href="http://rmft.court.gov.cn/600/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=53')" target="_blank">辽宁</a>\
+              				 		<a href="http://rmft.court.gov.cn/850/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=1784')" target="_blank">黑龙江</a>\
+              				 		<a href="http://rmft.court.gov.cn/750/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=54')" target="_blank">吉林</a>\
+              				 		<a href="http://rmft.court.gov.cn/1100/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=55')" target="_blank">上海</a>\
+              				 		<a href="http://rmft.court.gov.cn/1150/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=56')" target="_blank">江苏</a>\
+              				 		<a href="http://rmft.court.gov.cn/1300/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=57')" target="_blank">浙江</a>\
+              				 		<a href="http://rmft.court.gov.cn/1451/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=58')" target="_blank">安徽</a>\
+              				 		<a href="http://rmft.court.gov.cn/1600/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=59')" target="_blank">福建</a>\
+              				 		<a href="http://rmft.court.gov.cn/1700/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=60')" target="_blank">江西</a>\
+              				 		<a href="http://rmft.court.gov.cn/1850/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=61')" target="_blank">山东</a>\
+              				 		<a href="http://rmft.court.gov.cn/2050/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=62')" target="_blank">河南</a>\
+              				 		<a href="http://rmft.court.gov.cn/2250/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=63')" target="_blank">湖北</a>\
+              				 		<a href="http://rmft.court.gov.cn/2400/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=64')" target="_blank">湖南</a>\
+              				 		<a href="http://rmft.court.gov.cn/2550/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=65')" target="_blank">广东</a>\
+              				 		<a href="http://rmft.court.gov.cn/2750/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=66')" target="_blank">广西</a>\
+              				 		<a href="http://rmft.court.gov.cn/2900/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=67')" target="_blank">海南</a>\
+              				 		<a href="http://rmft.court.gov.cn/2950/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=68')" target="_blank">重庆</a>\
+              				 		<a href="http://rmft.court.gov.cn/3000/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=69')" target="_blank">四川</a>\
+              				 		<a href="http://rmft.court.gov.cn/3250/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=70')" target="_blank">贵州</a>\
+              				 		<a href="http://rmft.court.gov.cn/3350/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=71')" target="_blank">云南</a>\
+              				 		<a href="http://rmft.court.gov.cn/3500/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=72')" target="_blank">西藏</a>\
+              				 		<a href="http://rmft.court.gov.cn/3600/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=73')" target="_blank">陕西</a>\
+              				 		<a href="http://rmft.court.gov.cn/3750/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=74')" target="_blank">甘肃</a>\
+              				 		<a href="http://rmft.court.gov.cn/3900/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=75')" target="_blank">青海</a>\
+              				 		<a href="http://rmft.court.gov.cn/4000/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=76')" target="_blank">宁夏</a>\
+              				 		<a href="http://rmft.court.gov.cn/4050/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=77')" target="_blank">新疆</a>\
+              				 		<a href="http://rmft.court.gov.cn/4166/index.jhtml" onclick="$.get('/friendlink_view.jspx?id=78')" target="_blank">兵团法院</a>\
+                </div>
+            </div>
+            <div class="fd-bottom">
+                <ul>
+                    <li>
+                      地址：北京市东城区东交民巷27号 邮编：100745 总机：010-67550114
+                    </li>
+                    <li>
+                     	   中华人民共和国最高人民法院 版权所有
+                    </li>
+                </ul>
+            </div>
+</div>    </div>	
+	</body>
+<script src="/r/cms/www/qgrmftxxw/js/jquery.ztree.core.js"></script>
+<script src="/r/cms/www/qgrmftxxw/js/jquery.ztree.core.js"></script>
+<script src="/r/cms/www/qgrmftxxw/js/jquery.nicescroll.min.js"></script>
+<script src="/r/cms/www/qgrmftxxw/js/echarts.min..js"></script>
+<script src="/r/cms/www/qgrmftxxw/js/jquery.ztree.all.js"></script>
+<script src="/r/cms/www/qgrmftxxw/js/china.js"></script>
+<!-- <script src="/r/cms/www/qgrmftxxw/js/province/beijing.js"></script> -->
+
+<script type="text/javascript">
+    //点击title内容切换
+    var titleLi = $(".fd-title ul li");
+    var iframeDiv = $(".fd-inner div");
+    for (var i = 0; i < titleLi.length; i++) {
+        titleLi[i].onclick = function () {
+            for (var j = 0; j < iframeDiv.length; j++) {
+                $(iframeDiv[j]).css('display', 'none');
+            }
+            $(iframeDiv[j]).css('display', 'block');
+        };
+    } 
+    // 滚动条样式
+    //先进集体个人切换
+    var xjdxInner = $('.fd-xjdx-inner');
+    var fdxjgeJt = $('.fd-xjgeJt >span');
+    var xiabiao=0;
+    fdxjgeJt.click(function () {
+        for (var i = 0; i < xjdxInner.length; i++) {
+            xjdxInner[i].style.display = "none";
+        }
+        var xiabiao = $(this).index();
+        xjdxInner[xiabiao].style.display = "block";
+        $(this).addClass('fd-xjjige').siblings().removeClass('fd-xjjige').end();
+    })
+      //多行文本溢出兼容ie
+      $(function(){
+            var content_arr=[];//定义一个空数组
+            $('.fd-gzdtinner').each(function(){//遍历box内容
+                var content=$.trim($(this).text());//去掉前后文空格
+                content_arr.push(content);//内容放进数组
+            })
+            for(var i=0;i<content_arr.length;i++){//遍历循环数组
+                if(content_arr[i].length>=120){//如果数组长度（也就是文本长度）大于等于50（数字可自己定义）
+                    content=content_arr[i].substr(0,120)+'...';//添加省略号并放进box文字内容后面
+                    $(".fd-gzdtinner").eq(i).text(content);
+                }else{
+                    content=content_arr[i];
+                    $(".fd-gzdtinner").eq(i).text(content);
+                }
+            }
+        })
+</script>
+
+
+
+<script>
+    // zTree样式修改
+    function getTrangleStyle() {
+        $('.ztree li.fd-haveChildNode>a').mouseover(function () {
+            $(this).siblings('.switch').css('background-image',
+                'url(/r/cms/www/qgrmftxxw/images/img/trangle_white.png)')
+            $(this).css('background-image', 'url(/r/cms/www/qgrmftxxw/images/ztree_bg.png)')
+            $(this).find('>span').css('color', '#ffffff')
+            $(this).find('>span.button').css('background-color', '#ffffff')
+        })
+        $('.ztree > li > a').mouseover(function () {
+            $(this).siblings('.switch').css('background-image',
+                'url(/r/cms/www/qgrmftxxw/images/img/trangle_white.png)')
+        })
+        $('.ztree > li > a').mouseleave(function () {
+            $(this).siblings('.switch').css('background-image',
+                'url(/r/cms/www/qgrmftxxw/images/img/trangle_red.png)')
+        })
+        $('.ztree .fd-haveChildNode > a').mouseleave(function () {
+            $(this).siblings('.switch').css('background-image',
+                'url(/r/cms/www/qgrmftxxw/images/img/trangle_orangle.png)')
+            $(this).css('background-image', 'none')
+            $('.ztree .fd-haveChildNode > a>span').css('color', '#330000')
+            $('.ztree .fd-haveChildNode > a>span.button').css('background-color', '#D45247')
+        })
+    }
+
+    //ztree调取本地json数据
+    function getTreeData(name) {
+        var treename;
+        if (name == 'china') {
+            treename = 'tree';
+        } else {
+            treename = name
+        }
+        var base = "";
+        $.ajax({
+            type: "GET", //方式
+            url: base+"/getOrganTree.jspx?siteId="+10, //路径
+            dataType: "json",
+            success: function (data) { //成功后执行的函数在、
+                zNodes = data.list;
+                treeInit(data);
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+    }
+
+    // ztree添加滚动条样式
+    var zTree;
+    function resizeScroll() {
+        setTimeout(function () {
+            $('#ztree').getNiceScroll().resize();
+        }, 100)
+    }
+    // ztree获取节点展示的箭头
+    function getTrangle(treeNode) {
+        setTimeout(function () {
+            if (treeNode.children) {
+                var nodes = treeNode.children;
+                for (var i = 0; i < nodes.length; i++) {
+                    if (nodes[i].haveChildren) {
+                        $('#' +
+                            nodes[i].tId).addClass('fd-haveChildNode');
+                    }
+                }
+                getTrangleStyle()
+            }
+        }, 100)
+    }
+    // ztree节点样式调整
+    var setting = {
+        view: {
+            dblClickExpand: false,
+            showLine: false,
+            selectedMulti: true,
+            expandSpeed: 0
+        },
+        data: {
+            simpleData:{
+                enable:false, 
+            }
+        },
+        callback: {
+            beforeClick: function (treeId, treeNode, eventNode) {
+                var zTree = $.fn.zTree.getZTreeObj("ztree");
+                var base = "";
+                if (!treeNode.children) {
+                    $.ajax({
+                        type: "GET", //方式
+                        url: base+"/getOrganTree.jspx?fyId=" + treeNode.id +"&siteId="+10, //路径
+                        dataType: "json",
+                        success: function (data) { //成功后执行的函数在、
+                            zTree.addNodes(treeNode, data.children)
+                            getTrangle(treeNode)
+                        }
+                    });
+                }
+                getTrangle(treeNode)
+                 if (treeNode.isParent) {
+                    var bq = eventNode.originalEvent.srcElement.tagName;
+                    if (bq === 'SPAN') {
+                      eventNode.originalEvent.srcElement.parentNode.previousSibling.click()
+                    } else {
+                      eventNode.originalEvent.srcElement.previousSibling.click()
+                    }
+                    resizeScroll();
+                    return false;
+                } else {
+                   resizeScroll();
+                    return true;
+                }
+            },
+        }
+    };
+    //初始化ztree
+    function treeInit(data) {
+        var t = $("#ztree");
+        t = $.fn.zTree.init(t, setting, data.list);
+        var zTree = $.fn.zTree.getZTreeObj("ztree");
+        setTimeout(function () {
+            var treeNode = zTree.getNodeByTId('ztree_1')
+            getTrangle(treeNode)
+        }, 200)
+        $("#ztree").niceScroll({
+            cursorcolor: "#efa29d", // cursoropacitymax: 0.7, // boxzoom: true, // touchbehavior: true });
+        });
+    }
+</script>
+<script>
+    var xjptDataJson = {};
+    // 获取地图和tree数据
+    function getData() {
+    	 var base = "";
+        $.ajax({
+            type: "GET", //方式
+            url: base+"/getMapData.jspx?siteId="+10, //路径
+           // url: "/r/cms/www/qgrmftxxw/json/map.json", //路径 
+           dataType: "json",
+            success: function (data) { //成功后执行的函数           	
+                indexInit(data);
+                var jsonList = data.list;
+                for(var i=0;i<=jsonList.length;i++){
+                	var name = jsonList[i].name;
+                	if(name!=null &&  name == '新疆兵团'){
+                		xjptDataJson.data = jsonList[i];
+                		break;
+                	}
+                }
+            }
+        });
+    }
+    // 初始化地图
+    function getBigCityMap(val, option, data, index) {
+        var valName,
+            fysl;
+        if (val == 'china') {
+            valName = '全国'
+            fysl = data.fysl;
+        } else {
+             if (index) {
+                valName = '新疆兵团'
+                for (var i = 0; i < data.list.length; i++) {
+                    if (valName == data.list[i].name) {
+                        fysl = data.list[i].fysl;
+                    }
+                }
+            } else { 
+                valName = val
+                for (var i = 0; i < data.list.length; i++) {
+                    if (val == data.list[i].name) {
+                        fysl = data.list[i].fysl;
+                    }
+                }
+            } 
+        }
+        var optionMap = {
+            backgroundColor: '#FFFFFF',
+            title: {
+                text: valName + '人民法庭'+ fysl +'所',
+                subtext: '',
+                textStyle: {
+                    color: '#94663b',
+                    fontSize: 16,
+                },
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                show: false
+            },
+            visualMap: {
+                show: false,
+                splitList: [{
+                    start: 500,
+                    end: 600
+                }, {
+                    start: 0,
+                    end: 500
+                }],
+                color: ['#990000', '#ffd8be'],
+            },
+            series: [{
+                name: '数据',
+                type: 'map',
+                mapType: val,
+                zoom: option.scale,
+                center: option.center,
+                layoutCenter: option.layoutCenter,
+                layoutSize: option.layoutSize,
+                // roam: true,
+                label: {
+                    normal: {
+                        show: true, //省份名称
+                        textStyle: {
+                            fontSize: 8,
+                            color: '#330000',
+                        },
+                    },
+                    emphasis: {
+                        show: false,
+                        textStyle: {
+                            fontSize: 8,
+                            color: '#330000',
+                        },
+
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true
+                        },
+                        areaColor: '#ffd8be ',
+                        borderColor: '#f6b386',
+                        borderWidth: 1,
+                        opacity: 0.7,
+                    },
+                    emphasis: {
+                        label: {
+                            show: true
+                        },
+                        areaColor: option.areaColor
+                    }
+                },
+                data: data.list //数据
+            }]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(optionMap);
+        //echarts点击事件
+        myChart.on('click', function (params) {
+            //判断地图是否开放
+            for (var i = 0; i < data.list.length; i++) {
+                if (params.name.indexOf(data.list[i].name) > -1) {
+                    if (params.name == '香港'|| params.name == '澳门' || params.name == '台湾') {
+                        alert(params.name + '地区暂未开放');
+                        return
+                    } else {
+                        var srcname = params.data.ename;
+                        var script = document.createElement('script');
+                        script.src = '/r/cms/www/qgrmftxxw/js/province/' + srcname + '.js';
+                        document.head.appendChild(script);
+                        setTimeout(function () {
+                            document.getElementById('fd-city_name').innerText = params.name;
+                            getCityPMap(params.name, params.data)
+                            if (params.name == '新疆') {
+                                $('#fd-city_name').css('display', 'none')
+                                $('#fd-city_xjbt').css('display', 'block')
+                            } else {
+                                $('#fd-city_name').css('display', 'block')
+                                $('#fd-city_xjbt').css('display', 'none')
+                            }
+                        }, 300)
+                        // 左侧数据渲染
+                        $('#fgrs').html(params.data.fg + '人')
+                        $('#xssl').html(params.data.xs + '件')
+                        $('#fgzl').html(params.data.fgzl + '人')
+                        $('#yjsl').html(params.data.yz + '件')
+                        $('#sjyrs').html(params.data.sjy + '人')
+                        //进入标签页添加a标签
+                        $('.fd-city_button').attr('href', params.data.url);
+                        //进入标签页显示隐藏
+                        $('.fd-city_time').removeClass('fd-margin-top');
+                        // 判断是否是新疆
+                        $('.fd-city_button').css('display', 'block');
+                        if (params.name == '新疆') {
+                            $('#fd-city_name').css('display', 'none')
+                            $('#fd-city_xjbt').css('display', 'block')
+                            xinjiangData = params
+                            $('#fd-city_xjbt > div:nth-child(1)').addClass('fd-city_active').siblings()
+                                .removeClass('fd-city_active').end()
+                            $('.fd-city_trangle').css('display', 'none')
+                            $('#fd-city_xjbt > div.fd-city_active .fd-city_trangle').css('display', 'block')
+                        } else {
+                            $('#fd-city_name').css('display', 'block')
+                            $('#fd-city_xjbt').css('display', 'none')
+                        }
+                        //地图高亮样式
+                        for (var k = 0; k < data.list.length; k++) {
+                            // debugger
+                            if (params.name == data.list[k].name) {
+                                data.list[k].value = 550;
+                            } else {
+                                data.list[k].value = 0;
+                            }
+                        }
+                        myChart.setOption(optionMap)
+                    }
+                }
+            }
+            if (mapOrdName == '全国') {
+                getTreeById(params.data.id)
+            }
+        })
+    }
+    // 点击地图定位ztree
+    function getTreeById(id) {
+            // 控制ztree节点展开
+            if (zNodes) {
+                var zTree = $.fn.zTree.getZTreeObj("ztree");
+                var arr = zNodes[0].children;
+                var nodes = zTree.getNodes()[0].children;
+                var treeId;
+                for (var n = 0; n < nodes.length; n++) {
+                    if (id == nodes[n].id) {
+                        treeId = nodes[n].tId
+                        var treeNode = zTree.getNodeByTId(nodes[n].tId);
+                        var base = "";
+                        if (!treeNode.children) {
+                            $.ajax({
+                                type: "GET", //方式
+                                url:  base+"/getOrganTree.jspx?fyId=" + id +"&siteId="+10, //路径
+                                dataType: "json",
+                                success: function (data) { //成功后执行的函数在、
+                                    /* console.log(data) */
+                                    zTree.addNodes(treeNode, data.children)
+                                    getTrangle(treeNode)
+                                    resizeScroll();
+                                    ztreePosition(treeId)
+                                }
+                            });
+                        } else {
+                            if (treeNode.isParent) {
+                                //zTree.expandNode(treeNode);
+                                resizeScroll();
+                                 ztreePosition(treeId) 
+                                return false;
+                            } else {
+                                resizeScroll();
+                               ztreePosition(treeId) 
+                                return true;
+                            }
+                        }
+                    }
+                }
+              // ztreePosition(treeId) 
+ }
+    }
+    // 滚动条定位
+    function ztreePosition(treeId) {
+        setTimeout(function () {
+            var top = Math.ceil($('#' + treeId).position().top)//距离父元素的高度
+            //console.log(top)
+            $("#ztree").getNiceScroll(0).doScrollTop(top);
+        }, 110)
+    } 
+    // 左侧数据渲染
+    function getLeftData(params, index) {
+         $('#fgrs').html(params.data.fg + '人')
+         $('#xssl').html(params.data.xs + '件')
+         $('#fgzl').html(params.data.fgzl + '人')
+         $('#yjsl').html(params.data.yz + '件')
+         $('#sjyrs').html(params.data.sjy + '人')
+    }
+    // 省级地图
+    function getCityPMap(name, data, index) {
+ // 创建一个对象，判断是否是海南的时候，放大地图
+        var optionCitySet = {
+            center: undefined,
+            layoutCenter: undefined,
+            layoutSize: undefined,
+        }
+        if (name == '海南') {
+            optionCitySet.center = [109.844902, 19.0392];
+            optionCitySet.layoutCenter = ['50%', '50%'];
+            optionCitySet.layoutSize = "500%"
+        } else {
+            optionCitySet.center = undefined;
+            optionCitySet.layoutCenter = undefined;
+            optionCitySet.layoutSize = undefined
+        }
+        var count = 0;
+        count = data.fysl
+        var optionMapCity = {
+            backgroundColor: 'transparent',
+            title: {
+                text: '人民法庭' + count + '所',
+                subtext: '',
+                textStyle: {
+                    color: '#94663b',
+                    fontSize: 16,
+                    lineHeight: 24,
+                },
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                show: false
+            },
+
+            series: [{
+                name: '数据',
+                type: 'map',
+                mapType: name,
+                selectedMode: 'single',
+                zoom: 0.9,
+                center: optionCitySet.center,
+                layoutCenter: optionCitySet.layoutCenter,
+                layoutSize: optionCitySet.layoutSize,
+                // roam: true,
+                label: {
+                    normal: {
+                        show: false, //省份名称
+                        textStyle: {
+                            fontSize: 12,
+                            color: '#330000'
+                        },
+                        formatter: '{b}',
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: true
+                        },
+                        areaColor: '#ffd8be',
+                        borderColor: '#ffd8be',
+                        borderWidth: 0,
+                        opacity: 0.7,
+                    },
+                    emphasis: {
+                        label: {
+                            show: true
+                        },
+                        areaColor: '#ffd8be'
+                    }
+                },
+                data: [] //数据
+            }]
+        };
+        var myChartCity = echarts.init(document.getElementById('city_area'));
+
+        //使用制定的配置项和数据显示图表
+        myChartCity.setOption(optionMapCity);
+        //控制左侧小地图的zoom
+        if (optionMapCity.series[0].mapType == "china") {
+            optionMapCity.series[0].zoom = "1.3"
+
+        } else {
+            optionMapCity.series[0].zoom = "0.9"
+        }
+        myChartCity.setOption(optionMapCity);
+
+    }
+
+    // 页面初始化
+    function indexInit(data) {
+        //截取到带有province的script的省份名字
+        var scri = $('script'),
+            srcname;
+        for (var i = 0; i < scri.length; i++) {
+            if (scri[i].src.indexOf('province') > -1) {
+                var arr = scri[i].src.split('/');
+                srcname = arr[arr.length - 1].split('.')[0];
+            }
+        }
+        var option = {
+            scale: 1,
+            borderColor: '#ffb181',
+            areaColor: '#ffd8be',
+            borderWidth: 0,
+            showlabel: false,
+            center: undefined,
+            // center: [109.844902, 19.0392],
+            // layoutCenter: ['50%', '50%'],
+            // layoutSize: "500%",
+            layoutCenter: undefined,
+            layoutSize: undefined,
+        }
+        var optionChina = {
+            scale: 1.2,
+            borderColor: '#ffffff',
+            areaColor: '#990000',
+            bordrWidth: 2,
+            showlabel: true,
+            center: undefined,
+            // center: [109.844902, 19.0392],
+            // layoutCenter: ['50%', '50%'],
+            // layoutSize: "500%",
+            layoutCenter: undefined,
+            layoutSize: undefined,
+        }
+        if (!srcname) {
+            srcname = 'china'
+        }
+        var ztreeCSS = document.createElement('link');
+        ztreeCSS.rel = 'stylesheet'
+        if (srcname == 'china') {
+            //树节点样式style样式
+            ztreeCSS.href = '/r/cms/www/qgrmftxxw/css/zTreeStyle.css';
+            $('.fd-city_button').css('display', 'none');
+            $('.fd-city_time').addClass('fd-margin-top');
+            $('.fd-city_button').text('进入专页');
+        } else {
+            ztreeCSS.href = '/r/cms/www/qgrmftxxw/css/ztreeStyleCity.css';
+            $('.fd-city_button').css('display', 'block');
+            $('.fd-city_time').removeClass('fd-margin-top');
+            $('.fd-city_button').text('返回首页');
+        }
+        document.head.appendChild(ztreeCSS);
+        setTimeout(function () {
+            getTreeData(srcname)
+        }, 500)
+        // 这是页面初始化的事后
+        var provinceNameEN = ['henan', 'jiangxi','beijing', 'chongqing','tianjin', 'shanghai','hebei', 'yunnan','liaoning', 
+                              'heilongjiang','hunan', 'anhui','shandong', 'xinjiang','jiangsu','zhejiang','hubei','guangxi',
+                              'gansu','shanxi','neimenggu','shanxi1','jilin','fujian','guizhou','guangdong','qinghai','xizang',
+                              'sichuan','ningxia','hainan','xinjiangbingtuan'];
+        var provinceNameCN = ['河南', '江西','北京','重庆','天津','上海','河北','云南','辽宁','黑龙江','湖南','安徽','山东','新疆','江苏','浙江','湖北','广西',
+                              '甘肃','山西','内蒙古','陕西','吉林','福建','贵州','广东','青海','西藏','四川','宁夏','海南','新疆兵团'];
+        var cityNme;
+        if (provinceNameEN.indexOf(srcname) > -1) {
+            var index = provinceNameEN.indexOf(srcname);
+            cityNme = provinceNameCN[index]
+            mapOrdName = provinceNameCN[index];
+            if (cityNme == '新疆兵团') {
+                getBigCityMap('新疆', option, data, 1);
+            } else { 
+                getBigCityMap(cityNme, option, data);
+            }
+            if (cityNme == '海南') {
+                option.center = [109.844902, 19.0392];
+                option.layoutCenter = ['50%', '50%'];
+                option.layoutSize = "500%";
+                getBigCityMap(cityNme, option, data);
+            }
+            var maps = data.list;
+            for (var i = 0; i < maps.length; i++) {
+            	/* console.log(maps[i].ename); */
+                if (maps[i].ename == provinceNameEN[index]) {
+                     if (cityNme == '新疆兵团') {
+                        getCityPMap('新疆', maps[i]);
+                    } else {  
+                        getCityPMap(cityNme, maps[i]);
+                     }  
+                    //进入标签页添加a标签
+                    $('.fd-city_button').attr('href', maps[i].returnUrl);
+                    $('#fgrs').html(maps[i].fg + '人')
+                    $('#xssl').html(maps[i].xs + '件')
+                    $('#fgzl').html(maps[i].fgzl + '人')
+                    $('#yjsl').html(maps[i].yz + '件')
+                    $('#sjyrs').html(maps[i].sjy + '人')
+                }
+            }
+        } else {
+            cityNme = '全国'
+            mapOrdName = cityNme
+            $('#fgrs').html(data.fg + '人')
+            $('#xssl').html(data.xs + '件')
+            $('#fgzl').html(data.fgzl + '人')
+            $('#yjsl').html(data.yz + '件')
+            $('#sjyrs').html(data.sjy + '人')
+            option.areaColor = '#990000'
+            getBigCityMap('china', optionChina, data);
+            getCityPMap('china', data);
+        }
+        $('#fd-city_name').html(cityNme)
+        $('#fd-city_name').css('display', 'block')
+        $('#fd-city_xjbt').css('display', 'none')
+    }
+//点击新疆事件
+    function mapClick() {
+        $('#fd-city_xjbt > div').click(function () {
+            $(this).addClass('fd-city_active').siblings().removeClass(
+                'fd-city_active').end()
+            $(this).children('div').css('display', 'block');
+            $(this).siblings().children('div').css('display', 'none').end();
+            var index = $(this).index()
+            if (index) {
+            	 getLeftData(xjptDataJson, index)
+                 getCityPMap(xinjiangData.name, xjptDataJson.data, index);
+                $('.fd-city_button').attr('href', xjptDataJson.data.url);
+                getTreeById(xjptDataJson.data.id)
+            } else {
+            	 getLeftData(xinjiangData, index)
+                 getCityPMap(xinjiangData.name, xinjiangData.data, index);
+                $('.fd-city_button').attr('href', xinjiangData.data.url);
+                getTreeById(xinjiangData.data.id)
+            }
+        })
+    }
+    $(document).ready(function () {
+        var mapOrdName;
+        var zNodes;
+        var xinjiangData;
+        getData()
+        mapClick()
+    })
+</script>
+</html>

@@ -1,0 +1,929 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<meta name="SiteName" content="国家税务总局">
+	<meta name="SiteDomain" content="https://12366.chinatax.gov.cn/">
+	<meta name="SiteIDCode" content="bm29000002">
+	<meta name="ColumnName" content="纳税人信息查询">
+	<meta name="ColumnDescription" content="纳税人信息查询">
+	<meta name="ColumnKeywords" content="纳税人信息查询">
+	<meta name="ColumnType" content="纳税人信息查询">
+
+	<link type="image/x-icon" href="/favicon.ico" rel="bookmark"/>
+	<link type="image/x-icon" href="/favicon.ico" rel="icon"/>
+	<link type="image/x-icon" href="/favicon.ico" rel="shortcut icon"/>
+
+	<link rel="stylesheet" href="/core-plugins/12366/css/style/reset.css">
+	<link rel="stylesheet" href="/core-plugins/12366/css/style/style.css">
+	<link rel="stylesheet" href="/core-plugins/12366/css/style/dialog.css" type="text/css">
+
+
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/core-plugins/12366/js/baseutil.js"></script>
+	<script type="text/javascript" src="/core-plugins/12366/js/alert.msg.js"></script>
+	<title>纳税人信息查询</title>
+	<script type="text/javascript" src="https://12366.chinatax.gov.cn/znzx/js/arlog.js" data-module="nsrxxcx" data-tag="" data-id="" data-title=""
+			id="arlogAnchor"></script>
+
+</head>
+
+<body>
+<div class="s">
+	<!-- fixed -->
+	
+<script type="text/javascript" src="/core-plugins/ew/depend/cookie/jquery.cookie-min.js"></script>
+<!-- fixed -->
+<div class="fixed-window">
+    <div class="people-img"></div>
+    <div class="smart" onclick="openWinForZnzx()">智能咨询</div>
+    <div class="txt-btn-box zn-btn box-shadow-wrap">
+        <a href="/bsfw/about12366/main" target="_blank">
+            <div class="txt">关于12366</div>
+        </a>
+    </div>
+    <!-- APP已下架，屏蔽下载入口
+    <div class="code-btn box-shadow-wrap" onclick="openURL('/download/app/index')">
+        <div class="img-container">
+            <img src="/core-plugins/normal/images/down-code.png" style="height: 78px;width: 78px;">
+        </div>
+    </div>
+    -->
+    <div class="top-btn box-shadow-wrap" onclick="toTop()">
+    </div>
+</div>
+<script>
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 100) {
+            $('.fixed-window').css('height', '388px');
+            $('.fixed-window .top-btn').show();
+        } else {
+            $('.fixed-window').css('height', '332px');
+            $('.fixed-window .top-btn').hide();
+        }
+    });
+    //返回顶部
+    function toTop(){
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+
+    var intelligenturl = 'https://12366.chinatax.gov.cn/xiaohui',
+        guide = $.cookie("guide");
+    function openWinForZnzx(){
+        $.formPost(intelligenturl,{"guide":guide});
+    }
+
+    function openURL(url) {
+        window.open(url);
+    }
+</script>
+	<!-- header -->
+	
+
+
+<script type="text/javascript">
+    window.path="";
+    window.ctx_="";
+</script>
+
+<script type="text/javascript" src="/core-plugins/12366/js/baseutil.js"></script>
+
+
+<script>
+    var province = {};
+    province['11000000'] = "北京市";
+    province['12000000'] = "天津市";
+    province['13000000'] = "河北省";
+    province['14000000'] = "山西省";
+    province['15000000'] = "内蒙古自治区";
+    province['21000000'] = "辽宁省";
+    province['22000000'] = "吉林省";
+    province['23000000'] = "黑龙江省";
+    province['31000000'] = "上海市";
+    province['32000000'] = "江苏省";
+    province['33000000'] = "浙江省";
+    province['34000000'] = "安徽省";
+    province['35000000'] = "福建省";
+    province['36000000'] = "江西省";
+    province['37000000'] = "山东省";
+    province['41000000'] = "河南省";
+    province['42000000'] = "湖北省";
+    province['43000000'] = "湖南省";
+    province['44000000'] = "广东省";
+    province['45000000'] = "广西壮族自治区";
+    province['46000000'] = "海南省";
+    province['50000000'] = "重庆市";
+    province['51000000'] = "四川省";
+    province['52000000'] = "贵州省";
+    province['53000000'] = "云南省";
+    province['54000000'] = "西藏自治区";
+    province['61000000'] = "陕西省";
+    province['62000000'] = "甘肃省";
+    province['63000000'] = "青海省";
+    province['64000000'] = "宁夏回族自治区";
+    province['65000000'] = "新疆维吾尔自治区";
+    province['21020000'] = "大连市";
+    province['33020000'] = "宁波市";
+    province['35020000'] = "厦门市";
+    province['37020000'] = "青岛市";
+    province['44030000'] = "深圳市";
+
+
+
+
+</script>
+
+
+
+<div id="div-login-container"></div>
+<div class="nav">
+    <div class="zero-inline">
+        <div class="mid-box clearfix">
+            <div class="fl">
+                <a class="back-index" href="/">
+                    <div class="splite-line"></div>
+                    <i></i>首页
+                </a>
+                <div class="location">
+                    <i class="i-local"></i>
+                    <span class="state" id="selected_city" code="">北京市</span>
+                    <span class="toggle">[切换]</span>
+                </div>
+                <div class="cities" id="index_cities">
+                </div>
+            </div>
+            <div class="fr">
+                <div class="sml-links">
+                    <div class="link">
+                        <a href="javascript:;" onclick="openpersonpage('collection')" id="collection" target="_self">我的收藏</a>
+                    </div>
+                    <div class="link">
+                        <a href="javascript:;;" onclick="openpersonpage('partnets')" id="partnets" target="_self">好友申请</a>
+                    </div>
+                    <div class="link">
+                        <a href="javascript:;" onclick="openpersonpage('message')" id="message" target="_self">我的消息</a>
+                        
+                    </div>
+
+                </div>
+                <div class="reg-login">
+                    <a href="/usercenter/register/main">注册</a>
+                    <a>登录</a>
+                </div>
+                <div class="info reg-user" style="display: none;">
+                    <div class="avator">
+                        <img src="/core-plugins/12366/css/qaimg/qa_user_tx.jpg" alt="">
+                    </div>
+                    <div class="name fn-text">用户名称</div>
+                    <i class="i-s-arrow"></i>
+                    <div class="pop-up">
+                        
+                        <div class="item"><a href="/usercenter/personal/main">个人中心</a></div>
+                        <div class="item"><a onclick="login_header.loginOut();" id="userLoginOut">退出</a></div>
+                        <!-- 下面这个隐藏form用于its登出，和下面的iframe一起使用，实现跨域登出 -->
+                        <form style="display:none" id="formItsLogout" action="http://116.62.19.87:10000/web/zh/oauth2/logout" method="get" target="itsLogoutIframe">
+                            <input id="btnSubmitItsLogout" type="submit" value="ITS登出">
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-box">
+        <div class="mid-box">
+            <div class="first-inline clearfix">
+                <a href="/" style="cursor:pointer">
+                    <img class="logo fl" src="/core-plugins/12366/css/images/logo_zj.png" alt="">
+                    <img class="logo fl" src="/core-plugins/12366/css/images/logo_pt.png" alt="" style="margin-top: 20px;margin-left: 20px;">
+                </a>
+                <div class="tit-txt fl" id="head-title"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/core-plugins/ew/depend/cookie/jquery.cookie-min.js"></script>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=gfrTV3LASJ1hHtK4hF80r7SdSdfFGXVF&s=1" ></script>
+<script type="text/javascript">
+    var headerTargetAreaMap = {
+        "111000000": "北京市",
+        "112000000": "天津市",
+        "113000000": "河北省",
+        "114000000": "山西省",
+        "115000000": "内蒙古自治区",
+        "121000000": "辽宁省",
+        "122000000": "吉林省",
+        "123000000": "黑龙江省",
+        "131000000": "上海市",
+        "132000000": "江苏省",
+        "133000000": "浙江省",
+        "134000000": "安徽省",
+        "135000000": "福建省",
+        "136000000": "江西省",
+        "137000000": "山东省",
+        "141000000": "河南省",
+        "142000000": "湖北省",
+        "143000000": "湖南省",
+        "144000000": "广东省",
+        "145000000": "广西壮族自治区",
+        "146000000": "海南省",
+        "150000000": "重庆市",
+        "151000000": "四川省",
+        "152000000": "贵州省",
+        "153000000": "云南省",
+        "154000000": "西藏自治区",
+        "161000000": "陕西省",
+        "162000000": "甘肃省",
+        "163000000": "青海省",
+        "164000000": "宁夏回族自治区",
+        "165000000": "新疆维吾尔族自治区",
+        "121020000": "大连市",
+        "133020000": "宁波市",
+        "135020000": "厦门市",
+        "137020000": "青岛市",
+        "144030000": "深圳市"
+    }
+
+    // 重写indexOf方法
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function (elt) {
+            var len = this.length >>> 0;
+            var from = Number(arguments[1]) || 0;
+            from = (from < 0)
+                ? Math.ceil(from)
+                : Math.floor(from);
+            if (from < 0)
+                from += len;
+            for (; from < len; from++) {
+                if (from in this &&
+                    this[from] === elt)
+                    return from;
+            }
+            return -1;
+        }
+    }
+    if (!Array.prototype.lastIndexOf) {
+        Array.prototype.lastIndexOf = function(searchElement /*, fromIndex*/) {
+            if (this === void 0 || this === null) {
+                throw new TypeError();
+            }
+            var n, k,
+                t = Object(this),
+                len = t.length >>> 0;
+            if (len === 0) {
+                return -1;
+            }
+            n = len - 1;
+            if (arguments.length > 1) {
+                n = Number(arguments[1]);
+                if (n != n) {
+                    n = 0;
+                }
+                else if (n != 0 && n != (1 / 0) && n != -(1 / 0)) {
+                    n = (n > 0 || -1) * Math.floor(Math.abs(n));
+                }
+            }
+            for (k = n >= 0
+                ? Math.min(n, len - 1)
+                : len - Math.abs(n); k >= 0; k--) {
+                if (k in t && t[k] === searchElement) {
+                    return k;
+                }
+            }
+            return -1;
+        };
+    }
+
+    // 获取指定名称的cookie
+    function getCookie(name){
+        var strcookie = document.cookie;//获取cookie字符串
+        var arrcookie = strcookie.split("; ");//分割
+        //遍历匹配
+        for ( var i = 0; i < arrcookie.length; i++) {
+            var arr = arrcookie[i].split("=");
+            if (arr[0] == name){
+                return arr[1];
+            }
+        }
+        return "";
+    }
+
+    var login_header = {
+        /**
+         * 用户登录校验
+         *
+         * @param callback 回调函数
+         */
+        checkLogin: function (callback) {
+            $.ajax({
+                type: 'post',
+                url: '/usercenter/login/detail',
+                dataType: 'json',
+                success: function (res) {
+                    var isLogin = window.isLogin = (res.code === 1);
+
+                    // 未登录
+                    if (!isLogin) {
+                        var cookienfid = getCookie('cookienfid');
+                        if (cookienfid) {
+                            login_header.ssoLogin(cookienfid, callback);
+                        } else {
+                            callback && callback.apply(this, [isLogin]);
+                        }
+                        return;
+                    }
+                    // 已登录，显示当前登录人信息
+                    $('.nav .info .name').html(res.data.yhnc);
+                    if (res.data.imgsrc) {
+                        $('.nav .info .avator img').attr('src', '' + res.data.imgsrc);
+                    }
+
+                    $('.reg-login').hide();
+                    $('.nav .reg-user').show();
+
+                    getCount();
+                    callback && callback.apply(this, [isLogin]);
+                }
+            })
+        },
+
+        /**
+         * 用户注销登录
+         */
+        loginOut: function () {
+
+            // 获取用户信息，只有channel是5的用户才允许登出ITS
+            $.ajax({
+                type: 'get',
+                url: '/usercenter/login/detail',
+                dataType: 'json',
+                async: false,
+                success: function (res) {
+                    // console.debug(res);
+                    // console.debug(res.data.channel);
+                    if (res.data.channel === '5') {
+                        // console.debug('准备登出ITS');
+                        // 获取ITS登出的URL
+                        var itsLogoutUrl = '';
+                        $.ajax({
+                            type: 'get',
+                            url: '/usercenter/getItsLogoutUrl',
+                            dataType: 'json',
+                            async: false,
+                            success: function (res2) {
+                                // console.debug(res2);
+                                // console.debug(res2.json.itsLogoutUrl);
+                                itsLogoutUrl = res2.json.itsLogoutUrl;
+                            }
+                        });
+                        // console.debug("hidden form click " + itsLogoutUrl);
+                        $('#formItsLogout').attr('action', itsLogoutUrl);
+                        $('#btnSubmitItsLogout').click();
+                    }
+                }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: '/usercenter/login/out',
+                dataType: 'json',
+                success: function (res) {
+                    if (res === 0) {
+                        return;
+                    }
+
+                    // 刷新当前页面
+                    //location.href = '/';
+                    location.reload();
+                }
+            })
+        },
+        //销户
+        account : function(){
+            window.open("/usercenter/portal/account/main");
+        },
+        // 单点登录
+        ssoLogin: function (cookienfid, callback) {
+            $.ajax({
+                type: 'post',
+                url: '/usercenter/sso/login/in',
+                dataType: 'json',
+                data: {'account': cookienfid},
+                success: function (res) {
+                    var isLogin = window.isLogin = (res.code === 1);
+
+                    // 未登录
+                    if (!isLogin) {
+                        callback && callback.apply(this, [isLogin]);
+                        return;
+                    }
+                    // 已登录，显示当前登录人信息
+                    $('.nav .info .name').html(res.data.yhnc);
+                    if (res.data.imgsrc) {
+                        $('.nav .info .avator img').attr('src', '' + res.data.imgsrc);
+                    }
+
+                    $('.reg-login').hide();
+                    $('.nav .reg-user').show();
+
+                    getCount();
+                    callback && callback.apply(this, [isLogin]);
+                }
+            })
+        }
+    };
+
+    $(function () {
+        // 登录校验
+        login_header.checkLogin();
+        getCities();
+        //获取收藏等条数
+        //getCount();
+        try{//具有收藏功能页检查是否收藏
+	        checkCollection();
+        }catch(e){}
+        // 首页点击登录按钮
+        $('.reg-login a').eq(1).on('click', function (item) {
+            $("#div-login-container").load("/usercenter/login/main?flag=l", function () {
+                $(this).data('callback', function (data) {
+                });
+            });
+        });
+
+        // 头像点击
+        $('.s .nav .reg-user').click(function () {
+            $(this).toggleClass('on');
+            $(this).find('.pop-up').toggle();
+        });
+
+        // 窗口关闭事件
+        $('#div-login-container').on('click', '.close-btn', function () {
+            $('#div-login-container').empty();
+        });
+
+        //ip定位
+        $('.s .nav .location').click(function () {
+            $(this).toggleClass('on');
+            $('.s .nav .cities').toggle();
+        });
+
+        $(document).click(function (e) {
+            e = e || window.e;
+            target('.s .nav .location', '.s .nav .cities', e);
+            target('.s .nav .info', '.s .nav .info .pop-up', e)
+        });
+
+        function target(obj1, obj2, e) {
+            var tar = $(obj1);
+            if (!tar.is(e.target) && tar.has(e.target).length === 0) {
+                $(obj2).hide();
+                tar.removeClass('on');
+            }
+        }
+        //获取title值
+        var title = document.getElementsByTagName("title")[0].text;
+        $("#head-title").text(title);
+    });
+    var regions;
+    function getCities() {
+        $.ajax({
+            type: 'post',
+            url: '/usercenter/region/getRegion',
+            async : false,
+            success: function (res) {
+                regions = $.json(res).json.region;
+                if (regions && regions.length > 0) {
+                    var css_ = '<div class="i-white-arrow"></div>';
+                    var panel = $("#index_cities").empty(),
+                        allregions = {};
+                    var phoneticInterval = "A-G,H-K,L-S,T-Z";
+                    var phoneticIntervals = phoneticInterval.split(",");
+                    for(var i=0;i<phoneticIntervals.length;i++){
+                        var _data = new Array();
+                        var phoneticInterval = phoneticIntervals[i];
+                        var start = phoneticInterval.substring(0,1),end = phoneticInterval.substring(2,3);
+                        start = start.charCodeAt(0),end = end.charCodeAt(0);
+                        for(var j=0;j<regions.length;j++){
+                            var address = regions[j];
+                            var name = address.xzqhmc;
+                            var bm = auxiliaryMethod.makePy(name,1)[0];
+                            bm = bm.substring(0,1).toLocaleUpperCase().charCodeAt(0);
+                            if(start<=bm&&bm<=end){
+                                _data.push(address);
+                            }
+                        }
+                        var div_ = '<div class="c-item">\n' +
+                            '                        <span>'+phoneticInterval+'</span>\n' +
+                            '                        <div class="c-data clearfix">';
+                        for(var j=0;j<_data.length;j++){
+                            div_ += '<a href="JavaScript:;;" code="'+_data[j].xzqhbm+'" province="'+_data[j].xzqhmc+'">'+_data[j].xzqhmc+'</a>';
+                        }
+                        div_ += '</div></div>';
+                        panel.append(div_);
+
+                        panel.find("a").unbind().bind("click",function () {
+                            var city = $(this).text();
+                            var code = $(this).attr("code");
+                            checkCity(code,city);
+                        });
+                    }
+                }
+                // var city = localStorage.getItem("city");
+
+                var city = $.cookie("city");
+                if ('') {
+                    var targetArea = '';
+                    var targetCity = headerTargetAreaMap[targetArea];
+
+                    if (!targetCity) {
+                        targetArea = targetArea.substr(0, 3) + '000000';
+                        targetCity = headerTargetAreaMap[targetArea];
+                    }
+
+                    targetArea = targetArea.substr(1, targetArea.length);
+                    city = targetArea + "," + targetCity;
+                }
+                if(city){
+                    var code = city.split(",")[0],
+                        province = city.split(",")[1];
+                    checkCity(code, province);
+                }else {
+                    //ip自动定位
+                    // var ip = returnCitySN.cip;
+                    // $.ajax({
+                    //     type: 'post',
+                    //     url: '//api.map.baidu.com/location/ip',
+                    //     data: {ak: 'RX0uWjvtpuVz5f0MeKNpLkNtIcTWnVB1', coor: 'bd09ll', ip: ip},
+                    //     dataType: 'jsonp',
+                    //     async: false,
+                    //     success: function (data) {
+                    //         var province = data.content.address_detail.province;
+                    //         var city_ = data.content.address_detail.city;
+                    //         if(city_=='宁波市'||city_=='青岛市'||city_=='深圳市'||city_=='厦门市'||city_=='大连市'){
+                    //             province = city_;
+                    //         }
+                    //         var lng = data.content.point.x,//经度
+                    //             lat = data.content.point.y;//纬度
+                    //         var code = $("#index_cities").find("a[province='" + province + "']").attr("code");
+                    //         checkCity(code, province);
+                    //     },
+                    //     error:function(){
+                    //         //异常则定位北京
+                    //         checkCity("11000000", "北京市");
+                    //     }
+                    // });
+                    if(window['BMap']){
+                        var code="11000000",province = "北京市";
+                        try {
+                            var geolocation = new BMap.Geolocation();
+                            geolocation.getCurrentPosition(function(r){
+                                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+
+                                    var cityName = r.address.city,
+                                        city_ = cityName;
+                                    y = r.point.lat;
+                                    x = r.point.lng;
+                                    var myGeo=new BMap.Geocoder();
+                                    myGeo.getLocation(new BMap.Point(x,y),function(result) {
+                                        province = result.addressComponents.province;
+                                        if(city_=='宁波市'||city_=='青岛市'||city_=='深圳市'||city_=='厦门市'||city_=='大连市'){
+                                            province = city_;
+                                        }
+                                        code = $("#index_cities").find("a[province='" + province + "']").attr("code");
+                                        checkCity(code, province);
+                                    });
+                                }
+                                else {
+                                    checkCity(code, province);
+                                }
+                            },function(r){//超时失败则默认北京
+                                checkCity(code, province);
+                            });
+                            /*var myCity = new BMap.LocalCity();
+                            myCity.get(myFun);
+                            function myFun(result) {
+                                var cityName = result.name,
+                                    city_ = cityName;
+                                y = result.center.lat;
+                                x = result.center.lng;
+                                var myGeo=new BMap.Geocoder();
+                                myGeo.getLocation(new BMap.Point(x,y),function(result) {
+                                    province = result.addressComponents.province;
+                                    if(city_=='宁波市'||city_=='青岛市'||city_=='深圳市'||city_=='厦门市'||city_=='大连市'){
+                                        province = city_;
+                                    }
+                                    code = $("#index_cities").find("a[province='" + province + "']").attr("code");
+                                    checkCity(code, province);
+                                });
+                            }*/
+                        }catch (e){
+                            checkCity(code, province);
+                        }
+                    }else{
+                        //异常后定位到北京
+                        var code="11000000",province = "北京市";
+                        checkCity(code, province);
+                    }
+                }
+            }
+        });
+    }
+    //选择地点
+    function checkCity(code,city) {
+        //未注册用户需使用IP地址匹配归属地，注册用户需使用用户资料中的地域字段匹配归属地
+        $.ajax({
+            type: 'post',
+            url: '/usercenter/login/detail',
+            dataType: 'json',
+            async:false,
+            success: function (res) {
+                if('0' == res.code){
+                }else{
+                	if(res.data.yhdzsf){
+		                // if(localStorage.getItem('city')==null){
+		                if($.cookie('city')==null){
+	                        code = res.data.yhdzsf;
+	                        city = province[code];
+		                }
+                    }
+                }
+                $("#selected_city").text(city).data("code",code);
+                // localStorage.setItem("city",code+","+city);
+                $.cookie('city',code+","+city,{ path: '/'});
+                //选择省市后回调事件共各页面完善各自业务需求
+                var callback = $.evalFunction('checkCitycallback');
+                if (callback) {
+                    callback.call(this, code,city);
+                }
+            }
+        })
+
+    }
+
+    function getCount(){
+        $.ajax({
+            type:'post',
+            url:'/usercenter/index/getCount',
+            success:function(res){
+                var json = $.json(res).json;
+                if(json){
+                    var msg = $.json(json.personmsg);
+                    if(msg) {
+                        var collection = msg.collectioncount,
+                            partnets = msg.partnets,
+                            message = msg.totalMsg;
+                        if (collection != 0&&collection!=null) {
+                            if(collection>100){
+                                collection = '99+';
+                            }
+                            $("#collection").empty().append('我的收藏<span class="num-box">' + collection + '</span>');
+                        }
+                        if (partnets != 0&&partnets!=null) {
+                            if(partnets>100){
+                                partnets = '99+';
+                            }
+                            $("#partnets").empty().append('好友申请<span class="num-box">' + partnets + '</span>');
+                        }
+                        if (message != 0&&message!=null) {
+                            if(message>100){
+                                message = '99+';
+                            }
+                            $("#message").empty().append('我的消息<span class="num-box">' + message + '</span>');
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function openpersonpage(tabId){
+        var $form = $("<form action='/usercenter/personal/main' method='post' target='_blank'><input type='hidden' name='tabId' value='"+tabId+"'></form>");
+        $("body").append($form);
+        $form.submit();
+        $form.remove();
+    }
+
+</script>
+
+	<!-- content -->
+	<div class="con">
+		<div class="mid-box">
+			<!-- 纳税人信息查询 -->
+			<div class="payer-order">
+				<div class="explain-box box-shadow-wrap clearfix">
+					<div class="icon-box payer fl"></div>
+					<div class="text-box fl">
+						<div class="tit">纳税人信息查询</div>
+						<p>点击所属地区，打开当地网上办税平台（或电子税务局），登录后查询自身登记、申报、发票等各类信息。</p>
+					</div>
+				</div>
+
+				<div class="chose-area box-shadow-wrap">
+					<div class="area-tit">
+						<span>选择地区</span>
+					</div>
+					<div class="area-box clearfix">
+						<a class="area-item" id="111000000">北京</a>
+						<a class="area-item" id="112000000">天津</a>
+						<a class="area-item" id="113000000">河北</a>
+						<a class="area-item" id="114000000">山西</a>
+						<a class="area-item" id="115000000">内蒙古</a>
+						<a class="area-item" id="121000000">辽宁</a>
+						<a class="area-item" id="122000000">吉林</a>
+						<a class="area-item" id="123000000">黑龙江</a>
+						<a class="area-item" id="131000000">上海</a>
+						<a class="area-item" id="132000000">江苏</a>
+						<a class="area-item" id="133000000">浙江</a>
+						<a class="area-item" id="134000000">安徽</a>
+						<a class="area-item" id="135000000">福建</a>
+						<a class="area-item" id="136000000">江西</a>
+						<a class="area-item" id="137000000">山东</a>
+						<a class="area-item" id="141000000">河南</a>
+						<a class="area-item" id="142000000">湖北</a>
+						<a class="area-item" id="143000000">湖南</a>
+						<a class="area-item" id="144000000">广东</a>
+						<a class="area-item" id="145000000">广西</a>
+						<a class="area-item" id="146000000">海南</a>
+						<a class="area-item" id="150000000">重庆</a>
+						<a class="area-item" id="151000000">四川</a>
+						<a class="area-item" id="152000000">贵州</a>
+						<a class="area-item" id="153000000">云南</a>
+						<a class="area-item" id="154000000">西藏</a>
+						<a class="area-item" id="161000000">陕西</a>
+						<a class="area-item" id="162000000">甘肃</a>
+						<a class="area-item" id="163000000">青海</a>
+						<a class="area-item" id="164000000">宁夏</a>
+						<a class="area-item" id="165000000">新疆</a>
+						<a class="area-item" id="121020000">大连</a>
+						<a class="area-item" id="133020000">宁波</a>
+						<a class="area-item" id="135020000">厦门</a>
+						<a class="area-item" id="137020000">青岛</a>
+						<a class="area-item" id="144030000">深圳</a>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- footer -->
+	
+<div class="footer">
+    <div class="mid-box">
+        <div class="nothing"></div>
+        <a onclick="nfptJumpOutSidePage.showOutsideAlert('https://bszs.conac.cn/sitename?method=show&id=0895F7C120836C12E053012819AC7E96')">
+            <img src="/core-plugins/12366/css/images/foot-img-1.png">
+        </a>
+        <a href="https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=bm29000002&url=12366.chinatax.gov.cn" target="_blank"><img src="/core-plugins/12366/css/images/foot-img-2.png"></a>
+        <div class="txt">
+            <p style="color: #888888">版权所有：国家税务总局 网站标识码：bm29000002</p>
+            <p style="color: #888888">
+                <a  style="color: #888888" class="nohovercolor" target="_blank" href="https://beian.miit.gov.cn/">
+                    京ICP备13021685号-2
+                </a>
+                <a  style="color: #888888" class="nohovercolor" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11040102700073">
+                    <img src="/core-plugins/12366/images/guohui.png" alt="" style="margin-top: -3px;margin: 0 0 2px 0;">京公网安备 11040102700073号
+                </a>
+            </p>
+            <p style="color: #888888">主办单位：国家税务总局 地址：北京市西城区枣林前街68号&nbsp&nbsp|&nbsp&nbsp<a href="http://www.chinatax.gov.cn/chinatax/c101263/c61304/content.html" style="color: #666;" target="_blank">联系我们</a></p>
+            <p style="color: #888888">建议您使用IE9及以上版本、Edge、Chrome、Firefox和360等主流浏览器浏览本网站</p>
+        </div>
+    </div>
+</div>
+
+<div id="outside" style="display: none;position: fixed;left: 50%;top: 50%;margin-left: -300px;margin-top: -160px;width: 600px;height: 270px;background: #fff;z-index: 10001;border: 2px solid;border-radius: 10px;">
+    <div style="width: 100%;height: 38px;position: relative;">
+        <span onclick="nfptJumpOutSidePage.cancelOutside()" style="position: absolute;top: 10px;right: 10px;width: 20px;height: 20px;line-height: 20px;color: #fff;text-align: center;background: #bebebe;cursor: pointer;">X</span>
+    </div>
+    <div style="width: 520px;height: 100px;margin: 15px auto 0;line-height: 35px;font-size: 1.5em;color: #000;text-align: center;padding-bottom: 15px;border-bottom: 1px solid #d4d4d4;">
+        <p>您即将离开12366纳税服务平台网站，<br>是否继续？</p></div>
+    <div style="width: 100%;padding: 25px 0;text-align: center;color: #000;">
+    <span onclick="nfptJumpOutSidePage.checkOutside()"  style="cursor: pointer;display: inline-block;margin: 0 12px;font-size: 1.25em;width: 124px;height: 42px;color: #ab0d07;border-radius: 3px;-webkit-border-radius: 3px;border: #e1e1e1 1px solid;text-align: center;line-height: 42px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;
+    -webikt-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;">继续访问</span>
+        <span onclick="nfptJumpOutSidePage.cancelOutside()" style="cursor: pointer;display: inline-block;margin: 0 12px;font-size: 1.25em;line-height: 42px;color: #ab0d07;">放弃</span>
+    </div>
+</div>
+<div id="outside-mask" style="display: none;position: fixed;top: 0px;left: 0px;z-index: 1000;background: rgba(0, 0, 0, 0.7);filter: alpha(opacity = 80) !important;width: 100%;height: 100%;"></div>
+
+<script type="text/javascript">
+    var nfptJumpOutSidePage = {
+        currentUrl: '',
+        acceptUrl: [],
+        showOutsideAlert: function (ourl) {
+            if (nfptJumpOutSidePage.acceptUrl.includes(ourl) || ourl.startsWith('https://12366.chinatax.gov.cn')) {
+                window.open(ourl)
+            } else {
+                nfptJumpOutSidePage.currentUrl = ourl
+                $('#outside').show()
+                $('#outside-mask').show()
+            }
+        },
+        checkOutside: function () {
+            $('#outside').hide()
+            $('#outside-mask').hide()
+            nfptJumpOutSidePage.acceptUrl.push(nfptJumpOutSidePage.currentUrl)
+            window.open(nfptJumpOutSidePage.currentUrl)
+        },
+        cancelOutside: function () {
+            $('#outside').hide()
+            $('#outside-mask').hide()
+        }
+    }
+</script>
+
+</div>
+<a id="toOpen" target="_blank" rel="noreferrer noopener" style="display: none"></a>
+<script>
+    var tax_payer = {
+        urlList: {},
+        url: '',
+
+        search: function (obj) {
+            var areaCode = $(obj).attr('id');
+            var areaName = $(obj).html();
+
+            try {
+                // 日志
+                $.loadLogScript("https://12366.chinatax.gov.cn/znzx/js/arlog.js","arlogAnchor",{"data-module":"nsrxxcx","data-id":areaCode,"data-title":areaName});
+                
+            }catch (e){
+			}
+
+            var url = this.urlList[areaCode];
+            if(!url) {
+                $.info("该地区尚未开通此项服务");
+                return;
+            }
+
+            $('.map-cont .btn-selected').removeClass('btn-selected');
+            $(obj).addClass('btn-selected');
+            // var otherWindow = window.open();
+            // otherWindow.opener = null;
+            // otherWindow.location = url;
+            $.open_new_window(url);
+            //var el = document.getElementById("toOpen");
+            //el.href = url;
+            //el.click();
+        }
+    };
+
+    $(function () {
+        // 浏览器滚动侧边悬浮栏返回顶部按钮显示隐藏
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $('.fixed-window').css('height', '388px');
+                $('.fixed-window .top-btn').show();
+            } else {
+                $('.fixed-window').css('height', '332px');
+                $('.fixed-window .top-btn').hide();
+            }
+        });
+
+        // 加载各省平台连接
+        $.ajax({
+            url: '/sscx/taxpayer/url',
+            type: 'post',
+            dataType: 'json',
+            success: function (res) {
+                if(res.code === 0) {
+                    return;
+                }
+
+                var mapList = res.data;
+                var urlObj = {};
+
+                for(var i=0; i<mapList.length; i++) {
+                    urlObj[mapList[i].SSSWJGID] = mapList[i].LJDZ;
+                }
+
+                tax_payer.urlList = urlObj;
+            }
+        });
+
+        // 点击事件
+        $('.con').on('click', 'a', function () {
+            tax_payer.search(this);
+        })
+    })
+</script>
+</body>
+
+</html>
+<script type="text/javascript">
+<!--
+	(function(data) {
+		if (!window['Zepto'] && window['$']) {
+			// jQuery for brower
+			$(document).data('ew-ui-zrardata', data);
+		} else {
+			// Zepto for mobile
+			window['euidata'] = data;
+		}
+	})( {"zrarData":{"select":{},"form":{},"grid":{},"tree":{},"checkbox":{},"asyncTree":{},"radio":{}},"warn":"","json":{},"message":"","statusCode":"200"});
+//-->
+</script>

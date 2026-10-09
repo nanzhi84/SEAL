@@ -1,0 +1,1512 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="renderer" content="webkit">
+    <meta name="SiteName" content="网站名称">
+    <meta name="SiteDomain" content="网站域名">
+    <meta name="SiteIDCode" content="政府网站标识码">
+    <meta name="Description" content="描述">
+    <meta name="Keywords" content="关键词">
+    <title>安徽农村综合产权交易网</title>
+	 <link rel="stylesheet" href="/js/lib/chosen/chosen.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/index.css">
+    
+    <script src="/js/lib/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="/js/webBuilderCommon.js"></script>
+
+   <link rel="stylesheet" href="/css/webBuilderCommonGray.css"></head>
+
+<body>
+    <!-- header -->
+    <!-- header -->
+<div class="ewb-header ewb-container">
+   	<div class="ewb-banner clearfix">
+        <div class="ewb-logo l">
+            <img src="/images/logo.png" alt=""/>
+        </div>
+        <div class="ewb-search r">
+            <div class="ewb-search-con l">
+                <input type="text" class="ewb-search-txt l" placeholder="请输入关键字" id="wd" onKeyDown="CheckSearch()"/>
+                <button type="button" class="ewb-search-btn l" id="searchzn"></button>
+            </div>
+            <a href="javascript:();" class="ewb-search-senior l">高级搜索</a>
+        </div>
+   	</div>
+    <!-- nav -->
+    <ul class="ewb-nav">
+        <li class="l">
+            <a href="/" class="ewb-nav-link" id="sy">首页</a>
+        </li>
+        <li class="l">
+            <!-- <a href="#" class="ewb-nav-link">分所导航</a> -->
+			  <a href="/fsdh/pagerNav.html"  target="_self" class="ewb-nav-link" id="fsdh">分所导航</a></li>
+        <li class="l">
+            <!-- <a href="#" class="ewb-nav-link">行业动态</a> -->
+			<a href="/xydt/moreinfo.html"  target="_self" class="ewb-nav-link" id="xydt">新闻资讯</a></li>
+        <li class="l">
+            <!-- <a href="#" class="ewb-nav-link">交易所介绍</a> -->
+			<a href="/jysjs/moreinfo.html"  target="_self" class="ewb-nav-link" id="jysjs">交易所介绍</a></li>
+        <li class="l">
+            <!-- <a href="#" class="ewb-nav-link">政策法规</a> -->
+			<a href="/zcfg/moreinfo.html"  target="_self" class="ewb-nav-link" id="zcfg">政策法规</a></li>
+        <li class="l">
+            <!-- <a href="#" class="ewb-nav-link">抵押融资</a> -->
+			<a href="/dyrz/moreinfo.html"  target="_self" class="ewb-nav-link" id="dyrz">抵押融资</a></li>
+        <li class="l">
+            <!-- <a href="#" class="ewb-nav-link">农产品推介</a> -->
+			<a href="/ncptj/recommend.html"  target="_self" class="ewb-nav-link" id="ncptj">农文旅推介</a></li>
+        <li class="l">
+            <!-- <a href="#" class="ewb-nav-link">会员库</a> -->
+			<a href="/hyk/moreinfo.html"  target="_self" class="ewb-nav-link" id="hyk">会员库</a></li>
+        <li class="r">
+            <!-- <a href="#" class="ewb-nav-link">意向需求</a> -->
+			<a href="/yxxq/moreinfo.html"  target="_self" class="ewb-nav-link" id="yxxq">意向需求</a></li>
+    </ul>
+</div>
+ <script type="text/javascript">
+ $("#searchzn").click(function(){
+     search();
+ })
+  function CheckSearch()
+		{
+			if(event.keyCode=="13")
+			{  
+       			var wd=$.trim($("#wd").val());
+				if(wd!="")
+				{
+					search();
+				}
+				else
+				{
+					alert("请输入关键字搜索");
+				}
+			}
+		}
+function search(){
+	var wd=encodeURIComponent($.trim($("#wd").val()));
+	if(wd.length>0){
+	window.open("/search/fullsearch.html?wd="+wd+"&cnum=nccq");
+	}else{
+	alert("请输入关键字搜索");
+	}
+	}
+</script>
+<!-- 正文 -->
+    <div class="ewb-container ewb-mt20">
+        <div class="ewb-main"></div>
+    </div>
+    <div class="ewb-container ewb-content">
+        <div class="ewb-row ewb-main-con">
+            <div class="ewb-span5 ewb-fast">
+                <!-- 快速导航 -->
+                <div class="ewb-fast-hd">
+                    <a href="/ksdh/moreinfo.html" title="快速导航" target="_self">快速导航</a></div>
+                <div class="ewb-fast-bd">
+                    <!-- <a href="#" class="ewb-fast-link">意向申报</a> -->
+                    <!-- <a href="#" class="ewb-fast-link">意向查看</a> -->
+                    <!-- <a href="#" class="ewb-fast-link">项目进度</a> -->
+					  <a href="/ksdh/030001/sbadd.html" title="意向需求" target="_self" class="ewb-fast-link">意向需求</a><a href="/ksdh/030002/identification.html" title="意向查看" target="_self" class="ewb-fast-link">意向查看</a><a href="/ksdh/030003/xmjd.html" title="项目进度" target="_self" class="ewb-fast-link">项目进度</a></div>
+            </div>
+            <div class="ewb-span10 ewb-ml10">
+                <!-- 图片轮播 -->
+                <div class="ewb-viewpager">
+                    <div class="wb-slider" id="slider">
+                        
+                                    <div class="wb-slider-conbox">
+                                    <div class="wb-slider-ctag">
+                                        <a href="/xydt/20231128/bfe8265a-5ae7-4c57-89e0-ece5ad9ad8b1.html" target="_blank">
+                                           <img src="/ahnccq/CommonDataPics/2f05206a-c446-4392-9ae8-5b24832da776/2f05206a-c446-4392-9ae8-5b24832da776398_218.jpg" alt="安徽交易集团旗下子公司与市建投集团旗下子公司举行战略合作签约仪式助力乡村振兴" />
+                                        </a>
+                                    </div>
+                                 
+                                    <div class="wb-slider-ctag">
+                                        <a href="/xydt/20230728/449c5945-aad3-4b68-aedb-f1bb502916fb.html" target="_blank">
+                                           <img src="/ahnccq/CommonDataPics/9c84c77d-1416-4b1d-bf8e-aec9be6a6811/9c84c77d-1416-4b1d-bf8e-aec9be6a6811398_218.jpg" alt="省农交所与南京林业大学农村政策研究 中心共建博士研究生实践基地" />
+                                        </a>
+                                    </div>
+                                 
+                                    <div class="wb-slider-ctag">
+                                        <a href="/xydt/20230510/a9df587f-6f36-49b0-aded-99fc6751d41b.html" target="_blank">
+                                           <img src="/ahnccq/CommonDataPics/271fd8b0-dd98-4b7b-b797-a334dada524b/271fd8b0-dd98-4b7b-b797-a334dada524b398_218.jpg" alt="安徽省农村综合产权交易所与安徽省文化产权交易所签署战略合作框架协议" />
+                                        </a>
+                                    </div>
+                                 
+                                    <div class="wb-slider-ctag">
+                                        <a href="/xydt/20221018/7407ac0b-8b9c-4a20-9da1-eff64a750492.html" target="_blank">
+                                           <img src="/ahnccq/CommonDataPics/9a4e86ca-5b6f-4ae8-a884-6552107ba125/9a4e86ca-5b6f-4ae8-a884-6552107ba125398_218.jpg" alt="省农交所荣获全国产权交易行业信用评价AAA最高等级殊荣" />
+                                        </a>
+                                    </div>
+                                 
+                                    <div class="wb-slider-ctag">
+                                        <a href="/xydt/20180515/49e63eb8-0466-40ab-9262-567c30f05ff2.html" target="_blank">
+                                           <img src="/ahnccq/CommonDataPics/f6916608-61ea-4c52-8010-ac2bf4525c1b/f6916608-61ea-4c52-8010-ac2bf4525c1b398_218.jpg" alt="安徽省农村综合产权交易所首个村级服务站在小岗村揭牌" />
+                                        </a>
+                                    </div>
+                                 </div>
+                                    <div class="wb-slider-switcher">
+                                    <div class="wb-slider-stag"></div>
+                                
+                                    <div class="wb-slider-stag"></div>
+                                
+                                    <div class="wb-slider-stag"></div>
+                                
+                                    <div class="wb-slider-stag"></div>
+                                
+                                    <div class="wb-slider-stag"></div>
+                                </div>
+                                </div>
+                </div>
+            </div>
+            <div class="ewb-span9 ewb-ml10">
+                <!-- 行业动态 -->
+                <div class="ewb-ind">
+                    <div class="ewb-ind-hd clearfix">
+                        <a href="/xydt/moreinfo.html" title="新闻资讯" target="_self" class="ewb-com-tt l">新闻资讯</a>
+								<a href="/xydt/moreinfo.html"  target="_self" class="ewb-more r">更多>></a></div>
+                    <div class="ewb-com-bd">
+                        <ul>
+                            
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xydt/20260918/cff065a0-d339-4ecb-9e52-8f681b3a891c.html" title="福州市人民政府副市长林锋带队考察合肥市农村产权交易工作" target="_blank">福州市人民政府副市长林锋带队考察合肥市农村产权交易工作</a>
+                                            </div>
+                                            <span class="r">2026-09-18</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xydt/20260908/dd72b3c0-642e-44c6-ac7b-3c55b37a4df7.html" title="农业农村部等六部门印发《坚持农业农村优先发展 完善乡村振兴投入机制实施方案》" target="_blank">农业农村部等六部门印发《坚持农业农村优先发展 完善乡村振兴投入机制实施方案》</a>
+                                            </div>
+                                            <span class="r">2026-09-08</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xydt/20260824/49522b78-4150-4667-84d1-b41c817ed529.html" title="省农交所赴宿州市开展农村产权流转交易业务培训" target="_blank">省农交所赴宿州市开展农村产权流转交易业务培训</a>
+                                            </div>
+                                            <span class="r">2026-08-24</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xydt/20260730/5e2580a1-8111-483e-a1b4-62956b1612ed.html" title="全流程护航服务 跑出土地盘活“加速度”" target="_blank">全流程护航服务 跑出土地盘活“加速度”</a>
+                                            </div>
+                                            <span class="r">2026-07-30</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xydt/20260709/3b40f386-295d-4ca6-859c-1a46e3147fac.html" title="省农交所牵头起草《农村集体经营性资产流转交易服务规范》省级标准获批立项" target="_blank">省农交所牵头起草《农村集体经营性资产流转交易服务规范》省级标准获批立项</a>
+                                            </div>
+                                            <span class="r">2026-07-09</span>
+                                        </li>
+                                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <div class=" ewb-mt10 clearfix">
+          <a href="http://www.ahggzyjt.com/djzl/012010/secondPage.html " target="_blank"><img src="/images/banner1.png"></a>
+        </div>
+        
+        <!-- 交易流程 -->
+        <div class="ewb-flow ewb-mt10">
+            <div class="ewb-com-hd clearfix">
+			     <a class="ewb-com-tt l">交易流程</a> 
+            </div>
+            <div class="ewb-flow-bd">
+                <ul class="clearfix">
+                    <li class="ewb-flow-item ico1 l">
+                        <a>项目受理</a>
+                    </li>
+                    <li class="ewb-flow-line l">
+                        <i></i>
+                    </li>
+                    <li class="ewb-flow-item ico2 l">
+                        <a>项目挂牌</a>
+                    </li>
+                    <li class="ewb-flow-line l">
+                        <i></i>
+                    </li>
+                    <li class="ewb-flow-item ico3 l">
+                        <a>报名登记</a>
+                    </li>
+                    <li class="ewb-flow-line l">
+                        <i></i>
+                    </li>
+                    <li class="ewb-flow-item ico4 l">
+                        <a>组织交易</a>
+                    </li>
+                    <li class="ewb-flow-line l">
+                        <i></i>
+                    </li>
+                    <li class="ewb-flow-item ico5 l">
+                        <a>成交确认</a>
+                    </li>
+                    <li class="ewb-flow-line l">
+                        <i></i>
+                    </li>
+                    <li class="ewb-flow-item ico6 l">
+                        <a>合同签订</a>
+                    </li>
+                    <li class="ewb-flow-line l">
+                        <i></i>
+                    </li>
+                    <li class="ewb-flow-item ico7 l">
+                        <a>交易鉴证</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 农村产权电子竞价交易大厅 -->
+        <div class="ewb-hall tabview ewb-mt10">
+            <div class="ewb-com-hd clearfix">
+                 <a id="murl" class="ewb-com-tt l" href="/jjdt.html?status=1">农村产权电子竞价交易大厅</a> 
+				  <a id="murl2" class="ewb-com-tt2 r" href="/jjdt.html?status=1">更多>></a> 
+            </div>
+            <div class="ewb-hall-tab clearfix" data-role="head">
+               <a   class="ewb-hall-tt current l for_list"   value="1" data-role="tab" data-target="a">进行中</a> 
+               <a   class="ewb-hall-tt l for_list"  value="3" data-role="tab" data-target="a">已结束</a> 
+                <div class="r">
+                    <span class="ewb-hall-sp l"  >标的编号：</span>
+                    <input type="text" class="ewb-hall-txt l" id="BiaoDiNotxt"/>
+                    <span class="ewb-hall-sp l"  >标的名称：</span>
+                    <input type="text" class="ewb-hall-txt l" id="BiaoDiNametxt" />
+                    <button type="button" class="ewb-hall-btn l" id="search">搜索</button>
+                </div>
+            </div>
+			<!-- 滚动显示的内容 -->
+            <div class="ewb-hall-bd" data-role="body">
+                <div data-role="tab-content" data-id="a">
+                   <table class="ewb-table" style="max-width: 1000px;">
+                        <thead>
+                            <tr class="ewb-tr-hd" id="thead_tr1">
+                                <th class="ewb-tr-th1">标的名称</th>
+                                <th class="ewb-tr-th2">标的编号</th>
+                                <th class="ewb-tr-th3">所在期</th>
+                                <th class="ewb-tr-th4">所剩时间</th>
+                                <th class="ewb-tr-th5">起始价格</th>
+                                <th class="ewb-tr-th6">当前价格</th>
+                                <th>竞价链接</th>
+                            </tr>
+							 <tr class="ewb-tr-hd hidden" id="thead_tr2" >
+                                <th class="ewb-tr-th21">标的名称</th>
+                                <th class="ewb-tr-th22">起始价格</th>
+                               
+                                <th class="ewb-tr-th23">成交价格</th>
+                                <th class="ewb-tr-th24">结束时间</th>
+                        
+                            </tr>
+                        </thead>
+                       
+                    </table>
+                  <div id="showListInfo"></div>
+					<div id="divInfoReportPage" class="hidden" ></div>
+                </div>
+              
+            </div>
+			<!-- 滚动显示的内容 -->
+        </div>
+		<div class=" ewb-mt10 clearfix">
+        <a href="https://www.hfxczx.com/" target="_blank"><img src="/images/banner_xc.png"></a>
+        </div>
+        <!-- column -->
+        <div class="ewb-row ewb-mt10">
+            <div class="ewb-span12">
+                <div class="ewb-column tabview">
+                    <div class="ewb-com-hd clearfix"  data-role="head">
+                        <a href="/jyxx/009001/moreinfo.html" title="土地经营权" target="_self" class="ewb-com-tt l">土地经营权</a><div class="r">
+                            <a href="/jyxx/009001/009001001/moreinfo.html" title="交易信息" target="_self" class="ewb-tab-tt current l" data-role="tab" data-target="a">交易信息</a><a href="/jyxx/009001/009001002/moreinfo.html" title="答疑变更" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="b">答疑变更</a><a href="/jyxx/009001/009001003/moreinfo.html" title="中标公示" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="c">中标公示</a><a href="/jyxx/009001/009001004/moreinfo.html" title="合同公开" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="d">合同公开</a><!-- <a href="#" class="ewb-more l">更多>></a> -->
+							 <a href="/jyxx/009001/moreinfo.html" title="土地经营权" target="_self"  class="ewb-more l">更多>></a></div>
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140" data-role="body">
+                        <div data-role="tab-content" data-id="a">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001001/20261008/d372ece0-0758-49cd-91a2-13760121851b.html" title="滁州市来安县汊河镇大雅社区约1428点3亩土地经营权流转项目" target="_blank">滁州市来安县汊河镇大雅社区约1428点3亩土地经营权流转项目</a>
+                                                </div>
+                                                <span class="r">2026-10-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001001/20261008/2658bd1b-f283-4341-a005-e8faab05eaba.html" title="滁州市来安县汊河镇大雅社区约285点52亩土地经营权流转项目" target="_blank">滁州市来安县汊河镇大雅社区约285点52亩土地经营权流转项目</a>
+                                                </div>
+                                                <span class="r">2026-10-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001001/20261008/bb6843a4-a54b-4c27-81e5-6af939022bdb.html" title="滁州市来安县汊河镇大雅社区约1463点05亩土地经营权流转项目" target="_blank">滁州市来安县汊河镇大雅社区约1463点05亩土地经营权流转项目</a>
+                                                </div>
+                                                <span class="r">2026-10-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001001/20261008/c2d00fda-b1c8-40a5-a995-e0157d433a9f.html" title="合肥市新站高新技术产业开发区磨店社区和平社居TDLZ-2026-18地块土地经营权流转（二次）" target="_blank">合肥市新站高新技术产业开发区磨店社区和平社居TDLZ-2026-18地块土地经营权流转（二次）</a>
+                                                </div>
+                                                <span class="r">2026-10-08</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="b" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001002/20260622/ca22c6ca-4efb-47ed-9477-aec164ba86dd.html" title="滁州市天长市铜城镇桑园村集体股份经济合作社6亩涉边地土地经营权流转答疑变更公告" target="_blank">滁州市天长市铜城镇桑园村集体股份经济合作社6亩涉边地土地经营权流转答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-06-22</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001002/20260430/d6d8126f-aba4-4baa-83e2-1eb98824cb0d.html" title="凤阳县临淮关镇姚湾社区稻虾共作项目租赁答疑变更公告" target="_blank">凤阳县临淮关镇姚湾社区稻虾共作项目租赁答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-04-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001002/20260407/dcb44833-3dd7-44eb-a9e5-74af9b3ee940.html" title="滁州市南谯区乌衣镇汪郢村八湾置换土地82亩经营权流转项目答疑变更公告" target="_blank">滁州市南谯区乌衣镇汪郢村八湾置换土地82亩经营权流转项目答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-04-07</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001002/20260120/ab2c9938-5184-4e64-9714-810b302c5fbb.html" title="滁州全椒县襄河镇邱塘村潘庄组农科队土地经营权流转答疑变更公告" target="_blank">滁州全椒县襄河镇邱塘村潘庄组农科队土地经营权流转答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-01-20</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="c" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001003/20260930/4f88dc39-74d4-4403-b1fb-c3e875b54465.html" title="合肥市长丰县下塘镇金店社区侯巷、侯小庄、薛庄、蒲塘、吴庄、金老家组约786亩土地经营权流转成交结果公示" target="_blank">合肥市长丰县下塘镇金店社区侯巷、侯小庄、薛庄、蒲塘、吴庄、金老家组约786亩土地经营权流转成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001003/20260930/57050f96-abdf-4a14-ba97-d340fb7bd06a.html" title="合肥市长丰县下塘镇金店社区北家、东郢组约778亩土地经营权流转成交结果公示" target="_blank">合肥市长丰县下塘镇金店社区北家、东郢组约778亩土地经营权流转成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001003/20260930/f75e7d19-686b-4389-9284-72c3a03d24aa.html" title="合肥市长丰县下塘镇金店社区姜大郢组约600亩土地经营权流转成交结果公示" target="_blank">合肥市长丰县下塘镇金店社区姜大郢组约600亩土地经营权流转成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001003/20260923/799e5a25-decc-49af-8807-e5c809b46eb1.html" title="滁州市来安县施官镇贾龙民族村原兔场耕地对外承包项目成交结果公示" target="_blank">滁州市来安县施官镇贾龙民族村原兔场耕地对外承包项目成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-23</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        
+                         <div data-role="tab-content" data-id="d" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001004/20251201/07eaf45a-8356-4dbd-ae35-561041534b34.html" title="合肥市庐江县白湖镇白湖社区约71亩土地经营权流转项目合同公开" target="_blank">合肥市庐江县白湖镇白湖社区约71亩土地经营权流转项目合同公开</a>
+                                                </div>
+                                                <span class="r">2025-12-01</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001004/20251201/f58f4cd7-edbe-48be-b649-d1e047fb27be.html" title="庐江县白湖镇白湖社区约42亩土地经营权流转项目合同公开" target="_blank">庐江县白湖镇白湖社区约42亩土地经营权流转项目合同公开</a>
+                                                </div>
+                                                <span class="r">2025-12-01</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001004/20251201/0490d41c-ed1f-4088-af43-bee63718eda1.html" title="合肥市庐江县白湖镇吴渡村约116亩土地经营权流转项目合同公开" target="_blank">合肥市庐江县白湖镇吴渡村约116亩土地经营权流转项目合同公开</a>
+                                                </div>
+                                                <span class="r">2025-12-01</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009001/009001004/20251201/2654c65b-110c-4ec2-bb9c-55ef80b0979b.html" title="合肥市庐江县白湖镇国安村约264亩土地经营权流转项目合同公开" target="_blank">合肥市庐江县白湖镇国安村约264亩土地经营权流转项目合同公开</a>
+                                                </div>
+                                                <span class="r">2025-12-01</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="ewb-column tabview ewb-mt10">
+                    <div class="ewb-com-hd clearfix"  data-role="head">
+                        <a href="/jyxx/009005/moreinfo.html" title="农村集体经营性资产" target="_self" class="ewb-com-tt l">农村集体经营性资产</a><div class="r">
+                            <a href="/jyxx/009005/009005001/moreinfo.html" title="交易信息" target="_self" class="ewb-tab-tt current l" data-role="tab" data-target="a">交易信息</a><a href="/jyxx/009005/009005002/moreinfo.html" title="答疑变更" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="b">答疑变更</a><a href="/jyxx/009005/009005003/moreinfo.html" title="中标公示" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="c">中标公示</a><a href="/jyxx/009005/009005004/moreinfo.html" title="合同公开" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="d">合同公开</a><!-- <a href="#" class="ewb-more l">更多>></a> -->
+							<a href="/jyxx/009005/moreinfo.html" title="农村集体经营性资产" target="_self"  class="ewb-more l">更多>></a></div>
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140" data-role="body">
+                        <div data-role="tab-content" data-id="a">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005001/20261008/53a76af5-e667-4ea0-9776-b5aa34165e75.html" title="滁州市明光市石坝镇石坝村石坝镇移民商贸经营中心1-4层楼房租赁" target="_blank">滁州市明光市石坝镇石坝村石坝镇移民商贸经营中心1-4层楼房租赁</a>
+                                                </div>
+                                                <span class="r">2026-10-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005001/20261008/36b6ecfb-d3da-41c1-b1df-5f60e0751789.html" title="滁州市来安县半塔镇大余郢村移民产业园标准化厂房和办公楼租赁（二次）" target="_blank">滁州市来安县半塔镇大余郢村移民产业园标准化厂房和办公楼租赁（二次）</a>
+                                                </div>
+                                                <span class="r">2026-10-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005001/20260930/1a020b71-b5e0-4132-bcaf-8db07e04d8a9.html" title="滁州市明光市古沛镇高王村股份经济合作社友谊水库水面经营权流转" target="_blank">滁州市明光市古沛镇高王村股份经济合作社友谊水库水面经营权流转</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005001/20260930/ff4b82f7-ea8c-460d-8d6d-b9453d18e835.html" title="滁州市明光市三界镇张老郢村纯电动皮卡车一辆出租" target="_blank">滁州市明光市三界镇张老郢村纯电动皮卡车一辆出租</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="b" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005002/20260922/085711a0-4d22-4516-8e70-b11e2947f0bc.html" title="凤阳县西泉镇集中养殖区建设及配套设备项目出租答疑变更公告" target="_blank">凤阳县西泉镇集中养殖区建设及配套设备项目出租答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-09-22</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005002/20260907/611c4267-1482-42ec-aa78-632bcab14d3c.html" title="合肥市肥东县桥头集镇竹塘社区原磷肥厂租赁答疑变更公告" target="_blank">合肥市肥东县桥头集镇竹塘社区原磷肥厂租赁答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-09-07</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005002/20260828/e790e6a8-5463-464f-81a9-43a45a355a5c.html" title="滁州市定远县蒋集镇大庙村扶贫养猪场租赁（二次）答疑变更公告" target="_blank">滁州市定远县蒋集镇大庙村扶贫养猪场租赁（二次）答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-08-28</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005002/20260821/1a0e568e-1212-46a2-a4cc-72cc21b9fdf5.html" title="滁州市定远县连江镇江巷社区天塘水库水面经营权流转项目答疑变更公告" target="_blank">滁州市定远县连江镇江巷社区天塘水库水面经营权流转项目答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-08-21</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="c" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005003/20261008/b722878c-2d0d-462c-9e65-e88b5c3c51df.html" title="滁州市全椒县十字镇界首村老制革厂房屋招租项目（二次）终止公告" target="_blank">滁州市全椒县十字镇界首村老制革厂房屋招租项目（二次）终止公告</a>
+                                                </div>
+                                                <span class="r">2026-10-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005003/20260930/ac1d3c55-09da-45bd-937d-e8817faac0b9.html" title="滁州市明光市明光街道蔬菜村股份经济合作社明酒花园S110号门面房租赁项目成交结果公示" target="_blank">滁州市明光市明光街道蔬菜村股份经济合作社明酒花园S110号门面房租赁项目成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005003/20260930/15341762-7ff9-44f1-a6df-bac6a4df10e1.html" title="滁州市定远县拂晓乡高塘社区冷链物流车间租赁项目终止公告" target="_blank">滁州市定远县拂晓乡高塘社区冷链物流车间租赁项目终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005003/20260930/1ec8c4d1-bc6e-4acb-bd05-1884e89da36f.html" title="滁州市来安县汊河镇阳明湖社区温控玻璃大棚租赁项目终止公告" target="_blank">滁州市来安县汊河镇阳明湖社区温控玻璃大棚租赁项目终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        
+                         <div data-role="tab-content" data-id="d" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005004/20260104/2f4ffff5-d802-4e43-8833-9914516cd03a.html" title="合肥市包河区淝河镇贾大郢社区二环路工业区旁二层办公楼招租项目合同公开" target="_blank">合肥市包河区淝河镇贾大郢社区二环路工业区旁二层办公楼招租项目合同公开</a>
+                                                </div>
+                                                <span class="r">2026-01-04</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005004/20251205/78bfdf4e-c851-4c21-ab23-43cce01f28d4.html" title="合肥市庐江县同大镇永安农事及育秧中心、烘干中心租赁项目合同公开" target="_blank">合肥市庐江县同大镇永安农事及育秧中心、烘干中心租赁项目合同公开</a>
+                                                </div>
+                                                <span class="r">2025-12-05</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005004/20251203/cd1f3fc7-8d18-4455-904b-b2b67f7ebc15.html" title="合肥市庐江县龙桥镇福兴中药材烘干房项目黄蜀葵烘干设备处置项目合同公开" target="_blank">合肥市庐江县龙桥镇福兴中药材烘干房项目黄蜀葵烘干设备处置项目合同公开</a>
+                                                </div>
+                                                <span class="r">2025-12-03</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009005/009005004/20251203/8d086c85-8b2e-444c-85af-acb4ccf8462c.html" title="庐江县汤池镇汤池村菜场安置房门面房18#、19#第三层租赁项目合同公开" target="_blank">庐江县汤池镇汤池村菜场安置房门面房18#、19#第三层租赁项目合同公开</a>
+                                                </div>
+                                                <span class="r">2025-12-03</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ewb-span12 ewb-ml10">
+                <div class="ewb-column tabview">
+                    <div class="ewb-com-hd clearfix"  data-role="head">
+                        <a href="/jyxx/009002/moreinfo.html" title="林权" target="_self" class="ewb-com-tt l">林权</a><div class="r">
+                            <a href="/jyxx/009002/009002001/moreinfo.html" title="交易信息" target="_self" class="ewb-tab-tt current l" data-role="tab" data-target="a">交易信息</a><a href="/jyxx/009002/009002002/moreinfo.html" title="答疑变更" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="b">答疑变更</a><a href="/jyxx/009002/009002003/moreinfo.html" title="中标公示" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="c">中标公示</a><a href="/jyxx/009002/009002004/moreinfo.html" title="合同公开" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="d">合同公开</a><!-- <a href="#" class="ewb-more l">更多>></a> -->
+							<a href="/jyxx/009002/moreinfo.html" title="林权" target="_self" class="ewb-more l">更多>></a></div>
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140" data-role="body">
+                        <div data-role="tab-content" data-id="a">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002001/20260930/685c134a-0b3b-49e2-959b-8e6ab57aba55.html" title="安徽省滁州市南谯区沙河镇新塘村张郢林场经营权流转" target="_blank">安徽省滁州市南谯区沙河镇新塘村张郢林场经营权流转</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002001/20260929/39447fd3-0ba2-4dc1-bae5-9a87a43fec03.html" title="滁州市全椒县石沛镇石沛村潘庄组山场经营权流转" target="_blank">滁州市全椒县石沛镇石沛村潘庄组山场经营权流转</a>
+                                                </div>
+                                                <span class="r">2026-09-29</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002001/20260928/43898bb9-c82f-42ce-9bf7-fb250612d519.html" title="滁州市琅琊区三官街道新集村石头山、杜仲林林场树木经营权出售项目" target="_blank">滁州市琅琊区三官街道新集村石头山、杜仲林林场树木经营权出售项目</a>
+                                                </div>
+                                                <span class="r">2026-09-28</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002001/20260923/3ada4847-1ca7-4528-9587-c31341c94ab1.html" title="滁州市来安县舜山镇练山村38亩林地经营权流转项目（二次）" target="_blank">滁州市来安县舜山镇练山村38亩林地经营权流转项目（二次）</a>
+                                                </div>
+                                                <span class="r">2026-09-23</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="b" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002002/20260908/fe7a7ffb-bb98-40fc-ac59-32bcd7239c5f.html" title="合肥市庐江县龙桥镇凌安村杀人洼林场经营权公开流转项目答疑变更公告" target="_blank">合肥市庐江县龙桥镇凌安村杀人洼林场经营权公开流转项目答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-09-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002002/20260908/8c29ab7b-3501-40b0-b647-f89d0754f1a0.html" title="合肥市庐江县龙桥镇凌安村寨基山茶园经营权公开流转项目答疑变更公告" target="_blank">合肥市庐江县龙桥镇凌安村寨基山茶园经营权公开流转项目答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-09-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002002/20260506/482a1b95-0be5-4dc2-839c-6158f02b83df.html" title="合肥市巢湖市柘皋镇双泉村天齐林场经营权流转答疑变更公告" target="_blank">合肥市巢湖市柘皋镇双泉村天齐林场经营权流转答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-05-06</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002002/20260410/8effa0e2-500e-41cb-a6d5-0023e12f2780.html" title="滁州市来安县新安镇岱山村集体股份经济合作社竹元林场经营权流转答疑变更公告" target="_blank">滁州市来安县新安镇岱山村集体股份经济合作社竹元林场经营权流转答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2026-04-10</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="c" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002003/20260930/3dd53c3d-5cad-46cd-9d02-bd144a38138a.html" title="滁州市明光市张八岭镇尹集村赵郢杉木山经营权流转终止公告" target="_blank">滁州市明光市张八岭镇尹集村赵郢杉木山经营权流转终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002003/20260930/e0aa92f7-eab2-40e4-8560-95f6fc218020.html" title="滁州市明光市张八岭镇尹集村水塔东山经营权流转成交结果公示" target="_blank">滁州市明光市张八岭镇尹集村水塔东山经营权流转成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002003/20260929/0c3efd8f-12d1-48b0-9e43-c84e5564af67.html" title="滁州市来安县半塔镇邢港村大郢后山（约76亩）林地经营权流转项目终止公告" target="_blank">滁州市来安县半塔镇邢港村大郢后山（约76亩）林地经营权流转项目终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-29</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009002/009002003/20260929/a0d51bf4-a1d6-4cba-8638-641727a1b7f7.html" title="合肥市庐江县龙桥镇凌安村杀人洼林场经营权公开流转项目终止公告" target="_blank">合肥市庐江县龙桥镇凌安村杀人洼林场经营权公开流转项目终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-29</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        
+                          <div data-role="tab-content" data-id="d" class="hidden">
+                            <ul>
+                                </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="ewb-column tabview ewb-mt10">
+                    <div class="ewb-com-hd clearfix"  data-role="head">
+                        <a href="/jyxx/009004/moreinfo.html" title="“四荒”使用权" target="_self" class="ewb-com-tt l">“四荒”使用权</a><div class="r">
+                            <a href="/jyxx/009004/009004001/moreinfo.html" title="交易信息" target="_self" class="ewb-tab-tt current l" data-role="tab" data-target="a">交易信息</a><a href="/jyxx/009004/009004002/moreinfo.html" title="答疑变更" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="b">答疑变更</a><a href="/jyxx/009004/009004003/moreinfo.html" title="中标公示" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="c">中标公示</a><a href="/jyxx/009004/009004004/moreinfo.html" title="合同公开" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="d">合同公开</a><!-- <a href="#" class="ewb-more l">更多>></a> -->
+							<a href="/jyxx/009004/moreinfo.html" title="“四荒”使用权" target="_self" class="ewb-more l">更多>></a></div>
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140" data-role="body">
+                        <div data-role="tab-content" data-id="a">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004001/20260731/050e2512-d215-4e6c-b218-858fc49596f6.html" title="合肥市蜀山区金寨南路社区安粮城市广场13栋104、104上（部分）房屋公开租赁（二次）" target="_blank">合肥市蜀山区金寨南路社区安粮城市广场13栋104、104上（部分）房屋公开租赁（二次）</a>
+                                                </div>
+                                                <span class="r">2026-07-31</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004001/20260715/440d4b1a-18f8-4ba1-9345-1f9948f1c0ad.html" title="合肥市蜀山区小庙镇小庙村原村委会房屋公开租赁" target="_blank">合肥市蜀山区小庙镇小庙村原村委会房屋公开租赁</a>
+                                                </div>
+                                                <span class="r">2026-07-15</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004001/20260708/fa56a8af-7d84-492a-8a86-ae0c67ca17dd.html" title="合肥市蜀山区安粮城市广场5栋101-103、101-103上及105上（部分）房屋公开租赁（三次）" target="_blank">合肥市蜀山区安粮城市广场5栋101-103、101-103上及105上（部分）房屋公开租赁（三次）</a>
+                                                </div>
+                                                <span class="r">2026-07-08</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004001/20260707/9795e498-6842-4fff-9075-d314d6184328.html" title="合肥市蜀山区金寨南路社区安粮城市广场14栋101左、101左上（部分）房屋公开租赁（二次）" target="_blank">合肥市蜀山区金寨南路社区安粮城市广场14栋101左、101左上（部分）房屋公开租赁（二次）</a>
+                                                </div>
+                                                <span class="r">2026-07-07</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="b" class="hidden">
+                            <ul>
+                                </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="c" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004003/20260903/08e4de67-53cd-439e-a269-c57a645d8727.html" title="保证金测试勿删0901第二标段终止公告" target="_blank">保证金测试勿删0901第二标段终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-03</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004003/20260902/dc59db1f-3bbf-4bfb-bd1e-8e2e07181954.html" title="保证金测试勿删0901第一标段终止公告" target="_blank">保证金测试勿删0901第一标段终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-02</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004003/20260819/343c7847-28bc-48e0-99db-a298d3a2b15f.html" title="测试勿删保证金查询终止公告" target="_blank">测试勿删保证金查询终止公告</a>
+                                                </div>
+                                                <span class="r">2026-08-19</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009004/009004003/20260319/1c1f5d85-abe6-488d-b7aa-1c5c3f332545.html" title="滁州市全椒县石沛镇孤山村下湖组荒山经营权流转成交公示" target="_blank">滁州市全椒县石沛镇孤山村下湖组荒山经营权流转成交公示</a>
+                                                </div>
+                                                <span class="r">2026-03-19</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        
+                         <div data-role="tab-content" data-id="d" class="hidden">
+                            <ul>
+                                </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="ewb-row ewb-mt10">
+            <div class="ewb-span12">
+                <div class="ewb-column tabview">
+                    <div class="ewb-com-hd clearfix"  data-role="head">
+                        <a href="/jyxx/009003/moreinfo.html" title="宅基地和房屋" target="_self" class="ewb-com-tt l">宅基地和房屋</a><div class="r">
+                            <a href="/jyxx/009003/009003001/moreinfo.html" title="交易信息" target="_self" class="ewb-tab-tt current l" data-role="tab" data-target="a">交易信息</a><a href="/jyxx/009003/009003002/moreinfo.html" title="答疑变更" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="b">答疑变更</a><a href="/jyxx/009003/009003003/moreinfo.html" title="中标公示" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="c">中标公示</a><a href="/jyxx/009003/009003004/moreinfo.html" title="合同公开" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="d">合同公开</a><!-- <a href="#" class="ewb-more l">更多>></a> -->
+							  <a href="/jyxx/009003/moreinfo.html" title="宅基地和房屋" target="_self" class="ewb-more l">更多>></a></div>
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140" data-role="body">
+                        <div data-role="tab-content" data-id="a">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003001/20260923/170fc449-34db-4031-a023-16c3bd2f3f6f.html" title="宿州市泗县黑塔镇三葛村大米加工厂及2个仓储租赁" target="_blank">宿州市泗县黑塔镇三葛村大米加工厂及2个仓储租赁</a>
+                                                </div>
+                                                <span class="r">2026-09-23</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003001/20260909/0d0cd1c2-66bf-4fa9-ac5c-21ee993ce6d4.html" title="滁州市天长市永丰镇双庙村集体股份经济合作社林场组500平方米粮库对外租赁" target="_blank">滁州市天长市永丰镇双庙村集体股份经济合作社林场组500平方米粮库对外租赁</a>
+                                                </div>
+                                                <span class="r">2026-09-09</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003001/20260909/6139fa7f-0207-4b36-a61d-1a04e2fe64d5.html" title="滁州市定远县张桥镇赤塘村原赤塘小学房屋出租" target="_blank">滁州市定远县张桥镇赤塘村原赤塘小学房屋出租</a>
+                                                </div>
+                                                <span class="r">2026-09-09</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003001/20260907/77f1f3ff-c95f-43ac-ba2b-4dcdcabb0638.html" title="宿州市萧县张庄寨镇袁圩村袁圩小学租赁" target="_blank">宿州市萧县张庄寨镇袁圩村袁圩小学租赁</a>
+                                                </div>
+                                                <span class="r">2026-09-07</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="b" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003002/20221209/9f8cac8a-30de-4d27-8dc1-3099f7de8daf.html" title="合肥市长丰县岗集镇龙岗社区龙岗小学教学楼两栋、厂房一栋出租答疑变更公告" target="_blank">合肥市长丰县岗集镇龙岗社区龙岗小学教学楼两栋、厂房一栋出租答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2022-12-09</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003002/20220525/26d9f7d7-df62-4b55-b543-aa281a579513.html" title="滁州市明光市明东街道大纪村紫阳三期社区用房租赁答疑变更公告" target="_blank">滁州市明光市明东街道大纪村紫阳三期社区用房租赁答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2022-05-25</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003002/20220311/194371ab-6c7c-4fd1-bac6-ce56ac12fc0a.html" title="滁州市明光市明东街道抹山村占郢组原抹山小学出租（二次）答疑变更公告" target="_blank">滁州市明光市明东街道抹山村占郢组原抹山小学出租（二次）答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2022-03-11</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="c" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003003/20260930/b789254d-88e2-4d56-9b05-c0e236695cfb.html" title="滁州市天长市永丰镇双庙村集体股份经济合作社林场组500平方米粮库对外租赁成交结果公示" target="_blank">滁州市天长市永丰镇双庙村集体股份经济合作社林场组500平方米粮库对外租赁成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003003/20260930/4f9e606b-a06c-4e88-b169-3d68fe4680a5.html" title="滁州市定远县张桥镇赤塘村原赤塘小学房屋出租终止公告" target="_blank">滁州市定远县张桥镇赤塘村原赤塘小学房屋出租终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-30</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003003/20260929/1c9e7adc-69e5-4352-8a0e-8be1c64af56c.html" title="宿州市萧县张庄寨镇袁圩村袁圩小学租赁成交结果公示" target="_blank">宿州市萧县张庄寨镇袁圩村袁圩小学租赁成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-29</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009003/009003003/20260928/6c814306-221b-4e8a-ac59-93ad7d4a87b3.html" title="滁州市定远县张桥镇赤塘村原后刘小学房屋出租终止公告" target="_blank">滁州市定远县张桥镇赤塘村原后刘小学房屋出租终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-28</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        
+                         <div data-role="tab-content" data-id="d" class="hidden">
+                            <ul>
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ewb-span12 ewb-ml10">
+                <div class="ewb-column tabview">
+                    <div class="ewb-com-hd clearfix"  data-role="head">
+                        <a href="/jyxx/009006/moreinfo.html" title="农村设施设备" target="_self" class="ewb-com-tt l">农村设施设备</a><div class="r">
+                            <a href="/jyxx/009006/009006001/moreinfo.html" title="交易信息" target="_self" class="ewb-tab-tt current l" data-role="tab" data-target="a">交易信息</a><a href="/jyxx/009006/009006002/moreinfo.html" title="答疑变更" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="b">答疑变更</a><a href="/jyxx/009006/009006003/moreinfo.html" title="中标公示" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="c">中标公示</a><a href="/jyxx/009006/009006004/moreinfo.html" title="合同公开" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="d">合同公开</a><!-- <a href="#" class="ewb-more l">更多>></a> -->
+							<a href="/jyxx/009006/moreinfo.html" title="农村设施设备" target="_self" class="ewb-more l">更多>></a></div>
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140" data-role="body">
+                        <div data-role="tab-content" data-id="a">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006001/20260915/b7831535-3935-4994-994f-8ae291214dea.html" title="滁州市天长市永丰镇桥湾社区集体股份经济合作社一套秸秆揉丝设备租赁" target="_blank">滁州市天长市永丰镇桥湾社区集体股份经济合作社一套秸秆揉丝设备租赁</a>
+                                                </div>
+                                                <span class="r">2026-09-15</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006001/20260903/0bb235b6-173f-45d0-b10a-e9a8fda6d049.html" title="合肥市庐江县凌安村农产品加工展销中心项目黄蜀葵烘干设备（电）处置" target="_blank">合肥市庐江县凌安村农产品加工展销中心项目黄蜀葵烘干设备（电）处置</a>
+                                                </div>
+                                                <span class="r">2026-09-03</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006001/20260826/382b0ae7-abcc-420e-926d-368ed43e84b2.html" title="滁州市定远县张桥镇马桥村闲置报废资产打捆机出售项目" target="_blank">滁州市定远县张桥镇马桥村闲置报废资产打捆机出售项目</a>
+                                                </div>
+                                                <span class="r">2026-08-26</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006001/20260804/585292bb-5240-4777-b0f9-4fe24641b0ac.html" title="合肥市长丰县朱巷镇羊荒村黄湾电站、小户电站废旧设备处置" target="_blank">合肥市长丰县朱巷镇羊荒村黄湾电站、小户电站废旧设备处置</a>
+                                                </div>
+                                                <span class="r">2026-08-04</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="b" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006002/20250909/1029e1a2-717e-47e4-806d-76cad649f314.html" title="凤阳县刘府镇陈圩村节水抗旱稻育种研发中心配套农机项目入股答疑变更公告" target="_blank">凤阳县刘府镇陈圩村节水抗旱稻育种研发中心配套农机项目入股答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2025-09-09</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006002/20240624/1aae3d05-5fc2-4b7c-b506-cc100fdee4b4.html" title="滁州市天长市永丰镇桥湾社区集体股份经济合作社一套秸秆揉丝设备租赁答疑变更公告" target="_blank">滁州市天长市永丰镇桥湾社区集体股份经济合作社一套秸秆揉丝设备租赁答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2024-06-24</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006002/20210623/89f7a30b-ddef-4371-a811-8a573f4a3a47.html" title="合肥市包河区淝河镇席井村席井木材市场钢结构厂房残值转让答疑变更公告" target="_blank">合肥市包河区淝河镇席井村席井木材市场钢结构厂房残值转让答疑变更公告</a>
+                                                </div>
+                                                <span class="r">2021-06-23</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006002/20190820/e52fcd72-ec72-40e1-bfb3-0def4a22481b.html" title="桐城市龙眠街道黄燕村挖掘机租赁" target="_blank">桐城市龙眠街道黄燕村挖掘机租赁</a>
+                                                </div>
+                                                <span class="r">2019-08-20</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        <div data-role="tab-content" data-id="c" class="hidden">
+                            <ul>
+                                
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006003/20260929/3a654247-9f96-44f0-b044-2df88da6b1c9.html" title="合肥市庐江县凌安村农产品加工展销中心项目黄蜀葵烘干设备（电）处置成交结果公示" target="_blank">合肥市庐江县凌安村农产品加工展销中心项目黄蜀葵烘干设备（电）处置成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-09-29</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006003/20260923/93aa00da-8913-44ec-bfd7-e31398d00661.html" title="滁州市定远县张桥镇马桥村闲置报废资产打捆机出售项目终止公告" target="_blank">滁州市定远县张桥镇马桥村闲置报废资产打捆机出售项目终止公告</a>
+                                                </div>
+                                                <span class="r">2026-09-23</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006003/20260827/38780ab0-2afa-4bf9-981b-aca4e9381b3d.html" title="合肥市长丰县朱巷镇羊荒村黄湾电站、小户电站废旧设备处置成交结果公示" target="_blank">合肥市长丰县朱巷镇羊荒村黄湾电站、小户电站废旧设备处置成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-08-27</span>
+                                            </li>
+                                        
+                                            <li class="ewb-com-item">
+                                                <div class="ewb-com-block">
+                                                     <a href="/jyxx/009006/009006003/20260730/75d0c39c-97ff-436b-8d07-d12b28058aa3.html" title="凤阳县板桥镇板桥社区农机项目出租成交结果公示" target="_blank">凤阳县板桥镇板桥社区农机项目出租成交结果公示</a>
+                                                </div>
+                                                <span class="r">2026-07-30</span>
+                                            </li>
+                                        </ul>
+                        </div>
+                        
+                         <div data-role="tab-content" data-id="d" class="hidden">
+                            <ul>
+                                </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+		 <div class="ewb-column tabview ewb-mt10">
+            <div class="ewb-com-hd clearfix"  data-role="head">
+                <a href="/jyxx/009007/moreinfo.html" title="其他" target="_self" class="ewb-com-tt l">其他</a><div class="r">
+                    <a href="/jyxx/009007/009007001/moreinfo.html" title="交易信息" target="_self" class="ewb-tab-tt current l" data-role="tab" data-target="a">交易信息</a><a href="/jyxx/009007/009007002/moreinfo.html" title="答疑变更" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="b">答疑变更</a><a href="/jyxx/009007/009007003/moreinfo.html" title="中标公示" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="c">中标公示</a><a href="/jyxx/009007/009007004/moreinfo.html" title="合同公开" target="_self" class="ewb-tab-tt l" data-role="tab" data-target="d">合同公开</a><!-- <a href="#" class="ewb-more l">更多>></a> -->
+					 <a href="/jyxx/009007/moreinfo.html" title="其他" target="_self" class="ewb-more l">更多>></a></div>
+            </div>
+            <div class="ewb-column-bd ewb-ht140" data-role="body">
+                <div data-role="tab-content" data-id="a">
+                    <ul>
+                        
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007001/20260923/8aa09ebd-c069-4bbf-b40c-1fa5702eaec2.html" title="滁州市明光市张八岭镇岭北村104国道西边21亩集体建设用地出租" target="_blank">滁州市明光市张八岭镇岭北村104国道西边21亩集体建设用地出租</a>
+                                        </div>
+                                        <span class="r">2026-09-23</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007001/20260922/57f78b07-5ea5-4dff-b960-b499664f561e.html" title="滁州市天长市大通镇双柳村老年日间照料中心及助餐点运营管理服务租赁" target="_blank">滁州市天长市大通镇双柳村老年日间照料中心及助餐点运营管理服务租赁</a>
+                                        </div>
+                                        <span class="r">2026-09-22</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007001/20260918/70a0438a-c128-4fc0-bf62-60b674ff4e86.html" title="滁州市天长市杨村镇沂湖村集体股份经济合作社老沂湖村部场地租赁" target="_blank">滁州市天长市杨村镇沂湖村集体股份经济合作社老沂湖村部场地租赁</a>
+                                        </div>
+                                        <span class="r">2026-09-18</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007001/20260918/c616124d-a1b0-483d-a867-59c69c8485de.html" title="滁州市定远县张桥镇浮山村后东组原浮山村室出租" target="_blank">滁州市定远县张桥镇浮山村后东组原浮山村室出租</a>
+                                        </div>
+                                        <span class="r">2026-09-18</span>
+                                    </li>
+                                </ul>
+                </div>
+                <div data-role="tab-content" data-id="b" class="hidden">
+                    <ul>
+                        
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007002/20241230/89944ccd-7286-4c2f-8047-cedfc8af79e6.html" title="滁州市天长市仁和集镇供销经理部闲置地（原老木材公司）对外租赁答疑变更公告" target="_blank">滁州市天长市仁和集镇供销经理部闲置地（原老木材公司）对外租赁答疑变更公告</a>
+                                        </div>
+                                        <span class="r">2024-12-30</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007002/20240913/0b6a7cb2-49e0-4897-b22c-cbd31ace2690.html" title="巢湖市岗岭资产管理有限公司汽车产权转让答疑变更公告" target="_blank">巢湖市岗岭资产管理有限公司汽车产权转让答疑变更公告</a>
+                                        </div>
+                                        <span class="r">2024-09-13</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007002/20231023/a3e2abda-362a-4700-8553-e32aeedc6420.html" title="天长市建设东路浔河街76号租赁项目答疑变更公告" target="_blank">天长市建设东路浔河街76号租赁项目答疑变更公告</a>
+                                        </div>
+                                        <span class="r">2023-10-23</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007002/20230718/64a6b901-aa7a-4589-b856-7ed2fd4725b4.html" title="滁州市来安县汊河镇天河社区唐桥烘干房租赁项目答疑变更公告" target="_blank">滁州市来安县汊河镇天河社区唐桥烘干房租赁项目答疑变更公告</a>
+                                        </div>
+                                        <span class="r">2023-07-18</span>
+                                    </li>
+                                </ul>
+                </div>
+                <div data-role="tab-content" data-id="c" class="hidden">
+                    <ul>
+                        
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007003/20260929/1502598d-99bf-4708-81d1-e26a65747e52.html" title="合肥市肥东县店埠镇镇南社区城建委楼停车场出租终止公告" target="_blank">合肥市肥东县店埠镇镇南社区城建委楼停车场出租终止公告</a>
+                                        </div>
+                                        <span class="r">2026-09-29</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007003/20260922/58426ec4-3126-4806-9536-e0e43a8f634d.html" title="滁州市定远县蒋集镇秦集村农贸大棚租赁（二次）终止公告" target="_blank">滁州市定远县蒋集镇秦集村农贸大棚租赁（二次）终止公告</a>
+                                        </div>
+                                        <span class="r">2026-09-22</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007003/20260918/6fdb33b8-99b3-4a6e-88a0-2c1f45ecfd51.html" title="滁州市全椒县六镇镇东王村种植基地出租项目（二次）终止公告" target="_blank">滁州市全椒县六镇镇东王村种植基地出租项目（二次）终止公告</a>
+                                        </div>
+                                        <span class="r">2026-09-18</span>
+                                    </li>
+                                
+                                    <li class="ewb-com-item">
+                                        <div class="ewb-com-block">
+                                             <a href="/jyxx/009007/009007003/20260917/f3187415-0dc0-4f1f-a6c0-c6067356fa20.html" title="凤阳县西泉镇五里铺片区人居环境整治废土石料转让项目成交结果公示" target="_blank">凤阳县西泉镇五里铺片区人居环境整治废土石料转让项目成交结果公示</a>
+                                        </div>
+                                        <span class="r">2026-09-17</span>
+                                    </li>
+                                </ul>
+                </div>
+                <div data-role="tab-content" data-id="d" class="hidden">
+                    <ul>
+                        </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 农产品推介 -->
+        <div class="ewb-product ewb-mt10">
+            <div class="ewb-com-hd clearfix">
+                <a href="/ncptj/recommend.html" title="农文旅推介" target="_self" class="ewb-com-tt l">农文旅推介</a>
+						<a href="/ncptj/recommend.html"  target="_self" class="ewb-more r">更多>></a></div>
+            <div class="ewb-product-bd">
+                <div class="focus-wrap clearfix" id="focus-img">
+                    
+                                <div class="left-btn"></div>
+                                <div class="focus">
+                                    <div class="focus-bd">
+                                        <div class="focus-bd-pics">
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230731/85a0f99d-e48a-4de7-911b-7dbe475538a8.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/77e3dde5-577f-4a8b-a5c5-44b4d9e14141/77e3dde5-577f-4a8b-a5c5-44b4d9e14141140_160.jpg" alt="“墨宝”文房四宝礼盒" />
+                                    </a>
+                                    <p>产品名称：“墨宝”文房四宝礼盒<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230731/557c8ab2-3f99-443b-98e0-5584c830f0a7.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/6438c55b-c30c-4406-b02c-d0b98a72d079/6438c55b-c30c-4406-b02c-d0b98a72d079140_160.jpg" alt="“新安意境”文房四宝" />
+                                    </a>
+                                    <p>产品名称：“新安意境”文房四宝<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230731/588adddb-522f-47d2-b30c-dabff713a4ff.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/735cf370-2ea9-4658-986b-5f099261fe64/735cf370-2ea9-4658-986b-5f099261fe64140_160.jpg" alt="“玉堂富贵”徽州文礼" />
+                                    </a>
+                                    <p>产品名称：“玉堂富贵”徽州文礼<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230724/35bd96c2-cb70-4e7c-8da5-83e7a74974cf.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/762be101-02f2-4868-b92e-8174e8661952/762be101-02f2-4868-b92e-8174e8661952140_160.jpg" alt="“香知相伴”香观套装" />
+                                    </a>
+                                    <p>产品名称：“香知相伴”香观套装<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230721/8f94cf1a-158b-4fb9-9ead-bcc7a340efe8.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/07a4cef7-c0cf-4096-bf02-e1b7800168bc/07a4cef7-c0cf-4096-bf02-e1b7800168bc140_160.jpg" alt="凤阳凤螺福牌虾稻米" />
+                                    </a>
+                                    <p>产品名称：凤阳凤螺福牌虾稻米<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230721/0cd79745-de63-4b39-80ce-27003d3ad530.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/2ca6b3ab-4e24-4a81-9f97-22cb311b19e8/2ca6b3ab-4e24-4a81-9f97-22cb311b19e8140_160.jpg" alt="肥东白龙碧根果" />
+                                    </a>
+                                    <p>产品名称：肥东白龙碧根果<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230721/1ecd73fb-f1ff-4ce8-89f7-9d65e66694d7.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/fb58b3cd-8efe-4720-9774-d5f5bef08b08/fb58b3cd-8efe-4720-9774-d5f5bef08b08140_160.jpg" alt="肥东县白龙镇坤隆黄桃" />
+                                    </a>
+                                    <p>产品名称：肥东县白龙镇坤隆黄桃<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230721/b43df5d2-ab2a-4aa8-aac9-5c67376f7e0f.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/8f0a9222-2055-46f0-97d5-906a098fb250/8f0a9222-2055-46f0-97d5-906a098fb250140_160.jpg" alt="长丰马郢汉耕农场菜籽油" />
+                                    </a>
+                                    <p>产品名称：长丰马郢汉耕农场菜籽油<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230721/ce549f9a-74ba-4b34-b526-60e3ae674414.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/527d82dd-0b91-4185-a346-99ccd847cd9d/527d82dd-0b91-4185-a346-99ccd847cd9d140_160.jpg" alt="长丰县杨庙镇马郢粉丝" />
+                                    </a>
+                                    <p>产品名称：长丰县杨庙镇马郢粉丝<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230721/97302fa3-dfac-43bc-9385-4f48d8308943.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/b8a78155-bddc-4880-a1b0-e642cd526256/b8a78155-bddc-4880-a1b0-e642cd526256140_160.jpg" alt="长丰县杨庙镇马郢土鸡蛋" />
+                                    </a>
+                                    <p>产品名称：长丰县杨庙镇马郢土鸡蛋<br/>
+									   产品价格：元</p>
+                                </div>
+                             
+                                <div class="focus-bd-pics-item">
+                                    <a href="/ncptj/006006/20230721/8c62d5b6-5a48-4c5f-b063-aae84b9a6f96.html" target="_blank">
+                                       <img src="/ahnccq/CommonDataPics/f0b6fe66-d4dd-4783-939e-78545edb4173/f0b6fe66-d4dd-4783-939e-78545edb4173140_160.jpg" alt="长丰礼物礼盒" />
+                                    </a>
+                                    <p>产品名称：长丰礼物礼盒<br/>
+									   产品价格：元</p>
+                                </div>
+                             </div>
+                                    </div>
+                                </div>
+                                <div class="right-btn"></div>
+                            </div>
+            </div>
+        </div>
+        
+             <div class="ewb-row">
+            
+                <div class="ewb-column">
+                    <div class="ewb-com-hd clearfix">
+					 <a href="/dyrz/moreinfo.html" title="抵押融资" target="_self" class="ewb-com-tt l">抵押融资</a><a href="/dyrz/moreinfo.html"  target="_self" class="ewb-more r">更多>></a><!-- <a href="../../dyrz" target="_blank" class="ewb-com-tt l">抵押融资</a> -->
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140">
+					  <ul>
+                            
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/dyrz/005001/20241008/b0557632-24a4-4b12-849e-5c5e8444d4a0.html" title="农村产权抵押登记流程" target="_blank">农村产权抵押登记流程</a>
+                                            </div>
+                                            <span class="r">2024-10-08</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/dyrz/005005/20230707/2a1e765d-6cb3-43d1-8667-80fb43ed9f12.html" title="土地经营权抵押登记公告【庐江县万山镇廿埠村1015亩土地经营权抵押】" target="_blank">土地经营权抵押登记公告【庐江县万山镇廿埠村1015亩土地经营权抵押】</a>
+                                            </div>
+                                            <span class="r">2023-07-07</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/dyrz/005005/20221228/a246bbb2-2fe8-43df-a15e-9fc4207cb9c3.html" title="土地经营权抵押登记公告【肥东县八斗镇光明社区2379亩土地经营权流转项目】" target="_blank">土地经营权抵押登记公告【肥东县八斗镇光明社区2379亩土地经营权流转项目】</a>
+                                            </div>
+                                            <span class="r">2022-12-28</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/dyrz/005005/20221228/cc093a3d-7b5f-461b-8fc9-a5f12104323a.html" title="土地经营权抵押登记公告【庐江县庐城镇8116.74亩土地承包经营权抵押】" target="_blank">土地经营权抵押登记公告【庐江县庐城镇8116.74亩土地承包经营权抵押】</a>
+                                            </div>
+                                            <span class="r">2022-12-28</span>
+                                        </li>
+                                    </ul>
+                     </div>
+                </div>
+          
+        </div>
+         
+        <div class="ewb-row  ewb-mt10">
+            <div class="ewb-span12">
+                 
+                <div class="ewb-column">
+                    <div class="ewb-com-hd clearfix">
+					<a href="/yxxq/moreinfo.html" title="意向需求" target="_self" class="ewb-com-tt l">意向需求</a><a href="/yxxq/moreinfo.html"  target="_self" class="ewb-more r">更多>></a><!-- <a href="../../yxxq" target="_blank" class="ewb-com-tt l">意向需求</a> -->
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140">
+					 <ul>
+                            
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/yxxq/20250826/2fed7b8a-4751-4af6-8fb9-849e7a7b34ab.html" title="合肥乡镇新能源充电站" target="_blank">合肥乡镇新能源充电站</a>
+                                            </div>
+                                            <span class="r">2025-08-26</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/yxxq/20250711/b5043b56-2618-479f-ab09-370358235997.html" title="玻璃温室大棚" target="_blank">玻璃温室大棚</a>
+                                            </div>
+                                            <span class="r">2025-07-11</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/yxxq/20250307/532c8488-9178-437e-adc6-4f2c01e6899d.html" title="合肥市肥东县八斗镇红旗社区下张组约5亩整块高标准农田土地经营权流转出租" target="_blank">合肥市肥东县八斗镇红旗社区下张组约5亩整块高标准农田土地经营权流转出租</a>
+                                            </div>
+                                            <span class="r">2025-03-07</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/yxxq/20250307/31dda7a7-7ff5-4182-860a-3324576a52a3.html" title="合肥市肥东县八斗镇红旗社区下张组约5亩整块高标准农田土地经营权流转出租" target="_blank">合肥市肥东县八斗镇红旗社区下张组约5亩整块高标准农田土地经营权流转出租</a>
+                                            </div>
+                                            <span class="r">2025-03-07</span>
+                                        </li>
+                                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="ewb-span12 ewb-ml10">
+                
+                <div class="ewb-column">
+                    <div class="ewb-com-hd clearfix">
+					<a href="/xmtj/moreinfo.html" title="项目推荐" target="_self" class="ewb-com-tt l">项目推荐</a><a href="/xmtj/moreinfo.html"  target="_self" class="ewb-more r">更多>></a><!-- <a href="../../xmtj" target="_blank" class="ewb-com-tt l">项目推荐</a> -->
+                    </div>
+                    <div class="ewb-column-bd ewb-ht140">
+					 <ul>
+                            
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xmtj/20260324/90001da4-cc9a-4c33-9b42-015c661a1645.html" title="合肥市庐阳区111号安徽省新世纪大厦部分房屋出租" target="_blank">合肥市庐阳区111号安徽省新世纪大厦部分房屋出租</a>
+                                            </div>
+                                            <span class="r">2026-03-24</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xmtj/20260106/74f64d46-4454-458d-85be-46cab31675d6.html" title="高新区雷北大平台地块委托运营项目公开招标公告【具体信息以项目公告为准】" target="_blank">高新区雷北大平台地块委托运营项目公开招标公告【具体信息以项目公告为准】</a>
+                                            </div>
+                                            <span class="r">2026-01-06</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xmtj/20241008/a5a3e44b-4624-4c38-82d7-5f00cd54e019.html" title="安徽省黄山市徽州区呈坎镇听竹居转让项目公告【具体信息以项目公告为准】" target="_blank">安徽省黄山市徽州区呈坎镇听竹居转让项目公告【具体信息以项目公告为准】</a>
+                                            </div>
+                                            <span class="r">2024-10-08</span>
+                                        </li>
+                                    
+                                        <li class="ewb-com-item">
+                                            <div class="ewb-com-block">
+                                                 <a href="/xmtj/20230814/79eb66f6-3eb6-4a0f-913b-3ff1769be2b4.html" title="一批林木推荐" target="_blank">一批林木推荐</a>
+                                            </div>
+                                            <span class="r">2023-08-14</span>
+                                        </li>
+                                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+	   <!-- 友情链接 -->
+        <div class="ewb-flink">
+            <div class="ewb-com-hd clearfix">
+                  <a   class="ewb-com-tt l">友情链接</a>
+            </div>
+            <div class="ewb-flink-bd clearfix">
+			 <table height="54" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="167" align="left"><a href="https://ggj.hefei.gov.cn/" target="_blank"><img src="/images/fl01.jpg" width="150"  /></a></td>
+                                    <td width="167" align="left"><a href="http://www.ggzyjt.com/" target="_blank"><img src="/images/fl04.png"  width="150" /></a></td>
+                                    <td width="167" align="left"><a href="http://ggzy.hefei.gov.cn/" target="_blank"><img src="/images/fl02.jpg"  width="150" /></a></td>
+                                    <td width="167" align="left"><a href="http://nync.ah.gov.cn/" target="_blank"><img src="/images/fl05.png"  width="150" /></a></td>
+                                    <td width="167" align="left"><a href="https://nyncj.hefei.gov.cn/" target="_blank"><img src="/images/fl03.png"  width="150" /></a></td>
+                                    <td width="167" align="left"><a href="https://www.hfxczx.com/" target="_blank"><img src="/images/fl06.jpg"  width="150" /></a></td>
+                                </tr>
+                            </table>
+               
+               
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+   <!-- footer -->
+<div class="ewb-footer">
+    <div class="ewb-container">
+        <div class="ewb-footer-hd">
+             <a href="javascript:void(0)"   onclick="SetHome(this,window.location)" target="_top">设为首页</a><span>丨</span>
+			 <!-- <a href="#">关于我们</a> -->
+			     <a href="/gywm/moreinfo.html"  target="_self">关于我们</a><span>丨</span>
+			 <!-- <a href="#">网站地图</a> -->
+			   <a href="/wzdt/wzdt.html"  target="_self">网站地图</a><span>丨</span>
+			 <!-- <a href="#">使用条款</a> -->
+			  <a href="/sytk/moreinfo.html"  target="_self">使用条款</a><span>丨</span>
+			 <!-- <a href="#">友情链接</a> -->
+			  <a href="/yqlj/moreinfo.html"  target="_self">友情链接</a></div>
+        <p class="ewb-footer-p">
+            版权所有：安徽省农村综合产权交易所<span></span>技术支持：国泰新点软件股份有限公司<br/>
+            联系电话：0551-66223101&nbsp;&nbsp; 0551-66223718<span></span>地址：合肥市滨湖新区徽州大道4872号金融港中心A9幢安徽公共资源交易集团4楼<br/>
+			备案号:皖ICP备19001582号-3
+        </p>
+    </div>
+</div>
+ <script type="text/javascript"> 
+// 设置为主页 
+function SetHome(obj,vrl){ 
+try{ 
+//obj.style.behavior='url(#default#homepage)';obj.setHomePage(vrl); 
+alert("您的浏览器不支持，请按照下面步骤操作：1.打开浏览器设置。2.点击设置网页。3.输入："+vrl+"点击确定。"); 
+}  
+catch(e){ 
+if(window.netscape) { 
+try { 
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+} 
+catch (e) { 
+alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。"); 
+} 
+var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch); 
+prefs.setCharPref('browser.startup.homepage',vrl); 
+}else{ 
+alert("您的浏览器不支持，请按照下面步骤操作：1.打开浏览器设置。2.点击设置网页。3.输入："+vrl+"点击确定。"); 
+} 
+} 
+} 
+// 加入收藏 兼容360和IE6 
+function shoucang(sTitle,sURL) 
+{ 
+try 
+{ 
+window.external.addFavorite(sURL, sTitle); 
+} 
+catch (e) 
+{ 
+try 
+{ 
+window.sidebar.addPanel(sTitle, sURL, ""); 
+} 
+catch (e) 
+{ 
+alert("加入收藏失败，请使用Ctrl+D进行添加"); 
+} 
+} 
+} 
+</script>
+<!-- 页面脚本 -->
+	<script>
+		function OpenSelect(item) { 
+            var optionStr = item.options[item.selectedIndex].value; 
+            item.selectedIndex = 0; 
+            if (optionStr != "") { 
+                window.open(optionStr, '_blank') 
+            } 
+        }
+	</script>
+	 <!-- 竞价 -->
+    <script type="text/x-template" id="jjdt-Tmpl1">
+          <div class="ewb-hall-con" id="hottitle1">
+                        <table class="ewb-table">
+                           <tbody  id="showList1">
+						 
+                    {{#item}}
+					   <tr class="ewb-tr">  
+                                  <td class="ewb-tr-th1">
+                                   <a  href="/jump.html?locationurl=https://www.ahaee.com&infoid={{infoid}}" target="_blank" >{{biaodiname}}</a></td>
+                                   <td class="ewb-tr-th2" >{{biaodino}}</td>
+                                  <td class="ewb-tr-th3" >{{currentstatus}}</td>
+								   <td id="{{row_id}}" class="setTime ewb-tr-th4 ">{{planendtime}}</td>
+								  <td class="ewb-tr-th5" >{{fromprice}}{{currentdanwei}}</td>
+								  <td class="ewb-tr-th6">{{currentprice}}{{currentdanwei}}</td>
+								 <td class="ewb-tr-th7 seturl" jorn="{{isnew}}"><a   target=_blank>我要竞价</a></td>
+                                 </tr>  
+                  
+                    {{/item}}
+                </tbody>
+                 </table>
+            </div> 
+    </script>
+	  <script type="text/x-template" id="jjdt-Tmpl3">
+	   <div class="ewb-hall-con" id="hottitle3">
+                        <table class="ewb-table">
+                           <tbody  id="showList3">
+	    {{#item}}
+	     <tr class="ewb-tr"> 
+              <td class="ewb-tr-th21" >
+                       <a href="javascript:void(0);"  >{{biaodiname}}</a></td>
+                       <td class="ewb-tr-th22">{{fromprice}}{{currentdanwei}}</td>
+                       <td class="ewb-tr-th23" >{{currentprice}}{{currentdanwei}}</td>
+						<td class="ewb-tr-th24">{{planendtime}}</td>
+                      </tr>
+		 {{/item}}
+		           </tbody>
+                 </table>
+            </div> 
+	   </script>
+	<script src="/js/mustache.js"></script>
+	<script src="/js/common_ty.js"></script>
+    <script src="/js/lib/jquery.placeholder.min.js"></script>
+	<script src="/js/lib/chosen/chosen.jquery.js"></script>
+    <script src="/js/lib/layer/layer.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/lib/imgscroll2.js"></script>
+    <script src="/js/lib/tabview.js"></script>
+    <script src="/js/lib/imgscroll6.js"></script>
+	
+	<script src="/js/foot.js"></script>
+	<script src="js/MSClass.js"></script>
+    <script src="/js/index.js"></script>
+	<script src="/js/ServiceUtil.js"></script> 
+	<script src="/js/bidlist.js" ></script>
+	
+	
+	
+</body>
+
+</html>

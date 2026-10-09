@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>信息通信行业信用信息平台</title>
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link href="/Content/Index.css" rel="stylesheet" />
+    <link href="/lib/layui/css/layui.css" rel="stylesheet" />
+<link href="/Content/layuimini.css" rel="stylesheet" />
+<link href="/Content/themes/default.css" rel="stylesheet" />
+<link href="/Content/public.css" rel="stylesheet" />
+<link href="/Content/Index.css" rel="stylesheet" />
+<link href="/lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+
+    <script src="/lib/layui/layui.js"></script>
+<script src="/lib/jquery-3.6.0.js"></script>
+
+    <script src="/Scripts/Index.js"></script>
+</head>
+<body>
+    <!--头部-->
+    <div b-on6kpbil2t class="header">
+        <div b-on6kpbil2t class="head_con">
+            <p b-on6kpbil2t class="head_con_p"><a b-on6kpbil2t target="_blank" href="http://www.cace.org.cn">中国通信企业协会官方网站</a></p>
+        </div>
+    </div>
+    <!--导航栏-->
+    <div b-on6kpbil2t class="nav">
+        <div b-on6kpbil2t class="nav_con">
+            <ul b-on6kpbil2t class="ulcs ">
+                <li b-on6kpbil2t style="border-left:none;" class="ulcs_li"><a b-on6kpbil2t href="/Index/Index" target="_blank" class="ulcs_li_a">首页</a></li>
+                <li b-on6kpbil2t class="ulcs_li">
+                    <a b-on6kpbil2t href="/JGSET/Index" target="_blank" class="ulcs_li_a">机构设置</a>
+                </li>
+                <li b-on6kpbil2t class="ulcs_li">
+                    <a b-on6kpbil2t href="/XYDT/Index" target="_blank" class="ulcs_li_a">信用动态</a>
+                </li>
+                <li b-on6kpbil2t class="ulcs_li">
+                    <a b-on6kpbil2t href="/NEWS/ZCFG" target="_blank" class="ulcs_li_a">政策法规</a>
+                </li>
+                <li b-on6kpbil2t class="ulcs_li"><a b-on6kpbil2t href="/NEWS/GSGG" target="_blank" class="ulcs_li_a">公示公告</a></li>
+                <li b-on6kpbil2t class="ulcs_li"><a b-on6kpbil2t href="/XYPJ/Index" target="_blank" class="ulcs_li_a">信用评价</a></li>
+                <li b-on6kpbil2t class="ulcs_li">
+                    <a b-on6kpbil2t href="/XYXX/Index" target="_blank" class="ulcs_li_a">信用信息</a>
+                </li>
+                <li b-on6kpbil2t class="ulcs_li">
+                    <a b-on6kpbil2t href="/LXWM/Index" target="_blank" class="ulcs_li_a">联系我们</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    
+<script src="/lib/jquery-3.6.0.js"></script>
+<script src="/lib/jquery.slidebox.js"></script>
+<!--查询通栏-->
+<div class="datas_search">
+
+    <div class="adv_search_tab">
+        <a class="active1" onclick="change(1)">
+            <i class="fa fa-search"></i>  综合搜索
+        </a>
+        <a style="margin-left:25px;" onclick="change(2)">
+            <i class="fa fa-file-text"></i>  信用信息
+        </a>
+        <a style="margin-left:25px;" onclick="change(3)">
+            <i class="fa fa-list-alt"></i>  评价结果
+        </a>
+        <a style="margin-left:25px;" onclick="change(4)">
+            <i class="fa fa-thumbs-up"></i>  良好行为记录
+        </a>
+        <a style="margin-left:25px;" onclick="change(5)">
+            <i class="fa fa-thumbs-down"></i> 不良行为记录
+        </a>
+    </div>
+    <div class="datas_search_box">
+        <input id="adv_search_text" type="text" value="" placeholder="请输入关键词，例如企业名称、统一社会信用代码" class="datas_search_text fla">
+        <input type="hidden" value="1" id="find">
+        <button id="ok" class="datas_search_btn fla">点击搜索</button>
+    </div>
+
+</div>
+
+<!--内容2一-->
+<!--  <div class="content2">
+  <div class="content2_rk">
+        <a target="_blank" href="http://xy.ccace.org.cn/">-->
+<!--<img src="~/IMG/1.png" />
+    </a>
+    <a target="_blank" href="~/NEWS/NContent?a=1648" style="margin-left:16px;">
+        <img src="~/IMG/2.png" />
+    </a>
+    <a target="_blank" href="~/NEWS/NContent?a=1650" style="margin-left:16px;">
+        <img src="~/IMG/3.png" />
+    </a>
+    <a target="_blank" href="~/NEWS/NContent?a=1649" style="margin-left:16px;">
+        <img src="~/IMG/4.png" />
+    </a>
+</div>
+</div>-->
+<!--内容1一-->
+<div class="content1">
+    <div class="content1_lunbo">
+        <div id="demo3" class="slideBox">
+            <ul class="items">
+                            <li><a target="_blank" href="https://xy.cace.org.cn/NEWS/NContent?key=09ed244d86960b64a84561e46d757dbf" title="&#x5173;&#x4E8E;&#x4E2D;&#x56FD;&#x901A;&#x4FE1;&#x4F01;&#x4E1A;&#x534F;&#x4F1A;&#x5F00;&#x5C55;&#x7B2C;&#x5341;&#x4E5D;&#x6279;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4F01;&#x4E1A;&#x4FE1;&#x7528;&#x7B49;&#x7EA7;&#x8BC4;&#x4EF7;&#x5DE5;&#x4F5C;&#x7684;&#x901A;&#x77E5;"><img src="/UploadBanner/202604/202604281659081618228151.jpg"></a></li>
+                            <li><a target="_blank" href="https://xy.cace.org.cn/NEWS/NContent?key=92498bf92fa6b2db03b8d2138e206f4d" title="2025&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4FE1;&#x7528;&#x5EFA;&#x8BBE;&#x7814;&#x8BA8;&#x4F1A;&#x6210;&#x529F;&#x53EC;&#x5F00;"><img src="/UploadBanner/202509/20250923082637310569347.jpg"></a></li>
+                            <li><a target="_blank" href="https://xy.cace.org.cn/NEWS/NContent?key=c645d01879deab7fbc439d73be7c5867" title="&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x7F51;&#x7EDC;&#x5B89;&#x5168;&#x9886;&#x57DF;&#x4FE1;&#x7528;&#x8BC4;&#x4EF7;&#x63A8;&#x8FDB;&#x4F1A;&#x5728;&#x4EAC;&#x6210;&#x529F;&#x53EC;&#x5F00;"><img src="/UploadBanner/202506/20250616180636962603449.jpg"></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content2_gg">
+                <a href="https://xytb.cace.org.cn/" target="_blank"><img src="/UploadBanner/202604/202604281654401378508790.jpg" /></a>
+    </div>
+    <div class="content1_xydt">
+        <div class="xydt_title">
+            <p class="xydt_title_p1">信用动态</p>
+            <p class="xydt_title_p2"><a href="/XYDT/Index">更多>></a></p>
+        </div>
+        <div class="xydt_con">
+                        <p><a target="_blank" href="/NEWS/NContent?key=70507a0f87dff6c0174af27966ef0dd8">&#x8F6C;&#x53D1;&#x300A;&#x5173;&#x4E8E;&#x7EC4;&#x7EC7;&#x5F00;&#x5C55;2026&#x5E74;&#x4F01;&#x4E1A;&#x8BDA;&#x4FE1;&#x5EFA;&#x8BBE;&#x5B9E;&#x8DF5;&#x6848;&#x4F8B;&#x5F81;&#x96C6;&#x6D3B;&#x52A8;&#x7684;&#x901A;&#x77E5;&#x300B; </a><span>[06-03]</span></p>
+                        <p><a target="_blank" href="/NEWS/NContent?key=09ed244d86960b64a84561e46d757dbf">&#x5173;&#x4E8E;&#x4E2D;&#x56FD;&#x901A;&#x4FE1;&#x4F01;&#x4E1A;&#x534F;&#x4F1A;&#x5F00;&#x5C55;&#x7B2C;&#x5341;&#x4E5D;&#x6279;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4F01;&#x4E1A;&#x4FE1;&#x7528;&#x7B49;&#x7EA7;&#x8BC4;&#x4EF7;&#x5DE5;&#x4F5C;&#x7684;&#x901A;&#x77E5; </a><span>[04-28]</span></p>
+                        <p><a target="_blank" href="/NEWS/NContent?key=f41102b30fc2727448605cd760db6c6e">&#x5173;&#x4E8E;&#x5F00;&#x5C55;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x7B2C;&#x5341;&#x516D;&#x548C;&#x7B2C;&#x5341;&#x4E03;&#x6279;&#x4FE1;&#x7528;&#x4F01;&#x4E1A;2026&#x5E74;&#x5EA6;&#x590D;&#x67E5;&#x7684;&#x901A;&#x77E5; </a><span>[03-02]</span></p>
+                        <p><a target="_blank" href="/NEWS/NContent?key=8734b05f1e61c6789ef782cba7aa8043">&#x8F6C;&#x53D1;&#x300A;&#x5173;&#x4E8E;&#x5F81;&#x96C6;2025&#x5168;&#x56FD;&#x5065;&#x5EB7;&#x4F01;&#x4E1A;&#x5EFA;&#x8BBE;&#x7279;&#x8272;&#x6848;&#x4F8B;&#x3001;&#x5065;&#x5EB7;&#x73ED;&#x7EC4;&#x6848;&#x4F8B;&#x3001;&#x4F01;&#x4E1A;&#x5BB6;&#x548C;&#x804C;&#x5DE5;&#x5065;&#x5EB7;&#x8FBE;&#x4EBA;&#x6848;&#x4F8B;&#x7684;&#x901A;&#x77E5;&#x300B; </a><span>[11-11]</span></p>
+        </div>
+    </div>
+</div>
+
+<div class="content3">
+    <div class="content3_left">
+        <!--公示公告-->
+        <div class="content3_left_gsgg">
+            <div class="gsgg_title">
+                <p class="gsgg_title_p1">公示公告</p>
+                <p class="gsgg_title_p2"><a href="/NEWS/GSGG">更多>></a></p>
+            </div>
+            <div class="gsgg_con">
+                            <p><a target="_blank" href="/NEWS/NContent?key=f4c4bab91c1a495beb2156ac9cdead45">&#x5173;&#x4E8E;&#x516C;&#x544A;&#x7B2C;&#x5341;&#x516B;&#x6279;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4F01;&#x4E1A;&#x4FE1;&#x7528;&#x7B49;&#x7EA7;&#x8BC4;&#x4EF7;&#x7ED3;&#x679C;&#x7684;&#x901A;&#x77E5; </a><span>[05-12]</span></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=68156de5515e1099702d5c9d8ed8b1c2">&#x5173;&#x4E8E;&#x516C;&#x793A;&#x7B2C;&#x5341;&#x516B;&#x6279;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4F01;&#x4E1A;&#x4FE1;&#x7528;&#x7B49;&#x7EA7;&#x8BC4;&#x4EF7;&#x7ED3;&#x679C;&#x7684;&#x901A;&#x77E5; </a><span>[04-14]</span></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=993b1a70c23e94c7c9ba737c94d8a399">&#x5173;&#x4E8E;&#x516C;&#x544A;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4F01;&#x4E1A;2025&#x5E74;&#x5EA6;&#x4FE1;&#x7528;&#x8BC4;&#x4EF7;&#x590D;&#x67E5;&#x7ED3;&#x679C;&#x7684;&#x901A;&#x77E5; </a><span>[12-17]</span></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=abd84a28f92b34d6696312c7a632014d">&#x5173;&#x4E8E;&#x516C;&#x793A;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4F01;&#x4E1A;2025&#x5E74;&#x5EA6;&#x4FE1;&#x7528;&#x8BC4;&#x4EF7;&#x590D;&#x67E5;&#x7ED3;&#x679C;&#x7684;&#x901A;&#x77E5; </a><span>[12-05]</span></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=f14cc07442d226e3631458db688a9542">&#x5173;&#x4E8E;&#x516C;&#x544A;2024&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x4F01;&#x4E1A;&#x8BDA;&#x4FE1;&#x6848;&#x4F8B;&#x540D;&#x5355;&#x7684;&#x901A;&#x77E5; </a><span>[08-26]</span></p>
+            </div>
+                    <a href="/XYXX/Construction" target="_blank"><img src="/UploadBanner/202601/20260114122648258891499.png" style="width:100%;height:auto;" /></a>
+        </div>
+       
+        <!--信用评价结果-->
+        <div class="content3_left_pjjg">
+            <div class="pjjg_title">
+                <p class="pjjg_title_p1">信用评价结果</p>
+                <p class="pjjg_title_p2"><a href="/XYPJ/Index">更多>></a></p>
+            </div>
+            <div class="pjjg_con">
+                <table>
+                    <thead>
+                        <tr><td>序号</td><td>单位名称</td><td>参评领域</td><td>信用等级</td><td>评价年度</td><td>证书编号</td><td>评价日期</td><td>有效期至</td></tr>
+                    </thead>
+                    <tbody>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>1</td>
+                                    <td><a target="_blank" alt="&#x4E2D;&#x4F01;&#x79D1;&#x4FE1;&#x6280;&#x672F;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;" style="color:#504e4e" href="/XYXX/DeptInfo?key=b857da66282b260f78344cced025b3be">&#x4E2D;&#x4F01;&#x79D1;&#x4FE1;&#x6280;&#x672F;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>&#x65BD;&#x5DE5;&#x9886;&#x57DF;</td>
+                                    <td>AAA</td>
+                                    <td>2022</td>
+                                    <td>20230211100344 </td>
+                                    <td>2023-05-15</td>
+                                    <td>2027-06-30</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>2</td>
+                                    <td><a target="_blank" alt="&#x6D77;&#x5357;&#x901A;&#x4FE1;&#x5EFA;&#x8BBE;&#x6709;&#x9650;&#x516C;&#x53F8;" style="color:#504e4e" href="/XYXX/DeptInfo?key=4e4fe71fb64318d650124fe1f27ffa93">&#x6D77;&#x5357;&#x901A;&#x4FE1;&#x5EFA;&#x8BBE;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>&#x65BD;&#x5DE5;&#x9886;&#x57DF;</td>
+                                    <td>AAA</td>
+                                    <td>2023</td>
+                                    <td>20240211100409 </td>
+                                    <td>2024-05-21</td>
+                                    <td>2027-05-20</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>3</td>
+                                    <td><a target="_blank" alt="&#x534E;&#x590F;&#x90AE;&#x7535;&#x54A8;&#x8BE2;&#x76D1;&#x7406;&#x6709;&#x9650;&#x516C;&#x53F8;" style="color:#504e4e" href="/XYXX/DeptInfo?key=e40f6bbab514244aade5cbde2a4fc61d">&#x534E;&#x590F;&#x90AE;&#x7535;&#x54A8;&#x8BE2;&#x76D1;&#x7406;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>&#x76D1;&#x7406;&#x9886;&#x57DF;</td>
+                                    <td>AAA</td>
+                                    <td>2022</td>
+                                    <td>20230311100068 </td>
+                                    <td>2023-05-15</td>
+                                    <td>2027-06-30</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>4</td>
+                                    <td><a target="_blank" alt="&#x5409;&#x6797;&#x7701;&#x90AE;&#x7535;&#x89C4;&#x5212;&#x8BBE;&#x8BA1;&#x9662;&#x6709;&#x9650;&#x516C;&#x53F8;" style="color:#504e4e" href="/XYXX/DeptInfo?key=d9d9c558954d8d9b49594d01549a601e">&#x5409;&#x6797;&#x7701;&#x90AE;&#x7535;&#x89C4;&#x5212;&#x8BBE;&#x8BA1;&#x9662;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>&#x8BBE;&#x8BA1;&#x54A8;&#x8BE2;&#x9886;&#x57DF;</td>
+                                    <td>AAA</td>
+                                    <td>2024</td>
+                                    <td>20250111100165 </td>
+                                    <td>2025-06-19</td>
+                                    <td>2028-06-18</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>5</td>
+                                    <td><a target="_blank" alt="&#x5C71;&#x4E1C;&#x7701;&#x4FE1;&#x5B87;&#x901A;&#x4FE1;&#x5DE5;&#x7A0B;&#x76D1;&#x7406;&#x6709;&#x9650;&#x516C;&#x53F8;" style="color:#504e4e" href="/XYXX/DeptInfo?key=55f9fcfd0ccba26a06b40296a3ac0cfa">&#x5C71;&#x4E1C;&#x7701;&#x4FE1;&#x5B87;&#x901A;&#x4FE1;&#x5DE5;&#x7A0B;&#x76D1;&#x7406;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>&#x76D1;&#x7406;&#x9886;&#x57DF;</td>
+                                    <td>AAA</td>
+                                    <td>2023</td>
+                                    <td>20240311100081 </td>
+                                    <td>2024-05-21</td>
+                                    <td>2027-05-20</td>
+                                </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--信用评价结果-->
+        <div class="content3_left_xyxx">
+            <div class="xyxx_title">
+                <p class="xyxx_title_p1">企业信用信息</p>
+                <p class="xyxx_title_p2"><a href="/XYXX/Index">更多>></a></p>
+            </div>
+            <div class="xyxx_con">
+                <table>
+                    <thead>
+                        <tr><td>序号</td><td>单位名称</td><td>统一信用代码</td><td>法人</td><td>成立日期</td></tr>
+                    </thead>
+                    <tbody>
+
+                                <tr style="background-color:#f6f6f3">
+                                    <td>1</td>
+                                    <td><a target="_blank" style="color:#504e4e" href="/XYXX/DeptInfo?key=089425e1a2ee032888db20ae4af3e49c">&#x6606;&#x660E;&#x8D5B;&#x798F;&#x6D88;&#x9632;&#x79D1;&#x6280;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>915301007194396041</td>
+                                    <td>&#x5F90;&#x4EC1;&#x534E;</td>
+                                    <td>2000-05-11</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>2</td>
+                                    <td><a target="_blank" style="color:#504e4e" href="/XYXX/DeptInfo?key=af28c28c19cc196c9b397b1bbbfee67f">&#x6C5F;&#x82CF;&#x4EA8;&#x901A;&#x5149;&#x7535;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>91320500608296911W</td>
+                                    <td>&#x5F20;&#x5EFA;&#x5CF0;</td>
+                                    <td>1993-06-05</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>3</td>
+                                    <td><a target="_blank" style="color:#504e4e" href="/XYXX/DeptInfo?key=e44e61fc95483965da5976716853b814">&#x5E7F;&#x897F;&#x901A;&#x4FE1;&#x5DE5;&#x7A0B;&#x5EFA;&#x8BBE;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>914500001982221260</td>
+                                    <td>&#x5F90;&#x9646;&#x52C7;</td>
+                                    <td>1990-05-02</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>4</td>
+                                    <td><a target="_blank" style="color:#504e4e" href="/XYXX/DeptInfo?key=aedceea3230076c373e4aec9f3b31cdb">&#x6E56;&#x5357;&#x5929;&#x83AB;&#x4FE1;&#x606F;&#x79D1;&#x6280;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>914301007170479657</td>
+                                    <td>&#x9648;&#x6C38;&#x7EA2;</td>
+                                    <td>2000-01-28</td>
+                                </tr>
+                                <tr style="background-color:#f6f6f3">
+                                    <td>5</td>
+                                    <td><a target="_blank" style="color:#504e4e" href="/XYXX/DeptInfo?key=ed9932ef0c8063e3f919cfec749231b7">&#x6052;&#x9686;&#x901A;&#x4FE1;&#x6280;&#x672F;&#x6709;&#x9650;&#x516C;&#x53F8;</a></td>
+                                    <td>91320505550213748C</td>
+                                    <td>&#x6ED5;&#x6EE1;&#x624D;</td>
+                                    <td>2010-01-19</td>
+                                </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--政策法规-->
+    </div>
+    <div class="content3_right">
+        <!--企业承诺书展示-->
+        <div class="cnszs">
+            <div class="cnszs_title">
+                <p>企业诚信自律承诺书展示</p><a href="/NEWS/ZLCNS">更多>></a>
+            </div>
+            <div class="cnszs_list">
+                            <p><a target="_blank" href="/NEWS/NContent?key=c76454207a9f933aeba9628c60f6d7ff">&#x5317;&#x4EAC;&#x5947;&#x864E;&#x79D1;&#x6280;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=a6fc6ed233deaf9b2f6e99632b75eef2">&#x4E2D;&#x56FD;&#x666E;&#x5929;&#x4FE1;&#x606F;&#x4EA7;&#x4E1A;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=27542dfe51973aab775a6283385ef581">&#x70FD;&#x706B;&#x901A;&#x4FE1;&#x79D1;&#x6280;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=35a77894802950c93fa1a8659b7fd1fa">&#x5927;&#x5510;&#x7535;&#x4FE1;&#x79D1;&#x6280;&#x4EA7;&#x4E1A;&#x96C6;&#x56E2;</a></p>
+                            <p><a target="_blank" href="/NEWS/NContent?key=1f85fd5fce05dbf62bfa711990ad6903">&#x4E2D;&#x56FD;&#x5E7F;&#x64AD;&#x7535;&#x89C6;&#x7F51;&#x7EDC;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+
+            </div>
+        </div>
+        <div class="ggwz">
+                    <div class="ggw1">
+                        <a target="_blank" href="https://xy.cace.org.cn/NEWS/NContent?key=98ca3fffdb0cc027094bad7cf5105bed"><img src="/UploadBanner/202506/20250616171346642480919.jpg" /></a>
+                    </div>
+        </div>
+        <!--信用企业展示-->
+        <div class="xyqyzs">
+            <div class="xyqyzs_title">
+                <p>信用企业展示</p><a href="/XYXX/Index">更多>></a>
+            </div>
+            <div class="xyqyzs_list">
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=ffcd18043610009203c3a63781adb155">&#x4E2D;&#x56FD;&#x901A;&#x4FE1;&#x5EFA;&#x8BBE;&#x7B2C;&#x4E00;&#x5DE5;&#x7A0B;&#x5C40;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=f5bb84cc97dec74ac4ec08dbfc71078d">&#x5E7F;&#x4E1C;&#x7701;&#x7535;&#x4FE1;&#x89C4;&#x5212;&#x8BBE;&#x8BA1;&#x9662;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=de925cd26acfac3e2d3b4d6f8e26c9c8">&#x660C;&#x5EFA;&#x5B8F;&#x7A0B;&#x5B9E;&#x4E1A;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=2b156bcef3a6ee78edea11f53a662acd">&#x6CB3;&#x5317;&#x73AF;&#x5B87;&#x7535;&#x529B;&#x901A;&#x4FE1;&#x5DE5;&#x7A0B;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=aaafd0e837f179fb53b8c6130d4eec81">&#x4E2D;&#x56FD;&#x901A;&#x4FE1;&#x5EFA;&#x8BBE;&#x7B2C;&#x4E8C;&#x5DE5;&#x7A0B;&#x5C40;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=4d03e3ac3b361d7d394aadd5d20d8176">&#x91CD;&#x5E86;&#x5E02;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x54A8;&#x8BE2;&#x8BBE;&#x8BA1;&#x9662;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=7473a679b67f268d878ee9fcae422c90">&#x4E2D;&#x56FD;&#x79FB;&#x52A8;&#x901A;&#x4FE1;&#x96C6;&#x56E2;&#x8BBE;&#x8BA1;&#x9662;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=baf200524323bde63fafbd7f8a41feb0">&#x5B81;&#x590F;&#x901A;&#x4FE1;&#x5EFA;&#x8BBE;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=28f4a85fa0bae9d1e1b9cda6e8df44c2">&#x5317;&#x4EAC;&#x5343;&#x79A7;&#x7EF4;&#x8BAF;&#x79D1;&#x6280;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=bef17f8b8d61bcc1f62cc62d17c2e127">&#x6D59;&#x6C5F;&#x516B;&#x65B9;&#x7535;&#x4FE1;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=0e13322da318851db35aa36195b6d775">&#x6DF1;&#x5733;&#x5E02;&#x68A6;&#x7F51;&#x79D1;&#x6280;&#x53D1;&#x5C55;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=f0529121e26174da3a60267b861c21a6">&#x4E2D;&#x56FD;&#x901A;&#x4FE1;&#x5EFA;&#x8BBE;&#x96C6;&#x56E2;&#x8BBE;&#x8BA1;&#x9662;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+                        <p><a target="_blank" href="/XYXX/DeptInfo?key=dce14c84e823557a11c0181e3cfe7a74">&#x53A6;&#x95E8;&#x7EB5;&#x6A2A;&#x5EFA;&#x8BBE;&#x76D1;&#x7406;&#x54A8;&#x8BE2;&#x6709;&#x9650;&#x516C;&#x53F8;</a></p>
+            </div>
+        </div>
+        <!--广告位展示-->
+        <div class="ggw">
+        </div>
+    </div>
+</div>
+<!--友情链接-->
+<div class="yqlj">
+    <div id="cen_right_top6">
+        <div class="tab-header-6">
+            <h3 class="active">友情链接</h3>
+            <h3 style="margin-left:2px;">地方协会</h3>
+        </div>
+        <div class="tab-body-6">
+            <div style="display:block" class="divcs tab-body-6-content">
+                <ul class="webadd">
+                                    <li><a>&#x4FE1;&#x7528;&#x4E2D;&#x56FD;</a></li>
+                                    <li><a>&#x56FD;&#x5BB6;&#x53D1;&#x5C55;&#x6539;&#x9769;&#x59D4;</a></li>
+                                    <li><a>&#x4EBA;&#x6C11;&#x94F6;&#x884C;</a></li>
+                                    <li><a>&#x5DE5;&#x4E1A;&#x548C;&#x4FE1;&#x606F;&#x5316;&#x90E8;</a></li>
+                                    <li><a>&#x6C11;&#x653F;&#x90E8;</a></li>
+                                    <li><a>&#x4F4F;&#x5EFA;&#x90E8;</a></li>
+                                    <li><a>&#x6700;&#x9AD8;&#x6CD5;</a></li>
+                                    <li><a>&#x6700;&#x9AD8;&#x68C0;</a></li>
+                                    <li><a>&#x7A0E;&#x52A1;&#x603B;&#x5C40;</a></li>
+                                    <li><a>&#x5DE5;&#x5546;&#x603B;&#x5C40;</a></li>
+                                    <li><a>&#x56FD;&#x5BB6;&#x4FE1;&#x606F;&#x4E2D;&#x5FC3;</a></li>
+                                    <li><a>&#x56FD;&#x5BB6;&#x516C;&#x5171;&#x4FE1;&#x7528;&#x4FE1;&#x606F;&#x4E2D;&#x5FC3;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x7535;&#x4FE1;&#x96C6;&#x56E2;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x79FB;&#x52A8;&#x901A;&#x4FE1;&#x96C6;&#x56E2;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x8054;&#x5408;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x96C6;&#x56E2;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x94C1;&#x5854;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E0A;&#x6D77;&#x8BFA;&#x57FA;&#x4E9A;&#x8D1D;&#x5C14;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x79FB;&#x52A8;&#x901A;&#x4FE1;&#x8BBE;&#x8BA1;&#x9662;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x4FE1;&#x606F;&#x901A;&#x4FE1;&#x7814;&#x7A76;&#x9662;</a></li>
+                                    <li><a>&#x4EBA;&#x6C11;&#x90AE;&#x7535;&#x62A5;&#x793E;</a></li>
+                                    <li><a>&#x4E2D;&#x5174;&#x901A;&#x8BAF;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x666E;&#x5929;&#x4FE1;&#x606F;&#x4EA7;&#x4E1A;&#x96C6;&#x56E2;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x5BCC;&#x901A;&#x96C6;&#x56E2;</a></li>
+                                    <li><a>&#x70FD;&#x706B;&#x901A;&#x4FE1;&#x79D1;&#x6280;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x901A;&#x4FE1;&#x670D;&#x52A1;&#x80A1;&#x4EFD;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x957F;&#x98DE;&#x5149;&#x7EA4;&#x5149;&#x7F06;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                                    <li><a>&#x4EBA;&#x6C11;&#x90AE;&#x7535;&#x51FA;&#x7248;&#x793E;</a></li>
+                                    <li><a>&#x4E2D;&#x56FD;&#x901A;&#x4FE1;&#x5EFA;&#x8BBE;&#x96C6;&#x56E2;&#x6709;&#x9650;&#x516C;&#x53F8;</a></li>
+                </ul>
+            </div>
+            <div class="divcs tab-body-6-content">
+                <ul class="webadd">
+                                    <li><a href="http://www.atis.org.cn/">&#x5B89;&#x5FBD;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;&#x66A8;&#x4E92;&#x8054;&#x7F51;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5317;&#x4EAC;&#x5E02;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5929;&#x6D25;&#x5E02;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6CB3;&#x5317;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5C71;&#x897F;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5185;&#x8499;&#x53E4;&#x81EA;&#x6CBB;&#x533A;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x8FBD;&#x5B81;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6C5F;&#x82CF;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6C5F;&#x897F;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5C71;&#x4E1C;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6CB3;&#x5357;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6E56;&#x5317;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6E56;&#x5357;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5E7F;&#x4E1C;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5E7F;&#x897F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6D77;&#x5357;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x7518;&#x8083;&#x7701;&#x901A;&#x4FE1;&#x4F01;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5B81;&#x590F;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x65B0;&#x7586;&#x7EF4;&#x543E;&#x5C14;&#x81EA;&#x6CBB;&#x533A;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x4E91;&#x5357;&#x7701;&#x901A;&#x4FE1;&#x5B66;&#x4F1A;</a></li>
+                                    <li><a>&#x56DB;&#x5DDD;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x6D59;&#x6C5F;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x9ED1;&#x9F99;&#x6C5F;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x798F;&#x5EFA;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x91CD;&#x5E86;&#x5E02;&#x7535;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x8D35;&#x5DDE;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x9655;&#x897F;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x897F;&#x85CF;&#x81EA;&#x6CBB;&#x533A;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                                    <li><a>&#x5409;&#x6797;&#x7701;&#x901A;&#x4FE1;&#x884C;&#x4E1A;&#x534F;&#x4F1A;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="ewm">
+        <h3 style="font-weight:bold;text-align:center;line-height:45px;font-size:18px;">官方微信</h3>
+        <div style="width:166px;height:154px;margin:0px auto;">
+            <img src="/IMG/ewm_ban.png" />
+        </div>
+        <p>信息通信行业信用服务平台</p>
+        <p>（微信公众号二维码）</p>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $('#demo3').slideBox({
+        duration: 0.3,//滚动持续时间，单位：秒
+        easing: 'linear',//swing,linear//滚动特效
+        delay: 8,//滚动延迟时间，单位：秒
+        hideClickBar: false,//不自动隐藏点选按键
+        clickBarRadius: 10
+    });
+     
+</script>
+
+
+    <div b-on6kpbil2t class="footer">
+        <p b-on6kpbil2t>中国通信企业协会</p>
+        <p b-on6kpbil2t><a b-on6kpbil2t href="https://beian.miit.gov.cn" target="_blank">ICP备案号：京ICP备05028357号-1</a></p>
+        <p b-on6kpbil2t>北京市东城区东四十条甲 22 号南新仓商务大厦 B 座B1125室</p>
+        <p b-on6kpbil2t>Copyright 2000-2026 www.cace.org.cn rights reserved.</p>
+    </div>
+</body>
+</html>

@@ -533,9 +533,9 @@ html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 <button class="am-btn" type="button" data-am="copy" data-done="已复制 ✓">复制源稿</button>
 </div>
 <main class="am-doc">
-<header class="am-head"><h1>SEAL V1：可信 Python 与原生 Scrapy</h1><p class="am-sub">轻量采集、应用层原文、独立版本与可恢复发布</p><div class="am-intro am-md"><div class="am-md"><p>状态：设计基线，生产管线尚未实现。
+<header class="am-head"><h1>SEAL V1：可信 Python 与原生 Scrapy</h1><p class="am-sub">轻量采集、应用层原文、独立版本与可恢复发布</p><div class="am-intro am-md"><div class="am-md"><p>状态：V1 第一版代码已落地，已提供 M0–M3 合成端到端入口。
 仓库已有独立实验，但它们不等于本架构的端到端验收。
-本轮只修订文档，没有安装依赖、实现业务代码或搭建基础设施。</p>
+CLI、归档、审核发布和真实 Worker 已实现；真实来源许可、人工核对与完整性验收尚未完成。</p>
 </div></div></header>
 <div class="am-doc-layout">
 <nav class="am-toc" aria-label="目录"><a href="#panel-A">A · 先明确可信代码前提</a><a href="#panel-B">B · 完整架构与模块职责</a><a href="#panel-C">C · 归档必须放在正确位置</a><a href="#panel-D">D · 共享版本，不共享启用资格</a><a href="#panel-E">E · 正常自动发布，变更人工审核</a><a href="#panel-F">F · 失败后如何恢复</a><a href="#panel-G">G · M0 到 M3 的实施与验收</a><a href="#panel-H">H · 技术风险与完整规范</a></nav><div class="am-doc-body">
@@ -752,8 +752,8 @@ JOBDIR 不作为任意崩溃恢复保证。</p>
 <td>只升级 A，不改变 B 的绑定、环境和历史；撤回与回滚独立</td>
 </tr>
 </tbody></table></div>
-<p>未来验收入口：<code>./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0</code>。
-其余阶段替换阶段名和输出目录；当前脚本尚不存在。</p>
+<p>验收入口：<code>./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0</code>。
+其余阶段替换阶段名和输出目录；后续阶段包含前阶段，失败工件保留。</p>
 <p>使用隔离测试库、本地测试站点、固定预期与真实 CLI。
 输出 manifest、逐条断言、原文、JSON、版本历史和脱敏日志。
 真实来源另需访问许可与人工核对；仅合成通过不算 V1 交付。</p>
@@ -811,9 +811,9 @@ lang: zh
 template: doc
 theme: blueprint
 ---
-状态：设计基线，生产管线尚未实现。
+状态：V1 第一版代码已落地，已提供 M0–M3 合成端到端入口。
 仓库已有独立实验，但它们不等于本架构的端到端验收。
-本轮只修订文档，没有安装依赖、实现业务代码或搭建基础设施。
+CLI、归档、审核发布和真实 Worker 已实现；真实来源许可、人工核对与完整性验收尚未完成。
 
 ## A 先明确可信代码前提
 ```callout info V1 使用团队审查维护的普通 Python
@@ -969,8 +969,8 @@ M3 | 双Source维护路径 | 共享版本，A失效修复并升级，B保持正�
 | M2 | A→A→B→A 四次观察三次修订；崩溃恢复无重复发布 |
 | M3 | 只升级 A，不改变 B 的绑定、环境和历史；撤回与回滚独立 |
 
-未来验收入口：`./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0`。
-其余阶段替换阶段名和输出目录；当前脚本尚不存在。
+验收入口：`./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0`。
+其余阶段替换阶段名和输出目录；后续阶段包含前阶段，失败工件保留。
 
 使用隔离测试库、本地测试站点、固定预期与真实 CLI。
 输出 manifest、逐条断言、原文、JSON、版本历史和脱敏日志。

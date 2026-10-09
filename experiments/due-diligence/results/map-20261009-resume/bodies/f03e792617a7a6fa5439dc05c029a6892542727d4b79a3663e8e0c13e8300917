@@ -1,0 +1,3596 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--link type="text/css" rel="stylesheet" href="zjjg.css"/>
+<script type="text/javascript" src="zjjgjs.js"></script-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<!-- js import -->
+<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery-tools.min.js"></script>
+<!-- <script type="text/javascript" src="/js/utr/uc.js"></script> -->
+<script type="text/javascript" src="/js/utr/formatnum.js"></script>
+<script type="text/javascript" src="/js/utr/unslider.js"></script>
+<link href="/style/utr/public.css" rel="stylesheet" type="text/css" />
+<link href="/style/utr/style.css" rel="stylesheet" type="text/css" />
+<link href="/style/utr/dsdialog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">var url_ctx="/portal";
+function toHref(toPage){if("login"==toPage){window.location=url_ctx+"/login.jsp";}else{window.location=url_ctx+"/page?to="+toPage;}}
+</script>
+<title>广州产权交易所</title>
+
+
+
+<script>
+	var pcIndex = (window.location+"").indexOf('?pc');
+	var _hmt = _hmt || [];
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "//hm.baidu.com/hm.js?6eda7fc02dd514d4aa276037c947668f";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hm, s);
+	})();
+	
+	//add by dchen 20170614 判断PC段登录
+	function isPC() {
+		var userAgentInfo = navigator.userAgent;
+		var Agents = ["Android", "iPhone",
+					"SymbianOS", "Windows Phone",
+					"iPad", "iPod"];
+		var flag = true;
+		for (var v = 0; v < Agents.length; v++) {
+			if (userAgentInfo.indexOf(Agents[v]) > 0) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
+	//console.info("=================="+pcIndex);
+	
+	//if(!isPC()){window.location.href = "/wx/pro/index.shtml";}
+	if(!isPC()&&pcIndex==-1){window.location.href = "/wx/pro/index.shtml";}
+	 
+</script>
+
+</head>
+<body>
+
+<script language="javascript">
+top.location="https://new.gemas.com.cn";
+</script>
+
+<!-- <div id="div2">
+<center>
+	<div id="div1">
+<div id="div4">
+
+广州产权交易所声明
+</div>
+
+		<div>
+<iframe src="http://gz.gemas.com.cn/article/Popup/index.html" width="99%" height="450"></iframe>
+                </div>
+
+		<div id="div3" style="background-color:#FFCC00;height:40px;">
+                  <div id="div6"><span id="clo1" style="cursor:pointer;">关  闭</span></div>
+		</div>
+
+	</div>
+</center>
+</div> -->
+<div id="mwrap" style="z-index: 19891015; width: 800px;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);box-shadow: 2px 2px 2px 2px #ccc;">
+			<div id="mtitle" style="height: 50px;line-height: 50px;background: #ef7718;color: #fff;border: none;padding: 0;font-size: 18px;text-align: center;cursor: move;overflow: hidden;">
+	广州产权交易所新交易系统正式上线通知
+</div>
+<div id="mcontent" style="padding: 30px 20px;background-color: #FFF;">
+	<p style="font-size: 16px;">尊敬的用户：</p>
+	<p style="font-size: 16px;text-indent: 2em;">为持续提升用户体验，提供更加高效便捷的交易服务，广州产权交易所新交易系统将于2025年5月1日正式上线启用。现就有关事项通知如下：</p>
+	<p style="font-size: 16px;text-indent: 2em;">一、自2025年5月1日起，所有交易项目均在新交易系统展示，项目信息将在新系统门户网站<a href="https://new.gemas.com.cn" target="_blank">（https://new.gemas.com.cn）</a>发布。参与新系统交易项目的用户，请务必详细阅读<a href="http://img.gemas.com.cn/www/file/202411/1732672576443.docx">用户使用手册（点击阅读）</a>、<a href="http://img.gemas.com.cn/www/file/202411/1732671707228.docx">保证金缴纳注意事项（点击阅读）</a>等指引文件，以确保交易顺利进行。</p>
+	<p style="font-size: 16px;text-indent: 2em;">二、新交易系统上线后，委托方（房企用户）如需办理在线委托或自挂牌业务，请在新交易系统中进行操作。</p>
+	<p style="font-size: 16px;text-indent: 2em;">三、若您在新交易系统使用过程中遇到任何问题或有相关建议，请及时联系项目经办人。技术支持电话：潘先生（15952951462）、侯先生（15151959023）。</p>
+	<p style="font-size: 16px;text-indent: 2em;">我们致力于为您打造更优质的交易平台，新系统的上线可能会给您带来短暂的不便，感谢您的理解和支持！</p>
+	<p style="text-align: right;font-size: 16px;">广州产权交易所有限公司</p>
+	<p style="text-align:right;font-size:16px;">2025年4月25日</p>
+</div>
+<div id="mclose" style="height: 50px; line-height: 50px; text-align: center;cursor: pointer;border-top:1px solid #ccc;background-color: #FFF;">
+	<span style="font-size: 16px;">关 闭</span>
+</div>
+		</div>
+		<script>
+			var btn = document.getElementById('mclose');
+			btn.onclick = function(){
+				document.getElementById('mwrap').style.display = 'none';
+			}
+		</script>
+<div id="bzjnotice" style="z-index: 19800;position: fixed;top: 50%;left: 30px;transform: translate(0, -50%);">
+			<a href="http://img.gemas.com.cn/www/file/202411/1732671707228.docx">
+				<img src="http://img.gemas.com.cn/www/pic/202411/1732799795023.gif" alt="新系统保证金缴纳注意事项" width="150" height="158">
+			</a>
+		</div>
+	<div id="wrap">
+		<link href="/portal/style/gg.css" type="text/css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<!-- js import -->
+<script type="text/javascript" src="/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery-tools.min.js"></script>
+<!-- <script type="text/javascript" src="/js/utr/uc.js"></script> -->
+<script type="text/javascript" src="/js/utr/formatnum.js"></script>
+<script type="text/javascript" src="/js/utr/unslider.js"></script>
+<link href="/style/utr/public.css" rel="stylesheet" type="text/css" />
+<link href="/style/utr/style.css" rel="stylesheet" type="text/css" />
+<link href="/style/utr/dsdialog.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">var url_ctx="/portal";
+function toHref(toPage){if("login"==toPage){window.location=url_ctx+"/login.jsp";}else{window.location=url_ctx+"/page?to="+toPage;}}
+</script>
+<title>广州产权交易所</title>
+
+
+<script type="text/javascript">
+	$(function(){
+			$("#div1").fadeIn("slow");//淡入淡出效果 显示div
+			$("#clo1").click(function(){
+			$("#div1").hide(); //先让div隐藏
+	});
+
+	$("#span2").click(function(){
+			$("#div1").fadeOut("slow");//淡入淡出效果 隐藏div
+		})
+	});
+	
+</script>
+<script type="text/javascript" src="/js/gg.js" ></script>
+<!-- 浮动广告图集团微信   -->
+<!--include virtual="/ad/float_left_ad4.shtml"--> 
+<style type="text/css">
+#div1 {
+        z-index:999;
+        top:0;
+	position:fixed;
+	margin-top:150px;
+	margin-left:30%;
+	margin-right:30%;
+	width:40%;
+	height:520px;
+	border:solid #FFCC00 10px;
+	background-color:#FFFFFF;
+}
+#div2 {
+        z-index:999;
+        top:0;
+	background-color:#FFCC00;
+	width:100%;
+	height:100%;
+}
+#div3 {
+text-align:center;
+}
+#div6 {
+line-height:38px;
+text-align:center;
+font-size:18px;
+font:"黑体";
+color:#000000;
+}
+#div4 {
+height:35px;
+font-size:25px;
+text-align:center;
+font:"宋体";
+color:#000000;
+background-color:#FFCC00;
+}
+a.login,a.reg{color:#f00;}
+a.reg{font-size:16px;}
+
+</style>
+
+
+<div class="header lh30" style="font-size:16px;height:36px;line-height:36px;">
+    <div class="fullwidth clearfix">
+        <div class="hd_dl fl" id="iconlogin" style="float:left;height: 36px;">
+        <!-- <p><iframe src="/portal/page?to=loginInfo" width="650" height="30" frameborder="0" allowtransparency="true" scrolling="no"></iframe></p> -->
+        您好，欢迎访问！<a href="javascript:void(0);" onclick="toHref('login')" class="login">登录</a> | <a href="javascript:void(0);" onclick="toHref('regUser')"  class="reg">免费注册</a>
+        </div>
+        <div class="hd_nav fr" style="text-align:right;float:left;padding-left:680px;">
+			<a href="/article/gywm/">关于我们</a>
+			<!--a href="/article/hyzx/">会员中心</a-->|
+			<a href="/article/xzzq/">下载专区</a> |
+			<a href="/article/home/tyjg/" style="padding-top:3px;padding-right:10px">同业机构</a>
+		</div>
+		<!--<div style="float:left">
+			<a href="http://en.gemas.com.cn/">
+			<img src="http://gz.gemas.com.cn/images/EnglishLink.png" style="padding-top:3px">
+			</a>
+		</div>-->
+    </div>
+</div>
+
+<div class="top">
+    <div class="menu fullwidth">
+        <div class="logo"><a href="/"><img src="/images/logo.png" alt="广州产权交易所" /></a></div>
+        <!-- 搜索框开始 -->
+        <div class="search" id="searchDiv" style="width:322px;top: 12px;">
+<table>
+	<tr>
+	<td>
+		<img src="http://img.gemas.com.cn/www/pic/202408/1724062153221.png" style="width:18;height:18px;vertical-align: middle;"/>
+		<a href="http://www.gemas.com.cn/article/gywm/lxwm/" style="display:inline-block;vertical-align:middle;font-size:16px;font-weight:bold;color:#ef7719;font-family:'微软雅黑'">联系我们</a>
+	</td><td>
+	</td>
+</tr>
+  <tr>
+  
+    <td>
+          <input type="hidden" id="category" name="category" value="gpxm"/>
+          <input type="hidden" id="ggType" name="ggType" value="BIAODIXX"/>
+          <input type="hidden" id="lmId" name="lmId" value="5"/>
+          <input type="hidden" id="spaceEname" name="spaceEname" value="www"/>
+          <input type="hidden" id="title" name="title" value=""/>
+          <input type="hidden" id="sbiaoti" name="sbiaoti" value=""/>
+          <input class="search_input" style="width:196px;" id="key" name="key" maxlength="50" type="text" placeholder="请输入项目编号或关键字" onfocus="this.value=''"/>
+    </td>
+    <!--
+    <td>
+	<select class="search_input" style="width:100px;height:34px;" onChange="changeSURL()" id="changeurl">
+		<option value=1>企业股权</option>
+  		<option value=11>企业股权(新)</option>
+  		<option value=2>实物资产</option>
+  		<option value=12>实物资产(新)</option>
+  		<option value=3>涉诉资产</option>
+  		<option value=4>房屋出租</option>
+  		<option value=13>房屋出租(新)</option>
+  		<option value=14>企业自挂牌</option>
+  		<option value=5>公共资源</option>
+  		<option value=6>增资扩股/招商引资</option>
+  		<option value=666>增资扩股/招商引资(新)</option>
+  		<option value=7>农村产权</option>
+  		<option value=10>其他</option>
+	</select>
+   	</td>
+   	-->
+   	<td>
+          <input class="search_submit" id="searchSubmit" type="submit" onclick="proSearchAll();" style="top: 27px;" value="查询" />
+   	</td>
+  </tr>
+</table>
+
+</div>
+<script type="text/javascript">
+function checkvv(){
+  var keyv=$("#key").val();
+  keyv = encodeURI(keyv); 
+  $("#sbiaoti").val(keyv);
+}
+function checkgg(categoryId){
+	var keyv=$("#key").val();
+	keyv = encodeURI(keyv); 
+    window.location.href="/article/resultList.shtml?spaceEname=www&categoryId="+categoryId+"&title="+keyv;
+    return false;
+}
+function proSearch(sysEname){
+    var keyv=$("#key").val();
+    keyv = encodeURI(keyv); 
+    window.location.href="/portal/page?to=proSearch&pageIndex=1&sysEname="+sysEname+"&queryKey="+keyv;
+    return false;
+}
+function proSearchAll(){
+    var keyv=$("#key").val();
+    if(keyv.indexOf("'")!=-1||keyv.indexOf("prompt")!=-1||keyv.indexOf("confirm")!=-1||keyv.indexOf("--")!=-1){
+    	alert("含特殊字符，请重新输入");
+    	$("#key").val("")
+    	return;
+    }
+    keyv = encodeURI(keyv); 
+    window.open("/portal/page?to=cmsUtrSearchAll&pageIndex=1&sysEname=MGZL&queryKey="+keyv);
+    return false;
+}
+
+</script>
+        <div class="menunav">
+            <div class="nav_bg_1"><a href="/index20250501.shtml" class="cur">首页</a></div>
+            
+            <div class="nav">
+                <!-- 导航条 -->
+                <ul class="nav-main clearfix">
+                    <li id="gpxm"><a href="/article/gpxm/">挂牌项目</a></li>
+                    <li id="xxgg"><a href="/article/xxgg/">信息公告<span></span></a>
+                    	<ul>
+	                        <li><a href="/article/xxgg/jygg/">交易公告</a></li>
+                        	<li><a href="/article/xxgg/qtgg/">其他公告</a></li>
+<li><a href="/article/call_time/">领取资格认定公告</a></li>
+<li><a href="/article/Bidding_time/">领取项目须知公告</a></li>
+	                    </ul>
+                    </li>
+                    <li id="zdtj"><a href="/article/zdtj/">重点推介<span></span></a>
+                    	<ul>
+                    		<li><a href="/article/zdtj/bstj">本所推介</a></li>
+                        	<li><a href="/article/zdtj/tyjgtj">同业机构推介</a></li>
+                        </ul>
+                    </li>
+					<!--<li id="jggs"><a href="/article/jggs/">结果公示<span></span></a>
+					-->
+                    <li id="jggs"><a href="/article/jggs/cjgg">结果公示</a>
+					<!--
+                    	<ul>
+                    		<li><a href="/article/jggs/cjgg">成交结果公示</a></li>
+                        	 <li><a href="/article/jggs/qtcjjg">其他成交结果公示</a></li> 
+                        </ul>
+						-->
+                    </li>
+                    <li id="jggg"><a href="/article/jggg/">结果公告</a></li>
+                    <li id="jyzn"><a href="/article/jyzn/czgc/">交易指南<span></span></a>
+                    	<ul>
+                    		<li><a id="qygycq" href="/article/jyzn/czgc">交易操作规程</a></li>
+                        	<li><a id="swzc" href="/article/jyzn/bidrules">竞价实施办法</a></li>
+							<li><a id="jyczxz" href="/article/jyzn/jyczxz">交易操作细则</a></li>
+							<li><a id="jyxgzy" href="/article/jyzn/StandardOfServiceCharges/202404/20240400064521.shtml">服务收费标准</a></li>
+							<li><a id="jyxgzy" href="/article/jyzn/jyxgzy">交易相关指引</a></li>
+							<li><a id="xgwjxz" href="/article/xzzq/">相关文件下载</a></li>
+                       	</ul>
+                    </li>
+                    <li id="bsdt"><a href="/article/bsdt/">新闻动态<span></span></a>
+                    	<ul>
+	                        <li><a href="/article/bsdt/bswz/">本所动态</a></li>
+	                        <li><a href="/article/bsdt/alfx/">案例分析</a></li>
+	                        <!--li><a href="/article/bsdt/mtbd/">媒体报道</a></li-->
+	                    </ul>
+                    </li>
+                    <li id="fgzc"><a href="/article/fgzc/">法规政策<span></span></a>
+                    	<ul>
+	                        <li><a href="/article/fgzc/gjcq">国家产权法规政策</a></li>
+	                        <li><a href="/article/fgzc/sscq">省市产权法规政策</a></li>
+	                        <li><a href="/article/fgzc/qt">其他法规政策</a></li>
+	                    </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav_bg_2"><a href="/article/Financing/">融资项目</a></div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	function isPC() {
+		var userAgentInfo = navigator.userAgent;
+		var Agents = ["Android", "iPhone",
+					"SymbianOS", "Windows Phone",
+					"iPad", "iPod"];
+		var flag = true;
+		for (var v = 0; v < Agents.length; v++) {
+			if (userAgentInfo.indexOf(Agents[v]) > 0) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
+
+$(document).ready(function(){
+	/*2016-09-24 未添加登录功能*/
+	var loginHtml = '';
+	$.ajax({
+	url:'/portal/doUsers/login',
+	type: 'get',
+	dataType:'json',
+	success: function(data){
+		//add by dchen 20170614 增加判断，如果是手机登录，先提示请在PC端登录系统
+		if(!isPC()){
+			$("#iconlogin").html("您好，请在PC端登录系统！");
+		}else{
+			if(data.flag == 'T' && data.userEname != 'gongxiaolin417'){
+			   loginHtml = '您好，' + data.userCname + '    <a class="signin" href="javascript:void(0);" onclick=toHref("index")>用户中心</a><span class="signout" onclick="signout()" title="退出"></span>';
+			}else{
+			   loginHtml = '您好，欢迎访问！<a href="javascript:void(0);" onclick=toHref("login") class="login">登录</a> | <a href="javascript:void(0);" onclick=toHref("regUser")  class="reg">免费注册</a>';	
+			}
+			$("#iconlogin").html(loginHtml);
+		}
+			
+	}			
+	});
+	//导航效果
+    $('.nav-main>li').hover(function(){
+        $(this).find("span").removeClass().addClass('hover-up');
+        $(this).find("ul").slideDown(200);
+    },function(){
+        $(this).find("span").removeClass().addClass('hover-down');
+        $(this).find("ul").slideUp(100);
+    });
+    
+    //当前导航高亮显示
+	var myNav =$('.nav-main li a');
+	var urlstr = location.href;
+	for(var i=0;i<myNav.length;i++){
+		var links = myNav[i].getAttribute("href");
+		//console.log(links);
+		//console.log(links.substr(9,4));
+		
+		if(urlstr.indexOf(links) != -1){
+			var link = links.substr(9,4);
+			$("#"+link).addClass('cur');
+			//console.log($("#"+link));
+			
+			$('.nav_bg_1 a').removeClass('cur');
+		    $('.nav_bg_2 a').removeClass('cur');
+		}else if(urlstr.indexOf('/article/fcrz/') != -1){
+			$('.nav_bg_1 a').removeClass('cur');
+		    $('.nav_bg_2 a').addClass('cur');
+		}
+	};
+});
+
+//首页和列表查询搜索
+//function seachPage(pageIndex) {
+ //   if (!pageIndex) {
+  //      pageIndex = "1";
+  //  }
+  //  $("#pageIndex").val(pageIndex);
+  //  var actionUrl = "/portal/index.jsp";
+    //alert(actionUrl);
+    // $("searchForm").attr("action",actionUrl);
+  //  $("#searchForm").submit();
+//}
+</script>
+<!-- <center><img src="http://gz.gemas.com.cn/images/shijiuda.gif"/></center> -->
+		<!--include virtual="/ad/float_left_ad4.shtml"--> 
+		<div id="main" class="fullwidth">
+			<!-- 首页的广告位 -->
+<!--include virtual="float_right_adcarbon.shtml"-->
+<script type="text/javascript" src="http://gz.gemas.com.cn/portal/js/layer/layer.js"></script>
+<script type="text/javascript">
+//layer.open({
+//	  type: 2,
+//	  title: 0,
+//	  closeBtn: 1,
+//	  shadeClose: true,
+//	  skin: '',
+//	  area: ['1000px', '605px'],
+//	  content: 'http://uc.gemas.com.cn/sweb/upload/bqtz.jpg'
+//	});
+	
+	
+//layer.open({
+//	  type: 1,
+//	  title: 0,
+//	  closeBtn: 1,
+//	  shadeClose: true,
+//	  skin: '',
+//	  area: ['620px', '285px'],
+//	  content: '<div><div style="margin:20px"><p style="text-align:center;font-size:18px;">关于广州产权交易所门户网站升级维护的通知</p><br/><span style=" font-size:18px;"> 致尊敬的各位广州产权交易所平台用户：<br /><p style="text-indent: 2em;">因系统升级维护需要，广州产权交易所门户网站将于5月28日晚至5月30日晚对系统进行升级维护。维护期间短信发送、项目资金匹配等功能将无法正常运作。请各位用户合理安排系统作业时间，避免升级维护影响正常业务的运作。如有不便，敬请各位谅解。</p><br/><p style="text-align:right;font-size:18px;"> 广州产权交易所有限公司</p><p style="text-align:right;font-size:18px;"> 2021年5月26日</p></span></div></div>'
+//	});
+</script>
+
+<!-- main_all开始 -->
+<div class="main_all" style="width:1200px; height:auto; overflow:hidden;">
+       <!-- main_left开始 -->
+	<div class="main_left" style="width:900px;float:left;" >
+       <link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="css/style2.css" type="text/css" rel="stylesheet" />
+<link href="css/css.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript">
+var scroll2 = new ScrollText("breakNewsList","pre2","next2",true,100,true);
+scroll2.LineHeight = 63;
+</script>
+
+<!-- 广告位1 -->
+<!-- <div style="padding-top:20px">
+<p><br></p>
+
+</div>
+<!--广告位1结束-->
+<!-- 广告位2 -->
+	<div style="padding-top:20px">
+<div class="flexslider"><ul class="slides"><li onclick="javascript:window.location.href='http://www.gemas.com.cn/article/xxgg/qtgg/202305/20230500049860.shtml'" title="关于征集产权交易项目合作机构的公告" style="cursor:pointer; background:url(http://img.gemas.com.cn/www/pic/202408/1724291839139.jpg) no-repeat 50% 0px"></li><li onclick="javascript:window.location.href='http://gzfc.gemas.com.cn/'" title="广州公有物业出租平台" style="cursor:pointer; background:url(http://img.gemas.com.cn/www/pic/202408/1724721683997.png) no-repeat 50% 0px"></li><li onclick="javascript:window.location.href='https://www.gzsun.com.cn/'" title="阳光采购服务平台" style="cursor:pointer; background:url(http://img.gemas.com.cn/www/pic/202408/1724721913811.png) no-repeat 50% 0px"></li><li onclick="javascript:window.location.href='http://pc.gemas.com.cn'" title="市中院破产智融平台" style="cursor:pointer; background:url(http://img.gemas.com.cn/www/pic/202408/1724722244406.png) no-repeat 50% 0px"></li><li onclick="javascript:window.location.href='http://gzfp.gemas.com.cn'" title="精准扶贫平台" style="cursor:pointer; background:url(http://img.gemas.com.cn/www/pic/202408/1724722599702.png) no-repeat 50% 0px"></li><li onclick="javascript:window.location.href='http://www.4wew.com/'" title="科技创新交易服务平台" style="cursor:pointer; background:url(http://img.gemas.com.cn/www/pic/202408/1724722846286.png) no-repeat 50% 0px"></li><li onclick="javascript:window.location.href='http://www.gemas.com.cn/article/Financing/'" title="我要融资" style="cursor:pointer; background:url(http://img.gemas.com.cn/www/file/202408/1724722983724.png) no-repeat 50% 0px"></li></ul></div>
+
+</div>
+	<!--广告位2结束-->
+
+<!--01-产股权-->
+<div id="tab_cgq" class="cgq mt10 clearfix">
+	<div class="pro_title">
+		<div class="tabBar clearfix">
+			<span>企业股权</span><span>股权预披露</span><span>增资扩股</span><span>增资预披露</span>
+		</div>
+		<a href="javascript:void(0)" onclick="tabName('tab_cgq')" class="more">更多&gt;&gt;</a>
+	</div>
+	<div class="fl leftcon">
+		<div class="tabCon">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th width="15%">交易编号</th>
+						<th width="" style="text-align:left;padding-left:10px;">转让标的</th>
+						<th width="15%">状态</th>
+						<th width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+
+
+
+ 
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+var ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function doOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page?to="+toPage;}
+function sendToPage(toPage){window.location=_ctx+"page.action?to="+toPage;}
+function sendOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+   
+
+
+
+	        <tr>
+		    <td style="text-align:center">G32024GD0000240-2</td>
+		    <td style="text-align:left">
+		    		<a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=1694f349207d4f4383f2b0f48e8fae94&packId=&objectId=1694f349207d4f4383f2b0f48e8fae94');" title="三亚珠江温泉度假区有限公司100%股权">三亚珠江温泉度假区有限公司100%股权</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【37，0，，】-->
+		    		已过期
+		    </td>
+		    <td style="text-align:center;">2025-12-09</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000192</td>
+		    <td style="text-align:left">
+		    	广东普慧行商务发展有限公司20%股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【90，0，T，2025-12-01】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-09-30</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000085-2</td>
+		    <td style="text-align:left">
+		    		<a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=45e04cdf049d48419f3077f5c1f2165e&packId=&objectId=45e04cdf049d48419f3077f5c1f2165e');" title="建水润农供水有限公司15%股权">建水润农供水有限公司15%股权</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【37，0，，】-->
+		    		已过期
+		    </td>
+		    <td style="text-align:center;">2025-09-17</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000009</td>
+		    <td style="text-align:left">
+		    	东莞市岭南农副产品有限公司51%股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【90，0，T，2025-11-03】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-09-10</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000053</td>
+		    <td style="text-align:left">
+		    	青岛万宝海益达电机有限公司17%股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【90，0，T，2025-11-06】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-09-05</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000160</td>
+		    <td style="text-align:left">
+		    	广州富斯乐有限公司2.34375%股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【93，0，T，2026-01-12】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-09-05</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000155</td>
+		    <td style="text-align:left">
+		    	广东南虹民爆有限公司31%股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【90，0，T，2025-10-22】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-09-01</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000149</td>
+		    <td style="text-align:left">
+		    	广州市乐开国际投资有限公司10%股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【90，0，T，2025-10-28】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-08-27</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000150</td>
+		    <td style="text-align:left">
+		    	中联航运股份有限公司18.00%（27,338,008股）股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【90，0，T，2025-10-16】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-08-27</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center">G32025GD0000147</td>
+		    <td style="text-align:left">
+		    	厦门山河机械设备有限公司3%股权
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;"><!--【90，0，T，2026-06-16】-->
+		    		已完成
+		    </td>
+		    <td style="text-align:center;">2025-08-26</td>
+		</tr>
+
+
+<!--wget finished successful flag-->
+				</tbody>
+			</table>
+			<div style="overflow:hidden;background:#fff;">
+				
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="广州产权交易所、股权、企业、招商引资、实物资产、房产、设备、机器、农村、私募">
+<title>广州产权交易所</title>
+<style type="text/css">
+<!--
+td {
+	font-family: "宋体";
+	font-size: 12px;
+}
+a {
+	text-decoration: none;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+#floater {
+	POSITION: absolute;
+	HEIGHT: 0px;
+}
+#floater2 {
+	POSITION: absolute;
+	HEIGHT: 0px;
+	visibility: hidden;
+}
+.style1 {font-size: 14px; font-weight: bold; font-family: "宋体";}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000"   >
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top"><table border='0' cellpadding='3' cellspacing='0' width='100%'></table></td>
+  </tr>
+</table>
+</body>
+</html>
+<!--wget finished successful flag-->
+			</div>
+		</div>
+		<div class="tabCon">
+		<div class="ul_list">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th width="" style="text-align:left;padding-left:10px;">转让标的</th>
+						<th width="100px;">预挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--include virtual="/portal/page?to=prosIndex&proType=guquan&typeGz=P3"-->
+				</tbody>
+			</table>
+			<div style="overflow:hidden;background:#fff;">
+				
+
+
+
+ 
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+var ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function doOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page?to="+toPage;}
+function sendToPage(toPage){window.location=_ctx+"page.action?to="+toPage;}
+function sendOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+   
+
+
+
+
+	        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=dadea4b41f064b208f930d2f7e8437db&packId=');" title="广州交通集团交通拯救有限公司9.97%股权">广州交通集团交通拯救有限公司9.97%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2025-05-22</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=b87bd2b9732340268302a35930f545a0&packId=');" title="知信（广州）投资开发有限公司51%股权">知信（广州）投资开发有限公司51%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2025-03-14</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=1329cff4494242878f2a30bed8ea9fe4&packId=');" title="广州交通集团交通拯救有限公司9.97%股权">广州交通集团交通拯救有限公司9.97%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2025-03-07</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=27770edbe6ed4e63b178304abc0039e7&packId=');" title="佛山中科云图智能科技有限公司10%股权">佛山中科云图智能科技有限公司10%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2024-12-30</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=51443dec54f64fe284e7fc2af4e75da4&packId=');" title="广州南沙智汇农业科技有限公司45%股权">广州南沙智汇农业科技有限公司45%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2024-12-30</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=f294f0ef9c7740e5afae562b0cb1ead3&packId=');" title="广州交通集团交通拯救有限公司9.97%股权">广州交通集团交通拯救有限公司9.97%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2024-12-30</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=f10226a6713d441d94f2c95f4ffd46bc&packId=');" title="广州知识城创新创业园建设发展有限公司40%股权">广州知识城创新创业园建设发展有限公司40%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2024-11-08</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=38b79da2217b4299bbc4db459843a6a0&packId=');" title="湖南广汽长坤汽车销售有限公司60%股权">湖南广汽长坤汽车销售有限公司60%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2024-08-07</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=7e6839fc2f4d49778fbcf040d97dab4c&packId=');" title="广州保利小额贷款股份有限公司20,000万股股份（占100%股权）">广州保利小额贷款股份有限公司20,000万股股份（占100%股权）——预挂牌</a>
+		    <span style="float:right;color:#666;">2024-08-07</span>
+		    </h6>
+		    
+		</li>
+        <li>
+		    
+		    <h6>
+		    <a href="javascript:void('0');" onclick="doOpenPage(this,'proUtrg&proId=8cb2ccce5e134dbd91b896b12d6f272d&packId=');" title="广州宏城发展有限公司51%股权">广州宏城发展有限公司51%股权——预挂牌</a>
+		    <span style="float:right;color:#666;">2024-05-15</span>
+		    </h6>
+		    
+		</li>
+
+
+
+<!--wget finished successful flag-->
+				
+   <script>
+      currentpage = "1";
+      totalpage = "0";
+    </script>
+
+			</div>
+		</div></div>
+		<div class="tabCon">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th style="text-align:left;width:140px;">项目编号</th>
+						<th style="text-align:center;">标的名称</th>
+						<th style="width:80px;">状态</th>
+						<th style="width:80px;">项目类型</th>
+						<th style="text-align:center;" width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--UTR-->
+	        		
+
+
+
+ 
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+var ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function doOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page?to="+toPage;}
+function sendToPage(toPage){window.location=_ctx+"page.action?to="+toPage;}
+function sendOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+
+	
+
+
+	        <tr>
+		    <td style="text-align:center;">G62025GD0000023</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已完成');"  title="广州聚达投资发展有限公司增资项目（该项目已完成）">广州聚达投资发展有限公司增资项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已完成
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-09-30</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62025GD0000026-0</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已过期');"  title="领信数科信息技术有限公司增资项目（该项目已过期）">领信数科信息技术有限公司增资项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已过期
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-09-11</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62025GD0000018</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已完成');"  title="万力轮胎股份有限公司增资项目（该项目已完成）">万力轮胎股份有限公司增资项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已完成
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-08-19</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62025GD0000024-0</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已过期');"  title="佛山市顺德区弘城产业投资有限公司增资扩股项目（该项目已过期）">佛山市顺德区弘城产业投资有限公司增资扩股项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已过期
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-08-11</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62024GD0000038</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已完成');"  title="广东农环检验检测有限公司增资扩股项目（该项目已完成）">广东农环检验检测有限公司增资扩股项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已完成
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-07-31</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62024GD0000034</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已完成');"  title="网才科技（广州）集团股份有限公司增资扩股项目（该项目已完成）">网才科技（广州）集团股份有限公司增资扩股项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已完成
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-07-29</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62025GD0000009</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已完成');"  title="广州广微生物制品有限公司增资项目（该项目已完成）">广州广微生物制品有限公司增资项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已完成
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-07-16</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62025GD0000014</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已完成');"  title="佛山三水佛燃热电有限公司增资项目（该项目已完成）">佛山三水佛燃热电有限公司增资项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已完成
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-07-08</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62025GD0000023-0</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已过期');"  title="广州聚达投资发展有限公司增资项目（该项目已过期）">广州聚达投资发展有限公司增资项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已过期
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-06-25</td>
+		</tr>
+        <tr>
+		    <td style="text-align:center;">G62025GD0000017</td>
+		    <td>
+		    		<a  href="javascript:void('0');" onclick="alert('该项目已完成');"  title="广州白云山汉方现代药业有限公司增资项目（该项目已完成）">广州白云山汉方现代药业有限公司增资项目</a>
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+			<td style="text-align:center;width:80px;">
+		    		已完成
+			</td>
+		    <td style="text-align:center;width:80px;">增资扩股</td>
+		    <td style="text-align:center;width:100px;" align="center">2025-06-16</td>
+		</tr>
+
+
+
+
+<!--wget finished successful flag-->
+				</tbody>
+			</table>
+
+		</div>
+		<!--增资预挂牌Tab-->
+		<div class="tabCon">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+						<th  width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+
+
+
+ 
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+var ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function doOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page?to="+toPage;}
+function sendToPage(toPage){window.location=_ctx+"page.action?to="+toPage;}
+function sendOpenPage(att,toPage){att.target="_blank";att.href=_ctx+"page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+ 
+<!--wget finished successful flag-->
+				</tbody>
+			</table>
+			
+			<!--CMS-->
+			<div class="cms" style="width:900px; overflow:hidden;">
+			  
+   <li><a href="/article/xxgg/ygg/zengziyuguapai/202405/20240500065720.shtml" target="_blank" title="广州粤恒房地产开发有限公司增资扩股项目">广州粤恒房地产开发有限公司增资扩股项目</a><span>2024-05-22</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202402/20240200061710.shtml" target="_blank" title="万力轮胎股份有限公司增资项目">万力轮胎股份有限公司增资项目</a><span>2024-02-28</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202311/20231100056448.shtml" target="_blank" title="南方（韶关）智能网联新能源汽车试验检测中心有限公司增资项目">南方（韶关）智能网联新能源汽车试验检测中心有限公司增资项目</a><span>2023-11-01</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202310/20231000055876.shtml" target="_blank" title="广州聚实投资发展有限公司增资项目">广州聚实投资发展有限公司增资项目</a><span>2023-10-18</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202309/20230900055014.shtml" target="_blank" title="广州城祥投资发展有限公司增资项目">广州城祥投资发展有限公司增资项目</a><span>2023-09-20</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202307/20230700052194.shtml" target="_blank" title="中铁山河工程装备股份有限公司增资项目">中铁山河工程装备股份有限公司增资项目</a><span>2023-07-14</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202305/20230500050144.shtml" target="_blank" title="佛山市南海区艾桃生态农业发展有限公司增资项目">佛山市南海区艾桃生态农业发展有限公司增资项目</a><span>2023-05-18</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202305/20230500050108.shtml" target="_blank" title="江门市滨兴房地产开发有限公司增资项目">江门市滨兴房地产开发有限公司增资项目</a><span>2023-05-18</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202303/20230300048293.shtml" target="_blank" title="江西富润家具有限公司增资扩股项目">江西富润家具有限公司增资扩股项目</a><span>2023-03-24</span></li><li><a href="/article/xxgg/ygg/zengziyuguapai/202303/20230300048175.shtml" target="_blank" title="佛山三水佛燃热电有限公司增资项目">佛山三水佛燃热电有限公司增资项目</a><span>2023-03-21</span></li>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--02--资产类项目-->
+<div id="tab_utrm_pro" class="cgq mt10 clearfix">
+	<div class="pro_title">
+		<div class="tabBar clearfix">
+			<span>房产</span><span>设备</span><span>其他</span><span>批量资产</span>
+		</div>
+		<a href="javascript:void(0)" onclick="tabName('tab_utrm_pro')" class="more">更多&gt;&gt;</a>
+	</div>
+	<div class="fl leftcon" style="min-height:200px;">
+    
+         <!--房产-->
+        <div class="tabCon">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th width="135">项目编号</th>
+						<th style="text-align:center;BORDER-BOTTOM: #f0f0f0 1px solid;">项目名称</th>
+						<th width="15%">状态</th>
+						<th width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+
+
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function sendToPage(topage){window.location=_ctx+"/page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+
+
+
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2020DG101000
+		    </td>
+		    <td style="text-align:left">
+		    	转让越秀区解放北路618-620号的负1-负3楼、首层102房、4楼、7楼-19楼
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2020-09-02</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2019GD0000719
+		    </td>
+		    <td style="text-align:left">
+		    	广州市白云区汇侨中路13、21、25、29号202房房产
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2019-10-25</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2023GD0001163
+		    </td>
+		    <td style="text-align:left">
+		    	转让位于越秀区农林下路76号之一(广州重庆大厦)物业
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2023-07-14</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2019DG110628
+		    </td>
+		    <td style="text-align:left">
+		    	整体转让广州市越秀区水荫路29号（雅景花园）1707房及水荫路29号（雅景花园）地下2层219号车位
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2019-11-29</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2018FG600053
+		    </td>
+		    <td style="text-align:left">
+		    	整体转让白云区梓元岗路梓元南街1,3,5,9号161房、161房之一、164房、170房、171房共5间商铺项目
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2018-08-03</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0005603
+		    </td>
+		    <td style="text-align:left">
+		    	转让广州市番禺区大石街梓桐三街9号2栋2梯2806房
+		    </td>
+			 <!--td style="text-align:center;">
+		    	111
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-12-09</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0002947-2
+		    </td>
+		    <td style="text-align:left">
+		    	转让位于番禺区南村镇华南碧桂园锦翠苑B区5座108
+		    </td>
+			 <!--td style="text-align:center;">
+		    	912
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-09-12</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0003087
+		    </td>
+		    <td style="text-align:left">
+		    	转让南宁市良庆区玉洞大道76号合景叠翠峰15号楼三十三层3305号房
+		    </td>
+			 <!--td style="text-align:center;">
+		    	58
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-08-29</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0003064
+		    </td>
+		    <td style="text-align:left">
+		    	荔湾区华贵路5号1907房 
+		    </td>
+			 <!--td style="text-align:center;">
+		    	1106
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-08-27</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0003065
+		    </td>
+		    <td style="text-align:left">
+		    	荔湾区光复北路芦荻街270号405房
+		    </td>
+			 <!--td style="text-align:center;">
+		    	1021
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-08-27</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0003063
+		    </td>
+		    <td style="text-align:left">
+		    	海珠区新港中路456号之一、456号之二2335房 
+		    </td>
+			 <!--td style="text-align:center;">
+		    	925
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-08-27</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0001527
+		    </td>
+		    <td style="text-align:left">
+		    	越秀区解放北路680号1605房
+		    </td>
+			 <!--td style="text-align:center;">
+		    	573
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-04-17</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2024GD0002900
+		    </td>
+		    <td style="text-align:left">
+		    	转让越秀区中山一路20号1006房
+		    </td>
+			 <!--td style="text-align:center;">
+		    	828
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-12-20</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2024GD0002841
+		    </td>
+		    <td style="text-align:left">
+		    	转让广州市海珠区前进路148号202房
+		    </td>
+			 <!--td style="text-align:center;">
+		    	629
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-12-11</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2024GD0001804-2
+		    </td>
+		    <td style="text-align:left">
+		    	香港特别行政区油尖旺区油麻地上海街55号海景阁22楼B座
+		    </td>
+			 <!--td style="text-align:center;">
+		    	1362
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-11-08</td> 
+		</tr>
+
+<!--wget finished successful flag-->
+				</tbody>
+			</table>
+			<div style="overflow:hidden;">
+				
+			</div>
+        </div>
+          <!--设备-->
+          <div class="tabCon">
+		  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th width="135">项目编号</th>
+						<th style="text-align:center;BORDER-BOTTOM: #f0f0f0 1px solid;">项目名称</th>
+						<th width="15%">状态</th>
+						<th width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+
+
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function sendToPage(topage){window.location=_ctx+"/page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+
+
+
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG100363
+		    </td>
+		    <td style="text-align:left">
+		    	洗衣厂、汽修厂资产设备一批
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-02-01</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2026GD0000697
+		    </td>
+		    <td style="text-align:left">
+		    	转让华润广西医药有限公司所属输送分拣系统设备
+		    </td>
+			 <!--td style="text-align:center;">
+		    	466
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2026-03-18</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0002284-2
+		    </td>
+		    <td style="text-align:left">
+		    	转让威麟牌SQR6471B147小型普通客车
+		    </td>
+			 <!--td style="text-align:center;">
+		    	626
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-07-16</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2024FG100815
+		    </td>
+		    <td style="text-align:left">
+		    	整体转让山河江麓（湘潭）建筑机械设备有限公司持有的钢材一批
+		    </td>
+			 <!--td style="text-align:center;">
+		    	84
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-05-09</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2024FG100014
+		    </td>
+		    <td style="text-align:left">
+		    	广汽本田汽车有限公司持有的52项废旧物资
+		    </td>
+			 <!--td style="text-align:center;">
+		    	4
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-01-24</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2024FG100012
+		    </td>
+		    <td style="text-align:left">
+		    	转让非主厂区IT设备
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-01-19</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2023FG100045
+		    </td>
+		    <td style="text-align:left">
+		    	转让梅赛德斯-奔驰WDDUG6CB商务型轿车一辆（车辆识别号：WDDUG6CB2FA175999）
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2023-05-05</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG100495
+		    </td>
+		    <td style="text-align:left">
+		    	别克牌SGM6531ATA小型普通客车（车辆识别号：LSGUA83BXDE016729）
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-05-08</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG100494
+		    </td>
+		    <td style="text-align:left">
+		    	别克牌SGM6531ATA小型普通客车（车辆识别号：LSGUA83B9DE012168）
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-05-08</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2020GD0000369-5
+		    </td>
+		    <td style="text-align:left">
+		    	旧FD450重箱堆高机1台-1
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2020-11-24</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2020GD0000370-5
+		    </td>
+		    <td style="text-align:left">
+		    	旧FD260空箱堆高机1台-1
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2020-11-24</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2020GD0000372-5
+		    </td>
+		    <td style="text-align:left">
+		    	旧FD260空箱堆高机1台-2
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2020-11-24</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2020GD0000374-5
+		    </td>
+		    <td style="text-align:left">
+		    	旧FD450BZ5重箱叉车1台-1
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2020-11-24</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2020GD0000379-5
+		    </td>
+		    <td style="text-align:left">
+		    	旧FD450BZ5重箱叉车1台-2
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2020-11-24</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GR2020GD0000377-5
+		    </td>
+		    <td style="text-align:left">
+		    	旧乘龙牌牵引汽车2辆
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2020-11-24</td> 
+		</tr>
+
+<!--wget finished successful flag-->	
+				</tbody>
+			</table>
+			<div style="overflow:hidden;">
+				
+			</div>
+        </div>
+           <!--其他-->
+          <div class="tabCon">
+		  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th width="135">项目编号</th>
+						<th style="text-align:center;BORDER-BOTTOM: #f0f0f0 1px solid;">项目名称</th>
+						<th width="15%">状态</th>
+						<th width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+
+
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function sendToPage(topage){window.location=_ctx+"/page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+
+
+
+        <tr>
+		    <td style="text-align:center">
+		    	GR2025GD0002106
+		    </td>
+		    <td style="text-align:left">
+		    	中山珠江啤酒有限公司灌装压盖机等闲置资产处置
+		    </td>
+			 <!--td style="text-align:center;">
+		    	437
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-06-03</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2025FG400004
+		    </td>
+		    <td style="text-align:left">
+		    	中国银河资产管理有限责任公司持有的亚伦（中国）等3户债权资产
+		    </td>
+			 <!--td style="text-align:center;">
+		    	117
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2025-05-21</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2024FG400016
+		    </td>
+		    <td style="text-align:left">
+		    	中国银河资产管理有限责任公司持有的亚伦（中国）等3户债权资产
+		    </td>
+			 <!--td style="text-align:center;">
+		    	143
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-12-18</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2024FG600301
+		    </td>
+		    <td style="text-align:left">
+		    	饰品、纪念币、相机一批
+		    </td>
+			 <!--td style="text-align:center;">
+		    	231
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2024-08-30</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2023FG400029
+		    </td>
+		    <td style="text-align:left">
+		    	清远市德信实业有限公司、清远市凯逸大酒店有限公司、思维度文化艺术培训（清远市）有限公司、清远市兴饶农业有限公司、清远市德信物业管理有限公司5户不良资产包项目
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2023-12-15</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2023FG400019
+		    </td>
+		    <td style="text-align:left">
+		    	转让中国银河资产管理有限责任公司持有的珠海施德宝商贸有限公司债权资产
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2023-09-14</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2023FG400013
+		    </td>
+		    <td style="text-align:left">
+		    	广东富邦融资租赁有限公司不良资产项目
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2023-08-16</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG201133
+		    </td>
+		    <td style="text-align:left">
+		    	4个国药准字批准文号及其生产工艺
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-09-14</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021DG100158
+		    </td>
+		    <td style="text-align:left">
+		    	中国渔政44126船
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-07-30</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021DG100159
+		    </td>
+		    <td style="text-align:left">
+		    	中国渔政44166船
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-07-30</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG500008
+		    </td>
+		    <td style="text-align:left">
+		    	转让广保大道17段203、205号商铺物业权益
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-01-12</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG500007
+		    </td>
+		    <td style="text-align:left">
+		    	转让惠州市博罗县罗阳镇鸡麻地村委第五小组房产权益
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-01-12</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG500006
+		    </td>
+		    <td style="text-align:left">
+		    	转让广州市越秀区较场西路2号置地大厦2楼2018、2051号商铺权益
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-01-12</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG500005
+		    </td>
+		    <td style="text-align:left">
+		    	转让广州市番禺区市桥康富花园康富楼1座1、2号铺权益
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-01-12</td> 
+		</tr>
+        <tr>
+		    <td style="text-align:center">
+		    	GZ2021FG500004
+		    </td>
+		    <td style="text-align:left">
+		    	转让祥龙花园19个车位物业权益
+		    </td>
+			 <!--td style="text-align:center;">
+		    	
+		    </td-->
+		    <td style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td style="text-align:center">2021-01-12</td> 
+		</tr>
+
+<!--wget finished successful flag-->		
+				</tbody>
+			</table>
+			<div style="overflow:hidden;">
+				
+			</div>
+        </div>
+           <!--批量资产项目-->
+		<div class="tabCon">
+		<div class="ul_list">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th width="135">批量资产编号</th>
+						<th style="text-align:center;BORDER-BOTTOM: #f0f0f0 1px solid;">批量资产名称</th>
+						<th width="15%">状态</th>
+						<th width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+
+
+
+
+		<tr>
+			<td style="text-align:center">PKN2025PK100092</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=84d74dcfa125489597db5f8194951996&seId=0');">转让广州市番禺区大石街梓桐三街9号2栋2梯2002房物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2026-01-21</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025PK100046</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=a008232e649c46f5a69f51b0d79abaaa&seId=0');">广州市增城区永宁街凤名一街15号2303房等多套房产</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-12-12</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100052</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=230ea68bf7bd4e64b9120b7e0fff307a&seId=0');">分别转让从化市街口街乔安路39号33套住宅物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-11-11</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100039</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=f8b6f84dee034b94a002fbc32813dacb&seId=0');">分别转让越秀区环市中路278号901房之一等10宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-09-03</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100139</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=d4dcff232bad42fbbbc51cbd67548c00&seId=0');">分别转让荔湾区西华路冼家庄21号904房等62项资产</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-08-14</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100120</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=c8dbfd31f8114f0b96f9a8dc13772777&seId=0');">分别转让广州市越秀区解放北路680号1605房等35项资产</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-07-22</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100123</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=4425d111f72d4ac8b08499cc77632d63&seId=0');">分别转让广州市番禺区大石街梓桐三街9号2栋2梯406房等5套物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-07-17</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100093</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=15b64c4ae3c9484a97151c827c046d16&seId=0');">分别转让广州市番禺区大石街梓桐三街9号2栋2梯2101房等8套物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-06-06</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100083</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=46d1480daab14d76b6b9630c4f0787c0&seId=0');">分别转让广州市番禺区大石街梓桐三街9号2栋2梯2801房、2802房、2805房、2807房及2808房等5套物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-26</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100074</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=4e5f5a83359141448a3a081a8c22fb76&seId=0');">分别转让越秀区盘福路22号之二602房等10套房产</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-26</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025PK100037</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=aa061230a23548699d27e19dbbca87e8&seId=0');">名酒一批</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-09</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100066</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=5dbd01f4e5bc45aeba5b2f1a5f7ccae1&seId=0');">分别转让广州市番禺区大石街梓桐三街9号2栋2梯2303房、3203房等2套物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-09</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025PK100034</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=f6f6660fc1d8457caab46702e519477b&seId=0');">名酒一批</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-11</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">PKN2025PK100036</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=b6f4ff5a5e15470caad583708e89a2bc&seId=0');">分别转让番禺区南村镇鸿悦北大街9号602房等3套物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-03-21</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025PK100029</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('packPros&packId=6541595f265e49f78a1263da568b5482&seId=0');">分别转让青岛山河昌晖工程机械销售有限公司持有的2辆车</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-03-11</td>
+		</tr>
+
+
+				</tbody>
+			</table>
+		</div></div>
+	</div>
+</div>
+
+<!--03-出租类项目 -->
+<style>
+.marqueediv{width:711px;overflow:hidden;}
+.marqueediv .index_table tbody td a{line-height:20px;}
+.marqueediv .index_table th{height:0; line-height:0;overflow:hidden;}
+</style>
+<div id="tab_fwcz" class="fwcz mt10 clearfix">
+	<div class="pro_title">
+		<div class="tabBar clearfix">
+			<span>正式披露</span><span>正式披露（批量）</span><span>重点推介</span><span>自主发布</span>
+		</div>
+		<a href="javascript:void(0)" onclick="tabName('tab_fwcz')" class="more">更多&gt;&gt;</a>
+	</div>
+	<dl class="item_dl clearfix">
+		<dt><!--img src="/images/pic_02.jpg" alt="房屋出租" usemap="#fwczMap"-->
+			<a href="http://gzfc.gemas.com.cn/"  target="_blank"><img src="http://img.gemas.com.cn/www/pic/202401/1706064771477.jpg" alt="租赁招商"></a>
+            <map name="fwczMap" id="fwczMap">
+              <area shape="rect" coords="20,147,83,172" href="http://gz.gemas.com.cn/portal/login.jsp" target="_blank"/>
+              <area shape="rect" coords="95,147,158,172" href="http://gz.gemas.com.cn/portal/page?to=regUser" target="_blank"/>
+           </map>
+       </dt>
+		<dd>
+		<!--正式披露-->
+			<div class="tabCon" >
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+					<thead>
+						<tr>
+							<th width="10%">项目编号</th>
+							<th width="40%" style="text-align:center;padding-left:10px;">项目名称</th>
+							<th width="20%">挂牌价格</th>
+							<th width="7%">点击量</th>
+							<th width="8%">状态</th>
+							<th width="15%">公告期满日期</th>
+						</tr>
+					</thead>
+				</table>
+                    <div id="marqueediv1" class="marqueediv">
+                     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table" style="width:711px;">
+                     	<thead>
+                        <tr>
+							<th width="10%"> </th>
+							<th width="40%" > </th>
+							<th width="20%"> </th>
+							<th width="7%"> </th>
+							<th width="8%"> </th>
+							<th width="15%"> </th>
+						</tr>
+                       </thead>
+                        <tbody>
+						
+
+
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function sendToPage(topage){window.location=_ctx+"/page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+
+
+
+	<!--默认不显示屏蔽项目-->
+
+
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2023FG201182</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	测试项目0612-稍后删除
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	1,000
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2023/07/10</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2017DG600066</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市越秀区文明路50号、54号后座水电公司办公楼
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	90,000
+				
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2017/09/30</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG201102</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	江门市蓬江区五邑碧桂园3号江门市蓬江区保安服务有限公司办公楼出租项目
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	91,000
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	244
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/11/13</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG201079</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市花都区新华街公园前路41号1、2、3及二楼
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	10,255
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	557
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/12/09</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG201082</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市荔湾区黄沙后道1号之一
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	2,603
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	273
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/05/27</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200974</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市花都区芙蓉嶂芙滨路以东南方山庄酒店
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	136,220
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	73
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/05/20</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200948</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	江门市蓬江区棠下镇莲塘路75号3栋负一夹层至八层公开招租项目
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	16
+				元/月/每平方米
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	164
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/05/06</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200967</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市番禺区大石街105国道大石段643号宿舍1号楼西201房
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	827
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	73
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/05/20</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200936</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	江门市蓬江区棠下镇凤樾棠花园1#楼人才住宅出租项目
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	13
+				元/月/每平方米
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	134
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/04/24</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200905</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市越秀区环市中路316号金鹰大厦817单元
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	3,280
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	31
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/04/28</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200904</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市花都区新华街商业大道16号西自编6号（现门牌号：商业大道16号112）
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	6,000
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	7
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/04/21</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200860</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市越秀区水荫路68-6号地下自编01物业
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	9,735
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	202
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/04/24</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200864</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	出租广州市番禺区东环街桥兴大道312号A幢二层东半层及B幢二层东侧厂房
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	28,507
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	36
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/04/24</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200874</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	整体出租广州市番禺区东环街市新路59、61、63、65、67号商铺
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	12,201
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	893
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/07/15</td> 
+		</tr>
+		<tr height="40" bgcolor="ffffff">
+		    <td width="10%" style="BORDER-BOTTOM: #f0f0f0 1px  solid;text-align:center;">GZ2025DG200873</td>
+		    <td width="40%" style="BORDER-BOTTOM:  #f0f0f0 1px  solid ;padding-left:8px;">
+		    	整体出租广州市番禺区东环街市新路71、73、75号商铺
+		    </td>
+			<td width="20%" style="text-align:center;">
+		    	7,106
+				元/月/总面积
+		    </td>
+			<td width="7%" style="text-align:center;">
+		    	1443
+		    </td>
+		    <td width="8%" style="text-align:center;">
+		    		已完成
+		    </td>
+		    <td width="15%" style="BORDER-BOTTOM: #f0f0f0 1px solid;text-align:center;">2025/07/15</td> 
+		</tr>
+
+<!--wget finished successful flag-->
+						</tbody>
+				   </table>
+                   </div>
+			</div>
+			<!-- 正式披露（批量） -->
+			<div class="tabCon">
+			  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th width="135">出租包编号</th>
+						<th style="text-align:center;BORDER-BOTTOM: #f0f0f0 1px solid;">出租包名称</th>
+						<th width="15%">状态</th>
+						<th width="100">公告开始日期</th>
+					</tr>
+				</thead>
+			</table>
+               <div id="marqueediv2" class="marqueediv">
+                     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+                       	<thead>
+                        <tr>
+							<th width="135"> </th>
+							<th> </th>
+							<th width="15%"> </th>
+							<th width="100"> </th>
+						</tr>
+                       </thead>
+                     <tbody>
+						
+
+
+
+
+		<tr>
+			<td style="text-align:center">GZ2025LPK100225</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=727e4d80808f4c65af86c9897569b0e4&seId=0');">江门市蓬江区紫茶路7号全间等共38处物业出租项目</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-07-01</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100224</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=ae74af4dd1e44a14905604799882d142&seId=0');">出租广州市白云区集贤苑11栋1宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-19</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100220</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=07dcd1e967404c1599edb6493e873984&seId=0');">出租广州市越秀区共和西路5宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-13</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100222</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=c91981cc35c0468ba076439054bf8209&seId=0');">出租广州市越秀区恒福路2宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-13</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100219</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=457b8b797fa242d19add56ba065f51d8&seId=0');">出租广州市越秀区共和大街2宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-13</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100223</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=c2e990daee094cea8575e49be4491c24&seId=0');">分别出租黄沙水产中心三层、四层4宗冷链商贸商铺（物业）（GZ2025LPK100223）</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-12</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100218</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=a191b59c6b7f40c78b96dcade7ddc335&seId=0');">出租广州市花都区新华街公园前路37号2宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-07</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100115</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=c46424d7efac479daf165110775c7638&seId=0');">出租广州市越秀区建设六马路3号广州一建大厦10项办公物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-05-06</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100216</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=8878b89fc4ea4a6b93ce537a95c53741&seId=0');">出租广州市荔湾区西湾东三街2号首层北1、北2号2宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-30</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100217</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=e8baeb88540f4cbf86457cb08948f874&seId=0');">出租广州市荔湾区西湾东三街2号首层北3等5宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-30</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100215</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=0ec9c1bc2ae94ec18b3d30b5bcba7df0&seId=0');">出租广州市越秀区广园西路客技站小区2宗物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-30</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100213</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=90eb6e5a575c4cac8ae8f63c9b1f3e61&seId=0');">江门市蓬江区紫茶路7号全间等共49处物业出租项目</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-28</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100212</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=fa40fec596cb4813afed13cb905970ad&seId=0');">出租广州市番禺区税务局房产4宗</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-28</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100204</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=bf7ee5559d2e482888bcff589715ecf6&seId=0');">出租广州市荔湾区南岸路77号首层商铺、二层办公室等34项物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-28</td>
+		</tr>
+		<tr>
+			<td style="text-align:center">GZ2025LPK100211</td>
+			<td><a href="javascript:void('0');" onclick="doSendPage('leasePackPros&packId=edcc861646e94154b78918ba5ff3f4bb&seId=0');">先整体后分拆出租广州市越秀区淘金北路79号201室A1、A2区物业</a></td>
+			<td style="text-align:center;">
+		    		挂牌中
+		    </td>
+			<td width="100px;" style="text-align:center">2025-04-27</td>
+		</tr>
+
+
+					</tbody>
+				   </table>
+               </div>
+            
+		 </div>
+		 <!--重点推介-->
+			<div class="tabCon">
+  	           <div class="ul_list">
+		            <table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				       <thead>
+					       <tr>
+					          <th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+					          <th width="100px;">公告期满日期</th>
+					       </tr>
+				        </thead>
+					    <tbody>
+				        </tbody>
+		             </table>
+		             <div id="marqueediv3" class="marqueediv">
+			         
+   <li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/202309/20230900055374.shtml" target="_blank" title="中国北方工业有限公司转让广州越秀区及汕头龙湖区两地房产预公告">中国北方工业有限公司转让广州越秀区及汕头龙湖区两地房产预公告</a><span>2023-10-20</span></li><li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/202303/20230300047878.shtml" target="_blank" title="出租广州市荔湾区芳村大道东1号前厂区物业预公告">出租广州市荔湾区芳村大道东1号前厂区物业预公告</a><span>2033-04-30</span></li><li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/202209/20220900044332.shtml" target="_blank" title="广州市番禺大石自来水有限公司2022年起（24个月）智能摄像读表器采购项目采购结果公示">广州市番禺大石自来水有限公司2022年起（24个月）智能摄像读表器采购项目采购结果公示</a><span>2032-09-17</span></li><li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/202206/20220600042092.shtml" target="_blank" title="广州市番禺水务股份有限公司2022年起（18个月）保安服务采购项目中标结果公示">广州市番禺水务股份有限公司2022年起（18个月）保安服务采购项目中标结果公示</a><span>2032-06-03</span></li><li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/202203/20220300040326.shtml" target="_blank" title="出租广州市越秀区东风中路341号2楼南面物业预公告">出租广州市越秀区东风中路341号2楼南面物业预公告</a><span>2032-04-15</span></li><li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/202202/20220200039556.shtml" target="_blank" title="分别转让广州市越秀区江月路17号3001房等3套住宅">分别转让广州市越秀区江月路17号3001房等3套住宅</a><span>2032-02-28</span></li><li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/201608/20160800001047.shtml" target="_blank" title="中国广告门户招商项目">中国广告门户招商项目</a><span>2608-11-14</span></li><li><a href="http://gz.gemas.com.cn/article/zdtj/bstj/201606/20160600000550.shtml" target="_blank" title="金马香颂居、百晟汇翠湾房产转让项目">金马香颂居、百晟汇翠湾房产转让项目</a><span>2608-11-14</span></li>
+
+		             </div>
+  	            </div>
+			</div>
+
+		 <!--自主发布-->
+			<div class="tabCon">
+				   <div style="width:711px;overflow:hidden;">
+					<iframe src="http://gzfc.gemas.com.cn/portal/comp/listProFangAllOnlyFang.jsp?sysEname=UTRF&template=UTRFIFRAME&ifPage=F&pageSize=10" frameborder="0" width="100%"  height="300"> </iframe>
+					</div>
+					<p style="padding-left:10px;padding-right:10px;font-weight:bold;">声明：国企出租自挂牌项目信息由国有企业自行发布并自行负责组织交易，由国有企业对项目信息真实、完整、合法、有效、不存在虚假记载、误导性陈述或重大遗漏进行负责，广州产权交易所不对项目信息及其后果承担任何法律责任。</p>
+			</div>
+		</dd>
+	</dl>
+</div>
+
+
+
+<!--04-金融资产开始-->
+<div class="item list_bottom">
+  	<div class="ul_list">
+	  
+		<div class="pro_title">
+			<div class="tabBar clearfix">
+				<span style="background:#ffa800;">金融资产</span>
+			</div>
+			<a href="/article/gpxm/financial/" class="more" target="_blank">更多&gt;&gt;</a>
+		</div>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+					  <th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+					  <th width="100px;">挂牌日期</th>
+					</tr>
+				  </thead> 
+				</tbody>
+		</table>
+		<!--20180831特殊项目处理-->
+		<!--<li>
+		<a  href="http://gz.gemas.com.cn/portal/page?to=proUtrm&proId=13805aff8b2747128b352349c95273b0" target="_blank" title="广州农村商业银行股份有限公司从化支行拥有的中国教育图书深圳进出口公司广州公司贷款债权">
+		广州农村商业银行股份有限公司从化支行拥有的中国教育图书深圳进出口公司广州公司贷款债权</a>
+        <span>2018-08-31</span>
+        </li>-->
+		<div style="width:900px; overflow:hidden;">
+			  
+   
+ 
+		</div>
+  	</div>
+</div>
+<!-- 金融资产结束 -->
+
+<!-- 05- 文体旅资源 -->
+<div class="item list_bottom">
+  	<div class="ul_list">
+		<div class="pro_title">
+			<div class="tabBar clearfix">
+				<span style="background:#ffa800;">文体旅资源</span>
+			</div>
+            <a href="/article/gpxm/ggzy/" class="more" target="_blank">更多&gt;&gt;</a>
+		</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+			<thead>
+				<tr>
+					<th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+					<th width="100px;">挂牌日期</th>
+				</tr>
+			</thead> 
+		</table>
+		<div class="cms" style="width:900px; overflow:hidden;">
+		
+   <li><a href="/article/gpxm/ggzy/202504/20250400087489.shtml" target="_blank" title="REALLIFE-我们的生活第十二届中国（广州）潮流文化季暨2025广州国际街舞大赛">REALLIFE-我们的生活第十二届中国（广州）潮流文化季暨2025广州国际街舞大赛</a><span>2025-04-10</span></li><li><a href="/article/gpxm/ggzy/202504/20250400087488.shtml" target="_blank" title="广州市旅游发展&ldquo;十五五&rdquo;规划编制项目竞争性磋商结果公告">广州市旅游发展“十五五”规划编制项目竞争性磋商结果公告</a><span>2025-04-10</span></li><li><a href="/article/gpxm/ggzy/202503/20250300086849.shtml" target="_blank" title="2025-2029年广州国际艺术博览会运营合作方公开招标项目(项目编号：GZ7CY625GD1005607)">2025-2029年广州国际艺术博览会运营合作方公开招标项目(项目编号：GZ7CY625GD1005</a><span>2025-03-31</span></li><li><a href="/article/gpxm/ggzy/202503/20250300086611.shtml" target="_blank" title="广州市旅游发展&ldquo;十五五&rdquo;规划编制项目竞争性磋商公告(项目编号：GZ7EY625GD1005610 )">广州市旅游发展“十五五”规划编制项目竞争性磋商公告(项目编号：GZ7EY625GD1005610 )</a><span>2025-03-25</span></li><li><a href="/article/gpxm/ggzy/202503/20250300086084.shtml" target="_blank" title="江门市新会区三片红健康产业有限公司十二款新会陈皮项目(项目编号：GZ7CY625GD1005611 )">江门市新会区三片红健康产业有限公司十二款新会陈皮项目(项目编号：GZ7CY625GD1005611 </a><span>2025-03-17</span></li>
+ 
+		</div>
+
+  	</div>
+</div>
+<!-- 文体旅资源结束 -->
+
+
+<!--06-招商引资-->
+<div id="tab_zzkg" class="mt10 clearfix">
+	<div class="pro_title">
+		<div class="tabBar clearfix">
+			<span>招商引资</span>
+		</div>
+		<a href="javascript:void(0)" onclick="tabName('tab_zzkg')" class="more">更多&gt;&gt;</a>
+	</div>
+	<dl class="item_dl clearfix" style="min-height:200px;">
+	 	<div class="tabCon">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th style="text-align:left;padding-left:10px;width:140px;">项目编号</th>
+						<th style="text-align:center;">标的名称</th>
+						<th style="width:80px;">状态</th>
+						<th style="width:80px;">项目类型</th>
+						<th style="text-align:center;" width="100px;">挂牌日期</th>
+					</tr>
+				</thead>
+			</table>
+			<!--CMS-->
+			<div class="cms" style="width:900px; overflow:hidden;">
+			  
+
+
+
+
+
+<script type="text/javascript">
+var _ctx="/portal/";
+function doSendPage(toPage){window.location=_ctx+"page?to="+toPage;}
+function sendToPage(topage){window.location=_ctx+"/page.action?to="+toPage;}
+function logout(flag){if(confirm('您确定要退出该系统？')){if('T'==flag){parent.location = '/portal/logout';}else{window.location = '/portal/logout';}}}
+</script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="css/style2.css" type="text/css" rel="stylesheet" />
+<link href="css/css.css" type="text/css" rel="stylesheet" />
+<link href="style/utr/public.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+	.index_table tbody td {line-height: 30px;BORDER-BOTTOM:  #f0f0f0 1px  solid ;text-align:left;}
+	tbody{font: 12px/24px "微软雅黑","宋体",Verdana,Arial,sans-serif,"Times New Roman";}
+</style>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+	<tbody id="bodyHtml">
+	</tbody>
+</table>
+<script type="text/javascript">
+//add by dchen 20190425 CMS招商引资 按客户要求展示的列显示
+$.getJSON("http://gz.gemas.com.cn/portal/article/gpxm/zhaoshangyinzi/rss.json",
+	function(data){
+		var dataHtml = "";
+		var proList = data.rss.channel.item;
+		for(var i in proList){
+			var title = proList[i].title;
+			var proNo = title.substring(0,17);
+			var proNo1 = title.substring(0,17);
+			if("GZ1CY620GD1005411"==proNo1){
+				proNo=title.substring(0,19);
+			}
+			dataHtml+="<tr>";
+			dataHtml+="<td style='width:140px;text-align:center;'>"+proNo+"</td>";
+			if("GZ1CY620GD1005411"==proNo1){
+				dataHtml+="<td style=''><a href='"+proList[i].link+"'>"+title.substring(19,title.length)+"</a></td>";
+			}else{
+				dataHtml+="<td style=''><a href='"+proList[i].link+"'>"+title.substring(17,title.length)+"</a></td>";
+			}
+			dataHtml+="<td style='width:80px;text-align:center;'>挂牌中</td>";
+			dataHtml+="<td style='width:80px;text-align:center;'>招商引资</td>";
+			dataHtml+="<td style='text-align:center;width:100px;'>"+proList[i].pubDate.substring(0,10)+"</td>";
+			dataHtml+="</tr>";
+		}
+		$("#bodyHtml").html(dataHtml);
+	}
+
+);
+</script> 
+			</div>
+
+		</div>
+		
+	</dl>
+</div>
+
+
+<!-- 07-其他公告 -->
+<div class="item list_bottom">
+	<div class="ul_list">
+		<div class="pro_title">
+			<div class="tabBar clearfix">
+				<span style="background:#ffa800;">其他公告</span>
+			</div>
+            <a href="/article/gpxm/OtherType/" class="more" target="_blank">更多&gt;&gt;</a>
+		</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+			<thead>
+				<tr>
+					<th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+					<th  width="100px;">挂牌日期</th>
+				</tr>
+			</thead>
+		</table>
+				
+		<!--CMS-->
+		<div class="cms" style="width:900px; overflow:hidden;">
+		
+   
+
+		</div>
+				
+		<!--WGET-->
+		<div style="width:900px; overflow:hidden;">
+		<!--include virtual="/wget/qtlist.html"-->
+		</div>
+	</div>
+</div>
+
+
+<!-- 06-企业大宗采购 -->
+<div id="tab_dzcg" class="cgq mt10 clearfix">
+	<p>声明：以下项目信息由广州交易所集团其他子机构制作、提供并独立承担相关责任。</p>
+	<div class="pro_title mt10">
+		<div class="tabBar clearfix">
+			<span>企业大宗采购</span><span>技术与知识产权</span><span>农村产权</span>
+		</div>
+		
+		<a href="javascript:void(0)" onclick="tabName('tab_dzcg')" class="more">更多&gt;&gt;</a>
+		<!--20200928 广交所需求：更换大宗采购的更多链接-->
+		<!--a class="more" href="javascript:void(0)" onclick="window.open('http://cg.gemas.com.cn/')">更多&gt;&gt;</a-->
+
+	</div>
+	<div class="fl leftcon">
+		<div class="tabCon">
+			<dd>
+				<div style="width:945px; overflow:hidden;">
+					<iframe scrolling="no" frameborder="0"  src="http://excg.gemas.com.cn/cqjymh.jhtml" style="width:100%;height:455px;margin-left:-9px"></iframe>
+				</div>
+			
+			</dd>
+		</div>
+		  <!--技术与知识产权-->
+        <div class="tabCon">
+		<iframe scrolling="no" frameborder="0"  src="/sys/jszscq.shtml" style="width:100%;height:520px;"></iframe>	
+            
+		</div>
+		<!--农村产权Tab-->
+		<div class="tabCon">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+						<th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+						<th width="100px;">挂牌日期</th>
+					</tr>
+				</thead>	
+			</table>
+			
+			<!--CMS-->
+			<div class="cms" style="width:900px; overflow:hidden;">
+			
+   <script>
+      currentpage = "1";
+      totalpage = "14";
+    </script><li><h6><a href="/article/gpxm/nccq/202505/20250500089040.shtml" target="_blank" title="横沥镇新村村三队公路边厂房出租项目">横沥镇新村村三队公路边厂房出租项目</a><span style="float:right;color:#666;">2025-05-09</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202505/20250500088957.shtml" target="_blank" title="三沙村海堤边渔米家土地出租项目">三沙村海堤边渔米家土地出租项目</a><span style="float:right;color:#666;">2025-05-07</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202505/20250500088851.shtml" target="_blank" title="广州市花都区三华村东华经济合作社大华一路10-4至10-26（首、二层）出租项目">广州市花都区三华村东华经济合作社大华一路10-4至10-26（首、二层）出租项目</a><span style="float:right;color:#666;">2025-05-06</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400088655.shtml" target="_blank" title="广州市南沙区太石村太石路52号土地及厂房出租项目">广州市南沙区太石村太石路52号土地及厂房出租项目</a><span style="float:right;color:#666;">2025-04-29</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400087876.shtml" target="_blank" title="广州市花都区狮岭镇瑞边村&ldquo;石狗庙&rdquo;商服用地土地出租项目">广州市花都区狮岭镇瑞边村“石狗庙”商服用地土地出租项目</a><span style="float:right;color:#666;">2025-04-16</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400087518.shtml" target="_blank" title="五一村旧小学（含&ldquo;同文义学&rdquo;区级文保建筑）周边土地合作开发项目">五一村旧小学（含“同文义学”区级文保建筑）周边土地合作开发项目</a><span style="float:right;color:#666;">2025-04-10</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400087394.shtml" target="_blank" title="广州市荔湾区花博园地块319.35亩出租项目">广州市荔湾区花博园地块319.35亩出租项目</a><span style="float:right;color:#666;">2025-04-09</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400087395.shtml" target="_blank" title="广州市南沙区东涌镇细沥村旧砖厂土地出租项目">广州市南沙区东涌镇细沥村旧砖厂土地出租项目</a><span style="float:right;color:#666;">2025-04-09</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400087396.shtml" target="_blank" title="广州市越秀区登峰街下塘西路477号后座场地覆绿服务项目">广州市越秀区登峰街下塘西路477号后座场地覆绿服务项目</a><span style="float:right;color:#666;">2025-04-09</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400087019.shtml" target="_blank" title="广州市花都区狮岭镇新扬村经联社&ldquo;金榜岭&rdquo;林地出租项目">广州市花都区狮岭镇新扬村经联社“金榜岭”林地出租项目</a><span style="float:right;color:#666;">2025-04-01</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202504/20250400086905.shtml" target="_blank" title="广东省广州市南沙区东涌镇小乌股份合作经济联合社小乌新街234号之二地块出租项目">广东省广州市南沙区东涌镇小乌股份合作经济联合社小乌新街234号之二地块出租项目</a><span style="float:right;color:#666;">2025-04-01</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202503/20250300086732.shtml" target="_blank" title="增滘留用地选址及用地手续办理项目">增滘留用地选址及用地手续办理项目</a><span style="float:right;color:#666;">2025-03-26</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202503/20250300086655.shtml" target="_blank" title="广州市南沙区东涌镇细沥村旧砖厂土地出租项目">广州市南沙区东涌镇细沥村旧砖厂土地出租项目</a><span style="float:right;color:#666;">2025-03-25</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202502/20250200084154.shtml" target="_blank" title="广州市花都区&ldquo;青年田&rdquo;、&ldquo;新圳上&rdquo;、&ldquo;高速夹心地&rdquo;的土地及简易厂房出租项目">广州市花都区“青年田”、“新圳上”、“高速夹心地”的土地及简易厂房出租项目</a><span style="float:right;color:#666;">2025-02-12</span></h6><p></p></li><li><h6><a href="/article/gpxm/nccq/202501/20250100082127.shtml" target="_blank" title="广州市荔湾区花湾路603号213(花湾路603号二楼南面)">广州市荔湾区花湾路603号213(花湾路603号二楼南面)</a><span style="float:right;color:#666;">2025-01-08</span></h6><p></p></li>
+
+			</div>
+			
+			<!--WGET-->
+			<div style="width:711px; overflow:hidden;">
+				
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="广州产权交易所、股权、企业、招商引资、实物资产、房产、设备、机器、农村、私募">
+<title>广州产权交易所</title>
+<style type="text/css">
+<!--
+td {
+	font-family: "宋体";
+	font-size: 12px;
+}
+a {
+	text-decoration: none;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+#floater {
+	POSITION: absolute;
+	HEIGHT: 0px;
+}
+#floater2 {
+	POSITION: absolute;
+	HEIGHT: 0px;
+	visibility: hidden;
+}
+.style1 {font-size: 14px; font-weight: bold; font-family: "宋体";}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000"   >
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top"><table border='0' cellpadding='3' cellspacing='0' width='100%'></table></td>
+  </tr>
+</table>
+</body>
+</html>
+<!--wget finished successful flag-->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--重点推介:20190703,“同业机构推介”-->
+
+<div class="item list_bottom">
+  	<div class="ul_list">
+	  	
+		<div class="pro_title">
+			<div class="tabBar clearfix">
+				<span style="background:#ffa800;">同业机构推介</span>
+			</div>
+			<a href="/article/zdtj/" class="more" target="_blank">更多&gt;&gt;</a>
+		</div>
+		
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+					  <th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+					  <th width="100px;">挂牌日期</th>
+					</tr>
+				  </thead> 
+				</tbody>
+		</table>
+		<div style="width:900px; overflow:hidden;">
+			  
+   <li><h6><a href="/article/zdtj/tyjgtj/202110/20211000036172.shtml" target="_blank" title="湖南省丰源水务投资建设有限责任公司 混改引进战略投资者招商信息--湖南省联合产权交易所">湖南省丰源水务投资建设有限责任公司 混改引进战略投资者招商信息--湖南省联合产权交易所</a><span style="float:right;color:#666;">2021-10-15</span></h6><p></p></li>
+
+		</div>
+  	</div>
+</div>
+<!--重点推介:20191022,新增“本所推介”模块-->
+<div class="item list_bottom">
+  	<div class="ul_list">
+		<div class="pro_title">
+			<div class="tabBar clearfix">
+				<span style="background:#ffa800;">本所推介</span>
+			</div>
+			<a href="/article/zdtj/bstj/" class="more" target="_blank">更多&gt;&gt;</a>
+		</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="index_table">
+				<thead>
+					<tr>
+					  <th style="text-align:left;padding-left:10px;" width="">标的名称</th>
+					  <th width="100px;">挂牌日期</th>
+					</tr>
+				  </thead> 
+				</tbody>
+		</table>
+		<div style="width:900px; overflow:hidden;">
+			  
+   <li><h6><a href="/article/zdtj/bstj/202309/20230900055374.shtml" target="_blank" title="中国北方工业有限公司转让广州越秀区及汕头龙湖区两地房产预公告">中国北方工业有限公司转让广州越秀区及汕头龙湖区两地房产预公告</a><span style="float:right;color:#666;">2023-09-28</span></h6><p></p></li><li><h6><a href="/article/zdtj/bstj/202303/20230300047878.shtml" target="_blank" title="出租广州市荔湾区芳村大道东1号前厂区物业预公告">出租广州市荔湾区芳村大道东1号前厂区物业预公告</a><span style="float:right;color:#666;">2023-03-06</span></h6><p></p></li><li><h6><a href="/article/zdtj/bstj/202209/20220900044332.shtml" target="_blank" title="广州市番禺大石自来水有限公司2022年起（24个月）智能摄像读表器采购项目采购结果公示">广州市番禺大石自来水有限公司2022年起（24个月）智能摄像读表器采购项目采购结果公示</a><span style="float:right;color:#666;">2022-09-16</span></h6><p></p></li><li><h6><a href="/article/zdtj/bstj/202206/20220600042092.shtml" target="_blank" title="广州市番禺水务股份有限公司2022年起（18个月）保安服务采购项目中标结果公示">广州市番禺水务股份有限公司2022年起（18个月）保安服务采购项目中标结果公示</a><span style="float:right;color:#666;">2022-06-02</span></h6><p></p></li><li><h6><a href="/article/zdtj/bstj/202203/20220300040326.shtml" target="_blank" title="出租广州市越秀区东风中路341号2楼南面物业预公告">出租广州市越秀区东风中路341号2楼南面物业预公告</a><span style="float:right;color:#666;">2022-03-23</span></h6><p></p></li>
+
+		</div>
+  	</div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+<link href="/css/component.css" rel="stylesheet">
+<!-- 弹窗公告 -->
+<!-- <p><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-13"></a></p><div class="md-modal md-effect-13" id="modal-13"><div class="md-content"><center><h1 class="article_title" style="margin:0px;padding:10px 10px 5px 10px;font-size:20px;line-height:35px;text-align:center;color:#666666;font-family:微软雅黑, 宋体, verdana, arial, sans-serif, &quot;times new roman&quot;;white-space:normal;background-color:#ffffff;">关于广州产权交易所暂停和延迟交易活动的通知</h1><p><br></p><div style="font-family:inherit; font-size:14px; white-space:pre-wrap; word-break:normal; margin-top:0px; margin-bottom:0px;margin-left:20px;margin-right:20px; text-align:left;"><p style="text-align:left;">尊敬的客户：</p><p style="text-align:left;">        为切实做好台风“山竹”防御工作，保障广大客户的出行与人身安全，本所暂停原定于2018年9月17日（星期一）在本所举行的现场报价、专家评审等交易活动，恢复时间本所将另行通知。</p><p style="text-align:left;"><span style="font-family:inherit;">        在全市防台风I级应急响应期间，本所将暂停对外服务活动。如遇其他紧急事项，本所将另行发布通知。对您造成的不便，敬请谅解，感谢您的理解与支持。</span></p><p style="text-align:left;">        温馨提醒：强台风天气，各位市民尽量避免外出或户外活动，做好检查防御工作，避免强风强降雨影响；密切关注台风动态和预警信息，安全第一！</p><p style="font-family:inherit; white-space:pre-wrap; word-break:normal; text-align:left; margin-top:0px; margin-bottom:0px;">        特此通知     </p><p style="font-family:inherit;white-space:pre-wrap;word-break:normal;text-align:right;margin-top:0px;margin-bottom:0px;">广州产权交易所</p><p style="font-family:inherit;white-space:pre-wrap;word-break:normal;text-align:right;margin-top:0px;margin-bottom:0px;">2018年9月16日</p></div><p><br></p><p><br></p></center></div></div><div class="md-overlay"></div>
+ -->
+<!-- 弹窗公告 -->
+<!-- 浮动广告图广告调查--> 
+<!--div id="float_right" style="box-sizing: content-box; width: 187px; height: 195px; overflow: hidden; z-index: 2147483647; position: fixed; top: 150px; right: 10px;">
+<div style="box-sizing: content-box;width:177px;height:179px;padding:4px;border:#acacac 0px solid;overflow:hidden;">
+<iframe id="float_right_iframe" src="/article/gglm/float_left_dcb/index.html" width="177" height="178" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0; vertical-align:bottom;margin:0;" allowtransparency="true"></iframe>
+</div>
+</div-->
+<script src="/js/classie.js"></script>
+<script src="/js/modalEffects.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	$('.flexslider').flexslider({
+		directionNav: true,
+		pauseOnAction: false,
+        slideshowSpeed: 6000
+	});
+});
+</script>
+
+
+<script src="/js/MSClass.js" language="javascript"></script>
+<script>
+// new Marquee("marquee",0,1,760,104,50,5000,3000,52)
+// 参数说明:
+// ID		   "marquee"	 容器ID		(必选)
+// Direction	(0)		    滚动方向	    (可选,默认为0向上滚动) 可设置的值包括:0,1,2,3,"top","bottom","left","right" (0向上 1向下 2向左 3向右)
+// Step		    (1)		    滚动的步长	(可选,默认值为2,数值越大,滚动越快)
+// Width		(760)		容器可视宽度	(可选,默认值为容器初始设置的宽度)
+// Height		(52)		容器可视高度	(可选,默认值为容器初始设置的高度)
+// Timer		(50)		定时器		(可选,默认值为30,数值越小,滚动的速度越快,1000=1秒,建议不小于20)
+// DelayTime	(5000)		间歇停顿延迟时间(可选,默认为0不停顿,1000=1秒)
+// WaitTime	    (3000)		开始时的等待时间(可选,默认或0为不等待,1000=1秒)
+// ScrollStep	(52)		间歇滚动间距	(可选,默认为翻屏宽/高度,该数值与延迟均为0则为鼠标悬停控制,-1禁止鼠标控制)
+		
+new Marquee("marqueediv1",0,1,711,300,50,0,0)
+new Marquee("marqueediv2",0,1,711,300,50,0,0)
+new Marquee("marqueediv3",0,1,711,300,50,0,0)
+</script>
+	</div>
+	<!-- main_left的结束 -->
+	<!-- main_rigth的开始 -->
+	<div class="main_rigth" style="width:280px; float:left; margin-left:20px;">	
+        <div style="background-image:url(http://gz.gemas.com.cn/images/88.png);width:278px;height:59px;margin-bottom:5px;margin-top:20px;"><div style="background-image:url(images/88.png); width:278px; height:59px; margin-bottom:5px;margin-top:20px;"><div style="margin-left:90px;margin-bottom:1px;padding-top:5px;color:#fb7309;font-size:15px;font-family:微软雅黑;"><a style="color:#fb7309;font-size:15px;font-family:微软雅黑;text-decoration:none;letter-spacing:1px;" href="http://gz.gemas.com.cn/article/jyzn/jyxgzy/201709/20170900004250.shtml">注册</a> | <a style="color:#fb7309;font-size:15px;font-family:微软雅黑;text-decoration:none;letter-spacing:2px;" href="http://gz.gemas.com.cn/article/jyzn/jyxgzy/201709/20170900004250.shtml">报名</a> | <a style="color:#fb7309;font-size:15px;font-family:微软雅黑;text-decoration:none;letter-spacing:2px;" href="http://gz.gemas.com.cn/article/jyzn/jyxgzy/201709/20170900004250.shtml">交保证金</a></div><div style="margin-left:90px;margin-right:30px;margin-top:1px;border-top:1px solid #fb7309;"></div><div style="margin-left:90px;margin-top:1px;color:#fb7309;font-size:15px;font-family:微软雅黑;letter-spacing:4px;"><a style="color:#fb7309;font-size:15px;font-family:微软雅黑;text-decoration:none;letter-spacing:2px;" href="http://gz.gemas.com.cn/article/jyzn/jyxgzy/201709/20170900004252.shtml">多次报价</a> | <a style="color:#fb7309;font-size:15px;font-family:微软雅黑;text-decoration:none;letter-spacing:2px;" href="http://gz.gemas.com.cn/article/jyzn/jyxgzy/201709/20170900004253.shtml">一次报价</a></div></div></div><div style="background:url(http://gz.gemas.com.cn/images/99.png)no-repeat;width:278px;height:34px;margin-bottom:5px;"><div style="padding-top:5px;margin-left:90px;margin-bottom:4px;"><a style="color:#fb7309;font-size:15px;font-family:微软雅黑;text-decoration:none;letter-spacing:5px;" href="WebBidding/指引.html">网络竞价操作说明</a>
+ 
+    </div></div><div style="background:url(http://gz.gemas.com.cn/images/00.png)no-repeat;width:278px;height:34px;margin-bottom:12px;"><p style="padding-top:5px;margin-left:90px;margin-bottom:4px;"><a style="color:#fb7309;font-size:15px;font-family:微软雅黑;text-decoration:none;letter-spacing:5px;" href="portal/page?to=proUtrm&amp;proId=26b449b19c8e47e6ac1c4b5454b3bf45&amp;packId=">模拟操作网络报价</a></p><p style="padding-top:5px;margin-left:90px;margin-bottom:4px;"><br></p></div>
+
+<!-- 业务平台 -->
+<div class="item_r fr">
+  <h4 class="general_title">快速链接</h4>
+  <ul class="ywpt" style="margin-bottom:10px">
+  <!--
+    <li class="ywpt_li_l"><a href="http://car.gemas.com.cn" target="_blank"><img src="images/ywpt_06.png" alt="">
+      <p>公车处置</p>
+      </a></li>
+    <li class="ywpt_li_l"><a href="/article/TheAssetsInQuestion/TheAssetsInQuestion/" target="_blank"><img src="images/ywpt_09.png" alt="">
+      <p>涉诉资产交易</p>
+      </a></li>
+	  -->
+	  <li class="ywpt_li_l"><a href="http://www.gzqcjj.com/" target="_blank"><img src="images/qczb.png" alt="">
+      <p>汽车指标竞价</p>
+      </a></li>
+    <li class="ywpt_li_l"><a href="http://gzfc.gemas.com.cn/" target="_blank"><img src="images/gywy.png" alt="">
+      <p>公有物业出租</p>
+      </a></li>
+    <li class="ywpt_li_r"><a href="http://inv.gemas.com.cn/ 
+" target="_blank"><img src="images/pywy.png" alt="">
+      <p>招商引资</p>
+    <li class="ywpt_li_l"><a href="http://www.4wew.com" target="_blank"><img src="images/ywpt_03.png" alt="">
+      <p>技术产权交易</p>
+      </a></li>
+    <li class="ywpt_li_l"><a href="http://excg.gemas.com.cn/" target="_blank"><img src="images/ywpt_08.png" alt="">
+      <p>企业大宗采购</p>
+      </a></li>
+     <!--
+    <li class="ywpt_li_l"><a href="http://sport.gemas.com.cn" target="_blank"><img src="images/ywpt_11.png" alt="">
+      <p>体育资源交易</p>
+      </a></li>
+    <li class="ywpt_li_r"><a href="http://tourism.gemas.com.cn" target="_blank"><img src="images/lyzy.png" alt="">
+      <p>旅游资源交易</p>
+      </a></li>
+     -->
+    <li class="ywpt_li_r"><a href="http://tourism.gemas.com.cn" target="_blank"><img src="images/lyzy.png" alt="">
+      <p>文体旅资源交易</p>
+      </a></li>
+    
+      </a></li>
+    <!-- 
+    <li class="ywpt_li_l"><a href="http://nc.gemas.com.cn/" target="_blank"><img src="images/ywpt_04.png" alt=""><p>农村产权交易</p></a></li>
+	<li class="ywpt_li_r"><a href="http://www.cnemission.com" target="_blank"><img src="images/ywpt_01.png" alt=""><p>碳排放权交易</p></a></li>
+	<li class="ywpt_li_l"><a href="http://www.gzcmex.com" target="_blank"><img src="images/ywpt_07.png" alt=""><p>大宗商品交易</p></a></li>
+	<li class="ywpt_li_l"><a href="http://www.gzle.cn" target="_blank"><img src="images/ywpt_05.png" alt=""><p>物流交易 </p></a></li>
+    -->
+  </ul>
+  </ul>
+</div>
+<div></div>
+<p style="margin-top:10px"> <a href="/portal/article/proListGdy.shtml?proType=gdy" target="_blank" > <img src="/portal/images/gdy.png" style="float:none;width:280px;height:43px;" border="0" hspace="0" vspace="0" width="280" height="43"> </a> <br>
+</p>
+<!-- 航运项目 -->
+<p style="margin-top:10px"> <a href="/article/hyxm/" target="_blank" > <img src="http://img.gemas.com.cn/www/pic/202310/1697677588800.png" style="float:none;width:280px;height:43px;" border="0" hspace="0" vspace="0" width="280" height="43"> </a> <br>
+</p>
+
+<!-- 右侧广告栏1 --> 
+
+<p style="margin-top:10px"><a href="https://www.cspea.com.cn/" target="_blank" data_ue_src="https://www.cspea.com.cn/"><img style="float:none; width:280px; height:92px;" border="0" hspace="0" vspace="0" src="/portal/article/gglm/xqczb/yggx.png" width="280" height="92" data_ue_src="/portal/article/gglm/xqczb/yggx.png"></a><br></p><p style="margin-top:10px"><a href="/dist/index.html" target="_blank" data_ue_src="/dist/index.html"><img style="float:none; width:280px; height:92px;" border="0" hspace="0" vspace="0" src="/portal/article/gglm/xqczb/2.png" width="280" height="92" data_ue_src="/portal/article/gglm/xqczb/2.png"></a><br></p><p style="margin-top:10px"><a href="/article/fgzc/qt/201807/20180700007841.shtml" target="_blank" data_ue_src="/article/fgzc/qt/201807/20180700007841.shtml"><img style="float:none; width:280px; height:92px;" border="0" hspace="0" vspace="0" src="http://img.gemas.com.cn/www/pic/201902/1550651947592.png" width="280" height="92" data_ue_src="http://img.gemas.com.cn/www/pic/201902/1550651947592.png"></a></p>
+
+<!--
+<p style="margin-top:10px"><a href="http://sg.gemas.com.cn/" target="_blank" title="" data_ue_src="http://sg.gemas.com.cn/"><img src="http://img.gemas.com.cn/www/pic/201908/1565232351635.jpg" data_ue_src="http://img.gemas.com.cn/www/pic/201908/1565232351635.jpg" title="1565232351635.jpg" border="0" hspace="0" vspace="0" style="float: none;"></a></p>
+-->
+<p style="margin-top:10px"><a href="http://hz.gemas.com.cn" target="_blank" data_ue_src="http://hz.gemas.com.cn"><img src="http://img.gemas.com.cn/www/pic/201905/1559197137059.jpg" data_ue_src="http://img.gemas.com.cn/www/pic/201905/1559197137059.jpg" style="float:none;" title="1559197137059.jpg" border="0" hspace="0" vspace="0"></a><br></p><p style="margin-top:10px"><a href="/article/StockHouse/" target="_self" data_ue_src="/article/StockHouse/"><img src="http://img.gemas.com.cn/www/pic/201901/1547801162348.png" title="1547801162348.png" data_ue_src="http://img.gemas.com.cn/www/pic/201901/1547801162348.png" style="float:none;"></a></p><p style="padding-top:10px"><a style="white-space:normal" href="http://www.gzggzy.cn/" target="_blank" data_ue_src="http://www.gzggzy.cn/"><img style="width:280px; float:none; height:93px" title="广州公共资源交易网" border="0" hspace="0" src="http://img.gemas.com.cn/www/pic/202504/1743688017298.png" width="280" height="93" data_ue_src="/images/ad/ggzyjyzx.jpg"></a></p><div class="item_r fr"><h4 class="general_title">项目推介</h4>
+<!--
+<p style="padding-top:5px"><a href="http://gz.gemas.com.cn/article/zdtj/bstj/201612/20161200002417.shtml" target="_blank" data_ue_src="http://gz.gemas.com.cn/article/zdtj/bstj/201612/20161200002417.shtml"><img src="http://img.gemas.com.cn/www/pic/201907/1563949107748.png" data_ue_src="http://img.gemas.com.cn/www/pic/201907/1563949107748.png" style="float:none;" title="1563949107748.png" border="0" hspace="0" vspace="0"></a>
+-->
+
+<a href="http://tourism.gemas.com.cn/lvztxm.jhtml" target="_blank" data_ue_src="http://tourism.gemas.com.cn/lvztxm.jhtml"><img style="float:none" title="1513323576528.png" border="0" hspace="0" vspace="0" src="http://img.gemas.com.cn/www/pic/201712/1513323576528.png" data_ue_src="http://img.gemas.com.cn/www/pic/201712/1513323576528.png"></a></p>
+
+</div> 
+
+<!-- 实物资产专场 -->
+<div class="item_r fr"> 
+  <!--<p class="mt20"><a href="http://www.gzqcjj.com/" target="_blank"><img src="images/right_img01.jpg"></a></p> --> 
+  <!--p class="mt20"><a href="/portal/index.jsp" target="_blank"><img src="images/right_img02.jpg"></a></p--> 
+  <!-- <div class="assets_box mt20">
+		<h5 class="assets_title">实物资产专场</h5>
+		<ul class="assets_ul">
+		#include virtual="/wget/packlist.html"
+		</ul>
+	</div> --> 
+</div>
+
+<!-- 番禹区项目 -->
+<div class="item_r fr" style="margin-top:10px;">
+  <ul class="tab_nav position">
+    <li class="cur">
+      <h4 style="height:93px;"><a href="http://py.gemas.com.cn/" target="_blank"><img src="images/pyproject.png" /></a></h4>
+    </li>
+  </ul>
+  <div style="height:410px;">
+    <div id="tab_gz" class="tab_gz clearfix">
+      <div class="pro_title">
+        <div class="tabBar clearfix"> <span>广州产权交易所项目</span><span>广州商品交易所项目</span> </div>
+      </div>
+      <div class="tabCon"> 
+        
+<script>
+
+</script>
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="广州产权交易所、股权、企业、招商引资、实物资产、房产、设备、机器、农村、私募">
+<title>广州产权交易所</title>
+
+<style type="text/css">
+<!--
+td {
+	font-family: "宋体";
+	font-size: 12px;
+}
+a {
+	text-decoration: none;
+}
+
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+#floater {
+	POSITION: absolute;
+	HEIGHT: 0px;
+}
+#floater2 {
+	POSITION: absolute;
+	HEIGHT: 0px;
+	visibility: hidden;
+}
+.style1 {font-size: 14px; font-weight: bold; font-family: "宋体";}
+-->
+</style>
+
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000"   >
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top">
+	<table border='0' cellpadding='5' cellspacing='0' width='93%'><tr><td style='BORDER-BOTTOM: #cccccc 1px dashed;margin-right:0px;'>
+	<a href=http://gz.gemas.com.cn/portal/page?to=proUtrl&proId=239893ef30e34520918dc4345e7d59d3  target='_blank' style='margin-right:0px;'>GZ2025DG200190&nbsp;&#20986;&#31199;&#24191;&#24030;&#24066;&#30058;&#31162;&#21306;&#30707;&#27004;&#38215;&#20154;&#27665;&#36335;&#57;&#50;&#21495;</a></td></tr><tr><td style='BORDER-BOTTOM: #cccccc 1px dashed;margin-right:0px;'>
+	<a href=http://gz.gemas.com.cn/portal/page?to=leasePackPros&packId=063eb578793748fbb0d2db445b0bdb85  target='_blank' style='margin-right:0px;'>GZ2025LPK100042&nbsp;&#24191;&#24030;&#24066;&#30058;&#31162;&#21306;&#21335;&#26449;&#38215;&#40511;&#21019;&#36335;&#54;&#56;&#21495;&#52;&#21495;&#27004;&#54;&#48;&#52;&#12289;&#55;&#48;&#55;&#31561;&#53;&#22788;&#29289;&#19994;&#20844;&#24320;&#25307;&#31199;</a></td></tr><tr><td style='BORDER-BOTTOM: #cccccc 1px dashed;margin-right:0px;'>
+	<a href=http://gz.gemas.com.cn/portal/page?to=proUtrl&proId=e4857866c5c64199a0525b53de11db4c target='_blank' style='margin-right:0px;'>GZ2025DG200165&nbsp;&#20986;&#31199;&#24191;&#24030;&#24066;&#30058;&#31162;&#21306;&#27801;&#28286;&#34903;&#24066;&#33391;&#36335;&#55;&#49;&#56;&#21495;&#29289;&#19994;</a></td></tr><tr><td style='BORDER-BOTTOM: #cccccc 1px dashed;margin-right:0px;'>
+	<a href=http://gz.gemas.com.cn/portal/page?to=proUtrl&proId=f1e9a071cddf41e0b2e4ef9004435bad  target='_blank' style='margin-right:0px;'>GZ2025DG200133&nbsp;&#20986;&#31199;&#24191;&#24030;&#24066;&#30058;&#31162;&#21306;&#26725;&#21335;&#34903;&#31119;&#36132;&#36335;&#51;&#55;&#56;&#21495;&#26093;&#40511;&#22823;&#21414;&#31532;&#22235;&#23618;&#52;&#48;&#49;&#45;&#52;&#50;&#48;&#25151;</a></td></tr><tr><td style='BORDER-BOTTOM: #cccccc 1px dashed;margin-right:0px;'>
+	<a href=http://gz.gemas.com.cn/portal/page?to=proUtrl&proId=240c9678d3014f4890bd69bfd4e7b9f6  target='_blank' style='margin-right:0px;'>GZ2025DG200136&nbsp;&#20986;&#31199;&#24191;&#24030;&#24066;&#30058;&#31162;&#21306;&#21335;&#26449;&#38215;&#40511;&#21019;&#36335;&#54;&#56;&#21495;&#52;&#21495;&#27004;&#55;&#48;&#49;</a></td></tr></table></td>
+  </tr>
+</table>
+</body>
+</html>
+<!--wget finished successful flag--> 
+      </div>
+      <div class="tabCon"> 
+        
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="广州产权交易所、股权、企业、招商引资、实物资产、房产、设备、机器、农村、私募">
+<title>广州产权交易所</title>
+<style type="text/css">
+<!--
+td {
+	font-family: "宋体";
+	font-size: 12px;
+}
+a {
+	text-decoration: none;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+#floater {
+	POSITION: absolute;
+	HEIGHT: 0px;
+}
+#floater2 {
+	POSITION: absolute;
+	HEIGHT: 0px;
+	visibility: hidden;
+}
+.style1 {font-size: 14px; font-weight: bold; font-family: "宋体";}
+-->
+</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#000000" vlink="#000000" alink="#000000"   >
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top"><table border='0' cellpadding='5' cellspacing='0' width='93%'></table></td>
+  </tr>
+</table>
+</body>
+</html>
+<!--wget finished successful flag--> 
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 番禹区项目 --> 
+
+<!-- 信息公告 -->
+<div class="item_r fr">
+  <div class="tab tab1">
+    <ul class="tab_nav">
+      <li class="cur">
+        <h2><a href="/article/xxgg/" target="_blank">信息公告</a></h2>
+      </li>
+    </ul>
+    <div class="tab_con  on">
+      <div class="ul_list">
+        <ul class="height220" >
+          
+   <li><a href="http://gz.gemas.com.cn/article/xxgg/qtgg/202610/20261000109252.shtml" target="_blank" title="广州市番禺污水治理有限公司前锋净水厂三期二沉池刮泥机更换项目(项目编号：GDYC26HG08003)结果公示">广州市番禺污水治理有限公司前锋净水厂三期二沉池刮泥机更换项目(项目编号：GDYC26HG08003)</a><span>10-08</span></li><li><a href="http://gz.gemas.com.cn/article/xxgg/qtgg/202610/20261000109250.shtml" target="_blank" title="广州市番禺污水治理有限公司中部净水厂首期2026年起（36个月）污泥干化减量工作服务采购项目(项目编号：GDYC26FG08012)结果公告">广州市番禺污水治理有限公司中部净水厂首期2026年起（36个月）污泥干化减量工作服务采购项目(项目编</a><span>10-08</span></li><li><a href="http://gz.gemas.com.cn/article/xxgg/qtgg/202610/20261000109248.shtml" target="_blank" title="广州市番禺区建泉自来水工程有限公司2026年起（24个月）给水管道配件采购项目中标结果公告">广州市番禺区建泉自来水工程有限公司2026年起（24个月）给水管道配件采购项目中标结果公告</a><span>10-08</span></li><li><a href="http://gz.gemas.com.cn/article/xxgg/qtgg/202609/20260900109244.shtml" target="_blank" title="广州市番禺区环境卫生管理有限公司采购环卫作业车辆项目采购结果公示">广州市番禺区环境卫生管理有限公司采购环卫作业车辆项目采购结果公示</a><span>09-30</span></li><li><a href="http://gz.gemas.com.cn/article/xxgg/qtgg/202609/20260900109246.shtml" target="_blank" title="广州市番禺区环境卫生管理有限公司采购环卫作业车辆项目采购结果公示">广州市番禺区环境卫生管理有限公司采购环卫作业车辆项目采购结果公示</a><span>09-30</span></li><li><a href="http://gz.gemas.com.cn/article/xxgg/qtgg/202609/20260900109242.shtml" target="_blank" title="广州市番禺区环境卫生管理有限公司关于采购2026一2027年度劳务服务项目招标公告">广州市番禺区环境卫生管理有限公司关于采购2026一2027年度劳务服务项目招标公告</a><span>09-30</span></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 信息公告 --> 
+
+<!-- 结果公告 -->
+<div class="item_r fr">
+  <div class="tab tab1" >
+    <ul class="tab_nav">
+      <li class="cur">
+        <h2><a href="/article/jggg/"  target="_blank">结果公告</a></h2>
+      </li>
+      <!--<li><h2><A href="/article/jggs/">结果公示</A></h2></li>-->
+    </ul>
+    <div class="tab_con on">
+      <div class="ul_list">
+        <ul class="height220">
+          
+   <li><a href="http://gz.gemas.com.cn/article/jggg/202609/20260900109224.shtml" target="_blank" title="项目：GZ2025DG700050">项目：GZ2025DG700050</a><span>09-28</span></li><li><a href="http://gz.gemas.com.cn/article/jggg/202505/20250500089086.shtml" target="_blank" title="2025-2029年广州国际艺术博览会运营合作方公开招标项目中标结果公告 (项目编号：GZ7CY625GD1005607)">2025-2029年广州国际艺术博览会运营合作方公开招标项目中标结果公告 (项目编号：GZ7CY62</a><span>05-09</span></li><li><a href="http://gz.gemas.com.cn/article/jggg/202409/20240900073062.shtml" target="_blank" title="环卫车辆采购项目中标结果公告">环卫车辆采购项目中标结果公告</a><span>09-27</span></li><li><a href="http://gz.gemas.com.cn/article/jggg/202409/20240900071799.shtml" target="_blank" title="广州市番禺城市排水管理有限公司2024-2026年度（24个月）安保服务项目中标结果公告">广州市番禺城市排水管理有限公司2024-2026年度（24个月）安保服务项目中标结果公告</a><span>09-13</span></li><li><a href="http://gz.gemas.com.cn/article/jggg/202409/20240900071647.shtml" target="_blank" title="广州市番禺城市排水管理有限公司2024-2026年度（24个月）后勤服务项目中标结果公告">广州市番禺城市排水管理有限公司2024-2026年度（24个月）后勤服务项目中标结果公告</a><span>09-10</span></li><li><a href="http://gz.gemas.com.cn/article/jggg/202408/20240800070927.shtml" target="_blank" title="广州市番禺钟村自来水有限公司2024年起（24个月）球墨管及管件采购项目中标结果公告">广州市番禺钟村自来水有限公司2024年起（24个月）球墨管及管件采购项目中标结果公告</a><span>08-30</span></li>
+
+        </ul>
+      </div>
+    </div>
+    <!--<div class="tab_con">
+			<div class="ul_list">
+				<ul class="height220" style="height:352px">
+				   
+   <li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202501/20250100082873.shtml" target="_blank" title="项目：GZ2024FG202096">项目：GZ2024FG202096</a><span>01-16</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202409/20240900073061.shtml" target="_blank" title="环卫车辆采购项目中标结果公示">环卫车辆采购项目中标结果公示</a><span>09-23</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202409/20240900072716.shtml" target="_blank" title="广州市番禺城市排水管理有限公司2024-2026年度（24个月）安保服务项目中标结果公示">广州市番禺城市排水管理有限公司2024-2026年度（24个月）安保服务项目中标结果公示</a><span>09-09</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202409/20240900071374.shtml" target="_blank" title="广州市番禺城市排水管理有限公司2024-2026年度（24个月）后勤服务项目中标结果公示">广州市番禺城市排水管理有限公司2024-2026年度（24个月）后勤服务项目中标结果公示</a><span>09-06</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202408/20240800070809.shtml" target="_blank" title="广州市番禺钟村自来水有限公司2024年起（24个月）球墨管及管件采购项目中标结果公示">广州市番禺钟村自来水有限公司2024年起（24个月）球墨管及管件采购项目中标结果公示</a><span>08-27</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202408/20240800070689.shtml" target="_blank" title="广州市番禺城市排水管理有限公司租赁电动汽车项目中标结果公示">广州市番禺城市排水管理有限公司租赁电动汽车项目中标结果公示</a><span>08-23</span></li>
+ 
+    <!--</ul>
+
+			</div>
+		</div> --> 
+  </div>
+</div>
+<!-- 结果公告 --> 
+
+<!-- 结果公示 -->
+<div class="item_r fr">
+  <div class="tab tab1">
+    <ul class="tab_nav">
+      <li class="cur">
+        <h2><A href="/article/jggs/cjgg/" target="_blank">结果公示</a></h2>
+      </li>
+    </ul>
+    <div class="tab_con on">
+      <div class="ul_list">
+        <ul>
+          
+   <li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202501/20250100082873.shtml" target="_blank" title="项目：GZ2024FG202096">项目：GZ2024FG202096</a><span>01-16</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202409/20240900073061.shtml" target="_blank" title="环卫车辆采购项目中标结果公示">环卫车辆采购项目中标结果公示</a><span>09-23</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202409/20240900072716.shtml" target="_blank" title="广州市番禺城市排水管理有限公司2024-2026年度（24个月）安保服务项目中标结果公示">广州市番禺城市排水管理有限公司2024-2026年度（24个月）安保服务项目中标结果公示</a><span>09-09</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202409/20240900071374.shtml" target="_blank" title="广州市番禺城市排水管理有限公司2024-2026年度（24个月）后勤服务项目中标结果公示">广州市番禺城市排水管理有限公司2024-2026年度（24个月）后勤服务项目中标结果公示</a><span>09-06</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202408/20240800070809.shtml" target="_blank" title="广州市番禺钟村自来水有限公司2024年起（24个月）球墨管及管件采购项目中标结果公示">广州市番禺钟村自来水有限公司2024年起（24个月）球墨管及管件采购项目中标结果公示</a><span>08-27</span></li><li><a href="http://gz.gemas.com.cn/article/jggs/cjgg/202408/20240800070689.shtml" target="_blank" title="广州市番禺城市排水管理有限公司租赁电动汽车项目中标结果公示">广州市番禺城市排水管理有限公司租赁电动汽车项目中标结果公示</a><span>08-23</span></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="item_r fr">
+  <div class="tab tab1">
+    <ul class="tab_nav">
+      <li class="cur">
+        <h2><A href="/article/yxzjqkgs/" target="_blank">意向征集情况公示</a></h2>
+      </li>
+    </ul>
+    <div class="tab_con on">
+      <div class="ul_list">
+        <ul>
+          
+   
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <p style="padding-top:10px;"><img src="http://gz.gemas.com.cn/images/bid2.png" usemap="#Map1" />
+<map name="Map1" id="Map1">
+    <area shape="rect" coords="30,20,242,60" href="http://dzjj.gemas.com.cn/dyn/" target="_blank"/>
+    <area shape="rect" coords="30,80,242,120" href="http://dzjj.gemas.com.cn/hall/" target="_blank"/>
+    <area shape="rect" coords="30,130,242,170" href="http://dzjj.gemas.com.cn/once/" target="_blank"/>
+</map>
+</p> 
+<!-- 右侧广告3 --> 
+
+<!-- 重点推介 -->
+<div class="item_r fr">
+  <div class="tab tab1">
+    <ul class="tab_nav">
+      <a href="/article/gywm/lxwm/">
+      <li class="cur" style="background: #ffa800 none repeat scroll 0 0;color: #FFFFFF;">
+        <h2>联系方式</h2>
+      </li>
+      </a>
+    </ul>
+    <div style="background: #fafafa none repeat scroll 0 0;line-height: 28px;padding: 20px 20px 0;">
+      <p>地址：广州市越秀区流花路123号广州越秀国际会议中心北塔</p>
+      <p>电话：(020)89160888</p>
+      <p>传真：(020)89160999</p>
+      <p>Email：gemas@gemas.com.cn</p>
+    </div>
+  </div>
+</div>
+<div class="item_r fr">
+  <div class="tab tab1">
+    <ul class="tab_nav">
+      <li class="cur" style="background: #ffa800 none repeat scroll 0 0;color: #FFFFFF;">
+        <h2><A href="/article/gywm/complaints/" target="_blank" style="color:#FFFFFF">业务投诉和违纪举报</a></h2>
+      </li>
+    </ul>
+    <div style="background: #fafafa none repeat scroll 0 0;line-height: 28px;padding: 8px 15px 0;"> <a href="/article/gywm/complaints/" target="_blank">
+      <p> 我们在此公布广州产权交易所效能投诉，诚意接收社会各方的投诉与建议。</p>
+      </a> </div>
+  </div>
+</div>
+	</div>
+	<!-- main_right的结束 -->
+</div>
+<!-- main_all结束 -->
+<!-- 底部 -->
+<div class="main_b mt10" style="wdith:100%;">	
+	
+
+<!-- 06 相关链接 -->
+<div id="tab_link" class="tab_link mt10 clearfix">
+	<div class="pro_title">
+		<div class="tabBar clearfix">
+			<span>全国产权交易所</span><span>相关单位</span><span>集团机构</span>
+		</div>
+		<!--<a href="javascript:void(0)" onclick="tabName('tab_cgq')" class="more">更多&gt;&gt;</a>-->
+	</div>
+	<div class="tabCon">
+		<marquee width="100%" height="96" scrolldelay="125" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="1" direction="up" style="height:96px; width:100%;"><table cellspacing="0" cellpadding="5" border="0" width="100%"><tbody>
+<tr>
+	<td align="left">北京产权交易所</td>
+	<td align="left">天津产权交易中心</td>
+	<td align="left">上海联合产权交易所</td>
+	<td align="left">武汉光谷联合产权交易所</td>
+	<td align="left">重庆联合产权交易所</td></tr>
+<tr>
+	<td align="left">吉林长春产权交易中心</td>
+	<td align="left">青岛产权交易所</td>
+	<td align="left">河南省产权交易中心</td>
+	<td align="left">江苏产权交易所</td>
+	<td align="left">福建省产权交易中心</td></tr>
+<tr>
+	<td align="left">沈阳联合产权交易所</td>
+	<td align="left">长江产权交易所</td>
+	<td align="left">贵州阳光产权交易所</td>
+	<td align="left">江西省产权交易所</td>
+	<td align="left">湖南省联合产权交易所</td>
+</tr>
+<tr>
+	<td align="left">广西联合产权交易所</td>
+	<td align="left">海南产权交易所有限公司</td>
+	<td align="left">西南联合产权交易所</td>
+	<td align="left">云南产权交易所</td>
+	<td align="left">新疆产权交易所</td>
+</tr>
+<tr>
+	<td align="left">西部产权交易所</td>
+	<td align="left">河北产权交易中心</td>
+	<td align="left">山西省产权交易市场</td>
+	<td align="left">内蒙古产权交易中心</td>
+	<td align="left">大连产权交易所</td></tr>
+<tr>
+	<td align="left">黑龙江联合产权交易所</td>
+	<td align="left">浙江产权交易所</td>
+	<td align="left">安徽省产权交易中心</td>
+	<td align="left">山东产权交易中心</td>
+	<td align="left">河南省技术产权交易所</td>
+</tr>
+<tr>
+	<td align="left">广东产权顺德交易所</td>
+	<td align="left">甘肃产权交易所</td>
+	<td align="left">青海省产权交易市场</td>
+	<td align="left">宁夏产权交易市场</td>
+	<td align="left">厦门产权交易中心</td>
+</tr>
+<tr>
+	<td align="left">珠海产权交易中心</td>
+	<td align="left">深圳联合产权交易所</td>
+	<td align="left">常州产权交易所</td>
+	<td align="left">铁岭市农村综合产权交易所</td>
+	<td align="left">广州技术产权交易所</td>
+</tr>
+<tr>
+	<td align="left">苏州产权交易所</td>
+	<td align="left">广州白云产权经济有限公司</td>
+	<td align="left">连云港市产权交易所</td>
+	<td align="left">盐城市产权交易所</td>
+	<td align="left">汕头市公共资源交易中心</td>
+</tr>
+<tr>
+	<td align="left">湛江市公共资源交易中心</td>
+	<td align="left">宁夏科技资源与产权交易所</td>
+	<td align="left">运城产权网</td>
+	<td align="left">镇江市公共资源交易公共服务平台</td>
+	<td align="left">杭州产权交易所</td>
+</tr>
+<tr>
+	<td align="left">长沙公共资源交易中心</td>
+	<td align="left">昆明泛亚联合产权交易所</td>
+	<td align="left">梅州市公共资源交易中心</td>
+	<td align="left">南京市公共资源交易平台</td>
+	<td align="left">江门市公共资源交易网</td>
+</tr>
+<tr>
+	<td align="left">淮安市公共资源交易网</td>
+	<td align="left">扬州市产权交易中心</td>
+	<td align="left">合肥市产权交易中心</td>
+	<td align="left">蚌埠市公共资源交易中心</td>
+	<td align="left">焦作公共资源交易中心</td>
+</tr>
+<tr>
+	<td align="left">洛阳市公共资源交易中心</td>
+	<td align="left">许昌亚太产权交易中心</td>
+	<td align="left">银川产权交易中心</td>
+	<td align="left">中国技术产权交易所</td>
+	<td align="left">河南中原产权交易有限公司</td>
+</tr>
+<tr>
+	<td><br></td>
+</tr>
+</tbody>
+</table>
+</marquee>
+
+	</div>
+	<div class="tabCon">
+		<table border="0" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><td align="left"><a target="_blank" href="http://www.sasac.gov.cn/">国务院国资委</a></td><td align="left"><a target="_blank" href="http://www.gdgz.gov.cn/">广东省国资委</a></td><td align="left"><a target="_blank" href="http://www.gdgz.gov.cn/">广东省国资委</a>   </td><td align="left"><a target="_blank" href="http://www.sasacgz.gov.cn">广州市国资委</a></td><td align="left"><a target="_blank" href="http://www.gzfinance.gov.cn/" style="white-space:normal;" data_ue_src="http://www.gzfinance.gov.cn/">广州市财政局</a></td></tr><tr><td align="left"><a target="_blank" href="http://www.gzjr.gov.cn/" style="white-space:normal;" data_ue_src="http://www.gzjr.gov.cn/">广州金融</a></td><td align="left"><a href="http://www.gz-gofar.com" target="_blank" data_ue_src="http://www.gz-gofar.com">广州国资发展控股有限公司</a></td><td align="left"><a target="_blank" style="white-space:normal;">广州市对外服务贸易有限公司</a></td><td align="left"><a href="" target="_blank" data_ue_src="">广州市融资担保中心</a></td><td align="left"><a target="_blank" style="white-space:normal;" data_ue_src="">中国投资金融网</a></td></tr><tr><td align="left"><a target="_blank" href="http://www.cspea.org.cn/" style="white-space:normal;" data_ue_src="http://www.cspea.org.cn/">中国企业国有产权交易机构协会</a></td><td align="left"> <a target="_blank" href="http://www.jinmajia.com/" style="white-space:normal;" data_ue_src="http://www.jinmajia.com/">北京金马甲产权网络交易有限公司</a></td><td align="left"><a target="_blank" style="white-space:normal;">广州金融控股集团有限公司</a></td><td align="left"><br></td></tr></tbody></table>
+	</div>
+        <div class="tabCon">
+		<table border="0" cellspacing="0" cellpadding="5" width="100%"><tbody><tr><td align="left"><a style="text-decoration:none" href="http://www.gzccex.com" target="_self" data_ue_src="http://www.gzccex.com">广州交易所集团</a></td><td align="left"><a style="text-decoration:none" href="http://nc.gemas.com.cn" target="_self" data_ue_src="http://nc.gemas.com.cn">广州农村产权交易所</a></td><td align="left"><a style="text-decoration:none" href="http://www.gzcmex.com" target="_self" data_ue_src="http://www.gzcmex.com">广州商品交易所</a></td><td align="left"><a style="text-decoration:none" href="http://www.4wew.com" target="_self" data_ue_src="http://www.4wew.com">广州技术产权交易中心</a></td></tr></tbody></table>
+
+	</div>
+</div>
+</div>
+<!-- 底部结束 -->
+		</div>
+		<div class="bottom">
+    <div class="wrap">
+        <div class="bottom_txt mt30 fl">
+            <p>地址：广州市越秀区流花路123号广州越秀国际会议中心北塔 电话：(020)89160888 传真：(020)89160999 E-Mail:gemas@gemas.com.cn</p>
+            <p>版权所有©广州产权交易所有限公司
+			<a style="color:blue;padding-left:10px;color: #fff;" target="_blank" href="https://beian.miit.gov.cn/">粤ICP备05017344号</a>&nbsp;
+			<img src="http://gz.gemas.com.cn/images/gzba.png" style="vertical-align:middle;margin-top:-3px;" alt="">
+	<a target="_blank" style="color:blue;font-size:12px; color: #fff;" 
+	href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44010502001273">粤公网安备 44010502001273号</a>
+</p>
+        </div>
+        <div class="bottom_icon fr">
+           <a target="_blank" href="http://netadreg.gzaic.gov.cn/ntmm/WebSear/WebLogoPub.aspx?logo=440100100011999020900677
+"><img src="http://gz.gemas.com.cn/images/zf_icon_01.png" alt=""></a>
+           <img src="http://gz.gemas.com.cn/images/zf_icon_02.png" alt="">
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<a href="http://webscan.360.cn/index/checkwebsite/url/gz.gemas.com.cn" name="775ae307e02492f087d8224bac159731" >360网站安全检测平台</a>
+	</div>
+	<style>
+.flex{position:fixed;bottom:100px;right:10px;z-index:998;}
+.flex ul{background:#ef7719;width:50px;border-radius:10px;overflow:hidden;}
+.flex li a{display:block;width:50px;line-height:50px;font-size:14px;color:#fff;text-align:center;}
+.flex li a:hover{background:#ffa800;}
+.flex li p{display:none;position:absolute;top:0px;right:60px;width:150px;padding:5px;background:#ef7719;animation:wchat 1s ease; overflow:hidden;}
+.flex li p:after{content:"";position:absolute;top:10px;right:-8px;width:0;height:0;
+border-left:10px solid #ef7719;border-top:8px solid transparent;border-bottom:8px solid transparent;}
+.flex li p img{width:150px;height:auto;}
+.flex li:hover p{display:block;}
+
+
+.back_top{display:block;width:50px;text-align:center;padding:15px 0 10px 0;}
+.back_top:hover{background:#ffa800;}
+.back_top img{width:30px;height:30px;}
+
+.btn_close{position:absolute;right:3px;top:-15px;line-height:100%;font-size:15px;color:#ddd;cursor:pointer;}
+.btn_close:hover{color:#333;}
+
+</style>
+
+<div class="flex">
+<ul>
+ <li><a style="cursor:pointer;">关注</a>
+ <p><img src="http://img.gemas.com.cn/www/pic/201810/1538970544399.jpg" /></p>
+ </li>
+ <li><a style="cursor:pointer;">客服</a>
+ <p><img src="http://img.gemas.com.cn/www/pic/202308/1692599557610.png" /></p>
+ </li>
+ <li><a href="/article/xzzq/" target="_blank" style="cursor:pointer;">下载</a></li>
+ <li><a href="/article/xxgg/jygg/202005/20200500022858.shtml" target="_blank" style="cursor:pointer;">CA</a></li>
+ <li><a href="/article/questionnaire/201711/20171100004714.shtml" target="_blank" style="cursor:pointer;">投资</a></li>
+ <li><a href="/article/gywm/lxwm/" target="_blank" style="cursor:pointer;line-height: 15px">联系<br/>我们</a></li>
+<a class="back_top" herf="javascript:void(0);" style="cursor:pointer;"><img  src="images/icon_top.png" alt="返回顶部"></a>
+</ul>
+<a onclick="hiden()" class="btn_close">×</a>
+</div>
+<script type="text/javascript">
+/*返回顶部*/	
+	$(document).on('click','.back_top',function(){
+		$('html,body').animate({scrollTop:'0px'},500);
+	});
+	
+ function hiden() {
+	  $(".flex").hide();
+	}
+</script>
+	<script type="text/javascript">
+		//tab选项卡
+		jQuery.tab = function(tabBar, tabCon, class_name, tabEvent, i) {
+			var $tab_menu = $(tabBar);
+			/* 初始化  */
+			$tab_menu.removeClass(class_name);
+			$(tabBar).eq(i).addClass(class_name);
+			$(tabCon).hide();
+			$(tabCon).eq(i).show();
+
+			$tab_menu.bind(tabEvent, function() {
+				$tab_menu.removeClass(class_name);
+				$(this).addClass(class_name);
+				var index = $tab_menu.index(this);
+				$(tabCon).hide();
+				$(tabCon).eq(index).show();
+			});
+		};
+		$.tab("#tab_cgq .tabBar span", "#tab_cgq .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_utrm_pro .tabBar span", "#tab_utrm_pro .tabCon", "current", "mousemove", "0");
+        $.tab("#tab_lease_pack .tabBar span", "#tab_lease_pack .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_tech .tabBar span", "#tab_tech .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_swzc .tabBar span", "#tab_swzc .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_zzkg .tabBar span", "#tab_zzkg .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_zczl .tabBar span", "#tab_zczl .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_dzcg .tabBar span", "#tab_dzcg .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_fwcz .tabBar span", "#tab_fwcz .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_sszc .tabBar span", "#tab_sszc .tabCon", "current", "mousemove", "0");
+		$.tab("#tab_gz .tabBar span", "#tab_gz .tabCon", "current", "click", "0");
+		$.tab("#tab_link .tabBar span", "#tab_link .tabCon", "current", "click", "0");
+
+		function tabName(id) {//href="/article/proList.shtml?proType=guquan&typeGz=G3" 
+			var moreTxt = $("#" + id).find(".current").html();
+
+			/*
+			if (moreTxt == "国有股权") {
+				window.location = "/article/proList.shtml?proType=guquan&typeGz=G3";
+                        if (moreTxt == "公有物业出租") {
+window.location = "http://gzfc.gemas.com.cn/fdown/index.jhtml";
+			}
+			if (moreTxt == "非国有股权") {
+				window.location = "/article/proList.shtml?proType=guquan&typeGz=T3";
+			}
+			if (moreTxt == "强制预挂牌") {
+				window.location = "/article/proList.shtml?proType=guquan&typeGz=P3";
+			}*/
+			if (moreTxt == "企业股权") {
+				window.open("http://gz.gemas.com.cn/portal/article/proList.shtml?proType=guquan&typeGz=G3T3");
+			}
+			if (moreTxt == "股权预披露") {
+				window.open("http://gz.gemas.com.cn/portal/article/proList.shtml?proType=guquan&typeGz=P3");
+			}
+			if (moreTxt == "资产项目") {
+				window.open("http://gz.gemas.com.cn/portal/page?to=proUtrms");
+			}
+				if (moreTxt == "房产") {
+				window.open("http://gz.gemas.com.cn/portal/page?to=proUtrms&proType=housingA");
+			}
+				if (moreTxt == "设备") {
+				window.open("http://gz.gemas.com.cn/portal/page?to=proUtrms&proType=mechanical");
+			}
+				if (moreTxt == "其他") {
+				window.open("http://gz.gemas.com.cn/portal/page?to=proUtrms&proType=otherassets");
+			}
+			if (moreTxt == "批量资产") {
+				window.open("http://gz.gemas.com.cn/portal/article/packList.shtml");
+			}
+			if (moreTxt == "正式披露") {
+				window.open("http://gz.gemas.com.cn/portal/article/proLeaseList.shtml");
+			}
+			if (moreTxt == "正式披露（批量）") {
+				window.open("http://gz.gemas.com.cn/portal/article/leasePackList.shtml");
+			}
+			if (moreTxt == "重点推介") {
+				window.open("http://gz.gemas.com.cn/article/zdtj/bstj/");
+			}
+			if (moreTxt == "增资扩股") {
+				window.location = "http://gz.gemas.com.cn/portal/page?to=proUtrzs&type=增资项目";
+			}
+			if (moreTxt == "招商引资") {
+				window.location = "http://gz.gemas.com.cn/portal/page?to=proUtrzs&type=招商引资";
+			}
+			if (moreTxt == "增资预披露") {
+				window.location = "http://gz.gemas.com.cn/article/xxgg/ygg/zengziyuguapai/";
+				//window.location = "/article/proPreUtrzList.shtml?s=UTRZ";
+			}
+			if (moreTxt == "企业大宗采购") {
+				//window.open("http://gz.gemas.com.cn/article/gpxm/dzcg/");
+				window.open("http://excg.gemas.com.cn/");
+			}
+			
+			if (moreTxt == "技术与知识产权") {
+				//
+			}
+			
+			if (moreTxt == "农村产权") {
+				window.open("http://gz.gemas.com.cn/article/gpxm/nccq/");
+			}
+			
+			if (moreTxt == "国有企业房屋出租") {
+				window.open("http://gz.gemas.com.cn/portal/article/proLeaseList.shtml?proSource=A17001");
+			}
+			if (moreTxt == "行政事业单位房屋出租") {
+				window.open("http://gz.gemas.com.cn/portal/article/proLeaseList.shtml?proSource=A17002");
+			}
+			//add lhshan 20190828 需求（网站出租，添加"住建部门直管房出租"一项）
+			if (moreTxt == "住建部门直管房出租") {
+				window.open("http://gz.gemas.com.cn/portal/article/proLeaseList.shtml?proSource=A17004");
+			}
+			if (moreTxt == "其他") {
+				window.open("http://gz.gemas.com.cn/portal/article/proLeaseList.shtml?proSource=A17003");
+			}
+			if (moreTxt == "公务车处置") {
+				window.open("http://car.gemas.com.cn/");
+			}
+			if (moreTxt == "涉诉资产") {
+				//http://www.gzsun.org/
+				window.open("http://gz.gemas.com.cn/article/TheAssetsInQuestion/TheAssetsInQuestion/");
+			}
+            if (moreTxt == "自主发布"){
+				window.open("http://gzfc.gemas.com.cn/fang/");
+			}
+			
+		
+		} 
+	</script>
+
+</body>
+</html>

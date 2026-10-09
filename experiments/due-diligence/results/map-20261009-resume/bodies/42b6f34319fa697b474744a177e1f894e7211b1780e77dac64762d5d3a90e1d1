@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" href="./favicon.ico">
+  <link rel="stylesheet" href="./css/global.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="icon" href="./favicon.ico">
+  <!--[if IE 9]>
+    <link href='./css/IE9.css' rel="stylesheet"/>
+  <![endif]-->
+  <title>行政执法公示平台</title>
+</head>
+<body class="index">
+<header class="header-box">
+  <div class="header-top common-container">
+    <div class="header-left">
+      <img src="./imgs/logo-text.png" alt="">
+    <!-- <img src="./imgs/logo.png" alt="中国税务"> -->
+    <!-- <div class="title-container">
+        <p>国家税务总局XX省税务局</p>
+       <p>行政执法信息公示平台</p>
+      </div> -->
+	  <div class="city"></div>
+    </div>
+    <a class="header-right" href="http://etax.henan.chinatax.gov.cn/web/dzswj/ythclient/mh.html" target="_blank">河南省电子税务局</a>
+  </div>
+  <nav class="nav-container" id="navContainer" style="white-space: nowrap;">
+    <span class="nav-item" data-page="main.html">平台首页</span>
+    <span class="nav-item" data-page="basic_info.html">基础信息</span>
+    <span class="nav-item" data-page="xzzs.html">行政征收</span>
+    <span class="nav-item" data-page="xzxk.html">行政许可</span>
+    <span class="nav-item" data-page="xzjc.html">行政检查</span>
+    <span class="nav-item" data-page="xzcf.html">行政处罚</span>
+    <span class="nav-item" data-page="zffw.html">执法服务</span>
+    <span class="nav-item" data-page="qtsx.html">其他事项</span>
+  </nav>
+</header>
+<div class="common-container my-iframe">
+  <iframe width="100%" height="100%" src="./pages/welcome.html" frameborder="0" scrolling="no" id="myIframe"></iframe>
+</div>
+<footer class="common-footer common-container">
+  <div class="footer-left">
+    <img src="./imgs/footer-logo.png" alt="">
+    <script id="_jiucuo_" sitecode="bm29160021" src="https://zfwzgl.www.gov.cn/exposure/jiucuo.js"></script>
+    
+    <div class="info">
+      <p>主办单位：国家税务总局河南省税务局     地址：郑州市金水区熊儿河路85号</p>
+      <p>网站标识码：bm29160021  豫ICP备05012087号-3    豫公网安备 41010502004162号</p>
+    </div>
+  </div>
+  <div class="footer-right">
+    <a href="https://henan.chinatax.gov.cn/fzlm/wzdt/index.html" target="_blank"><span>网站地图</span></a>
+	&nbsp;&nbsp;｜&nbsp;&nbsp;<a href="https://henan.chinatax.gov.cn/fzlm/wzgl/index.html" target="_blank"><span>网站管理</span>
+	</a>&nbsp;&nbsp;｜&nbsp;&nbsp;<a href="https://henan.chinatax.gov.cn/xxgk/jgzn/lxfs/index.html" target="_blank">
+	<span>联系我们</span></a>
+  </div>
+</footer>
+<script src="./js/jquery.js"></script>
+<script src="./js/crypto-js.min.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/index.js"></script>
+<!-- 在 script 之前引入配置 -->
+<script src="./js/permissionConfig.js"></script>
+<script>
+	var code =  getQueryString('orgCode')
+
+	if(!code){
+		$('.city').hide()
+	} else {
+		request({
+			url:'/city/getCityByCode',
+			type:'GET',
+		},function(data){
+			$('.city').html(data.regionName)
+		})
+	}
+
+  // ================= 新增：权限控制逻辑 20260522 =================
+    
+  // 全局变量存储级别，供 iframe 加载时使用
+  window.CURRENT_LEVEL = null;
+
+  $(document).ready(function() {
+      if (!code) {
+        code = '14100000000'
+      }
+      
+      // 1. 立即执行一次“降级模式”的权限初始化
+      // 目的：在接口返回前，先显示出所有 [1,2,3] 的全权限菜单，防止页面空白
+    //   console.log('【初始化】尝试应用默认权限（全权限菜单可见）');
+      applyPermissions(null); 
+
+      // 2. 请求获取级别
+      request({
+          url: '/city/getCityLevel', 
+          type: 'GET',
+          data: { orgCode: code }
+      }, function(levelData) {
+          // 假设后端返回格式为 { regionLevel: 2 } 
+          var newLevel = levelData.regionLevel || levelData;
+          window.CURRENT_LEVEL = newLevel;
+          
+        //   console.log('【接口返回】当前机构级别:', window.CURRENT_LEVEL);
+          
+          // 获取到级别后，再次执行权限处理，此时会精确控制非全权限菜单
+          applyPermissions(window.CURRENT_LEVEL);
+      });
+
+      // 3. 监听 iframe 加载事件
+      $('#myIframe').on('load', function() {
+        //   console.log('【Iframe Load】检测到页面切换或加载完成');
+          
+          // 【关键修改】：不再判断 window.CURRENT_LEVEL 是否为空
+          // 即使为空，也要调用 applyPermissions(null) 来确保全权限菜单显示
+          setTimeout(function() {
+            //   console.log('【Iframe Load】执行权限应用，当前级别:', window.CURRENT_LEVEL);
+              applyPermissions(window.CURRENT_LEVEL);
+          }, 100);
+      });
+  });
+
+  /**
+   * 核心函数：根据级别显示有权限的菜单
+   */
+  function applyPermissions(level) {
+    //   console.log('【Apply Perm】执行权限逻辑, level:', level);
+      if (typeof MENU_PERMISSION_MAP === 'undefined') {
+        //   console.warn('【Apply Perm】配置表未加载');
+          return;
+      }
+
+      try {
+          var iframeDoc = $('#myIframe')[0].contentDocument || $('#myIframe')[0].contentWindow.document;
+          if (!iframeDoc) {
+            //   console.warn('【Apply Perm】无法获取 iframe 文档对象');
+              return;
+          }
+
+          // 遍历配置表
+          for (var menuId in MENU_PERMISSION_MAP) {
+              var allowedLevels = MENU_PERMISSION_MAP[menuId];
+              var $el = $(iframeDoc).find('[data-menu-id="' + menuId + '"]');
+              
+              if ($el.length > 0) {
+                  // 判断是否为全权限 [1,2,3]
+                  var isFullPermission = (allowedLevels.length === 3 && 
+                                          allowedLevels.indexOf(1) !== -1 && 
+                                          allowedLevels.indexOf(2) !== -1 && 
+                                          allowedLevels.indexOf(3) !== -1);
+
+                  var shouldShow = false;
+
+                  // 逻辑：
+                  // 1. 如果是全权限，无条件显示（解决 level 为空时的显示问题）
+                  // 2. 如果有 level，且在允许列表中，显示
+                  if (isFullPermission) {
+                      shouldShow = true;
+                  } else if (level) {
+                      if (allowedLevels.indexOf(Number(level)) !== -1) {
+                          shouldShow = true;
+                      }
+                  }
+
+                  if (shouldShow) {
+                      $el.removeClass('perm-hidden');
+                  } else {
+                      // 只有当 level 存在且无权限时，才强制隐藏
+                      // 如果 level 不存在，保持 HTML 默认的 perm-hidden 状态（即隐藏）
+                      if (level) {
+                          $el.addClass('perm-hidden');
+                      }
+                  }
+                } else {
+                  // console.warn('未在页面找到菜单ID:', menuId);
+              }
+          }
+      } catch (e) {
+          console.error('【Apply Perm】执行出错:', e);
+      }
+
+      // 执行父级菜单检查
+      checkParentMenus(level);
+  }
+
+  /**
+   * 检查并隐藏无子菜单权限的顶部导航
+   */
+  function checkParentMenus(level) {
+      if (typeof PARENT_MENU_DEPENDENCIES === 'undefined') return;
+
+      for (var pageKey in PARENT_MENU_DEPENDENCIES) {
+          var childMenuIds = PARENT_MENU_DEPENDENCIES[pageKey];
+          var hasAnyVisibleChild = false;
+
+          for (var i = 0; i < childMenuIds.length; i++) {
+              var childId = childMenuIds[i];
+              if (MENU_PERMISSION_MAP[childId]) {
+                  var allowedLevels = MENU_PERMISSION_MAP[childId];
+                  
+                  // 判断子菜单是否可见：
+                  // 1. 全权限 [1,2,3] 视为可见
+                  var isFull = (allowedLevels.length === 3 && allowedLevels.indexOf(1) !== -1 && allowedLevels.indexOf(3) !== -1);
+                  // 2. 匹配当前 level
+                  var isMatch = level && (allowedLevels.indexOf(Number(level)) !== -1);
+
+                  if (isFull || isMatch) {
+                      hasAnyVisibleChild = true;
+                      break;
+                  }
+              }
+          }
+
+          var $parentNav = $('.nav-container .nav-item[data-page="' + pageKey + '"]');
+          
+          if (!hasAnyVisibleChild) {
+              $parentNav.hide();
+          } else {
+              $parentNav.show();
+          }
+      }
+  }
+	
+</script>
+</body>
+</html>

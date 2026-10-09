@@ -1,0 +1,2325 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="msvalidate.01" content="CEE8A131ABDDE2D25510DF658B9BBBBC" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>贵州省自然资源厅</title>
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon">
+    <meta name="SiteName" content="贵州省自然资源厅" />
+    <meta name="SiteDomain" content="https://zrzy.guizhou.gov.cn" />
+    <meta name="SiteIDCode" content="5200000041" />
+<meta name="ColumnName" content="贵州省自然资源厅">
+<meta name="ColumnType" content="贵州省自然资源厅">
+    <meta name="keywords" content="贵州省自然资源厅;自然资源厅;自然资源;资源;自然"/>
+    <meta name="description" content="贵州省自然资源厅是贵州省人民政府组成部门，为正厅级。贵州省自然资源厅贯彻落实党中央、省委关于自然资源工作的方针政策和决策部署，在履行职责过程中坚持和加强党对自然资源工作的集中统一领导。2018年11月20日正式挂牌。"/>
+
+    <link rel="stylesheet" href="/material/common/css/public.css">
+    <link rel="stylesheet" href="/material/common/css/canvi.css">
+    <link rel="stylesheet" href="/material/common/css/swiper.min.css">
+    <link rel="stylesheet" href="/material/common/css/index.css">
+    <script type="text/javascript" src="/material/common/js/jquery.min.js"></script>
+<link rel="stylesheet" href="/material/common/piaofu/floatingAd.css">
+ <script type="text/javascript" src="/material/common/piaofu/floatingAd.js"></script>
+ <script type="text/javascript" src="/material/common/piaofu/advment.js"></script>
+
+
+    <style>
+        .swiperBg-pagin .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+        }
+       .mineral-list {
+    width: 94%;
+    display: flex;
+    justify-content: space-between;
+}
+.mineral-list li {
+    width: 260px;
+    height: 290px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 0px 18px 0 20px;
+    transition: all .3s ease-out 0s;
+}
+        /* 弹窗 */
+        
+        .pop-up {
+            width: 350px;
+            height: auto;
+            background: linear-gradient(360deg, #3991f5 0%, #3067e3 100%);
+            position: fixed;
+            z-index: 999;
+            left: 5px;
+            bottom: 3px;
+            border: 2px solid linear-gradient(360deg, #3991f5 0%, #3067e3 100%);
+            animation: pop 1s linear;
+            transform: translateX(3px);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes pop {
+            0% {
+                transform: translateX(-390px);
+            }
+            100% {
+                transform: translateX(-3px);
+            }
+        }
+        
+        .pop-up .pop-up-title {
+            width: 100%;
+            height: calc(100% - 350px);
+            position: relative;
+        }
+        
+        .pop-up .pop-up-title h2 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+        }
+        
+        .pop-up .pop-up-title p {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            cursor: pointer;
+        }
+        
+        .pop-up .pop-up-title p img {
+            display: inline-block;
+        }
+        
+        .pop-up .pop-up-content {
+            width: 100%;
+            height: auto;
+            background-color: #fff;
+            border: 1px solid #4f7dce;
+            box-sizing: border-box;
+        }
+        
+        .pop-up .pop-up-content article {
+            font-size: 14px;
+            padding: 18px;
+            line-height: 29px;
+            box-sizing: border-box;
+        }
+        
+        .pop-up .pop-up-content article p {
+            text-indent: 2em;
+            font-size: 14px;
+        }
+        
+        .pop-up .pop-up-content article p:last-child {
+            text-align: right;
+        }
+        
+        .pop-up-close {
+            width: 388px;
+            height: 445px;
+            background-color: #4f7dce;
+            position: fixed;
+            z-index: 999;
+            right: 3px;
+            bottom: 3px;
+            border: 2px solid #4f7dce;
+            animation: pop-close 1s ease-in-out;
+            transform: translateX(390px);
+        }
+        /* 弹窗 end */
+       .header-link{
+          position: relative;
+
+}
+#time{
+font-size: 14px;
+    font-weight: 400;
+    /*color: #176DC3;*/
+    color: #FFFFFF;
+    background-color: rgba(23,109,195,.5);
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border-radius: 30px;
+}
+
+    </style>
+
+</head>
+<body style="position: relative;">
+<!-- 动态飘窗  -->
+<div id="myadvertisement" style="display: none; position: fixed; z-index: 999;">
+<style>
+#ad-img{
+    max-width: 300px;
+}
+</style>
+    
+
+    <span id="close_myadvertisement" style="display: inline-block; color: red;font-size: 16px; cursor: pointer">关闭</span>
+    
+    <script type="text/javascript">
+        // 页面加载完成后执行
+        window.onload = function() {
+            var adContainer = document.getElementById("myadvertisement");
+            var adImg = document.getElementById("ad-img");
+            
+            // 检查图片src是否有效
+            if (adImg && adImg.src && adImg.src.trim() !== "" && adImg.src !== window.location.href) {
+                // 图片有效，显示容器
+                adContainer.style.display = "block";
+                // 调用广告飘动函数
+                var ad = new AdMove("myadvertisement");
+                ad.Run();
+            } else {
+                // 图片无效，直接移除节点，彻底不占位
+                adContainer.remove();
+            }
+        };
+
+        // 点击关闭按钮触发
+        $("#close_myadvertisement").click(function () {
+            $(this).parent().hide();
+        });
+    </script>
+</div>
+<!-- 动态飘窗  -->
+        <!-- 二十大横幅 start 
+    <div class="piao_20">
+        <a href="http://www.gov.cn/zhuanti/zggcddescqgdbdh/index.htm" style="position: absolute;top: 40px;right: 0;"
+            target="_blank">
+            <img src="/material/common/images/danghuiicon.png" />
+        </a>
+    </div>
+
+    <a href="http://www.gov.cn/zhuanti/zggcddescqgdbdh/index.htm" target="_blank" class="red2022">
+        <img src="/material/common/images/2022red.jpg" />
+    </a>
+    <style>
+        body {
+            background: url(/material/common/images/ershidasybg.jpg)no-repeat center top #FFF;
+        }
+        .piao_20 {
+width: 1200px;
+            margin: 0 auto;
+            height: 150px;
+            position: relative;
+        }
+
+        .header {
+            background: none;
+        }
+
+        .red2022 {
+            display: none;
+            width: 100%;
+            height: 120px;
+        }
+
+        .red2022 img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hf_20 {
+            margin: 0 auto 20px;
+        }
+
+        @media only screen and (max-width: 515px) {
+            .piao_20 {
+                display: none;
+            }
+
+            .red2022 {
+                display: block;
+            }
+
+            body {
+                background: none;
+            }
+
+            .hf_20 {
+                margin-bottom: 15px;
+                height: 60px;
+            }
+
+            .rdjj {
+                margin-bottom: 15px;
+            }
+
+        }
+    </style>
+    </style>
+ 二十大横幅 end -->
+<!--<div id="advfloatb" style="width:250px; height:auto;top:50%;left: 1px !important;position: fixed;z-index:999;">
+<div style="padding-bottom:5px; text-align:right;"> <a id="floatclose" href="javascript:void(0);" onclick="getElementById('advfloatb').style.display = 'none'" style="color:#999 ; font-size:16px; ">X</a></div>
+            <a href="https://zrzy.guizhou.gov.cn/material/ztzl/zrzybhjyxc.html" target="_blank">
+			<img src="/material/common/images/sswjyxc.png" width="250" />
+		</a>
+	 </div>-->
+
+    <div class="js-canvi-content canvi-content body_bg">
+        <div class="swiperBg_box">
+            <div class="swiper-container swiper-bg">
+                <div class="swiper-wrapper">
+                    <!--   <div class="swiper-slide">
+                    <img src="/material/common/images/body_bg.png" alt="" />
+                </div> -->
+                    <div class="swiper-slide">
+                        <img src="/material/common/images/body_bg1.png" alt="" />
+                    </div>
+
+                    <div class="swiper-slide">
+                        <img src="/material/common/images/body_bg7.png" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--header-->
+        <header id="header" class="header-wrap">
+            <!--swiper背景分页器 后期需删除-->
+            <div class="swiper-pagination swiperBg-pagin"></div>
+            <!--swiper背景分页器 后期需删除 end-->
+            <div class="header-layout">
+                <!--header-link-->
+                <div class="header-link">
+                    <ul class="left-link">
+                        <li><a href="http://www.mnr.gov.cn/" target="_blank">自然资源部</a></li>
+                        <li><a href="http://www.guizhou.gov.cn/" target="_blank">贵州省人民政府</a></li>
+                        <li> <span id="time"></span></li>
+                    </ul>
+                    <a href="javascript:void(0);" onclick="zwfwLogin();" class="perCenter">
+                        <i class="iconfont icon-denglu"></i>
+                        <span>个人中心</span>
+                    </a>
+                </div>
+                <!--logo-news-->
+                <a href="/" class="logo-news">
+                    <img src="/material/common/images/logo-news.png" alt="" />
+                </a>
+                <!--search-box-->
+                <div class="search-box">
+                    <select class="search-set" id="siteId">
+                        <option value="1" selected="selected">搜本站</option>
+                        <option value="2">搜全省</option>
+                   </select>
+                    <input type="text" id="keyword" onkeydown="entersearch1()" value="请输入你要搜索的内容" onblur="if(this.value==''){this.value='请输入你要搜索的内容';}" onfocus="if(this.value=='请输入你要搜索的内容')this.value='';" v-model="keyWord" @keypress="search($event)" / class="search-ipt" />
+                    <button class="search-btn" onclick="searchval1()" @click="search()" type="submit">
+                       <i class="iconfont icon-sousuo"></i>
+                       搜索
+                   </button>
+                </div>
+            </div>
+            <script>
+                $(function() {
+
+    var myDate = new Date;
+    var year = myDate.getFullYear(); //获取当前年
+    var mon = myDate.getMonth() + 1; //获取当前月
+    var date = myDate.getDate(); //获取当前日
+    var h = myDate.getHours();//获取当前小时数(0-23)
+    var m = myDate.getMinutes();//获取当前分钟数(0-59)
+    var s = myDate.getSeconds();//获取当前秒
+    var week = myDate.getDay();
+    var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    console.log(year, mon, date, weeks[week])
+    
+    $("#time").html(year + "年" + mon + "月" + date + "日" +  weeks[week]);
+})
+            </script>
+            <script>
+                //回车键响应方法
+                function entersearch1() {
+                    var event = window.event || arguments.callee.caller.arguments[0];
+                    if (event.keyCode == 13) {
+                        var str = document.getElementById("keyword").value;
+                        checks1(str); //搜索框点击提交的方法
+                    }
+                }
+                //检索跳转
+                function searchval1() {
+                    var str = document.getElementById("keyword").value;
+                    checks1(str);
+                };
+
+                function checks1(t) {
+                    t = t.replace(/(^\s+)|(\s+$)/g, "");
+                    if (t == "" || t == "请输入你要搜索的内容") {
+                      
+                        alert('请输入有效内容');
+                        return false;
+                    }
+                    szMsg = "[#_%&'/",
+                        ";:=!^]";
+                    alertStr = "";
+                    for (i = 1; i < szMsg.length + 1; i++) {
+                        if (t.indexOf(szMsg.substring(i - 1, i)) > -1) {
+                            alertStr = "请勿包含非法字符如[#_%&'/",
+                                ";:=!^]";
+                            layer.msg(alertStr);
+                            //alert(alertStr);
+                            // break;
+                            return false;
+                        }
+                    }
+                    var key = document.getElementById("keyword").value;
+                    //location.href='/search.html?searchWord=' + encodeURI(key)+'&dataTypeId='+$("#dataTypeId").val();
+                    if ($("#siteId").val() == "1") {
+                             window.location.href = "/so/search.shtml?tenantId=168&tenantIds=&configTenantId=&dataTypeId=310&searchWord=" + key;
+                    } else {
+                        window.location.href = "/so/search.shtml?tenantId=&tenantIds=&configTenantId=168&dataTypeId=310&searchWord=" + key;
+                    }
+                    return true;
+                }
+            </script>
+
+        </header>
+        <!--header end-->
+        <!--main-->
+        <main id="main" class="main-wrap">
+            <div class="special-box">
+                <div class="special-layout">
+                    <!--nav-->
+                    <nav id="nav" class="nav-wrap">
+                        <ul class="nav-list">
+                            <li class="active"><a href="/">首页</a></li>
+                            <li><a href="https://zrzy.guizhou.gov.cn/wzgb/xwzx/">新闻中心</a></li>
+                            <li><a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/">政务公开</a></li>
+                            <li><a href="https://zrzy.guizhou.gov.cn/wzgb/gzcy/">公众参与</a></li>
+                            <li><a href="https://zrzy.guizhou.gov.cn/wzgb/bsfw/">办事服务</a></li>
+                            <li><a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zdlyxxgk/dlxxgl/">测绘地理信息</a></li>
+                        </ul>
+                        <div class="nav-btn xs-show js-canvi-open-button--right btn">
+                            <i class="iconfont icon-navicon"></i>导航
+                        </div>
+                    </nav>
+                    <!--nav end-->
+                    <div class="news-infor">
+                        <div class="new-map">
+                            <div class="swiper-container swiper1">
+                                <div class="swiper-wrapper">
+                            
+                                        <div class="swiper-slide">
+                                            <a href="https://www.guizhou.gov.cn/ztzl/2026nqzsbbzzfhfbwtxszj/">
+                                                <img src="./wzgb/xwzx/xtyw1/202603/W020260302512177153410_ORIGIN.jpg" alt="" />
+                                                <p>
+                                                    2026年群众身边不正之风和腐败问题线索征集
+                                                </p>
+                                            </a>
+                                        </div>
+                                    
+                                        <div class="swiper-slide">
+                                            <a href="./wzgb/xwzx/xtyw1/202609/t20260924_90940530.html">
+                                                <img src="./wzgb/xwzx/xtyw1/202609/W020260930582156291124.jpg" alt="" />
+                                                <p>
+                                                    2026年全省自然资源执法政策业务培训班在贵阳举办
+                                                </p>
+                                            </a>
+                                        </div>
+                                    
+                                        <div class="swiper-slide">
+                                            <a href="./wzgb/xwzx/xtyw1/202609/t20260924_90940512.html">
+                                                <img src="./wzgb/xwzx/xtyw1/202609/W020260930582503019968.jpg" alt="" />
+                                                <p>
+                                                    数智质控护航测绘地理信息质量 | 省自然资源厅举办2026年第六期“自然资源月月谈”专题研讨会
+                                                </p>
+                                            </a>
+                                        </div>
+                                    
+                                        <div class="swiper-slide">
+                                            <a href="./wzgb/xwzx/xtyw1/202609/t20260924_90940586.html">
+                                                <img src="./wzgb/xwzx/xtyw1/202609/W020260930582973400639.jpg" alt="" />
+                                                <p>
+                                                    科技改变生活 创新赢得未来 | 省自然资源厅举办2026年第五期“自然资源月月谈”专题研讨会
+                                                </p>
+                                            </a>
+                                        </div>
+                                    
+                                        <div class="swiper-slide">
+                                            <a href="./wzgb/xwzx/xtyw1/202609/t20260913_90866072.html">
+                                                <img src="./wzgb/xwzx/xtyw1/202609/W020260922342058921759.jpg" alt="" />
+                                                <p>
+                                                    省自然资源厅党委召开党的建设工作领导小组会议
+                                                </p>
+                                            </a>
+                                        </div>
+                                    
+
+                                </div>
+                                <div class="swiper-pagination swiper1-pagin"></div>
+                            </div>
+                        </div>
+                        <div class="right-tabs">
+                            <ul class="tabs-list">
+                                <li ><a href="https://zrzy.guizhou.gov.cn/wzgb/xwzx/szyw/">政务要闻</a></li>
+                                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/xwzx/xtyw1/">新闻动态</a></li>
+                                <li class="active"><a href="https://zrzy.guizhou.gov.cn/wzgb/xwzx/tzgg/">通知公告</a></li>
+                            </ul>
+                            <div class="tabs-cont">
+                                <div class="tabs-cont_list ">
+                                    
+                                        <a href="./wzgb/xwzx/szyw/202610/t20261003_90959523.html" class="newsTop" title="烈士纪念日向人民英雄敬献花篮仪式在京隆重举行" target="_blank">
+                                            <h3>
+                                                烈士纪念日向人民英雄敬献花篮仪式在京隆重举行
+                                            </h3>
+
+                                        </a>
+                                    
+                                    <ul class="news-list">
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/szyw/202609/t20260919_90903985.html" title="李强主持召开国务院常务会议 听取老龄工作情况汇报等"  target="_blank">
+                                                    <p>
+                                                        李强主持召开国务院常务会议 听取老龄工作情况汇报等
+                                                    </p>
+                                                    <span>2026-09-19</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/szyw/202609/t20260912_90865291.html" title="李强主持召开国务院常务会议 对加强安全生产工作作出进一步部署"  target="_blank">
+                                                    <p>
+                                                        李强主持召开国务院常务会议 对加强安全生产工作作出进一步部署
+                                                    </p>
+                                                    <span>2026-09-12</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/szyw/202609/t20260901_90806295.html" title="李强主持召开国务院常务会议 学习贯彻习近平总书记在中央政治局会议研究部署西藏日喀则市吉隆县泥石流灾害抢险救援工作时的重要讲话精神"  target="_blank">
+                                                    <p>
+                                                        李强主持召开国务院常务会议 学习贯彻习近平总书记在中央政治局会议研究部署西藏日喀则市吉隆县泥石流灾害抢险救援工作时的重要讲话精神
+                                                    </p>
+                                                    <span>2026-09-01</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/szyw/202608/t20260822_90771144.html" title="李强主持召开国务院常务会议 听取新一代通信网建设情况汇报等"  target="_blank">
+                                                    <p>
+                                                        李强主持召开国务院常务会议 听取新一代通信网建设情况汇报等
+                                                    </p>
+                                                    <span>2026-08-22</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                    </ul>
+                                </div>
+                                <div class="tabs-cont_list">
+                                    
+                                        <a href="https://www.guizhou.gov.cn/ztzl/2026nqzsbbzzfhfbwtxszj/" class="newsTop" title="2026年群众身边不正之风和腐败问题线索征集" target="_blank">
+                                            <h3>
+                                                2026年群众身边不正之风和腐败问题线索征集
+                                            </h3>
+
+                                        </a>
+                                    
+                                    <ul class="news-list">
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/xtyw1/202609/t20260930_90957592.html" title="靠前服务便民惠企！省自然资源厅持续开展行政审批服务政策现场咨询活动" target="_blank">
+                                                    <p>
+                                                        靠前服务便民惠企！省自然资源厅持续开展行政审批服务政策现场咨询活动
+                                                    </p>
+                                                    <span>2026-09-30</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/xtyw1/202609/t20260924_90940576.html" title="矿业界微信公众号 | 坐拥西南最大铅锌矿，贵州这家公司首次亮相矿业大会就火了" target="_blank">
+                                                    <p>
+                                                        矿业界微信公众号 | 坐拥西南最大铅锌矿，贵州这家公司首次亮相矿业大会就火了
+                                                    </p>
+                                                    <span>2026-09-24</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/xtyw1/202609/t20260924_90940570.html" title="省自然资源厅持续开展行政审批服务政策现场咨询活动" target="_blank">
+                                                    <p>
+                                                        省自然资源厅持续开展行政审批服务政策现场咨询活动
+                                                    </p>
+                                                    <span>2026-09-24</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/xtyw1/202609/t20260924_90940552.html" title="中国矿业报｜贵州专项整治矿业权低效利用突出问题" target="_blank">
+                                                    <p>
+                                                        中国矿业报｜贵州专项整治矿业权低效利用突出问题
+                                                    </p>
+                                                    <span>2026-09-24</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                    </ul>
+                                </div>
+                                <div class="tabs-cont_list active">
+                                    
+                                        <a href="./wzgb/xwzx/tzgg/202607/t20260714_90621074.html" class="newsTop" title="省委第一巡视组巡视公告" target="_blank">
+                                            <h3>
+                                                省委第一巡视组巡视公告
+                                            </h3>
+
+                                        </a>
+                                    
+                                    <ul class="news-list">
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/tzgg/202610/t20261008_90964777.html" title="贵州省自然资源厅关于发布矿业权人勘查开采信息异常名录矿业权名单（2026年第一批）的公告" target="_blank">
+                                                    <p>
+                                                        贵州省自然资源厅关于发布矿业权人勘查开采信息异常名录矿业权名单（2026年第一批）的公告
+                                                    </p>
+                                                    <span>2026-10-08</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/tzgg/202609/t20260930_90957066.html" title="省自然资源厅关于公开征求《贵州省自然资源厅关于加强矿业权管理有关事项的实施意见（征求意见稿）》意见的公告" target="_blank">
+                                                    <p>
+                                                        省自然资源厅关于公开征求《贵州省自然资源厅关于加强矿业权管理有关事项的实施意见（征求意见稿）》意见的公告
+                                                    </p>
+                                                    <span>2026-09-30</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/tzgg/202609/t20260923_90933277.html" title="贵州省自然资源厅关于《贵州省国土空间规划（2021-2035年）2026年度动态维护方案》的公示" target="_blank">
+                                                    <p>
+                                                        贵州省自然资源厅关于《贵州省国土空间规划（2021-2035年）2026年度动态维护方案》的公示
+                                                    </p>
+                                                    <span>2026-09-23</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                            <li>
+                                                <a href="./wzgb/xwzx/tzgg/202609/t20260922_90929468.html" title="省自然资源厅关于贵州省2026年第三批土地估价机构通过核验及变更备案名单的公告" target="_blank">
+                                                    <p>
+                                                        省自然资源厅关于贵州省2026年第三批土地估价机构通过核验及变更备案名单的公告
+                                                    </p>
+                                                    <span>2026-09-22</span>
+                                                </a>
+                                            </li>
+
+                                        
+                                    </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <ul class="gwy-list">
+                                <li>
+                                    <a href="http://www.gov.cn/zhengce/index.htm" target="_blank">
+                                        <div>
+                                            <i class="iconfont icon-wenjianjia1"></i>
+                                        </div>
+                                        <span>国务院文件</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.gov.cn/pushinfo/v150203/" target="_blank">
+                                        <div>
+                                            <i class="iconfont icon-wenben"></i>
+                                        </div>
+                                        <span>国务院信息</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.guizhou.gov.cn/zwgk/zcfg/szfwj/szfl/" target="_blank">
+                                        <div>
+                                            <i class="iconfont icon-wenjianjia"></i>
+                                        </div>
+                                        <span>省政府文件</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <!--横幅-->
+        
+        <!--横幅end-->
+
+ <!--监督举报-->
+            <div class="syhf1" style="margin: 20px 0 0;">
+               
+                        <a href="https://zrzy.guizhou.gov.cn/index_jdjb.html" target="_blank">
+
+                <img src="/material/common/images/jdjb-letter-bg.png" />
+                </a>
+            </div>
+        <!--监督举报-->
+
+            <div class="main-container fileSearch-box">
+                <div class="file-search">
+                    <h3 class="zcwj-tit">
+                        政策文件
+                    </h3>
+                    <div class="flie-ipt">
+                        <i class="iconfont icon-sousuo"></i>
+                        <input type="text" id="keywords" onkeydown="entersearch2()" value="请输入你要搜索的内容" onblur="if(this.value==''){this.value='请输入你要搜索的内容';}" onfocus="if(this.value=='请输入你要搜索的内容')this.value='';" v-model="keyWords" @keypress="search($event)" />
+                    </div>
+                    <button class="ordinary-btn" onclick="searchval2()" @click="search()" type="submit">搜索</button>
+                    <!--  <button class="senior-btn">高级搜索</button> -->
+                    <script>
+                        //回车键响应方法
+                        function entersearch2() {
+                            var event = window.event || arguments.callee.caller.arguments[0];
+                            if (event.keyCode == 13) {
+                                var str = document.getElementById("keywords").value;
+                                checks2(str); //搜索框点击提交的方法
+                            }
+                        }
+                        //检索跳转
+                        function searchval2() {
+                            var str = document.getElementById("keywords").value;
+                            checks2(str);
+                        };
+
+                        function checks2(t) {
+                            t = t.replace(/(^\s+)|(\s+$)/g, "");
+                            if (t == "" || t == "请输入你要搜索的内容") {
+                                layer.msg('请输入有效内容!');
+                                //alert('请输入有效内容');
+                                return false;
+                            }
+                            szMsg = "[#_%&'/",
+                                ";:=!^]";
+                            alertStr = "";
+                            for (i = 1; i < szMsg.length + 1; i++) {
+                                if (t.indexOf(szMsg.substring(i - 1, i)) > -1) {
+                                    alertStr = "请勿包含非法字符如[#_%&'/",
+                                        ";:=!^]";
+                                    layer.msg(alertStr);
+                                    return false;
+                                }
+                            }
+                            var keys = document.getElementById("keywords").value;
+                            location.href = '/so/search.shtml?tenantId=168&tenantIds=&configTenantId=&dataTypeId=313&searchWord=' + keys+'&sign=78e2f8a8-cfff-4f0f-a197-88b81435697f';
+                            return true;
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="main-container contBox1">
+                <div class="contBox1-layout">
+                    <div class="contBox1-left">
+                        <div class="list-tit">
+                            <ul class="list-tabs">
+                                <li class="active"><a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/">法律法规</a></li>
+                                <li><a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/">厅发文件</a></li>
+                                <li><a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/">政策解读</a></li>
+                            </ul>
+                            <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/" class="more">更多+</a>
+                            <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/" class="">更多+</a>
+                            <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/" class="">更多+</a>
+                        </div>
+                        <div class="list-cont">
+                            <ul class="news-list contBox1-list active">
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/202609/t20260929_90947191.html" title="省自然资源厅 省工业和信息化厅 省生态环境厅 省水利厅 省农业农村厅 省应急管理厅 省能源局 省林业局关于规范露天开采战略性矿产资源临时用地审批管理的通知（试行）" target="_blank">
+                                            <p>
+                                                省自然资源厅 省工业和信息化厅 省生态环境厅 省水利厅 省农业农村厅 省应急管理厅 省能源局 省林业局关于规范露天开采战略性矿产资源临时用地审批管理的通知（试行）
+                                            </p>
+                                            <span>2026-09-22</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/202609/t20260909_90853793.html" title="自然资源部关于做好建设项目压覆矿产资源管理工作的通知" target="_blank">
+                                            <p>
+                                                自然资源部关于做好建设项目压覆矿产资源管理工作的通知
+                                            </p>
+                                            <span>2026-07-07</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/202605/t20260511_90158713.html" title="中华人民共和国国家发展规划法" target="_blank">
+                                            <p>
+                                                中华人民共和国国家发展规划法
+                                            </p>
+                                            <span>2026-03-12</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/202605/t20260511_90158653.html" title="中华人民共和国生态环境法典" target="_blank">
+                                            <p>
+                                                中华人民共和国生态环境法典
+                                            </p>
+                                            <span>2026-03-12</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/202605/t20260511_90160811.html" title="自然资源部关于印发《城镇开发边界管理办法（试行）》的通知" target="_blank">
+                                            <p>
+                                                自然资源部关于印发《城镇开发边界管理办法（试行）》的通知
+                                            </p>
+                                            <span>2026-02-11</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcfg/202602/t20260226_89578825.html" title="中华人民共和国自然保护区条例" target="_blank">
+                                            <p>
+                                                中华人民共和国自然保护区条例
+                                            </p>
+                                            <span>2026-02-03</span>
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                            <ul class="news-list contBox1-list">
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/202609/t20260929_90950552.html" title="省自然资源厅关于做好单独选址项目先行用地管理的通知" target="_blank">
+                                            <p>
+                                                省自然资源厅关于做好单独选址项目先行用地管理的通知
+                                            </p>
+                                            <span>2026-09-24</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/202609/t20260903_90816599.html" title="省自然资源厅关于印发《贵州省自然资源 行政处罚裁量权基准实施办法》的通知" target="_blank">
+                                            <p>
+                                                省自然资源厅关于印发《贵州省自然资源 行政处罚裁量权基准实施办法》的通知
+                                            </p>
+                                            <span>2026-08-26</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/202607/t20260714_90620178.html" title="省自然资源厅关于规范能源、交通、水利等重大建设项目调整用地组卷报批工作的通知" target="_blank">
+                                            <p>
+                                                省自然资源厅关于规范能源、交通、水利等重大建设项目调整用地组卷报批工作的通知
+                                            </p>
+                                            <span>2026-07-09</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/202603/t20260320_89892136.html" title="贵州省遥感影像统筹管理办法" target="_blank">
+                                            <p>
+                                                贵州省遥感影像统筹管理办法
+                                            </p>
+                                            <span>2026-03-03</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/202602/t20260226_89578764.html" title="贵州省自然资源厅2025年法治政府建设工作情况和2026年工作打算的报告" target="_blank">
+                                            <p>
+                                                贵州省自然资源厅2025年法治政府建设工作情况和2026年工作打算的报告
+                                            </p>
+                                            <span>2026-02-26</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/fgxwj/202512/t20251229_89100260.html" title="省自然资源厅 省财政厅 省国资委关于 规范推进国有存量闲置土地盘活 处置的指导意见（试行）" target="_blank">
+                                            <p>
+                                                省自然资源厅 省财政厅 省国资委关于 规范推进国有存量闲置土地盘活 处置的指导意见（试行）
+                                            </p>
+                                            <span>2025-12-19</span>
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                            <ul class="news-list contBox1-list">
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/202609/t20260929_90950616.html" title="《省自然资源厅关于做好单独选址项目先行用地管理的通知》解读" target="_blank">
+                                            <p>
+                                                《省自然资源厅关于做好单独选址项目先行用地管理的通知》解读
+                                            </p>
+                                            <span>2026-09-29</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/202609/t20260929_90947124.html" title="《关于规范露天开采战略性矿产资源临时用地审批管理的通知（试行）》 的政策解读" target="_blank">
+                                            <p>
+                                                《关于规范露天开采战略性矿产资源临时用地审批管理的通知（试行）》 的政策解读
+                                            </p>
+                                            <span>2026-09-22</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/202609/t20260903_90816700.html" title="《贵州省自然资源行政处罚裁量权 基准实施办法》解读" target="_blank">
+                                            <p>
+                                                《贵州省自然资源行政处罚裁量权 基准实施办法》解读
+                                            </p>
+                                            <span>2026-08-26</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/202607/t20260714_90620231.html" title="《省自然资源厅关于规范能源、交通、水利等重大建设项目调整用地组卷报批工作的通知》解读" target="_blank">
+                                            <p>
+                                                《省自然资源厅关于规范能源、交通、水利等重大建设项目调整用地组卷报批工作的通知》解读
+                                            </p>
+                                            <span>2026-07-09</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/202609/t20260929_90947287.html" title="自然资源部相关司局负责人解读《自然资源部关于做好建设项目压覆矿产资源管理工作的通知》" target="_blank">
+                                            <p>
+                                                自然资源部相关司局负责人解读《自然资源部关于做好建设项目压覆矿产资源管理工作的通知》
+                                            </p>
+                                            <span>2026-07-07</span>
+                                        </a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/zcwj/zcjd/202603/t20260313_89657550.html" title="《贵州省遥感影像统筹管理办法》 政策解读" target="_blank">
+                                            <p>
+                                                《贵州省遥感影像统筹管理办法》 政策解读
+                                            </p>
+                                            <span>2026-03-03</span>
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="contBox1-right">
+                        <ul class="zfinfor-list">
+                            <li>
+                                <a href="./wzgb/zwgk/zfxxgk/zfxxgkzn/" target="_blank">
+                                    <i class="iconfont icon-zhinan"></i>
+                                    <span>政府信息公开指南</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./wzgb/zwgk/zfxxgk/zfxxgkzd/" target="_blank">
+                                    <i class="iconfont icon-zhidu"></i>
+                                    <span>政府信息公开制度</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./wzgb/zwgk/zfxxgk/fdzdgknr/" target="_blank">
+                                    <i class="iconfont icon-neirongguanli"></i>
+                                    <span>法定主动公开内容</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./wzgb/zwgk/zfxxgk/zfxxgknb/" target="_blank">
+                                    <i class="iconfont icon-nianbao"></i>
+                                    <span>政府信息公开年报</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./wzgb/zwgk/ysqgk/" target="_blank">
+                                    <i class="iconfont icon-yishenqing-"></i>
+                                    <span>依申请公开</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main-container contBox2">
+                <div class="list-tit">
+                    <ul class="list-tabs">
+                        <li class="active"><a href="./wzgb/zwgk/zdlyxxgk/">重点领域信息公开</a></li>
+                    </ul>
+                    <div class="swiper-pagination swiper2-pagin"></div>
+                </div>
+                <div class="zdlyInforOpen">
+                    <div class="swiper-container swiper2">
+                        <div class="swiper-wrapper">
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/qzqd/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/qzqd/images/P020220125331894542309.png" alt="" />
+                                        <span>权责清单</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/ghjh/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/ghjh/images/P020220125332086862250.png" alt="" />
+                                        <span>规划计划</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/tjsj/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/tjsj/images/P020220125332566554034.png" alt="" />
+                                        <span>统计数据</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/czzj/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/czzj/images/P020220125332753770520.png" alt="" />
+                                        <span>财政资金</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/jsydspxxgk/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/jsydspxxgk/images/P020260127580877848342.png" alt="" />
+                                        <span>建设用地审批信息公开</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/zrzy/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/zrzy/images/P020220125333186834095.png" alt="" />
+                                        <span>自然资源</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/gtkj/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/gtkj/images/P020220125333303624075.png" alt="" />
+                                        <span>国土空间</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/kyqgl/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/kyqgl/images/P020220125333538392978.png" alt="" />
+                                        <span>矿业权管理</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/dlxxgl/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/dlxxgl/images/P020220125333769340229.png" alt="" />
+                                        <span>地理信息管理</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/kczybhjd/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/kczybhjd/images/P020220321621574580905.png" alt="" />
+                                        <span>矿产资源保护监督</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/dzkcgl/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/dzkcgl/images/P020220125333664168271.png" alt="" />
+                                        <span>地质勘查管理</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/gdbhjdgl/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/gdbhjdgl/images/P020220125333871720370.png" alt="" />
+                                        <span>耕地保护监督管理</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/zfjc/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/zfjc/images/P020220125335391893334.png" alt="" />
+                                        <span>执法监察</span>
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="./wzgb/zwgk/zdlyxxgk/kjhz/">
+                                        <img src="./wzgb/zwgk/zdlyxxgk/kjhz/images/P020220125346235876487.png" alt="" />
+                                        <span>科技合作</span>
+                                    </a>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-container contBox3">
+                <div class="contBox3-layout">
+                    <div class="main-left">
+                        <!--常见问题知识库-->
+                        <div class="common-problem">
+                            <a href="http://zrzy.guizhou.gov.cn/wzgb/gzcy/cjwtzsk/index.html" target="_blank" class="problem">
+                                <h2>常见问题知识库</h2>
+                                <i class="iconfont icon-jinrujiantou"></i>
+                            </a>
+                            <ul class="base-list">
+                                <li>
+                                    <a href="http://zrzy.guizhou.gov.cn/wzgb/gzcy/cjwtzsk/index.html" target="_blank" >国土调查</a>
+                                </li>
+                                <li>
+                                    <a href="http://zrzy.guizhou.gov.cn/wzgb/gzcy/cjwtzsk/index.html"  target="_blank" >不动产登记</a>
+                                </li>
+                                <li>
+                                    <a href="http://zrzy.guizhou.gov.cn/wzgb/gzcy/cjwtzsk/index.html"  target="_blank" >矿产资源</a>
+                                </li>
+                                <li>
+                                    <a href="http://zrzy.guizhou.gov.cn/wzgb/gzcy/cjwtzsk/index.html"  target="_blank" >生态修复</a>
+                                </li>
+                                <li>
+                                    <a href="http://zrzy.guizhou.gov.cn/wzgb/gzcy/cjwtzsk/index.html"  target="_blank" >测绘地理信息</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--在线咨询-->
+                        <div class="online-cons">
+                            <a href="./wzgb/gzcy/zxzx/" class="onlineCons-tit">
+                            在线咨询
+                            </a>
+                            <button class="write-letters">
+                            <a href="./wzgb/gzcy/zxzx/wyxx/">我要写信</a>
+                        </button>
+                            <button class="query-btn">
+                            <a href="./wzgb/gzcy/zxzx/xjcx/" target="_blank">信件查询</a>
+                        </button>
+                        </div>
+                    </div>
+                    <div class="main-right interview">
+                        <div class="list-tit">
+                            <ul class="list-tabs">
+                                <li class="active"><a href="JavaScript:;">在线访谈</a></li>
+                            </ul>
+                            <a href="https://zrzy.guizhou.gov.cn/wzgb/gzcy/zxft/" class="more">更多+</a>
+                        </div>
+
+                        <div class="interBrief-layout" style="width: 100%">
+                            <div class="interBrief">
+                                <div class="brief-left">
+                                    <a href="">
+                                        <img src="" alt="" /><!--./images/brief-img.png-->
+                                    </a>
+                                </div>
+                                <div class="brief-right">
+                                    <h1 class="brief-title">
+                                        <a href="">
+
+                                        </a>
+                                    </h1>
+                                    <span class="brief-time"></span>
+                                    <span class="brief-guest"></span>
+                                </div>
+                            </div>
+                            <!--注文本字数需后台控制-->
+                            <div class="abstract">
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="main-container contBox3 contBox4">
+                <div class="contBox3-layout">
+                    <div class="main-left contBox4-left">
+                        <div class="list-tit sosu-tit">
+                            <ul class="list-tabs">
+                                <li class="active"><a href="./wzgb/gzcy/yjzj/">意见征集</a></li>
+                                <li><a href="./wzgb/gzcy/wsdc/">网上调查</a></li>
+                            </ul>
+                            <a href="./wzgb/gzcy/yjzj/" class="more">更多+</a>
+                            <a href="./wzgb/gzcy/wsdc/" class="">更多+</a>
+                        </div>
+                        <div class="inves-box">
+                            <ul class="inves-list active" id="myzj">
+
+
+                            </ul>
+                            <ul class="inves-list" id="gzcyzxdc">
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="main-right">
+                        <!--回应关切-->
+                        <div class="list-tit">
+                            <ul class="list-tabs">
+                                <li class="active"><a href="./wzgb/gzcy/hygq/">回应关切</a></li>
+                            </ul>
+                            <a href="./wzgb/gzcy/hygq/" class="more">更多+</a>
+                        </div>
+                        <ul class="news-list contBox1-list respond active">
+                            
+                                <li>
+                                    <a href="./wzgb/gzcy/hygq/202605/t20260521_90199276.html" title="村（居）委会需建设党群服务中心、健身活动广场、生态停车场、小游园等公共设施，应如何办理用地手续？" target="_blank">
+                                        <p>
+                                            村（居）委会需建设党群服务中心、健身活动广场、生态停车场、小游园等公共设施，应如何办理用地手续？
+                                        </p>
+                                        <span>2026-09-28</span>
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="./wzgb/gzcy/hygq/202605/t20260521_90199281.html" title="在乡村振兴工作中，村里、农业经营主体建设农村公益设施、乡村产业等项目，镇、村同意就可以开工了吗？" target="_blank">
+                                        <p>
+                                            在乡村振兴工作中，村里、农业经营主体建设农村公益设施、乡村产业等项目，镇、村同意就可以开工了吗？
+                                        </p>
+                                        <span>2026-09-14</span>
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="./wzgb/gzcy/hygq/202605/t20260521_90199280.html" title="农村产业项目在用地方面有什么要求？" target="_blank">
+                                        <p>
+                                            农村产业项目在用地方面有什么要求？
+                                        </p>
+                                        <span>2026-08-31</span>
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main-container contBox5">
+                <div class="main-left" style="display:inline;">
+                    <!--<ul class="mineral-list">
+                        <li>
+                            <a href="./wzgb/bsfw/xxcx/kqxxcx/">
+                                <div>
+                                    <span>矿权信息查询</span>
+                                    <i class="iconfont icon-sousuo"></i>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./wzgb/bsfw/xxcx/kyqdjcx/">
+                                <div>
+                                    <span>矿业权抵押备案及协助执行查询</span>
+                                    <i class="iconfont icon-sousuo"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>-->
+<a href="./wzgb/bsfw/xxcx/kqxxcx/" class="zwfw">
+                        <img src="/material/common/images/kqxxcx.png" alt="" />
+                    </a>
+<a href="https://zrzy.guizhou.gov.cn/wzgb/bsfw/bmlqztc/gzdzbwgyycg/" class="zwfw">
+                        <img src="/material/common/images/gzdzbwgyy-img.jpg" alt="" />
+                    </a>
+                </div>
+                <div class="main-right">
+                    <a href="https://zwfw.guizhou.gov.cn/eptemp.aspx?t=Znzw.APage.page.bmqjdpage&istest=1&ocode=-8293371971957928366&orgcode=35082&areacode=520000" class="zwfw">
+                        <img src="/material/common/images/zwfw.png" alt="" />
+                    </a>
+                    <a href="https://zrzy.guizhou.gov.cn/wzgb/bsfw/bmlqztc/gzqzbz/" class="zwfw">
+                        <img src="/material/common/images/gzqzbzxcx-img.jpg" alt="" />
+                    </a>
+                    
+                    <!--下载中心-->
+                    <!--<div class="list-tit loadCenter">
+                        <ul class="list-tabs">
+                            <li class="active"><a href="./wzgb/bsfw/xzzx/">下载中心</a></li>
+                        </ul>
+                        <a href="./wzgb/bsfw/xzzx/" class="more">更多+</a>
+                    </div>
+                    <ul class="news-list contBox1-list respond active">
+
+                        
+                            <li>
+                                <a href="./wzgb/bsfw/xzzx/202201/t20220128_72444595.html" title="贵州省建设用地报盘软件">
+                                    <p>
+                                        贵州省建设用地报盘软件
+                                    </p>
+                                    <span>2022-10-27</span>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./wzgb/bsfw/xzzx/202201/t20220128_72444594.html" title="采矿权申请登记书及申请书（格式）">
+                                    <p>
+                                        采矿权申请登记书及申请书（格式）
+                                    </p>
+                                    <span>2018-06-05</span>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="./wzgb/bsfw/xzzx/202201/t20220128_72444593.html" title="探矿权申请登记书及申请书（格式）">
+                                    <p>
+                                        探矿权申请登记书及申请书（格式）
+                                    </p>
+                                    <span>2018-06-05</span>
+                                </a>
+                            </li>
+                        
+                    </ul>-->
+                </div>
+            </div>
+            <div class="main-container contBox6">
+                <div class="contBox6-layout">
+                    <div class="moreColumn-tit">
+                        <a href="./wzgb/ztzl/">
+                            <i class="iconfont icon-jiantou"></i>
+                            <span>更多专栏</span>
+                        </a>
+                        <div class="swiper-pagination swiper3-pagin"></div>
+                    </div>
+                    <div class="swiper-container swiper3">
+                        <div class="swiper-wrapper">
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://www.guizhou.gov.cn/ztzl/2026nqzsbbzzfhfbwtxszj/">
+                                        <img src="./wzgb/ztzl/rdzt/202603/W020260302514547255991_ORIGIN.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://www.guizhou.gov.cn/zmhd/znwz/">
+                                        <img src="./wzgb/ztzl/rdzt/202503/W020250416392024133465.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/ztzl/rdzt/yhyshj/">
+                                        <img src="./wzgb/ztzl/rdzt/202404/W020240430350851863118_ORIGIN.jpg" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://www.gov.cn/zhengce/zczhjd/">
+                                        <img src="./wzgb/ztzl/rdzt/202307/W020230731648141352446_ORIGIN.jpg" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="http://58.42.9.62:7083/embed/look-mine-target">
+                                        <img src="./wzgb/ztzl/rdzt/202302/W020230207360877271929.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://www.gzszsyddt.cn/">
+                                        <img src="./wzgb/ztzl/rdzt/202211/W020221125629875497657.jpg" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://www.xqdtzg.cn/">
+                                        <img src="./wzgb/ztzl/rdzt/202211/W020221102366009585091.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="http://www.gov.cn/zhuanti/zswzjjylzzccs/index.htm">
+                                        <img src="./wzgb/ztzl/rdzt/202209/W020220928655375900296_ORIGIN.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/ztzl/rdzt/qgkyrkckcxxgs/index.html">
+                                        <img src="./wzgb/ztzl/rdzt/202202/W020220210537197483701.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="http://data.guizhou.gov.cn/#!/">
+                                        <img src="./wzgb/ztzl/rdzt/202202/W020220210536981689160.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/ztzl/rdzt/wwbdcdjtjy_1/index.html">
+                                        <img src="./wzgb/ztzl/rdzt/202202/W020220210536590380551.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/ztzl/rdzt/bwpfzl/index.html">
+                                        <img src="./wzgb/ztzl/rdzt/202202/W020220210513077710455.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/qtfdxx/hmzcmbk/index.html">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210513897826729.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://www.guizhou.zcygov.cn/">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210514154742477.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/djgz/ddjs/index.html">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210515052969451.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="http://www.guizhou.gov.cn/ztzl/ssgybzxdflsxgydtp/">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210515345046119.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="http://www.guizhou.gov.cn/ztzl/gzltjxxczhjsfltdczdts/">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210515880756645.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="http://www.guizhou.gov.cn/ztzl/sdnyxdh/">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210516187764783.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="http://www.guizhou.gov.cn/ztzl/lycyh/">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210516385420807.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                                <div class="swiper-slide">
+                                    <a href="https://dkjgfw.mnr.gov.cn/">
+                                        <img src="./wzgb/ztzl/rdzt/202201/W020220210518143674384.png" alt="" />
+                                    </a>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!--固定栏目-->
+        <div class="Fixed-Column">
+            <a href="JavaScript:;" class="weChart">
+                <i class="iconfont icon-weixin"></i>
+                <div class="">
+                    <img src="./images/wechart.png" alt="" />
+                </div>
+            </a>
+            <a href="https://weibo.com/u/3572852194" target="_blank" class="weiBo">
+                <i class="iconfont icon-weibo"></i>
+            </a>
+            <a href="JavaScript:;" class="returnTop anchor" navTo="header">
+                <i class="iconfont icon-fanhuidingbu"></i>
+            </a>
+        </div>
+        <!--固定栏目 end-->
+        <!--main end-->
+        <!--友情链接-->
+        <div id="friendlink" class="friendlink-wrap">
+            <div class="friendlink-layout">
+                <ul class="friendlink-list">
+                    <span>友情链接：</span>
+                    <li>
+                        <a href="https://www.gov.cn/">中国政府网<i class="iconfont icon-jiantou"></i></a>
+                    </li>
+                    <li>
+                        <a href="JavaScript:;">政府网站<i class="iconfont icon-jiantou"></i></a>
+                        <ul class="subfrielink-list">
+                            
+                                <li>
+                                    <a href="http://www.guizhou.gov.cn" target="_blank">
+                                        贵州省人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.guiyang.gov.cn/" target="_blank">
+                                        贵阳市人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.zunyi.gov.cn/" target="_blank">
+                                        遵义市人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.gzlps.gov.cn/" target="_blank">
+                                        六盘水市人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.anshun.gov.cn/" target="_blank">
+                                        安顺市人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.bijie.gov.cn/" target="_blank">
+                                        毕节市人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.trs.gov.cn/" target="_blank">
+                                        铜仁市人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.qdn.gov.cn/" target="_blank">
+                                        黔东南苗族侗族自治州人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.qiannan.gov.cn/" target="_blank">
+                                        黔南州人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.qxn.gov.cn/" target="_blank">
+                                        黔西南州人民政府
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.gaxq.gov.cn/" target="_blank">
+                                        贵安新区
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="JavaScript:;">全国自然资源系统<i class="iconfont icon-jiantou"></i></a>
+                        <ul class="subfrielink-list">
+                            
+                                <li>
+                                    <a href="http://www.mnr.gov.cn/" target="_blank">
+                                        自然资源部
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://ghzyj.sh.gov.cn" target="_blank">
+                                        上海市规划和自然资源局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://ghzrzyj.cq.gov.cn" target="_blank">
+                                        重庆市规划和自然资源局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzy.hebei.gov.cn/" target="_blank">
+                                        河北省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://dnr.henan.gov.cn/" target="_blank">
+                                        河南省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyt.ah.gov.cn/" target="_blank">
+                                        安徽省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyt.shaanxi.gov.cn/" target="_blank">
+                                        陕西省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://dnr.yn.gov.cn/" target="_blank">
+                                        云南省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzy.jiangsu.gov.cn/" target="_blank">
+                                        江苏省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyt.hubei.gov.cn/" target="_blank">
+                                        湖北省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyt.zj.gov.cn/" target="_blank">
+                                        浙江省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://dnr.sc.gov.cn" target="_blank">
+                                        四川省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://dnr.shandong.gov.cn/" target="_blank">
+                                        山东省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyt.hunan.gov.cn" target="_blank">
+                                        湖南省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://nr.gd.gov.cn/" target="_blank">
+                                        广东省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://dnr.gxzf.gov.cn/" target="_blank">
+                                        广西壮族自治区自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyt.fujian.gov.cn/" target="_blank">
+                                        福建省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzy.nmg.gov.cn/" target="_blank">
+                                        内蒙古自治区自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://bnr.jiangxi.gov.cn/" target="_blank">
+                                        江西省自然资源厅
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyt.nx.gov.cn/" target="_blank">
+                                        宁夏回族自治区自然资源厅
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="JavaScript:;">下属事业单位<i class="iconfont icon-jiantou"></i></a>
+                        <ul class="subfrielink-list">
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394428.html" target="_blank">
+                                        贵州省自然资源厅机关服务中心
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394419.html" target="_blank">
+                                        贵州省自然资源厅会计结算中心
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394418.html" target="_blank">
+                                        贵州省自然资源厅电子政务中心
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394415.html" target="_blank">
+                                        贵州省土地矿产资源储备局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394427.html" target="_blank">
+                                        贵州省国土资源勘测规划研究院
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394417.html" target="_blank">
+                                        贵州省自然资源技术信息中心
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394429.html" target="_blank">
+                                        贵州省土地开发整治中心
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394426.html" target="_blank">
+                                        贵州省不动产登记中心
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394416.html" target="_blank">
+                                        贵州省第一测绘院（贵州省北斗导航位置服务中心）
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394425.html" target="_blank">
+                                        贵州省第二测绘院
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394422.html" target="_blank">
+                                        贵州省第三测绘院（贵州省国土资源遥感监测中心）
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394420.html" target="_blank">
+                                        贵州省测绘资料档案馆（省地理信息中心、省自然资源卫星应用中心）
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394424.html" target="_blank">
+                                        贵州省地质博物馆
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394421.html" target="_blank">
+                                        贵州省测绘产品质量监督检验站
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/kgxx/zsjg/202201/t20220124_72394430.html" target="_blank">
+                                        贵州省油气勘查开发工程研究院
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="JavaScript:;">
+                        省内自然资源网站
+                        <i class="iconfont icon-jiantou"></i>
+                    </a>
+                        <ul class="subfrielink-list">
+                            
+                                <li>
+                                    <a href="http://zyghj.guiyang.gov.cn/" target="_blank">
+                                        贵阳市自然资源和规划局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyj.zunyi.gov.cn/" target="_blank">
+                                        遵义市自然资源局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyj.gzlps.gov.cn/" target="_blank">
+                                        六盘水市自然资源局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.bijie.gov.cn/bm/bjszrzyhghj/index.shtml" target="_blank">
+                                        毕节市自然资源和规划局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzyj.anshun.gov.cn/" target="_blank">
+                                        安顺市自然资源局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzy.trs.gov.cn/" target="_blank">
+                                        铜仁市自然资源局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://www.qxn.gov.cn/zwgk/zfjg/zzrzyj_5135135/bmxxgkml_5135138/" target="_blank">
+                                        黔西南州自然资源局
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="http://zrzy.qdn.gov.cn/" target="_blank">
+                                        黔东南自然资源局
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--友情链接 end-->
+        <!--footer-->
+        <style>
+        .footer-layout{
+            height: auto;
+            padding: 10px 0;
+            flex-direction: column;
+        }
+        .footer-right{
+            margin-top: 20px;
+        }
+        .company-layout{
+            text-align: center;
+        }
+        .copyright{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+<!--固定栏目-->
+        <div class="Fixed-Column">
+            <a href="JavaScript:;" class="weChart">
+                <i class="iconfont icon-weixin"></i>
+                <div class="">
+                    <img src="https://zrzy.guizhou.gov.cn/material/common/images/wechart.png" alt="" />
+                </div>
+            </a>
+            <a href="https://weibo.com/u/3572852194" target="_blank" class="weiBo">
+                <i class="iconfont icon-weibo"></i>
+            </a>
+            <a href="JavaScript:;" class="returnTop anchor" navTo="header">
+                <i class="iconfont icon-fanhuidingbu"></i>
+            </a>
+        </div>
+        <!--固定栏目 end-->
+<footer id="footer" class="footer-wrap">
+    <div class="footer-layout">
+        <div class="footer-left" style="display: flex;
+    flex-direction: column;
+    align-items: center;">
+            <ul class="footer-link">
+                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/fzlm/wzbz/" ignoreapd="1">网站帮助</a></li>
+                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/fzlm/wzdt/" ignoreapd="1">网站地图</a></li>
+                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/fzlm/gywm/" ignoreapd="1">关于我们</a></li>
+                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/fzlm/lxwm/" ignoreapd="1">联系方式</a></li>
+                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/fzlm/wzsm/" ignoreapd="1">网站声明</a></li>
+                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/fzlm/yssm/" ignoreapd="1">隐私声明</a></li>
+                <li><a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/zfxxgk/fdzdgknr/qtfdxx/wzgznb/" ignoreapd="1">网站年报</a></li>
+            </ul>
+            <div class="copyright">
+                <span>主办：贵州省自然资源厅</span>
+                <span>网站由贵州省自然资源技术信息中心负责维护与管理</span>
+                <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">
+                  黔ICP备19000647号
+                </a>
+&nbsp; &nbsp; 
+                <span>政府网站标识码：5200000041</span>
+                 
+                <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=52010302001615" class="record" target="_blank">
+                    <img src="https://zrzy.guizhou.gov.cn/material/common/images/ga.png" alt="" /> 贵公网安备 52010302001615
+                </a>
+            </div>
+            <div class="keep-inform" style="display:none;">
+                <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">
+                  黔ICP备19000647号
+                </a>
+                <span>政府网站标识码：5200000041</span>
+                <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=52010302001615" class="record" target="_blank">
+                    <img src="https://zrzy.guizhou.gov.cn/material/common/images/ga.png" alt="" /> 贵公网安备 52010302001615
+                </a>
+            </div>
+        </div>
+        <div class="footer-right">
+            <a href="http://bszs.conac.cn/sitename?method=show&id=043FC55A2DD54B98E053012819ACED1E" target="_blank">
+                <img src="https://zrzy.guizhou.gov.cn/material/common/images/dzjg.png" alt="" />
+            </a>
+            <a href="https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=5200000041&url=http%3A%2F%2Fzrzy.guizhou.gov.cn%2Findex.html" target="_blank">
+                <img src="https://zrzy.guizhou.gov.cn/material/common/images/wzzc.png" alt="" />
+            </a>
+        </div>
+    </div>
+    <div class="company-address">
+        <div class="company-layout" >
+            <span>贵州省自然资源厅对外业务咨询服务电话：0851-86987085</span> &nbsp;
+            <span>地址：贵阳市中华北路242号省政府5号楼</span>&nbsp;
+            <!--<span>技术支持：<a href="https://www.zzdsj.com.cn/" style="color:#fff;">智政科技</a></span>-->
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+$('.anchor').click(function () {
+    var navto = $(this).attr('navto');
+    if (navto != "#") {
+        $('html,body').animate({
+            'scroll-top': 0
+        }, 500);
+    }
+});
+
+$(function(){
+//外链跳转提示
+	for (var i = 0; i < document.links.length; i++) {
+		var url = document.links[i].href.toLowerCase();
+		if (url.indexOf("http://localhost") == -1 && url.indexOf("http://zrzy.guizhou.gov.cn/wzgb/index.html") == -1&& url.indexOf("zrzy.guizhou.gov.cn") == -1 && url.indexOf("javascript:") == -1 && url != "#" && !document.links[i].onclick) {
+			document.links[i].onclick = function () {
+				return confirm("您访问的链接即将离开“贵州省自然资源厅，是否继续？");
+			};
+		}
+	}
+});
+</script>
+<script id="_trs_ta_js" src="//ta.trs.cn/c/js/ta.js?mpid=3588" async="async" defer="defer"></script>
+<!--获取登录用户信息和用户足迹-->
+<script src="/material/common/js/sm2.js"></script>
+<script>
+        var useName;
+        function getCookie(name) {
+            var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+            if (arr = document.cookie.match(reg)) return unescape(arr[2]);
+            else return null;
+        }
+        function setCookie(objName, objValue) {
+            var str = objName + "=" + escape(objValue);
+            str += "; path=/;";
+            document.cookie = str;
+        }
+        var $href = window.location.href.replace(/\&/g,"?");
+        var SSOSign,isLogin=false;
+        var SSOKye = $.grep(document.location.href.split('?'), function( a ) {
+            return a!='undefined'&&a.indexOf("=") == -1;
+        });
+        if(SSOKye[1]&&SSOKye[1]!=''){
+            setCookie('SSOSign', SSOKye[1]);
+        }
+        SSOSign = getCookie('SSOSign');
+        var ta_user = getCookie('_trs_user');
+
+        function httpRequest(method, url, params, callback) {
+            $.ajax({
+                type: method,
+                url: url,
+                data: params || {},
+                dataType: "json",
+                traditional: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                headers: {'SSOSign': SSOSign},
+                success: function (data) {
+                    if (data.code === '200') {
+                        callback(data);
+                    } else {
+                    }
+                },
+                error: function (err) {
+                    console.info(err);
+                    if (err.responseJSON) {
+                        console.info(err.responseJSON.message);
+                    } else {
+                        //alert('请求错误');
+                    }
+                }
+            });
+        }
+        var userInfo = false;
+        httpRequest('get','/fsp-web/fsp/login/getUserSecret.do?',{SSOSign:SSOSign},function(data){
+            if(SSOSign!="undefined") {
+                userInfo = data.datas;
+            secretKey=data.summary_info.secretKey 
+            keys=getKey(secretKey)   
+            data=sm2.doDecrypt(userInfo,keys) 
+            //  将获解密后用户信息进行填充
+            userInfo = JSON.parse(data);
+                useName = userInfo.LOGIN_NAME;
+                if(ta_user==""||ta_user==null||ta_user=="undefined"){
+                    setTaCookie(useName);
+                } //如果cookie没有该值，则设置该属性
+            $('.perCenter').attr('href','//www.guizhou.gov.cn/personalhomepage/#/homePageGR');
+            $('.perCenter').attr('target',"_blank");
+            $('.perCenter span').html('欢迎&nbsp;' + userInfo.USER_NAME);
+            $('.perCenter').removeAttr('onclick');
+            }
+        })
+        if(SSOSign =="undefined"|| SSOSign == null){
+            setTaCookie("");
+        }
+        function setTaCookie(objValue) {
+            var str = "_trs_user" + "=" + encodeURIComponent(objValue);
+            str += "; path=/;";
+            document.cookie = str;
+        }
+// 获取解密私钥
+    function getKey(key){
+        var result = ""
+        $.ajax({
+            type: "POST",
+            url: "/fsp-web/fsp/login/getSecretKey",
+            headers: {'SSOSign': SSOSign},
+            //dataType: "json",
+            async: false,
+            traditional: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            data:{
+                'SSOSign':SSOSign,
+                'secretKey':key
+            },
+            success: function (m) {
+                m=JSON.parse(m)
+                result = m.datas.secretvalue
+            },
+            error: function (e){
+                console(e)
+            }
+        })
+        return result
+}
+    function zwfwLogin() {
+        SSOSign = getCookie('SSOSign');
+        if (SSOSign == "" || SSOSign == null || SSOSign == "undefined"||!SSOSign.isUserLogin) {
+            window.location.href="//smrz.zwfw.guizhou.gov.cn/sso/login?utype=0&redirect=istrue&client_id=MBFSQUBNF&goto=" +$href;
+        }
+    }
+</script>
+</footer>
+        <!--footer end-->
+   <!--     
+        <div class="pop-up">
+            <div class="pop-up-title">
+                <h2 style="font-size: 20px;">关于严厉打击违法采矿行为的通告</h2>
+                <p class="close-btn"><img src="./images/icon-close.png" alt="icon-close.png" title="icon-close.png" /></p>
+            </div>
+            <div class="pop-up-content">
+                <article>
+                 
+                    <p>
+                      为严厉打击非法违法采矿行为，维护良好的矿产资源开发秩序，特此通告如下：</p>
+<p>一、矿产资源属于国家所有，严禁任何单位或个人以任何形式非法违法盗采矿产资源。</p>
+<p>二、自本公告发布之日起，任何单位或个人必须立即停止无证开采、以探代采、不按采矿许可证上载明的矿种、“洗洞”“洗坡”盗采金矿、超出批准范围等非法违法开采矿产资源行为。</p>
+<p>三、2022年4月30日前，实施或参与非法违法采矿行为的单位或个人，主动向当地政府或其它部门报告的，从宽处理......</p>
+                
+                    <p><a href="https://zrzy.guizhou.gov.cn/wzgb/xwzx/tzgg/202204/t20220413_73436691.html" style="color: red;">查看更多</a></p>
+                   
+                </article>
+            </div>
+        </div>
+  -->
+    </div>
+    <!-- 移动端导航 -->
+    <div class="column js-canvi-navbar--right canvi-navbar">
+    <span class="nav-close" onclick="canvi.close()">
+            <i class="iconfont icon-guanbi"></i>
+        </span>
+    <ul class="wap-nav-ul">
+        <li class="subnav-item"><a href="http://zrzy.guizhou.gov.cn/">首页</a></li>
+        <li class="subnav-item"><a href="https://zrzy.guizhou.gov.cn/wzgb/xwzx/">新闻中心</a></li>
+        <li class="subnav-item"><a href="https://zrzy.guizhou.gov.cn/wzgb/zwgk/">政务公开</a></li>
+        <li class="subnav-item"><a href="https://zrzy.guizhou.gov.cn/wzgb/bsfw/">办事服务</a></li>
+        <li class="subnav-item"><a href="">测绘地理信息</a></li>
+    </ul>
+</div>
+    <!-- 移动端导航 end -->
+    <script type="text/javascript" src="/material/common/js/canvi.js"></script>
+    <script type="text/javascript" src="/material/common/js/swiper.min.js"></script>
+    <script type="text/javascript" src="/material/common/js/public.js"></script>
+    <script type="text/javascript" src="/material/common/js/index.js"></script>
+  <script type="text/javascript" src="/material/common/js/index.js"></script>
+ 
+</script> 
+    <script>
+        // 弹窗 
+        $(".close-btn").click(function() {
+                $(this).parent().parent(".pop-up").hide();
+            })
+  
+            // 弹窗 end
+    
+    </script>
+
+    <script>
+        $.ajax({
+            url: '/IGI/open/openInterview/list',
+            data: {
+                siteId: 502056,
+                pageIndex: 1,
+                pageSize: 1,
+                type: -1
+            },
+            async: true,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                var docList = data.datas;
+                var _htmldc = "";
+                console.log(docList);
+
+
+
+                if (docList.data) {
+                    var title = docList.data[0].title;
+                    if (title.length > 28) {
+                        title = title.substring(0, 28) + "...";
+                    }
+                    var comment = docList.data[0].comment;
+                    var publishUrl = docList.data[0].publishUrl;
+                    comment = comment.replace(/<[^>]+>/g, "").replace(/&nbsp;/ig, "");
+                    comment = comment.substring(0, 200) + "..."; //截取200个字符
+                    if (docList.data[0].startTime == null) {
+                        $(".brief-time").text(getMyDate(parseInt(docList.data[0].endTime)))
+                    } else {
+                        $(".brief-time").text(getMyDate(parseInt(docList.data[0].startTime)))
+                    }
+                    if (docList.data[0].attachList.length > 0) {
+                        $(".brief-left").html('<a href="' + docList.data[0].publishUrl + '"><img src="' + docList.data[0].attachList[0].filePath + '" /></a>');
+                    }
+                    $(".brief-title").html('<a href="' + docList.data[0].publishUrl + '">' + title + '</a>')
+                    $(".brief-guest").text("嘉宾：" + docList.data[0].guests)
+                    $(".abstract").html(docList.data[0].comment);
+                }
+
+
+
+            }
+        })
+
+
+        //民意征集
+        $.ajax({
+            url: '/IGI/opinion/web/list',
+            data: {
+                siteId: 502056,
+                pageIndex: 1,
+                pageSize: 3,
+                orderby: "endTime_desc"
+            },
+            async: true,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                var docListzj = data.datas;
+                var _htmlzj = "";
+                var nowtime = getMyDate(parseInt(Date.now()));
+                var qsrc = "/sc_n_detail_yyzj.html?id=";
+                $.each(docListzj.data, function(i, v) {
+                    var title = v.theme;
+                    var etime = v.endTime != null ? getMyDate(parseInt(v.endTime)) : "";
+                    var stime = v.beginTime != null ? getMyDate(parseInt(v.beginTime)) : "";
+                    if (title.length > 32) {
+                        title = title.substring(0, 32) + "...";
+                    }
+                    if (v.endTime == null || v.endTime == "null") {
+                        if (v.exLink != null && v.exLink != "null") {
+                            _htmlzj += '<li>';
+                            _htmlzj += '<a href="' + v.exLink + '" target="_blank">';
+                            _htmlzj += '<p>' + title + '</p>';
+                            _htmlzj += '<span>截止时间：' + etime + '</span>';
+                            _htmlzj += '<button class="haveHand">征集中</button>';
+                            _htmlzj += '</a>';
+                            _htmlzj += '</li>';
+                        } else {
+                            _htmlzj += '<li>';
+                            _htmlzj += '<a href="' + v.publishUrl + '" target="_blank">';
+                            _htmlzj += '<p>' + title + '</p>';
+                            _htmlzj += '<span>截止时间：' + etime + '</span>';
+                            _htmlzj += '<button class="haveHand">征集中</button>';
+                            _htmlzj += '</a>';
+                            _htmlzj += '</li>';
+                        }
+                    } else {
+                        if (v.exLink != null && v.exLink != "null") {
+                            if (nowtime < etime) {
+                                _htmlzj += '<li>';
+                                _htmlzj += '<a href="' + v.exLink + '" target="_blank">';
+                                _htmlzj += '<p>' + title + '</p>';
+                                _htmlzj += '<span>截止时间：' + etime + '</span>';
+                                _htmlzj += '<button class="haveHand">征集中</button>';
+                                _htmlzj += '</a>';
+                                _htmlzj += '</li>';
+                            } else {
+                                _htmlzj += '<li>';
+                                _htmlzj += '<a href="' + v.exLink+ '" target="_blank">';
+                                _htmlzj += '<p>' + title + '</p>';
+                                _htmlzj += '<span>截止时间：' + etime + '</span>';
+                                _htmlzj += '<button class="">已结束</button>';
+                                _htmlzj += '</a>';
+                                _htmlzj += '</li>';
+                            }
+                        } else {
+                            if (nowtime <= etime) {
+                                _htmlzj += '<li>';
+                                _htmlzj += '<a href="' + v.publishUrl + '" target="_blank">';
+                                _htmlzj += '<p>' + title + '</p>';
+                                _htmlzj += '<span>截止时间：' + etime + '</span>';
+                                _htmlzj += '<button class="haveHand">征集中</button>';
+                                _htmlzj += '</a>';
+                                _htmlzj += '</li>';
+                            } else {
+                                _htmlzj += '<li>';
+                                _htmlzj += '<a href="' + v.publishUrl + '" target="_blank">';
+                                _htmlzj += '<p>' + title + '</p>';
+                                _htmlzj += '<span>截止时间：' + etime + '</span>';
+                                _htmlzj += '<button class="">已结束</button>';
+                                _htmlzj += '</a>';
+                                _htmlzj += '</li>';
+                            }
+                        }
+                    }
+
+                })
+                $("#myzj").html(_htmlzj);
+            }
+        });
+
+        //网上调查
+        $.ajax({
+            url: '/IGI/open/survey/list',
+            data: {
+                siteId: 502056,
+                pageIndex: 1,
+                pageSize: 3,
+                orderBy: "startTime_desc"
+            },
+            async: true,
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                var docListdc = data.datas;
+                var _htmldc = "";
+                var nowtime = getMyDate(parseInt(Date.now()));
+                var qsrc = "/detail_wsdc.html?id="; //问卷调查详情页
+                var resuleUrl = "/result_wsdc.html?id="; //问卷调查结束页
+                $.each(docListdc.data, function(i, v) {
+                    var etime = v.endTime != null ? getMyDate(parseInt(v.endTime)) : "";
+                    var stime = v.startTime != null ? getMyDate(parseInt(v.startTime)) : "";
+                    var title = v.title;
+                    if (title.length > 32) {
+                        title = title.substring(0, 32) + "...";
+                    }
+                    if (v.endTime == null || v.endTime == "null") {
+                        if (v.exLink != null && v.exLink != "null") {
+                            _htmldc += '<li>';
+                            _htmldc += '<a href="' + v.exLink + '" target="_blank">';
+                            _htmldc += '<p>' + title + '</p>';
+                            _htmldc += '<span>截止时间：' + etime + '</span>';
+                            _htmldc += '<button class="haveHand">调查中</button>';
+                            _htmldc += '</a>';
+                            _htmldc += '</li>';
+                        } else {
+                            _htmldc += '<li>';
+                            _htmldc += '<a href="' + v.publishUrl + '" target="_blank">';
+                            _htmldc += '<p>' + title + '</p>';
+                            _htmldc += '<span>截止时间：' + etime + '</span>';
+                            _htmldc += '<button class="haveHand">调查中</button>';
+                            _htmldc += '</a>';
+                            _htmldc += '</li>';
+                        }
+                    } else {
+                        if (v.exLink != null && v.exLink != "null") {
+                            if (nowtime < etime) {
+                                _htmldc += '<li>';
+                                _htmldc += '<a href="' + v.exLink + '" target="_blank">';
+                                _htmldc += '<p>' + title + '</p>';
+                                _htmldc += '<span>截止时间：' + etime + '</span>';
+                                _htmldc += '<button class="haveHand">调查中</button>';
+                                _htmldc += '</a>';
+                                _htmldc += '</li>';
+                            } else {
+                                _htmldc += '<li>';
+                                _htmldc += '<a href="' + v.exLink + '" target="_blank">';
+                                _htmldc += '<p>' + title + '</p>';
+                                _htmldc += '<span>截止时间：' + etime + '</span>';
+                                _htmldc += '<button class="">已结束</button>';
+                                _htmldc += '</a>';
+                                _htmldc += '</li>';
+                            }
+                        } else {
+                            if (nowtime <= etime) {
+                                _htmldc += '<li>';
+                                _htmldc += '<a href="' + v.publishUrl + '" target="_blank">';
+                                _htmldc += '<p>' + title + '</p>';
+                                _htmldc += '<span>截止时间：' + etime + '</span>';
+                                _htmldc += '<button class="haveHand">调查中</button>';
+                                _htmldc += '</a>';
+                                _htmldc += '</li>';
+                            } else {
+                                _htmldc += '<li>';
+                                _htmldc += '<a href="' + v.publishUrl + '" target="_blank">';
+                                _htmldc += '<p>' + title + '</p>';
+                                _htmldc += '<span>截止时间：' + etime + '</span>';
+                                _htmldc += '<button class="">已结束</button>';
+                                _htmldc += '</a>';
+                                _htmldc += '</li>';
+                            }
+                        }
+                    }
+                })
+                $("#gzcyzxdc").html(_htmldc);
+            }
+        })
+
+
+
+
+
+        function times(date) {
+            var date = new Date(date); //如果date为10位不需要乘1000
+            var Y = date.getFullYear() + '年';
+            var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+            var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+            var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+            var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+            var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+            return M + "-" + D;
+        }
+
+        function getMyDate(timestamp) {
+            var date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            Y = date.getFullYear() + '-';
+            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            D = getzf(date.getDate()) + ' ';
+            h = getzf(date.getHours()) + ':';
+            m = getzf(date.getMinutes()) + ':';
+            s = getzf(date.getSeconds());
+            return Y + M + D;
+        }
+
+        function getzf(num) {
+            if (parseInt(num) < 10) {
+                num = '0' + num;
+            }
+            return num;
+        }
+    </script>
+</body>
+
+</html>

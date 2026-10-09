@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>中国电影数据信息网</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="baidu-site-verification" content="code-I1aPNKZDEN" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="stylesheet" href="https://www.zgdypw.cn/css/elementui.css">
+  <script>
+    if (!!window.ActiveXObject || "ActiveXObject" in window){
+      var oHead = document.getElementsByTagName('head')[0]; // 在head标签中创建创建script
+      var oScript = document.createElement("script");
+      oScript.type = "text/javascript";
+      oScript.src = "https://www.zgdypw.cn/css/fonts/polyfill.min.js";
+      oHead.appendChild(oScript);
+    }
+  </script>
+  <script src="https://www.zgdypw.cn/tools/frame.js"></script>
+  <!--[if IE 9]>
+  <script>
+      (function () {
+          var lastTime = 0;
+          var vendors = ['ms', 'moz', 'webkit', 'o'];
+          for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+              window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+              window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||
+                  window[vendors[x] + 'CancelRequestAnimationFrame'];
+          }
+
+          if (!window.requestAnimationFrame) {
+              window.requestAnimationFrame = function (callback, element) {
+                  var currTime = new Date().getTime();
+                  var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                  var id = window.setTimeout(function () { callback(currTime + timeToCall); },
+                      timeToCall);
+                  lastTime = currTime + timeToCall;
+                  return id;
+              };
+          }
+
+          if (!window.cancelAnimationFrame) {
+              window.cancelAnimationFrame = function (id) {
+                  clearTimeout(id);
+              };
+          }
+      }());
+  </script>
+  <![endif]-->
+  <style>
+    /*公共CSS*/
+    html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0}
+    html,body,form,fieldset,p,div,h1,h2,h3,h4,h5,h6{-webkit-text-size-adjust:none;}
+    article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;clear:both}
+    body{font-family:'Microsoft YaHei',arial,helvetica,sans-serif;-webkit-text-size-adjust:none;color:#000; background:#fff;-webkit-text-size-adjust:none;min-width:320px;font-size:12px;width:100%;}
+    h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
+    form{display:inline}
+    textarea{resize:none}
+    table{border-collapse:collapse;border-spacing:0}
+    ul,ol{list-style:none}
+    input,select,button{font-family:'Microsoft YaHei',arial,helvetica,sans-serif;font-size:100%;vertical-align:middle;outline:0}
+    button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;-moz-appearance:button}
+    input:focus:-moz-placeholder,input:focus::-webkit-input-placeholder{color:transparent}
+    button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+    a{text-decoration:none;color:#111}
+    a:hover{text-decoration:none}
+    img{vertical-align:middle;font-size:0;border:0;-ms-interpolation-mode:bicubic}
+    .fl{float:left}
+    .fr{float:right}
+    .hide{display:none!important}
+    .show{display:block!important}
+    .ellipsis{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+    .break{word-break:break-all;word-wrap:break-word}
+    .clearfix:after{content:'\0020';display:block;height:0;clear:both}
+    .clearfix{*zoom:1}
+    .blank{height:10px}
+
+    /* Slider */.slick-slider {position:relative;display:block;box-sizing:border-box;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-khtml-user-select:none;-ms-touch-action:pan-y;touch-action:pan-y;-webkit-tap-highlight-color:transparent;}
+    .slick-list {position:relative;display:block;overflow:hidden;margin:0;padding:0;}
+    .slick-list:focus {outline:none;}
+    .slick-list.dragging {cursor:pointer;cursor:hand;}
+    .slick-slider .slick-track,.slick-slider .slick-list {-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0);}
+    .slick-track {position:relative;top:0;left:0;display:block;margin-left:auto;margin-right:auto;}
+    .slick-track:before,.slick-track:after {display:table;content:'';}
+    .slick-track:after {clear:both;}
+    .slick-loading .slick-track {visibility:hidden;}
+    .slick-slide {display:none;float:left;height:100%;min-height:1px;}
+    [dir='rtl'] .slick-slide {float:right;}
+    .slick-slide img {display:block;}
+    .slick-slide.slick-loading img {display:none;}
+    .slick-slide.dragging img {pointer-events:none;}
+    .slick-initialized .slick-slide {display:block;}
+    .slick-loading .slick-slide {visibility:hidden;}
+    .slick-vertical .slick-slide {display:block;height:auto;border:1px solid transparent;}
+    .slick-arrow.slick-hidden {display:none;}
+    /* Slider */.slick-loading .slick-list {background:#fff;}
+    /* Arrows */.slick-prev,.slick-next {font-size:0;line-height:0;position:absolute;bottom:7px;display:block;background: #131316; border: 1px solid #aeaeae;width:22px;z-index:999;height:22px;padding:0;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%);cursor:pointer;color:transparent;}
+    /* .slick-prev:hover,.slick-prev:focus,.slick-next:hover,.slick-next:focus {color:transparent;outline:none;background:transparent;} */
+    .slick-prev:hover:before,.slick-prev:focus:before,.slick-next:hover:before,.slick-next:focus:before {opacity:1;}
+    .slick-prev.slick-disabled:before,.slick-next.slick-disabled:before {opacity:.25;}
+    .slick-prev:before,.slick-next:before {font-family:'slick';font-size:20px;line-height:13px;opacity:.75;color:white;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    .slick-prev {left:22px;}
+    [dir='rtl'] .slick-prev {right:-25px;left:auto;}
+    .slick-prev:before {content:'<';}
+    [dir='rtl'] .slick-prev:before {content:'<';}
+    .slick-next {right:22px;}
+    [dir='rtl'] .slick-next {right:auto;left:-25px;}
+    .slick-next:before {content:'>';}
+    [dir='rtl'] .slick-next:before {content:'>';}
+    /* Dots */.slick-dotted.slick-slider {margin-bottom:30px;}
+    .slick-dots {position:absolute;bottom:-25px;display:block;width:100%;padding:0;margin:0;list-style:none;text-align:center;}
+    .slick-dots li {position:relative;display:inline-block;width:20px;height:20px;margin:0 5px;padding:0;cursor:pointer;}
+    .slick-dots li button {font-size:0;line-height:0;display:block;width:20px;height:20px;padding:4px;cursor:pointer;color:transparent;border:0;outline:none;background:transparent;}
+    .slick-dots li button:before {font-family:'slick';font-size:6px;line-height:20px;position:absolute;top:0;left:0;width:20px;height:20px;content:'?';text-align:center;opacity:.25;color:black;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    .slick-dots li.slick-active button:before {opacity:.75;color:black;}
+    .slick-dots li button:hover,.slick-dots li button:focus {outline:none;}
+    .slick-dots li button:hover:before,.slick-dots li button:focus:before {opacity:1;}
+    .slick-slide img { width: 100%;}
+    .slick-prev:before,.slick-next:before {color: #aeaeae; }
+    .slick-slide {transition: all ease-in-out .3s; opacity: .2;}
+    .slick-active {opacity: .5;}
+    .slick-current {opacity: 1;}
+
+    .con {width:1200px;margin: 0 auto;}
+    .conmt {width:1200px;margin: 20px auto 0 auto; }
+    .conmth {width:585px;}
+
+    /*banner*/
+    .banner{height: 95px; background-repeat:repeat; background-color:#235dad; }
+    .search{width: 240px; margin-top: 20px; position: relative;}
+    .search input { width:calc(100% - 40px); font-size: 15px; padding-right: 40px; display: block; height:40px; border: 1px solid #bacde8; border-radius: 22px;; background:transparent; text-indent: 16px; color: #7293cd; }
+    .icon-search{ position: absolute; right:18px;top:12px; width: 12px;height: 12px;border-radius: 100%;border:2px solid currentcolor; color: #fff; cursor: pointer;}
+    .icon-search:after{content: "";-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);transform: rotate(45deg);width:8px;height: 2px;position: absolute;top:13px;left:11px;background-color: currentcolor;}
+
+    /*nav*/
+    .nav{background-color: #f8f8f8; height:75px; color: #aaa;}
+    .nav a{color: #383838;}
+    .nav span a{color: #285dad !important; }
+    .hbg_icon {width: 40px;height: 40px;display: flex; z-index: 100000; flex-direction: column;justify-content: center;align-items: center;cursor: pointer;display: none; top: 21px; right: 4px; position: absolute;}
+    .showfix  { display: block !important; position: fixed; }
+    .hbg_icon i {display: block;width: 30px;height: 3px;border-radius: 4px;background: #bacde8;margin: 7px 0;transition: all 0.3s;transform-origin: right center;}
+    .hbg_icon.showfix i {background: #999;}
+    .hbg_icon.showfix i:nth-child(2) {opacity: 0;}
+    .hbg_icon.showfix i:nth-child(1) {transform: rotate(-45deg) translateY(-1px);}
+    .hbg_icon.showfix i:nth-child(3) {transform: rotate(45deg) translateY(1px);}
+    .nav_list li { display: inline-block; line-height: 20px; font-size: 20px; border-left: 1px solid #dfdfdf; height: 16px; padding: 0px 40px;  margin-top: 30px; cursor: pointer; position: relative; }
+    .nav_list a:first-child li { padding: 0 45px 0 0;  border: none !important; }
+    .nav_list li:nth-child(8) { padding: 0 0px 0 40px; }
+    .nav_list li>a {transition: all 0.3s;}
+    .nav_list li .sub_nav {position: absolute;width: 100px; left: 29px; bottom:auto; z-index: 120; background: #f8f8f8; font-size: 14px;}
+    .nav_list li .sub_nav span,
+    .nav_list li .sub_nav dt {display: none;}
+    .nav_list li dl {width: 100%; flex-direction: row;justify-content: center;align-items: center;margin:0 ;}
+    .nav_list li dl dd a {font-size: 18px;line-height: 1em;color: #000;width: 100%;display: block;padding: 10px 0px;margin: 1em 0;transition: all 0.3s;text-align: center;border: none !important;}
+    /* 焦点图 */
+    .focus { width:758px; overflow:hidden; position: relative; height:400px; }
+    .focus .text{ height:60px;  position:absolute; bottom:3px; font-size: 14px; width:758px; background-color:rgba(0,0,0,0.6);text-align:center; line-height:40px; color:#fff; }
+    .focus .text a{ color:#eaeaea; white-space: nowrap;  text-overflow: ellipsis;overflow: hidden; display: block; padding: 0 50px;height:35px;}
+    .slick-slide { position: relative; }
+    .focus .slick-dots { bottom: 7px; left:50%; width: 240px; margin-left: -120px; }
+    .slick-dots li { width:10px; height:10px; margin: 2px 5px; }
+    .focus .slick-dots li button {width:10px; height:10px; border-radius: 100%; background: #9f9f9f;}
+    .focus .slick-dots li.slick-active button{background: #ff141f !important;}
+    .slick-active { opacity: 1; }
+    .slick-dots li button:before {content: unset !important;}
+    .slick-dotted.slick-slider { margin-bottom: unset !important; }
+
+    .login{ width:408px; background-color: #fafafa;height:400px; }
+    .login ul li {background-color: #71a5d9; line-height: 68px; color: #fff; font-size: 16px; text-indent: 68px; background-image: url(./dh/images/P020210602765046810923.png);width: 100%; height: 68px; background-repeat: no-repeat; margin-bottom: 15px;}
+    .login ul li:nth-child(1) {background-position: 28px 20px;}
+    .login ul li:nth-child(2) {background-position: 28px -46px;}
+    .login ul li:nth-child(4) {background-position: 31px -319px}
+    .login ul li:nth-child(3) {background-position: 28px -190px;}
+    .login ul li:nth-child(5) {background-position: 28px -263px;}
+    .login ul li a {color:#fff;}
+
+    .tit { height:46px; position: relative; border-bottom: 3px #ececec solid; }
+    .tit .p1 { color: #285dad; position: absolute; width: 122px; height:46px; line-height: 46px; left:0px; border-bottom: 3px solid #285dad; bottom: -3px;font-size: 20px; }
+    .tit .p2 { width:7px; height:0px;  position: absolute; left:122px; border-bottom: 3px solid #fff; bottom: -3px;}
+    .tit .p3 {position: absolute; right:12px; bottom: 10px; font-size: 14px; }
+    .tity { height:46px; position: relative; border-bottom: 1px #ececec solid; }
+    .tity .p1 { color: #285dad; position: absolute; width: 112px; height:46px; line-height: 46px; left:0px;  bottom: 0px;font-size: 20px; }
+
+    .list {width:585px;margin-top: 16px;padding-bottom: 2px;}
+    .list li { line-height: 54px; height:54px; }
+    .list li a{color: #383838; display: inline-block; font-size: 18px;   white-space: nowrap;  text-overflow: ellipsis;overflow: hidden; width:500px; }
+    .list li span{font-size: 10px; color: #bbb; float: right; }
+    .list br{display: none; }
+    .imglist {width:1200px;margin-top: 34px;padding-bottom: 4px;}
+    .imglist li { width:286px; margin-right: 15px; display: inline-block; vertical-align: top;}
+    .imglist li:nth-last-child(1){ margin-right: 0px !important; }
+    .imglist li p { font-size: 13px; line-height: 20px; margin-top: 5px; }
+    .imglist li a{color: #383838; }
+
+    .focus1 { margin-top: 34px; }
+    .focus1 .slick-slide { width:286px; margin:0 8px 0 8px; }
+    .focus1 .slick-slide .text { padding: 20px 15px 4px 15px; font-size: 16px; line-height: 19px; }
+    .focus1 .slick-prev, .focus1 .slick-next { top: 80px; background: #fff; border: none; width: 38px; height: 38px; opacity: 0.8; color: #285dad; }
+    .focus1 .slick-next { right: 8px; }
+    .focus1 .slick-prev { left: 8px; }
+    .focus1 .slick-prev:before,.focus1 .slick-next:before {  font-size: 36px; line-height: 19px; color: #285dad; font-weight: bold;}
+
+    .filedown li {width: 66px; margin: 38px 30px 5px 0px;  padding: 0px 10px 0px 10px;  display: inline-block;  font-size: 13px;  text-align: center; }
+    .filedown li div { width:60px; height:48px; background-image: url(./yy/images/P020210531675826760661.png); background-repeat: no-repeat; margin-bottom: 5px;}
+    ul.filedown li:nth-child(1) div {background-position: 8px -48px;}
+    ul.filedown li:nth-child(2) div {background-position: -115px  -48px;}
+    ul.filedown li:nth-child(3) div {background-position: -238px -48px;}
+    ul.filedown li:nth-child(4) div {background-position: -364px -48px;}
+    ul.filedown li:nth-child(5) div {background-position: -503px -48px;}
+    ul.filedown li:nth-child(1):hover div {background-position: 8px 0px;}
+    ul.filedown li:nth-child(2):hover div {background-position: -115px  0px;}
+    ul.filedown li:nth-child(3):hover div {background-position: -238px 0px;}
+    ul.filedown li:nth-child(4):hover div {background-position: -364px 0px;}
+    ul.filedown li:nth-child(5):hover div {background-position: -503px 0px;}
+    ul.filedown li:hover a { color: #285dad; }
+
+    .appdown { margin-top: 20px; }
+    .appdown li {display: inline-block; width:142px; position:relative;}
+    .appdown li div {width:84px; padding: 8px; border-radius: 8px; text-align: center; }
+    .appdown li div img{ width: 84px; height:84px; }
+    .appdown li p { position: absolute; right: 4px; top: 23px; }
+    .appdown li p span{ width:26px; display:block; height:26px; cursor: pointer; border-radius: 5px; margin-bottom: 6px;  background-image: url(./yy/images/P020210531709383157844.jpg); background-repeat: no-repeat;}
+    .appdown li p span:nth-child(1){background-position: 0px -3px;}
+    .appdown li p span:nth-child(2){background-position: 1px -37px;}
+
+    .el-table { font-size: 12px; }
+    .el-table td{ padding: 6px 0 !important; }
+    .el-tabs__header { position: absolute !important; top: 11px; right: 8px; }
+    .el-tabs--card>.el-tabs__header .el-tabs__nav,.el-tabs--card>.el-tabs__header .el-tabs__nav,.el-tabs--card>.el-tabs__header { border: none !important; }
+    .el-tabs--card>.el-tabs__header .el-tabs__item { border-bottom:none !important ; }
+    .el-tabs__item { height:24px; line-height: 24px; color: #fff; font-size: 15px; }
+    .el-tabs__item.is-active {background: #1a3b6f; color: #fff !important;}
+    .el-table--striped .el-table__body tr.el-table__row--striped td { background: #eef2fb;}
+    .el-table thead { font-weight: 500; font-size: 14px;}
+    .dpss { position: relative; }
+    .datatable {border: #7ea1d2 3px solid; width:1194px !important}
+    .datatable .fl{width:751px;}
+    .datatable .fr{width:440px; border-left: #7ea1d2 3px solid;}
+    .datatable .title{height:46px;line-height: 46px; position: relative; background-color: #4871ae; color: #fff; border-bottom: 2px solid #1b4277; text-indent: 20px; font-size: 20px;}
+    .datatable .title span { font-size: 12px; position: absolute; top: 0px; right: 20px;font-size: 12px; }
+    .ssdp { margin: 0 20px; padding: 6px 0; }
+    .ssdp li {height:42px; line-height: 42px; text-indent: 45px; background-image: url(./include/images/P020210602538092305820.jpg); background-repeat: no-repeat; position: relative; }
+    .ssdp li:nth-child(1) { background-position: 0px 11px; }
+    .ssdp li:nth-child(2) { border-top: 1px solid #eee; border-bottom: 1px solid #eee;background-position: 0px -31px;}
+    .ssdp li:nth-child(3) {background-position: 0px -75px;}
+    .ssdp li span{ position: absolute; top:0; right:5px; color: #285dad; }
+    .datatable .tip { text-align: right; font-size: 10px; color: #ddd; color: #bbb; padding: 0 12px 7px 0;}
+    .fontgray { color: #aaa; }
+    .apexcharts-toolbar { display: none !important; }
+
+    .ad img { width:100%; height:auto }
+
+    .friendlink{padding-top: 14px;}
+    .friendlink a{ line-height: 14px; font-size: 14px; height:14px; padding: 0 30px; margin-top: 10px; display: inline-block; border-left: 1px solid #ccc; }
+    .friendlink a:nth-child(1){ border: none !important; padding:0 30px 0 0 !important; }
+    .friendlink span{ line-height: 14px; font-size: 14px; height:14px; padding: 0 30px; margin-top: 10px; display: inline-block; border-left: 1px solid #ccc; }
+    .friendlink span:nth-child(1){ border: none !important; padding:0 30px 0 0 !important; }
+
+    .bottom { height:130px; background-color: #235dad; margin-top: 50px; padding-top: 50px; color: #fff; }
+    .bottom span { display: inline-block; line-height: 20px; vertical-align: middle; padding-left: 8px;}
+    .bottom a { color:#fff; }
+    .bottom .fr a{ margin-left: 25px; font-size: 17px;}
+
+    @media  all and (min-width:320px) and (max-width:460px){
+      .con {width:100%;margin: 0 auto;}
+      .conmt {width:100%;margin: 10px auto 0 auto; }
+      .conmth {width:100%;}
+      .banner { height: auto; }
+      .banner .con .fl { width: 80%; padding-left: 8px;}
+      .banner .con .fl img { width:100%; }
+      .banner .con .fr { display: none;position: fixed; z-index: 20000; top: 0; left: 15px; }
+      .icon-search { color: #235dad; }
+      .nav {height:auto;}
+      .nav_list { display: flex; flex-direction: column;  justify-content: flex-start;   padding: 0 5%; }
+      .nav_list li {display: flex;flex-direction: row;justify-content: space-between;align-items: center;padding: 10px 5%; margin-top: 0; position: relative;border-bottom: 1px solid #ccc; line-height: 40px; border-left: none;height: 40px;margin-top: unset !important;}
+      .nav_list a:first-child li{ padding: 0 5%; border-bottom: 1px solid #ccc !important; }
+      .nav_list li:last-child { padding: 10px 5%; }
+      .nav_list li:after {content: "►";display: block;font: 700 16px/40px "Din", sans-serif !important;color: #999;cursor: pointer;width: 40px;line-height: 40px;	text-align: right;}
+      .nav_list li.no_child:after {content: "";}
+      .nav_list li a { width: auto;}
+      .nav_list li .sub_nav {display: block;position: fixed;width: 100%;top: 121px;left: -100%;height: calc(100vh - 80px);transition: all 0.5s;background: #fff;padding: 20px;}
+      .nav_list li .sub_nav.show {left: 0;}
+      .nav_list li .sub_nav dl {display: flex;flex-direction: column;width: 100%;height: 100%;justify-content: flex-start;align-items: flex-start;	padding: 0;}
+      .nav_list li .sub_nav dl dt { padding: 0 5%; width: 100%; font-weight: bold; border-bottom: 1px solid #ccc;	display: block;}
+      .nav_list li .sub_nav dl dt a {line-height: 3em;font-size: 18px;display: block;width: 100%;text-align: left;	color: #666}
+      .nav_list li .sub_nav dl dd {padding: 0 0 0 10%;width: 100%;border-bottom: 1px solid #ccc;}
+      .nav_list li dl dd a {text-align: left;margin: 1.5em 0; padding: 0; font-size:16px }
+      .nav_list li .sub_nav.show {left: 0;}
+      .nav_list li .sub_nav span {display: block;width: 100%; font-size: 18px; padding: 0 5%;border-bottom: 1px solid #ccc;text-align: left;line-height: 3em;box-sizing: border-box;cursor: pointer;}
+      .rightlist { justify-content: flex-start;  padding-top: 80px;  position: fixed; top: 0px; left: -100%;  width: 100%;  height: calc(100vh); z-index: 1000; background: #fff; transition: all .6s;}
+      .showmenu { left: 0 !important;}
+      .focus {width: 100%; height:auto; margin: 0 auto 0 auto !important; }
+      .focus1 .slick-prev, .focus1 .slick-next { top: 108px;}
+      .focus .text { width: 90%; padding: 0 5%; height:55px }
+      .focus .text a { display: block;  white-space: nowrap;  text-overflow: ellipsis;overflow: hidden;  }
+      .slick-prev, .slick-next { bottom:-4px }
+      .login{ width:100%; background-color: #fafafa;height: auto;}
+      .login ul li {background-color: #71a5d9; line-height: 50px; height:50%;  color: #fff; font-size: 16px; margin-bottom: unset; margin-top: 8px; }
+      .login ul li:nth-child(1) {background-position: 28px 11px;}
+      .login ul li:nth-child(2) {background-position: 28px -57px;}
+      .login ul li:nth-child(4) {background-position: 31px -330px}
+      .login ul li:nth-child(3) {background-position: 28px -201px;}
+      .login ul li:nth-child(5) {background-position: 28px -274px;}
+      .datatable { width: 100% !important; border: none; }
+      .datatable .fl { width: 100%; }
+      .el-tabs__item { padding: 0 14px; }
+      .datatable .title { text-indent: 10px; }
+      .datatable .fr { width: 100%; }
+      .tit { text-indent: 10px;}
+      .list { width:100%;margin-top: 8px; }
+      .list li { line-height:40px; height:40px; }
+      .list br{display: none; }
+      .list li a {width: calc(100% - 72px);  text-indent: 10px; font-size:16px; }
+      .list li span { padding-right: 3px; }
+
+      .el-table td {padding: 4px 0px; }
+      .el-table td, .el-table th { padding: 4px 0; }
+      .filedown { text-align: center; }
+      .filedown li { margin: 20px 11px 5px 11px; }
+      .appdown { text-align: center;}
+      .appdown li div { padding: 8px 8px 8px 27px; }
+      .friendlink {padding-top: 6px;}
+      .friendlink a { padding: 0px 20px; border: none; }
+      .friendlink a:nth-child(1) {padding: 0px 20px !important;}
+      .bottom { text-align: center; height: 105px; margin-top: 30px; padding-top: 30px;}
+      .bottom img { width:10% }
+      .bottom .fl {width: 100%;}
+      .bottom .fr { width: 100%; text-align: center; margin-top: 10px;  }
+      .bottom .fr a { font-size: 15px; margin-right: 25px;}
+      .hbg_icon { display: block; }
+    }
+    @media  all and (min-width:461px){
+    }
+  </style>
+</head>
+<body>
+
+<!--banner-->
+<div class="banner">
+  <div class="con clearfix">
+    <div class="fl">
+      <a href="https://www.zgdypw.cn/"><img src="./dh/images/P020210527374977837561.jpg" /></a>
+    </div>
+    <div class="fr search">
+      <input name=word id="search" type="text" value="输入搜索内容" />
+      <div class="icon-search"></div>
+    </div>
+  </div>
+</div>
+<!--nav-->
+<script type="text/javascript" src="https://www.zgdypw.cn/include/index_7863.js"></script>
+
+<div class="conmt clearfix">
+  <div class="focus fl" id="focus">
+    
+      <div>
+        <a href="./zyjs/202306/05/t20230605_7363630.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zyjs/202306/05/W020230605361210754690.jpg);padding-top:52.78%;background-repeat: no-repeat; background-position: center center;'></a>
+        <p style="display: none;"><a href="./zyjs/202306/05/t20230605_7363630.shtml" target="_blank"><img src="./zyjs/202306/05/W020230605361210754690.jpg" alt="1129666321_16857176835841n.jpg"/></a></p>
+        <span class="text"><a href="./zyjs/202306/05/t20230605_7363630.shtml" target="_blank">习近平在文化传承发展座谈会上强调 担负起新的文化使命 努力建设中华民族现代文明</a></span>
+      </div>
+    
+      <div>
+        <a href="./dt/202305/25/t20230525_7362870.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./dt/202305/25/W020230525728938474834.jpg);padding-top:52.78%;background-repeat: no-repeat; background-position: center center;'></a>
+        <p style="display: none;"><a href="./dt/202305/25/t20230525_7362870.shtml" target="_blank"><img src="./dt/202305/25/W020230525728938474834.jpg" alt="习2.jpg"/></a></p>
+        <span class="text"><a href="./dt/202305/25/t20230525_7362870.shtml" target="_blank">习近平：在学习贯彻习近平新时代中国特色社会主义思想主题教育工作会议上的讲话</a></span>
+      </div>
+    
+      <div>
+        <a href="./zyjs/202303/23/t20230323_7359045.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zyjs/202303/23/W020230323567528311671.jpg);padding-top:52.78%;background-repeat: no-repeat; background-position: center center;'></a>
+        <p style="display: none;"><a href="./zyjs/202303/23/t20230323_7359045.shtml" target="_blank"><img src="./zyjs/202303/23/W020230323567528311671.jpg" alt="1.jpg"/></a></p>
+        <span class="text"><a href="./zyjs/202303/23/t20230323_7359045.shtml" target="_blank">十四届全国人大一次会议在京闭幕 习近平发表重要讲话</a></span>
+      </div>
+    
+      <div>
+        <a href="./zyjs/202210/19/t20221019_7350630.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zyjs/202210/19/W020221019552140844558.jpg);padding-top:52.78%;background-repeat: no-repeat; background-position: center center;'></a>
+        <p style="display: none;"><a href="./zyjs/202210/19/t20221019_7350630.shtml" target="_blank"><img src="./zyjs/202210/19/W020221019552140844558.jpg" alt="1.jpg"/></a></p>
+        <span class="text"><a href="./zyjs/202210/19/t20221019_7350630.shtml" target="_blank">中国共产党第二十次全国代表大会在京开幕习近平代表第十九届中央委员会向大会作报告</a></span>
+      </div>
+    
+      <div>
+        <a href="./dt/202401/04/t20240104_7376560.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./dt/202401/04/W020240104329865496356.jpg);padding-top:52.78%;background-repeat: no-repeat; background-position: center center;'></a>
+        <p style="display: none;"><a href="./dt/202401/04/t20240104_7376560.shtml" target="_blank"><img src="./dt/202401/04/W020240104329865496356.jpg" alt="蔡奇.jpg"/></a></p>
+        <span class="text"><a href="./dt/202401/04/t20240104_7376560.shtml" target="_blank">全国宣传部长会议在京召开 蔡奇出席并讲话</a></span>
+      </div>
+    
+  </div>
+  <div class="login fr">
+    <ul>
+      <li><a href="https://www.gjdyzjb.cn/" target="_blank">全国电影票务综合信息管理系统</a></li>
+      <li><a href="https://gjdbyy.cn/portal/portal.html#/dashboard" target="_blank">全国点播影院经营管理信息系统</a></li>
+      <li><a href="https://gjdypw.cn/" target="_blank">电影票检票平台</a></li>
+      <li><a href="https://www.zgdypw.cn/xmsb/" target="_blank">电影专项资金项目申报</a></li>
+      <li><a href="https://reg.gjdyzjb.cn/#/cinemaRegisterMain" target="_blank">新建影院注册</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="conmt ad">
+  <a href="./gd/202106/15/t20210615_7320261.shtml" target="_blank"><img src="./gd/202106/15/W020210622392520823845.png" alt="ad2.png"  vspace=0 hspace=0 border=0/></a>
+</div>
+
+<div class="conmt clearfix datatable" id="app">
+  <div class="fl dpss">
+    <div class="title">
+      <p>当日票房数据</p>
+    </div>
+    <el-tabs v-model="activeName" type="card">
+      <el-tab-pane label="影片" name="first">
+        <template>
+          <el-table :data="boxoffice.top10Films" border  stripe style="width: 100%">
+            <el-table-column align="center" type="index" label="排名"  width="70"></el-table-column>
+            <el-table-column align="left" prop="filmName" label="片名" width="220"></el-table-column>
+            <el-table-column align="right" prop="daySales" :formatter="format_thousand_table" label="票房(万元)" width="100"></el-table-column>
+            <el-table-column align="right" prop="daySession" :formatter="format_thousand_table" label="场次" width="120"></el-table-column>
+            <el-table-column align="right" prop="dayAudience" :formatter="format_thousand_table" label="人次" width="120"></el-table-column>
+            <el-table-column align="right" prop="filmTotalSales" :formatter="format_thousand_table" label="累计票房(万元)" width="120"></el-table-column>
+          </el-table>
+        </template>
+      </el-tab-pane>
+      <el-tab-pane label="影院" name="second">
+        <template>
+          <el-table :data="boxoffice.top10Cinemas" border stripe style="width: 100%">
+            <el-table-column align="center" type="index" label="排名"  width="70"></el-table-column>
+            <el-table-column align="left"  prop="cinemaName" label="影院" width="380"></el-table-column>
+            <el-table-column align="right" prop="totalSales" :formatter="format_thousand_table" label="票房(万元)" width="120"></el-table-column>
+            <el-table-column align="right" prop="daySession" :formatter="format_thousand_table" label="场次" width="80"></el-table-column>
+            <el-table-column align="right" prop="dayAudience" :formatter="format_thousand_table" label="人次" width="100"></el-table-column>
+          </el-table>
+        </template>
+      </el-tab-pane>
+      <el-tab-pane label="院线" name="third">
+        <template>
+          <el-table :data="boxoffice.top10CinemaChains" border stripe style="width: 100%">
+            <el-table-column align="center" type="index" label="排名"  width="70"></el-table-column>
+            <el-table-column align="left"  prop="cinemaChainName" label="院线" width="290"></el-table-column>
+            <el-table-column align="right" prop="totalSales" :formatter="format_thousand_table" label="票房(万元)" width="150"></el-table-column>
+            <el-table-column align="right" prop="daySession" :formatter="format_thousand_table" label="场次" width="110"></el-table-column>
+            <el-table-column align="right" prop="dayAudience" :formatter="format_thousand_table" label="人次" width="130"></el-table-column>
+          </el-table>
+        </template>
+      </el-tab-pane>
+      <el-tab-pane label="城市" name="fourth">
+        <template>
+          <el-table :data="boxoffice.top10Citys" border stripe style="width: 100%">
+            <el-table-column align="center" type="index" label="排名"  width="70"></el-table-column>
+            <el-table-column align="left" prop="cityName" label="城市" width="280"></el-table-column>
+            <el-table-column align="right" prop="totalSales" :formatter="format_thousand_table" label="票房(万元)" width="150"></el-table-column>
+            <el-table-column align="right" prop="daySession" :formatter="format_thousand_table" label="场次" width="120"></el-table-column>
+            <el-table-column align="right" prop="dayAudience" :formatter="format_thousand_table" label="人次" width="130"></el-table-column>
+          </el-table>
+        </template>
+      </el-tab-pane>
+    </el-tabs>
+    <!-- <p class="tip" style="margin-top: 12px;">*数据日期<span v-text="boxoffice.businessDay"></span>(每日14:30更新数据)</p> -->
+  </div>
+  <div class="fr">
+    <div class="title">
+      <p>实时大盘</p>
+      <span v-text="boxofficenow.businessDay"></span>
+    </div>
+    <ul class="ssdp">
+      <li>票房（万元）<span v-if="boxofficenow.totalBoxoffice" v-text="format_thousand_normal(boxofficenow.totalBoxoffice)"></span></li>
+      <li>场次（万）<span  v-if="boxofficenow.totalSession" v-text="format_thousand_normal((boxofficenow.totalSession/10000).toFixed(2))"></span></li>
+      <li>人次（万）<span  v-if="boxofficenow.totalAudience"  v-text="format_thousand_normal((boxofficenow.totalAudience/10000).toFixed(2))"></span></li>
+    </ul>
+    <div class="title">
+      <p>大盘走势</p>
+    </div>
+    <div id="chart">
+    </div>
+    <!-- <p class="tip">*每日14:30更新数据</p> -->
+  </div>
+
+</div>
+<div style="clear:both;height:0px;overflow:hiden;width1200px"></div>
+<div class="conmt"style="margin-top:0px">
+<div style="float:left;width:751px;font-size: 16px;line-height:28px;text-align: right;height:28px">(以上统计数据不含海外票房)</div>
+</div>
+<div style="clear:both;height:0px;overflow:hiden;width1200px"></div>
+<div class="conmt clearfix">
+  <div class="conmth fl">
+    <div class="tit">
+      <p class="p1">重要精神</p>
+      <p class="p2"></p>
+      <p class="p3"><a href='./zyjs/' target="_self">更多>></a></p>
+    </div>
+    <ul class="list">
+      
+        <li><a href="./zyjs/202609/24/t20260924_7406065.shtml" target="_blank">2026北京文化论坛开幕<br>李书磊出席并发表主旨演讲</a><span>2026/09/23</span></li>
+      
+        <li><a href="./zyjs/202607/01/t20260701_7405651.shtml" target="_blank">庆祝中国共产党成立105周年大会在京隆重举行</a><span>2026/07/01</span></li>
+      
+        <li><a href="./zyjs/202605/20/t20260520_7405499.shtml" target="_blank">慎海雄与俄罗斯文化部长柳比莫娃举行会谈</a><span>2026/05/20</span></li>
+      
+        <li><a href="./zyjs/202601/06/t20260106_7404999.shtml" target="_blank">2026年全国电影局长会议在京召开</a><span>2026/01/06</span></li>
+      
+        <li><a href="./zyjs/202601/06/t20260106_7404998.shtml" target="_blank">全国宣传部长会议在京召开 蔡奇出席并讲话</a><span>2026/01/05</span></li>
+      
+    </ul>
+  </div>
+  <div class="conmth fr">
+    <div class="tit">
+      <p class="p1">行业资讯</p>
+      <p class="p2"></p>
+      <p class="p3"><a href='./hyzx/hydt/' target="_self">更多>></a></p>
+    </div>
+    <ul class="list fl">
+      
+        <li><a href="./hyzx/hydt/202609/24/t20260924_7406067.shtml" target="_blank">第十三届丝绸之路国际电影节在西安开幕</a><span>2026/09/24</span></li>
+      
+        <li><a href="./hyzx/hydt/202609/24/t20260924_7406066.shtml" target="_blank">4K修复《小城之春》全球首映，<br>东方美学惊艳世界</a><span>2026/09/22</span></li>
+      
+        <li><a href="./hyzx/hydt/202609/21/t20260921_7406039.shtml" target="_blank">以光影纪史，为市场凿空 ——总台“院线纪录电影的商业化探索”学术沙龙在陕举办</a><span>2026/09/21</span></li>
+      
+        <li><a href="./hyzx/hydt/202609/21/t20260921_7406040.shtml" target="_blank">“中国电影展映”亮相多伦多国际电影节</a><span>2026/09/21</span></li>
+      
+        <li><a href="./hyzx/hydt/202609/17/t20260917_7406027.shtml" target="_blank">2026“中国电影创作高质量发展”学术季启幕</a><span>2026/09/17</span></li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="conmt">
+  <div class="tit">
+    <p class="p1">资助项目</p>
+    <p class="p2"></p>
+    <p class="p3"><a href='./zzxm/gcpxfxm/' target="_self">更多>></a></p>
+  </div>
+  <div class="focus1" id="focus1">
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202512/31/t20251231_7404962.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202512/31/W020251231440117297018.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202512/31/t20251231_7404962.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202512/31/W020251231440117297018.jpg" alt="2025第二批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202512/31/t20251231_7404962.shtml" target="_blank">2025年度电影专资第二批资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202507/22/t20250722_7404666.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202507/22/W020250722356835088096.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202507/22/t20250722_7404666.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202507/22/W020250722356835088096.jpg" alt="2025第一批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202507/22/t20250722_7404666.shtml" target="_blank">2025年度电影专资第一批资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202412/16/t20241216_7398503.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202412/16/W020241216567860063300.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202412/16/t20241216_7398503.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202412/16/W020241216567860063300.jpg" alt="2024第三批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202412/16/t20241216_7398503.shtml" target="_blank">2024年度电影专资第三批资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202409/29/t20240929_7393410.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202409/29/W020240929544104780971.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202409/29/t20240929_7393410.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202409/29/W020240929544104780971.jpg" alt="2024暑期档.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202409/29/t20240929_7393410.shtml" target="_blank">2024年度电影专资暑期档资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202409/27/t20240927_7393281.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202409/27/W020240927456971008258.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202409/27/t20240927_7393281.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202409/27/W020240927456971008258.jpg" alt="2024第一批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202409/27/t20240927_7393281.shtml" target="_blank">2024年度电影专资第一批资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202407/12/t20240712_7388812.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202407/12/W020240712521974508794.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202407/12/t20240712_7388812.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202407/12/W020240712521974508794.jpg" alt="2023第二批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202407/12/t20240712_7388812.shtml" target="_blank">2023年度电影专资第二批拟资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202407/15/t20240715_7388881.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202407/15/W020240715469454351506.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202407/15/t20240715_7388881.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202407/15/W020240715469454351506.jpg" alt="2023年第一批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202407/15/t20240715_7388881.shtml" target="_blank">2023年度电影专资第一批拟资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202302/02/t20230202_7355894.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202302/02/W020230203560698600646.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202302/02/t20230202_7355894.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202302/02/W020230203560698600646.jpg" alt="2022第二批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202302/02/t20230202_7355894.shtml" target="_blank">2022年度电影专资第二批拟资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202209/15/t20220915_7348992.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202209/15/W020220916387880748594.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202209/15/t20220915_7348992.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202209/15/W020220916387880748594.jpg" alt="2022第一批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202209/15/t20220915_7348992.shtml" target="_blank">2022年度电影专资第一批资助
+　　优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202202/17/t20220217_7336983.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202202/17/W020220217561922032761.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202202/17/t20220217_7336983.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202202/17/W020220217561922032761.jpg" alt="2021第五批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202202/17/t20220217_7336983.shtml" target="_blank">2021年度电影专资第五批资助优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202201/04/t20220104_7334890.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202201/04/W020220110559694983193.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202201/04/t20220104_7334890.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202201/04/W020220110559694983193.jpg" alt="2021第四批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202201/04/t20220104_7334890.shtml" target="_blank">2021年度电影专资第四批资助优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+      <div>
+        <a href="./zzxm/gcpxfxm/202111/17/t20211117_7331993.shtml" target="_blank"  style='with:100%;height:100%; display: block; background-size: cover; background-image: url(./zzxm/gcpxfxm/202111/17/W020211210583308476190.jpg);padding-top:56.34%;background-repeat: no-repeat; background-position: center center;'></a>
+        <span style="display: none;"><a href="./zzxm/gcpxfxm/202111/17/t20211117_7331993.shtml" target="_blank"><img src="./zzxm/gcpxfxm/202111/17/W020211210583308476190.jpg" alt="2021第三批.jpg"/></a></span>
+        <p class="text"><a href="./zzxm/gcpxfxm/202111/17/t20211117_7331993.shtml" target="_blank">2021年度电影专资第三批资助优秀国产影片宣传发行项目</a></p>
+      </div>
+    
+  </div>
+</div>
+
+<div class="conmt clearfix">
+  <div class="conmth fl">
+    <div class="tit">
+      <p class="p1">通知公告</p>
+      <p class="p2"></p>
+      <p class="p3"><a href='./tz/gztz/' target="_self">更多>></a></p>
+    </div>
+    <ul class="list">
+      
+        <li><a href="./tz/xmgg/202609/11/t20260911_7405986.shtml" target="_blank">2026年度电影专资资助优秀国产影片<br>宣传发行项目（第一批）公告</a><span>2026/09/11</span></li>
+      
+        <li><a href="./tz/xmgg/202609/04/t20260904_7405932.shtml" target="_blank">2026年度电影专资资助优秀国产影片宣传<br>发行项目（第一批）公示</a><span>2026/09/04</span></li>
+      
+        <li><a href="./tz/gztz/202607/06/t20260706_7405678.shtml" target="_blank">国家电影局、市场监管总局联合印发<br>《关于促进电影院多样化经营的通知》</a><span>2026/07/04</span></li>
+      
+        <li><a href="./tz/gztz/202606/30/t20260630_7405649.shtml" target="_blank">国家电影局关于开展<br>第二十一届中国电影华表奖评选工作的通知</a><span>2026/06/30</span></li>
+      
+        <li><a href="./tz/gztz/202604/20/t20260420_7405396.shtml" target="_blank">国家电影事业发展专项资金2026年度资助电影制片基地建设发展项目申报指南</a><span>2026/04/20</span></li>
+      
+    </ul>
+  </div>
+  <div class="conmth fr">
+    <div class="tit">
+      <p class="p1">政策法规</p>
+      <p class="p2"></p>
+      <p class="p3"><a href='./zc/zcfg/' target="_self">更多>></a></p>
+    </div>
+    <ul class="list">
+      
+        <li><a href="./zc/zcfg/202105/31/t20210531_7318176.shtml" target="_blank">中华人民共和国电影产业促进法</a><span>2017/04/19</span></li>
+      
+        <li><a href="./zc/zcfg/202106/02/t20210602_7318427.shtml" target="_blank">国务院办公厅关于促进电影产业繁荣发展的指导意见</a><span>2010/01/21</span></li>
+      
+        <li><a href="./zc/zcfg/202106/02/t20210602_7318421.shtml" target="_blank">电影管理条例</a><span>2001/12/25</span></li>
+      
+        <li><a href="./zc/zcfg/202208/17/t20220817_7347319.shtml" target="_blank">中共中央办公厅 国务院办公厅印发<br>《“十四五”文化发展规划》</a><span>2022/08/17</span></li>
+      
+        <li><a href="./zc/zcfg/202206/22/t20220622_7344164.shtml" target="_blank">中宣部电影局、国家税务总局货物和<br>劳务税司相关负责人详解电影企业<br>如何享受增值税留抵退税政策</a><span>2022/06/22</span></li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="conmt ad">
+  
+</div>
+
+<div class="conmt clearfix">
+  <div class="conmth fl">
+    <div class="tit">
+      <p class="p1">数据报告</p>
+      <p class="p2"></p>
+      <p class="p3"><a href='./sc/sjbg/' target="_self">更多>></a></p>
+    </div>
+    <ul class="list">
+      
+        <li><a href="./sc/sjbg/202610/08/t20261008_7406157.shtml" target="_blank">全国电影票房周报（2026.09.28-10.04）</a><span>2026/10/06</span></li>
+      
+        <li><a href="./sc/sjbg/202610/08/t20261008_7406156.shtml" target="_blank">全国电影票房月报（2026年9月）</a><span>2026/10/03</span></li>
+      
+        <li><a href="./sc/sjbg/202610/08/t20261008_7406155.shtml" target="_blank">全国电影票房周报（2026.09.21-09.27）</a><span>2026/09/29</span></li>
+      
+        <li><a href="./sc/sjbg/202609/23/t20260923_7406049.shtml" target="_blank">全国电影票房周报（2026.09.14-09.20）</a><span>2026/09/23</span></li>
+      
+        <li><a href="./sc/sjbg/202609/15/t20260915_7406006.shtml" target="_blank">全国电影票房周报（2026.09.07-09.13）</a><span>2026/09/15</span></li>
+      
+    </ul>
+  </div>
+  <div class="conmth fr">
+    <div class="tit">
+      <p class="p1">市场信息</p>
+      <p class="p2"></p>
+      <p class="p3"><a href='./sc/scxx/' target="_self">更多>></a></p>
+    </div>
+    <ul class="list">
+      
+        <li><a href="./sc/scxx/202609/23/t20260923_7406048.shtml" target="_blank">新片上映预告</a><span>2026/09/23</span></li>
+      
+        <li><a href="./sc/scxx/202609/15/t20260915_7406007.shtml" target="_blank">新片上映预告</a><span>2026/09/15</span></li>
+      
+        <li><a href="./sc/scxx/202609/10/t20260910_7405980.shtml" target="_blank">新片上映预告</a><span>2026/09/10</span></li>
+      
+        <li><a href="./sc/scxx/202609/03/t20260903_7405925.shtml" target="_blank">全国新建影院（2026年8月）</a><span>2026/09/01</span></li>
+      
+        <li><a href="./sc/scxx/202609/01/t20260901_7405893.shtml" target="_blank">新片上映预告</a><span>2026/09/01</span></li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="conmt clearfix">
+  <div class="tit">
+    <p class="p1">下载专区</p>
+    <p class="p2"></p>
+  </div>
+  <ul class="filedown fl">
+    <li><a href='./yy/xz/xt/' target="_blank"><div></div>系统操作<br>说明文档</a></li>
+    <li><a href='./yy/xz/dc/' target="_blank"><div></div>调查表<br>培训文档</a></li>
+    <li><a href='./yy/xz/gz/' target="_blank"><div></div>工作通知<br>指南及附件</a></li>
+    <li><a href='./yy/xz/js/' target="_blank"><div></div>技术标准<br>文档</a></li>
+    <li><a href='http://reg.gjdyzjb.cn/#/filmDownload' target="_blank"><div></div>影片编码<br>下载</a></li>
+  </ul>
+  <ul class="appdown fr">
+    <li><div><img src="./yy/images/P020210531676269056987.jpg" />公众号</div></li>
+    <li><div><img src="https://www.zgdypw.cn/yy/images/xcslogo.png" />小程序</div></li>
+    <li><div><img src="./yy/images/P020210531676609941370.png" /><img style="display: none;" src="./yy/images/P020210531676725017641.png" />手机APP</div><p><span style="border: 2px solid #285dad;"></span><span></span></p></li>
+    <li><div  style="margin-left: 35px;"><img src="./yy/images/P020231023379708049991.jpg" />验票工具</div></li>
+  </ul>
+</div>
+
+<div class="conmt">
+  <div class="tit">
+    <p class="p1">友情链接</p>
+    <p class="p2"></p>
+  </div>
+  <div class="friendlink">
+    
+      <a href="http://www.chinafilm.gov.cn/" target="_blank">国家电影局</a>
+    
+      <a href="http://www.mof.gov.cn/index.htm" target="_blank">财政部</a>
+    
+      <a href="http://www.dmcc.org.cn/mainSite/indexSite.html" target="_blank">电影数字节目管理中心</a>
+    
+      <a href="https://www.1905.com/" target="_blank">电影卫星频道节目制作中心</a>
+    
+      <a href="https://www.crifst.ac.cn/" target="_blank">中国电影科技网</a>
+    
+      <a href="https://www.cfa.org.cn/" target="_blank">中国电影资料馆</a>
+    
+      <a href="http://www.cndfilm.com/" target="_blank">中央新闻纪录电影制片厂</a>
+    
+  </div>
+</div>
+
+<script type="text/javascript" src="https://www.zgdypw.cn/include/index_7866.js"></script>
+</body>
+<script type="text/javascript">
+  if(navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE6.0" || navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE7.0"||navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") )
+  {
+    alert("浏览器版本过低，请您升级！");
+  }
+</script>
+<script src="https://www.zgdypw.cn/tools/apexcharts.js"></script>
+<script src="https://www.zgdypw.cn/tools/vue.js"></script>
+<script src="https://www.zgdypw.cn/tools/element.js"></script>
+<script src="https://www.zgdypw.cn/tools/slick2020.js"></script>
+
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      activeName:"first",
+      boxoffice: {},
+      boxofficenow:{}
+    },
+    methods:{
+      format_thousand_table:function(row, column){
+        var str ='';
+        if(typeof row[column.property] === 'number') {str = row[column.property].toString();}else {str = row[column.property]}
+        var reg = str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
+        return str.replace(reg,"$1,");
+      },
+      format_thousand_normal:function(num){
+        var str ='';
+        if(typeof num === 'number') {str = num.toString();}else {str = num}
+        var reg = str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
+        return str.replace(reg,"$1,");
+      }
+    },
+    mounted:function() {
+      var _this=this;
+      this.$nextTick(function () {
+        $.ajax({
+          type: "get",
+          url: 'https://www.zgdypw.cn/data/searchSevenDaysBoxOffice.json?timestamp='+new Date().getTime(),
+          success: function(res){
+            var arr1=[];
+            var arr2=[];
+            for(var i=0,len=res.data.length;i<len;i++){
+              arr1.push(res.data[i].totalBoxoffice);
+              arr2.push(res.data[i].businessDay.substring(res.data[i].businessDay.length-5));
+            }
+            var options = {
+              series: [{
+                name: '票房（万元）',
+                data: arr1
+              }],
+              chart: {
+                height: 220,
+                type: 'area',
+                animations: {
+                  enabled: true,
+                  easing: 'linear',
+                  speed: 1000,
+                  animateGradually: {
+                    enabled: true,
+                    delay: 300
+                  },
+                  dynamicAnimation: {
+                    enabled: true,
+                    speed: 500
+                  }
+                }
+              },
+              dataLabels: {
+                enabled:true,
+                style: {
+                  fontSize: '10px',
+                  fontWeight: 'normal',
+                  colors: undefined
+                },
+                offsetY:-7
+              },
+              grid: {
+                borderColor: "#e5e5e5",
+                strokeDashArray: 1,
+                yaxis: {
+                  lines: {show: true }
+                },
+                xaxis: {
+                  lines: { show: true}
+                }
+              },
+              markers: {
+                size: 2,
+              },
+              fill: {
+                gradient: {
+                  enabled: true,
+                  opacityFrom: 1,
+                  opacityTo: 0.8
+                }
+              },
+              colors:["#3380cb"],
+              stroke: {
+                curve: 'smooth'
+              },
+              xaxis: {
+                type: 'string',
+                categories: arr2
+              },
+              yaxis:{
+                labels: {
+                  style: {
+                    colors: ["#aaa"],
+                    fontSize: '10px',
+                    fontWeight: 100,
+                  }
+                }
+              }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+
+            setInterval(function(){
+              sevenDays();
+            }, 5*60*1000);
+          },
+          error:function(){
+          }
+        })
+        // 一周数据
+        function sevenDays(){
+          $.ajax({
+            type: "get",
+            url: 'https://www.zgdypw.cn/data/searchSevenDaysBoxOffice.json?timestamp='+new Date().getTime(),
+            success: function(res){
+              var arr1=[];
+              for(var i=0,len=res.data.length;i<len;i++){
+                arr1.push(res.data[i].totalBoxoffice);
+              }
+              chart.updateSeries([{
+                data: arr1
+              }]);
+            },
+            error:function(){
+            }
+          })
+        }
+        // 每日数据
+        function boxoffice(){
+          $.ajax({
+            type: "get",
+            url: 'https://www.zgdypw.cn/data/searchDayBoxOffice.json?timestamp='+new Date().getTime(),
+            success: function(res){
+              _this.boxoffice=res.data;
+            },
+            error:function(){
+            }
+          }) 
+        }
+        boxoffice();
+        setInterval(function(){
+          boxoffice();
+        }, 5*60*1000);
+        // 实时大盘
+        function realTime(){
+          $.ajax({
+            type: "get",
+            url: 'https://www.zgdypw.cn/data/realtimedata.json?timestamp='+new Date().getTime(),
+            success: function(res){
+              _this.boxofficenow=res;
+            },
+            error:function(){
+            }
+          })
+        }
+        realTime();
+        setInterval(function(){
+          realTime();
+        }, 0.5*60*1000);
+      });
+    }
+  });
+</script>
+<script>
+  $("#focus").slick({
+    dots: true,
+    autoplay:true,
+    infinite: true,
+    autoplaySpeed:4000
+  });
+  $(".appdown p").eq(0).find("span").each(function (k) {
+    $(this).click(function(){
+      $(this).css("border","2px solid #285dad").siblings().css("border","none");
+      $(".appdown li div").eq(2).find("img").eq(k).show().siblings().hide();
+    });
+  });
+  $(".appdown p").eq(1).find("span").each(function (k) {
+    $(this).click(function(){
+      $(this).css("border","2px solid #285dad").siblings().css("border","none");
+      $(".appdown li div").eq(3).find("img").eq(k).show().siblings().hide();
+    });
+  });
+  var bodyW = $("body").outerWidth()
+  $(".nav_list li").on("mouseenter",function() {
+    if($("body").outerWidth()>461){$(this).find(".sub_nav").stop(true).show().siblings().find(".sub_nav").stop(true).hide()}
+  })
+  $(".nav_list li").on("mouseleave",function() {
+    if($("body").outerWidth()>461){$(this).find(".sub_nav").stop(true).hide()}
+  })
+  $(".hbg_icon").click(function(){
+    if($("body").outerWidth()<461){$(".rightlist").toggleClass("showmenu");$(".sub_nav").removeClass("show");$(".banner .con .fr").toggle(100);$(this).toggleClass("showfix")}
+  });
+  $(".nav_list li").click(function() {
+    if($("body").outerWidth()<461){$(this).find(".sub_nav").addClass("show");}
+  })
+
+  $(".sub_nav span").click(function(e) {
+    if($("body").outerWidth()<461){e.stopPropagation()
+      $(".sub_nav").removeClass("show")
+    }
+  })
+  if(bodyW>461){
+    $(".focus1").slick({
+      infinite: true,
+      autoplay:true,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      autoplaySpeed:4000
+    });
+  }else{
+    $(".focus1").slick({
+      infinite: true,
+      autoplay:true,
+      autoplaySpeed:4000
+    });
+  }
+  $("#search").focus(function(){$("#search").val()=="输入搜索内容"?$("#search").val(''):true;});
+  $("#search").blur(function(){$("#search").val().trim()==""?$("#search").val("输入搜索内容"):true;});
+  $(".icon-search").click(function() {
+    event.preventDefault();
+    window.open("https://www.baidu.com/baidu?word="+"site%3Awww.zgdypw.cn "+$("#search").val().trim(),"_blank");
+  });
+  $("#search").keydown(function(e) {if (e.keyCode == 13) {
+    event.preventDefault();
+    window.open("https://www.baidu.com/baidu?word="+"site%3Awww.zgdypw.cn "+$("#search").val().trim(),"_blank");
+  }});
+</script>
+</html>

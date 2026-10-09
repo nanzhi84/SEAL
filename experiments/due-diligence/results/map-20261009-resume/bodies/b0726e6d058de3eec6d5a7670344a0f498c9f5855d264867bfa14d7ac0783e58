@@ -1,0 +1,1303 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gte IE 9]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox no-touch cssanimations csstransitions" lang="en">
+<!--<![endif]-->
+
+<head id="Head1"><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta charset="utf-8" /><title>
+	UID Version: 4.26.0.0
+</title>
+        <!-- ObliqueUI - Bundled JS -->
+    <script src="/includes/oblique-ui/js/oblique-ui.bundle.js?v=4.10"></script>
+    <script src="//code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+        integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+        crossorigin="anonymous"></script>
+
+    <script src="/includes/3rdParty/js/knockout-3.4.0.js?v=4.10"></script>
+    <script src="/includes/3rdParty/js/bootstrap-datepicker.js?v=4.10"></script>
+    <script src="/includes/custom/js/combobox-widget.custom.js?v=4.10"></script>
+
+    <script src="/includes/3rdParty/js/jquery.dataTables.min.js"></script>
+    <script src="/includes/3rdParty/js/input.js"></script>
+    <script src="/includes/3rdParty/js/matomo.js"></script>
+
+    <!-- ObliqueUI - Favicon & CSS -->
+    <link href="/includes/oblique-ui/css/oblique-ui.min.css?v=4.10" rel="stylesheet" /><link href="/includes/oblique-ui/css/oblique-ui-core.min.css?v=4.10" rel="stylesheet" /><link href="//code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.min.css" rel="stylesheet" /><link href="/Content/bootstrap-select.css?v=4.10" rel="stylesheet" /><link rel="stylesheet" href="/includes/3rdParty/css/datepicker.css?v=4.10" /><link rel="stylesheet" href="/includes/3rdParty/css/jquery.dataTables.min.css" /><link rel="stylesheet" href="/includes/custom/css/uid2014.min.css?v=4.11" /><link href="/includes/oblique-ui/images/favicon.ico" rel="shortcut icon" />
+
+    <!-- Internet Explorer 10 in Windows 8 and Windows Phone 8 viewport fix. -->
+    <!-- See: http://getbootstrap.com/getting-started/#support-ie10-width -->
+    <style type="text/css">
+        @-webkit-viewport {
+            width: device-width;
+        }
+
+        @-moz-viewport {
+            width: device-width;
+        }
+
+        @-ms-viewport {
+            width: device-width;
+        }
+
+        @-o-viewport {
+            width: device-width;
+        }
+
+        @viewport {
+            width: device-width;
+        }
+    </style>
+    <script type="text/javascript">
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement('style');
+            msViewportStyle.appendChild(
+                document.createTextNode('@-ms-viewport{width:auto!important}')
+            );
+            document.querySelector('head').appendChild(msViewportStyle);
+        }
+    </script>
+    
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		<script src="/includes/oblique-ui/js/html5shiv-printshiv.min.js"></script>
+		<script src="/includes/oblique-ui/js/respond.min.js"></script>
+		<![endif]-->
+<link href="/WebResource.axd?d=foyBtVQtZVcYKghew7tQ1GBrF9WvIQq7GCp4dA6tYSOVsfi7sDsyTcbvOc-NYYx03nbvuCV4p65RdP4HhkGcTjxVxLtxP-3V6pe_XsSixOKxIPPyFy3wk5mTi8oquwB41yfw6E-dudC74JJSARTmpA2&amp;t=639185295806114078" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /><link href="/WebResource.axd?d=JvTcUddlM2pLoTi2BDZ176DnhfAlvvZu6jvKAmgs7ZW9L_jKkpPk9b73eLMDzDJ9UiszidtOUqEi0D88UWylsY6fdXOo8nbv4IuBrGNrmQPULK2EErvEkkVX8xcii_PvpJbzY4Mu-E4YHO_PDstCXhOlmagfqAWkv30KbhIbJwo1&amp;t=639185295805814103" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /><link href="/WebResource.axd?d=OWprTJ6xHIDYEbtP3sQ5iMNGHfJHRANDIT5uu5cEmz-4w7UXInpiYMySSc386ieZ4j0YJUYHyMe0sa9MC7myCPwW4ftH1MDNOubt4rke3Uy3_X1awZrZAiOJRi1DIrLIWMOKAe2ruKKD0TqTo42skg2&amp;t=639185295806114078" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /><link href="/WebResource.axd?d=8ty8VS8EqYHIB24UBXmsy2erzyOJmELSJl5HqhCM8sP24Hro0z4DRHZPdFf7halsIffGgqTpnwWabTlqUC-IyjYmmPbIx3BfikLqC89GniHcPmbIGbhNm9cAcJCfxIQ-74Wr-73MqlwYqFK2AtruK0z4Cfk_LKOvMC9swDvFiB-aVOgjD65d2jI5DVrtUvuJ0&amp;t=639185295805814103" type="text/css" rel="stylesheet" class="Telerik_stylesheet" /></head>
+<body data-tooltips="" role="alertdialog" aria-live="assertive">
+    <script type="text/javascript">
+        var showErrorMessage = false;
+        var showWarningMessage = false;
+        var showInfoMessage = false;
+        var showSuccessMessage = false;
+        function scrollToTop() {
+            // scrollTo must be slightly delayed otherwise it will be overridden by maintainScrollPosition
+            setTimeout("window.scrollTo(0, 0);", 100);
+        }
+
+        var activateProgressBar = false;
+        $(document).ready(function () {
+            Sys.Application.add_init(appl_init);
+            function appl_init() {
+                var pgRegMgr = Sys.WebForms.PageRequestManager.getInstance();
+                pgRegMgr.add_beginRequest(StartHandler);
+                pgRegMgr.add_endRequest(EndHandler);
+
+                showMessages();
+                
+            }
+
+            
+            function showMessages() {
+                if (showErrorMessage) {
+                    $('#ctl00_alertError').show(); showErrorMessage = false;
+                }
+                if (showWarningMessage) {
+                    $('#ctl00_alertWarning').show(); showWarningMessage = false;
+                }
+                if (showInfoMessage) {
+                    $('#ctl00_alertInfo').show(); showInfoMessage = false;
+                }
+                if (showSuccessMessage) {
+                    $('#ctl00_alertSuccess').show(); showSuccessMessage = false;
+                }
+            }
+
+            function StartHandler() {
+                if (Page_IsValid) {
+                    // Start the progress indicator with a short delay to prevent flickering during quick requests like sorting/paging etc
+                    // Flag is required to prevent opening after the request has finished
+                    activateProgressBar = true;
+                    setTimeout("showProgressBar();", 200);
+                }
+            }
+            function EndHandler() {
+                activateProgressBar = false;
+                $('#inProgress').modal('hide');
+                rebindJQueryControls();
+            }
+        });
+        $("body").tooltip({ selector: '[role="tooltip"]' });
+               
+    
+
+        function showProgressBar() {
+            if (activateProgressBar)
+                $('#inProgress').modal('show');
+        }
+
+        
+        function rebindJQueryControls() {
+            $('select').each(function () {
+                $(this).combobox({ select: function (event, ui) { $(this).change(); } });
+            });
+
+            $('.datepicker').each(function () {
+                if ($(this).attr('id') != undefined) {
+                    $(this).datepickerBT();
+                }
+            });
+        }
+
+        function downloadFile(sender, args) {
+            var grid = sender.get_masterTableView();
+            var row = grid.get_dataItems()[args.get_itemIndexHierarchical()];
+            grid.fireCommand("UIDDownload", $(grid.getCellByColumnUniqueName(row, "JobId")).text());
+        }
+
+    </script>
+    <form name="form1" method="post" action="./search.aspx?lang=en" id="form1">
+<input type="hidden" name="uidScriptManager_TSM" id="uidScriptManager_TSM" value="" />
+<input type="hidden" name="VST" id="VST" value="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" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="" />
+
+
+<script src="/Telerik.Web.UI.WebResource.axd?_TSM_HiddenField_=uidScriptManager_TSM&amp;compress=1&amp;_TSM_CombinedScripts_=%3b%3bSystem.Web.Extensions%2c+Version%3d4.0.0.0%2c+Culture%3dneutral%2c+PublicKeyToken%3d31bf3856ad364e35%3aen%3add3ac3d5-1e29-4112-8fed-529caffa8f24%3aea597d4b%3bTelerik.Web.UI%2c+Version%3d2021.2.616.45%2c+Culture%3dneutral%2c+PublicKeyToken%3d121fae78165ba3d4%3aen%3afd978f7e-3da5-4815-803f-07e58a83cefa%3a4877f69a%3a16e4e7cd%3af7645509%3a24ee1bba%3ab2e06756%3a92fe8ea0%3afa31b949%3ac128760b%3a19620875%3a874f8ea2%3a33715776%3af46195d3%3a490a9d4e%3abd8f85e4%3a86526ba7" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="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" />
+        <input type="hidden" name="ctl00$csrfTokenHiddenField" id="csrfTokenHiddenField" value="a37e516de8bb4a688cae626fcf39f4a2" />
+        <div id="inProgress" class="modal" style="z-index: 9999" role="dialog"
+            aria-hidden="true" aria-labelledby="#inProgress-Title">
+            <div class="modal-dialog" style="margin-top: 300px">
+                <div class="modal-content" style="text-align: center">
+                    <div class="modal-body">
+                        <!--[if !IE]>-->
+                        <span class="fa fa-spinner fa-spin fa-5x"></span>
+                        <!--<![endif]-->
+                        <!--[if lte IE 9]><span class="fa  fa-spin fa-5x"><img src="/media/images/floatingCircles.gif" /></span><![endif]-->
+                        <!--[if gt IE 9]><span class="fa fa-spinner fa-spin fa-5x"></span><![endif]-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ctl00_uidWindowManager" style="display:none;">
+	<!-- 2021.2.616.45 --><div id="ctl00_uidWindowManager_alerttemplate" style="display:none;">
+		<div class="rwDialogPopup radalert">			
+			<div class="rwDialogText">
+			{1}				
+			</div>
+			
+			<div>
+				<a  onclick="$find('{0}').close(true);"
+				class="rwPopupButton" href="javascript:void(0);">
+					<span class="rwOuterSpan">
+						<span class="rwInnerSpan">##LOC[OK]##</span>
+					</span>
+				</a>				
+			</div>
+		</div>
+		</div><div id="ctl00_uidWindowManager_prompttemplate" style="display:none;">
+		 <div class="rwDialogPopup radprompt">			
+			    <div class="rwDialogText">
+			    {1}				
+			    </div>		
+			    <div>
+				    <script type="text/javascript">
+				    function RadWindowprompt_detectenter(id, ev, input)
+				    {							
+					    if (!ev) ev = window.event;                
+					    if (ev.keyCode == 13)
+					    {															        
+					        var but = input.parentNode.parentNode.getElementsByTagName("A")[0];					        
+					        if (but)
+						    {							
+							    if (but.click) but.click();
+							    else if (but.onclick)
+							    {
+							        but.focus(); var click = but.onclick; but.onclick = null; if (click) click.call(but);							 
+							    }
+						    }
+					       return false;
+					    } 
+					    else return true;
+				    }	 
+				    </script>
+				    <input title="Enter Value" onkeydown="return RadWindowprompt_detectenter('{0}', event, this);" type="text"  class="rwDialogInput" value="{2}" />
+			    </div>
+			    <div>
+				    <a onclick="$find('{0}').close(this.parentNode.parentNode.getElementsByTagName('input')[0].value);"				
+					    class="rwPopupButton" href="javascript:void(0);" ><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[OK]##</span></span></a>
+				    <a onclick="$find('{0}').close(null);" class="rwPopupButton"  href="javascript:void(0);"><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[Cancel]##</span></span></a>
+			    </div>
+		    </div>				       
+		</div><div id="ctl00_uidWindowManager_confirmtemplate" style="display:none;">
+		<div class="rwDialogPopup radconfirm">			
+			<div class="rwDialogText">
+			{1}				
+			</div>						
+			<div>
+				<a onclick="$find('{0}').close(true);"  class="rwPopupButton" href="javascript:void(0);" ><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[OK]##</span></span></a>
+				<a onclick="$find('{0}').close(false);" class="rwPopupButton"  href="javascript:void(0);"><span class="rwOuterSpan"><span class="rwInnerSpan">##LOC[Cancel]##</span></span></a>
+			</div>
+		</div>		
+		</div><input id="ctl00_uidWindowManager_ClientState" name="ctl00_uidWindowManager_ClientState" type="hidden" />
+</div>
+        
+        <div id="ctl00_uidFormDecorator" class="RadFormDecorator" style="display:none;">
+	<script type="text/javascript">
+//<![CDATA[
+
+if (typeof(WebForm_AutoFocus) != 'undefined' && !isWebFormAutoFocusMethodCalled)
+{   
+	var old_WebForm_AutoFocus = WebForm_AutoFocus;
+	WebForm_AutoFocus = function(arg)
+	{
+		Sys.Application.add_load(function()
+		{            
+			old_WebForm_AutoFocus(arg);
+			WebForm_AutoFocus = old_WebForm_AutoFocus;
+		});
+	}
+    var isWebFormAutoFocusMethodCalled = true;
+}
+if (typeof(Telerik) != 'undefined' && Type.isNamespace(Telerik.Web))
+{
+	if (Telerik.Web.UI.RadFormDecorator)
+	{
+		Telerik.Web.UI.RadFormDecorator.initializePage("ctl00_uidFormDecorator", "", "MetroTouch", 0);
+	}
+}
+//]]>
+</script><input id="ctl00_uidFormDecorator_ClientState" name="ctl00_uidFormDecorator_ClientState" type="hidden" />
+</div>
+
+        <div class="application" aria-hidden="false">
+            <div class="accesskeys" role="navigation">
+                <a href="#content" class="accessible">Skip to main content</a>
+                <span class="sr-only">Accesskeys:</span>
+                <ul class="list-unstyled">
+                    <li>
+                        <a class="accessible" accesskey="0" href="/">Homepage [Alt + 0]</a>
+                    </li>
+                    <li>
+                        <a class="accessible" accesskey="1" href="#navigation">Main navigation [Alt + 1]</a>
+                    </li>
+                    <li>
+                        <a class="accessible" accesskey="2" href="#content">Content [Alt + 2]</a>
+                    </li>
+                </ul>
+            </div>
+            <header class="application-header">
+                <div class="navbar">
+                    <div class="application-header-controls navigation-collapse">
+                        <h2 class="sr-only">Header controls menu</h2>
+
+                        <!-- <oblique-ui:header-controls> -->
+                        <ul class="nav navbar-nav navbar-right navbar-controls" role="menu">
+                            <li role="menuitem">
+                                <a id="lnkDE" href="search.aspx?lang=de">DE</a>
+                            </li>
+                            <li role="menuitem">
+                                <a id="lnkFR" href="search.aspx?lang=fr">FR</a>
+                            </li>
+                            <li role="menuitem">
+                                <a id="lnkIT" href="search.aspx?lang=it">IT</a>
+                            </li>
+                            <li role="menuitem">
+                                <a id="lnkEN" href="search.aspx?lang=en"><b>EN</b></a>
+                            </li>
+                        </ul>
+                        <!-- </oblique-ui:header-controls> -->
+                    </div>
+                    <div class="navbar-header">
+                        <ul class="nav navbar-nav navbar-toggle navbar-controls">
+                          <li>
+                              <a role="button" tabindex="0" data-toggle="header">
+                                    <div class="application-header-toggle">
+                                        <span class="first-line"></span>
+                                        <span class="second-line"></span>
+                                        <span class="third-line"></span>
+                                    </div>
+                                    <span class="sr-only">Toggle header & navigation</span>
+                               </a>
+                          </li>
+                        </ul>
+                        <div class="application-brand">
+                            <a class="application-brand-logo" href="/">
+                                    <img alt="Back to home" src="/includes/oblique-ui/images/Logo_bund.svg" />
+
+                            </a>
+                            <span class="application-brand-app-title" data-version="1.2.7">
+                                    UID-Register@FSO
+                                    
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="application-navigation navigation-scrollable" data-provides="navigation-scrollable">
+                    <div class="navigation-collapse navigation-scrollable-container" role="navigation">
+                        <h2 class="sr-only">Global navigation</h2>
+                        <button class="navigation-scrollable-control navigation-scrollable-control-left" data-navigation-scrollable="left" type="button">
+                            <span class="fa fa-angle-left"></span>
+                        </button>
+                        <!-- <oblique-ui:header-navbar> -->
+                            <ul id="navigation" class="nav navbar-nav navbar-primary navbar-fw navigation-scrollable-content" role="menubar">
+                                <li id="mainNavRegister" role="presentation" style="margin-left: -0px;" class="active open">
+                                    <a id="lnkUIDRegister" role="menuitem" aria-selected="false" href="/default.aspx">UID-Register</a>
+                                </li>
+                                
+                                
+                                
+                                
+                            </ul>
+                        <button class="navigation-scrollable-control navigation-scrollable-control-right" data-navigation-scrollable="right" type="button">
+                            <span class="fa fa-angle-right"></span>
+                        </button>
+                        </div>
+                        <!-- </oblique-ui:header-navbar> -->
+                    </div>
+            </header>
+            <div id="content" class="application-content" role="main">
+                <noscript>
+                <div class="callout callout-danger"><span class="sr-only">Error</span> <h4>Javascript required!</h4> <p class="lead">JavaScript must be enabled to use this app.</p> <p>Please enable JavaScript in your browser
+                and refresh the page.</p> </div>
+            </noscript>
+                <div class="alert-compatibility default-layout">
+                    <div class="callout callout-danger">
+                        <span class="sr-only">Error</span>
+                        <h4>Unsupported browser!</h4>
+                        <p class="lead">Please note that your browser, Internet Explorer 8 or earlier, is deprecated.</p>
+                        <p>
+                            We recommend upgrading to the
+                        <a href="http://ie.microsoft.com" target="_blank">latest version</a>.
+                        </p>
+                        <p>
+                            If you are using IE 9 or above, make sure you
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view" target="_blank">turn off "Compatibility View".</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="application-content-viewport">
+                    <div class="column-layout column-layout-3" data-provides="column-layout">
+                        <div class="column-header">
+                        </div>
+                        <div class="column-left hidden-print" data-column="left" role="complementary">
+                            
+    
+<ul class="nav nav-bordered" data-provides="activable" role="menu">
+        <li id="cphLeftNav_LeftNav_liSearch" role="presentation" class="open active initial">
+            <a id="cphLeftNav_LeftNav_lnkSearch" role="menuitem" aria-selected="true" href="/Search.aspx">Search</a>
+        </li>
+        
+        
+        
+        
+        
+</ul>
+
+    
+
+<ul class="nav nav-bordered" data-provides="activable" role="menu">
+    <li role="presentation">
+                <a onclick="return false;" id="cphLeftNav_Login_lnkLogin" data-toggle="modal" data-target="#winLogin" role="menuitem" aria-selected="true" href="javascript:__doPostBack(&#39;ctl00$cphLeftNav$Login$lnkLogin&#39;,&#39;&#39;)" style="text-decoration: none; color: black; font-weight: bold">Login</a>
+                
+                
+     </li>
+</ul>
+<div id="winLogout" class="modal" tabindex="-1" style="display: none;" role="dialog"
+    aria-hidden="true" aria-labelledby="#winLogout-Title">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span> <span class="sr-only">
+                        Close</span>
+                </button>
+                <h4 class="modal-title" id="H1">
+                    Logout</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group" style="padding-left: 15px">
+                        Do you really want to logout?
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel</button>
+                <button type="button" id="btnLogout" class="btn btn-primary" onclick="location.href='/Authentication/Logout'">
+                    Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#winLogout').on('shown.bs.modal', function () {
+            $('#btnLogout').focus();
+        });
+
+        $('#winLogin').on('shown.bs.modal', function () {
+            //m = $('#winLogin').detach();
+
+
+
+            if ($('#cphLeftNav_Login_ctl01_txtUsername').val() == '') {
+                $('#cphLeftNav_Login_ctl01_txtUsername').focus();
+            } else {
+                $('#cphLeftNav_Login_ctl02_txtPassword').focus();
+            }
+        });
+    });
+
+    function domFix() {
+        $('#' + document.forms[0].id).append($('#winLogin'));
+    }
+</script>
+<div id="winLogin" class="modal" tabindex="-1" style="display: none;" role="dialog"
+    aria-hidden="true" aria-labelledby="#winLogin-Title">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span> <span class="sr-only">
+                        Close</span>
+                </button>
+                <h4 class="modal-title" id="winLogin-Title">
+                    Login</h4>
+            </div>
+                    <div id="cphLeftNav_Login_Panel2">
+	
+            <div id="cphLeftNav_Login_UpdatePanel2">
+		
+                       <div class="alert alert-danger alert-dismissable" id="alertLoginError" style="display: none">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                &times;</button>
+                            <strong>
+                                Es ist ein unbekannter Fehler aufgetreten, bitte versuchen Sie es später noch einmal.</strong>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label id="cphLeftNav_Login_ctl01" for="cphLeftNav_Login_ctl01_txtUsername" id="cphLeftNav_Login_ctl01_lbl_txtUsername" class="col-sm-3 control-label"><b>Username</b></label><div class="col-sm-9">
+			<input name="ctl00$cphLeftNav$Login$ctl01$txtUsername" type="text" id="cphLeftNav_Login_ctl01_txtUsername" AutoComplete="off" class="form-control" />
+		</div>
+                                </div>
+                                <div class="form-group">
+                                    <label id="cphLeftNav_Login_ctl02" for="cphLeftNav_Login_ctl02_txtPassword" id="cphLeftNav_Login_ctl02_lbl_txtPassword" class="col-sm-3 control-label"><b>Password</b></label><div class="col-sm-9">
+			<input name="ctl00$cphLeftNav$Login$ctl02$txtPassword" type="password" id="cphLeftNav_Login_ctl02_txtPassword" AutoComplete="off" class="form-control" />
+		</div>
+                                </div>
+                                <div class="form-group">
+                                    <label id="cphLeftNav_Login_ctl03" for="cphLeftNav_Login_ctl03_chkAutoLogin" id="cphLeftNav_Login_ctl03_lbl_chkAutoLogin" class="col-sm-3 control-label"></label><div class="col-sm-9">
+			<span class="checkbox"><input id="cphLeftNav_Login_ctl03_chkAutoLogin" type="checkbox" name="ctl00$cphLeftNav$Login$ctl03$chkAutoLogin" /><label for="cphLeftNav_Login_ctl03_chkAutoLogin">Remember Username</label></span>
+		</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link" onClick="location.href='/PasswordRequest/RequestNewPassword'">
+                                Password forgotten?</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancel</button>
+                            <input type="submit" name="ctl00$cphLeftNav$Login$btnLogin" value="Login" onclick="domFix();Page_ClientValidate(&#39;Login&#39;);WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cphLeftNav$Login$btnLogin&quot;, &quot;&quot;, true, &quot;Login&quot;, &quot;&quot;, false, false))" id="cphLeftNav_Login_btnLogin" class="btn btn-primary" />
+                        </div>
+                
+	</div>
+                    
+</div>
+        </div>
+    </div>
+</div>
+<div id="winRequestNewPassword" class="modal" tabindex="-1" style="display: none;"
+    role="dialog" aria-hidden="true" aria-labelledby="#winRequestNewPassword-Title">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span> <span class="sr-only">
+                        Close</span>
+                </button>
+                <h4 class="modal-title" id="winRequestNewPassword-Title">
+                    Request new password</h4>
+            </div>
+            <div id="cphLeftNav_Login_UpdatePanel1">
+	
+                    <div class="alert alert-danger alert-dismissable" id="alertNewPasswordError" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;</button>
+                        <strong>
+                            Es ist ein unbekannter Fehler aufgetreten, bitte versuchen Sie es später noch einmal.</strong>
+                    </div>
+                    <div class="alert alert-success alert-dismissable" id="alertNewPasswordSuccess" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;</button>
+                        <strong>
+                            Your data has been saved.
+                        </strong>
+                    </div>
+                    <div id="cphLeftNav_Login_Panel1">
+		
+                        <div class="modal-body">
+                            <div class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label id="cphLeftNav_Login_ctl05" for="cphLeftNav_Login_ctl05_txtNewPasswordUsername" id="cphLeftNav_Login_ctl05_lbl_txtNewPasswordUsername" class="col-sm-3 control-label"><b>Username</b></label><div class="col-sm-9">
+			<input name="ctl00$cphLeftNav$Login$ctl05$txtNewPasswordUsername" type="text" id="cphLeftNav_Login_ctl05_txtNewPasswordUsername" AutoComplete="off" class="form-control" />
+		</div>
+                                </div>
+                                <div class="form-group">
+                                    <label id="cphLeftNav_Login_ctl06" for="cphLeftNav_Login_ctl06_txtNewPasswordEmail" id="cphLeftNav_Login_ctl06_lbl_txtNewPasswordEmail" class="col-sm-3 control-label"><b>E-mail</b></label><div class="col-sm-8">
+			<input name="ctl00$cphLeftNav$Login$ctl06$txtNewPasswordEmail" type="text" id="cphLeftNav_Login_ctl06_txtNewPasswordEmail" AutoComplete="off" class="form-control" />
+		</div><div class="col-sm-1">
+			<a class="form-control-static" role="tooltip" data-html="true" data-placement="right" title="Geben Sie zur Kontrolle die Email-Adresse an, welche für den angegebenen Benutzer im System registriert ist."><span class="fa fa-question-circle" style="color:rgb(40, 83, 162)"></span></a>
+		</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancel</button>
+                            <input type="submit" name="ctl00$cphLeftNav$Login$btnRequestNewPassword" value="Request new password" onclick="Page_ClientValidate(&#39;RequestNewPassword&#39;);WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cphLeftNav$Login$btnRequestNewPassword&quot;, &quot;&quot;, true, &quot;RequestNewPassword&quot;, &quot;&quot;, false, false))" id="cphLeftNav_Login_btnRequestNewPassword" class="btn btn-primary" />
+                        </div>
+                    
+	</div>
+                
+</div>
+        </div>
+    </div>
+</div>
+
+
+                        </div>
+                        <div class="column-main">
+                            <div class="default-layout">
+                                <h1>
+                                    
+
+
+                                </h1>
+                                <div class="form-horizontal" role="form">
+                                    
+                                    <div id="updatePanelContent">
+	
+                                            <div id="alertError" class="alert alert-danger alert-dismissable" style="display: none">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <strong>
+                                                    Es ist ein unbekannter Fehler aufgetreten, bitte versuchen Sie es später noch einmal.</strong><br />
+                                                
+                                            </div>
+                                            <div id="alertWarning" class="alert alert-warning alert-dismissable" style="display: none">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <strong>
+                                                    </strong><br />
+                                                <br>
+                                                <input type="submit" name="ctl00$btnIgnoreWarningAndSave" value="Save anyway" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$btnIgnoreWarningAndSave&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="btnIgnoreWarningAndSave" class="btn btn-default" style="display: none" />
+                                            </div>
+                                            <div id="alertInfo" class="alert alert-info alert-dismissable">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <strong>
+                                                    </strong><br />
+                                            </div>
+                                            <div id="alertSuccess" class="alert alert-success alert-dismissable">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <strong>
+                                                    Your data has been saved.
+                                                </strong>
+                                            </div>
+                                            
+    <script type="text/javascript">
+
+        $("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+            var id = $(e.target).attr("href").substr(1);
+            $('#cphContent_hidSelectedSearchMode').val(id);
+        });
+
+        $(document).ready(function () {
+            Sys.Application.add_init(appl_init);
+            function appl_init() {
+                var pgRegMgr = Sys.WebForms.PageRequestManager.getInstance();
+                pgRegMgr.add_endRequest(EndHandler);
+            }
+            function EndHandler() {
+                setSearchMode($('#cphContent_hidSelectedSearchMode').val(), true);
+            }
+
+            setSearchMode($('#cphContent_hidSelectedSearchMode').val(), true);
+        });
+
+        function showDetail(sender, args) {
+            var grid = sender.get_masterTableView();
+            var row = grid.get_dataItems()[args.get_itemIndexHierarchical()];
+            grid.fireCommand("UIDEdit", $(grid.getCellByColumnUniqueName(row, "UID")).text());
+        }
+
+        function setSearchMode(mode, setTab) {
+            if (mode == 'cphContent_sectionPersonSearch') {
+                $('#cphContent_ctl03_txtLastname').focus();
+                $('#cphContent_ctl02_txtSearch').val('');
+                $('#cphContent_ctl06_txtGroupname').val('');
+                if (setTab) {
+                    $('.nav-tabs a[href="#cphContent_sectionPersonSearch"]').tab('show');
+                    $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+                        var id = $(e.target).attr("href").substr(1);
+                        $('#cphContent_hidSelectedSearchMode').val(id);
+                    });
+                }
+                ValidatorEnable(document.getElementById('cphContent_ctl02_txtSearch'.replace('txtSearch', 'reqtxtSearch')), false);
+                ValidatorEnable(document.getElementById('cphContent_ctl06_txtGroupname'.replace('txtGroupname', 'reqtxtGroupname')), false);
+                if (!setTab) {
+                    $('#cphContent_ctl03_txtLastname').val('-');
+                    ValidatorEnable(document.getElementById('cphContent_ctl03_txtLastname'.replace('txtLastname', 'reqtxtLastname')), true);
+                    $('#cphContent_ctl03_txtLastname').val('');
+                }
+                document.getElementById('cphContent_ctl08_chkIncludeHistoricalNames').parentElement.parentElement.style.display = "none";
+            }
+            else if (mode == 'cphContent_sectionGroupSearch') {
+
+                $('#cphContent_ctl06_txtGroupname').focus();
+                $('#cphContent_ctl02_txtSearch').val('');
+                $('#cphContent_ctl03_txtLastname').val('');
+                $('#cphContent_ctl04_txtFirstname').val('');
+                $('#cphContent_ctl05_datBirthdate').datepickerBT('update', '');
+                if (setTab) {
+                    $('.nav-tabs a[href="#cphContent_sectionGroupSearch"]').tab('show');
+                    $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+                        var id = $(e.target).attr("href").substr(1);
+                        $('#cphContent_hidSelectedSearchMode').val(id);
+                    });
+                }
+
+                ValidatorEnable(document.getElementById('cphContent_ctl02_txtSearch'.replace('txtSearch', 'reqtxtSearch')), false);
+                ValidatorEnable(document.getElementById('cphContent_ctl03_txtLastname'.replace('txtLastname', 'reqtxtLastname')), false);
+                if (!setTab) {
+                    $('#cphContent_ctl06_txtGroupname').val('-');
+                    ValidatorEnable(document.getElementById('cphContent_ctl06_txtGroupname'.replace('txtGroupname', 'reqtxtGroupname')), true);
+                    $('#cphContent_ctl06_txtGroupname').val('');
+                }
+                document.getElementById('cphContent_ctl08_chkIncludeHistoricalNames').parentElement.parentElement.style.display = "none";
+            }
+            else {
+
+                $('#cphContent_ctl02_txtSearch').focus();
+                $('#cphContent_ctl03_txtLastname').val('');
+                $('#cphContent_ctl04_txtFirstname').val('');
+                $('#cphContent_ctl05_datBirthdate').datepickerBT('update', '');
+                $('#cphContent_ctl06_txtGroupname').val('');
+                ValidatorEnable(document.getElementById('cphContent_ctl03_txtLastname'.replace('txtLastname', 'reqtxtLastname')), false);
+                ValidatorEnable(document.getElementById('cphContent_ctl06_txtGroupname'.replace('txtGroupname', 'reqtxtGroupname')), false);
+                if (!setTab) {
+                    $('#cphContent_ctl02_txtSearch').val('-');
+                    ValidatorEnable(document.getElementById('cphContent_ctl02_txtSearch'.replace('txtSearch', 'reqtxtSearch')), true);
+                    $('#cphContent_ctl02_txtSearch').val('');
+                }
+                document.getElementById('cphContent_ctl08_chkIncludeHistoricalNames').parentElement.parentElement.style.display = "block";
+            }
+        }
+    </script>
+    <div>
+        <div>
+		
+            <div>
+                <div class="panel-body">
+                    <input type="hidden" name="ctl00$cphContent$hidSelectedSearchMode" id="cphContent_hidSelectedSearchMode" />
+                    <ul class="nav nav-tabs">
+                        <li id="tabOrganisationSearch" role="presentation" class="active">
+                            <a data-toggle="tab" href="#cphContent_sectionOrganisationSearch" onclick="setSearchMode('cphContent_sectionOrganisationSearch', false)">
+                                Search
+                            </a>
+                        </li>
+                        <li id="tabPersonSearch" role="presentation">
+                            <a data-toggle="tab" href="#cphContent_sectionPersonSearch" onclick="setSearchMode('cphContent_sectionPersonSearch', false)">
+                                Sole proprietorship search</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div id="cphContent_sectionOrganisationSearch" class="tab-pane fade active in">
+			
+                        <div>
+                            <div class="form-group">
+                                <label id="cphContent_ctl02" for="cphContent_ctl02_txtSearch" id="cphContent_ctl02_lbl_txtSearch" class="col-sm-2 control-label"><b>Name / UID</b></label><div class="col-sm-8">
+				<input name="ctl00$cphContent$ctl02$txtSearch" id="cphContent_ctl02_txtSearch" AutoComplete="off" type="search" class="form-control" />
+			</div>
+                            </div>
+                        </div>
+                    
+		</div>
+                    <div id="cphContent_sectionPersonSearch" class="tab-pane fade">
+			
+                        <div>
+                            <div class="form-group">
+                                <label id="cphContent_ctl03" for="cphContent_ctl03_txtLastname" id="cphContent_ctl03_lbl_txtLastname" class="col-sm-2 control-label"><b>Lastname</b></label><div class="col-sm-4">
+				<input name="ctl00$cphContent$ctl03$txtLastname" type="text" id="cphContent_ctl03_txtLastname" AutoComplete="off" class="form-control" />
+			</div>
+                                <label id="cphContent_ctl04" for="cphContent_ctl04_txtFirstname" id="cphContent_ctl04_lbl_txtFirstname" class="col-sm-2 control-label">Firstname</label><div class="col-sm-4">
+				<input name="ctl00$cphContent$ctl04$txtFirstname" type="text" id="cphContent_ctl04_txtFirstname" AutoComplete="off" class="form-control" />
+			</div>
+                            </div>
+                        </div>
+                        
+                    
+		</div>
+                    <div id="cphContent_sectionGroupSearch" class="tab-pane fade">
+			
+                        <div>
+                            <div class="form-group">
+                                <label id="cphContent_ctl06" for="cphContent_ctl06_txtGroupname" id="cphContent_ctl06_lbl_txtGroupname" class="col-sm-2 control-label"><b>Group search</b></label><div class="col-sm-8">
+				<input name="ctl00$cphContent$ctl06$txtGroupname" type="text" id="cphContent_ctl06_txtGroupname" AutoComplete="off" class="form-control" />
+			</div>
+                            </div>
+                        </div>
+                    
+		</div>
+                </div>
+                <div class="form-group">
+                    <label id="cphContent_ctl07" for="cphContent_ctl07_chkActiveEntitiesOnly" id="cphContent_ctl07_lbl_chkActiveEntitiesOnly" class="col-sm-2 control-label"></label><div class="col-sm-3">
+			<span class="checkbox"><input id="cphContent_ctl07_chkActiveEntitiesOnly" type="checkbox" name="ctl00$cphContent$ctl07$chkActiveEntitiesOnly" /><label for="cphContent_ctl07_chkActiveEntitiesOnly">Active only</label></span>
+		</div>
+                    <label id="cphContent_ctl08" for="cphContent_ctl08_chkIncludeHistoricalNames" id="cphContent_ctl08_lbl_chkIncludeHistoricalNames" class="col-sm-0 control-label" style="display:none"></label><div class="col-sm-3">
+			<span class="checkbox"><input id="cphContent_ctl08_chkIncludeHistoricalNames" type="checkbox" name="ctl00$cphContent$ctl08$chkIncludeHistoricalNames" /><label for="cphContent_ctl08_chkIncludeHistoricalNames">include former names</label></span>
+		</div>
+                    <label id="cphContent_ctl09" for="cphContent_ctl09_chkIncludeUidServices" id="cphContent_ctl09_lbl_chkIncludeUidServices" class="col-sm-0 control-label" style="display:none"></label><div class="col-sm-3">
+			<span class="checkbox"><input id="cphContent_ctl09_chkIncludeUidServices" type="checkbox" name="ctl00$cphContent$ctl09$chkIncludeUidServices" /><label for="cphContent_ctl09_chkIncludeUidServices">Incl. UID Services</label></span>
+		</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" name="ctl00$cphContent$btnSearch" value="Search" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cphContent$btnSearch&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="cphContent_btnSearch" class="btn btn-primary" />
+                    <input type="submit" name="ctl00$cphContent$btnReset" value="Reset" onclick="location.href = location.origin;WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$cphContent$btnReset&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="cphContent_btnReset" class="btn btn-default" />
+                </div>
+             </div>
+        
+	</div>
+    </div>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default" id="panel1">
+            <div class="panel-heading" style="width: 250px">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#extendedSearch" class="collapsed">
+                        Advanced search</a></h4>
+            </div>
+            <div id="extendedSearch" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <input type="hidden" name="ctl00$cphContent$hidSelectedTab" id="cphContent_hidSelectedTab" />
+                    <ul class="nav nav-tabs" id="detailTabs">
+                        <li id="cphContent_tabCoreProperties" role="presentation" class="active"><a data-toggle="tab"
+                            href="#cphContent_sectionCoreProperties">
+                            Core properties</a></li>
+                        
+                        
+                    </ul>
+                    <div class="tab-content">
+                        <div id="cphContent_sectionCoreProperties" class="tab-pane fade active in">
+		
+                            <fieldset>
+                                <legend>
+                                    Legal seat or company address</legend>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl10" for="cphContent_ctl10_txtCareOf" id="cphContent_ctl10_lbl_txtCareOf" class="col-sm-2 control-label">c/o</label><div class="col-sm-10">
+			<input name="ctl00$cphContent$ctl10$txtCareOf" type="text" id="cphContent_ctl10_txtCareOf" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl11" for="cphContent_ctl11_txtStreet" id="cphContent_ctl11_lbl_txtStreet" class="col-sm-2 control-label">Street / No.</label><div class="col-sm-8" style="padding-right:1px">
+			<input name="ctl00$cphContent$ctl11$txtStreet" type="text" id="cphContent_ctl11_txtStreet" AutoComplete="off" class="form-control" />
+		</div>
+                                        <label id="cphContent_ctl12" for="cphContent_ctl12_txtStreetNumber" id="cphContent_ctl12_lbl_txtStreetNumber" class="col-sm-0 control-label" style="display:none"></label><div class="col-sm-1" style="padding-left:1px;padding-right:1px">
+			<input name="ctl00$cphContent$ctl12$txtStreetNumber" type="text" id="cphContent_ctl12_txtStreetNumber" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl13" for="cphContent_ctl13_txtLine2" id="cphContent_ctl13_lbl_txtLine2" class="col-sm-2 control-label">Complement</label><div class="col-sm-10">
+			<input name="ctl00$cphContent$ctl13$txtLine2" type="text" id="cphContent_ctl13_txtLine2" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl14" for="cphContent_ctl14_txtPostcode" id="cphContent_ctl14_lbl_txtPostcode" class="col-sm-2 control-label">ZIP / Town</label><div class="col-sm-2" style="padding-right:1px">
+			<input name="ctl00$cphContent$ctl14$txtPostcode" type="text" id="cphContent_ctl14_txtPostcode" AutoComplete="off" class="form-control" />
+		</div>
+                                        
+                                        <label id="cphContent_ctl16" for="cphContent_ctl16_txtTown" id="cphContent_ctl16_lbl_txtTown" class="col-sm-0 control-label" style="display:none"></label><div class="col-sm-8" style="padding-left:1px">
+			<input name="ctl00$cphContent$ctl16$txtTown" type="text" id="cphContent_ctl16_txtTown" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl17" for="cphContent_ctl17_ddlCanton" id="cphContent_ctl17_lbl_ddlCanton" class="col-sm-2 control-label">Canton</label><div class="col-sm-4">
+			<select name="ctl00$cphContent$ctl17$ddlCanton" id="cphContent_ctl17_ddlCanton" class="form-control">
+				<option selected="selected" value=""></option>
+				<option value="AG">AG</option>
+				<option value="AI">AI</option>
+				<option value="AR">AR</option>
+				<option value="BE">BE</option>
+				<option value="BL">BL</option>
+				<option value="BS">BS</option>
+				<option value="FR">FR</option>
+				<option value="GE">GE</option>
+				<option value="GL">GL</option>
+				<option value="GR">GR</option>
+				<option value="JU">JU</option>
+				<option value="LU">LU</option>
+				<option value="NE">NE</option>
+				<option value="NW">NW</option>
+				<option value="OW">OW</option>
+				<option value="SG">SG</option>
+				<option value="SH">SH</option>
+				<option value="SO">SO</option>
+				<option value="SZ">SZ</option>
+				<option value="TG">TG</option>
+				<option value="TI">TI</option>
+				<option value="UR">UR</option>
+				<option value="VD">VD</option>
+				<option value="VS">VS</option>
+				<option value="ZG">ZG</option>
+				<option value="ZH">ZH</option>
+
+			</select><script>
+				$(document).ready(function() { $('#cphContent_ctl17_ddlCanton').combobox({ select: function(event,ui) { $('#cphContent_ctl17_ddlCanton').change() } }); } );
+			</script>
+		</div>
+                                        <label id="cphContent_ctl18" for="cphContent_ctl18_ddlCountry" id="cphContent_ctl18_lbl_ddlCountry" class="col-sm-2 control-label">Country</label><div class="col-sm-4">
+			<select name="ctl00$cphContent$ctl18$ddlCountry" id="cphContent_ctl18_ddlCountry" class="form-control">
+				<option selected="selected" value=""></option>
+				<option value="CH">Switzerland</option>
+				<option value="DE">Germany</option>
+				<option value="FR">France</option>
+				<option value="IT">Italy</option>
+				<option value="AD">Andorra</option>
+				<option value="AE">United Arab Emirates</option>
+				<option value="AF">Afghanistan</option>
+				<option value="AG">Antigua and Barbuda</option>
+				<option value="AL">Albania</option>
+				<option value="AM">Armenia</option>
+				<option value="AO">Angola</option>
+				<option value="AR">Argentina</option>
+				<option value="AT">Austria</option>
+				<option value="AU">Australia</option>
+				<option value="AZ">Azerbaijan</option>
+				<option value="BA">Bosnia and Herzegovina</option>
+				<option value="BB">Barbados</option>
+				<option value="BD">Bangladesh</option>
+				<option value="BE">Belgium</option>
+				<option value="BF">Burkina Faso</option>
+				<option value="BG">Bulgaria</option>
+				<option value="BH">Bahrain</option>
+				<option value="BI">Burundi</option>
+				<option value="BJ">Benin</option>
+				<option value="BN">Brunei</option>
+				<option value="BO">Bolivia</option>
+				<option value="BR">Brazil</option>
+				<option value="BS">Bahamas</option>
+				<option value="BT">Bhutan</option>
+				<option value="BW">Botswana</option>
+				<option value="BY">Belarus</option>
+				<option value="BZ">Belize</option>
+				<option value="CA">Canada</option>
+				<option value="CD">Congo (Kinshasa)</option>
+				<option value="CF">Central African Republic</option>
+				<option value="CG">Congo (Brazzaville)</option>
+				<option value="CI">C&#244;te d&#39;Ivoire</option>
+				<option value="CK">Cook Islands</option>
+				<option value="CL">Chile</option>
+				<option value="CM">Cameroon</option>
+				<option value="CN">China</option>
+				<option value="CO">Colombia</option>
+				<option value="CR">Costa Rica</option>
+				<option value="CU">Cuba</option>
+				<option value="CV">Cabo Verde</option>
+				<option value="CY">Cyprus</option>
+				<option value="CZ">Czechia</option>
+				<option value="DJ">Djibouti</option>
+				<option value="DK">Denmark</option>
+				<option value="DM">Dominica</option>
+				<option value="DO">Dominican Republic</option>
+				<option value="DZ">Algeria</option>
+				<option value="EC">Ecuador</option>
+				<option value="EE">Estonia</option>
+				<option value="EG">Egypt</option>
+				<option value="ER">Eritrea</option>
+				<option value="ES">Spain</option>
+				<option value="ET">Ethiopia</option>
+				<option value="FI">Finland</option>
+				<option value="FJ">Fiji</option>
+				<option value="FM">Micronesia</option>
+				<option value="GA">Gabon</option>
+				<option value="GB">United Kingdom</option>
+				<option value="GD">Grenada</option>
+				<option value="GE">Georgia</option>
+				<option value="GH">Ghana</option>
+				<option value="GM">Gambia</option>
+				<option value="GN">Guinea</option>
+				<option value="GQ">Equatorial Guinea</option>
+				<option value="GR">Greece</option>
+				<option value="GT">Guatemala</option>
+				<option value="GW">Guinea-Bissau</option>
+				<option value="GY">Guyana</option>
+				<option value="HN">Honduras</option>
+				<option value="HR">Croatia</option>
+				<option value="HT">Haiti</option>
+				<option value="HU">Hungary</option>
+				<option value="ID">Indonesia</option>
+				<option value="IE">Ireland</option>
+				<option value="IL">Israel</option>
+				<option value="IN">India</option>
+				<option value="IQ">Iraq</option>
+				<option value="IR">Iran</option>
+				<option value="IS">Iceland</option>
+				<option value="JM">Jamaica</option>
+				<option value="JO">Jordan</option>
+				<option value="JP">Japan</option>
+				<option value="KE">Kenya</option>
+				<option value="KG">Kyrgyzstan</option>
+				<option value="KH">Cambodia</option>
+				<option value="KI">Kiribati</option>
+				<option value="KM">Comoros</option>
+				<option value="KN">Saint Kitts and Nevis</option>
+				<option value="KP">North Korea</option>
+				<option value="KR">South Korea</option>
+				<option value="KW">Kuwait</option>
+				<option value="KZ">Kazakhstan</option>
+				<option value="LA">Laos</option>
+				<option value="LB">Lebanon</option>
+				<option value="LC">Saint Lucia</option>
+				<option value="LI">Liechtenstein</option>
+				<option value="LK">Sri Lanka</option>
+				<option value="LR">Liberia</option>
+				<option value="LS">Lesotho</option>
+				<option value="LT">Lithuania</option>
+				<option value="LU">Luxembourg</option>
+				<option value="LV">Latvia</option>
+				<option value="LY">Libya</option>
+				<option value="MA">Morocco</option>
+				<option value="MC">Monaco</option>
+				<option value="MD">Moldova</option>
+				<option value="ME">Montenegro</option>
+				<option value="MN">Mongolia</option>
+				<option value="MG">Madagascar</option>
+				<option value="MH">Marshall Islands</option>
+				<option value="MK">North Macedonia</option>
+				<option value="ML">Mali</option>
+				<option value="MM">Myanmar</option>
+				<option value="MR">Mauritania</option>
+				<option value="MT">Malta</option>
+				<option value="MU">Mauritius</option>
+				<option value="MV">Maldives</option>
+				<option value="MW">Malawi</option>
+				<option value="MX">Mexico</option>
+				<option value="MY">Malaysia</option>
+				<option value="MZ">Mozambique</option>
+				<option value="NA">Namibia</option>
+				<option value="NE">Niger</option>
+				<option value="NG">Nigeria</option>
+				<option value="NI">Nicaragua</option>
+				<option value="NL">Netherlands</option>
+				<option value="NO">Norway</option>
+				<option value="NP">Nepal</option>
+				<option value="NR">Nauru</option>
+				<option value="NZ">New Zealand</option>
+				<option value="OM">Oman</option>
+				<option value="PA">Panama</option>
+				<option value="PE">Peru</option>
+				<option value="PG">Papua New Guinea</option>
+				<option value="PH">Philippines</option>
+				<option value="PK">Pakistan</option>
+				<option value="PL">Poland</option>
+				<option value="PT">Portugal</option>
+				<option value="PW">Palau</option>
+				<option value="PY">Paraguay</option>
+				<option value="QA">Qatar</option>
+				<option value="RO">Romania</option>
+				<option value="RS">Serbia</option>
+				<option value="RU">Russia</option>
+				<option value="RW">Rwanda</option>
+				<option value="SA">Saudi Arabia</option>
+				<option value="SE">Sweden</option>
+				<option value="SB">Solomon Islands</option>
+				<option value="SC">Seychelles</option>
+				<option value="SD">Sudan</option>
+				<option value="SG">Singapore</option>
+				<option value="SI">Slovenia</option>
+				<option value="SK">Slovakia</option>
+				<option value="SL">Sierra Leone</option>
+				<option value="SM">San Marino</option>
+				<option value="SN">Senegal</option>
+				<option value="SO">Somalia</option>
+				<option value="SR">Suriname</option>
+				<option value="SS">South Sudan</option>
+				<option value="ST">S&#227;o Tom&#233; and Pr&#237;ncipe</option>
+				<option value="SV">El Salvador</option>
+				<option value="SY">Syria</option>
+				<option value="SZ">Eswatini</option>
+				<option value="TD">Chad</option>
+				<option value="TG">Togo</option>
+				<option value="TH">Thailand</option>
+				<option value="TJ">Tajikistan</option>
+				<option value="TL">Timor-Leste</option>
+				<option value="TM">Turkmenistan</option>
+				<option value="TN">Tunisia</option>
+				<option value="TO">Tonga</option>
+				<option value="TR">T&#252;rkiye</option>
+				<option value="TT">Trinidad and Tobago</option>
+				<option value="TV">Tuvalu</option>
+				<option value="TZ">Tanzania</option>
+				<option value="UA">Ukraine</option>
+				<option value="UG">Uganda</option>
+				<option value="US">United States</option>
+				<option value="UY">Uruguay</option>
+				<option value="UZ">Uzbekistan</option>
+				<option value="VA">Vatican City</option>
+				<option value="VC">Saint Vincent and the Grenadines</option>
+				<option value="VE">Venezuela</option>
+				<option value="VN">Vietnam</option>
+				<option value="VU">Vanuatu</option>
+				<option value="WS">Samoa</option>
+				<option value="XK">Kosovo</option>
+				<option value="YE">Yemen</option>
+				<option value="ZA">South Africa</option>
+				<option value="ZM">Zambia</option>
+				<option value="ZW">Zimbabwe</option>
+
+			</select><script>
+				$(document).ready(function() { $('#cphContent_ctl18_ddlCountry').combobox({ select: function(event,ui) { $('#cphContent_ctl18_ddlCountry').change() } }); } );
+			</script>
+		</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl19" for="cphContent_ctl19_txtCommunityname" id="cphContent_ctl19_lbl_txtCommunityname" class="col-sm-2 control-label">Municipality</label><div class="col-sm-4">
+			<input name="ctl00$cphContent$ctl19$txtCommunityname" type="text" id="cphContent_ctl19_txtCommunityname" AutoComplete="off" class="form-control" />
+		</div>
+                                        <label id="cphContent_ctl20" for="cphContent_ctl20_txtCommunityId" id="cphContent_ctl20_lbl_txtCommunityId" class="col-sm-2 control-label">Municipality no.</label><div class="col-sm-4">
+			<input name="ctl00$cphContent$ctl20$txtCommunityId" type="text" id="cphContent_ctl20_txtCommunityId" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl21" for="cphContent_ctl21_txtEGID" id="cphContent_ctl21_lbl_txtEGID" class="col-sm-2 control-label">EGID</label><div class="col-sm-4">
+			<input name="ctl00$cphContent$ctl21$txtEGID" type="text" id="cphContent_ctl21_txtEGID" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>
+                                    PO Box</legend>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl22" for="cphContent_ctl22_txtPostboxPostcode" id="cphContent_ctl22_lbl_txtPostboxPostcode" class="col-sm-2 control-label">PO box postcode</label><div class="col-sm-4">
+			<input name="ctl00$cphContent$ctl22$txtPostboxPostcode" type="text" id="cphContent_ctl22_txtPostboxPostcode" AutoComplete="off" class="form-control" />
+		</div>
+                                        <label id="cphContent_ctl23" for="cphContent_ctl23_txtPostboxNumber" id="cphContent_ctl23_lbl_txtPostboxNumber" class="col-sm-2 control-label">PO box number</label><div class="col-sm-4">
+			<input name="ctl00$cphContent$ctl23$txtPostboxNumber" type="text" id="cphContent_ctl23_txtPostboxNumber" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>
+                                    Further attributes</legend>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl24" for="cphContent_ctl24_ddlLegalform" id="cphContent_ctl24_lbl_ddlLegalform" class="col-sm-2 control-label">Legal form</label><div class="col-sm-4">
+			<select name="ctl00$cphContent$ctl24$ddlLegalform" id="cphContent_ctl24_ddlLegalform" class="form-control">
+				<option selected="selected" value=""></option>
+				<option value="0101">0101 - Sole proprietorship</option>
+				<option value="0103">0103 - General partnership (GP)</option>
+				<option value="0104">0104 - Limited partnership (LP)</option>
+				<option value="0105">0105 - Corporation with unlimited partners (CUP)</option>
+				<option value="0106">0106 - Corporation (Ltd)</option>
+				<option value="0107">0107 - Limited liability company (LLC)</option>
+				<option value="0108">0108 - Cooperative</option>
+				<option value="0109">0109 - Association</option>
+				<option value="0110">0110 - Foundation</option>
+				<option value="0111">0111 - Branch of a foreign company</option>
+				<option value="0113">0113 - Special legal form</option>
+				<option value="0114">0114 - Limited Partnership for collective investment schemes (LPCI)</option>
+				<option value="0115">0115 - Limited Partnership for collective investment schemes with a variable capital (SICAV)</option>
+				<option value="0116">0116 - Limited Partnership for collective investment schemes with a fixed capital (SICAF)</option>
+				<option value="0117">0117 - Public-law institution</option>
+				<option value="0118">0118 - Non-commercial power of attorney</option>
+				<option value="0119">0119 - Representative of the community of property</option>
+				<option value="0151">0151 - Branch</option>
+				<option value="0220">0220 - Administrative unit of the Confederation</option>
+				<option value="0221">0221 - Administrative unit of the canton</option>
+				<option value="0222">0222 - Administrative unit of the district</option>
+				<option value="0223">0223 - Administrative unit of the commune</option>
+				<option value="0224">0224 - Other public-law administrative unit</option>
+				<option value="0230">0230 - Public-law institution of the Confederation</option>
+				<option value="0231">0231 - Public-law institution of the canton</option>
+				<option value="0232">0232 - Public-law institution of the district</option>
+				<option value="0233">0233 - Public-law institution of the commune</option>
+				<option value="0234">0234 - Other public-law institution</option>
+				<option value="0302">0302 - Simple partnership</option>
+				<option value="0312">0312 - Permanent establishment or swiss representation of a foreign company</option>
+				<option value="0327">0327 - Foreign public company</option>
+				<option value="0328">0328 - Foreign public administration</option>
+				<option value="0329">0329 - International organisation</option>
+				<option value="0355">0355 - Other cooperative</option>
+				<option value="0361">0361 - Trust</option>
+				<option value="0362">0362 - Fund</option>
+				<option value="0441">0441 - Foreign company</option>
+
+			</select><script>
+				$(document).ready(function() { $('#cphContent_ctl24_ddlLegalform').combobox({ select: function(event,ui) { $('#cphContent_ctl24_ddlLegalform').change() } }); } );
+			</script>
+		</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>
+                                    Register of commerce data</legend>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl25" for="cphContent_ctl25_ddlHRStatus" id="cphContent_ctl25_lbl_ddlHRStatus" class="col-sm-2 control-label">RC status</label><div class="col-sm-4">
+			<select name="ctl00$cphContent$ctl25$ddlHRStatus" id="cphContent_ctl25_ddlHRStatus" class="form-control">
+				<option selected="selected" value="-1"></option>
+				<option value="0">Non in RC</option>
+				<option value="1">Active</option>
+				<option value="2">Deleted</option>
+				<option value="3">Provisional</option>
+
+			</select><script>
+				$(document).ready(function() { $('#cphContent_ctl25_ddlHRStatus').combobox({ select: function(event,ui) { $('#cphContent_ctl25_ddlHRStatus').change() } }); } );
+			</script>
+		</div>
+                                        <label id="cphContent_ctl26" for="cphContent_ctl26_txtHeadquarter" id="cphContent_ctl26_lbl_txtHeadquarter" class="col-sm-2 control-label">UID headquarter</label><div class="col-sm-4">
+			<input name="ctl00$cphContent$ctl26$txtHeadquarter" type="text" id="cphContent_ctl26_txtHeadquarter" AutoComplete="off" class="form-control" />
+		</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>
+                                    VAT data</legend>
+
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl27" for="cphContent_ctl27_ddlVATStatus" id="cphContent_ctl27_lbl_ddlVATStatus" class="col-sm-2 control-label">VAT register status</label><div class="col-sm-4">
+			<select name="ctl00$cphContent$ctl27$ddlVATStatus" id="cphContent_ctl27_ddlVATStatus" class="form-control">
+				<option selected="selected" value="-1"></option>
+				<option value="0">Not in VAT register</option>
+				<option value="1">Active</option>
+				<option value="2">Deleted</option>
+
+			</select><script>
+				$(document).ready(function() { $('#cphContent_ctl27_ddlVATStatus').combobox({ select: function(event,ui) { $('#cphContent_ctl27_ddlVATStatus').change() } }); } );
+			</script>
+		</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        <label id="cphContent_ctl28" for="cphContent_ctl28_datVATBegin" id="cphContent_ctl28_lbl_datVATBegin" class="col-sm-2 control-label">Start of obligation</label><div class="col-sm-4 input-append date" data-date="" data-date-format="dd.mm.yyyy" id="cphContent_ctl28_datVATBegin">
+			<input name="ctl00$cphContent$ctl28$datVATBegin" type="text" id="cphContent_ctl28_datVATBegin" AutoComplete="off" class="form-control datepicker" data-date-format="dd.mm.yyyy" style="width:110px;display:inline;margin-right:5px" /><span class="add-on fa fa-calendar"><i class="fa fa-calender"></i></span><script>
+				$(document).ready(function() { $('#cphContent_ctl28_datVATBegin').datepickerBT(); } );
+			</script>
+		</div>
+                                        <label id="cphContent_ctl29" for="cphContent_ctl29_datVATEnd" id="cphContent_ctl29_lbl_datVATEnd" class="col-sm-2 control-label">End of obligation</label><div class="col-sm-4 input-append date" data-date="" data-date-format="dd.mm.yyyy" id="cphContent_ctl29_datVATEnd">
+			<input name="ctl00$cphContent$ctl29$datVATEnd" type="text" id="cphContent_ctl29_datVATEnd" AutoComplete="off" class="form-control datepicker" data-date-format="dd.mm.yyyy" style="width:110px;display:inline;margin-right:5px" /><span class="add-on fa fa-calendar"><i class="fa fa-calender"></i></span><script>
+				$(document).ready(function() { $('#cphContent_ctl29_datVATEnd').datepickerBT(); } );
+			</script>
+		</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        
+	</div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="cphContent_alertWarningScamFolder" class="alert-warning alert-dismissable">
+        <span style="padding-left:15px;">
+            
+            <strong>
+                <a id="cphContent_lnkHyperLInkWarningMessage" href="https://www.seco.admin.ch/seco/en/home/Publikationen_Dienstleistungen/Publikationen_und_Formulare/Werbe_und_Geschaeftsmethoden/Unlauterer_Wettweberb/vorsicht-vor-adressbuchschwindlern-.html" target="_blank">Beware of directory scams</a>
+            </strong>
+        </span>
+    </div>
+
+
+                                        
+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column-right" data-column="right" role="complementary"  style="padding-right:15px">
+                            <div class="column-content">
+                                <div style="font-weight: bold; padding-bottom: 10px">
+                                    Contact</div>
+                                Federal Statistical Office FSO<br />
+                                UID
+                                <br />
+                                Espace de l’Europe 10
+                                <br />
+                                CH-2010 Neuchâtel
+                                <br />
+                                <br />
+                                Tel:&nbsp;<a href="tel:+41 800 20 20 10">+41 800 20 20 10</a><br />
+                                <span class="fa fa-envelope" style="color: rgb(40, 83, 162);padding-right:5px;"></span><a href="mailto:uid@bfs.admin.ch">uid@bfs.admin.ch</a>
+                                <br />
+                                <br />
+                                <div style="font-weight: bold; padding-bottom: 10px">
+                                    Continue to</div>
+                                <ul style="list-style-type: square;">
+                                    <li><a href="https://www.bfs.admin.ch/bfs/en/home/registers/enterprise-register/enterprise-identification.html" target="_blank">Further information on the UID (incl. Registration for the newsletter)</a></li>
+                                    <li><a href="https://www.bfs.admin.ch/bfs/en/home/registers/enterprise-register/enterprise-identification/information-enterprises/faq.html" target="_blank">FAQ</a></li>
+                                    <li><a href="https://www.bfs.admin.ch/bfs/en/home/registers/enterprise-register/enterprise-identification/information-enterprises/my-uid.html" target="_blank">Modifying UID data</a></li>
+                                </ul>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="application-footer">
+                <div class="row">
+                    <div class="col-xs-10 col-sm-8 col-md-6">
+                        <p>Federal Statistical Office FSO</p><p>&nbsp;</p>
+                    </div>
+                    <div class="col-xs-10 col-xs-push-4 col-sm-4 col-sm-push-0 col-md-6">
+                        <ul class="list-inline">
+                            <li>
+                                <a href="https://www.admin.ch/gov/en/start/terms-and-conditions.html" target="_blank">Terms and conditions</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+
+<script type="text/javascript">
+//<![CDATA[
+window.__TsmHiddenField = $get('uidScriptManager_TSM');Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadWindowManager, {"clientStateFieldID":"ctl00_uidWindowManager_ClientState","enableShadow":true,"formID":"form1","iconUrl":"","minimizeIconUrl":"","name":"uidWindowManager","skin":"Sunset","windowControls":"[]"}, null, null, $get("ctl00_uidWindowManager"));
+});
+Sys.Application.add_init(function() {
+    $create(Telerik.Web.UI.RadFormDecorator, {"_renderMode":1,"clientStateFieldID":"ctl00_uidFormDecorator_ClientState","decoratedControls":0,"enabled":true,"skin":"MetroTouch"}, null, null, $get("ctl00_uidFormDecorator"));
+});
+//]]>
+</script>
+</form>
+</body>
+
+</html>

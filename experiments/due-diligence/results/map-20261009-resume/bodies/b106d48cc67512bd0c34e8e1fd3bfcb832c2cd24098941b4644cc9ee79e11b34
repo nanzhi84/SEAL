@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head id="j_idt2">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta lang="zh" http-equiv="Content-Type" content="text/html;charset=utf-8" charset="utf-8" />
+
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+	
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="Description" content="This patent search tool allows you not only to search the PCT database of about 2 million International Applications but also the worldwide patent collections. This search facility features: flexible search syntax; automatic word stemming and relevance ranking; as well as graphical results." />
+		<meta name="Cache-Control" content="no-cache,no-store,must-revalidate" />
+		<meta name="Expires" content="0" />
+		<meta name="Pragma" content="no-cache" />
+	
+	<title>WIPO – 检索国际和国家专利汇编</title><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/theme.css.jsf?ln=primefaces-wipo" /><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/primefaces/fa/font-awesome.css.xhtml" /><script type="text/javascript" src="/search/javax.faces.resource/omnifaces.js.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC?ln=omnifaces&amp;v=2.6.9"></script><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/css/components.css.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC?ln=w-ps-cc" /><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/css/components.css.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC?ln=ps-cc" /><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/css/common/common.css.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" /><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/css/common/primefaces-custom.css.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" /><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/css/common/wfaces-custom.css.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" /><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/css/wipo/ps-ulf-compatibility.css.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" /><style type="text/css">
+			.search-editpanel.ps-editpanel .ps-editpanel--section--first-slot {
+				flex-grow: 1;
+			}
+	
+			.search-editpanel.ps-editpanel .ps-editpanel--section--second-slot {
+				flex-grow: 9999;
+			}
+		</style><link type="text/css" rel="stylesheet" href="/search/javax.faces.resource/primefaces/components.css.xhtml;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" /><script type="text/javascript" src="/search/javax.faces.resource/primefaces/jquery/jquery.js.xhtml;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"></script><script type="text/javascript" src="/search/javax.faces.resource/primefaces/core.js.xhtml;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"></script><script type="text/javascript" src="/search/javax.faces.resource/primefaces/components.js.xhtml;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"></script><script type="text/javascript" src="/search/javax.faces.resource/primefaces/jquery/jquery-plugins.js.xhtml;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"></script><script type="text/javascript" src="/search/javax.faces.resource/jsf.js.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC?ln=javax.faces"></script><script type="text/javascript" src="/search/javax.faces.resource/hotkey/hotkey.js.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC?ln=primefaces&amp;v=6.1"></script><style type="text/css">
+		/*	When the drawerTriggering element has a top/bottom padding/margin (as the mainmenu items), 
+			the position of the drawer must be updated correspondignly.*/
+		.settings-drawer.b-drawer.wf-drawer-fix-position {
+			top: -0.75rem;
+		}	
+	</style><style type="text/css">
+		/*	When the drawerTriggering element has a top/bottom padding/margin (as the mainmenu items), 
+			the position of the drawer must be updated correspondignly.*/
+		.feedback-drawer.b-drawer.wf-drawer-fix-position {
+			top: -0.75rem;
+		}
+		
+		.feedback-message {
+			margin-top: 1rem;
+		}
+	</style><style type="text/css">
+		/*	When the drawerTriggering element has a top/bottom padding/margin (as the mainmenu items), 
+			the position of the drawer must be updated correspondignly.*/
+		.feedback-drawer.b-drawer.wf-drawer-fix-position {
+			top: -0.75rem;
+		}
+	</style><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='zh';}</script>
+		<link href="/search/javax.faces.resource/w/css/wfaces.css.xhtml?v=1.0&amp;b=" rel="stylesheet" />
+
+
+
+
+	<script>
+		var APP_CTX='/search';
+	</script>
+		<script src="/search/javax.faces.resource/w/js/wfaces.js.xhtml?v=1.0&amp;b="></script><script type="text/javascript">
+		epctmsg.lbl_designations_specific="特定";
+		epctmsg.lbl_designations_none="无";
+		epctmsg.lbl_designations_all="所有";
+		epctmsg.lbl_designations_changeSelec="更改选择";
+		epctmsg.lbl_designations_chooseDesig="选择个别指定国";
+		epctmsg.no_results_text="以下内容无匹配项：";
+	</script><script type="text/javascript" src="/search/javax.faces.resource/js/psa.js.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"></script>
+			<script src="https://webcomponents.wipo.int/polyfills/webcomponents-loader.js"></script>
+	  		
+	  		<script src="https://webcomponents.wipo.int/wipo-navbar/wipo-navbar.js"></script><script type="text/javascript" src="/search/javax.faces.resource/js/components.js.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC?ln=w-ps-cc"></script></head><body dir="ltr">
+<div class="wf-overlayPanel"></div><div id="pageBlockUI" class="ui-blockui-content ui-widget ui-widget-content ui-corner-all ui-helper-hidden ui-shadow">
+	<div class="b-infobox b-infobox--has-spinner">
+	  <h4 class="b-infobox__title">
+	    正在处理
+	  </h4>
+	  <div class="b-infobox__text">
+	    <p>
+	    	请稍候...
+	    </p>
+	  </div>
+	</div></div><script id="pageBlockUI_s" type="text/javascript">$(function(){PrimeFaces.cw("BlockUI","widget_pageBlockUI",{id:"pageBlockUI",block:"@(.b-page)"});});</script>
+<div class="b-page b-page--application">
+	<div class="b-navigation b-navigation--has-close"><wipo-navbar appId='app-0072' applicationName='PATENTSCOPE' applicationLink='/search/zh' applicationCategory='patents' login='/search/wiposso/login' logout='/search/wiposso/logout' sso='unauthenticated' language='zh' languageOptions='[{"code":"en","name":null,"link":"/search/en/search.jsf","targetTab":null},{"code":"fr","name":null,"link":"/search/fr/search.jsf","targetTab":null},{"code":"de","name":null,"link":"/search/de/search.jsf","targetTab":null},{"code":"es","name":null,"link":"/search/es/search.jsf","targetTab":null},{"code":"pt","name":null,"link":"/search/pt/search.jsf","targetTab":null},{"code":"ru","name":null,"link":"/search/ru/search.jsf","targetTab":null},{"code":"ja","name":null,"link":"/search/ja/search.jsf","targetTab":null},{"code":"zh","name":null,"link":null,"targetTab":null},{"code":"ko","name":null,"link":"/search/ko/search.jsf","targetTab":null},{"code":"ar","name":null,"link":"/search/ar/search.jsf","targetTab":null}]' userOptions='[{"code":null,"name":"会话查询","link":"/search/zh/reg/user_session_queries.jsf","targetTab":"_self"},{"code":null,"name":"保存的查询","link":"/search/zh/reg/user_queries.jsf","targetTab":"_self"},{"code":null,"name":"MARKUSH批","link":"/search/zh/chemc/batches.jsf","targetTab":"_self"},{"code":null,"name":"已关注申请","link":"/search/zh/reg/watching.jsf","targetTab":"_self"}]' helpOptions='[{"code":"contact","name":null,"link":"https://www3.wipo.int/contact/zh/area.jsp?area=patentscope-db","targetTab":null},{"code":"faq","name":null,"link":"https://www.wipo.int/patentscope/zh/faqs_patentscope.html","targetTab":null}]' helpMore='[{"code":null,"name":"PATENTSCOPE用户社区","link":"https://www.linkedin.com/groups/9811620/","targetTab":"_blank"},{"code":null,"name":"PATENTSCOPE帮助","link":"/search/zh/help/help.jsf","targetTab":"_self"},{"code":null,"name":"使用条款","link":"https://www.wipo.int/patentscope/zh/data/terms_patentscope.html","targetTab":"_blank"},{"code":null,"name":"隐私政策","link":"https://www.wipo.int/tools/zh/privacy_policy-ipportal.html","targetTab":"_blank"}]' hide-search='true'><div style='background:black; height: 48px; width: 100%'></div></wipo-navbar>
+
+	<div class="ps-mainmenu--container">
+<form id="formMainMenu" name="formMainMenu" method="post" action="/search/zh/search.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="formMainMenu" value="formMainMenu" />
+
+	
+	
+			<div class="ps-mainmenu">
+
+				<div class="ps-mainmenu--item">
+				</div>
+				
+				<div class="ps-mainmenu--item">
+	
+	<div class="ps-drawer-trigger b-pointer b-pointer--is-toggle" aria-controls="feedback_drawer"><a id="formMainMenu:feedbackLink" href="#" onclick="mojarra.ab(this,event,'action',0,'feedbackForm');return false">反馈</a>
+	</div>
+				</div>
+			
+				<div class="ps-mainmenu--item">
+		<button id="formMainMenu:triggerSearchMenu" class="ps-plain-button " type="button">检索
+			<span class="icon-wrapper small-arrow-down-icon"></span>
+		</button><div id="formMainMenu:j_idt102" class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow ps-mainmenu--submenu" role="menu"><div tabindex="0" class="ui-helper-hidden-accessible"></div><ul class="ui-menu-list ui-helper-reset"><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:simpleSearch" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/search.jsf';PrimeFaces.ab({s:&quot;formMainMenu:simpleSearch&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">简单</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:n2pSearch" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/n2pSearch.jsf';PrimeFaces.ab({s:&quot;formMainMenu:n2pSearch&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">AI辅助检索</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:advancedSearch" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/advancedSearch.jsf';PrimeFaces.ab({s:&quot;formMainMenu:advancedSearch&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">高级检索</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:structuredSearch" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/structuredSearch.jsf';PrimeFaces.ab({s:&quot;formMainMenu:structuredSearch&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">字段组合</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:clir" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/clir/clir.jsf';PrimeFaces.ab({s:&quot;formMainMenu:clir&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">跨语种扩展</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/chemc/chemc.jsf';PrimeFaces.ab({s:&quot;formMainMenu:j_idt103&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">化合物 (需要登录)</span></a></li></ul></div><script id="formMainMenu:j_idt102_s" type="text/javascript">$(function(){PrimeFaces.cw("PlainMenu","widget_formMainMenu_j_idt102",{id:"formMainMenu:j_idt102",overlay:true,my:"left top",at:"left bottom",trigger:"formMainMenu:triggerSearchMenu",triggerEvent:"click"});});</script>
+				</div>
+
+	
+				<div class="ps-mainmenu--item">
+		<button id="formMainMenu:triggerBrowseMenu" class="ps-plain-button " type="button">浏览
+			<span class="icon-wrapper small-arrow-down-icon"></span>
+		</button><div id="formMainMenu:j_idt113" class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow ui-menu-toggleable ps-mainmenu--submenu" role="menu"><div tabindex="0" class="ui-helper-hidden-accessible"></div><ul class="ui-menu-list ui-helper-reset"><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:browseByWeek" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/resultWeeklyBrowse.jsf';PrimeFaces.ab({s:&quot;formMainMenu:browseByWeek&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">按星期（专利合作条约）浏览</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:pctBrowse" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/pctBrowse.jsf';PrimeFaces.ab({s:&quot;formMainMenu:pctBrowse&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">公报档案</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:sequenceListing" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/sequences.jsf';PrimeFaces.ab({s:&quot;formMainMenu:sequenceListing&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">序列表</span></a></li><li id="formMainMenu:j_idt114" class="ui-widget-header ui-corner-all"><h3><span class="ui-icon ui-icon-triangle-1-s"></span>进入国家阶段</h3></li><li class="ui-menuitem ui-widget ui-corner-all ui-submenu-child" role="menuitem"><a tabindex="-1" id="formMainMenu:pctNPE" class="ui-menuitem-link ui-corner-all" href="/search/static/npe/npe.zip;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"><span class="ui-menuitem-text"><table>
+<tbody>
+<tr>
+<td>进入国家阶段 完整下载</td>
+<td><label class="icon-wrapper http-download-icon ps-left-space"></label></td>
+<td>
+									<a href="ftp://ftp.wipo.int/patentscope/pdf/npe/npe.zip" class="icon-wrapper ftp-download-icon ps-left-space"></a></td>
+</tr>
+</tbody>
+</table>
+</span></a></li><li class="ui-menuitem ui-widget ui-corner-all ui-submenu-child" role="menuitem"><a tabindex="-1" id="formMainMenu:pctNPEinc" class="ui-menuitem-link ui-corner-all" href="/search/static/npe/npe-incremental.zip;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"><span class="ui-menuitem-text"><table>
+<tbody>
+<tr>
+<td>进入国家阶段 增量下载（最近7天）</td>
+<td><label class="icon-wrapper http-download-icon ps-left-space"></label></td>
+<td>
+									<a href="ftp://ftp.wipo.int/patentscope/pdf/npe/npe-incremental.zip" class="icon-wrapper ftp-download-icon ps-left-space"></a></td>
+</tr>
+</tbody>
+</table>
+</span></a></li><li id="formMainMenu:j_idt123" class="ui-widget-header ui-corner-all"><h3><span class="ui-icon ui-icon-triangle-1-s"></span>规范文件</h3></li><li class="ui-menuitem ui-widget ui-corner-all ui-submenu-child" role="menuitem"><a tabindex="-1" id="formMainMenu:authorityFileST37" class="ui-menuitem-link ui-corner-all" href="/search/static/authority/WO_AF.zip;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC"><span class="ui-menuitem-text"><table>
+<tbody>
+<tr>
+<td>规范文件 下载标准ST37</td>
+<td><label class="icon-wrapper http-download-icon ps-left-space"></label></td>
+<td>
+									<a href="ftp://ftp.wipo.int/patentscope/pdf/gazette/WO_AF.zip" class="icon-wrapper ftp-download-icon ps-left-space"></a></td>
+</tr>
+</tbody>
+</table>
+</span></a></li></ul></div><script id="formMainMenu:j_idt113_s" type="text/javascript">$(function(){PrimeFaces.cw("PlainMenu","widget_formMainMenu_j_idt113",{id:"formMainMenu:j_idt113",toggleable:true,overlay:true,my:"left top",at:"left bottom",trigger:"formMainMenu:triggerBrowseMenu",triggerEvent:"click"});});</script>
+		
+				</div><div id="formMainMenu:toolsMainMenu" class="ps-mainmenu--item js-multiDocumentDownloadEnabled">
+		<button id="formMainMenu:triggerToolsMenu" class="ps-plain-button " type="button">工具
+			<span class="icon-wrapper small-arrow-down-icon"></span>
+		</button><div id="formMainMenu:j_idt137" class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow ps-mainmenu--submenu" role="menu"><div tabindex="0" class="ui-helper-hidden-accessible"></div><ul class="ui-menu-list ui-helper-reset"><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="https://patentscope.wipo.int/translate/translate.jsf?interfaceLanguage=zh" target="_blank"><span class="ui-menuitem-text">WIPO Translate</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="https://wipopearl.wipo.int/zh/linguistic" target="_blank"><span class="ui-menuitem-text">WIPO Pearl</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:greenInventory" class="ui-menuitem-link ui-corner-all" href="https://www.wipo.int/classifications/ipc/green-inventory/home" target="_blank"><span class="ui-menuitem-text">国际专利分类绿色清单</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:aiIndexEn" class="ui-menuitem-link ui-corner-all" href="https://www.wipo.int/tech_trends/en/artificial_intelligence/patentscope.html" target="_blank"><span class="ui-menuitem-text">人工智能指数</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:covid19" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/covid19.jsf';PrimeFaces.ab({s:&quot;formMainMenu:covid19&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">支持应对新冠肺炎的工作</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" id="formMainMenu:sdg" class="ui-menuitem-link ui-corner-all" href="#" onclick="document.location.href='/search/zh/sdg.jsf';PrimeFaces.ab({s:&quot;formMainMenu:sdg&quot;,f:&quot;formMainMenu&quot;});return false;"><span class="ui-menuitem-text">可持续发展目标（SDG）</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="https://www.wipo.int/patent_register_portal" target="_blank"><span class="ui-menuitem-text">专利登记簿门户</span></a></li></ul></div><script id="formMainMenu:j_idt137_s" type="text/javascript">$(function(){PrimeFaces.cw("PlainMenu","widget_formMainMenu_j_idt137",{id:"formMainMenu:j_idt137",overlay:true,my:"left top",at:"left bottom",trigger:"formMainMenu:triggerToolsMenu",triggerEvent:"click"});});</script></div>
+	
+	
+				<div class="ps-mainmenu--item">
+	
+	<div class="ps-drawer-trigger b-pointer b-pointer--is-toggle" aria-controls="settings_drawer">
+						<span>设置</span>
+	</div>
+				</div>
+				
+		    </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-3802350683106308716:-1963757629740795014" autocomplete="off" />
+</form>
+	</div>
+		<div id="settings_drawer" class="ps-drawer b-drawer b-workbench-filter-advanced     wf-drawer-fix-position      settings-drawer">
+
+			<div class="b-drawer__step">
+				<h2 class="b-drawer__title">设置</h2>
+					<div class="b-drawer__title-actions"><button id="j_idt156" name="j_idt156" class="b-button" onclick="PrimeFaces.ab({s:&quot;j_idt156&quot;,f:&quot;settingsForm&quot;,u:&quot;settingsForm&quot;});return false;" type="submit"><span class="ui-button-text ui-c">重置</span></button><script id="j_idt156_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt156",{id:"j_idt156"});</script><button id="j_idt157" name="j_idt157" class="b-button b-button--is-type_primary js-close-pointer js-close-button" onclick="onDrawerClose(this);" type="button" aria-controls="settings_drawer"><span class="ui-button-text ui-c">关闭</span></button><script id="j_idt157_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt157",{id:"j_idt157"});</script>
+					</div>
+			</div>
+
+			<div class="ps-drawer--content">
+<form id="settingsForm" name="settingsForm" method="post" action="/search/zh/search.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="settingsForm" value="settingsForm" />
+<div id="settingsForm:j_idt159" class="ui-tabmenu ui-widget ui-widget-content ui-corner-all ps-tabmenu ps-tabmenu--is-plain"><ul class="ui-tabmenu-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist"><li class="ui-tabmenuitem ui-state-default ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#" onclick="PrimeFaces.ab({s:&quot;settingsForm:j_idt160&quot;,u:&quot;settingsForm&quot;,f:&quot;settingsForm&quot;});return false;"><span class="ui-menuitem-text">查询</span></a></li><li class="ui-tabmenuitem ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#" onclick="PrimeFaces.ab({s:&quot;settingsForm:j_idt161&quot;,u:&quot;settingsForm&quot;,f:&quot;settingsForm&quot;});return false;"><span class="ui-menuitem-text">专利局</span></a></li><li class="ui-tabmenuitem ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#" onclick="PrimeFaces.ab({s:&quot;settingsForm:j_idt162&quot;,u:&quot;settingsForm&quot;,f:&quot;settingsForm&quot;});return false;"><span class="ui-menuitem-text">结果</span></a></li><li class="ui-tabmenuitem ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#" onclick="PrimeFaces.ab({s:&quot;settingsForm:j_idt163&quot;,u:&quot;settingsForm&quot;,f:&quot;settingsForm&quot;});return false;"><span class="ui-menuitem-text">下载</span></a></li><li class="ui-tabmenuitem ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#" onclick="PrimeFaces.ab({s:&quot;settingsForm:j_idt164&quot;,u:&quot;settingsForm&quot;,f:&quot;settingsForm&quot;});return false;"><span class="ui-menuitem-text">界面</span></a></li></ul></div><script id="settingsForm:j_idt159_s" type="text/javascript">PrimeFaces.cw("TabMenu","widget_settingsForm_j_idt159",{id:"settingsForm:j_idt159"});</script><div id="settingsForm:querySection" class="ui-outputpanel ui-widget">
+	<div id="settingsForm:j_idt166" class="b-edit-panel">
+		<div class="b-edit-panel__content">
+
+	<div id="settingsForm:j_idt167" class="b-edit-panel__section-group">
+		<div class="b-edit-panel__section b-view-panel__section--slots_two">
+    
+    <div id="settingsForm:j_idt168" class="b-view-panel__slot w-slot">
+	<div id="settingsForm:queryLanguage">
+		<div class="b-input b-input-dropdown b-input--has-floatlabel b-input--is-select                         ">
+	
+			<div class="b-input__table">
+				<div class="b-input__table-td b-input__table-td__dropdown">
+					<label class="b-input__label b-input__label"><label>查询语言</label>
+					</label><select id="settingsForm:queryLanguage:input" name="settingsForm:queryLanguage:input" class="b-input__input b-input__dropdown-input" size="1" onselect="" tabindex="" onchange="PrimeFaces.ab({s:this,e:&quot;change&quot;,p:&quot;settingsForm:queryLanguage:input&quot;,u:&quot;@(.js-searchTextLanguage-option)&quot;});">	<option value="zh">中文</option>
+	<option value="da">丹麦语</option>
+	<option value="ru">俄语</option>
+	<option value="bg">保加利亚语</option>
+	<option value="hr">克罗地亚语</option>
+	<option value="hu">匈牙利语</option>
+	<option value="id">印度尼西亚语</option>
+	<option value="kk">哈萨克文</option>
+	<option value="tr">土耳其文</option>
+	<option value="sr">塞尔维亚文</option>
+	<option value="he">希伯来语</option>
+	<option value="el">希腊语</option>
+	<option value="de">德语</option>
+	<option value="it">意大利语</option>
+	<option value="lv">拉脱维亚语</option>
+	<option value="no">挪威语</option>
+	<option value="cs">捷克文</option>
+	<option value="sk">斯洛伐克文</option>
+	<option value="ja">日语</option>
+	<option value="ge">格鲁吉亚语</option>
+	<option value="fr">法语</option>
+	<option value="pl">波兰语</option>
+	<option value="th">泰语</option>
+	<option value="et">爱沙尼亚语</option>
+	<option value="sv">瑞典语</option>
+	<option value="lt">立陶宛语 </option>
+	<option value="ro">罗马尼亚语</option>
+	<option value="lo">老挝语</option>
+	<option value="fi">芬兰文</option>
+	<option value="en">英语</option>
+	<option value="nl">荷兰语</option>
+	<option value="pt">葡萄牙语</option>
+	<option value="es">西班牙语</option>
+	<option value="vn">越南语</option>
+	<option value="ar">阿拉伯语</option>
+	<option value="ko">韩语</option>
+	<option value="ms">马来语</option>
+	<option value="kh">高棉语</option>
+	<option value="GUI" selected="selected">默认</option>
+</select>
+	
+				</div>
+			</div><div id="settingsForm:queryLanguage:error"></div><div id="settingsForm:queryLanguage:info"></div>
+		</div>
+	</div>
+	</div>
+			
+		</div>
+	</div>
+
+	<div id="settingsForm:j_idt229" class="b-edit-panel__section-group">
+		<div class="b-edit-panel__section b-view-panel__section--slots_three">
+    
+    <div id="settingsForm:j_idt230" class="b-view-panel__slot w-slot">
+	<div id="settingsForm:stemmingOption">
+		
+		<div class="b-input b-input-checkbox                    ">
+			<div class="b-input__checkbox-input">
+				<fieldset class="b-input__checkbox-group">
+      				<div class="b-input__table">
+						<label class="b-input__checkbox-item b-input__table-tr"><input id="settingsForm:stemmingOption:input" type="checkbox" name="settingsForm:stemmingOption:input" checked="checked" tabindex="" onclick="PrimeFaces.ab({s:this,e:&quot;click&quot;,p:&quot;settingsForm:stemmingOption:input&quot;,u:&quot;@(.js-stemming-option)&quot;});" />
+							<span class="b-input__checkbox-item-text b-input__table-td b-input__checkbox-input-label">词根提取
+							</span>
+						</label>
+					</div>
+				</fieldset>
+			</div><div id="settingsForm:stemmingOption:error"></div><div id="settingsForm:stemmingOption:info"></div>
+	</div>
+	</div>
+	</div>
+    
+    <div id="settingsForm:j_idt250" class="b-view-panel__slot w-slot">
+	<div id="settingsForm:singleFamilyMemberOption">
+		
+		<div class="b-input b-input-checkbox                    ">
+			<div class="b-input__checkbox-input">
+				<fieldset class="b-input__checkbox-group">
+      				<div class="b-input__table">
+						<label class="b-input__checkbox-item b-input__table-tr"><input id="settingsForm:singleFamilyMemberOption:input" type="checkbox" name="settingsForm:singleFamilyMemberOption:input" tabindex="" onclick="PrimeFaces.ab({s:this,e:&quot;click&quot;,p:&quot;settingsForm:singleFamilyMemberOption:input&quot;,u:&quot;@(.js-singleFamilyMember-option)&quot;});" />
+							<span class="b-input__checkbox-item-text b-input__table-td b-input__checkbox-input-label">单一族成员
+							</span>
+						</label>
+					</div>
+				</fieldset>
+			</div><div id="settingsForm:singleFamilyMemberOption:error"></div><div id="settingsForm:singleFamilyMemberOption:info"></div>
+	</div>
+	</div>
+	</div>
+    
+    <div id="settingsForm:j_idt270" class="b-view-panel__slot w-slot">
+	<div id="settingsForm:includeNplOption">
+		
+		<div class="b-input b-input-checkbox                    ">
+			<div class="b-input__checkbox-input">
+				<fieldset class="b-input__checkbox-group">
+      				<div class="b-input__table">
+						<label class="b-input__checkbox-item b-input__table-tr"><input id="settingsForm:includeNplOption:input" type="checkbox" name="settingsForm:includeNplOption:input" tabindex="" onclick="PrimeFaces.ab({s:this,e:&quot;click&quot;,p:&quot;settingsForm:includeNplOption:input&quot;,u:&quot;@(.js-includeNPL-option)&quot;});" />
+							<span class="b-input__checkbox-item-text b-input__table-td b-input__checkbox-input-label">包括NPL
+							</span>
+						</label>
+					</div>
+				</fieldset>
+			</div><div id="settingsForm:includeNplOption:error"></div><div id="settingsForm:includeNplOption:info"></div>
+	</div>
+	</div>
+	</div>
+			
+		</div>
+	</div>
+
+	<div id="settingsForm:j_idt307" class="b-edit-panel__section-group">
+		<div class="b-edit-panel__section b-view-panel__section--slots_three">
+    
+    <div id="settingsForm:j_idt308" class="b-view-panel__slot w-slot">
+	<div id="settingsForm:sortOption">
+		<div class="b-input b-input-dropdown b-input--has-floatlabel b-input--is-select                         ">
+	
+			<div class="b-input__table">
+				<div class="b-input__table-td b-input__table-td__dropdown">
+					<label class="b-input__label b-input__label">排序依据：
+					</label><select id="settingsForm:sortOption:input" name="settingsForm:sortOption:input" class="b-input__input b-input__dropdown-input" size="1" onselect="" tabindex="" onchange="mojarra.ab(this,event,'change',0,0)">	<option value="-score" selected="selected">相关性</option>
+	<option value="-DP">公布日降序</option>
+	<option value="+DP">公布日升序</option>
+	<option value="-AD">申请日降序</option>
+	<option value="+AD">申请日升序</option>
+</select>
+	
+				</div>
+			</div><div id="settingsForm:sortOption:error"></div><div id="settingsForm:sortOption:info"></div>
+		</div>
+	</div>
+	</div>
+    
+    <div id="settingsForm:j_idt330" class="b-view-panel__slot w-slot">
+	<div id="settingsForm:lengthOption">
+		<div class="b-input b-input-dropdown b-input--has-floatlabel b-input--is-select                         ">
+	
+			<div class="b-input__table">
+				<div class="b-input__table-td b-input__table-td__dropdown">
+					<label class="b-input__label b-input__label"><label>表长</label>
+					</label><select id="settingsForm:lengthOption:input" name="settingsForm:lengthOption:input" class="b-input__input b-input__dropdown-input" size="1" onselect="" tabindex="" onchange="mojarra.ab(this,event,'change',0,0)">	<option value="10" selected="selected">10</option>
+	<option value="50">50</option>
+	<option value="100">100</option>
+	<option value="200">200</option>
+</select>
+	
+				</div>
+			</div><div id="settingsForm:lengthOption:error"></div><div id="settingsForm:lengthOption:info"></div>
+		</div>
+	</div>
+	</div>
+    
+    <div id="settingsForm:j_idt355" class="b-view-panel__slot w-slot">
+	<div id="settingsForm:j_idt356">
+		<div class="b-input b-input-dropdown b-input--has-floatlabel b-input--is-select                         ">
+	
+			<div class="b-input__table">
+				<div class="b-input__table-td b-input__table-td__dropdown">
+					<label class="b-input__label b-input__label">结果列表视图
+					</label><select id="settingsForm:j_idt356:input" name="settingsForm:j_idt356:input" class="b-input__input b-input__dropdown-input" size="1" onselect="" tabindex="" onchange="mojarra.ab(this,event,'change',0,0)">	<option value="SIMPLE_VIEW">简洁</option>
+	<option value="DOUBLE_VIEW">双</option>
+	<option value="ALL_VIEW" selected="selected">全文</option>
+	<option value="ALL_VIEW_IMAGE">全文 + 图像</option>
+	<option value="IMAGE_ONLY">图像</option>
+	<option value="MULTI_LANGS">多列</option>
+</select>
+	
+				</div>
+			</div><div id="settingsForm:j_idt356:error"></div><div id="settingsForm:j_idt356:info"></div>
+		</div>
+	</div>
+	</div>
+			
+		</div>
+	</div>
+		</div>
+	</div></div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="-3802350683106308716:-1963757629740795014" autocomplete="off" />
+</form>
+			</div>
+		</div>
+		<div id="feedback_drawer" class="ps-drawer b-drawer b-workbench-filter-advanced     wf-drawer-fix-position      feedback-drawer">
+
+			<div class="b-drawer__step">
+				<h2 class="b-drawer__title">反馈</h2>
+					<div class="b-drawer__title-actions"><button id="j_idt965" name="j_idt965" class="b-button js-close-pointer js-close-button" onclick="PrimeFaces.ab({s:&quot;j_idt965&quot;,p:&quot;j_idt965&quot;,u:&quot;feedbackForm&quot;});return false;" type="submit" aria-controls="feedback_drawer"><span class="ui-button-text ui-c">关闭</span></button><script id="j_idt965_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt965",{id:"j_idt965"});</script>
+					</div>
+			</div>
+
+			<div class="ps-drawer--content">
+<form id="feedbackForm" name="feedbackForm" method="post" action="/search/zh/search.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="feedbackForm" value="feedbackForm" />
+<span id="feedbackForm:feedbackPanel">
+			<div class="feedback-message"><p>请告诉我们您对PATENTSCOPE的看法，或者您认为还缺少什么或可以如何改进。</p>
+			</div>
+	<div id="feedbackForm:j_idt969" class="b-edit-panel">
+		<div class="b-edit-panel__content">
+
+	<div id="feedbackForm:j_idt970" class="b-edit-panel__section-group">
+		<div class="b-edit-panel__section ">
+    
+    <div id="feedbackForm:j_idt971" class="b-view-panel__slot w-slot">
+	<div id="feedbackForm:feedback">
+		<div class="b-input b-input-text-area b-input--has-floatlabel      b-input--is-required                      ">
+	
+			<div class="b-input__table">
+				<div class="b-input__table-td">
+	
+					<label class="b-input__label"><span class="ie-bg-label">您的反馈</span></label><textarea id="feedbackForm:feedback:input" name="feedbackForm:feedback:input" cols="20" rows="3" tabindex="" maxlength="2147483647" style="overflow-y: auto; " aria-required="true" class="ui-inputfield ui-inputtextarea ui-widget ui-state-default ui-corner-all b-input__text-area-input  ui-inputtextarea-resizable"></textarea><script id="feedbackForm:feedback:input_s" type="text/javascript">$(function(){PrimeFaces.cw("InputTextarea","widget_feedbackForm_feedback_input",{id:"feedbackForm:feedback:input",autoResize:true,counter:"feedbackForm:feedback:display",counterTemplate:"剩余 {0} 个字符。"});});</script>
+	
+				</div>
+			</div><div id="feedbackForm:feedback:error"></div><div id="feedbackForm:feedback:info"></div>
+		</div>
+	</div>
+	<div id="feedbackForm:contactEmail">
+		<div class="b-input b-input-text b-input--has-floatlabel       b-input--is-required                   ">
+			<div class="b-input__table" style="width: 100%">
+				<div class="b-input__table-td">
+					<label class="b-input__label">联系电子邮箱
+					</label><input id="feedbackForm:contactEmail:input" type="text" name="feedbackForm:contactEmail:input" autocomplete="off" class="b-input__input b-input__text-input                       " onkeydown="" onkeyup="" style="" tabindex="" title="" />
+				</div><div id="feedbackForm:contactEmail:buttons" class="b-input__button-wrapper"><button id="feedbackForm:contactEmail:j_idt996" name="feedbackForm:contactEmail:j_idt996" class="b-button b-button--is-type_primary" onclick="PrimeFaces.ab({s:&quot;feedbackForm:contactEmail:j_idt996&quot;,p:&quot;feedbackForm&quot;,u:&quot;feedbackForm&quot;,onco:function(xhr,status,args){if (args &amp;&amp; args.closeDrawer) { PSComponents.closeDrawer('feedback_drawer'); };}});return false;" type="submit"><span class="ui-button-text ui-c">发送</span></button><script id="feedbackForm:contactEmail:j_idt996_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_feedbackForm_contactEmail_j_idt996",{id:"feedbackForm:contactEmail:j_idt996"});</script></div>
+	
+		     </div><div id="feedbackForm:contactEmail:error"></div><div id="feedbackForm:contactEmail:info"></div>
+	    </div>
+    </div>
+	</div>
+			
+		</div>
+	</div>
+		</div>
+	</div><span id="feedbackForm:j_idt1049"></span><script type="text/javascript">$(function(){PrimeFaces.focus('feedbackForm:feedback:input');});</script></span><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="-3802350683106308716:-1963757629740795014" autocomplete="off" />
+</form>
+			</div>
+		</div>
+		<div id="goto_drawer" class="ps-drawer b-drawer b-workbench-filter-advanced     wf-drawer-fix-position      goto-drawer">
+
+			<div class="b-drawer__step">
+				<h2 class="b-drawer__title">查看申请</h2>
+			</div>
+
+			<div class="ps-drawer--content">
+<form id="gotoForm" name="gotoForm" method="post" action="/search/zh/search.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="gotoForm" value="gotoForm" />
+
+	<div id="gotoForm:j_idt1078" class="b-edit-panel">
+		<div class="b-edit-panel__content">
+
+	<div id="gotoForm:j_idt1079" class="b-edit-panel__section-group">
+		<div class="b-edit-panel__section ">
+    
+    <div id="gotoForm:j_idt1080" class="b-view-panel__slot w-slot">
+	<div id="gotoForm:gotoApplicationNumber">
+		<div class="b-input b-input-text b-input--has-floatlabel       b-input--is-required                   ">
+			<div class="b-input__table" style="width: 100%">
+				<div class="b-input__table-td">
+					<label class="b-input__label">申请ID/号
+					</label><input id="gotoForm:gotoApplicationNumber:input" type="text" name="gotoForm:gotoApplicationNumber:input" autocomplete="off" class="b-input__input b-input__text-input                       " onkeydown="if (event.keyCode == 13) {$('.js-goto-button').click(); return false;}" onkeyup="" style="" tabindex="" title="" />
+				</div><div id="gotoForm:gotoApplicationNumber:buttons" class="b-input__button-wrapper"><button id="gotoForm:gotoApplicationNumber:j_idt1082" name="gotoForm:gotoApplicationNumber:j_idt1082" class="b-button-medium primary js-goto-button" onclick="PrimeFaces.ab({s:&quot;gotoForm:gotoApplicationNumber:j_idt1082&quot;,u:&quot;gotoForm&quot;});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c b-icon b-icon--search"></span><span class="ui-button-text ui-c"></span></button><script id="gotoForm:gotoApplicationNumber:j_idt1082_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_gotoForm_gotoApplicationNumber_j_idt1082",{id:"gotoForm:gotoApplicationNumber:j_idt1082"});</script></div>
+	
+		     </div><div id="gotoForm:gotoApplicationNumber:error"></div><div id="gotoForm:gotoApplicationNumber:info"></div>
+	    </div>
+    </div>
+	</div>
+			
+		</div>
+	</div>
+		</div>
+	</div><span id="gotoForm:j_idt1135"></span><script type="text/javascript">$(function(){PrimeFaces.focus('gotoForm:gotoApplicationNumber');});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:3" value="-3802350683106308716:-1963757629740795014" autocomplete="off" />
+</form>
+			</div>
+		</div>
+		
+		
+		<div class="b-navigation-floater-bottom">
+			<a class="fa fa-fw fa-arrow-up" style="text-decoration:none; float: right; color: #707070; font-size: 26px; margin: 20px;" onclick="wscrollToTop();"></a>
+		</div>
+		
+	</div>
+ 
+<div class="b-page-header">
+<form id="headerForm" name="headerForm" method="post" action="/search/zh/search.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="headerForm" value="headerForm" />
+<div id="headerForm:headerFormContent" class="ui-outputpanel ui-widget">
+		
+	  <h1 class="b-page-header__title js-toggle-portfolio">PATENTSCOPE 简单检索   <span class="b-page-header__title-details"></span>
+	  </h1>
+	  
+	  <div class="b-page-header__actions">
+	    <div class="b-page-header__status-text"></div>
+	          
+	          
+	      </div></div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:4" value="-3802350683106308716:-1963757629740795014" autocomplete="off" />
+</form>
+</div>
+
+
+	
+	
+	
+	<div id="popups"><div id="j_idt1159" class="ui-overlaypanel ui-widget ui-widget-content ui-overlay-hidden ui-corner-all ui-shadow ps-modal ps-modal--arrow-right ps-query-example-modal"><div class="ui-overlaypanel-content">
+<form id="queryExamplesForm" name="queryExamplesForm" method="post" action="/search/zh/search.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="queryExamplesForm" value="queryExamplesForm" />
+
+		<div class="ps-query-example-list">
+				<div class="ps-query-example-list--header">
+						<div class="ps-query-example-list--title">[FP] 首页
+						</div>
+							<div class="ps-query-example-list--description">将在标题、摘要、编号和姓名/名称中检索输入的值</div>
+				</div>
+		<div class="ps-query-example"><a id="queryExamplesForm:sampleFPSet:0:j_idt1168:commandLink" href="#" class="ui-commandlink ui-widget ps-query-example--link ps-link--has-icon " onclick="PrimeFaces.ab({s:&quot;queryExamplesForm:sampleFPSet:0:j_idt1168:commandLink&quot;,p:&quot;queryExamplesForm:sampleFPSet:0:j_idt1168:commandLink&quot;,u:&quot;simpleSearchForm:fpSearch:input&quot;,onco:function(xhr,status,args){PF('w_queryExamples').hide();;}});return false;">
+						<span class="ps-query-example--icon icon-wrapper external-link-icon"></span><span class="ps-query-example--text query-text">"electric car"~50</span></a>
+		</div>
+		<div class="ps-query-example"><a id="queryExamplesForm:sampleFPSet:1:j_idt1168:commandLink" href="#" class="ui-commandlink ui-widget ps-query-example--link ps-link--has-icon " onclick="PrimeFaces.ab({s:&quot;queryExamplesForm:sampleFPSet:1:j_idt1168:commandLink&quot;,p:&quot;queryExamplesForm:sampleFPSet:1:j_idt1168:commandLink&quot;,u:&quot;simpleSearchForm:fpSearch:input&quot;,onco:function(xhr,status,args){PF('w_queryExamples').hide();;}});return false;">
+						<span class="ps-query-example--icon icon-wrapper external-link-icon"></span><span class="ps-query-example--text query-text">Smith or Klein</span></a>
+		</div>
+		<div class="ps-query-example"><a id="queryExamplesForm:sampleFPSet:2:j_idt1168:commandLink" href="#" class="ui-commandlink ui-widget ps-query-example--link ps-link--has-icon " onclick="PrimeFaces.ab({s:&quot;queryExamplesForm:sampleFPSet:2:j_idt1168:commandLink&quot;,p:&quot;queryExamplesForm:sampleFPSet:2:j_idt1168:commandLink&quot;,u:&quot;simpleSearchForm:fpSearch:input&quot;,onco:function(xhr,status,args){PF('w_queryExamples').hide();;}});return false;">
+						<span class="ps-query-example--icon icon-wrapper external-link-icon"></span><span class="ps-query-example--text query-text">WO2010000001</span></a>
+		</div>
+		<div class="ps-query-example"><a id="queryExamplesForm:sampleFPSet:3:j_idt1168:commandLink" href="#" class="ui-commandlink ui-widget ps-query-example--link ps-link--has-icon " onclick="PrimeFaces.ab({s:&quot;queryExamplesForm:sampleFPSet:3:j_idt1168:commandLink&quot;,p:&quot;queryExamplesForm:sampleFPSet:3:j_idt1168:commandLink&quot;,u:&quot;simpleSearchForm:fpSearch:input&quot;,onco:function(xhr,status,args){PF('w_queryExamples').hide();;}});return false;">
+						<span class="ps-query-example--icon icon-wrapper external-link-icon"></span><span class="ps-query-example--text query-text">EP2012001709</span></a>
+		</div>
+		<div class="ps-query-example"><a id="queryExamplesForm:sampleFPSet:4:j_idt1168:commandLink" href="#" class="ui-commandlink ui-widget ps-query-example--link ps-link--has-icon " onclick="PrimeFaces.ab({s:&quot;queryExamplesForm:sampleFPSet:4:j_idt1168:commandLink&quot;,p:&quot;queryExamplesForm:sampleFPSet:4:j_idt1168:commandLink&quot;,u:&quot;simpleSearchForm:fpSearch:input&quot;,onco:function(xhr,status,args){PF('w_queryExamples').hide();;}});return false;">
+						<span class="ps-query-example--icon icon-wrapper external-link-icon"></span><span class="ps-query-example--text query-text">"sol* panel"~5</span></a>
+		</div>
+		<div class="ps-query-example"><a id="queryExamplesForm:sampleFPSet:5:j_idt1168:commandLink" href="#" class="ui-commandlink ui-widget ps-query-example--link ps-link--has-icon " onclick="PrimeFaces.ab({s:&quot;queryExamplesForm:sampleFPSet:5:j_idt1168:commandLink&quot;,p:&quot;queryExamplesForm:sampleFPSet:5:j_idt1168:commandLink&quot;,u:&quot;simpleSearchForm:fpSearch:input&quot;,onco:function(xhr,status,args){PF('w_queryExamples').hide();;}});return false;">
+						<span class="ps-query-example--icon icon-wrapper external-link-icon"></span><span class="ps-query-example--text query-text">elect?icit?</span></a>
+		</div>
+		<div class="ps-query-example"><a id="queryExamplesForm:sampleFPSet:6:j_idt1168:commandLink" href="#" class="ui-commandlink ui-widget ps-query-example--link ps-link--has-icon " onclick="PrimeFaces.ab({s:&quot;queryExamplesForm:sampleFPSet:6:j_idt1168:commandLink&quot;,p:&quot;queryExamplesForm:sampleFPSet:6:j_idt1168:commandLink&quot;,u:&quot;simpleSearchForm:fpSearch:input&quot;,onco:function(xhr,status,args){PF('w_queryExamples').hide();;}});return false;">
+						<span class="ps-query-example--icon icon-wrapper external-link-icon"></span><span class="ps-query-example--text query-text">electric^10 and car^3</span></a>
+		</div>
+		</div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:5" value="-3802350683106308716:-1963757629740795014" autocomplete="off" />
+</form></div></div><script id="j_idt1159_s" type="text/javascript">$(function(){PrimeFaces.cw("OverlayPanel","w_queryExamples",{id:"j_idt1159",showEffect:"fade",hideEffect:"fade",my:"right center",at:"left center"});});</script>
+	</div>
+	
+	
+	
+	
+	<div class="c-left-watermark">
+	</div>
+		
+		<div class="b-step b-pointer-scope">
+	 
+			 <div class="b-step__content">
+				 	<div class="b-step__info">
+				
+				<div class="info-container">您可以通过PATENTSCOPE检索1.30亿专利文件，其中包含550万已公布的国际专利申请（PCT）。<a href="/search/zh/help/data_coverage.jsf">具体信息</a>
+				</div>
+
+				
+				<div class="info-container">国际公布第41/2026期（2026年10月8日）现可从<a href="resultWeeklyBrowse.jsf">这里</a>查阅。下一次国际公布第42/2026期定于2026年10月15日 星期四发布。
+					<span></span><a href="/search/zh/gazettePubMore.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" class="info-link">更多信息</a>	
+				</div>
+				
+				<div class="info-container">查看<a href="https://www.wipo.int/patentscope/zh/news/" target="_blank" class="info-link">PATENTSCOPE的最新新闻和功能</a>	
+				</div>
+				
+				<div class="info-container"><span style="display:flex;align-items:center">PATENTSCOPE在线聊天 : 每个星期一从13:00至17:00（CET）</span>
+				</div>
+		    		</div>
+		    	
+		    	<div class="b-step__content-top">
+<form id="simpleSearchForm" name="simpleSearchForm" method="post" action="/search/zh/search.jsf;jsessionid=F423FFF2FE512F1658498120E3AA4CEA.wapp1nC" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="simpleSearchForm" value="simpleSearchForm" />
+
+		<div id="simpleSearchForm:j_idt1287" class="ps-editpanel search-editpanel">
+			
+			<div class="ps-editpanel--section">
+						<div class="ps-editpanel--section--first-slot">
+	<div id="simpleSearchForm:field">
+		<div class="b-input b-input-dropdown b-input--has-floatlabel b-input--is-select                         ">
+	
+			<div class="b-input__table">
+				<div class="b-input__table-td b-input__table-td__dropdown">
+					<label class="b-input__label b-input__label">字段
+					</label><select id="simpleSearchForm:field:input" name="simpleSearchForm:field:input" class="b-input__input b-input__dropdown-input" size="1" onselect="" tabindex="" onchange="mojarra.ab(this,event,'change',0,'queryExamplesForm')">	<option value="FP" selected="selected">首页</option>
+	<option value="ZH_ALL">任意字段</option>
+	<option value="ZH_ALLTXT">全文</option>
+	<option value="ZH_CL">权利要求书</option>
+	<option value="ALLNUM">全部编号和识别码</option>
+	<option value="CLASSIF">所有分类</option>
+	<option value="ALLNAMES">全部名称</option>
+	<option value="DP">公布日</option>
+</select>
+	
+				</div>
+			</div><div id="simpleSearchForm:field:error"></div><div id="simpleSearchForm:field:info"></div>
+		</div>
+	</div>
+						</div>
+						
+						<div class="ps-editpanel--section--second-slot">
+	<div id="simpleSearchForm:fpSearch">
+		<div class="b-input b-input-text b-input--has-floatlabel                          ">
+			<div class="b-input__table" style="width: 100%">
+				<div class="b-input__table-td">
+					<label class="b-input__label">检索内容……
+					</label><input id="simpleSearchForm:fpSearch:input" type="text" name="simpleSearchForm:fpSearch:input" autocomplete="off" class="b-input__input b-input__text-input                       js-simple-search-input query-text" onkeydown="if (event.keyCode == 13) {$('.js-default-button').click(); return false;}" onkeyup="" style="" tabindex="" title="" />
+				</div><div id="simpleSearchForm:fpSearch:buttons" class="b-input__button-wrapper"><button id="simpleSearchForm:fpSearch:j_idt1317" name="simpleSearchForm:fpSearch:j_idt1317" class="b-button-medium primary js-default-button" onclick="PrimeFaces.onPost();" type="submit"><span class="ui-button-icon-left ui-icon ui-c b-icon b-icon--search"></span><span class="ui-button-text ui-c"></span></button><script id="simpleSearchForm:fpSearch:j_idt1317_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_simpleSearchForm_fpSearch_j_idt1317",{id:"simpleSearchForm:fpSearch:j_idt1317"});</script></div>
+	
+		     </div><div id="simpleSearchForm:fpSearch:error"></div><div id="simpleSearchForm:fpSearch:info"></div>
+	    </div>
+    </div>
+						</div>
+			</div>
+				<div class="ps-editpanel--footer">
+		<div id="simpleSearchForm:j_idt1340" class="ps-commands-bar input--info--controls">
+		<div class="ps-commands-bar--item"><a id="simpleSearchForm:queryExamples" href="#" onclick="jsf.util.chain(this,event,'PF(\'w_queryExamples\').show(\'simpleSearchForm:queryExamples\'); return false;','mojarra.jsfcljs(document.getElementById(\'simpleSearchForm\'),{\'simpleSearchForm:queryExamples\':\'simpleSearchForm:queryExamples\'},\'\')');return false">查询示例</a>
+		</div>
+		<div class="ps-commands-bar--item"><button id="simpleSearchForm:gotoN2p" name="simpleSearchForm:gotoN2p" class="b-button" onclick="PrimeFaces.onPost();" style="margin: 0;color: #52a7c0;" type="submit"><span class="ui-button-text ui-c">AI辅助检索</span></button><script id="simpleSearchForm:gotoN2p_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_simpleSearchForm_gotoN2p",{id:"simpleSearchForm:gotoN2p"});</script>
+		</div>
+		</div>
+				</div>
+		</div><span id="simpleSearchForm:j_idt1361"></span><script type="text/javascript">$(function(){PrimeFaces.focus('simpleSearchForm:fpSearch');});</script><script type="text/javascript">$(function() {$(document).bind('keydown', 'return', function(){$('.js-default-button').click();;return false;});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:6" value="-3802350683106308716:-1963757629740795014" autocomplete="off" />
+</form>
+		    	</div>
+		    	
+		    	<div class="b-step__content-bottom">
+		    	</div>
+			 	
+			 </div>
+</div>
+	
+	
+	
+	
+	<div class="c-footer"> # - 
+	</div>
+</div><script type="text/javascript" id="j_idt27">
+		if(typeof(load_w_scripts) != 'undefined') load_w_scripts();
+	</script><script type="text/javascript" id="init_w_ps_components">
+			load_w_ps_cc_scripts();
+		</script><script type="text/javascript">OmniFaces.DeferredScript.add('/search/javax.faces.resource/js/components.js.jsf?ln=ps-cc');</script></body>
+</html>

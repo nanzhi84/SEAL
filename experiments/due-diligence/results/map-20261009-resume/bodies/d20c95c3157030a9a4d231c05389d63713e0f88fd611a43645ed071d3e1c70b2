@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <script src="/lib/vue3.js"></script> -->
+  <!-- <script type="text/javascript" src="http://10.3.58.15:8080/lib/vuex.js"></script>  -->
+  <script type="text/javascript" src="./static/js/vuex.js"></script> 
+  <script>
+    if (!String.prototype.replaceAll) {
+      String.prototype.replaceAll = function (search, replace) {
+        if (search instanceof RegExp) {
+          if (!search.global) {
+            throw new TypeError(
+              'String.prototype.replaceAll called with a non-global RegExp argument',
+            );
+          }
+          return this.replace(search, replace);
+        }
+        return this.split(search).join(replace);
+      };
+    }
+  </script>
+  <script type="text/javascript" src="./static/js/md5.min.js"></script> 
+  <!-- <script src="/lib/md5.min.js"></script> -->
+  <!-- <script type="text/javascript" src="./static/js/md5.js"></script> -->
+  <script type="text/javascript" src="./static/js/jquery.js"></script>
+  <script type="text/javascript" src="./static/js/jquery.slimscroll.js"></script>
+  <script type="text/javascript" src="./static/js/jquery.blockui.min.js"></script>
+  <!-- <script type="text/javascript" src="/lib/ztree/js/jquery.ztree.all.js"></script>
+  <script type="text/javascript" src="/lib/ztree/js/jquery.ztree.core.js"></script>
+  <script type="text/javascript" src="/lib/ztree/js/jquery.ztree.excheck.js"></script>
+  <script type="text/javascript" src="/lib/ztree/js/jquery.ztree.exedit.js"></script>
+  <script type="text/javascript" src="/lib/ztree/js/jquery.ztree.exhide.js"></script>
+  <link   rel="stylesheet"      href="/lib/ztree/css/zTreeStyle.css" />   -->
+  <!-- <link   rel="stylesheet"      href="/lib/awesome/css/font-awesome.min.css" /> -->
+  <!-- <link   rel="stylesheet"      href="/lib/lowmain.css" /> -->
+  <script type="text/javascript" src="./static/js/cssui.js"></script>
+  <link rel="stylesheet" href="./static/awesome/css/font-awesome.min.css"/>
+  <!-- <link   rel="stylesheet"      href="/src/assets/main.scss" /> -->
+  <link rel="icon" href="./static/images/logo.png">
+  <script type = "text/javascript" src = "static/js/locktable.js" > </script>
+  <title>司法部政务服务平台</title>
+  <style>
+   body{
+    margin: 0px;
+    padding: 0px;
+   }
+   
+
+    div#app{
+      width: 100vw;
+      height: 100vh;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    div#targetdrag{
+      position: absolute;
+      user-select: none;
+      pointer-events: none;
+      background-color: antiquewhite;
+      z-index: 1;
+      opacity: 0.8;
+    }
+    
+  </style>
+  <script type="module" crossorigin src="./assets/index-CJqRVpG6.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-aYjNtUVO.css">
+</head>
+
+<body>
+  <div id="app"></div>
+</body>
+
+</html>

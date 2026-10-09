@@ -1,0 +1,4225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript">
+    var UC="uc";
+    var AUTH="auth2";
+    var FLOW="flow";
+    var CC="cc";
+    var XWKFORM="cc";
+    var XWKSTAT="helper";
+    var ZUUL="root";
+    var PT="pt";
+    var ATTA = "atta";
+    var DFORM ="dform";
+    var myZuul = 'http://zuul:2011/';
+    //附件上传
+    var ctx = "";
+    var API = "/api/";
+    var MENU = "uc";
+    var uctServiceName = "uc";
+    var attaServiceName = "atta";
+    var flowServiceName = "flow";
+    var statServiceName = 'zbs';
+    var pdfServiceName ="atta";
+    var myUserId = '';
+    var userEname = '';
+    var myUserEname = '';
+    var myUserCname = '';
+    var deptId = '';
+    var deptCname = '';
+    var deptIds = "";
+    var deptEname = "";
+    var userType = "";
+    //alert(deptId);
+    var orgId = '';
+    var systemType = '';
+    var userRoles= '';
+    var roles= '';
+    var pageRoot = '';
+    window.HOST_TYPE='2'
+    var xwkDict = {};
+</script>
+<link rel="stylesheet" href="/zbxUI/adminlte/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/zbxUI/font/css/font-awesome.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/css/adminlte.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/sweetalert2/bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/toastr/toastr.min.css">
+<link rel="stylesheet" type="text/css" href="/zbxUI/js/easyui/themes/gray/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/zbxUI/js/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/table/bootstrap-table.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/table/bootstrap-table-fixed-columns.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/select2/css/select2.min.css">
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-migrate.min.js"></script>
+<script>
+    jQuery.browser={};(function(){jQuery.browser.msie=false; jQuery.browser.version=0;if(navigator.userAgent.match(/MSIE ([0-9]+)./)){ jQuery.browser.msie=true;jQuery.browser.version=RegExp.$1;}})();
+</script>
+
+<script type="text/javascript" src="/zbxUI/adminlte/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/sweetalert2/sweetalert2.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/toastr/toastr.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/moment.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/zh-cn.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/daterangepicker.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.js"></script>
+
+
+<script src="/zbxUI/adminlte/select2/js/select2.full.min.js"></script>
+<script src="/zbxUI/adminlte/select2/i18n/zh-CN.js"></script>
+
+<script type="text/javascript" src="/zbxUI/adminlte/js/adminlte.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/md5.js"></script>
+
+<script src="/zbxUI/adminlte/table/bootstrap-table.min.js"></script>
+<script src="/zbxUI/adminlte/table/bootstrap-table-zh-CN.js"></script>
+<script src="/zbxUI/adminlte/table/bootstrap-table-fixed-columns.min.js"></script>
+
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/additional-methods.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/messages_zh.js"></script>
+<script type="text/javascript" src="/zbxUI/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/zbxUI/js/baiduTemplate.js"></script>
+<script type="text/javascript" src="/zbxUI/js/keditor/kindeditor.js"></script>
+<script type="text/javascript" src="/zbxUI/js/echart/echarts2.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.form.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/jsencrypt.js"></script>
+<script type="text/javascript" src="/zbxUI/js/distpicker.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/xwkTools.min.js?20221207"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/zbxTools.min.2.0.js?20230720"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/baseTools.min.2.0.js?20221207"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/charTools2.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<script type="text/javascript">
+    function getFumFldDesc(){
+        var sumFldDesc = "";
+        $(".sumFld").each(function(){
+            if(this.checked){
+                sumFldDesc += ","+$(this).next().html();
+                //seriesName.push($(this).next().html());
+            }
+        });
+        if(sumFldDesc!=""){
+            return sumFldDesc.substring(1);
+        }else{
+            return "";
+        }
+    }
+    function getFumFld(){
+        var sumFld = "";//seriesName =[];
+        $(".sumFld").each(function(){
+            if(this.checked){
+                sumFld += ","+$(this).val();
+            }
+        });
+        if(sumFld!=""){
+            return sumFld.substring(1);
+        }else{
+            return "";
+        }
+    }
+    function getDictList(cateEname,fatherValue){
+        if(doNull(fatherValue)=="")fatherValue="0"
+        var temp;
+        //var this_url = ctx+"/dicts/getItems/"+cateEname+"/"+fatherValue;
+        var this_url = "https://ms.zbxsoft.com/zbxUI/data/"+cateEname+".json";
+        if(debug)alert(this_url);
+        $.ajax({
+            type:'get',
+            url:this_url,
+            dataType:'json',
+            async:false,
+            success: function(myData){
+                if(debug)console.log(myData);
+                temp=eval(myData);
+            }
+        });
+        return temp;
+    }
+    function  dictSelectHtml(dictItemList,inputTextName,defaultValue,id,onchangeFunction){
+        if(doNull(defaultValue)=="")defaultValue="";
+        if(doNull(onchangeFunction)!="")onchangeFunction=" onchange='"+onchangeFunction+"(this)'";
+        var dictStr="<select myid='"+doNull(id)+"' name='"+inputTextName+"' "+onchangeFunction+">";
+        dictItemList.forEach(function(val,index){
+            if(dictItemList[index].id==defaultValue){
+                dictStr +="<option value='"+dictItemList[index].id+"' selected>"+dictItemList[index].text+"</option>"
+            }else{
+                dictStr +="<option value='"+dictItemList[index].id+"'>"+dictItemList[index].text+"</option>"
+            }
+        });
+        dictStr +="</select>";
+        return dictStr;
+    }
+    function loadPtDict(selectid,catename,defaultValue){
+        var dlist = getDictList(catename);
+        var selectObj = document.getElementById(selectid);
+        dlist.forEach(function(val,index){
+            if(dlist[index].id==defaultValue){
+                selectObj.options.add(new Option(dlist[index].text,dlist[index].id,true,true));
+            }else{
+                selectObj.options.add(new Option(dlist[index].text,dlist[index].id));
+            }
+        });
+    }
+    function adminMenu(syscode){
+        if(doNull(syscode)==""){
+            syscode=myServer;
+            if(syscode.indexOf(".")>-1){
+                syscode=syscode.split(".")[0];
+            }
+        }
+        toHtml('zbx/menu/menu-tree','sysCode='+syscode);
+    }
+    function reloadWindow(){
+        window.location.reload();
+    }
+
+    function mobileExist(mobile){
+        var x = apiGet("/exist/mobile/"+mobile,"",UC);
+        if(x){
+           if(x.result=="T"){
+               return true;
+           }else{
+               return false;
+           }
+        }
+        return false;
+    }
+    function userExist(userEname){
+        var x = apiGet("/exist/"+userEname,"",UC);
+        if(x){
+            if(x.result=="T"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+    function emailExist(email){
+        var x = apiGet("/exist/email","email="+email,UC);
+        if(x){
+            if(x.result=="T"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/dpmweb/hn/css/jyptweb.css">
+<link rel="stylesheet" href="/static/dpmweb/hn/css/public.css">
+<link rel="stylesheet" href="/static/dpmweb/hn/css/style.css">
+<!--<link rel="stylesheet" href="/static/dpmweb/css/qyy.css"> -->
+<link rel="stylesheet" href="/static/dpmweb/js/swiper/swiper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ffcalendar/css/calendar.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.css">
+<link rel="stylesheet" href="/static/dpmweb/js/social-share/share-infodetail.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/picture-editing/cropper/cropper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.all.css">
+<link rel="stylesheet" href="/static/dpmweb/js/viewer/viewer.min.css">
+<script src="/static/dpmweb/js/swiper/swiper.min.js"></script>
+<script src="/static/dpmweb/js/ffcalendar/js/calendar.js"></script>
+<script src="/static/dpmweb/js/dpm.js"></script>
+<script src="/static/dpmweb/js/jquery.media.js"></script>
+<script src="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.min.js"></script>
+<script src="/static/dpmweb/js/social-share/social-share.js"></script>
+<script src="/static/dpmweb/js/qrcode.js"></script>
+<script src="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.min.all.js"></script>
+
+<script src="/static/dpmweb/js/picture-editing/cropper/cropper.js"></script>
+<script src="/static/dpmweb/js/moment.min.js"></script>
+<script src="/static/dpmweb/js/validator.js"></script>
+<script src="/zbxUI/js/jquery.steps.min.js"></script>
+<script src="/static/dpmweb/js/picker.js"></script>
+<script src="/static/dpmweb/js/viewer/viewer-jquery.min.js"></script>
+<script src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+<link rel="icon" type="image/svg+xml" href="/static/dpmweb/hn/images/title_logo.png">
+<script>
+    /*var editorFlagEntity = apiGet('/web/configurate/editor_flag');*/
+    var editorFlag = "T";
+   /* if(null!=editorFlagEntity){
+        editorFlag = editorFlagEntity.configValue;
+    }
+    var ifDemoApplyEntity = apiGet('/web/configurate/if_demo_apply');*/
+    var ifDemoApply = "T";
+   /* if(null!=ifDemoApplyEntity){
+        ifDemoApply = ifDemoApplyEntity.configValue;
+    }*/
+    //获取保证金支付方式文本
+    function pubBailMethodText(proId){
+        var pub = apiGet("/web/detail/pub/"+proId).entity;
+        var pubBailMethod = pub.pubBailMethod;
+        if(doNull(pubBailMethod) != ''){
+            var pubBailMethodText = "";
+            if(pubBailMethod.indexOf('2')>-1 && pubBailMethod.indexOf('4')>-1){
+                pubBailMethodText="银行转账，其他";
+            }else if(pubBailMethod.indexOf('2')>-1){
+                pubBailMethodText="银行转账";
+            }else if(pubBailMethod.indexOf('4')>-1){
+                pubBailMethodText="其他";
+            }
+        }
+        return pubBailMethodText;
+    }
+
+   $(function () {
+    //当前页面导航高亮
+      var pathName = window.location.pathname;
+      var mainNav = $('.navigation-v3 ul >li');
+      if(pathName == "/hn/index"){
+          mainNav.eq(0).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+      else if(pathName == "/hn/c/news/gsdt" || pathName == "/hn/c/news/hyzx" ){
+          mainNav.eq(1).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+      else if(pathName == "/hn/p/pro/index" ){
+          mainNav.eq(2).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+      else if(pathName == "/hn/p/notice/list"||pathName == "/hn/c/notice/tzgg"||pathName == "/hn/c/notice/jjgg"){
+          mainNav.eq(3).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+      else if(pathName == "/hn/p/item/index"){
+          mainNav.eq(4).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+      else if(pathName == "/hn/p/html/xmzs"){
+          mainNav.eq(5).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+
+      else if(pathName == "/hn/c/ywzn/gnfg"||pathName == "/hn/c/ywzn/zcfg" ||pathName == "/hn/c/ywzn/jygz" ||pathName == "/hn/c/ywzn/xzzq" ||pathName == "/hn/c/ywzn/yhzy" ){
+          mainNav.eq(6).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+      else if(pathName == "/hn/c/ddjs/djdt"||pathName == "/hn/c/ddjs/djfg"){
+          mainNav.eq(7).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+
+     else if(pathName == "/hn/c/gywm/gsjj"||pathName == "/hn/c/gywm/lxwm"){
+          mainNav.eq(8).addClass('nav-up-selected-inpage').siblings().removeClass('nav-up-selected-inpage')
+      }
+      else {
+          mainNav.removeClass('nav-up-selected-inpage')
+      }
+
+
+    $('#menu').mmenu();
+    // 这是Pc导航
+    var qcloud = {};
+    $('[_t_nav]').hover(function () {
+        var _nav = $(this).attr('_t_nav');
+        clearTimeout(qcloud[_nav + '_timer']);
+        qcloud[_nav + '_timer'] = setTimeout(function () {
+            $('[_t_nav]').each(function () {
+                $(this)[_nav == $(this).attr('_t_nav') ? 'addClass' : 'removeClass']('nav-up-selected');
+            });
+            $('#' + _nav).stop(true, true).slideDown(200);
+        }, 150);
+    }, function () {
+        var _nav = $(this).attr('_t_nav');
+        clearTimeout(qcloud[_nav + '_timer']);
+        qcloud[_nav + '_timer'] = setTimeout(function () {
+            $('[_t_nav]').removeClass('nav-up-selected');
+            $('#' + _nav).stop(true, true).slideUp(200);
+        }, 150);
+    });
+
+
+
+// 返回顶部
+    $('.to_top').click(function () {
+        $('body,html').animate({ scrollTop: 0 }, 300);
+    })
+
+    })
+
+
+       //单位转换成万元
+       function toWan(v){
+           if(doNull(v)=="" && v!=0){
+               return "";
+           }
+           return (parseFloat(v)/10000).toFixed(6);
+       }
+       //单位转换成元
+       function toYuan(v){
+           if(doNull(v)==""){ return "";}
+           return (parseFloat(v)*10000).toFixed(2);
+       }
+
+       //是否负数
+       function isLessThenZero(numStr){
+           return Number(numStr)<0;
+       }
+
+       // 优化支持负数的大写
+       function getChinese(currencyDigits) {
+           var lessFlag = false;
+           if(isLessThenZero(currencyDigits)){
+               lessFlag = true;
+           }
+           currencyDigits = Math.abs(Number(currencyDigits));
+           var MAXIMUM_NUMBER = 99999999999.99;
+           var CN_ZERO = "零";
+           var CN_ONE = "壹";
+           var CN_TWO = "贰";
+           var CN_THREE = "叁";
+           var CN_FOUR = "肆";
+           var CN_FIVE = "伍";
+           var CN_SIX = "陆";
+           var CN_SEVEN = "柒";
+           var CN_EIGHT = "捌";
+           var CN_NINE = "玖";
+           var CN_TEN = "拾";
+           var CN_HUNDRED = "佰";
+           var CN_THOUSAND = "仟";
+           var CN_TEN_THOUSAND = "万";
+           var CN_HUNDRED_MILLION = "亿";
+           var CN_SYMBOL = "人民币";
+           var CN_DOLLAR = "元";
+           var CN_TEN_CENT = "角";
+           var CN_CENT = "分";
+           var CN_INTEGER = "整";
+
+           var integral;
+           var decimal;
+           var outputCharacters;
+           var parts;
+           var digits, radices, bigRadices, decimals;
+           var zeroCount;
+           var i, p, d;
+           var quotient, modulus;
+
+           currencyDigits = currencyDigits.toString();
+           currencyDigits = currencyDigits.replace(/,/g, "");
+           currencyDigits = currencyDigits.replace(/^0+/, "");
+
+           parts = currencyDigits.split(".");
+           if (parts.length > 1) {
+               integral = parts[0];
+               decimal = parts[1];
+               decimal = decimal.substr(0, 2);
+           }
+           else {
+               integral = parts[0];
+               decimal = "";
+           }
+           digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE);
+           radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+           bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION);
+           decimals = new Array(CN_TEN_CENT, CN_CENT);
+
+           outputCharacters = "";
+           if (Number(integral) > 0) {
+               zeroCount = 0;
+               for (i = 0; i < integral.length; i++) {
+                   p = integral.length - i - 1;
+                   d = integral.substr(i, 1);
+                   quotient = p / 4;
+                   modulus = p % 4;
+                   if (d == "0") {
+                       zeroCount++;
+                   }
+                   else {
+                       if (zeroCount > 0)
+                       {
+                           outputCharacters += digits[0];
+                       }
+                       zeroCount = 0;
+                       outputCharacters += digits[Number(d)] + radices[modulus];
+                   }
+                   if (modulus == 0 && zeroCount < 4) {
+                       outputCharacters += bigRadices[quotient];
+                       zeroCount = 0;
+                   }
+               }
+               outputCharacters += CN_DOLLAR;
+           }
+
+           if (decimal != "") {
+               for (i = 0; i < decimal.length; i++) {
+                   d = decimal.substr(i, 1);
+                   if (d != "0") {
+                       outputCharacters += digits[Number(d)] + decimals[i];
+                   }
+               }
+           }
+
+           if (outputCharacters == "") {
+               outputCharacters = CN_ZERO + CN_DOLLAR;
+           }
+           if (decimal == "") {
+               outputCharacters += CN_INTEGER;
+           }
+           outputCharacters = lessFlag?'负'+outputCharacters:outputCharacters;
+           return outputCharacters;
+       }
+
+       //万元大写
+       function ChineseMillion(obj,obj2) {
+           var currencyDigits;
+           if(obj2!=null){
+               currencyDigits = obj;
+           }else{
+               currencyDigits = $(obj).val();
+           }
+
+           var MAXIMUM_NUMBER = 99999999999.99;
+           var CN_ZERO = "零";
+           var CN_ONE = "壹";
+           var CN_TWO = "贰";
+           var CN_THREE = "叁";
+           var CN_FOUR = "肆";
+           var CN_FIVE = "伍";
+           var CN_SIX = "陆";
+           var CN_SEVEN = "柒";
+           var CN_EIGHT = "捌";
+           var CN_NINE = "玖";
+           var CN_TEN = "拾";
+           var CN_HUNDRED = "佰";
+           var CN_THOUSAND = "仟";
+           var CN_TEN_THOUSAND = "万";
+           var CN_HUNDRED_MILLION = "亿";
+           var CN_SYMBOL = "人民币";
+           var CN_DOLLAR = "元";
+           var CN_TEN_CENT = "角";
+           var CN_CENT = "分";
+           var CN_INTEGER = "整";
+           var CN_MINUS = "负";
+           var CN_TEN_THOUSAND_HUNDRED_MILLION = "万亿";
+
+           var integral;
+           var decimal;
+           var outputCharacters;
+           var parts;
+           var digits, radices, bigRadices, decimals;
+           var zeroCount;
+           var i, p, d;
+           var quotient, modulus;
+
+           currencyDigits = currencyDigits.toString();
+           currencyDigits = currencyDigits.replace(/,/g, "");
+           currencyDigits = currencyDigits.replace(/^0+/, "");
+           if(currencyDigits.indexOf(".")==-1){
+               currencyDigits+=".000000";
+           }
+           parts = currencyDigits.split(".");
+           outputCharacters = "";
+           //"-0"
+           if(parts[0].indexOf("-")==0 && Number(parts[0]) == 0){
+               outputCharacters = CN_MINUS ;
+           }
+           if (parts.length > 1) {
+               integral = Number(parts[0])*10000;
+               integral = integral.toString();
+               decimal = parts[1];
+               decimal = decimal.substr(0, 6);
+           }
+           else {
+               integral = parts[0];
+               decimal = "";
+           }
+
+           digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE);
+           radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+           bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION,CN_TEN_THOUSAND_HUNDRED_MILLION);
+           decimals = new Array(CN_THOUSAND,CN_HUNDRED,CN_TEN,CN_DOLLAR,CN_TEN_CENT, CN_CENT);
+
+
+           if(Number(integral) < 0 ){
+               integral=Math.abs(Number(integral));
+               integral = integral.toString();
+               outputCharacters = CN_MINUS ;
+           }
+
+           if (Number(integral) > 0) {
+               zeroCount = 0;
+               for (i = 0; i < integral.length; i++) {
+                   p = integral.length - i - 1;
+                   d = integral.substr(i, 1);
+                   quotient = p / 4;
+                   modulus = p % 4;
+                   if (d == "0") {
+                       zeroCount++;
+                   }
+                   else {
+                       if (zeroCount > 0)
+                       {
+                           outputCharacters += digits[0];
+                       }
+                       zeroCount = 0;
+                       outputCharacters += digits[Number(d)] + radices[modulus];
+                   }
+                   if (modulus == 0 && zeroCount < 4) {
+                       outputCharacters += bigRadices[quotient];
+                       zeroCount = 0;
+                   }
+
+               }
+               //outputCharacters += CN_TEN_THOUSAND;
+           }
+
+           if (decimal != "") {
+               for (i = 0; i < decimal.length; i++) {
+                   d = decimal.substr(i, 1);
+                   if (d != "0") {
+                       outputCharacters += digits[Number(d)] + decimals[i];
+                   }
+               }
+           }
+
+           if (outputCharacters == "" || outputCharacters == CN_MINUS) {
+               outputCharacters = CN_ZERO + CN_TEN_THOUSAND;
+           }
+           if (decimal == "") {
+               outputCharacters += CN_INTEGER;
+           }
+           outputCharacters = outputCharacters;
+           if(obj2!=null){
+               //var id=$(obj).attr("id");
+               // $("nobr").remove("#nobr_"+id);
+               //$(obj).parent().append('<nobr id="nobr_'+id+'">' + outputCharacters + '</nobr>');
+               return outputCharacters;
+           }else{
+               $(obj).parent().find('nobr').remove();
+               $(obj).parent().append('<nobr>' + outputCharacters + '</nobr>');
+           }
+       }
+       //数字价格(元)==》汉字价格(元)
+       function bigTxtYuan(textId,val){
+           var vt = getChinese(val);
+           $("#"+textId).html("("+vt+")");
+       }
+       //数字价格(万元)==》汉字价格(万元)
+       function bigTxtWanYuan(textId,val){
+           var vt = ChineseMillion(val,'-');
+           $("#"+textId).html("("+vt+")");
+       }
+       // 附件类型的反显
+       function getAttaType(originalFlag, electronicFlag, copyFlag){
+           var str = "";
+           if(originalFlag == "T"){
+               str += "原件 ";
+           }
+           if(copyFlag == "T"){
+               str += "复印件 ";
+           }
+           if(electronicFlag == "T"){
+               str += "电子版 "
+           }
+           return str;
+       }
+
+	// 获取当前location
+	function getUrl(){
+		var url="/hn/p/login";
+		//var domainName = window.location.protocol;
+		//url = domainName+url;
+		return url;
+	}
+
+       function createProDo(templateCode,proId){
+           xwkPost(ATTA,"/createWord/"+templateCode+"?proId="+proId,"",createDoOk)
+       }
+       function createCertDo(templateCode,proId){
+           var cert = apiGet("my/cert/" + proId).entity;
+           xwkPost(ATTA,"/createWord/"+templateCode+"?certId="+cert.certId,"",createDoOk)
+       }
+       function createDoOk(data){
+           xwkPost(ATTA, "/download/", "fullFileName="+data.message, downCallback);
+       }
+       function downCallback(data) {
+           var token = data.message;
+           window.open("/api/"+ATTA+"/download/?token="+token);
+       }
+
+       function getAttaType(originalFlag, electronicFlag, copyFlag){
+           var str = "";
+           if(originalFlag == "T"){
+               str += "原件 ";
+           }
+           if(copyFlag == "T"){
+               str += "复印件 ";
+           }
+           if(electronicFlag == "T"){
+               str += "电子版 "
+           }
+           return str;
+       }
+
+       /*==============附件相关start================*/
+       function batchUploadCb(res, formName){
+           if(res.result == 'T'){
+               var id = formName.split("_")[1];
+               var fileUrls = res.message;
+               var storeIds = res.entity;
+               if(doNull(fileUrls) != ''){
+                   fileUrls = fileUrls.substr(0,fileUrls.length-1)
+                   storeIds = storeIds.substr(0,storeIds.length-1)
+               }
+               apiPut('/proAtta/'+id, 'templateUrl='+fileUrls.replaceAll(",","|")+'&storeIds='+storeIds.replaceAll(",","|"), proAttaList);
+           }else{
+               XWK.alert(res.message);
+           }
+       }
+       function proAttaListCb(){
+           $("div[id^='attaList_']").each(function (){
+               var id = $(this).attr("id").split("_")[1];
+               proAttaFileList(id, "attaList_");
+           })
+       }
+       function proAttaFileList(id, boxName){
+           xwkLoad(ATTA, "/store/?objId="+id+"&attaKey=dpm_proAtta_file", "atta-list_html", boxName+id);
+       }
+       function quickBatchUpload(id,callback){
+           // 批量存储时，无法对应到proAttaId，所以id为pro或者packId，将返回值存储在proAtta中
+           attaUpload('dpm_proAtta_file', id, '项目公开附件',callback)
+       }
+       function continueUpload(proAttaId, proAttaName, callback){
+           attaUpload('dpm_proAtta_file', proAttaId, proAttaName, callback);
+       }
+       // 删除附件信息
+       function delProAtta(index, storeIds, electronicUrl,proAttaId,callback){
+           XWK.confirm.xwkDelete(ATTA, '/store/'+storeIds.split('|')[index],'该附件', function(){
+               var electronicUrlArr = electronicUrl.split("|");
+               var storeIdsArr = storeIds.split("|");
+               electronicUrlArr.splice(index, 1);
+               storeIdsArr.splice(index, 1);
+               // 组装字段
+               var newTemp = "";
+               var newIds = "";
+               for(var i=0; i<electronicUrlArr.length; i++){
+                   newTemp += electronicUrlArr[i]+"|";
+               }
+               for(var i=0; i<storeIdsArr.length; i++){
+                   newIds += storeIdsArr[i]+"|";
+               }
+               // 修改proAtta的信息
+               apiPut("/proAtta/"+proAttaId, "electronicUrl="+newTemp.substring(0, newTemp.length-1)+"&storeIds="+newIds.substring(0, newIds.length-1), callback);
+           })
+       }
+       //渲染详情页附件
+       function loadPubAtta(proId,tableView) {
+           if(document.getElementById("important_electronicUrl_file")){
+               var proAttaImportantList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_important").rows;
+               if(proAttaImportantList.length > 0){
+                   var electronicUrl = proAttaImportantList[0].electronicUrl;
+                   var storeIds = proAttaImportantList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#important_electronicUrl_file').empty();
+                       $('#' + tableView).find('#important_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("bidMethodContent_electronicUrl_file")){
+               var proAttaBidMethodList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_bidMethodContent").rows;
+               if(proAttaBidMethodList.length > 0){
+                   var electronicUrl = proAttaBidMethodList[0].electronicUrl;
+                   var storeIds = proAttaBidMethodList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#bidMethodContent_electronicUrl_file').empty();
+                       $('#' + tableView).find('#bidMethodContent_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("buyerCondition_electronicUrl_file")){
+               var proAttaBuyerList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_buyerCondition").rows;
+               if(proAttaBuyerList.length > 0){
+                   var electronicUrl = proAttaBuyerList[0].electronicUrl;
+                   var storeIds = proAttaBuyerList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#buyerCondition_electronicUrl_file').empty();
+                       $('#' + tableView).find('#buyerCondition_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("sellerConditions_electronicUrl_file")){
+               var proAttaSellerList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_sellerConditions").rows;
+               if(proAttaSellerList.length > 0){
+                   var electronicUrl = proAttaSellerList[0].electronicUrl;
+                   var storeIds = proAttaSellerList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#sellerConditions_electronicUrl_file').empty();
+                       $('#' + tableView).find('#sellerConditions_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("capitalIncreasePlan_electronicUrl_file")){
+               var proAttaCapitalIncreasePlanList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_capitalIncreasePlan").rows;
+               if(proAttaCapitalIncreasePlanList.length > 0){
+                   var electronicUrl = proAttaCapitalIncreasePlanList[0].electronicUrl;
+                   var storeIds = proAttaCapitalIncreasePlanList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#capitalIncreasePlan_electronicUrl_file').empty();
+                       $('#' + tableView).find('#capitalIncreasePlan_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("dealCondition_electronicUrl_file")){
+               var proAttaDealConditionList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_dealCondition").rows;
+               if(proAttaDealConditionList.length > 0){
+                   var electronicUrl = proAttaDealConditionList[0].electronicUrl;
+                   var storeIds = proAttaDealConditionList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#dealCondition_electronicUrl_file').empty();
+                       $('#' + tableView).find('#dealCondition_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("pubOthers_electronicUrl_file")){
+               var proAttaPubOthersList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_pubOthers").rows;
+               if(proAttaPubOthersList.length > 0){
+                   var electronicUrl = proAttaPubOthersList[0].electronicUrl;
+                   var storeIds = proAttaPubOthersList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#pubOthers_electronicUrl_file').empty();
+                       $('#' + tableView).find('#pubOthers_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("bailMemo_electronicUrl_file")){
+               var proAttaBailMemoList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_pubBailMemo").rows;
+               if(proAttaBailMemoList.length > 0){
+                   var electronicUrl = proAttaBailMemoList[0].electronicUrl;
+                   var storeIds = proAttaBailMemoList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#bailMemo_electronicUrl_file').empty();
+                       $('#' + tableView).find('#bailMemo_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("seWay_electronicUrl_file")){
+               var proAttaSeWayList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_seWay").rows;
+               if(proAttaSeWayList.length > 0){
+                   var electronicUrl = proAttaSeWayList[0].electronicUrl;
+                   var storeIds = proAttaSeWayList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#seWay_electronicUrl_file').empty();
+                       $('#' + tableView).find('#seWay_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("pubWayDesc_electronicUrl_file")){
+               var proAttaPubWayDescList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_pubWayDesc").rows;
+               if(proAttaPubWayDescList.length > 0){
+                   var electronicUrl = proAttaPubWayDescList[0].electronicUrl;
+                   var storeIds = proAttaPubWayDescList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#pubWayDesc_electronicUrl_file').empty();
+                       $('#' + tableView).find('#pubWayDesc_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("pubBailMemo_electronicUrl_file")){
+               var proAttaPubBailMemoList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_pubBailMemo").rows;
+               if(proAttaPubBailMemoList.length > 0){
+                   var electronicUrl = proAttaPubBailMemoList[0].electronicUrl;
+                   var storeIds = proAttaPubBailMemoList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#pubBailMemo_electronicUrl_file').empty();
+                       $('#' + tableView).find('#pubBailMemo_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+           if(document.getElementById("buyerPromise_electronicUrl_file")){
+               var proAttaBuyerPromiseList = apiGet("/web/proAtta?objId="+proId+"&proAttaCode=pub_buyerPromise").rows;
+               if(proAttaBuyerPromiseList.length > 0){
+                   var electronicUrl = proAttaBuyerPromiseList[0].electronicUrl;
+                   var storeIds = proAttaBuyerPromiseList[0].storeIds;
+                   if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                       var opStr = '';
+                       var electronicUrlAttr = electronicUrl.split("|");
+                       for (var i = 0; i < electronicUrlAttr.length; i++) {
+                           opStr += '</br>';
+                           opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                           opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                       }
+                       console.log("tableView::", tableView);
+                       $('#' + tableView).find('#buyerPromise_electronicUrl_file').empty();
+                       $('#' + tableView).find('#buyerPromise_electronicUrl_file').append(opStr);
+                   }
+               }
+           }
+       }
+       //删除单附件
+       function delProAttaSingle(type,storeIds,proAttaId,callback){
+           XWK.confirm.xwkDelete(ATTA, '/store/'+storeIds,'该附件', function(){
+               // 修改proAtta的信息
+               if(doNull(proAttaId) != ''){
+                   apiPut("/proAtta/"+proAttaId, type+"=&storeIds=", callback);
+               }
+           })
+       }
+       /*==============附件相关end================*/
+       function updateModel() {
+           alert("该模板需要根据您的需求定制，请联系系统建设单位！");
+       }
+       function printBill() {
+           alert("该单据需要根据您的需求定制，请联系系统建设单位！");
+       }
+       function getMainStatus(mainStatus,exceptionStatus) {
+           if(exceptionStatus!=null && exceptionStatus!=0){
+               if(exceptionStatus=='1'){
+                   return "中止";
+               }else if(exceptionStatus=='3'){
+                   return "终结";
+               }else if(exceptionStatus=='4'){
+                   return "流拍";
+               }else if(exceptionStatus=='5'){
+                   return "异常结束";
+               }
+           }else{
+               if(mainStatus==0){
+                   return "录入中";
+               }else if(mainStatus==10){
+                   return "审核中";
+               }else if(mainStatus==1){
+                   return "退回";
+               }else if(mainStatus==2){
+                   return "已撤回";
+               }else if(mainStatus==5){
+                   return "待认领";
+               }else if(mainStatus==30){
+                   return "挂牌中";
+               }else if(mainStatus==40){
+                   return "等待竞价";
+               }else if(mainStatus==70){
+                   return "竞价中";
+               }else if(mainStatus>=79 && mainStatus<100){
+                   return "已成交";
+               }else if(mainStatus==100){
+                   return "已归档";
+               }
+           }
+
+       }
+       function iconChange(obj,id,type){
+           if($(obj).attr("class").indexOf("fa-xmark") > -1){
+               $(obj).removeClass().addClass("fas fa-check text-success");
+               apiPut('/proAtta/'+id, type+'Flag=T');
+           }else{
+               $(obj).removeClass().addClass("fas fa-xmark text-danger");
+               apiPut('/proAtta/'+id, type+'Flag=F');
+           }
+       }
+       /*====================签章合同=================*/
+       function downloadFile(contactId){
+           apiPost('/web/fdd/downloadContract/'+contactId+'?fileIdType=contactId','',downloadFileCb);
+       }
+       function downloadFileCb(data) {
+           console.log(data);
+           window.open(data.message);
+       }
+
+        function myLoadEditor(idName,width,height,defRemark){
+            if(doNull(editorFlag)=="F"){
+                return;
+            }
+        if(doNull(width)=="") width = document.getElementById(idName).style.width;
+        if(doNull(height)=="") height = document.getElementById(idName).style.height;
+        if(doNull(width)=="") width ='100%';
+        if(doNull(height)=="") height = 500;
+        if(doNull(defRemark)=="")defRemark='';
+         //window.editor = KindEditor.create('#'+idName,{
+        KindEditor.create('#'+idName,{
+            resizeType : 1,
+            width:width,
+            height:height,
+            afterFocus : function(e){//鼠标获取焦点
+                if(this.html()==defRemark){ this.html(defRemark); }
+            },
+            afterBlur : function(e) {
+                this.sync();
+                if(this.html()==""||$('#'+idName).val().replace(/\s/g,"")==""){this.html(defRemark);}
+            },
+           /* afterChange : function() {
+                $('.word_count1').html(this.count()); //字数统计包含HTML代码
+                $('.word_count2').html(this.count('text'));  //字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字
+                var limitNum = 2000;  //设定限制字数
+                var pattern = "0/"+limitNum;
+                $('.word_surplus').html(pattern); //输入显示
+                if(this.count('text') > limitNum) {
+                    pattern = ('字数超过限制，请适当删除部分内容');
+                    //超过字数限制自动截取
+                    var strValue = this.html();
+                     strValue = strValue.substring(0,limitNum);
+                    this.html(strValue);
+                } else {
+                //计算剩余字数
+                    //var result = limitNum - this.count('text');
+                    pattern = this.count('text') + '/'+limitNum;
+                }
+                $('#'+idName+'_num').html(pattern); //输入显示
+            },*/
+            allowImageUpload : true
+        });
+    }
+
+//=====数字位数大写等处理=====start===
+
+    function getTitleName(thsTitle){
+        $("#div_title").attr('title',thsTitle);
+        $("#main ul li a span").first().html(thsTitle);
+    }
+
+    //只能输入数字（包含小数）
+       function numberType(obj){
+           var va = obj.value;
+           if(isNaN(va)){
+               obj.value='';
+               XWK.alert('请输入正确的数值！','error');
+               return;
+           }
+           va = Number(va);
+           var flag = /^\d+(\.\d+)?$/.test(va);
+           if(!flag){
+               obj.value=va.replace(/[^\d\.]/g,'');
+           }else{
+               obj.value=va;
+           }
+       }
+    //只能输入数字（包含小数和负数）
+    function numberTypeFloat(obj){
+       var va = obj.value;
+       if(isNaN(va)){
+           obj.value='';
+           XWK.alert('请输入正确的数值！','error');
+           return;
+       }
+       va = Number(va);
+       var flag =/^(-)?\d+(\.\d+)?$/.test(va);
+       if(!flag){
+           obj.value=va.replace(/[^\d\.-]/g,'');
+       }else{
+           obj.value=va;
+       }
+    }
+    //只能输入数字（不包含小数和负数）
+    function numberTypeInt(obj){
+       var va = obj.value;
+       if(isNaN(va)){
+           obj.value='';
+           XWK.alert('请输入正确的数值！','error');
+           return;
+       }
+       va = Number(va);
+       var flag =/^[0-9]*$/.test(va);
+       if(!flag){
+           //alert("请您输入正整数！")
+           obj.value=va.replace(/[^\d]/g,'');
+       }else{
+           obj.value=va;
+       }
+    }
+//保留小数位数
+function numberPoint(obj,length){
+	var va = obj.value;
+	var vaback=va;
+	if(/^-/.test(va)){
+		numberTypeFloat(obj);
+	}else{
+		numberType(obj);
+	}
+	var va = obj.value;
+	if(va=='' && vaback=='T'){
+		obj.value=vaback;
+	}
+	if(isNaN(va) && vaback!='T'){
+		obj.value = "";
+		return;
+	}
+	if(doNull(va)!='' && doNull(length)!=''){
+	   var s = va.indexOf('.');
+	   if(s==0){
+		   obj.value = "";
+			return;
+	   }
+	   var s2 = va.indexOf('-.');
+	   if(s2==0){
+		   obj.value = "";
+			return;
+	   }
+	   if(s<0){
+		   var zero = ".";
+		   for(var i=0; i<length; i++){
+			   zero+="0";
+		   }
+		   obj.value=va+zero;
+	   }else{
+		   var len = va.substring(s+1,va.length).length;//小数点后数字的长度
+		   if(len<length){
+			   for(var j=0; j<length-len; j++){
+				   obj.value+="0";
+			   }
+		   }else{
+			   obj.value=obj.value.substring(0,s+1+length);
+		   }
+
+	        }
+	    }
+    }
+//=====数字位数大写等处理=====end===
+    function uenV(obj) {
+        var va = obj.value;
+        var flag = /^[a-zA-Z][a-zA-Z0-9_]{5,30}$/.test(va);
+        if (!flag) {
+            XWK.alert("用户名应为5-30位字符，必须包含英文字母，支持英文字母、数字、_的组合。用户名注册后不可修改！")
+            obj.value = ''
+            // return /^[a-zA-Z][a-zA-Z0-9_]{5,15}$/i.test(value);
+        }
+    }
+    function getProPricePub(proId) {
+        var proUtrz = apiGet("/web/utrz/details/pro/"+proId).entity;
+        if(null!=proUtrz){
+            return proUtrz.proPricePub;
+        }
+    }
+
+    function loadCms() {
+        $("xwk_cms").each(function(){
+            loadComp(this,$(this).attr("type"),$(this).attr("code"))
+        })
+    }
+    function loadComp(obj,type,code) {
+        $.ajax({
+            type:'get',
+            url:"/web/hn/"+type+"/"+code,
+            dataType:'text',
+            success: function(myData) {
+                $(obj).html(myData);
+            }
+        });
+    }
+    function capFirstLetter(string, proCode) {
+        if(string == "utrh" || string == "utrl"){
+            string = "utrm";
+        }
+        if("HA2021DF500030,HA2020DF500048,HA2020DF500044,HA2020DF500034,HA2020DF500033".indexOf(proCode)>=0){
+            string = "utrg";
+        }
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+    function getProPricePub(proId) {
+        var proUtrz = apiGet("/web/utrz/details/pro/"+proId).entity;
+        if(null!=proUtrz){
+            return proUtrz.proPricePub;
+        }
+    }
+    //判断项目状态代码，修改前请与领导确认。涉及很多页面反显
+    function getMainStartAndExp(mainStatus,exceptionStatus,proType,dealTime,pubFlag,objType) {
+        if(objType == 'pack'){
+            //return ["详见公告","label_gray"];
+            return ["详见公告"];
+        }
+        if(pubFlag=='T'){
+            return ["已归档","label_gray"];
+        }else if(proType=='P3' || proType=='PG6'){
+            if(exceptionStatus=="1"){
+                return ["已中止","label_gray"];
+            }else if(exceptionStatus=="3"){
+                return ["已终结","label_gray"];
+            }else if(parseFloat(mainStatus)==30 && exceptionStatus=="0"){
+                return ["挂牌中"];
+            }else{
+                return ["已撤牌","label_gray"];
+            }
+        }else{
+            if(exceptionStatus=="1"){
+                return ["已中止","label_gray"];
+            }else if(exceptionStatus=="3"){
+                return ["已终结","label_gray"];
+            }else if(exceptionStatus=="4"){
+                return ["已流拍","label_gray"];
+            }else if(exceptionStatus=="5"){
+                return ["已结束","label_gray"];
+            }else{
+                if(parseFloat(mainStatus)==30){
+                    return ["挂牌中"];
+                }else if(parseFloat(mainStatus)>37 && doNull(dealTime)=='' ){
+                    return ["交易中","label_green"];
+                }else if(doNull(dealTime)!=''){
+                     return ["已成交","label_green"];
+                }else if(parseFloat(mainStatus)==37){
+                    return ["已撤牌","label_gray"];
+                }
+            }
+        }
+    }
+    function getCompArea(proId) {
+        var comp =apiGet("/web/detail/comp/"+proId).entity;
+        return doNull(comp.city);
+    }
+    //委托项目表单用dpm的表单，将dpm的js写到前台======开始
+    function showUtrgForm(gzType){
+        if(gzType=='P3'){
+            $('.show3').show();
+            $('.showP3').show();
+        }else if(gzType=='G3'){
+            $('.show3').show();
+            $('.showG').show();
+            $('.showG3').show();
+        }else if(gzType=='G0'){
+            $('.showG').show();
+            $('.showG0').show();
+        }else if(gzType=='T3'){
+            $('.show3').show();
+        }
+    }
+    function loadPubProAtta(objId,form,code,name) {
+        if(doNull(form) == ''){
+            form = "pubForm";
+        }
+        var proAttaList = apiGet("/proAtta?objId="+objId+"&proAttaCode="+code).rows;
+        var electronicUrlAttr ='';
+        var uploadStr = '';
+        var opStr = '';
+        if(proAttaList.length > 0) {
+            var electronicUrl = proAttaList[0].electronicUrl;
+            var storeIds = proAttaList[0].storeIds;
+            if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                electronicUrlAttr = electronicUrl.split("|");
+                var storeIdsAttr = storeIds.split("|");
+                for (var i = 0; i < electronicUrlAttr.length; i++) {
+                    opStr += '</br>';
+                    opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                    opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    opStr += '<span style="cursor:pointer" class="ml-3" onclick="delPubAtta(\'' + i + '\', \'' + storeIds + '\', \'' + electronicUrl + '\', \'' + proAttaList[0].proAttaId + '\',\''+code+'\',\''+name+'\', renderFile)"><i class="fal fa-trash"></i> 删除</span>';
+                }
+                console.log("code::", code);
+                console.log("code1::", code + '_electronicUrl_file');
+                // $('#'+form).find('#'+code+'_electronicUrl_file').attr("href",electronicUrl);
+                // $('#'+form).find('#'+code+'_electronicUrl_file').show();
+            }
+            $('#' + form).find('#' + code + '_electronicUrl_file').empty();
+            $('#' + form).find('#' + code + '_electronicUrl_file').append(opStr);
+        }
+        if(electronicUrlAttr.length > 0){
+            uploadStr = '<button type="button" class="btn btn-outline-primary btn-sm mr-1" onclick="upLoadatta(\''+objId+'\',\''+name+'\',\''+code+'\')"><i class="fas fa-cloud-upload"></i> 继续上传</a>';
+        }else{
+            uploadStr = '<button type="button" class="btn btn-outline-primary btn-sm mr-1" onclick="upLoadatta(\''+objId+'\',\''+name+'\',\''+code+'\')"><i class="fas fa-cloud-upload"></i> 上传附件</a>';
+        }
+        $('#'+form).find('#'+code+'_upload').empty();
+        $('#'+form).find('#'+code+'_upload').append(uploadStr);
+    }
+    function checkProTypeGroup(key,value) {
+        proType = key;
+        $('#TypeGroup').remove();
+        $("#" + key).prepend("<span class='badge bg-success' id='TypeGroup'><i class='fas fa-check'></i></span>");
+        $("#proForm").find("input[name='proType']").val(key)
+        $("#proForm").find("input[name='proTypeTxt']").val(value)
+    }
+    function checkPackTypeGroup(key,value) {
+        packType = key;
+        $('#TypeGroup').remove();
+        $("#" + key).prepend("<span class='badge bg-success' id='TypeGroup'><i class='fas fa-check'></i></span>");
+        $("#packForm").find("input[name='packType']").val(key)
+        $("#packForm").find("input[name='packTypeTxt']").val(value)
+    }
+    //隐藏动态报价
+    function hideDynamicEdit(){
+        //河南开放动态报价20240522
+        if(systemIfBiddyn!='T'){
+            //$("[name='ifBiddyn']").filter("[value='T']").hide();
+            $(".showIfBiddyn").hide();
+            $("input[name='ifBiddyn'][value='T']").attr("checked",false);
+            $("input[name='ifBiddyn'][value='F']").attr("checked",true);
+        }
+    }
+    function myBatchUploadSingleCback(data){
+        console.log("11111111111",proId)
+        console.log("11111111111",proAttaId)
+        // 将附件存储在proAtta
+        apiPut("/proAtta/batch/"+proAttaId, "objId="+proAttaId+"&openFlag=F&electronicUrl="+(data.message).replaceAll(",","|")+"&storeIds="+(data.entity).replaceAll(",","|"), attaCallback);
+    }
+    function delayTypeClick() {
+        var delayType = doNull($("input[name='delayType']:checked").val());
+        if(delayType=="T") {
+            $('#delayMaxInput').attr("required", "ture");
+        }else{
+            $('#delayMaxInput').removeAttr("required");
+            $('#delayMaxInput').val("");
+            $('#delayMax').val("999");
+        }
+        $("#delayMaxInput").valid()
+    }
+    function hideIfDemoApply(){
+        if(ifDemoApply=='F'){
+            $(".ifDemoApply").hide();
+        }else{
+            $(".ifDemoApply").show();
+        }
+    }
+    //获取完整的项目状态，标的和包通用
+  /*  function getUnityProMainStatus(obj){
+        return getMainStatusdpm(obj.mainStatus,obj.pubFlag)+"<span class='text-danger'>"+getRepubFlagdpm(obj.repubFlag,obj.exceptionStatus)+"</span>";
+    }*/
+    function getRepubFlag(v0,v1){
+        var opStr="";
+        if(v0=='T'){
+            opStr="（重新挂牌）";
+        }else{
+            opStr=getExceptionStatus(v1);
+        }
+        return opStr;
+    }
+    function getExceptionStatus(v){
+        var opStr="";
+        if(v=='0'){
+            opStr="";
+        }else if(v=='1'){
+            opStr="（中止）";
+        }else if(v=='3'){
+            opStr="（终结）";
+        }else if(v=='4'){
+            opStr="（流拍）";
+        }else if(v=='5'){
+            opStr="（异常结束）";
+        }
+        return opStr;
+    }
+    function hideDynamicView(){
+        //河南开放动态报价20240522
+        if(systemIfBiddyn!='T'){
+            $(".showIfBiddyn").hide();
+        }
+    }
+    /*var orgCode = apiGet('/configurate/org_code').entity;*/
+    function openUrl(type,objId){
+        if(doNull(objId)!=""){
+            proId=objId;
+        }
+        window.open("/hn/detail/pro/"+proId);
+    }
+    function attaCallback(data) {
+        templateUrl = data;
+        renderFile();
+    }
+    //获取完整的项目状态，标的和包通用
+    function getUnityProMainStatus(obj){
+        return getMainStatusdpm(obj.mainStatus,obj.pubFlag)+"<span class='text-danger'>"+getRepubFlagdpm(obj.repubFlag,obj.exceptionStatus)+"</span>";
+    }
+    function pubProAttaCallback() {
+        if(doNull(electronicUrl) != ''){
+            $('#'+proAttaCode+'_electronicUrl_file').attr("href",electronicUrl);
+            $('#'+proAttaCode+'_electronicUrl_file').show();
+        }
+    }
+    function renderFile() {
+        var code =  $("#proAttaPubForm").find("input[name='proAttaCode']").val();
+        var name =  $("#proAttaPubForm").find("input[name='proAttaName']").val();
+        loadPubProAtta(proId,"pubForm",code,name);
+    }
+    function getMainStatusdpm(v,v0){
+        var opStr="";
+        if(v=='0'){
+            opStr="暂存";
+        }else if(v=='1'){
+            opStr="退回";
+        }else if(v=='2'){
+            opStr="已撤回";
+        }else if(v=='5'){
+            opStr="待认领";
+        }else if(v=='10'){
+            opStr="审核中";
+        }else if(v=='30'){
+            opStr="挂牌中";
+        }else if(v=='35'){
+            opStr="延牌";
+        }else if(v=='37'){
+            opStr="撤牌";
+        }else if(v=='40'){
+            opStr="摘牌";
+        }else if(v=='70'){
+            opStr="组织交易";
+        }else if(v=='79'){
+            opStr="已成交";
+        }else if(v=='84'){
+            opStr="价款划入单据生成";
+        }else if(v=='86'){
+            opStr="划入价款完成";
+        }else if(v=='88'){
+            opStr="合同上传完成";
+        }else if(v=='90'){
+            opStr="成交确认";
+        }else if(v=='92'){
+            opStr="交易凭证已生成";
+        }else if(v=='93'){
+            opStr="生成价款划出单据";
+        }else if(v=='94'){
+            opStr="价款已划出";
+        }
+        if(v0=='T'){
+            opStr+="（归档）";
+        }
+        if(v=='100'){
+            opStr="归档";
+        }
+        return opStr;
+    }
+
+    function getRepubFlagdpm(v0,v1){
+        var opStr="";
+        if(v0=='T'){
+            opStr="（重新挂牌）";
+        }else{
+            opStr=getExceptionStatus(v1);
+        }
+        return opStr;
+    }
+    //委托项目表单用dpm的表单，将dpm的js写到前台======结束
+
+    //判断是否登录
+    function ifLogin() {
+        var loginUser = 'LoginUser(userId=, userEname=null, userCname=null, deptId=null, deptIds=null, deptEname=null, deptCname=null, orgId=null, orgIds=null, orgEname=null, orgCname=null, clientId=null, roles=null, ipAddress=null, initPwdFlag=null, passwordSSHA=null)'
+        var loginUserCname = ''
+        var flag = false
+        if (loginUser && loginUserCname) {
+            flag = true
+        }
+        console.log(flag)
+        return flag
+    }
+
+    // 全局拦截点击事件，动态处理 href 文件名称做编译处理
+    document.addEventListener('click', (e) => {
+        const target = e.target.closest('a');
+        if (target) {
+            const rawHref = target.getAttribute('href');
+            if (rawHref.indexOf("/file/") > -1 && rawHref.indexOf(".") > -1 && rawHref.indexOf("Atta") > -1) {
+                e.preventDefault();
+
+                window.open(encodeFileUrl(rawHref));
+            }
+        }
+
+    });
+
+
+    function encodeFileUrl(fileUrl){
+        var fileName = fileUrl.split("/")[fileUrl.split("/").length-1].split(".")[0];
+        fileUrl = fileUrl.replaceAll(fileName,encodeURIComponent(fileName))
+        console.log(fileUrl)
+        return fileUrl
+    }
+</script>
+
+<title>河南中原产权交易有限公司</title>
+<script>
+    var myServer = "dpm";
+    var EZC = "dpm";
+    var DPM = "dpm";
+    var pageRoot = "hnweb";
+    var BID = "bid";
+    var MC = "mc";
+    var AUCTION = "auction";
+    var isAuth = apiGet("/web/getConfig/isAuth");
+    var dictKv = apiGet("/dict/kvMap");
+    var systemIfBiddyn = "";
+    var systemIfBiddynEntity = apiGet('/web/configurate/system_if_biddyn');
+    if (null != systemIfBiddynEntity) {
+        systemIfBiddyn = systemIfBiddynEntity.entity.configValue;
+    }
+    var pubBailEndTimeStrEntity = apiGet('/web/configurate/bail_end_time');
+    var pubBailEndTimeStr = "";
+    if (null != pubBailEndTimeStrEntity) {
+        pubBailEndTimeStr = pubBailEndTimeStrEntity.entity.configValue;
+    }
+</script>
+    <title>河南中原产权交易有限公司</title>
+    <script src="https://map.qq.com/api/gljs?v=1.exp&key=IA7BZ-NV2HJ-VPIFW-F5RPG-UXHD5-OGBTX"></script>
+</head>
+<form id="pro-list_form">
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="rows" value="10">
+    <input type="hidden" name="mainStatus" id="mainStatus">
+    <input type="hidden" name="model" id="model">
+    <input type="hidden" name="ctyCode" id="ctyCode">
+    <input type="hidden" name="orderBy" id="orderBy" value="p.create_time, p.real_pub_start_time desc">
+</form>
+
+<body>
+<!-- 手机导航 -->
+<nav id="menu" style="display: none;" class="mm-menu mm-offcanvas">
+	<div class="mm-panel mm-opened mm-current" id="mm-0">
+		<ul class="mm-listview mm-first mm-last">
+			<li class="on">
+				<a href="/hn/index">网站首页</a>
+			</li>
+			<li>
+				<a class="mm-next" href="#mm-1" data-target="#mm-1"></a>
+				<a href="/hn/c/news/gsdt">新闻中心</a>
+
+			</li>
+			<li>
+				<a class="mm-next" href="#mm-2" data-target="#mm-2"></a>
+				<a href="/hn/p/pro/index?sysName=utrg">项目大厅</a>
+
+			</li>
+			<li>
+				<a class="mm-next" href="#mm-3" data-target="#mm-3"></a>
+				<a href="/hn/p/notice/list?noticeType=deal">公告信息</a>
+
+			</li>
+			<li>
+				<a class="mm-next" href="#mm-4" data-target="#mm-4"></a>
+				<!--<a href="/hn/p/item/index">交易大厅</a>-->
+                 <a href="/hn/p/auction/meet-list">交易大厅</a>
+			</li>
+			<li>
+				<a href="/hn/p/html/xmzs">项目招商</a>
+			</li>
+			<!--<li>
+				<a href="/hn/p/html/hyzq">会员专区</a>
+			</li>-->
+			<li>
+				<a class="mm-next" href="#mm-5" data-target="#mm-5"></a>
+				<a href="/hn/c/ywzn/zcfg">业务指南</a>
+
+			</li>
+			<li>
+				<a class="mm-next" href="#mm-6" data-target="#mm-7"></a>
+				<a href="/hn/c/ddjs/djdt">党群建设</a>
+
+			</li>
+			<li>
+				<a class="mm-next" href="#mm-7" data-target="#mm-7"></a>
+				<a href="/hn/p/html/gywm">关于我们</a>
+
+			</li>
+
+		</ul>
+	</div>
+	<div class="mm-panel mm-hasnavbar mm-hidden" id="mm-1">
+		<div class="mm-navbar">
+			<a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a>
+			<a class="mm-title">新闻中心</a>
+		</div>
+		<ul class="mm-listview mm-first mm-last">
+			<li>
+				<a href="/hn/c/news/gsdt">公司动态</a>
+			</li>
+			<li>
+				<a href="/hn/c/news/hyzx">行业资讯</a>
+			</li>
+            <li>
+			    <a href="/hn/c/news/jtdt">集团动态</a>
+			</li>
+		</ul>
+	</div>
+	<div class="mm-panel mm-hasnavbar mm-hidden" id="mm-2">
+		<div class="mm-navbar">
+			<a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a>
+			<a class="mm-title">项目大厅</a>
+		</div>
+
+		<ul class="mm-listview mm-first mm-last">
+
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrg">国有股权 </a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrz">企业增资</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrm">资产转让</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrl">资产租赁</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proTypes=ynq,cnzbzz,zszy">绿色权益</a>
+			</li>
+			<!--<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=xezc">小额资产</a>
+			</li>-->
+			<li>
+				<a href="/hn/p/ggjyqzq/home">广告经营权 </a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=pczc">破产资产</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=blzc">不良资产 </a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=kq">自然资源</a>
+			</li>
+			<li>
+				<a href="/hn/p/bfzczq/home">报废资产</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)">合作机构项目</a>
+			</li>
+			<li>
+				<a href="javascript:void(0)">国企混改项目</a>
+			</li>
+
+		</ul>
+	</div>
+	<div class="mm-panel mm-hasnavbar mm-hidden" id="mm-3">
+		<div class="mm-navbar">
+			<a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a>
+			<a class="mm-title">公告信息</a>
+		</div>
+		<ul class="mm-listview mm-first mm-last">
+			<li>
+				<a href="/hn/c/notice/tzgg">通知公告</a>
+			</li>
+			<li>
+				<a href="/hn/p/notice/list?noticeType=deal">成交公告</a>
+			</li>
+			<li>
+				<a href="/hn/c/notice/jjgg">竞价公告</a>
+			</li>
+			<li>
+				<a href="/hn/c/notice/gpgg">挂牌公告</a>
+			</li>
+
+		</ul>
+	</div>
+	<div class="mm-panel mm-hasnavbar mm-hidden" id="mm-4">
+		<div class="mm-navbar">
+			<a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a>
+			<a class="mm-title">交易大厅</a>
+		</div>
+		<ul class="mm-listview mm-first mm-last">
+			<li>
+				<a class="wrap fz16" href="/hn/p/auction/meet-list">竞价项目</a>
+			</li>
+			<li>
+				<a class="wrap fz16" href="/hn/p/item/moni">体验竞价</a>
+			</li>
+			<!--<li>
+				<a href="/hn/c/notice/jjgg">竞价公告</a>
+			</li>
+			<li>
+				<a href="/hn/item/list">拍卖标的</a>
+			</li>-->
+		</ul>
+	</div>
+	<div class="mm-panel mm-hasnavbar mm-hidden" id="mm-5">
+		<div class="mm-navbar">
+			<a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a>
+			<a class="mm-title">业务指南</a>
+		</div>
+		<ul class="mm-listview mm-first mm-last">
+			<li>
+				<a href="/hn/c/ywzn/gnfg">国内法规</a>
+			</li>
+			<li>
+				<a href="/hn/c/ywzn/zcfg">政策法规</a>
+			</li>
+			<li>
+				<a href="/hn/c/ywzn/jygz">交易规则</a>
+			</li>
+			<li>
+				<a href="/hn/c/ywzn/xzzq">下载专区</a>
+			</li>
+			<li>
+				<a href="/hn/c/ywzn/yhzy">用户指引</a>
+			</li>
+		</ul>
+	</div>
+	<div class="mm-panel mm-hasnavbar mm-hidden" id="mm-6">
+		<div class="mm-navbar">
+			<a class="mm-btn mm-prev" href="#mm-2" data-target="#mm-2"></a>
+			<a class="mm-title">业务指南</a>
+		</div>
+		<ul class="mm-listview mm-first mm-last">
+			<li>
+				<a href="/hn/c/ddjs/djdt">党建动态</a>
+			</li>
+			<li>
+				<a href="/hn/c/ddjs/djfg">党纪法规</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="mm-panel mm-hasnavbar mm-hidden" id="mm-7">
+		<div class="mm-navbar">
+			<a class="mm-btn mm-prev" href="#mm-0" data-target="#mm-0"></a>
+			<a class="mm-title">关于我们</a>
+		</div>
+		<ul class="mm-listview mm-first mm-last">
+			<li>
+				<a href="/hn/c/gywm/gsjj">公司简介</a>
+			</li>
+			<li>
+				<a href="/hn/c/gywm/lxwm">联系我们</a>
+			</li>
+		</ul>
+	</div>
+</nav>    <div class="mm-page mm-slideout">
+<style>
+/*header新修改-20251017*/
+.header-one{height:40px;background-color:#f5f5f5; line-height: 40px;}	
+.header-one-rig li{ float:left;display: inline;}
+.header-one-rig li>a{float:left; margin-left: 15px; cursor: pointer; display: flex;align-items: center;}
+.header-one-rig li .ico{display: inline-block; width: 36px;height:16px;background-repeat:no-repeat; background-position: center;}
+
+.header-one .ico-qlink{ background-image: url('/static/dpmweb/hn/images/ico-qlink-gray.png');}
+.header-one .ico-newuser{ background-image: url('/static/dpmweb/hn/images/ico-user-gray.png');}
+.header-one .ico-newreg{ background-image: url('/static/dpmweb/hn/images/ico-reg-gray.png');}
+.header-one .ico-newLogout{ background-image: url('/static/dpmweb/hn/images/ico-signout-gray.png');}
+
+.header-one-rig li a:hover{color: #005cb2;}
+.header-one-rig li a:hover .ico-qlink{ background-image: url('/static/dpmweb/hn/images/ico-qlink.png');}
+.header-one-rig li a:hover .ico-newuser{background-image: url('/static/dpmweb/hn/images/ico-user-blue.png');}
+.header-one-rig li a:hover .ico-newreg{ background-image: url('/static/dpmweb/hn/images/ico-reg.png');}
+.header-one-rig li a:hover .ico-newLogout{ background-image: url('/static/dpmweb/hn/images/ico-signout-blue.png');}
+
+.header-one .quickLink{ position: relative;}
+.header-one .quickLink:hover>a{color: #005cb2;}
+
+.header-one .quickLink-info,.header-one .quickLink-info:before{display:none; position: absolute;}
+.header-one .quickLink-info{top:40px;left:15px;z-index: 10; background:rgba(100,163,248,0.8);padding:10px; border-radius:6px;}
+.header-one .quickLink-info:before{top:-14px;left:calc(50% - 24px); z-index: 9; content:" "; width: 0;height: 0; border:7px solid transparent; border-bottom:7px solid rgba(100, 163, 248, 0.8);}
+.header-one .quickLink:hover .quickLink-info,.header-one .quickLink:hover .quickLink-info:before{display: block;}
+
+.header-one .quickLink-info a{display:block; margin:0; white-space: nowrap;line-height:24px; color: #fff;}
+.header-one .quickLink-info a:hover{color: #efefef;}
+
+.header-two{padding: 45px 0; background-color: #fff;}
+.header-two .top-logo-title img {height:70px;}
+.header-two .zyej{ margin-left: 15px;}
+.header-two .headSearch{border:1px solid #005cb2;padding-left:65px;position: relative;}
+
+.header-two .headSearch .sea_selbox{position: absolute;left:10px;top:11px;}
+.header-two .headSearch .sea_selbox select{text-align: center;line-height: 45px;}
+
+.header-two .headSearch .search{display: flex; justify-content: flex-start; }
+.header-two .headSearch .search input{height:47px;}
+.header-two .headSearch .search input[type=text]{width: 340px;}
+.header-two .headSearch .search input[type=submit]{width: 115px;font-size: 18px; color: #fff; padding-left:30px; background:#005cb2 url('/static/dpmweb/hn/images/ico-search.png') no-repeat 25px center; }
+
+/*首页横幅20251017*/
+.home-banner .img{max-height:550px;}
+
+/*===响应式===*/
+@media screen and (max-width:1440px){
+/*首页横幅*/	
+.home-banner .img{height: auto !important;}	
+}
+
+@media screen and (max-width:1280px){
+/*搜索*/
+.header-two .headSearch .search input[type=text]{width: calc(100% - 80px);}	
+.header-two .headSearch .search input[type=submit]{width: auto;padding:0 10px 0 40px; background-position:10px center;}
+}
+
+@media screen and (max-width:1024px){
+/*header*/
+.header-two{padding:10px 0 30px 0;}
+.header-two h1,.header-two .headRight{float:none;width: 100%;padding:0 20px;}
+.header-two h1{max-width:730px; margin: auto;flex-wrap:nowrap;}
+.header-two .top-logo-title img {height: auto;max-height:70px;}	
+.header-two .headSearch {max-width: 768px; margin: auto;}
+}
+
+@media screen and (max-width:991px){
+/*header*/
+.header-one p.fz14{ display: none;}	
+.menuLine { position: absolute; top: 5px; right: 5px;}
+}
+
+</style>
+
+<!--顶部-->
+	<div class="header-one">
+	<div class="w1365 flexBox">
+		<p class="fz14">欢迎您，来到河南中原产权交易有限公司</p>
+		<ul class="header-one-rig flexBox">
+			<li class="fz14 quickLink">
+				<a><i class="ico ico-qlink"></i>快捷导航</a>
+				<!--快捷内容-->
+				<p class="quickLink-info">
+					<a href="javascript:void(0)" onclick="goDpm()">国有产权交易服务系统 </a>
+					<!--<a href="http://zbpt.zycqjy.com/" target="_blank">招标采购平台</a>
+					<a href="http://www.zycqjy.com/wcm/zycqjy/html/xtzzjsz_xinv.html" target="_blank">农村产权</a>
+					<a href="http://222.85.106.147:8089/" target="_blank">办公系统</a>
+					<a href="http://222.85.106.148:12001/ssoLogin.jsp" target="_blank">综合管理系统</a>-->
+				</p>
+			</li>
+			<li class="fz14">
+				<a id="loginHref" style="display: none;" href="/hn/p/login"><i class="ico ico-newuser"></i>登录</a>
+				<a id="registerHref" style="display: none;" href="/hn/p/register"><i class="ico ico-newreg"></i>注册</a>
+				<a id="userCenter" href="/hn/my" target="_blank"><i class="ico ico-newuser"></i></a>
+				<a id="userLogout" href="javascript:logoutweb(getUrl())" title="退出"><i class="ico ico-newLogout"></i>退出</a>
+			</li>
+		</ul>
+	</div>
+	</div>
+<!--头部 logo&搜索-->
+<div class="header-two">
+	<div class="w1365 clearfix">
+		<h1 class="fl flexBox">
+			<a href="/hn/index" class="block top-logo-title"><img src="/static/dpmweb/hn/images/top-logo.png" alt="河南中原产权交易有限公司logo"></a>
+			<img class="zyej" src="/static/dpmweb/hn/images/zyej-logo.png" alt="中原e交logo">
+       </h1>
+		<div class="headRight fr" style="margin-top:20px;">
+			<div class="headSearch">
+				<form id="advsSearch" method="get">
+					<div class="search">
+						<div class="sea_selbox">
+								<select id="searchType" style="border:0;">
+									<option value="1"> 项目 </option>
+									<option value="2"> 资讯 </option>
+								</select>
+						</div>
+						<input type="text" name="key" placeholder="请输入关键词进行搜索">
+						<input type="submit" value="搜索" onclick="advsSearch()">
+					</div>
+				</form>
+			</div>
+
+			
+		</div>
+	</div>
+	<a href="#menu" class="menuLine fr"><span></span><span></span><span></span></a>
+	</div>
+<script>
+	$(function() {
+ 		if(doNull('') == '') {
+			$('#loginHref').show()
+			$('#registerHref').show()
+			$('#userCenter').hide()
+			$('#userLogout').hide()
+		} else {
+			$('#loginHref').hide()
+			$('#registerHref').hide()
+			$('#userCenter').show()
+			$('#userLogout').show()
+		}
+		$("#advsSearch").find("input[type='submit']").submit(function (){
+			advsSearch();
+		});
+	})
+
+	function advsSearch(){
+		if($("#searchType").val() == "1"){
+			$("#advsSearch").attr("action", "/hn/p/pro/index");
+			$("#advsSearch").find("input[name='sysName']").val("utrg");
+		}else if($("#searchType").val() == "2"){
+			$("#advsSearch").attr("action", "/hn/p/html/search");
+		}
+		//$("#advsSearch").submit();
+	}
+	function goDpm() {
+	    var hostname = window.location.hostname;
+	    if(hostname=="new.zycqjy.com" ||hostname=="www.zycqjy.com"  ){
+            window.location.href = "https://dpm.zycqjy.com/";
+		}else{
+            window.location.href ='https://hndpm.zbxsoft.com/';
+        }
+    }
+
+</script>
+<!-- pc导航 -->
+<div class="head-v3">
+	<div class="navigation-up wow fadeInUp tran300">
+		<div class="navigation-inner">
+			<div class="navigation-v3">
+				<ul>
+					<li class="nav-up-selected-inpage" _t_nav="nli1">
+						<h2><a href="/hn/index">首页</a></h2>
+					</li>
+					<li _t_nav="nli2" class="">
+						<h2><a href="/hn/c/news/gsdt">新闻中心</a></h2>
+					</li>
+					<li _t_nav="nli3" class="">
+						<h2><a href="/hn/p/pro/index?sysName=utrg">项目大厅</a></h2>
+					</li>
+					<li _t_nav="nli4" class="">
+						<h2><a href="/hn/p/notice/list?noticeType=deal">公告信息</a>	</h2>
+					</li>
+					<li _t_nav="nli5" class="">
+						<h2><a href="/hn/p/auction/meet-list">交易大厅</a></h2>
+					</li>
+					<li _t_nav="nli6" class="">
+						<!--<h2><a href="/hn/p/html/xmzs-new">项目招商</a></h2>-->
+					<h2><a href="/hn/p/html/xmzs">资产登记</a></h2>
+					</li>
+					<!--<li _t_nav="nli7" class="">
+						<h2><a href="/hn/c/hyzq">会员专区</a></h2>
+					</li>-->
+					<li _t_nav="nli8" class="">
+						<h2><a href="/hn/c/ywzn/zcfg">业务指南</a></h2>
+					</li>
+					<li _t_nav="nli9" class="">
+						<h2><a href="/hn/p/djgz/home" target="_blank">党建工作</a></h2>
+					</li>
+
+					<li _t_nav="nli10">
+						<h2><a href="/hn/c/gywm/gsjj">关于我们</a></h2>
+					</li>
+                    <li _t_nav="nli11">
+						<h2><a href="https://www.hnueg.com/" target="_blank">交易集团</a></h2>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="navigation-down">
+		<div id="nli2" class="nav-down-menu menu-1" style="display: none;" _t_nav="nli2">
+			<div class="navigation-down-inner">
+				<div class="bg">
+					<a href="javascript:void(0)" class="block bgCover" style="background-image: url(/static/dpmweb/hn/images/nav_img01.jpg);"></a>
+				</div>
+				<dl class="navdownTwo w1365 disflex">
+					<dd class="disflex fz16">
+						<li>
+							<a href="/hn/c/news/gsdt">公司动态</a>
+						</li>
+						<li>
+							<a href="/hn/c/news/hyzx">行业资讯</a>
+						</li>
+                        <li>
+							<a href="/hn/c/news/jtdt">集团动态</a>
+						</li>
+					</dd>
+				</dl>
+			</div>
+		</div>
+
+		<div id="nli3" class="nav-down-menu menu-1" style="display: none;" _t_nav="nli3">
+			<div class="navigation-down-inner">
+				<div class="bg">
+					<a href="javascript:void(0)" class="block bgCover" style="background-image: url(/static/dpmweb/hn/images/nav_img02.jpg);"></a>
+				</div>
+				<dl class="navdownTwo w1365 disflex">
+					<dd class="disflex fz16">
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrg">国有股权 </a>
+						</li>
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrz">企业增资</a>
+						</li>
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrm">资产转让</a>
+						</li>
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrl">资产租赁</a>
+						</li>
+
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrh&proTypes=ynq,cnzbzz,zszy">绿色权益</a>
+						</li>
+
+						<li>
+							<a href="/hn/p/ggjyqzq/home">广告经营权 </a>
+						</li>
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrh&proType=pczc">破产资产</a>
+						</li>
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrh&proType=blzc">不良资产 </a>
+						</li>
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrh&proType=kq">自然资源</a>
+						</li>
+						<li>
+							<a href="/hn/p/bfzczq/home">报废资产</a>
+						</li>
+						<li>
+							<a href="/hn/p/pro/index?sysName=utrh&proType=otherUtrh">其他资产</a>
+						</li>
+							
+						<li>			
+						<!--<a href="/hn/p/pro/index?proType=hzjg">合作机构项目</a>-->
+							<a href="/hn/c/xmdt/hzjg">联合发布</a>
+						</li>
+						<!--<li>
+							<a href="/dist/#/select" target="_blank">国企混改项目</a>
+						</li>-->
+						<li>
+<!--							<a href="/dist/#/select" target="_blank">合作机构项目</a>-->
+							<a href="/hn/p/pro/hzjg">合作机构项目</a>
+						</li>
+						<!--<li><a  href="/hn/p/pro/index?sysName=utrh&proType=xezc">小额资产</a></li>-->
+					</dd>
+
+
+				</dl>
+			</div>
+		</div>
+		<div id="nli4" class="nav-down-menu menu-1" style="display: none;" _t_nav="nli4">
+			<div class="navigation-down-inner">
+				<div class="bg">
+					<a href="javascript:void(0)" class="block bgCover" style="background-image: url(/static/dpmweb/hn/images/nav_img03.jpg);"></a>
+				</div>
+				<dl class="navdownTwo w1365 disflex">
+
+					<dd class="disflex fz16">
+						<li>
+							<a href="/hn/c/notice/tzgg">通知公告</a>
+						</li>
+						<li>
+							<a href="/hn/c/notice/jjgg">竞价公告</a>
+						</li>
+						<li>
+							<a href="/hn/p/notice/list?noticeType=deal">成交公告</a>
+						</li>
+						<li>
+							<a href="/hn/c/notice/gpgg">挂牌公告</a>
+						</li>
+						<!--<li>
+							<a href="/hn/p/notice/list?noticeType=pause">中止公告</a>
+						</li>
+						<li>
+							<a href="/hn/p/notice/list?noticeType=end">终结公告</a>
+						</li>
+						<li><a  href="/hn/p/notice/list?noticeType=resume">恢复公告</a></li>-->
+
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<div id="nli5" class="nav-down-menu menu-1" style="display: none;" _t_nav="nli5">
+			<div class="navigation-down-inner">
+			<div class="bg">
+				<a href="javascript:void(0)" class="block bgCover" style="background-image: url(/static/dpmweb/hn/images/nav_img04.jpg);"></a>
+			</div>
+
+			<dl class="navdownTwo w1365 disflex">
+				<dd class="disflex fz16">
+					<li>
+						<a class="wrap fz16" href="/hn/p/auction/meet-list">竞价项目</a>
+					</li>
+					<li>
+						<a class="wrap fz16" href="/hn/p/item/moni">体验竞价</a>
+					</li>
+					<!--<li>
+						<a class="wrap fz16" href="/hn/p/auction/item-list">所有标的</a>
+					</li>
+					<li>
+						<a class="wrap fz16" href="/hn/p/auction/meet-list">热门专场</a>
+					</li>
+					<li>
+						<a href="/hn/c/notice/jjgg">竞价公告</a>
+					</li>
+					<li>
+						<a href="/hn/p/auction/affiche-list">拍卖公告</a>
+					</li>
+					<li>
+						<a class="wrap fz16" href="/hn/p/auction/introduce-list">拍卖企业</a>
+					</li>-->
+				</dd>
+			</dl>
+		</div>
+	</div>
+
+	<div id="nli8" class="nav-down-menu menu-1" style="display: none;" _t_nav="nli8">
+		<div class="navigation-down-inner">
+			<div class="bg">
+				<a href="javascript:void(0)" class="block bgCover" style="background-image: url(/static/dpmweb/hn/images/nav_img07.jpg);"></a>
+			</div>
+			<dl class="navdownTwo w1365 disflex">
+				<dd class="disflex fz16">
+					<li>
+						<a href="/hn/c/ywzn/gnfg">国内法规</a>
+					</li>
+					<li>
+						<a href="/hn/c/ywzn/zcfg">省内法规</a>
+					</li>
+					<li>
+						<a href="/hn/c/ywzn/jygz">交易规则</a>
+					</li>
+					<li>
+						<a href="/hn/c/ywzn/xzzq">下载专区</a>
+					</li>
+					<li>
+						<a href="/hn/c/ywzn/yhzy">用户指引</a>
+					</li>
+				</dd>
+			</dl>
+		</div>
+	</div>
+
+	<!--<div id="nli9" class="nav-down-menu menu-1" style="display: none;" _t_nav="nli9">
+		<div class="navigation-down-inner">
+			<div class="bg">
+				<a href="javascript:void(0)" class="block bgCover" style="background-image: url(/static/dpmweb/hn/images/nav_img08.jpg);"></a>
+			</div>
+			<dl class="navdownTwo w1365 disflex">
+				<dd class="disflex fz16">
+					<li>
+						<a href="/hn/c/ddjs/djdt">党建动态</a>
+					</li>
+					<li>
+						<a href="/hn/c/ddjs/djfg">党纪法规</a>
+					</li>
+				</dd>
+			</dl>
+		</div>
+	</div>-->
+
+	<div id="nli10" class="nav-down-menu menu-1" style="display: none;" _t_nav="nli10">
+		<div class="navigation-down-inner">
+			<div class="bg">
+				<a href="javascript:void(0)" class="block bgCover" style="background-image: url(/static/dpmweb/hn/images/nav_img09.jpg);"></a>
+			</div>
+			<dl class="navdownTwo w1365 disflex">
+
+				<dd class="disflex fz16">
+					<li>
+						<a href="/hn/c/gywm/gsjj">公司简介</a>
+					</li>
+					<li>
+						<a href="/hn/c/gywm/lxwm">联系我们</a>
+					</li>
+				</dd>
+
+			</dl>
+		</div>
+	</div>
+
+</div>
+</div>
+<style>
+/*#nli3 dd li:nth-child(9){border-left: 1px;padding-left: 30px;}
+#nli3 dd li:nth-child(10){max-width: calc(12.5% + 30px); }*/
+#nli3 dd li:first-child,#nli3 dd li:nth-child(9){max-width: calc(12.5% - 30px);}
+#nli3 dd li:nth-child(11){max-width:12.5%; }
+/* 第12项不加宽，保证两行各列垂直对齐（如绿色权益与合作机构项目同列） */
+#nli3 dd li:nth-child(12){max-width:12.5%; }
+</style>
+<!-- home-banner -->
+<div class="banBox poHiiden">
+	<xwk_cms type="component" code="bannerimg"></xwk_cms>
+</div>
+<!--快速入口-->
+<div class="idxOne mb-40">
+	<div class="w1365 clearfix wbg">
+		<ul class="ksrk-content">
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrg" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-gq.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-gq-w.png"></span>
+					</p>
+					<span class="name block fz16">国有股权</span>
+				</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrz" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-zz.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-zz-w.png"></span>
+					</p>
+					<span class="name block fz16">企业增资</span>
+				</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrm" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-zc.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-zc-w.png"></span>
+					</p>
+					<span class="name block fz16">资产转让</span>
+				</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrl" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-zl.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-zl-w.png"></span>
+					</p>
+					<span class="name block fz16">资产租赁</span>
+				</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrm&mgrType=center" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-yqsw.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-yqsw-w.png"></span>
+					</p>
+					<span class="name block fz16">央企实物</span>
+				</a>
+			</li>
+			<!--<li>
+				<a href="/hn/c/xmdt/xezc" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-xezc.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-xezc-w.png"></span>
+					</p>
+					<span class="name block fz16">小额资产</span>
+				</a>
+			</li>-->
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proTypes=ynq,cnzbzz,zszy" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-ynq.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-ynq-w.png"></span>
+					</p>
+					<span class="name block fz16">绿色权益</span>
+				</a>
+			</li>
+			<!--<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=jyqzr" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-jyq.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-jyq-w.png"></span>
+					</p>
+					<span class="name block fz16">经营权转让</span>
+				</a>
+			</li>-->
+			<li>
+				<a href="/hn/p/ggjyqzq/home" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-jyq.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-jyq-w.png"></span>
+					</p>
+					<span class="name block fz16">广告经营权</span>
+				</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=pczc" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-pczc.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-pczc-w.png"></span>
+					</p>
+					<span class="name block fz16">破产资产</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=blzc" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-blzc.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-blzc-w.png"></span>
+					</p>
+					<span class="name block fz16">不良资产</span>
+				</a>
+			</li>
+			<li>
+				<a href="/hn/p/pro/index?sysName=utrh&proType=kq" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-kyq.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-kyq-w.png"></span>
+					</p>
+					<span class="name block fz16">自然资源</span>
+				</a>
+			</li>
+             <li>
+				<a href="/hn/p/bfzczq/home" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-bfzc.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-bfzc-w.png"></span>
+					</p>
+					<span class="name block fz16">报废资产</span>
+				</a>
+			</li>
+			 <!--<li>
+				<a href="/hn/p/ggjyqzq/home" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-ggjyq.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-ggjyq-w.png"></span>
+					</p>
+					<span class="name block fz16">广告经营权</span>
+				</a>
+			</li>-->
+			   <li>
+				<a href="/hn/p/html/xmzs" class="block">
+					<p class="ico block">
+						<img src="/static/dpmweb/hn/images/ksrk/ico-zcdj.png">
+						<span><img src="/static/dpmweb/hn/images/ksrk/ico-zcdj-w.png"></span>
+					</p>
+					<span class="name block fz16">资产登记</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!-- 新闻 -->
+<div class="idxTwo mb-40">
+	<div class="w1365 clearfix wbg">
+		<div class="idxTwoLeft fl poHiiden swiper-container-horizontal">
+			<xwk_cms type="component" code="gsdtimg"></xwk_cms>
+		</div>
+
+		<div class="idxTwoRight fr">
+			<div class="tabs clearfix">
+				<ul class="fz22">
+					<li class="active">
+						<a target="_blank" href="/hn/c/news/gsdt"><span>公司动态</span></a>
+					</li>
+					<li class="">
+						<a target="_blank" href="/hn/c/news/hyzx"><span>行业资讯</span></a>
+					</li>
+					<li class="">
+						<a target="_blank" href="/hn/c/news/jtdt"><span>集团动态</span></a>
+					</li>
+				</ul>
+				<a target="_blank" href="/hn/c/news/gsdt" class="more fz16 fr">更多</a>
+			</div>
+			<div class="wrap poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide" id="newsXwdtBox">
+						<xwk_cms type="component" code="gsdt"></xwk_cms>
+					</div>
+					<div class="swiper-slide " id="newsXmdtBox">
+						<xwk_cms type="component" code="hyzx"></xwk_cms>
+					</div>
+					<div class="swiper-slide " id="newsJtdtBox">
+						<xwk_cms type="component" code="jtdt"></xwk_cms>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 广告位 -->
+<div class="idxThree poHiiden w1365 mb-40">
+	<xwk_cms type="component" code="advbannerimg"></xwk_cms>
+</div>
+
+<!-- 项目内容 -->
+<div class="idxFourBox w1365 clearfix" id="cqzr">
+	<div class="fourLeft fl">
+		<!--产权转让-->
+		<div class="fourWrap fourWrap1 wbg mb-40">
+			<div class="tabs fz22">
+				<div>
+					<span class="tabname fl">产权转让</span>
+					<ul class="fz16">
+						<li class="active">
+							<a href="javascript:void(0)">全部项目</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">预挂牌</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">国有产权</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">非国有产权</a>
+						</li>
+					</ul>
+				</div>
+				<a target="_blank" href="/hn/p/pro/index?sysName=utrg" class="more fz16">更多</a>
+			</div>
+
+			<div class="fourSwiper fourSwiper1 poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!--全部项目-->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">转让底价<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrgListBox">
+
+
+						</ul>
+					</div>
+					<!--预挂牌项目-->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">转让底价<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrgP3ListBox">
+
+
+						</ul>
+					</div>
+					<!--国有产权项目-->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">转让底价<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrgG3ListBox">
+						</ul>
+					</div>
+					<!--非国有产权项目-->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">转让底价<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrgT3ListBox">
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--实物资产转让-->
+		<div class="fourWrap fourWrap2 wbg mb-40" id="swzc">
+			<div class="tabs fz22">
+				<div>
+					<span class="tabname fl">资产转让</span>
+					<ul class="fz16">
+						<li class="active">
+							<a href="javascript:void(0)">资产转让</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">央企实物</a>
+						</li>
+						<li id="tabmenu_2">
+							<a href="javascript:void(0)">报废资产</a>
+						</li>
+						<!--<li class="zcdt">
+							<a href="/hn/p/pro/map?sysName=UTRM">资产地图</a>
+						</li>-->
+					</ul>
+				</div>
+				<a target="_blank" id="tablink_1" style="display:block;"  href="/hn/p/pro/index?sysName=utrm" class="more fz16">更多</a>
+				<a target="_blank" id="tablink_2" style="display:none;"  href="/hn/p/bfzczq/home" class="more fz16">更多</a>
+			</div>
+			<div class="fourSwiper fourSwiper2 poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!-- 资产转让-->
+					<div class="swiper-slide ">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">转让底价<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrmListBox">
+						</ul>
+					</div>
+					<!-- 央企实物-->
+					<div class="swiper-slide ">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">转让底价<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="centreUtrmListBox">
+						</ul>
+					</div>
+                    <!-- 报废资产-->
+                    <div class="swiper-slide ">
+                        <div class="title fz18">
+                            <span class="number">项目编号</span>
+                            <span class="name">项目名称</span>
+                            <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                            <span class="data">挂牌截止日期</span>
+                        </div>
+                        <ul class="wrap fz16" id="bfzcUtrmListBox">
+                        </ul>
+                    </div>
+				</div>
+			</div>
+		</div>
+
+		<!--资产租赁-->
+		<div class="fourWrap fourWrap4 wbg mb-40" id="zczl">
+			<div class="tabs fz22">
+				<div>
+					<span class="tabname fl">资产租赁</span>
+					<ul class="fz16">
+						<!--<li class="zcdt">
+							<a href="/hn/p/pro/map?sysName=UTRL">资产地图</a>
+						</li>-->
+					</ul>
+				</div>
+
+				<a target="_blank" href="/hn/p/pro/index?sysName=utrl" class="more fz16">更多</a>
+			</div>
+			<div class="fourSwiper fourSwiper4 poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide ">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">出租底价<em class="fz14"></em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrlListBox"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--企业增资-->
+		<div class="fourWrap fourWrap5 wbg mb-40" id="qyzz">
+			<div class="tabs fz22">
+				<div>
+					<span class="tabname fl">企业增资</span>
+					<ul class="fz16">
+						<li class="active">
+							<a href="javascript:void(0)">全部项目</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">预挂牌</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">正式挂牌</a>
+						</li>
+					</ul>
+				</div>
+				<a target="_blank" href="/hn/p/pro/index?sysName=utrz" class="more fz16">更多</a>
+			</div>
+			<div class="fourSwiper fourSwiper5 poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!-- 全部项目-->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">拟募集资金总额<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrzListBox">
+						</ul>
+					</div>
+					<!--预挂牌项目 -->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">拟募集资金总额<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrzPG6ListBox">
+						</ul>
+					</div>
+					<!-- 正式项目-->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">拟募集资金总额<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="utrzG6ListBox">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--创新业务-->
+		<div class="fourWrap fourWrap6 wbg mb-40" id="cxyw">
+			<div class="tabs fz22">
+				<div>
+					<span class="tabname fl">综合产权</span>
+				</div>
+				<a target="_blank" href="/hn/p/pro/index?sysName=utrh&proTypes=ynq,cnzbzz,zszy" class="more fz16">更多</a>
+			</div>
+			<div class="fourSwiper fourSwiper6 poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!--综合产权-->
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">转让底价<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌截止日期</span>
+						</div>
+						<ul class="wrap fz16" id="zhUtrhListBox">
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--综合招商、联合发布-->
+		<div class="fourWrap fourWrap7 wbg mb-40" id="zhcq">
+			<div class="tabs tabs2 fz22">
+				<div>
+					<ul>
+						<li class="active"><a href="/hn/p/html/xmzs">综合招商</a></li>
+						<li ><a href="/hn/c/xmdt/hzjg">联合发布</a></li>
+					</ul>
+				</div>
+				<a href="/hn/p/html/xmzs" class="more fz16">更多</a>
+			</div>
+			<div class="fourSwiper fourSwiper7 poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+
+					<div class="swiper-slide">
+						<div class="title fz18">
+							<span class="name">项目名称</span>
+							<span class="data">发布日期</span>
+						</div>
+						<ul class="wrap fz16" id="zsListBox">
+						</ul>
+					</div>
+					<div class="swiper-slide hzjg">
+						<div class="title fz18">
+							<span class="number" style="width: 200px;">项目编号</span>
+							<span class="proname">项目名称</span>
+							<span class="fbdate">项目类型</span>
+						</div>
+						<ul class="wrap fz16" id="hzjgListBox">
+							<xwk_cms type="component" code="hzjg"></xwk_cms>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--综合招商、联合发布end-->
+
+	</div>
+	<!--左侧结束-->
+	<!--右侧-->
+	<div class="fourRight fr">
+		<!--通知公告-->
+		<div class="idxNotice wbg mb-40">
+			<div class="tabs fz22">
+				<span class="tabname fl">通知公告</span>
+				<a target="_blank" href="/hn/c/notice/tzgg" class="more fz16">更多</a>
+			</div>
+			<div class="wrap fz16" id="TzggBox">
+				<xwk_cms type="component" code="tzgg"></xwk_cms>
+			</div>
+		</div>
+		<!--重点项目推介-->
+		<div class="idxCenter wbg mb-40">
+			<div class="tabs fz22">
+				<span class="tabname fl">重点项目推介</span>
+				<!--a target="_blank" href="/hn/p/pro/index?sysName=utrg" class="more fz16">更多</a-->
+				<a target="_blank" href="/hn/c/zdxmtj/" class="more fz16">更多</a>
+			</div>
+			<div class="wrap fz16" id="zdxmtjBox" style="height:1235px;">
+				<xwk_cms type="component" code="zdxmtjimg"></xwk_cms>
+			</div>
+		</div>
+		<!--成交公告&竞价公告-->
+		<div class="idxNotice idxcjgg wbg mb-40">
+			<div class="tabs tabs2 fz22 ">
+				<div>
+					<ul>
+						<li class="active"><a href="/hn/p/notice/list?noticeType=deal">成交公告</a></li>
+						<li><a href="/hn/c/notice/jjgg">竞价公告</a></li>
+					</ul>
+				</div>
+				<a target="_blank" href="/hn/p/notice/list?noticeType=deal" class="more fz16 fr">更多</a>
+			</div>
+
+			<div class="container poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="wrap fz16" id="noticeListBox">
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="wrap fz16" id="JjggBox">
+							<xwk_cms type="component" code="jjgg"></xwk_cms>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--成交公告&竞价公告end-->
+	</div>
+	<!--右侧end-->
+</div>
+<!-- 地市项目  -->
+<div class="idxfive dsxmBox">
+	<div class="w1365 idxFourBox clearfix" style="margin-top: 20px;">
+		<!-- 地市左侧项目列表  -->
+      <div class="fourLeft fl mb-40">
+      	<div class="tabs"><span class="tabname tabname-dsxm fz22">地市项目</span> </div>
+	   <div class="fourWrap fourWrap8 wbg mb-40">
+	   	  <div class="dsxmNav">
+		    <div class="tabs">
+				 <ul class="fz16" id="mymoveDiv">
+					<li class="active"><a href="javascript:void(0);" onclick="getByCityCode('ddjg')">全部</a></li>
+				    <li><a onclick="getByCityCode('anyang')">安阳市</a></li>
+					<li><a onclick="getByCityCode('hebi')">鹤壁市</a></li>
+					<li><a onclick="getByCityCode('puyang')">濮阳市</a></li>
+					<li><a onclick="getByCityCode('xinxiang')">新乡市</a></li>
+					<li><a onclick="getByCityCode('jiyuan')">济源市</a></li>
+					<li><a onclick="getByCityCode('jiaozuo')">焦作市</a></li>
+					<li><a onclick="getByCityCode('sanmenxia')">三门峡市</a></li>
+					<li><a onclick="getByCityCode('luoyang')">洛阳市</a></li>
+					<li><a onclick="getByCityCode('zhengzhou')">郑州市</a></li>
+					<li><a onclick="getByCityCode('kaifeng')">开封市</a></li>
+				    <li><a onclick="getByCityCode('shangqiu')">商丘市</a></li>
+					<li><a onclick="getByCityCode('pingdingshan')">平顶山市</a></li>
+					<li><a onclick="getByCityCode('xuchang')">许昌市</a></li>
+					<li><a onclick="getByCityCode('luohe')">漯河市</a></li>
+				    <li><a onclick="getByCityCode('zhoukou')">周口市</a></li>
+					<li><a onclick="getByCityCode('nanyang')">南阳市</a></li>
+					<li><a onclick="getByCityCode('zhumadian')">驻马店市</a></li>
+					<li><a onclick="getByCityCode('xinyang')">信阳市</a></li>
+
+						</ul>
+						<!--a class="more fz16"> </a-->
+					</div>
+					<a class="abtn aleft" id="moveRight">左移</a>
+					<a class="abtn aright" id="moveLeft">右移</a>
+				</div>
+
+				<div class="fourSwiper fourSwiper8 poHiiden swiper-container-horizontal">
+					<div class="swiper-wrapper">
+						<!--全部-->
+						<div class="swiper-slide">
+							<div class="title fz18">
+								<span class="number">项目编号</span>
+								<span class="name">项目名称</span>
+								<span class="price">转让底价<em class="fz14">(万元)</em></span>
+								<span class="data">挂牌截止日期</span>
+							</div>
+							<ul class="wrap fz16" id="cityListBox">
+							</ul>
+						</div>
+						<!--安阳市
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410500cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410900cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410700cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410800cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411200cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410300cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410100cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410200cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411400cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="410400cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411000cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411100cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411600cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411300cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411700cityListBox">
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="title fz18">
+                                <span class="number">项目编号</span>
+                                <span class="name">项目名称</span>
+                                <span class="price">转让底价<em class="fz14">(万元)</em></span>
+                                <span class="data">挂牌截止日期</span>
+                            </div>
+                            <ul class="wrap fz16" id="411500cityListBox">
+                            </ul>
+                        </div>-->
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--地市左侧项目列表-结束-->
+		<!--区划地图-->
+		<div class="fourRight fr">
+			<div class="hnmapBox">
+				<!--img src="/static/dpmweb/hn/images/index/hnmap.png"-->
+				<div class="mapbg">
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=anyang'" class="aycity">安阳</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=hebi'" class="hbcity">鹤壁</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=puyang'" class="pycity">濮阳</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=xinxiang'" class="xxcity">新乡</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=jiyuan'" class="jycity">济源</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=jiaozuo'" class="jzcity">焦作</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=sanmenxia'" class="smxcity">三门峡</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=luoyang'" class="lycity">洛阳</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=zhengzhou'" class="zzcity">郑州</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=kaifeng'" class="kfcity">开封</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=shangqiu'" class="sqcity">商丘</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=pingdingshan'" class="pdscity">平顶山</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=xuchang'" class="xccity">许昌</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=luohe'" class="lhcity">漯河</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=zhoukou'" class="zkcity">周口</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=nanyang'" class="nycity">南阳</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=zhumadian'" class="zmdcity">驻马店</a>
+					<a onclick="window.location='/hn/p/pro/index?sysName=utrg&ownDeptEname=xinyang'" class="xycity">信阳</a>
+				</div>
+			</div>
+		</div>
+		<!--区划地图end-->
+	</div>
+</div>
+<!-- 地市项目  end-->
+
+<!-- 友情链接  -->
+<div class="idxsix idxfive wbg">
+	<div class="w1365 idxFourBox clearfix">
+		<div class="tabs fz22">
+			<span class="tabname fl">友情链接</span>
+			<a href="/hn/c/yqlj" class="more fz16 fr">更多</a>
+		</div>
+		<div class="poHiiden">
+			<div class="idxfiveSwiper idxfiveSwiper1 poHiiden swiper-container-horizontal">
+				<xwk_cms type="component" code="yqljimg"></xwk_cms>
+
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/template" id="pro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<li>
+		<?if(doNull(rows[i].objType)=='pack'){?>
+		<a target="_blank" href="/hn/p/pro/list?packId=<?=rows[i].packId?>&packName=<?=rows[i].proName?>&sysName=<?=rows[i].sysName?>" title="<?=doNull(rows[i].proName)?>">
+			<span class="number"><?=doNull(rows[i].proCode)?></span>
+			<span class="name">
+					<?if(rows[i].proName.length>19){?>
+				<?=doNull(rows[i].proName.substring(0,19)+"...")?>
+				<?}else{?>
+				<?=doNull(rows[i].proName)?>
+				<?}?>
+				</span>
+			<span class="price">详见公告</span>
+			<span class="data"><?=doNull(rows[i].realPubEndTime)?></span>
+		</a>
+		<?}else{?>
+		<?if(doNull(rows[i].proTmp)=='T'){?> <!--是否为老项目-->
+		<a target="_blank" href="http://portal.zycqjy.com/portal/page?to=pro<?=capFirstLetter(rows[i].sysName, rows[i].proCode)?>&proId=<?=doNull(rows[i].proId)?>&packId=<?=doNull(rows[i].packId)?>" title="<?=doNull(rows[i].proName)?>">
+			<?}else{?>
+			<a target="_blank" href="detail/pro/<?=doNull(rows[i].proId)?>" title="<?=doNull(rows[i].proName)?>">
+				<?}?>
+				<span class="number"><?=doNull(rows[i].proCode)?></span>
+				<span class="name">
+					<?if(rows[i].proName.length>19){?>
+					<?=doNull(rows[i].proName.substring(0,19)+"...")?>
+					<?}else{?>
+					<?=doNull(rows[i].proName)?>
+					<?}?>
+				</span>
+				<span class="price">
+					<?if(doNull(rows[i].sysName).toLowerCase()=='utrz'){?>
+						<?=doNull(rows[i].proPricePub)?>
+					<?}else if(Number.parseFloat(rows[i].proPrice)==0){?>
+						<span class="price">面议</span>
+					<?}else if(rows[i].proPrice==null){?>
+						<span class="price">待定</span>
+					<?}else{?>
+						<?if(doNull(rows[i].priceUnit).indexOf("万元")>-1){?>
+							<?=toWan(rows[i].proPrice)?><?=doNull(rows[i].priceUnit)?>
+						<?}else{?>
+							<?=doNull(rows[i].proPrice)?><?=doNull(rows[i].priceUnit)?>
+						<?}?>
+					<?}?>
+				</span>
+				<span class="data"><?=doNull(rows[i].realPubEndTime)?></span>
+			</a>
+			<?}?>
+	</li>
+	<?}?>
+</script>
+<script type="text/template" id="notice-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<dl>
+		<dt><span class="block fz20"><?=doNull(rows[i].startTime.substring(5,10))?></span><em class="fz14"><?=doNull(rows[i].startTime.substring(0,4))?></em></dt>
+		<dd>
+			<a onclick="toNoticeDetail('<?=rows[i].noticeId?>','<?=rows[i].noticeType?>','<?=rows[i].noticeCode?>','<?=rows[i].proId?>')" class="TXTovehid-two fz16">
+				<?=doNull(rows[i].noticeName)?>
+			</a>
+		</dd>
+	</dl>
+	<?}?>
+</script>
+<script type="text/template" id="dpub-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<li>
+		<a target="_blank" href="/hn/detail/zs/<?=rows[i].proId?>" title="<?=doNull(rows[i].proName)?>">
+			<span class="name">
+				<?if(rows[i].proName.length>80){?>
+				<?=doNull(rows[i].proName.substring(0,80)+"...")?>
+				<?}else{?>
+				<?=doNull(rows[i].proName)?>
+				<?}?>
+			</span>
+			<span class="data"><?=doNull(rows[i].onlineTime.substring(0,10))?></span>
+		</a>
+	</li>
+	<?}?>
+</script>
+<script>
+	$(function() {
+		initPage();
+		loadCms();
+		//产股权 rows默认值为5，page为1，如果需要改变，需要传参。
+		apiLoad('/web/pro/utrg/home?proStatus=all', 'pro-list_html', 'utrgListBox');
+		apiLoad('/web/pro/utrg/home?proType=T3&proStatus=all', 'pro-list_html', 'utrgT3ListBox');
+		apiLoad('/web/pro/utrg/home?proType=G3&proStatus=all', 'pro-list_html', 'utrgG3ListBox');
+		apiLoad('/web/pro/utrg/home?proType=P3&proStatus=all', 'pro-list_html', 'utrgP3ListBox');
+		//实物资产
+		apiLoad('/web/pro/utrm/home?proStatus=all', 'pro-list_html', 'utrmListBox');
+		apiLoad('/web/pro/utrm/home?mgrType=center&proStatus=all', 'pro-list_html', 'centreUtrmListBox');
+        apiLoad('/web/pro/utrh/home?proType=bfzc&proStatus=all', 'pro-list_html', 'bfzcUtrmListBox');
+		//租赁项目
+		apiLoad('/web/pro/utrl/home?proStatus=all', 'pro-list_html', 'utrlListBox');
+		//增资项目
+		apiLoad('/web/pro/utrz/home?proStatus=all', 'pro-list_html', 'utrzListBox');
+		apiLoad('/web/pro/utrz/home?proType=G6&proStatus=all', 'pro-list_html', 'utrzG6ListBox');
+		apiLoad('/web/pro/utrz/home?proType=PG6&proStatus=all', 'pro-list_html', 'utrzPG6ListBox');
+		//综合产权
+		apiLoad('/web/pro/utrh/home?proStatus=all&orderBy=add_time desc', 'pro-list_html', 'zhUtrhListBox');
+		//成交公告
+		apiLoad('/web/noticeList?rows=6&noticeType=deal&isShow=T', 'notice-list_html', 'noticeListBox');
+		//招商项目
+		xwkLoad('dpub', '/web/pro/ZS/list?rows=5&page=1&pubFlag=T', 'dpub-list_html', 'zsListBox');
+		//分支机构项目
+		apiLoad('/web/proAndPackPage?rows=5&page=1&proStatus=all&ownDeptEname=ddjg', 'pro-list_html', 'cityListBox');
+		
+	})
+	function getByCityCode(ownDeptEname) {
+		apiLoad('/web/proAndPackPage?rows=5&page=1&proStatus=all&ownDeptEname='+ownDeptEname, 'pro-list_html', 'cityListBox');
+	}
+	function initPage() {
+		//公司新闻切换
+		var idxTwoRight = new Swiper('.idxTwoRight .wrap', {
+			speed: 500,
+			spaceBetween: 20,
+			initialSlide: 0,
+		})
+		$(".idxTwoRight .tabs li").on('click mouseenter', function () {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			idxTwoRight.slideTo(i);
+
+			var href = $(this).find('a').attr('href');
+			$(this).parent().parent().find('.more').attr('href', href);
+		})
+
+
+		// 产权转让
+		var fourSwiper1 = new Swiper('.fourSwiper1', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function (swiper) {
+				$(".fourWrap1 .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+						'active');
+			}
+		})
+		$(".fourWrap1 .tabs li").on('click', function () {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			fourSwiper1.slideTo(i);
+
+//			var href = $(this).find('a').attr('href');
+//			$(this).parent().parent().find('.more').attr('href', href);
+		})
+
+
+		// 实物资产转让
+		var fourSwiper2 = new Swiper('.fourSwiper2', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function (swiper) {
+			$(".fourWrap2 .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass('active');
+			}
+		})
+		$(".fourWrap2 .tabs li").on('click', function () {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			fourSwiper2.slideTo(i);
+		    updateMoreLinks(i);
+	   })		
+      function updateMoreLinks(index) {
+            if (index === 2) { // 报废资产选项卡
+                $("#tablink_2").show();
+                $("#tablink_1").hide();
+            } else {
+                $("#tablink_1").show();
+                $("#tablink_2").hide();
+            }
+        }
+	   
+		// 资产租赁
+		var fourSwiper4 = new Swiper('.fourSwiper4', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function (swiper) {
+				$(".fourWrap4 .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+						'active');
+			}
+		})
+		$(".fourWrap4 .tabs li").on('click', function () {
+			var b = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			fourSwiper4.slideTo(b);
+
+//			var href = $(this).find('a').attr('href');
+//			$(this).parent().parent().find('.more').attr('href', href);
+		})
+
+
+		// 企业增资
+		var fourSwiper5 = new Swiper('.fourSwiper5', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function (swiper) {
+				$(".fourWrap5 .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+						'active');
+			}
+		})
+		$(".fourWrap5 .tabs li").on('click', function () {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			fourSwiper5.slideTo(i);
+
+//			var href = $(this).find('a').attr('href');
+//			$(this).parent().parent().find('.more').attr('href', href);
+		})
+
+
+
+		//综合招商、联合友布
+		var fourSwiper7 = new Swiper('.fourSwiper7', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function (swiper) {
+			$(".fourWrap7 .tabs ul li").eq(swiper.activeIndex).addClass('active').siblings().removeClass('active');
+			}
+	      })
+
+		   $(".fourWrap7 .tabs ul li").on('click mouseenter', function () {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			fourSwiper7.slideTo(i);
+
+			var href = $(this).find('a').attr('href');
+			$(this).parent().parent().parent().find('.more').attr('href', href);
+		})
+
+
+		//成交公告
+		var idxcjgg = new Swiper('.idxcjgg .container', {
+			speed: 500,
+			spaceBetween: 20,
+			initialSlide: 0,
+			onSlideChangeStart: function (swiper) {
+				$(".idxcjgg .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass('active');
+			}
+		})
+
+	$(".idxcjgg .tabs li").on('click mouseenter', function () {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			idxcjgg.slideTo(i);
+
+		var href = $(this).find('a').attr('href');
+		$(this).parent().parent().parent().find('.more').attr('href', href);
+
+		})
+
+		// 地市项目
+		var fourSwiper8 = new Swiper('.fourSwiper8', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function (swiper) {
+				$(".fourWrap8 .tabs ul li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+						'active');
+			}
+		})
+		$(".fourWrap8 .tabs ul li").on('click', function () {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			fourSwiper8.slideTo(i);
+		})
+
+
+		//地市项目导航
+		var box = document.getElementById('mymoveDiv');
+		var moveLeft = document.getElementById('moveLeft');
+		var moveRight = document.getElementById('moveRight');
+		var step = 80; // 每次移动的步长
+
+		moveLeft.addEventListener('click', function () {
+			var boxStyleLeft = parseInt(box.style.left, 10)
+
+			if (boxStyleLeft < -450) return;
+			box.style.left = (parseInt(box.style.left, 10) || 0) - step + 'px';
+		});
+
+		moveRight.addEventListener('click', function () {
+			if (box.style.left) {
+				var boxStyleLeft = parseInt(box.style.left, 10)
+				if (boxStyleLeft == 0) {
+					box.style.marginLeft = '20px'
+					return;
+				}
+				box.style.left = (parseInt(box.style.left, 10) || 0) + step + 'px';
+			}
+		});
+
+
+	}
+	function toNoticeDetail(noticeId,noticeType,noticeCode,proId) {
+       if(noticeCode.indexOf("DF")>=0){
+           window.open("http://portal.zycqjy.com/portal/page?to=bulletin&infoId="+noticeId+"&proId="+proId);
+       }else{
+           //LG.to('/web/notice/'+noticeId,'pages/notice-detail','查看公告信息');
+		   window.location.href="/hn/p/notice/detail?noticeId="+noticeId;
+       }
+   }
+</script>
+    <!-- 底部 -->
+    <footer>
+        <div class="w1365 footOne">
+             <div class="footLeft"> 
+                <ul class="footnav fz18">
+                    <a target="_blank" href="/hn/c/gywm/gsjj">公司简介</a>
+                    <a target="_blank" href="/hn/c/gywm/lxwm">联系我们</a>
+                    <a target="_blank" href="/hn/c/flsm">法律声明</a>
+                    <a href="javascript:void(0)">站长统计</a>
+                  </ul>
+                  <ul class="footlxfs fz16">
+                  
+                   <p>公司地址：河南省郑州市郑东新区如意西路93号10层</p>
+                    <p>联系电话：0371-65665781</p>
+                   <p>投诉建议：0371-61311153</p>
+                   <p>技术部门咨询电话：0371-65665797</p>
+                   <p>E-Mail: hnzycqjy@163.com</p>
+                 </ul>                
+             </div>
+             <div class="footRight"> 
+             	<div class="footlink">
+             	<h3 class="fz18">网站链接</h3>
+                <li class="dmui-select" onclick="LG.go('article/link?type=fzjg','分支机构');">
+                    <div class="name">分支机构</div>
+                </li>            
+               <li class="dmui-select" onclick="LG.go('article/link?type=qgcqjyjg','全国产权交易机构');">
+                    <div class="name">全国产权交易机构</div>
+                </li> 
+                <li class="dmui-select" onclick="LG.go('article/link?type=sgqy','省管企业');">
+                    <div class="name">省管企业</div>
+                </li> 
+                </div>  
+                <div class="footewm">
+                    <img style="width: 106px;height: 106px;" src="/static/dpmweb/hn/images/wx-qrcode.png">
+                    <p class="fz14">微信公众号</p>
+                </div>
+               </div>  
+               
+            </div>
+
+        <div class="copyright fz16">
+          
+               <span>河南中原产权交易有限公司&nbsp;&nbsp;版权所有&nbsp;&nbsp;</span>
+               <span><a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备12024652号-1</a></span> 
+               <span>
+                <a target="_blank"  href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41010502004135">
+                <img src="/static/dpmweb/hn/images/gongan.png"> 豫公网安备 41010502004135号 </a>
+               </span>               
+            
+        </div>
+    </footer>
+    
+    <!--返回顶部-->
+    <div class="to_top">
+        <img src="/static/dpmweb/hn/images/totop.png" alt="返回顶部">
+    </div>
+     <script>
+   // 返回顶部
+        $('.to_top').click(function () {
+            $('body,html').animate({ scrollTop: 0 }, 300);
+        })
+   </script>
+      </div>
+</body>
+  <div class="helpflex">
+  	   <div class="text-center mb-1">
+            <!--i class="fal fa-close" style="font-size: 18px;" onclick="toggleHelper(this)"></i-->
+             <!--i class="fal fa-close" style="font-size: 18px;"  onClick="hiden()"></i-->
+        </div>
+        <ul id="helper-ul fz14">
+            <!--li>
+           	 <a href="/hn/p/pro/map?sysName=UTRM" target="_blank">
+                    <div class="pic">
+                    	  <img src="/static/dpmweb/hn/images/index/ico-dt.png">
+                          <span><img src="/static/dpmweb/hn/images/index/ico-dt-w.png"></span>
+                     </div>
+                    <p>资产地图</p>
+                </a>
+            </li>
+            <li>
+                <a href="/hn/c/ywzn/xzzq">
+                    <div class="pic">
+                    	  <img src="/static/dpmweb/hn/images/index/ico-xz.png">
+                          <span><img src="/static/dpmweb/hn/images/index/ico-xz-w.png"></span>
+                     </div>
+                    <p>下载专区</p>
+                </a>
+            </li>
+            <li>
+                <a href="/hn/c/cjwt">
+                	 <div class="pic">
+                    	  <img src="/static/dpmweb/hn/images/index/ico-zn.png">
+                          <span><img src="/static/dpmweb/hn/images/index/ico-zn-w.png"></span>
+                     </div>
+                    <p>常见问题</p>
+                </a>
+            </li-->
+            <li id="wydjFloat" style="height:auto;width:150px;margin:0 auto 20px;background:transparent;box-shadow:0 8px 24px rgba(0,0,0,.18);border-radius:12px;position:relative;">
+                <img src="/static/dpmweb/hn/images/wydj-qr.png" alt="我要登记" style="display:block;width:150px;height:auto;margin:0;border-radius:12px;">
+                <span class="wydj-close" title="关闭" onclick="document.getElementById('wydjFloat').style.display='none';" style="position:absolute;top:-10px;right:-10px;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:15px;font-style:normal;cursor:pointer;z-index:2;">×</span>
+            </li>
+            <li style="margin:0 auto 20px;">
+                <a href="/hn/p/pro/map?sysName=UTRM" style="background:#005cb2">
+                    <div>
+                        <span><img src="/static/dpmweb/hn/images/index/ico-swdt-w.png"></span>
+                    </div>
+                    <p style="color:white">资产地图</p>
+                </a>
+            </li>
+            <li style="margin:0 auto 20px;">
+                <!-- <a href="javascritp:void(0);">
+                     <div class="pic">
+                    	  <img src="/static/dpmweb/hn/images/index/ico-xcx.png">
+                          <span><img src="/static/dpmweb/hn/images/index/ico-xcx-w.png"></span>
+                     </div>
+                    <p>小程序</p>
+                      <div class="wpic">
+                        <img src="/static/dpmweb/hn/images/wx-qrcode.jpg" />
+                    </div>
+                </a>-->
+                 <a href="javascritp:void(0);" style="background:#005cb2">
+                     <div>
+                          <span><img src="/static/dpmweb/hn/images/index/ico-xcx-w.png"></span>
+                     </div>
+                    <p style="color:white">小程序</p>
+                      <div class="wpic">
+                        <img src="/static/dpmweb/hn/images/wx-qrcode.jpg" />
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="modal fade full" id="modal-message" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-message" style="min-height:250px; max-height: 550px; overflow: auto; padding:0;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 登记意向弹窗（侧边栏公共版，自包含：样式 + 弹窗结构 + 脚本） -->
+<style>
+    /* 意向选择弹窗 */
+    .sider-lead-pop .lead-choose {
+        display: flex;
+        gap: 20px;
+        padding: 20px 24px;
+    }
+    .sider-lead-pop .lead-choose-item {
+        flex: 1;
+        display: block;
+        text-align: center;
+        padding: 28px 18px;
+        border: 2px solid #eee;
+        border-radius: 10px;
+        background: #fafafa;
+        transition: all .3s;
+        cursor: pointer;
+    }
+    .sider-lead-pop .lead-choose-item:hover {
+        border-color: #005CB2;
+        background: #f0f7ff;
+    }
+    .sider-lead-pop .lead-choose-item i {
+        display: block;
+        font-size: 42px;
+        color: #005CB2;
+        margin-bottom: 12px;
+    }
+    .sider-lead-pop .lead-choose-item span {
+        display: block;
+        font-size: 17px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+    }
+    .sider-lead-pop .lead-choose-item em {
+        display: block;
+        font-style: normal;
+        font-size: 13px;
+        color: #999;
+    }
+
+    /* 表单弹窗 */
+    .sider-lead-pop .lead-form {
+        padding: 20px 26px 10px;
+    }
+    .sider-lead-pop .lead-form .lead-intro {
+        padding: 12px 14px;
+        margin: 0 0 18px;
+        background: #f0f7ff;
+        border: 1px solid #d3e8fa;
+        border-radius: 6px;
+        font-size: 13px;
+        line-height: 1.9;
+        color: #44596b;
+        text-align: justify;
+    }
+    .sider-lead-pop .lead-form-item {
+        margin-bottom: 16px;
+        display: flex;
+        align-items: flex-start;
+    }
+    .sider-lead-pop .lead-form-item > label {
+        width: 130px;
+        line-height: 36px;
+        text-align: right;
+        padding-right: 12px;
+        font-size: 14px;
+        color: #333;
+        font-weight: normal;
+    }
+    .sider-lead-pop .lead-form-item .red {
+        color: #d43030;
+        font-style: normal;
+        margin-right: 2px;
+    }
+    .sider-lead-pop .lead-form-item input[type=text],
+    .sider-lead-pop .lead-form-item input[type=number] {
+        flex: 1;
+        height: 36px;
+        line-height: 36px;
+        padding: 0 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+    .sider-lead-pop .lead-form-item input:focus,
+    .sider-lead-pop .lead-form-item textarea:focus {
+        border-color: #005CB2;
+        outline: none;
+    }
+    .sider-lead-pop .lead-form-item textarea {
+        flex: 1;
+        height: 72px;
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        resize: none;
+        box-sizing: border-box;
+    }
+    .sider-lead-pop .lead-checkbox {
+        flex: 1;
+        line-height: 36px;
+    }
+    .sider-lead-pop .lead-checkbox label {
+        margin-right: 16px;
+        font-size: 14px;
+        font-weight: normal;
+        color: #333;
+        cursor: pointer;
+    }
+    .sider-lead-pop .lead-checkbox input {
+        margin-right: 4px;
+        vertical-align: middle;
+    }
+    .sider-lead-pop .lead-form-btn {
+        text-align: center;
+        padding: 12px 0 16px;
+        border-top: 1px dashed #eee;
+        margin-top: 8px;
+    }
+    .sider-lead-pop .lead-form-btn button {
+        width: 120px;
+        height: 38px;
+        border: none;
+        border-radius: 20px;
+        font-size: 15px;
+        cursor: pointer;
+        margin: 0 12px;
+    }
+    .sider-lead-pop .lead-form-btn .btn-submit {
+        background: linear-gradient(135deg, #1685e0, #005CB2);
+        color: #fff;
+    }
+    .sider-lead-pop .lead-form-btn .btn-cancel {
+        background: #f1f1f1;
+        color: #666;
+    }
+
+    /* 手机适配 */
+    @media screen and (max-width:768px) {
+        .sider-lead-pop .lead-choose {
+            flex-direction: column;
+        }
+        .sider-lead-pop .lead-form {
+            padding: 16px 14px 10px;
+        }
+        .sider-lead-pop .lead-form-item {
+            display: block;
+        }
+        .sider-lead-pop .lead-form-item > label {
+            width: auto;
+            text-align: left;
+            display: block;
+            margin-bottom: 6px;
+        }
+    }
+</style>
+
+<!-- 登记意向：选择弹窗 -->
+<div id="siderLeadChoosePop" style="display:none;">
+    <div class="sider-lead-pop">
+        <div class="lead-choose">
+            <a href="javascript:void(0)" class="lead-choose-item" onclick="siderLeadOpenForm('zs')">
+                <i class="fal fa-file-signature"></i>
+                <span>我要登记（资产转让）</span>
+                <em>我有存量资产需要登记盘活</em>
+            </a>
+            <a href="javascript:void(0)" class="lead-choose-item" onclick="siderLeadOpenForm('tz')">
+                <i class="fal fa-chart-line"></i>
+                <span>我要投资（资产收购）</span>
+                <em>我有意向收购存量资产</em>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 我要登记（资产转让）表单弹窗 -->
+<div id="siderLeadRegisterPop" style="display:none;">
+    <div class="sider-lead-pop">
+        <form class="lead-form" id="siderLeadRegisterForm">
+            <input type="hidden" name="leadType" value="zs">
+            <div class="lead-intro">尊敬的资产权属单位、出让方：感谢您长期以来对中原产权的关注与信赖。如果您手中有闲置房产、土地、企业股权、债权等低效资产想要出让变现，请填写转让意向登记表，我们会为您量身对接意向买家，全程协助资产流转，省心盘活资产。</div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>公司名称/个人姓名</label>
+                <input type="text" name="contactName" maxlength="100" placeholder="请输入公司名称或个人姓名">
+            </div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>联系电话</label>
+                <input type="text" name="phone" maxlength="20" placeholder="请输入联系电话">
+            </div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>转让资产类型</label>
+                <input type="text" name="assetType" maxlength="200" placeholder="请输入转让资产类型，如：土地、房产、股权等">
+            </div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>盘活方式</label>
+                <div class="lead-checkbox">
+                    <label><input type="checkbox" value="资产转让">资产转让</label>
+                    <label><input type="checkbox" value="资产租赁">资产租赁</label>
+                    <label><input type="checkbox" value="合作租赁">合作租赁</label>
+                    <label><input type="checkbox" value="资产置换">资产置换</label>
+                    <label><input type="checkbox" value="其他">其他</label>
+                </div>
+            </div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>标的所在地</label>
+                <input type="text" name="areaText" maxlength="200" placeholder="请输入标的所在地，如：郑州市金水区">
+            </div>
+            <div class="lead-form-item">
+                <label>详细说明</label>
+                <textarea name="remark" maxlength="1000" placeholder="请补充资产详细说明（选填）"></textarea>
+            </div>
+            <div class="lead-form-btn">
+                <button type="button" class="btn-cancel" onclick="layer.closeAll()">取消</button>
+                <button type="button" class="btn-submit" onclick="siderLeadSubmit('zs')">提交</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 我要投资（资产收购）表单弹窗 -->
+<div id="siderLeadInvestPop" style="display:none;">
+    <div class="sider-lead-pop">
+        <form class="lead-form" id="siderLeadInvestForm">
+            <input type="hidden" name="leadType" value="tz">
+            <div class="lead-intro">尊敬的投资机构、产业投资人、个人投资者：感谢您持续关注平台存量资产登记盘活专区各类优质标的。为更快帮您找到符合预算、赛道的房产、土地、股权转让标的，诚邀您登记投资意向，我们将根据您的需求精准匹配适配出让资源。</div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>公司名称/个人姓名</label>
+                <input type="text" name="contactName" maxlength="100" placeholder="请输入公司名称或个人姓名">
+            </div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>联系电话</label>
+                <input type="text" name="phone" maxlength="20" placeholder="请输入联系电话">
+            </div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>意向购买类型</label>
+                <input type="text" name="assetType" maxlength="200" placeholder="请输入意向购买类型，如：土地、房产、债权等">
+            </div>
+            <div class="lead-form-item">
+                <label><i class="red">*</i>意向投资金额（万元）</label>
+                <input type="number" name="investAmount" min="0" maxlength="50" placeholder="请输入意向投资金额，单位：万元">
+            </div>
+            <div class="lead-form-item">
+                <label>投资需求</label>
+                <textarea name="remark" maxlength="1000" placeholder="请补充投资需求（选填）"></textarea>
+            </div>
+            <div class="lead-form-btn">
+                <button type="button" class="btn-cancel" onclick="layer.closeAll()">取消</button>
+                <button type="button" class="btn-submit" onclick="siderLeadSubmit('tz')">提交</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // ==================== 登记意向弹窗（侧边栏公共版，自包含，不依赖页面已有脚本） ====================
+    var siderLeadChooseIndex = 0;
+    var siderLeadFormIndex = 0;
+    // 弹窗内容缓存（初始化时从源节点取出并移除源节点，保证表单 id 在页面中唯一）
+    var siderLeadPopHtml = { choose: '', reg: '', inv: '' };
+
+    $(function() {
+        siderLeadPopHtml.choose = $('#siderLeadChoosePop').html() || '';
+        siderLeadPopHtml.reg = $('#siderLeadRegisterPop').html() || '';
+        siderLeadPopHtml.inv = $('#siderLeadInvestPop').html() || '';
+        $('#siderLeadChoosePop, #siderLeadRegisterPop, #siderLeadInvestPop').remove();
+    });
+
+    // 入口：未加载 layer.js 的页面按需懒加载后再打开
+    // 注意：layer.js 动态加载时无法通过 document.scripts 定位自身目录（最后一个 script 是 body 里的内联脚本），
+    // 导致它的默认样式 theme/default/layer.css 不会被自动加载，弹窗会以无样式状态插到页面底部看不见，
+    // 所以这里必须手动补一份样式表。
+    function siderLeadChoose() {
+        if (typeof window.layer !== 'undefined') {
+            siderLeadOpenChoose();
+        } else {
+            siderLeadLoadCss();
+            $.getScript('/zbxUI/js/layer/layer.js', function() {
+                siderLeadOpenChoose();
+            });
+        }
+    }
+
+    // 补载 layer 默认样式（幂等，只插一次）
+    function siderLeadLoadCss() {
+        if (document.getElementById('siderLeadLayerCss')) return;
+        var link = document.createElement('link');
+        link.id = 'siderLeadLayerCss';
+        link.rel = 'stylesheet';
+        link.href = '/zbxUI/js/layer/theme/default/layer.css';
+        document.head.appendChild(link);
+    }
+
+    // 打开意向选择弹窗
+    function siderLeadOpenChoose() {
+        siderLeadChooseIndex = layer.open({
+            type: 1,
+            title: '登记意向',
+            area: ['560px', 'auto'],
+            content: siderLeadPopHtml.choose
+        });
+    }
+
+    // 打开对应表单弹窗
+    function siderLeadOpenForm(type) {
+        layer.close(siderLeadChooseIndex);
+        if (type == 'zs') {
+            siderLeadFormIndex = layer.open({
+                type: 1,
+                title: '我要登记（资产转让）',
+                area: ['600px', 'auto'],
+                content: siderLeadPopHtml.reg
+            });
+        } else {
+            siderLeadFormIndex = layer.open({
+                type: 1,
+                title: '我要投资（资产收购）',
+                area: ['600px', 'auto'],
+                content: siderLeadPopHtml.inv
+            });
+        }
+    }
+
+    // 校验轻提示（zIndex 置顶，保证显示在弹窗之上而不被遮挡）
+    function siderLeadTip(msg, icon) {
+        layer.msg(msg, { icon: icon || 2, time: 2200, zIndex: 999999999 });
+    }
+
+    // 提交意向表单（传表单id，由框架统一serialize提交，避免中文二次编码）
+    function siderLeadSubmit(type) {
+        var formId = (type == 'zs') ? 'siderLeadRegisterForm' : 'siderLeadInvestForm';
+        var $form = $('#' + formId);
+        var contactName = $.trim($form.find("input[name='contactName']").val());
+        var phone = $.trim($form.find("input[name='phone']").val());
+        var assetType = $.trim($form.find("input[name='assetType']").val());
+
+        if (contactName == '') {
+            siderLeadTip('请输入公司名称/个人姓名');
+            return;
+        }
+        if (phone == '') {
+            siderLeadTip('请输入联系电话');
+            return;
+        }
+        if (assetType == '') {
+            siderLeadTip(type == 'zs' ? '请输入转让资产类型' : '请输入意向购买类型');
+            return;
+        }
+
+        if (type == 'zs') {
+            var reviveWays = [];
+            $form.find(".lead-checkbox input[type='checkbox']:checked").each(function() {
+                reviveWays.push($(this).val());
+            });
+            if (reviveWays.length == 0) {
+                siderLeadTip('请选择盘活方式');
+                return;
+            }
+            var areaText = $.trim($form.find("input[name='areaText']").val());
+            if (areaText == '') {
+                siderLeadTip('请输入标的所在地');
+                return;
+            }
+            // 勾选项以英文逗号拼为单个参数，随表单序列化提交
+            $form.find("input[name='reviveWays']").remove();
+            $('<input type="hidden" name="reviveWays">').val(reviveWays.join(',')).appendTo($form);
+        } else {
+            var investAmount = $.trim($form.find("input[name='investAmount']").val());
+            if (investAmount == '') {
+                siderLeadTip('请输入意向投资金额');
+                return;
+            }
+        }
+
+        apiPost('/web/addLead', formId, function(res) {
+            if (res && res.result == 'T') {
+                layer.closeAll();
+                siderLeadTip('提交成功，我们将尽快与您联系！', 1);
+            } else {
+                siderLeadTip((res && res.message) || '提交失败，请稍后重试');
+            }
+        });
+    }
+</script>
+    <script>
+      function hiden() {
+	     $(".helpflex").hide();
+	    }
+        $(function(){
+            ifViewDetail()
+        })
+        function ifViewDetail(){
+            const path=window.location.pathname
+
+            if(path.indexOf('/hn/detail/pro/') !== -1){
+              $('#customerService').show()
+            }
+        }
+    </script>
+<!--20221129 侧边栏-->
+<div class="control-sidebar bg-white full" id="modal-sd"  data-backdrop="static" tabindex="-1">
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-sd"></div>
+</div>
+
+<div class="control-sidebar-inner  bg-white full" id="modal-si"  data-backdrop="static" tabindex="-1">
+    <!-- Control sidebar content goes here -->
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-inner-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-si"> </div>
+</div>
+<!--20200717 new bootstrapbox start-->
+<div class="modal fade full" id="modal-xl" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl" style="min-width:90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <div class="modal-header-right">
+                    <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                        <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                    </button>
+                    <button type="button" class="close" data-dismiss="modal" title="关闭">
+                        <i class="fal fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBox-xl" style="min-height:550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--大-->
+	<div class="modal fade full" id="modal-lg" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-lg" style="min-height:250px; max-height: 550px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--中-->
+    <div class="modal fade full" id="modal-md" data-backdrop="static"  tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-md" style="min-height:250px;  max-height: 450px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--小-->
+    <div class="modal fade full" id="modal-sm" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-sm"  style="min-height:250px; max-height: 350px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--不带关闭按钮-->
+<div class="modal fade" id="modal-noclose" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body" id="modalBox-noclose"  style="min-height:450px; max-height: 550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--删除-->
+<div class="modal fade" id="modal-del" data-backdrop="static"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-trash-o"></i> 删除提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;">确定删除<text id="modalBox-del"></text>吗？</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="xwkDelete(XWK.apiServiceName,XWK.apiUrl,XWK.callBack)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-confirm" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-window-restore"></i> 操作提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;"><text id="modalBox-confirm"></text></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="apiSubmit(XWK.apiUrl,XWK.formName,XWK.callBack,XWK.apiMethod,XWK.apiServiceName,XWK.contentType)">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-loading" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-dog"></i> 运行中</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:150px">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--mainbox弹框-->
+<div class="my-main-box" id="myMainBox" style="display:none"></div>
+<div class="my-main-box" id="mainBox_1" style="display:none;z-index:860;"></div>
+<div class="my-main-box" id="mainBox_2" style="display:none;z-index:861;"></div>
+<div class="my-main-box" id="mainBox_3" style="display:none;z-index:862;"></div>
+<!--加载中。。。。-->
+<div id="xwkLoading" style="display:none">
+    <div style="position: absolute;top: 0;left: 0;width: 100%;height: calc(100vh);z-index: 9999;background: #000;opacity:0.3"></div>
+    <div style="position: absolute; top: calc(50vh); left: 49%; z-index: 10000; width: 100%;">
+        <div class="spinner-border text-white" role="status">
+            <span class="sr-only">加载中...</span>
+        </div>
+    </div>
+</div>
+<!--加载图片中。。。。-->
+<div id="xwkPicLoading" style="display:none">
+    <div style="position: absolute;top: 0;left: 0;width: 100%;height: calc(100vh);z-index: 9999;background: #000;opacity:0.3"></div>
+    <div style="position: absolute; top: calc(50vh); left: 25%; z-index: 10000; width: 50%;">
+        <div class="progress">
+             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+         </div>
+         <p class="text-center">加载中...</p>
+    </div>
+</div>
+<!--页面加载loading信息-->
+<div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="/zbxUI/images/loading.gif" alt="玄武库logo" height="60" width="60">
+</div>
+<!--loading遮罩-->
+<div id="xwk_loading" style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 9999;background: #000;opacity:0.4;">
+    <div style="position: absolute; top: calc(50vh); left: 50%; z-index: 10000; width: 100%; color: #fff;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p style="margin-left: -80px;font-size: 18px; margin-top: 20px;">数据加载中，请稍候...</p>
+    </div>
+</div>
+<!--附件-->
+<div id="attaHiddenDiv" style="display:none"></div>
+<div id="flowPicWin" closed="true"  draggable="false" resizable="false" modal="true"  class="easyui-window" title="查看流程图" style="width:1200px;height:550px; position:relative;">
+    <img id="flowPic"></img>
+    <div id="redBox" style="display: none;"></div>
+</div>
+<script>
+function taskcount(){
+    // 老工作流
+	/*var tc= getTaskCount("");
+	if(document.getElementById("taskCountBox")){
+		if(tc > 0){
+            $("#taskCountBox").addClass("numtip");
+			$("#taskCountBox").html(tc);
+		}else{
+			$("#taskCountBox").html("");
+			$("#taskCountBox").removeClass("numtip");
+		}
+	}
+	if(document.getElementById("taskCountLeftBox")){
+		if(tc > 0){
+            $("#taskCountLeftBox").addClass("numtip");
+			$("#taskCountLeftBox").html(tc);
+		}else{
+			$("#taskCountLeftBox").html("");
+			$("#taskCountLeftBox").removeClass("numtip");
+		}
+	}*/
+    // 新工作流
+    var tc6 = xwkGetCount("flow.v6","/my/count");
+    if(document.getElementById("myTaskCount")){
+        if(tc6 > 0){
+            $("#myTaskCount").addClass("numtip");
+            $("#myTaskCount").html(tc6);
+        }else{
+            $("#myTaskCount").html("");
+            $("#myTaskCount").removeClass("numtip");
+        }
+    }
+    if(document.getElementById("taskCountBox6")){
+        if(tc6 > 0){
+            $("#taskCountBox6").addClass("numtip");
+            $("#taskCountBox6").html(tc6);
+        }else{
+            $("#taskCountBox6").html("");
+            $("#taskCountBox6").removeClass("numtip");
+        }
+    }
+}
+
+function msgCount(){
+    if(doNull(MC)==""){
+        var MC = "mc";
+    }
+    var tc = xwkGetEntity(MC,"/my/webMsgCount");
+    if(document.getElementById("myMsgCount")){
+        if(tc > 0){
+            $("#myMsgCount").addClass("numtip");
+            $("#myMsgCount").html(tc);
+        }else{
+            $("#myMsgCount").html("");
+            $("#myMsgCount").removeClass("numtip");
+        }
+    }
+    if(document.getElementById("noticeCountBox")){
+        if(tc > 0){
+            $("#noticeCountBox").addClass("numtip");
+            $("#noticeCountBox").html(tc);
+        }else{
+            $("#noticeCountBox").html("");
+            $("#noticeCountBox").removeClass("numtip");
+        }
+    }
+}
+
+//老的消息系统
+function noticecount(){
+	var tc= getListCount(UC+"-msg","readFlag=F&toUserEname=");
+	if(document.getElementById("noticeCountBox")){
+		if(tc > 0){
+            $("#noticeCountBox").addClass("numtip");
+			$("#noticeCountBox").html(tc);
+		}else{
+			$("#noticeCountBox").html("");
+			$("#noticeCountBox").removeClass("numtip");
+		}
+
+	}
+}
+$(function(){
+	//如果页面上有taskCountBox,定时取待办数量 （每分钟）
+	if(document.getElementById("taskCountBox") || document.getElementById("taskCountBox6") || document.getElementById("myTaskCount") ||document.getElementById("taskCountLeftBox")){
+		taskcount();
+		setInterval("taskcount()",60000);
+	}
+	//如果页面上有noticeCountBox,定时取消息数量 （每分钟）
+	if(document.getElementById("noticeCountBox") || document.getElementById("myMsgCount")){
+		//noticecount();
+        msgCount();
+		setInterval("msgCount()",60000);
+	}
+
+	if(!Array.indexOf){
+		Array.prototype.indexOf = function(obj){
+			for(var i=0; i<this.length; i++){
+		         if(this[i]==obj){
+		             return i;
+		         }
+		    }
+		    return -1;
+		}
+	}
+	//IE兼容trim方法
+	String.prototype.trim=function() {
+        return this.replace(/(^\s*)|(\s*$)/g, "");
+    }
+});
+
+function logout(toUrl){
+    var url = '/login/logout';
+    if(toUrl){
+        url = '/login/logout?toUrl=' + toUrl;
+    }
+	$.messager.confirm('提示', '您确定工作已经保存，并退出该系统?', function(r){
+		if (r){
+			window.location.href = url;
+		}
+	});
+}
+
+function logoutweb(toUrl){
+    var url = '/login/logout';
+    if(toUrl){
+        url = '/login/logout?toUrl=' + toUrl;
+    }
+    if(confirm('您确定工作已经保存，并退出该系统?')) {
+        window.location.href = url;
+    }
+}
+function definePic6(id)	{
+    var purl = "/api/flow.v6/pic/byDefineId/"+id;
+    $("#flowPic").attr('src',purl);
+    $("#flowPicWin").dialog('open');
+}
+
+function flowPic(processInsId,divBox){
+    if(doNull(divBox)=="")divBox="modalBox-lg";
+    boxTitle="查看流程图";
+    if(processInsId.length<15){
+        viewFlowPic(processInsId,divBox)
+    }else{
+        xwkTo("flow.v6","/getXY/"+processInsId,"/flow/v2/pic6",divBox)
+    }
+}
+function flowLogs(processInsId,divBox,htmlName){
+    if(doNull(divBox)=="")divBox="flowLogBox";
+    if(processInsId.length<15){
+        if(doNull(htmlName)=="")htmlName = 'zbx/flow/flowLog-list';
+        toList(flowServiceName+'-flowLog','processInsId='+processInsId,divBox,htmlName);
+    }else{
+        if(doNull(htmlName)=="")htmlName = '/flow/v2/flow-log?processInsId='+processInsId;
+        go(htmlName,divBox);
+    }
+}
+</script>
+</html>

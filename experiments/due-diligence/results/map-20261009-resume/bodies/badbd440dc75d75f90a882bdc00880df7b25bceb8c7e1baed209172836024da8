@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<title>法律文书公开</title>
+	<link rel="stylesheet" href="/12309/xhtml/css/common.css">
+  <link rel="stylesheet" href="/12309/xhtml/ajxxgk/css/ajxxgk_zyajxx.css">
+<link rel="stylesheet" href="/12309/xhtml/ajxxgk/css/zxf_page.css">
+	<script type="text/javascript" src="/12309/xhtml/ajxxgk/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" language="javascript">
+			var channelWebPath = "/gj",channelLevels = "" || '';
+		</script>
+<script type="text/javascript" src="/12309/xhtml/ajxxgk/js/zxf_page.js"></script>
+   	<!--[if lt IE 9]>
+			 <script src="/js/html5shiv.js"></script>
+			 <script src="/js/respond.min.js"></script>
+    <![endif]-->
+		<script type="text/javascript" src="/12309/xhtml/ajxxgk/js/region.js"></script>
+	</head>
+<body>
+<link rel="stylesheet" href="/12309/xhtml/css/date.css">
+<script src="/12309/xhtml/js/jquery.date_input.pack.js"></script>
+<div class="header">
+	<div class="header_top w1200">
+		<span class="data fl sjyc" id="show"></span>
+		<div class="sosdlzc fr">
+			<span class="sjxs zk"></span>
+			<span class="sjxs sq"></span>
+			<div class="sos fl sjyc">
+				<div class="fl">
+						<span class="sos_search">
+							<input name="searchWord" autocomplete="off" type="text" id="searchWord" size="50" placeholder="请输入您要搜索的关键字" />
+							<i><input type="submit" id="button" value="" /></i>
+						</span>
+					
+				</div>
+
+				
+				<style type="text/css">
+					.header .header_top .sos_search i { cursor: pointer }
+
+					.header .header_top .sos_search i input { width: 100%; height: 100%; opacity: 0; filter: Alpha(opacity=0); cursor: pointer; }
+
+					input#searchWord::-webkit-input-placeholder { color: #fff; }
+					input#searchWord::-o-input-placeholder { color: #fff; }
+					input#searchWord::-ms-input-placeholder { color: #fff; }
+					input#searchWord:-ms-input-placeholder { color: #fff; } </style>
+				<div class="fl gjsos_form">
+					<span class="gjsos_search">高级搜索</span>
+					<form action="/guestweb/h_12309" target="_blank" method="POST">
+						<input type="hidden" name="siteCode" value="N000007720">
+						<input type="hidden" name="pageSize" value="10">
+						<input type="hidden" name="pageNum" value="0">
+						<input type="hidden" name="orderBy" value="0">
+						<input type="hidden" name="wordPlace" value="0">
+						<input type="hidden" name="countKey" value="0">
+						<input type="hidden" name="areaSearchFlag" value="0">
+						<input type="hidden" name="sonSiteCode" value="">
+
+						<div class="gjsostj">
+							<ul>
+								<li class="w5"><span class="sos_tj">检察院名称：</span><input name="testName" type="text"
+										id="testName" />
+								</li>
+								<li class="w5">
+									<span class="sos_tj">类别：</span>
+									<select name="category" id="category">
+										<option value="">全部类别</option>
+										<option value="重要案件">重要案件</option>
+										<option value="公开文书">公开文书</option>
+									</select>
+								</li>
+								<li class="w5"><span class="sos_tj">文号：</span><input name="fileNum" type="text" id="fileNum"></li>
+								<li class="w5">
+									<span class="sos_tj">文书类别名称：</span>
+									<select name="paperworkType" id="paperworkType">
+										<option value="">请选择文书类别名称</option>
+										<option value="起诉书">起诉书</option>
+										<option value="抗诉书">抗诉书</option>
+										<option value="不起诉决定书">不起诉决定书</option>
+										<option value="刑事申诉复查决定书">刑事申诉复查决定书</option>
+									</select>
+								</li>
+								<li class="w5"><span class="sos_tj">当事人姓名：</span><input name="partyName" type="text" id="partyName">
+								</li>
+								<li class="w5"><span class="sos_tj">当事人性别：</span>
+									<div class="dxk">
+										<span class="accbg leaidx "><input name="partyGender" type="radio" value="男"
+												class=" leaidx">男</span><span class="accbg leaidx ml50"><input name="partyGender"
+												type="radio" value="女" class="leaidx">女</span></div>
+								</li>
+								<li class="w5"><span class="sos_tj">罪名：</span><input name="charges" type="text" id="charges"></li>
+								<li class="w5">
+									<span class="sos_tj">诉讼阶段：</span>
+									<select name="litigationStage" id="litigationStage">
+										<option value="">请选择诉讼阶段</option>
+										<option value="立案">立案</option>
+										<option value="侦查">侦查</option>
+										<option value="批捕">批捕</option>
+										<option value="起诉">起诉</option>
+										<option value="抗诉">抗诉</option>
+										<option value="其他">其他</option>
+									</select>
+								</li>
+								<li class="w8"><span class="sos_tj">公开时间：</span><input name="startTime" type="hidden"
+									id="startTimeH"/><input type="text"
+									id="startTime" class="date_picker" autocomplete="off" /><span class="z">至</span><input name="endTime" type="hidden" id="endTimeH" /><input type="text" id="endTime" class="date_picker" autocomplete="off" /></li>
+								<li class="w2">
+									<!-- <a href="" target="_blank">搜 索</a> -->
+									<input type="submit" id="" value="搜　索" />
+
+
+
+									<!--<input type="submit" id="" name="" value="/12309/xhtml/搜　索" onclick="window.open('')" />-->
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="dlzc fr">
+				<!--<iframe id="UserInfo" src="/sppWeb/api/header" width="327" height="37" frameborder="0"></iframe>
+				<div class="ydlzt">
+					<span>张x晓安，欢迎您！<a href="">进入个人中心</a></span>
+					<input class="zx_btn" type="button" id="" value="注销" />
+				</div>
+				<div class="wdlzt">
+					<a href="" class="dl_btn">登录</a>
+					<a href="" class="zc_btn">注册</a>
+				</div>-->
+				<div class="wdlzt">
+			        <a href="/sppWeb/" target="_blank" class="dl_btn">登录</a>
+			        <a href="https://www.12309.gov.cn/account-center/a/sys/sysMember/sysRegister" target="_blank" class="zc_btn">注册</a>
+			    </div>
+			</div>
+			<style type="text/css">
+				.dlzc{width: 305px; overflow: hidden;}
+				@media (max-width: 428px){
+					.dlzc{width: 327px; overflow: hidden;position: absolute; z-index: 9999;right: 0; top: 0;}
+				}
+			</style>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="header_nav">
+		<div class="w1120">
+			<div class="logo"><img src="/12309/xhtml/images/public/logo.png" /></div>
+			<ul class="nav">
+				<li class="active"><a href="/12309/index.shtml">首　页</a><span></span></li>
+				<li class="ajxxgk gj"><a href="/12309/ajxxgk/index.shtml">案件信息公开</a><span></span></li>
+				<li class="wsxf"><a href="/12309/wsxf/index.shtml">网上信访</a><span></span></li>
+				<li class="dbwyll"><a href="/llzw/index.shtml">代表委员联络</a><span></span></li>
+				<li class="bszn"><a href="/12309/bszn/index.shtml">办事指南</a><span></span></li>
+				<li><a href="https://www.spp.gov.cn/" target="_blank">最高人民检察院</a><span></span></li>
+				<li><a href="https://jctz.12309.gov.cn/" target="_blank">中国检察听证网</a></li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+	if($(window).width() < 651){
+		var UserInfo = document.getElementById("UserInfo")
+		UserInfo.onload = function(){
+			UserInfo.contentWindow.document.getElementsByClassName('dlzc')[0].setAttribute('style','text-align: right !important;');
+		}
+	}
+
+	function zz_search(){
+				var qt1 = $('#searchWord').val();
+				if(qt1!=''){
+					var searchword = encodeURI(qt1);
+					var searchurl = '/guestweb/s?siteCode=N000007720'+'&searchWord='+searchword;
+					window.open(searchurl);
+				}else{
+					alert('请输入关键字');
+				} 
+			}
+			$(function(){
+				$('#button').click(function(){
+					zz_search();
+				});
+        document.getElementById("searchWord").onkeydown=function mykeyDown(e){ 
+            e=e||event;
+            if(e.keyCode==13){zz_search();} 
+            return; 
+        }
+			})
+</script>
+	<script type="text/javascript">
+	
+			(function ($) {
+
+				// 时间弹出插件调用
+				$('.date_picker').date_input();
+
+				// 高级搜索点开关闭
+				(function () {
+					var gjsostj = $(".gjsostj"), flag = true;
+					$(".gjsos_search").on('click', function (e) {
+						e.stopPropagation();
+						if (flag) {
+							gjsostj.show(); flag = false;
+							bodyOnClick();
+						} else { hide() }
+					})
+					function hide() { gjsostj.hide(); flag = true; }
+					function bodyOnClick() {
+						$('body').on('click', function (e) {
+							if (!$(e.target).parents('form').length && !$(e.target).hasClass('selectable_day')) {
+								hide();
+							} else { bodyOnClick(); }
+						})
+					}
+				})();
+
+				//高级搜索公开时间加具体时间
+				(function () {
+					$(".gjsos_form input[type=submit]").on('click', function () {
+						var startTime = $('#startTime').val();
+						var endTime = $('#endTime').val();
+						if (startTime) {
+							$('#startTimeH').val(startTime + ' 00:00:00');
+						}
+						if (endTime) {
+							$('#endTimeH').val(endTime + ' 23:59:59')
+						}
+						return true
+					});
+				})();
+
+
+				$(".sosdlzc .zk").click(function () {
+					$(".sosdlzc .sos").css("display", "block");
+					$(this).css("display", "none");;
+					$(".sosdlzc .sq").css("display", "block");
+
+				});
+				$(".sosdlzc .sq").click(function () {
+					$(".sosdlzc .sos").css("display", "none");
+					$(this).css("display", "none");;
+					$(".sosdlzc .zk").css("display", "block");
+				});
+
+				// 左上角时间
+				(function ($) {
+					var date = new Date();
+					this.day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")[date.getDay()];
+					var currentTime = date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日 " + "" + this.day +
+						"";
+					document.all.show.innerHTML = currentTime;
+				})($);
+
+				$(".dxk span").click(function () {
+					$(this).addClass("checked").siblings().removeClass("checked");
+				});
+
+			})(window.jQuery);
+
+		// 导航栏当前栏目高亮显示
+//		$(function () {
+//			var currentUrl = location.pathname;
+//			var activeLi = $(".nav li a[href='" + currentUrl + "']");
+//			if (activeLi.length < 1) {
+//				activeLi = $(".nav li a[href='" + $(".BreadcrumbNav a").eq(1).attr("href") + "']")
+//			}
+//			activeLi.parents('li').addClass('active').siblings().removeClass('active');
+//		})
+		
+			$(function(){
+			    var url = window.location.href;
+			      var codeNameLen=url.split("/").length;
+			      var codeNam=url.split("/");
+			      var codeName=url.split("/")[codeNameLen-2];
+				  if(codeNam[4]=="gj" || codeNam[4]=="zdajxx" || codeNam[4]=="zjxflws"){
+			      		$(".nav li.gj").addClass("active").siblings().removeClass("active");
+			      	}else{
+			      		$(".nav li."+codeName).addClass("active").siblings().removeClass("active");
+			      }
+				
+				  if(codeName == "xfxz"){
+				  $(".nav li.bszn").addClass("active").siblings().removeClass("active");
+				  }
+			      	
+			    
+			  })
+
+	</script>
+</div>
+<div class="bg_all"></div>
+<div class="container w1200 bgfff pd26">
+	<div class="dqfb_list">
+		<ul id="region" class="dqfb">
+
+		</ul>
+	</div>
+	<div class="column mt25">
+		<div class="w271 fl mr20">
+			<div class="lmtitle">
+				<span id="localName" class="title_1 spanClass_1">法律文书公开</span>
+			</div>
+			<ul id="fileType" class="sidebar">
+				 <li class="active"><a href="javascript:;" target="_self">全部文书</a></li>
+				 <li codeId="2c6b4deaf04949d686323d98e77f7ff4"><a href="javascript:;" target="_self">起诉书</a></li>
+				 <li codeId="d25e982baf8e4dffb1c27ef4caa53aa4"><a href="javascript:;" target="_self">抗诉书</a></li>
+				 <li codeId="fceb1940f14b4a6a8ff9b4e70e4e8519"><a href="javascript:;" target="_self">不起诉决定书</a></li>
+				 <li codeId="2c334a3b4ecf455197479a1f2c4e3864"><a href="javascript:;" target="_self">刑事申诉结果通知书</a></li>
+				 <li codeId="a64dbd5f8b0b4115a687c74c6f64422c"><a href="javascript:;" target="_self">其他法律文书 </a></li>
+			</ul>
+		</div>
+		<div class="w858 fl">
+			<div class="Breadcrumb">
+				<p>当前位置：法律文书公开</p>
+			</div>
+		<div class="commonList_con">
+			<ul class="list_ul">
+				<CMSPRO_DOCUMENTS id="impFile" DOCUMENTTYPE="0|1|2|3" NUM="" STARTPOS="0" CHANNELCODE="" PAGESIZE="20" PAGENAVIGATIONID="page_div" PAGENAVIGATIONCLASS="page_div">
+				</CMSPRO_DOCUMENTS>
+			</ul>
+			<div class="page_num"><div id="page_div"></div></div>
+			<script type="text/javascript" src="/12309/xhtml/ajxxgk/js/ajxxgk_flwsgk.js"></script>
+		</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+</body>
+<div class="footer">
+	<div class="footer_sjyc footer1">
+		<div class="w1200">
+			<div class="foot1">
+				<div class="fl w90">相关链接：</div>
+				<div class="fl xglj">
+					<ul>
+						
+							<li><a href="http://www.npc.gov.cn/" target="_blank"  >全国人大</a></li>
+
+							<li><a href="http://www.gov.cn/" target="_blank"  >中央政府</a></li>
+
+							<li><a href="http://www.cppcc.gov.cn/" target="_blank"  >全国政协</a></li>
+
+							<li><a href="http://www.court.gov.cn/" target="_blank"  >最高人民法院</a></li>
+
+
+					</ul>
+				</div>
+				<div class="fr xglj">
+					<script type="text/JavaScript">
+
+						function MM_jumpMenu(targ,selObj,restore){ //v3.0
+								  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+								  if (restore) selObj.selectedIndex=0;
+								}
+							</script>
+					<select name="--相关机构--" class="k105" onChange="MM_jumpMenu('parent',this,0)">
+						<option>--相关机构--</option>
+
+							<option value="http://www.ccdi.gov.cn/">中央纪委国家监委</option>
+
+							<option value="http://www.mps.gov.cn/n16/index.html">公安部</option>
+
+							<option value="http://www.mca.gov.cn/">民政部</option>
+
+							<option value="http://www.moj.gov.cn/">司法部</option>
+
+							<option value="http://www.mof.gov.cn/">财政部</option>
+
+							<option value="http://www.mnr.gov.cn/">自然资源部</option>
+
+							<option value="http://www.icac.org.hk/">香港特区廉政公署</option>
+
+							<option value="http://www.mp.gov.mo/">澳门特区检察院</option>
+
+					</select>
+					<select name="--新闻媒体--" class="k105" onChange="MM_jumpMenu('parent',this,0)">
+						<option>--新闻媒体--</option>
+
+							<option value="http://www.people.com.cn/">人民网</option>
+
+							<option value="http://www.cctv.com/">央视网</option>
+
+							<option value="http://paper.people.com.cn/rmrb/">人民日报</option>
+
+							<option value="http://epaper.gmw.cn/gmrb/">光明日报</option>
+
+							<option value="http://epaper.legaldaily.com.cn/public/dianzhibao-2011.php">法制日报</option>
+
+							<option value="http://newspaper.jcrb.com/">检察日报</option>
+
+							<option value="http://epaper.cpd.com.cn/">人民公安报</option>
+
+							<option value="http://rmfyb.chinacourt.org/paper/html/node_2.htm">人民法院报</option>
+
+							<option value="http://www.jcrb.com/FYFZ/">方圆</option>
+
+							<option value="http://www.jcrb.com/rmjc/">人民检察</option>
+
+							<option value="http://www.gmw.cn/">光明网</option>
+
+							<option value="http://www.legaldaily.com.cn/">法制网</option>
+
+							<option value="http://www.jcrb.com/">正义网</option>
+
+							<option value="https://jjjcb.ccdi.gov.cn/epaper/">中国纪检监察报</option>
+
+							<option value="http://www.legalinfo.gov.cn/">中国普法网</option>
+
+					</select>
+					<select name="--检察新媒体--" class="k105" onChange="MM_jumpMenu('parent',this,0)">
+						<option>--检察新媒体--</option>
+
+					</select>
+					<ul class="fr p15">
+						<li><a href="http://newspaper.jcrb.com/" target="_blank">检察日报</a></li>
+						<li><a href="http://www.jcrb.com/" target="_blank">正义网</a></li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="foot2">
+				<div class="fl">
+					<p>Copyrights©最高人民检察院 All Rights Reserved. </p>
+					<p>最高人民检察院 （100726）北京市东城区北河沿大街147号 010-65209114（查号台） 010-12309（检察服务热线） </p>
+					<p>未经本网书面授权，请勿转载、摘编或建立镜像，否则视为侵权。 <a href="https://beian.miit.gov.cn/" target="_blank" style="color:#d1d8dd;">备案序号：京ICP备10217144号-1</a>　建议使用1920*1080分辨率获得最佳浏览效果</p>
+				</div>
+				<div class="fr yc">
+					<span class="sfyz fl"></span>
+					<span class="dzjg fl"><script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='/12309/xhtml/js/CA330000000406725280003.js' type='text/javascript'%3E%3C/script%3E"));</script></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer_sjxs  footer1">
+		<div class="footNav text-center">
+			<a href="http://www.jcrb.com/">正义网</a> | <a href="http://newspaper.jcrb.com/">检察日报版样 </a>
+		</div>
+
+		<div class="text-center text-center1">Copyrights©最高人民检察院 All Rights Reserved.</div>
+	</div>
+</div>
+<script language="JavaScript">var _trackDataType = 'web';var _trackData = _trackData || [];</script>
+<script type="text/javascript" charset="utf-8" id="kpyfx_js_id_10004557" src="//fxsjcj.kaipuyun.cn/count/10004557/10004557.js"></script>
+<script>
+	$(".dxk span").click(function () {
+		$(this).addClass("checked").siblings().removeClass("checked");
+	});
+</script>
+
+<iframe id="oIf" style=" display:none" src=""></iframe>
+<script>
+$(function(){
+	document.getElementById("oIf").src="/counter/ajaxCounts.jsp?url=" + window.location.href;
+})
+</script>
+</html>
+ <!--[if IE 6]><script src="../js/ie6PNG.js"></script><![endif]-->

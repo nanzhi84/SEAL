@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    
+<meta name="SiteName" content="湖南省自然资源厅"/>
+<meta name="SiteDomain" content="zrzyt.hunan.gov.cn"/>
+<meta name="SiteIDCode" content="4300000042"/>
+
+<meta name="others" content="页面生成时间 2026-10-08 17:49:00" />
+<title>湖南省自然资源厅</title>
+    <link rel="stylesheet" href="/zrzyt/xhtml/css/2024_zrzyt.css">
+    <script type="text/javascript" src="/zrzyt/xhtml/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/zrzyt/xhtml/js/jquery.SuperSlide.2.1.1.js"></script>
+  
+  	<script type="text/javascript">
+        //判断浏览器模式
+        var clientType = function () {
+          var reg = new RegExp("(^|&)clientType=([^&]*)(&|$)");
+          var r = window.location.search.substr(1).match(reg);
+          if (r != null && "PC" == unescape(r[2])) return "PC";
+          var type = new Array(
+            "Android",
+            "iPhone",
+            "Windows Phone",
+            "iPod",
+            "BlackBerry",
+            "MeeGo",
+            "SymbianOS"
+          );
+          var info = navigator.userAgent;
+          for (var i = 0; i < type.length; i++) {
+            if (info.indexOf(type[i]) > 0) {
+              return "Mobile";
+            }
+          }
+          return "PC";
+        };
+
+      let locationUrl = window.location.href;
+      if (locationUrl.indexOf("59.231.9.236") == -1) {
+        if (clientType() == "Mobile") {
+          // 如果是移动设备，检查 URL 是否包含 "_m"，没有则切换到移动版
+          if (!locationUrl.includes("_m")) {
+            window.location.href =
+              "https://zrzyt.hunan.gov.cn/index_m.html";
+          }
+        } else {
+          // 如果是PC设备，检查 URL 是否包含 "_m"，有则切换到PC版
+          if (locationUrl.includes("_m")) {
+            window.location.href =
+              "https://zrzyt.hunan.gov.cn/index.html";
+          }
+        }
+      }
+      </script>
+  
+</head>
+<body>
+  
+  	<script type="text/javascript">
+ 
+function addEvent(obj,evtType,func,cap){
+    cap=cap||false;
+ if(obj.addEventListener){
+     obj.addEventListener(evtType,func,cap);
+  return true;
+ }else if(obj.attachEvent){
+        if(cap){
+         obj.setCapture();
+         return true;
+     }else{
+      return obj.attachEvent("on" + evtType,func);
+  }
+ }else{
+  return false;
+    }
+}
+function getPageScroll(){
+    var xScroll,yScroll;
+ if (self.pageXOffset) {
+  xScroll = self.pageXOffset;
+ } else if (document.documentElement && document.documentElement.scrollLeft){
+  xScroll = document.documentElement.scrollLeft;
+ } else if (document.body) {
+  xScroll = document.body.scrollLeft;
+ }
+ if (self.pageYOffset) {
+  yScroll = self.pageYOffset;
+ } else if (document.documentElement && document.documentElement.scrollTop){
+  yScroll = document.documentElement.scrollTop;
+ } else if (document.body) {
+  yScroll = document.body.scrollTop;
+ }
+ arrayPageScroll = new Array(xScroll,yScroll);
+ return arrayPageScroll;
+}
+function GetPageSize(){
+    var xScroll, yScroll;
+    if (window.innerHeight && window.scrollMaxY) { 
+        xScroll = document.body.scrollWidth;
+        yScroll = window.innerHeight + window.scrollMaxY;
+    } else if (document.body.scrollHeight > document.body.offsetHeight){
+        xScroll = document.body.scrollWidth;
+        yScroll = document.body.scrollHeight;
+    } else {
+        xScroll = document.body.offsetWidth;
+        yScroll = document.body.offsetHeight;
+    }
+    var windowWidth, windowHeight;
+    if (self.innerHeight) {
+        windowWidth = self.innerWidth;
+        windowHeight = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight) {
+        windowWidth = document.documentElement.clientWidth;
+        windowHeight = document.documentElement.clientHeight;
+    } else if (document.body) {
+        windowWidth = document.body.clientWidth;
+        windowHeight = document.body.clientHeight;
+    } 
+    if(yScroll < windowHeight){
+        pageHeight = windowHeight;
+    } else { 
+        pageHeight = yScroll;
+    }
+    if(xScroll < windowWidth){ 
+        pageWidth = windowWidth;
+    } else {
+        pageWidth = xScroll;
+    }
+    arrayPageSize = new Array(pageWidth,pageHeight,windowWidth,windowHeight) 
+    return arrayPageSize;
+}
+
+var AdMoveConfig=new Object();
+AdMoveConfig.IsInitialized=false;
+AdMoveConfig.ScrollX=0;
+AdMoveConfig.ScrollY=0;
+AdMoveConfig.MoveWidth=0;
+AdMoveConfig.MoveHeight=0;
+AdMoveConfig.Resize=function(){
+    var winsize=GetPageSize();
+    AdMoveConfig.MoveWidth=winsize[2];
+    AdMoveConfig.MoveHeight=winsize[3];
+    AdMoveConfig.Scroll();
+}
+AdMoveConfig.Scroll=function(){
+    var winscroll=getPageScroll();
+    AdMoveConfig.ScrollX=winscroll[0];
+    AdMoveConfig.ScrollY=winscroll[1];
+}
+addEvent(window,"resize",AdMoveConfig.Resize);
+addEvent(window,"scroll",AdMoveConfig.Scroll);
+function AdMove(id){
+    if(!AdMoveConfig.IsInitialized){
+        AdMoveConfig.Resize();
+        AdMoveConfig.IsInitialized=true;
+    }
+    var obj=document.getElementById(id);
+    obj.style.position="absolute";
+    var W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+    var H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+    var x = W*Math.random(),y = H*Math.random();
+    var rad=(Math.random()+1)*Math.PI/6;
+    var kx=Math.sin(rad),ky=Math.cos(rad);
+    var dirx = (Math.random()<0.5?1:-1), diry = (Math.random()<0.5?1:-1);
+    var step = 1;
+    var interval;
+    this.SetLocation=function(vx,vy){x=vx;y=vy;}
+    this.SetDirection=function(vx,vy){dirx=vx;diry=vy;}
+    obj.CustomMethod=function(){
+        obj.style.left = (x + AdMoveConfig.ScrollX) + "px";
+        obj.style.top = (y + AdMoveConfig.ScrollY) + "px";
+        rad=(Math.random()+1)*Math.PI/6;
+        W=AdMoveConfig.MoveWidth-obj.offsetWidth;
+        H=AdMoveConfig.MoveHeight-obj.offsetHeight;
+        x = x + step*kx*dirx;
+        if (x < 0){dirx = 1;x = 0;kx=Math.sin(rad);ky=Math.cos(rad);} 
+        if (x > W){dirx = -1;x = W;kx=Math.sin(rad);ky=Math.cos(rad);}
+        y = y + step*ky*diry;
+        if (y < 0){diry = 1;y = 0;kx=Math.sin(rad);ky=Math.cos(rad);} 
+        if (y > H){diry = -1;y = H;kx=Math.sin(rad);ky=Math.cos(rad);}
+    }
+    this.Run=function(){
+        var delay = 10;
+        interval=setInterval(obj.CustomMethod,delay);
+        obj.onmouseover=function(){clearInterval(interval);}
+        obj.onmouseout=function(){interval=setInterval(obj.CustomMethod, delay);}
+    }
+}
+
+ </script>
+    <div id="jhjgg1" style="width:330px;height:75px;color:yellow;z-index:1000;">
+      <div style="width:330px; height:0px; float:left">
+          <a title="湖南省自然资源厅 湖南省人力资源和社会保障厅关于2026年自然资源工程专业初中级职称考试有关事项的通知" href="http://zrzyt.hunan.gov.cn/zrzyt/xxgk/tzgg/rsxxn/zcxxg/202609/t20260930_34075076.html" target="_blank"><img src="/zrzyt/sypf/202609/34075224/images/2cacb7b2fff64a319913059f465473ab.png
+"  alt="湖南省自然资源厅 湖南省人力资源和社会保障厅关于2026年自然资源工程专业初中级职称考试有关事项的通知"  width="100%" /></a>
+          
+      </div>
+      <div style="width: 32px;height:75px;float:right;margin-top: 4px;margin-right: 6px;">
+          <span style=" cursor:pointer;color: #fff;font-size: 15px;" onclick="document.getElementById('jhjgg1').style.display='none'">关闭</span>
+      </div>
+    </div>
+
+   
+    <script type="text/javascript">
+    
+        var ad1=new AdMove("jhjgg1");
+        ad1.Run();
+ 
+    </script>
+  
+    <!-- 头部 -->
+    <div class="top_nav">
+  <div class="main1200 top_nav_in">
+    <ul class="top_nav_left">
+      <li><a href="http://www.gov.cn/" target="_blank">中国政府网</a></li>
+      <li><a href="https://www.mnr.gov.cn/?pc" target="_blank">中华人民共和国自然资源部</a></li>
+      <li><a href="http://www.hunan.gov.cn/" target="_blank">湖南省政府门户网站</a></li>
+    </ul>
+    <div class="top_nav_right">
+      <ul class="top_nav_left">
+        <li>
+          <a id="toolbarSwitch" href="javascript:void(0);">
+            无障碍浏览
+          </a>
+        </li>
+        <li class="login_area">
+          <iframe src="https://home.hunan.gov.cn/login_new/login_smh.html" class="user-a1" width="95" height="28" scrolling="no" frameborder="0" style="float:right;margin-top: -13px;"></iframe>
+        </li>
+        <li><a href="//mail.hunan.gov.cn/" target="_blank">政务邮箱</a></li>
+        <li><a  id="StranLink" name="StranLink" href="javascript:StranBody()" target="_self">繁体中文</a></li>
+      </ul>
+      <!--<div class="top_right_btn">省直窗口<img src="/zrzyt/xhtml/img/20241129-top-arrow.png" alt="" srcset=""></div>-->
+    </div>
+  </div>
+</div>
+<div class="top_bg">
+  <div class="main1200">
+    <img class="logo_box" src="/zrzyt/xhtml/img/20241129-top-logo.png">
+    <form class="top_search" d="searchForm" action="//searching.hunan.gov.cn/hunan/114000000/news" target="_blank"
+          method="get" onSubmit="return BMsearch();" enctype="application/x-www-form-urlencoded">
+      <input type="text" class="submit" id="searchtitle" name="q" placeholder="请输入关键词搜索">
+      <button type="submit"></button>
+    </form>
+  </div>
+  <ul class="nav_box">
+    <li class="active"><a title="网站首页" href="https://zrzyt.hunan.gov.cn/" target="_top">首页</a></li>
+    <li id="a_xxgk"><a title="政务公开" href="/zrzyt/xxgk/list_xxgkqt.html" target="_top">政务公开</a></li>
+    <li><a title="全要素市场" href="https://gxpt.zrzyt.hunan.gov.cn/tdcsgzbgb" target="_top">全要素市场</a></li>
+    <li><a title="办事服务" href="http://zwfw-new.hunan.gov.cn/hnzwfw/1/186/679/index.htm" target="_top">办事服务</a></li>
+    <li id="a_hdjl"><a title="互动交流" href="/zrzyt/hdjl/index.html" target="_top">互动交流</a></li>
+  </ul>
+</div>
+    <!-- 头部结束 -->
+    <!-- 主体内容 -->
+    <div class="content_box">
+        <div class="main1200">
+            <div class="add_img_box">
+              <a href="https://zrzyt.hunan.gov.cn/zrzyt/zqzjgxxjy/zqzjggl.html" target="_blank"><img src="/zrzyt/xhtml/img/shouyetop260228.png" alt="" srcset=""></a>
+          </div>
+            <div class="headline_box">
+                <img class="headline_icon" src="/zrzyt/xhtml/img/20241129-headline-img.png" alt="" srcset="">
+                 
+
+                    <a href="http://www.hunan.gov.cn/hnszf/hnyw/sy/tt1/202610/t20261008_34076578.html" target="_blank">
+                        <h1>铸就社会主义文化新辉煌——习近平文化思想引领文化强国建设迈出坚实步伐</h1>
+                        <p>作为新时代党领导文化建设实践经验的理论总结，坚持“两个结合”、推进马克思主义文化理论创新的重大成果，习近平文化思想为做好...</p>
+                    </a>
+
+            </div>
+            <div class="focus_row">
+                <div class="focus_left">
+                    <div class="hd">
+						<ul><li></li><li></li><li></li><li></li><li></li></ul>
+					</div>
+                    <div class="bd">
+						<ul>
+                             
+                                <li>
+                                    <a href="/zrzyt/xxgk/gzdt/zhxw_1/202609/t20260914_34063933.html" target="_blank">
+                                        <img src="/zrzyt/xxgk/gzdt/zhxw_1/202609/34063933/images/c50884d3b273426bbf076b4e91f94f50.png
+">
+                                        <h1>余红胜赴省自然资源厅调研</h1>
+                                        <div></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/zrzyt/xxgk/gzdt/zhxw_1/202608/t20260821_34048930.html" target="_blank">
+                                        <img src="/zrzyt/xxgk/gzdt/zhxw_1/202608/34048930/images/7be40ce864b54c479374dba376eb0a60.png
+">
+                                        <h1>线上线下双轨驱动  打通要素赋能新通道 湖南省自然资源全要素市场大湾区旗舰店在深圳揭牌</h1>
+                                        <div></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/zrzyt/xxgk/gzdt/zhxw_1/202608/t20260826_34051138.html" target="_blank">
+                                        <img src="/zrzyt/xxgk/gzdt/zhxw_1/202608/34051138/images/4cbe719869474b8cba1f9e0199f7c73b.png
+">
+                                        <h1>省厅与自然资源部国土空间规划研究中心签订战略合作协议</h1>
+                                        <div></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/zrzyt/xxgk/gzdt/zhxw_1/202607/t20260724_34033258.html" target="_blank">
+                                        <img src="/zrzyt/xxgk/gzdt/zhxw_1/202607/34033258/images/13a171cf8d6c4f87b250ce494ec39f2f.png
+">
+                                        <h1>省厅召开2026年半年度重点工作调度会</h1>
+                                        <div></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/zrzyt/xxgk/gzdt/zhxw_1/202608/t20260814_34045194.html" target="_blank">
+                                        <img src="/zrzyt/xxgk/gzdt/zhxw_1/202608/34045194/images/cd4b09cee0754dfeb3742e2443b473de.png
+">
+                                        <h1>2026年乡村振兴服务团，出征！</h1>
+                                        <div></div>
+                                    </a>
+                                </li>
+
+						</ul>
+					</div>
+                </div>
+                <script type="text/javascript">
+					jQuery(".focus_left").slide({mainCell:".bd ul",autoPlay:true});
+				</script>
+                <div class="focus_right">
+                    <div class="focus_right_title"><a href="/zrzyt/xxgk/gzdt/ywzz/index.html" target="_blank">要闻</a></div>
+                    <ul class="focus_right_text">
+                         
+
+                            <li><a href="/zrzyt/xxgk/gzdt/ywzz/202608/t20260829_34052794.html" target="_blank">自然资源部党组召开会议 传达学习贯彻中共中央政治局会议精神 对西藏吉隆泥石流灾害抢险救援再部署</a></li>
+
+                            <li><a href="/zrzyt/xxgk/gzdt/ywzz/202610/t20261008_34076611.html" target="_blank">国庆长假将至，毛伟明在长沙暗访检查安全生产工作</a></li>
+
+                            <li><a href="/zrzyt/xxgk/gzdt/ywzz/202610/t20261008_34076603.html" target="_blank">中南大学、湖南大学湖南未来产业技术研究院同日揭牌 沈晓明出席并揭牌</a></li>
+
+                            <li><a href="/zrzyt/xxgk/gzdt/ywzz/202610/t20261008_34076592.html" target="_blank">沈晓明主持召开省委常委会会议</a></li>
+
+                            <li><a href="/zrzyt/xxgk/gzdt/ywzz/202610/t20261008_34076580.html" target="_blank">湖南省暨长沙市烈士纪念日向英雄烈士敬献花篮仪式举行 沈晓明毛伟明毛万春谢卫江出席</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="box_t40">
+                <div class="news_w600">
+                    <div class="check_nav check1">
+                        <span data-index="1" class="active"><a href="/zrzyt/xxgk/gzdt/zhxw_1/index.html" target="_blank">自然资源要闻</a></span>
+                        <span data-index="2"><a href="/zrzyt/xxgk/tzgg/index.html" target="_blank">通知公告</a></span>
+                    </div>
+                    <div class="news_text1 news1_1 news_show">
+                        <div class="news_top_text">
+                             
+
+                                <div class="top_time_box">
+                                    <h1>08</h1>
+                                    <p>26.10</p>
+                                </div>
+                                <h2><a href="/zrzyt/xxgk/gzdt/zhxw_1/202610/t20261008_34076693.html" target="_blank">李全胜赴省地质博物馆检查国庆假期安全运营工作</a></h2>
+
+                        </div>
+                        <ul class="focus_right_text news_ul">
+                             
+
+                                <li><a href="https://mp.weixin.qq.com/s/INwuoyuxe6wp_Rhq5b10fA" target="_blank">答个明白 | 规划引领 集约高效（5）</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/zhxw_1/202610/t20261008_34076711.html" target="_blank">喜报！湖南多项测绘科创成果在中国测绘地理信息科技年会上获奖</a></li>
+
+                                <li><a href="https://mp.weixin.qq.com/s/ZthiQ1pCphMrbfDVMiUXlA" target="_blank">答个明白 | 规划引领 集约高效（4）</a></li>
+
+                                <li><a href="https://mp.weixin.qq.com/s/_X9qEacmkp5wtURAt-7Tmg" target="_blank">答个明白 | 规划引领 集约高效（3）</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="news_text1 news1_2">
+                        <div class="news_top_text">
+                             
+
+                                <div class="top_time_box">
+                                    <h1>30</h1>
+                                    <p>26.09</p>
+                                </div>
+                                <h2><a href="/zrzyt/xxgk/tzgg/rsxxn/zcxxg/202609/t20260930_34075076.html" target="_blank">湖南省自然资源厅 湖南省人力资源和社会保障厅关于2026年自然资源工程专业初中级职称考试有关事项的通知</a></h2>
+
+                        </div>
+                        <ul class="focus_right_text news_ul">
+                             
+
+                                <li><a href="/zrzyt/xxgk/tzgg/rsxxn/zcxxg/202209/t20220913_33529092.html" target="_blank">湖南省国土空间规划专业初中级专业技术职务任职资格考试大纲（2026年修订）</a></li>
+
+                                <li><a href="/zrzyt/xxgk/tzgg/202609/t20260928_34073621.html" target="_blank">湖南省自然资源厅关于2026年第十一批城乡规划编制单位乙级资质认定的公告</a></li>
+
+                                <li><a href="/zrzyt/xxgk/tzgg/rsxxn/zkxxn/202609/t20260928_34073096.html" target="_blank">湖南省自然资源厅直属事业单位2026年高层次人才公开招聘第一批拟聘用人员名单公示</a></li>
+
+                                <li><a href="/zrzyt/xxgk/tzgg/202609/t20260928_34073536.html" target="_blank">湖南省自然资源厅关于注销湘西华林矿业有限公司阿佗铅锌矿等4宗采矿许可证的公告</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="news_w570">
+                    <div class="check_nav check2">
+                        <span data-index="1" class="active"><a href="/zrzyt/xxgk/gzdt/gzxx_1/index.html" target="_blank">厅直动态</a></span>
+                        <span data-index="2"><a href="/zrzyt/xxgk/gzdt/sxxx/index.html" target="_blank">市县动态</a></span>
+                        <span data-index="3"><a href="/zrzyt/xxgk/gzdt/mtgz/index.html" target="_blank">媒体关注</a></span>
+                    </div>
+                    <div class="news_text2 news2_1 news_show">
+                        <div class="news_top_text">
+                             
+
+                                <div class="top_time_box">
+                                    <h1>08</h1>
+                                    <p>26.10</p>
+                                </div>
+                                <h2><a href="/zrzyt/xxgk/gzdt/gzxx_1/202610/t20261008_34077339.html" target="_blank">省第一测绘院精准赋能桂阳县地质灾害避险搬迁核实工作</a></h2>
+
+                        </div>
+                        <ul class="focus_right_text news_ul">
+                             
+
+                                <li><a href="/zrzyt/xxgk/gzdt/gzxx_1/202609/t20260928_34072962.html" target="_blank">湘江新区自然资源全生命周期数据采集与治理项目通过验收</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/gzxx_1/202609/t20260928_34072960.html" target="_blank">省厅赴省第一测绘院调研科技创新平台运行情况</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/gzxx_1/202609/t20260928_34072895.html" target="_blank">湖南省新一代北斗时空基准与增强服务体系建设项目通过验收</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/gzxx_1/202609/t20260928_34072891.html" target="_blank">厅法规处联合事务中心开展送法“进校园、进企业、进乡镇”主题党日活动</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="news_text2 news2_2">
+                        <div class="news_top_text">
+                             
+
+                                <div class="top_time_box">
+                                    <h1>08</h1>
+                                    <p>26.10</p>
+                                </div>
+                                <h2><a href="/zrzyt/xxgk/gzdt/sxxx/202610/t20261008_34077353.html" target="_blank">岳阳：临湘创新开展地灾科普直播宣传活动</a></h2>
+
+                        </div>
+                        <ul class="focus_right_text news_ul">
+                             
+
+                                <li><a href="/zrzyt/xxgk/gzdt/sxxx/202610/t20261008_34077349.html" target="_blank">常德：澧县召开土地二轮延包不动产确权办证试点工作动员会</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/sxxx/202610/t20261008_34077346.html" target="_blank">湘潭：市政府专题调度耕地保护和全域土地综合整治工作</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/sxxx/202609/t20260928_34072973.html" target="_blank">常德：澧县“三个分策”推进切坡建房地质灾害隐患治理</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/sxxx/202609/t20260928_34072970.html" target="_blank">常德：安乡县多部门联动开展土地二轮延包颁证工作</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="news_text2 news2_3">
+                        <div class="news_top_text">
+                             
+
+                                <div class="top_time_box">
+                                    <h1>02</h1>
+                                    <p>26.09</p>
+                                </div>
+                                <h2><a href="https://moment.rednet.cn/content/646043/94/16232456.html" target="_blank">【红网时刻】海报丨洞悉湖南的B面，他们用数据点亮万年</a></h2>
+
+                        </div>
+                        <ul class="focus_right_text news_ul">
+                             
+
+                                <li><a href="https://moment.rednet.cn/content/646040/59/16001166.html" target="_blank">【红网时刻】撤离早一点，回家晚一步丨老洪说汛·地灾防治篇</a></li>
+
+                                <li><a href="https://m.voc.com.cn/xhn/news/202606/32850040.html" target="_blank">【新湖南】世界海洋日，湖南小朋友问了大海四个问题</a></li>
+
+                                <li><a href="/zrzyt/xxgk/gzdt/mtgz/202606/t20260609_33996650.html" target="_blank">【人民日报】交房即交证 安居又安心（人民眼·提升不动产登记便利度）</a></li>
+
+                                <li><a href="https://moment.rednet.cn/content/646040/94/15969370.html" target="_blank">【红网时刻】八个方面精准发力 湖南打出促进地质工作高质量发展“组合拳”</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="box_t40 ztzl_box">
+                <div class="ztzl_title">
+                  <a href="https://zrzyt.hunan.gov.cn/zrzyt/ztzl/index.html" target="_blank"> 
+                  	专题专栏
+                  </a>
+              	</div>
+                <div class="ztzl_nr">
+					<div class="hd">
+						<a class="prev"></a>
+						<a class="next"></a>
+					</div>
+					<div class="bd">
+						<ul>
+                             
+                                <li>
+                                    <a href="https://zrzyt.hunan.gov.cn/zrzyt/ltzzzl/lthkzlgl.html" target="_blank">
+                                        <img src="/zrzyt/ztzl/202512/33875396/images/29541cd6886e4056bfe6a83b06e5bebb.png
+" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://zrzyt.hunan.gov.cn/zrzyt/sxssmzzr/sxssmzzrgl.html" target="_blank">
+                                        <img src="/zrzyt/ztzl/202511/33853520/images/647c7d2e10684b94b517f9144c0e79b4.png
+" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://zrzyt.hunan.gov.cn/zrzyt/xxesjszqh/xxszqhgl.html" target="_blank">
+                                        <img src="/zrzyt/ztzl/202511/33843473/images/57c3ccdab21a46258ff40d0d7e259673.png
+" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.12371.cn/special/zgjs/" target="_blank">
+                                        <img src="/zrzyt/ztzl/202507/33751892/images/839eef5bb64a4fb79523cb7e0b13fafe.png
+" />
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://zrzyt.hunan.gov.cn/zrzyt/gclszybxgd/gcls8xgd.html" target="_blank">
+                                        <img src="/zrzyt/ztzl/202504/33643794/images/0b99e713054b42caa710d719db2773f8.png
+" />
+                                    </a>
+                                </li>
+
+						</ul>
+					</div>
+				</div>
+				<script type="text/javascript">
+					jQuery(".ztzl_nr").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"leftLoop",autoPlay:true,vis:3,trigger:"click"});
+				</script>
+            </div>
+            <div class="box_t40">
+                <div class="zcfg_box">
+                    <div class="zcfg_title"><a href="/zrzyt/falvfagui/list_zcdh_zcfg_st.html" target="_blank">政策法规</a></div>
+                    <ul class="zcfg_text">
+                         
+
+                            <li><a href="/zrzyt/xzfagui/202606/t20260602_33992020.html" target="_blank">行政法规制定程序条例</a></li>
+
+                            <li><a href="/zrzyt/xzfagui/202606/t20260602_33992029.html" target="_blank">中华人民共和国矿产资源法实施条例</a></li>
+
+                            <li><a href="/zrzyt/xzfagui/202606/t20260602_33992033.html" target="_blank">中华人民共和国行政复议法实施条例（2026年4月29日修订）</a></li>
+
+                            <li><a href="/zrzyt/zywjn/202606/t20260602_33992050.html" target="_blank">中共中央办公厅 国务院办公厅印发《碳达峰碳中和综合评价考核办法》</a></li>
+
+                    </ul>
+                    <div class="zcfg_search">
+                        <b>文件搜索:</b>
+                        <form id="searchForm" action="https://searching.hunan.gov.cn/hunan/114000000/file" target="_blank"
+                            method="get" onSubmit="return BMsearch();" enctype="application/x-www-form-urlencoded">
+                            <input type="text" id="searchtitle" name="q" placeholder="请输入关键词搜索">
+                        </form>
+                        <img id="searchImg" src="/zrzyt/xhtml/img/20241129-zcfg-search.jpg" />
+                        <script>
+                            $('#searchImg').click(()=>{
+                                var searchform = document.getElementById("searchForm");
+                                searchform.submit();
+                            })
+                        </script>
+                    </div>
+                </div>
+                <div class="zcjd_box">
+                    <div class="zcfg_title"><a href="/zrzyt/zhengcejd/list_zcdh_zcfg_st.html" target="_blank">政策解读</a></div>
+                    <ul class="zcfg_text">
+                         
+
+                            <li><a href="https://mp.weixin.qq.com/s/1RkPxvMSRZz-dqapNUI7ug" target="_blank">你对土地知多少？有奖问答等你来挑战</a></li>
+
+                            <li><a href="https://mp.weixin.qq.com/s/vddkCKK7gL5cdm28LdiixQ" target="_blank">图个明白丨八项重点工作 湖南进一步促进地质工作高质量发展</a></li>
+
+                            <li><a href="https://mp.weixin.qq.com/s/SpfsGA5jwJVHBNyMYLlBKA" target="_blank">@湖南老乡，切坡建房风险高！遇到滑坡、崩塌等，咋避险？一起图个明白</a></li>
+
+                            <li><a href="https://mp.weixin.qq.com/s/ntNV-eagrhSF04kdYiAusA" target="_blank">图个明白 | 事关项目用地、农村建房等，2026年省厅“助企帮村”施工图来了</a></li>
+
+                            <li><a href="/zrzyt/zhengcejd/202603/t20260311_33931808.html" target="_blank">湖南省自然资源厅解读《南岳区等43个国家重点生态功能区产业准入负面清单》</a></li>
+
+                    </ul>
+                </div>
+                <div class="xxzl_box">
+                    <a href="https://zrzyt.hunan.gov.cn/zrzyt/xxgk/zfxxgkpt/fdzdgknr/index.html"  target="_blank"><img src="/zrzyt/xhtml/img/20241129-xxgkzl-title.png" /></a>
+                    <ul class="xxzl_nr">
+                        <li><a href="/zrzyt/xxgk/zfxxgkpt/zfxxgkzn/index.html" target="_blank">政府信息公开指南</a></li>
+                        <li><a href="/zrzyt/xxgk/zfxxgkpt/zfxxgkzd/index.html" target="_blank">政府信息公开制度</a></li>
+                        <li><a href="/zrzyt/xxgk/zfxxgkpt/fdzdgknr/index.html" target="_blank">法定主动公开内容</a></li>
+                        <li><a href="/zrzyt/xxgk/zfxxgkpt/zfxxgknb/index.html" target="_blank">政府信息公开年报</a></li>
+                        <li><a href="/zrzyt/xxgk/zfxxgkpt/ysqgk/index.html" target="_blank">依申请公开</a></li>
+                        <li><a href="https://zwfw-new.hunan.gov.cn/hnvirtualhall/hndirectory/responsibilitylist.jsp?jgname=%25u7701%25u81EA%25u7136%25u8D44%25u6E90%25u5385&areaCode=439900000000&flag=&ygzw=null" target="_blank">权责清单</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="gray_bg">
+            <div class="main1200">
+                <div class="bsfw_title"> <a href="https://zwfw-new.hunan.gov.cn/hnzwfw/1/186/679/index.htm" target="_blank">办事服务旗舰店</a></div>
+                <div class="bsfw_box">
+                    <ul>
+                        <li><a href="https://zw.zrzyt.hunan.gov.cn:8081/home/index" target="_blank">空间规划</a></li>
+                        <li><a href="https://zw.zrzyt.hunan.gov.cn:8081/home/index" target="_blank">土地管理</a></li>
+                        <li><a href="https://zw.zrzyt.hunan.gov.cn:8081/home/index" target="_blank">地质矿产</a></li>
+                        <li><a href="https://zw.zrzyt.hunan.gov.cn:8081/home/index" target="_blank">测绘地信</a></li>
+                        <li><a href="https://zw.zrzyt.hunan.gov.cn:8081/home/index" target="_blank">确权登记</a></li>
+                    </ul>
+                </div>
+                <div class="tsfw_box">
+                    <div class="tsfw_title">
+                        <img src="/zrzyt/xhtml/img/20241129-tsfw-title-icon.png" />
+                        特色服务
+                    </div>
+                    <div class="tsfw_nr">
+                        <div class="hd">
+                            <a class="prev"></a>
+                            <a class="next"></a>
+                        </div>
+                        <div class="bd">
+                            <ul>
+                                <li>
+                                    <a href="https://gxpt.zrzyt.hunan.gov.cn/tdcsgzbgb" target="_blank">
+                                        <img src="/zrzyt/xhtml/img/20241129-tsfw-img1.png" />
+                                        <b>全要素市场</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://hunan.tianditu.gov.cn/TDTHN/portal/index.html" target="_blank">
+                                        <img src="/zrzyt/xhtml/img/20241129-tsfw-img2.png" />
+                                        <b>天地图·湖南</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.img.net/" target="_blank">
+                                        <img src="/zrzyt/xhtml/img/20241129-tsfw-img4.png" />
+                                        <b>云 遥</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="http://www.hunanbdc.com/" target="_blank">
+                                        <img src="/zrzyt/xhtml/img/20241129-tsfw-img3.png" />
+                                        <b>不动产</b>
+                                    </a>
+                                </li>
+								<!--<li>
+								    <a href="http://222.240.131.84/natureweb3/surveyinspectweb.html#/" target="_blank">
+								        <img src="/zrzyt/xhtml/img/20241207-jczhjgpt.png" />
+								        <b></b>
+								    </a>
+								</li>
+								<li>
+								    <a href="https://zrzyt.hunan.gov.cn/bsfw/spjg/ckxk/" target="_blank">
+								        <img src="/zrzyt/xhtml/img/20241207-spjg.png" />
+								        <b></b>
+								    </a>
+								</li>
+								<li>
+								    <a href="https://kczy.zrzyt.hunan.gov.cn:8085/kyqdqtx" target="_blank">
+								        <img src="/zrzyt/xhtml/img/20241207-kqdqtx.png" />
+								        <b></b>
+								    </a>
+								</li>
+								<li>
+								    <a href="https://zrzyt.hunan.gov.cn/zrzyt/bsfw/zlxz/index.html" target="_blank">
+								        <img src="/zrzyt/xhtml/img/20241207-zlxz.png" />
+								        <b></b>
+								    </a>
+								</li>
+								<li>
+								    <a href="http://222.240.131.83/gtmh/rdzt/hnsdzzlglyfw_321/" target="_blank">
+								        <img src="/zrzyt/xhtml/img/20241207-dzzlgl.png" />
+								        <b></b>
+								    </a>
+								</li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        jQuery(".tsfw_nr").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"leftLoop",autoPlay:false,vis:4,trigger:"click"});
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="main1200">
+            <div class="hdjl_title"><a href="https://zrzyt.hunan.gov.cn/zrzyt/hdjl/index.html" target="_blank">互动交流</a></div>
+            <div class="hdjl_box">
+                <div class="hdjl_left">
+                    <div class="hdjl_left_top">
+                        <!-- 厅长信箱 -->
+                        <a href="https://home.hunan.gov.cn:8096/account-center/a/login?deptId=f5c9f8b3d40045488d1d95fe2b0c246c" target="_blank"><img class="tzxx_img1" src="/zrzyt/xhtml/img/20241129-tzxx-img1.png" alt="" srcset=""></a>
+                        <ul class="tzxx_box">
+                            <li>
+                                <a href="javascript:;" onclick="myConsult()" target="_blank">
+                                    <img src="/zrzyt/xhtml/img/20241129-tzxx-img2.png" />
+                                    <p>我要咨询</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" onclick="mySuggest()" target="_blank">
+                                    <img src="/zrzyt/xhtml/img/20241129-tzxx-img3.png" />
+                                    <p>我要建议</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" onclick="myComplaint()" target="_blank">
+                                    <img src="/zrzyt/xhtml/img/20241129-tzxx-img4.png" />
+                                    <p>我要投诉</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="hdjl_nav">
+                            <span data-index="1" class="active"><a href="/zrzyt/hdjl/dczj/index.html" target="_blank">调查征集</a></span>
+                            <span data-index="2"><a href="/zrzyt/hdjl/dczj/yjzj/jgfk/index.html" target="_blank">结果反馈</a></span>
+                        </div>
+                        <div class="hdjl_text hdjl1 hdjl_show">
+                            <div class="text_top">
+                                <img src="/zrzyt/xhtml/img/20241129-dczj-img.jpg" />
+                                 
+
+                                    <a href="/zrzyt/hdjl/dczj/yjzj/202609/t20260929_34074312.html" target="_blank">
+                                        <p>《湖南省文化遗产与自然遗产整体保护国土空间专项规划（2024—2035年）》方案公示</p>
+                                        <div>
+                                            <script>
+                                                var nums = "正在征集";
+                                                if(nums == "结束征集"||nums == "调查结束"||nums == "结束调查"){
+                                                    document.write('<span>正在征集</span>');
+                                                }else{
+                                                    document.write('<span>正在征集</span>');
+                                                }
+                                            </script>
+                                            <i>征集时间：2026-09-29&nbsp;&nbsp;-&nbsp;&nbsp; 2026-10-29</i>
+                                        </div>
+                                    </a>
+
+                            </div>
+                            <ul class="dczj_text">
+                                 
+
+                                    <li><a href="/zrzyt/hdjl/dczj/yjzj/202608/t20260811_34043313.html" target="_blank">《湖南省耕地保护和国土绿化空间专项规划（2026—2035年）》方案公示</a></li>
+
+                                    <li><a href="/zrzyt/hdjl/dczj/yjzj/202607/t20260730_34036742.html" target="_blank">湖南省自然资源厅关于征求《湖南省“十五五”基础测绘规划（征求意见稿）》意见建议的公告</a></li>
+
+                                    <li><a href="/zrzyt/hdjl/dczj/yjzj/202607/t20260724_34033493.html" target="_blank">湖南省自然资源厅关于征求《湖南省测绘地理信息项目备案管理办法（征求意见稿）》意见的公告</a></li>
+
+                            </ul>
+                        </div>
+                        <!-- <div class="hdjl_text hdjl2">
+                            <div class="text_top">
+                                <img src="/zrzyt/xhtml/img/20241129-dczj-img.jpg" />
+                                 
+
+                                    <a href="/zrzyt/hdjl/dczj/yjzj/jgfk/202608/t20260826_34051044.html" target="_blank">
+                                        <p>《湖南省测绘地理信息项目备案管理办法（征求意见稿）》结果反馈</p>
+                                        <div>
+                                            <i style="padding-left: 0;">时间：2026-08-25</i>
+                                        </div>
+                                    </a>
+
+                            </div>
+                            <ul class="dczj_text">
+                                 
+
+                                    <li><a href="/zrzyt/hdjl/dczj/yjzj/jgfk/202605/t20260527_33988014.html" target="_blank">《湖南省“十五五”自然资源保护和利用规划（公开征求意见稿）》征求意见结果反馈</a></li>
+
+                                    <li><a href="/zrzyt/hdjl/dczj/yjzj/jgfk/202605/t20260527_33987998.html" target="_blank">《湖南省建设项目用地预审与选址管理办法（征求意见稿）》征求意见结果反馈</a></li>
+
+                                    <li><a href="/zrzyt/hdjl/dczj/yjzj/jgfk/202605/t20260527_33987991.html" target="_blank">《湖南省自然资源厅关于规范矿产勘查资源储量成果信息发布的通知》征求意见结果反馈</a></li>
+
+                            </ul>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="hdjl_right">
+                    <div class="hdjl_right_title"><a href="/zrzyt/hdjl/zxts/ftsl/index.html" target="_blank">新闻发布会</a></div>
+                    <div class="hdjl_right_top">
+                         
+                            <a href="/zrzyt/hdjl/zxts/ftsl/202508/t20250801_33756118.html" target="_blank">
+                                <img src="/zrzyt/hdjl/zxts/ftsl/202508/33756118/images/068539a9681b457c9db6f3d59c87e795.png
+">
+                                <div>
+                                    <p>湖南发布首届自然资源领域生态产品价值实现典型案例</p>
+                                    <span>时间：2025年07月31日</span>
+                                    <i>立即查看></i>
+                                </div>
+                            </a>
+
+                    </div>
+                    <ul class="dczj_text">
+                         
+
+                            <li><a href="寸土生寸金 向存量要空间——湖南推介25个存量土地盘活增效先进经验" target="_blank">寸土生寸金 向存量要空间——湖南推介25个存量土地盘活增效先进经验</a></li>
+
+                            <li><a href="https://moment.rednet.cn/pc/content/646047/95/15734467.html" target="_blank">《湖南省临时用地管理办法》政策解读新闻发布会图文实录</a></li>
+
+                    </ul>
+                    <ul class="tgtt_box">
+                      	<li><a href="https://zrzyt.hunan.gov.cn/zrzyt/xxgk/tzgg/dflz/202505/t20250522_33679276.html" target="_blank"><img src="/zrzyt/xhtml/img/20250904_zqyj.jpg" /></a></li>
+                        <li><a href="http://zrzyt.hunan.gov.cn/zrzyt/hdjl/dczj/yjzj/202403/t20240314_33201571.html" target="_blank"><img src="/zrzyt/xhtml/img/20250904_jczs.jpg" /></a></li>
+                        <li><a href="https://home.hunan.gov.cn:8096/account-center/a/login?deptId=f5c9f8b3d40045488d1d95fe2b0c246c" target="_blank"><img src="/zrzyt/xhtml/img/20260715tqgzjbx.png" /></a></li>
+                        <li><a href="https://home.hunan.gov.cn:8096/account-center/a/login?deptId=f5c9f8b3d40045488d1d95fe2b0c246c" target="_blank"><img src="/zrzyt/xhtml/img/20250904_xsjb.jpg" /></a></li>
+                        <li><a href="https://vpn.zrzyt.hunan.gov.cn/" target="_blank"><img src="/zrzyt/xhtml/img/20250904_tgtd.jpg" /></a></li>
+                    </ul>
+                    <!--<div style="text-align:center;display: flex;justify-content: center;align-items: center;margin: 10px 0;">
+                        <img width="20px" height="20px" src="/zrzyt/xhtml/img/20241211-phone.png" />
+                        <span style="margin-left: 10px;">法律政策咨询：0731-89991110</span>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var userId = "";
+        addEventListener('message',function(ev) {
+            userId = ev.data;
+        });
+
+        var newBlackLoginUrl = "";
+        var isLogin = 0;
+        //用户校验
+        function userVerify() {
+            if (userId != null && userId != "") {
+                isLogin = 1;
+            } else {
+                newBlackLoginUrl = "home.hunan.gov.cn/grzx/wxszsjh?value=";
+            }
+        }
+        function openHref(url, rdfwList) {
+            var deptId = "f5c9f8b3d40045488d1d95fe2b0c246c";
+            if (isLogin === 1) {
+                //已登录 跳转指定页面
+                window.open("https://home.hunan.gov.cn/grzx/" + url + "?rdfwList=" + rdfwList + "&id=" + userId + " &deptId=" +
+                    deptId + "&token");
+            } else {
+                //未登录  跳转登录页面
+                window.open("https://home.hunan.gov.cn:8096/account-center/a/login?directlyLoginUrl=home.hunan.gov.cn/grzx/" +
+                    url + "?rdfwList" + rdfwList + "deptId" + deptId);
+                // window.open("http://home.hunan.gov.cn:8092/account-center/a/login");
+            }
+        }
+        //我的咨询
+        function myConsult() {
+            userVerify();
+            openHref("dljmxf", "61d6234863954976a886f9119cdfe2cd");
+        }
+        //我要投诉
+        function myComplaint() {
+            userVerify();
+            openHref("dljmxfwdjy", "eabb428d571d4ef088d0bced664443e5");
+        }
+        //我要建议
+        function mySuggest() {
+            userVerify();
+            openHref("dljmxfwdts", "e407455e67c04ea2ba80e1a17233af64");
+        }
+        //获取部门信息
+        function getDeptId() {
+            return "b0b755d51d664693a6b331288b788d47";
+        }
+    </script>
+    <!-- 主体内容结束 -->
+  	<style>
+#_span_jiucuo img{
+margin-top:-66px !important; 
+margin-left:85px !important;
+}
+  
+.footer_main p a:last-child {
+	display: flex;
+    align-items: center;
+    color: #fff;
+}  
+
+.footer_main p {
+    margin-left: 110px;
+}
+  
+.footer_main p a{
+	color: #fff;
+}
+  
+  .address_phone_pc {
+    display: block;
+  }
+  .address_phone_mc {
+    display: none;
+  }
+  
+  @media (max-width: 767px) {
+    
+    .footer_main p a:last-child {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: #fff;
+    }
+    
+    .address_phone_pc {
+    	display: none;
+    }
+    
+    .address_phone_mc {
+    	display: block;
+    }
+  }
+
+</style>
+
+
+<script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+<!--<script src="https://home.hunan.gov.cn/login/js/index.js?id=39&tc=556fb6&mc=&p=467" charset="utf-8"></script>-->
+<script src="https://zrzyt.hunan.gov.cn/zrzyt/xhtml/images/index.js" charset="utf-8"></script>
+
+<!--foot begin-->
+<div class="friend_link_box">
+	<div class="friend_link">
+    	<h2>友情链接：</h2>
+        <ul>
+        	<li style="/* margin-left:20px; */">
+            	<select onchange="if(this.value!='')window.open(this.value);">
+            		<option value="">国家相关单位</option>
+                  	
+                  	<option value="http://www.mnr.gov.cn/">自然资源部</option>
+
+                  	<option value="http://www.cgs.gov.cn/">中国地质调查局</option>
+
+          		</select>
+            </li>
+            <li>
+            	<select onchange="if(this.value!='')window.open(this.value);">
+            		<option value="">外省自然资源主管部门</option>
+
+                  	<option value="http://ghzrzyw.beijing.gov.cn/">北京</option>
+
+                  	<option value="http://ghhzrzy.tj.gov.cn/">天津</option>
+
+                  	<option value="http://zrzy.hebei.gov.cn/">河北</option>
+
+                  	<option value="http://zrzyt.shanxi.gov.cn/">山西</option>
+
+                  	<option value="http://zrzy.nmg.gov.cn/">内蒙古</option>
+
+                  	<option value="http://zrzy.ln.gov.cn/">辽宁</option>
+
+                  	<option value="http://zrzy.jl.gov.cn/">吉林</option>
+
+                  	<option value="http://www.hljlr.gov.cn/">黑龙江</option>
+
+                  	<option value="http://ghzyj.sh.gov.cn/">上海</option>
+
+                  	<option value="http://zrzy.jiangsu.gov.cn/">江苏</option>
+
+                  	<option value="http://zrzyt.zj.gov.cn/">浙江</option>
+
+                  	<option value="http://zrzyt.ah.gov.cn/">安徽</option>
+
+                  	<option value="http://zrzyt.fujian.gov.cn/">福建</option>
+
+                  	<option value="http://bnr.jiangxi.gov.cn/">江西</option>
+
+                  	<option value="http://dnr.shandong.gov.cn/">山东</option>
+
+                  	<option value="http://dnr.henan.gov.cn/">河南</option>
+
+                  	<option value="http://zrzyt.hubei.gov.cn/html/index.html">湖北</option>
+
+                  	<option value="http://nr.gd.gov.cn/">广东</option>
+
+                  	<option value="http://dnr.gxzf.gov.cn/">广西</option>
+
+                  	<option value="http://lr.hainan.gov.cn/">海南</option>
+
+                  	<option value="http://ghzrzyj.cq.gov.cn/">重庆</option>
+
+                  	<option value="http://dnr.sc.gov.cn/">四川</option>
+
+                  	<option value="http://zrzy.guizhou.gov.cn/">贵州</option>
+
+                  	<option value="http://dnr.yn.gov.cn/">云南</option>
+
+                  	<option value="http://www.xzgtt.gov.cn/">西藏</option>
+
+                  	<option value="http://zrzyt.shaanxi.gov.cn/">陕西</option>
+
+                  	<option value="http://zrzy.gansu.gov.cn/">甘肃</option>
+
+                  	<option value="http://zrzyt.qinghai.gov.cn/index">青海</option>
+
+                  	<option value="http://zrzyt.nx.gov.cn/">宁夏</option>
+
+                  	<option value="http://www.xjgtzy.gov.cn/">新疆</option>
+
+                  	<option value="http://www.zrzy.dl.gov.cn/">大连</option>
+
+                  	<option value="http://zrzygh.qingdao.gov.cn/n28356074/index.html">青岛</option>
+
+                  	<option value="http://zgj.ningbo.gov.cn/">宁波</option>
+
+                  	<option value="http://zygh.xm.gov.cn/">厦门</option>
+
+                  	<option value="http://pnr.sz.gov.cn/">深圳</option>
+
+                  	<option value="http://zrzy.xjbt.gov.cn/">兵团</option>
+
+          		</select>
+            </li>
+            <li>
+            	<select onchange="if(this.value!='')window.open(this.value);">
+            		<option value="">省直单位</option>
+
+                  	<option value="http://www.hunan.gov.cn/szf/zfjg/szfbgt/">省政府办公厅</option>
+
+                  	<option value="http://fgw.hunan.gov.cn/">省发展和改革委员会</option>
+
+                  	<option value="http://jyt.hunan.gov.cn/">省教育厅</option>
+
+                  	<option value="http://kjt.hunan.gov.cn/">省科学厅</option>
+
+                  	<option value="http://gxt.hunan.gov.cn/">省工业和信息化厅</option>
+
+                  	<option value="http://mzw.hunan.gov.cn/">省民宗会</option>
+
+                  	<option value="http://gat.hunan.gov.cn/">省公安厅</option>
+
+                  	<option value="http://mzt.hunan.gov.cn/">省民政厅</option>
+
+                  	<option value="http://sft.hunan.gov.cn/">省司法厅</option>
+
+                  	<option value="http://czt.hunan.gov.cn/">省财政厅</option>
+
+                  	<option value="http://rst.hunan.gov.cn/">省人力资源和社会保障厅</option>
+
+                  	<option value="http://zrzyt.hunan.gov.cn/">省自然资源厅</option>
+
+                  	<option value="http://sthjt.hunan.gov.cn/">省生态环境厅</option>
+
+                  	<option value="http://zjt.hunan.gov.cn/">省住房和城乡建设厅</option>
+
+                  	<option value="http://jtt.hunan.gov.cn/">省交通运输厅</option>
+
+                  	<option value="http://slt.hunan.gov.cn/">省水利厅</option>
+
+                  	<option value="http://agri.hunan.gov.cn/">省农业农村厅</option>
+
+                  	<option value="http://swt.hunan.gov.cn/">省商务厅</option>
+
+                  	<option value="http://whhlyt.hunan.gov.cn/">省文化和旅游厅</option>
+
+                  	<option value="http://wjw.hunan.gov.cn/">省卫生健康委</option>
+
+                  	<option value="http://sjt.hunan.gov.cn/">省审计厅</option>
+
+                  	<option value="http://tyjrswt.hunan.gov.cn/">退役军人事务厅</option>
+
+                  	<option value="http://yjt.hunan.gov.cn/">省应急厅</option>
+
+                  	<option value="http://gzw.hunan.gov.cn/">省国资委</option>
+
+                  	<option value="http://lyj.hunan.gov.cn/">省林业局</option>
+
+                  	<option value="http://amr.hunan.gov.cn/">省市场监管局</option>
+
+                  	<option value="http://gbdsj.hunan.gov.cn/">省广电局</option>
+
+                  	<option value="http://tyj.hunan.gov.cn/">省体育局</option>
+
+                  	<option value="http://tjj.hunan.gov.cn/">省统计局</option>
+
+                  	<option value="http://jgswj.hunan.gov.cn/">省机关事务局</option>
+
+                  	<option value="http://dfjrjgj.hunan.gov.cn/">省地方金融监管局</option>
+
+                  	<option value="http://rfb.hunan.gov.cn/">省人防办</option>
+
+                  	<option value="http://xfj.hunan.gov.cn/index.html">省信访局</option>
+
+                  	<option value="http://hnsfpb.hunan.gov.cn/">省乡村振兴局</option>
+
+                  	<option value="http://lshwzcbj.hunan.gov.cn/#reloaded">省粮食和储备局</option>
+
+                  	<option value="http://ybj.hunan.gov.cn/">省医保局</option>
+
+                  	<option value="http://hnjyj.hunan.gov.cn/">省监狱管理局</option>
+
+                  	<option value="https://wwj.hunan.gov.cn/">省文物局</option>
+
+                  	<option value="http://tcm.hunan.gov.cn/">省中医药局</option>
+
+                  	<option value="http://mpa.hunan.gov.cn/">省药品监管局</option>
+
+                  	<option value="http://fzyj.hunan.gov.cn/">省政府发展研究中心</option>
+
+                  	<option value="http://gxhzs.hunan.gov.cn/">省供销合作社</option>
+
+                  	<option value="http://css.hunan.gov.cn/">省文史研究馆</option>
+
+          		</select>
+            </li>
+            <li>
+            	<select onchange="if(this.value!='')window.open(this.value);">
+            		<option value="">厅直属单位集约网站群</option>
+
+                  	<option value="http://www.hnzrzy.cn/">省自然资源事务中心</option>
+
+                  	<option value="http://www.xcyy.net.cn">湖南省第一测绘院</option>
+
+                  	<option value="http://www.hndechy.com/">湖南省第二测绘院</option>
+
+                  	<option value="http://www.hnpgc.com">湖南省第三测绘院</option>
+
+                  	<option value="http://www.hngtghy.com/">湖南省国土资源规划院</option>
+
+                  	<option value="http://www.hunanbdc.com/">湖南省不动产登记中心</option>
+
+                  	<option value="http://www.hncks.cn/">湖南省测绘科技研究所</option>
+
+                  	<option value="http://www.hngtzz.cn/">湖南省土地综合整治局</option>
+
+                  	<option value="http://www.hndzbwg.com/">湖南省地质博物馆</option>
+
+                  	<option value="http://zrzyt.hunan.gov.cn/">湖南省测绘局大院管理所</option>
+
+          		</select>
+            </li>
+             <li>
+            	<select onchange="if(this.value!='')window.open(this.value);">
+            		<option value="">市州自然资源和规划局</option>
+
+                  	<option value="http://zygh.changsha.gov.cn/">长沙市自然资源和规划局</option>
+
+                  	<option value="https://www.hengyang.gov.cn/zygh">衡阳市自然资源和规划局</option>
+
+                  	<option value="http://gtzyj.zhuzhou.gov.cn/">株洲市自然资源和规划局</option>
+
+                  	<option value="http://zygh.xiangtan.gov.cn/">湘潭市自然资源和规划局</option>
+
+                  	<option value="https://zrzy.shaoyang.gov.cn/">邵阳市自然资源和规划局</option>
+
+                  	<option value="http://zygh.yueyang.gov.cn/">岳阳市自然资源和规划局</option>
+
+                  	<option value="http://zrzyhghj.changde.gov.cn">常德市自然资源和规划局</option>
+
+                  	<option value="http://gtj.zjj.gov.cn/">张家界市自然资源和规划局</option>
+
+                  	<option value="http://www.yiyang.gov.cn/yysgtzyj/index.htm">益阳市自然资源和规划局</option>
+
+                  	<option value="http://zygh.czs.gov.cn/">郴州市自然资源和规划局</option>
+
+                  	<option value="http://gtzy.yzcity.gov.cn/gtzy/index3.shtml">永州市自然资源和规划局</option>
+
+                  	<option value="http://zrzyghj.huaihua.gov.cn/?tdsourcetag=s_pcqq_aiomsg">怀化市自然资源和规划局</option>
+
+                  	<option value="http://zrzyj.hnloudi.gov.cn/">娄底市自然资源和规划局</option>
+
+                  	<option value="http://zrzyhghj.xxz.gov.cn/">湘西自治州自然资源和规划局</option>
+
+          		</select>
+            </li>
+            <li>
+            	<select onchange="if(this.value!='')window.open(this.value);">
+            		<option value="">其他链接</option>
+
+                  	<option value="http://www.xinhuanet.com/">新华网</option>
+
+                  	<option value="http://www.people.com.cn/">人民网</option>
+
+          		</select>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="footer">
+  <p class="footer_nav" style="clear:  both;">
+    <a title="版权声明" href="//zrzyt.hunan.gov.cn/zrzyt/qt/201901/t20190118_4563008.html" target="_blank">版权声明</a>|
+    <a title="使用帮助" href="//zrzyt.hunan.gov.cn/zrzyt/qt/201901/t20190118_4563038.html" target="_blank">使用帮助</a>|
+    <a title="隐私保护" href="//zrzyt.hunan.gov.cn/zrzyt/qt/201901/t20190118_4563040.html" target="_blank">隐私保护</a>|
+    <a title="关于我们" href="/xxgk/jgzn/" target="_blank">关于我们</a>|
+    <a title="联系方式" href="//zrzyt.hunan.gov.cn/zrzyt/qt/201901/t20190118_4563045.html" target="_blank">联系方式</a>|
+    <!--<a title="访问分析" href="http://tongji.baidu.com/web/welcome/ico?s=6bda25ed9c14ff88ddb9a8239ca13fda" target="_blank">访问分析</a>|-->
+    <a title="返回顶部" onclick="window.scrollTo(0,0);" style="cursor:hand;font-family:微软雅黑">返回顶部↑</a>
+</p><a><script language="JavaScript"type="text/javascript">function c_venus(){if(window.ActiveXObject){return new ActiveXObject("Microsoft.XMLHTTP")}else if(window.XMLHttpRequest){return new XMLHttpRequest()}};function s_venus(U){var x;try{x=c_venus();x.open("GET",U);x.send(null)}catch(e){return}};U="";function T_venus(){var src;if(U.length>1024){src="brmidyrvj.php?url="+U+"&localurl="+document.URL;s_venus(src);U=""}};function L_venus(l){var o;o=document.getElementsByTagName(l);for(i=0;i<o.length;i+=1){if(o[i].src)U=U+l+"*"+decodeURIComponent(o[i].src)+";";T_venus()}};function C_venus(c){var o;o=document.getElementsByTagName(c);for(i=0;i<o.length;i+=1){if((o[i].type=="text/css"||o[i].rel=="stylesheet")&&o[i].href)U=U+c+"*"+decodeURIComponent(o[i].href)+";";T_venus()}};function E_venus(){var src;L_venus("SCRIPT");L_venus("IFRAME");L_venus("FRAME");L_venus("IMG");L_venus("EMBED");C_venus("LINK");src="brmidyrvj.php?url="+U+"&localurl="+document.URL;s_venus(src)};E_venus();</script>
+  
+  	<div class="related-url">
+        <a href="https://www.gov.cn/">中国政府网</a>
+        <a href="https://m.mnr.gov.cn/">中华人民共和国自然资源部</a>
+        <a href="https://www.hunan.gov.cn/index_m.html"> 湖南省政府门户网站</a>
+    </div>
+  
+    <div class="footer_main">
+    	<div class="gov_icon">
+        	<!--<script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/19/000/0000/40589310/CA190000000405893100001.js' type='text/javascript'%3E%3C/script%3E"));</script>-->
+
+     
+      	<a href="https://bszs.conac.cn/sitename?method=show&id=275EB360B1294723E053012819ACAD60"><img src="http://dcs.conac.cn/image/red.png"/></a>    
+            <script id="_jiucuo_" sitecode="4300000042" src="https://zfwzgl.www.gov.cn/exposure/jiucuo.js"></script>
+        </div>
+
+
+        <p>
+           主办单位：湖南省自然资源厅 &nbsp;  政府网站标识码：4300000042 <br/>
+			<span class="address_phone_pc">地址：长沙市天心区湘府西路八号&nbsp;&nbsp;网站维护电话：0731-89991215（仅受理网站建设维护相关事宜）</span>
+          	<span class="address_phone_mc">地址：长沙市天心区湘府西路八号<br/>网站维护电话：0731-89991215（仅受理网站建设维护相关事宜）<br/></span>
+          <a href="https://beian.miit.gov.cn " target="_blank"  style=" color: #fff;">备案号：湘ICP备2021016353号</a>　技术支持：湖南省政务服务和大数据中心<br/>
+                       <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43010302000926" style="color:#fff" target="_blank"><img src="/zrzyt/xhtml/img/batb.png" style="width:20px;height:20px;" />湘公网安备43010302000926号</a>
+	
+</p>
+
+    </div>
+</div>
+
+<script src="https://auth.mangren.com/boots/zrzyt.hunan.gov.cn/esdToolsInit.js" charset="UTF-8"></script>
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6bda25ed9c14ff88ddb9a8239ca13fda ";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+  $(document).ready(function(){
+    var url = location.href;
+    $('ul.nav_box li').each(function () {
+      if($(this).attr('id')){
+        var code = $(this).attr('id').replace('a_','/');
+        if(url.indexOf(code)>-1){
+          $(this).addClass('active');
+          $(this).siblings('li').removeClass("active")
+        }
+      }
+    });
+  });
+</script>
+
+<!--foot end-->
+<script language="JavaScript">var _trackDataType = 'web';var _trackData = _trackData || [];</script>
+<script type="text/javascript" charset="utf-8" id="kpyfx_js_id_10006610" src="//fxsjcj.kaipuyun.cn/count/10006610/10006610.js"></script>
+
+
+<script type="text/javascript" charset="utf-8" src="//pvjs.jktong.com/plugs/stat.js?token=305b92add351bafde5b9ef4c43f1f9ec"></script>
+    <script src="https://home.hunan.gov.cn/login/js/index.js?id=39&tc=556fb6&mc=&p=467" charset="utf-8"></script>
+    <script>
+        $(document).ready(function(){
+            let check1Index = 1
+            $('.check1 span').on('mouseover',function(){
+                $('.check1 span').removeClass('active')
+                $(this).addClass('active')
+                $('.news_text1').removeClass('news_show')
+                $('.more1_text').removeClass('news_show')
+                check1Index = $(this).data('index')
+                var target = ".news1_" + check1Index
+                $(target).addClass('news_show')
+            })
+            let check2Index = 1
+            $('.check2 span').on('mouseover',function(){
+                $('.check2 span').removeClass('active')
+                $(this).addClass('active')
+                $('.news_text2').removeClass('news_show')
+                $('.more2_text').removeClass('news_show')
+                check2Index = $(this).data('index')
+                var target = ".news2_" + check2Index
+                $(target).addClass('news_show')
+            })
+            let hdjlIndex = 1
+            $('.hdjl_nav span').on('mouseover',function(){
+                $('.hdjl_nav span').removeClass('active')
+                $(this).addClass('active')
+                // $('.hdjl_text').removeClass('hdjl_show')
+                // hdjlIndex = $(this).data('index')
+                // var target = ".hdjl" + hdjlIndex
+                // $(target).addClass('hdjl_show')
+            })
+        })
+    </script>
+  
+  	<style>
+			.qyBox{
+				width: 300px;
+				padding: 26px 20px;
+				position: fixed;
+				top: 70%;
+				right: 0%;
+				z-index: 9999;
+				background: #fff;
+				border: 0.01rem solid #D1DAEE;
+				box-shadow: 0 0.04rem 0.24rem #7A8CA8
+			}
+			.qyclose {
+				font-size: 15px;
+				position: absolute;
+				top: 1%;
+				right: 4%;
+				cursor: pointer;
+			}
+			.qytitle{
+				text-align: center;
+				font-size: 0.18rem;
+				font-weight: 600;
+				margin-bottom: 0.1rem
+			}
+			.qycontent{
+				font-size: 16px;
+				white-space: normal;
+			}
+			.qycontent p {
+				text-indent: 2em;
+				text-align: justify;
+				font-family: fangsong;
+			}
+			
+		</style>
+		<!-- <div class="qyBox">
+				<div class="qyclose">x</div>
+				<div class="qytitle">
+					  市政府门户网站改版试运行公告
+				</div>
+				<div class="qycontent">
+						<p>湖南省自然资源厅新版门户网站于2024年12月18日开始试运行，敬请广大网友提出宝贵意见建议。我们将认真研究，不断修改完善。试运行可能带来的不便，敬请广大网友谅解!</p>
+						<p>联系人：周昌琪 18692728869</p>
+				</div>
+		</div> -->
+		<script>
+		  //$(".qyclose").on('click', function() {
+		    // $(".qyBox").css("display","none")
+		  //});
+		</script>
+</body>
+</html>

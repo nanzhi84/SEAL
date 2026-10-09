@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9,IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="Keywords" content="北京市规划和自然资源委员会">
+    <meta name="Description" content="北京市规划和自然资源委员会">
+    <meta name="SiteName" content="北京市规划和自然资源委员会">
+    <meta name="SiteDomain" content="ghzrzyw.beijing.gov.cn">
+    <meta name="SiteIDCode" content="1100000049">
+    <meta name="SiteUrl" content="//ghzrzyw.beijing.gov.cn">
+    <meta name="ColumnName" content="不动产登记公告公示">
+    <meta name="ColumnDescription" content="不动产登记频道下设各类信息公开、进度查询相关内容。">
+    <meta name="ColumnKeywords" content="不动产登记公告公示s">
+    <meta name="ColumnType" content="不动产登记公告公示">
+    <title>不动产登记公告公示 </title>
+    <link rel="stylesheet" href="../common/plugins/css/style.css">
+    <link rel="stylesheet" href="../assets/common/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/common/layui/css/layui.mobile.css">
+</head>
+<body>
+<style>
+    .layui-newdydiv .gjz {
+        width: 100px!important;
+    }
+    body .layui-form-label{
+        width: 100px;
+    }
+    body .layui-input-block{
+        margin-left:120px;
+    }
+</style>
+<!-- <iframe frameborder="0" height="201" scrolling="no" src="//ghzrzyw.beijing.gov.cn/zhandianxinxi/iframegytym/index.html" style="min-width: 1100px;" width="100%"></iframe> -->
+<!-- <iframe class="iframeone" frameborder="0" height="201" scrolling="no" src="//ghzrzyw.beijing.gov.cn/test/test2/index.html" style="min-width: 375px;" width="100%"></iframe>
+<include src="common/bdcdjgggs_two.html"></include> -->
+<iframe class="iframeone" frameborder="0" height="201" scrolling="no" src="//yewu.ghzrzyw.beijing.gov.cn/zhandianxinxi/header/index.html" style="min-width: 1200px;" width="100%" seamless></iframe>
+<div id='headerTwo'></div>
+<!-- 此处开始页面主要内容 -->
+<div class="layui-divbox">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
+        <a><cite class="mydqwz">您现在的位置：</cite></a></span>
+        <a href="//ghzrzyw.beijing.gov.cn/" class="tzclassa"><cite>首页</cite></a>
+        <span lay-separator="">></span>
+        <a class="tzclassa" href="//ghzrzyw.beijing.gov.cn/budongchandengji"><cite>不动产登记</cite></a>
+        <span lay-separator="">></span>
+        <a><cite class="cur">不动产登记公告公示</cite></a>
+    </div>
+    <div class=" layui-form-item layui-newdydiv" style="margin-bottom: 10px;" id="infoDiv">
+        <div class="layui-form layui-ydxxbox">
+            <div class="layui-inline">
+                <label class="layui-form-label">坐落：</label>
+                <div class="layui-input-inline layui-widthdiv gjz" >
+                    <input type="text" id="landaddress" autocomplete="off" class="layui-input" placeholder="请输入坐落" >
+                </div>
+            </div>
+            <div class="layui-inline " >
+                <label class="layui-form-label">公示内容：</label>
+                <div class="layui-input-inline layui-widthdiv gjz">
+                    <input type="text" id="note" autocomplete="off" class="layui-input" placeholder="请输入公示内容" >
+                </div>
+            </div>
+            <div class="layui-inline " >
+                <label class="layui-form-label">发布日期：</label>
+                <div class="layui-input-inline layui-widthdiv gjz">
+                    <input type="text" id="fbtime" autocomplete="off" class="layui-input" placeholder="请输入发布日期" >
+                </div>
+            </div>
+            <div class="layui-inline " >
+                <label class="layui-form-label">发布机构：</label>
+                <div class="layui-input-inline layui-widthdiv gjz">
+                    <input type="text" id="landregorgan" autocomplete="off" class="layui-input" placeholder="请输入发布机构" >
+                </div>
+            </div>
+            <div class="layui-inline layui-qsryanzm">
+                <button class="layui-btn layui-search" data-type="reload">搜索</button>
+                <button  class="layui-btn layui-reset"  style="margin-left: 10px; " data-type="reset">重置</button>
+            </div>
+        </div>
+        <div class="layui-tablist">
+            <table class="layui-hide" id="bdcdjgggsTable" lay-filter="bdcdjgggsTable"></table>
+            <div style="text-align: center;" id="bdcdjgggsTablePageDiv" ></div>
+        </div>
+    </div>
+
+    <div class=" layui-form-item layui-newdydiv" style="overflow:hidden; margin-bottom: 10px;" id="detailDiv">
+
+    </div>
+</div>
+<include src="../common/pages/rightToolBar.html"></include>
+<script src="../common/plugins/js/jquery.min.js"></script>
+<script src="../assets/common/layui/layui.js"></script>
+<script src="../common/plugins/js/include.js"></script>
+<script src="../assets/common/js/common.js"></script>
+<script src="../common/plugins/js/navigation.js"></script>
+<script type="text/html" id="tableXqBar">
+    {{# if(d.isFile == '1'){ }}
+    <a class="layui-btn layui-btn-primary layui-btn-xs"  lay-event="xqEvent">查看</a>
+    {{# } }}
+</script>
+
+<script>
+    layui.use(['form','layer','ax','table','laypage','laytpl','laydate','formutil'], function () {
+        var $ = layui.$;
+        var layer = layui.layer;
+        var $ax = layui.ax;
+        var form = layui.form;
+        var table = layui.table;
+        var laypage = layui.laypage;
+        var laytpl = layui.laytpl;
+        var laydate = layui.laydate;
+        var formutil = layui.formutil;
+        var limit = 10;
+
+        var winWidth = $(window).width();
+        if(winWidth > 1200){
+        	$("#headerTwo").load('common/bdcdjgggs_two.html');
+        }
+        
+        laydate.render({
+            elem: '#fbtime'
+        });
+        //渲染table
+        function renderTable(data){
+            table.render({
+                elem: '#bdcdjgggsTable'
+                ,data: data
+                ,cellMinWidth: 80
+                ,cols: [[
+                    {field: 'landaddress', sort: false,align:'center', title: '不动产坐落'},
+                    {field: 'applyunit', sort: false,align:'center', title: '申请人'},
+                    {field: 'estatenumber', sort: false,align:'center', title: '不动产登记证书或不动产登记证明号'},
+                    {field: 'note',width:120, sort: false,align:'center', title: '公告公示内容'},
+                    {align: 'center',width:120,field:'fbtime', title: '发布日期', sort: false, templet: function (d) {
+                            return formatDate(d.fbtime);
+                        }},
+                    {field: 'landregorgan', sort: false,align:'center', title: '发布机构'},
+                    {field: 'tableBar',align: 'center', toolbar: '#tableXqBar',width:90, title: '查看原件'}
+                ]]
+                ,text: {
+                    none: '暂无相关数据！'
+                }
+            });
+        }
+
+        //渲染分页
+        function renderPage(curr,count){
+            laypage.render({
+                elem: 'bdcdjgggsTablePageDiv'
+                ,count: count
+                ,limit: limit
+                ,curr: curr
+                ,groups: 3
+                ,prev: '<'
+                ,next: '>'
+                ,first: 1
+                ,layout: ['prev','page','next','count','skip']
+                ,theme: '#0973CA'
+                ,jump: function(obj, first){
+                    if (!first) {
+                        getTableDate(obj.curr);
+                    }
+                }
+            });
+        }
+        //搜索数据
+        function getTableDate(page){
+            var fbtime;
+            if($('#fbtime').val()!=""){
+            	fbtime = $('#fbtime').val();
+            }
+            $ax.req({
+                url: serverName.restBasePath+'/bdcdjbdcdjgggs/esSearchList'
+                ,data:{ page: page, limit: limit, fbsj: fbtime, landaddress: $('#landaddress').val(), note: $('#note').val(), landregorgan: $('#landregorgan').val()}
+                ,done:function(res){
+                    if(res.code=='0'){
+                        renderTable(res.data);
+                        renderPage(page,res.count);
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                }
+            });
+        }
+
+        //初始查第一页数据
+        getTableDate(1);
+
+        var $ = layui.$, active = {
+            reload: function () {
+                getTableDate(1);
+            },
+            reset: function () {
+                $("#fbtime").val('');
+                $("#landaddress").val('');
+                $("#note").val('');
+                $("#landregorgan").val('');
+                getTableDate(1);
+            }
+        };
+        fanhui = function(){
+            $("#detailDiv").css('display', 'none');
+            $("#infoDiv").css('display', 'block');
+        }
+
+        $('.layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+
+        //监听工具条
+        table.on('tool(bdcdjgggsTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'xqEvent') {
+                var filecode ='bdcdj_bdcdjgggs';
+                var objuuid = data.objuuid;
+                $ax.req({
+                    url: serverName.restBasePath+'/upload/filesEs',
+                    data:JSON.stringify({"dataId" : objuuid,"dtos" :[  { previewelem : filecode, filecodes : [filecode] } ]}),
+                    type: "POST",
+                    async: false,
+                    contentType: "application/json",
+                    done:function(d){
+                        if(d.data && d.data.length >0 ){
+                            var fileUrl;
+                            if(isEmpty(serverName.restFilePath)){
+                                fileUrl = serverName.restBasePath + '/upload/renderfilestreamEs?id='+d.data[0].id;
+                            }else{
+                                fileUrl = serverName.restFilePath+d.data[0].fileUrl;
+                            }
+                            window.open(fileUrl);
+                        }else{
+                            layer.msg("没有附件可以查看");
+                        }
+                    }
+                });
+            }
+        });
+
+
+    });
+</script>
+
+<!--流量分析-->
+<script>
+    var _vaq = _vaq || [];
+    _vaq.push(["setCookieDomain", "auto"]);
+    _vaq.push(['setPingTime',3000]);
+    _vaq.push(['enableHeat']);
+    _vaq.push(['trackPageView']);
+    (function() {
+        _vaq.push(['setSiteId',1105]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+        g.defer=true; g.async=true; g.src='//yhxw.tj.beijing.gov.cn/vas.js'; s.parentNode.insertBefore(g,s);
+    })();
+</script>
+<!-- <iframe src="/zhandianxinxi/iframegywym/index.html" frameborder="0" scrolling="no" width="100%" height="327" style="min-width: 1100px;"></iframe> -->
+<iframe class="iframetwo" src="//ghzrzyw.beijing.gov.cn/zhandianxinxi/footer/index.html" frameborder="0" scrolling="no" width="100%" height="327" style="min-width: 1200px;"></iframe>
+</body>
+</html>

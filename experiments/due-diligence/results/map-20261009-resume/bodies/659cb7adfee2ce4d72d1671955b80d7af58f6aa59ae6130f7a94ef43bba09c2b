@@ -1,0 +1,583 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" href="favicon.ico" />
+<script language="javascript">
+function PQuery(){
+  var PValue;
+	PValue=document.getElementById("PQuery").value;
+	url = "http://www.nsstec.org.cn/cpjc/zscx/index.shtml?RadioGroup=mohu&SearchFQuery="+PValue;
+	location.href = encodeURI(encodeURI(url));
+}
+</script>
+
+<title>国家保密科技测评中心</title>
+</head>
+<body>
+<link href="styles/stylenew.css" type="text/css" rel="stylesheet" />
+<script src="js/jquery.js"></script>
+<div id="Logo"> 
+<script type="text/javascript">
+$(document).ready(function() {
+	$( '.dropdown' ).hover(
+		function(){
+			$(this).children('.sub-menu').slideDown(20);
+		},
+		function(){
+			$(this).children('.sub-menu').slideUp(20);
+		}
+	);
+});
+
+function addfavorite(){
+  if (document.all)
+  {
+   window.external.addFavorite("http://www.nsstec.org.cn/","国家保密科技测评中心");
+  }
+  else if (window.sidebar)
+  {
+   window.sidebar.addPanel("国家保密科技测评中心", "http://www.nsstec.org.cn/", "");
+  }
+} 
+
+function menuFix() {
+	var sfEls = document.getElementById("wrapper").getElementsByTagName("li");
+	for (var i=0; i<sfEls.length; i++) {
+		sfEls[i].onmouseover=function() {
+			this.className+=(this.className.length>0? " ": "") + "sfhover";
+		
+		}
+		sfEls[i].onMouseDown=function() {
+			this.className+=(this.className.length>0? " ": "") + "sfhover";
+		}
+		sfEls[i].onMouseUp=function() {
+			this.className+=(this.className.length>0? " ": "") + "sfhover";
+		}
+		sfEls[i].onmouseout=function() {
+			this.className=this.className.replace(new RegExp("( ?|^)sfhover\\b"), "");
+		}
+	}
+ }
+ window.onload=menuFix;
+
+</script>
+<script type="text/javascript">
+function checkURL(){ 
+	var url= window.location.href.split("?")[1];
+	var checkstr="%|>|<;|,|'|\"|\'|{|}[|](|)|~|@|$|select|update|insert|delete|script|alert";
+	var strarr=checkstr.split("|");
+	if(url != null && url != undefined){
+		for(var i=0;i<strarr.length;i++){
+			if(url.indexOf(strarr[i])>0){
+				alert("非法URL!");
+				window.location.href="http://www.nsstec.org.cn";
+				return;
+			}
+		}
+	}
+}
+checkURL();
+</script>
+	<div class="logoBg">
+		<div class="store">
+			<a href="#" onclick="addfavorite()" class="storeTxt">加入收藏</a>&nbsp;
+			<a href="lxwm/index.shtml" class="storeTxt">联系我们</a>
+		</div>
+		<div class="search">
+		<!--		
+			<form action="http://203.207.196.55/CmsProject/Search/Result.jsp" target="_blank">
+				<span>
+				<input type="text" size="27" class="inputS" name="query" id="query" value="" />
+				</span> <span>
+				<input name="id" type="hidden" id="id" value="97" />
+				</span> <span>
+				<input type="hidden" name="site" value="363" />
+				</span> <span>
+				<input type="image" src="images/Btn_search.gif" border="0" style="vertical-align:middle; border:none;"/>
+				</span>
+			</form>-->
+		</div>
+	</div>
+</div>
+<div id="wrapper">
+	<nav>
+		<ul>
+			<li class="dropdown"><a href="index.shtml">首页</a></li>
+			<li class="dropdown">
+				<a href="zxgk/zxjj/index.shtml" >中心概况</a>
+				<ul class="sub-menu" style="margin-left:-15px; *margin-left:-65px; _margin-left:-15px;">
+					<!--循环：catalog count：50-->
+
+						<li class="dropdown"><a href="zxgk/zxjj/index.shtml">中心简介</a></li>
+					
+						<li class="dropdown"><a href="zxgk/xtcpfzx/index.shtml">业务范围</a></li>
+					
+						<li class="dropdown"><a href="zxgk/cpjcb/index.shtml">基础设施</a></li>
+					
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="tzgg/index.shtml" >通知公告</a>
+				<ul class="sub-menu" style="margin-left:-15px; *margin-left:-65px; _margin-left:-15px">
+					<!--循环：catalog count：50-->
+
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="cpjc/gzlc/index.shtml" >产品检测</a>
+				<ul class="sub-menu" style="margin-left:-15px; *margin-left:-65px; _margin-left:-15px">
+					<!--循环：catalog count：50-->
+
+						<li class="dropdown"><a href="cpjc/gzlc/index.shtml">工作流程</a></li>
+					
+						<li class="dropdown"><a href="cpjc/xgxz/index.shtml">相关下载</a></li>
+					
+						<li class="dropdown"><a href="cpjc/sqtj/index.shtml">申请条件</a></li>
+					
+						<li class="dropdown"><a href="cpjc/gzlc/aqbmcpjclb/index.shtml">检测类别</a></li>
+					
+						<li class="dropdown"><a href="https://zfkpxt.nsstec.org.cn:9443/#/login">产品检测交费</a></li>
+					
+						<li class="dropdown"><a href="cpjc/cjwt/index.shtml">常见问题</a></li>
+					
+				</ul>
+			</li>
+			<!--资质审查-->
+			<li class="dropdown">
+				<a href="zzsccs/zwsx/jgzz/index.shtml" >资质审查</a>
+				<ul class="sub-menu" style="margin-left:-15px; *margin-left:-65px; _margin-left:-15px;">
+					<li class="dropdown">
+						<a href="zzsccs/zwsx/jgzz/index.shtml">机构职责</a>
+						<ul class="sub-menu" style="margin-top:-13px;">
+							<li class="dropdown">
+								<a href="zzsccs/zwsx/jgzz/index.shtml">机构职责</a>
+							</li>
+							<li class="dropdown">
+								<a href="zzsccs/zwsx/zcdt/index.shtml">资质政策</a>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="zzsccs/bsbw/jbsx/index.shtml">办事服务</a>
+						<ul class="sub-menu" style="margin-top:-14px;">
+							<li class="dropdown">
+								<a href="zzsccs/bsbw/blyj/index.shtml">办理依据</a>
+							</li>
+							<li class="dropdown">
+								<a href="zzsccs/bsbw/jbsx/index.shtml">服务信息</a>
+							</li>
+							<li class="dropdown">
+								<a href="zzsccs/bsbw/sblc/index.shtml">申报流程</a>
+							</li>
+							<li class="dropdown">
+								<a href="zzsccs/bsbw/xgxz/index.shtml">相关下载</a>
+							</li>
+							<li class="dropdown">
+								<a href="zzsccs/bsbw/cjwd/index.shtml">常见问题</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown" style="white-space:nowrap;">
+				<a href="bmkhjsdz/jhdd/index.shtml">保密科学技术</a>
+				<ul class="sub-menu" style="margin-left:-12px;*margin-left:-62px; _margin-left:-15px">
+					<!--循环：catalog count：50-->
+
+						<li class="dropdown"><a href="bmkhjsdz/jhdd/index.shtml">精华导读</a></li>
+					
+						<li class="dropdown"><a href="bmkhjsdz/dg/index.shtml">投稿方式</a></li>
+					
+						<li class="dropdown"><a href="bmkhjsdz/cjwd/index.shtml">常见问题</a></li>
+					
+						<li class="dropdown"><a href="bmkhjsdz/dzdg/index.shtml">订阅方式</a></li>
+					
+						<li class="dropdown"><a href="https://bmkxjs.nsstec.org.cn/">在线征订</a></li>
+					
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="rcqp/qpgg/index.shtml" >人才招聘</a>
+				<ul class="sub-menu" style="margin-left:-10px;*margin-left:-58px; _margin-left:-10px">
+					<!--循环：catalog count：50-->
+
+						<li class="dropdown"><a href="rcqp/qpgg/index.shtml">招聘公告</a></li>
+					
+						<li class="dropdown"><a href="rcqp/ypdj/index.shtml">应聘登记</a></li>
+					
+				</ul>
+			</li>
+		</ul>
+	</nav>
+</div>
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4b3e69e4476b0da702d76067267c3876";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+function closewindow()
+{
+  document.getElementById("ad-left").style.display="none";
+}
+</script>
+
+<script type="text/javascript">
+function closeWindow()
+{ 
+  document.getElementById("ad-right").style.display="none";
+}
+</script>
+
+
+<script type="text/javascript">
+function CloseWindow()
+{ 
+  document.getElementById("A-right").style.display="none";
+}
+function CloseWindowT()
+{ 
+  document.getElementById("AT-right").style.display="none";
+}
+
+</script>
+<div id="Contents">
+	<div id="line01">
+		<div style="float:left; width:315px; padding-right:10px;">
+			
+			<div id="titleTec"></div>
+			<div id="tecBody">
+				<div id="picBg">
+					<div id="zzgd2"><img onmousedown="ISL_GoDown()" onmouseup="ISL_StopDown()" onmouseout="ISL_StopDown()" src="images/roll_left.gif" /></div>
+					<div id="ISL_Cont" class="zzgd3">
+						<div style="align:center;display:inline; white-space:nowrap;" id="List1">
+							<div style="white-space:nowrap;">
+								<!--循环：article count：50-->
+
+
+								   <a href="bmkhjsdz/jhdd/354443.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3544454359.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354439.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3544419108.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354436.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3544372852.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354433.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3544346368.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354428.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3544305865.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354424.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_354426614.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354420.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_354422341.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354416.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3544199839.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354300.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3543025048.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354286.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542886446.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354278.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542805715.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354266.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542687314.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354263.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542656812.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354260.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542611561.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354255.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542569323.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354239.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542408821.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354235.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542374072.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354230.shtml" class="zzgd31"><img src="upload/Image/jhdd/2024/03/1_3542323570.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354227.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3542283297.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354156.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3541585358.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354141.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3541437366.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354135.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3541372344.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354129.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3541313714.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354120.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3541226225.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354107.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3541121373.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354105.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3541039135.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354086.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540914981.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354082.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540945254.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354077.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540796487.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354068.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540706392.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354072.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540748630.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354062.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540645388.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354058.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_354060137.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354049.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540511736.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354042.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540440.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354036.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_354038868.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/354003.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3540051247.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353984.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3539895723.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353977.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3539796673.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353932.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3539349036.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353927.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3539294014.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353922.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3539241138.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353917.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3539193352.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353896.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3538989700.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353872.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3538747604.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353847.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3538492296.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353831.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3538337758.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353821.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3538237941.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353814.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3538186937.jpg" border="0" width="92" height="114"/></a> 
+								
+
+								   <a href="bmkhjsdz/jhdd/353793.shtml" class="zzgd31"><img src="upload/Image/mrtp/1_3537954286.jpg" border="0" width="92" height="114"/></a> 
+								
+							</div>
+						</div>
+					    <div id="List2"></div>
+					</div>
+					<div id="zzgd4"><img src="images/roll_right.gif" onmousedown="ISL_GoUp()" onmouseup="ISL_StopUp()" onmouseout="ISL_StopUp()"></div>
+					<div class="clear"></div>
+				</div>
+				
+			</div>
+          <div id="titleKJ"></div>
+          <div id="tecBody">
+              <p><a href="https://bmkxjs.nsstec.org.cn/" target="_blank"><img src="images/zxzdImg.gif" border="0" /></a></p>
+               <br />
+              <p><a href="http://www.nsstec.org.cn/bmkhjsdz/dg/index.shtml"><img src="images/wytgImg.gif" border="0" /></a></p>
+              <br />				
+              <p><a href="rcqp/qpgg/index.shtml" target="_blank"><img src="images/rczpimg.jpg" border="0" /></a></p>
+              <p style="display:none;"><a href="zzsccs/zwsx/jgzz/index.shtml" target="_blank"><img src="images/zzscimg.jpg" border="0" /></a></p>
+              <br />
+              <p><a href="https://zfkpxt.nsstec.org.cn:9443/#/login" target="_blank"><img src="images/cpjcjfimg.jpg" border="0" /></a></p>
+              <br />
+              <p><a href="http://cpjcyhxt.nsstec.org.cn:8088" target="_blank"><img src="images/zzcpjcgl.jpg" border="0" /></a></p>
+          </div>
+		</div>
+		<div style="float:left; width:760px;">
+			<!--<div id="titleCpxx"></div>
+			<div id="cpxxBody">
+				<div id="cpSearch"> 
+					<input type="text" size="35" value="" id="PQuery" style="float:left;margin:5px 2px;width:250px;" />
+                   <img onclick="PQuery();" src="images/Btn_mirror.gif" border="0" style="margin:5px 0;float:left;" />
+               </div>
+				<iframe name="myframe" id="myframe" src="/CmsProject/wwwroot/isstec/jsp/zhengshulist.jsp" height="200" frameborder="0" scrolling="no" width="750"></iframe>
+			</div>-->
+            <div id="titleTzgg"></div>
+			<div id="zzgg">
+				<div id="zzscTxt">
+					<!--循环：article count：5-->
+
+
+						<p><img src="images/arrow02.gif" /><a href="tzgg/354521.shtml" class="newsText">关于“安全隔离与信息交换产品”检测受理预公告</a></p>
+					
+
+						<p><img src="images/arrow02.gif" /><a href="tzgg/354520.shtml" class="newsText">安全可靠测评结果公告（2026年第3号）</a></p>
+					
+
+						<p><img src="images/arrow02.gif" /><a href="tzgg/354519.shtml" class="newsText">关于“非密信息系统人工智能大模型保密护栏”产品检测受理预公告</a></p>
+					
+
+						<p><img src="images/arrow02.gif" /><a href="tzgg/354518.shtml" class="newsText">关于“红外激光窃听防护膜”产品检测受理预公告</a></p>
+					
+
+						<p><img src="images/arrow02.gif" /><a href="tzgg/354517.shtml" class="newsText">关于“互联网保密自监管系统”类产品检测受理预公告</a></p>
+					
+				</div>
+			</div>
+			<div id="titleZzsc"></div>
+			<div id="zzsc">
+				<div id="zzscTxt">
+					<!--循环：article count：2-->
+
+
+						<p><img src="images/arrow02.gif" /><a href="zzsccs/zwsx/zcdt/354001.shtml" class="newsText">国家保密局公告(2022年第2号)</a></p>
+					
+
+						<p><img src="images/arrow02.gif" /><a href="zzsccs/zwsx/zcdt/353843.shtml" class="newsText">关于保密资质申请材料、补充材料提交方式的公告</a></p>
+					
+				</div>
+			</div>
+			<div>
+				<div id="cpjc">
+					<div id="cpjcTitle"><a href="cpjc/xgxz/index.shtml" class="more">更多</a>&nbsp;&nbsp;</div>
+					<div id="cpjcTxt">
+						<!--循环：article count：3-->
+
+
+							<p><img src="images/icon.gif" border="0" /><a href="cpjc/xgxz/353289.shtml" class="newsText">产品更名函模板(2024-12)</a></p>
+						
+
+							<p><img src="images/icon.gif" border="0" /><a href="cpjc/xgxz/353401.shtml" class="newsText">申报材料(2024-10)</a></p>
+						
+
+							<p><img src="images/icon.gif" border="0" /><a href="cpjc/xgxz/353403.shtml" class="newsText">费用合同办理材料(2024-12)</a></p>
+						
+					</div>
+					<div id="cpjcTxt">
+						<!--循环：article count：6-->
+
+
+							<p><img src="images/icon.gif" border="0" /><a href="cpjc/xgxz/353030.shtml" class="newsText">变更产品联系人提交材料(2024-12)</a></p>
+						
+					</div>
+				</div>
+			</div>
+			<div>
+				<div id="titleCjwt"></div>
+				<div id="cjwtBg">
+					<div id="cjwtNav">
+						<ul>
+							<li id="t1" onclick="changeNews('new1')" class="titlbg1" style="width:180px;height:33px;">
+								
+									<p>产品检测</p>
+								
+							</li>
+							<li id="t3" onclick="changeNews('new3')" class="titlbg2" style="width:180px;height:33px;white-space:nowrap;">
+								
+									<p>保密科学技术</p>
+								
+							</li>
+						</ul>
+					</div>
+					<div align="left" valign="middle">
+						<div id="new1">
+							<div id="cjwtTxt">
+								<!--循环：article count：4-->
+
+
+									<p><img src="images/arrow02.gif" /><a href="cpjc/cjwt/353283.shtml" class="newsText">产品检测受理常见问题解答库V3.0</a></p>
+								
+
+									<p><img src="images/arrow02.gif" /><a href="cpjc/cjwt/352021.shtml" class="newsText">产品检测费用是多少？</a></p>
+								
+
+									<p><img src="images/arrow02.gif" /><a href="cpjc/cjwt/352040.shtml" class="newsText">产品检测的流程是什么？</a></p>
+								
+
+									<p><img src="images/arrow02.gif" /><a href="cpjc/cjwt/352038.shtml" class="newsText">产品检测证书即将到期，或产品进行升级，应如何办理手续？</a></p>
+								
+							</div>
+							<div id="cjwtTxt">
+								<!--循环：article count：7-->
+
+
+									<p><img src="images/arrow02.gif" /><a href="cpjc/cjwt/352038.shtml" class="newsText">产品检测证书即将到期，或产品进行升级，应如何办理手续？</a></p>
+								
+
+									<p><img src="images/arrow02.gif" /><a href="cpjc/cjwt/352037.shtml" class="newsText">产品检测申请书报送方式？</a></p>
+								
+							</div>
+							<div class="morediv"><a href="cpjc/cjwt/index.shtml" class="newsText">更多</a></div>
+						</div>
+					</div>
+					<div align="left" valign="middle">
+						<div id="new3" style="display:none;">
+							<div id="cjwtTxt">
+								<!--循环：article count：4-->
+
+
+									<p><img src="images/arrow02.gif" /><a href="bmkhjsdz/cjwd/index.shtml" class="newsText">订阅常见问题</a></p>
+								
+							</div>
+							<div id="cjwtTxt">
+								<!--循环：article count：7-->
+
+							</div>
+							<div class="morediv"><a href="bmkhjsdz/cjwd/index.shtml" class="newsText">更多</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<script language="javascript" src="js/index.js"></script>
+<div id="line04">
+	<div id="footer">国家保密科技测评中心&emsp;版权所有&emsp;京ICP备06041686</div>
+</div>
+</body>
+</html>
+<script src="http://www.nsstec.org.cn/CmsProject/Services/Stat.js" type="text/javascript"></script>
+<script>
+if(window._zcms_stat)_zcms_stat("SiteID=363&Type=Article&Dest=http://www.nsstec.org.cn/CmsProject/Services/Stat.jsp");
+</script>
+
+<!-- Powered by CMS(内容管理系统) 1.3.4.1988 PublishDate 2026-06-30 17:30:01-->

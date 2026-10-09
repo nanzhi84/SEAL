@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>中华环保联合会</title>
+  <meta name="description" content="中华环保联合会官方网站" />
+  <meta name="keywords" content="中华环保联合会,环境保护,环保组织" />
+  <link href="https://iotobject.rockontrol.com/acef-oss/static/templets/default/style/main.css" rel="stylesheet" media="screen" type="text/css" />
+  <script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/jquery-1.11.3.min.js"></script>
+  <script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/jquery-1.11.0.min.js"></script>
+  <script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/slider.js"></script>
+  <script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/rollSlide.js"></script>
+  <script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/jquery.SuperSlide.2.1.1.js"></script>
+  <script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/imgflash.js"></script>
+</head>
+<body>
+<style>
+/* 「相关机构」下拉（分支机构 / 代表机构 / 其他机构）：标题过长时自动换行，避免溢出与浮动错位 */
+.xlcd1 .zcfg1 .w1-2-2 > ul {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+}
+.xlcd1 .zcfg1 .w1-2-2 > ul > li {
+    /* 关键：固定总宽 380px（含内边距），保证一行 3 列；380*3=1140 < 1150 */
+    box-sizing: border-box !important;
+    width: 380px !important;
+    float: none !important;
+    height: auto !important;
+    /* 行间距：恢复原设计的 31px（比之前的 22px 更舒展，长标题换行后行距也一致） */
+    line-height: 31px !important;
+    white-space: normal !important;
+    word-break: break-all;
+    overflow: visible !important;
+    padding: 0 !important;
+    /* 图标与文字分列（flex），换行时文字自成一块，天然右对齐、不再依赖缩进数值 */
+    display: flex !important;
+    align-items: flex-start !important;
+}
+.xlcd1 .zcfg1 .w1-2-2 > ul > li > i {
+    flex: 0 0 auto !important;
+    /* 原样式 top:-13px 是给 31px 行高的行内布局用的，这里必须归零，否则圆点被顶到上方 */
+    position: static !important;
+    top: 0 !important;
+    /* 圆点 4×4，首行行高 31px → 上边距 (31-4)/2 = 13.5px 即与首行文字垂直居中 */
+    margin: 13.5px 12px 0 0 !important;
+}
+.xlcd1 .zcfg1 .w1-2-2 > ul > li > a {
+    flex: 1 1 auto !important;
+    min-width: 0;
+    white-space: normal !important;
+    display: inline !important;
+    word-break: break-all;
+}
+</style>
+<script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/header.js"></script>
+<script>
+// 导航下拉菜单
+$(function(){
+    $('.header_nav .nav li:gt(0)').mouseenter(function(){
+        $('.xlcd1 .zw11').show();
+    });
+    $('.xlcd1>.zw11').mouseleave(function(){
+        $(this).hide();
+    });
+    $('.header_nav').mouseleave(function(){
+        $('.xlcd1 .zw11').hide();
+    });
+    $('.header_nav .nav li:gt(0)').mouseover(function(){
+        $('.xlcd1 .zw11>div').hide().eq($('.header_nav .nav li:gt(0)').index(this)).show();
+    });
+    $('.header_nav .nav li:first').mouseover(function(){
+        $('.xlcd1 .zw11').hide();
+    });
+    $('.header_nav .nav li:eq(2)').mouseover(function(){
+        $('.xlcd1 .zw11').hide();
+    });
+    $('.header_nav .nav li:eq(5)').mouseover(function(){
+        $('.xlcd1 .zw11').hide();
+    });
+    $('.header_nav .nav li:eq(6)').mouseover(function(){
+        $('.xlcd1 .zw11').hide();
+    });
+    // 相关机构 tab 切换
+    $('.zcfg1 .w1-2-2').first().show();
+    $('.zcfg1 .w1-2-1 a').mouseover(function(){
+        $(this).addClass('on').siblings().removeClass('on');
+        $('.zcfg1 .w1-2-2').hide().eq($('.zcfg1 .w1-2-1 a').index(this)).show();
+    });
+    // 党风廉政 tab 切换
+    $('.cyzd1 .w1-2-2').first().show();
+    $('.cyzd1 .w1-2-3 a').mouseover(function(){
+        $(this).addClass('tx').siblings().removeClass('tx');
+        $('.cyzd1 .w1-2-2').hide().eq($('.cyzd1 .w1-2-3 a').index(this)).show();
+    });
+    $('.cyzd1 .w1-3 .w1-2-2').first().show();
+    $('.cyzd1 .w1-3 .w1-2-3 a').mouseover(function(){
+        $(this).addClass('tx').siblings().removeClass('tx');
+        $('.cyzd1 .w1-3 .w1-2-2').hide().eq($('.cyzd1 .w1-3 .w1-2-3 a').index(this)).show();
+    });
+    // 联合会领导 tab 切换
+    $('.ldjs1 .w3-2 .w3-3').first().show();
+    $('.ldjs1 .w3-2 .w2-1 a').mouseover(function(){
+        $(this).addClass('on').siblings().removeClass('on');
+        $('.ldjs1 .w3-2 .w3-3').hide().eq($('.ldjs1 .w3-2 .w2-1 a').index(this)).show();
+    });
+});
+</script>
+<div class="header_top" id="header-menu" style="width: 100%;min-width:1200px;">
+    <div class="header_top" style="width: 1200px;position: relative;">
+        <div id="header-home-link"><a href="/" style="font-size: 14px;" class="en-font">www.acef.com.cn</a></div>
+        <div id="header-menu-items">
+            <div class="header-menu-item" t="ts"><a href="http://www.wurantousu.com/" target="_blank">在线投诉</a></div>
+            <div class="header-menu-item" id="header-menu-item-wx" t="wx"><a>微信公众号</a><div id="wechatqr"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/header-wechatqr.png" alt="" style="width: 94px; height: 110px;"></div></div>
+            <div class="header-menu-item" id="header-menu-item-wb" t="wb"><a href="https://weibo.com/p/1006062387363000/home?from=page_100606&mod=TAB&is_all=1#place" target="_blank">官方微博</a><div id="weiboqr" style="display: none;"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/header-weiboqr.png" alt="" style="width: 94px; height: 110px;"></div></div>
+            <div class="header-menu-item" t="en"><a href="/en/" class="en-font">English</a></div>
+        </div>
+    </div>
+</div>
+
+<div class="header" style="height:185px; width:100%;min-width:1200px;">
+    <div class="top1 " style="height:134px; display:block;">
+      <div class="title w1100 center" >
+        <a href="/" style=" float:left;"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/banner_logo.png" style="width:400px;height:134px;" alt="中华环保联合会"/></a>
+        <div class="header_r">
+            <div class="search">
+                <form name="formsearch" action="/plus/search">
+                    <input name="q" type="text" id="search-keyword" onfocus="if (this.value==' 请输入您要查询的内容！') this.value=''" onblur="if (this.value=='') this.value=' 请输入您要查询的内容！';" value=" 请输入您要查询的内容！" class="txt" size="30">
+                    <input type="Submit"  class="btn" value="搜索" >
+                </form>
+            </div>
+            <div class="key">热词：
+                <a href="" target="_blank">污染投诉</a>
+                <a href="" target="_blank">环保督察</a>
+                <a href="" target="_blank">环境与发展论坛</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="header_nav">
+        <div class="nav w1200 center">
+            <ul>
+                <li class="index"><a href="/">首页</a></li>
+                <li class="mwjs"><a href="/page/about">联合会概况</a></li>
+                <li class="xwzx"><a href="/a/news/">联合会动态</a></li>
+                <li class="xxgk"><a>内设机构</a></li>
+                <li class="zcfg"><a>相关机构</a></li>
+                <li class="cyzd"><a href="/a/djqt/">党风廉政</a></li>
+                <li class="ztzl" style="width:174px;"><a href="/a/hdzt/">特色工作</a></li>
+            </ul>
+        </div>
+        <div class="z1 xlcd1 w1200 center">
+            <div class="zw11 bgfff pd25 w1200 center" style="display: none;">
+
+                <!-- 联合会概况 下拉 -->
+                <div class="ldjs1" style="display: none;">
+                    <div class="w1-1">
+                        <div style="overflow: hidden;">
+                            <div class="ldzc-left">
+                                <div class="w3-1">
+                                    <div class="w2-1"><a target="_blank" href="/page/about"><span class="on zz">联合会简介</span></a></div>
+                                    <div class="w1-3"><ul>
+                                        <li style="height:auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中华环保联合会是经国务院批准、民政部注册，生态环境部为行业管理部门，由热心环保事业的人士、企业、事业单位自愿结成的、非营利性的、全国性的社团组织。中华环保联合会的宗旨是围绕实施可持续发展战略，围绕实现国家环境与发展的目标，围绕维护公众和社会环境权益，充分体现"大中华、大环境、大联合"的组织优势...</li>
+                                    </ul></div>
+                                </div>
+                            </div>
+                            <div class="w3-2">
+                                <div class="w1-2">
+                                    <div class="w2-1"><a target="_blank" href="/page/about" class="zz on">联合会领导</a></div>
+                                    <div class="w1-3"><ul style="padding:20px 0;">
+                                        <li class="za"><a><span>主席：王秀峰<i></i></span><b></b></a></li>
+                                        <li><a><span class="zzz">副主席：张永红  谢玉红  夏  光  郭纹铭  李瑞农  柏伦章 涂瑞和  贺克斌  张建新  王  颖  刘方毅  胡智荣  张钢柱 李  霓  别  涛  朱广庆  洪  平  王黎红  吴建荣</span><b></b></a></li>
+                                        <li><a target="_blank" href="https://iotobject.rockontrol.com/acef-oss/static/seac/mwjs/zjz/index.shtml"><span class="zzz">监事长：刘香芬</span><b></b></a></li>
+                                        <li><a target="_blank" href=""><span class="zzz">秘书长：谢玉红（兼）</span><b></b></a></li>
+                                        <li><a target="_blank" href=""><span class="zzz">副秘书长：郑庆宝 李瑞东 王统海</span><b></b></a></li>
+                                        <li><a target="_blank" href=""><span class="zzz">总经济师：洪家增</span><b></b></a></li>
+                                    </ul></div>
+                                </div>
+                            </div>
+                            <div class="w3-3">
+                                <div class="fl w-z" style="width:310px;">
+                                    <div class="w2-1"><span class="on zz">联系方式</span></div>
+                                    <ul>
+                                        <li><i class="i1"></i><b>地址：</b><span>北京市朝阳区和平里14区青年沟东路华表大厦6层</span></li>
+                                        <li><i class="i2"></i><b>邮编：</b><span>100013</span></li>
+                                        <li><i class="i4"></i><b>电话(总机)：</b><span>010-51266665</span></li>
+                                    </ul>
+                                    <div class="w-w"><div class="ww"><a href="/page/about"><span>更多详情</span></a></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 联合会动态 下拉（空） -->
+                <div class="xwzx1" style="display: none;"></div>
+
+                <!-- 内设机构 下拉 -->
+                <div class="xxgk11" style="display: none;">
+                    <div class="w1-1">
+                        <div class="w1-2">
+                            <div class="w1-3">
+                                <div class="w1-3-1">
+                                    <a href="/a/bgs/"><span>办公室</span></a>
+                                    <a href="/a/xcb/"><span>媒体宣传部</span></a>
+                                    <a href="/a/hyb/"><span>会员部</span></a>
+                                    <a href="/a/gjhz/"><span>国际合作部</span></a>
+                                    <a href="/a/flzx/" style="width:103px;"><span>环境法律事业部</span></a>
+                                    <a href="/a/gyb/"><span>环境公益部</span></a>
+                                    <a href="/a/ltzl/"><span>论坛展览部</span></a>
+                                    <a href="/a/fzzx/" style="width:175px;"><span>环境技术推广与应用事业部</span></a>
+                                    <a href="/a/tzhyjycj/" style="width:175px;"><span>绿色发展咨询与服务事业部</span></a>
+                                    <a href="/a/zlhz/"><span>战略合作部</span></a>
+                                    <a href="/a/zhl/" style="width:220px;"><span>中环联（北京）环境保护有限公司</span></a>
+                                    <a href="http://www.zhl.bj.cn/" style="width:220px;"><span>中环联环境产业（北京）有限公司</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 相关机构 下拉 -->
+                <div class="zcfg1" style="display: none;">
+                    <div class="w1-1">
+                        <div class="w1-2 fl">
+                            <div class="w1-2-1" style="width:1150px;">
+                                <a href="/a/fzjg/" class="on" style="width:49%;">分支机构</a><i></i>
+                                <a href="/a/dbjg/" style="width:49%;">代表机构</a><i></i>
+                                                            </div>
+                            <div class="w1-2-2" style="width:1150px;display: block;">
+                                <ul style="display:flex;flex-wrap:wrap;align-items:flex-start;">
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2026/0904/30237.html" target="_blank">中华环保联合会生物质应用技术与行业发展专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2026/0616/30123.html" target="_blank">中华环保联合会资源循环利用专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/1219/29847.html" target="_blank">中华环保联合会绿色城市发展专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/1219/29846.html" target="_blank">中华环保联合会绿色建材家居专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/1219/19735.html" target="_blank">中华环保联合会挥发性有机污染物治理专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/1219/27453.html" target="_blank">中华环保联合会环境社会治理专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/1219/19736.html" target="_blank">中华环保联合会青少年环境友好行动工作委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/0826/29650.html" target="_blank">中华环保联合会绿色产业工作委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/0826/29649.html" target="_blank">中华环保联合会生态保护与修复专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/0523/29483.html" target="_blank">中华环保联合会绿色贸易促进工作委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/0512/19743.html" target="_blank">中华环保联合会固危废及土壤污染治理专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2025/0331/29391.html" target="_blank">中华环保联合会碳资产与绿色转型专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2024/1101/20385.html" target="_blank">中华环保联合会环境与法制专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2024/1030/29130.html" target="_blank">中华环保联合会环境与健康专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2024/0311/19734.html" target="_blank">中华环保联合会绿色技术发展专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2023/1120/27912.html" target="_blank">中华环保联合会碳普惠专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2023/1108/19738.html" target="_blank">中华环保联合会能源环境专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2023/0511/26525.html" target="_blank">中华环保联合会核能核技术与生态环境保护专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2023/0202/25854.html" target="_blank">中华环保联合会&ldquo;一带一路&rdquo;生态产业合作工作委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2022/0530/24505.html" target="_blank">中华环保联合会绿色供应链专业委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2022/0527/24484.html" target="_blank">中华环保联合会冶金环境评估与碳资产管理工作委员会</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/fzjg/2020/1113/21264.html" target="_blank">中华环保联合会水环境治理专业委员会</a></li>
+                                                                    </ul>
+                            </div>
+                            <div class="w1-2-2" style="width:1150px;">
+                                <ul style="display:flex;flex-wrap:wrap;align-items:flex-start;">
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2026/0319/29484.html" target="_blank">福建省办事处</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2025/1225/21471.html" target="_blank">河南省代表处</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2025/0826/29651.html" target="_blank">陕西省办事处</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2025/0826/19769.html" target="_blank">上海办事处</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2021/0714/22734.html" target="_blank">海南省办事处</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2020/1220/21605.html" target="_blank">辽宁省办事处</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2020/1207/21472.html" target="_blank">安徽省办事处</a></li>
+                                                                        <li style="width:380px;float:none;height:auto;line-height:22px;white-space:normal;word-break:break-all;"><i></i><a href="/a/dbjg/2019/0327/19768.html" target="_blank">四川省办事处</a></li>
+                                                                    </ul>
+                            </div>
+                                                    </div>
+                    </div>
+                </div>
+
+                <!-- 党风廉政 下拉 -->
+                <div class="cyzd1" style="display: none;">
+                    <div class="w1-1">
+                        <div class="w1-2 fl">
+                            <div class="w1-2-1"><a target="_blank">党的工作</a></div>
+                            <div class="w1-2-3"><a target="_blank" href=" " class="tx">党的建设</a><a target="_blank" href=" ">群团工作</a></div>
+                        </div>
+                        <div class="w1-3 fl">
+                            <div class="w1-2-1"><a target="_blank">廉政建设</a></div>
+                            <div class="w1-2-3"><a target="_blank" href=" " class="tx">党的纪律</a><a target="_blank" href=" ">纪检工作</a><a target="_blank" href=" ">廉政文化</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 特色工作 下拉 -->
+                <div class="ztzl1" style="display: none;">
+                    <div class="zx fl"><a target="_blank" href=" "><img src="https://iotobject.rockontrol.com/acef-oss/static/seac/ztzl201807/1078946/images/f63e040a1dea48c9936a85d779e31b4b.jpg"></a></div>
+                    <div class="zz fl">
+                        <div class="wzz"><ul>
+                            <li><a target="_blank" href=" "><img src="https://iotobject.rockontrol.com/acef-oss/static/seac/ztzl201807/1078943/images/8b9dadb018984ee19d69415df92d949a.jpg"></a></li>
+                            <li><a target="_blank" href=" "><img src="https://iotobject.rockontrol.com/acef-oss/static/seac/ztzl201807/1078944/images/16d13a4c09844555a19328b903fdba3d.jpg"></a></li>
+                            <li><a target="_blank" href=" "><img src="https://iotobject.rockontrol.com/acef-oss/static/seac/ztzl201807/1078945/images/8f19b871784143f488a91ba5c8833fbd.jpeg"></a></li>
+                            <li><a target="_blank" href=" "><img src="https://iotobject.rockontrol.com/acef-oss/static/seac/ztzl201807/1078942/images/ff60e97827f543d2b1425818419131a6.jpg"></a></li>
+                        </ul></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style type="text/css">
+div#roll{width:180px;height:100px; position:absolute;Z-INDEX: 100;}
+</style>
+
+    <div class="w1100 center clear mt1" style="margin-top:30px;">
+      <div class="common1">
+        <div class="fl w675">
+          <div class="new_left fl" style="width:740px;">
+            <div class="bd">
+              <div class="tempWrap" style="overflow:hidden; position:relative; width:740px">
+                <ul style="width: 3870px; position: relative; overflow: hidden; padding: 0px; margin: 0px; left: -1935px;">
+                                    <li class="clone" style="float: left; width: 740px;">
+                    <a title="关于举办&ldquo;2026厦门海洋科技装备博览会暨海洋能源资源开发利用和生态环境保护技术装备展&rdquo;的通知" href="/a/jdt/2026/0924/30243.html" target="_blank"><img src='https://iotobject.rockontrol.com/acef-oss/static/content/20260910/6aa264b1a7045.jpg' border='0' width='740' height='380'></a>
+                    <p><a href="/a/jdt/2026/0924/30243.html" target="_blank" title="关于举办&ldquo;2026厦门海洋科技装备博览会暨海洋能源资源开发利用和生态环境保护技术装备展&rdquo;的通知">关于举办&ldquo;2026厦门海洋科技装备博览会暨海洋能源资源开发利用和生态环境保护技术装备展&rdquo;的通知</a></p>
+                  </li>
+                                    <li class="clone" style="float: left; width: 740px;">
+                    <a title="关于召开&ldquo;2026绿色矿山与无废矿山建设研讨会&rdquo;的通知（第一轮）" href="/a/jdt/2026/0924/30267.html" target="_blank"><img src='https://iotobject.rockontrol.com/acef-oss/static/content/20260924/6ab491156ce73.jpg' border='0' width='740' height='380'></a>
+                    <p><a href="/a/jdt/2026/0924/30267.html" target="_blank" title="关于召开&ldquo;2026绿色矿山与无废矿山建设研讨会&rdquo;的通知（第一轮）">关于召开&ldquo;2026绿色矿山与无废矿山建设研讨会&rdquo;的通知（第一轮）</a></p>
+                  </li>
+                                    <li class="clone" style="float: left; width: 740px;">
+                    <a title="关于举办2026气环会的通知（第一轮）" href="/a/jdt/2026/0920/30174.html" target="_blank"><img src='https://iotobject.rockontrol.com/acef-oss/static/uploads/allimg/260725/15-260H5001S00-L.jpg' border='0' width='740' height='380'></a>
+                    <p><a href="/a/jdt/2026/0920/30174.html" target="_blank" title="关于举办2026气环会的通知（第一轮）">关于举办2026气环会的通知（第一轮）</a></p>
+                  </li>
+                                    <li class="clone" style="float: left; width: 740px;">
+                    <a title="&ldquo;一带一路&rdquo;绿色出海，土耳其站来了｜中华环保联合会考察团11月出发，报名启动" href="/a/jdt/2026/0918/30256.html" target="_blank"><img src='https://iotobject.rockontrol.com/acef-oss/static/content/20260918/6aac96a5cf87a.jpg' border='0' width='740' height='380'></a>
+                    <p><a href="/a/jdt/2026/0918/30256.html" target="_blank" title="&ldquo;一带一路&rdquo;绿色出海，土耳其站来了｜中华环保联合会考察团11月出发，报名启动">&ldquo;一带一路&rdquo;绿色出海，土耳其站来了｜中华环保联合会考察团11月出发，报名启动</a></p>
+                  </li>
+                                    <li class="clone" style="float: left; width: 740px;">
+                    <a title="中东、东南亚、南亚的项目方都来了，你还在等什么？&mdash;&mdash;第五届&ldquo;一带一路&rdquo;经济与环境合作论坛，2027年1月11日&middot;北京" href="/a/jdt/2026/0918/30254.html" target="_blank"><img src='https://iotobject.rockontrol.com/acef-oss/static/content/20260918/6aac94842a780.png' border='0' width='740' height='380'></a>
+                    <p><a href="/a/jdt/2026/0918/30254.html" target="_blank" title="中东、东南亚、南亚的项目方都来了，你还在等什么？&mdash;&mdash;第五届&ldquo;一带一路&rdquo;经济与环境合作论坛，2027年1月11日&middot;北京">中东、东南亚、南亚的项目方都来了，你还在等什么？&mdash;&mdash;第五届&ldquo;一带一路&rdquo;经济与环境合作论坛，2027年1月11日&middot;北京</a></p>
+                  </li>
+                                    <li class="clone" style="float: left; width: 740px;">
+                    <a title="关于召开2026年环境多介质污染物协同防控与绿色转型研讨会的通知" href="/a/jdt/2026/0916/30251.html" target="_blank"><img src='https://iotobject.rockontrol.com/acef-oss/static/content/20260916/6aaa348d31c6c.jpg' border='0' width='740' height='380'></a>
+                    <p><a href="/a/jdt/2026/0916/30251.html" target="_blank" title="关于召开2026年环境多介质污染物协同防控与绿色转型研讨会的通知">关于召开2026年环境多介质污染物协同防控与绿色转型研讨会的通知</a></p>
+                  </li>
+                                  </ul>
+              </div>
+            </div>
+            <div class="hd"><ul><li class="on">1</li><li class="">2</li><li class="">3</li><li class="">4</li><li class="">5</li><li class="">6</li></ul></div>
+          </div>
+          <script>jQuery(".new_left").slide({ mainCell: ".bd ul", effect: "leftLoop", autoPlay: true, delayTime: 500, interTime: 4000 });</script>
+        </div>
+        <div class="fr w394 tab-content gwymw">
+          <div class="channel_tit2 title sjyc">
+            <a target="_blank" href="/a/news/gndt/ ">环境要闻</a>
+            <a target="_blank" href="/a/news/" class="active">联合会动态</a>
+          </div>
+          <div class="channel_tit2 title sjxs"><li>环境要闻</li><li class="active">联合会动态</li></div>
+          <div class="tab-pane tab"><ul class="govpushinfo150203">
+                            <li><a title="生态环境部举办2026年基层生态环境监测骨干高级培训班" href="/a/news/gndt/2026/0904/30236.html" target="_blank">生态环境部举办2026年基层生态环境监测骨干高级培训班</a><span>09-04</span></li>
+                            <li><a title="向绿而行｜乌钢被认定为2026年度内蒙古自治区绿色工厂" href="/a/news/gndt/2026/0904/30233.html" target="_blank">向绿而行｜乌钢被认定为2026年度内蒙古自治区绿色工厂</a><span>09-04</span></li>
+                            <li><a title="以高端智造赋能产品升级，敬业华西特钢Q420NC钢板顺利下线" href="/a/news/gndt/2026/0825/30234.html" target="_blank">以高端智造赋能产品升级，敬业华西特钢Q420NC钢板顺利下线</a><span>08-25</span></li>
+                            <li><a title="深耕数字化转型！敬业营口中板斩获两化融合、数字化转型双AAA级认证" href="/a/news/gndt/2026/0817/30235.html" target="_blank">深耕数字化转型！敬业营口中板斩获两化融合、数字化转型双AAA级认证</a><span>08-17</span></li>
+                            <li><a title="以高水平生态保护支撑金沙江上游水风光 一体化基地高质量发展 &mdash;&mdash;华电金沙江上游水电开发有限公司生态保护实践与成效" href="/a/news/gndt/2026/0801/30210.html" target="_blank">以高水平生态保护支撑金沙江上游水风光 一体化基地高质量发展 &mdash;&mdash;华电金沙江上游水电开发有限公司生态保护实践与成效</a><span>08-01</span></li>
+                            <li><a title="中共中央 国务院印发《关于加强新时代社会工作的意见》" href="/a/news/gndt/2026/0725/30173.html" target="_blank">中共中央 国务院印发《关于加强新时代社会工作的意见》</a><span>07-25</span></li>
+                            <li><a title="3起整治形式主义为基层减负典型问题，公开通报！" href="/a/news/gndt/2026/0715/30159.html" target="_blank">3起整治形式主义为基层减负典型问题，公开通报！</a><span>07-15</span></li>
+                            <li><a title="中国亚洲经济发展协会会长权顺基接受纪律审查和监察调查" href="/a/news/gndt/2026/0703/30148.html" target="_blank">中国亚洲经济发展协会会长权顺基接受纪律审查和监察调查</a><span>07-03</span></li>
+                            <li><a title="生态环境部召开警示教育会" href="/a/news/gndt/2026/0629/30138.html" target="_blank">生态环境部召开警示教育会</a><span>06-29</span></li>
+                            <li><a title="第十届气候行动部长级会议在布鲁塞尔召开" href="/a/news/gndt/2026/0625/30137.html" target="_blank">第十届气候行动部长级会议在布鲁塞尔召开</a><span>06-25</span></li>
+                            <li><a title="绿链智联全球 赋能零碳未来 &mdash;&mdash;华润电力参展第四届链博会" href="/a/news/gndt/2026/0622/30136.html" target="_blank">绿链智联全球 赋能零碳未来 &mdash;&mdash;华润电力参展第四届链博会</a><span>06-22</span></li>
+                        </ul></div>
+          <div class="tab-pane on tab"><ul class="mwyw">
+                            <li><a title="关于《环境健康友好产品评价 水产品》团体标准征求意见的函" href="/a/fzzx/news/2026/1008/30277.html" target="_blank">关于《环境健康友好产品评价 水产品》团体标准征求意见的函</a><span>10-08</span></li>
+                            <li><a title="关于《燃煤电厂脱硫废水热法浓缩与烟气干燥零排放技术指南》团体标准征求意见的函" href="/a/fzzx/news/2026/1008/30276.html" target="_blank">关于《燃煤电厂脱硫废水热法浓缩与烟气干燥零排放技术指南》团体标准征求意见的函</a><span>10-08</span></li>
+                            <li><a title="会员风采 | 三角轮胎再获EcoVadis金牌评级，可持续发展表现稳居全球参评企业前5%" href="/a/hyb/hyhd/2026/1008/30275.html" target="_blank">会员风采 | 三角轮胎再获EcoVadis金牌评级，可持续发展表现稳居全球参评企业前5%</a><span>10-08</span></li>
+                            <li><a title="《中华人民共和国生态环境法典》 主题宣讲公益活动成功举办" href="/a/news/2026/1001/30273.html" target="_blank">《中华人民共和国生态环境法典》 主题宣讲公益活动成功举办</a><span>10-01</span></li>
+                            <li><a title="关于开展全国碳市场2025年度配额清缴、履约与碳资产管理实操培训的通知" href="/a/news/2026/0930/30272.html" target="_blank">关于开展全国碳市场2025年度配额清缴、履约与碳资产管理实操培训的通知</a><span>09-30</span></li>
+                            <li><a title="会员风采 | 喜报！北京排水集团通惠河流域分公司垡头再生水厂成功入选&ldquo;北京市先进低碳技术优秀项目&rdquo;名单" href="/a/hyb/hyhd/2026/0929/30271.html" target="_blank">会员风采 | 喜报！北京排水集团通惠河流域分公司垡头再生水厂成功入选&ldquo;北京市先进低碳技术优秀项目&rdquo;名单</a><span>09-29</span></li>
+                            <li><a title="全国科普月 中华环境小卫士开展垃圾分类志愿服务活动" href="/a/news/2026/0928/30270.html" target="_blank">全国科普月 中华环境小卫士开展垃圾分类志愿服务活动</a><span>09-28</span></li>
+                            <li><a title="关于征集2027年（第二届）生态治理修复绿色发展交流会分会场承办单位的通知" href="/a/news/2026/0924/30269.html" target="_blank">关于征集2027年（第二届）生态治理修复绿色发展交流会分会场承办单位的通知</a><span>09-24</span></li>
+                            <li><a title="会员风采  |  北京科净源科技股份有限公司" href="/a/hyb/hyhd/2026/0924/30265.html" target="_blank">会员风采  |  北京科净源科技股份有限公司</a><span>09-24</span></li>
+                            <li><a title="中华环保联合会河南省代表处协助完成全球南方乡村特色产业规划与发展研修班实地调研工作" href="/a/news/2026/0923/30262.html" target="_blank">中华环保联合会河南省代表处协助完成全球南方乡村特色产业规划与发展研修班实地调研工作</a><span>09-23</span></li>
+                            <li><a title="关于举办第2期&ldquo;碳双控管理人才能力提升培训班&rdquo;的通知" href="/a/zhl/fwypx/2026/0922/30261.html" target="_blank">关于举办第2期&ldquo;碳双控管理人才能力提升培训班&rdquo;的通知</a><span>09-22</span></li>
+                        </ul></div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+    <div class="w1100 center clear mt1">
+      <div class="m-topics f-mt30 f-cb">
+        <div class="f-fl m-topics-link"><a href=" "></a></div>
+        <div class="f-fl f-w840 f-pr">
+          <div class="roll-wrap roll_row" id="b">
+            <ul class="roll__list" style="position: absolute; left: 0px; top: 0px;">
+              <li><a href="/a/ltzl/news/" target="_blank">环发论坛</a></li>
+              <li><a href="/a/flzx/ytyhd/" target="_blank">环境维权</a></li>
+              <li><a href="https://bj-ee.com/zgfa" target="_blank">垃圾焚烧的中国方案</a></li>
+              <li><a href="/a/hyb/ngonh/" target="_blank">NGO年会</a></li>
+              <li><a href="/a/gjhz/gjjldt/" target="_blank">国际交流</a></li>
+              <li><a href="http://www.zhl.bj.cn/fund.html" target="_blank">中环联基金</a></li>
+            </ul>
+            <a class="control pre" href="javascript:;">&lt;</a>
+            <a class="control next" href="javascript:;">&gt;</a>
+          </div>
+        </div>
+        <div class="f-fr f-w194"><a href="http://dasai.acef.com.cn" class="outLink f-mt10" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/mnftds.jpg"></a></div>
+      </div>
+      <script>$('#b').rollSlide({orientation:'right',num:2,v:1500,space:3000,isRoll:true});</script>
+    </div>
+
+    <div class="w1100 center clear mt1" style="margin-top:20px;">
+    <a href="http://www.zhlxrz.com/CertificationInquiries/index.aspx" target="_blank" class="outLink f-mt10"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/zhlrz.png"></a>
+    <a href="https://acef.greatnqi.com" target="_blank" class="outLink f-mt10"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/ttbzsb.jpg"></a>
+    </div>
+
+    <div class="w1100 center clear mt1" style="margin-top:20px;">
+      <div class="fl w715">
+        <div class="tab-content zcwzsj tab">
+          <div class="channel_tit2 title sjyc"><a target="_blank" href="/a/note/" class="note">通知公告</a></div>
+          <div class="tab-pane on"><ul>
+                            <li><a title="关于举办&ldquo;污（废）水处理、污染源自动监测&rdquo;运维管理人员培训班的通知" href="/a/note/2026/0923/30264.html" target="_blank">关于举办&ldquo;污（废）水处理、污染源自动监测&rdquo;运维管理人员培训班的通知</a><span>09-23</span></li>
+                            <li><a title="关于召开&ldquo;2026绿色矿山与无废矿山建设研讨会&rdquo;的通知（第一轮）" href="/a/note/2026/0923/30263.html" target="_blank">关于召开&ldquo;2026绿色矿山与无废矿山建设研讨会&rdquo;的通知（第一轮）</a><span>09-23</span></li>
+                            <li><a title="关于举办第2期&ldquo;碳双控管理人才能力提升培训班&rdquo;的通知" href="/a/zhl/fwypx/2026/0922/30261.html" target="_blank">关于举办第2期&ldquo;碳双控管理人才能力提升培训班&rdquo;的通知</a><span>09-22</span></li>
+                            <li><a title="关于举办第67期&ldquo;环保设施运营（污染源自动监测污废水运维工、污染源自动监测废气运维工）操作技术岗位能力&rdquo;网络培训班的通知" href="/a/zhl/fwypx/2026/0921/30259.html" target="_blank">关于举办第67期&ldquo;环保设施运营（污染源自动监测污废水运维工、污染源自动监测废气运维工）操作技术岗位能力&rdquo;网络培训班的通知</a><span>09-21</span></li>
+                            <li><a title="关于举办第29期&ldquo;环境检验检测机构资质认定专业岗位能力&rdquo;网络培训班的通知" href="/a/zhl/fwypx/2026/0921/30258.html" target="_blank">关于举办第29期&ldquo;环境检验检测机构资质认定专业岗位能力&rdquo;网络培训班的通知</a><span>09-21</span></li>
+                            <li><a title="关于举办第66期&ldquo;环保设施运营（污废水处理工）操作技术岗位能力&rdquo;网络培训班的通知" href="/a/news/2026/0824/30212.html" target="_blank">关于举办第66期&ldquo;环保设施运营（污废水处理工）操作技术岗位能力&rdquo;网络培训班的通知</a><span>08-24</span></li>
+                            <li><a title="关于举办第65期&ldquo;环保设施运营（污染源自动监测污废水运维工、污染源自动监测废气运维工）操作技术岗位能力&rdquo;网络培训班的通知" href="/a/news/2026/0824/30211.html" target="_blank">关于举办第65期&ldquo;环保设施运营（污染源自动监测污废水运维工、污染源自动监测废气运维工）操作技术岗位能力&rdquo;网络培训班的通知</a><span>08-24</span></li>
+                            <li><a title="关于举办&ldquo;污(废)水处理、污染源自动监测＂运维管理人员培训班的通知" href="/a/news/2026/0807/30190.html" target="_blank">关于举办&ldquo;污(废)水处理、污染源自动监测＂运维管理人员培训班的通知</a><span>08-07</span></li>
+                        </ul><a target="_blank" href="/a/note/" class="more">更多&gt;&gt;</a></div>
+        </div>
+        <div class="picScroll-left mt22">
+          <div class="hd"><a target="_blank" class="next"></a><a target="_blank" class="prev"></a></div>
+          <div class="bd"><div class="tempWrap"><ul class="picList">
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="关于举办2026气环会的通知（第一轮）" href="/a/ad/2026/0725/30175.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/allimg/260725/15-260H50020550-L.jpg"></a></div></li>
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="关于举办2024年度第一期油气回收治理与监测从业人员培训班的通知" href="/a/ad/2026/0408/28821.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/260408/15-26040QF95C64.jpg"></a></div></li>
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="关于举办＂2026全国水科技大会暨技术装备成果展览会＂的预通知" href="/a/ad/2026/0120/29902.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/allimg/260120/15-2601201FQ10-L.jpg"></a></div></li>
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="工业与节能" href="/a/ad/2026/0119/29893.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/allimg/260119/15-260119125Z70-L.jpg"></a></div></li>
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="我为气候种棵树" href="/a/ad/2025/1127/29798.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/allimg/251127/15-25112F914410-L.jpg"></a></div></li>
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="益起行 益起动 守护河道一公里" href="/a/ad/2025/0606/29503.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/250606/15-250606213910B3.jpg"></a></div></li>
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="&ldquo;益起低碳&rdquo;策略传播小额资助计划（五期）征集通知" href="/a/ad/2025/0513/21573.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/250513/15-250513121KO28.jpg"></a></div></li>
+                        <li style="float: left; width: 740px;"><div class="pic"><a title="关于召开&ldquo;2024全国水科技大会暨技术装备成果展览会&rdquo;的通知" href="/a/ad/2024/0312/28594.html" target="_blank"><img src="https://iotobject.rockontrol.com/acef-oss/static/uploads/allimg/240312/1-2403121543090-L.jpg"></a></div></li>
+                      </ul></div></div>
+        </div>
+        <div class="tab-content zcwzsj tab mt22">
+          <div class="channel_tit2 title sjyc"><a target="_blank" href="/a/gzcy/" class="note">公众参与</a></div>
+          <div class="tab-pane on"><ul>
+                            <li><a title="双节守护显担当  志愿服务暖楚沩  &mdash;&mdash;宁乡市环保志愿者协会多线开展系列志愿服务" href="/a/gzcy/2026/1008/30274.html" target="_blank">双节守护显担当  志愿服务暖楚沩  &mdash;&mdash;宁乡市环保志愿者协会多线开展系列志愿服务</a><span>10-08</span></li>
+                            <li><a title="2026年世界清洁日｜守望母亲河 净滩护水行动" href="/a/gzcy/2026/0924/30268.html" target="_blank">2026年世界清洁日｜守望母亲河 净滩护水行动</a><span>09-24</span></li>
+                            <li><a title="世界巡护员日｜419,419次巡护，记录河流的真实模样" href="/a/gzcy/2026/0731/30182.html" target="_blank">世界巡护员日｜419,419次巡护，记录河流的真实模样</a><span>07-31</span></li>
+                            <li><a title="襄阳环保志愿者巡河守护河库生态安全" href="/a/gzcy/2025/0912/29689.html" target="_blank">襄阳环保志愿者巡河守护河库生态安全</a><span>09-12</span></li>
+                            <li><a title="乐清市环保公益协会：全城联动守护碧海蓝天 | 乐清首届 &ldquo;卫蓝净海&rdquo; 环保行动燃情启幕" href="/a/hyb/hyhd/2025/0912/29682.html" target="_blank">乐清市环保公益协会：全城联动守护碧海蓝天 | 乐清首届 &ldquo;卫蓝净海&rdquo; 环保行动燃情启幕</a><span>09-12</span></li>
+                            <li><a title="我会安徽办成功举办&ldquo;守护皖江母亲河，我们在行动&rdquo;志愿服务公益宣传活动" href="/a/news/2025/0324/29376.html" target="_blank">我会安徽办成功举办&ldquo;守护皖江母亲河，我们在行动&rdquo;志愿服务公益宣传活动</a><span>03-24</span></li>
+                            <li><a title="3.12&ldquo;春植希望，绿染未来&rdquo;青春与绿意同行，汗水共希望交织" href="/a/gzcy/2025/0321/29372.html" target="_blank">3.12&ldquo;春植希望，绿染未来&rdquo;青春与绿意同行，汗水共希望交织</a><span>03-21</span></li>
+                        </ul><a target="_blank" href="/a/gzcy/" class="more">更多&gt;&gt;</a></div>
+        </div>
+      </div>
+      <div class="fr w351 pd20 fwlm">
+        <ul class="mzfw">
+          <li class="boder_rb"><a target="_blank" href="http://www.wurantousu.com/"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/mztj.png" alt=""><span>污染投诉</span></a></li>
+          <li><a target="_blank" href="http://zhlzs.acef.com.cn/"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/jjfz.png" alt=""><span>培训查询</span></a></li>
+          <li><a target="_blank" href="/a/ngohy/"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/mzwh.png" alt=""><span>NGO黄页</span></a></li>
+          <li class="boder_lt"><a target="_blank" href="http://www.zhhjw.org/a/qkzz/ "><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/mzjy.png" alt=""><span>期刊杂志</span></a></li>
+          <div class="clear"></div>
+        </ul>
+        <div class="tab-content xzfw tab ">
+          <div class="channel_tit2 title zjtd"><a target="_blank" href="/a/hyb/" class="active" style="color:#2e5c9a;">会员中心</a></div>
+          <div class="zxgz"><ul style="height:auto;width:390px;">
+              <li><a href="https://iotobject.rockontrol.com/acef-oss/static/uploads/soft/dwhy.doc" target="_blank">单位入会申请</a></li>
+              <li><a href="https://iotobject.rockontrol.com/acef-oss/static/uploads/soft/grhy.doc" target="_blank">个人入会申请</a></li>
+          </ul></div>
+          <div class="channel_tit2 title zjtd"><a target="_blank" href="/a/flzx/zjtd/" class="active" style="color:#2e5c9a;">专家团队</a></div>
+          <div class="tZjtd"><div class="tZjtd_l"><ul>
+            <li style="width:180px; height:60px; line-height:60px; font-size:15px;"><a target="_blank" href="/a/news/2021/1202/23533.html">专家委员会</a></li>
+            <li style="width:180px; height:60px; line-height:60px; font-size:15px; margin-left:10px;"><a target="_blank" href="/a/flzx/flzjwyh/index.html">法律专家</a></li>
+          </ul>
+          <img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/tsrx1.png" alt="投诉热线" style=" margin-top:10px;">
+          <a target="_blank" href="http://www.wurantousu.com/register.html"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/tsrx2.png" alt="投诉热线" style=" margin-top:10px;"></a>
+          </div></div>
+        </div>
+        <div class="picScroll-left1 ">
+          <div class="channel_tit2 title zjtd"><a target="_blank" href="/a/flzx/zjtd/" class="active" style="color:#2e5c9a;">专项工作</a></div>
+          <div class="zxgz"><ul style="height:120px;width:390px;">
+              <li><a target="_blank" href="/a/news/2022/0705/24770.html">科技成果评价</a></li>
+              <li><a target="_blank" href="/a/fzzx/news/2026/0303/29955.html">科学技术奖申报</a></li>
+              <li><a target="_blank" href="http://www.acef-vocs.com.cn/">VOCs污染监测与治理</a></li>
+              <li><a target="_blank" href="http://www.acef-chs.cn">固危废及土壤污染治理</a></li>
+          </ul></div>
+          <img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/wxtp.png" alt="微信图片" style=" margin-top:10px;">
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="wp ">
+      <div class="friend-link">
+        <div class="tit"> </div>
+        <div class="con">
+          <div class="slide-box2 w5" style="height:auto;">
+            <div class="hd">
+              <ul><li class="on">政府链接</li><li class="">NGO链接</li><li class="">企业链接</li><li class=" ">媒体链接</li></ul>
+            </div>
+            <div class="bd">
+              <ul class="cl" style="display: block;">
+                <li class="ell"><a target="_blank" href="http://www.gov.cn/">· 中央政府门户网站</a></li>
+                <li class="ell"><a target="_blank" href="http://www.mee.gov.cn/">· 生态环境部</a></li>
+                <li class="ell"><a target="_blank" href="http://www.npc.gov.cn/">· 中国人大网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.fmprc.gov.cn/">· 外交部</a></li>
+                <li class="ell"><a target="_blank" href="http://www.mod.gov.cn/">· 国防部</a></li>
+                <li class="ell"><a target="_blank" href="http://www.ndrc.gov.cn/">· 国家发展和改革委员会</a></li>
+                <li class="ell"><a target="_blank" href="http://www.moe.edu.cn/">· 中华人民共和国教育部</a></li>
+                <li class="ell"><a target="_blank" href="http://www.most.gov.cn/">· 科学技术部</a></li>
+                <li class="ell"><a target="_blank" href="http://www.miit.gov.cn/">· 工业和信息化部</a></li>
+                <li class="ell"><a target="_blank" href="http://www.mps.gov.cn/">· 公安部</a></li>
+              </ul>
+              <ul class="cl" style="display: none;">
+                <li class="ell"><a target="_blank" href="http://www.chinanpo.gov.cn/index.html">·中国社会组织网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.cepf.org.cn/">·中华环境保护基金会</a></li>
+                <li class="ell"><a target="_blank" href="http://www.fon.org.cn/">·自然之友</a></li>
+                <li class="ell"><a target="_blank" href="http://www.mchjbhw.com/">·莫愁环境保护网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.ahaef.com/">·安徽省环保联合会</a></li>
+                <li class="ell"><a target="_blank" href="http://www.jspef.cn/">·江苏省环保联合会</a></li>
+                <li class="ell"><a target="_blank" href="http://www.jlepf.com/">·吉林省环保联合会</a></li>
+                <li class="ell"><a target="_blank" href="http://www.cecrpa.org.cn/index.htm">· 中国生态文明研究与促进会</a></li>
+                <li class="ell"><a target="_blank" href="http://www.tt65.net/">· 中国环境文化促进会</a></li>
+                <li class="ell"><a target="_blank" href="http://222.143.24.250:86/Default.aspx?alias=222.143.24.250:86/lhh">· 河南省环保联合会</a></li>
+                <li class="ell"><a target="_blank" href="http://www.acefst.org/">·中华环保联合会环保技术</a></li>
+                <li class="ell"><a target="_blank" href="https://sdpi.org">·巴基斯坦可持续发展政策研究所</a></li>
+              </ul>
+              <ul class="cl" style="display: none;">
+                <li class="ell"><a target="_blank" href="http://hbjob.bjx.com.cn/">· 北极星节能环保招聘网</a></li>
+                <li class="ell"><a target="_blank" href="">· 欧美化学</a></li>
+                <li class="ell"><a target="_blank" href="">· CC环保网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.365a8.com/">· 中国商报供求网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.paper.com.cn/">· 中国纸网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.10086.cn">· 中国移动</a></li>
+                <li class="ell"><a target="_blank" href="http://www.hbjob88.com/">· 环保英才网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.cnygg.com/">· 中国能源广告网</a></li>
+                <li class="ell"><a target="_blank" href="">· 西部环保资讯网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.51hbjob.com/">· 环保人才网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.rscloudmart.com/index">· 遥感集市</a></li>
+                <li class="ell"><a target="_blank" href="http://www.dezhenwenhua.com/">· 北京君祉林文化传媒</a></li>
+              </ul>
+              <ul class="cl" style="display: block;">
+                <li class="ell"><a target="_blank" href="http://www.zhhjw.org/">· 中华环境网</a></li>
+                <li class="ell"><a target="_blank" href="http://www.zgjn365.com/">· 中国节能网</a></li>
+                <li class="ell"><a target="_blank" href="http://huanbao.bjx.com.cn/">· 北极星节能环保网</a></li>
+                <li class="ell"><a target="_blank" href="http://forum.home.news.cn/index.jsp">· 新华网发展论坛</a></li>
+                <li class="ell"><a target="_blank" href="http://www.cenews.com.cn/">· 中国环境报社</a></li>
+                <li class="ell"><a target="_blank" href="http://www.163.com/">· 网易</a></li>
+                <li class="ell"><a target="_blank" href="http://www.chinaenvironment.com/">· 中国环保网</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- //底部模板 -->
+<div class="clear"></div>
+<div class="footer w960 center mt20 clear ">
+    <div class="footer_left"></div>
+    <div class="footer_body">
+	<p class="powered">
+		版权所有 : 中华环保联合会 &nbsp;&nbsp;&nbsp;&nbsp;  电话 : 010-51266665 &nbsp;&nbsp;&nbsp;&nbsp; 传真 : 010-51230006   <br /> 地址 ： 北京市朝阳区和平里14区青年沟东路华表大厦六层 &nbsp;&nbsp;&nbsp;&nbsp; &copy;2016 acef.com.cn All rights reserved <br />ICP备案号 ： <a href="http://beian.miit.gov.cn" target="_blank">京ICP备 09001300号 </a> </p>
+		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502032620" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/images/gaba.png" style="float:left;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010502032620号</p></a>
+   </div>
+   <div class="footer_right"></div>
+</div>
+<!--
+<script>
+var _hmt = _hmt || [];
+(function() {
+var hm = document.createElement("script");
+hm.src = "https://hm.baidu.com/hm.js?e99b6686230876750dcb48e6b9e26650";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(hm, s);
+})();
+</script>
+-->
+
+<script type="text/javascript">
+$(function(){ $(".slide-box,.slide-box2").slide(); });
+jQuery(".slideGroup").slide({titCell:".parHd li",mainCell:".parBd"});
+</script>
+<script language="javascript" type="text/javascript" src="https://iotobject.rockontrol.com/acef-oss/static/templets/default/js/index.js"></script>
+</body>
+</html>

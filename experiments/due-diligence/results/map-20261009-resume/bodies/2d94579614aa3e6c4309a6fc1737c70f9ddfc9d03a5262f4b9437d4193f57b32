@@ -1,0 +1,133 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>国家林业和草原局网上行政许可平台</title>
+    <link rel="shortcut icon" href="/adminapproval/p2081/resource/login/images/favicon.ico">
+    <link href="/adminapproval/p2081/resource/login/css/homepage.css?v=v1.025.000.20211231_beta" rel="stylesheet">
+    <link href="/adminapproval/p2081/resource/login/css/login.css?v=v1.025.000.20211231_beta" rel="stylesheet">
+    <link rel="stylesheet" href="/adminapproval/external/layui/css/layui.css?v=v1.025.000.20211231_beta" media="all">
+    <link href="/adminapproval/p2081/resource/login/css/xzspmain.css?v=v1.025.000.20211231_beta" rel="stylesheet">
+    <script type="text/javascript" src="/adminapproval/p2081/login/js/echarts.min.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+    <script type="text/javascript" src="/adminapproval/external/layui/layui.all.js?v=v1.025.000.20211231_beta"></script>
+    <script type="text/javascript" src="/adminapproval/external/layui256/lay/modules/layer.js?v=v1.025.000.20211231_beta"></script>
+    <script>
+        var contextPath = '/adminapproval';
+        var RSA_PUBLIC = 'MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAI0odjym88xEMUCOm2AqDP36hbBrwNZlaiHvYOzbAgmz53jhAKsXByEL/oI/MckG8f9TiwcWz36vlSrLwm+NlUWz+bLLbYkg9ZQ66R2di0nq3T4Bw6AShd7ZztfHZhTxi3uQY29RDSNRlKtdZeDz3JjJDqxJLuc8FT0VBvFMWlZjAgMBAAECgYAqVq2IKadMaFPBgkSWRmaZMzAwJ1GyvL5lqVAQGux0jpJqDkrOBl0sC1XuKRg8rKmfJKa5nJzl6bI7INyT6wqPZ7cEpurAYsRw1AMswISgxJAoUxZvNVNaaupMZzn4S2TYdX4f/2ShaKbOflHvJtBzL+zPTnpYgQ7oE3o6Mz62+QJBANa5uVtSLz9f+LexIj1xLNxYLMRYKOx5rz2OIMI5OPAGMXyyHW+8Qi9S5wxReSOb3UXZqqR9ki5VJ9mysN6fMFcCQQCoSpwTCWamfJhKNybJRgzxwI85gL3hrkPRsPjYrr9c5AKWXIFh8Huw9sbKHPf/jxFiNLeGEPnYjr+tJjSO5xLVAkEApkLOdBhxvxeXpNxCD+MnAkI//5PntBsQhpAba2gVXzzcapob0t2pPa1qe45GRz0zmxdMWutkGf4Tyivjaa1HJwJATP4tX2w6oUp5ZeLLhOPegi/Flto2hOx0LJgZkRCJjhbmtCHIM6WRAUo1cjxEnY+3tUVG/TgBBjlwqefDvekrrQJATWSfF4V+tqPhsct6rZqwgtXs2woHlUOj7loYi3a6Wu9ZPdZV2KciTIeyCkys8hhNMN3wybUaygpy9HghpOpVLA==';
+        var jurisdiction = '';
+        var zclx = '';
+        var code='';
+        var msg='';
+        var userId='';
+        //判断当前窗口是否有顶级窗口，如果有就让当前的窗口的地址栏发生变化，
+        function loadTopWindow() {
+            //取得浏览器的userAgent字符串
+            var userAgent = navigator.userAgent;
+            //判断是否IE浏览器
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1;
+            if (isIE) {
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(userAgent);
+                var fIEVersion = parseFloat(RegExp["$1"]);
+                if (fIEVersion < 10 || !isSupportPlaceholder()) {
+                    layer.alert("本系统支持IE10及以上、Firefox、Chrome最新版本，当前浏览器为IE" + fIEVersion + "，请下载并安装Chrome。", {}, function (index) {
+                        window.location.href = "https://www.google.cn/chrome/";
+                    });
+                }
+            }
+            if (window.top != null && window.top.document.URL != document.URL) {
+                window.top.location = document.URL; //这样就可以让登陆窗口显示在整个窗口了
+            }
+        }
+
+    </script>
+    <style>
+        .zysx {
+            background-color: #437FB1;
+            float: left;
+            height: 60px;
+            position: relative;
+            top: 175px;
+            left: 215px;
+            width: 150px;
+        }
+        .zysx a {
+            display: block;
+            width: 105px;
+            position: absolute;
+            left: 25px;
+            margin-top: 5px;
+            font-size: 20px;
+            color: white;
+            letter-spacing: 5px;
+        }
+        .zysx a:hover{
+            color: red;
+        }
+    </style>
+
+    
+    
+    
+</head>
+<body onload="loadTopWindow()">
+<div class="header_bj">
+    <div class="bar">
+        <p class="img pointer" onclick="window.open('http://gjzwfw.www.gov.cn');" title="http://gjzwfw.www.gov.cn/"></p>
+        
+    </div>
+</div>
+<!-- 菜单区域 -->
+<div class="nav" id="menu"></div>
+
+
+<div class="iframeDiv">
+    <iframe id="mainframe" onload="this.height=$(this).contents().height();" name="mainframe"
+            src="/adminapproval/ctrl/notLoggedInNew/main" marginwidth="0" marginheight="0" scrolling="no" border="0"
+            framespacing="0" height="1353" width="1200px" frameborder="0"></iframe>
+</div>
+<div style="MARGIN-BOTTOM: 20px; MARGIN-TOP: 20px; TEXT-ALIGN: center;background: #446B8D;">
+    <div style="VERTICAL-ALIGN: top; DISPLAY: inline-block;height: 20px;line-height: 200px;margin-right: 20px;">
+        <a href="//bszs.conac.cn/sitename?method=show&amp;id=08A9E33615A67524E053022819ACEA79" target="_blank">
+            <img id="imgConac" src="/adminapproval/p2081/resource/login/images/red.png" data-bd-imgshare-binded="1" width="80"
+                 hspace="0" border="0">
+        </a>
+    </div>
+    <div style="WIDTH: 720px; MARGIN-TOP: 15px; TEXT-ALIGN: left; DISPLAY: inline-block; LINE-HEIGHT: 24px">
+        <img src="/adminapproval/p2081/resource/login/images/time.png"><span style="font-family: SourceHanSansSC-Bold;font-size: 18px;color: #FFFFFF;letter-spacing: 0;margin-left: 10px;">对外工作时间</span><br>
+        <div style="opacity: 0.8;background: #56A0E3;width: 90%;"><span style="font-family: SourceHanSansSC-Regular;font-size: 16px;color: #FFFFFF;letter-spacing: 0;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上午&nbsp;&nbsp;8:30-11:30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下午&nbsp;&nbsp;14:00-17:00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（法定节假日除外）</span></div>
+        <p style="font-family: SourceHanSansSC-Regular;font-size: 16px;color: #FFFFFF;letter-spacing: 0;line-height: 30px;">
+            业务咨询：动植物保护类：010-84239663种苗、科技类：010-84239633<br>
+            地址：北京市东城区和平里东街18号<br>
+            主办：国家林业和草原局&nbsp;丨&nbsp;承办：局办公室&nbsp;局信息中心&nbsp;丨&nbsp;政府网站标识码：bm37000013 <br>
+            ICP备案编号：京ICP备10047111号-4 丨&nbsp;&nbsp;<a target="_blank"
+                                        href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102004204"
+                                        style="display:inline-block;text-decoration:none;height: 30px;line-height: 30px;font-size: 16px;color: #FFFFFF;">
+            <img src="/adminapproval/p2081/resource/login/images/gatb.png">京公网安备11010102004204号</a>
+        </p>
+    </div>
+    <div style="VERTICAL-ALIGN: top; DISPLAY: inline-block;height: 200px;line-height: 200px;">
+        <a href="http://121.43.68.40/exposure/jiucuo.html?site_code=bm37000013&amp;url=http:%3A%2F%2Fwww.forestry.gov.cn%2Fxzsp.html"
+           target="_blank">
+            <img style="CURSOR: pointer; BORDER-TOP: 0px; BORDER-RIGHT: 0px; BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; MARGIN: 0px"
+                 src="/adminapproval/p2081/resource/login/images/jiucuo.png">
+        </a>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="/adminapproval/external/jquery-1.12.4.min.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+<script type="text/javascript" src="/adminapproval/external/layui/layui.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+<script type="text/javascript" src="/adminapproval/external/underscore/underscore-min.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+<script type="text/javascript" src="/adminapproval/resource/js/jsencrypt.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+<script type="text/javascript" src="/adminapproval/resource/js/dreamweb-core.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+<script type="text/javascript" src="/adminapproval/p2081/login/js/login.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+<script type="text/javascript" src="/adminapproval/p2081/login/js/businessLogin.js?v=v1.025.000.20211231_beta" charset="utf-8"></script>
+<script type="text/javascript">
+
+</script>
+</html>

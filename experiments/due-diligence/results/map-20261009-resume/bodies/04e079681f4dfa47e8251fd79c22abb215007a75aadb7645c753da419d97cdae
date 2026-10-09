@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="X-UA-Compatible" content="IE=9.0000" />
+<link rel="shortcut icon" href="images/favicon_1.ico">
+<meta name="viewport" content="initial-scale=1, maximum-scale=2, minimum-scale=1, user-scalable=no">
+<title>中国水利工程协会官网</title>
+<meta name="keywords" content="全国水利工程建设管理,市场主体信用管理,水利从业人员信息报送,水利从业人员资格管理,从业人员职业生涯管理,大禹奖申报,工法申报,QC申报" />
+<meta name="description" content="中国水利工程协会成立于2005年8月18日，是由全国水利工程建设管理、施工、监理、运行管理、维修养护等企、事业单位及热心水利事业的其他相关组织和个人，自愿结成的非营利性、全国性的行业自律组织。"/>
+<link rel="stylesheet" type="text/css" href="2016page/css/base.css" />
+<link rel="stylesheet" type="text/css" href="2016page/css/main.css">
+<script src="2016page/js/jquery-1.7.2.js" type="text/javascript" charset="gb2312"></script>
+<style>
+/*
+html{
+	filter: grayscale(100%);
+	-webkit-filter: grayscale(100%);
+	-moz-filter: grayscale(100%);
+	-ms-filter: grayscale(100%);
+	-o-filter: grayscale(100%);
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+	filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+	-webkit-filter: grayscale(1);
+	filter:gray;
+} 
+
+body{filter:gray;}
+img{filter:gray !important;}
+
+.grayscale{
+	filter: gray !important;
+	filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);     
+	filter: grayscale(100%);     
+	-webkit-filter: grayscale(100%);     
+	-moz-filter: grayscale(100%);     
+	-ms-filter: grayscale(100%);     
+	-o-filter: grayscale(100%)
+}
+*/
+
+.tabs {
+	margin-top: 0px;
+	width: 100%;
+	height: 34px;
+	overflow: hidden;
+	z-index: 1000;
+	border-bottom: 1px solid #ccc
+}
+
+.tabs a {
+	font-size: 16px;
+	text-align: left;
+	float: left;
+	height: 32px;
+	line-height: 30px;
+	color: #333;
+	width: 20%;
+}
+
+.tabs a.active {
+	border-bottom: 2px solid #fb5353;
+	color: #fb5353;
+}
+
+.page {
+	display: none;
+}
+
+.actived {
+	display: block;
+}
+
+.TopHref{
+	color:#ffffff;
+	font-weight:bold;
+}
+.pages{
+	float:right;width:16px;height:16px;border:1px solid #ccc;text-align:center;display:inline;font-size:11px;margin-left:4px;margin-right:4px;
+}
+</style>
+<script language="Javascript">
+/*
+var url = window.location.href;
+if (url.indexOf("https") < 0 && url.indexOf("localhost") < 0) {
+	url = url.replace("http:", "https:");
+	window.location.replace(url);
+}
+if (window != top) {
+	top.location.href = location.href;
+}
+*/
+</script>
+<script language="Javascript">
+function doLogout(){
+	if(confirm("是否确定注销当前用户")){
+		window.self.location = "logout.php";
+	}
+}
+</script>
+</head>
+<body>
+<center>
+	<div>
+		<div class="topBox">
+		<div class="topBar">
+			<div class="bar-con">
+				<p class="left"><b>您好！今天是2026年10月9日 星期五</b></p>
+				<p class="right">
+										<a href="https://council.cweun.org" target="_blank" style="font-weight:700;">理事登录</a>
+					<!-- <a href="registor.php"><b>注册</b></a>-->
+										|
+					<a href="http://mail.cweun.org/" target="_blank"><b>邮箱登录</b></a>|
+					<a href="javascript:window.external.AddFavorite('http://www.cweun.org', '中国水利工程协会')"><b>收藏本站</b></a>|
+					<a href="this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.cweun.org');"><b>设为首页</b></a>
+				</p>
+			</div>
+		</div>
+	</div>
+		<div style="width:1200px;height: auto;margin: 0 auto;">
+		<!--头部开始-->
+		<!--<div class="nav">
+			<img src="images/logo2017.jpg" /></a>
+			
+			<div>
+					<form name="frm4" action="search.php" method="get">
+					站内搜索:<input type="text" class="searchInput" name="kw" value="" /> 
+					<input type="radio" name="tp" class="new" id="n1" value="1" checked><label for="n1">新闻标题</label>
+					<input type="radio" name="tp" class="new" id="n2" value="2"><label for="n2">全文搜索</label>
+					<input type="image" id="" src="2016page/res/images/btn_cx.png" class="searchBtn"/>
+					</form>					
+			</div>			
+			
+			<ul>
+				<li class="mou"><a href="/">首页</a></li>
+				<li><a href="AboutUs.php" target="_blank">关于协会</a></li>
+				<li><a href="hygl.php" target="_blank">会员管理</a></li>
+				<li><a href="rygl.php" target="_blank">人员管理</a></li>
+				<li><a href="http://zsyz.cweun.org/" target="_blank">证书验证</a></li>
+				<li><a href="http://rcpu.cweun.org/" target="_blank">信用管理</a></li>
+				<li><a href="khpj.php" target="_blank">考核评价</a></li>
+				<li><a href="Public.php" target="_blank">公益事业</a></li>
+				<li><a href="Journal.php" target="_blank">协会会刊</a></li>
+				<li><a href="zxzx_edit.php" target="_blank">咨询投诉</a></li>
+				<li><a href="ServiceGuide.php" target="_blank">联系我们</a></li>
+			</ul>
+		</div>-->
+		<!--头部结束-->
+		<!--banner开始-->
+		
+		<div style="width:100%;text-align:left;">
+						<img width="1200" height="200" alt="" src="images/logo3.jpg">
+					</div>
+		<!--banner结束-->	<link rel="stylesheet" href="themes/default/default.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/nivo-slider.css" type="text/css" media="screen" />
+		<!--信息开始-->
+		<div class="infoBar">
+			<p><a href="/"><font size=3px color=#FFFFFF><b>首页</b></font></a></p>
+			<p><a href="AboutUs.php" target="_blank"><font size=3px color=#FFFFFF><b>关于协会</b></font></a></p>
+			<p><a href="hygl.php" target="_blank"><font size=3px color=#FFFFFF><b>会员管理</b></font></a></p>
+			<p><a href="rygl.php" target="_blank"><font size=3px color=#FFFFFF><b>人员管理</b></font></a></p>
+			<p><a href="https://rcpu.cweun.org/" target="_blank"><font size=3px color=#FFFFFF><b>信用管理</b></font></a></p>
+			<p><a href="khpj.php" target="_blank"><font size=3px color=#FFFFFF><b>考核评价</b></font></a></p>
+			<p><a href="https://gq.cweun.org/" target="_blank"><font size=3px color=#FFFFFF><b>公益事业</b></font></a></p>
+			<p><a href="Journal.php" target="_blank"><font size=3px color=#FFFFFF><b>协会会刊</b></font></a></p>
+			<p><a href="zxzx_edit.php" target="_blank"><font size=3px color=#FFFFFF><b>业务咨询</b></font></a></p>
+			<!--<p><a href="ServiceGuide.php" target="_blank"><font size=3px color=#FFFFFF><b>联系我们</b></font></a></p>-->
+		
+			<!--<p><div style="vertical-align:middle;"><font size=3px color=#FFFFFF>您好！今天是2026年10月9日 星期五</font></div></p>-->
+		</div>
+		<!--信息结束-->
+
+		<!--内容开始-->
+		<div class="content">
+			<div class="c_left">
+				<div class="ryzs" style="margin-bottom:8px;">
+					<p></p>
+					<div id="wrapper" style="width:100%;height:200px;padding:0px;margin:0px;">
+						<div class="slider-wrapper theme-default">
+							<div id="slider" class="nivoSlider">
+								<a href="show.php?cid=46&id=878" target="_blank"><img src="uploadfile/image/20200211/20200211092513_58018.jpg" data-thumb="uploadfile/image/20200211/20200211092513_58018.jpg" title="荣获“2017-2018年度全国青年文明号”荣誉称号"/></a><a href="show.php?cid=46&id=581" target="_blank"><img src="uploadfile/image/20160906202841.jpg" data-thumb="uploadfile/image/20160906202841.jpg" title="当选“中国社会组织促进会行业协会商会分会轮值会长”"/></a><a href="show.php?cid=46&id=513" target="_blank"><img src="uploadfile/2010/0422/201004220140121562.jpg" data-thumb="uploadfile/2010/0422/201004220140121562.jpg" title="荣获“中央国家机关青年文明号”称号"/></a><a href="show.php?cid=46&id=580" target="_blank"><img src="uploadfile/image/20160906202837.jpg" data-thumb="uploadfile/image/20160906202837.jpg" title="获“全国水利工程建设质量管理工作先进集体”荣誉称号"/></a><a href="show.php?cid=46&id=268" target="_blank"><img src="uploadfile/2010/0422/20100422023048894.jpg" data-thumb="uploadfile/2010/0422/20100422023048894.jpg" title="获“全国先进社会组织”荣誉称号"/></a><a href="show.php?cid=46&id=269" target="_blank"><img src="uploadfile/2010/0422/20100422023527690.jpg" data-thumb="uploadfile/2010/0422/20100422023527690.jpg" title="获“中国社会组织评估等级5A级”荣誉称号"/></a>								<!--
+								<a href="indexshow.php?id=12" target="_blank"><img src="images/banner/5.png" data-thumb="images/banner/5.png" title="中国水利工程协会与中国社会组织促进会共同发起“甘泉”公益专项基金成立大会暨捐赠仪式在京举行 "/></a>
+								<a href="indexshow.php?id=13" target="_blank"><img src="images/banner/6.jpg" data-thumb="images/banner/6.jpg" title="为“甘泉”公益专项基金捐赠单位颁发荣誉证书"/></a>
+								<img src="images/banner/2.png" data-thumb="images/banner/2.png" title="中国水利工程协会帮扶陕西省合阳县百良镇贫困农民改善饮水条件项目顺利完工"/>
+								<img src="images/banner/3.png" data-thumb="images/banner/3.png" title="中国水利工程协会帮扶云南省西双版纳州勐海县回贡新寨、回贡傣改善饮水条件项目顺利完工"/>
+								<img src="images/banner/4.png" data-thumb="images/banner/4.png" title="中国水利工程协会组织调研组赴贵州省册亨县巴金村改善农民饮水条件项目实地调研"/>
+								-->
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="ads" id="dd11" style="background:#cfeffc;width:310px;height:50px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(11,0);" OnMouseOut="ShowButton(11,1);" OnClick="window.open('https://ttb.cweun.org/');">
+					<div style="padding-top:14px;text-align:left;padding-left:1em;height:50px;background:url('images/icon_kp_bg4.png') no-repeat top center;font-size:24px;">
+						<img id="ii11" src="images/icon_kp_110.png" border=0 style="margin-top:-4px;vertical-align:middle;">&nbsp;&nbsp;&nbsp;团&nbsp;&nbsp;&nbsp;&nbsp;体&nbsp;&nbsp;&nbsp;&nbsp;标&nbsp;&nbsp;&nbsp;&nbsp;准
+					</div>
+				</div>
+				
+				<div class="ads" id="dd13" style="background:#cfeffc;width:310px;height:50px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(13,0);" OnMouseOut="ShowButton(13,1);" OnClick="window.open('https://gq.cweun.org/');">
+					<div style="padding-top:14px;text-align:left;padding-left:1em;height:50px;background:url('images/icon_kp_bg4.png') no-repeat top center;font-size:24px;">
+						<img id="ii13" src="images/icon_kp_130.png" border=0 style="margin-top:-4px;vertical-align:middle;">&nbsp;“甘泉”公益专项基金
+					</div>
+				</div>
+				
+				<div class="ads" id="dd6" style="background:#cfeffc;width:310px;height:50px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(6,0);" OnMouseOut="ShowButton(6,1);" OnClick="window.open('Youth.php');">
+					<div style="padding-top:12px;text-align:left;padding-left:1em;height:50px;background:url('images/icon_kp_bg4.png') no-repeat top center;font-family: 华文新魏;font-size:30px;font-weight:bold;color:red;">
+						<img id="ii6" src="images/icon_kp_60.png" border=0 style="vertical-align:middle;">&nbsp;青&nbsp;年&nbsp;文&nbsp;明&nbsp;号
+					</div>
+				</div>
+				
+				<!--<div class="ads">
+					<a target="_blank" href="http://ttb.cweun.org/"><img src="images/l_001.png" /></a>
+				</div>		
+				
+				<div class="ads" id="d6" style="background:#cfeffc;width:310px;height:60px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(6,0);" OnMouseOut="ShowButton(6,1);" OnClick="window.open('Youth.php');">
+					<div style="padding-top:16px;text-align:center;height:60px;background:url('images/icon_kp_bg3.png') no-repeat top center;font-family: 华文新魏;font-size:32px;font-weight:bold;color:red;">
+						<img id="i6" src="images/icon_kp_60.png" border=0 style="vertical-align:middle;">&nbsp;青&nbsp;年&nbsp;文&nbsp;明&nbsp;号
+					</div>
+				</div>-->
+			</div>
+
+			<div class="c_mid">
+				<div class="tabs">
+					<a href="list.php?id=15" id="h0" class="active">要闻</a> 
+					<a href="list.php?id=11" id="h1">通知公告</a> 
+					<a href="list.php?id=14" id="h2">协会动态</a> 
+					<a href="list.php?id=12" id="h3">文件标准</a> 
+					<a href="list.php?id=13" id="h4">法律法规</a>  
+				</div>
+				<div id="d0" class="page actived">
+					<ul><li><a title="《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性、兜底性民生建设》" href="show.php?cid=15&id=1602" target="_blank">《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性...</a><span>2026-10-08</span></li><li><a title="《求是》杂志发表习近平总书记重要文章《在加强基础研究座谈会上的讲话》" href="show.php?cid=15&id=1597" target="_blank">《求是》杂志发表习近平总书记重要文章《在加强基础研究座谈...</a><span>2026-09-16</span></li><li><a title="《求是》杂志发表习近平总书记重要文章《提高防灾减灾救灾能力》" href="show.php?cid=15&id=1590" target="_blank">《求是》杂志发表习近平总书记重要文章《提高防灾减灾救灾能...</a><span>2026-08-17</span></li><li><a title="《求是》杂志发表习近平总书记重要文章《加快建设健康中国》" href="show.php?cid=15&id=1588" target="_blank">《求是》杂志发表习近平总书记重要文章《加快建设健康中国》</a><span>2026-08-03</span></li><li><a title="中共中央政治局召开会议 决定召开二十届五中全会 分析研究当前经济形势和经济工作 中共中央总书记习近平主持会议" href="show.php?cid=15&id=1585" target="_blank">中共中央政治局召开会议 决定召开二十届五中全会 分析研究...</a><span>2026-07-31</span></li><li><a title="习近平：在庆祝中国共产党成立105周年大会上的讲话" href="show.php?cid=15&id=1572" target="_blank">习近平：在庆祝中国共产党成立105周年大会上的讲话</a><span>2026-07-03</span></li><li><a title="庆祝中国共产党成立105周年大会在京隆重举行 习近平发表重要讲话" href="show.php?cid=15&id=1571" target="_blank">庆祝中国共产党成立105周年大会在京隆重举行 习近平发表...</a><span>2026-07-03</span></li><li><a title="《求是》杂志发表习近平总书记重要文章《一体推进教育科技人才发展》" href="show.php?cid=15&id=1567" target="_blank">《求是》杂志发表习近平总书记重要文章《一体推进教育科技人...</a><span>2026-06-16</span></li><li><a title="《求是》杂志发表习近平总书记重要文章《前瞻布局和发展未来产业》" href="show.php?cid=15&id=1565" target="_blank">《求是》杂志发表习近平总书记重要文章《前瞻布局和发展未来...</a><span>2026-06-01</span></li><li><a title="《求是》杂志发表习近平总书记重要文章《做强做优做大实体经济》" href="show.php?cid=15&id=1562" target="_blank">《求是》杂志发表习近平总书记重要文章《做强做优做大实体经...</a><span>2026-05-19</span></li></ul>				</div>
+				<div id="d1" class="page">
+					<ul><li><a title="中国水利工程协会关于缴纳2026年度会费的通知" href="show.php?cid=11&id=1497" target="_blank">中国水利工程协会关于缴纳2026年度会费的通知</a><img src="images/new.gif" border=0 class="img0"><span>2026-01-09</span></li><li><a title="关于开展2026年度水利工程优秀质量管理小组成果发表评价工作的通知" href="show.php?cid=11&id=1604" target="_blank">关于开展2026年度水利工程优秀质量管理小组成果发表评价...</a><img src="images/new.gif" border=0 class="img0"><span>2026-10-08</span></li><li><a title="中国水利工程协会关于修订印发《中国水利工程协会标准管理办法》和《中国水利工程协会标准管理工作细则》的通知" href="show.php?cid=11&id=1603" target="_blank">中国水利工程协会关于修订印发《中国水利工程协会标准管理办...</a><img src="images/new.gif" border=0 class="img0"><span>2026-10-08</span></li><li><a title="中国水利工程协会关于征求《水利工程场站设施技术规程 第1部分：现场临时营地》等6项标准意见的函" href="show.php?cid=11&id=1600" target="_blank">中国水利工程协会关于征求《水利工程场站设施技术规程 第1...</a><img src="images/new.gif" border=0 class="img0"><span>2026-09-28</span></li><li><a title="中国水利工程协会关于吊销方靖、路勇水利工程建设监理工程师资格证书的通知" href="show.php?cid=11&id=1591" target="_blank">中国水利工程协会关于吊销方靖、路勇水利工程建设监理工程师...</a><img src="images/new.gif" border=0 class="img0"><span>2026-08-24</span></li><li><a title="中国水利工程协会关于设立2026年度水利建设市场主体信用评价工作监督举报电话和邮箱的通知" href="show.php?cid=11&id=1586" target="_blank">中国水利工程协会关于设立2026年度水利建设市场主体信用...</a><img src="images/new.gif" border=0 class="img0"><span>2026-08-03</span></li><li><a title="中国水利工程协会关于批准《大中型水泵机组启动试运行规程》等3项标准立项的通知" href="show.php?cid=11&id=1596" target="_blank">中国水利工程协会关于批准《大中型水泵机组启动试运行规程》等3...</a><span>2026-09-15</span></li><li><a title="转发：水利工程建设监理单位资质认定常见问题解答（2026年8月版）" href="show.php?cid=11&id=1589" target="_blank">转发：水利工程建设监理单位资质认定常见问题解答（2026年8...</a><span>2026-08-15</span></li><li><a title="中共中央 国务院印发《关于加强新时代社会工作的意见》" href="show.php?cid=11&id=1584" target="_blank">中共中央 国务院印发《关于加强新时代社会工作的意见》</a><span>2026-07-24</span></li><li><a title="中国水利工程协会关于全力做好防汛救灾工作的倡议书" href="show.php?cid=11&id=1582" target="_blank">中国水利工程协会关于全力做好防汛救灾工作的倡议书</a><span>2026-07-17</span></li></ul>				</div>
+				<div id="d2" class="page">
+					<ul><li><a title="联动协同聚合力  共助水利高质量发展" href="show.php?cid=14&id=1599" target="_blank">联动协同聚合力  共助水利高质量发展</a><span>2026-09-24</span></li><li><a title="中国水利工程协会举办水利工程建设质量提升专题培训班" href="show.php?cid=14&id=1598" target="_blank">中国水利工程协会举办水利工程建设质量提升专题培训班</a><span>2026-09-24</span></li><li><a title="水利工程优秀质量管理小组成果技术评价专家培训班在太原襄阳两地举办" href="show.php?cid=14&id=1594" target="_blank">水利工程优秀质量管理小组成果技术评价专家培训班在...</a><span>2026-09-07</span></li><li><a title="水利工程移民安置监督评估人员职业能力培训班在郑州举办" href="show.php?cid=14&id=1587" target="_blank">水利工程移民安置监督评估人员职业能力培训班在郑州举办</a><span>2026-08-03</span></li><li><a title="水利工程移民安置监督评估企业座谈会在京召开" href="show.php?cid=14&id=1570" target="_blank">水利工程移民安置监督评估企业座谈会在京召开</a><span>2026-06-24</span></li><li><a title="中国水利工程协会第四次会员代表大会在京召开" href="show.php?cid=14&id=1563" target="_blank">中国水利工程协会第四次会员代表大会在京召开</a><span>2026-05-29</span></li><li><a title="情暖三八·香润巾帼——中国水利工程协会女职工三八妇女节主题活动" href="show.php?cid=14&id=1531" target="_blank">情暖三八·香润巾帼——中国水利工程协会女职工三八...</a><span>2026-03-09</span></li><li><a title="中国水利工程协会党支部圆满完成换届选举工作" href="show.php?cid=14&id=1450" target="_blank">中国水利工程协会党支部圆满完成换届选举工作</a><span>2025-12-24</span></li><li><a title="中国水利工程协会党支部书记、副会长赵存厚一行拜访中国化学品安全协会" href="show.php?cid=14&id=1422" target="_blank">中国水利工程协会党支部书记、副会长赵存厚一行拜访...</a><span>2025-09-19</span></li><li><a title="中国水利工程协会党支部赴中国人民抗日战争纪念馆开展主题党日活动" href="show.php?cid=14&id=1415" target="_blank">中国水利工程协会党支部赴中国人民抗日战争纪念馆开...</a><span>2025-08-01</span></li></ul>				</div>
+				<div id="d3" class="page">
+				<ul><li><a title="水利部关于印发《水库大坝安全监测管理办法》的通知" href="show.php?cid=12&id=1393" target="_blank">水利部关于印发《水库大坝安全监测管理办法》的通知</a><span>2025-01-21</span></li><li><a title="水利部关于印发《水利工程质量检测员资格规定》《水利工程质量检测员资格考试实施办法》的通知" href="show.php?cid=12&id=1336" target="_blank">水利部关于印发《水利工程质量检测员资格规定》《水...</a><span>2024-04-22</span></li><li><a title="水利部关于印发《堤防运行管理办法》《水闸运行管理办法》的通知" href="show.php?cid=12&id=1263" target="_blank">水利部关于印发《堤防运行管理办法》《水闸运行管理...</a><span>2023-05-05</span></li><li><a title="水利部关于印发《关于推进水利工程标准化管理的指导意见》《水利工程标准化管理评价办法》及其评价标准的通知" href="show.php?cid=12&id=1258" target="_blank">水利部关于印发《关于推进水利工程标准化管理的指导...</a><span>2023-04-18</span></li><li><a title="全国监理工程师职业资格考试基础科目和水利工程专业科目考试大纲（2023年修订版）" href="show.php?cid=12&id=1239" target="_blank">全国监理工程师职业资格考试基础科目和水利工程专业...</a><span>2023-02-20</span></li><li><a title="水利部关于印发《注册监理工程师（水利工程）管理办法》的通知" href="show.php?cid=12&id=1186" target="_blank">水利部关于印发《注册监理工程师（水利工程）管理办...</a><span>2022-05-25</span></li><li><a title="全国监理工程师职业资格考试基础科目和水利工程专业科目考试大纲" href="show.php?cid=12&id=1032" target="_blank">全国监理工程师职业资格考试基础科目和水利工程专业...</a><span>2021-03-05</span></li><li><a title="中国水利工程优质（大禹）奖评选管理办法" href="show.php?cid=12&id=1008" target="_blank">中国水利工程优质（大禹）奖评选管理办法</a><span>2020-10-30</span></li><li><a title="《造价工程师职业资格制度规定》和《造价工程师职业资格考试实施办法》" href="show.php?cid=12&id=971" target="_blank">《造价工程师职业资格制度规定》和《造价工程师职业...</a><span>2020-04-14</span></li><li><a title="《监理工程师职业资格制度规定》和《监理工程师职业资格考试实施办法》" href="show.php?cid=12&id=970" target="_blank">《监理工程师职业资格制度规定》和《监理工程师职业...</a><span>2020-04-14</span></li></ul>				</div>
+				<div id="d4" class="page">
+					<ul><li><a title="水利工程质量事故处理规定" href="show.php?cid=13&id=1381" target="_blank">水利工程质量事故处理规定</a><span>2024-12-09</span></li><li><a title="水利工程质量管理规定" href="show.php?cid=13&id=1380" target="_blank">水利工程质量管理规定</a><span>2024-12-09</span></li><li><a title="水利工程建设项目档案管理规定" href="show.php?cid=13&id=1098" target="_blank">水利工程建设项目档案管理规定</a><span>2021-09-01</span></li><li><a title="中华人民共和国安全生产法" href="show.php?cid=13&id=1095" target="_blank">中华人民共和国安全生产法</a><span>2021-09-01</span></li><li><a title="建设项目环境保护管理条例" href="show.php?cid=13&id=271" target="_blank">建设项目环境保护管理条例</a><span>2016-09-11</span></li><li><a title="建设工程安全生产管理条例" href="show.php?cid=13&id=272" target="_blank">建设工程安全生产管理条例</a><span>2016-09-11</span></li><li><a title="建设工程质量管理条例" href="show.php?cid=13&id=273" target="_blank">建设工程质量管理条例</a><span>2016-09-11</span></li><li><a title="中华人民共和国科学技术普及法" href="show.php?cid=13&id=274" target="_blank">中华人民共和国科学技术普及法</a><span>2016-09-11</span></li><li><a title="中华人民共和国科学技术进步法" href="show.php?cid=13&id=275" target="_blank">中华人民共和国科学技术进步法</a><span>2016-09-11</span></li><li><a title="中华人民共和国环境影响评价法" href="show.php?cid=13&id=276" target="_blank">中华人民共和国环境影响评价法</a><span>2016-09-11</span></li></ul>				</div>
+				<!--
+				<a target="_blank" href="list.php?id=18"><img width="542px" height="70px" src="images/yiqing.jpg" /></a>
+				-->
+				<a target="_blank" href="list.php?id=17"><img width="542px" height="70px" src="images/dangjian3.png" /></a>
+			</div>
+			<div class="c_right grayscale">
+				<div class="hyzx grayscale">
+					<p class="grayscale"></p>
+					<div class="hydl grayscale" onclick="window.open('https://vip.cweun.org/','_blank');"></div>
+					<div class="sqrh grayscale" onclick="window.open('https://vip.cweun.org/?r=1','_blank');"></div>
+					<li>
+						<a href="UnitList1.php" target="_blank" style="font-size:13px;color:red;" class="grayscale">1.会员展示</a>
+						<a href="show.php?cid=66&id=570" target="_blank" style="font-size:13px;color:red;" class="grayscale">2.会费缴纳方式</a>
+						<a href="show.php?cid=66&id=366" target="_blank" style="font-size:13px;color:red;" class="grayscale">3.会员所享受的服务</a>
+						<a href="show.php?cid=66&id=367" target="_blank" style="font-size:13px;color:red;" class="grayscale">4.会员应履行的义务</a>
+						<a href="show.php?cid=14&id=653" target="_blank" style="font-size:14px;font-family: 黑体;color:black;"><b>5.会员自律公约</b></a>
+						<a href="show.php?cid=14&id=654" target="_blank" style="font-size:14px;font-family: 黑体;color:black;"><b>6.会员职业道德准则</b></a>
+					</li>
+				</div>
+				<div class="ads" id="dd8" style="background:#cfeffc;width:310px;height:50px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(8,0);" OnMouseOut="ShowButton(8,1);" OnClick="window.open('jobs_info.php');">
+					<div style="padding-top:14px;text-align:center;height:50px;background:url('images/icon_kp_bg4.png') no-repeat top center;font-size:24px;">
+						<img id="ii8" src="images/icon_kp_80.png" border=0 style="margin-top:-4px;vertical-align:middle;">&nbsp;&nbsp;&nbsp;人&nbsp;才&nbsp;供&nbsp;需&nbsp;对&nbsp;接
+					</div>
+				</div>
+				<div class="ads" id="dd19" style="background:#cfeffc;width:310px;height:50px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(19,0);" OnMouseOut="ShowButton(19,1);" OnClick="window.open('https://cms.slyb.top/');">
+					<div style="padding-top:14px;text-align:center;height:50px;background:url('images/icon_kp_bg4.png') no-repeat top center;font-size:24px;">
+						<img id="ii19" src="images/icon_kp_190.png" border=0 style="margin-top:-4px;vertical-align:middle;">&nbsp;&nbsp;&nbsp;云&nbsp;播&nbsp;培&nbsp;训&nbsp;平&nbsp;台
+					</div>
+				</div>
+				<div class="ads" id="dd7" style="background:#cfeffc;width:310px;height:50px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(7,0);" OnMouseOut="ShowButton(7,1);" OnClick="window.open('huiyuanbaoxian.php');">
+					<div style="padding-top:14px;text-align:center;height:50px;background:url('images/icon_kp_bg4.png') no-repeat top center;font-size:24px;">
+						<img id="ii7" src="images/icon_kp_70.png" border=0 style="margin-top:-4px;vertical-align:middle;">&nbsp;&nbsp;&nbsp;会&nbsp;员&nbsp;保&nbsp;险&nbsp;服&nbsp;务
+					</div>
+				</div>
+				<!--
+				<div class="ads" id="d7" style="background:#cfeffc;width:310px;height:50px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(7,0);" OnMouseOut="ShowButton(7,1);" OnClick="window.open('shzr.php');">
+					<div style="padding-top:14px;text-align:center;height:50px;background:url('images/icon_kp_bg4.png') no-repeat top center;font-size:24px;">
+						<img id="i7" src="images/icon_kp_70.png" border=0 style="margin-top:-4px;vertical-align:middle;">&nbsp;&nbsp;&nbsp;企&nbsp;业&nbsp;社&nbsp;会&nbsp;责&nbsp;任
+					</div>
+				</div>
+				-->
+			</div>
+		</div>
+		<!--内容结束-->
+
+		<!--信用管理开始-->
+		<div class="xygl grayscale" style="background:#eee;padding-bottom:12px;text-align:center;">
+			<p></p>
+			<ul style="padding-left:20px;padding-top:12px;padding-bottom:16px;text-align:center;">
+			<li class="x11" OnMouseOver="this.className='x12';" OnMouseOut="this.className='x11';"  onclick="window.open('https://xypj.cweun.org/');">
+				<div style="text-align:center;padding-top:22px;">信用评价入口</div>
+			</li>
+			<li class="x21" OnMouseOver="this.className='x22';" OnMouseOut="this.className='x21';" onclick="window.open('https://rcpu.cweun.org/JUDGE');">
+				<div style="text-align:center;padding-top:22px;">信用等级查询</div>
+			</li>
+			<li class="x31" OnMouseOver="this.className='x32';" OnMouseOut="this.className='x31';" onclick="window.open('https://rcpu.cweun.org/');">
+				<div style="text-align:center;padding-top:22px;">信用信息平台</div>
+			</li>
+			
+			<!--
+			<li class="x11" OnMouseOver="this.className='x12';" OnMouseOut="this.className='x11';" onclick="">
+				<div style="text-align:center;padding-top:22px;">信用信息报送</div>
+			</li>
+			<li class="x21" OnMouseOver="this.className='x22';" OnMouseOut="this.className='x21';" onclick="">
+				<div style="text-align:center;padding-top:22px;">信用等级查询</div>
+			</li>
+			<li class="x31" OnMouseOver="this.className='x32';" OnMouseOut="this.className='x31';" onclick="window.open('http://www.cweun.org/show.php?cid=11&id=845');">
+				<div style="text-align:center;padding-top:22px;">信用评价申请</div>
+			</li>
+			<li class="x41" OnMouseOver="this.className='x42';" OnMouseOut="this.className='x41';" onclick="">
+				<div style="text-align:center;padding-top:22px;">信用信息平台</div>
+			</li>
+			<li class="x51" OnMouseOver="this.className='x52';" OnMouseOut="this.className='x51';">
+				<div style="text-align:center;padding-top:22px;">诚信企业创建</div>
+			</li>
+			-->
+			</ul>
+		</div>
+		<!--信用管理结束-->
+		
+		<!--人员管理开始-->
+		<div class="rygl grayscale">
+			<p></p>
+			<ul>
+			<li class="sdd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='sdd';" onclick="window.open('https://rygl.cweun.org/');">
+				<a target="_blank">总监理工程师</a>
+			</li>
+			<li class="odd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='odd';" onclick="window.open('https://rygl.cweun.org/');">
+				<a target="_blank">监理工程师</a>
+			</li>
+			<li class="sdd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='sdd';" onclick="window.open('https://cms.slyb.top/');">
+				<a target="_blank">监&nbsp;&nbsp;&nbsp;&nbsp;理&nbsp;&nbsp;&nbsp;&nbsp;员</a>
+			</li>
+			<li class="odd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='odd';" onclick="window.open('https://rygl.cweun.org/');">
+				<a target="_blank">造价工程师</a>
+			</li>
+			<li class="odd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='odd';" onclick="window.open('https://cms.slyb.top/');">
+				<a target="_blank">造&nbsp;&nbsp;&nbsp;&nbsp;价&nbsp;&nbsp;&nbsp;&nbsp;员</a>
+			</li>
+			<li class="sdd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='sdd';" onclick="window.open('https://rygl.cweun.org/');">
+				<a target="_blank">质量检测员</a>
+			</li>
+			<!--<li class="sdd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='sdd';">
+				<a>移民安置总监督评估师</a>
+			</li>
+			<li class="odd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='odd';">
+				<a>移民安置监督评估师</a>
+			</li>-->
+			<li class="odd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='odd';" onclick="window.open('https://cms.slyb.top');">
+				<a target="_blank">五&nbsp;&nbsp;&nbsp;&nbsp;大&nbsp;&nbsp;&nbsp;&nbsp;员</a>
+			</li>
+			<li class="sdd" OnMouseOver="this.className='ovr';" OnMouseOut="this.className='sdd';" onclick="window.open('https://cms.slyb.top/');">
+				<a target="_blank">继&nbsp;续&nbsp;教&nbsp;育</a>
+			</li>
+			</ul>
+		</div>
+		<!--人员管理结束-->
+
+		<!--考核评价开始-->
+		<div class="khpj grayscale" style="background:#eee;padding-bottom:12px;">
+			<p></p>
+			<div style="padding-top:12px;">
+			<table width="100%" border=0 cellpadding=8 cellspacing=8>
+				<tr>
+					<td height=60 style="padding-left:20px;">
+						<div id="dd0" style="background:#cfeffc;width:362px;height:60px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(0,0);" OnMouseOut="ShowButton(0,1);" OnClick="window.open('dayujiang.php');">
+							<div style="padding-top:10px;padding-left:16px;height:60px;background:url('images/icon_kp_bg2.png') no-repeat top center;font-size:20px;">
+								<img id="ii0" src="images/icon_kp_00.png" border=0 style="vertical-align:middle;"> 中国水利工程优质（大禹）奖
+							</div>
+						</div>
+					</td>
+					<td>
+						<div id="dd1" style="background:#cfeffc;width:362px;height:60px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(1,0);" OnMouseOut="ShowButton(1,1);" OnClick="window.open('https://gfsb.cweun.org/');">
+							<div style="padding-top:10px;padding-left:16px;height:60px;background:url('images/icon_kp_bg2.png') no-repeat top center;font-size:20px;">
+								<img id="ii1" src="images/icon_kp_10.png" border=0 style="vertical-align:middle;"> 水利水电工程建设工法
+							</div>
+						</div>
+					</td>
+					<td>
+						<div id="dd2" style="background:#cfeffc;width:362px;height:60px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(2,0);" OnMouseOut="ShowButton(2,1);" OnClick="window.open('wenminggongdi.php');">
+							<div style="padding-top:10px;padding-left:16px;height:60px;background:url('images/icon_kp_bg2.png') no-repeat top center;font-size:20px;">
+								<img id="ii2" src="images/icon_kp_20.png" border=0 style="margin-top:-4px;vertical-align:middle;"> 水利建设工程文明工地创建
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td height=60 style="padding-left:20px;">
+						<div id="dd3" style="background:#cfeffc;width:362px;height:60px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(3,0);" OnMouseOut="ShowButton(3,1);" OnClick="window.open('shuiguankaohe.php');">
+							<div style="padding-top:10px;padding-left:16px;height:60px;background:url('images/icon_kp_bg2.png') no-repeat top center;font-size:20px;">
+								<img id="ii3" src="images/icon_kp_30.png" border=0 style="margin-top:-6px;vertical-align:middle;"> 水利工程管理考核
+							</div>
+						</div>
+					</td>
+					<td>
+						<div id="dd4" style="background:#cfeffc;width:362px;height:60px;cursor:pointer;color:#000;" OnMouseOver="ShowButton(4,0);" OnMouseOut="ShowButton(4,1);" OnClick="window.open('https://qc.cweun.org');">
+							<div style="padding-top:10px;padding-left:16px;height:60px;background:url('images/icon_kp_bg2.png') no-repeat top center;font-size:20px;">
+								<img id="ii4" src="images/icon_kp_40.png" border=0 style="margin-top:-4px;vertical-align:middle;"> 水利工程优秀质量管理小组
+							</div>
+						</div>
+					</td>
+					<td>
+						<div id="dd5" style="background:#cfeffc;width:362px;height:60px;cursor:pointer;" OnMouseOver="ShowButton(5,0);" OnMouseOut="ShowButton(5,1);" OnClick="window.open('showaqsc.php');">
+							<div style="padding-top:10px;padding-left:16px;height:60px;background:url('images/icon_kp_bg2.png') no-repeat top center;font-size:20px;">
+								<img id="ii5" src="images/icon_kp_50.png" border=0 style="margin-top:-4px;vertical-align:middle;"> 水利安全生产标准化
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			</div>
+		</div>
+		<!--考核评价结束-->
+
+		<!--公益项目开始-->
+		<div class="gyxm grayscale" style="height:310px;">
+			<div class="g_left" style="border:0px;width:777px;">
+				<div class="xhhk_title" style="border:1px solid #cccccc;"></div>
+				<div class="xhhk" style="padding:14px 0px;">
+					<TABLE cellPadding="4" border=0 cellspacing="4" width="100%">
+						<TBODY>
+						<TR>
+							<td width=30>&nbsp;</td>
+							<TD style="text-align:center;">
+								<a href="http://www.sljsygl.com/" target="_blank"><img src="images/xhhk_001.jpg" style="height:250px;border:1px solid #cccccc;"></a>
+							</td>
+							<TD style="text-align:center;">
+								<a href="http://www.sljsygl.com/" target="_blank"><img src="images/xhhk_002.jpg" style="height:250px;border:1px solid #cccccc;"></a>
+							</td>
+							<TD style="text-align:center;">
+								<a href="https://zgsn.cweun.org/" target="_blank"><img src="images/xhhk_003.jpg" style="height:250px;border:1px solid #cccccc;"></a>
+							</td>
+							<td width=30>&nbsp;</td>
+						</tr>
+						</TBODY>
+					</TABLE>
+				</div>
+			</div>
+			<div class="g_right" style="width:393px;height:310px;">
+				<div class="xhhk" style="padding-top:10px;">
+					<img src="images/xiehui.png" style="height:290px;">
+				</div>
+			</div>
+		</div>
+		<!--公益项目结束-->
+
+		<!--合作伙伴开始-->
+		<div class="hzhb grayscale" style="background:#cfeffc;">
+			<table border="0" width="100%" class="table0" cellspacing="0" cellpadding="0" style="background:#cfeffc;">
+				<tr>
+					<td style="text-align:center;padding:12px;">
+						<a href="http://www.gov.cn" target="_blank"><img src="images/link_1.png" /></a>
+					</td>
+					<td style="text-align:center;">
+						<a href="http://www.mwr.gov.cn" target="_blank"><img src="images/link_2.png" /></a>
+					</td>
+					<td style="text-align:center;">
+						<a href="http://www.mca.gov.cn" target="_blank"><img src="images/link_3.png" /></a>
+					</td>
+					<td style="text-align:center;">
+						<a href="https://chinanpo.mca.gov.cn/" target="_blank"><img src="images/link_4.png" /></a>
+					</td>
+					<td style="text-align:center;">
+						<a href="http://www.sdpc.gov.cn" target="_blank"><img src="images/link_6.png" /></a>
+					</td>
+				</tr>
+			</table>
+			<div class="link" style="font-size:16px;background:#cfeffc;">
+				网站链接：
+								<select onchange="window.open(this.value,'','')" style="width:200px;">
+					<OPTION selected>- 政府门户网站链接 -</OPTION>
+					<option value="http://www.gov.cn/">中华人民共和国中央人民政府</option><option value="http://www.mca.gov.cn/">中华人民共和国民政部</option><option value="http://www.mwr.gov.cn/">中华人民共和国水利部</option><option value="http://www.mofcom.gov.cn/">中华人民共和国商务部</option><option value="https://www.ndrc.gov.cn/">中华人民共和国国家发展和改革委员会</option><option value="https://www.mohurd.gov.cn/">中华人民共和国住房和城乡建设部</option><option value="https://www.mee.gov.cn/">中华人民共和国生态环境部</option><option value="https://www.mem.gov.cn/">中华人民共和国应急管理部</option><option value="http://www.sasac.gov.cn/">国务院国有资产监督管理委员会</option>				</select>
+				<select onchange="window.open(this.value,'','')" style="width:200px;">
+					<OPTION selected>- 行业网站链接 -</OPTION> 
+					<option value="http://www.cjw.gov.cn/">水利部长江水利委员会</option><option value="http://www.yellowriver.gov.cn/">水利部黄河水利委员会</option><option value="http://www.hrc.gov.cn/">水利部淮河水利委员会</option><option value="http://www.hwcc.gov.cn/">水利部海河水利委员会</option><option value="http://www.slwr.gov.cn/">水利部松辽水利委员会</option><option value="http://www.pearlwater.gov.cn/">水利部珠江水利委员会</option><option value="http://www.tba.gov.cn/">水利部太湖流域管理局</option><option value="http://www.bjwater.gov.cn/">北京水务局</option><option value="http://www.tjwcb.gov.cn/">天津水利局</option><option value="http://www.hebwater.gov.cn/">河北水利厅</option><option value="http://www.sxwater.gov.cn/home/default.asp">山西水利厅</option><option value="http://www.nmgslw.gov.cn/">内蒙古自治区水利厅</option><option value="http://www.dwr.ln.gov.cn/">辽宁省水利厅</option><option value="http://slt.jl.gov.cn/">吉林水利厅</option><option value="http://ww.cweun.com.cn/">黑龙江省水利厅</option><option value="http://www.shanghaiwater.gov.cn/web/homepage/new_index.jsp">上海水务局</option><option value="http://www.zjwater.com/">浙江水利厅</option><option value="http://www.fjwater.gov.cn/">福建水利厅</option><option value="http://www.jswater.gov.cn/">江苏水利厅</option><option value="http://www.ahsl.gov.cn/main/">安徽水利厅</option><option value="http://www.jxwrd.gov.cn/">山西水利厅</option><option value="http://www.sdwr.gov.cn/sdww/login">山东水利厅</option><option value="http://www.hnsl.gov.cn/">河南水利厅</option><option value="http://www.hubeiwater.gov.cn/iNews/Index.aspx">湖北水利厅</option><option value="http://www.hnwr.gov.cn/">湖南水利厅</option><option value="http://www.gdwater.gov.cn/">广东水利厅</option><option value="http://www.gxwater.gov.cn/">广西水利厅</option><option value="http://swj.hainan.gov.cn/new/index.aspx">海南省水务厅</option><option value="http://www.cqwater.gov.cn/">重庆市水利</option>				</select>
+				<select onchange="window.open(this.value,'','')" style="width:200px;">
+					<OPTION selected>- 水利水电工程网站 -</OPTION> 
+					<option value="http://www.slsdgc.com.cn/">中国水利水电工程网</option><option value="http://hwjsj.hrc.gov.cn/Default.asp">淮河水利委员会治淮工程建设管理局</option><option value="http://www.ctgpc.com.cn/">三峡水利枢纽</option><option value="http://www.xiaolangdi.com.cn/">小浪底水利枢纽</option><option value="http://www.xld.gov.cn/">溪洛渡</option><option value="http://www.cnnej.com/index.jsp">尼尔基水利枢纽</option><option value="http://www.ywp.com.c/">广西百色水利枢纽</option><option value="http://www.flxwater.com/">飞来峡水利枢纽</option><option value="http://www.ehdc.com.cn/">二滩水电开发有限责任公司</option><option value="http://www.wjz.com.cn/web/index.php">黄河万家寨水利枢纽有限公司</option><option value="http://www.hrc.gov.cn/lhg/">水利部淮委临淮岗洪水控制</option>				</select>
+				<select onchange="window.open(this.value,'','')" style="width:200px;">
+					<OPTION selected value="">- 其他网站链接 -</OPTION> 
+					<option value="http://www.water-cm.com/">中水协文化有限公司</option><option value="http://www.12312.gov.cn/">中国反商业欺诈网</option><option value="http://www.gwpchina.org/">全球水伙伴</option><option value="http://www.hhu.edu.cn/default_v1.asp">河海大学</option><option value="http://www.ncwu.edu.cn/">华北水利水电学院</option><option value="http://www.civil.tsinghua.edu.cn/">清华大学土木水利学院</option><option value="http://swrh.whu.edu.cn/">武汉大学水利水电学院</option>				</select>
+			</div>
+		</div>
+		<!--合作伙伴结束-->
+
+	</div>
+
+	<!--footer-->
+	<div class="footerBox">
+		<div class="footer">
+			<div align="center" style="padding-top:8px;">
+	<table border="0" width="1201" id="table1" cellspacing="0" cellpadding="0">
+		<tr>
+			<td style="text-align:center;">
+				<table border="0" width="600" id="table2" cellspacing="0" cellpadding="0" align="center">
+					<tr>
+						<td align="center" width="100" valign="middle" style="padding-right:16px;">
+							<a href="http://webscan.360.cn/index/checkwebsite/url/www.cweun.org" target="_blank"><img border="0" src="https://p6.qhimg.com/t01cbeac2c42fe484ab.png"/></a>							
+						</td>
+						<td align="center" width="500" style="padding-top:8px;padding-bottom:8px;">
+						<!--<p><a href="ServiceGuide.php" target="_blank"><font size=4px color=red><b>联系我们</b></font></a></p>-->
+						<p style="font-size:13px;padding:8px;">
+						您是第 <span style="font-family:'Britannic Bold';color:red;font-weight:bold;">130093990</span> 位访问者 | <a href="ServiceGuide.php" target="_blank"><font color=red><b>联系我们</b></font></a><span id="xcon"></span>
+						</p>
+						<p style="font-size:13px;padding:8px;">
+						<span style="font-size: 13px"><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备08010961号-1</a>（&copy;2005-2026中国水利工程协会网版权所有）</span>
+						</p>
+						<p style="font-size:13px;padding:8px;">
+							<a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010202009635"><img src="images/gongan.png" style="padding-right:4px;" align="absmiddle"/>京公网安备 11010202009635号</a>
+						</p>
+						<p>
+						<!--<span style="font-size: 13px">联系地址：北京市西城区南滨河路27号贵都国际中心B座1116室</span>
+						<td align="center" width="100"></td>
+						</p>-->
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>		</div>
+	</div>
+</div>
+</center>
+
+</body>
+<script type="text/javascript" src="lib/jquery.nivo.slider.js"></script>
+<script type="text/javascript">
+var h_init = 0;
+window.onload = function() {
+	$(".tabs a").on('mouseover', function(e) {
+		h_init = $(this).index();
+		e.preventDefault();
+		$(".tabs .active").removeClass('active');
+		$(this).addClass('active');
+		$(".page").removeClass('actived'); //$(this).index()
+		$(".page:eq(" + $(this).index() + ")").addClass('actived');
+	});
+	
+	$(".tabs a").mouseover(function(e) {
+		e.preventDefault();
+	});
+	
+	$('#slider').nivoSlider();
+	autoPlay();
+}
+
+function autoPlay(){
+	play = setInterval(function () {
+		h_init = (h_init>=4?0:(h_init+1));
+		$(".tabs .active").removeClass('active');
+		$("#h"+h_init).addClass('active');
+		$(".page").removeClass('actived');
+		$("#d"+h_init).addClass('actived');
+	},5000); 
+}
+
+function _(element){
+	if(arguments.length>1){
+		for(var i=0,elements=[],length=arguments.length; i<length;i++){
+			elements.push($(arguments[i]));
+		}
+		return elements;
+	}else{
+		return document.getElementById(element);
+	}
+}
+
+function ShowButton(i,a){
+	var d = "dd" + i;
+	var m = "ii" + i;
+	if(a==0){
+		_(d).style.background = "#3399cc";
+		_(d).style.color = "#cfeffc";
+		_(m).src = "images/icon_kp_" + i + "1.png";
+	}else{
+		_(d).style.background = "#cfeffc";
+		_(d).style.color = "#000000";
+		_(m).src = "images/icon_kp_" + i + "0.png";
+	}
+}
+</script>
+
+</html>

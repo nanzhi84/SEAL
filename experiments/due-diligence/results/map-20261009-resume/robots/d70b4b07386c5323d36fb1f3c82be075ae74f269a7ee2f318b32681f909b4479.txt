@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>厦门产权交易中心_厦门市股权托管中心</title>
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+  <!-- <meta name="viewport" content="width=device-width" />  -->
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <link rel="shortcut icon" href="https://xmcqzx.xemas.com.cn/themeresource/images/logo.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://xmcqzx.xemas.com.cn/themeresource/css/iconfont.css">
+  <link rel="stylesheet" href="https://xmcqzx.xemas.com.cn/themeresource/css/bootstrap.css" />
+  <link rel="stylesheet" href="https://xmcqzx.xemas.com.cn/themeresource/css/common.css">
+  <link rel="stylesheet" href="https://xmcqzx.xemas.com.cn/themeresource/css/header.css">
+  <link rel="stylesheet" href="https://xmcqzx.xemas.com.cn/themeresource/css/index.css">
+  <link rel="stylesheet" href="https://xmcqzx.xemas.com.cn/themeresource/css/footer.css">
+  <link rel="stylesheet" href="https://xmcqzx.xemas.com.cn/themeresource/css/swiper.min.css">
+
+  <script>
+    window.console = window.console || (function () {
+      var c = {};
+      c.log = c.warn = c.debug = c.info = c.error = c.time = c.dir = c.profile = c.clear = c.exception = c
+        .trace = c.assert = function () {};
+      return c;
+    })();
+  </script>
+  <script src="https://xmcqzx.xemas.com.cn/themeresource/js/jquery-1.11.3.js"></script>
+  <!-- <script src="https://xmcqzx.xemas.com.cn/themeresource/js/yesquery-1.0.0.js"></script> -->
+  <script src="https://xmcqzx.xemas.com.cn/themeresource/js/bootstrap.js"></script>
+  <!--[if lte IE 8]>
+    <script src="https://xmcqzx.xemas.com.cn/themeresource/js/respond.min.js"></script>
+    <script src="https://xmcqzx.xemas.com.cn/themeresource/js/html5shiv.min.js"></script>
+    <![endif]-->
+  <script src="https://xmcqzx.xemas.com.cn/themeresource/js/common.js"></script>
+  <script src="https://xmcqzx.xemas.com.cn/themeresource/js/index.js"></script>
+  <script src="https://xmcqzx.xemas.com.cn/themeresource/js/swiper.min.js"></script>
+</head>
+
+<body class="banner_index" style="min-width: 1200px;">
+  <!--顶部-->
+<header>
+  <div class="container grey" style="min-width: 1200px;">
+    <ul class="nav-ul rt">
+      <li>
+        <a href="#" onclick="setHomepage()" style="color: white; font-size:14px!important">设为首页</a>
+        <span style="color: white;">|</span>
+      </li>
+      <li>
+        <a href="#" onclick="addFavorite()" style="color: white; font-size:14px!important">加入收藏</a>
+        <!-- <span style="color: white;">|</span> -->
+      </li>
+      <!-- <li>
+        <i class="icon iconfont icon-yonghu" style="color: white;"></i>
+        <a href="http://www.xemas.com.cn/pmwebs/resources/www/index.html#/login" target="_blank" style="color:#0F88EB;"
+        <a href="http://office.yes-soft.cn:8083/pmwebs/resources/www/index.html#/login" target="_blank" style="color:#0F88EB;"
+          id="userName"><span style="color:#0F88EB;padding: 0;">登录</span>/<span style="color:white">注册</span> </a>
+      </li> -->
+
+    </ul>
+    <div onclick="location='search.html'" class="search rt">
+      <input type="text" placeholder="站内搜索" readonly="readonly">
+      <a class="search-img">
+        <img src="https://xmcqzx.xemas.com.cn/themeresource/images/search.png" alt="">
+      </a>
+    </div>
+  </div>
+</header>
+<script>
+  window.onload = function () {
+    var user = sessionStorage.getItem('USERNAME');
+    var token = sessionStorage.getItem('TOKEN');
+    // console.log(document.getElementById('userName').innerHTML)
+    if (user) {
+      var userInfo = document.getElementById('userName')
+      userInfo.innerHTML = user;
+      userInfo.href = location.protocol + '//' + location.host + "/chanquanwebs/person.center.html?token=" + token;
+      userInfo.target = '_self'
+
+    }
+
+  }
+</script>  <!--内容-->
+  <section>
+    <div class="wrap" style="min-width: 1200px;">
+      <!--logo-->
+      <div class="container">
+        <div class="logo-box clearfloat">
+          <div class="logo lf">
+            <img  src="https://xmcqzx.xemas.com.cn/themeresource/images/xiamenchanquanjiaoyizhongxinlogo-01.png" alt="">
+          </div>
+          <div class="logo-words lf">
+            <p >厦门产权交易中心</p>
+            <p >厦门市碳和排污权交易中心</p>
+            <p >厦门市股权托管中心</p>
+          </div>
+          <!-- <div class="logo-btn rt visible-xs"></div>
+                    <div class="logo-search rt visible-xs" onclick="location='search.html'"></div> -->
+          <!--小屏幕显示菜单-->
+          <!-- <div class="small-menu">
+                        <ul>
+                            <li class="hover">
+                                <a href="index.html">网站首页</a>
+                            </li>
+                            <li>
+                                <a href="aboutUs.html">中心概况</a>
+                            </li>
+                            <li>
+                                <a href="government-mandate.html">政府授权</a>
+                            </li>
+                            <li>
+                                <a href="project-announcement.html?parent-uid=&self-uid=&type=total&sub-uid=">项目公告</a>
+                            </li>
+                            <li>
+                                <a href="https://www.unibid.cn/portal/pro/hall.jsp?org=XM1" target="_blank">竞价大厅</a>
+                            </li>
+                            <li>
+                                <a href="register-trusteeshipguquan.html">股权登记托管</a>
+                            </li>
+                            <li>
+                                <a href="carbon-trading.html">碳交易</a>
+                            </li>
+                            <li>
+                                <a href="policies-regulations.html">政策法规</a>
+                            </li>
+                            <li>
+                                <a href="download.html">表格下载</a>
+                            </li>
+                            <li>
+                                <a href="service.html">联系方式</a>
+                            </li>
+                        </ul>
+                    </div> -->
+          <!--<div style="width: 490px;float: right;">
+            <a href="https://www.xm.gov.cn/zt/srxxgcxjpxsdzgtsshzysx/" target="_blank">
+              <img style="height:130px;" src="https://xmcqzx.xemas.com.cn/themeresource/images/xijinpinxinshidai.webp" alt="">
+            </a>
+          </div>-->
+          <div style="float: right;margin-right:80px">
+            <a href="https://www.xm.gov.cn/zt/srxxgcxjpxsdzgtsshzysx/" target="_blank">
+              <img style="height:130px;" src="https://xmcqzx.xemas.com.cn/themeresource/images/20xm_srxx_tit.webp" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+      <!--nav-->
+      <div class="container white">
+        <ul class="nav-bar clearfloat background_ul">
+          <li class="hover">
+            <a href="index.html">网站首页</a>
+          </li>
+          <li>
+            <a href="aboutUs.html">中心概况</a>
+          </li>
+          <li>
+            <a href="government-mandate.html">政府授权</a>
+          </li>
+          <li>
+            <a href="project-announcement.html?parent-uid=&self-uid=&type=total&sub-uid=">项目公告</a>
+          </li>
+          <li>
+            <a href="https://www.unibid.cn/portal/pro/hall.jsp?org=XM1" target="_blank">竞价大厅</a>
+          </li>
+          <li>
+            <a href="register-trusteeshipguquan.html">股权登记托管</a>
+          </li>
+          <li>
+            <a href="carbon-trading.html">碳交易</a>
+          </li>
+          <!--<li>
+                        <a href="smartplat.html" target="_blank">碳中和</a>
+                    </li>-->
+          <!--<li>
+                        <a href="smartLoginFrame.html" target="_blank">碳中和</a>
+                    </li>-->
+          <li>
+            <a href="policies-regulations.html">政策法规</a>
+          </li>
+          <li>
+            <a href="download.html">表格下载</a>
+          </li>
+          <li>
+            <a href="service.html">联系方式</a>
+          </li>
+        </ul>
+      </div>
+      <!--中心股权-->
+      <div class="container white public">
+        <!--左边 股权图片滚动-->
+        <div class="col-xs-4 stock">
+          <div class="stock-box">
+            <div class="swiper-container" style="margin:0 auto;">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <a style="margin: 0 auto"
+                    href="content-detail.html?parent-uid=110c73de-ff55-4ac4-b1eb-72d4e0e97be9&&self-uid=a7d4ddaf-2ce3-4e2b-a2af-f66fa4aa678d">
+                    <div class="floatlayter"></div>
+                    <div class="floatText" style="font-size: 13px;">中纪委国家监委网站充分肯定中心工作成效</div>
+                     <img class="new_dec_img" src="https://xmcqzx.xemas.com.cn/resources/997e7ba3-9fc5-43b7-9cf1-1501f3ae2629/定稿2022-11-28中纪委网站报导南日岛.jpg">
+                  </a> </div>
+                <div class="swiper-slide">
+                  <a style="margin: 0 auto"
+                    href="content-detail.html?parent-uid=110c73de-ff55-4ac4-b1eb-72d4e0e97be9&&self-uid=603df142-30ad-4a98-8d60-de062b8a82c5">
+                    <div class="floatlayter"></div>
+                    <div class="floatText" style="font-size: 13px;">最高人民检察院官方公众号充分肯定厦门产权交易中心“生态司法+蓝碳交易”工作成效</div>
+                     <img class="new_dec_img" src="https://xmcqzx.xemas.com.cn/resources/9984da30-2e5c-46ed-9651-a833d2074243/2022-11-25最高人民检查院LED.jpg">
+                  </a> </div>
+                <div class="swiper-slide">
+                  <a style="margin: 0 auto"
+                    href="content-detail.html?parent-uid=110c73de-ff55-4ac4-b1eb-72d4e0e97be9&&self-uid=eb0a03c6-c871-4845-bd30-01d717ed3233">
+                    <div class="floatlayter"></div>
+                    <div class="floatText" style="font-size: 13px;">国务院国资委领导充分肯定厦门产权交易中心的工作</div>
+                     <img class="new_dec_img" src="https://xmcqzx.xemas.com.cn/resources/d8aff2fb-0745-4214-b925-efa3a660dd46/徐福顺主任1.jpg">
+                  </a> </div>
+                <div class="swiper-slide">
+                  <a style="margin: 0 auto"
+                    href="content-detail.html?parent-uid=110c73de-ff55-4ac4-b1eb-72d4e0e97be9&&self-uid=9bc31921-c9a4-4a27-9083-d13c2916c6ee">
+                    <div class="floatlayter"></div>
+                    <div class="floatText" style="font-size: 13px;">厦门产权交易中心助力金砖国家领导人会议实现"零排放"</div>
+                     <img class="new_dec_img" src="https://xmcqzx.xemas.com.cn/resources/bf1dd13f-3fdf-433c-828c-0cbc32eb3658/金砖国家001.jpg">
+                  </a> </div>
+                <div class="swiper-slide">
+                  <a style="margin: 0 auto"
+                    href="content-detail.html?parent-uid=110c73de-ff55-4ac4-b1eb-72d4e0e97be9&&self-uid=556b373a-e715-4a84-a434-d73e3e232cb1">
+                    <div class="floatlayter"></div>
+                    <div class="floatText" style="font-size: 13px;">中心股权托管股份公司突破300家，已成功上市26家</div>
+                     <img class="new_dec_img" src="https://xmcqzx.xemas.com.cn/resources/25423af5-3336-4d7c-a619-aaca7a364deb/三个中心.jpg">
+                  </a> </div>
+                <div class="swiper-slide">
+                  <a style="margin: 0 auto"
+                    href="content-detail.html?parent-uid=110c73de-ff55-4ac4-b1eb-72d4e0e97be9&&self-uid=2b9cace4-7c19-4b24-aa7d-049401d38606">
+                    <div class="floatlayter"></div>
+                    <div class="floatText" style="font-size: 13px;">融入营商环境建设 创新上市金融服务</div>
+                     <img class="new_dec_img" src="https://xmcqzx.xemas.com.cn/resources/f380bd3f-536a-457e-8625-97accd6b02bc/1-16502674113.jpg">
+                  </a> </div>
+              </div>
+              <div class="swiper-button-prev swiper-button-white" style="z-index:1000;height: 25px;"></div>
+              <div class="swiper-button-next swiper-button-white" style="z-index:1000;height: 25px;"></div>
+              <!--<div class="swiper-pagination"></div>-->
+            </div>
+            <a href="trade-advisory.html" class="news-img-more">更多</a>
+          </div>
+        </div>
+        <!--中间 政府授权-->
+        <div class="col-xs-4 authorize ">
+          <div class="authorize-title clearfloat">
+
+            <span uid="34059b0c-ed0b-46d9-a096-38ff1d687b6f">政府授权</span>
+            <span></span>
+            <span>
+              <a style="float: right;
+    margin-right: 10px;">
+                <img src="https://xmcqzx.xemas.com.cn/themeresource/images/more2.png" class="moreimgcs1">
+              </a>
+            </span>
+          </div>
+          <!--政府授权内容-->
+          <div class="authorize-content new_dec_text">
+            <div>
+              <i></i>
+              <p><a>国务院国资委批准的央企资产国有产权交易机构</a></p>
+            </div>
+            <div>
+              <i></i>
+              <p><a>厦府【2019】342号确定的厦门市国有产权交易机构</a></p>
+            </div>
+            <div>
+              <i></i>
+              <p><a>为各级各类驻厦单位资产提供交易平台</a></p>
+            </div>
+            <div>
+              <i></i>
+              <p><a>省级财政部门认定的金融企业国有产权交易机构</a></p>
+            </div>
+            <div>
+              <i></i>
+              <p><a>国有企业资产（含房屋、设备）公开招租平台</a></p>
+            </div>
+          </div>
+          <!--交易资讯内容-->
+          <div class="consultation-content new_dec_text" style="display:none;">
+            <p>
+              <i></i>
+              <a href="content-detail.html?parent-uid=0b63dee0-1d5a-4245-ba50-238f137d4cea&self-uid=39e6e8c0-1f83-43f5-9c46-721b647855be">中纪委国家监委网站充分肯定厦门产权交易中心工作</a>
+            </p>
+            <p>
+              <i></i>
+              <a href="content-detail.html?parent-uid=0b63dee0-1d5a-4245-ba50-238f137d4cea&self-uid=361261ab-c325-4ca6-bea6-f394c06f7d6c">厦门产权交易中心发布厦门市首批百家绿色融资企业及项目</a>
+            </p>
+            <p>
+              <i></i>
+              <a href="content-detail.html?parent-uid=0b63dee0-1d5a-4245-ba50-238f137d4cea&self-uid=319cf08c-b2b2-4039-85ad-0eec3bc8e3dc">厦门产权交易中心助力推动全国首单农业碳汇损失保险落地</a>
+            </p>
+            <p>
+              <i></i>
+              <a href="content-detail.html?parent-uid=0b63dee0-1d5a-4245-ba50-238f137d4cea&self-uid=f9816548-1363-4c94-8684-54e32678bf03">厦门产权交易中心设立全国首个农业碳汇交易平台</a>
+            </p>
+            <p>
+              <i></i>
+              <a href="content-detail.html?parent-uid=0b63dee0-1d5a-4245-ba50-238f137d4cea&self-uid=f930ec74-d4b4-4ac7-9d29-5f37e1087ae4">厦门产权交易中心获批央企资产交易资格</a>
+            </p>
+            <p>
+              <i></i>
+              <a href="content-detail.html?parent-uid=0b63dee0-1d5a-4245-ba50-238f137d4cea&self-uid=ac5731b8-237e-461c-9492-6629b23996ee">厦门产权交易中心助力中国金鸡百花电影节首次实现碳中和</a>
+            </p>
+          </div>
+        </div>
+        <!--右边 项目推荐-->
+        <div class="col-xs-4">
+          <div class="recommend-title clearfloat">
+            <div class="recommend-manage">
+              <span uid="0b63dee0-1d5a-4245-ba50-238f137d4cea" class='click'>交易资讯</span>
+              <span uid="9e51d690-b6d1-41af-9ac1-0d1d4b9971a0" category-uid="">重要通知</span>
+                <!--<span category-uid="" uid="" >推荐项目</span>-->
+
+              </div>
+              <span class="recommend-manage-more">
+                <a style="float: right;
+    margin-right: 10px;">
+                  <img src="https://xmcqzx.xemas.com.cn/themeresource/images/more2.png" class="moreimgcs">
+                </a>
+              </span>
+            </div>
+            <!--推荐项目内容-->
+            <div class="recommend-content recommend new_dec_text"></div>
+          </div>
+        </div>
+        <!--竞价人注册-->
+        <div class="container white public" style="overflow: hidden;">
+          <!--<div class="col-xs-sm-8 Jump-link" style="float:left;">-->
+          <div>
+            <div class="col-xs-4 hand " id="informationGuide">
+              <!-- <a href="rural-transaction.html"><img style="max-height: 100%;width: 100%;"
+                                src="https://xmcqzx.xemas.com.cn/themeresource/images/nongcun.jpg" alt=""></a> -->
+              <a href="http://nccq.xemas.com.cn/"><img style="max-height: 100%;width: 100%;"
+                  src="https://xmcqzx.xemas.com.cn/themeresource/images/nongcun.webp" alt=""></a>
+              <a href="information-guide.html"><img style="max-height: 100%;width: 100%;border: 1px solid #ededed;"
+                  src="https://xmcqzx.xemas.com.cn/themeresource/images/Information.webp" alt=""></a>
+            </div>
+          </div>
+          <div class="bidding clearfloat col-xs-4">
+            <div id="_hall" class="col-xs-6 bidding-hall hand" style="z-index: 999;">
+              <img src="https://xmcqzx.xemas.com.cn/themeresource/images/quanyiyun.png" alt="">
+              <a style="color:#5CCD7A;font-size: 16px;">竞价大厅</a>
+              <!-- <p style="color:#5CCD7A;margin-top: -10px;">(权益云)</p> -->
+            </div>
+            <div id="register" class="col-xs-6 bidder hover hand" style="z-index: 999;">
+              <img src="https://xmcqzx.xemas.com.cn/themeresource/images/register.png" alt="">
+              <a style="font-size: 16px;">报名及报价流程</a>
+              <p style="color: #0f88eb;margin-top: -10px;">(权益云)</p>
+            </div>
+            <p style='position: relative;height:160px;'>
+              <button id="register1" style="position: absolute;
+                        bottom: 0px;
+                        right: 110px;
+                        width: 200px;
+                        padding: 5px;
+                        font-size: 12px;
+                        border-radius: 16px;
+                        border: solid 0.55px #eee;
+                        color: white;
+                        background-color: rgb(15, 136, 255);
+                        display: none;
+                        z-index: 999;">
+                下载权益云报名及竞价流程<br />（产权交易）
+              </button>
+              <button id="register2" style="position: absolute;
+                        bottom: 0px;
+                        right: -110px;
+                        width: 200px;
+                        padding: 5px;
+                        font-size: 12px;
+                        border-radius: 16px;
+                        border: solid 0.55px #eee;
+                        color: white;
+                        background-color: rgb(15, 136, 255);
+                        display: none;
+                        z-index: 999;">
+                下载权益云报名及竞价流程<br />（资管债权）
+              </button>
+            </p>
+            <!-- <div id="hall" class="col-xs-4 bidding-hall hand">
+                            <img src="https://xmcqzx.xemas.com.cn/themeresource/images/jiedandating(1).png" alt="">
+                            <a style="font-size: 16px;">竞价大厅</a>
+                            <p style="color: #f44336;margin-top: -10px;">(金马甲)</p>
+                        </div> -->
+            <!-- <div id="hall" class="col-xs-6 bidding-hall hand">
+                            <img src="https://xmcqzx.xemas.com.cn/themeresource/images/jiedandating(1).png" alt="">
+                            <a>竞价大厅</a>
+                        </div> -->
+          </div>
+          <!--</div>-->
+          <div id="stockRight" class="col-xs-4 bidding-right hand" style="float:left;">
+            <img src="https://xmcqzx.xemas.com.cn/themeresource/images/股权登记托管1.webp" alt="">
+          </div>
+        </div>
+        <!--项目公告-->
+        <div class="container white public" id="projectAnn">
+          <div class="clearfloat">
+            <div class="col-xs-12 announcement">
+              <div class="project-announcement-parent">
+                <div class="project-announcement-box">
+                  <!--全部-->
+                  <div class="project-announcement clearfloat">
+                    <span class="lf">项目公告</span>
+                    <ul class="lf" id="project-announcement">
+                      <!--<li uid="" full-puid="" type="total">
+                                            <a herf="javascript:void(0)">全部</a>
+                                        </li>-->
+                      <!-- <li uid="" full-puid="" type="important">
+                                            <a herf="javascript:void(0)">重点项目</a>
+                                        </li> -->
+              <li uid="9056fafa-889f-4d48-bc2a-89cb243d7e7b" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">农村产权交易</a>
+              </li>
+
+
+
+
+              <li uid="f5bd52a8-4b48-4136-8dc3-78d4d5e43294" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">资产出租</a>
+              </li>
+
+
+
+
+              <li uid="f1c91d5b-4dbb-4a3d-ad06-ea8a037ce528" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">资产转让</a>
+              </li>
+
+
+
+
+              <li uid="202ba6c7-c216-488b-9a9b-ad51c41563c2" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">股权转让</a>
+              </li>
+
+
+
+
+              <li uid="a7003e41-fa36-4873-9a27-8fc89a0c0599" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">企业增资</a>
+              </li>
+
+
+
+
+              <li uid="1a60a250-92db-41b7-89c4-1b81d8a497f7" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">行政事业资产</a>
+              </li>
+
+
+
+
+              <li uid="29abaf70-fa40-4ba3-b27a-30b9ce8024af" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">其他及异地项目信息</a>
+              </li>
+
+
+
+
+              <li uid="7e6715f1-93c3-428e-8956-514443353494" full-puid="a22482fe-5ddb-44a2-af49-ebbc22c1d29b.578f81f3-2f93-45d4-aa06-00ee70f833e6" type="">
+                <a herf="javascript:void(0)">通知公告</a>
+              </li>
+
+
+
+
+              </ul>
+              <a class="rt project-announcement-more" id="projet-more">
+                <img src="https://xmcqzx.xemas.com.cn/themeresource/images/more3.png" style="margin-left: 60px;">
+              </a>
+            </div>
+            <!--房产转让-->
+            <div class="attorn" style="padding-left: 60px;">
+              <ul class="clearfloat" style="height: 20px;">
+              </ul>
+            </div>
+            <!--table-->
+            <div class="col-xs-12 index-table">
+              <table width="100%">
+                <thead>
+                  <tr class="project-thead">
+                    <th style="width: 12%;">项目类型</th>
+                    <th style="width: 43%;">项目名称</th>
+                    <th style="width: 15%;">挂牌底价</th>
+                    <th style="width: 10%;">保证金</th>
+                    <th style="width: 10%;">截止日期</th>
+                    <th style="width: 10%;">状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+              <div style="text-align: center;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- <div class="container white public carousel" style="padding:20px 15px 0 15px">
+                <iframe src="http://www.unibid.cn/portal/pro/dtbjOrg-zz.jsp?size=6&ifPage=T&org=XM1" width="100%" height="348"  scrolling="no"></iframe>
+                </div> -->
+    <!--轮播图-->
+    <div class="container white public carousel">
+
+
+      <!--滚动图片栏位1  -->
+      <div class="carousel1-box col-xs-6">
+        <div class="swiper-container hand" id="chartItem3">
+            <div>
+
+
+
+              <div class="swiper-slide" style="height:143px;">
+
+
+                <a href="https://xlr.xemas.com.cn/" target="_blank">
+                  <div class="floatText" style="font-size: 13px;"></div>
+                     <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/ad873237-09a2-4bae-8dc9-965a241f43dd/xlr.png">
+                </a>
+                                     
+                              </div>
+                      </div>
+                </div>
+            </div>
+
+            <!--滚动图片栏位2  -->
+            <div class="carousel2 col-xs-6">
+              <div class="swiper-container hand" id="car">
+
+                <div class="swiper-wrapper">
+
+
+
+                    <div class="swiper-slide" style="height:143px;">
+
+                      <a href="https://www.xemas.com.cn/smartplat.html" target="_blank">
+                        <div class="floatText" style="font-size: 13px;"></div>
+                          <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/0fffd03e-dbf7-4ad2-aca3-b33e7a059100/微信图片_20241212083652.jpg">
+                      </a>
+                                </div>
+
+
+
+                    <div class="swiper-slide" style="height:143px;">
+
+                      <a href="https://www.xemas.com.cn/financial-enterprise-environment.html" target="_blank">
+                        <div class="floatText" style="font-size: 13px;"></div>
+                          <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/bb125f96-adeb-4365-823a-28ee720e5680/金融企业信息环境披露.jpg">
+                      </a>
+                                </div>
+
+
+
+                    <div class="swiper-slide" style="height:143px;">
+
+                      <a href="https://www.xemas.com.cn/vehicle-list.html" target="_blank">
+                        <div class="floatText" style="font-size: 13px;"></div>
+                          <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/862fa186-d316-46db-9188-e411ac1ced31/企业环境信息披露.jpg">
+                      </a>
+                                </div>
+                        </div>
+                      <div class="swiper-pagination"></div>
+                      <div class="swiper-button-prev swiper-button-white" style="z-index:1000;height: 25px;"></div>
+                      <div class="swiper-button-next swiper-button-white" style="z-index:1000;height: 25px;"></div>
+                  </div>
+              </div>
+
+              <!--滚动图片栏位3  -->
+              <div class="carousel1-box col-xs-6" style="margin-top: 15px;">
+                <div class="swiper-container hand" id="house">
+
+                        <div>
+
+
+
+                          <div class="swiper-slide" style="height:143px;">
+
+
+
+                            <a href="https://www.xemas.com.cn/intellectual-property-right.html?parent-uid=a22482fe-5ddb-44a2-af49-ebbc22c1d29b&self-uid=136f3573-591c-495e-8107-26141b9bf8be" target="_blank">
+                              <div class="floatText" style="font-size: 13px;"></div>
+                              
+                                 <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/b8baed22-eebf-40e6-a381-8d68ce200f4f/banner1017.png">
+                            </a>
+                                  </div>
+                          </div>
+                    </div>
+                </div>
+
+                <!--滚动图片栏位4 -->
+                <div class="carousel2 col-xs-6" style="margin-top: 15px;">
+                  <div class="swiper-container hand" id="chartItem4">
+                              <div>
+                                <div class="swiper-slide" style="height:143px;">
+
+                                  <a href="https://www.xemas.com.cn/farming-carbon-transaction.html?parent-uid=a22482fe-5ddb-44a2-af49-ebbc22c1d29b&self-uid=ab97866b-f85c-47f8-a140-c90f49c20ee6" target="_blank">
+                                    <div class="floatText" style="font-size: 13px;"></div>
+                                    
+                                       <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/c132c3b0-bb01-4a11-b778-8673f91fdbe8/banner0425.png">
+                                  </a>
+                                            <!-- <div class="floatText" style="font-size: 13px;"></div>
+                                            <img style="height:143px;" src="api/cms/resource/download/c132c3b0-bb01-4a11-b778-8673f91fdbe8"> -->
+                                    </div>
+                            </div>
+                      </div>
+                  </div>
+                  <!--滚动图片栏位5  -->
+                  <div class="carousel1-box col-xs-6" style="margin-top: 15px;">
+                    <div class="swiper-container hand" id="chartItem5">
+
+                                  <div class="swiper-wrapper">
+
+
+                                      <div class="swiper-slide" style="height:143px;">
+
+
+
+                                        <a href="https://www.xemas.com.cn/specialfield.html?b1=3a3f03be-665f-4632-87e2-c44ed528c9ce&b2=ce672d7c-b4d5-411f-811f-d6f15c54e26a&b3=2a0380bd-6836-4489-89ab-bdac0e9ec0eb&b4=43526564-9ae4-487b-8817-a26950b2be85" target="_blank">
+                                          <div class="floatText" style="font-size: 13px;"></div>
+                                          
+                                            <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/9ba6f6e0-cf79-4ec3-9916-b19ee50b6435/中央单位.jpg">
+                                        </a>
+                                      </div>
+
+
+                                      <div class="swiper-slide" style="height:143px;">
+
+
+
+                                        <a href="https://www.xemas.com.cn/important-notice.html?parent-uid=a22482fe-5ddb-44a2-af49-ebbc22c1d29b&self-uid=0ceb663e-da89-4578-84ae-505af55d5001" target="_blank">
+                                          <div class="floatText" style="font-size: 13px;"></div>
+                                          
+                                            <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/b061007a-13cd-4f67-9aa8-d94f8bfff8b5/文明之窗.jpg">
+                                        </a>
+                                      </div>
+                              </div>
+                                        <div class="swiper-pagination"></div>
+                                        <div class="swiper-button-prev swiper-button-white"
+                                          style="z-index:1000;height: 25px;">
+                                        </div>
+                                        <div class="swiper-button-next swiper-button-white"
+                                          style="z-index:1000;height: 25px;">
+                                        </div>
+
+                        </div>
+                    </div>
+
+                    <!--滚动图片栏位6 -->
+                    <div class="carousel2 col-xs-6" style="margin-top: 15px;">
+                      <div class="swiper-container hand" id="chartItem6">
+
+
+                                          <div>
+
+                                            <div class="swiper-slide" style="height:143px;">
+                                              <a href="http://chanquan.dfactory.ltd/" target="_blank">
+                                                <div class="floatText" style="font-size: 13px;"></div>
+                                                
+                                                  <img style="height:143px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/5fbf889a-3d8c-49f2-845a-ba413bd02d4d/碳足迹清单.jpg">
+                                              </a>
+                                                
+                                        </div>
+                                </div>
+                          </div>
+                      </div>
+                    </div>
+                    <!--暂定-->
+
+                  </div>
+    </section>
+    <!--友情链接-->
+    <div class="public">
+      <div class="container">
+        <div class="col-xs-12">
+          <div class="friendship-link-box clearfloat">
+            <div class="friendship-link-tittle clearfloat">
+              <span class="lf">友情链接</span>
+            </div>
+            <!--图标-->
+            <div class="friendship-link-icon">
+                                              <div>
+                                                <a href="http://www.sasac.gov.cn/" target="_blank">
+                                                  
+                                                    <img style="height:46px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/58a42175-685d-4710-a0f9-41bdcf3ceb97/gzw.jpg">
+                                                </a>
+                                              </div>
+                                              <div>
+                                                <a href="http://gzw.xm.gov.cn/" target="_blank">
+                                                  
+                                                    <img style="height:46px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/926e429d-2025-4d28-88be-9d93fd891f5e/xmgy.jpg">
+                                                </a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.cspea.org.cn/" target="_blank">
+                                                  
+                                                    <img style="height:46px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/a1df033b-ff7b-4a6b-9c14-4cbc4f1688be/11111-15562529063.jpg">
+                                                </a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.qzcq0595.com/" target="_blank">
+                                                  
+                                                    <img style="height:46px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/84565ff8-1241-4880-858c-16c2ba794248/qzcq.jpg">
+                                                </a>
+                                              </div>
+                                              <div>
+                                                <a href="https://www.xm.gov.cn/zt/srxxgcxjpxsdzgtsshzysx/" target="_blank">
+                                                  
+                                                    <img style="height:46px;"
+                          src="https://xmcqzx.xemas.com.cn/resources/c0165033-9da8-41bc-b9ec-5afed4b39ca5/20d.jpg">
+                                                </a>
+                                              </div>
+            </div>
+            <!--内容-->
+            <div class="friendship-link-content clearfloat">
+                                              <div>
+                                                <a href="http://www.zzgqtg.com/" target="_blank">郑州股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.sxeec.com/" target="_blank">陕西股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.xbcq.com/" target="_blank">西部产权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.zjpse.com/" target="_blank">浙江产权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.sotcbb.com/index.html" target="_blank">深圳产权交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.prechina.net/" target="_blank">贵州阳光产权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.hunanotc.com/" target="_blank">湖南股权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="https://www.jxjee.com/" target="_blank">江西省股权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.sxgq.net/" target="_blank">山西股权交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.casdaq.com.cn/" target="_blank">新疆股权交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.hrbtgzx.com.cn/" target="_blank">哈尔滨股权登记托管中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://wuhan027940.11467.com/" target="_blank">湖北省股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.china-nxee.com/" target="_blank">宁夏股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.bbwotc.com/" target="_blank">广西北部湾股权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.china-wee.com/" target="_blank">武汉股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.chn-cstc.com/" target="_blank">重庆股份转让中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.gzefe.com/" target="_blank">贵州股权交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.qlotc.com/index.php" target="_blank">齐鲁股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.fjcqjy.com/" target="_blank">福建产权交易信息网</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://gz.gemas.com.cn/" target="_blank">广州产权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="https://www.qeec.cn/" target="_blank">青岛蓝海股权交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="https://www.xemas.com.cn/" target="_blank">厦门市股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.zjex.com.cn/" target="_blank">浙江股权托管交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.nmgotc.com/" target="_blank">内蒙古股权交易中心</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.cquae.com/" target="_blank">重庆联合产权交易所</a>
+                                              </div>
+                                              <div>
+                                                <a href="http://www.naee.com.cn/" target="_blank">宁夏产权交易所</a>
+                                              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--底部-->
+<footer class="footer-img">
+    <!--关于我们-->
+    <div class="wrap footer-bg">
+        <div class="service-box clearfloat">
+            <!-- <div class="inline-block company">
+                <img src="https://xmcqzx.xemas.com.cn/themeresource/images/shiyedanwei.png" alt="">
+            </div> -->
+            <div class="inline-block about-us">
+                <a href="aboutUs.html">关于我们</a>|
+                <a href="serviceRules.html">工作规范</a>|
+                <a href="transactionFlow.html">服务流程</a>|
+                <a href="service.html">联系我们</a>
+                <p>信息产业部ICP/IP地址信息备案序号：<a href="http://beian.miit.gov.cn" target="_blank" class=''>闽ICP备05020290号-1</a></p>
+				<p><img src="https://xmcqzx.xemas.com.cn/themeresource/images/gonganbeian.webp" /><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35020302035100" target="_blank" class=''>闽公网安备 35020302035100号</a></p>
+				
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+# 1. 全局规则：所有爬虫默认允许抓取全站
+#    不对爬虫做一刀切拦截，避免误伤 SEO
+User-agent: *
+Allow: /
+
+# 2. 禁止抓取核心动态接口 /eportal/ui?
+#    这是日志中 500 错误集中、且容易被翻页遍历的路径
+#    该路径通常由 JS 动态加载，禁止抓取不影响页面主体收录
+Disallow: /eportal/ui?
+
+# 3. 禁止抓取行为分析埋点接口
+#    这是 Baiduspider-render 和 Googlebot 渲染页面时触发的 POST 接口
+#    纯埋点用途，对 SEO 无价值，且可能产生无意义请求
+Disallow: /portlet/easysiteBehaviorAnalysis/
+Disallow: /portlet/countingFront/
+
+# 4. 禁止抓取列表页的深度翻页
+#    针对你日志中 currentPage=180 和 pageId=3049158 被翻到 121 页的情况
+#    通配符 * 匹配任意参数位置，$ 匹配行尾
+Disallow: /*?*currentPage=
+
+# 5. 禁止抓取站内搜索、筛选参数页
+#    这类页面通常产生大量重复内容，且消耗后端资源
+Disallow: /*?*search=
+Disallow: /*?*keyword=
+Disallow: /*?*filter=
+Disallow: /*?*sort=
+Disallow: /*?*page=*

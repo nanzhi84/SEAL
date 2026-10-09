@@ -1,0 +1,653 @@
+<!--
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+##################################################
+-->
+
+
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+  <title>科学技术部政务服务平台</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+            <link href="/r/cms/zwpt/web/layui/css/layui.css" rel="stylesheet" type="text/css" />
+            <link href="/r/cms/zwpt/web/css/global.css" rel="stylesheet" type="text/css" />
+            <link href="/r/cms/zwpt/web/css/common/footer.css" rel="stylesheet" type="text/css" />
+            <link href="/r/cms/zwpt/web/css/index/index.css" rel="stylesheet" type="text/css" />
+            <link href="/r/cms/zwpt/web/css/common/header.css" rel="stylesheet" type="text/css" />
+            <link href="/r/cms/zwpt/web/css/common/menu.css" rel="stylesheet" type="text/css" />
+            <link href="/r/cms/zwpt/web/css/tztg/tztg.css" type="text/css" rel="stylesheet" />
+            <link href="/r/cms/zwpt/web/css/style.css" rel="stylesheet" type="text/css" />
+            <link href="/r/cms/zwpt/web/css/fwcx/main.css" rel="stylesheet" type="text/css" />
+
+            <script type="text/javascript" src="/r/cms/zwpt/web/js/jquery.min.js"></script>
+            <script type="text/javascript" src="/r/cms/zwpt/web/js/jquery-migrate.min.js"></script>
+            <script type="text/javascript" src="/r/cms/zwpt/web/layui/layui.js"></script>
+
+            <!--	引入Vue	-->
+            <script type="text/javascript" src="/r/cms/zwpt/web/js/vue.js"></script>
+            <!--	end Vue	-->
+            <!-- 引入element   -->
+            <!-- 引入样式 -->
+            <link rel="stylesheet" href="/r/cms/zwpt/web/element-ui/lib/theme-chalk/index.css" />
+            <!-- 引入组件库 -->
+            <script src="/r/cms/zwpt/web/element-ui/lib/index.js"></script>
+            <!-- end element -->
+
+        </head>
+
+        <body>
+
+            <div class="main">
+<!--################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################ 
+################################################################-->
+
+<iframe id="login-iframe" src="" height="0px" width="0px" style="display: none;"></iframe>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/jquery.min.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/jquery-migrate.min.js"></script>
+<script>
+$(function() {
+
+    var url_now = window.location.href;
+    var page = '/html';
+    if (url_now.indexOf('/html') > 0) {
+        var page = url_now.substring(url_now.indexOf('/html') + 1);
+    }
+    //栏目页登录地址
+    var login_url = '/govserviceplatform/dynamic/switch/channelpage?isIframe=true&page=' + page +
+        '&r=' + Math.random();
+
+$('#login-iframe').attr('src', login_url)
+
+//$('#login-iframe').attr('src', 'https://fuwu.most.gov.cn/authentication/sso/gjzwfw3/login' + '?r=' + Math.random())
+})
+</script>
+
+<script type="text/javascript" src="/r/cms/zwpt/web/layui/layui.js"></script>
+<div id="header-wrap">
+	<div class="header-bar">
+	</div>
+	<!--  end of bar  -->
+	<div class="header-title">
+		<!-- <div class="header-title-pic header-inline"><img src="/r/cms/zwpt/web/images/20181227093049.png" alt=""></div>-->
+	<div class="header-title-pic header-inline">
+            <div style="display: flex">
+               <img id="guohui" src="/r/cms/zwpt/web/images/banner-left.png"style="width: 83px" />
+               <img src="/r/cms/zwpt/web/images/banner-right.png" alt="" />
+            </div>
+       </div>
+		<div class="header-search header-inline">
+			<div class="header-menu">
+				<a href="http://gjzwfw.www.gov.cn/index.html" target="_blank" rel="noopener noreferrer nofollow">
+					<i class="fas fa-home"></i>国家政务服务平台</a>&nbsp;&nbsp;|&nbsp;
+				<a href="http://www.most.gov.cn" target="blank">
+					<i class="fas fa-university"></i>中华人民共和国科技部</a>&nbsp;&nbsp;|&nbsp;
+				<a href="javascript:;" onclick="displayContact();">
+					<i class="fas fa-phone"></i>咨询联系 </a>&nbsp;&nbsp;|&nbsp;
+				<a href="/html/ljbpt/" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-question-circle"></i>平台介绍</a>
+
+			</div>
+			
+			<form name="formznjs" class="mainsearch" action="/html/ssjg/" target="_blank" rel="noopener noreferrer nofollow" onsubmit="return transearchword();" method="get">
+				
+				<input class="header-search-text" type="text" name="search" placeholder="站内搜索" onfocus="this.value='';" onkeydown="if(window.event.keyCode==13){return changSearch();}" />
+				<a href="javascript:;" class="header-search-btn" onclick="changSearch();"><i class="fas fa-search"></i></a> 
+			</form>
+		</div>
+	</div>
+	<!--  咨询联系  -->
+	<div id="header-zxlx" style="display: none">
+		<div id="header-zxlx-wrap">
+			<div id="header-zxlx-top">
+				<img src="/r/cms/zwpt/web/images/20181227093049.png" alt="" style="height: 80px;">
+			</div>
+			
+			<div>
+				<div class="header-zxlx-panel"><i class="fas fa-phone"></i>
+					<span>
+					为使您的咨询问题及时得到答复，请您务必拨打以下技术支持电话，请勿拨打其他电话：<br />
+					010-88659000&nbsp;&nbsp;&nbsp;&nbsp;传真号码：010-88654001
+					</span>
+				</div>
+				<div class="header-zxlx-panel"><i class="fas fa-envelope"></i>
+					<span>
+					如电话繁忙请通过以下邮箱进行咨询：<br />
+					<a href="mailto:fuwu@most.cn">fuwu@most.cn</a></span>
+				</div>
+				<div class="header-zxlx-panel"><i class="fas fa-info"></i>
+					<span style="width: 600px;">如果您在办理事项的过程中需要帮助，请<a href="/html/zxbl/" target="_blank" rel="noopener noreferrer nofollow" style="text-decoration: underline;font-style: italic;">点击这里</a>查看服务事项，找到您要办理的服务事项后点击该事项右侧的的联系方式按钮，查看该事项的联系方式。</span>
+				</div>
+			</div>
+			
+			<div style="padding:20px 17px; font-size: 16px; color: #666;">科学技术部政务服务平台由科技部信息中心建设运行并提供相关技术服务。</div>
+		</div>
+
+		<input id="log-first" type="hidden" value="${isFirst}"/>
+		<input id="log-isdbr" type="hidden" value="${ui.isdbr}"/>
+		<input id="log-message" type="hidden" value='${message}'/>
+	</div>
+</div>
+<script>
+if (typeof Object.assign != 'function') {
+  Object.assign = function(target) {
+    'use strict';
+    if (target == null) {
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    target = Object(target);
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[index];
+      if (source != null) {
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+    }
+    return target;
+  };
+}
+</script> <link rel="stylesheet" href="/r/cms/zwpt/web/assets/fontawesome/css/all.css">
+<div id="menu">
+    <div id="menu-wrap">
+        <div class="menu-body" id="menu-list">
+				<div class="menu-item"><a href="/html/"><i class="fas fa-home"></i>首页</a></div>
+				<div class="menu-item"><a href="/html/zxbl/"><i class="fas fa-star"></i>服务事项</a></div>
+				<div class="menu-item"><a href="/html/bszx/" class="menu-item-active"><i class="fas fa-info"></i>办事咨询</a></div>
+          			<div class="menu-item"><a id="yhfw-a" ><i class="fas fa-pen"></i>在线办事</a></div>
+				<div class="menu-item"><a href="/html/jgcx/"><i class="fas fa-book"></i>结果公示</a></div>
+        </div>
+        <div class="menu-links">
+                 <a href="javascript:;" onclick="displayLogin();"><i class="fa fa-user-circle"></i>用户登录</a>&nbsp;&nbsp;|&nbsp;
+                 <a href="/mostreg/reg/index" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-user-plus"></i>用户注册</a>
+        </div>
+
+    </div>
+</div>
+	<div id="yhfu-dialog"  tabindex="-1" role="dialog"
+		class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable"
+		aria-describedby="dialog-hint" aria-labelledby="ui-id-1"
+		style="height: auto; width: 400px; top: 205px; left: 381.8px; z-index: 101;display:none;">
+		<div
+			class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle">
+			<span id="ui-id-1" class="ui-dialog-title">科学技术部政务服务平台</span>
+
+		</div>
+		<div id="dialog-hint"
+			style="width: auto; min-height: 16.834px; max-height: none; height: auto;"
+			class="ui-dialog-content ui-widget-content">
+			<div
+				style="padding: 10px; font-size: 14px; color: gray; text-indent: 2em; line-height: 22px;">
+				当前用户尚未登录政务服务平台，只有登录系统确认身份后才能使用“<span id="menuName">用户服务功能</span>”，如您尚未注册，请您点击“用户注册”，注册信息通过审核后进行登录；如您已有注册帐号，请您进行登录。
+			</div>
+		</div>
+		
+        </div>
+
+
+<div class="right-box">
+  <ol style="display: block;">
+    <li><a href="javascript:;" onclick="displayLogin();"><i class="fa fa-user-circle"></i><span>用户登录</span></a></li>
+    <li><a href="/html/fwcx/" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-lightbulb"></i><span>信息查询</span></a></li>
+    <li><a style="cursor: pointer;" id="mobile-access"><i class="fas fa-mobile-alt"></i><span>移动端</span></a><div id="mobile-qr"><img src="/r/cms/zwpt/web/images/download-android-qrcode.png" alt="" style="width: 100px;"/><span>手机或者平板扫描二维码即刻访问</span></div></li>
+    <li><a href="/html/ljbpt/" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-question-circle"></i><span>用户指引</span></a></li>
+    <li><a href="javascript:;" onclick="displayContact();"><i class="fas fa-phone"></i><span>咨询联系</span></a></li>
+    <!--<li><a href='javascript:;' onclick='displayLogin();'><i class="far fa-comments"></i><span>投诉建议</span></a></li>-->
+  </ol>
+<a href="javascript:;" onclick="toggleSideMenu();" class="toggle-side"><i class="fas fa-chevron-down"></i><span>收起</span></a>
+</div>
+
+
+<!-- 弹窗 -->
+
+                <div class="tztg_body">
+                    <div class="zxbl_left">
+                        <div class="zxbl_left_tab"><a class="left-menu-title"
+                                href="/html/bszx/"><i
+                                    class="fas fa-info"></i><span class="sub-cat-title">办事咨询</span></a></div>
+                        <div
+                            class="zxbl_left_tab subcat">
+                            <a href="javascript:;" onclick="changepanel(this);"><i
+                                    style="background-image: url(/r/cms/zwpt/web/images/left-menu/leftmenuicon-class.png);"></i><span
+                                    class="sub-cat-title">分类咨询</span><span class="sub-cat-right"></span></a></div>
+                        <div class="zxbl-catpanel" >
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/xzxkl/">
+                                <div>
+                                    <div>行政许可类</div>
+                                </div>
+                            </a>
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/xzqr/">
+                                <div>
+                                    <div>行政确认</div>
+                                </div>
+                            </a>
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/kjjhxm/">
+                                <div>
+                                    <div>科技计划项目</div>
+                                </div>
+                            </a>
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/cxfwl/">
+                                <div>
+                                    <div>创新服务类</div>
+                                </div>
+                            </a>
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/zjrcfw/">
+                                <div>
+                                    <div>专家人才服务</div>
+                                </div>
+                            </a>
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/kjjll/">
+                                <div>
+                                    <div>科技奖励类</div>
+                                </div>
+                            </a>
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/kjcgl/">
+                                <div>
+                                    <div>科技成果类</div>
+                                </div>
+                            </a>
+                            <a class="zxbl-catitem"
+                                href="/html/bszx/qtl/">
+                                <div>
+                                    <div>其他类</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div
+                            class="zxbl_left_tab subcat">
+                            <a href="javascript:;" onclick="changepanel(this);"><i
+                                    style="background-image: url(/r/cms/zwpt/web/images/left-menu/leftmenuhot-all.png);"></i><span
+                                    class="sub-cat-title">热点咨询</span><span class="sub-cat-right"></span></a></div>
+                        <div class="zxbl-catpanel" >
+                            <a id="hotword1" class="zxbl-catitem" href="javascript:;">
+                                <div>
+                                    <div></div>
+                                </div>
+                            </a>
+                            <a id="hotword2" class="zxbl-catitem" href="javascript:;">
+                                <div>
+                                    <div></div>
+                                </div>
+                            </a>
+                            <a id="hotword3" class="zxbl-catitem" href="javascript:;">
+                                <div>
+                                    <div></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div
+                            class="zxbl_left_tab onclick_div">
+                            <a
+                                href="/html/fwcx/"><i
+                                    class="fas fa-lightbulb"></i><span class="sub-cat-title">信息查询</span></a></div>
+                    </div>
+                    <div style="width: 10px; display: table-cell;"></div>
+                    <div class="right">
+                        <div class="right_top">
+                            <p style="padding-left:20px; line-height: 50px;display:inline-block;">高新技术企业备案查询</p>
+                        </div>
+                        <!--	主要内容 	-->
+                        <div class="center mainContent" id="result-content">
+                            <!--	左侧	-->
+                            <div class="centerL cenBg" id="centerL">
+
+                                <el-form class="form-box" v-model="params">
+                                    <el-form-item>
+                                        <el-input v-model="params.name" placeholder="请输入企业名称" @input="reHeight">
+                                            <template v-if="ie9" slot="prepend">企业名称</template>
+                                            <i v-if="!ie9" slot="prefix" class="input-icon fas fa-home"></i>
+                                        </el-input>
+                                        <el-alert v-if="params.name ==''" title="必填，企业名称需准确无误" type="warning"
+                                            :closable="false"></el-alert>
+                                    </el-form-item>
+
+                                    <el-form-item>
+                                        <el-input v-model="params.Certificate_num" placeholder="请输入证书编号"
+                                            @input="reHeight">
+                                            <template v-if="ie9" slot="prepend">证书编号</template>
+                                            <i v-if="!ie9" slot="prefix" class="input-icon fas fa-language"></i>
+                                        </el-input>
+                                        <el-alert v-if="params.Certificate_num ==''" title="必填，证书编号需准确无误" type="warning"
+                                            :closable="false"></el-alert>
+                                    </el-form-item>
+
+                                    <el-form-item>
+                                        <el-input v-model="params.code" placeholder="请输入验证码">
+                                            <template v-if="ie9" slot="prepend">验证码</template>
+                                            <i v-if="!ie9" slot="prefix" class="input-icon"><img
+                                                    src="/r/cms/zwpt/web/images/fwcx/png_00.png" alt="" /></i>
+                                            <img slot="suffix" id="verifyImg" class="code-img"
+                                                src="/dataService/WebService.asmx/getValidCode?appName=gxjs&random="
+                                                alt="验证码" title="点击更换图片" style="cursor: pointer;"
+                                                onclick="this.src='/dataService/WebService.asmx/getValidCode?appName=gxjs&random='+ Math.random();" />
+                                        </el-input>
+                                        <el-alert v-if="params.code==''" title="必填，请输入验证码" type="warning"
+                                            :closable="false"></el-alert>
+                                    </el-form-item>
+
+                                    <div class="form-actions">
+                                        <a href="javascript:;" id="searchxm" class="form-button"
+                                            @click="search">立刻查询</a>
+                                        <a href="javascript:;" @click="emptyParams" class="form-button">重置信息</a>
+                                    </div>
+                                </el-form>
+
+                                <div v-if="results.items !== undefined && results.items.length > 0">
+                                    <h1 class="applicationNav"><span>查询结果</span></h1>
+                                    <div class="result">
+                                        <!--查询结果显示-->
+
+                                        <table v-for="item in results.items" style="width: 100%;">
+                                            <tr>
+                                                <td style="width: 50%;">企业名称</td>
+                                                <td style="width: 50%;">{{ item.name }}</td>
+                                            </tr>
+                                            <td style="width: 50%;">证书编号</td>
+                                            <td style="width: 50%;">{{ item.Certificate_num }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>所在省份</td>
+                                                <td>{{ item.province }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>所在辖区</td>
+                                                <td>{{ item.city }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>认定日期</td>
+                                                <td>{{ item.spsj }}</td>
+                                            </tr>
+                                        </table>
+
+                                        <div style="color: #444;margin-top: 10px;">仅可查询2021年12月前数据，最终结果以实际为准。</div>
+                                        <div class="results-info">数据查询日期：{{ results.date }}</div>
+
+                                    </div>
+                                    <!-- 结果列表结束 -->
+                                </div>
+                                <!-- 结果结束 -->
+                            </div>
+                            <!-- 左侧结束 -->
+                        </div>
+                        <!--	主要内容 结束	-->
+
+                    </div>
+                </div>
+                <form style="display: none;" name="formrcss"
+                    action="/html/bszx/cxjg/"
+                    target="_self" onsubmit="return transearchwordRcss();" method="get">
+                    
+                    <input id="searchwordn" type="hidden" name="hotword" value="0" />
+                    <input id="channelname" type="hidden" name="channelname" value="办事咨询" />
+                    <input type="text" id="searchwordrcss" name="search" onfocus="this.value='';"
+                        onkeydown="if(window.event.keyCode==13){return changSearchRcss();}"
+                        placeholder="您要咨询什么业务，试着检索一下" class="channel_search_input" />
+                </form>
+		<!-- 页脚 -->
+        <div style="clear:both"></div>
+		<div id="footer" class="footer">
+			<!--页脚上部 -->
+			
+			<!-- 页脚下部 -->
+			<div id="footer_bottom" class="footer_bottom">
+<div class="footer-top">
+  <div class="footer-contact">
+    <div class="footer-contact-title">
+      科学技术部政务服务平台由<a class="footer-link" href="https://ic.most.cn/" target="_blank" rel="noopener noreferrer nofollow">科技部信息中心</a>建设运行并提供相关技术服务。
+    </div>
+  <div class="footer-contact-item" style="background-image: url(/r/cms/zwpt/web/images/footer/contact_tel.png); width: 470px;">
+如遇到政务服务平台使用操作等相关技术问题，请拨打以下技术支持电话：010-88659000（中继线）
+  </div>
+  <div class="footer-contact-item" style="background-image: url(/r/cms/zwpt/web/images/footer/contact_email.png);width:245px;">
+如电话繁忙请通过以下邮箱进行咨询：<br/><a href="mailto:fuwu@most.cn" style="color: #86B3DA;">fuwu@most.cn</a>
+  </div>
+  <div class="footer-contact-item" style="background-image: url(/r/cms/zwpt/web/images/footer/contact_fax.png);width:205px; line-height: 80px;">
+传真请发送至：010-88654001
+  </div>
+</div>
+
+<div style="display: inline-block;">
+<div class="footer-bottom">
+科学技术部 © 2019 | ICP 备案序号：京ICP备05022684
+</div>
+<div class="footer-browser">
+建议您使用<i class="fab fa-internet-explorer"></i>IE9及以上版本、<i class="fab fa-edge"></i>Edge、<i class="fab fa-chrome"></i>Chrome、<i class="fab fa-firefox"></i>Firefox和360等主流浏览器浏览本网站。
+</div>
+</div>
+<div style="margin-left: 40px; position: relative; display: inline-block; bottom: 22px;">
+  <img id="jiucuo" src="/r/cms/zwpt/web/images/jiucuo.png" onclick="Link()">
+</div>
+			</div>
+		</div> 
+		</div>
+
+<script>
+//点击图标
+function Link() {
+var sitecode="bm06000001";
+	//获取该站点需要纠错页面的url地址
+	var url = getCurrUrl();
+	//跳转至纠错系统填写页面 
+	window.open("https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=" + sitecode + "&url=" + encodeURIComponent(url));
+}
+//获取该站点需要纠错页面的url地址
+function getCurrUrl() {
+	var url = "";
+	if (parent !== window) {
+		try {
+			url = window.top.location.href;
+		} catch (e) {
+			url = window.top.document.referrer;
+		}
+	}
+	if (url.length == 0)
+		url = document.location.href;
+
+	return url;
+}
+</script>
+<style>
+#jiucuo {
+display: none;
+}
+</style>
+                <script type="text/javascript" src="/r/cms/zwpt/web/js/common/header.js"></script>
+                <script type="text/javascript" src="/r/cms/zwpt/web/js/common/menu.js"></script>
+                <script type="text/javascript" src="/r/cms/zwpt/web/js/common/body.js"></script>
+                <script src="/r/cms/front.js" type="text/javascript"></script>
+
+                <script type="text/javascript">
+                    Cms.channelViewCount("", "1335");
+                    Cms.siteFlow("", location.href, document.referrer, "true");
+                </script>
+
+                <script>
+                    var vm;
+
+                    var datas = {
+                        params: {
+                            appName: "gxjs",
+        from: "pc",
+                            name: "",
+                            Certificate_num: "",
+                            code: ""
+                        },
+                        results: {
+                            date: "",
+                            items: []
+                        }
+                    };
+
+                    function vueData(data) {
+                        Vue.set(vm.results, "items", data.item);
+                        Vue.set(vm.results, "date", data.date);
+                    }
+
+                    $(function () {
+                        vm = new Vue({
+                            el: "#result-content",
+                            data: datas,
+                            computed: {
+                                ie9: function () {
+                                    if (
+                                        navigator.appName == "Microsoft Internet Explorer" &&
+                                        parseInt(
+                                            navigator.appVersion
+                                                .split(";")[1]
+                                                .replace(/[ ]/g, "")
+                                                .replace("MSIE", "")
+                                        ) <= 9
+                                    ) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
+                            },
+                            methods: {
+                                reHeight: function () {
+                                },
+                                search: function () {
+                                    if (this.validParams() && this.validCaptcha()) {
+                                        var url = "/dataService/WebService.asmx/getGxqData";
+
+                                        openModel();
+
+                                        $.ajax({
+                                            url: url,
+                                            data: datas.params,
+                                            type: 'POST',
+                                            dataType: "json", //返回数据格式，默认json
+                                            success: function (data) {
+                                                closeModel();
+                                                Vue.set(vm.results, "items", []);
+                                                if (data.result_code == "100") {
+                                                    vueData(data);
+                                                    vm.params.code = "";
+                                                } else if (data.result_code == "101") {
+                                                    openAlert("未找到对应数据，请核对搜索条件后再试。");
+                                                } else if (data.result_code == "200") {
+                                                    openAlert("搜索条件错误，请核对搜索条件后再试。");
+                                                } else if (data.result_code == "300") {
+                                                    openAlert("验证码错误，请核对验证码后再试。");
+                                                }
+                  $("#verifyImg").click();
+                                            },
+
+                                            fail: function (data) {
+                                                closeModel();
+                                                openAlert("搜索失败，请检查网络状态或者稍后再试。");
+                  $("#verifyImg").click();
+                                            },
+
+                                            error: function (data) {
+                                                closeModel();
+                                                openAlert("搜索失败，请检查网络状态或者稍后再试。");
+                  $("#verifyImg").click();
+                                            }
+
+                                        });
+                                        this.params.code = "";
+                                    }
+                                },
+                                validParams: function () {
+                                    if (
+                                        this.params.name != "" &&
+                                        this.params.Certificate_num != "" &&
+                                        this.params.code != ""
+                                    ) {
+                                        return true;
+                                    } else {
+                                        openAlert("搜索条件和验证码均不能为空，请核对搜索条件后再试。");
+                                        return false;
+                                    }
+                                },
+                                validCaptcha: function () {
+                                    return true;
+                                    var code = checkCode(this.params.code);
+                                    if (code == 0 || code == 2) {
+                                        openAlert("验证码错误，请重新输入");
+                                        $("#verifyImg").click();
+                                        this.params.code = "";
+                                        return false;
+                                    }
+                                    return true;
+                                },
+                                emptyParams: function () {
+                                    this.params.name = "";
+                                    this.params.Certificate_num = "";
+                                    this.params.code = "";
+                                    this.results.items = [];
+                                    $("#verifyImg").click();
+                                },
+                                keyDown: function () {
+                                    if (window.event.keyCode == 13) {
+                                        this.search();
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+                <script type="text/javascript">
+                    $(function () {
+                        $.ajax({
+                            type: "post",
+                            dataType: "text",
+                            url: "/Government_Service_Platform_Search/site/getHotWord",
+                            data: { channelname: '办事咨询' },
+                            success: function (data) {
+                                var da = data.split(",");
+                                $("#hotword1 div div").append(da[1]);
+                                $("#hotword2 div div").append(da[2]);
+                                $("#hotword3 div div").append(da[3]);
+                                $("#hotword1").attr("onclick", "hotword('" + da[1] + "', 1);");
+                                $("#hotword2").attr("onclick", "hotword('" + da[2] + "', 2);");
+                                $("#hotword3").attr("onclick", "hotword('" + da[3] + "', 3);");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                            }
+                        });
+                    });
+
+                    function hotword(txt, n) {
+                        $("#searchwordrcss").val(txt);
+                        $("#searchwordn").val(n);
+                        return changSearchRcss();
+                    }
+                </script>
+        </body>
+
+        </html>

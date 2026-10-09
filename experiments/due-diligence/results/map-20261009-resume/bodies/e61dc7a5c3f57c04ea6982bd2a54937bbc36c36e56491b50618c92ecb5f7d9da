@@ -1,0 +1,2011 @@
+
+
+ 
+
+
+
+<!DOCTYPE html>
+<html dir="ltr" mozdisallowselectionprint>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1208, initial-scale=1, maximum-scale=5">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Online Preview|GB/T 21010-2017</title>
+
+    <link rel="stylesheet" href="/bzgk/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/bzgk/css/viewer.css">
+    <!-- This snippet is used in production (included from viewer.html) -->
+    <link rel="resource" type="application/l10n" href="/bzgk/locale/locale.properties">
+    <style>
+    .modal-dialog {
+        top: 50%;
+        margin-top: -140px; 
+    }
+    .verifyCodeChange {
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 38px;
+        color: #b3b3b3;
+        margin-left: 5px;
+        -webkit-transition: transform 218ms;
+        -moz-transition: transform 218ms;
+        -o-transition: transform 218ms;
+    }
+    .verifyCodeChange:hover {
+        color: gray;
+        transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+    }
+    .verifyCode {
+        height: 40px;
+        border: 1px solid #b39a9a;
+        margin-left: 5px;
+        float: left;
+        cursor: pointer;
+    }
+    .page {
+        margin: 0 auto;
+        left: 50%;
+        background-color: #fff;
+        position: relative;
+        margin-top: 20px;
+        width: 100%;
+        box-sizing: content-box;
+    }
+    [class^="pdfImg"]{
+        width: 10%;
+        height: 10%;
+        display: block;
+        position: absolute;
+    }
+    [class^="pdfImg-1-"]{
+        left: 10%;
+    }
+    [class^="pdfImg-2-"]{
+        left: 20%;
+    }
+    [class^="pdfImg-3-"]{
+        left: 30%;
+    }
+    [class^="pdfImg-4-"]{
+        left: 40%;
+    }
+    [class^="pdfImg-5-"]{
+        left: 50%;
+    }
+    [class^="pdfImg-6-"]{
+        left: 60%;
+    }
+    [class^="pdfImg-7-"]{
+        left: 70%;
+    }
+    [class^="pdfImg-8-"]{
+        left: 80%;
+    }
+    [class^="pdfImg-9-"]{
+        left: 90%;
+    }
+    [class^="pdfImg-"][class$="-1"]{
+        top: 10%;
+    }
+    [class^="pdfImg-"][class$="-2"]{
+        top: 20%;
+    }
+    [class^="pdfImg-"][class$="-3"]{
+        top: 30%;
+    }
+    [class^="pdfImg-"][class$="-4"]{
+        top: 40%;
+    }
+    [class^="pdfImg-"][class$="-5"]{
+        top: 50%;
+    }
+    [class^="pdfImg-"][class$="-6"]{
+        top: 60%;
+    }
+    [class^="pdfImg-"][class$="-7"]{
+        top: 70%;
+    }
+    [class^="pdfImg-"][class$="-8"]{
+        top: 80%;
+    }
+    [class^="pdfImg-"][class$="-9"]{
+        top: 90%;
+    }
+    
+    </style>
+  </head>
+
+  <body tabindex="1" oncontextmenu="return false">
+  <div id="outerContainer">
+    <div id="mainContainer">
+        <div class="toolbar">
+              <div id="toolbarContainer">
+                <div id="toolbarViewer">
+                  <div id="toolbarViewerLeft">
+                    <div class="toolbarButtonSpacer"></div>
+                    <div class="splitToolbarButton hiddenSmallView">
+                      <button class="toolbarButton pageUp" title="Previous Page" id="previous" tabindex="13" data-l10n-id="previous">
+                        <span data-l10n-id="previous_label">Previous</span>
+                      </button>
+                      <div class="splitToolbarButtonSeparator"></div>
+                      <button class="toolbarButton pageDown" title="Next Page" id="next" tabindex="14" data-l10n-id="next">
+                        <span data-l10n-id="next_label">Next</span>
+                      </button>
+                    </div>
+                    <input type="number" id="pageNumber" class="toolbarField pageNumber" title="Page Number" value="1" size="4" min="1" tabindex="15" data-l10n-id="page" autocomplete="off">
+                    <span id="numPages" class="toolbarLabel">/13</span>
+                  </div>
+                  <div id="toolbarViewerMiddle">
+                    <div class="splitToolbarButton">
+                      <button id="zoomOut" class="toolbarButton zoomOut" title="Zoom Out" tabindex="21" data-l10n-id="zoom_out">
+                        <span data-l10n-id="zoom_out_label">Zoom Out</span>
+                      </button>
+                      <div class="splitToolbarButtonSeparator"></div>
+                      <button id="zoomIn" class="toolbarButton zoomIn" title="Zoom In" tabindex="22" data-l10n-id="zoom_in">
+                        <span data-l10n-id="zoom_in_label">Zoom In</span>
+                       </button>
+                    </div>
+                    <span id="scaleSelectContainer" class="dropdownToolbarButton">
+                      <select id="scaleSelect" title="Zoom" tabindex="23" data-l10n-id="zoom">
+                      </select>
+                    </span>
+                  </div>
+                </div>
+                <div id="loadingBar">
+                  <div class="progress">
+                    <div class="glimmer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="viewerContainer" tabindex="0">
+              <div id="viewer" class="pdfViewer">
+                    
+                      <div id="0" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuGmkcF52nMCXp5xY6Py0FW1AJCCnZDoJFjq0T8856DyF" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-3-2" style="background-position: -0px -0px;"></span>
+                        
+                            <span class="pdfImg-5-9" style="background-position: -232px -0px;"></span>
+                        
+                            <span class="pdfImg-1-0" style="background-position: -1856px -0px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1856px -656px;"></span>
+                        
+                            <span class="pdfImg-9-8" style="background-position: -464px -984px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -696px -984px;"></span>
+                        
+                            <span class="pdfImg-2-8" style="background-position: -1160px -984px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -1624px -984px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -0px -1312px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -464px -1312px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -2088px -1312px;"></span>
+                        
+                            <span class="pdfImg-7-0" style="background-position: -1624px -1640px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -464px -1968px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -1856px -1968px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -0px -2296px;"></span>
+                        
+                            <span class="pdfImg-2-0" style="background-position: -232px -2296px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -1624px -2296px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -1856px -2296px;"></span>
+                        
+                            <span class="pdfImg-9-1" style="background-position: -2088px -2296px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -464px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -1392px -2624px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -1160px -2952px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1392px -2952px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -1624px -2952px;"></span>
+                        
+                            <span class="pdfImg-9-2" style="background-position: -0px -3280px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -2088px -3280px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -696px -4264px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -928px -4264px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -232px -4592px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -464px -4920px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -1392px -4920px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -1624px -4920px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -696px -5248px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -928px -5248px;"></span>
+                        
+                            <span class="pdfImg-7-9" style="background-position: -1624px -5248px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -1856px -5248px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -1392px -5904px;"></span>
+                        
+                            <span class="pdfImg-8-0" style="background-position: -2088px -5904px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -232px -6232px;"></span>
+                        
+                            <span class="pdfImg-6-0" style="background-position: -464px -6232px;"></span>
+                        
+                            <span class="pdfImg-6-9" style="background-position: -928px -6232px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -1160px -6232px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -696px -6560px;"></span>
+                        
+                            <span class="pdfImg-2-9" style="background-position: -1624px -6560px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -0px -6888px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -1624px -6888px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -696px -7216px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -1624px -7216px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -2088px -7216px;"></span>
+                        
+                      </div>
+                      
+                      <div id="1" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuGmkcF52nMCXp5xY6Py0FW1AJCCnZDoJFjq0T8856DyF" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-5-1" style="background-position: -2088px -0px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -696px -328px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -232px -656px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -1624px -656px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -1392px -1968px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -928px -3280px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -1856px -3280px;"></span>
+                        
+                            <span class="pdfImg-1-0" style="background-position: -1392px -3608px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -232px -4920px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -1160px -4920px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -1160px -5248px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -1392px -5576px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -1624px -5904px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -696px -6232px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -1856px -6560px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -464px -6888px;"></span>
+                        
+                            <span class="pdfImg-2-0" style="background-position: -1392px -6888px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -464px -7544px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -1160px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -0px -8200px;"></span>
+                        
+                      </div>
+                      
+                      <div id="2" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuGmkcF52nMCXp5xY6Py0FW1AJCCnZDoJFjq0T8856DyF" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-8-7" style="background-position: -232px -328px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1624px -328px;"></span>
+                        
+                            <span class="pdfImg-2-7" style="background-position: -1856px -328px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -232px -984px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -928px -984px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -2088px -984px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -928px -1312px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -696px -1640px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -928px -1640px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -1392px -1640px;"></span>
+                        
+                            <span class="pdfImg-1-7" style="background-position: -2088px -1640px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -928px -1968px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -2088px -1968px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -696px -2296px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -928px -2296px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -1160px -2296px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -1392px -2296px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -928px -2624px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1160px -2624px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -1856px -2624px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -232px -3280px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -464px -3280px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -1392px -3280px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -232px -3608px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -696px -3608px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -0px -3936px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -464px -3936px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -1160px -3936px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -1624px -3936px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -1856px -4264px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -928px -4592px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -1856px -4592px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -0px -5248px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -464px -5248px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -1392px -5248px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -0px -5576px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -1160px -5576px;"></span>
+                        
+                            <span class="pdfImg-8-0" style="background-position: -232px -5904px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -696px -5904px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -0px -6232px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -2088px -6232px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -0px -6560px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -1160px -6560px;"></span>
+                        
+                            <span class="pdfImg-7-0" style="background-position: -696px -6888px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -928px -6888px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -1160px -6888px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -0px -7216px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -232px -7544px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -1160px -7544px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -1856px -7872px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -232px -8200px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -464px -8200px;"></span>
+                        
+                      </div>
+                      
+                      <div id="3" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuGmkcF52nMCXp5xY6Py0FW1AJCCnZDoJFjq0T8856DyF" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-2-7" style="background-position: -696px -0px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -1392px -0px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -0px -328px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -928px -328px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -464px -656px;"></span>
+                        
+                            <span class="pdfImg-1-7" style="background-position: -1160px -656px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -232px -1312px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -1160px -1312px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -1392px -1312px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -1856px -1312px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -0px -1640px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -232px -1640px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -464px -1640px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -0px -1968px;"></span>
+                        
+                            <span class="pdfImg-7-0" style="background-position: -232px -1968px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -0px -2624px;"></span>
+                        
+                            <span class="pdfImg-8-0" style="background-position: -232px -2624px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -696px -2624px;"></span>
+                        
+                            <span class="pdfImg-2-8" style="background-position: -232px -2952px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -696px -3280px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -464px -3608px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -2088px -3608px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -232px -3936px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -696px -3936px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -1392px -3936px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -2088px -3936px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -464px -4264px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -1160px -4264px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -0px -4592px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1160px -4592px;"></span>
+                        
+                            <span class="pdfImg-8-7" style="background-position: -1392px -4592px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -0px -4920px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -696px -4920px;"></span>
+                        
+                            <span class="pdfImg-2-9" style="background-position: -928px -4920px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -2088px -4920px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -464px -5576px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -1624px -5576px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -1856px -5576px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -2088px -5576px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -1160px -5904px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -1856px -6232px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -232px -6560px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -464px -6560px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -928px -6560px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -1392px -6560px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -2088px -6560px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -1856px -6888px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -2088px -6888px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -464px -7216px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -928px -7216px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1856px -7216px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -0px -7544px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -696px -7544px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -2088px -7544px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -232px -7872px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -464px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -696px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -2088px -7872px;"></span>
+                        
+                      </div>
+                      
+                      <div id="4" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuGmkcF52nMCXp5xY6Py0FW1AJCCnZDoJFjq0T8856DyF" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-7-9" style="background-position: -464px -0px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -928px -0px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -1160px -0px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -1624px -0px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -464px -328px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -1160px -328px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -1392px -328px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -2088px -328px;"></span>
+                        
+                            <span class="pdfImg-8-7" style="background-position: -0px -656px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -696px -656px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -928px -656px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -1392px -656px;"></span>
+                        
+                            <span class="pdfImg-2-9" style="background-position: -2088px -656px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -0px -984px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -1392px -984px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -1856px -984px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -696px -1312px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -1624px -1312px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -1160px -1640px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -1856px -1640px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -696px -1968px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -1160px -1968px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -1624px -1968px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -464px -2296px;"></span>
+                        
+                            <span class="pdfImg-6-9" style="background-position: -1624px -2624px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -2088px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -0px -2952px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -464px -2952px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -696px -2952px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -928px -2952px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -1856px -2952px;"></span>
+                        
+                            <span class="pdfImg-2-0" style="background-position: -2088px -2952px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -1160px -3280px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -1624px -3280px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -0px -3608px;"></span>
+                        
+                            <span class="pdfImg-5-9" style="background-position: -928px -3608px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -1160px -3608px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -1624px -3608px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -1856px -3608px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -928px -3936px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1856px -3936px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -0px -4264px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -232px -4264px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -1392px -4264px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -1624px -4264px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -2088px -4264px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -464px -4592px;"></span>
+                        
+                            <span class="pdfImg-1-0" style="background-position: -696px -4592px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -1624px -4592px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -2088px -4592px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -1856px -4920px;"></span>
+                        
+                            <span class="pdfImg-2-7" style="background-position: -232px -5248px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -2088px -5248px;"></span>
+                        
+                            <span class="pdfImg-1-7" style="background-position: -232px -5576px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -696px -5576px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -928px -5576px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -0px -5904px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -464px -5904px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -928px -5904px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -1856px -5904px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -1392px -6232px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -1624px -6232px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -232px -6888px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -232px -7216px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -1160px -7216px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -1392px -7216px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -928px -7544px;"></span>
+                        
+                            <span class="pdfImg-2-8" style="background-position: -1392px -7544px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1624px -7544px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -1856px -7544px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -0px -7872px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -928px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -1392px -7872px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -1624px -7872px;"></span>
+                        
+                      </div>
+                      
+                      <div id="5" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuLkDLXGTa64fGhguBfBNlUFEbn4gI0xR6cn%2F1Ozu1VI5" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-1-7" style="background-position: -464px -0px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -1856px -0px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -2088px -0px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -0px -328px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -696px -328px;"></span>
+                        
+                            <span class="pdfImg-6-9" style="background-position: -1392px -328px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -1624px -328px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -232px -1312px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -928px -1312px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -1392px -1312px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -928px -1640px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -1160px -1640px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -0px -1968px;"></span>
+                        
+                            <span class="pdfImg-2-9" style="background-position: -1160px -1968px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -0px -2296px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -1624px -2296px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -2088px -2296px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -1392px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -1856px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -696px -2952px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -1160px -2952px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -2088px -2952px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -464px -3280px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -928px -3280px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -1392px -3280px;"></span>
+                        
+                            <span class="pdfImg-7-0" style="background-position: -2088px -3280px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -0px -3608px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -928px -3608px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -1160px -3608px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -1392px -3608px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -1624px -3608px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -1624px -3936px;"></span>
+                        
+                            <span class="pdfImg-8-7" style="background-position: -1160px -4264px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -696px -4592px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -928px -4592px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1624px -4592px;"></span>
+                        
+                            <span class="pdfImg-2-8" style="background-position: -232px -4920px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -464px -4920px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -696px -4920px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -1392px -4920px;"></span>
+                        
+                            <span class="pdfImg-5-9" style="background-position: -1624px -4920px;"></span>
+                        
+                            <span class="pdfImg-7-9" style="background-position: -928px -5248px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -1160px -5248px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -1392px -5248px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -1856px -5248px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -2088px -5248px;"></span>
+                        
+                            <span class="pdfImg-8-0" style="background-position: -232px -5576px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -1160px -5576px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -1856px -5576px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -0px -5904px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -232px -5904px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -232px -6232px;"></span>
+                        
+                            <span class="pdfImg-2-7" style="background-position: -464px -6232px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -696px -6232px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -1624px -6232px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -1856px -6232px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -464px -6560px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -928px -6560px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -464px -6888px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -696px -6888px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -2088px -6888px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -232px -7216px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -1160px -7216px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -464px -7544px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -696px -7544px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -1160px -7544px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -1392px -7544px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -1624px -7544px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -2088px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -0px -8200px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -1160px -8200px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -1392px -8200px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -1160px -8528px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -0px -8856px;"></span>
+                        
+                      </div>
+                      
+                      <div id="6" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuLkDLXGTa64fGhguBfBNlUFEbn4gI0xR6cn%2F1Ozu1VI5" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-7-1" style="background-position: -0px -0px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -696px -0px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -928px -0px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -1160px -0px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -1160px -328px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -1856px -328px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -232px -656px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -464px -656px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -1160px -656px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -464px -984px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -1160px -984px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1392px -984px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -2088px -984px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -464px -1312px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -1624px -1312px;"></span>
+                        
+                            <span class="pdfImg-8-7" style="background-position: -0px -1640px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -232px -1640px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -1392px -1640px;"></span>
+                        
+                            <span class="pdfImg-2-9" style="background-position: -1624px -1640px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -696px -1968px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -1856px -1968px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -232px -2296px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -464px -2296px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -1856px -2296px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -696px -2624px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -1624px -2624px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -232px -2952px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -1624px -2952px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -1624px -3280px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -464px -3608px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -696px -3608px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -0px -3936px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -696px -3936px;"></span>
+                        
+                            <span class="pdfImg-1-7" style="background-position: -464px -4264px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -928px -4264px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -1624px -4264px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -0px -4592px;"></span>
+                        
+                            <span class="pdfImg-6-9" style="background-position: -232px -4592px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -1856px -4592px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -2088px -4592px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -0px -4920px;"></span>
+                        
+                            <span class="pdfImg-2-8" style="background-position: -1160px -4920px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -1856px -4920px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -0px -5248px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -464px -5248px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -1624px -5248px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -0px -5576px;"></span>
+                        
+                            <span class="pdfImg-2-0" style="background-position: -2088px -5576px;"></span>
+                        
+                            <span class="pdfImg-1-0" style="background-position: -696px -5904px;"></span>
+                        
+                            <span class="pdfImg-2-7" style="background-position: -928px -6232px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -1160px -6232px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -1392px -6232px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -2088px -6232px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -1160px -6560px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -0px -6888px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -928px -6888px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1392px -6888px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -1856px -6888px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -464px -7216px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -1624px -7216px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -1856px -7216px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -2088px -7216px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -1856px -7544px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -464px -7872px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -696px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -1624px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-9" style="background-position: -696px -8200px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -464px -8528px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -696px -8528px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -928px -8528px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -1624px -8528px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -1856px -8528px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -232px -8856px;"></span>
+                        
+                            <span class="pdfImg-5-9" style="background-position: -464px -8856px;"></span>
+                        
+                      </div>
+                      
+                      <div id="7" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuLkDLXGTa64fGhguBfBNlUFEbn4gI0xR6cn%2F1Ozu1VI5" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-2-9" style="background-position: -232px -0px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -1624px -0px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -232px -328px;"></span>
+                        
+                            <span class="pdfImg-2-7" style="background-position: -928px -328px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -2088px -328px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -0px -656px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -696px -656px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -928px -656px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1392px -656px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -232px -984px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -696px -984px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -928px -984px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -1856px -984px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -0px -1312px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -696px -1312px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -2088px -1312px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -1856px -1640px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -464px -1968px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -928px -1968px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -1392px -1968px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -2088px -1968px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -696px -2296px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -1160px -2296px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -232px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -464px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -928px -2624px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1160px -2624px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -2088px -2624px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -0px -2952px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -696px -3280px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -1856px -3280px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -2088px -3608px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -232px -3936px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -464px -3936px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -1160px -3936px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -1856px -3936px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -2088px -3936px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -232px -4264px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -1392px -4264px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -1856px -4264px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -2088px -4264px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -1392px -4592px;"></span>
+                        
+                            <span class="pdfImg-1-7" style="background-position: -928px -4920px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -2088px -4920px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -464px -5576px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -696px -5576px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -928px -5576px;"></span>
+                        
+                            <span class="pdfImg-6-9" style="background-position: -1624px -5576px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -464px -5904px;"></span>
+                        
+                            <span class="pdfImg-8-0" style="background-position: -1160px -5904px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -0px -6232px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -0px -6560px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -232px -6560px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -696px -6560px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -1392px -6560px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -1624px -6560px;"></span>
+                        
+                            <span class="pdfImg-5-9" style="background-position: -232px -6888px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -1160px -6888px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -696px -7216px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -928px -7216px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -1392px -7216px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -0px -7544px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -232px -7544px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -2088px -7544px;"></span>
+                        
+                            <span class="pdfImg-7-9" style="background-position: -0px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-0" style="background-position: -1160px -7872px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -1392px -7872px;"></span>
+                        
+                            <span class="pdfImg-2-8" style="background-position: -1856px -7872px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -232px -8200px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -464px -8200px;"></span>
+                        
+                            <span class="pdfImg-8-7" style="background-position: -928px -8200px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -1624px -8200px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1856px -8200px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -0px -8528px;"></span>
+                        
+                      </div>
+                      
+                      <div id="8" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuLkDLXGTa64fGhguBfBNlUFEbn4gI0xR6cn%2F1Ozu1VI5" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-1-9" style="background-position: -1392px -0px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -464px -328px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -1624px -656px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -1856px -656px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -2088px -656px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -0px -984px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -1624px -984px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1160px -1312px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1856px -1312px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -464px -1640px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -696px -1640px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -2088px -1640px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -232px -1968px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -1624px -1968px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -928px -2296px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -1392px -2296px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -0px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -464px -2952px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -928px -2952px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -1392px -2952px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -1856px -2952px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -0px -3280px;"></span>
+                        
+                            <span class="pdfImg-2-0" style="background-position: -232px -3280px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -1160px -3280px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -232px -3608px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -1856px -3608px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -928px -3936px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -1392px -3936px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -0px -4264px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -696px -4264px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -464px -4592px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -1160px -4592px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -232px -5248px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -696px -5248px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -1392px -5576px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -928px -5904px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -1392px -5904px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -1624px -5904px;"></span>
+                        
+                            <span class="pdfImg-1-0" style="background-position: -1856px -5904px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -2088px -5904px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -1856px -6560px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -2088px -6560px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -1624px -6888px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -0px -7216px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -928px -7544px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -232px -7872px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -928px -7872px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -2088px -8200px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -232px -8528px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1392px -8528px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -2088px -8528px;"></span>
+                        
+                      </div>
+                      
+                      <div id="9" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuBPiUX106lOQt%2BEFmeHPEMn0j%2FbKneDcq69iYTZs3G7W" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-2-1" style="background-position: -232px -0px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -696px -0px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -928px -0px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -1856px -0px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -0px -328px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -1160px -328px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -1392px -328px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -2088px -328px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -0px -656px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -928px -656px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -1624px -656px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1856px -656px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -232px -984px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -464px -984px;"></span>
+                        
+                            <span class="pdfImg-7-0" style="background-position: -928px -984px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -1160px -984px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -1392px -984px;"></span>
+                        
+                            <span class="pdfImg-6-9" style="background-position: -1624px -984px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -464px -1312px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1160px -1312px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -1624px -1312px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -0px -1640px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -464px -1640px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -1624px -1640px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -232px -1968px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -464px -1968px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -1160px -1968px;"></span>
+                        
+                            <span class="pdfImg-7-9" style="background-position: -1856px -1968px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -928px -2296px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -1160px -2296px;"></span>
+                        
+                            <span class="pdfImg-2-9" style="background-position: -1624px -2296px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -1856px -2296px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -232px -2624px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -1624px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -0px -3280px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -696px -3280px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -1160px -3280px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -928px -3608px;"></span>
+                        
+                            <span class="pdfImg-5-9" style="background-position: -1160px -3608px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -1856px -3608px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -2088px -3608px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -232px -3936px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -464px -3936px;"></span>
+                        
+                            <span class="pdfImg-8-0" style="background-position: -696px -3936px;"></span>
+                        
+                            <span class="pdfImg-2-8" style="background-position: -1392px -3936px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -1856px -3936px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -2088px -3936px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -0px -4264px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -696px -4264px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -1624px -4264px;"></span>
+                        
+                            <span class="pdfImg-8-7" style="background-position: -1392px -4592px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -1856px -4592px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -232px -4920px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -696px -4920px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -1856px -4920px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -2088px -4920px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -0px -5248px;"></span>
+                        
+                            <span class="pdfImg-1-7" style="background-position: -696px -5248px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -1392px -5248px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -1624px -5248px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -0px -5576px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -464px -5576px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -232px -5904px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -2088px -5904px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -1856px -6232px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -2088px -6232px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -232px -6560px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -696px -6560px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -232px -6888px;"></span>
+                        
+                      </div>
+                      
+                      <div id="10" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuBPiUX106lOQt%2BEFmeHPEMn0j%2FbKneDcq69iYTZs3G7W" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-1-0" style="background-position: -464px -0px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -1624px -0px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -232px -328px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -464px -328px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -928px -328px;"></span>
+                        
+                            <span class="pdfImg-2-0" style="background-position: -1624px -328px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -1856px -328px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -696px -656px;"></span>
+                        
+                            <span class="pdfImg-2-5" style="background-position: -1160px -656px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -0px -984px;"></span>
+                        
+                            <span class="pdfImg-8-8" style="background-position: -696px -984px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1856px -984px;"></span>
+                        
+                            <span class="pdfImg-1-7" style="background-position: -232px -1312px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -696px -1312px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -1856px -1312px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -232px -1640px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -1160px -1640px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -696px -1968px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -1624px -1968px;"></span>
+                        
+                            <span class="pdfImg-5-7" style="background-position: -464px -2624px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -696px -2624px;"></span>
+                        
+                            <span class="pdfImg-7-9" style="background-position: -1392px -2624px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -2088px -2624px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -928px -2952px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1392px -2952px;"></span>
+                        
+                            <span class="pdfImg-8-7" style="background-position: -928px -3280px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -1392px -3280px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -1624px -3280px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -1856px -3280px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -464px -3608px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -696px -3608px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -1392px -3608px;"></span>
+                        
+                            <span class="pdfImg-6-7" style="background-position: -1624px -3936px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -464px -4264px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -1160px -4264px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -1856px -4264px;"></span>
+                        
+                            <span class="pdfImg-4-9" style="background-position: -696px -4592px;"></span>
+                        
+                            <span class="pdfImg-3-7" style="background-position: -928px -4592px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -1160px -4592px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -1624px -4592px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -2088px -4592px;"></span>
+                        
+                            <span class="pdfImg-3-8" style="background-position: -928px -4920px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -1392px -4920px;"></span>
+                        
+                            <span class="pdfImg-6-9" style="background-position: -1624px -4920px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -232px -5248px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1160px -5248px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -1856px -5248px;"></span>
+                        
+                            <span class="pdfImg-2-9" style="background-position: -696px -5576px;"></span>
+                        
+                            <span class="pdfImg-4-8" style="background-position: -928px -5576px;"></span>
+                        
+                            <span class="pdfImg-7-7" style="background-position: -1392px -5576px;"></span>
+                        
+                            <span class="pdfImg-5-8" style="background-position: -2088px -5576px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -0px -5904px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -464px -5904px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -696px -5904px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -928px -5904px;"></span>
+                        
+                            <span class="pdfImg-5-9" style="background-position: -1392px -5904px;"></span>
+                        
+                            <span class="pdfImg-6-8" style="background-position: -0px -6232px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -232px -6232px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -696px -6232px;"></span>
+                        
+                            <span class="pdfImg-4-7" style="background-position: -1392px -6232px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -464px -6560px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -1160px -6560px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -1624px -6560px;"></span>
+                        
+                            <span class="pdfImg-1-8" style="background-position: -2088px -6560px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -696px -6888px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -928px -6888px;"></span>
+                        
+                            <span class="pdfImg-7-8" style="background-position: -1160px -6888px;"></span>
+                        
+                            <span class="pdfImg-3-9" style="background-position: -1624px -6888px;"></span>
+                        
+                      </div>
+                      
+                      <div id="11" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuBPiUX106lOQt%2BEFmeHPEMn0j%2FbKneDcq69iYTZs3G7W" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-2-2" style="background-position: -1392px -0px;"></span>
+                        
+                            <span class="pdfImg-7-0" style="background-position: -696px -328px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -232px -656px;"></span>
+                        
+                            <span class="pdfImg-8-9" style="background-position: -2088px -984px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -0px -1312px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -928px -1312px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -1392px -1312px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -2088px -1312px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -928px -1640px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -1856px -1640px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -0px -1968px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -928px -1968px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -2088px -1968px;"></span>
+                        
+                            <span class="pdfImg-7-1" style="background-position: -0px -2296px;"></span>
+                        
+                            <span class="pdfImg-8-1" style="background-position: -232px -2296px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -464px -2296px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -1160px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -1856px -2624px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -232px -2952px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -464px -2952px;"></span>
+                        
+                            <span class="pdfImg-1-1" style="background-position: -2088px -2952px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -0px -3608px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -1160px -3936px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -232px -4264px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -928px -4264px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -1392px -4264px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -464px -4592px;"></span>
+                        
+                            <span class="pdfImg-2-1" style="background-position: -464px -5248px;"></span>
+                        
+                            <span class="pdfImg-8-0" style="background-position: -232px -5576px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1160px -5904px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -1856px -5904px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -1160px -6232px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -0px -6560px;"></span>
+                        
+                            <span class="pdfImg-5-3" style="background-position: -1392px -6560px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -0px -6888px;"></span>
+                        
+                      </div>
+                      
+                      <div id="12" class="page" bg="CiFJwp%2B87I%2FzcmUn3ewfuBPiUX106lOQt%2BEFmeHPEMn0j%2FbKneDcq69iYTZs3G7W" style="width:2315px;height:3274px;margin-left:-1157.5px;">
+                        
+                            <span class="pdfImg-5-3" style="background-position: -0px -0px;"></span>
+                        
+                            <span class="pdfImg-4-2" style="background-position: -1160px -0px;"></span>
+                        
+                            <span class="pdfImg-3-6" style="background-position: -2088px -0px;"></span>
+                        
+                            <span class="pdfImg-8-2" style="background-position: -464px -656px;"></span>
+                        
+                            <span class="pdfImg-4-4" style="background-position: -1392px -656px;"></span>
+                        
+                            <span class="pdfImg-4-6" style="background-position: -2088px -656px;"></span>
+                        
+                            <span class="pdfImg-8-5" style="background-position: -696px -1640px;"></span>
+                        
+                            <span class="pdfImg-6-4" style="background-position: -1392px -1640px;"></span>
+                        
+                            <span class="pdfImg-5-2" style="background-position: -2088px -1640px;"></span>
+                        
+                            <span class="pdfImg-1-5" style="background-position: -1392px -1968px;"></span>
+                        
+                            <span class="pdfImg-5-6" style="background-position: -696px -2296px;"></span>
+                        
+                            <span class="pdfImg-2-6" style="background-position: -1392px -2296px;"></span>
+                        
+                            <span class="pdfImg-5-5" style="background-position: -2088px -2296px;"></span>
+                        
+                            <span class="pdfImg-6-6" style="background-position: -0px -2624px;"></span>
+                        
+                            <span class="pdfImg-7-3" style="background-position: -928px -2624px;"></span>
+                        
+                            <span class="pdfImg-4-1" style="background-position: -0px -2952px;"></span>
+                        
+                            <span class="pdfImg-3-5" style="background-position: -696px -2952px;"></span>
+                        
+                            <span class="pdfImg-1-4" style="background-position: -1160px -2952px;"></span>
+                        
+                            <span class="pdfImg-5-4" style="background-position: -1624px -2952px;"></span>
+                        
+                            <span class="pdfImg-6-5" style="background-position: -1856px -2952px;"></span>
+                        
+                            <span class="pdfImg-3-1" style="background-position: -232px -3280px;"></span>
+                        
+                            <span class="pdfImg-1-6" style="background-position: -464px -3280px;"></span>
+                        
+                            <span class="pdfImg-1-0" style="background-position: -2088px -3280px;"></span>
+                        
+                            <span class="pdfImg-7-5" style="background-position: -232px -3608px;"></span>
+                        
+                            <span class="pdfImg-5-1" style="background-position: -1624px -3608px;"></span>
+                        
+                            <span class="pdfImg-7-4" style="background-position: -0px -3936px;"></span>
+                        
+                            <span class="pdfImg-2-2" style="background-position: -928px -3936px;"></span>
+                        
+                            <span class="pdfImg-2-3" style="background-position: -2088px -4264px;"></span>
+                        
+                            <span class="pdfImg-8-4" style="background-position: -0px -4592px;"></span>
+                        
+                            <span class="pdfImg-1-2" style="background-position: -232px -4592px;"></span>
+                        
+                            <span class="pdfImg-4-3" style="background-position: -0px -4920px;"></span>
+                        
+                            <span class="pdfImg-3-3" style="background-position: -464px -4920px;"></span>
+                        
+                            <span class="pdfImg-7-2" style="background-position: -1160px -4920px;"></span>
+                        
+                            <span class="pdfImg-3-4" style="background-position: -928px -5248px;"></span>
+                        
+                            <span class="pdfImg-8-6" style="background-position: -2088px -5248px;"></span>
+                        
+                            <span class="pdfImg-1-3" style="background-position: -1160px -5576px;"></span>
+                        
+                            <span class="pdfImg-3-2" style="background-position: -1624px -5576px;"></span>
+                        
+                            <span class="pdfImg-8-3" style="background-position: -1856px -5576px;"></span>
+                        
+                            <span class="pdfImg-2-4" style="background-position: -1624px -5904px;"></span>
+                        
+                            <span class="pdfImg-6-3" style="background-position: -464px -6232px;"></span>
+                        
+                            <span class="pdfImg-7-6" style="background-position: -928px -6232px;"></span>
+                        
+                            <span class="pdfImg-4-5" style="background-position: -1624px -6232px;"></span>
+                        
+                            <span class="pdfImg-6-2" style="background-position: -928px -6560px;"></span>
+                        
+                            <span class="pdfImg-6-1" style="background-position: -1856px -6560px;"></span>
+                        
+                            <span class="pdfImg-1-9" style="background-position: -464px -6888px;"></span>
+                        
+                            <span class="pdfImg-2-0" style="background-position: -1392px -6888px;"></span>
+                        
+                      </div>
+                      
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal bs-example-modal-sm" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Reading Tip</h4>
+                </div>
+                <div class="modal-body"> 
+                    <span style="color:#c4251f"><span class="glyphicon glyphicon-info-sign"></span>Please keep your mouse in the current window for clear standard text.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="toClear();" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal bs-example-modal-lg" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
+        <div class="modal-dialog" role="document" style="top: 50%; margin-top: -400px;"> 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Website End User License Agreement</h4>
+                </div>
+                <div class="modal-body"> 
+                    <p>"By clicking on the Online Preview link on the website to access mandatory Chinese national standards developed using IEC standards, I agree to comply with all terms of this End User License Agreement and become an authorized user of IEC copyrighted works. I also commit to follow all security measures implemented by the IEC National Committee of China for accessing all IEC copyrighted works in this session."</p>
+                    <p>This is a free service for me to access mandatory national standards that adopt IEC standards (IEC standards).</p>
+                    <p>I may only view the standards via Online Preview in accordance with the following technical conditions.</p>
+                    <p>Technical Conditions</p>
+                    <p>The IEC National Committee of China provides access to IEC standards under the following restrictions:</p>
+                    <p>- Accept the popup prompt: Please confirm that you agree to comply with the IEC Copyright Policy before continuing to view the document.;</p>
+                    <p>- Copying and pasting are prohibited;</p>
+                    <p>- Downloading and printing are prohibited;</p>
+                    <p>- Access is limited to the Chinese version of the standards;</p>
+                    <p>- Access is limited to within the territory of the Peoples Republic of China (IP address restriction);</p>
+                    <p>- The website provides only the Chinese version;</p>
+                    <p>The intellectual property rights of IEC-adopted standards belong to IEC and are protected by Swiss and Chinese copyright</p>
+                    <p>viewer.license.agreement.content.13</p>
+                    <p>viewer.license.agreement.content.14</p>
+                    <p>viewer.license.agreement.content.15</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="agreeIECTips();" data-dismiss="modal">Agree</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="/bzgk/js/console-ban.min.js"></script>
+  <script>
+  ConsoleBan.init({
+      redirect: "about:blank",
+  });
+  </script>
+  
+    <script type="text/javascript" src="/bzgk/js/jquery-1.11.3.min.js"></script> 
+    <script type="text/javascript" src='/bzgk/js/bootstrap.js'></script>
+    <script type="text/javascript" src="/bzgk/js/compatibility.js"></script> 
+    <script>
+    var metaEl = $('meta[name="viewport"]');
+    console.log(screen.width+'/'+document.body.clientWidth);
+    metaEl.attr('content', 'width=1208, initial-scale='+(screen.width/document.body.clientWidth).toFixed(1)+', maximum-scale=1');
+    
+    document.onkeydown = function(){
+        if(window.event && window.event.keyCode == 123) {
+            window.event.keyCode=0;
+            window.event.returnValue=false;
+        }
+    }
+    let copyInput = () => {
+      let val = document.querySelector('#test1').value
+      document.querySelector('#verifyCode').value = val
+    }
+    
+    
+    var viewerHeight = 0;
+       var scaleArray = [
+        {text:'10%', scale: 0.1},
+        {text:'20%', scale: 0.2},
+        {text:'30%', scale: 0.3},
+        {text:'40%', scale: 0.4},
+        {text:'50%', scale: 0.5},
+        {text:'60%', scale: 0.6},
+        {text:'70%', scale: 0.7},
+        {text:'80%', scale: 0.8},
+        {text:'90%', scale: 0.9},
+        {text:'100%', scale: 1.0},
+        {text:'110%', scale: 1.1},
+        {text:'130%', scale: 1.3},
+        {text:'150%', scale: 1.5},
+        {text:'170%', scale: 1.7},
+        {text:'190%', scale: 1.9},
+        {text:'210%', scale: 2.1},
+        {text:'240%', scale: 2.4},
+        {text:'270%', scale: 2.7},
+        {text:'300%', scale: 3.0}
+    ];
+    var scale = 9;
+    
+    var curScare = (document.body.clientWidth/$('.page:eq(0)').width());
+    var page = 13;
+    var curPage = 1;
+    var pages = [];
+    var totalTime = 0;
+    for(var i in scaleArray){
+        if(curScare<1&&i<curScare*10){
+            scale = i-1;
+        }
+        var option = $('<option value="'+scaleArray[i].scale+'">'+scaleArray[i].text+'</option>');
+        $('#scaleSelect').append(option)
+    }
+    if(scale>4){
+        scale = 4;
+    }
+    $('#scaleSelect').val(scaleArray[scale].scale);
+    $('#scaleSelect').change(function(){
+        changeScare();
+    });
+    function changeScare(){
+        for(var i in scaleArray){
+            if(scaleArray[i].scale==$('#scaleSelect').val()){
+                scale = i;
+                break;
+            }
+        }
+        $('#viewer').css('transform','scale('+$('#scaleSelect').val()+')');
+        initPages();
+        $('#viewer').css('height',viewerHeight*Number($('#scaleSelect').val())+'px');
+    }
+    changeScare();
+       $('#zoomIn').click(function(){
+           if(scale<(scaleArray.length-1)){
+               var s = scaleArray[++scale];
+               zoom(s);
+           }
+       })
+       $('#zoomOut').click(function(){
+           if(scale>0){
+               var s = scaleArray[--scale];
+               zoom(s);
+           }
+       })
+       $('#viewer').css('transform-origin','top');
+       function zoom(s){
+           $('#viewer').css('transform','scale('+s.scale+')');
+           $('#viewer').css('height',viewerHeight*s.scale+'px');
+           $('#scaleSelect').val(s.scale);
+           initPages();
+       }
+       
+       function initPages(){
+           pages = [];
+           $('#viewer .page').each(function(){
+               $(this).css('width',parseInt($(this).width()/10)*10+'px'); 
+               $(this).css('height',parseInt($(this).height()/10)*10+'px');
+               pages.push({id:$(this).attr('id'), top: $(this).offset().top+$('#viewerContainer').scrollTop(), time: 0});
+           });
+           if(viewerHeight==0) {
+               viewerHeight = $('#viewer').height();
+           }
+       }
+       function jump(p){
+           $('#pageNumber').val(p);
+           $('#viewerContainer').scrollTop(pages[p-1].top);
+       }
+       $('#pageNumber').change(function(){
+           if($('#pageNumber').val()<1){
+               $('#pageNumber').val(1);
+           } else if($('#pageNumber').val()>page){
+               $('#pageNumber').val(page);
+           }
+           jump($('#pageNumber').val());
+    });
+       $('#previous').click(function(){
+           if(curPage>1){
+               --curPage;
+               jump(curPage);
+           }
+       })
+       $('#next').click(function(){
+           if(curPage<page){
+               ++curPage;
+               jump(curPage);
+           }
+       })
+       
+       initPages();
+       
+       function getImage($page) {
+           var bg = $page.attr('bg');
+        var $pages = $('.page[bg="'+bg+'"]');
+           $pages.removeAttr('bg');
+           
+        let request = new XMLHttpRequest();
+           request.responseType = 'blob';
+           request.open('get', 'viewGbImg?fileName='+bg, true);
+           
+           request.setRequestHeader('Cache-Alive', 'chunked'); 
+           request.onreadystatechange = e => {
+            if (request.readyState == XMLHttpRequest.DONE && request.status == 200) { 
+                var src = URL.createObjectURL(request.response);
+                $pages.find('span').css('background-image','url("'+src+'")');
+                setTimeout(function() {
+                    URL.revokeObjectURL(src);
+                }, 200);    
+               }
+           };
+           request.send(null);
+    }
+       
+       function initImage(i){
+           $page = $('.page:eq('+i+')');
+        var bg = $page.attr('bg');
+        if(bg!=null){
+            getImage($page);
+        }
+       }
+       
+       $('#viewerContainer').scroll(function(){
+           var t = $('#viewerContainer').scrollTop();
+           // 固定导航
+           if(t>33){
+               var cachePage = page;
+               for(var i in pages){
+                   var inum = Number(i);
+                   if(pages[i].top-10>t){
+                       cachePage = inum;
+                       break;
+                   }
+               }
+               curPage = cachePage;
+               $('#pageNumber').val(curPage);
+               initImage(curPage);
+           }
+       });
+       initImage(0);
+       
+       setInterval(function() {
+           totalTime++;
+           var time = pages[curPage-1].time + 1;
+           pages[curPage-1].time = time;
+        //console.log(curPage+':'+time);
+    }, 1000);
+       
+       window.onbeforeunload = function () {
+        console.log('关闭');
+
+           var vp = 0;
+           for(var i in pages){
+               var inum = Number(i);
+               if(pages[i].time>=10){
+                   vp++;
+               }
+               }
+           var rate = vp/pages.length;
+           var data = {'hcno':'7748303C2F7D709A9539BA53E57F9BE1','time':totalTime,'rate':rate};
+           if("sendBeacon" in navigator) {
+               const formData = new FormData();
+               
+               Object.keys(data).forEach((key) => {
+                  let value = data[key];
+                  if (typeof value !== "string") {
+                    value = JSON.stringify(value);
+                  }
+                  formData.append(key, value);
+                 });
+                
+                const joinedQueue = navigator.sendBeacon("onlineLog", formData);
+                console.log('数据加入传输队列' + (joinedQueue ? '成功' : '失败'));
+        } else {
+                   $.ajax({
+                   url:'onlineLog',
+                   data:data,
+                   method:'post',
+                   async: false,
+                   dataType:"text",
+                   error:function(data){
+                       console.log("Server error, please contact administrator");
+                   },
+                   success:function(data){
+                       console.log(data);
+                   }
+               });
+        }
+       };
+       
+       </script>
+    <script>
+    <!-- PHPStat Start -->
+    var _trackDataType = 'web';
+    var _trackData = _trackData || [];
+    (function() {
+    var phpstat_js = document.createElement('script'); phpstat_js.type = 'text/javascript'; 
+    phpstat_js.charset = 'utf-8'; phpstat_js.id = 'phpstat_async_js_id_10002798'; phpstat_js.async = true;
+    phpstat_js.src = '//s1.topstat.cn/count/10002798/10002798.js';
+    var phpstat_cjs = document.getElementsByTagName('script')[0]; phpstat_cjs.parentNode.insertBefore(phpstat_js, phpstat_cjs);
+    })();
+    <!--/PHPStat End -->
+    </script>
+</html>

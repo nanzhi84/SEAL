@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript">
+    var UC = "uc";
+    var ATTA = "atta";
+    var ZUUL="root";
+    //附件上传
+    var ctx = "";
+    var API = "/api/";
+    var attaServiceName = "atta";
+    var flowServiceName = "flow";
+    var myUserId = '';
+    var userEname = '';
+    var userType = "";
+    var orgId = '';
+    var roles = '';
+    var pageRoot = '';
+    window.HOST_TYPE = '2'
+    var xwkDict = {};
+</script>
+<link rel="stylesheet" href="/zbxUI/adminlte/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/zbxUI/font/css/font-awesome.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/css/adminlte.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/sweetalert2/bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/toastr/toastr.min.css">
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/daterangepicker.css"/>
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/select2/css/select2.min.css">
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-migrate.min.js"></script>
+<script>
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+</script>
+
+<script type="text/javascript" src="/zbxUI/adminlte/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/sweetalert2/sweetalert2.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/toastr/toastr.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/moment.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/zh-cn.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/daterangepicker.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/select2/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/js/adminlte.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/md5.js"></script>
+<script type="text/javascript" src="/zbxUI/js/baiduTemplate.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/jsencrypt.js"></script>
+<script type="text/javascript" src="/zbxUI/js/distpicker.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/additional-methods.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/messages_zh.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.form.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/xwkTools.min.js?20250904"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/zbxTools.min.2.0.js?20230720"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/baseTools.min.2.0.js?20221207"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/dpmweb/nb/css/public.css">
+<link rel="stylesheet" href="/static/dpmweb/nb/css/jyptweb.css">
+<link rel="stylesheet" href="/static/dpmweb/nb/css/style.css">
+<link rel="stylesheet" href="/static/dpmweb/js/swiper/swiper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ffcalendar/css/calendar.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.css">
+<link rel="stylesheet" href="/static/dpmweb/js/social-share/share-infodetail.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/picture-editing/cropper/cropper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.all.css">
+<link rel="stylesheet" href="/static/dpmweb/js/viewer/viewer.min.css">
+<script src="/static/dpmweb/js/swiper/swiper.min.js"></script>
+<script src="/static/dpmweb/js/ffcalendar/js/calendar.js"></script>
+<script src="/static/dpmweb/js/jquery.media.js"></script>
+<script src="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.min.js"></script>
+<script src="/static/dpmweb/js/social-share/social-share.js"></script>
+<script src="/static/dpmweb/js/qrcode.js"></script>
+<script src="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.min.all.js"></script>
+<script src="/static/dpmweb/js/moment.min.js"></script>
+<script src="/static/dpmweb/js/validator.js"></script>
+<script src="/zbxUI/js/jquery.steps.min.js"></script>
+<script src="/static/dpmweb/js/picker.js"></script>
+<script src="/static/dpmweb/js/viewer/viewer-jquery.min.js"></script>
+<script type="text/javascript" src="/static/dpmweb/js/initfun.js"></script>
+<script type="text/javascript" src="/static/dpmweb/js/json2.js"></script>
+<script src="/static/dpmweb/js/dpm.js"></script>
+<script src="/static/dpmweb/nb/js/web.js"></script>
+<link rel="icon" type="image/svg+xml" href="/static/dpmweb/nb/images/title_logo.png">
+
+<title>宁波产权交易中心</title>
+<script>
+    var myServer = "dpm";
+    var DPM = "dpm";
+    var pageRoot = "nbweb";
+    var BID = "bid";
+    var MC = "mc";
+    var AUCTION = "auction";
+    var isAuth = apiGet("/web/getConfig/isAuth");
+    var dictKv = apiGet("/dict/kvMap");
+    var DPUB = "dpub";
+    var dictKvDpub = xwkGet(DPUB,"/dict/kvMap");
+    // 配置XWK.alert参数；
+    var xwkPosition = "center";
+    var pubBailEndTimeStrEntity = getEntity('/configurate/bail_end_time');
+    var pubBailEndTimeStr = "";
+    if(null!=pubBailEndTimeStrEntity){
+        pubBailEndTimeStr = pubBailEndTimeStrEntity.configValue;
+    }
+    var wwwUrl = getConfig("dpm.web.domain");
+</script>
+    <title>宁波产权交易中心</title>
+    <style>
+    /*导航浮动到首页横幅图片上 */
+      .main-menu {background:rgba(16,139,226,.6);width:100%; position: absolute;top:90px; z-index: 12;}
+     </style>
+</head>
+<form id="pro-list_form">
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="rows" value="10">
+    <input type="hidden" name="mainStatus" id="mainStatus">
+    <input type="hidden" name="model" id="model">
+    <input type="hidden" name="ctyCode" id="ctyCode">
+    <input type="hidden" name="orderBy" id="orderBy" value="p.create_time, p.real_pub_start_time desc">
+</form>
+
+<body>
+    <div class="mm-page mm-slideout">
+<!-- 头部 -->
+<header>
+	<!--headerCenter-->
+	<div class="w1365 header-Center">
+		<h1 class="logo">
+		 <a href="/" class="top-logo-title"><img src="/static/dpmweb/nb/images/top-logo.png" alt="宁波产权交易中心logo"></a>
+		 <a class="top-logo-subtit">打造一流的要素资源市场化配置平台</a>
+       </h1>
+		<ul class="header-media">
+			<li class="userInfo" id="userCenter">
+				<a style="color: #666;">您好，</a>
+				<a id="userLogout" href="javascript:logout()" title="退出" style="color: #108be2;"><i class="fas fa-power-off"></i></a>
+			</li>
+			<li id="userQuick">
+						<a href="/nb/p/login" target="_blank" style="color: inherit;"><img src="/static/dpmweb/nb/images/top-ico-user.png">登录</a>
+			</li>
+			<li id="registerHref" style="display: none;">
+				<a style="color: inherit;" href="/nb/p/register" target="_blank">注册</a>
+			</li>
+			<li>
+				<a><img src="/static/dpmweb/nb/images/top-ico-wx.png">微信</a>
+				<ol class="hide"><img src="/static/dpmweb/nb/images/wx-qrcode.png"></ol>
+			</li>
+
+			<li>
+				<a><img src="/static/dpmweb/nb/images/top-ico-dy.png"> 抖音</a>
+				<!--<ol class="hide"><img src="/static/dpmweb/nb/images/dy-qrcode.png"></ol>-->
+			</li>
+		</ul>
+	</div>
+</header>
+
+<script>
+	$(function() {
+		if(doNull('') == '') {
+			$('#loginHref').show()
+			$('#registerHref').show()
+			$('#userCenter').hide()
+			$('#userLogout').hide()
+		} else {
+			$('#loginHref').hide()
+			$('#registerHref').hide()
+			$('#userCenter').show()
+			$('#userLogout').show()
+		}
+		$("#advsSearch").find("input[type='submit']").submit(function() {
+			advsSearch();
+		});
+
+		//检查是否用户是自然人，自然人不能有出租方和委托代理方权限
+		if(doNull('') != '') {
+			let result = apiGet("/user/");
+			if(result.result ==='T' && result.entity.userType==='A11002'){
+				$('#sellerToMyInfoA').hide();
+				$('#agentToMyInfoA').hide()
+			}
+		}
+	})
+
+	function advsSearch() {
+		if($("#searchType").val() == "1") {
+			$("#advsSearch").attr("action", "/nb/p/pro/index");
+			$("#advsSearch").find("input[name='sysName']").val("utrg");
+		} else if($("#searchType").val() == "2") {
+			$("#advsSearch").attr("action", "/nb/p/html/search");
+		}
+	}
+
+	//判断是否登录
+	function ifLogin() {
+		var loginUser = 'LoginUser(userId=, userEname=null, userCname=null, deptId=null, deptIds=null, deptEname=null, deptCname=null, orgId=null, orgIds=null, orgEname=null, orgCname=null, clientId=null, roles=null, ipAddress=null, initPwdFlag=null, passwordSSHA=null)'
+		var loginUserCname = ''
+		var flag = false
+		if(loginUser && loginUserCname) {
+			flag = true
+		}
+		console.log(flag)
+		return flag
+	}
+
+	function goAuth(v) {
+		LG.close();
+		window.location = "#my/user/auth?role=" + v;
+	}
+</script>
+<!--<a href="#menu" class="menuLine fr"><span></span><span></span><span></span></a>-->
+
+<div class="menu-handler" id="menu-handler">
+  <span class="burger burger-1 trans"></span>
+  <span class="burger burger-2 trans-fast"></span>
+  <span class="burger burger-3 trans"></span>
+</div>
+<div class="main-menu">
+  <div class="menu-content w1365">
+    <ul>
+      <li class="active">
+        <a href="/nb/index"><span>首页 </span> </a>
+      </li>
+      <li>
+        <a href="/nb/c/news/zxdt"><span>新闻动态 </span>
+          <ol>
+
+        			<a href="/nb/c/news/zxdt">中心动态</a>
+							<a href="/nb/c/news/hydt">行业动态</a>
+							<a href="/nb/c/news/gzdt">国资动态</a>
+
+          </ol>
+        </a>
+      </li>
+      <li>
+        <a href="/nb/p/notice/list?noticeType=deal"><span>通知公告 </span>
+          <ol>
+          	<a href="/nb/c/notice/zxgg">中心公告</a>
+            <a href="/nb/p/notice/list?noticeType=pub">交易公告</a>
+            <a href="/nb/p/notice/list?noticeType=deal">成交公告</a>
+            <a href="/nb/p/notice/list?noticeType=pause">中止公告</a>
+            <a href="/nb/p/notice/list?noticeType=end">终结公告</a>
+            <a href="/nb/p/notice/list?noticeType=resume">恢复公告</a>
+            <!--<a href="/nb/c/notice/jggs">结果公示</a>-->
+            <a href="/nb/c/notice/hyzl">会员专栏</a>
+            <a href="/nb/c/notice/pmgg">拍卖公告</a>
+          </ol>
+        </a>
+      </li>
+      <li>
+        <a href="/nb/p/item/index"><span>竞价大厅</span></a>
+      </li>
+      <li>
+        <a href="/nb/p/pro/index"><span>项目大厅</span>
+        </a>
+      </li>
+      <li>
+        <a href="/nb/c/zcwj/zy"><span>政策文件</span>
+          <ol>
+            <a href="/nb/c/zcwj/zy">中央政策及文件</a>
+            <a href="/nb/c/zcwj/df">地方政策及文件</a>
+            <a href="/nb/c/zcwj/zx">中心规则及文件</a>
+          </ol>
+        </a>
+      </li>
+      <li>
+        <a href="/nb/c/zlxz">
+          <span>资料下载</span>
+        </a>
+      </li>
+       <li>
+        <a href="/nb/c/dzlj/ddjs">
+          <span>党建廉建</span>
+           <ol>
+            <a href="/nb/c/dzlj/ddjs">党的建设</a>
+            <a href="/nb/c/dzlj/dflz">党风廉政</a>
+          </ol>
+        </a>
+      </li>
+      <li>
+        <a href="/nb/c/gywm/zxjj">
+          <span> 关于我们 </span>
+          <ol>
+            <a href="/nb/c/gywm/zxjj"> 中心概况 </a>
+            <a href="/nb/c/gywm/zzjg"> 组织机构 </a>
+            <a href="/nb/c/gywm/lxfs"> 联系方式</a>
+            <a href="/nb/c/gywm/dlwz">地理位置</a>
+          </ol>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<script>
+
+  //手机导航
+   var clicked=false;// 记录按钮是否已经被点击过
+   $(".menu-handler").click(function(){
+       $(this).toggleClass('active');
+       $('.main-menu').slideDown()
+       if ($(this).hasClass('active')) {
+            $('.main-menu').show()
+           }
+            else {
+                 $('.main-menu').slideUp()
+            }
+
+   })
+</script>
+<!-- home-banner -->
+<div class="banBox poHiiden" >
+<!-- 横幅轮播图 -->
+	<xwk_cms type="component" code="bannerimg"></xwk_cms>
+<!--项目数据-->
+<div class="idx-proData">
+     <div class="w1365 flexBox">
+     	<dl class="item">
+     	    <dt class="flexcenter">
+     	    	<img src="/static/dpmweb/nb/images/index/ico-w-rzhy.png">
+     	    </dt>
+     	    <dd>
+     		     <p>入驻会员</p>
+     		     <p><span id="nmbHy"></span>家</p>
+     	    </dd>
+        </dl>
+        <dl class="item">
+     	    <dt class="flexcenter">
+     	    	<img src="/static/dpmweb/nb/images/index/ico-w-cjxm.png">
+     	    </dt>
+     	    <dd>
+     		     <p>成交项目</p>
+     		     <p><span id="nmbCjxm"></span>个</p>
+     	    </dd>
+        </dl>
+        <dl class="item">
+     	    <dt class="flexcenter">
+     	    	<img src="/static/dpmweb/nb/images/index/ico-w-cjje.png">
+     	    </dt>
+     	    <dd>
+     		     <p>成交金额</p>
+     		     <p><span id="nmbCjje"></span>亿元</p>
+     	    </dd>
+        </dl>
+        <dl class="item">
+     	    <dt class="flexcenter">
+     	    	<img src="/static/dpmweb/nb/images/index/ico-w-cjje.png">
+     	    </dt>
+     	    <dd>
+     		     <p>增值溢价</p>
+     		     <p><span id="nmbZzyj"></span>亿元</p>
+     	    </dd>
+        </dl>
+    </div>
+</div>
+<!--项目数据end-->
+</div>
+<!--快捷入口-->
+<div class="idxOne mt-20">
+	<div class="w1365 clearfix wbg">
+		<h3 class="ksrk-title">	快捷入口	<img src="/static/dpmweb/nb/images/ksrk/img-arrow.png"></h3>
+		<ul class="ksrk-content">
+			<li>
+				<a href="/nb/p/pro/ygzs?sysName=utrl" class="block">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-zczl.png">
+					</p>
+					<span class="name fz18">资产租赁</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/nb/p/pro/index?sysName=utrm" class="block">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-zczr.png">
+					</p>
+					<span class="name fz18">资产转让</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/nb/p/pro/index?sysName=utrm&proType=vehicle" class="block">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-gccz.png">
+					</p>
+					<span class="name fz18">公车处置</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/nb/p/pro/index?sysName=utrm&proType=wastematerial" class="block">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-fjwz.png">
+					</p>
+					<span class="name fz18">废旧物资（设备）</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/nb/p/pro/index?sysName=utrg" class="block">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-cqzr.png">
+					</p>
+					<span class="name fz18">产权转让</span>
+				</a>
+			</li>
+			<li>
+				<a href="/nb/p/pro/index?sysName=utrz" class="block">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-qyzz.png">
+					</p>
+					<span class="name fz18">企业增资</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="https://ygcg.nbcqjy.org/home" class="block" target="_blank">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-ygcg.png">
+					</p>
+					<span class="name fz18">阳光采购</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://lyjy.nbcqjy.org:8443/ls/index" class="block" target="_blank">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-lyjy.png">
+					</p>
+					<span class="name fz18">粮油交易</span>
+				</a>
+			</li>
+             <li>
+				<a href="https://jyxt.zwb.ningbo.gov.cn:4011/website/home" class="block" target="_blank">
+					<p class="ico">
+						<img src="/static/dpmweb/nb/images/ksrk/ico-ggzy.png">
+					</p>
+					<span class="name fz18">公共资源</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- 搜索、登录等功能区-->
+<div class="mt-20">
+	<div class="w1365 idxTwo clearfix">
+		<div class="idxTwoLeft">
+			<div class="search">
+				<form id="advsSearch" method="get">
+					<div class="sea_selbox">
+						<select id="searchType" style="border:0;">
+							<option value="1"> 项目 </option>
+							<option value="2"> 资讯 </option>
+						</select>
+					</div>
+					<input type="text" name="key" placeholder="请输入关键词进行搜索">
+					<input type="submit" value=" " onclick="advsSearch()">
+				</form>
+			</div>
+			<!--<a class="btn btn-primary"><img src="/static/dpmweb/nb/images/index/ico-qzqg.png">求租求购需求</a>-->
+		</div>
+		<div class="idxTwoRight">
+						<a class="btn btn-primary" href="/nb/p/login?u=bu"><img src="/static/dpmweb/nb/images/index/ico-jmr.png">竞买人入口</a>
+			<a class="btn btn-primary" href="/nb/p/login?u=se"><img src="/static/dpmweb/nb/images/index/ico-wtf.png">委托方入口</a>
+			<!--<a class="btn btn-primary" href="/nb/p/login?u=ag" style="width: 180px"><img src="/static/dpmweb/nb/images/index/ico-jyjg.png">委托代理方入口</a>-->
+			<!--<a class="btn btn-gray" href="https://dpmtest.nbcqjy.org:8667/" target="_blank"><img src="/static/dpmweb/nb/images/index/ico-jyjg.png">交易机构入口</a>-->
+		</div>
+	</div>
+</div>
+
+<!-- 项目-->
+<div class="idxBox w1365 clearfix">
+	<div class="idxLeft fl">
+		<!--资产租赁-->
+		<div class="idxWrap zczlWrap mt-30" id="zczl">
+			<div class="tabs idxtitle fz20">
+				<div>
+					<span class="tabname fl"><img src="/static/dpmweb/nb/images/index/tit-zczl.png">资产出租</span>
+					<ul class="fz16">
+						<li class="active">
+							<a href="javascript:void(0)">全部</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">土地</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">房屋</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">设备</a>
+						</li>
+						<!--<li>
+							<a href="javascript:void(0)">广告</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">其他</a>
+						</li>-->
+					</ul>
+				</div>
+                <a target="_blank" href="/nb/p/pro/ygzs?sysName=utrl" class="more fz16">更多</a>
+				<!--<a target="_blank" href="/nb/p/pro/index?sysName=utrl" class="more fz16">更多</a>-->
+			</div>
+			<div class="idxSwiper zczlSwiper poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!-- 全部-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌租金<em class="fz14"></em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrlListBox">
+						</ul>
+					</div>
+					<!-- 土地-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌租金<em class="fz14"></em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmLandListBox">
+						</ul>
+					</div>
+					<!-- 房产-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌租金<em class="fz14"></em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmHousingListBox">
+						</ul>
+					</div>
+					<!-- 设备-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌租金<em class="fz14"></em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmDeviceListBox">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--资产转让-->
+		<div class="idxWrap zczrWrap mt-30" id="swzc">
+			<div class="tabs idxtitle fz20">
+				<div>
+					<span class="tabname fl"><img src="/static/dpmweb/nb/images/index/tit-zczr.png">资产转让</span>
+					<ul class="fz16">
+						<li class="active">
+							<a href="javascript:void(0)">全部</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">土地使用权</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">实物房产</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">机动车</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">废旧物资</a>
+						</li>
+						<!--<li>
+							<a href="javascript:void(0)">债权</a>
+						</li>-->
+
+					</ul>
+				</div>
+				<a target="_blank" href="/nb/p/pro/index?sysName=utrm" class="more fz16">更多</a>
+			</div>
+			<div class="idxSwiper zczrSwiper poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!-- 全部-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmListBox">
+						</ul>
+					</div>
+					<!-- 土地-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmGlebeListBox">
+						</ul>
+					</div>
+					<!-- 房产-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmHouseListBox">
+						</ul>
+					</div>
+					<!-- 机动车-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmVehicleListBox">
+						</ul>
+					</div>
+					<!-- 废旧物资-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmWastematerialListBox">
+						</ul>
+					</div>
+					<!-- 债权-->
+					<!--<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrmCreditorsListBox">
+						</ul>
+					</div>-->
+
+				</div>
+			</div>
+		</div>
+		<!-- 广告位1-advbanner-->
+		<!--<div class="mt-30">
+			<div class="w1365">
+				<xwk_cms type="component" code="advbannerimg"></xwk_cms>
+			</div>
+		</div>-->
+		<!--产权转让-->
+		<div class="idxWrap cqzrWrap mt-30" id="cqzr">
+			<div class="tabs idxtitle fz20">
+				<div>
+					<span class="tabname fl"><img src="/static/dpmweb/nb/images/index/tit-cqzr.png">产权转让</span>
+					<ul class="fz16">
+						<li class="active">
+							<a href="javascript:void(0)">全部项目</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">预披露</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">正式披露</a>
+						</li>
+					</ul>
+				</div>
+				<a target="_blank" href="/nb/p/pro/index?sysName=utrg" class="more fz16">更多</a>
+			</div>
+
+			<div class="idxSwiper cqzrSwiper poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!--全部项目-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrgListBox">
+
+						</ul>
+					</div>
+					<!--预披露-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrgP3ListBox">
+						</ul>
+					</div>
+					<!--正式披露-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">挂牌价格<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrgG3ListBox">
+
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--企业增资-->
+		<div class="idxWrap qyzzWrap mt-30" id="qyzz">
+			<div class="tabs idxtitle fz20">
+				<div>
+					<span class="tabname fl"><img src="/static/dpmweb/nb/images/index/tit-qyzz.png">企业增资</span>
+					<ul class="fz16">
+						<li class="active">
+							<a href="javascript:void(0)">全部</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">预披露</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">正式披露</a>
+						</li>
+
+					</ul>
+				</div>
+				<a target="_blank" href="/nb/p/pro/index?sysName=utrz" class="more fz16">更多</a>
+			</div>
+			<div class="idxSwiper qyzzSwiper poHiiden swiper-container-horizontal">
+				<div class="swiper-wrapper">
+					<!-- 全部项目-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">拟募集资金<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrzListBox">
+						</ul>
+					</div>
+					<!--预披露 -->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">拟募集资金<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrzPG6ListBox">
+						</ul>
+					</div>
+					<!-- 正式披露-->
+					<div class="swiper-slide">
+						<div class="thead fz18">
+							<span class="number">项目编号</span>
+							<span class="name">项目名称</span>
+							<span class="price">拟募集资金<em class="fz14">(万元)</em></span>
+							<span class="data">挂牌结束</span>
+							<span class="oper">操作</span>
+						</div>
+						<ul class="wrap fz16" id="utrzG6ListBox">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!--左侧结束-->
+	<!--右侧-->
+	<div class="idxRight fr">
+		<!--中心动态-->
+		<div class="idxNews mt-30">
+			<div class="tabs idxtitle fz20">
+				<span class="tabname fl">中心动态</span>
+				<a target="_blank" href="/nb/c/news/zxdt" class="more fz16">更多</a>
+			</div>
+			<div class="wbg wrap">
+                 <xwk_cms type="component" code="zxdtimg"></xwk_cms>
+			</div>
+		</div>
+
+		<!--重点推介项目-->
+		<div class="idxCenter mt-30">
+			<div class="tabs idxtitle fz20">
+				<span class="tabname fl">重点推介项目</span>
+				<a target="_blank" href="/nb/c/zdtj" class="more fz16">更多</a>
+			</div>
+			<div class="wrap">
+				<xwk_cms type="component" code="zdtjimg"></xwk_cms>
+			</div>
+		</div>
+	<!--重点推介项目end-->
+	<!--右侧广告位-->
+		<div class="idxRightpic  mt-30">
+			<xwk_cms type="component" code="rightpicimg"></xwk_cms>
+		</div>
+	<!--右侧广告位end-->
+	<!--国有闲置资产信息披露-->
+		<div class="idxCenter mt-30">
+			<div class="tabs idxtitle fz20">
+				<span class="tabname fl">国有闲置资产信息披露</span>
+				<a target="_blank" href="/nb/p/pro/czxs" class="more fz16">更多</a>
+			</div>
+			<div class="gyxzzcWrap">
+				<div class="thead fz15">
+					<span class="name">单元名称</span>
+					<span class="lot">地段</span>
+					<span class="area">面积<em>(m²)</em></span>
+                </div>
+                <ul class="wrap wbg fz15" id="GyxzzcListBox" style="padding:8px;">
+       
+				</ul>
+			</div>
+		</div>
+	<!--国有闲置资产信息披露end-->
+	</div>
+	<!--右侧end-->
+</div>
+
+<!-- 项目2-->
+<div class="idxBox w1365 clearfix">
+	<!--招商自发布-->
+	<div class="idxWrap zszfbWrap mt-30" id="qyzz">
+		<div class="tabs idxtitle fz20">
+			<div>
+				<span class="tabname fl">招商招租自发布</span>
+				<ul class="fz16">
+					<li class="active">
+						<a href="javascript:void(0)">全部</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">城市综合体</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">商业体</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">商务楼</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">产业园区</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">人才公寓</a>
+					</li>
+				</ul>
+			</div>
+			<a target="_blank" href="/nb/p/pro/ygzs?sysName=utrl#zhaoshang-gonggao" class="more fz16">更多</a>
+		</div>
+		<div class="idxSwiper zszfbSwiper poHiiden swiper-container-horizontal">
+			<div class="swiper-wrapper">
+				<!-- 全部-->
+				<div class="swiper-slide">
+					<div class="thead fz18">
+						<span class="zsName">公告名称</span>
+						<span class="zsType">类型</span>
+						<span class="zsData">发布日期</span>
+					</div>
+					<ul class="wrap fz16" id="zsAllListBox">
+
+					</ul>
+				</div>
+				<!-- 城市综合体-->
+				<div class="swiper-slide">
+					<div class="thead fz18">
+						<span class="zsName">公告名称</span>
+						<span class="zsType">类型</span>
+						<span class="zsData">发布日期</span>
+					</div>
+					<ul class="wrap fz16" id="cszhtListBox">
+
+					</ul>
+				</div>
+				<!-- 商业体-->
+				<div class="swiper-slide">
+					<div class="thead fz18">
+						<span class="zsName">公告名称</span>
+						<span class="zsType">类型</span>
+						<span class="zsData">发布日期</span>
+					</div>
+					<ul class="wrap fz16" id="sytListBox">
+
+					</ul>
+				</div>
+				<!-- 商务楼-->
+				<div class="swiper-slide">
+					<div class="thead fz18">
+						<span class="zsName">公告名称</span>
+						<span class="zsType">类型</span>
+						<span class="zsData">发布日期</span>
+					</div>
+					<ul class="wrap fz16" id="swlListBox">
+
+					</ul>
+				</div>
+				<!-- 产业园区-->
+				<div class="swiper-slide">
+					<div class="thead fz18">
+						<span class="zsName">公告名称</span>
+						<span class="zsType">类型</span>
+						<span class="zsData">发布日期</span>
+					</div>
+					<ul class="wrap fz16" id="cyyqListBox">
+
+					</ul>
+				</div>
+				<!-- 人才公寓-->
+				<div class="swiper-slide">
+					<div class="thead fz18">
+						<span class="zsName">公告名称</span>
+						<span class="zsType">类型</span>
+						<span class="zsData">发布日期</span>
+					</div>
+					<ul class="wrap fz16 " id="rcgyListBox">
+
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!--合作机构项目-->
+	<div class="idxWrap hzjgWrap mt-30" id="qyzz">
+		<div class="tabs idxtitle fz20">
+			<div>
+				<span class="tabname fl">合作机构项目</span>
+
+			</div>
+			<a target="_blank" href="/nb/c/hzjg/dl" class="more fz16">更多</a>
+		</div>
+		<div class="idxSwiper hzjgSwiper poHiiden swiper-container-horizontal">
+			<div class="swiper-wrapper">
+
+				<div class="swiper-slide">
+					<div class="thead fz18">
+						<span class="hName">项目名称</span>
+						<span class="hData">发布日期</span>
+					</div>
+					<ul class="wrap fz16" id="hzjgListBox">
+                        <xwk_cms type="component" code="hzjg_f"></xwk_cms>
+
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!--合作机构项目end-->
+</div>
+
+<!-- 项目2end-->
+<!--动态新闻、公示公告等-->
+<div class="mt-30">
+	<div class="idxBox w1365 clearfix">
+		<!--动态新闻等-->
+		<div class="fl w2 wbg p20">
+            <div class="idxWrap xwdtWrap" id="swzc">
+				<div class="tabs idx-xwggtit fz20">
+						<ul>
+							<li class="active">
+								<a href="/nb/c/news/zxdt">中心动态</a>
+							</li>
+							<li>
+								<a href="/nb/c/news/hydt">行业动态</a>
+							</li>
+							<li>
+								<a href="/nb/c/dzlj">廉政建设</a>
+							</li>
+							<li>
+								<a href="/nb/c/qywh">企业文化</a>
+							</li>
+						</ul>
+
+					<a target="_blank" href="/nb/c/news/zxdt" class="more fz16">更多</a>
+				</div>
+				<div class="idxSwiper xwdtSwiper poHiiden swiper-container-horizontal">
+					<div class="swiper-wrapper">
+						<!-- 中心动态-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice">
+								<xwk_cms type="component" code="zxdt"></xwk_cms>
+							</ul>
+						</div>
+							<!-- 行业动态-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice">
+								<xwk_cms type="component" code="hydt"></xwk_cms>
+							</ul>
+						</div>
+							<!-- 廉政建设-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice">
+								<xwk_cms type="component" code="dzlj"></xwk_cms>
+							</ul>
+						</div>
+							<!-- 企业文化-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice">
+								<xwk_cms type="component" code="qywh"></xwk_cms>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+		<!--公示公告-->
+		<div class="fr w2 wbg p20">
+			<!--资产转让-->
+			<div class="idxWrap dealWrap" id="swzc">
+				<div class="tabs idx-xwggtit fz20">
+						<ul>
+							<li class="active">
+								<a href="/nb/p/notice/list?noticeType=deal">成交公告</a>
+							</li>
+							<li>
+								<a href="/nb/c/notice/zxgg">中心公告</a>
+							</li>
+							<li>
+								<a href="/nb/c/notice/hyzl">会员专栏</a>
+							</li>
+							<li>
+								<a href="/nb/c/notice/pmgg">拍卖公告</a>
+							</li>
+
+						</ul>
+
+					<a target="_blank" href="/nb/p/notice/list?noticeType=deal" class="more fz16">更多</a>
+				</div>
+				<div class="idxSwiper dealSwiper poHiiden swiper-container-horizontal">
+					<div class="swiper-wrapper">
+						<!-- 成交公示-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice" id="utrgLogListBox">
+							</ul>
+						</div>
+						<!-- 中心公告-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice">
+								<xwk_cms type="component" code="zxgg"></xwk_cms>
+							</ul>
+						</div>
+						<!-- 会员专栏-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice">
+								<xwk_cms type="component" code="hyzl"></xwk_cms>
+							</ul>
+						</div>
+						<!-- 拍卖公告-->
+						<div class="swiper-slide">
+							<ul class="wrap fz16 idxNotice">
+								<xwk_cms type="component" code="pmgg"></xwk_cms>
+							</ul>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!--公示公告end-->
+	</div>
+</div>
+<!--动态新闻、公示公告等-->
+<!-- 友情链接  -->
+<div class="idxBox idxlink mt-30">
+	<div class="w1365 clearfix">
+		<ul class="idxlink-con">
+			<dl>
+				<dt>国资网站链接<i class="fas fa-angle-down"> </i></dt>
+				<dd><xwk_cms type="component" code="gzwz"></xwk_cms></dd>
+			</dl>
+			<dl>
+				<dt>产权市场链接<i class="fas fa-angle-down"> </i></dt>
+				<dd><xwk_cms type="component" code="cqsc"></xwk_cms></dd>
+			</dl>
+			<dl>
+				<dt>市政府部门链接<i class="fas fa-angle-down"> </i></dt>
+				<dd><xwk_cms type="component" code="szfbm"></xwk_cms></dd>
+			</dl>
+				<dl>
+				<dt>市属企业链接<i class="fas fa-angle-down"> </i></dt>
+				<dd><xwk_cms type="component" code="ssqy"></xwk_cms></dd>
+			</dl>
+
+	    </ul>
+	</div>
+</div>
+
+<script type="text/template" id="pro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+		<li>
+			<?if(doNull(rows[i].objType)=='pack'){?>
+
+				<span class="number"><?=doNull(rows[i].proCode)?></span>
+				<span class="name" title="<?=doNull(rows[i].proName)?>" style="cursor: pointer;">
+					<?if(rows[i].proName.length>19){?>
+				       <?=doNull(rows[i].proName.substring(0,19)+"...")?>
+				    <?}else{?>
+				       <?=doNull(rows[i].proName)?>
+				       <?}?>
+				    </span>
+				<span class="price">详见公告</span>
+				<span class="data"><?=doNull(rows[i].realPubEndTime)?></span>
+				<span class="oper">
+					<?if(doNull(rows[i].proTmp)=='T'){?> 		
+					    <!--是否为老项目-->
+						<?if(doNull(rows[i].mainStatus)=='30'){?>
+							<a target="_blank" href="https://old.nbcqjy.org/portal/pro/index.jsp?proId=<?=rows[i].proId?>&packId=<?=rows[i].packId?>" class="btn-wybm">我要报名</a>
+						<?}else{?>
+							<a target="_blank" href="https://old.nbcqjy.org/portal/pro/index.jsp?proId=<?=rows[i].proId?>&packId=<?=rows[i].packId?>">查看详情</a>
+						<?}?>
+					<?}else{?>
+					  <a target="_blank" href="/nb/p/pro/list?packId=<?=rows[i].packId?>&packName=<?=encodeURIComponent(rows[i].proName)?>&sysName=<?=rows[i].sysName?>"> 查看详情</a>
+					<?}?>
+				</span>
+
+				<?}else{?>
+
+					<span class="number"><?=doNull(rows[i].proCode)?></span>
+					<span class="name" title="<?=doNull(rows[i].proName)?>"  style="cursor: pointer;">
+					         <?if(rows[i].proName.length>19){?>
+					            <?=doNull(rows[i].proName.substring(0,19)+"...")?>
+					         <?}else{?>
+					            <?=doNull(rows[i].proName)?>
+					         <?}?>
+				        </span>
+					<span class="price" title="<?=getPrice2(rows[i].sysName,rows[i].proPrice, rows[i].proPricePub,rows[i].priceUnit)?>"  style="cursor: pointer;">
+							<?=getPrice2(rows[i].sysName,rows[i].proPrice, rows[i].proPricePub,rows[i].priceUnit)?>
+
+					</span>
+					<span class="data"><?=doNull(rows[i].realPubEndTime)?></span>
+					<span class="oper">
+						<?if(doNull(rows[i].proTmp)=='T'){?>
+							 <!--是否为老项目-->
+							<?if(doNull(rows[i].mainStatus)=='30'){?>
+								<a target="_blank" href="https://old.nbcqjy.org/portal/pro/index.jsp?proId=<?=rows[i].proId?>&packId=<?=rows[i].packId?>" class="btn-wybm">我要报名</a>
+							<?}else{?>
+								<a target="_blank" href="https://old.nbcqjy.org/portal/pro/index.jsp?proId=<?=rows[i].proId?>&packId=<?=rows[i].packId?>">查看详情</a>
+							<?}?>
+				         <?}else{?>
+					        <a target="_blank" href="detail/pro/<?=doNull(rows[i].proId)?>" title="<?=doNull(rows[i].proName)?>" class="btn-wybm">我要报名
+				        <?}?>
+					        </a>
+					</span>
+
+			<?}?>
+		</li>
+		<?}?>
+</script>
+
+<script type="text/template" id="notice-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+
+			<dl>
+		<dt>
+			<span class="block fz20"><?=doNull(rows[i].startTime.substring(5,10))?></span>
+			<em class="fz14"><?=doNull(rows[i].startTime.substring(0,4))?></em>
+		</dt>
+		<dd>
+			<a class="TXTovehid-two" onclick="toNoticeDetail('<?=rows[i].noticeId?>','<?=rows[i].noticeType?>','<?=rows[i].noticeCode?>','<?=rows[i].proId?>')">
+				<?=doNull(rows[i].noticeName)?>
+			</a>
+		</dd>
+	</dl>
+		<?}?>
+</script>
+<script type="text/template" id="dpubPro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<li>
+
+		<span class="zsName">
+			<a  href="/nb/detail/<?=rows[i].sysName?>/<?=rows[i].proId?>" title="<?=rows[i].proName?>" target="_blank"><?=doNull(rows[i].proName)?></a>
+		</span>
+		<span class="zsType"><?=doNull(rows[i].proTypeText)?></span>
+		<span class="zsData"><?=doNull(rows[i].pubStartTime)?></span>
+	</li>
+	<?}?>
+</script>
+
+<script type="text/template" id="GyxzzcPro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+     <li> 
+        <span class="name nowrap">
+        	<a title="<?=doNull(rows[i].proName)?>" href="javascript:void(0);"><?=doNull(rows[i].proName)?></a> 
+        </span>
+		<span class="lot nowrap" title="<?=doNull(rows[i].address)?>">
+		    <?=doNull(rows[i].address)?>
+		</span>
+		<span class="area nowrap" title="<?=doNull(rows[i].itemNum)?>">
+			<?=doNull(rows[i].itemNum)?>	
+		</span>
+	 </li> 
+	<?}?>
+</script>
+
+
+<script>
+	$(function() {
+		initPage();
+		loadCms();
+		//产股权 rows默认值为5，page为1，如果需要改变，需要传参。
+		apiLoad('/web/pro/utrg/home?proStatus=pub', 'pro-list_html', 'utrgListBox');
+		apiLoad('/web/pro/utrg/home?proType=T3&proStatus=pub', 'pro-list_html', 'utrgT3ListBox');
+		apiLoad('/web/pro/utrg/home?proType=G3&proStatus=pub', 'pro-list_html', 'utrgG3ListBox');
+		apiLoad('/web/pro/utrg/home?proType=P3&proStatus=pub', 'pro-list_html', 'utrgP3ListBox');
+		//实物资产
+		apiLoad('/web/pro/utrm/home?&proStatus=pub', 'pro-list_html', 'utrmListBox');
+		apiLoad('/web/pro/utrm/home?proType=house&proStatus=pub', 'pro-list_html', 'utrmHouseListBox');
+		apiLoad('/web/pro/utrm/home?proType=vehicle&proStatus=pub', 'pro-list_html', 'utrmVehicleListBox');
+		apiLoad('/web/pro/utrm/home?proType=wastematerial&proStatus=pub', 'pro-list_html', 'utrmWastematerialListBox');
+		apiLoad('/web/pro/utrm/home?proType=creditors&proStatus=pub', 'pro-list_html', 'utrmCreditorsListBox');
+		//租赁项目
+		apiLoad('/web/pro/utrl/home?proStatus=pub', 'pro-list_html', 'utrlListBox');
+		apiLoad('/web/pro/utrl/home?proStatus=pub&proType=land', 'pro-list_html', 'utrmLandListBox');
+		apiLoad('/web/pro/utrl/home?proStatus=pub&proType=housing', 'pro-list_html', 'utrmHousingListBox');
+		apiLoad('/web/pro/utrl/home?proStatus=pub&proType=device', 'pro-list_html', 'utrmDeviceListBox');
+
+		//增资项目
+		apiLoad('/web/pro/utrz/home?proStatus=pub', 'pro-list_html', 'utrzListBox');
+		apiLoad('/web/pro/utrz/home?proType=G6&proStatus=pub', 'pro-list_html', 'utrzG6ListBox');
+		apiLoad('/web/pro/utrz/home?proType=PG6&proStatus=pub', 'pro-list_html', 'utrzPG6ListBox');
+		/*//综合产权
+		apiLoad('/web/pro/utrh/home?proStatus=all', 'pro-list_html', 'zhUtrhListBox');*/
+		//成交公告
+		apiLoad('/web/noticeList?rows=5&noticeType=deal', 'notice-list_html', 'utrgLogListBox');
+		apiLoad('/web/noticeList?rows=5&sysName=utrg&noticeType=deal', 'notice-list_html', 'utrgNoticeListBox');
+		apiLoad('/web/noticeList?rows=5&sysName=utrm&noticeType=deal', 'notice-list_html', 'utrmNoticeListBox');
+		apiLoad('/web/noticeList?rows=5&sysName=utrz&noticeType=deal', 'notice-list_html', 'utrzNoticeListBox');
+		apiLoad('/web/noticeList?rows=5&sysName=utrl&noticeType=deal', 'notice-list_html', 'utrlNoticeListBox');
+		apiLoad('/web/proAndNotice?rows=5&page=1&sysName=utrm&noticeType=deal&proType=wastematerial', 'notice-list_html', 'utrmWastematerialNoticeListBox');
+		apiLoad('/web/proAndNotice?rows=5&page=1&sysName=utrm&noticeType=deal&proType=village', 'notice-list_html', 'utrmVillageNoticeListBox');
+		//通知公告
+		//apiLoad('/web/noticeList?rows=5', 'tzgg-list_html', 'TzggBox');
+		//招商自发布
+        xwkLoad('dpub','/web/pro/list?page=1&rows=7&orderBy=pub_start_time%20desc&mainStatus=30&proType=', 'dpubPro-list_html', 'zsAllListBox');
+		xwkLoad('dpub','/web/pro/list?page=1&rows=7&orderBy=pub_start_time%20desc&mainStatus=30&proType=city', 'dpubPro-list_html', 'cszhtListBox');
+		xwkLoad('dpub','/web/pro/list?page=1&rows=7&orderBy=pub_start_time%20desc&mainStatus=30&proType=business', 'dpubPro-list_html', 'sytListBox');
+		xwkLoad('dpub','/web/pro/list?page=1&rows=7&orderBy=pub_start_time%20desc&mainStatus=30&proType=office', 'dpubPro-list_html', 'swlListBox');
+		xwkLoad('dpub','/web/pro/list?page=1&rows=7&orderBy=pub_start_time%20desc&mainStatus=30&proType=induPark', 'dpubPro-list_html', 'cyyqListBox');
+		xwkLoad('dpub','/web/pro/list?page=1&rows=7&orderBy=pub_start_time%20desc&mainStatus=30&proType=apartment', 'dpubPro-list_html', 'rcgyListBox');
+
+         //国有闲置资产信息披露
+         xwkLoad('dpub','/web/pro/zc/list?page=1&rows=4&orderBy=pub_start_time%20desc&mainStatus=30', 'GyxzzcPro-list_html', 'GyxzzcListBox'); 
+
+		//搜索
+		$("#advsSearch").find("input[type='submit']").submit(function() {
+			advsSearch();
+		});
+
+		/*if(doNull('') == '') {
+			$('#loginHref').show()
+			$('#wtfloginHref').show()
+			$('#registerHref').show()
+			$('#userCenter').hide()
+			$('#userLogout').hide()
+		} else {
+			$('#loginHref').hide()
+			$('#wtfloginHref').hide()
+			$('#registerHref').hide()
+			$('#userCenter').show()
+			$('#userLogout').show()
+		}*/
+
+		//首页统计
+		initStatistics();
+	})
+
+	function getPrice2(sysName,proPrice,proPricePub,priceUnit){
+		var res;
+
+		if (doNull(sysName).toLowerCase() == 'utrz') {
+			res = proPricePub;
+		} else if (Number.parseFloat(proPrice)==0) {
+			res = '面议';
+		} else if (proPrice==null) {
+			res = '待定';
+		} else {
+			if (doNull(priceUnit).indexOf("万元")>-1) {
+				res = toWan(proPrice) + doNull(priceUnit);
+			} else {
+				res = parseFloat(proPrice).toFixed(2) + doNull(priceUnit);
+			}
+		}
+
+		return res;
+	}
+
+	function getByCityCode(ownDeptEname) {
+		apiLoad('/web/proAndPackPage?rows=5&page=1&proStatus=pub&ownDeptEname=' + ownDeptEname, 'pro-list_html', 'cityListBox');
+	}
+
+	function toNoticeDetail(noticeId, noticeType, noticeCode, proId) {
+		if(noticeCode.indexOf("DF") >= 0) {
+			window.open("http://www.nbcqjy.org/portal/pro/index.jsp?proId=" + proId);
+		} else {
+			//window.location.href = "/nb/p/notice/detail?noticeId=" + noticeId;
+			window.open("/nb/p/notice/detail?noticeId=" + noticeId, '_blank');
+
+		}
+	}
+	//搜索
+	function advsSearch() {
+		if($("#searchType").val() == "1") {
+			$("#advsSearch").attr("action", "/nb/p/pro/index");
+			$("#advsSearch").find("input[name='sysName']").val("utrg");
+		} else if($("#searchType").val() == "2") {
+			$("#advsSearch").attr("action", "/nb/p/html/search");
+		}
+		//$("#advsSearch").submit();
+	}
+	//用户登录
+	function goUserCenter(){
+		if(doNull("") == "base"){
+			window.location.href = "/nb/my";
+		}else{
+			window.location.href = "/nb/my/seller";
+		}
+	}
+
+	//项目切换轮播效果
+	function initPage() {
+		// 产权转让
+		var cqzrSwiper = new Swiper('.cqzrSwiper', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function(swiper) {
+				$(".cqzrWrap .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+					'active');
+			}
+		})
+		$(".cqzrWrap .tabs li").on('click mouseenter', function() {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			cqzrSwiper.slideTo(i);
+
+			 var href = $(this).find('a').attr('href');
+			$(this).parent().parent().find('.more').attr('href', href);
+
+		})
+
+		// 企业增资
+		var qyzzSwiper = new Swiper('.qyzzSwiper', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function(swiper) {
+				$(".qyzzWrap .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+					'active');
+			}
+		})
+		$(".qyzzWrap .tabs li").on('click mouseenter', function() {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			qyzzSwiper.slideTo(i);
+
+			var href = $(this).find('a').attr('href');
+			$(this).parent().parent().find('.more').attr('href', href);
+
+		})
+
+		// 资产转让
+		var zczrSwiper = new Swiper('.zczrSwiper', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function(swiper) {
+				$(".zczrWrap .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+					'active');
+			}
+		})
+		$(".zczrWrap .tabs li").on('click mouseenter', function() {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			zczrSwiper.slideTo(i);
+
+			var href = $(this).find('a').attr('href');
+			$(this).parent().parent().find('.more').attr('href', href);
+
+		})
+
+		// 资产租赁
+		var zczlSwiper = new Swiper('.zczlSwiper', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function(swiper) {
+				$(".zczlWrap .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+					'active');
+			}
+		})
+		$(".zczlWrap .tabs li").on('click mouseenter', function() {
+			var b = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			zczlSwiper.slideTo(b);
+
+			var href = $(this).find('a').attr('href');
+			$(this).parent().parent().find('.more').attr('href', href);
+
+		})
+
+		//招商自发布
+		var zszfbSwiper = new Swiper('.zszfbSwiper', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function(swiper) {
+				$(".zszfbWrap .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+					'active');
+			}
+		})
+		$(".zszfbWrap .tabs li").on('click mouseenter', function() {
+			var b = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			zszfbSwiper.slideTo(b);
+
+			var href = $(this).find('a').attr('href');
+		    $(this).parent().parent().find('.more').attr('href', href);
+
+		})
+
+       //中心、行业动态、企业文化
+		var xwdtSwiper = new Swiper('.xwdtSwiper', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function(swiper) {
+				$(".xwdtWrap .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+					'active');
+			}
+		})
+		$(".xwdtWrap .tabs li").on('click mouseenter', function() {
+			var b = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			xwdtSwiper.slideTo(b);
+
+		    var href = $(this).find('a').attr('href');
+		    $(this).parent().parent().find('.more').attr('href', href);
+
+		})
+
+		// 成交、中心、拍卖公告
+		var dealSwiper = new Swiper('.dealSwiper', {
+			speed: 500,
+			initialSlide: 0,
+			spaceBetween: 20,
+			onSlideChangeStart: function(swiper) {
+				$(".dealWrap .tabs li").eq(swiper.activeIndex).addClass('active').siblings().removeClass(
+					'active');
+			}
+		})
+		$(".dealWrap .tabs li").on('click mouseenter', function() {
+			var i = $(this).index();
+			$(this).addClass('active').siblings().removeClass('active');
+			dealSwiper.slideTo(i);
+
+			var href = $(this).find('a').attr('href');
+		    $(this).parent().parent().find('.more').attr('href', href);
+
+		})
+
+	}
+
+	function initStatistics() {
+		var statisticsEntity = getEntity('/web/indexStatistics');
+		$("#nmbHy").html(statisticsEntity.memberCount);
+		$("#nmbCjxm").html(statisticsEntity.dealItemCount);
+		$("#nmbCjje").html(toYiYuan(statisticsEntity.dealAmountCount));
+		$("#nmbZzyj").html(toYiYuan(statisticsEntity.OverPriceCount));
+	}
+
+	function toYiYuan(v){
+		if(v=="0"){
+			return "0";
+		}
+		if(doNull(v)==""){
+			return "";
+		}
+		return (parseFloat(v)/100000000).toFixed(6);
+	}
+</script>
+<style>
+	/*20260509新增*/
+	.idxCenter .wrap a{ margin-top: 20px;}
+	.idxCenter .wrap a .img {padding-bottom: 240px;}
+	.zdxmtj-focus a .img{height: 240px;}
+	.idxRightpic li img { max-height: 170px;}
+	
+    .gyxzzcWrap .thead,.gyxzzcWrap .wrap li{height: 47px;  display: flex; align-items: center; line-height: 1.2;}
+    .gyxzzcWrap .thead span,.gyxzzcWrap .wrap li span{padding:0 5px;text-align: center;}
+    .gyxzzcWrap .thead span{font-weight: bold; }
+    .gyxzzcWrap .thead span em{ display: block;}
+    .gyxzzcWrap .wrap li span{ cursor: pointer;}
+    .gyxzzcWrap .wrap li:nth-child(even) {background: #F9F9F9;}
+    .gyxzzcWrap .wrap li .name,.gyxzzcWrap .wrap li .lot{text-align:left;}
+    .gyxzzcWrap .name{width: 45%;}
+	.gyxzzcWrap .lot{width: 30%;}			
+	.gyxzzcWrap .area{width: 25%; }		
+ 
+</style>
+<!-- 底部 -->
+<footer>
+	<div class="w1365">
+		<ul class="footOne">
+			<li class="footer-logo"><img src="/static/dpmweb/nb/images/footer-logo.png" alt="宁波产权交易中心logo" /></li>
+			<li class="footer-yqlj" style="display: none;">
+				<dd class="sel_link">
+					<span>友情链接</span>
+					<ul class="down">
+						<xwk_cms type="component" code="yqlj"></xwk_cms>
+					</ul>
+				</dd>
+			</li>
+		</ul>
+		<div class="footTwo">
+			<ul class="footLeft">
+				<p class="foot-navlink">
+					<a href="/nb/c/gywm/zxjj">中心概况</a>
+					<a href="/nb/c/gywm/zzjg">组织架构</a>
+					<a href="/nb/c/gywm/lxfs">联系方式</a>
+					<a href="/nb/c/gywm/dlwz">地理位置</a>
+					<!--连接到宁波老系统-->
+					<!--<a href="https://www.nbcqjy.org/article/gywm/zxgk/">中心概况</a>
+					<a href="https://www.nbcqjy.org/article/gywm/zzjg/">组织机构</a>
+					<a href="https://www.nbcqjy.org/article/gywm/lxfs/">联系方式</a>
+					<a href="https://www.nbcqjy.org/article/gywm/dlwz/">地理位置</a>-->
+				</p>
+				<dl class="foot-copyright">
+					<p>Copyright @ 2010-2025 &nbsp;&nbsp;宁波产权交易中心有限公司&nbsp;&nbsp;版权所有</p>
+					<p>
+						<a href="https://beian.miit.gov.cn" target="_blank">浙ICP备11064635号-3</a>
+					</p>
+					<p>地址：宁波市鄞州区福明街道民安东路169号宁波国际会展中心12号馆T2塔楼4楼 </p>
+				</dl>
+			</ul>
+			<ul class="footRight">
+				<li class="footQrcode"> <img src="/static/dpmweb/nb/images/wx-qrcode.png">
+					<p class="fz14">微信公众号</p>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</footer>
+
+<!--返回顶部-->
+<style>
+.to_top{background: #108be2;height: 56px;}
+.to_top img{width: 30px; height:30px;}	
+</style>
+<div class="to_top"> <img src="/static/dpmweb/nb/images/totop.png" alt="返回顶部"> </div>
+<script>
+	// 返回顶部
+	$('.to_top').click(function() {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 300);
+	})
+</script>
+    </div>
+</body>
+<include "inc/pop-box.html" />
+<div class="helpflex">
+	<div class="text-center mb-1">
+		<i class="fal fa-close" style="font-size: 14px; position: absolute;right: 0;top:-18px; z-index: 9;" onClick="hiden()"></i>
+	</div>
+	<ul id="helper-ul fz14">
+			<li>
+			<a href="javascritp:void(0);">
+				<span class="pic">
+          <img src="/static/dpmweb/nb/images/sider/ico-xcx.png" alt="小程序" />
+        </span>
+				<p class="txt">小程序</p>
+				<div class="wpic">
+					<img src="/static/dpmweb/nb/images/xcx-qrcode.png" />
+				</div>
+			</a>
+		</li>
+			<li>
+			<a href="https://old.nbcqjy.org/" target="_blank" style="background: #D12721;">
+				<span class="pic">
+          <img src="/static/dpmweb/nb/images/sider/ico-jzlj.png" alt="旧站链接">
+        </span>
+				<p class="txt">旧站链接 </p>
+			</a>
+		</li>
+		<li>
+			<a href="/nb/c/bzzx" target="_blank">
+				<span class="pic">
+          <img src="/static/dpmweb/nb/images/sider/ico-czzn.png" alt=" 操作指南">
+        </span>
+				<p class="txt">操作指南 </p>
+			</a>
+		</li>
+		<li>
+			<a href="javascritp:void(0);">
+				<span class="pic">
+          <img src="/static/dpmweb/nb/images/sider/ico-tel.png" alt="热线电话" />
+        </span>
+				<p class="txt">联系电话</p>
+				<div class="Htel">
+					<p>联系电话：0574-87187195</p>
+				</div>
+			</a>
+		</li>
+
+		<li>
+			<a href="javascritp:void(0);">
+				<span class="pic">
+          <img src="/static/dpmweb/nb/images/sider/ico-ewm.png" alt="公众号 二维码" />
+        </span>
+				<p class="txt">公众号</p>
+				<div class="wpic">
+					<img src="/static/dpmweb/nb/images/wx-qrcode.png" />
+				</div>
+			</a>
+		</li>
+
+	</ul>
+</div>
+<div class="modal fade full" id="modal-message" data-backdrop="static" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title"></h5>
+				<div class="modal-header-right">
+					<button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+					<button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+				</div>
+			</div>
+			<div class="modal-body" id="modalBox-message" style="min-height:250px; max-height: 550px; overflow: auto; padding:0;"></div>
+		</div>
+	</div>
+</div>
+<script>
+	function hiden() {
+		$(".helpflex").hide();
+	}
+	$(function() {
+		ifViewDetail()
+	})
+
+	function ifViewDetail() {
+		const path = window.location.pathname
+
+		if(path.indexOf('/nb/detail/pro/') !== -1) {
+			$('#customerService').show()
+		}
+	}
+</script>
+<style>
+	.helpflex {
+		bottom: 80px;
+	}
+	
+	.helpflex a {
+		flex-flow: wrap;
+		line-height: 24px;
+	}
+	
+	.helpflex a:hover {
+		background: #499bed;
+	}
+	
+	.helpflex .pic,
+	.helpflex .txt {
+		display: block;
+		width: 100%;
+	}
+	
+	.helpflex .pic img {
+		height: 24px;
+		width: auto;
+	}
+	
+	.helpflex .txt {
+		line-height: 120%;
+		font-size: 12px;
+	}
+	
+	.helpflex .Htel {
+		width: 240px;
+		min-height: 40px;
+		padding: 10px;
+	}
+	
+	.helpflex .Htel p {
+		font-size: 18px;
+	}
+	/*20260529新增*/
+	.helpflex ul li {
+		margin-bottom: 10px;
+	}
+</style><!--20221129 侧边栏-->
+<div class="control-sidebar bg-white full" id="modal-sd"  data-backdrop="static" tabindex="-1">
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-sd"></div>
+</div>
+
+<div class="control-sidebar-inner  bg-white full" id="modal-si"  data-backdrop="static" tabindex="-1">
+    <!-- Control sidebar content goes here -->
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-inner-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-si"> </div>
+</div>
+<!--20200717 new bootstrapbox start-->
+<div class="modal fade full" id="modal-xl" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl" style="min-width: 90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <div class="modal-header-right">
+                    <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                        <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                    </button>
+                    <button type="button" class="close" data-dismiss="modal" title="关闭">
+                        <i class="fal fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBox-xl" style="min-height:550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--大-->
+	<div class="modal fade full" id="modal-lg" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-lg" style="min-height:250px; max-height: 550px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--中-->
+    <div class="modal fade full" id="modal-md" data-backdrop="static"  tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-md" style="min-height:250px;  max-height: 450px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--小-->
+    <div class="modal fade full" id="modal-sm" data-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <div class="modal-header-right">
+                        <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                            <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                        </button>
+                        <button type="button" class="close" data-dismiss="modal" title="关闭">
+                            <i class="fal fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-body" id="modalBox-sm"  style="min-height:250px; max-height: 350px; overflow: auto"></div>
+            </div>
+        </div>
+    </div>
+<!--不带关闭按钮-->
+<div class="modal fade" id="modal-noclose" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body" id="modalBox-noclose"  style="min-height:450px; max-height: 550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--删除-->
+<div class="modal fade" id="modal-del" data-backdrop="static"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-trash-o"></i> 删除提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;">确定删除<text id="modalBox-del"></text>吗？</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary modal-del-commit" data-dismiss="modal" onclick="xwkDelete(XWK.apiServiceName,XWK.apiUrl,XWK.callBack)">确定</button>
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-confirm" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-window-restore"></i> 操作提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;"><text id="modalBox-confirm"></text></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary modal-confirm-commit" data-dismiss="modal" onclick="apiSubmit(XWK.apiUrl,XWK.formName,XWK.callBack,XWK.apiMethod,XWK.apiServiceName,XWK.contentType)">确定</button>
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-loading" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-dog"></i> 运行中</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:150px">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--附件-->
+<div id="attaHiddenDiv" style="display:none"></div>
+
+<script>
+    function logout(toUrl){
+        var url = '/login/logout';
+        if(toUrl){
+            url = '/login/logout?toUrl=' + toUrl;
+        }
+        if(confirm('您确定工作已经保存，并退出该系统?')) {
+            window.location.href = url;
+        }
+    }
+
+    function logoutweb(toUrl){
+        var url = '/login/logout';
+        if(toUrl){
+            url = '/login/logout?toUrl=' + toUrl;
+        }
+        if(confirm('您确定工作已经保存，并退出该系统?')) {
+            window.location.href = url;
+        }
+    }
+</script> <style>
+.float_ggbox{position:fixed;left:10px;bottom:calc(50% - 230px);z-index:9999;}
+.float_ggbox li{width:180px;min-height:120px;padding:10px; margin-bottom:10px; overflow:hidden; background:#e94e54; border-radius:8px; display:flex; justify-content:center; align-items:center; }
+.float_ggbox li span{display: none;}
+.float_ggbox li a{color:#fff;font-size:24px;align-self:center; text-align: center;padding:0;}
+.float_ggbox li .sub{ display:block; font-size:16px; letter-spacing: 0px;padding:0;}
+
+
+.float_ggbox .close{position:absolute; top:-2px;left:-2px; z-index:999; cursor:pointer; width:20px; height:20px; line-height:20px;font-size:18px; color:#fff; border-radius:100%; background:rgba(0,0,0,0.1)!important; text-align:center;}
+.float_ggbox:not(:has(li)) {display: none !important;}
+
+</style>   
+ <ul class="float_ggbox">
+<a onclick="hide()" class="close">×</a>
+<xwk_cms type="component" code="sypc"></xwk_cms>
+</ul>
+<script type="text/javascript">
+	function hide() {
+		$(".float_ggbox").hide();
+	}
+// 延迟10秒执行
+	setTimeout(function() {
+	
+		$(function() {
+		$('.float_ggbox:not(:has(li))').hide();
+	    });
+	}, 10000); // 10秒
+</script></html>

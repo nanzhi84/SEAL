@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="renderer" content="webkit">
+    <meta name="SiteName" content="哈尔滨市公共资源交易中心">
+    <meta name="SiteDomain" content="hrbggzy.harbin.gov.cn">
+    <meta name="SiteIDCode" content="3205000002">
+    <meta name="ColumnName" content="首页">
+    <meta name="ColumnDescription" content="哈尔滨市公共资源交易中心">
+    <meta name="ColumnKeywords" content="哈尔滨市公共资源交易中心">
+    <meta name="ColumnType" content="首页">
+    <!-- 用于响应式网站,如不是需删除-->
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>哈尔滨市公共资源交易中心</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/js/lib/chosen/chosen.css">
+    <link rel="stylesheet" href="/js/lib/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/common.css?v=1.1">
+    <link href="/css/ADcss.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="/css/index.css"> 
+    <script src="/js/lib/jquery.min.js"></script>
+    <!--[if lt IE 9]> 
+        <script src="/js/lib/ie/respond.min.js"></script>
+    <![endif]-->
+
+   <link rel="stylesheet" href="/css/webBuilderCommonGray.css"></head>
+
+<body>
+	<div id="container">
+    <!-- header -->
+    <div id="header"><!-- header -->
+<div class="ewb-top">
+    <div class="container clearfix">
+        <span class="ewb-date l" id="nowSpan"></span>
+        <span class="ewb-top-line l hidden-sm hidden-xs">|</span>
+        <span class="ewb-wea l hidden-sm hidden-xs"><iframe style="margin-top:13px;" width="300" scrolling="no" height="25" frameborder="0" allowtransparency="true" src="//i.tianqi.com/index.php?c=code&id=10&color=%23535353&icon=1&py=haerbin&site=15"></iframe></span>
+        <span class="ewb-top-line l hidden-sm hidden-xs">|</span>
+        <a href="javascript:void(0);" class="ewb-setindex l hidden-sm hidden-xs" onclick="SetHome(this,window.location)">设为首页</a>
+        <div class="r hidden-sm hidden-xs hidden-md">
+			<a href="javascript:toolbar.Function.show.mainMethod();" class="ewb-free l">无障碍</a>
+            <span class="ewb-top-line l">|</span> 
+            <a href="javascript:void(0)" id="StranLink" class="ewb-numerous l">繁</a>
+            <script language="javascript" src="/js/language.js"></script>
+        </div>
+    </div>
+</div>
+<div class="ewb-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-14">
+                <img class="ewb-title" src="/images/title.png" alt="" />
+            </div>
+            <div class="col-md-10">
+                <div class="ewb-search-box r">
+                    <button class="ewb-search-btn r" type="button" onclick="search($('#key').val());" id="btn"></button>
+                    <div class="input-tips ewb-search">
+                        <label class="input-placeholder" for="key">请输入关键字搜索</label>
+                        <input class="input-box" type="text" id="key" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- nav -->
+<div class="ewb-nav">
+    <div class="container">
+        <ul class="ewb-nav-item clearfix">
+            <li class="ewb-nav-list l">
+                <a class="trans" href="/" id="000er">网站首页</a>
+            </li>
+            <li class="ewb-nav-list l">
+                <a href="https://hljcg.hlj.gov.cn/maincms-web/noticeInformationHlj" target="_blank" class="trans" id="001er">政府采购</a></li>
+            <li class="ewb-nav-list l">
+                <a href="/jsgc/secondpage.html" target="_self" class="trans" id="002er">建设工程</a></li>
+            <li class="ewb-nav-list l">
+                <a href="/cqjy/secondpage.html" target="_self" class="trans" id="003er">产权交易</a></li>
+            <li class="ewb-nav-list l">
+                <a href="https://ggzyjyw.hlj.gov.cn/" target="_blank" class="trans" id="004er">地产交易</a></li>
+            <li class="ewb-nav-list l">
+                <a href="/nccq/secondpage.html" target="_self" class="trans" id="016er">农村产权</a></li>
+            <li class="ewb-nav-list l">
+                <a href="/xxgk/005003/secondpage.html" target="_self" class="trans" id="005er">信息公开</a></li>
+            <li class="ewb-nav-list l">
+                <a href="/zwfw/secondpage.html" target="_self" class="trans" id="006er">服务指南</a></li>
+            <li class="ewb-nav-list l">
+                <a href="/hdjl/007002/secondpage.html" target="_self" class="trans" id="007er">互动交流</a></li>
+			<li class="ewb-nav-list l">
+                <a href="https://www.hrbcqjys.com/" target="_blank" class="trans">产权交易所</a>
+            </li>
+        </ul>   
+    </div>
+</div>
+<script>
+    var lm = window.location.href.split("/")[3];
+    if (lm == "" || lm == null) {
+        $("#000er").addClass("cur");
+    } else if (lm == "jsgc") {
+        $("#002er").addClass("cur");
+    } else if (lm == "cqjy") {
+        $("#003er").addClass("cur");
+    } else if (lm == "dcjy") {
+        $("#004er").addClass("cur");
+    } else if (lm == "nccq") {
+        $("#016er").addClass("cur");
+    } else if (lm == "xxgk") {
+        $("#005er").addClass("cur");
+    } else if (lm == "zwfw") {
+        $("#006er").addClass("cur");
+    } else if (lm == "hdjl") {
+        $("#007er").addClass("cur");
+    } else if (lm == "ypjhc") {
+        $("#017er").addClass("cur");
+    }
+</script>
+<script>
+    //设置为主页 
+    function SetHome(obj, vrl) {
+        try {
+            obj.style.behavior = 'url(#default#homepage)';
+            obj.setHomePage(vrl);
+        } catch (e) {
+            if (window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                } catch (e) {
+                    alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage', vrl);
+            } else {
+                alert("您的浏览器不支持，请按照下面步骤操作：1.打开浏览器设置。2.点击设置网页。3.输入：" + vrl + "点击确定。");
+            }
+        }
+    }
+</script>
+<script src="/js/date.js"></script>
+<script>
+    $(function() {
+        nowTime();
+    })
+
+    function addZero(val) {
+        return Number(val) < 10 ? '0' + val : val;
+    }
+
+    function nowTime() {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var week = "星期" + "日一二三四五六".charAt(new Date().getDay());
+
+        var cal = calendar.solar2lunar(year, month, day);
+        var nongli = "农历" + cal.IMonthCn + cal.IDayCn;
+
+        var str = year+"年"+ addZero(month)+"月"+addZero(day)+"日&nbsp;&nbsp;&nbsp;&nbsp;" + week +"&nbsp;&nbsp;&nbsp;&nbsp;"+ nongli;
+		
+        $("#nowSpan").html(str);
+    }
+</script>
+<script type="text/javascript">
+    //鼠标绑定回车事件
+    $(document).ready(function() {
+        $("#key").keypress(function(e) {
+            var curKey = e.which;
+            if (curKey == 13) {
+                $("#btn").click();
+                return false;
+            }
+        });
+    });
+
+    function search(keyword) {
+        if (!$.trim(keyword)) {
+            alert("关键字不能为空!");
+        } else {
+            window.open("/search/fullsearch.html?wd=" + keyword);
+        }
+    }
+</script>
+</div>
+    <!-- 正文 --> 
+    <!-- 图片轮播 -->
+    <div id="banner" class="owl-carousel ewb-banner">
+    	
+					
+					<div class="item">
+						<img src="/hebggzy/CommonDataPics/7f3c3f73-e5bb-4007-8848-fe94da1ee3d2/7f3c3f73-e5bb-4007-8848-fe94da1ee3d21920_400.jpg" alt="" />
+					</div>
+				</div>
+    <!-- 消息滚动 -->
+    <div class="ewb-tips">
+        <div class="container clearfix">
+            <span class="ewb-tips-label l"></span>
+            <div class="dowebok">
+                <div id="dowebok">
+                    
+								<a href="/xxgk/005004/secondpage.html" title="关于加强依法必须招标的工程建设项目评标活动中招标人代表管理的通知">关于加强依法必须招标的工程建设项目评标活动中招标人代表管理的通知</a>
+                            
+								<a href="/xxgk/005004/secondpage.html" title="哈尔滨市公共资源交易中心政府网站工作年度报表（2025年度）">哈尔滨市公共资源交易中心政府网站工作年度报表（2025年度）</a>
+                            
+								<a href="/xxgk/005004/secondpage.html" title="关于征集哈尔滨市工程建设项目招标投标领域评标专家履职行为不规范问题线索的公告">关于征集哈尔滨市工程建设项目招标投标领域评标专家履职行为不规范问题线索的公告</a>
+                            
+								<a href="/xxgk/005004/secondpage.html" title="关于发布黑龙江省公共资源交易平台招标文件提前公示操作流程的公告">关于发布黑龙江省公共资源交易平台招标文件提前公示操作流程的公告</a>
+                            
+								<a href="/xxgk/005004/secondpage.html" title="哈尔滨市水务局权力责任清单（招标投标）">哈尔滨市水务局权力责任清单（招标投标）</a>
+                            </div>
+            </div>
+        </div>
+    </div>
+    <div class="container ewb-mian">
+        <div class="row">
+            <!-- 通知公告 -->
+            <div class="col-md-7 mt20">
+                <div class="ewb-col notice">
+                    <div class="ewb-col-hd clearfix">
+                        <a href="/xxgk/005004/secondpage.html" target="_self" class="ewb-col-tt l">通知公告</a></div>
+                    <div class="ewb-col-bd">
+                        <ul class="wb-data-item spe">
+                        	
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20240516/a9ffc3ea-2855-4036-8f3c-02350403b921.html" title="关于加强依法必须招标的工程建设项目评标活动中招标人代表管理的通知" target="_blank"><p>关于加强依法必须招标的工程建设项目评标活动中招标人代表管理的通知</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20260106/db13a0e8-1b9b-4dac-ae07-824e4e1efce4.html" title="哈尔滨市公共资源交易中心政府网站工作年度报表（2025年度）" target="_blank">哈尔滨市公共资源交易中心政府网站工作年度报表（2025年度）</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20250516/2417c0ec-ae4c-477a-819c-f98b22167011.html" title="关于征集哈尔滨市工程建设项目招标投标领域评标专家履职行为不规范问题线索的公告" target="_blank"><p>关于征集哈尔滨市工程建设项目招标投标领域评标专家履职行为不规范问题线索的公告<br>
+</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20250515/b9e2e735-dbe2-402a-9df4-bcaa9749fe81.html" title="关于发布黑龙江省公共资源交易平台招标文件提前公示操作流程的公告" target="_blank"><p>关于发布黑龙江省公共资源交易平台招标文件提前公示操作流程的公告<br>
+</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/cac3f056-f094-47c8-8282-cd818df13101/de2a068b-608d-460f-bedb-9dd014d38723/哈尔滨市水务局权力责任清单（招标投标）.xlsx" title="哈尔滨市水务局权力责任清单（招标投标）" target="_blank">哈尔滨市水务局权力责任清单（招标投标）</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/a55c6f24-239f-42dc-a11b-7e55577f40f5/34e5e316-4157-46ed-b4bc-4b2742011431/关于进一步推广黑龙江省公共资源交易平台电子保函应用的通知.PDF" title="黑龙江省公共资源交易平台关于进一步推广电子保函应用的公告" target="_blank">黑龙江省公共资源交易平台关于进一步推广电子保函应用的公告</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20250422/b5d23301-8b49-4eff-8fe0-d6707631ecc5.html" title="关于征集哈尔滨市工程项目招投标领域违反公平竞争做法问题线索的公告" target="_blank"><p>关于征集哈尔滨市工程项目招投标领域违反公平竞争做法问题线索的公告</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/2eb3366c-fb0a-433c-812c-09d893d2df4f/5d4b4ef5-2ecb-4ed3-af71-adc58723a95a/关于哈尔滨市工程建设招标投标领域实施投标保证金和履约保证金减免有关事项的通知(5)(1).pdf" title="关于哈尔滨市工程建设招标投标领域实施投标保证金和履约保证金减免有关事项的通知" target="_blank"><p>关于哈尔滨市工程建设招标投标领域实施投标保证金和履约保证金减免有关事项的通知<br>
+</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20250417/37e103cf-12fd-43fd-8dd3-317a7167dd41.html" title="关于拷贝开、评标监控音视频的通知" target="_blank"><p>关于拷贝开、评标监控音视频的通知</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20241111/47fe12ac-157e-4de2-9fbd-2547cea32145.html" title="关于暂停使用交通银行账号查询、缴纳费用的通知" target="_blank">关于暂停使用交通银行账号查询、缴纳费用的通知</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20260914/51df6576-d600-41db-9118-39e172f5470e.html" title="哈尔滨市工程建设项目招标投标领域违法违规典型案例通报（第三批）" target="_blank">哈尔滨市工程建设项目招标投标领域违法违规典型案例通报（第三批）</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005004/20260709/2d4be233-272a-4b93-8ec5-a32f0d89078b.html" title="关于黑龙江省公共资源交易平台暂停服务的通知" target="_blank">关于黑龙江省公共资源交易平台暂停服务的通知</a> 
+			                                </div>
+			                            </li>
+                                    </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 招标公告 -->
+            <div class="col-md-10 mt20">
+                <div class="ewb-col bid">
+                    <div class="ewb-col-hd clearfix">
+                        <a href="/zbgg/secondpage.html" target="_self" class="ewb-col-tt l">项目公告</a></div>
+                    <div class="ewb-col-bd">
+                        <ul class="wb-data-item">
+                        	
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261009/feb14c13-49a4-48e8-a43d-fe6daa997b32.html" title="【大宗物资采购公告（自采）】2025年房开置业603套保租房装修施工（三标段）-装饰材料一批次" target="_blank">【大宗物资采购公告（自采）】2025年房开置业603套保租房装修施工（三标段）-装饰材料一批次</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-09</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261009/c9df5850-0046-4cda-aed0-521a25a4a6d9.html" title="【实物资产交易公告】哈药集团三精制药有限公司60台（套）生产设备整体转让项目信息披露" target="_blank">【实物资产交易公告】哈药集团三精制药有限公司60台（套）生产设备整体转让项目信息披露</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-09</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261009/1be9c09e-b1ec-4624-b6dd-8c2eeca28c72.html" title="【实物资产交易公告】哈尔滨市第一中学校（2026年）一批报废资产整体转让项目信息披露" target="_blank">【实物资产交易公告】哈尔滨市第一中学校（2026年）一批报废资产整体转让项目信息披露</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-09</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/9049b66f-5151-41d5-8539-78a1ebdbbd6f.html" title="【采购公告】哈尔滨仲裁委员会办公室档案数字化服务采购招标公告" target="_blank">哈尔滨仲裁委员会办公室档案数字化服务采购招标公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/7416cebf-4457-4efb-a08d-7fecec9a73db.html" title="【采购公告】第九届黑龙江省残疾人职业技能竞赛" target="_blank">第九届黑龙江省残疾人职业技能竞赛</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/70104c4e-be6f-41d2-ba4e-64c1d4ac94ef.html" title="【采购公告】黑龙江省职业病防治信息综合管理平台二期运维服务单一来源公告" target="_blank">黑龙江省职业病防治信息综合管理平台二期运维服务单一来源公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/864d8114-66dc-4023-ac01-32e3c5f20b09.html" title="哈尔滨市道外区宇轩花园小区既有物业服务项目[变更公告]" target="_blank">哈尔滨市道外区宇轩花园小区既有物业服务项目[变更公告]</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/031c5120-7859-415f-ba06-62ee609b35bb.html" title="华崴宸院项目一期前期物业服务公开招标[变更公告]" target="_blank">华崴宸院项目一期前期物业服务公开招标[变更公告]</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/dca3fe0d-7a8a-49a0-bff0-6934571f73f7.html" title="【采购公告】哈尔滨玉泉国际狩猎场有限公司箱式变压器采购及安装施工项目" target="_blank">哈尔滨玉泉国际狩猎场有限公司箱式变压器采购及安装施工项目</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/d13d71bd-ca7d-444a-80f9-e06ec00cb4a0.html" title="【采购公告】东北林业大学帽儿山教学区学生公寓施工项目-被动窗（二次）" target="_blank">东北林业大学帽儿山教学区学生公寓施工项目-被动窗（二次）</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/c728aa3a-24eb-420a-bf90-5bcdb34cfbf2.html" title="【采购公告】太阳岛室内冰雪馆制冷机组拆除" target="_blank">太阳岛室内冰雪馆制冷机组拆除</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgg/20261008/be933bc7-3860-4ef3-9570-5005f19b6712.html" title="【采购公告】野趣公园地质勘察项目" target="_blank">野趣公园地质勘察项目</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 用户登录 -->
+            <div class="col-md-7 mt20">
+                <div class="ewb-col login">
+                    <div class="ewb-col-hd clearfix">
+                        <a href="javascript:void(0);" class="ewb-col-tt l">用户登录</a>
+                    </div>
+                    <div class="ewb-col-bd">
+                        <ul class="ewb-login-item">
+                            <li class="ewb-login-list">
+                                
+											<a href="https://hrbggzy.harbin.gov.cn/TPBidder/memberLogin" target="_blank">
+			                                    <img src="/images/login_item1.png" alt="" />
+			                                </a>
+										</li>
+                            <li class="ewb-login-list">
+                                
+											<a href="https://hrbggzy.harbin.gov.cn/TPFrame/customframe4bid/login_TP" target="_blank">
+			                                    <img src="/images/login_item2.png" alt="" />
+			                                </a>
+										</li>
+                            <li class="ewb-login-list">
+                                
+											<a href="http://ccgp-harbin.gov.cn:12081/EpointBI/frame/pages/login/login" target="_blank">
+			                                    <img src="/images/login_item3.png" alt="" />
+			                                </a>
+										</li>
+                            <li class="ewb-login-list">
+                                
+											<a href="/hdjl/007003/mailbox.html" target="_self">
+			                                    <img src="/images/zbysyjjy.png" alt="" />
+			                                </a>
+										</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 20px;display:none;">
+        	
+						<a href="/xxgk/005011/secondpage.html" target="_self">
+                            <img src="/images/jsntp.png" style="width: 1200px;" alt="" />
+                        </a>
+					<!-- <img src="/images/nlzfjsn.png" style="width: 1200px;" alt="" /> -->
+        </div>
+        <div style="margin-top: 20px;display:none;">
+        	<a href="https://www.hlj.gov.cn/hlj/ydh/dyhklj.shtml" target="_blank">
+                            <img src="/images/lianghui.jpg" style="width: 1200px;" alt="" />
+                        </a>
+        </div>
+        <div class="row">
+            <!-- 办事指南 -->
+            <div class="col-md-7 mt20">
+                <div class="ewb-col guide">
+                    <div class="ewb-col-hd clearfix">
+                        <a href="/zwfw/006001/secondpage.html" target="_self" class="ewb-col-tt l">服务指南</a></div>
+                    <div class="ewb-col-bd">
+                        <ul class="wb-data-item spe">
+                        	
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zwfw/006001/20250108/537d48ed-bccc-49ab-b8e0-3e717b304c84.html" title="电子保函办理指南" target="_blank">电子保函办理指南</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zwfw/006001/20241114/1e233fba-f2fb-4b49-b6b8-8cdaace0ab67.html" title="供应商(服务商)网络竞价操作手册" target="_blank">供应商(服务商)网络竞价操作手册</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zwfw/006001/20241114/947bb7ea-8bbd-4f6a-888a-4a91cee83562.html" title="阳光采购招投标类供应商操作手册" target="_blank">阳光采购招投标类供应商操作手册</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zwfw/006001/20241114/733b0da7-1b8b-4dff-bd50-9b388c2e3d4f.html" title="采购方操作手册" target="_blank">采购方操作手册</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/e655f547-45ab-4485-9501-a4e88409a994/b8810ec8-8ba2-4ba0-b626-c1bceaa647d7/转让方操作手册.docx" title="转让方操作手册" target="_blank"><p>转让方操作手册</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/71fa2334-dc45-46b7-a7b6-439e2dbff63e/18995dc0-6b79-4058-a9b2-3ac021b96b06/自然人-转让方操作手册.docx" title="自然人-转让方操作手册" target="_blank"><p>自然人-转让方操作手册</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/099a83a2-d666-486f-a91d-0b196d6cad92/780dce22-ff12-4606-b295-c54d15da299c/融资方操作手册.docx" title="融资方操作手册" target="_blank"><p>融资方操作手册</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/a2935148-3e6f-4ad8-a06a-93a689953a8b/ff2099e1-b886-406d-ba89-45b8c4dd6ba5/出租方操作手册.docx" title="出租方操作手册" target="_blank"><p>出租方操作手册</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/88223f7c-c6c6-4c99-927a-108138d4a620/708b213f-98f3-4b9b-b056-5a2370bf267d/受让方操作手册.docx" title="受让方操作手册" target="_blank"><p>受让方操作手册</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/a6fb4b49-c6a7-479a-a43a-bd9803fd1897/0f324199-dc10-4245-aaa7-f5e1755ee2aa/财产保险采购操作手册-投保人.docx" title="财产保险采购操作手册-投保人" target="_blank"><p>财产保险采购操作手册-投保人</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/d8a00f19-979a-4886-b4dc-2a5c5a52a19c/29b65af6-2402-41b6-8c36-3c1eea86cfd7/财产保险采购操作手册-承保人.docx" title="财产保险采购操作手册-承保人" target="_blank"><p>财产保险采购操作手册-承保人</p></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/hebggzy/e77c3cab-a0b2-496a-9e07-9bed79ee8dee/439acd57-4407-4a9d-a6d2-460525fc65b5/自然人-受让方操作手册.docx" title="自然人-受让方操作手册" target="_blank"><p>自然人-受让方操作手册</p></a> 
+			                                </div>
+			                            </li>
+                                    </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 中标公告 -->
+            <div class="col-md-10 mt20">
+                <div class="ewb-col winningbid">
+                    <div class="ewb-col-hd clearfix">
+                        <a href="/zbgs/secondpage.html" target="_self" class="ewb-col-tt l">成交公示</a></div>
+                    <div class="ewb-col-bd">
+                        <ul class="wb-data-item">
+                        	
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/912089c2-7648-4f23-aa2e-b990fdf34928.html" title="【阳光采购异常公告】哈尔滨城乡供热服务有限公司2026-2027年度市场化代理购电服务项目流标公示" target="_blank">【阳光采购异常公告】哈尔滨城乡供热服务有限公司2026-2027年度市场化代理购电服务项目流标公示</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/1dac9cba-a082-4e53-8c36-bb5c92183889.html" title="延寿县加信镇金凤村集体经济组织李木铺屯和崔家屯锌钢护栏采购及安装服务项目终止公告" target="_blank">延寿县加信镇金凤村集体经济组织李木铺屯和崔家屯锌钢护栏采购及安装服务项目终止公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/9c739c1f-0600-4b6f-a608-807d909ce723.html" title="【阳光采购异常公告】哈尔滨市级优质妇幼保健机构建设项目施工-花岗岩流标公示" target="_blank">【阳光采购异常公告】哈尔滨市级优质妇幼保健机构建设项目施工-花岗岩流标公示</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/674ecd62-95de-4b56-863d-dde9779a4132.html" title="【阳光采购异常公告】哈尔滨太平供热有限责任公司2026-2027年度供热期二期流化床锅炉灰渣清运项目流标公示" target="_blank">【阳光采购异常公告】哈尔滨太平供热有限责任公司2026-2027年度供热期二期流化床锅炉灰渣清运项目流标公示</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/afc578d2-f758-40c2-a03e-384f3579acbb.html" title="【阳光采购异常公告】维修爱特孵化器及创业孵化产业园配套设施项目造价咨询服务流标公示" target="_blank">【阳光采购异常公告】维修爱特孵化器及创业孵化产业园配套设施项目造价咨询服务流标公示</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/f93f16ce-d59c-4a4f-b3ac-946b6d9843d5.html" title="哈尔滨银行股份有限公司佳木斯分行工会委员会重大节日（传统节日）慰问品采购项目" target="_blank">哈尔滨银行股份有限公司佳木斯分行工会委员会重大节日（传统节日）慰问品采购项目中标候选人公示</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/f23601cf-a4ab-4111-ba28-424e4b11e322.html" title="哈尔滨新纪元热力有限公司流动资金贷款项目第三批" target="_blank">哈尔滨新纪元热力有限公司流动资金贷款项目第三批成交公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/e6b4c17f-483c-4344-9a83-26d8c24642d1.html" title="盘活闲置地块建设临时停车场项目施工（一标段） 混凝土采购（第二批次）" target="_blank">盘活闲置地块建设临时停车场项目施工（一标段） 混凝土采购（第二批次）成交公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/d5f02ab2-b31e-4524-a588-732cc77872f6.html" title="哈尔滨市道外区四海路配售型保障性住房及配套基础设施项目施工 智能平衡阀采购" target="_blank">哈尔滨市道外区四海路配售型保障性住房及配套基础设施项目施工 智能平衡阀采购流标公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/d1d20323-6676-4b4f-9982-e9e6c841fccf.html" title="黑龙江岁宝热电有限公司2026年四个热源（阿热厂、金京厂、城南车间及城北车间）环保设备（除尘器、脱硫、脱硝等）运维服务项目" target="_blank">黑龙江岁宝热电有限公司2026年四个热源（阿热厂、金京厂、城南车间及城北车间）环保设备（除尘器、脱硫、脱硝等）运维服务项目成交候选人公示</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/bcd7af88-b7f3-4dc4-b2c6-ad6f50a96527.html" title="香坊区农村地区违法建筑拆除项目第一标段-挖掘机、破碎锤、液压剪、洒水车及高空作业车租赁" target="_blank">香坊区农村地区违法建筑拆除项目第一标段-挖掘机、破碎锤、液压剪、洒水车及高空作业车租赁成交公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/zbgs/20261008/b3613ab8-7c10-4f5f-b1e6-dc1c92258559.html" title="哈尔滨市汇宏逸翠居项目-装饰劳务采购二标段（G4#、G5#、S4#)" target="_blank">哈尔滨市汇宏逸翠居项目-装饰劳务采购二标段（G4#、G5#、S4#)成交公告</a> 
+			                                </div>
+			                                <span class="wb-data-date">2026-10-08</span>
+			                            </li>
+                                    </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 政策法规 -->
+            <div class="col-md-7 mt20">
+                <div class="ewb-col law">
+                    <div class="ewb-col-hd clearfix">
+                        <a href="/xxgk/005005/secondpage.html" target="_self" class="ewb-col-tt l">政策法规</a></div>
+                    <div class="ewb-law-bd">
+                        <ul class="wb-data-item spe">
+                        	
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005003/20220804/c71e15d2-138d-42ec-b0ea-7132f2f66c7d.html" title="关于印发哈尔滨市落实省优化营商环境专项行动讲评会议精神工作措施的通知" target="_blank"><font color="#ff0000">关于印发哈尔滨市落实省优化营商环境专项行动讲评会议精神工作措施的通知</font></a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200424/9f43dcc6-983c-4c7f-bda8-dc577d7d6282.html" title="中华人民共和国国土资源部令第39号" target="_blank">中华人民共和国国土资源部令第39号</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200424/c211e8e4-51b7-4c3a-9c02-d8a4dff81015.html" title="中华人民共和国招标投标法实施条例" target="_blank">中华人民共和国招标投标法实施条例</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200424/9b4b3d27-01af-4884-a400-13d8fd071016.html" title="中华人民共和国政府采购法实施条例" target="_blank">中华人民共和国政府采购法实施条例</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200509/9562f688-25bd-408c-80da-6c6ee4bd07b7.html" title="政府采购非招标采购方式管理办法" target="_blank">政府采购非招标采购方式管理办法</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200509/27d1e7e9-faf5-42a7-aec2-e8691a7d7a23.html" title="政府采购货物和服务招标投标管理办法" target="_blank">政府采购货物和服务招标投标管理办法</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200509/1ae328f7-b4d0-4a54-920e-dda2675aa945.html" title="政府采购竞争性磋商采购方式管理暂行办法" target="_blank">政府采购竞争性磋商采购方式管理暂行办法</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200509/946ea8a7-88cc-47ef-af91-9f88558fe65b.html" title="政府采购信息发布管理办法" target="_blank">政府采购信息发布管理办法</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200509/1d3e11ee-413d-4775-8663-c5d50a709874.html" title="政府采购质疑和投诉办法" target="_blank">政府采购质疑和投诉办法</a> 
+			                                </div>
+			                            </li>
+                                    
+                                        <li class="wb-data-list">
+			                                <div class="wb-data-infor">
+			                                    <a href="/xxgk/005005/005005001/20200509/8ee339ff-d81a-44e6-b90b-b37999a3c368.html" title="政府购买服务管理办法" target="_blank">政府购买服务管理办法</a> 
+			                                </div>
+			                            </li>
+                                    </ul>
+                    </div>
+                </div>
+                <img class="ewb-phone" src="/images/phone.jpg" alt="" />
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div id="footer"><!-- footer -->
+<div class="ewb-footer">
+    <div class="container">
+        <div class="ewb-link">
+            <ul class="clearfix">
+                <li class="ewb-link-list l">
+                    <div class="ewb-select-box">
+                        <select class="ewb-data-select" name="" onchange="OpenSelect(this.value)">
+							<option value="yuan">
+								
+											— — 国内招标投标网— —
+										</option>
+                            
+										<option value="http://www.ggzy.gov.cn/"><p>全国公共资源交易平台</p></option>
+									
+										<option value="http://ggzyjyw.hlj.gov.cn/">黑龙江省公共资源交易中心</option>
+									
+										<option value="http://www.ggzyzx.jl.gov.cn/">吉林省公共资源交易中心</option>
+									
+										<option value="http://ggzy.ln.gov.cn/">辽宁省公共资源交易中心</option>
+									
+										<option value="https://ggzyfw.beijing.gov.cn/"><p>北京市公共资源交易中心</p></option>
+									
+										<option value="https://www.shggzy.com/"><p>上海市公共资源交易中心</p></option>
+									
+										<option value="http://jsggzy.jszwfw.gov.cn/"><p>江苏省公共资源交易平台</p></option>
+									
+										<option value="http://hnsggzyjy.henan.gov.cn/"><p>河南省公共资源交易中心</p></option>
+									
+										<option value="http://ggzy.hebei.gov.cn/hbjyzx/"><p>河北省公共资源交易中心</p></option>
+									</select>
+                    </div>
+                </li>
+                <li class="ewb-link-list l"> 
+                    <div class="ewb-select-box">
+                        <select class="ewb-data-select" name="" onchange="OpenSelect(this.value)">
+							<option value="yuan">
+								
+											— — 省内相关站点— —
+										</option>
+                            
+										<option value="http://ggzyjyw.hlj.gov.cn/"><p>黑龙江省公共资源交易中心</p></option>
+									
+										<option value="https://hljcg.hlj.gov.cn/">黑龙江省政府采购网</option>
+									
+										<option value="http://drc.hlj.gov.cn">黑龙江省发展和改革委员会</option>
+									
+										<option value="https://czt.hlj.gov.cn/"><p>黑龙江省财政厅</p></option>
+									
+										<option value="http://zfcxjst.hlj.gov.cn/"><p>黑龙江省住房和城乡建设厅</p></option>
+									
+										<option value="https://jt.hlj.gov.cn/"><p>黑龙江省交通运输厅</p></option>
+									
+										<option value="http://slt.hlj.gov.cn/"><p>黑龙江省水利厅</p></option>
+									
+										<option value="http://nynct.hlj.gov.cn/"><p>黑龙江省农业农村厅</p></option>
+									</select>
+                    </div>
+                </li>
+                <li class="ewb-link-list l">
+                    <div class="ewb-select-box">
+                        <select class="ewb-data-select" name="" onchange="OpenSelect(this.value)">
+							<option value="yuan">
+								
+											— — 市内站点— —
+										</option>
+                            
+										<option value="https://www.harbin.gov.cn/">哈尔滨市人民政府</option>
+									
+										<option value="http://www.hrbsrd.gov.cn/">哈尔滨市人大常委会</option>
+									
+										<option value="https://www.harbin.gov.cn/so/s?tab=ztb&siteCode=2301000033&qt=%E5%8F%91%E6%94%B9%E5%A7%94/">哈尔滨市发展和改革委员会</option>
+									</select>
+                    </div>
+                </li>
+                <li class="ewb-link-list l">
+                    <div class="ewb-select-box">
+                        <select class="ewb-data-select" name="" onchange="OpenSelect(this.value)">
+							<option value="yuan">
+								
+											— — 常用站点— —
+										</option>
+                            
+										<option value="http://www.ggzy.gov.cn/">全国公共资源交易平台</option>
+									
+										<option value="http://www.ccgp.gov.cn/">中国政府采购网</option>
+									
+										<option value="http://www.ctba.org.cn/">中国招投标协会</option>
+									
+										<option value="http://www.caigou2003.com/">政府采购信息网</option>
+									</select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="ewb-footer-link">
+            <!-- 
+						<a href="/wzdt/websiteMap.html" target="_self">网站地图</a>
+					<span>|</span>
+            
+						<a href="/wzjc/secondpage.html" target="_self">网站纠错</a>
+					<span>|</span>
+            
+						<a href="/lxwm/secondpage.html" target="_self">联系我们</a>
+					-->
+            <!-- 
+						<a href="#" target="_self" class="ewb-footer-img1">
+			                <img src="/images/footer_img1.png" alt="" />
+			            </a>
+					-->
+			<div class="ewb-footer-img1" style="left: 30px;">
+			  <a href="https://bszs.conac.cn/sitename?method=show&amp;id=E6DFFEE2FDF8E4B1E05310291AAC684D" target="_blank"><img border="0" src="https://dcs.conac.cn/image/blue.png"></a>
+			</div>
+	       	<span id='_span_jiucuo' style="position: absolute;right: 0px;top: 30px;"></span>
+	       	<script id="_jiucuo_" sitecode='2301000069' src='https://zfwzgl.www.gov.cn/exposure/jiucuo.js'></script>
+			<!-- 
+						<a href="#" target="_self" class="ewb-footer-img2">
+			                <img src="/images/footer_img2.png" alt="" />0451-87153906
+			            </a>
+					-->
+        </div>
+        <div class="ewb-copyrights">
+            <span>主办单位：哈尔滨市公共资源交易中心</span>
+            <span>办公地址：哈尔滨市南岗区中山路181号</span>
+        </div>
+        <div class="ewb-copyrights">
+            <span>产权交易业务：0451-87515309-6068 </span>
+            <span>建设工程交易业务：0451-84543768 </span>
+            <span> 地产（矿产）交易业务：0451-87153699</span>
+        </div>
+        <div class="ewb-copyrights">
+            <span>政府采购业务：采购文件编审处：0451-87153912</span><span>采购项目评审处：0451-87153910</span><span>执行监督处：0451-87153921</span>
+        </div>
+       
+        <div class="ewb-copyrights">
+            <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank" style="display: inline-block;font-size: 15px;color: #fff;margin: 0 8px;">黑ICP备20000068号</a>
+            <span>网站标识码：2301000069 </span>
+            <span>黑公网安备2301002000964号</span>
+            
+						<a href="/wzdt/websiteMap.html" target="_self" style="display: inline-block;font-size: 15px;color: #fff;margin: 0 8px;">网站地图</a>
+					</div>
+        <div class="ewb-copyrights">
+            <span>技术支持：国泰新点软件股份有限公司</span><span>技术服务电话：0451-84642034</span>
+        </div>
+
+    </div>
+</div>
+<script>
+	//打开下拉选链接地址
+	function OpenSelect(href) { 
+		if(href != "yuan"){
+			window.open(href, '_blank');
+		}
+	}
+</script>
+</div>
+    <div class="moveAd">
+                        	<ul class="move-list">
+                        	<li class="move-item" style="display:none;">
+                        		<a href="https://www.hlj.gov.cn/hljzqc/pc_index.shtml"><p style="text-align: right;" " vertical-align: bottom;">
+<img align="right" border="0" src="/hebggzy/c273f446-4678-487e-bf93-8ec3460bc991/c784aed6-f7b9-443e-b85b-d9de92598ac2/20250603145827437001.png"></p></a>
+                        		<span class="close"></span>
+                        	</li>
+                        	<li class="move-item" style="display:none;">
+                        		<a href="https://www.hlj.gov.cn/hljzqc/pc_index.shtml"><p style="text-align: right;" " vertical-align: bottom;">
+<img align="right" border="0" src="/hebggzy/c273f446-4678-487e-bf93-8ec3460bc991/c784aed6-f7b9-443e-b85b-d9de92598ac2/20250603145827437001.png"></p></a>
+                        		<span class="close"></span>
+                        	</li>
+                        	<li class="move-item" style="display:none;">
+                        		<a href="https://www.hlj.gov.cn/hljzqc/pc_index.shtml"><p style="text-align: right;" " vertical-align: bottom;">
+<img align="right" border="0" src="/hebggzy/c273f446-4678-487e-bf93-8ec3460bc991/c784aed6-f7b9-443e-b85b-d9de92598ac2/20250603145827437001.png"></p></a>
+                        		<span class="close"></span>
+                        	</li>
+                        	<li class="move-item">
+                        		<a href="https://www.hlj.gov.cn/hljzqc/pc_index.shtml"><p style="text-align: right;" " vertical-align: bottom;">
+<img align="right" border="0" src="/hebggzy/c273f446-4678-487e-bf93-8ec3460bc991/c784aed6-f7b9-443e-b85b-d9de92598ac2/20250603145827437001.png"></p></a>
+                        		<span class="close"></span>
+                        	</li>
+      </ul>
+    </div>
+         
+        <script src="/js/floatAD.js"></script>
+         
+                        	<div id="floatAd1" class="float-img">  
+                        		<a href="https://hrbggzy.harbin.gov.cn/xxgk/005004/20240617/06c2f759-6543-4db8-ab03-658502642ea6.html" target="_blank"><p><br>
+<img border="0" src="/hebggzy/447a88a2-3f60-4c53-b4a1-e06bf71b9cc3/7fda1598-f9e8-49fc-a212-e432c08fd232/20260604111709781001.png"><br>
+<br>
+<br>
+<br>
+</p></a>
+                        		<span class="close"></span>
+                        	</div>
+                        	<script>
+                        		new FloatAd({
+						            // 浮动元素dom
+						            dom: "#floatAd1",
+						            // 元素宽度
+						            width: $("#floatAd1").width(),
+						            //元素高度
+						            height: $("#floatAd1").height(),
+						            // 步长
+						            step: 1*1,
+						            // 延时
+						            delay: 30
+						        });
+                        	</script>
+                        <!-- 页面脚本 -->
+    <script src="/js/webBuilderCommon.js"></script>
+    <script src="/OAuth/js/js.cookie.min.js"></script>
+	<script src="/OAuth/js/OAuth.js"></script>
+	<script src="/OAuth/js/Common.js"></script>
+	<script src="/js/ABT/ABTLoad.js"></script>
+    <script src="/js/lib/placeholder.min.js"></script>
+    <script src="/js/lib/chosen/chosen.jquery.js"></script>
+    <script src="/js/lib/owlcarousel/owl.carousel.js"></script>
+    <script src="/js/lib/liMarquee/jquery.liMarquee.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/floatAD.js"></script>
+    <script src="/js/moveAD.js"></script>
+    <script src="/js/pageView.js"></script>
+    <script type="text/javascript">
+
+        new MoveAd({
+            // 浮动元素dom
+            dom: ".move-list",
+            // 元素宽度
+            width: 100,
+            // 元素高度
+            height: 300,
+            // 初始高度
+            sTop: 125,
+            // 关闭按钮
+            closeDom: ".close"
+        });
+
+    </script>
+    </div>
+</body>
+
+</html>

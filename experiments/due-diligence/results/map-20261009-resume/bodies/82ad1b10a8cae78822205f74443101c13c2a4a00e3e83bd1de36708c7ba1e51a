@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!-- <meta http-equiv="x-ua-compatible" content="ie=8" /> -->
+    <title>行政执法信息公示平台</title>
+
+    <meta name="SiteName" content="国家税务总局江苏省税务局行政执法信息公示平台">
+    <meta name="SiteDomain"content="jiangsu.chinatax.gov.cn">
+    <meta name="SiteIDCode" content="bm29100010">
+
+    <meta name="ColumnName" content="平台首页">
+    <meta name="ColumnDescription" content="行政执法信息公示平台首页，各县区局栏目页站点入口，提供各个栏目公示信息查询功能。">
+    <meta name="ColumnKeywords" content="信息公示">
+    <meta name="ColumnType" content="首页">
+
+    <meta name="ArticleTitle" content="平台首页">
+    <meta name="PubDate" content="2024—06—14">
+    <meta name="ContentSource" content="国家税务总局江苏省税务局">
+    <meta name="Url" content="https://jiangsu.chinatax.gov.cn/fggspt/main.html">
+
+   <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./font/iconfont.css">
+    <!--[if lte IE 8]>
+    <script src="./PIE/PIE.js"></script>
+    <![endif]-->
+    <!--[if IE]>
+    <script src="./js/html5.min.js"></script>
+    <script src="./js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .layui-layer-dialog .layui-layer-content{
+            font-size: 16px!important;
+        }
+        .layui-layer-title{
+            font-size: 16px!important;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <div class="subject">
+        <div class="headerLeft">
+            <img src="./images/2025_NationalEmblem.png" alt="">
+            <p>国家税务总局<span class="region">江苏省</span>税务局</p>
+            <h1>行政执法信息公示平台</h1>
+        </div>
+        <div class="headerRight">
+            <a href="https://etax.jiangsu.chinatax.gov.cn/" target="_blank">
+                江苏省电子税务局
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="Nav">
+    <div class="subject">
+        <ul>
+            <li class="active"><a data-href="./Views/index.html">平台首页</a><i></i></li>
+            <li><a data-href="./Views/BasicInfo.html">基础信息</a><i></i></li>
+            <li><a data-href="./Views/XZ_collection.html">行政征收</a><i></i></li>
+            <li><a data-href="./Views/XZ_Permit.html">行政许可</a><i></i></li>
+            <li><a data-href="./Views/XZ_inspect.html">行政检查</a><i></i></li>
+            <li><a data-href="./Views/XZ_punish.html">行政处罚</a><i></i></li>
+            <li><a data-href="./Views/Law_service.html">执法服务</a><i></i></li>
+            <li><a data-href="./Views/Other_Matter.html">其他事项</a><i></i></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+    <div class="subject" id="Content_subject">
+
+    </div>
+</div>
+
+<div id="footer">
+    <div class="subject">
+        <div class="footerLeft">
+            <a class="dajg" target="_blank" href="http://bszs.conac.cn/sitename?method=show&amp;id=072882BF9FE6030CE053022819AC8BF0">
+                <img src="./images/dzjg.png" alt="">
+            </a>
+            <a id="_span_jiucuo" target="_blank" href="https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=bm29100010&url=https%3A%2F%2Fjiangsu.chinatax.gov.cn%2Ffggspt%2Fmain.html">
+                <img src="./images/jiucuo.png" alt="" style="margin-right:20px;border:0;cursor: pointer;">
+            </a>
+
+<!--            <span id="_span_jiucuo"><img onclick="Link('bm29100010')" style="margin-right:20px;border:0;cursor: pointer;" src="https://zfwzgl.www.gov.cn/exposure/images/jiucuo.png?v=bm29100010"></span>-->
+            <p>主办单位 : 国家税务总局江苏省税务局 &nbsp; 地址 : 南京市鼓楼区浦江路30号A栋 &nbsp; 电话：12366</p>
+            <p>网站识别码 : bm29100010 &nbsp; 备案序号：苏ICP备05002258号 &nbsp; <a class="ga" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32010602010564" target="_blank">苏公网安备：32010602010564号</a></p>
+        </div>
+        <div class="footerRight">
+<!--            <a href="">网站声明</a>-->
+<!--            <i></i>-->
+            <a href="http://jiangsu.chinatax.gov.cn/col/col8203/index.html" target="_blank">网站地图</a>
+            <i></i>
+            <a href="http://jiangsu.chinatax.gov.cn/col/col8204/index.html" target="_blank">网站管理</a>
+            <i></i>
+            <a href="http://jiangsu.chinatax.gov.cn/col/col8205/index.html" target="_blank">联系我们</a>
+<!--            <i></i>-->
+<!--            <a href="">网站建议</a>-->
+        </div>
+    </div>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./layui/layui.all.js"></script>
+<script src="./js/my.utils.js"></script>
+
+<script>
+    if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
+    var http = location.origin + '/fggspt/dapi';
+    var Content_subject_href='';
+    var Content_subject_num=0;
+    window.localStorage['REGION_ID']='320000';
+    $('#Content_subject').load($('#Nav ul li.active a').attr('data-href'))
+    $('#Nav ul').on('click','li',function () {
+        if($(this).hasClass('active')){
+            console.log('111')
+        }else{
+            $(this).addClass('active').siblings().removeClass('active');
+            Content_subject_href=$(this).find('a').attr('data-href');
+            if(Content_subject_href!=null && Content_subject_href=='./Views/index.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','平台首页');
+                meta["ColumnDescription"].setAttribute('content','行政执法信息公示平台首页，各县区局栏目页站点入口，提供各个栏目公示信息查询功能。')
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','首页');
+
+                meta["ArticleTitle"].setAttribute('content','平台首页');
+
+            }else if(Content_subject_href!=null && Content_subject_href=='./Views/BasicInfo.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','基础信息');
+                meta["ColumnDescription"].setAttribute('content','提供执法主体、执法人员、权责清单、政策法规库、纳税人权利和义务、监督救济相关栏目公示信息查询功能。');
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','基础信息');
+
+                meta["ArticleTitle"].setAttribute('content','基础信息');
+            }else if(Content_subject_href!=null && Content_subject_href=='./Views/XZ_collection.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','行政征收');
+                meta["ColumnDescription"].setAttribute('content','提供欠税信息、委托代征信息、终止委托代征信息、享受安置残疾人增值税优惠政策纳税人信息、' +
+                    '享受资源综合利用产品和劳务增值税即征即退政策的纳税人信息、享受新型墙体材料增值税即征即退政策的纳税人信息相关栏目公示信息查询功能。');
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','行政征收');
+
+                meta["ArticleTitle"].setAttribute('content','行政征收');
+            }else if(Content_subject_href!=null && Content_subject_href=='./Views/XZ_Permit.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','行政许可');
+                meta["ColumnDescription"].setAttribute('content','提供税务行政许可事项、准予行政许可的结果相关栏目公示信息查询功能。');
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','行政许可');
+
+                meta["ArticleTitle"].setAttribute('content','行政许可');
+            }else if(Content_subject_href!=null && Content_subject_href=='./Views/XZ_inspect.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','行政检查');
+                meta["ColumnDescription"].setAttribute('content','提供取消进户执法项目、税务稽查随机抽查事项、“双随机”抽查情况和抽查结果相关栏目公示信息查询功能。');
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','行政检查');
+
+                meta["ArticleTitle"].setAttribute('content','行政检查');
+            }else if(Content_subject_href!=null && Content_subject_href=='./Views/XZ_punish.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','行政处罚');
+                meta["ColumnDescription"].setAttribute('content','提供税务行政一般程序处罚结果相关栏目公示信息查询功能和链接重大税收违法失信主体信息公布栏功能。');
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','行政处罚');
+
+                meta["ArticleTitle"].setAttribute('content','行政处罚');
+            }else if(Content_subject_href!=null && Content_subject_href=='./Views/Law_service.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','执法服务');
+                meta["ColumnDescription"].setAttribute('content','对“最多跑一次” 事项、“全程网上办” 事项、出口企业分类管理评定结果为一类、四类的出口企业名单栏目进行信息公示。');
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','执法服务');
+
+                meta["ArticleTitle"].setAttribute('content','执法服务');
+            }else if(Content_subject_href!=null && Content_subject_href=='./Views/Other_Matter.html'){
+                var meta = document.getElementsByTagName('meta');
+                meta["ColumnName"].setAttribute('content','其他事项');
+                meta["ColumnDescription"].setAttribute('content','对非正常户认定信息、涉企保证金目录栏目进行信息公示。并链接涉税专业服务机构监管结果平台入口。');
+                meta["ColumnKeywords"].setAttribute('content','信息公示');
+                meta["ColumnType"].setAttribute('content','其他事项');
+
+                meta["ArticleTitle"].setAttribute('content','其他事项');
+            }
+            $('#Content_subject').load(Content_subject_href)
+        }
+
+    })
+
+
+
+
+</script>
+</body>
+</html>

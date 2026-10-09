@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN" class="text-16px max-2xl:text-14px"  >
+<head>
+    <meta charset="UTF-8"/>
+    <script src="/ie-redirect.js" blocking="render"></script>
+    <link rel="icon" href="/favicon.ico"/>
+    <!-- <link rel="stylesheet" href="./lib/leaflet.css"> -->
+    <link rel="stylesheet" href="https://www.tianditu.gov.cn/lib/leaflet.css">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+    <!--    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />-->
+    <!--    <meta http-equiv="Cache" content="no-cache">-->
+    <!--    <meta http-equiv="Pragma" content="no-cache" />-->
+    <!--    <meta http-equiv="Expires" content="0" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>-->
+    <!-- 在 head 标签中添加 meta 标签，并设置 viewport-fit=cover 值 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover"/>
+    <!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <!-- 强制Chromium内核，作用于360浏览器、QQ浏览器等国产双核浏览器 -->
+    <meta name="renderer" content="webkit"/>
+    <!-- 强制Chromium内核，作用于其他双核浏览器 -->
+    <meta name="force-rendering" content="webkit"/>
+    <!-- 如果有安装 Google Chrome Frame 插件则强制为Chromium内核，否则强制本机支持的最高版本IE内核，作用于IE浏览器 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>国家地理信息公共服务平台 天地图</title>
+  <script type="module" crossorigin src="/assets/main-BHsfQ781.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/_commonjsHelpers-DArB7HsV.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-C-T1ltQ5.css">
+  <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script>
+  <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+</head>
+<body>
+<script>
+    window.mapdrawingApprovalNumber = "GS（2026）4921号";
+    window.mapdrawingApprovalDescription = "甲测资字 11110974";
+    window.mapAttributes = window.mapdrawingApprovalNumber + " - " + window.mapdrawingApprovalDescription;
+    // 从上版天地图copy过来的配置
+    window.TDT_CONFIG = {
+        maptoken: "0b79a07d2808103ab84aa56485c331a8",
+        map: {
+            URL: "https://t4.tianditu.gov.cn",
+            SHEETNUMBER: window.mapdrawingApprovalNumber
+        },
+        header_url: {
+            index: "https://www.tianditu.gov.cn/",
+            developingResources: "http://lbs.tianditu.gov.cn/",
+            catalogueAchievements: "https://www.webmap.cn",
+            archiveResources: "https://www.tianditu.gov.cn/portal",
+            standardSpecification: "https://www.tianditu.gov.cn/portal/bzgf",
+            online_updates: "https://vgimap.tianditu.gov.cn/",
+            service_center: "https://cloudcenter.tianditu.gov.cn/",
+            online_map: "https://map.tianditu.gov.cn/",
+            multi_temporal_imaging: "https://image.tianditu.gov.cn/",
+            developing_resources: "http://lbs.tianditu.gov.cn/",
+            standard_map: "http://bzdt.ch.mnr.gov.cn/",
+            developer_url: "https://console.tianditu.gov.cn/api/key",
+            userCenter_url: "https://cloudcenter.tianditu.gov.cn/center",
+            register_url: "https://passport.tianditu.gov.cn/register",
+            announcement_url: "https://www.ngcc.cn/xwzx/tzgg/202404/t20240424_2409.html",
+            map_api: "http://lbs.tianditu.gov.cn/server/MapService.html",
+            page_api: "http://lbs.tianditu.gov.cn/api/js4.0/guide.html",
+            place_name_search_url: "http://lbs.tianditu.gov.cn/server/search2.html",
+            reverse_geocoding: "http://lbs.tianditu.gov.cn/server/geocoding.html",
+            geocoding_url: "http://lbs.tianditu.gov.cn/server/geocodinginterface.html",
+            administrative_division: "http://lbs.tianditu.gov.cn/server/administrative2.html",
+            driving_planning_url: "http://lbs.tianditu.gov.cn/server/drive.html",
+            static_map_url: "http://lbs.tianditu.gov.cn/staticapi/static.html",
+            dataApi: "http://lbs.tianditu.gov.cn/data/dataapi.html",
+            visualization_administrative_divisions: "https://cloudcenter.tianditu.gov.cn/administrativeDivision",
+            global_surface_coverage_url: "https://cloudcenter.tianditu.gov.cn/landCover",
+            important_geographic_Information_Data: "https://zydm.tianditu.gov.cn/gg"
+        },
+        FOOTER: {
+            ABOUT_ONE: "https://www.tianditu.gov.cn/about/",
+            ABOUT_TWO: "https://www.tianditu.gov.cn/about/service",
+            ABOUT_THREE: "https://www.tianditu.gov.cn/about/copyright",
+            ABOUT_FOUR: "https://www.tianditu.gov.cn/about/contact",
+            MESSAGE: "https://www.tianditu.gov.cn/message/",
+            FEEDBACK: "https://www.tianditu.gov.cn/feedback",
+            RECORD: "https://beian.miit.gov.cn",
+            RECORDCODE: "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010202008132",
+            url: {
+                pointErrorUrl: "https://www.tianditu.gov.cn/feedback/#/placeError",
+                prevMapUrl: "https://map.tianditu.gov.cn/2020",
+                adminVectorUrl: "https://tile0.tianditu.gov.cn/"
+            }
+        }
+    };
+</script>
+<div id="app"></div>
+
+  <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+  <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy-CO26LJM8.js"></script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/main-legacy-DmJowIck.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+</body>
+</html>

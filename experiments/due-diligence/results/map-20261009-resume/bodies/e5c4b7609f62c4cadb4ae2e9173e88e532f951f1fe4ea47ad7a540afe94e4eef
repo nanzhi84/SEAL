@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta content="IE=11.0000" http-equiv="X-UA-Compatible">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>宁夏科技资源与产权交易所</title>
+<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<meta name="keywords" content="宁夏产权交易所，宁夏交易所，宁夏科技资源与产权交易所，宁夏产权,市场,宁夏闲置,资产,">
+<meta name="Description" content="宁夏科技资源与产权交易所，是经国务院国资委、财政部备案，与国家“企业国有产权交易信息监测网”实现对接，在国资委和财政厅的的监督下，依法进行企业产（股）权交易、行政事业单位资产处置的唯一法定机构" />
+<script src="/js/tab.js"></script>
+<script src="/js/jquery.min.js"></script>
+<link href="/css/idangerous.swiper.css" rel="stylesheet">
+<script src="/js/idangerous.swiper.min.js"></script>
+<link href="/css/common.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/index.css?v=20230817" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="wrap">
+<!--头部-->
+<div class="top-box">
+  <div class="top" >
+    <p class="logo"><a href="/"><img src="/images/logo.png" alt="宁夏科技资源与产权交易所" /></a></p>
+    <ul class="box_search">
+      <form method="get" id="formsearch" name="formsearch" action="/article/searchInfo.shtml">
+        <input class="search-txt" type="text" name="title" id="title"  maxlength="60" placeholder="请输入搜索的内容"  onfocus="this.placeholder=''" autocomplete="off" />
+        <input class="search-btn" type="button" name="searchBtn" id="searchBtn" onClick="this.form.submit();" value="搜索" />
+      </form>
+    </ul>
+  </div>
+</div>
+<!--头部end--> 
+<!--导航-->
+<nav>
+  <div class="main-menu">
+    <ul class="nav">
+      <li id="nav1" class="current"><a href="/">首 页</a></li>
+      <li id="nav2"><a onclick="javascript:void(0)" href="/article/xm/">项目</a>
+        <div class="menu-child-box" id="menu-project">
+          <div class="menu-child-list xm-child-list">
+            <ol>
+               <a href="/article/xm/cqzr/" target="_blank">产权转让</a>
+               <a href="/article/xm/zczr/" target="_blank">资产转让</a>
+               <a href="/article/xm/zczl/" target="_blank">资产租赁</a>
+               <a href="/article/xm/qyzz/" target="_blank">企业增资</a>
+               <a href="/article/xm/qtxm/" target="_blank">其他项目</a>
+               <a href="/article/xm/lhzr/" target="_blank">联合挂牌</a>
+            </ol>
+          </div>
+        </div>
+      </li>
+      <li id="nav3"><a onclick="javascript:void(0)" href="/article/gg/">公告</a>
+        <div class="menu-child-box" id="menu-project">
+          <div class="menu-child-list gg-child-list">
+            <ol>
+              <a href="/article/gg/zxgg/" target="_blank">最新公告</a>
+              <a href="/article/gg/xmgg/" target="_blank">项目公告</a>
+              <a href="/article/gg/tzgg/" target="_blank">通知公告</a>
+            </ol>
+          </div>
+        </div>
+      </li>
+      <li id="nav4"><a onclick="javascript:void(0)" href="https://www.unibid.cn/portal/pro/hall.jsp?org=NX1" target="_blank">竞价</a></li>
+      <li id="nav5"><a onclick="javascript:void(0)" href="/article/zl/">专栏</a>
+        <div class="menu-child-box" id="menu-project">
+          <div class="menu-child-list zl-child-list">
+            <ol>
+              <a href="/article/zl/zzq/" target="_blank">自治区</a>
+           
+              <a href="/article/zl/yc/" target="_blank">银川</a>
+          
+              <a href="/article/zl/wz/" target="_blank">吴忠</a>
+           
+              <a href="/article/zl/szs/" target="_blank">石嘴山</a>
+                  
+              <a href="/article/zl/zw/" target="_blank">中卫</a>
+            
+              <a href="/article/zl/gy/" target="_blank">固原</a>
+            </ol>
+          </div>
+        </div>
+      </li>
+      <li id="nav6"><a onclick="javascript:void(0)" href="/article/fg/">法规</a>
+        <div class="menu-child-box" id="menu-project">
+          <div class="menu-child-list fg-child-list">
+            <ol>
+              <a href="/article/fg/zhfg/" target="_blank">国家法律</a>
+        
+              <a href="/article/fg/gycqfg/" target="_blank">国家法规</a>
+         
+              <a href="/article/fg/nxzcfg/" target="_blank">地方政策</a>
+            </ol>
+          </div>
+        </div>
+      </li>
+      <li id="nav7"><a onclick="javascript:void(0)" href="/article/zn/">指南</a>
+        <div class="menu-child-box" id="menu-project">
+          <div class="menu-child-list zn-child-list">
+            <ol>
+              <a href="/article/zn/jygz/" target="_blank">交易规则</a>
+          
+              <a href="/article/zn/jylc/" target="_blank">交易流程</a>
+           
+              <a href="/article/zn/jszh/" target="_blank">结算账户</a>
+                      
+              <a href="/article/zn/jjxz/" target="_blank">竞价须知</a>
+          
+              <a href="/article/zn/xgxz/" target="_blank">相关下载</a>
+          
+              <a href="/article/zn/cxgl/" target="_blank">诚信管理</a>
+            </ol>
+          </div>
+        </div>
+      </li>
+      <li id="nav8"><a onclick="javascript:void(0)" href="/article/wm/">我们</a>
+        <div class="menu-child-box" id="menu-project">
+          <div class="menu-child-list wm-child-list">
+            <ol>
+              <a href="/article/wm/jgjj/" target="_blank">企业概况</a>
+              <!--a href="/article/wm/bmzn/" target="_blank">部门职能</a-->
+               <a href="/article/wm/ywfw/" target="_blank">业务范围</a>
+              <a href="/article/wm/lxwm/" target="_blank">联系我们</a>
+              <a href="/article//wm/rczp/" target="_blank">人才招聘</a>
+            </ol>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!--导航end--> 
+
+<script>
+  $(function(){
+    loadPro('UTRG','6','WzPro','listProUTRGDiv','100');
+    loadPro('UTRM','6','WzPro','listProUTRMDiv','100');
+    loadPro('UTRZ','6','WzPro','listProUTRZDiv','100');
+    loadPro('UTRL','6','WzProUtrl','listProUTRLDiv','100');
+    loadPro('UTRM','6','WzPro','listProQt','100','bondproc,litigation');
+    loadPro('','5','WzPro','listProZL1','100','','T');
+    loadPro('','5','WzPro','listProZL2','100','','','640100');
+    loadPro('','5','WzPro','listProZL3','100','','','640200');
+    loadPro('','5','WzPro','listProZL4','100','','','640300');
+    loadPro('','5','WzPro','listProZL5','100','','','640400');
+    loadPro('','5','WzPro','listProZL6','100','','','640500');
+    loadDataBullet();
+  })
+
+</script>
+<!--banner图片轮播-->
+<div class="home-banner">
+  <div class="swiper-container" id="bannerSwiper">
+    <div class="swiper-wrapper"> 
+      
+   <div class="swiper-slide"><a href="/article/banner/202406/20240600001450.shtml" target="_blank" title="中国产权行业AAA级交易机构"><img src="http://images.ntree.com.cn/www/pic/202406/1718845805191.jpg"><p class="tit">中国产权行业AAA级交易机构</p></a></div><div class="swiper-slide"><a href="/article/banner/202212/20221200000005.shtml" target="_blank" title="规范、高效的国有产权交易平台"><img src="http://images.ntree.com.cn/www/pic/202303/1679019135675.jpg"><p class="tit">规范、高效的国有产权交易平台</p></a></div><div class="swiper-slide"><a href="/article/banner/202301/20230100000020.shtml" target="_blank" title="国务院国资委指定的中央企业资产转让交易服务机构"><img src="http://images.ntree.com.cn/www/pic/202303/1679563976222.jpg"><p class="tit">国务院国资委指定的中央企业资产转让交易服务机构</p></a></div><div class="swiper-slide"><a href="/article/banner/202301/20230100000024.shtml" target="_blank" title="国务院国资委备案、自治区国资委指定的国有产权交易服务机构"><img src="http://images.ntree.com.cn/www/pic/202303/1679564616666.jpg"><p class="tit">国务院国资委备案、自治区国资委指定的国有产权交易服务机构</p></a></div><div class="swiper-slide"><a href="/article/banner/202301/20230100000025.shtml" target="_blank" title="国家财政部备案、自治区财政厅指定的金融企业国有资产产权交易服务机构"><img src="http://images.ntree.com.cn/www/pic/202303/1679564232002.jpg"><p class="tit">国家财政部备案、自治区财政厅指定的金融企业国有资产产权交易服务机构</p></a></div><div class="swiper-slide"><a href="/article/banner/202301/20230100000018.shtml" target="_blank" title="中央和国家机关行政事业单位 资产处置服务宁夏分中心"><img src="http://images.ntree.com.cn/www/pic/202301/1674970954140.jpg"><p class="tit">中央和国家机关行政事业单位 资产处置服务宁夏分中心</p></a></div><div class="swiper-slide"><a href="/article/banner/202301/20230100000023.shtml" target="_blank" title="自治区高级人民法院指定的涉诉企业国有资产处置机构"><img src="http://images.ntree.com.cn/www/pic/202301/1674971061149.jpg"><p class="tit">自治区高级人民法院指定的涉诉企业国有资产处置机构</p></a></div><div class="swiper-slide"><a href="/article/banner/202301/20230100000022.shtml" target="_blank" title="自治区科技厅选定的技术合同认定登记机构"><img src="http://images.ntree.com.cn/www/pic/202303/1679564632909.jpg"><p class="tit">自治区科技厅选定的技术合同认定登记机构</p></a></div><div class="swiper-slide"><a href="/article/banner/202301/20230100000021.shtml" target="_blank" title="中国企业国有企业产权交易协会理事会员单位"><img src="http://images.ntree.com.cn/www/pic/202301/1674971021021.jpg"><p class="tit">中国企业国有企业产权交易协会理事会员单位</p></a></div>
+ 
+    </div>
+    <a class="arrow-left" href="#"></a> <a class="arrow-right" href="#"></a>
+    <div id="bannerpagination" class="pagination"></div>
+  </div>
+</div>
+<!--banner图片轮播end--> 
+<!--快速通道-->
+<div class="kstd-box">
+  <div class="home-kstd">
+    <h3 class="kstd-tit"><a>快<br/>速<br/>通<br/>道</a></h3>
+    <ul class="kstd-group">
+      <li><a href="/article/xm/cqzr/" target="_blank" > <img src="/images/kstd-icon09.png" onMouseOver="this.src='/images/kstd-icon09-b.png'" onMouseOut="this.src='/images/kstd-icon09.png'" /><span>产权转让</span></a></li>
+      <li><a href="/article/xm/qyzz/" target="_blank" > <img src="/images/kstd-icon10.png" onMouseOver="this.src='/images/kstd-icon10-b.png'" onMouseOut="this.src='/images/kstd-icon10.png'" /><span>企业增资</span></a></li>
+      <li><a href="/article/xm/zczr/" target="_blank" > <img src="/images/kstd-icon02.png" onMouseOver="this.src='/images/kstd-icon02-b.png'" onMouseOut="this.src='/images/kstd-icon02.png'" /><span>实物资产</span></a></li>
+      <li><a href="/article/xm/zczl/" target="_blank" > <img src="/images/kstd-icon03.png" onMouseOver="this.src='/images/kstd-icon03-b.png'" onMouseOut="this.src='/images/kstd-icon03.png'" /><span>资产租赁</span></a></li>
+      <li><a href="/article/xm/qtxm/jrzq/" target="_blank" > <img src="/images/kstd-icon04.png" onMouseOver="this.src='/images/kstd-icon04-b.png'" onMouseOut="this.src='/images/kstd-icon04.png'" /><span>金融债权</span></a></li>
+      <li><a href="#"> <img src="/images/kstd-icon05.png" onMouseOver="this.src='/images/kstd-icon05-b.png'" onMouseOut="this.src='/images/kstd-icon05.png'" /><span>阳光采购</span></a></li>
+      <li><a href="/article/fg/" target="_blank" > <img src="/images/kstd-icon06.png" onMouseOver="this.src='/images/kstd-icon06-b.png'" onMouseOut="this.src='/images/kstd-icon06.png'" /><span>政策法规</span></a></li>
+      <li><a href="/article/zn/" target="_blank" > <img src="/images/kstd-icon07.png" onMouseOver="this.src='/images/kstd-icon07-b.png'" onMouseOut="this.src='/images/kstd-icon07.png'" /><span>交易指南</span></a></li>
+      <li><a href="/article/tzyx/" target="_blank"> <img src="/images/kstd-icon08.png" onMouseOver="this.src='/images/kstd-icon08-b.png'" onMouseOut="this.src='/images/kstd-icon08.png'" /><span>投资意向</span></a></li>
+    </ul>
+  </div>
+</div>
+<!--快速通道end-->
+<div class="mbg1"> 
+  <!--新闻资讯/项目公告-->
+  <div class="main-container"> 
+    <!--新闻资讯-->
+    <div class="news-box l"> 
+      <!--图片-->
+      <div class="picNews l">
+        <div class="swiper-container" id="swiper-container1">
+          <div class="swiper-wrapper"> 
+            <!--include virtual="/article/xw/xwzx/ini_1.html"--> 
+            
+   <div class="swiper-slide"><a href="http://www.ntree.com.cn/article/xw/hydt/202607/20260700003820.shtml" target="_blank" title="习近平：在庆祝中国共产党成立105周年大会上的讲话"><img src="http://images.ntree.com.cn/www/pic/202607/1782890163943.jpg"><p class="frontbg"><span>习近平：在庆祝中国共产党成立105周年大会上的讲话</span></p></a></div><div class="swiper-slide"><a href="http://www.ntree.com.cn/article/xw/xwzx/202603/20260300003459.shtml" target="_blank" title="65.28%高溢价！95只&ldquo;国有羊&rdquo;规范进场交易，盘活小资产彰显国资管理大价值"><img src="http://images.ntree.com.cn/www/pic/202603/1773388977999.jpg"><p class="frontbg"><span>65.28%高溢价！95只“国有羊”规范进场交易，盘活小资产彰显国资管理大价值</span></p></a></div><div class="swiper-slide"><a href="http://www.ntree.com.cn/article/xw/xwzx/202601/20260100003374.shtml" target="_blank" title="盘活闲置资产 原沙湖宾馆焕新亮相"><img src="http://images.ntree.com.cn/www/pic/202603/1773384976713.jpg"><p class="frontbg"><span>盘活闲置资产 原沙湖宾馆焕新亮相</span></p></a></div><div class="swiper-slide"><a href="http://www.ntree.com.cn/article/xw/xwzx/202410/20241000001838.shtml" target="_blank" title="促进规范交易 实现资产增值&mdash;石嘴山市举办全市企业国有产权交易业务培训会"><img src="http://images.ntree.com.cn/www/pic/202506/1749089363217.jpg"><p class="frontbg"><span>促进规范交易 实现资产增值—石嘴山市举办全市企业国有产权交易业务培训会</span></p></a></div>
+
+          </div>
+        </div>
+        <div class="pagination" id="pagination1"></div>
+      </div>
+      <!--文字列表-->
+      <div class="txtNews r">
+        <h2 class="in_title"><a class="tit">新闻资讯</a><span class="more"><a href="/article/xw/xwzx/" target="_blank">查看更多</a></span></h2>
+        <ul class="newlist">
+          <!--include virtual="/article/xw/xwzx/topini.html"--> 
+          <!--include virtual="/article/xw/xwzx/ini.html"-->
+          
+   <li><a href="http://www.ntree.com.cn/article/xw/hydt/202607/20260700003863.shtml" target="_blank" title="国务院印发《&ldquo;十五五&rdquo;碳达峰行动方案》">国务院印发《“十五五”碳达峰行动方案》</a><span>2026-07-10</span></li><li><a href="http://www.ntree.com.cn/article/xw/hydt/202607/20260700003820.shtml" target="_blank" title="习近平：在庆祝中国共产党成立105周年大会上的讲话">习近平：在庆祝中国共产党成立105周年大会上的讲话</a><span>2026-07-01</span></li><li><a href="http://www.ntree.com.cn/article/xw/hydt/202607/20260700003862.shtml" target="_blank" title="国务院国资委召开中央企业和地方国资委产权管理工作会议">国务院国资委召开中央企业和地方国资委产权管理工作会议</a><span>2026-04-30</span></li><li><a href="http://www.ntree.com.cn/article/xw/202604/20260400003619.shtml" target="_blank" title="&ldquo;十四五&rdquo;期间产权市场服务资产、资源、要素市场化配置成果发布">“十四五”期间产权市场服务资产、资源、要素市场化配置成果发布</a><span>2026-04-30</span></li><li><a href="http://www.ntree.com.cn/article/xw/xwzx/202603/20260300003459.shtml" target="_blank" title="65.28%高溢价！95只&ldquo;国有羊&rdquo;规范进场交易，盘活小资产彰显国资管理大价值">65.28%高溢价！95只“国有羊”规范进场交易，盘活小资产彰显国资管理大价值</a><span>2026-03-13</span></li><li><a href="http://www.ntree.com.cn/article/xw/xwzx/202601/20260100003374.shtml" target="_blank" title="盘活闲置资产 原沙湖宾馆焕新亮相">盘活闲置资产 原沙湖宾馆焕新亮相</a><span>2026-01-28</span></li>
+
+          <!--include virtual="/article/xw/hydt/ini.html" -->
+        </ul>
+      </div>
+    </div>
+    <!--新闻资讯end--> 
+    <!--项目公告-->
+    <div class="gg_box r">
+      <h2 class="in_title"><a class="tit">公告</a><span class="more"><a href="/article/gg/" target="_blank">查看更多</a></span></h2>
+      <ul class="newlist">
+        
+   <li><a href="/article/gg/zxgg/202610/20261000004218.shtml" target="_blank" title="宁东基地南湖中水厂存量资产出租项目">宁东基地南湖中水厂存量资产出租项目</a><span>2026-10-08</span></li><li><a href="/article/gg/zxgg/202610/20261000004217.shtml" target="_blank" title="宁夏公路管理中心吴忠分中心2026年第一批报废资产处置项目">宁夏公路管理中心吴忠分中心2026年第一批报废资产处置项目</a><span>2026-10-08</span></li><li><a href="/article/gg/zxgg/202609/20260900004215.shtml" target="_blank" title="氢检科技（内蒙古）有限公司20%股权转让项目">氢检科技（内蒙古）有限公司20%股权转让项目</a><span>2026-09-30</span></li><li><a href="/article/gg/zxgg/202609/20260900004214.shtml" target="_blank" title="同心县韦州镇中心学校2026年第一批报废资产处置项目">同心县韦州镇中心学校2026年第一批报废资产处置项目</a><span>2026-09-29</span></li><li><a href="/article/gg/zxgg/202609/20260900004212.shtml" target="_blank" title="宁夏画报实业有限公司51%股权转让项目预挂牌">宁夏画报实业有限公司51%股权转让项目预挂牌</a><span>2026-09-29</span></li><li><a href="/article/gg/zxgg/202609/20260900004209.shtml" target="_blank" title="贺兰县金贵镇潘昶小学2026年第一批废旧资产处置项目">贺兰县金贵镇潘昶小学2026年第一批废旧资产处置项目</a><span>2026-09-29</span></li>
+
+        <!--include virtual="/article/gg/ini_f.html" -->
+      </ul>
+        <div id="gglistDiv">
+		<!--include virtual="/portal/comp/listBullet.jsp?infoType=gonggao&ifPage=F&pageSize=6" -->
+        </div>
+     </div>
+    <!--项目公告end--> 
+  </div>
+  <!--新闻资讯/项目公告end--> 
+    </div>
+  <div class="mbg2"> 
+  <!--项目信息-->
+  <div class="main-container"> 
+    <!--左侧项目列表-->
+    <div class="xmxx_box l"> 
+      <!--产权转让-->
+      <h2 class="in_title in_title2">
+	
+	    <span class="tit">
+      <a class="cur" id="tabmenu_30" onmouseover=setTimeout("Show_Tab(3,0,3,'','cur')",1) >产权转让</a> 
+      <a id="tabmenu_31" onmouseover=setTimeout("Show_Tab(3,1,3,'','cur')",1) >企业增资</a>
+      </span>
+      <span class="more">
+	  <a id="tablink_30" style="display:block;" href="/article/xm/cqzr/" target="_blank">查看更多</a>
+      <a id="tablink_31" style="display:none;"  href="/article/xm/qyzz/" target="_blank">查看更多</a>
+      </span>
+	  
+	  </h2>
+	   <div class="prolist" id="tabcontent_30" style="display:block;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProUTRGDiv">
+          
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&sysEname=UTRG&template=WzPro&ifPage=100&pageSize=4" -->
+            
+          </tbody>
+        </table>
+      </div>
+	  
+	   <!--企业增资-->
+       <div class="prolist" id="tabcontent_31" style="display:none;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="22%">拟募集资金金额(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProUTRZDiv">
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&sysEname=UTRZ&template=WzPro&ifPage=100&pageSize=4" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--资产转让-->
+      <h2 class="in_title"><a class="tit">资产转让</a><span class="more"><a href="/article/xm/zczr/" target="_blank">查看更多</a></span></h2>
+      <div class="prolist" style="height:380px;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProUTRMDiv">
+          
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&sysEname=UTRM&template=WzPro&ifPage=100&pageSize=6" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--资产租赁-->
+      <h2 class="in_title"><a class="tit">资产租赁</a><span class="more"><a href="/article/xm/zczl/" target="_blank">查看更多</a></span></h2>
+      <div class="prolist" style="height:380px;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="25%">租赁价格（万元）</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProUTRLDiv">
+  <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&sysEname=UTRL&template=WzProUtrl&ifPage=100&pageSize=6" -->
+            
+          </tbody>
+        </table>
+      </div>
+     
+      <!--联合挂牌\其他项目-->
+      <h2 class="in_title in_title2">
+      <span class="tit">
+      <a class="cur" id="tabmenu_22" onmouseover=setTimeout("Show_Tab(2,2,4,'','cur')",1) >资产预挂牌</a> 
+      <a id="tabmenu_20" onmouseover=setTimeout("Show_Tab(2,0,4,'','cur')",1) >联合挂牌</a>
+      <a id="tabmenu_21" onmouseover=setTimeout("Show_Tab(2,1,4,'','cur')",1) >其他项目</a> 
+      <a id="tabmenu_23" onmouseover=setTimeout("Show_Tab(2,3,4,'','cur')",1) >项目推介</a> 
+      </span>
+      <span class="more">
+      <a id="tablink_22" style="display:block;"  href="/article/xm/zcygp/" target="_blank">查看更多</a>
+      <a id="tablink_20" style="display:none;"  href="/article/xm/lhzr/" target="_blank">查看更多</a>
+      <a id="tablink_21" style="display:none;"  href="/article/xm/qtxm/" target="_blank">查看更多</a>
+      <a id="tablink_23" style="display:none;"  href="/article/xm/xmtj/" target="_blank">查看更多</a>
+      </span>
+      </h2>
+          <div class="prolist" id="tabcontent_22" style="display:block;height:320px;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody>
+           
+   <tr><td>YG2026002</td><td class="nowrap"><a href="/article/xm/zcygp/202603/20260300003469.shtml" target="_blank" title="title">银川市贺兰县东方嘉苑·御景世家19号楼05号房出租项目预挂牌</a></td><td align="right">面议</td><td align="center">2026-03-20</td></tr><tr><td>YG2026001</td><td class="nowrap"><a href="/article/xm/zcygp/202602/20260200003407.shtml" target="_blank" title="title">银川市兴庆区民族北街以东、清净巷以南、蓝泰广场北侧（宁夏邮政职工活动中心）土地转让项目预挂牌</a></td><td align="right">待定</td><td align="center">2026-02-11</td></tr><tr><td>YG2025002</td><td class="nowrap"><a href="/article/xm/zcygp/202509/20250900002793.shtml" target="_blank" title="title">银川市西夏区双渠口南116亩土地使用权及地上附着物转让项目预挂牌</a></td><td align="right">待定</td><td align="center">2025-09-12</td></tr><tr><td>YG2024002</td><td class="nowrap"><a href="/article/xm/zcygp/202408/20240800001630.shtml" target="_blank" title="title">石嘴山市大武口区山水大道与山河路交叉口（平罗公铁立交桥西侧）转让项目预挂牌</a></td><td align="right">面议</td><td align="center">2024-08-22</td></tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="prolist"  id="tabcontent_20" style="display:none;height:320px;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody>
+           
+   <tr><td>YD2026006</td><td class="nowrap"><a href="/article/xm/lhzr/202609/20260900004113.shtml" target="_blank" title="title">宁夏银川市兴庆区立达奥莱锦里5-1-1801室房产转让推介公告</a></td><td align="right">面议</td><td align="center">2026-08-26</td></tr><tr><td>YD2026005</td><td class="nowrap"><a href="/article/xm/lhzr/202605/20260500003694.shtml" target="_blank" title="title">兰州蓝星纤维有限公司2026年第一批闲置备品备件转让公告（第三次）</a></td><td align="right">266400</td><td align="center">2026-05-20</td></tr><tr><td>YD2026003</td><td class="nowrap"><a href="/article/xm/lhzr/202604/20260400003554.shtml" target="_blank" title="title">华池县交通建设投资发展有限责任公司24辆公交车广告经营权转让（招商）推介公告</a></td><td align="right">详见公告</td><td align="center">2026-04-09</td></tr><tr><td>YD2026002</td><td class="nowrap"><a href="/article/xm/lhzr/202603/20260300003499.shtml" target="_blank" title="title">甘肃刘化（集团）有限责任公司设施设备转让及拆除推介公告</a></td><td align="right">面议</td><td align="center">2026-03-31</td></tr><tr><td>YD2026001</td><td class="nowrap"><a href="/article/xm/lhzr/202603/20260300003450.shtml" target="_blank" title="title">转让宁夏回族自治区银川市兴庆区东方国际公寓1607室</a></td><td align="right">45.3</td><td align="center">2026-02-27</td></tr>
+
+          </tbody>
+        </table>
+      </div>
+       <div class="prolist" id="tabcontent_21" style="display:none;height:320px;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody>
+         
+   <tr><td>SS26NX001-2</td><td class="nowrap"><a href="http://www.ntree.com.cn/article/xm/qtxm/sszc/202609/20260900004208.shtml" target="_blank" title="title">三亚马兰花假日饭店有限公司25.7896%股权转让项目（二次挂牌）</a></td><td align="right">6700.266968</td><td align="center">2026-09-29</td></tr><tr><td>QT2025001</td><td class="nowrap"><a href="http://www.ntree.com.cn/article/xm/qtxm/jrzq/202509/20250900002827.shtml" target="_blank" title="title">宁夏银川市兴庆区民族南街19号综合办公楼及院落闲置资产处置宣传项目</a></td><td align="right">待定</td><td align="center">2025-09-22</td></tr>
+
+         <!-- <tbody id="listProQt"> -->
+          <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&sysEname=UTRM&template=WzPro&ifPage=100&pageSize=6&proTypeStr=bondproc,litigation" -->
+          </tbody>
+        </table>
+      </div>
+        <div class="prolist" id="tabcontent_23" style="display:none;height:320px;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody>
+         
+   
+
+       
+          </tbody>
+        </table>
+      </div>
+      <!--联合挂牌\其他项目end--> 
+    </div>
+    <!--右侧推荐项目-->
+    <div class="tjxm_box r">
+      <ul class="tjxm_list">
+        
+   <li><a href="/article/tjxm/202609/20260900004216.shtml" target="_blank" title="固原市长城梁圆德慈善园九龙集团新材料产业基地13号楼102、202、302、402室办公用房转让项目"><img src="http://images.ntree.com.cn/www/pic/202609/1790749014105.jpg"><p>固原市长城梁圆德慈善园九龙集团新材料产业基地13号楼102、202、302、402室办公用房转让项目</p></a></li><li><a href="/article/tjxm/202609/20260900004181.shtml" target="_blank" title="银川市西夏区同心南街西侧两宗工业用途土地使用权转让项目"><img src="http://images.ntree.com.cn/www/pic/202609/1789715399374.jpg"><p>银川市西夏区同心南街西侧两宗工业用途土地使用权转让项目</p></a></li><li><a href="/article/tjxm/202605/20260500003660.shtml" target="_blank" title="银川德丰大厦1408、1409号房产转让项目"><img src="http://images.ntree.com.cn/www/pic/202605/1778724029542.jpg"><p>银川德丰大厦1408、1409号房产转让项目</p></a></li><li><a href="/article/tjxm/202607/20260700003938.shtml" target="_blank" title="固原市长城梁圆德慈善园浙商国际五金机电城13号楼101、201、301、401室办公用房转让项目"><img src="http://images.ntree.com.cn/www/pic/202607/1785207605880.jpg"><p>固原市长城梁圆德慈善园浙商国际五金机电城13号楼101、201、301、401室办公用房转让项目</p></a></li><li><a href="/article/tjxm/202604/20260400003584.shtml" target="_blank" title="贺兰县德胜商住区新思维&middot;红河谷H2号楼2单元502室等7套房产转让项目"><img src="http://images.ntree.com.cn/www/pic/202604/1776732056241.jpg"><p>贺兰县德胜商住区新思维·红河谷H2号楼2单元502室等7套房产转让项目</p></a></li>
+
+      </ul>
+    </div>
+    <!--右侧推荐项目end--> 
+  </div>
+  
+  <!--项目信息end--> 
+  <!--竞价大厅-->
+  <div class="jjdt-box">
+    <div class="main-container">
+      <iframe src="https://www.unibid.cn/portal/pro/dtbjOrg.jsp?size=6&ifPage=F&org=NX1"  width="100%" height="348" frameborder="0" scrolling="no" ></iframe>
+    </div>
+  </div>
+  <!--竞价大厅end--> 
+</div>
+<!--区县专栏-->
+<div class="zl-box">
+  <div class="main-container">
+    <div class="zl-list l">
+      <h2 class="in_title"><a class="tit">专栏</a> 
+      <span class="qx"> 
+      <a class="cur" id="tabmenu_10" onmouseover=setTimeout("Show_Tab(1,0,6,'','cur')",1) >自治区</a> 
+      <a id="tabmenu_11" onmouseover=setTimeout("Show_Tab(1,1,6,'','cur')",1) >银川</a> 
+      <a id="tabmenu_12" onmouseover=setTimeout("Show_Tab(1,2,6,'','cur')",1) >石嘴山</a> 
+      <a id="tabmenu_13" onmouseover=setTimeout("Show_Tab(1,3,6,'','cur')",1) >吴忠</a> 
+      <a id="tabmenu_14" onmouseover=setTimeout("Show_Tab(1,4,6,'','cur')",1) >固原</a> 
+      <a id="tabmenu_15" onmouseover=setTimeout("Show_Tab(1,5,6,'','cur')",1) >中卫</a> 
+      </span> 
+      <span class="more"> 
+      <a id="tablink_10" style="display:block;" href="/article/zl/zzq/" target="_blank">查看更多</a> 
+      <a id="tablink_11" style="display:none;" href="/article/zl/yc/" target="_blank">查看更多</a> 
+      <a id="tablink_12" style="display:none;" href="/article/zl/szs/" target="_blank">查看更多</a> 
+
+      <a id="tablink_13" style="display:none;" href="/article/zl/wz/" target="_blank">查看更多</a> 
+      <a id="tablink_14" style="display:none;" href="/article/zl/gy/" target="_blank">查看更多</a> 
+      <a id="tablink_15" style="display:none;" href="/article/zl/zw/" target="_blank">查看更多</a> 
+      </span> 
+      </h2>
+      <!--自治区-->
+      <div class="prolist" id="tabcontent_10" style="display:block;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProZL1">
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&template=WzPro&ifPage=100&pageSize=5&mgrType=T" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--银川-->
+      <div class="prolist" id="tabcontent_11" style="display:none;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProZL2">
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&template=WzPro&ifPage=100&pageSize=5&mgrCity=640100" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--石嘴山-->
+      <div class="prolist" id="tabcontent_12" style="display:none;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProZL3">
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&template=WzPro&ifPage=100&pageSize=5&mgrCity=640200" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--吴忠-->
+      <div class="prolist" id="tabcontent_13" style="display:none;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProZL4">
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&template=WzPro&ifPage=100&pageSize=5&mgrCity=640300" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--固原-->
+      <div class="prolist" id="tabcontent_14" style="display:none;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProZL5">
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&template=WzPro&ifPage=100&pageSize=5&mgrCity=640400" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--中卫-->
+      <div class="prolist" id="tabcontent_15" style="display:none;">
+        <table class="pro-table" cellpadding="0" cellspacing="0" border="0" width="100%">
+          <thead>
+            <tr>
+              <th width="22%">项目编号</th>
+              <th>项目名称</th>
+              <th width="18%">转让底价(万元)</th>
+              <th width="15%">披露起始日期</th>
+            </tr>
+          </thead>
+          <tbody id="listProZL6">
+            <!--include virtual="/portal/comp/listPro.jsp?mainStatus=30&template=WzPro&ifPage=100&pageSize=5&mgrCity=640500" -->
+            
+          </tbody>
+        </table>
+      </div>
+      <!--中卫end--> 
+      
+    </div>
+    <!--区县地图-->
+    <div class="zl-map r"> <img src="../images/map-nx.png" width="328" height="430" border="0" usemap="#nx-mapMap" id="nx-map">
+      <map name="nx-mapMap" id="nx-mapMap">
+        <area onfocus="blur(this);" shape="poly" coords="195,321,183,327,175,326,168,337,161,337,156,345,144,338,135,335,124,335,124,344,113,348,106,366,112,374,119,380,130,383,143,383,142,392,152,406,161,405,173,406,176,417,189,416,188,425,198,432,206,430,212,423,207,411,209,400,209,388,216,387,228,389,242,392,254,384,248,373,256,369,253,362,258,359,250,340,239,340,231,335,221,334,216,336,218,325,218,313,212,309,206,314" href="/article/zl/gy/" target="_blank" onMouseOver="document.getElementById('nx-map').src='/images/map-gy.png'" onMouseOut="document.getElementById('nx-map').src='/images/map-nx.png'">
+        <area onfocus="blur(this);" shape="poly" coords="203,80,212,84,242,94,251,86,272,67,270,55,262,51,257,37,258,26,250,29,237,29,229,35,214,30,214,44,197,49,195,62,185,70,197,75" href="/article/zl/szs/" target="_blank" onMouseOver="document.getElementById('nx-map').src='/images/map-szs.png'" onMouseOut="document.getElementById('nx-map').src='/images/map-nx.png'">
+        <area onfocus="blur(this);" shape="poly" coords="210,297,204,297,198,300,194,299,188,302,184,295,182,289,178,281,173,276,170,267,164,267,162,273,156,272,152,274,150,266,155,265,158,256,161,250,155,248,148,245,143,238,142,234,145,230,155,238,157,235,157,227,171,225,165,215,180,207,179,203,183,196,181,193,177,187,171,189,168,184,143,187,130,185,118,186,102,189,91,195,71,198,62,200,44,198,37,198,27,205,26,209,43,207,57,209,57,214,56,219,52,222,52,228,53,230,58,230,69,227,77,234,79,240,83,249,88,250,102,253,102,261,106,265,110,271,116,276,114,279,104,278,100,283,104,287,109,294,109,298,106,302,113,302,114,307,117,315,125,326,122,333,123,336,134,332,143,338,148,338,156,343,160,340,163,334,169,338,171,329,174,326,184,326,190,322,195,319,197,320,205,314,213,307,208,304,216,300,212,296" href="/article/zl/zw/" target="_blank" onMouseOver="document.getElementById('nx-map').src='/images/map-zw.png'" onMouseOut="document.getElementById('nx-map').src='/images/map-nx.png'">
+        <area onfocus="blur(this);" shape="poly" coords="191,73,201,78,208,84,218,87,228,90,235,93,240,96,242,104,242,112,241,115,227,126,233,134,255,147,257,154,253,157,249,160,254,171,259,178,251,186,251,194,247,198,237,194,234,198,225,209,225,207,218,210,212,204,211,198,206,196,203,192,204,178,210,174,213,165,201,155,201,147,198,141,194,145,189,136,186,139,183,142,181,142,174,139,171,127,168,123,169,114,170,107,170,99,175,91,176,82" href="/article/zl/yc/" target="_blank" onMouseOver="document.getElementById('nx-map').src='/images/map-yc.png'" onMouseOut="document.getElementById('nx-map').src='/images/map-nx.png'">
+        <area onfocus="blur(this);" shape="poly" coords="163,140,165,155,164,166,158,178,150,181,146,185,166,185,169,184,169,194,175,187,180,187,183,195,179,199,181,205,176,212,166,216,164,219,171,226,160,226,159,232,155,238,148,231,142,235,146,242,151,244,159,251,158,258,152,266,148,269,153,274,153,273,162,274,162,268,166,265,171,268,171,274,174,279,179,281,181,288,184,292,186,301,190,301,192,299,197,302,205,298,211,296,213,299,217,301,220,300,218,292,222,289,230,286,235,280,234,273,230,270,225,266,229,264,233,265,235,261,234,246,237,246,244,255,248,248,253,249,257,246,262,248,271,254,272,249,281,249,288,249,292,254,296,252,297,250,296,245,297,236,292,234,293,225,297,215,300,208,298,200,313,191,319,185,329,184,328,179,318,171,311,170,307,161,308,163,298,151,290,146,281,149,273,152,258,146,256,155,251,159,253,165,255,172,258,178,250,184,251,187,251,191,249,195,248,199,237,195,234,200,228,203,229,208,219,208,216,212,211,197,203,192,203,174,211,171,213,165,205,159,199,154,200,147,196,141,187,137,178,139,180,140,175,144,168,133" href="/article/zl/wz/" target="_blank" onMouseOver="document.getElementById('nx-map').src='/images/map-wz.png'" onMouseOut="document.getElementById('nx-map').src='/images/map-nx.png'">
+      </map>
+    </div>
+  </div>
+</div>
+<!--区县专栏end--> 
+<!--图片链接-->
+<div class="yqlj-box">
+  <div class="main-container">
+    <ul class="pic-link">
+      
+   <li><a href="/article/links/202212/20221200000017.shtml" target="_blank" title="国务院国有资产监督管理委员会"><img src="http://images.ntree.com.cn/www/pic/202212/1672396406287.jpg"><p>国务院国有资产监督管理委员会</p></a></li><li><a href="/article/links/202212/20221200000016.shtml" target="_blank" title="财政部"><img src="http://images.ntree.com.cn/www/pic/202212/1672396346915.jpg"><p>财政部</p></a></li><li><a href="/article/links/202212/20221200000015.shtml" target="_blank" title="宁夏回族自治区人民政府国有资产监督管理委员会"><img src="http://images.ntree.com.cn/www/pic/202212/1672396308703.jpg"><p>宁夏回族自治区人民政府国有资产监督管理委员会</p></a></li><li><a href="/article/links/202212/20221200000014.shtml" target="_blank" title="宁夏回族自治区财政厅"><img src="http://images.ntree.com.cn/www/pic/202212/1672396211058.jpg"><p>宁夏回族自治区财政厅</p></a></li><li><a href="/article/links/202212/20221200000013.shtml" target="_blank" title="全国公共资源交易平台"><img src="http://images.ntree.com.cn/www/pic/202212/1672396069781.jpg"><p>全国公共资源交易平台</p></a></li><li><a href="/article/links/202212/20221200000012.shtml" target="_blank" title="产权协会"><img src="http://images.ntree.com.cn/www/pic/202212/1672395976059.jpg"><p>产权协会</p></a></li>
+ 
+      <!--include virtual="/includes/pic_link.html" -->
+    </ul>
+  </div>
+</div>
+<!--图片链接end-->
+<!--底部-->
+<div class="footer">
+  <div id="bottom"> 
+    <!--帮助中心-->
+    <div class="footer-help">
+           <dl>
+          <dt>项目</dt>
+          <dd>
+          <li id="sub_cqzr"><a href="/article/xm/cqzr/" class="owner">产权转让</a></li><li id="sub_zczr"><a href="/article/xm/zczr/" class="owner">资产转让</a></li><li id="sub_zczl"><a href="/article/xm/zczl/" class="owner">资产租赁</a></li><li id="sub_qyzz"><a href="/article/xm/qyzz/" class="owner">企业增资</a></li><li id="sub_qtxm"><a href="/article/xm/qtxm/" class="owner">其他项目</a></li><li id="sub_lhzr"><a href="/article/xm/lhzr/" class="owner">联合挂牌</a></li>
+          </dd>
+        </dl>
+        <dl>
+          <dt>公告</dt>
+          <dd>
+          <li id="sub_zxgg"><a href="/article/gg/zxgg/" class="owner">最新公告</a></li><li id="sub_xmgg"><a href="/article/gg/xmgg/" class="owner">项目公告</a></li><li id="sub_tzgg"><a href="/article/gg/tzgg/" class="owner">通知公告</a></li>
+          </dd>
+        </dl>
+        <dl>
+          <dt>专栏</dt>
+          <dd>
+          <li id="sub_zzq"><a href="/article/zl/zzq/" class="owner">自治区</a></li><li id="sub_yc"><a href="/article/zl/yc/" class="owner">银川</a></li><li id="sub_wz"><a href="/article/zl/wz/" class="owner">吴忠</a></li><li id="sub_szs"><a href="/article/zl/szs/" class="owner">石嘴山</a></li><li id="sub_zw"><a href="/article/zl/zw/" class="owner">中卫</a></li><li id="sub_gy"><a href="/article/zl/gy/" class="owner">固原</a></li>
+          </dd>
+        </dl>
+        <dl>
+          <dt>法规</dt>
+          <dd>
+          <li id="sub_zhfg"><a href="/article/fg/zhfg/" class="owner">国家法律</a></li>
+<li id="sub_gycqfg"><a href="/article/fg/gycqfg/" class="owner">国家法规</a></li>
+<li id="sub_nxzcfg"><a href="/article/fg/nxzcfg/" class="owner">地方政策</a></li>
+
+           </dd>
+        </dl>
+        <dl>
+          <dt>指南</dt>
+          <dd>
+           <li id="sub_jygz"><a href="/article/zn/jygz/" class="owner">交易规则</a></li><li id="sub_jylc"><a href="/article/zn/jylc/" class="owner">交易流程</a></li><li id="sub_jszh"><a href="/article/zn/jszh/" class="owner">结算账户</a></li><li id="sub_jjxz"><a href="/article/zn/jjxz/" class="owner">竞价须知</a></li><li id="sub_xgxz"><a href="/article/zn/xgxz/" class="owner">相关下载</a></li><li id="sub_cxgl"><a href="/article/zn/cxgl/" class="owner">诚信管理</a></li>
+
+          </dd>
+        </dl>
+        <dl>
+          <dt>我们</dt>
+          <dd>
+           <li id="sub_jgjj"><a href="/article/wm/jgjj/" class="owner">企业概况</a></li>
+<li id="sub_ywfw"><a href="/article/wm/ywfw/" class="owner">业务范围</a></li>
+<li id="sub_lxwm"><a href="/article/wm/lxwm/" class="owner">联系我们</a></li>
+<li id="sub_rczp"><a href="/article/wm/rczp/" class="owner">人才招聘</a></li>
+<!--li id="sub_bmzn"><a href="/article/wm/bmzn/" class="owner">部门职能</a></li-->
+           </dd>
+        </dl>
+      <dl class="footer-yqlj">
+        <dt>网站链接</dt>
+        <dd class="sel_link">
+            <span>政府部门</span>
+            <ul class="down1">
+              <li><a href="http://www.sasac.gov.cn" target="_blank">国务院国资委</a></li>
+<li><a href="http://www.ndrc.gov.cn" target="_blank">国家发展和改革委员会</a></li>
+<li><a href="http://www.mof.gov.cn/index.htm" target="_blank">财政部</a></li>
+<li><a href="http://www.mee.gov.cn/" target="_blank">生态环境部</a></li>
+<li><a href="http://www.most.gov.cn" target="_blank">科技部</a></li>
+<li><a href="http://www.mofcom.gov.cn" target="_blank">商务部</a></li>
+<li><a href="http://www.miit.gov.cn" target="_blank">工业和信息化部</a></li>
+<li><a href="https://www.cnipa.gov.cn/" target="_blank">国家知识产权局</a></li>
+<li><a href="http://www.nea.gov.cn" target="_blank">国家能源局</a></li>
+<li><a href="https://www.nx.gov.cn" target="_blank">宁夏人民政府</a></li>
+<li><a href="http://gzw.nx.gov.cn/" target="_blank">宁夏国资委</a></li>
+<li><a href="https://czt.nx.gov.cn/" target="_blank">宁夏财政厅</a></li>
+<li><a href="https://fzggw.nx.gov.cn/" target="_blank">宁夏发改委</a></li>
+<li><a href="https://dofcom.nx.gov.cn/" target="_blank">宁夏商务厅</a></li>
+<li><a href="https://kjt.nx.gov.cn" target="_blank">宁夏科技厅</a></li>
+
+              <!--include virtual="/includes/link_zfbm.html" -->
+            </ul>
+          </dd>
+           <dd class="sel_link">
+           <span>交易机构</span>
+            <ul class="down2">
+            <li><a href="https://www.cbex.com.cn/" target="_blank">北京产权交易所</a></li>
+<li><a href="https://www.tpre.cn/" target="_blank">天津产权交易中心</a></li>
+<li><a href="https://www.suaee.com/suaeeHome/#/home" target="_blank">上海联合产权交易所</a></li>
+<li><a href="https://www.cquae.com/" target="_blank">重庆联合产权交易所</a></li>
+<li><a href="https://www.hrbcqjys.com/" target="_blank">哈尔滨产权交易所</a></li>
+<li><a href="https://www.xbcq.com/" target="_blank">西部产权交易所</a></li>
+<li><a href="https://www.jscq.com.cn/" target="_blank">江苏省产权交易所</a></li>
+<li><a href="https://www.fjcqjy.com/" target="_blank">福建省产权交易中心</a></li>
+<li><a href="http://www.sprtc.com/" target="_blank">辽宁·沈阳联合产权交易所</a></li>
+<li><a href="http://www.ccprec.com/" target="_blank">吉林长春产权交易中心</a></li>
+<li><a href="http://www.hebaee.cn/" target="_blank">河北产权市场</a></li>
+<li><a href="http://www.hnprec.com/" target="_blank">河南省产权交易中心</a></li>
+<li><a href="https://www.zjpse.com/" target="_blank">浙江产权交易所</a></li>
+<li><a href="http://www.sdcqjy.com/" target="_blank">山东产权交易中心</a></li>
+<li><a href="https://www.hnaee.com/hnaee/index.htm" target="_blank">湖南省联合产权交易所</a></li>
+<li><a href="http://www.gscq.com.cn/" target="_blank">甘肃省产权交易所</a></li>
+<li><a href="http://www.hncq.cn/" target="_blank">海南产权交易所</a></li>
+<li><a href="https://xjcqjy.ejy365.com/" target="_blank">新疆产权交易所</a></li>
+<li><a href="https://jxcq.jxggzyjy.cn/" target="_blank">江西省产权交易所</a></li>
+<li><a href="http://www.cynee.net/" target="_blank">云南产权交易所</a></li>
+<li><a href="http://www.nmcqjy.com/" target="_blank">内蒙古产权交易中心</a></li>
+<li><a href="https://www.aaee.com.cn/" target="_blank">安徽省产权交易中心</a></li>
+<li><a href="http://www.qhcqjy.com.cn" target="_blank">青海省产权交易市场</a></li>
+<li><a href="http://sxcqjy.ejy365.com/" target="_blank">山西省产权交易市场</a></li>
+<li><a href="http://www.gxcq.com.cn/#/index" target="_blank">广西联合产权交易所</a></li>
+<li><a href="http://www.qdcq.net/" target="_blank">青岛产权交易所</a></li>
+<li><a href="http://gz.gemas.com.cn/" target="_blank">广州产权交易所</a></li>
+<li><a href="https://www.csuaee.com.cn/" target="_blank">南方联合产权交易中心</a></li>
+<li><a href="https://www.daee.cn/" target="_blank">大连产权交易所</a></li>
+<li><a href="https://www.swuee.com/#/index" target="_blank">西南联合产权交易所</a></li>
+<li><a href="http://www.sotcbb.com" target="_blank">深圳联合产权交易所</a></li>
+<li><a href="http://www.ovupre.com/" target="_blank">武汉光谷联合产权交易所</a></li>
+<li><a href="https://www.hzaee.com/" target="_blank">杭州产权交易所</a></li>
+<li><a href="http://www.huaee.net/" target="_blank">黑龙江联合产权交易所</a></li>
+<li><a href="http://www.xemas.com.cn/index.html" target="_blank">厦门产权交易中心</a></li>
+<li><a href="http://www.cscqjy.com.cn/" target="_blank">长沙联合产权交易所</a></li>
+<li><a href="https://www.prechina.net/" target="_blank">贵州阳光产权交易所</a></li>
+<li><a href="http://www.fycqjy.com/" target="_blank">昆明联合产权交易所</a></li>
+<li><a href="http://www.zhaeec.com/" target="_blank">珠海产权交易中心</a></li>
+<li><a href="http://www.zycqjy.com/" target="_blank">河南中原产权</a></li>
+<li><a href="https://www.bbwcq.com/" target="_blank">北部湾产权交易所</a></li>
+<li><a href="https://www.sxcqjy.cn/?" target="_blank">山西省产权交易中心</a></li>
+<div id="qb-sougou-search" style="display: none; opacity: 0;">
+<p>翻译</p>
+<p class="last-btn">搜索</p>
+<p class="last-btn">复制</p>
+<iframe src=""></iframe></div>
+
+            <!--include virtual="/includes/link_jyjg.html" -->
+            </ul>
+           </dd>
+           <dd class="sel_link">
+           <span>友情链接</span>
+            <ul class="down3">
+            <li><br>
+</li>
+<li><a href="http://www.cspea.org.cn" target="_blank">中国产权协会</a></li>
+<li><a href="https://www.cspea.com.cn/" target="_blank">全国产权行业信息化综合服务平台</a></li>
+<li><a href="https://ggzyjy.fzggw.nx.gov.cn" target="_blank">宁夏回族自治区公共资源交易网</a></li>
+<li><a href="http://www.ca-sme.org" target="_blank">中国中小企业协会</a></li>
+<li><a href="http://www.xinhuanet.com" target="_blank">新华网</a></li>
+<li><a href="http://www.people.com.cn" target="_blank">人民网</a></li>
+<li><a href="http://www.cs.com.cn" target="_blank">中证网</a></li>
+<li><br>
+</li>
+<div id="qb-sougou-search" style="display: none; opacity: 0;">
+<p>翻译</p>
+<p class="last-btn">搜索</p>
+<p class="last-btn">复制</p>
+<iframe src=""></iframe></div>
+
+             <!--include virtual="/includes/link_yqlj.html" --> 
+            </ul>
+        </dd>
+      </dl>
+      <dl class="wxgzh">
+        <img src="/images/img-ewm.png" width="120" height="120">
+        <p>微信公众号</p>
+      </dl>
+      <span class="clear"></span>
+    </div>
+    <!--版权相关-->
+     <div class="footer-copyright">
+  <p>©&nbsp;宁夏科技资源与产权交易所&nbsp;版权所有</p>
+  <p><span>地址：宁夏银川市兴庆区湖滨西街65号投资大厦6楼</span> <span>邮编：750000</span> <span>电话：0951-6721552、6721672、6721671</span> <span>传真：0951-6721552</span></p>
+  <p class="beian"><span class="b_icp">网站备案号:<a target="_blank" href="https://beian.miit.gov.cn" >宁ICP备08000459号</a></span>
+  <span class="b_ga"><img src="/images/beiantubiao.png">&nbsp;宁公网安备: <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=64010402000470" >64010402000470号</a></span>
+  </p>
+</div>
+
+
+    <!--版权相关end--> 
+  </div>
+</div>
+<!--底部end--> 
+<script src="/js/base.js"></script>
+
+ <!--返回顶部-->
+<style>
+.foldbox{position:fixed;bottom:140px;right:20px;width:62px;z-index:98;}
+.foldbox a{display:block;width:62px;height:62px;border-radius:0px;cursor:pointer;position:relative;}
+.foldbox .backtop{display:none;width:62px;height:62px;border-radius:5px;background:url('/images/Topping.jpg') center no-repeat;background-size:100%;}
+.foldbox .active{display:block;}
+</style>
+<div class="foldbox">
+  <a class="backtop" href="javascript:void(0);"></a>
+ </div>
+<script type="text/javascript">
+/*返回顶部*/	
+	$(window).scroll(function (){
+		if ($(document).scrollTop() > 2000){
+			$('.backtop').addClass('active');
+		} else {
+			$('.backtop').removeClass('active');
+		}
+	});
+	$(document).on('click','.backtop',function(){
+		$('html,body').animate({scrollTop:'0px'},500);
+	});
+	
+ <!--百度统计代码-->
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?97575e1f03a58a26826f4da3fd1cc5b8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</div>
+ <script language="javascript">
+	  /*焦点图*/
+		swiperOpertion(1);
+		$("#swiper-container1").css("height",$("#swiper-container1 .swiper-slide img").height());
+</script> 
+<!--我要咨询-->
+<style>
+.flex{position:fixed;right:20px;/*bottom:220px;*/bottom:23%;z-index: 999;}
+.flex .wyzx{display:block;width:62px;height:62px;/*background-color:#c7000a;*/background:#005bac url('/images/icon-wyzx.png') center 6px no-repeat;border-radius:5px;cursor: pointer;position:relative;}
+.flex .wyzx span{position:absolute;bottom:3px;display:block;width:100%;font-size:12px;line-height:20px;color:#fff;text-align:center;}
+
+@media(max-width:1440px){
+
+}
+</style>
+<div class="flex">
+<a class="wyzx" href="/article/wm/lxwm/" target="_blank"><span>我要咨询</span></a>
+</div>
+
+<!--新网站上线的飘窗-->
+<style>
+#Floatbox{display:none;background:#C00;width:776px;height:125px;font-size:12px;position:relative;z-index:1000000;}
+#Floatbox a{display:block;padding:0px 0;text-align:center;font-size:20px;color:#fff;line-height:150%;text-decoration:none;}
+#Floatbox a + div{position:absolute;right:5px;top:-5px;color:#fff;cursor:pointer;}
+#Floatbox a + div:hover{color:#ffc;}
+</style>
+
+<div id="Floatbox">
+<a><img src="images/img_newebsx.jpg"></a>
+</div>
+<script src="js/fudong.js"></script> 
+<script type="text/javascript">
+<!--
+var ad1=new AdMove("Floatbox",true);
+ad1.Run();
+//-->
+</script>
+
+</body>
+</html>

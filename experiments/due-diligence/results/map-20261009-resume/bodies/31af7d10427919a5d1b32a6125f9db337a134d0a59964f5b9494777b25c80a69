@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+	    <meta charset="UTF-8">
+	    <META HTTP-EQUIV="expires" CONTENT="0">
+	    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+	    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	    <meta name="viewport"content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <title>行政执法信息公示平台</title>
+	    <link rel="stylesheet" href="wings/core/css/exception_dialog.css" />
+		<link rel="stylesheet" href="wings/include/bootstrap/3.3.7/css/bootstrap.css" />
+		<link rel="stylesheet" href="wings/include/plugins/dialog/bootstrap-dialog.css" />
+	    <link href="xzzfgspt/static/common/css/font-awesome.min.css"  rel="stylesheet" />
+	    <link href="xzzfgspt/static/common/css/common.css" rel="stylesheet">
+	    <link href="xzzfgspt/static/common/css/screen_size.css?v=123" rel="stylesheet">
+	    <script src="xzzfgspt/static/common/js/jquery.min.js"></script>
+		<script src="wings/include/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="wings/core/js/SwordAdapter.js"></script>
+		<script src="wings/core/js/wings.min.js"></script>
+		<script src="wings/include/plugins/dialog/bootstrap-dialog.js"></script>
+		<script src="wings/core/plugins/wingsDialog/wingsDialog.js"></script>
+	    <script src="wings/include/common/locache.js"></script>
+	    <script src="wings/core/plugins/wingsCache/wingsCache.js"></script>
+	    <script src="xzzfgspt/static/common/js/wingsConfig.js"></script>
+	    <script src="xzzfgspt/static/qdxt/ptsy/ptsy_index.js?v=1.0"></script>
+	    <!--[if !IE]><!-->
+		 <script>
+		 if (/*@cc_on!@*/false) {
+		     document.documentElement.className+='ie10';
+		 }
+		</script>
+		 <!--<![endif]-->
+	</head>
+	<body>
+	<div wings='PageInit' onSuccess="initSuccess();"></div>
+	<div id="notice_div"
+		style="display:none; width: 280px; position: fixed; left:50%; top:64px; margin-left:-100px; white-space: nowrap; overflow: hidden; height: 20px;">
+		<div id="noticeList" style="position: absolute; top: 0; height: 20px;">
+			<span style="color:#f00;font-size:16px">本网站支持IE9及以上内核版本的主流浏览器,如果使用360公司旗下的浏览器请在地址栏右侧将浏览模式设置为极速模式。</span>
+		</div>
+	</div>
+	<div class="header" id="header">
+		    <div class="header_container">
+		        <div class="shuiwu_logo"></div>
+		         <!--[if lte IE 10 ]>
+		        <div class="title_pic_ie8">
+		            <h6 id="swjgmc">国家税务总局税务局</h6>
+		            <h2>行政执法信息公示平台</h2>
+		        </div>
+		        <![endif]-->
+		        <div class="title_pic">
+		            <svg class="svg_position_1">
+		                <defs>
+		                    <linearGradient id="grad" x1="50%" y1="0%" x2="50%" y2="100%">
+		                        <stop offset="0%" style="stop-color:#cfd0cf; stop-opacity:1" />
+		                        <stop offset="100%" style="stop-color:#fff; stop-opacity:1" />
+		                    </linearGradient>
+		                </defs>
+		                <text x="0" y="36" fill="url(#grad)" class="little_text" id="swjgmc">国家税务总局税务局</text>
+		            </svg>
+		            <svg class="svg_position_2">
+		                <defs>
+		                    <linearGradient id="grad" x1="50%" y1="0%" x2="50%" y2="100%">
+		                        <stop offset="0%" style="stop-color:#cfd0cf; stop-opacity:1" />
+		                        <stop offset="100%" style="stop-color:#fff; stop-opacity:1" />
+		                    </linearGradient>
+		                </defs>
+		                <text x="0" y="36" fill="url(#grad)" class="main_text" id="engName">行政执法信息公示平台</text>
+		            </svg>
+		        </div>
+		        <a class="dzswj_link" id="dzswjlink" target="_blank" rel="noopenner noreferrer"></a>
+		    </div>
+		</div>
+		<div class="header_nav" id="header_nav">
+		</div>
+		
+		<div class="container" id="container">
+		    <div class="square_area" id="square_area">
+		        <div class="square_area_line">
+		            <a class="square_1 linear_bg1" id="ptsy_nsrxyAjnsr" onclick="openPtsyLink(this)">
+		                <div class="area_link1">
+		                    <img src="xzzfgspt/static/common/img/icon_1.png" class="icon_size_1">
+		                    <span class="link_title_1">纳税信用A级纳税人</span>
+		                </div>
+		            </a>
+		            <a class="square_2 linear_bg2 square_2_position1" id="ptsy_bsfwzn" onclick="openPtsyLink(this)">
+		                <div class="area_link2">
+		                    <img src="xzzfgspt/static/common/img/icon_2.png" class="icon_size_2">
+		                    <span class="link_title_2">办税服务指南</span>
+		                </div>
+		            </a>
+		        </div>
+		        <div class="square_area_line_m">
+		            <a class="square_2 linear_bg3 " id="ptsy_ybcfjg" onclick="openPtsyLink(this)">
+		                <div class="area_link2">
+		                    <img src="xzzfgspt/static/common/img/icon_3.png" class="icon_size_2">
+		                    <span class="link_title_2">一般处罚结果</span>
+		                </div>
+		            </a>
+		            <a class="square_2 linear_bg4 square_2_position2" id="ptsy_xzxkjg" onclick="openPtsyLink(this)">
+		                <div class="area_link2">
+		                    <img src="xzzfgspt/static/common/img/icon_4.png" class="icon_size_2">
+		                    <span class="link_title_2">行政许可结果</span>
+		                </div>
+		            </a>
+		            <a class="square_2 linear_bg5 square_2_position1" id="ptsy_fzchxx" onclick="openPtsyLink(this)">
+		                <div class="area_link2">
+		                    <img src="xzzfgspt/static/common/img/icon_5.png" class="icon_size_2">
+		                    <span class="link_title_2">非正常户信息</span>
+		                </div>
+		            </a>
+		        </div>
+		        <div class="square_area_line">
+		            <a class="square_2 linear_bg6 color_orange" id = "ptsy_qsxx" onclick="openPtsyLink(this)">
+		                <div class="area_link2 area_link3">
+		                    <img src="xzzfgspt/static/common/img/icon_6_m.png" class="icon_size_2">
+		                    <span class="link_title_2">欠税信息</span>
+		                </div>
+		            </a>
+		            <a class="square_1 linear_bg7 square_2_position2" id="ptsy_zdsswfsxajxx" onclick="openPtsyLink(this)">
+		                <div class="area_link1">
+		                    <img src="xzzfgspt/static/common/img/icon_7.png" class="icon_size_1">
+		                    <span class="link_title_1">重大税收违法失信案件信息</span>
+		                </div>
+		            </a>
+		        </div>
+		    </div>
+		    <div class="city_link" id="city_link">
+		    </div>
+		</div>
+		
+<div class="container_D" id="containerOther" style="display:none">
+    <div class="content_nav" id="content_nav_div">
+    </div>
+    <div class="content_main">
+        <div class="comtent_bread">
+            	您当前的位置：<span id ="first_nav"></span><span>></span><span id="second_nav"></span>
+        </div>
+        <div class="comtent_box" id="comtent_box">
+        	<iframe id="comtent_iframe"  frameborder="0"  width="100%" scrolling="no"></iframe>
+    	</div>
+    </div>
+</div>
+		<div class="footer" id="footer">
+		    <img src="xzzfgspt/static/common/img/dzjg.png" id="dzjg" alt=""/>
+		    <img src="xzzfgspt/static/common/img/jiucuo.png" id="zfwzzc" style="width: 80px;display:none;" alt=""/>
+		    <div class="ft_l">
+		        <span class="text_main" id="zbdw"></span>
+		        <span class="text_code" style="display: inline-block;" id="wzbs"></span>
+		        <span class="text_adress" style="display: inline-block;" id="dwdz"></span>
+		    </div>
+		    <div class="ft_r" id="wzxx">
+		    </div>
+		</div>
+	</body>
+</html>
+<div id="SwordPageData"  style='display:none;' data='{"data":[{"name":"province","type":"","value":"neimenggu"},{"name":"district","type":"","value":"neimenggu"},{"name":"module","type":"","value":"ptsy"},{"name":"code","type":"","value":"0"},{"name":"sessionID","type":"","value":"58de94f49f594e799f8ee6ddeb9bff57"},{"name":"sword_globalShowSign","type":"","value":"false"},{"name":"sword_globalShowQZ","type":"","value":"false"}]}'></div>
+

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>科学技术部政务服务平台</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+	<link href="/r/cms/zwpt/web/layui/css/layui.css" rel="stylesheet" type="text/css"/>
+	<link href="/r/cms/zwpt/web/css/global.css" type="text/css" rel="stylesheet"/>
+	<link href="/r/cms/zwpt/web/css/common/header.css" type="text/css" rel="stylesheet"/>
+	<link href="/r/cms/zwpt/web/css/common/menu.css" type="text/css" rel="stylesheet"/>
+	<link href="/r/cms/zwpt/web/css/common/left.css" rel="stylesheet" type="text/css"/>
+	<link href="/r/cms/zwpt/web/css/tztg/tztg.css" type="text/css" rel="stylesheet"/>
+	<link href="/r/cms/zwpt/web/css/common/footer.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<div class="main" >
+<!--################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################
+################################################################ 
+################################################################-->
+
+<iframe id="login-iframe" src="" height="0px" width="0px" style="display: none;"></iframe>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/jquery.min.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/jquery-migrate.min.js"></script>
+<script>
+$(function() {
+
+    var url_now = window.location.href;
+    var page = '/html';
+    if (url_now.indexOf('/html') > 0) {
+        var page = url_now.substring(url_now.indexOf('/html') + 1);
+    }
+    //栏目页登录地址
+    var login_url = '/govserviceplatform/dynamic/switch/channelpage?isIframe=true&page=' + page +
+        '&r=' + Math.random();
+
+$('#login-iframe').attr('src', login_url)
+
+//$('#login-iframe').attr('src', 'https://fuwu.most.gov.cn/authentication/sso/gjzwfw3/login' + '?r=' + Math.random())
+})
+</script>
+
+<script type="text/javascript" src="/r/cms/zwpt/web/layui/layui.js"></script>
+<div id="header-wrap">
+	<div class="header-bar">
+	</div>
+	<!--  end of bar  -->
+	<div class="header-title">
+		<!-- <div class="header-title-pic header-inline"><img src="/r/cms/zwpt/web/images/20181227093049.png" alt=""></div>-->
+	<div class="header-title-pic header-inline">
+            <div style="display: flex">
+               <img id="guohui" src="/r/cms/zwpt/web/images/banner-left.png"style="width: 83px" />
+               <img src="/r/cms/zwpt/web/images/banner-right.png" alt="" />
+            </div>
+       </div>
+		<div class="header-search header-inline">
+			<div class="header-menu">
+				<a href="http://gjzwfw.www.gov.cn/index.html" target="_blank" rel="noopener noreferrer nofollow">
+					<i class="fas fa-home"></i>国家政务服务平台</a>&nbsp;&nbsp;|&nbsp;
+				<a href="http://www.most.gov.cn" target="blank">
+					<i class="fas fa-university"></i>中华人民共和国科技部</a>&nbsp;&nbsp;|&nbsp;
+				<a href="javascript:;" onclick="displayContact();">
+					<i class="fas fa-phone"></i>咨询联系 </a>&nbsp;&nbsp;|&nbsp;
+				<a href="/html/ljbpt/" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-question-circle"></i>平台介绍</a>
+
+			</div>
+			
+			<form name="formznjs" class="mainsearch" action="/html/ssjg/" target="_blank" rel="noopener noreferrer nofollow" onsubmit="return transearchword();" method="get">
+				
+				<input class="header-search-text" type="text" name="search" placeholder="站内搜索" onfocus="this.value='';" onkeydown="if(window.event.keyCode==13){return changSearch();}" />
+				<a href="javascript:;" class="header-search-btn" onclick="changSearch();"><i class="fas fa-search"></i></a> 
+			</form>
+		</div>
+	</div>
+	<!--  咨询联系  -->
+	<div id="header-zxlx" style="display: none">
+		<div id="header-zxlx-wrap">
+			<div id="header-zxlx-top">
+				<img src="/r/cms/zwpt/web/images/20181227093049.png" alt="" style="height: 80px;">
+			</div>
+			
+			<div>
+				<div class="header-zxlx-panel"><i class="fas fa-phone"></i>
+					<span>
+					为使您的咨询问题及时得到答复，请您务必拨打以下技术支持电话，请勿拨打其他电话：<br />
+					010-88659000&nbsp;&nbsp;&nbsp;&nbsp;传真号码：010-88654001
+					</span>
+				</div>
+				<div class="header-zxlx-panel"><i class="fas fa-envelope"></i>
+					<span>
+					如电话繁忙请通过以下邮箱进行咨询：<br />
+					<a href="mailto:fuwu@most.cn">fuwu@most.cn</a></span>
+				</div>
+				<div class="header-zxlx-panel"><i class="fas fa-info"></i>
+					<span style="width: 600px;">如果您在办理事项的过程中需要帮助，请<a href="/html/zxbl/" target="_blank" rel="noopener noreferrer nofollow" style="text-decoration: underline;font-style: italic;">点击这里</a>查看服务事项，找到您要办理的服务事项后点击该事项右侧的的联系方式按钮，查看该事项的联系方式。</span>
+				</div>
+			</div>
+			
+			<div style="padding:20px 17px; font-size: 16px; color: #666;">科学技术部政务服务平台由科技部信息中心建设运行并提供相关技术服务。</div>
+		</div>
+
+		<input id="log-first" type="hidden" value="${isFirst}"/>
+		<input id="log-isdbr" type="hidden" value="${ui.isdbr}"/>
+		<input id="log-message" type="hidden" value='${message}'/>
+	</div>
+</div>
+<script>
+if (typeof Object.assign != 'function') {
+  Object.assign = function(target) {
+    'use strict';
+    if (target == null) {
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    target = Object(target);
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[index];
+      if (source != null) {
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+    }
+    return target;
+  };
+}
+</script> <link rel="stylesheet" href="/r/cms/zwpt/web/assets/fontawesome/css/all.css">
+<div id="menu">
+    <div id="menu-wrap">
+        <div class="menu-body" id="menu-list">
+				<div class="menu-item"><a href="/html/"><i class="fas fa-home"></i>首页</a></div>
+				<div class="menu-item"><a href="/html/zxbl/"><i class="fas fa-star"></i>服务事项</a></div>
+				<div class="menu-item"><a href="/html/bszx/"><i class="fas fa-info"></i>办事咨询</a></div>
+          			<div class="menu-item"><a id="yhfw-a" ><i class="fas fa-pen"></i>在线办事</a></div>
+				<div class="menu-item"><a href="/html/jgcx/" class="menu-item-active"><i class="fas fa-book"></i>结果公示</a></div>
+        </div>
+        <div class="menu-links">
+                 <a href="javascript:;" onclick="displayLogin();"><i class="fa fa-user-circle"></i>用户登录</a>&nbsp;&nbsp;|&nbsp;
+                 <a href="/mostreg/reg/index" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-user-plus"></i>用户注册</a>
+        </div>
+
+    </div>
+</div>
+	<div id="yhfu-dialog"  tabindex="-1" role="dialog"
+		class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable"
+		aria-describedby="dialog-hint" aria-labelledby="ui-id-1"
+		style="height: auto; width: 400px; top: 205px; left: 381.8px; z-index: 101;display:none;">
+		<div
+			class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle">
+			<span id="ui-id-1" class="ui-dialog-title">科学技术部政务服务平台</span>
+
+		</div>
+		<div id="dialog-hint"
+			style="width: auto; min-height: 16.834px; max-height: none; height: auto;"
+			class="ui-dialog-content ui-widget-content">
+			<div
+				style="padding: 10px; font-size: 14px; color: gray; text-indent: 2em; line-height: 22px;">
+				当前用户尚未登录政务服务平台，只有登录系统确认身份后才能使用“<span id="menuName">用户服务功能</span>”，如您尚未注册，请您点击“用户注册”，注册信息通过审核后进行登录；如您已有注册帐号，请您进行登录。
+			</div>
+		</div>
+		
+        </div>
+
+
+<div class="right-box">
+  <ol style="display: block;">
+    <li><a href="javascript:;" onclick="displayLogin();"><i class="fa fa-user-circle"></i><span>用户登录</span></a></li>
+    <li><a href="/html/fwcx/" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-lightbulb"></i><span>信息查询</span></a></li>
+    <li><a style="cursor: pointer;" id="mobile-access"><i class="fas fa-mobile-alt"></i><span>移动端</span></a><div id="mobile-qr"><img src="/r/cms/zwpt/web/images/download-android-qrcode.png" alt="" style="width: 100px;"/><span>手机或者平板扫描二维码即刻访问</span></div></li>
+    <li><a href="/html/ljbpt/" target="_blank" rel="noopener noreferrer nofollow"><i class="fas fa-question-circle"></i><span>用户指引</span></a></li>
+    <li><a href="javascript:;" onclick="displayContact();"><i class="fas fa-phone"></i><span>咨询联系</span></a></li>
+    <!--<li><a href='javascript:;' onclick='displayLogin();'><i class="far fa-comments"></i><span>投诉建议</span></a></li>-->
+  </ol>
+<a href="javascript:;" onclick="toggleSideMenu();" class="toggle-side"><i class="fas fa-chevron-down"></i><span>收起</span></a>
+</div>
+
+
+<!-- 弹窗 -->
+
+		<div class="tztg_body">		
+			<div class="zxbl_left">
+
+				<!-- 结果公示 -->
+				<div class="zxbl_left_tab onclick_div"><a class="left-menu-title"><span class="sub-cat-title">结果公示</span></a></div>
+
+				<div class="zxbl_left_tab subcat"><a href="javascript:;" onclick="changepanel(this);"><i style="background-image: url(/r/cms/zwpt/web/images/left-menu/leftmenuicon-class.png);"></i><span class="sub-cat-title">分类公示</span><span class="sub-cat-right"></span></a></div>
+
+				<div class="zxbl-catpanel">
+					<a class="zxbl-catitem" href="/html/jgcx/jhxmgs/"><div><div>计划项目公示</div></div></a>
+					<a class="zxbl-catitem" href="/html/jgcx/kjjlgs/"><div><div>科技奖励公示</div></div></a>
+					<a class="zxbl-catitem" href="/html/jgcx/cxrcgs/"><div><div>创新人才公示</div></div></a>
+					<a class="zxbl-catitem" href="/html/jgcx/cxjdgs/"><div><div>创新基地公示</div></div></a>
+					<a class="zxbl-catitem" href="/html/jgcx/xzxkgs/"><div><div>行政许可公示</div></div></a>
+				</div>
+      <div class="zxbl_left_tab subcat"><a href="javascript:;" onclick="changepanel(this);"><i style="background-image: url(/r/cms/zwpt/web/images/left-menu/leftmenuhot-all.png);"></i><span class="sub-cat-title">热点公示</span><span class="sub-cat-right"></span></a></div>
+      <div class="zxbl-catpanel">
+        <a id="hotword1" class="zxbl-catitem" href="javascript:;"><div><div></div></div></a>
+        <a id="hotword2" class="zxbl-catitem" href="javascript:;"><div><div></div></div></a>
+        <a id="hotword3" class="zxbl-catitem" href="javascript:;"><div><div></div></div></a>
+      </div>
+
+			</div>
+
+				<div style="width: 10px; display: table-cell;"></div>
+				<div class="right">
+					<div class="right_top">
+						<p style="padding-left:20px; line-height: 50px;display:inline-block;">全部</p>  
+						<!--检索-->
+						<div class="zxbl_js">
+							<form name="formjgcx" action="/html/jgcx/jgcxlb/" target="_blank" rel="noopener noreferrer nofollow" onsubmit="return transearchwordJgcx();" method="get">
+								
+		<input class="header-search-text" type="text" name="search" placeholder="您要查询什么，试着检索一下" onfocus="this.value='';" onkeydown="if(window.event.keyCode==13){return changSearchJgcx();}" />
+		<a href="javascript:;" class="header-search-btn body-search-btn" onclick="changSearchJgcx();"><i class="fas fa-search"></i></a>
+							        <input id="channelname" type="hidden" name="channelname" value="结果公示"/>
+                                                           </form>
+        <form style="display: none;" name="formrcss" action="/html/jgcx/jgcxlb/" target="_blank" rel="noopener noreferrer nofollow" onsubmit="return transearchwordRcss();" method="get">
+          
+          <input id="searchwordn" type="hidden" name="hotword" value="0"/>
+          <input id="channelname" type="hidden" name="channelname" value="结果公示"/>
+          <input type="text" id="searchwordrcss" name="search" onfocus="this.value='';" onkeydown="if(window.event.keyCode==13){return changSearchRcss();}" placeholder="您要查询什么，试着检索一下" class="channel_search_input"/>
+        </form>
+						</div>
+					</div>
+					<div class="right-min">
+						<ul>
+							<li><a href="/html/tztg/xzxkzx/20230918/123124779.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第18批审批结果"><span>中国人类遗传资源行政许可事项2023年 第18批审批结果</span><span>2023-09-18</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230904/123124770.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第17批审批结果"><span>中国人类遗传资源行政许可事项2023年 第17批审批结果</span><span>2023-09-04</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230831/123124776.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年第1批不涉及技术评审（出口出境证明）项目审查结果"><span>中国人类遗传资源行政许可事项2023年第1批不涉及技术评审（出口出境证明）项目审查结果</span><span>2023-08-31</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230818/123124754.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第16批审批结果"><span>中国人类遗传资源行政许可事项2023年 第16批审批结果</span><span>2023-08-18</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230731/123124750.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第14批审批结果"><span>中国人类遗传资源行政许可事项2023年 第14批审批结果</span><span>2023-07-31</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230719/123124747.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第26批简化流程许可结果"><span>中国人类遗传资源行政许可事项2023年 第26批简化流程许可结果</span><span>2023-07-19</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230718/123124746.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第13批审批结果"><span>中国人类遗传资源行政许可事项2023年 第13批审批结果</span><span>2023-07-18</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230711/123124744.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源国际合作临床试验备案情况公示 （2023年6月23日至6月30日）"><span>中国人类遗传资源国际合作临床试验备案情况公示 （2023年6月23日至6月30日）</span><span>2023-07-11</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230706/123124742.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源国际合作临床试验备案情况公示 （2023年6月16日至6月22日）"><span>中国人类遗传资源国际合作临床试验备案情况公示 （2023年6月16日至6月22日）</span><span>2023-07-06</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230630/123124739.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第25批简化流程审批结果"><span>中国人类遗传资源行政许可事项2023年 第25批简化流程审批结果</span><span>2023-06-30</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230630/123124737.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第12批审批结果"><span>中国人类遗传资源行政许可事项2023年 第12批审批结果</span><span>2023-06-30</span></a></li>
+							<li><a href="/html/tztg/xzxkzx/20230630/123124735.html" target="_blank" rel="noopener noreferrer nofollow" title="中国人类遗传资源行政许可事项2023年 第24批简化流程审批结果"><span>中国人类遗传资源行政许可事项2023年 第24批简化流程审批结果</span><span>2023-06-30</span></a></li>
+							<div class="page"><div>
+共542条记录 1/46页
+&nbsp;<a disabled="disabled">首页</a> <a disabled="disabled">上一页</a>&nbsp;<a href="#" onclick="location.href=encodeURI('index_2.html');">下一页</a> <a href="#" onclick="location.href=encodeURI('index_46.html');">尾页</a>
+&nbsp;第<select onChange="if(this.value==1){location.href=encodeURI('index.html')}else{location.href=encodeURI('index_'+this.value+'.html')}this.disabled='disabled'">
+  <option value="1" selected="selected">1</option>
+  <option value="2" >2</option>
+  <option value="3" >3</option>
+  <option value="4" >4</option>
+  <option value="5" >5</option>
+  <option value="6" >6</option>
+  <option value="7" >7</option>
+  <option value="8" >8</option>
+  <option value="9" >9</option>
+  <option value="10" >10</option>
+  <option value="11" >11</option>
+  <option value="12" >12</option>
+  <option value="13" >13</option>
+  <option value="14" >14</option>
+  <option value="15" >15</option>
+  <option value="16" >16</option>
+  <option value="17" >17</option>
+  <option value="18" >18</option>
+  <option value="19" >19</option>
+  <option value="20" >20</option>
+  <option value="21" >21</option>
+  <option value="22" >22</option>
+  <option value="23" >23</option>
+  <option value="24" >24</option>
+  <option value="25" >25</option>
+  <option value="26" >26</option>
+  <option value="27" >27</option>
+  <option value="28" >28</option>
+  <option value="29" >29</option>
+  <option value="30" >30</option>
+  <option value="31" >31</option>
+  <option value="32" >32</option>
+  <option value="33" >33</option>
+  <option value="34" >34</option>
+  <option value="35" >35</option>
+  <option value="36" >36</option>
+  <option value="37" >37</option>
+  <option value="38" >38</option>
+  <option value="39" >39</option>
+  <option value="40" >40</option>
+  <option value="41" >41</option>
+  <option value="42" >42</option>
+  <option value="43" >43</option>
+  <option value="44" >44</option>
+  <option value="45" >45</option>
+  <option value="46" >46</option>
+</select>页
+</div></div>
+						</ul>
+					</div>
+				</div>
+		</div>
+		<!-- 页脚 -->
+        <div style="clear:both"></div>
+		<div id="footer" class="footer">
+			<!--页脚上部 -->
+			
+			<!-- 页脚下部 -->
+			<div id="footer_bottom" class="footer_bottom">
+<div class="footer-top">
+  <div class="footer-contact">
+    <div class="footer-contact-title">
+      科学技术部政务服务平台由<a class="footer-link" href="https://ic.most.cn/" target="_blank" rel="noopener noreferrer nofollow">科技部信息中心</a>建设运行并提供相关技术服务。
+    </div>
+  <div class="footer-contact-item" style="background-image: url(/r/cms/zwpt/web/images/footer/contact_tel.png); width: 470px;">
+如遇到政务服务平台使用操作等相关技术问题，请拨打以下技术支持电话：010-88659000（中继线）
+  </div>
+  <div class="footer-contact-item" style="background-image: url(/r/cms/zwpt/web/images/footer/contact_email.png);width:245px;">
+如电话繁忙请通过以下邮箱进行咨询：<br/><a href="mailto:fuwu@most.cn" style="color: #86B3DA;">fuwu@most.cn</a>
+  </div>
+  <div class="footer-contact-item" style="background-image: url(/r/cms/zwpt/web/images/footer/contact_fax.png);width:205px; line-height: 80px;">
+传真请发送至：010-88654001
+  </div>
+</div>
+
+<div style="display: inline-block;">
+<div class="footer-bottom">
+科学技术部 © 2019 | ICP 备案序号：京ICP备05022684
+</div>
+<div class="footer-browser">
+建议您使用<i class="fab fa-internet-explorer"></i>IE9及以上版本、<i class="fab fa-edge"></i>Edge、<i class="fab fa-chrome"></i>Chrome、<i class="fab fa-firefox"></i>Firefox和360等主流浏览器浏览本网站。
+</div>
+</div>
+<div style="margin-left: 40px; position: relative; display: inline-block; bottom: 22px;">
+  <img id="jiucuo" src="/r/cms/zwpt/web/images/jiucuo.png" onclick="Link()">
+</div>
+			</div>
+		</div> 
+		</div>
+
+<script>
+//点击图标
+function Link() {
+var sitecode="bm06000001";
+	//获取该站点需要纠错页面的url地址
+	var url = getCurrUrl();
+	//跳转至纠错系统填写页面 
+	window.open("https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=" + sitecode + "&url=" + encodeURIComponent(url));
+}
+//获取该站点需要纠错页面的url地址
+function getCurrUrl() {
+	var url = "";
+	if (parent !== window) {
+		try {
+			url = window.top.location.href;
+		} catch (e) {
+			url = window.top.document.referrer;
+		}
+	}
+	if (url.length == 0)
+		url = document.location.href;
+
+	return url;
+}
+</script>
+<style>
+#jiucuo {
+display: none;
+}
+</style>	</div>
+</div>
+
+<script type="text/javascript" src="/r/cms/zwpt/web/js/jquery.min.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/layui/layui.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/common/header.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/common/menu.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/common/body.js"></script>
+<script type="text/javascript" src="/r/cms/zwpt/web/js/zxbl/zxbl.js"></script> 
+<script type="text/javascript" src="/r/cms/zwpt/web/js/vue.js"></script>
+<script src="/r/cms/front.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    Cms.channelViewCount("","1135");
+    Cms.siteFlow("",location.href, document.referrer, "true");
+</script>
+
+<link href="/r/cms/zwpt/web/css/common/ict_dialog.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript">
+  $(function(){
+    $.ajax({
+      type: "post",
+      dataType:"text",
+      url: "/Government_Service_Platform_Search/site/getHotWord",
+      data: {channelname: '结果公示'},
+      success: function (data) {
+       var da=data.split(",");     	
+       $("#hotword1 div div").append(da[1]);
+       $("#hotword2 div div").append(da[2]);
+       $("#hotword3 div div").append(da[3]);
+       $("#hotword1").attr("onclick", "hotword('"+da[1]+"', 1);");
+       $("#hotword2").attr("onclick", "hotword('"+da[2]+"', 2);");
+       $("#hotword3").attr("onclick", "hotword('"+da[3]+"', 3);");
+     },
+     error: function (jqXHR, textStatus, errorThrown) {
+     }
+   }); 
+  });
+
+  function hotword(txt,n){
+    $("#searchwordrcss").val(txt);
+    $("#searchwordn").val(n);
+    return changSearchRcss();
+  }
+</script>
+</body>
+</html>

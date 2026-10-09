@@ -1,0 +1,2101 @@
+
+
+
+
+
+
+<!doctype html>
+<html id="ng-app" ng-app="BoandaApp" class="fontDefault" ng-cloak
+	  ng-init="CurrUser={};CurrUser.YHID='';CurrUser.YHMC='';behaviorInfo=[];">
+	<head>
+		<!-- 
+		/website.jsp
+		 -->
+		<title id="PLATFORM_LOGIN_BODY">
+			中国环境保护产业协会网站
+		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta http-equiv="Page-Enter" content="blendTrans(Duration=0.5)" />
+
+		<link type="text/css" rel="stylesheet" href="/resources/static/dist/vendor/vendor.css?v=202601">
+		
+		<link type="text/css" rel="stylesheet" href="/resources/platform/common/css/common.css?v=202601">
+		<link type="text/css" rel="stylesheet" href="/resources/platform/common/css/color-default.css?v=202601">
+		<link id="colorLink" type="text/css" rel="stylesheet" href="">
+		
+
+		<script type="text/javascript" src="/resources/static/dist/vendor/vendor.js?v=202601"></script>
+		<script type="text/javascript" src="/resources/component/layer/layer.js?v=202601"></script>
+		
+		<!--[if lt IE 9]>
+		<script src="/resources/component/angular/angular-1.2.1.min.js"></script>
+		<script src="/resources/component/angular/angular-1.2.1-cookies.min.js"></script>
+		<script src="/resources/component/angular/angular-1.2.1-animate.js"></script>
+		<script src="/resources/component/angular/angular-1.2.1-sanitize.min.js"></script>
+		<script src="/resources/component/jquery/jquery-1.12.4.min.js"></script>
+		<script src="/resources/component/layer/layer.js"></script>
+		<link href="/resources/component/layer/skin/default/layer.css" rel="stylesheet">
+		<link href="/resources/component/layer/skin/default/layer.ext.css" rel="stylesheet">
+		<![endif]-->
+		
+
+
+		
+		<script language="JavaScript" type="text/javascript" src="/resources/platform/common/js/boanda.util.js?v=202601"></script>
+		<script language="JavaScript" type="text/javascript" src="/resources/component/easyui/ext/easyui.init.js?v=202601"></script>
+		<script language="JavaScript" type="text/javascript" src="/resources/platform/common/js/common.js?v=202601"></script>
+		<script language="JavaScript" type="text/javascript" src="/resources/component/autocompolete/js/angucomplete.js?v=202601"></script>
+		
+
+
+
+		<script>
+			top.window.sessionID = '';
+			top.window.TOKEN = 'c85c9dfd-726d-432a-ac25-0fcb2856dda8';
+			sessionStorage.setItem('token', 'c85c9dfd-726d-432a-ac25-0fcb2856dda8');
+			top.window.SYSVERSION = '202601';
+			top.window.WEB_ROOT = '';
+		</script>
+
+<link rel="shortcut icon" href="/resources/platform/index/images/favicon.ico">
+<script>
+(function () {
+//      $("#PLATFORM_LOGIN_BODY").html("中国环境保护产业协会网站"); 	
+		var pageViewData = {};
+	    var hrefStr = window.location.href;
+		if(hrefStr.indexOf("webglController/jsalJdDetail")> -1){
+			pageViewData.LLLX = "JSAL_JD";
+			pageViewData.LXMC = "鉴定"; 
+			pageViewData.FL = "WEBSITE";
+			pageViewData.YWSJID = hrefStr.substring(hrefStr.lastIndexOf("/")+1);
+		}else if(hrefStr.indexOf("webglController/jsalPyDetail")> -1){
+			pageViewData.LLLX = "JSAL_PY";
+			pageViewData.LXMC = "评议";
+			pageViewData.FL = "WEBSITE";
+			pageViewData.YWSJID = hrefStr.substring(hrefStr.lastIndexOf("/")+1);
+		}else if(hrefStr.indexOf("webglController/jsalXjjsDetail")> -1){
+			pageViewData.LLLX = "JSAL_AL";
+			pageViewData.LXMC = "先进技术及案例详情";
+			pageViewData.FL = "WEBSITE";
+			pageViewData.YWSJID = hrefStr.substring(hrefStr.lastIndexOf("/")+1);
+		}else if(hrefStr.indexOf("webglController/jsalSyjsDetail")> -1){
+			pageViewData.LLLX = "JSAL_SYJS";
+			pageViewData.LXMC = "实用技术";
+			pageViewData.FL = "WEBSITE";
+			pageViewData.YWSJID = hrefStr.substring(hrefStr.lastIndexOf("/")+1);
+		}else if(hrefStr.indexOf("webglController/jsalSfgcDetail")> -1){
+			pageViewData.LLLX = "JSAL_SFGC";
+			pageViewData.LXMC = "示范工程";
+			pageViewData.FL = "WEBSITE";
+			pageViewData.YWSJID = hrefStr.substring(hrefStr.lastIndexOf("/")+1);
+		}else if(hrefStr.indexOf("webglController/hjxmDetail")> -1){
+            pageViewData.LLLX = "JSAL_HJXM";
+            pageViewData.LXMC = "获奖项目";
+            pageViewData.FL = "WEBSITE";
+            pageViewData.YWSJID = hrefStr.substring(hrefStr.lastIndexOf("/")+1);
+        }else if(hrefStr.indexOf("webglController/view")>-1){
+			pageViewData.FROM_FLAG = "WEBSITE_NEWS_VIEW";//新闻详情
+			pageViewData.FL = "WEBSITE";
+			pageViewData.YWSJID = hrefStr.substring(hrefStr.lastIndexOf("=")+1);
+		}else if(hrefStr.endWith("www.caepi.net.cn/") || hrefStr.endWith("www.caepi.org.cn/")){
+			pageViewData.LLLX = "GWSY";
+			pageViewData.LXMC = "官网首页";
+		}
+		//保存浏览量数据
+		function savePageView(){
+			$.ajax({
+				url : Common.webRoot() + "/business/pageview/pageviewcontroller/savepageview",
+				type : "POST",
+				dataType : 'json',
+				async : true,
+				contentType : 'application/json',
+				data : JSON.stringify(pageViewData),
+				success : function (result){
+				}
+			});
+		} 
+		//判断不为空
+		if(!$.isEmptyObject(pageViewData)){
+			setTimeout(function () {
+		    	savePageView();
+			}, 2000);
+		}
+   
+})();
+</script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/resources/epasp_website/index/css/reset.css?v=202601">
+<link rel="stylesheet" type="text/css" href="/resources/epasp_website/index/css/style.css?v=202601" />
+<link rel="stylesheet" type="text/css" href="/resources/epasp_website/index/css/style_v2.css?v=202601">
+<link rel="stylesheet" type="text/css" href="/resources/epasp_website/index/css/style_v3.css?v=202601">
+
+<link rel="stylesheet" type="text/css" href="/resources/dist/plyr.css">
+<script src="/resources/dist/plyr.js"></script>
+
+<style>
+	.dataCenterTable{
+		width: 100%;
+	}
+	.dataCenterTable tr{
+		height:40px;
+	}
+	.input-group-addon {
+		border: 1px solid #ccc;
+		border-left-color: #fff;
+		border-left-style: solid;
+		border-left-width: 0px;
+	}
+
+	.datetimepicker td, .datetimepicker th {
+		height: 50%;
+	}
+
+	.bsdt-lst img {
+		cursor: pointer;
+	}
+
+	.vip-unitlst .tempWrap{
+		margin: 0 auto;
+	}
+
+	.vip-unitlst .tempWrap div{
+		height: 90px !important;
+	}
+
+	.bsdt-lst p {
+		color: #898989 !important;
+	}
+
+	.bsdt-lst p a:hover {
+		color: blue !important;
+	}
+	.bsdt-lst a:visited {
+		color: black !important;
+	}
+	.bsdt-lst a:link {
+		color: black !important;
+	}
+
+	/* .tabs-hd ul li { */
+	/* 	text-align: center; */
+	/* } */
+
+	.chnl-pop .tempWrap{
+		margin: 0 auto;
+	}
+
+	.picScroll-left ul .content-l{
+		width: 150px !important;
+		text-align: center;
+	}
+
+	.picScroll-left ul .content-s{
+		width: 90px !important;
+		text-align: center;
+	}
+
+	.picScroll-left-off ul li{
+		width: 100% !important;
+		text-align: left !important;
+	}
+
+	.ywdt-ul li {
+
+	}
+    #floating-ad {
+    position: fixed;
+    width: 90px;
+    height: 105px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    overflow: hidden; /* 关键1：隐藏溢出内容 */
+    }
+    #close-btn {
+    position: absolute; /* 关键2：改为绝对定位 */
+    top: 2px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 16px; /* 调小字号 */
+    z-index: 2; /* 关键3：确保按钮在图片上层 */
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    }
+</style>
+<head>
+	<link rel="shortcut icon" href="/resources/platform/index/images/favicon.ico">
+</head>
+<body class="page" ng-controller="websiteController" style="overflow-x: hidden;">
+    <div id="floating-ad" style="cursor: pointer;">
+	<span id="close-btn">×</span>
+	  <a href="/epasp/website/webgl/webglController/intoServiceCenter/JYPX" target="_blank">
+		  <img src='/resources/epasp_website/index/images/fx_ad8.png'
+			   style='width: 100%; height: 100%;'>
+		  	  </a>
+     </div>
+<div class="wrap" style="">
+	<div class="top-bar">
+		<div class="inner">
+				<span class="info" style="margin-left: 100px">
+				   <a href="http://mail.caepi.org.cn/" target="_blank">工作邮箱登录</a>&nbsp;&nbsp;<a href="javascript:void(0)" ng-click="clickBsdt();">服务平台</a>
+				</span>
+			<div class="form" id="needLogin" style="margin-left: 10%;">
+				<label style="margin-bottom: 0px;">账号：</label>
+				<input type="text" id="userXtzh" ng-model="user.XTZH" name="W_XTZH"/>
+				<label style="margin-bottom: 0px;">密码：</label>
+				<input type="password" ng-model="user.YHPD" name="W_YHPD" onkeydown="javascript:if(event.keyCode==13) document.getElementById('loginBtn').click();"/>
+				<button type="button" ng-click="login()" id="loginBtn" style="text-align: center; height:20px;width:50px;line-height: normal">登录</button>
+				<a href="" target="_blank" ng-click="findPassword()">找回密码</a>
+				<a href="" target="_blank" style="color: #e42727;" ng-click="dwzc()">单位注册</a>
+				<a href="" target="_blank" style="color: #e42727;" ng-click="tgzc()">投稿注册</a>
+			</div>
+			<div class="tools">
+				
+<!--<a href="">加入收藏</a>-->
+<!--<a href="">设为首页</a>-->
+<a href="" class="icon-wechat">
+    <span >关注</span>
+    <img src="/resources/epasp_website/common/img/wechat-icon.png?v=202601">
+    <div class="qr-body">
+        <div class="qr-content">
+            <p>微信扫码，随时关注环保产业最新动态</p>
+            <ul>
+                <li>
+                    <img src="/resources/epasp_website/common/img/wechat-wfh.jpg?v=202601">
+                    <p>服务号</p>
+                </li>
+                <li>
+                    <img src="/resources/epasp_website/common/img/wechat-dyh.jpg?v=202601">
+                    <p>订阅号</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+
+
+<a style="display: none">
+    <style>
+        .icon-wechat{
+            position: relative;
+        }
+        .icon-wechat>span{
+            opacity: 0;
+        }
+        .icon-wechat>img{
+            height: 20px;
+            position: absolute;
+            top: -3px;
+            display: block;
+            left: 7px;
+        }
+        .icon-wechat div.qr-body{
+            width: 280px;
+            height: 180px;
+            position: absolute;
+            left: -50%;
+            transform: translate3d(-35%, 0, 0);
+            display: none;
+            z-index: 1;
+        }
+        .icon-wechat:hover div.qr-body{
+            display:block;
+        }
+        .icon-wechat .qr-content{
+            background-color: #FFF;
+            margin-top: 13px;
+            opacity: 0.8;
+        }
+        .icon-wechat .qr-content,
+        .qr-content>ul,
+        .qr-content li{
+            width: 100%;
+            height: 100%;
+        }
+        .qr-content>p,
+        .qr-content li{
+            text-align: center;
+        }
+        .qr-content li{
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+        .qr-content li img{
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+    </style>
+</a>
+				<a href="http://en.caepi.org.cn/" target="_blank">English</a>
+				<a href="javascript:void(0)" ng-click="intoAssociation('LXWM')">联系我们</a>&nbsp;&nbsp;
+				
+				<script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1281108040'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/z_stat.php%3Fid%3D1281108040%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+			</div>
+			<div class="log-form dn" id="overLogin">
+				<a href="" class="name" >你好,<span ng-bind="user.YHMC"></span></a>
+				<a href="" class="exit" ng-click="openQuitConfirm()">退出</a>
+			</div>
+		</div>
+	</div>
+	<div class="head-bar">
+		<img src="/resources/epasp_website/index/images/logo.png" class="logo" style="margin-left: 100px;"/>
+		<div class="search-mod">
+			<div class="search">
+				<input type="text" class="search-txt" ng-model="KEYWORD" placeholder="请输入搜索关键字" />
+				<button type="button" ng-click="search()" class="search-btn"></button>
+			</div>
+			<p style="height: 36px;"><em>热门搜索：</em>
+				<span ng-repeat="item in keyWord_List">
+					<a href="javascript:void(0)" title="{{item.KEYWORD}}" ng-if="item.KEYWORD.length>5" ng-click="toSearch(item.KEYWORD)">
+					{{item.KEYWORD|limitTo:5}}...</a>
+					<a href="javascript:void(0)" title="{{item.KEYWORD}}" ng-if="item.KEYWORD.length<6" ng-click="toSearch(item.KEYWORD)">
+					{{item.KEYWORD}}</a>
+					&nbsp;</span>
+			</p>
+		</div>
+	</div>
+	<div class="main" ng-controller="chnlnewsController">
+		<ul class="chnl-sider">
+			<li class="first on">
+				<b class="chnl-icon1">走进协会</b>
+				<div class="chnl-pop">
+					<div class="zjxh-center clearfix" style="height: 426px;">
+						<div class="zjxh-left">
+							<ul>
+								<li class="on">
+									<div class="zjxh-left-item" ng-click="intoAssociation('XHJJ')">
+										<div class="icon-img">
+											<i class="icon-a"></i>
+										</div>
+										<p>协会简介</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('XHZC')">
+										<div class="icon-img">
+											<i class="icon-b"></i>
+										</div>
+										<p>协会章程</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('GLBF')">
+										<div class="icon-img">
+											<i class="icon-c"></i>
+										</div>
+										<p>管理办法</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('ZZJG')">
+										<div class="icon-img">
+											<i class="icon-d"></i>
+										</div>
+										<p>组织机构</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('LSH')">
+										<div class="icon-img">
+											<i class="icon-e"></i>
+										</div>
+										<p>理事会</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('BSJG')">
+										<div class="icon-img">
+											<i class="icon-f"></i>
+										</div>
+										<p>办事机构</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('FZJG')">
+										<div class="icon-img">
+											<i class="icon-g"></i>
+										</div>
+										<p>分支机构</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('XXGK')">
+										<div class="icon-img">
+											<i class="icon-h"></i>
+										</div>
+										<p>信息公开</p>
+									</div>
+								</li>
+								<li>
+									<div class="zjxh-left-item" ng-click="intoAssociation('LXWM')">
+										<div class="icon-img">
+											<i class="icon-i"></i>
+										</div>
+										<p>联系我们</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="zjxh-right">
+							<div class="con0">
+								<h2>协会简介</h2>
+								<p>中国环境保护产业协会（英文名称为：<span style="font-size: 11px;">China Association of Environmental Protection Industry</span>，英文缩写为CAEPI）成立于1984年，是由在中国境内登记注册的从事生态环境保护相关的生产、服务、研发、管理等活动的企事业单位、社会组织及个人自愿结成的全国性行业组织，是在民政部注册登记具有法人资格的非营利性社会团体，接受中央和国家机关工作委员会的党建领导，以及相关部委的业务指导。目前拥有会员单位2700余家，并通过各省、自治区、直辖市、副省级城市的环境保护产业协会联系着数万家环保企业。</p>
+							</div>
+							<div class="con1">
+								<h2>协会章程</h2>
+								<p>经2016年6月28日第五届会员代表大会表决通过《中国环境保护产业协会章程》（以下简称章程），《章程》包含八章五十四条，阐述了我会的由来、宗旨、上级监管部门、住所地，规定了业务范围；会员构成和程序；组织机构和负责人产生、罢免规程；资金管理、使用原则；章程的修改程序；终止程序及终止后的财产处理；附则等内容。</p>
+							</div>
+							<div class="con2">
+								<h2>管理办法</h2>
+								<p>为了做好中国环境保护产业协会（以下简称本会）会员会籍管理工作，根据《中国环境保护产业协会章程》第三章的规定，特制定了《中国环境保护产业协会会籍管理办法》，《办法》规定了入会流程、会员的权利与义务等内容。</p>
+							</div>
+							<div class="con3">
+								<h2>组织机构</h2>
+								<p><img style="width: 275px; height: 303px;" src="/resources/epasp_website/index/images/zzjg.jpg" alt=""></p>
+							</div>
+							<div class="con4">
+								<h2>理事会</h2>
+								<p>经第五届会员代表大会以无记名投票方式选举产生了第五届理事会会长、副会长、秘书长、企业副会长、监事长、监事、常务理事、理事。</p>
+							</div>
+							<div class="con5">
+								<h2>办事机构</h2>
+								<p>根据《中国环境保护产业协会章程》规定的职责任务和工作要求，协会秘书处设立办公室、技术部、信息部、会员部、国际部、政策研究与咨询部、继续教育与培训部七个办事机构，中环协（北京）认证中心、《中国环保产业》杂志社有限公司两个实体机构。</p>
+							</div>
+							<div class="con6">
+								<h2>分支机构</h2>
+								<p>分支机构是我会重要组成部分，是事业发展的中坚力量。多年来，各分支机构在推动本领域专业技术进步、创新发展、成果推广与应用，制定技术标准规范，开展技术交流，协调会员关系，服务会员等方面发挥了积极作用，已成为我会事业发展不可或缺的重要力量。</p>
+							</div>
+							<div class="con7">
+								<h2>信息公开</h2>
+								<p>※ 第一条  遵守法律、法规和国家政策，严格按照章程开展活动，自觉接受有关业务主管单位和社团登记管理机关的业务指导和监督管理。</p>
+								<p>※ 第二条  坚持遵循公平、公正、公开的原则，诚实守信，积极为会员提供优质服务，反映行业呼声，维护会员合法权益。</p>
+								<p>※ 第三条  按照有关规定和协会章程向会员收取会费并开具会费收据。协会向会员提供相关服务，应遵循相关规定收取合理费用，收费标准按国家有关规定确定并公开。</p>
+								<p>※ 第四条  不强制入会，不强行服务，不违规...</p>
+							</div>
+							<div class="con8">
+								<h2>联系我们</h2>
+								<table style="width: 100%;">
+									<colgroup>
+										<col width="20%"></col>
+										<col width="30%"></col>
+										<col width="50"></col>
+									</colgroup>
+									<tr style="height: 30px;"><td style="text-align: center;font-weight: 600">业务内容</td><td style="text-align: center;font-weight: 600">承担部门</td><td style="text-align: center;font-weight: 600">联系方式</td><tr>
+									<tr style="height: 55px;"><td style="text-align: center;">综合管理</td><td style="text-align: center;">办公室</td><td>电话：010-52806508<br />传真：010-52806508<br />邮箱：bgs@caepi.org.cn</td></tr>
+									<tr style="height: 55px;"><td style="text-align: center;">财务</td><td style="text-align: center;">办公室<br />（财务）</td><td>传真：010-52806508<br />邮箱：cwb@caepi.org.cn</td></tr>
+									<tr style="height: 55px;"><td style="text-align: center;">协会标准</td><td style="text-align: center;">技术部</td><td>电话：010-52806517<br />传真：010-52806517<br />邮箱：<span>caepi_standard@<br />163.com</span></td></tr>
+									<tr style="height: 55px;"><td style="text-align: center;">技术服务</td><td style="text-align: center;">技术部</td><td>电话：010-52806517<br />传真：010-52806517<br />邮箱：jsb@caepi.org.cn</td></tr>
+									<tr style="height: 55px	;"><td style="text-align: center;">注册环保工程师</td><td style="text-align: center;">技术部</td><td>电话：010-52806517<br />传真：010-52806517<br />邮箱：jsb@caepi.org.cn</td></tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<b class="chnl-icon2">服务中心</b>
+				<div class="chnl-pop">
+					<div class="service-center">
+						<div class="service-img" style="height: 90px;">
+							<img style="height: 95px;" src="/resources/epasp_website/index/images_v3/service-img.png" alt="">
+						</div>
+						<div class="service-item" style="padding: 34px 0;height: 108px;">
+							<ul>
+								<li>
+									<span class="icon-a"></span>
+									<div class="font" ng-click="intoServiceCenter('SQRH')">入会申请</div>
+								</li>
+								<li>
+									<span class="icon-b"></span>
+									<div class="font" ng-click="intoServiceCenter('SYJSSFGC')">实用技术<br />装备案例</div>
+								</li>
+								<li>
+									<span class="icon-c"></span>
+									<div class="font" ng-click="intoServiceCenter('XHBZ')">标准化工作</div>
+								</li>
+								
+								<li>
+									<span class="icon-e"></span>
+									<div class="font" ng-click="intoServiceCenter('QYXYDJPJ')">环保企业<br />信用评价</div>
+								</li>
+							</ul>
+						</div>
+						<div class="service-item" style="padding: 34px 0;height: 108px;">
+							<ul>
+								<li>
+									<span class="icon-f"></span>
+									<div class="font" ng-click="intoServiceCenter('JSML')">国家先进污<br />染防治技术</div>
+								</li>
+								<li>
+									<span class="icon-g"></span>
+									<div class="font" ng-click="intoServiceCenter('JSJDYPY')">环境技术<br />评价</div>
+								</li>
+								<li>
+									<span class="icon-h"></span>
+									<div class="font" ng-click="intoServiceCenter('GJB')">国际交流</div>
+								</li>
+								<li>
+									<span class="icon-i"></span>
+									<div class="font" onClick="javascript:window.open('http://www.ciepec.org','_blank')">CIEPEC<br />展会</div>
+								</li>
+							</ul>
+						</div>
+						<div class="service-item" style="padding: 34px 0;height: 108px;">
+							<ul>
+								<li>
+									<span class="icon-l" style="background:url('/resources/epasp_website/hjjs/images/tips1.png') no-repeat center bottom "></span>
+									<div class="font" ng-click="intoServiceCenter('HJJS')">环境技术<br />进步奖</div>
+								</li>
+								<li>
+									<span class="icon-x"></span>
+									<div class="font" ng-click="intoServiceCenter('JYPX')">教育培训</div>
+								</li>
+								<li style="display: none">
+									<span class="icon-y"></span>
+									<div class="font" ng-click="intoServiceCenter('HYHD')">会议活动</div>
+								</li>
+								<li>
+									<span class="icon-z"></span>
+									<div class="font" ng-click="magazineNewsList()">《中国环保产业》杂志</div>
+								</li>
+
+							</ul>
+						</div>
+						
+					</div>
+				</div>
+			</li>
+			<li>
+				<b class="chnl-icon3">业务动态</b>
+				<div id="ywdtPop" class="chnl-pop">
+					<div class="chnl-tabs otr picScroll-left">
+						<i class="tabs-prev"></i>
+						<i class="tabs-next"></i>
+						<div class="tabs-hd">
+
+							<ul class="ywdt-ul">
+
+								<li class="on content-s" ng-click="detailList('W_YWDT_XYPJ')" title="认证动态">信用评价</li>
+								<li class="content-l" ng-click="detailList('W_YWDT_SYJSSFGC')" title="实用技术装备案例">实用技术装备案例</li>
+								<!-- 								<li ng-click="detailList('W_YWDT_HYBZ')" title="行业标准">行业标准</li>  -->
+								<li class="on content-l" ng-click="detailList('W_YWDT_BZHGZ')" title="标准化工作">标准化工作</li>
+
+
+								<li class="content-l" ng-click="detailList('W_YWDT_ZCHBGCS')" title="环境技术进步奖">环境技术进步奖</li>
+								<li class="on content-s" ng-click="detailList('W_YWDT_DCTJ')" title="调查统计">调查统计</li>
+							</ul>
+						</div>
+						<div class="tabs-bd picScroll-left-off">
+							
+							<div class="con">
+								<!-- 信用评价 -->
+								<ul class="list">
+									<li ng-repeat="item in xhywdt_xypj | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 实用技术装备案例 -->
+								<ul class="list">
+									<li ng-repeat="item in xhywdt_syjssfgc | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<!-- 								<div class="con"> -->
+							<!-- 								        团体标准 -->
+							<!-- 										<ul class="list"> -->
+							<!-- 										<li ng-repeat="item in xhywdt_ttbz | limitTo:8"> -->
+							<!-- 										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li> -->
+							<!-- 										</ul> -->
+							<!-- 								</div>		 -->
+							<div class="con">
+								<!-- 行业标准 -->
+								<ul class="list">
+									<li ng-repeat="item in xhywdt_hybz | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							<div class="con">
+								<!-- 注册环保工程师-->
+								<ul class="list">
+									<li ng-repeat="item in xhywdt_zchbgcs | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 调查统计-->
+								<ul class="list">
+									<li ng-repeat="item in xhywdt_dctj | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<b class="chnl-icon7">会员中心</b>
+				<div class="chnl-pop">
+					<div class="service-center">
+						<div class="service-img">
+							
+							<img style="height: 102px;" ng-click="openUrl('/epasp/website/webgl/webglController/memberCenter');" src="/resources/epasp_website/index/images_v3/vip-img-hyzx.png" alt="">
+						</div>
+						<div class="vip-items">
+							<div class="col vip-col-3">
+								<div class="vip-item vip-item-first" ng-click = "bsdtClick('RHBL')">
+									<div class="db">
+										<div class="icon-box"><span class="icon-a"></span></div>
+										<p>入会申请</p>
+									</div>
+								</div>
+							</div>
+							<div class="col vip-col-3">
+								<div class="vip-item" ng-click = "toMemberCenterList('FHZ');">
+									<div class="db">
+										<div class="icon-box"><span class="icon-b"></span></div>
+										<p>副会长单位</p>
+									</div>
+								</div>
+								<div style="height: 16px"></div>
+								<div class="vip-item" ng-click = "toMemberCenterList('PTHY');">
+									<div class="db">
+										<div class="icon-box"><span class="icon-e"></span></div>
+										<p>会员单位</p>
+									</div>
+								</div>
+							</div>
+							<div class="col vip-col-3">
+								<div class="vip-item" ng-click = "toMemberCenterList('CWLS');">
+									<div class="db">
+										<div class="icon-box"><span class="icon-c"></span></div>
+										<p>常务理事单位</p>
+									</div>
+								</div>
+								<div style="height: 16px"></div>
+								<div class="vip-item" ng-click = "toMemberCenterList('LSHY');">
+									<div class="db">
+										<div class="icon-box"><span class="icon-f"></span></div>
+										<p>理事会动态</p>
+									</div>
+								</div>
+							</div>
+							<div class="col vip-col-3">
+								<div class="vip-item" ng-click = "toMemberCenterList('LS');">
+									<div class="db">
+										<div class="icon-box"><span class="icon-d"></span></div>
+										<p>理事单位</p>
+									</div>
+								</div>
+								<div style="height: 16px"></div>
+								<div class="vip-item" ng-click = "toMemberCenterList('HYDT')">
+									<div class="db">
+										<div class="icon-box"><span class="icon-g"></span></div>
+										<p>会员动态</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<b class="chnl-icon4">信息中心</b>
+				<div class="chnl-pop">
+					<div class="chnl-tabs otr">
+						<ul class="tabs-hd">
+							<li class="on" ng-click="detailList('W_XXZX_HBCYXXTX')" style="padding-left: 6px;padding-right: 6px;">环保产业信息通讯</li>
+							<li ng-click="detailList('W_XXZX_NDFZBG')" style="padding-left: 6px;padding-right: 6px;">年度发展报告</li>
+							<li ng-click="detailList('W_XXZX_JQBG')" style="padding-left: 6px;padding-right: 6px;">指数报告</li>
+							<li ng-click="detailList('W_XXZX_SCFXBG')" style="padding-left: 6px;padding-right: 6px;">市场分析报告</li>
+							<!-- 								<li ng-click="detailList('W_XXZX_CGZS')" style="padding-left: 6px;padding-right: 6px;">成果展示</li> -->
+							<li ng-click="magazineNewsList()" style="padding-left: 6px;padding-right: 6px;">《中国环保产业》</li>
+							<li ng-click="detailList('W_XXZX_PSYZW')" style="padding-left: 6px;padding-right: 6px;">评述和展望</li>
+							
+							
+						</ul>
+						<div class="tabs-bd">
+							<div class="con">
+								<!-- 环保产业信息通讯-->
+								<ul class="list">
+									<li ng-repeat="item in hyxx_hbcyxxtx | limitTo:7">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 年度发展报告-->
+								<ul class="list">
+									<li ng-repeat="item in hyxx_ndfzbg | limitTo:7">
+										<p><a ng-href="javascript:void(0)" ng-click="detailNdfzbg(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 指数报告-->
+								<ul class="list">
+									<li ng-repeat="item in hyxx_jqzsbg | limitTo:7">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 市场分析报告-->
+								<ul class="list">
+									<li ng-repeat="item in hyxx_scfxbg | limitTo:7">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<!-- <div class="con">
+                                    成果展示
+                                    <ul class="list">
+                                    <li ng-repeat="item in hyxx_cgzs | limitTo:7">
+                                    <p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+                                    </ul>
+                            </div> -->
+							<div class="con">
+								<!-- 2018年第1期《中国环保产业》杂志-->
+								<ul class="list">
+									<li ng-repeat="item in myMagazineNewsList | limitTo:7">
+										<p><a ng-href="javascript:void(0)" ng-click="magazineNewsDetail(item.XH)">{{item.YEAR}}年第{{item.PERIODS}}期《中国环保产业》杂志</a><i>[{{item.FBSJC}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 市场分析报告-->
+								<ul class="list">
+									<li ng-repeat="item in hyxx_psyzw | limitTo:7">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							
+							
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<b class="chnl-icon5">政策标准</b>
+				<div class="chnl-pop">
+					<div class="chnl-tabs otr">
+						<ul class="tabs-hd">
+							<li class="on" ng-click="detailList('W_ZCBZ_HJFG')">环境法规</li>
+							<li ng-click="detailList('W_ZCBZ_ZCWJ')">政策文件</li>
+							<li ng-click="detailList('W_ZCBZ_HYBZGF')">行业标准规范</li>
+							<li ng-click="detailList('W_ZCBZ_XHBZ')">协会标准</li>
+						</ul>
+						<div class="tabs-bd">
+							<div class="con">
+								<!-- 环境法规 -->
+								<ul class="list">
+									<li><p><a ng-href="javascript:void(0)" ng-click="openOutUrl('kjs.mee.gov.cn/hjbhbz/');">环境标准</a><i>[2018-10-01 13:14]</i></p></li>
+									<li ng-repeat="item in zcbz_hjfg | limitTo:7">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 政策文件 -->
+								<ul class="list">
+									<li ng-repeat="item in zcbz_zcwj | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 行业标准规范-->
+								<ul class="list">
+									<li ng-repeat="item in zcbz_hybzgf | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+							<div class="con">
+								<!-- 协会标准-->
+								<ul class="list">
+									<li ng-repeat="item in zcbz_xhbz | limitTo:8">
+										<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li  class="last">
+				<b class="chnl-icon6">查询中心</b>
+				<div class="chnl-pop">
+					<div class="chnl-tabs otr">
+						<ul class="tabs-hd">
+							<li class="on">会员查询</li>
+							<li>认证查询</li>
+							
+							<li>先进技术案例</li>
+							<li>培训证书</li>
+							<!-- 								<li>政策法规</li> -->
+							<li>协会标准</li>
+							<li>企业信用</li>
+						</ul>
+						<div class="tabs-bd">
+							<div class="con">
+								<!-- 会员查询 -->
+								<table class="dataCenterTable" style="margin-top: 10px;">
+									<colgroup>
+										<col width="20%"></col>
+										<col width="40%"></col>
+										<col width="33%"></col>
+										<col width="7%"></col>
+									</colgroup>
+									<tbody>
+									<tr >
+										<td align="center" style="font-size: 14px;">单位名称</td>
+										<td colspan="2">
+											<input ng-model="hySearch.DWMC" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">会员等级</td>
+										<td colspan="2" class="form-group">
+											<codeset dmjbh="HY_DJ" ng-type="radio" ng-validate="true" dm="" fdm="" ng-model="hySearch.HYDJ" ng-getlist="getList"></codeset>
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">会员证号</td>
+										<td colspan="2">
+											<input ng-model="hySearch.HYZH" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">单位地址</td>
+										<td colspan="2">
+											<input ng-model="hySearch.DWDZ" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">业务范围</td>
+										<td colspan="2">
+											<input ng-model="hySearch.YWFW" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									</tbody>
+								</table>
+								<div style="padding-bottom: 3px;text-align: center;padding-top: 20px;">
+									<input type="button" ng-click="toHySearch();" value=" 搜   索 ">
+								</div>
+							</div>
+							<div class="con">
+								<div class="con" style="width: 49%;float: left;">
+									<!-- 产品认证-->
+									<table class="dataCenterTable" style="border-collapse:separate;border-spacing:7px;">
+										<colgroup>
+											<col width="24%"></col>
+											<col width="60%"></col>
+											<col width="20%"></col>
+										</colgroup>
+										<tbody>
+										<tr >
+											<td align="center" style="font-size: 14px;">单位名称</td>
+											<td colspan="2">
+												<input ng-model="cprzSearch.DWMC" autocomplete="off" onmousedown="javascript:window.open('http://erp.ccaepi.cn/certerp/zhxr/external/certificateList','_blank')"
+													   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+											</td>
+										</tr>
+										<tr >
+											<td align="center" style="font-size: 14px;">证书编号</td>
+											<td colspan="2">
+												<input ng-model="cprzSearch.ZSBH" autocomplete="off" onmousedown="javascript:window.open('http://erp.ccaepi.cn/certerp/zhxr/external/certificateList','_blank')"
+													   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+											</td>
+										</tr>
+										<tr >
+											<td align="center" style="font-size: 14px;">产品名称/服务类别</td>
+											<td colspan="1">
+												<input ng-model="cprzSearch.CPMC" autocomplete="off" onmousedown="javascript:window.open('http://erp.ccaepi.cn/certerp/zhxr/external/certificateList','_blank')"
+													   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+											</td>
+
+											<td style="text-align: right;">
+												<input type="button" onClick="javascript:window.open('http://erp.ccaepi.cn/certerp/zhxr/external/certificateList','_blank')" value="搜索">
+											</td>
+
+										</tr>
+										</tbody>
+									</table>
+
+
+
+
+
+
+
+
+
+								</div>
+								
+							</div>
+							<div class="con">
+								<!-- 技术案例-->
+								<table class="dataCenterTable" style="margin-top: 10px;">
+									<colgroup>
+										<col width="15%"></col>
+										<col width="35%"></col>
+										<col width="15%"></col>
+										<col width="35%"></col>
+									</colgroup>
+									<tbody>
+									<tr >
+										<td align="center" style="font-size: 14px;">技术名称</td>
+										<td>
+											<input ng-model="jsalSearchData.MC" type="text"class="form-control easyui-validatebox" data-options="validType:'accountValidate',required:true,tipPosition:'bottom'" />
+										</td>
+										<td align="center" style="font-size: 14px;">技术领域</td>
+										<td>
+											<codeset id="JSJBQK_SYLY" dmjbh="JSJBQK_SYLY" ng-validate="true" dm="" fdm="" ng-model="jsalSearchData.JSLY" ng-getlist="getList"></codeset>
+										</td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">适用范围</td>
+										<td>
+											<input ng-model="jsalSearchData.SYFW" type="text" class="form-control easyui-validatebox" data-options="validType:'accountValidate',required:true,tipPosition:'bottom'" />
+										</td>
+										<td align="center" style="font-size: 14px;">申报单位</td>
+										<td>
+											<input ng-model="jsalSearchData.SBDW" type="text" class="form-control easyui-validatebox" data-options="validType:'accountValidate',required:true,tipPosition:'bottom'" />
+										</td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">案例名称</td>
+										<td>
+											<input ng-model="jsalSearchData.ALMC" type="text" class="form-control easyui-validatebox" data-options="validType:'accountValidate',required:true,tipPosition:'bottom'" />
+										</td>
+										<td align="center" style="font-size: 14px;">收录年度</td>
+										<td class="ds-input-box">
+											<div date-picker divid="jsalksnd_div" ng-model="jsalSearchData.KSND" ng-type="year" class="col-xs-6" style="padding: 0px;" validateoptions="validType:'date[\'yyyy\']',required:true,tipPosition:'bottom'" id="jsalksnd" ng-write-able="true" placeholder="" ng-format="yyyy"></div>
+											<div date-picker divid="jsaljsnd_div" ng-model="jsalSearchData.JSND" ng-type="year" class="col-xs-6" style="padding: 0px" validateoptions="validType:'date[\'yyyy\']',required:true,tipPosition:'bottom'" id="jsaljsnd" ng-write-able="true" placeholder="" ng-format="yyyy"></div>
+										</td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">检索库源</td>
+										<td class="ds-input-box">
+											<codeset id="JSAL_SJZH" dmjbh="JSAL_SJZH_NEW" dm="" fdm="" ng-model="jsalSearchData.LX" ng-getlist="getListJsky"></codeset>
+										</td>
+										<td align="center" style="font-size: 14px;">全库检索</td>
+										<td>
+											<input ng-model="jsalSearchData.ALL" type="text" class="form-control easyui-validatebox" data-options="validType:'accountValidate',required:true,tipPosition:'bottom'" />
+										</td>
+									</tr>
+									</tbody>
+								</table>
+								<div style="padding-bottom: 3px;text-align: center;padding-top: 20px;">
+									<input type="button" ng-click="toJsalSearch();" value=" 查  询">
+								</div>
+							</div>
+							<div class="con">
+								<!-- 培训证书-->
+								<table class="dataCenterTable" style="margin-top: 10px;">
+									<colgroup>
+										<col width="20%"></col>
+										<col width="40%"></col>
+										<col width="33%"></col>
+										<col width="7%"></col>
+									</colgroup>
+									<tbody>
+									<tr >
+										<td align="center" style="font-size: 14px;">证书编号</td>
+										<td colspan="2">
+											<input ng-model="pxzsSearch.ZSH" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">单位名称</td>
+										<td colspan="2">
+											<input ng-model="pxzsSearch.DWMC" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">获证人员</td>
+										<td colspan="2">
+											<input ng-model="pxzsSearch.XM" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">身份证号</td>
+										<td colspan="2">
+											<input ng-model="pxzsSearch.SFZHM" autocomplete="off" 
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr style="display: none">
+										<td align="center" style="font-size: 14px;">培训机构</td>
+										<td colspan="2">
+											<input ng-model="pxzsSearch.PXMC" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<!-- 												<td align="center">培训类型</td> -->
+										<td colspan="3" class="form-group" style="padding-left: 33px;">
+											<codeset dmjbh="PXGL_PXLX" ng-type="radio" ng-validate="true" dm="WFSCLG,GTFW,WXFW,FWCLG,YJFQ,ZDJK(WFS),
+												    ZDJK(YCYQ),ZDJK(HJKQ),ZDJK(DB_S),ZDJK(VOCs),HJJC(JB),HJJC(ZY),HBGJ,C_HJGL,TPGLZ" fdm="" ng-model="pxzsSearch.PXLX" ng-getlist="getList"></codeset>
+										</td>
+										<td></td>
+									</tr>
+									</tbody>
+								</table>
+								<div style="padding-bottom: 3px;text-align: center;padding-top: 10px;">
+									<input type="button" ng-click="toPxzsSearch();" value=" 搜    索 ">
+								</div>
+							</div>
+							<div class="con">
+								<!-- 环境标准-->
+								<table class="dataCenterTable" style="margin-top: 10px;">
+									<colgroup>
+										<col width="20%"></col>
+										<col width="40%"></col>
+										<col width="33%"></col>
+										<col width="7%"></col>
+									</colgroup>
+									<tbody>
+									<tr >
+										<td align="center" style="font-size: 14px;">标题</td>
+										<td colspan="2">
+											<input ng-model="hjbzSearch.TZMC" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">正文</td>
+										<td colspan="2">
+											<input ng-model="hjbzSearch.TZZW" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">发布时间</td>
+										<td class="ds-input-box">
+											<div date-picker divid="hjbzkssj_div" ng-model="hjbzSearch.KSSJ" ng-type="date" class="col-xs-12" style="padding: 0px;" validateoptions="validType:'date[\'yyyy-MM-dd\']',required:true,tipPosition:'bottom'" id="hjbzkssj" ng-write-able="true" placeholder="" ng-format="yyyy-MM-dd"></div>
+										</td>
+										<td class="ds-input-box">
+											<div date-picker divid="hjbzjssj_div" ng-model="hjbzSearch.JSSJ" ng-type="date" class="col-xs-12" style="padding: 0" validateoptions="validType:'date[\'yyyy-MM-dd\']',required:true,tipPosition:'bottom'" id="hjbzjssj" ng-write-able="true" placeholder="" ng-format="yyyy-MM-dd"></div>
+										</td>
+										<td></td>
+									</tr>
+									</tbody>
+								</table>
+								<div style="padding-bottom: 3px;text-align: center;padding-top: 20px;">
+									<input type="button" ng-click="toDataCenterSearch('HJBZ');" value="检索文件">
+								</div>
+							</div>
+							<div class="con">
+								<!-- 企业信用-->
+								<table class="dataCenterTable" style="margin-top: 10px;">
+									<colgroup>
+										<col width="20%"></col>
+										<col width="40%"></col>
+										<col width="33%"></col>
+										<col width="7%"></col>
+									</colgroup>
+									<tbody>
+									<tr >
+										<td align="center" style="font-size: 14px;">企业名称</td>
+										<td colspan="2">
+											<input ng-model="qyxySearch.QYMC" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">证书编号</td>
+										<td colspan="2">
+											<input ng-model="qyxySearch.ZSBH" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">所属地区</td>
+										<td colspan="2">
+											<input ng-model="qyxySearch.SSDQ" autocomplete="off"
+												   type="text" class="form-control easyui-validatebox" data-options="validType:'',required:true,tipPosition:'bottom'" />
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">信用等级</td>
+										<td colspan="2" class="form-group">
+											<!-- 												    <codeset dmjbh="XYDJPJ_ZJK_JYDJ" ng-type="radio" ng-validate="true" dm="" fdm="" ng-model="qyxySearch.XYDJ" ng-getlist="getList"></codeset> -->
+											<span><input class="magic-radio" type="radio" name="XYDJ" id="XYDJ_ALL" ng-model="qyxySearch.XYDJ" value="">
+													<label for="XYDJ_ALL">全部</label></span>
+											<span><input class="magic-radio" type="radio" name="XYDJ" id="XYDJ_AAA" ng-model="qyxySearch.XYDJ" value="AAA">
+													<label for="XYDJ_AAA">AAA</label></span>
+											<span><input class="magic-radio" type="radio" name="XYDJ" id="XYDJ_AA" ng-model="qyxySearch.XYDJ" value="AA">
+													<label for="XYDJ_AA">AA</label></span>
+											<span><input class="magic-radio" type="radio" name="XYDJ" id="XYDJ_A" ng-model="qyxySearch.XYDJ" value="A">
+													<label for="XYDJ_A">A</label></span>
+										</td>
+										<td></td>
+									</tr>
+									<tr >
+										<td align="center" style="font-size: 14px;">有效期</td>
+										<td class="ds-input-box">
+											<div date-picker divid="qyxykssj_div" ng-model="qyxySearch.YXQ" ng-type="month" class="col-xs-12" style="padding: 0" validateoptions="validType:'date[\'yyyy-MM\']',required:true,tipPosition:'bottom'" id="qyxykssj" ng-write-able="true" placeholder="" ng-format="yyyy-MM"></div>
+										</td>
+										<td class="ds-input-box">
+										</td>
+										<td></td>
+									</tr>
+									</tbody>
+								</table>
+								<div style="padding-bottom: 3px;text-align: center;padding-top: 20px;">
+									<input type="button" ng-click="toXyptSearch();" value=" 搜    索 ">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="chnl-news">
+			<div class="headline">
+				<h1><span id="myHeadLineBt"></span></h1>
+				<div id="myHeadLineTznr" style="width: 90%; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;float: left;">
+				</div>
+				<div style="padding-top: 15px;text-indent: 0em;">
+					<a href="javascript:void(0)" ng-click = "detailHeadLine()" >[查看详情]</a>
+				</div>
+			</div>
+			<div class="gap"></div>
+			<div class="gap"></div>
+			<div class="chnl-tabs">
+				<ul class="tabs-hd">
+					<li class="on" ng-click="detailList('W_XWBK_TPXW')">图片新闻</li>
+					<li ng-click="detailList('W_XWBK_HJYW')">环境要闻</li>
+					<li ng-click="detailList('W_XWBK_ZHXDT')">中环协动态</li>
+					<li ng-click="detailList('W_XWBK_FZJGDT')">分支机构动态</li>
+					<li ng-click="detailList('W_XWBK_DFXHDT')">地方协会动态</li>
+				</ul>
+				<div class="tabs-bd">
+					<div class="con">
+						<!-- 焦点图 -->
+						<div class="dg-focus">
+							<i class="dg-focus-tag"></i>
+							<div class="hd">
+								<ul><li class="on"></li><li></li><li></li><li></li><li></li></ul>
+							</div>
+							<div class="bd">
+								<div class="con">
+									<img id="tpxwImgId_1" ng-click="tpxwImgClick(1)">
+									<p id="tpxwImgIdTitle_1" ng-click="tpxwImgClick(1)"> 中国环境保护产业协会</p>
+								</div>
+								<div class="con">
+									<img id="tpxwImgId_2" src="/resources/epasp_website/index/images/img1.png" ng-click="tpxwImgClick(2)">
+									<p id="tpxwImgIdTitle_2" ng-click="tpxwImgClick(2)"> 中国环境保护产业协会</p>
+								</div>
+								<div class="con">
+									<img id="tpxwImgId_3" src="/resources/epasp_website/index/images/img1.png" ng-click="tpxwImgClick(3)">
+									<p id="tpxwImgIdTitle_3" ng-click="tpxwImgClick(3)"> 中国环境保护产业协会</p>
+								</div>
+								<div class="con">
+									<img id="tpxwImgId_4" src="/resources/epasp_website/index/images/img1.png" ng-click="tpxwImgClick(4)">
+									<p id="tpxwImgIdTitle_4" ng-click="tpxwImgClick(4)"> 中国环境保护产业协会</p>
+								</div>
+								<div class="con">
+									<img id="tpxwImgId_5" src="/resources/epasp_website/index/images/img1.png" ng-click="tpxwImgClick(5)">
+									<p id="tpxwImgIdTitle_5" ng-click="tpxwImgClick(5)"> 中国环境保护产业协会</p>
+								</div>
+							</div>
+						</div>
+						<!-- 图片新闻列表 -->
+						<ul class="list one">
+							<li ng-repeat="item in xwbk_tpxw | limitTo:7">
+								<p><a ng-href="javascript:void(0)" style="width: 72%;" title="{{item.BT}}" ng-click="detail(item.XH,item.XTTZ_XH)"><span ng-bind="HTMLDecode(item.BT)"></span></a><i>[{{item.FBSJYEAR}}]</i></p></li>
+						</ul>
+					</div>
+					<div class="con">
+						<!-- 环境要闻列表 -->
+						<ul class="list">
+							<li ng-repeat="item in xwbk_hjyw | limitTo:7">
+								<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+						</ul>
+					</div>
+					<div class="con">
+						<!-- 中环协动态列表 -->
+						<ul class="list">
+							<li ng-repeat="item in xwbk_zhxdt | limitTo:7">
+								<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+						</ul>
+					</div>
+					<div class="con">
+						<!-- 分支机构动态列表 -->
+						<ul class="list">
+							<li ng-repeat="item in xwbk_fzjgdt | limitTo:7">
+								<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+						</ul>
+					</div>
+					<div class="con">
+						<!-- 地方协会动态列表 -->
+						<ul class="list">
+							<li ng-repeat="item in xwbk_dfxhdt | limitTo:7">
+								<p><a ng-href="javascript:void(0)" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJDATE}}]</i></p></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="gap"></div>
+		<div class="dg-picMarquee" style="height: 82px;">
+			<div class="hd">
+				<a class="next" id="left"></a>
+				<a class="prev" id="right"></a>
+			</div>
+			<div class="bd" id="marquee" style="height: 82px;">
+				<dl style="height: 82px;">
+					<dt style="width: 1150px;height: 82px;">
+						<ul class="picList" style="width: 1392px;height: 81px;">
+							<li><a href="javascript:void(0)" ng-click="openUrl('/epasp/website/webgl/webglController/xhdjMain');"><img style="width: 224px;" src="/resources/epasp_website/index/images/gg/1.png?v=202601"></a></li>
+							<li><a href="javascript:void(0)" ng-click="openUrl('/epasp/website/webgl/webglController/toLzjbJbxz')"><img style="width: 224px;" src="/resources/epasp_website/index/images/gg/2.png?v=202601"></a></li>
+							<li><a href="javascript:void(0)" ng-click="openUrl('/epasp/website/webgl/webglController/toHjsfzMain');"><img style="width: 224px;" src="/resources/epasp_website/index/images/gg/3.png?v=202601"></a></li>
+
+
+
+							<li><a href="javascript:void(0)" ng-click="openUrl('/epasp/website/webgl/webglController/xhdjMain');"><img style="width: 224px;" src="/resources/epasp_website/index/images/gg/1.png?v=202601"></a></li>
+							<li><a href="javascript:void(0)" ng-click="openUrl('/epasp/website/webgl/webglController/toLzjbJbxz')"><img style="width: 224px;" src="/resources/epasp_website/index/images/gg/2.png?v=202601"></a></li>
+							<li><a href="javascript:void(0)" ng-click="openUrl('/epasp/website/webgl/webglController/toHjsfzMain');"><img style="width: 224px;" src="/resources/epasp_website/index/images/gg/3.png?v=202601"></a></li>
+
+
+
+						</ul>
+					</dt>
+					<dd></dd>
+				</dl>
+			</div>
+		</div>
+		<div class="gap"></div>
+		<div class="chnl-tabs fl"  style="width: 530px;height: 317px;">
+			<ul class="tabs-hd">
+				<li class="on" ng-click="detailList('W_XHWJ')">协会文件</li>
+
+				<li ng-click="intoServiceCenter('JYPX')">培训通知</li>
+				<li ng-click="detailList('W_GSGG')">公示公告</li>
+			</ul>
+			<div class="tabs-bd">
+				<div class="con">
+					<!-- 协会文件列表 -->
+					<ul class="list">
+						<li ng-repeat="item in myXhwjList | limitTo:7">
+							<p><a ng-href="javascript:void(0)" style="width: 80%;" title="{{item.BT}}" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJYEAR}}]</i></p></li>
+					</ul>
+				</div>
+
+				<div class="con">
+					<!--培训通知列表 -->
+					<ul class="list">
+						<li ng-repeat="item in myPXTZ">
+							<p><a ng-href="javascript:void(0)" style="width: 67%;" title="{{item.PXMC}}" ng-click="pxDetail(item.TZGG_XH)">{{item.PXMC}}</a><button type="button" ng-show="item.CANBM=='1'" ng-click="pxEnroll(item.TZGG_XH,item.XH);">报名</button><i style="float: inherit">[{{item.FBSJDATE}}]</i></p></li>
+					</ul>
+				</div>
+				<div class="con">
+					<!--公示公告列表 -->
+					<ul class="list">
+						<li ng-repeat="item in myGsggList | limitTo:7">
+							<p><a ng-href="javascript:void(0)" style="width: 80%;" title="{{item.BT}}" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJYEAR}}]</i></p></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="chnl-tabs" ng-controller="newHyController" style="margin-left: 557px;height: 317px;">
+			<ul class="tabs-hd">
+				<li class="on" href="javascript:void(0)" ng-click = "toMemberCenterList('HYDT')">会员动态</li>
+				<li href="javascript:void(0)" ng-click = "toMemberCenterList('PTHY')">新入会会员光荣榜</li>
+				<!-- 					<li href="javascript:void(0)" ng-click = "">企业供需</li> -->
+			</ul>
+			<div class="tabs-bd">
+				<div class="con">
+					<ul class="list">
+						<li ng-repeat="item in myHyDtList">
+							<p><a href="javascript:void(0)" style="width: 76%;" title="{{item.BT}}" ng-click="detailHyDt(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJYEAR}}]</i></p></li>
+					</ul>
+				</div>
+				<div class="con">
+					<!-- 新入会会员 -->
+					<ul class="list">
+						<li ng-repeat="item in myNewHyList">
+							<p><a ng-href="javascript:void(0)" style="width: 70%;" title="{{item.DWMC}}" ng-click="toCompanyQyjj(item.YHID)">{{item.DWMC}}</a><i>[{{item.FZSJ}}]</i></p></li>
+					</ul>
+				</div>
+				<!-- <div class="con">
+                   企业供需
+                   <ul class="list">
+                       <li ng-repeat="item in myDemandList">
+                       <p><a ng-href="javascript:void(0)" style="width: 68%;" title="{{item.BT}}" ng-click="">{{item.BT}}</a><i>[{{item.CJSJ|date:'yyyy-MM-dd'}}]</i></p></li>
+                   </ul>
+               </div>  -->
+			</div>
+		</div>
+		<div class="gap clear"></div>
+		<div class="gap clear"></div>
+		<div class="ad">
+			<a href="javascript:void(0)" ng-click="openOutUrl('www.ccaepi.net');" style="cursor: pointer;"><img src="/resources/epasp_website/index/images/gg/rzzx.png" style="width: 500px;height: 75px;"  ></a>
+			<a href="javascript:void(0)" ng-click="openUrl('/epasp_market/website/company/websitecompanycontroller/websiteindex');" style="float: right; cursor: pointer;"><img src="/resources/epasp_website/index/images/gg/hysq2.png" style="width: 500px;height: 75px;" ></a>
+		</div>
+		<div class="ad">
+			<a href="javascript:void(0)" ng-click="openOutUrl('www.ciepec.org');" style="cursor: pointer;"><img src="/resources/epasp_website/index/images/gg/hbzh8.jpg" style="width: 500px;height: 75px;"  ></a>
+			<a href="javascript:void(0)" ng-click="openUrl('/cidepi/');" style="float: right; cursor: pointer;"><img src="/resources/epasp_website/index/images/gg/cxfzdh2023.png" style="width: 500px;height: 75px;" ></a>
+		</div>
+		<div class="mod fl" style="width:690px;">
+			<div class="service-hall" style="height: 383px;">
+				<h2><span ng-click="clickBsdt();" style="cursor: pointer;">网上办事大厅</span></h2>
+				<div class="service-hall-list">
+					<ul>
+						<li ng-click="bsdtClick('RHBL')">
+							<a href="javascript:void(0)" style="text-decoration: none;"><i class="icon-a"></i>入会办理</a>
+						</li>
+						<li ng-click="bsdtClick('ZHBM')">
+							<a href="javascript:void(0)"><i class="icon-b"></i>展商信息登陆系统</a>
+						</li>
+						<li>
+							<a href="http://www.ccaepi.net/" target="_blank"><i class="icon-c"></i>环保产品认证</a>
+						</li>
+						<li ng-click="openOutUrl('114.251.10.16:8090/caepiss/login.aspx')">
+							<a href="javascript:void(0)"><i class="icon-d"></i>实用技术装备申报</a>
+						</li>
+						<li ng-click="bsdtClick('QYBZGKPT')">
+							<a href="javascript:void(0)"><i class="icon-e"></i>企业标准公开平台</a>
+						</li>
+						<li ng-click="openOutUrl('www.ccaepi.net')">
+							<a href="javascript:void(0)"><i class="icon-f"></i>中国环境服务认证</a>
+						</li>
+						<li ng-click="openOutUrl('114.251.10.16:8090/caepiss/login.aspx')">
+							<a href="javascript:void(0)"><i class="icon-g"></i>典型工程案例申报</a>
+						</li>
+						<li ng-click="goQyxyptCenter()">
+							<a href="javascript:void(0)"><i class="icon-h"></i>环保产业信用平台</a>
+						</li>
+						<li>
+							<a ng-click="openOutUrl('www.ccaepi.net')"><i class="icon-i"></i>环境友好产品认证</a>
+						</li>
+						<li ng-click="bsdtClick('XYPJ')">
+							<a href="javascript:void(0)"><i class="icon-j"></i>信用评价申报</a>
+						</li>
+						<li ng-click="bsdtClick('ZDQYDC')">
+							<a href="javascript:void(0)"><i class="icon-k"></i>行业基本情况调查</a>
+						</li>
+						<li ng-click="bsdtClick('HYPXBM')">
+							<a href="javascript:void(0)"><i class="icon-l"></i>会议&培训报名</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="mod ng-scope" style="margin-left: 700px;" ng-controller="magazineController">
+			<div class="mod-hd">
+				<strong ng-click="magazineList()" style="cursor: pointer;">《中国环保产业》杂志</strong>
+			</div>
+			<div class="mod-bd">
+				<div class="magazine">
+					<ul id="magazine">
+						<li ng-repeat="item in myMagazine">
+							<a href="javascript:void(0)"><img id="magazineImgId_{{$index+1}}"  src="/resources/epasp_website/index/images/mg1.png"/>
+								<em ng-click="magazineDetail(item.XH)"></em>
+
+							</a><i class="opa"></i>
+							<p class="text-desc">{{item.YEAR}}年第{{item.PERIODS}}期</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="mod-bd">
+				<div style="margin-top: 5px;overflow: hidden;">
+					<a href="javascript:void(0)" ng-click="bsdtClick('ZZTG')" class="fl">
+						<img src="/resources/epasp_website/index/images_v2/ggsq1.png">
+					</a>
+					<a href="javascript:void(0)" ng-click="bsdtClick('GGSQ')" class="fr">
+						<img src="/resources/epasp_website/index/images_v2/ggsq2.png">
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap"></div><div class="gap"></div>
+		<div class="ques-expert clearfix">
+			<div class="ques-expert-left">
+				<div class="ques-expert-box">
+					<div class="ques-expert-items">
+						<h2 ng-click="detailList('W_QYJT')" style="cursor: pointer;">企业家谈 </h2>
+						<div class="ques-expert-img" style="height: auto;">
+							<img src="/resources/epasp_website/index/images_v3/zj-sd.png" ng-click="detailList('W_QYJT')" style="cursor: pointer;height: 98px;width: 100%;" alt="">
+						</div>
+						<div class="">
+							<ul class="list">
+								<li ng-repeat="item in qyjtList | limitTo:5">
+									<p><a href="javascript:void(0)" style="width: 72%;" title="{{item.BT}}" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJYEAR}}]</i></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="ques-expert-items">
+						<h2 ng-click="detailList('W_ZJSD')" style="cursor: pointer;">专家视点 </h2>
+						<div class="ques-expert-img" style="height: auto;">
+							<img src="/resources/epasp_website/index/images_v3/zj-sd-two.png" ng-click="detailList('W_ZJSD')" style="cursor: pointer;height: 98px;width: 100%;" alt="">
+						</div>
+						<div class="">
+							<ul class="list">
+								<li ng-repeat="item in zjsdList | limitTo:5">
+									<p><a href="javascript:void(0)" style="width: 72%;" title="{{item.BT}}" ng-click="detail(item.XH,item.XTTZ_XH)">{{item.BT}}</a><i>[{{item.FBSJYEAR}}]</i></p></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ques-wond-video" ng-controller="jcspController">
+				<h2 ng-click="detailList('JCSP')" style="cursor: pointer;">精彩视频</h2>
+				<div class="ques-expert-img">
+					<div class="m">
+						
+						<video controls="controls" id="jcspSource" src="" preload="none">
+							<!-- 								<source src="" type="video/mp4">  -->
+						</video>
+						<script>plyr.setup();</script>
+					</div>
+
+				</div>
+				<div class="ques-expert-list">
+					<ul>
+						<li ng-repeat="item in jcspList | limitTo:3"><a href="javascript:void(0)" style="font-size: 14px;" ng-click="openVideo(item)">{{item.BT}}</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="gap"></div>
+		<div class="gap"></div>
+		<div class="mod" style="height: 500px;" ng-controller="hyzzController">
+			<div class="mod-hd" style="width: 100%;">
+				<strong ng-click="toMemberCenterList('FHZ');" style="cursor: pointer;">会员展示</strong>
+			</div>
+			<div class="mod-bd" style="height: 500px;">
+				<!-- 副会长单位 -->
+				<dl class="vip-unitlst">
+					<dt><a href="javascript:void(0)" ng-click="toMemberCenterList('FHZ');"><img src="/resources/epasp_website/index/images_v2/unit1.png" /></a></dt>
+					<dd style="padding-left: 5px;">
+						<div class="fd-unit" style="width: 850px;height: 100px;">
+							<div class="fd-unit-ctn" style="width: 747px;height: 81px;">
+								<ul ng-repeat="pList in fhzParentList">
+									<li style="width: 171px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;" ng-repeat="item in pList.NEWLIST">
+										<a href="javascript:void(0)" ng-click="toCompanyQyjj(item.YHID)" style="color: black;"><span ng-show='!item.LOGO_WJID' style="font-size: 16px;">{{item.DWMC}}</span><img ng-show='item.LOGO_WJID' width="165" height="38" ng-src="/business/fjgl/commonfjylcontroller/image/{{item.LOGO_WJID}}" /></a>
+										<input type="hidden" id="{{item.YHID}}" value="{{item.DWJJC}}" name="{{item.DWMC}}({{item.HYDJC}})" title="{{item.DWWZ}}">
+									</li >
+								</ul>
+							</div>
+							<a class="prev" href="javascript:void(0)" style="top: 50%;"></a>
+							<a class="next" href="javascript:void(0)" style="top: 50%;"></a>
+						</div>
+					</dd>
+				</dl>
+
+				<!-- 常务理事 -->
+				<dl class="vip-unitlst">
+					<dt>
+						<a href="javascript:void(0)" ng-click="toMemberCenterList('CWLS');">
+							<img src="/resources/epasp_website/index/images_v2/unit2.png" />
+						</a>
+					</dt>
+					<dd style="padding-left: 5px;">
+						<div class="fd-unit" style="width: 850px;height: 100px;">
+							<div class="fd-unit-ctn" style="width: 747px;height: 81px;">
+								<ul ng-repeat="pList in cwlsParentList">
+									<li style="width: 171px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;" ng-repeat="item in pList.NEWLIST">
+										<a href="javascript:void(0)" ng-click="toCompanyQyjj(item.YHID)" style="color: black;"><span ng-show='!item.LOGO_WJID' style="font-size: 16px;">{{item.DWMC}}</span><img ng-show='item.LOGO_WJID' width="165" height="38" ng-src="/business/fjgl/commonfjylcontroller/image/{{item.LOGO_WJID}}" /></a>
+										<input type="hidden" id="{{item.YHID}}" value="{{item.DWJJC}}" name="{{item.DWMC}}({{item.HYDJC}})" title="{{item.DWWZ}}">
+									</li >
+								</ul>
+							</div>
+							<a class="prev" href="javascript:void(0)" style="top: 50%;"></a>
+							<a class="next" href="javascript:void(0)" style="top: 50%;"></a>
+						</div>
+					</dd>
+				</dl>
+
+				<!-- 理事 -->
+				<dl class="vip-unitlst">
+					<dt>
+						<a href="javascript:void(0)" ng-click="toMemberCenterList('LS');">
+							<img src="/resources/epasp_website/index/images_v2/unit3.png" />
+						</a>
+					</dt>
+					<dd style="padding-left: 5px;">
+						<div class="fd-unit" style="width: 850px;height: 100px;">
+							<div class="fd-unit-ctn" style="width: 747px;height: 81px;">
+								<ul ng-repeat="pList in lsParentList">
+									<li style="width: 171px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;" ng-repeat="item in pList.NEWLIST">
+										<a href="javascript:void(0)" ng-click="toCompanyQyjj(item.YHID)" style="color: black;"><span ng-show='!item.LOGO_WJID' style="font-size: 16px;">{{item.DWMC}}</span><img ng-show='item.LOGO_WJID' width="165" height="38" ng-src="/business/fjgl/commonfjylcontroller/image/{{item.LOGO_WJID}}" /></a>
+										<input type="hidden" id="{{item.YHID}}" value="{{item.DWJJC}}" name="{{item.DWMC}}({{item.HYDJC}})" title="{{item.DWWZ}}">
+									</li >
+								</ul>
+							</div>
+							<a class="prev" href="javascript:void(0)" style="top: 50%;"></a>
+							<a class="next" href="javascript:void(0)" style="top: 50%;"></a>
+						</div>
+					</dd>
+				</dl>
+
+				<!-- 会员 -->
+				<dl class="vip-unitlst">
+					<dt>
+						<a href="javascript:void(0)" ng-click="toMemberCenterList('PTHY');">
+							<img src="/resources/epasp_website/index/images_v2/unit4.png" />
+						</a>
+					</dt>
+					<dd style="padding-left: 5px;">
+						<div class="fd-unit" style="width: 850px;height: 100px;">
+							<div class="fd-unit-ctn" style="width: 747px;height: 100px;">
+								<ul ng-repeat="pList in hyParentList">
+									<li style="width: 171px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;" ng-repeat="item in pList.NEWLIST">
+										<a href="javascript:void(0)" ng-click="toCompanyQyjj(item.YHID)" style="color: black;"><span ng-show='!item.LOGO_WJID' style="font-size: 16px;">{{item.DWMC}}</span><img ng-show='item.LOGO_WJID' width="165" height="38" ng-src="/business/fjgl/commonfjylcontroller/image/{{item.LOGO_WJID}}" /></a>
+										<input type="hidden" id="{{item.YHID}}" value="{{item.DWJJC}}" name="{{item.DWMC}}({{item.HYDJC}})" title="{{item.DWWZ}}">
+									</li >
+								</ul>
+							</div>
+							<a class="prev" href="javascript:void(0)" style="top: 50%;"></a>
+							<a class="next" href="javascript:void(0)" style="top: 50%;"></a>
+						</div>
+					</dd>
+				</dl>
+			</div>
+		</div>
+
+		<div class="gap clear"></div>
+		<div class="gap"></div>
+		<div class="ques-item-title" ng-controller="zlztController">
+			<h2>推荐企业 </h2>
+			<div class="company-tj">
+				<ul class="clearfix">
+					<li ng-repeat="item in zlztList">
+						<div class="company-box">
+							<img height="35px" width="100%" ng-src="/business/fjgl/commonfjylcontroller/image/{{item.WJID}}">
+							<div class="company-message">
+								<div class="company-icon">
+									<img height="35px" width="100%" ng-src="/business/fjgl/commonfjylcontroller/image/{{item.WJID}}" alt="">
+								</div>
+								<h3>{{item.DWMC}}</h3>
+								<p>{{item.DWJJ}}</p>
+								<a href="javascript:void(0)" ng-click="openOutUrl(item.DWWZ)">进入官网</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="gap"></div>
+		<div class="gap"></div>
+		<div class="gap"></div>
+		<!-- 图片滚动 -->
+		<div class="dg-picMarquee" style="height: 82px;" ng-controller="webAd4Controller">
+			<div class="hd">
+				<a class="next" id="left"></a>
+				<a class="prev" id="right"></a>
+			</div>
+			<div class="bd" id="marquee" style="height: 82px;">
+				<dl style="height: 82px;">
+					<dt style="width: 1150px;height: 82px;">
+						<ul class="picList" style="width: 1392px;height: 81px;">
+							<li ng-repeat="item in ad4Manage_List" style="width: 176px;">
+								<a href="javascript:void(0)" ng-click="openOutUrl(item.ADDRESS_URL)">
+									<img style="width: 176px;height: 80px" ng-src="/epa/business/fjgl/commonfjylcontroller/image/{{item.ADID_4}}">
+								</a></li>
+						</ul>
+					</dt>
+					<dd></dd>
+				</dl>
+			</div>
+		</div>
+		<div class="gap"></div>
+		<div class="gap"></div>
+		<ul class="site-link" ng-controller="webAddressController">
+			<li class="on">
+				<i>政府网站</i>
+				<div class="site">
+					<ul>
+						<li ng-repeat="item in gjbwwz_List"><a href="javascript:void(0)" ng-click="openOutUrl(item.WEB_ADDRESS)">{{item.WEB_NAME|limitTo:14}}</a></li>
+					</ul>
+				</div>
+			</li>
+			<li class="on">
+				<i>地方协会网站</i>
+				<div class="site">
+					<ul>
+						<li ng-repeat="item in dfxhwz_List"><a href="javascript:void(0)" ng-click="openOutUrl(item.WEB_ADDRESS)">{{item.WEB_NAME|limitTo:14}}</a></li>
+
+					</ul>
+				</div>
+			</li>
+			<li>
+				<i>分支机构网站</i>
+				<div class="site">
+					<ul>
+						<li ng-repeat="item in fzjgwz_List"><a href="javascript:void(0)" ng-click="openOutUrl(item.WEB_ADDRESS)">{{item.WEB_NAME|limitTo:14}}</a></li>
+
+					</ul>
+				</div>
+			</li>
+			<li>
+				<i>其他</i>
+				<div class="site">
+					<ul>
+						<li ng-repeat="item in qt_List"><a href="javascript:void(0)" ng-click="openOutUrl(item.WEB_ADDRESS)">{{item.WEB_NAME|limitTo:14}}</a></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+
+		<dl class="append">
+			<dt>
+				<strong ng-click="toCompanyCenterAppend('QYJJ')" style="cursor: pointer;width: 380px;white-space: nowrap; overflow: hidden;text-overflow: ellipsis;" id="appendDwmc"></strong>
+				<span style="padding-left: 5px;cursor: pointer;" id="appendDwwz" ng-click="toLsDwwz()"></span>
+			</dt>
+			<dd>
+				<p style="min-height: 90px;" id="appendDwjjc"></p>
+			</dd>
+		</dl>
+		<input type="hidden" id="appendYhid" value="" />
+	</div>
+	<div class="gap"></div>
+	<div class="gap"></div>
+</div>
+
+<!--漂浮窗口 -->
+<div id="imgxfck"></div>
+
+
+<!-- 浮动图片 -->
+<ul class="fix-ad">
+	<li><a href="/epasp/website/webgl/webglController/view?xh=1598843719553038182912" target="_blank"><img style="width: 90px;" src="/resources/epasp_website/index/images/fx_ad7.png" /></a></li>
+	<li><a href="http://www.ccaepi.net/#/FirstPage" target="_blank"><img style="width: 90px;" src="/resources/epasp_website/index/images/fx_ad6.png" /></a></li>
+	<li><a href="/epasp/website/webgl/webglController/intoServiceCenter/JYPX" target="_blank"><img style="width: 90px;height: 105px;" src="/resources/epasp_website/index/images/fx_ad8.png" /></a></li>
+	<li><a href="javascript:void(0)" ng-click="openTheWindow();"><img style="width: 90px;" src="/resources/epasp_website/index/images/fx_ad5.png" /></a></li>
+	
+	
+</ul>
+<!-- 会员商圈 -->
+
+
+<a id="btnTop" class="btnTop" style="display:none;" href="javascript:;" title="返回顶部">
+	<img src="/resources/epasp_wwsb/index/images/o_to_Top.png" class="imageTop">
+</a>
+<script src="/resources/epasp_website/index/script/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="/resources/epasp_website/index/script/jquery.roundabout.min.js"></script>
+<!-- <script src="script/marquee.js"></script> -->
+<script type="text/javascript" src="/resources/epasp_website/login/loginwebsiteController.js"></script>
+<!-- 新闻频道     包括各种类型通知公告 -->
+<script type="text/javascript" src="/resources/epasp_website/login/chnlnewsController.js?v=202601"></script>
+<!-- 新入会会员 -->
+<script type="text/javascript" src="/resources/epasp_website/login/newHyController.js?v=202601"></script>
+<!-- 会员 -->
+<script type="text/javascript" src="/resources/epasp_website/login/hyzzController.js?v=202601"></script>
+<!-- 杂志 -->
+<script type="text/javascript" src="/resources/epasp_website/login/magazineController.js?v=202601"></script>
+<!-- 链接地址 -->
+<script type="text/javascript" src="/resources/epasp_website/login/webAddressController.js?v=202601"></script>
+<!-- 4号广告位 -->
+<script type="text/javascript" src="/resources/epasp_website/login/webAd4Controller.js?v=202601"></script>
+<!-- 精彩视频 -->
+<script type="text/javascript" src="/resources/epasp_website/login/webJcspController.js?v=202601"></script>
+<!-- 专栏专题 -->
+<script type="text/javascript" src="/resources/epasp_website/login/webZlztController.js?v=202601"></script>
+<script type="text/javascript" src="/resources/epasp_website/login/websiteUtil.js?v=202601"></script>
+<script>
+	(function () {
+		//走进协会
+		$(".zjxh-left ul li").hover(function () {
+			$(this).addClass("on").siblings().removeClass("on");
+			$(".con"+$(this).index()).show().siblings().hide();
+		})
+
+		// 焦点图切换
+		$('.dg-focus').slide({
+			'trigger' : 'click',
+			'autoPlay' : true,
+			'interTime' : 5000,
+		});
+
+		// 选项卡切换
+		$('.chnl-tabs').slide({
+			titCell : '.tabs-hd li',
+			mainCell : '.tabs-bd'
+		});
+
+		// 站点导航
+		$('.site-link li').hover(function() {
+			$(this).find('.site').stop().slideDown(400);
+		}, function() {
+			$(this).find('.site').stop().slideUp(400);
+		});
+	})();
+
+	function loadAd4Style() {
+		$(".dg-picMarquee").slide({mainCell:".bd ul",autoPlay:true,effect:"leftLoop",vis:6,trigger: 'click',interTime: 3000});
+	}
+
+	// 会员展示滚动
+	function loadHyzsStyle() {
+		$(".fd-unit").hover(function(){ $(this).find(".prev,.next").stop(true,true).fadeTo("show",1) },function(){ $(this).find(".prev,.next").fadeOut() });
+		$(".fd-unit").slide({ mainCell:".fd-unit-ctn",effect:"leftLoop", autoPlay:true, trigger:"click",interTime: 4000});
+
+
+		//hover某处显示悬浮框
+		$(".fd-unit li").mouseenter(function(e){
+			//获取鼠标位置函数
+			var yhid = this.lastElementChild.id;
+			var dwmc = this.lastElementChild.name;
+			var dwjjc = this.lastElementChild.value;
+			var dwwz = this.lastElementChild.title;
+
+			$("#appendDwmc").html(dwmc);
+			$("#appendDwjjc").html(dwjjc);
+			$("#appendYhid").val(yhid);
+			$("#appendDwwz").html(dwwz);
+
+			e.preventDefault();
+			var mousePos = mousePosition(e);
+			var  xOffset = 10;
+			var  yOffset = 10;
+			$(".append").addClass("on");
+			$(".append").css("top",(mousePos.y - yOffset) + "px").css("left",(mousePos.x + xOffset) + "px");
+		});
+
+		//鼠标离开表格隐藏悬浮框
+		$(".append").mouseleave(function(){
+			$(this).removeClass('on')
+		});
+		$('div').not('.fd-unit').mouseenter(function(){
+			$(".append").removeClass("on");
+		})
+	}
+
+	//获取鼠标坐标
+	function mousePosition(ev){
+		ev = ev || window.event;
+		if(ev.pageX || ev.pageY){
+			return {x:ev.pageX, y:ev.pageY};
+		}
+		return {
+			x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+			y:ev.clientY + document.body.scrollTop - document.body.clientTop
+		};
+	}
+
+	//杂志浏览
+	function loadMagazineStyle() {
+		$('#magazine').roundabout({
+			'minOpacity':0.9,
+			autoplay: false,
+			btnNext: '#next',
+			btnPrev: '#prev'
+		});
+	}
+
+	//专题专栏
+	function loadZtzlStyle(){
+		//点击出现企业推荐详细信息
+		$(".company-tj ul li").on('mouseover',function (e) {
+			if ($(".company-message").is(":hidden")){
+				$(this).find(".company-message").fadeIn("fast");
+				$(this).siblings().find(".company-message").fadeOut("fast");
+			}$(document).one('mouseover',function () {
+				$(".company-message").fadeOut("fast");
+			})
+			e.stopPropagation()
+		});
+		$(".company-message").on('click',function (e) {
+			e.stopPropagation()
+		})
+	}
+
+	setTimeout(function () {
+		jQuery(".picScroll-left").slide({mainCell:".tabs-hd ul",effect:"left",vis:6, autoPage:true, prevCell:".tabs-prev",nextCell:".tabs-next", pnLoop:"false", autoPlay:false, scroll:1});
+	}, 1000);
+
+	//打开网站底部ICP地址
+	function openICPUrl() {
+		var url = 'http://beian.miit.gov.cn';
+		window.open(url, "_blank");
+	}
+</script>
+<script>
+    // 初始化位置和速度
+    let x = 50, y = 50, xv = 2, yv = 1;
+    const ad = document.getElementById("floating-ad");
+    
+    // 移动逻辑
+    function moveAd() {
+      const maxX = window.innerWidth - ad.offsetWidth;
+      const maxY = window.innerHeight - ad.offsetHeight;
+      
+      if (x <= 0 || x >= maxX) xv *= -1;
+      if (y <= 0 || y >= maxY) yv *= -1;
+      
+      x += xv;
+      y += yv;
+      ad.style.left = x + "px";
+      ad.style.top = y + "px";
+    }
+    
+    // 定时移动
+    let moveInterval = setInterval(moveAd, 50);
+    
+    // 关闭按钮
+    document.getElementById("close-btn").onclick = () => {
+      ad.style.display = "none";
+    };
+    
+    // 悬停控制
+    ad.onmouseover = () => clearInterval(moveInterval);
+    ad.onmouseout = () => moveInterval = setInterval(moveAd, 50);
+  </script>
+<script src="/__sec__/js/device_fingerprint.js"></script>
+</body>
+
+
+
+<style>
+	.foot2{
+		background: #0066bf;
+	}
+	.foot2 span{
+		color: #b9cfe2;
+	    text-align: center;
+	    line-height: 2;
+	}
+	
+	
+	
+	@media screen and (max-width: 1000px){
+		.pclass{
+		    margin-top: 5%;
+    		font-size: 8px;
+		}
+	}
+	@media screen and (max-width: 800px){
+		.pclass{
+		    margin-top: 4%;
+    		font-size: 8px;
+		}
+	}
+	@media screen and (max-width: 600px){
+		.pclass{
+		    margin-top: 3.5%;
+    		font-size: 6px;
+		}
+	}
+	@media screen and (max-width: 600px){
+		.pclass{
+		    margin-top: 1.5%;
+    		font-size: 4px;
+		}
+	}
+	@media screen and (max-width: 600px){
+		.pclass{
+		    margin-top: 0.5%;
+    		font-size: 3px;
+		}
+	}
+	
+	@media screen and (min-width: 1000px){
+		.pclass{
+		    margin-top: 3%
+		}
+	}
+	@media screen and (min-width: 1200px){
+		.pclass{
+		    margin-top: 0.5%
+		}
+		.col-lg-6 {
+		    width: 50%;
+		}
+	}
+	@media screen and (min-width: 1300px){
+		.col-lg-6 {
+		    width: 48.5%;
+		}
+		.pclass{
+		    margin-top: 0%
+		}
+	}
+	@media screen and (min-width: 1500px){
+		.pclass{
+		    margin-top: 0.4%
+		}
+		.col-lg-6 {
+		    width: 47.5%;
+		}
+	}
+	@media screen and (min-width: 1600px){
+		.pclass{
+		    margin-top: 0.5%
+		}
+		.col-lg-6 {
+		    width: 45.5%;
+		}
+	}
+	
+</style>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 foot2" style="text-align: center; padding-top: 1%;">
+	<div class="col-xs-7 col-sm-7 col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-2 pclass" >
+			<span>主办单位：中国环境保护产业协会 &nbsp;电话：010-52806511&nbsp;地址：北京市西城区二七剧场路6号</span><br/>
+			<span>会员服务：010-52806515&nbsp;环保认证：010-52806525&nbsp;媒体合作：010-52806511</span><br/>
+			<span><span onclick="openICPUrl()" style="cursor: pointer;">ICP备案编号：京ICP备11046034号 </span>&nbsp;技术支持：生态环境部信息中心</span>
+	</div>
+	
+	<div class="col-xs-5 col-sm-5 col-md-4 col-lg-2" >
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<img title="订阅号" style="width: 100%" src="/resources/epasp_website/index/images/ewm_dyh.jpg" /><br/>
+			<span>订阅号</span>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"> 
+			<img title="服务号" style="width: 100%" src="/resources/epasp_website/index/images/ewm_fwh.jpg" /><br/>
+			<span>服务号</span>
+		</div>
+	</div>
+	
+</div>
+
+<!-- 
+<div ng-show="false" ng-controller="UserBehaviorController"></div>
+ -->
+<div ng-show="false" ng-controller="ButtonAuthorityController"></div>
+<div ng-show="false" ng-controller="setUserSkinController"></div>
+<div ng-show="false" ng-controller="WebSocketController"></div>
+
+<script>
+	$(function () {
+        Common.contentShow.init(); //iframe内部具体内容的框架高度和宽度在浏览器窗口大小变化时自适应
+    });
+
+	var behavorApp = null;
+	try {
+	 	// 初始化平台系统
+		behavorApp = angular.module(APP_NAME);
+	} catch (error) {
+	    Common.log(error);
+	    behavorApp = Common.initApp(['ui.grid.edit', 'ngAnimate', 'angular.filter','ngCookies']);;
+	}
+	var sessionID = top.window.sessionID ? top.window.sessionID : '';
+	behavorApp.controller('setUserSkinController', ['$scope', '$http','$cookieStore','$window', function ($scope, $http,$cookieStore,$window) {
+		$scope.UserSkin = JSON.parse($window.localStorage['UserSkin'] || '{}');
+		if($scope.UserSkin && $scope.UserSkin.skinName){
+			$('#colorLink').attr('href',Common.webRoot()+'/resources/platform/common/css/color-'+$scope.UserSkin.skinName+'.css');
+			$('#loginColor').attr('href',Common.webRoot()+'/resources/login/login-'+$scope.UserSkin.skinName+'.css');
+		}
+	}]);
+
+
+	//按钮权限控制	
+	behavorApp.controller('ButtonAuthorityController', ['$scope', '$http', function ($scope, $http) {
+		if ($("*[bt-auth-id]").length > 0) {
+			Common.send($scope, $http, {
+				method: 'POST',
+				url: Common.webRoot() + '/platform/rms/usercontroller/findcurrentuserbutton',
+				success: function(result){
+					var buttons = result.data;
+					
+					var btnElements = $("*[bt-auth-id]");
+					
+					for(var i=0;i<btnElements.length;i++){
+						btnElements[i].style.display="none";
+						if(buttons){
+							for(var j=0;j<buttons.length;j++){
+								if(btnElements[i].getAttribute("bt-auth-id") == buttons[j].ANXH && top.window.currentMenu && top.window.currentMenu.CDBH == buttons[j].CDXH){
+									btnElements[i].style.display="inline";
+									break;
+								}
+							}
+						}
+					}
+													
+				}
+			});
+		}
+	}]);
+	
+	// WebSocket连接
+	behavorApp.controller('WebSocketController', ['$scope', '$http', function ($scope, $http) {
+		// 用户登录并且开启WebSocket配置项才连接websocket
+		if ($scope.CurrUser.YHID && "true" == "false") {
+			platform.webSocket.connect($scope, $http, {
+				url : "ws://101.200.35.209:8787/platform/ws"
+			});
+		}
+	}]);
+	
+	/*
+	behavorApp.controller('UserBehaviorController', ['$scope', '$http', 'uiGridConstants', function ($scope, $http, uiGridConstants) {
+
+		// 执行初始化
+		platform.userBehavior.initUserBehavior();
+		top.window.platform.userBehavior.setInterval($scope, $http);
+		
+	}]);
+	*/
+	
+	// 离开页面时
+	window.onbeforeunload = function() {
+		
+		for (key in platform.onbeforeunload.listeners) {
+			var listener = platform.onbeforeunload.listeners[key];
+			try {
+				if (listener.func) {
+					listener.func();
+				}
+			} finally {
+				continue ;
+			}
+		}
+	}
+		
+</script>
+<script type="text/javascript" src="/resources/platform/common/js/directive.js?v=202601"></script>
+<script type="text/javascript" src="/resources/platform/common/js/filter.js?v=202601"></script>
+<script type="text/javascript" src="/resources/platform/common/js/base64.min.js?v=202601"></script>
+</html>
+

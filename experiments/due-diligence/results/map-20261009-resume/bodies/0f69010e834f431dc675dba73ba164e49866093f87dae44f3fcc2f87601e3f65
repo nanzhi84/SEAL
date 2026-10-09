@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>仲裁网</title>
+    <script type="text/javascript">
+        document.createElement('video');document.createElement('audio');document.createElement('track');
+
+        //判断是否移动端，如果是则跳转到指定的URL地址
+        function browserRedirect(url) {
+            //只读的字符串，声明了浏览器用于 HTTP 请求的用户代理头的值
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) === "iphone os";
+            var bIsMidp = sUserAgent.match(/midp/i) === "midp";
+            var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) === "rv:1.2.3.4";
+            var bIsUc = sUserAgent.match(/ucweb/i) === "ucweb";
+            var bIsAndroid = sUserAgent.match(/android/i) === "android";
+            var bIsCE = sUserAgent.match(/windows ce/i) === "windows ce";
+            var bIsWM = sUserAgent.match(/windows mobile/i) === "windows mobile";
+            if (bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+                if(url.indexOf(".com/mobile") === -1){
+                    window.location.replace('/mobile');
+                }else{
+                    window.location.replace(url);
+                }
+            }
+        }
+        browserRedirect(location.href.replace('.com/index','.com/mobile'));
+    </script>
+        <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/static/index/lib/css/swiper-4.1.0.min.css">
+    <link rel="stylesheet" href="/static/share/css/share.min.css?v=202401201111">
+    <link rel="stylesheet" href="/static/index/asset/css/style.min.css?v=202401201111">
+    <link rel="stylesheet" href="/static/index/asset/css/liu.css?v=202401201111">
+    <link rel="stylesheet" href="/static/index/layui/css/global.css?v=202401201111">
+    <script type="text/javascript" src="/static/index/lib/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/static/index/lib/js/swiper-4.1.0.min.js"></script>
+    <script type="text/javascript" src="/static/layui/layui.js"></script>
+    <script type="text/javascript" src="/static/index/asset/js/common_func.js?v=202401201111"></script>
+    <script type="text/javascript" src="/static/index/asset/js/common.js?v=202401201111"></script>
+    <script type="text/javascript" src="/static/share/js/jquery.share.min.js"></script>
+</head>
+<body>
+<!--头部-->
+<div class="header">
+    <div class="container clearfix">
+        <a href="/"><img class="fl logo" style="width:88px" src="/static/index/asset/img/logo.png?v=1.0.1" alt=""></a>
+                <div class="fr login_box">
+            <a href="/index/index/login.html">登录</a>
+            <span> | </span>
+            <a href="/index/index/register.html">注册</a>
+        </div>
+                <ul class="header_nav fr clearfix">
+            <div class="slider">
+                <div class="top-line"></div>
+            </div>
+            <li class="on"><a href="/">首页</a></li>
+            <li class=""><a href="/index/book/index.html">裁决书</a></li>
+            <li class=""><a href="/index/treatise/index.html">论文</a></li>
+            <li class=""><a href="/index/institution/index.html">仲裁机构</a></li>
+            <li class=""><a href="/index/arbitrator/index.html">仲裁员</a></li>
+            <li class=""><a href="/index/Rule/index.html">仲裁法规</a></li>
+            <!-- <li class=""><a href="/index/Service/salon.html">会员服务</a></li> -->
+            <li class=""><a href="/index/news/index.html">新闻中心</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    layui.use(function() {
+        $('.logout').click(function (){
+            $.ajax({
+                url:"/index/index/logout.html",
+                type:"get",
+                dataType:"json",
+                success:function(mes){
+                    if(mes.code !== 0){
+                        layer.msg(mes.msg,{time: 1500,anim: 6,icon: 2})
+                    }
+                    layer.msg(mes.msg,{time: 1000},function () {
+                        window.location.reload();
+                    })
+                }
+            })
+        })
+    })
+</script>
+
+<div class="body_total index_page">
+    <!--搜索模块-->
+    <div class="search_module">
+        <div class="container">
+            <h1>仲裁网在线文库</h1>
+            <h3 class="share-title">欢迎到访仲裁网</h3>
+            <h3>与<b>1,359</b>位仲裁领域人士共享仲裁文本</h3>
+            <div class="recommend clearfix">
+                <a href="javascript:" data-type="book" class="on">裁决书</a>
+                <a href="javascript:" data-type="institution">仲裁机构</a>
+                <a href="javascript:" data-type="arbitrator">仲裁员</a>
+                <a href="javascript:" data-type="rule">法律法规</a>
+                <a href="javascript:" data-type="treatise">学术论文</a>
+            </div>
+            <div class="serch_box clearfix">
+                <input class="input_box fl" name="keywords" type="text">
+                <a class="search_btn" href="javascript:">搜索</a>
+            </div>
+            <div class="hot clearfix">
+                <div class="tit">热门：</div>
+                <a href="javascript:">劳动纠纷仲裁</a>
+                <a href="javascript:">家庭经济纠纷</a>
+                <a href="javascript:">商业合伙纠纷</a>
+                <a href="javascript:">遗产分配</a>
+                <a href="javascript:">房产拆迁</a>
+            </div>
+        </div>
+    </div>
+    <!--新闻-->
+        <div class="news_module">
+        <div class="container clearfix">
+            <ul class="fl text_list">
+                                <li>
+                    <a href="/index/News/detail.html?id=2860">
+                        <h5>中国仲裁走向世界的奠基人――任建新</h5>
+                        <p></p>                    </a>
+                </li>
+                                <li>
+                    <a href="/index/News/detail.html?id=2859">
+                        <h5>从仲裁枢纽到全球智囊：北京法律服务多维护航&ldquo;一带一路&rdquo;</h5>
+                                            </a>
+                </li>
+                                <li>
+                    <a href="/index/News/detail.html?id=2858">
+                        <h5>《中国（上海）自由贸易试验区条例 （修订草案）》公开征求意见</h5>
+                                            </a>
+                </li>
+                                <li>
+                    <a href="/index/News/detail.html?id=2857">
+                        <h5>推动我国仲裁制度现代化&mdash;&mdash;全国人大常委会分组审议仲裁法修订草案</h5>
+                                            </a>
+                </li>
+                                <li>
+                    <a href="/index/News/detail.html?id=2856">
+                        <h5>&ldquo;贸法通&rdquo;与您&ldquo;湘&rdquo;约8月，涉外商事法律服务看这里</h5>
+                                            </a>
+                </li>
+                            </ul>
+            <div class="fr img_list">
+                <div class="swiper-container" id="swiper1" style="width:650px">
+                    <div class="swiper-wrapper">
+                                                <a href="/index/News/detail.html?id=2860" class="swiper-slide">
+                            <div class="img-con" style="width:650px;height:307px"><img src="https://c-arb-o.oss-cn-beijing.aliyuncs.com/news/1754449720494-0_%E6%88%AA%E5%B1%8F2025-08-06%2011.04.02.png?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=kSbbXiXmPoR5%2B5wMw2SImaqiPVs%3D" alt=""></div>
+                            <p>中国仲裁走向世界的奠基人――任建新</p>
+                        </a>
+                                                <a href="/index/News/detail.html?id=2859" class="swiper-slide">
+                            <div class="img-con" style="width:650px;height:307px"><img src="https://c-arb-o.oss-cn-beijing.aliyuncs.com/news/1754446965778-0_%E6%88%AA%E5%B1%8F2025-08-06%2010.21.25.png?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=5p0QGUN%2Bg3H1%2Bm0XQhLH3VO9Nk8%3D" alt=""></div>
+                            <p>从仲裁枢纽到全球智囊：北京法律服务多维护航&ldquo;一带一路&rdquo;</p>
+                        </a>
+                                                <a href="/index/News/detail.html?id=2858" class="swiper-slide">
+                            <div class="img-con" style="width:650px;height:307px"><img src="/static/index/asset/img/logo.png" alt=""></div>
+                            <p>《中国（上海）自由贸易试验区条例 （修订草案）》公开征求意见</p>
+                        </a>
+                                                <a href="/index/News/detail.html?id=2857" class="swiper-slide">
+                            <div class="img-con" style="width:650px;height:307px"><img src="/static/index/asset/img/logo.png" alt=""></div>
+                            <p>推动我国仲裁制度现代化&mdash;&mdash;全国人大常委会分组审议仲裁法修订草案</p>
+                        </a>
+                                                <a href="/index/News/detail.html?id=2856" class="swiper-slide">
+                            <div class="img-con" style="width:650px;height:307px"><img src="/static/index/asset/img/logo.png" alt=""></div>
+                            <p>&ldquo;贸法通&rdquo;与您&ldquo;湘&rdquo;约8月，涉外商事法律服务看这里</p>
+                        </a>
+                                            </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--快捷通道-->
+    <div class="channel_module">
+        <div class="container">
+            <div class="left_blueTit">
+                <h3>快捷通道</h3>
+                <p>Fast Channel</p>
+            </div>
+            <div class="link clearfix">
+                <a href="/index/Rule/index.html">
+                    <div class="fl">
+                        <h5>法规速查</h5>
+                        <p>仲裁原则法典，速查依据</p>
+                    </div>
+                    <img class="fr" src="/static/index/asset/img/icon_channel3.png" alt="">
+                </a>
+                <a href="/index/arbitrator/index.html">
+                    <div class="fl">
+                        <h5>专家推荐</h5>
+                        <p>最专业的仲裁机构和个人</p>
+                    </div>
+                    <img class="fr" src="/static/index/asset/img/icon_channel1.png" alt="">
+                </a>
+<!--                <a href="/index/Topic/index.html">-->
+<!--                    <div class="fl">-->
+<!--                        <h5>疑难咨询</h5>-->
+<!--                        <p>发布疑问至论坛，仲友共答</p>-->
+<!--                    </div>-->
+<!--                    <img class="fr" src="/static/index/asset/img/icon_channel2.png" alt="">-->
+<!--                </a>-->
+                <a href="/index/personal/book_upload">
+                    <div class="fl">
+                        <h5>裁决书上传</h5>
+                        <p>与平台分享裁决书，积分奖励</p>
+                    </div>
+                    <img class="fr" src="/static/index/asset/img/icon_channel4.png" alt="">
+                </a>
+                <a href="/index/personal/treatise_upload">
+                    <div class="fl">
+                        <h5>论文上传</h5>
+                        <p>与平台分享论文，积分奖励</p>
+                    </div>
+                    <img class="fr" src="/static/index/asset/img/icon_channel4.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--裁决书-->
+    <div class="award_module">
+        <div class="container clearfix">
+            <ul class="fl text_list">
+                <div class="left_blueTit">
+                    <h3>最新裁决书</h3>
+                    <p>Fast Channel</p>
+                </div>
+                                <li>
+                    <a href="/index/book/detail.html?id=160">
+                        <h5>申请人与被申请人金融借款合同纠纷进行仲裁案</h5>
+                        <p>2025年02月10日</p>
+                    </a>
+                </li>
+                                <li>
+                    <a href="/index/book/detail.html?id=137">
+                        <h5>销售合作协议争议仲裁案裁决书</h5>
+                        <p>2021年12月23日</p>
+                    </a>
+                </li>
+                                <li>
+                    <a href="/index/book/detail.html?id=136">
+                        <h5>商品房买卖合同争议仲裁案裁决书</h5>
+                        <p>2021年12月23日</p>
+                    </a>
+                </li>
+                                <li>
+                    <a href="/index/book/detail.html?id=135">
+                        <h5>房屋租赁合同争议仲裁案裁决书</h5>
+                        <p>2021年12月23日</p>
+                    </a>
+                </li>
+                            </ul>
+                        <div class="fr mechanism" style="width:650px">
+                <div class="left_blueTit">
+                    <h3>仲裁机构</h3>
+                    <p>Arbitration Institution</p>
+                </div>
+                <div class="swiper-container" id="swiper2">
+                    <div class="swiper-wrapper">
+                                                <a href="/index/institution/detail?id=2820" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/ins/1729670386645-0_640%20%281%29.jfif?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=BAO3%2FnpE%2F8GoiHiKuyS3oBfPekA%3D');background-position: center;"></div>
+                            <p>中国国际经济贸易仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=2845" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/ins/1751246617125-0_%E5%8C%97%E4%BA%AC%E4%BB%B2%E8%A3%81%E5%A7%94%E5%91%98%E4%BC%9A.png?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=wWhZB5PjiHiFa0CmDzrpyixL3s0%3D');background-position: center;"></div>
+                            <p>北京仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=2848" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/uploads/user/5b4718e73fcb9.jpg?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=tWt8FWyUg4rH6sqU0o1MxM%2BtJIs%3D');background-position: center;"></div>
+                            <p>上海国际经济贸易仲裁委员会（上海国际仲裁中心）</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=2865" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('');background-position: center;"></div>
+                            <p>鞍山仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=2894" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/ins/1751338413075-0_%E6%9D%AD%E5%B7%9E%E4%BB%B2%E8%A3%81%E5%A7%94%E5%91%98%E4%BC%9A.png?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=JdV8rsqxzqQqjUwUjmylNr4TYAE%3D');background-position: center;"></div>
+                            <p>杭州仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=2937" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/uploads/user/5b56d05a8bf52.jpg?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=9YuHkPBBiVBrgPORNiP1riUoX%2Fc%3D');background-position: center;"></div>
+                            <p>安阳仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=3027" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/uploads/user/5b5ae5b83bb4a.jpg?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=1Y2qEQgu%2F2JUiuyFvfIy4xcr0X4%3D');background-position: center;"></div>
+                            <p>汉中仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=3043" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/ins/1729584244689-0_%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_22-10-2024_15568_www.ylarc.cn.jpeg?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=tyta21FLrN8LO%2BiKTbccX%2BE7y%2Bc%3D');background-position: center;"></div>
+                            <p>玉林仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=3044" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/ins/1729584665975-0_640%20%284%29.jfif?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=VRTp%2Far6RkYieZPimS6jW%2B4FrcE%3D');background-position: center;"></div>
+                            <p>哈尔滨仲裁委员会</p>
+                        </a>
+                                                <a href="/index/institution/detail?id=3045" class="swiper-slide">
+                            <div class="img-con" style="max-width: 100%;height: 300px;background: url('https://c-arb-i.oss-cn-beijing.aliyuncs.com/ins/1729585344861-0_%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_22-10-2024_162046_www.ccac.org.cn.jpeg?Expires=1791479974&amp;OSSAccessKeyId=LTAI5tHBnFf6UfYjHT5mPQc5&amp;response-content-disposition=inline&amp;Signature=mgFXwq9nhsKpIZEYH86ixBWvVfs%3D');background-position: center;"></div>
+                            <p>长春仲裁委员会</p>
+                        </a>
+                                            </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+                    </div>
+    </div>
+    <!--机构和名家-->
+    <div class="last_all" style="padding-bottom:30px">
+        <div class="container clearfix">
+            <div class="dialectians">
+                <div class="left_blueTit">
+                    <h3>仲裁名家</h3>
+                    <p>Arbitration Masters</p>
+                </div>
+                <div class="swiper-container" id="swiper3" style="margin-top:10px;padding-bottom: 20px;">
+                    <div class="swiper-wrapper">
+                                        </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(function() {
+        let element = layui.element,
+            form = layui.form,
+            upload = layui.upload,
+            $ = layui.jquery;
+
+        // 切换搜索类型
+        $('.recommend a').click(function(){
+            $('.recommend a').removeClass('on');
+            $(this).addClass('on');
+            const type = $('a.on').attr('data-type')
+            switch_hot_content(type);
+        });
+
+        // 搜索关键词
+        $('.search_btn').click(function(){
+            const type = $('a.on').attr('data-type')
+            const keywords = $("input[name=keywords]").val()
+            if(!keywords){
+                return false;
+            }
+            let url = ''
+            if(type === 'institution'){
+                url += "/index/institution/index.html?keywords="+keywords;
+            }else if(type === 'arbitrator'){
+                url += "/index/arbitrator/index.html?keywords="+keywords;
+            }else if(type === 'rule'){
+                url += "/index/rule/index/keyword/"+keywords;
+            }else if(type === 'treatise'){
+                url += "/index/treatise/index.html?keywords="+keywords;
+            }else{
+                url += "/index/book/index.html?keywords="+keywords;
+            }
+            window.location.href = url;
+        });
+
+        // 切换热门内容
+        function switch_hot_content(type){
+            var data = {};
+            data.type = type;
+            data.num = 5;
+            $.ajax({
+               url:"/index/index/hot_content.html",
+               data:data,
+               dataType:"json",
+               type:"post",
+               success:function(mes){
+                   let hotDom = $('.hot')
+                   hotDom.empty();
+                   if(mes.length > 0){
+                       var html = '<div class="tit">热门：</div>';
+                       for(var i=0;i<mes.length;i++){
+                           if(type === 'institution'){
+                               html += '<a href="/index/institution/detail.html?id='+mes[i].id+'">';
+                           }else if(type === 'arbitrator'){
+                               html += '<a href="/index/arbitrator/detail.html?id='+mes[i].id+'">';
+                           }else if(type === 'rule'){
+                               html += '<a href="/index/rule/detail/id/'+mes[i].id+'">';
+                           }else if(type === 'treatise'){
+                               html += '<a href="/index/treatise/index.html?id='+mes[i].id+'">';
+                           }else{
+                               html += '<a href="/index/book/detail.html?id='+mes[i].id+'">';
+                           }
+                           html += mes[i].title+'</a>';
+                       }
+                       hotDom.html(html);
+                   }
+               }
+            });
+        }
+
+        switch_hot_content('book');
+
+
+        var swiper = new Swiper('#swiper3', {
+            slidesPerView: 6,
+            loopedSlides: 6,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                speed:1000,
+                delay: 2000,//1秒切换一次
+                stopOnLastSlide: false,         // 自动切换停在最后一个
+                disableOnInteraction: false,    // 触碰后停止自动切换
+                waitForTransition: false,
+            },
+        })
+
+    });
+</script>
+<div class="footer_zw"></div>
+<div class="footer">
+    <div class="container clearfix">
+        <img class="fl" src="/static/index/asset/img/logo.png?v=1.0.1" alt="">
+        <div class="fl">
+            <ul class="clearfix nav-list"></ul>
+            <p class="record">© 1998-2026 仲裁网（ARB）<a class="record" href="https://beian.miit.gov.cn/">京ICP备18022103号-1</a></p>
+        </div>
+        <div class="share_box clearfix">
+            <div class="share" data-wechat-qrcode-title="微信扫一扫" data-wechat-qrcode-helper="微信扫码分享" data-sites="weibo,wechat"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/index/asset/js/base.min.js"></script>
+    <script>
+        layui.use(function() {
+            let util = layui.util
+            // 自定义固定条
+            util.fixbar({
+                bars: [],
+                bgcolor: '#393D52', // bar 的默认背景色
+                // css: {right: 100, bottom: 100},
+                // target: '#target-test', // 插入 fixbar 节点的目标元素选择器
+                duration: 300, // top bar 等动画时长（毫秒）
+                // 点击事件
+                click: function(type){
+                    console.log(this, type);
+                    // layer.msg(type);
+                }
+            });
+            let mySwiper1 = new Swiper('#swiper1', {
+                autoplay: true,//可选选项，自动滑动
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            })
+            let mySwiper2 = new Swiper('#swiper2', {
+                autoplay: true,//可选选项，自动滑动
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            })
+            // 底部链接
+            $.get("/index/index/foot_nav", function (res){
+                let footNavList = $('.footer .nav-list')
+                res.data.forEach(function (item){
+                    footNavList.append('<li><a target="_black" href="/index/index/content?name=' + item['identification'] + '">' + item['title'] + '</a></li>')
+                })
+            })
+        });
+        let titleDom = $('.share-title')
+        let title = '仲裁网——'+ titleDom.text();
+        let description = titleDom.text();
+        let image = '';
+        let shareImg = $('.share-img')
+        if(shareImg) {
+            for (let i = 0; i < shareImg.length; i++) {
+                image += '//' + window.location.host + shareImg.eq(i).attr('src') + '||';
+            }
+        }
+        let $config = {
+            url                 : window.location.href, // 网址，默认使用 window.location.href
+            title               : title, // 标题，默认读取 document.title 或者 <meta name="title" content="share.js" />
+            description         : description, // 描述, 默认读取head标签：<meta name="description" content="PHP弱类型的实现原理分析" />
+            image               : image?image:'', // 图片, 默认取网页中第一个img标签
+            sites               : ['weibo','wechat'], // 启用的站点
+            wechatQrcodeTitle   : "微信分享", // 微信二维码提示文字
+            wechatQrcodeHelper  : '<p>扫码分享</p>'
+        };
+        $('.share').share($config);
+        $('.social-share').share($config);
+    </script>
+</div>
+</body>
+</html>
+
+
+

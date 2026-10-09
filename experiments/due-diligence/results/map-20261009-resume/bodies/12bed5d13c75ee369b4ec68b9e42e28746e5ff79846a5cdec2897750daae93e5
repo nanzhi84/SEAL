@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>
+    出口退税率查询
+  </title>
+  <link rel="stylesheet" type="text/css" href="../libs/layui/css/layui.css" />
+  <link rel="stylesheet" type="text/css" href="../libs/css/base.css" />
+  <link rel="stylesheet" type="text/css" href="../static/2023/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../static/2023/css/plus.css" />
+  <link rel="stylesheet" type="text/css" href="../static/2023/css/cktslcx.css" />
+ 
+  <script type="text/javascript" src="../libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../libs/jquery.SuperSlide.js"></script>
+  <script src="../libs/layui/layui.js"></script>
+</head>
+
+<body>
+<!--header start-->
+<script src="http://www.chinatax.gov.cn/chinatax/xhtml/js/head.js" type="text/javascript" charset="utf-8"></script>
+<!--header end-->
+
+<!--wrapper start-->
+<div class="wrapper">
+  <!--crumb start-->
+  <div class="crumb js-crumb">
+    <div class="container">
+      <h2>
+        <em>当前位置：</em><a href="http://www.chinatax.gov.cn/chinatax/index.html" target="_parent">首页</a>&nbsp;&gt;&nbsp;<a href="http://www.chinatax.gov.cn/chinatax/n810346/index.html" target="_parent">纳税服务</a>&nbsp;&gt;&nbsp;<span>出口退税率查询</span>
+      </h2>
+    </div>
+  </div>
+  <!--crumb end-->
+  
+  <!--container start-->
+  <div class="container">
+    <!--box start-->
+    <div class="shadow-box normal shadowless mb30">
+      <div class="tab-brief black normal">
+        <!--hd start-->
+        <div class="hd  mb30 clearfix">
+          <ul class="clearfix">
+            <li class="on"> 
+              <a><CMSPRO_CHANNEL CODE="bmdt" FIELD="channelName">出口退税率查询</CMSPRO_CHANNEL></a>
+            </li>
+          </ul>
+        </div>
+        <!--hd end-->
+        <!--bd start-->
+        <div class="main-box clearfix">
+          <div class="main-search">
+            <div class="searchbox mb40">
+              <div class="layui-table-layout nob forms boldlabel space30 format">
+                <div class="layui-table-item">
+                  <div class="layui-table-block">
+                    <dl class="layui-table-label">
+                      <dd class="table">
+                        <div class="inline">商品代码：</div>
+                      </dd>
+                    </dl><!--label end-->
+                    <div class="layui-input-block">
+                      <input type="text" class="layui-input shadow code">
+                    </div>
+                  </div>
+                </div><!--item end-->
+                
+                <div class="layui-table-item">
+                  <div class="layui-table-block">
+                    <dl class="layui-table-label">
+                      <dd class="table">
+                        <div class="inline">商品名称：</div>
+                      </dd>
+                    </dl><!--label end-->
+                    <div class="layui-input-block">
+                      <input type="text" class="layui-input shadow name">
+                    </div>
+                  </div>
+                </div><!--item end-->
+                <div class="layui-table-item buttons">
+                  <div class="layui-table-block">
+                    <div class="layui-input-block">
+                      <ul class="col3 clearfix">
+                        <li>
+                          <span><button type="button" class="layui-btn layui-btn-submit">提 交</button></span>
+                        </li>
+                        <li>
+                          <span><button type="button" class="layui-btn layui-btn-reset">重 置</button></span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div><!--item end-->
+                <div class="clear"></div>
+              </div>
+            </div>
+            
+            <div class="searchtip">例如 商品名称：改良种用濒危野马，商品代码：0101210010</div>
+          </div><!--search end-->
+          <div class="tab-brief small black normal">
+            <div class="hd mb30 clearfix">
+              <ul class="clearfix">
+                <li class="on"> 
+                  <a>查询结果</a>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="table-list tslcx-list res radius mb20">
+              <ul class="clearfix">
+                <li class="head">
+                  <div class="c-topic">
+                    <span>商品名称</span>
+                  </div>
+                  <div class="c-num">
+                    <span>商品编码</span>
+                  </div>
+                  <div class="c-unit">
+                    <span>计量单位</span>
+                  </div>
+                  <div class="c-zssl">
+                    <span>征税税率%</span>
+                  </div>
+                  <div class="c-zzssl">
+                    <span>增值税退税率%</span>
+                  </div>
+                  <div class="c-tsspbs">
+                    <span>特殊商品标识</span>
+                  </div>
+                </li>
+              </ul>
+              <ul class="clearfix" id="ckts">
+                
+              </ul>
+              <div class="" id="pages"></div>
+            </div>
+      
+          </div>
+        </div>
+        <!--bd end-->
+      </div>
+    </div>
+    <!--box end-->
+  </div>
+  <!--container end-->
+</div>
+<!--wrapper end-->
+
+<!--footer start-->
+<script src="http://www.chinatax.gov.cn/chinatax/xhtml/js/foot.js" type="text/javascript" charset="utf-8"></script>
+<!--footer end-->
+<script type="text/javascript" src="../static/2023/js/common.js"></script>
+<script type="text/javascript" src="../static/2023/js/nszx.js"></script>
+</body>
+</html>

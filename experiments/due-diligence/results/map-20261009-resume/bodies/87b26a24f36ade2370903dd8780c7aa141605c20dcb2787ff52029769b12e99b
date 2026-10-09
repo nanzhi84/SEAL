@@ -1,0 +1,1373 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 璇ユ枃浠朵富瑕佹槸浣跨敤 hutool 鐨刢ache鍔熻兘鏉ュ疄鐜板sql鏌ヨ鐨勭煭鏆傜紦瀛? -->
+
+
+
+
+
+
+
+
+
+
+
+	<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="gb2312">
+		<title>中国招标投标协会</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link href="images01/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+		<script src="/js/common.js"></script>
+		<style>
+        .banner-container {
+            width: 100%;
+            height: 480px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .banner-slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .banner-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .banner-slide a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .banner-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            z-index: 10;
+        }
+        
+        .banner-control {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        
+        .banner-control.active {
+            background-color: rgba(255, 0, 0, 0.9);
+        }
+    </style>
+	</head>
+	<body>
+		<header>
+
+			<!-- <iframe src="iframe/index8.html" id="iframe1" width="100%" height="374" scrolling="no"></iframe>  -->
+			<div><a href="zt/gylsdh2026/index.html" target="_blank">
+					<img src="zt/gylsdh2026/images/banner1.jpg" width="100%" height="422"></a>
+			</div>
+			
+			<!-- 通栏容器 -->
+     <!-- <div class="banner-container"> -->
+	
+	 
+        <!-- 第一张图片 -->
+        <!--<div class="banner-slide active">
+            <a href="zt/xh2025/index.html" target="_blank">
+                <img src="zt/xh2025/images/banner1.jpg" alt="Banner">
+            </a>
+        </div>
+		
+		<div class="banner-slide active">
+            <a href="zt/comp2025/index.jsp" target="_blank">
+                <img src="zhuanti/meeting_lszbcg/images/banner1.jpg" alt="Banner">
+            </a>
+        </div>-->
+        
+       <!-- 第二张图片 -->
+         <!--<div class="banner-slide"> <img src="zhuanti/meeting_lszbcg/images/banner2.jpg" alt="Banner 2" border="0" usemap="#Map">
+          <map name="Map">
+            <area shape="rect" coords="28,18,847,473" href="http://www.ctba.org.cn/list_show.jsp?record_id=3509700000" target="_blank">
+            <area shape="rect" coords="957,13,1879,475" href="http://www.ctba.org.cn/wssd.html" target="_blank">
+          </map>
+    </div>-->
+        
+		
+		<!-- 第三张图片 -->
+        <!--<div class="banner-slide">
+            <a href="zhuanti/meeting_lszbcg/index.html" target="_blank">
+                <img src="zhuanti/meeting_lszbcg/images/banner.jpg" alt="Banner 2">
+            </a>
+        </div>-->
+		
+		<!-- 第四张图片 -->
+        <!--<div class="banner-slide">
+            <a href="zhuanti/xcgzh2025/index.html" target="_blank">
+                <img src="zhuanti/xcgzh2025/images/banner.jpg" alt="Banner 3">
+            </a>
+        </div>-->
+        
+<!--        <div class="banner-controls">-->
+<!--            <button class="banner-control active" data-slide="0"></button>-->
+<!--            <button class="banner-control" data-slide="1"></button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        document.addEventListener('DOMContentLoaded', function() {-->
+<!--            let currentSlide = 0;-->
+<!--            const slides = document.querySelectorAll('.banner-slide');-->
+<!--            const controls = document.querySelectorAll('.banner-control');-->
+<!--            const totalSlides = slides.length;-->
+<!--            -->
+<!--            // 确保只有一个slide是active状态-->
+<!--            function deactivateAllSlides() {-->
+<!--                slides.forEach(slide => {-->
+<!--                    slide.classList.remove('active');-->
+<!--                });-->
+<!--                controls.forEach(control => {-->
+<!--                    control.classList.remove('active');-->
+<!--                });-->
+<!--            }-->
+<!--            -->
+<!--            function activateSlide(index) {-->
+<!--                deactivateAllSlides();-->
+<!--                slides[index].classList.add('active');-->
+<!--                controls[index].classList.add('active');-->
+<!--                currentSlide = index;-->
+<!--            }-->
+<!--            -->
+<!--            function nextSlide() {-->
+<!--                currentSlide = (currentSlide + 1) % totalSlides;-->
+<!--                activateSlide(currentSlide);-->
+<!--            }-->
+<!--            -->
+<!--            // 初始化-->
+<!--            activateSlide(0);-->
+<!--            -->
+<!--            // 自动切换-->
+<!--            let slideInterval = setInterval(nextSlide, 5000);-->
+<!--            -->
+<!--            // 点击控制按钮-->
+<!--            controls.forEach(control => {-->
+<!--                control.addEventListener('click', function() {-->
+<!--                    const slideIndex = parseInt(this.dataset.slide);-->
+<!--                    clearInterval(slideInterval);-->
+<!--                    activateSlide(slideIndex);-->
+<!--                    slideInterval = setInterval(nextSlide, 5000);-->
+<!--                });-->
+<!--            });-->
+<!--            -->
+<!--            // 鼠标悬停暂停自动切换-->
+<!--            const bannerContainer = document.querySelector('.banner-container');-->
+<!--            bannerContainer.addEventListener('mouseenter', () => {-->
+<!--                clearInterval(slideInterval);-->
+<!--            });-->
+<!--            -->
+<!--            bannerContainer.addEventListener('mouseleave', () => {-->
+<!--                slideInterval = setInterval(nextSlide, 5000);-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+
+			<div class="container">
+				<div class="top-bar">
+					<div class="row ">
+						<div class="col-xs-8">
+							<!--时间-->
+							<div class="time-bar">
+								<p class="nowtime"></p>
+								<script type="text/javascript">
+									//时间显示
+									(function() {
+										var nowtime = document.querySelector('.nowtime');
+										var weekTxt = ["天", "一", "二", "三", "四", "五", "六"];
+										toDate(); //立马执行
+										setInterval(toDate, 1000); //间隔一秒钟执行一次
+										function toDate() {
+											var date = new Date();
+											var year = date.getFullYear();
+											var month = toDB(date.getMonth() + 1);
+											var day = toDB(date.getDate());
+											var hours = toDB(date.getHours());
+											var minutes = toDB(date.getMinutes());
+											var seconds = toDB(date.getSeconds());
+											var week = weekTxt[date.getDay()];
+											nowtime.innerHTML = year + '年' + month + '月' + day + '日' + ' 星期' + week + ' ' + hours + ':' +
+												minutes + ':' + seconds;
+										}
+									})();
+
+									function toDB(nub) {
+										if (nub < 10) {
+											return "0" + nub;
+										}
+										return "" + nub;
+									}
+								</script>
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<!--服务连接-->
+							<div class=" link-bar">
+								<a href="/yjzj/index_hzxx.htm" alt="会长信箱" target="_blank"><i
+										class="iconfont icon-mail"></i></a>
+								<a href="contact.html" alt="联系我们" target="_blank"><i
+										class="iconfont icon-zixun"></i></a>
+								<a href="weixin.html" alt="官方微信" target="_blank"><i class="iconfont icon-weix"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="top-wrap">
+					<div class="row">
+						<div class="col-xs-8">
+							<div class="logo">
+								<img src="images/logo.png" alt="" />
+							</div>
+						</div>
+						<div class="col-xs-4">
+							<!--搜索-->
+							<form action='/xwzx.jsp' method="post" name="form1" id="form1">
+								<div class="search-wrap">
+									<input type="search" name="keywords" class="sear1" id="" value=""
+										placeholder="信息搜索" />
+									<input type="submit" id="" value="搜索" />
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!--导航菜单-->
+				<!--
+				<div class="nav-bar">
+					<ul>
+						<li>
+							<a href="#">首页</a>
+						</li>
+						<li>
+							<a href="#">关于协会</a>
+						</li>
+						<li>
+							<a href="javascript:;">新闻中心<i></i></a>
+							<div class="sub-nav">
+								<a href="#">协会动态</a>
+								<a href="#">通知通告</a>
+								<a href="#">时事要闻</a>
+								<a href="#">党建工作</a>
+								<a href="#">招投标动态</a>
+								<a href="#">政府采购动态</a>
+								<a href="#">招标公告</a>
+								<a href="#">项目信息</a>
+								<a href="#">地方协会动态</a>
+								<a href="#">警钟长鸣</a>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">从业人员能力建设<i></i></a>
+							<div class="sub-nav">
+								<a href="#">证书登记</a>
+								<a href="#">继续教育</a>
+								<a href="#">网络学习</a>
+							</div>
+						</li>
+						<li>
+							<a href="#">招标采购管理</a>
+						</li>
+						<li>
+							<a href="javascript:;">学习园地<i></i></a>
+							<div class="sub-nav">
+								<a href="#" class="mlxx">政策法规</a>
+								<a href="#">学习探讨</a>
+								<a href="#">实务问答</a>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">会员中心<i></i></a>
+							<div class="sub-nav">
+								<a href="#" class="mlhy">会员信息</a>
+								<a href="#">招聘信息</a>
+								<a href="#">会员管理</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+                               
+			</div>-->
+				<script src="js/menu.js" language="javascript" type="text/javascript"></script>
+
+		</header>
+        </div>
+		<section>
+			<div class="container">
+				<div class="row mt20">
+					<div class="col-xs-6">
+						<div class="focusBox" style="margin:0 auto">
+							<ul class="pic">
+							
+						     <li>
+									<a href="list_show.jsp?record_id=352861001106" target="_blank"><img
+											src="ctba_images/202609/1789958399507067465.jpg" /></a>
+								</li>
+										
+							
+							  <li>
+									<a href="meeting_member.html" target="_blank"><img
+											src="img/1-1.png" /></a>
+							  </li>
+							  
+							  <li>
+									<a href="list_show.jsp?record_id=352861000035" target="_blank"><img
+											src="ctba_images/202607/1784009167968014287.jpg" /></a>
+								</li>
+							   <li>
+									<a href="list_show.jsp?record_id=352861000068" target="_blank"><img
+											src="ctba_images/202607/1784100158853046251.jpg" /></a>
+								</li>
+							   <li>
+									<a href="list_show.jsp?record_id=352861000069" target="_blank"><img
+											src="ctba_images/202607/1784100969391002981.jpg" /></a>
+								</li>
+								
+						    		
+								
+
+
+							</ul>
+							<div class="txt-bg"></div>
+							<div class="txt">
+								<ul>
+								
+								    <li class="on">
+										<a href="list_show.jsp?record_id=352861001106" target="_blank">2026国有企业绿色招标采购交流会在青岛举行</a>
+									</li>
+								
+								    <li>
+										<a href="meeting_member.html"
+											target="_blank">中国招标投标协会新会员单位交流座谈会在京召开</a>
+									</li>
+
+								
+								    <li>
+										<a href="list_show.jsp?record_id=352861000035"
+											target="_blank">井冈山上话党建</a>
+									</li>				
+
+
+								   <li>
+								 		<a href="list_show.jsp?record_id=352861000068"
+											target="_blank">中国招标投标协会第三届理事会第八次会议顺利召开</a>
+									</li>
+								    <li>
+										<a href="list_show.jsp?record_id=352861000069"
+											target="_blank">中招协金专委召开2026上半年度区域金融机构采购交流会</a>	
+									</li>
+									
+								</ul>
+							</div>
+							<ul class="num">
+								<li><a>1</a><span></span></li>
+								<li><a>2</a><span></span></li>
+								<li><a>3</a><span></span></li>
+								<li><a>4</a><span></span></li>
+								<li><a>5</a><span></span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="tab-wrap">
+							<div class="hd">
+								<ul>
+									<li class="on">
+										<a href="xwzx.jsp?tn=XHDT">协会动态</a>
+									</li>
+									<li>
+										<a href="xwzx.jsp?tn=XHTZ">时事要闻</a>
+									</li>
+									<li>
+										<a href="xwzx.jsp?tn=DJGZ">党建工作</a>
+									</li>
+									<li>
+										<a href="xwzx.jsp?tn=HYXX">会员动态</a>
+									</li>
+								</ul>
+							</div>
+							<div class="bd">
+								<ul>
+									<!--
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+                                    -->
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001106' target=_blank  title='2026国有企业绿色招标采购交流会在青岛举行'><font color='red'>2026国有企业绿色招标采购交流会在青岛举行</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-21</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001105' target=_blank  title='借鉴国际可持续采购经验 共筑国企绿色低碳供应链'><font color='red'>借鉴国际可持续采购经验 共筑国企绿色低碳供应链</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-22</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001104' target=_blank  title='深耕绿色采购实践 赋能低碳转型'><font color='red'>深耕绿色采购实践 赋能低碳转型</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-23</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001015' target=_blank  title='中国招标投标协会第十四次“会员单位开放交流日”活动在上海成功举办'><font color='#000000'>中国招标投标协会第十四次“会员单位开放交流日”活动在上海成功...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000980' target=_blank  title='2026年度第二次招标采购人员初级测评报名9月14日正式开启'><font color='#000000'>2026年度第二次招标采购人员初级测评报名9月14日正式开启</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-11</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000925' target=_blank  title='中招协《电线电缆采购技术规范 第×部分：架空绝缘电缆》团体标准编制组成立暨第一次编制工作会议在沪召开'><font color='#000000'>中招协《电线电缆采购技术规范 第×部分：架空绝缘电缆》团体标准...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-09</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000833' target=_blank  title='《绿色采购评价 水泥》标准研讨会在京召开'><font color='#000000'>《绿色采购评价 水泥》标准研讨会在京召开</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-04</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000775' target=_blank  title='中化商务有限公司党委书记、董事、总经理胡钦一行来访我会'><font color='#000000'>中化商务有限公司党委书记、董事、总经理胡钦一行来访我会</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-02</div></div></li>
+								</ul>
+								<ul>
+									<!--
+									<li><span class="date">11-11</span>
+										<a href="#" target="_blank">中招协招标代理机构专业委员会第九次工作会议在合肥召开第九次工作会议在合肥召开第九次工作会议在合肥召开</a>
+									</li>
+                                    -->
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/-tKmtbvlEfvJiwVu8surmQ' target=_blank  title='最高人民法院、全国工商联联合发布典型案例，聚焦解决拖欠企业账款纠纷' ><font color='#000000'>最高人民法院、全国工商联联合发布典型案例，聚焦解决拖欠企业账...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-08</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001210' target=_blank  title='内蒙古民营企业“走出去”京津冀专项对接活动取得阶段性成果'><font color='#000000'>内蒙古民营企业“走出去”京津冀专项对接活动取得阶段性成果</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-08</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001209' target=_blank  title='天津市发展改革委组织开展京津冀产业合作重点平台集中交流活动'><font color='#000000'>天津市发展改革委组织开展京津冀产业合作重点平台集中交流活动</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-08</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001207' target=_blank  title='铸就社会主义文化新辉煌——习近平文化思想引领文化强国建设迈出坚实步伐'><font color='#000000'>铸就社会主义文化新辉煌——习近平文化思想引领文化强国建设迈出...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-08</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001205' target=_blank  title='今年上半年我国经常账户收支总额同比增长16% '><font color='#000000'>今年上半年我国经常账户收支总额同比增长16% </font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-08</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001204' target=_blank  title='《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性、兜底性民生建设》 '><font color='#000000'>《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性、兜...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-08</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001199' target=_blank  title='12部门发文推动多式联运高质量发展 '><font color='#000000'>12部门发文推动多式联运高质量发展 </font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-30</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001198' target=_blank  title='加快高水平科技自立自强——国新办发布会聚焦“十五五”时期科技强国建设 '><font color='#000000'>加快高水平科技自立自强——国新办发布会聚焦“十五五”时期科技...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-30</div></div></li>
+								</ul>
+								<ul>
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001206' target=_blank  title='坚定信心 保持定力 持之以恒推进全面从严治党④锲而不舍纠“四风”树新风'><font color='#000000'>坚定信心 保持定力 持之以恒推进全面从严治党④锲而不舍纠“四风...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-08</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/jyr1EAZqYPLf0tDNv1Y0ZA' target=_blank  title='行业协会商会等社会组织领域负责人任职管理、名誉职务设立不规范典型案例' ><font color='#000000'>行业协会商会等社会组织领域负责人任职管理、名誉职务设立不规范...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>10-01</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001188' target=_blank  title='坚定信心 保持定力 持之以恒推进全面从严治党③以有力政治监督推动党中央重大决策部署贯彻落实'><font color='#000000'>坚定信心 保持定力 持之以恒推进全面从严治党③以有力政治监督推...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001143' target=_blank  title='坚定信心 保持定力 持之以恒推进全面从严治党 ② 坚定不移推动全党做到“两个维护”'><font color='#000000'>坚定信心 保持定力 持之以恒推进全面从严治党 ② 坚定不移推动全...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-23</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001100' target=_blank  title='学习领悟《习近平党建文选》&#12881;树立大抓基层鲜明导向'><font color='#000000'>学习领悟《习近平党建文选》&#12881;树立大抓基层鲜明导向      ...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-21</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/KmmvDd0AAYqiaRL8eBBPIQ' target=_blank  title='习近平：坚持对党绝对忠诚' ><font color='#000000'>习近平：坚持对党绝对忠诚</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-20</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001086' target=_blank  title='学习领悟《习近平党建文选》&#9331;着力培养忠诚干净担当的高素质干部队伍'><font color='#000000'>学习领悟《习近平党建文选》&#9331;着力培养忠诚干净担当的高素 ...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-20</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001081' target=_blank  title='持续深化群众身边不正之风和腐败问题集中整治⑤老百姓得实惠 我们党得民心'><font color='#000000'>持续深化群众身边不正之风和腐败问题集中整治⑤老百姓得实惠 我 ...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-20</div></div></li>
+								</ul>
+								<ul>
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/-Ravtk3UYhahrz4SPbkRIA' target=_blank  title='【宁夏国际招标】宁招集团“五融先锋领航”党建案例获评2026新时代企业党建创新优秀案例' ><font color='#000000'>【宁夏国际招标】宁招集团“五融先锋领航”党建案例获评2026新时...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-21</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/xqJRdhT6WsZNlZH86b9C5g' target=_blank  title='【江苏仁禾中衡咨询】集团开展“慈善一日捐”活动' ><font color='#000000'>【江苏仁禾中衡咨询】集团开展“慈善一日捐”活动</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-16</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001004' target=_blank  title='【辽宁交投监理咨询】辽宁交投监理咨询有限责任公司刘伟当选辽宁省建设工程招标投标协会新一届理事会副理事长'><font color='#000000'>【辽宁交投监理咨询】辽宁交投监理咨询有限责任公司刘伟当选辽宁...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000790' target=_blank  title='【内蒙古蒙电招标公司】内蒙古电力集团评标专家行为轨迹管理系统上线'><font color='#000000'>【内蒙古蒙电招标公司】内蒙古电力集团评标专家行为轨迹管理系统...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-03</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000480' target=_blank  title='【青岛利业】利业咨询获评工程咨询行业“最高等级资信”——甲级综合资信'><font color='#000000'>【青岛利业】利业咨询获评工程咨询行业“最高等级资信”——甲级...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-12</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/5wukP1THCU6dWD_hjIerjw?scene=1&click_id=883849436' target=_blank  title='【三峡招标公司】受邀参加2026年招标投标协会党建、宣传工作会议并作经验交流' ><font color='#000000'>【三峡招标公司】受邀参加2026年招标投标协会党建、宣传工作会议...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>07-15</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/gqTtgl3BYJEGnjfdvBgr3g?scene=1' target=_blank  title='【华电物资公司】党委委员、纪委书记尚志伟受邀参加2026年招标投标协会宣传工作会议并作经验交流' ><font color='#000000'>【华电物资公司】党委委员、纪委书记尚志伟受邀参加2026年招标投...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>07-10</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/WG7NbV6vOBP03wZUCErgIg?scene=1&click_id=762769246' target=_blank  title='【科大讯飞】发布招采全链路AI智能体平台，以AI原生能力重构招采' ><font color='#000000'>【科大讯飞】发布招采全链路AI智能体平台，以AI原生能力重构招采...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>07-01</div></div></li>
+								</ul>
+							</div>
+						</div>
+						<script>
+							jQuery(".tab-wrap").slide();
+						</script>
+					</div>
+				</div>
+			</div>
+			
+		    <div style="text-align: center; margin-top: 16px;">
+                      <a href="https://sjysds.ciia.org.cn" target="_blank">
+                      <img src="images/sjysds_ctba.jpg" />
+                      </a>
+                    </div>
+			<div class="container">
+				<div class="row mt20">
+					<div class="col-xs-3">
+						<div class="tab-sub-wrap tab10">
+							<div class="hd clearfix">
+
+								<li class="on">
+									<a href="wssd.html">网上书店</a>
+									<i>
+									</i>
+								</li>
+
+								<li>
+									<a href="http://training.cebpubservice.com/index.aspx?source=%E5%8D%8F%E4%BC%9A"
+										target="_blank">招标采购大讲堂</a>
+								</li>
+							</div>
+							<div class="bd">
+
+								<ul>
+									<li><a href='http://www.ctba.org.cn/dzzbjygf_jiexi_dg.html' target=_blank  title='《电子采购交易规范 非招标方式》（GB/T 43711－2024）应用解析' ><font color='red'>《电子采购交易规范 非招标方式》（GB/...</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/zzdg2026.html' target=_blank  title='2026年《招标采购管理》期刊' ><font color='#000000'>2026年《招标采购管理》期刊</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/jiaocai.html' target=_blank  title='2025版招标采购专业人员能力评价辅导教材全套' ><font color='#000000'>2025版招标采购专业人员能力评价辅导教...</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/jiaocai_chuji.html' target=_blank  title='2025版招标采购人员专业能力评价初级测试辅导教材' ><font color='#000000'>2025版招标采购人员专业能力评价初级测...</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/jiaocai_zhongji.html' target=_blank  title='《招标采购合同管理》和《招标采购项目管理》两本书' ><font color='#000000'>《招标采购合同管理》和《招标采购项目...</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/jiaocai_fljc.html' target=_blank  title='招标采购专业理论与法律基础' ><font color='#000000'>招标采购专业理论与法律基础</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/jiaocai_zysw.html' target=_blank  title='招标采购专业实务' ><font color='#000000'>招标采购专业实务</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/jiaocai_htgl.html' target=_blank  title='招标采购合同管理' ><font color='#000000'>招标采购合同管理</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/jiaocai_xmgl.html' target=_blank  title='招标采购项目管理' ><font color='#000000'>招标采购项目管理</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/dzcgjygf.html' target=_blank  title='电子采购交易规范 非招标方式' ><font color='#000000'>电子采购交易规范 非招标方式</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/fagui2020-2021.html' target=_blank  title='《中国招标采购常用法规选编（2020）》与《中国招标采购常用法规选编（2021）》套装' ><font color='#000000'>《中国招标采购常用法规选编（2020）》...</font></a></li><li><a href='http://www.ctba.org.cn/zbcg/fagui2021.html' target=_blank  title='中国招标采购常用法规选编（2021）' ><font color='#000000'>中国招标采购常用法规选编（2021）</font></a></li>
+								</ul>
+
+								<ul>
+									<li style="height:280px!important">
+										<div>
+											<a href="http://training.cebpubservice.com/index.aspx?source=%E5%8D%8F%E4%BC%9A"
+												target="_blank"><img src="images/djt.jpg" /></a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<script>
+							jQuery(".tab10").slide();
+						</script>
+					</div>
+					<div class="col-xs-6">
+						<div class="tab-sub-wrap tab1">
+							<div class="hd clearfix">
+								<li class="on">
+									<a href="xwzx.jsp?tn=TZGG">通知通告</a><i></i>
+								</li>
+								<li>
+									<a href="xwzx.jsp?tn=ZDXW">招投标动态</a><i></i>
+								</li>
+								<li>
+									<a href="xwzx.jsp?tn=ZFCG">政府采购动态</a><i></i>
+								</li>
+								<li>
+									<a href="xwzx.jsp?tn=GGZY">公共资源交易平台动态</a>
+								</li>
+							</div>
+							<div class="bd">
+								<ul>
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001201' target=_blank  title='关于任树本不再担任中国招标投标协会会长的公告'><font color='#000000'>关于任树本不再担任中国招标投标协会会长的公告</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-30</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001110' target=_blank  title='关于《变压器采购技术规范》《开关柜（箱）采购技术规范》等52项团体标准立项的通知'><font color='red'>关于《变压器采购技术规范》《开关柜（箱）采购技术规范》等52项...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-21</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000981' target=_blank  title='关于开展2026年度第二次招标采购人员专业能力初级测试评价报名工作的通知'><font color='red'>关于开展2026年度第二次招标采购人员专业能力初级测试评价报名工...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-11</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000773' target=_blank  title='关于召开国有企业绿色招标采购交流会的通知'><font color='#000000'>关于召开国有企业绿色招标采购交流会的通知</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-02</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000735' target=_blank  title='中国招标投标协会关于征求《绿色采购评价 钢丝绳》等2项团体标准意见的函'><font color='#000000'>中国招标投标协会关于征求《绿色采购评价 钢丝绳》等2项团体标准...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-31</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000721' target=_blank  title='关于召开《变压器采购技术规范》团体标准编制组成立暨第一次编制工作会议的预通知'><font color='#000000'>关于召开《变压器采购技术规范》团体标准编制组成立暨第一次编制...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-28</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000683' target=_blank  title='关于征集招标代理机构的通知'><font color='#000000'>关于征集招标代理机构的通知</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-25</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000676' target=_blank  title='中国招标投标协会关于《网络远程投标与开标技术标准》等4项团体标准的立项公告'><font color='#000000'>中国招标投标协会关于《网络远程投标与开标技术标准》等4项团体 ...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-25</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000636' target=_blank  title='关于举办第十四次“会员单位开放交流日”活动的通知'><font color='#000000'>关于举办第十四次“会员单位开放交流日”活动的通知</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-24</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000635' target=_blank  title='关于发布《招标采购人员专业能力评价大纲》（初、中级）的通知'><font color='red'>关于发布《招标采购人员专业能力评价大纲》（初、中级）的通知</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-21</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000508' target=_blank  title='关于召开《电线电缆采购技术规范 第×部分：架空绝缘电缆》团体标准编制组成立暨第一次编制工作会议的通知'><font color='#000000'>关于召开《电线电缆采购技术规范 第×部分：架空绝缘电缆》团体标...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-13</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000481' target=_blank  title='关于举办国有企业绿色招标采购交流研讨会的预通知'><font color='#000000'>关于举办国有企业绿色招标采购交流研讨会的预通知</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-12</div></div></li>
+								</ul>
+								<ul>
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='http://ggzy.jgswj.gxzf.gov.cn/gxggzy/gywm/004003/20260911/80012b53-b9c6-4a34-a5dc-35be2648d7ab.html' target=_blank  title='广西扎实推进跨省远程异地评标常态化 主场副场“双点亮”保障能力全面提升' ><font color='#000000'>广西扎实推进跨省远程异地评标常态化 主场副场“双点亮”保障能 ...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://gxt.henan.gov.cn/2026/09-21/3431344.html' target=_blank  title='河南省工业和信息化厅、省发展改革委、省公共资源交易中心联合印发《关于推进工业工程项目进场交易的通知》' ><font color='#000000'>河南省工业和信息化厅、省发展改革委、省公共资源交易中心联合印...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://ggzy.yn.gov.cn/jyh/noticeDetail?docJsonUrl=http%3A%2F%2F220.163.62.250%3A40025%2Fpub%2Fggzyjy%2Ftzgg%2F202609%2Ft20260903_4295602_json.json' target=_blank  title='云南省发展改革委、省农业农村厅、省水利厅联合印发《关于在全省农业工程领域和水利工程领域试行暗标评审的通知》' ><font color='#000000'>云南省发展改革委、省农业农村厅、省水利厅联合印发《关于在全省...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/HsV-baJ1T3oShnyMO4eBQg' target=_blank  title='招采行业一周要闻（9月21日-9月27日）' ><font color='#000000'>招采行业一周要闻（9月21日-9月27日）</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-28</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='http://www.caac.gov.cn/XXGK/XXGK/GFXWJ/202609/t20260921_231761.html?sessionid=' target=_blank  title='民航局印发 《民航专业工程建设项目远程异地评标工作细则》' ><font color='#000000'>民航局印发 《民航专业工程建设项目远程异地评标工作细则》</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-28</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/KSpLj97T5w7uvXNqSYmf2A' target=_blank  title='招采行业一周要闻（9月7日-9月13日）' ><font color='#000000'>招采行业一周要闻（9月7日-9月13日）</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-16</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/0-IiN6savLMooCDt42pkpw' target=_blank  title='招采行业一周要闻（9月14日-9月20日）' ><font color='#000000'>招采行业一周要闻（9月14日-9月20日）</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-23</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/TczM2W8A0AOd35WGXGqUUg' target=_blank  title='2025年全国工程勘察设计统计公报' ><font color='#000000'>2025年全国工程勘察设计统计公报</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-23</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/UpKRWT87eA7C8WLQQd35uw' target=_blank  title='2025年全国建设工程监理统计公报' ><font color='#000000'>2025年全国建设工程监理统计公报</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-23</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001003' target=_blank  title='安徽宣城市公管局探索“云端监管”新路径压实招标人标后履约主体责任'><font color='#000000'>安徽宣城市公管局探索“云端监管”新路径压实招标人标后履约主体...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000999' target=_blank  title='山东枣庄市双模式发力推动远程异地评标 全面常态化'><font color='#000000'>山东枣庄市双模式发力推动远程异地评标 全面常态化</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://ggzy.zj.gov.cn/xwzx/001002/20260902/797e3c28-8529-4ebf-b5ec-521a5929b400.html' target=_blank  title='浙江省建设厅印发《浙江省建设工程施工合同专用条款（示范文本）》' ><font color='#000000'>浙江省建设厅印发《浙江省建设工程施工合同专用条款（示范文本）...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li>
+								</ul>
+								<ul>
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001192' target=_blank  title='财政部发布2025年全国政府采购简要情况'><font color='#000000'>财政部发布2025年全国政府采购简要情况</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001187' target=_blank  title='山西忻州：让采购资金花得更值'><font color='#000000'>山西忻州：让采购资金花得更值</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001186' target=_blank  title='陕西汉中进一步规范政采信息公开'><font color='#000000'>陕西汉中进一步规范政采信息公开</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001185' target=_blank  title='内蒙古赤峰：强化政采公平竞争审查'><font color='#000000'>内蒙古赤峰：强化政采公平竞争审查</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001184' target=_blank  title='江西井冈山：“四轮驱动”推进政府购买服务'><font color='#000000'>江西井冈山：“四轮驱动”推进政府购买服务</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001183' target=_blank  title='四川眉山：持续深化改革 激发政采效能'><font color='#000000'>四川眉山：持续深化改革 激发政采效能</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001182' target=_blank  title='湖南临武：提升政采规范化透明化水平'><font color='#000000'>湖南临武：提升政采规范化透明化水平</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001181' target=_blank  title='从“企业找市场”到“市场找企业”'><font color='#000000'>从“企业找市场”到“市场找企业”</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001180' target=_blank  title='2025年全国政采规模超3.3万亿元'><font color='#000000'>2025年全国政采规模超3.3万亿元</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001179' target=_blank  title='福建深化改革助力统一大市场建设'><font color='#000000'>福建深化改革助力统一大市场建设</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001178' target=_blank  title='浙江更新政府购买服务指导性目录'><font color='#000000'>浙江更新政府购买服务指导性目录</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-29</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='http://czt.hubei.gov.cn/zfxxgk_GK2020/zc_GK2020/qtzdgkwj/202609/t20260928_6023096.shtml' target=_blank  title='湖北省财政厅印发《湖北省政府采购合作创新采购方式指南》' ><font color='#000000'>湖北省财政厅印发《湖北省政府采购合作创新采购方式指南》</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-28</div></div></li>
+								</ul>
+								<ul>
+									<li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001002' target=_blank  title='安徽界首市：评标硬件提配置赋能服务提品质'><font color='#000000'>安徽界首市：评标硬件提配置赋能服务提品质</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001001' target=_blank  title='山东德州市公共资源交易中心：多措并举优化交易现场管理 以“硬核”举措守护公共资源交易“生命线”'><font color='#000000'>山东德州市公共资源交易中心：多措并举优化交易现场管理 以“硬 ...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001000' target=_blank  title='山东烟台牟平分中心首个“机器管+智能评”项目落地 跑出公共资源智能交易“加速度”'><font color='#000000'>山东烟台牟平分中心首个“机器管+智能评”项目落地 跑出公共资源...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-14</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000768' target=_blank  title='山东德州市公共资源交易中心：“实名”交易扩面增量 改革触角持续延伸'><font color='#000000'>山东德州市公共资源交易中心：“实名”交易扩面增量 改革触角持 ...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-02</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000767' target=_blank  title='安徽滁州市“三点发力”推动公共资源交易服务提档升级'><font color='#000000'>安徽滁州市“三点发力”推动公共资源交易服务提档升级</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-02</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000766' target=_blank  title='云南楚雄州打造人工智能问答客服新引擎赋能公共资源交易服务提质增效'><font color='#000000'>云南楚雄州打造人工智能问答客服新引擎赋能公共资源交易服务提质...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-02</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://ggzy.guizhou.gov.cn/zhdt/szxdt/202608/t20260831_90799170.html' target=_blank  title='贵州以三项举措夯实公共资源交易AI应用根基' ><font color='#000000'>贵州以三项举措夯实公共资源交易AI应用根基</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>09-02</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000657' target=_blank  title='安徽安庆市公管局数智赋能激发公共资源交易新活力'><font color='#000000'>安徽安庆市公管局数智赋能激发公共资源交易新活力</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-24</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='https://ggzy.guizhou.gov.cn/zhdt/szxdt/202608/t20260818_90742385.html' target=_blank  title='贵州公共资源交易中心印发《关于进一步降低省公共资源交易综合金融服务平台电子保函费率的通知》' ><font color='#000000'>贵州公共资源交易中心印发《关于进一步降低省公共资源交易综合金...</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-24</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000623' target=_blank  title='菏泽市公共资源交易中心精准施策 护航市场主体健康发展'><font color='#000000'>菏泽市公共资源交易中心精准施策 护航市场主体健康发展</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-21</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000562' target=_blank  title='山东德州宁津：“三维讲堂”练内功 业务提升见实效'><font color='#000000'>山东德州宁津：“三维讲堂”练内功 业务提升见实效</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-18</div></div></li><li><div style='position:relative;width:410px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861000539' target=_blank  title='山东泰安肥城：优化服务强管理，阳光交易促规范'><font color='#000000'>山东泰安肥城：优化服务强管理，阳光交易促规范</font></a><div style='width:60px;position:absolute;top:0px;left:536px;'>08-17</div></div></li>
+								</ul>
+							</div>
+						</div>
+						<script>
+							jQuery(".tab1").slide();
+						</script>
+					</div>
+					<div class="col-xs-3">
+						<div class="adleft-wrap">
+
+							<div><a href="http://xypj.ctba.org.cn/" target="_blank"><img src="images/ad_zf_1.jpg"
+										alt="" /></a></div>
+							<div><a href="http://tpp.ctba.org.cn/" target="_blank"><img src="images/ad_zf_2.jpg"
+										alt="" /></a></div>
+							<div><a href="/dljgzwh/index.htm" target="_blank"><img src="images/ad_zf_24.jpg"
+										alt="" /></a></div>
+							<div><a href="/dzzbzwh/index.htm" target="_blank"><img src="images/ad_zf_26.jpg"
+										alt="" /></a></div>
+							<div><a href="/jinrongzwh/index.html" target="_blank"><img src="images/ad_zf_27.jpg"
+										alt="" /></a></div>
+							<div><a href="/flfwzwh/index.html" target="_blank"><img src="images/ad_zf_28.jpg"
+										alt="" /></a></div>
+							<div><a href="/gqlszwh/index.html" target="_blank"><img src="images/ad_zf_29.jpg"
+										alt="" /></a></div>
+							<div><a href="/dlhyzwh/index.html" target="_blank"><img src="images/ad_zf_30.jpg"
+										alt="" /></a></div>
+							<div><a href="/ggzy/index.htm" target="_blank"><img src="images/ad_zf_23.jpg" alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="hd clearfix">
+				</div>
+			</div>
+			</div>
+			<div class="container">
+				<div class="row mt20">
+					<div>
+						<div>
+							<a href="http://www.ebnew.com/" target="_blank"><img src="images/sbxh.jpg"
+									name="ad_main_center_2" border="0" usemap="#ad_main_center_2Map"
+									id="ad_main_center_2" />
+								<map name="ad_main_center_2Map">
+						      <area shape="rect" coords="212,14,357,42" href="/zt/dzztb/index.html"
+										target="_blank">
+									<area shape="rect" coords="370,15,738,41" href="http://biaozhun.wuzi.cn/web/standardDynamic" target="_blank">
+									<area shape="rect" coords="757,4,1201,56" href="/gyxh/sbxh_list.pdf"
+										target="_blank">
+								</map>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row mt20">
+					<div class="col-xs-14">
+						<div>
+							<a href="http://www.e-qyzc.com/" target="_blank"><img src="images/qyzc.gif"
+									name="ad_main_center_16" id="ad_main_center_3" /></a>
+						</div>
+					</div>
+					<div class="col-xs-14">
+						<div>
+							<a href="https://www.biaoshitong.com/bidCheck" target="_blank"><img src="images/zhulong.gif"
+									width="146" height="73" name="ad_main_center_4" id="ad_main_center_4" /></a>
+						</div>
+					</div>
+					<div class="col-xs-14">
+						<div>
+							<a href="https://www.etrading.cn/" target="_blank"><img src="images/epoint.gif"
+									name="ad_main_center_5" id="ad_main_center_5" /></a>
+						</div>
+					</div>
+
+					<div class="col-xs-14">
+						<div>
+							<a href="http://www.sccin.com/aboutus/" target="_blank"><img src="images/scjsw.gif"
+									name="ad_main_center_7" id="ad_main_center_7" /></a>
+						</div>
+					</div>
+					<div class="col-xs-14">
+						<div>
+							<a href="http://www.e-bidding.org/" target="_blank"><img src="images/gxyg.gif" width="146"
+									height="73" name="ad_main_center_8" id="ad_main_center_8" /></a>
+						</div>
+					</div>
+					<div class="col-xs-14">
+						<div>
+							<a href="http://www.ebidding.com/" target="_blank"><img src="images/gyzb.gif"
+									name="ad_main_center_11" id="ad_main_center_11" /></a>
+						</div>
+					</div>
+					<div class="col-xs-14">
+						<div>
+							<a href="https://www.easy3w.com/" target="_blank"><img width="146" height="73"
+									src="images/shtz.gif" name="ad_main_center_12" id="ad_main_center_12" /></a>
+						</div>
+					</div>
+					
+					<div class="col-xs-14">
+						<div>
+							<a href="https://www.jiangongdata.com/?scode=PC-00117" target="_blank"><img
+									src="images/jiangj.gif" name="ad_main_center_6" width="146" height="73"
+									id="ad_main_center_9" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+			<div class="container">
+				<div class="row mt10">
+
+
+					<div class="col-xs-14">
+						<div>
+							<a href="http://www.xinyuan.com.cn/" target="_blank"><img src="images/xinyuan.gif"
+									name="ad_main_center_14" id="ad_main_center_14" /></a>
+						</div>
+					</div>
+
+
+					<div class="col-xs-14">
+						<div>
+							<a href="https://www.jiangongdata.com/?scode=PC-00117" target="_blank"><img
+									src="images/jiangj.gif" name="ad_main_center_6" width="146" height="73"
+									id="ad_main_center_9" /></a>
+						</div>
+					</div>
+
+					<div class="col-xs-14">
+						<div>
+							<a href="http://www.ctba.org.cn/zt/dzztb/index.html" target="_blank"><img
+									src="images/dzzbtb.jpg" width="896" height="73" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			-->
+			<div class="container">
+				<div class="row mt20">
+					<div class="col-xs-7">
+						<div class="tab-sub-wrap">
+							<div class="hd clearfix">
+								<li class="on">
+									<a href="xwzx.jsp?tn=XHZT01">专题报道</a>
+								</li>
+							</div>
+							<div class="container1">
+								<div class="image-container">
+									<a href="http://www.ctba.org.cn/zt/comp2025/index.jsp" target="_blank"><img
+											src="images/jnds.jpg" alt="图片"></a>
+								</div>
+								<div class="list-container">
+									<ul class="item-list">
+									    <li><a href="http://www.ctba.org.cn/zt/nianhui2026/index.html"
+												target="_blank">2026年中国招标投标协会年会</a></li>	
+										<li><a href="http://www.ctba.org.cn/zhuanti/xcgzh2025/index.html"
+												target="_blank">2025招标采购行业宣传工作会</a></li>									    	
+										<li><a href="http://www.ctba.org.cn/zhuanti/meeting_lszbcg/index.html"
+												target="_blank">2025绿色招标采购发展大会</a></li>
+									    								
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-5">
+						<div class="tab-sub-wrap">
+							<div class="hd clearfix">
+								<li class="on">
+									<a href="dhqy.html">对话企业</a>
+								</li>
+							</div>
+							<div class="container1">
+								<div class="image-container1">
+									<img src="images/dhqy_1.jpg" alt="图片">
+								</div>
+								<div class="list-container2">
+
+									<div class="title-content2">
+										<a href="http://www.ctba.org.cn/list_show.jsp?record_id=352861000929" target="_blank"
+											class="title-link2">
+											<br><br>
+											<h2>深耕阳光招标，以专业服务护航地方高质量发展</h2>
+											<p>——访陕西省招标有限责任公司党总支书记、董事长赵雁君</p>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- 第二行：第一个列表项 -->
+							<div class="list-row2">
+								<ul class="item-list2">
+									<li><a href="http://www.ctba.org.cn/list_show.jsp?record_id=352861000527"
+											target="_blank">【陕西兵咨建设咨询】以品质铸就精品，以价值赢得尊重</a></li>
+								</ul>
+							</div>
+
+							<!-- 第三行：第二个列表项 -->
+							<div class="list-row2">
+								<ul class="item-list2">
+									<li><a href="http://www.ctba.org.cn/list_show.jsp?record_id=346424"
+											target="_blank">【西北（陕西）国际招标】坚持“四以、四融、四统一” 以专业...</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="container">
+					</div>
+					<div class="container">
+						<div class="row mt20">
+							<div class="col-xs-9">
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="tab-sub-wrap">
+											<div class="hd clearfix">
+												<li class="on">
+													<a href="xxyd.jsp?tn=ZCFG">政策法规</a>
+												</li>
+											</div>
+											<div class="bd">
+												<ul>
+													<li><a href='/list_show.jsp?record_id=352861000772' target=_blank  title='2026年8月招标采购新规'><font color='#000000'>2026年8月招标采购新规</font></a></li><li><a href='/list_show.jsp?record_id=352861000350' target=_blank  title='2026年7月招标采购新规'><font color='#000000'>2026年7月招标采购新规</font></a></li><li><a href='/list_show.jsp?record_id=352861000117' target=_blank  title='《招标投标领域信用管理暂行办法》 2026年第44号令'><font color='#000000'>《招标投标领域信用管理暂行办法》 2026年第44号令</font></a></li><li><a href='/list_show.jsp?record_id=352861000075' target=_blank  title='《公共资源交易中心招标投标现场管理暂行办法》2026年第43号令'><font color='#000000'>《公共资源交易中心招标投标现场管理暂行办法》2026年第43号令  ...</font></a></li><li><a href='/list_show.jsp?record_id=35286311' target=_blank  title='2026年6月招标采购新规'><font color='#000000'>2026年6月招标采购新规</font></a></li><li><a href='/list_show.jsp?record_id=35285900' target=_blank  title='2026年5月招标采购新规'><font color='#000000'>2026年5月招标采购新规</font></a></li><li><a href='/list_show.jsp?record_id=35285467' target=_blank  title='2026年4月招标采购新规'><font color='#000000'>2026年4月招标采购新规</font></a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-6">
+										<div class="tab-sub-wrap tab2">
+											<div class="hd clearfix">
+												<li class="on">
+													<a href="xwzx.jsp?tn=XMXX">项目信息</a>
+												</li>
+											</div>
+											<div class="bd">
+												<ul>
+													<li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001215' target=_blank  title='湖南省"项目大谋划 谋划大项目"行动第四次重大项目路演·园区专场在长沙举行'><font color='#000000'>湖南省"项目大谋划 谋划大项目"行动第四次 ...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>10-08</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001213' target=_blank  title='1485亿元投向河南71个交通项目'><font color='#000000'>1485亿元投向河南71个交通项目</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>10-08</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001212' target=_blank  title='前8月全国完成交通固定资产投资超2万亿元'><font color='#000000'>前8月全国完成交通固定资产投资超2万亿元</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>10-08</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001211' target=_blank  title='山西谋划超千公里高速公路扩能改造'><font color='#000000'>山西谋划超千公里高速公路扩能改造</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>10-08</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001208' target=_blank  title='一批重大工程刷新“进度条”'><font color='#000000'>一批重大工程刷新“进度条”</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>10-08</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001189' target=_blank  title='云南：2026年第一批省级重大项目建设进展情况'><font color='#000000'>云南：2026年第一批省级重大项目建设进展情...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-29</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001162' target=_blank  title='山西绘制“十五五”蓝图高位推进交通强省建设'><font color='#000000'>山西绘制“十五五”蓝图高位推进交通强省建...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-28</div></div></li>
+												</ul>
+											</div>
+										</div>
+										<script>
+											jQuery(".tab2").slide();
+										</script>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="tab-sub-wrap tab3 mt20">
+											<div class="hd clearfix">
+												<li class="on">
+													<a href="xxyd.jsp?tn=ZJPL">学习探讨</a>
+												</li>
+											</div>
+											<div class="bd">
+												<ul>
+													<li><a href='https://mp.weixin.qq.com/s/Fe-4oenZ_RSfWCT-asA6uA' target=_blank  title='科学性在招标投标活动中的核心价值与实践路径 —— 基于发改法规〔2025〕1358号文的法理阐释与路径优化' ><font color='#000000'>科学性在招标投标活动中的核心价值与实践路径 —— 基于发改法规...</font></a></li><li><a href='https://mp.weixin.qq.com/s/bB-httQtS8In7s5c2ByGTA' target=_blank  title='基于人工智能的数智化评审机制探索与研究' ><font color='#000000'>基于人工智能的数智化评审机制探索与研究</font></a></li><li><a href='https://mp.weixin.qq.com/s/5c6F3Lw9E0iIsW8Fk_zd8A' target=_blank  title='基于人工智能技术的招标采购智慧稽核系统构建与实践' ><font color='#000000'>基于人工智能技术的招标采购智慧稽核系统构建与实践</font></a></li><li><a href='https://mp.weixin.qq.com/s/xBaM5B6XvD4bcYHQ3LgMkg' target=_blank  title='公共资源交易平台招标文件智能化编制系统的构建及应用浅析' ><font color='#000000'>公共资源交易平台招标文件智能化编制系统的构建及应用浅析</font></a></li><li><a href='https://mp.weixin.qq.com/s/0AyOrM2kLdpu5ujRE8-aCA' target=_blank  title='央企数智化评标中心建设的实践案例' ><font color='#000000'>央企数智化评标中心建设的实践案例</font></a></li><li><a href='https://mp.weixin.qq.com/s/KrR_XgE93I0-YT6OnTEArw' target=_blank  title='智慧采购的“三融合”运行实践' ><font color='#000000'>智慧采购的“三融合”运行实践</font></a></li>
+												</ul>
+											</div>
+										</div>
+										<script>
+											jQuery(".tab3").slide();
+										</script>
+									</div>
+									<div class="col-xs-6">
+										<div class="tab-sub-wrap mt20">
+											<div class="hd clearfix">
+												<li class="on">
+													<a href="xwzx.jsp?tn=DFXHDT">地方协会</a>
+												</li>
+											</div>
+											<div class="bd">
+												<ul>
+													<li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://www.bcebca.org.cn/ShowSampNews.aspx?id=15720' target=_blank  title='【北京协会】2026年度“乡村教育振兴公益帮扶项目”—— 云南站顺利落地' ><font color='#000000'>【北京协会】2026年度“乡村教育振兴公益帮...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-23</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='http://www.jxtba.com/xinwenzhongxin/gongzuodongtai/html.php?c-39798.html' target=_blank  title='【江西协会】成功举办2026年度第一期公益讲座' ><font color='#000000'>【江西协会】成功举办2026年度第一期公益讲...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-23</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://www.cqzbtb.cn/article/13_1301_0_2460607.html?shId=624' target=_blank  title='【重庆协会】第六次会员单位开放交流日活动成功举办' ><font color='#000000'>【重庆协会】第六次会员单位开放交流日活动...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-23</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='http://www.hbzhaobiao.com/site/news/hyzx/detail.html?id=e5279467adee49f5920aabb848679450' target=_blank  title='【河北协会】冀陕两省招标投标协会开展学习交流活动' ><font color='#000000'>【河北协会】冀陕两省招标投标协会开展学习...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-23</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://www.zjtba.org.cn/article/13_1301_0_2389637.html?shId=624' target=_blank  title='【浙江协会】赴省社会组织总会学习交流' ><font color='#000000'>【浙江协会】赴省社会组织总会学习交流</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-14</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='http://www.ahtba.org.cn/site/news/detail/038696fb-752a-46a1-bab8-23fa58ee4443' target=_blank  title='【安徽协会】第四届理事会第二次会议召开' ><font color='#000000'>【安徽协会】第四届理事会第二次会议召开</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-14</div></div></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="tab-sub-wrap mt20">
+											<div class="hd clearfix">
+												<li class="on">
+													<a href="xxyd.jsp?tn=PXSWWD">实务问答</a>
+												</li>
+											</div>
+											<div class="bd">
+												<ul>
+													<li><a href='/list_show.jsp?record_id=352861000570' target=_blank  title='评标委员会因招标文件失误终止评标，是否退还投标人的标书费？'><font color='#000000'>评标委员会因招标文件失误终止评标，是否退还投标人的标书费？</font></a></li><li><a href='/list_show.jsp?record_id=352861000569' target=_blank  title='中标通知书到达中标人前后终止招标项目，招标人分别承担什么责任？'><font color='#000000'>中标通知书到达中标人前后终止招标项目，招标人分别承担什么责任...</font></a></li><li><a href='/list_show.jsp?record_id=352861000568' target=_blank  title='同一单位两个工程施工项目，施工地点相近、工程内容相似，但资金来源渠道不同，是否可以不合并招标？'><font color='#000000'>同一单位两个工程施工项目，施工地点相近、工程内容相似，但资金...</font></a></li><li><a href='/list_show.jsp?record_id=352861000567' target=_blank  title='投标人营业执照记载的企业名称与资质证书上的名称不一致，是先澄清还是能直接否决投标？'><font color='#000000'>投标人营业执照记载的企业名称与资质证书上的名称不一致，是先澄...</font></a></li><li><a href='/list_show.jsp?record_id=352861000566' target=_blank  title='涉嫌“低于成本竞标”时如何评审？'><font color='#000000'>涉嫌“低于成本竞标”时如何评审？</font></a></li><li><a href='/list_show.jsp?record_id=352861000465' target=_blank  title='一个招标项目可否要求两种计价标准或方法？'><font color='#000000'>一个招标项目可否要求两种计价标准或方法？</font></a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-6">
+										<div class="tab-sub-wrap mt20">
+											<div class="hd clearfix">
+												<li class="on">
+													<a href="xwzx.jsp?tn=JZCM">警钟长鸣</a>
+												</li>
+											</div>
+											<div class="bd">
+												<ul>
+													<li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/jyr1EAZqYPLf0tDNv1Y0ZA' target=_blank  title='行业协会商会等社会组织领域负责人任职管理、名誉职务设立不规范典型案例' ><font color='#000000'>行业协会商会等社会组织领域负责人任职管理...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>10-01</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='/list_show.jsp?record_id=352861001117' target=_blank  title='交通运输行业招标投标领域违法违规典型案例通报（第三批）'><font color='#000000'>交通运输行业招标投标领域违法违规典型案例...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-22</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/jUmpPqPQAOXxUJrVhtMz_A' target=_blank  title='山东省通报一批招标投标领域评标专家违法违规案例' ><font color='#000000'>山东省通报一批招标投标领域评标专家违法违...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-21</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/lmLcEFhwEq7BAnBjVVnLjA' target=_blank  title='浙江省住房城乡建设厅通报一批招投标领域违法违规案例' ><font color='#000000'>浙江省住房城乡建设厅通报一批招投标领域违...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-20</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/C6WTDb2XME6kCuNPawHHBw' target=_blank  title='湖南省住房城乡建设厅通报一批招标投标领域违法违规典型案例' ><font color='#000000'>湖南省住房城乡建设厅通报一批招标投标领域...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-18</div></div></li><li><div style='position:relative;width:360px;text-align:left;font-size:16px;'> <a href='https://mp.weixin.qq.com/s/GVlaUdpVkDTbAkeX8JtZBQ' target=_blank  title='辽宁省、黑龙江省分别通报一批招标投标领域违法违规典型案例' ><font color='#000000'>辽宁省、黑龙江省分别通报一批招标投标领域...</font></a><div style='width:60px;position:absolute;top:0px;left:380px;'>09-16</div></div></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-3">
+
+
+
+								<div class="adleft-wrap2">
+									<div class="mt10"> <a href="http://member.ctba.org.cn/" target="_blank"><img
+												src="images/ad_zf_10.jpg" alt="" /></a>
+									</div>
+
+								</div>
+								<div class="tabR-wrap tabR mt10">
+									<div class="hd">
+										<span class="hd-t">
+											<a href="hyzx.jsp?tn=zbszp">招聘信息</a>
+										</span>
+									</div>
+									<div class="bd">
+										<ul>
+											<li><a href='/list_show.jsp?record_id=35286417' target=_blank  title='广西投资集团咨询有限公司关于公开征集综合评标专家的公告'><font color='#000000'>广西投资集团咨询有限公司关于公开征集...</font></a></li><li><a href='https://www.jjtz.cn/news_detail/id-352.html' target=_blank  title='建经咨询招募城市合伙人' ><font color='#000000'>建经咨询招募城市合伙人</font></a></li><li><a href='/list_show.jsp?record_id=353224' target=_blank  title='湖南省招标有限责任公司广州分公司主要负责人社会化公开招聘公告'><font color='#000000'>湖南省招标有限责任公司广州分公司主要...</font></a></li><li><a href='https://mp.weixin.qq.com/s/GzNZGiZO07nXldjaLO6Nxg' target=_blank  title='高端航空装备技术创新中心（四川）有限公司2025年社会招聘开启' ><font color='#000000'>高端航空装备技术创新中心（四川）有限...</font></a></li><li><a href='https://mp.weixin.qq.com/s/z8T5O5-9rjNIvvEwM7w5cQ' target=_blank  title='中数联物流科技（上海）有限公司公开招聘公告' ><font color='#000000'>中数联物流科技（上海）有限公司公开招...</font></a></li><li><a href='https://mp.weixin.qq.com/s/-aoe_3mu_wiKrs1nggfB0w' target=_blank  title='中国华能2026校园招聘全面启动！' ><font color='#000000'>中国华能2026校园招聘全面启动！</font></a></li>
+										</ul>
+									</div>
+								</div>
+								<!--
+						<script>
+							jQuery(".tabR").slide();
+						</script>
+               
+               -->
+								<div class="tabR-wrap mt10">
+									<div class="hd">
+										<span class="hd-t">
+											<a href="./member_md/flasharea.htm">会员单位区域分布</a>
+										</span>
+									</div>
+									<div class="bd">
+										<div class="ad-map">
+											<a href="./member_md/flasharea.htm" target="_blank"><img
+													src="images/ad_map.jpg" /></a>
+										</div>
+									</div>
+								</div>
+								<div class="tabR-wrap mt10">
+									<div class="hd">
+										<span class="hd-t">
+											在线服务
+										</span>
+									</div>
+									<div class="bd1">
+										<div class="service-box">
+											<a href="http://member.ctba.org.cn/register" target="_blank"><i
+													class="iconfont icon-bishi"></i>申请入会</a><br>
+											<a href="/bbs/home.jsp" target="_blank"><i
+													class="iconfont icon-zixun"></i>在线问答</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="n-menu">
+									<div class="hd-t">
+										<a href="#">副会长单位展示</a>
+									</div>
+								</div>
+								<div class="ad-show-wrap clearfix">
+									<a href="javascript:;" class="next"></a>
+									<a href="javascript:;" class="prev"></a>
+									<div class="bd">
+										<ul>
+											<li>
+												<a href="http://www.china-railway.com.cn/" target="_blank"><img
+														src="images/ad_zgtl.jpg" />
+													<p class="tit">中国国家铁路集团有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.powerchina.cn/" target="_blank"><img
+														src="images/ad_gjdw.jpg" />
+													<p class="tit">国家电网有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.ceic.com/" target="_blank"><img
+														src="images/ad_gjnytz.jpg" />
+													<p class="tit">国家能源投资集团有限责任公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.powerchina.cn/" target="_blank"><img
+														src="images/ad_zgdljs.jpg" />
+													<p class="tit">中国电力建设集团有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.china-cdt.com/dtsldlwz/index.html"
+													target="_blank"><img src="images/ad_zgsldl.jpg" />
+													<p class="tit">中国水利电力物资集团有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.chng.com.cn/" target="_blank"><img
+														src="images/ad_zghn.jpg" />
+													<p class="tit">华能招标有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.chdtp.com.cn/" target="_blank"><img
+														src="images/ad_zghdjt.jpg" />
+													<p class="tit">中国华电集团物资有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.baohuabidding.com/" target="_blank"><img
+														src="images/ad_shbhgj.jpg" />
+													<p class="tit">上海宝华国际招标有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.cnicc.cn/" target="_blank"><img
+														src="images/ad_ztzx.jpg" />
+													<p class="tit">中投咨询有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.crecgwm.com/" target="_blank"><img
+														src="images/ad_zgzt.jpg" />
+													<p class="tit">中铁物贸集团有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.fawitc.com/" target="_blank"><img
+														src="images/ad_ccyqgj.jpg" />
+													<p class="tit">长春一汽国际招标有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.chinaitc.com.cn/" target="_blank"><img
+														src="images/ad_zhongji.jpg" />
+													<p class="tit">中技国际招标有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://bdh.bdhzb.cn/" target="_blank"><img
+														src="images/ad_beidh.jpg" />
+													<p class="tit">北大荒招标有限公司</p>
+												</a>
+											</li>
+
+											<li>
+												<a href="http://www.huajie.com.cn/" target="_blank"><img
+														src="images/ad_hjgc.jpg" />
+													<p class="tit">华杰工程咨询有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://tendering.sinosteel.com/" target="_blank"><img
+														src="images/ad_zgzbyx.jpg" />
+													<p class="tit">中宝招标（北京）有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.cntcitc.com.cn/" target="_blank"><img
+														src="images/ad_zzgj.jpg" />
+													<p class="tit">中招国际招标有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.jstcc.cn/" target="_blank"><img
+														src="images/ad_jsgj.jpg" />
+													<p class="tit">江苏省招标中心有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="https://www.gmgitc.com/" target="_blank"><img
+														src="images/ad_gyzbgf.jpg" />
+													<p class="tit">国义招标股份有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.cebpubservice.com/" target="_blank"><img
+														src="images/ad_zgzb.jpg" />
+													<p class="tit">中国招标公共服务平台有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.gxzb.com.cn/" target="_blank"><img
+														src="images/ad_gxzb.jpg" />
+													<p class="tit">国信招标集团股份有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.ah-inter.com/" target="_blank"><img
+														src="images/ad_ahzb.jpg" />
+													<p class="tit">安徽省招标集团股份有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.bjgxcx.com/" target="_blank"><img
+														src="images/ad_gxcx.jpg" />
+													<p class="tit">北京国信创新科技股份有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.bkpmzb.com/" target="_blank"><img
+														src="images/ad_bjkjy.jpg" />
+													<p class="tit">北京科技园拍卖招标有限公司</p>
+												</a>
+											</li>
+											<li>
+												<a href="http://www.huachun.asia/" target="_blank"><img
+														src="images/ad_hcjsgc.jpg" />
+													<p class="tit">华春建设工程项目管理有限责任公司</p>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<script type="text/javascript">
+									jQuery(".ad-show-wrap").slide({
+										mainCell: ".bd ul",
+										effect: "leftLoop",
+										autoPlay: true,
+										vis: 6,
+										trigger: "click"
+									});
+								</script>
+							</div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="n-menu">
+									<div class="hd-t">
+										实用工具
+									</div>
+								</div>
+								<div class="tool-wrap">
+									<ul>
+										<li class="col-xs-2">
+											<a href="http://www.weather.com.cn/forecast/index.shtml" target="_blank"><i
+													class="iconfont icon-tianqi1"></i>
+												<p>天气预报</p>
+											</a>
+										</li>
+										<li class="col-xs-2">
+											<a href="http://www.boc.cn/sourcedb/whpj/" target="_blank"><i
+													class="iconfont icon-jinku"></i>
+												<p>外汇牌价</p>
+											</a>
+										</li>
+										<li class="col-xs-2">
+											<a href="http://www.12306.cn/mormhweb/" target="_blank"><i
+													class="iconfont icon-train"></i>
+												<p>列车时刻</p>
+											</a>
+										</li>
+										<li class="col-xs-2">
+											<a href="http://www.ip138.com/" target="_blank"><i
+													class="iconfont icon-search"></i>
+												<p>IP查询</p>
+											</a>
+										</li>
+										<li class="col-xs-2">
+											<a href="https://map.baidu.com/" target="_blank"><i
+													class="iconfont icon-ditu"></i>
+												<p>网上地图</p>
+											</a>
+										</li>
+										<li class="col-xs-2">
+											<a href="http://www.iciba.com/" target="_blank"><i
+													class="iconfont icon-fanyi"></i>
+												<p>在线翻译</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+		</section>
+		<!--
+				<footer>
+			<div class="container footer-link mt20">
+				<div class="row">
+					<div class="col-xs-2">
+						<p class="hd">网址导航：</p>
+					</div>
+					<div class="col-xs-3">
+						<div class="wlink-box">
+							<i></i>
+							<a href="javascript:;">政府网站</a>
+							<ul class="sublink">
+								<li>
+									<a href="http://www.ndrc.gov.cn/" target="_blank">国家发展和改革委员会</a>
+								</li>
+								<li>
+									<a href="http://www.miit.gov.cn/" target="_blank">工业和信息化部</a>
+								</li>
+								<li>
+									<a href="http://www.mca.gov.cn/" target="_blank">民政部</a>
+								</li>
+								<li>
+									<a href="http://www.ccdi.gov.cn/" target="_blank">国家监察委员会</a>
+								</li>
+								<li>
+									<a href="http://www.mof.gov.cn/" target="_blank">财政部</a>
+								</li>
+								<li>
+									<a href="http://www.mohrss.gov.cn" target="_blank">人力资源和社会保障部</a>
+								</li>
+								<li>
+									<a href="http://www.mohurd.gov.cn/" target="_blank">住房和城乡建设部</a>
+								</li>
+								<li>
+									<a href="http://www.mot.gov.cn/" target="_blank">交通运输部</a>
+								</li>
+								<li>
+									<a href="http://www.mwr.gov.cn/" target="_blank">水利部</a>
+								</li>
+								<li>
+									<a href="http://www.mofcom.gov.cn/" target="_blank">商务部</a>
+								</li>
+								<li>
+									<a href="http://www.moj.gov.cn/" target="_blank">司法部</a>
+								</li>
+								 <li>
+									<a href="http://www.sasac.gov.cn/" target="_blank">国务院国有资产监督管理委员会</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<div class="wlink-box">
+							<i></i>
+							<a href="javascript:;">地方招标投标协会</a>
+							<ul class="sublink">
+								<li>
+									<a href="https://www.sxtba.com/" target="_blank">山西省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.hntba.net.cn//" target="_blank">湖南省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.hbzhaobiao.com/" target="_blank">河北省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.gtba.org.cn/" target="_blank">广东省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.hnzbcg.cn/" target="_blank">河南省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.sntba.com/" target="_blank">陕西省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.hbtba.com/" target="_blank">湖北省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.cqzbtb.cn/" target="_blank">重庆市招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.hntba.com/" target="_blank">海南省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.jxtb.org.cn" target="_blank">江西省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.ahtba.org.cn/" target="_blank">安徽省招标采购协会</a>
+								</li>
+								<li>
+									<a href="https://imbpa.nmgztb.com.cn/" target="_blank">内蒙古招标采购协会</a>
+								</li>
+								<li>
+									<a href="http://www.qhszbtbxh.com/" target="_blank">青海省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.fjtba.com/" target="_blank">福建省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.zjtba.org.cn" target="_blank">浙江省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.gzbpa.org.cn/" target="_blank">贵州省招标采购协会</a>
+								</li>
+								<li>
+									<a href="http://www.jstba.org.cn/" target="_blank">江苏省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.nxbidservice.com/" target="_blank">宁夏招标投标协会</a>
+								</li>
+								<li>
+									<a href="https://sdtba.org.cn/" target="_blank">山东省招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.njzbtb.com/" target="_blank">南京招标投标协会</a>
+								</li>
+								<li>
+									<a href="http://www.teca.org.cn/" target="_blank">天津市建设工程造价和招投标管理协会</a>
+								</li>
+                                <li>
+									<a href="http://www.bcebca.org.cn/" target="_blank">北京市建设工程招标投标和造价管理协会</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<div class="wlink-box">
+							<i></i>
+							<a href="javascript:;">友情链接</a>
+							<ul class="sublink">
+                            
+                             <li>
+									<a href="https://flk.npc.gov.cn/" target="_blank">国家法律法规数据库</a>
+								</li>
+                            
+								<li>
+									<a href="http://www.tzxm.gov.cn/" target="_blank">全国投资项目在线审批监管平台</a>
+								</li>
+								<li>
+									<a href="http://www.cebpubservice.com/" target="_blank">中国招标投标公共服务平台</a>
+								</li>
+								<li>
+									<a href="https://www.creditchina.gov.cn/" target="_blank">信用中国</a>
+								</li>
+                                <li>
+									<a href="http://www.zhonghongwang.com/" target="_blank">中宏网</a>
+								</li>
+								<li>
+									<a href="http://www.ggzy.gov.cn/" target="_blank">全国公共资源交易平台</a>
+								</li>
+                                
+                                
+								<li>
+									<a href="http://www.chinadaily.com.cn/" target="_blank">中国日报</a>
+								</li>
+								<li>
+									<a href="http://www.ceh.com.cn/" target="_blank">中国经济导报</a>
+								</li>
+								<li>
+									<a href="http://www.chinajsb.cn" target="_blank">中国建设报</a>
+								</li>
+								<li>
+									<a href="http://www.chinabidding.com.cn" target="_blank">中国采购与招标网</a>
+								</li>
+								<li>
+									<a href="http://www.chinabidding.com" target="_blank">中国国际招标网</a>
+								</li>
+								<li>
+									<a href="http://www.zbsonline.com" target="_blank">招标师在线</a>
+								</li>
+								<li>
+									<a href="http://www.chinabidding.cn" target="_blank">采购与招标网</a>
+								</li>
+								<li>
+									<a href="https://www.cacem.com.cn/" target="_blank">中国施工企业管理协会</a>
+								</li>
+								<li>
+									<a href="https://www.cnaec.com.cn/" target="_blank">中国工程咨询协会</a>
+								</li>
+								<li>
+									<a href="https://www.chinaeda.org.cn/" target="_blank">中国勘察设计协会</a>
+								</li>
+								<li>
+									<a href="http://www.ccea.pro/" target="_blank">中国建设工程造价管理协会</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			-->
+		<!--footer-->
+		<!--
+			<div class="footer-tt">
+				主管单位：中华人民共和国国家发展和改革委员会 京ICP备17043692号-1 京公网安备110102000033<br>主办单位：中国招标投标协会 CHINA TENDERING &amp; BIDDING ASSOCIATION <br> 技术支持：中国采购与招标网
+				<a href="http://www.chinabidding.com.cn" target="_blank">www.chinabidding.com.cn</a> <br>Copyright &copy;2005--2017&nbsp;&nbsp;中国招标投标协会 版权所有，未经许可，不得擅自转载、引用本网站内容</div>
+		</footer>
+        -->
+		<SCRIPT language=javascript src="js/foot.js" type=text/javascript></SCRIPT>
+		<script type="text/javascript">
+			//焦点图
+			jQuery(".focusBox").slide({
+				titCell: ".num li",
+				mainCell: ".pic",
+				effect: "fold",
+				autoPlay: true,
+				trigger: "click",
+				interTime: 5700,
+				//下面startFun代码用于控制文字上下切换
+				startFun: function(i) {
+					jQuery(".focusBox .txt li").eq(i).animate({
+						"bottom": 0
+					}).siblings().animate({
+						"bottom": -36
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
+

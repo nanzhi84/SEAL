@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=0.1,user-scalable=no">
+  <!-- <style type="text/css">
+    body {
+    -webkit-filter: grayscale(100%); /* webkit */
+    -moz-filter: grayscale(100%); /*firefox*/
+    -ms-filter: grayscale(100%); /*ie9*/
+    -o-filter: grayscale(100%); /*opera*/
+    filter: grayscale(100%);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); 
+    filter:gray}
+  </style> -->
+  <script src="http://www.ppac.org.cn/attachments/js/jquery-3.6.0.min.js"></script>
+<script defer src="http://www.ppac.org.cn/attachments/js/common.js"></script>
+<link href="http://www.ppac.org.cn/attachments/css/common.css" rel="stylesheet">
+<link href="http://www.ppac.org.cn/attachments/css/swiper-3.4.2.min.css" rel="stylesheet" type="text/css" /><link href="http://www.ppac.org.cn/attachments/css/index.css" rel="stylesheet" type="text/css" /><script src="http://www.ppac.org.cn/attachments/js/swiper-3.4.2.jquery.min.js"></script><script src="http://www.ppac.org.cn/attachments/js/index.js"></script>  <title>中国专利保护协会</title>
+</head>
+
+<body>
+<div class="ppac-top">
+  <div class="mainBox clearfix">
+      <a href="/" class="logo">
+          <h1>中国专利保护协会</h1>
+      </a>
+      <div class="top-right">
+         <p class="navLink">
+                       <a href="/login.html">会员登录</a>
+              <a href="/register.html">申请入会</a>
+                    <a href="http://mail.ppac.org.cn/" target="_blank" class="last">内部邮箱</a>
+        </p>
+        <form action="/search/result.html" method="get" onsubmit="return chkkey();" class="searchBox clearfix">
+          <input type="text" name="key" id="key" class="inputext">
+          <input type="submit" class="searchBtn">
+        </form>
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+function chkkey(){
+  var key = $("#key").val();
+  if(key == "" || key == "请输入关键词"){
+      alert("请输入搜索关键词！");
+      return false;
+    }
+}
+</script>
+<div class="ppac-nav">
+  <ul class="mainBox clearfix">
+    <li class="nav-item active"><a href="/">首页</a></li>
+    <li class="nav-item">
+      <a href="">协会概况</a>
+      <div class="subNav-box">
+        <a href="/introduction.html" class="subNav-item">协会简介</a>
+        <a href="/constitution.html" class="subNav-item">协会章程</a>
+        <a href="/leader.html" class="subNav-item">协会领导</a>
+        <a href="/council.html" class="subNav-item">历届理事会</a>
+        <a href="/structure.html" class="subNav-item">组织架构</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="">会员之家</a>
+      <div class="subNav-box">
+        <a href="/guide.html" class="subNav-item">入会指南</a>
+        <a href="/memberList.html" class="subNav-item">会员名录</a>
+        <!-- <a href="" class="subNav-item">培训课程回放</a> -->
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="">维权事务</a>
+      <div class="subNav-box">
+        <a href="/rightsprotection/dispute.html" class="subNav-item">人民调解</a>
+        <a href="/rightsprotection/patentlaw.html" class="subNav-item">课题研究</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="">标准工作</a>
+      <div class="subNav-box">
+        <a href="/standard/tradesecret.html" class="subNav-item">商业秘密 </a>
+        <a href="/standard/groupstandard.html" class="subNav-item">团体标准</a>
+        <a href="/standard/publicitynational.html" class="subNav-item">国标宣贯</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="">专利运营</a>
+      <div class="subNav-box">
+        <a href="/patent/identification.html" class="subNav-item">专利密集型产品认定</a>
+        <a href="/patent/navigation.html" class="subNav-item">专利导航</a>
+        <a href="/patent/cultivation.html" class="subNav-item">高价值专利培育</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="">国际合作</a>
+      <div class="subNav-box">
+        <a href="/co-operation/meeting.html" class="subNav-item">国际会议</a>
+        <a href="/co-operation/communication.html" class="subNav-item">国际交流</a>
+        <a href="/co-operation/exhibition.html" class="subNav-item">展会</a>
+      </div>
+    </li>
+  </ul>
+</div><div class="mainBox">
+    <div class="ppac-index-banner">
+    <a href="/special/bwcx.html" target="_blank"><img src="/attachments/webimages/banner.jpg"></a>
+    </div>
+    <div class="clearfix">
+        <div class="ppac-index-swiper fl">
+            <ul class="swiper-list swiper-wrapper"></ul>
+            <ul class="hd swiper-pagination"></ul>
+        </div>
+                <div class="ppac-index-newsList fr">
+            <div class="newslist-title clearfix">
+                <a href="/news/information.html" class="more">更多>></a>
+                <ul>
+                <li class="list-item active" data-url="/news/information.html" data-slider='[{"img":"/attachments/images/img03.jpg","text":"中国亚洲经济发展协会会长权顺基接受纪律审查和监察调查","href":"/news/detail-1-658.html"},{"img":"http://img.ppac.org.cn/attachments/2026/01/1767574441231ed351229542e9.jpg","text":"国家主席习近平发表二〇二六年新年贺词","href":"/news/detail-1-631.html"},{"img":"http://img.ppac.org.cn/attachments/2025/11/1762743791811496ddcd712fa2.png","text":"思维导图来助力！学习 “十五五” 规划建议","href":"/news/detail-1-601.html"}]'>知产要闻</li>
+                <li class="list-item" data-url="/news/dynamic.html" data-slider='[{"img":"http://img.ppac.org.cn/attachments/2026/01/1767576932023cc98e850781fe.webp","text":"新年献词：守护创新之光   共赴时代之约","href":"/news/detail-2-633.html"},{"img":"http://img.ppac.org.cn/attachments/2026/01/1767581320da755ee196d49466.jpg","text":"中国专利保护协会第五届会员代表大会第二次会议暨理事会第六次会议圆满召开","href":"/news/detail-2-634.html"},{"img":"http://img.ppac.org.cn/attachments/2025/11/17627436292dde97229e3989f3.jpg","text":"中国首个《专利池成熟度评价方法》团体标准正式发布","href":"/news/detail-2-600.html"}]'>协会动态</li>
+                <li class="list-item" data-url="/news/presence.html" data-slider='[{"img":"http://img.ppac.org.cn/attachments/2022/07/16589283923776e1b83384bd2c.png","text":"华为公布“十大发明”评选成果分享知识产权和创新进展","href":"/news/detail-3-387.html"},{"img":"http://img.ppac.org.cn/attachments/2022/07/165892870897643ad4486f9a92.jpg","text":"审创交流：知识产权与三峡青年","href":"/news/detail-3-389.html"},{"img":"/attachments/images/img03.jpg","text":"会员企业在行动--圣泉集团","href":"/news/detail-3-251.html"}]'>百链千企</li>
+                </ul>
+            </div>
+            <div class="newslist-article">
+                <ul class="ppac-newsList">
+                                        <li><a href="/news/detail-1-666.html" class="font" target="_blank" title="国务院印发《知识产权保护和运用“十五五”规划》（新华社）"><time>2026.08.05</time><span>国务院印发《知识产权保护和运用“十五五”规划》（新华社）</span></a></li>
+                                    <li><a href="/news/detail-1-665.html" class="font" target="_blank" title="《人民日报》发表申长雨署名文章：奋力推动“十五五”知识产权事业高质量发展"><time>2026.08.05</time><span>《人民日报》发表申长雨署名文章：奋力推动“十五五”知识产权事业高...</span></a></li>
+                                    <li><a href="/news/detail-1-667.html" class="font" target="_blank" title="专利优先审查管理办法发布"><time>2026.08.01</time><span>专利优先审查管理办法发布</span></a></li>
+                                    <li><a href="/news/detail-1-664.html" class="font" target="_blank" title="最高人民法院印发《人民法院知识产权司法保护实施方案（2026-2030年）》"><time>2026.07.27</time><span>最高人民法院印发《人民法院知识产权司法保护实施方案（2026-2...</span></a></li>
+                                    <li><a href="/news/detail-1-663.html" class="font" target="_blank" title="中共中央 国务院印发《关于加强新时代社会工作的意见》"><time>2026.07.23</time><span>中共中央 国务院印发《关于加强新时代社会工作的意见》</span></a></li>
+                                    <li><a href="/news/detail-1-662.html" class="font" target="_blank" title="《知识产权保护和运用“十五五”规划》审议通过"><time>2026.07.23</time><span>《知识产权保护和运用“十五五”规划》审议通过</span></a></li>
+                                </ul>
+                <ul class="ppac-newsList">
+                                    <li><a href="/news/detail-2-705.html" class="font" target="_blank" title="2026年度​​“百链千企”专利产业化工程推进会成功举办"><time>2026.09.28</time><span>2026年度​​“百链千企”专利产业化工程推进会成功举办</span></a></li>
+                                    <li><a href="/news/detail-2-670.html" class="font" target="_blank" title="关于举办第五届全球数字贸易博览会知识产权服务贸易国际化交流对接活动暨第四届专利密集型产品展览主题推广活动的通知"><time>2026.08.27</time><span>关于举办第五届全球数字贸易博览会知识产权服务贸易国际化交流对接活...</span></a></li>
+                                    <li><a href="/news/detail-2-669.html" class="font" target="_blank" title="关于公布2026年度“百链千企”专利产业化推进工程典型案例的通知"><time>2026.08.21</time><span>关于公布2026年度“百链千企”专利产业化推进工程典型案例的通知</span></a></li>
+                                    <li><a href="/news/detail-2-661.html" class="font" target="_blank" title="第五期“前沿技术对话”成功举办"><time>2026.07.13</time><span>第五期“前沿技术对话”成功举办</span></a></li>
+                                    <li><a href="/news/detail-2-647.html" class="font" target="_blank" title="关于举办“企业知识产权实务能力提升” 系列公益培训的通知"><time>2026.04.13</time><span>关于举办“企业知识产权实务能力提升” 系列公益培训的通知</span></a></li>
+                                    <li><a href="/news/detail-2-623.html" class="font" target="_blank" title="2025年度十大知识产权热词"><time>2025.12.24</time><span>2025年度十大知识产权热词</span></a></li>
+                                </ul> 
+                <ul class="ppac-newsList">
+                                    <li><a href="/news/detail-3-704.html" class="font" target="_blank" title="2026“百链千企”典型案例重磅展播上线，敬请关注！"><time>2026.09.14</time><span>2026“百链千企”典型案例重磅展播上线，敬请关注！</span></a></li>
+                                    <li><a href="/news/detail-3-703.html" class="font" target="_blank" title="​ 案例展播㉚胜利油田胜机石油装备有限公司：自动化修井作业装备专利密集型产品培育典型案例"><time>2026.09.11</time><span>​ 案例展播㉚胜利油田胜机石油装备有限公司：自动化修井作业装备专...</span></a></li>
+                                    <li><a href="/news/detail-3-702.html" class="font" target="_blank" title="案例展播㉙苏州异格、北京三聚阳光：资本赋能+知识产权护航：专利产业化助推高端FPGA产业链安全升级"><time>2026.09.11</time><span>案例展播㉙苏州异格、北京三聚阳光：资本赋能+知识产权护航：专利产...</span></a></li>
+                                    <li><a href="/news/detail-3-701.html" class="font" target="_blank" title="案例展播㉘安超云软件有限公司：专利驱动产品创新，打造全栈信创云基础设施——安超云操作系统专利产业化实践"><time>2026.09.11</time><span>案例展播㉘安超云软件有限公司：专利驱动产品创新，打造全栈信创云基...</span></a></li>
+                                    <li><a href="/news/detail-3-700.html" class="font" target="_blank" title=" 案例展播㉗无锡知妍：专利密集型质润1%二硫化硒去屑系列洗发水，不沉降不变色精准呵护头皮微生态平衡"><time>2026.09.11</time><span> 案例展播㉗无锡知妍：专利密集型质润1%二硫化硒去屑系列洗发水，...</span></a></li>
+                                    <li><a href="/news/detail-3-698.html" class="font" target="_blank" title="案例展播㉖中国移动通信有限公司研究院：专利产业化赋能创新链和产业链高质量发展"><time>2026.09.11</time><span>案例展播㉖中国移动通信有限公司研究院：专利产业化赋能创新链和产业...</span></a></li>
+                                </ul>       
+            </div>
+        </div>
+    </div>
+    <div class="ppac-index-entry clearfix">
+        <a href="/userinfo_search.html" class="entry-item">会员信息查询<i class="icon"></i></a>
+        <a href="/certificate_search.html" class="entry-item">培训证书查询<i class="icon"></i></a>
+        <a href="https://www.zlcp.org.cn/" class="entry-item" target="_blank">专利密集型<br />产品备案认定<i class="icon"></i></a>
+        <a href="http://www.zzbjrz.com/" class="entry-item" target="_blank">知识产权贯标<i class="icon"></i></a>
+    </div>
+    <div class="clearfix">
+        <div class="ppac-index-notice fl">
+            <div class="newslist-title clearfix">
+                <a href="/news/notice.html" class="more">更多>></a>
+                <h2>工作通知</h2> 
+            </div>
+            <ul class="ppac-newsList">
+                                    <li><a href="/news/detail-4-671.html" class="font" target="_blank"><time>2026.09.07</time><span>关于公布2026年度绿色技术创新案例征集结果的通知</span></a></li>
+                                    <li><a href="/news/detail-4-670.html" class="font" target="_blank"><time>2026.08.27</time><span>关于举办第五届全球数字贸易博览会知识产权服务贸易国际化交流对接活动暨第四届专利密集型产品展览主题推广活动的通知</span></a></li>
+                                    <li><a href="/news/detail-4-669.html" class="font" target="_blank"><time>2026.08.21</time><span>关于公布2026年度“百链千企”专利产业化推进工程典型案例的通知</span></a></li>
+                                    <li><a href="/news/detail-4-668.html" class="font" target="_blank"><time>2026.08.13</time><span>关于批准发布《中医药传统知识技能认定规范》团体标准的通知</span></a></li>
+                                    <li><a href="/news/detail-4-660.html" class="font" target="_blank"><time>2026.07.10</time><span>关于报名参加第15届中日韩外观设计交流会的通知</span></a></li>
+                                    <li><a href="/news/detail-4-657.html" class="font" target="_blank"><time>2026.06.16</time><span>关于开展2026年度绿色技术创新案例征集活动的通知</span></a></li>
+                                    <li><a href="/news/detail-4-656.html" class="font" target="_blank"><time>2026.06.11</time><span>关于第五届全球数字贸易博览会专利密集型产品展区招展的通知</span></a></li>
+                                    <li><a href="/news/detail-4-655.html" class="font" target="_blank"><time>2026.06.10</time><span>关于筹备中国专利保护协会能源电力专业委员会的通知</span></a></li>
+                            </ul>
+        </div>
+        <!-- <div class="ppac-index-team fr">
+            <h2 class="team-title">团体标准</h2>
+            <div class="team-items">
+                <a href="/attachments/files/ttbzsjzlczzn.pdf" class="team-item" target="_blank">团体标准涉及专利处置指南</a>
+                <a href="/attachments/files/zscqjftjglgf.pdf" class="team-item" target="_blank">知识产权纠纷调解管理规范</a>
+                <a href="/attachments/files/zljssyyzzn.pdf" class="team-item" target="_blank">专利技术试验验证指南</a>
+                <a href="/attachments/files/qysymmgf.pdf" class="team-item" target="_blank">企业商业秘密管理规范</a>
+                <a href="/attachments/files/qyzlmjx.pdf" class="team-item" target="_blank">企业专利密集型产品评价方法</a>
+            </div>
+        </div> -->
+        <div class="ppac-index-team fr">
+            <h2 class="team-title2">国家标准</h2>
+            <div class="team-items2 clearfix">
+                <a href="/attachments/files/qyzlmjx.pdf" class="team-item fl" target="_blank">企业专利密集型产品评价方法</a>
+            </div>
+            <h2 class="team-title2" style="margin-top:20px;">团体标准</h2>
+            <div class="team-items2 clearfix">
+                <a href="/attachments/files/ttbzsjzlczzn.pdf" class="team-item fl" target="_blank">团体标准涉及专利处置指南</a>
+                <a href="/attachments/files/zscqjftjglgf.pdf" class="team-item fr" target="_blank">知识产权纠纷调解管理规范</a>
+                <a href="/attachments/files/zljssyyzzn.pdf" class="team-item fl" target="_blank">专利技术试验验证指南</a>
+                <a href="/attachments/files/qysymmgf.pdf" class="team-item fr" target="_blank">企业商业秘密管理规范</a>
+            </div>
+        </div>
+    </div>
+</div><div class="ppac-fotter">
+  <div class="mainBox">
+    <ul class="clearfix">
+      <li class="concat">
+        <h2>联系我们</h2>
+        <p>电话：（+8610）62151281 | 传真：（+8610）62157951 <br />邮箱：ppac@ppac.org.cn<br />
+        意见栏：yijian@ppac.org.cn<br />地址：北京市海淀区花园路7号，新时代大厦三层</p>
+      </li>
+      <li class="link">
+        <h2>友情链接</h2>
+        <p><a href="http://www.cnipa.gov.cn/" target="_blank">国家知识产权局</a><a href="http://www.zzbjrz.com" target="_blank">中知(北京)认证有限公司</a><a href="http://www.wipo.int/portal/zh/" target="_blank">WIPO</a></p><p><a href="http://www.ipph.cn/" target="_blank">知识产权出版社</a><a href="http://www.jipa.or.jp/" target="_blank">日本知的财产协会</a><a href="http://www.fiveipoffices.org//index.html" target="_blank">five IP office</a></p><p><a href="http://www.green-energy.ii-park.com/" target="_blank">绿色能源行业数字化转型促进中心</a><a href="http://www.ipo.org/" target="_blank">ipo</a></p>      </li>
+      <li class="ewm clearfix">
+        <img src="http://www.ppac.org.cn/attachments/images/ewm04.gif" class="fl">
+        <div class="font">扫一扫<br />关注协会微信</div>
+      </li>
+    </ul>
+    <div class="copyRight clearfix">
+      <div class="fr">
+        <a id="___szfw_logo___" href="https://credit.szfw.org/CX201911121233151076550361.html"
+          style="padding-left: 20px;" target="_blank"><img src="http://icon.szfw.org/sf.png" border="0"></a>
+        <script type="text/javascript">
+          (function () {
+            document.getElementById('___szfw_logo___').oncontextmenu = function () {
+              return false;
+            }
+          })();
+        </script>
+        <a id="___szfw_logo___" href="https://credit.szfw.org/CX201911121233151076153690.html"
+          style="padding-left: 20px;" target="_blank"><img src="http://icon.szfw.org/anquangw.png" border="0"></a>
+        <script type="text/javascript">
+          (function () {
+            document.getElementById('___szfw_logo___').oncontextmenu = function () {
+              return false;
+            }
+          })();
+        </script>
+      </div>
+      <div class="fr">
+        <a id="___szfw_logo___" href="https://credit.szfw.org/CX201911121233151076571928.html" target="_blank"><img
+            src="http://icon.szfw.org/society.png" border="0"></a>
+        <script type="text/javascript">
+          (function () {
+            document.getElementById('___szfw_logo___').oncontextmenu = function () {
+              return false;
+            }
+          })();
+        </script>
+      </div>
+      Copyright &copy; 2017-2027&nbsp;中国专利保护协会&nbsp;&nbsp;&nbsp;<a href="https://beian.miit.gov.cn/" style="color: #9d9d9d;" target="_blank">京ICP备15051606号</a>
+      <a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010802047298" rel="noreferrer" target="_blank" style="color: #9d9d9d;">
+            <span style="display: inline-block; width: 13px; height:15px; background-image: url('/attachments/images/gab.png');background-size: cover;"></span> 京公网安备11010802047298号</a>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

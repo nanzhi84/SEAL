@@ -1,0 +1,166 @@
+{
+  "review_method": "Agent inspection of archived source HTML and selected records; PDF first/last page rendered with Poppler. Not human production approval.",
+  "negative_cases": {
+    "dd-048": "JS_SHELL",
+    "dd-156": "JS_SHELL",
+    "dd-390": "JS_SHELL",
+    "dd-392": "JS_SHELL",
+    "dd-457": "JS_SHELL",
+    "dd-463": "JS_SHELL",
+    "dd-476": "JS_SHELL"
+  },
+  "notes": {
+    "dd-009": "已取得 Companies House 查询入口；未提供公司名称/编号，本轮跳过企业结果查询。",
+    "dd-247": "名录 HTML 仅栏目框架，表格暂无数据；内嵌脚本通过 findMutualFundHousePage GET 分页加载，未验证该 API。",
+    "dd-248": "名录 HTML 仅栏目框架，表格暂无数据；内嵌脚本通过 findFsAgencyAnnos GET 分页加载，未验证该 API。",
+    "dd-250": "名录 HTML 仅栏目框架，表格暂无数据；内嵌脚本通过 findFundTrusteesPage GET 分页加载，未验证该 API。",
+    "dd-315": "食品伙伴网的名录汇编，属于非官方二级来源；核对了大熊猫一行，不代表法律效力或整表正确性。",
+    "dd-360": "实际文件为《环境保护综合名录（2017年版）》；66个物理页，对应印刷页码3—68。文本层可提取，未验证表格重建或现行有效性。",
+    "dd-375": "取得统计局修改单通知正文及两个 DOCX 链接；未下载或解析 DOCX 附件。",
+    "dd-378": "取得统计局分类公布正文及两个 DOC 链接；未下载或解析 DOC 附件。",
+    "dd-069": "首轮本地OSError未完成。连接修正后单独补测一次，HTTP 200返回_waf脚本挑战；停止，未运行或绕过挑战，原文不进入golden。"
+  },
+  "content": {
+    "dd-116": {
+      "kind": "records",
+      "scope": "处罚公告当前页20条标题与详情链接；未验证详情、分页和历史覆盖",
+      "record_xpath": "//div[@class='list-right_title']/a",
+      "fields": {
+        "title": "@title",
+        "url": "@href"
+      },
+      "url_fields": [
+        "url"
+      ],
+      "expected_count": 20,
+      "expected_first": {
+        "title": "海口市市场监督管理局列入严重违法失信名单决定书 海市监列严〔2026〕007003号"
+      },
+      "expected_last": {
+        "title": "海口市市场监督管理局综合保税区分局行政处罚文书送达公告 海市监保罚送告〔2026〕123号"
+      }
+    },
+    "dd-315": {
+      "kind": "records",
+      "scope": "汇编中大熊猫的中文名、学名和保护级别一条示例",
+      "record_xpath": "//tr[.//text()[normalize-space(.)='大熊猫']]",
+      "fields": {
+        "name": "string(td[1])",
+        "scientific_name": "string(td[2])",
+        "level": "string(td[3])"
+      },
+      "expected_count": 1,
+      "expected_first": {
+        "name": "大熊猫",
+        "scientific_name": "Ailuropoda melanoleuca",
+        "level": "一级"
+      }
+    },
+    "dd-357": {
+      "kind": "records",
+      "scope": "首页核发许可证板块15条，省市、编号、公司名和有效期限；非全国完整许可证集合",
+      "record_xpath": "//tr[td[3][contains(@class,'font-green')]][count(td)=9]",
+      "fields": {
+        "province": "string(td[1])",
+        "city": "string(td[2])",
+        "permit": "string(td[3])",
+        "company": "string(td[4])",
+        "industry": "string(td[5])",
+        "validity": "string(td[6])",
+        "issued": "string(td[7])",
+        "url": "td[9]/a/@href"
+      },
+      "url_fields": [
+        "url"
+      ],
+      "expected_count": 15,
+      "expected_first": {
+        "province": "广东省",
+        "city": "广州市",
+        "company": "广州市亿钻珠宝有限公司",
+        "permit": "91440113759422823H001Q",
+        "validity": "2025-04-14至2030-04-13"
+      }
+    },
+    "dd-360": {
+      "kind": "pdf",
+      "scope": "2017版历史文件全部66页文本与首尾页关键字段；未做表格结构化或时效性判断",
+      "expected_pages": 66,
+      "first_contains": [
+        "环境保护综合名录",
+        "2017年版",
+        "0704000000",
+        "天然气开采"
+      ],
+      "last_contains": [
+        "噪声与振动污染控制",
+        "声屏障",
+        "消声器",
+        "阻尼弹簧隔振器"
+      ]
+    },
+    "dd-375": {
+      "kind": "document",
+      "scope": "统计局通知标题、正文及2个DOCX附件链接；未解析附件",
+      "title_xpath": "//h2[@class='xxgkNbXqTitle']/text()",
+      "body_xpath": "//div[@class='TRS_Editor']//text()",
+      "attachment_xpath": "//a[contains(translate(@href,'DOCX','docx'),'.docx')]/@href",
+      "expected_title": "关于执行国民经济行业分类第1号修改单的通知",
+      "body_contains": [
+        "GB/T4754-2017",
+        "2019年3月29日",
+        "2019年5月20日"
+      ],
+      "expected_attachments": 2
+    },
+    "dd-378": {
+      "kind": "document",
+      "scope": "统计局分类公布文件标题、正文及2个DOC附件链接；未解析附件",
+      "title_xpath": "//h2[@class='xxgkNbXqTitle']/text()",
+      "body_xpath": "//div[@class='TRS_Editor']//text()",
+      "attachment_xpath": "//a[contains(@href,'.doc')]/@href",
+      "expected_title": "战略性新兴产业分类（2018）",
+      "body_contains": [
+        "第23号",
+        "2018年10月12日",
+        "2018年11月7日"
+      ],
+      "expected_attachments": 2
+    },
+    "dd-484": {
+      "kind": "records",
+      "scope": "采购合同公告默认页20条标题、签订日期、发布日期、采购人与供应商；不提交含验证码的筛选表单",
+      "record_xpath": "//li[a[contains(@href,'./detail/')]]",
+      "fields": {
+        "title": "a/@title",
+        "url": "a/@href",
+        "signed": "div/span/text()",
+        "published": "span[1]/text()",
+        "purchaser": "span[2]/text()",
+        "supplier": "span[3]/text()"
+      },
+      "url_fields": [
+        "url"
+      ],
+      "expected_count": 20,
+      "expected_first": {
+        "title": "关于印刷服务的服务市场合同",
+        "signed": "2026-10-08",
+        "published": "2026-10-08",
+        "purchaser": "泸西县午街铺镇中心学校",
+        "supplier": "泸西九龙数码图文打字复印店"
+      },
+      "expected_last": {
+        "title": "古浪县干城镇人民政府其他印刷服务直接选定采购合同",
+        "purchaser": "古浪县干城镇人民政府",
+        "supplier": "古浪县木兰印务有限责任公司"
+      }
+    }
+  },
+  "outcome_overrides": {
+    "dd-069": {
+      "outcome": "ACCESS_RESTRICTED",
+      "reason": "WAF_SCRIPT_CHALLENGE"
+    }
+  }
+}

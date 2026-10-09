@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>中国社会组织政务服务平台</title>
+    <link rel="shortcut icon" href="image/favicon.ico"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.28,minimum-scale=0.1,maximum-scale=1.0, user-scalable=yes"/>
+    <meta http-equiv="Cache-Control" content="max-age=7200">
+    <link rel="stylesheet" type="text/css" href="js/swiper/swiper.min.css?version="+Math.random()>
+    <link rel="stylesheet" type="text/css" href="js/layui/css/layui.css?version="+Math.random()>
+    <link rel="stylesheet" type="text/css" href="css/rest.css?version="+Math.random()/>
+    <link rel="stylesheet" type="text/css" href="css/index.css?version="+Math.random()/>
+</head>
+<style>
+    #businessBody table tr:last-child {
+        /*border-bottom: 1px solid #bababa;*/
+    }
+
+    #noticeBody table tr:last-child {
+        border-bottom: 1px solid #fff;
+    }
+
+    .body-cont-left {
+        width: calc(50% - 1px);
+        float: left;
+        border-bottom: 1px solid #bababa;
+        height: 1060px;
+        border-right: 1px solid #bababa;
+    }
+
+    .body-cont-right {
+        width: calc(50% - 1px);
+        float: right;
+        border-bottom: 1px solid #bababa;
+        height: 1060px;
+    }
+    .logoLianghui{
+        width: 1170px;
+        margin: 0 auto;
+        text-align: right;
+        padding: 14px 0;
+        cursor: pointer;
+    }
+    .logoLianghui span {
+        display: inline-block;
+        height: 70px;
+        padding-right: 50px;
+    }
+
+    .ershidasybg{
+        background-image: url(image/header/ershidasybg.jpg);
+        background-position: center 0;
+        background-repeat: no-repeat;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .ershidasy_01{
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    /*头条新闻*/
+    .column1 {
+        text-align: center;
+        /* height: 130px; */
+        height: auto;
+        padding-bottom: 20px;
+    }
+    .column1_1 {
+        /*padding-top: 28px;*/
+        padding-bottom: 8px;
+        /*font-family: "微软雅黑", "宋体";*/
+        font-family: "宋体";
+        font-weight: 600;
+        /*color: rgb(209, 1, 1);*/
+        color: #005293;
+        font-size: 39px;
+    }
+    .column1_1 a {
+        /*color: rgb(209, 1, 1);*/
+        color: #005293;
+        font-size: 39px;
+    }
+    .column1_2 {
+        height: auto;
+        overflow: hidden;
+        /*color: rgb(209, 1, 1);*/
+        color: #005293;
+        font-family: "微软雅黑", "宋体";
+        font-size: 18px;
+    }
+    .column1_2 a {
+        font-size: 18px;
+        /*color: rgb(209, 1, 1);*/
+        color: #005293;
+        padding: 0;
+        margin: 0;
+    }
+    @font-face {
+        font-family:"govwf_fzzhunysk_ys_1226378317";
+        src:url("ershida/css/govwf_fzzhunysk_ys_1226378317.woff") format("woff"), /* chrome, firefox */
+        url("ershida/css/govwf_fzzhunysk_ys_1226378317.ttf") format("truetype"); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+        /*url("govwf_fzzhunysk_ys_1226378317.svg#govwf_fzzhunysk_ys_1226378317") format("svg"); !* iOS 4.1- *!*/
+        font-style: normal;
+        font-weight: normal;
+    }
+    @font-face {
+        font-family:"govwf_fzzhunysk_ys_1226378317";
+        src: url("ershida/css/govwf_fzzhunysk_ys_1226378317.eot"); /* IE9 */
+        font-style: normal;
+        font-weight: normal;
+    }
+
+    /*body, html {*/
+        /*!*全文置灰*!*/
+        /*filter: grayscale(100%);*/
+        /*-webkit-filter: grayscale(100%);*/
+        /*-moz-filter: grayscale(100%);*/
+        /*-ms-filter: grayscale(100%);*/
+        /*-o-filter: grayscale(100%);*/
+        /*filter: url("data:image/svg+xml;utf8,#grayscale");*/
+        /*filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);*/
+        /*-webkit-filter: grayscale(1);*/
+    /*}*/
+
+
+</style>
+<body >
+    <!--100周年背景图片-->
+    <!--<div style="background-image: url(image/header/100znbg1.jpg);background-color: #f7faff;background-repeat:no-repeat;background-position: center 0;width: 100%;z-index: 0;padding-top: 100px;">-->
+    <!--二十大背景图片-->
+    <div class="ershidasybg">
+    <div>
+    <!--中国共产党第二十次全国代表大会图片,加连接-->
+    <div class="logoLianghui">
+        <span>
+            <img src="image/header/danghuiicon.png">
+        </span>
+    </div>
+    <!--头部-->
+    <div class="website-head"></div>
+    <!--内容-->
+    <div class="gservice-body">
+        <!--深入学习贯彻落实党的二十大精神图片,加连接-->
+        <div class="ershidasy_01">
+            <a href="ershida_index" target="_blank">
+                <img src="image/index/ershidasy_04.png">
+            </a>
+        </div>
+        <!--二十大头条新闻-->
+        <div class="column1">
+            <!-- 大头条 -->
+            <div id="toutiaoxinwen_big_title" class="column1_1">
+
+            </div>
+            <!-- 附链 -->
+            <div id="toutiaoxinwen_small_title" class="column1_2">
+
+            </div>
+        </div>
+        <div class="body-cont-left">
+            <div class="cont60">
+                <!--轮播图-->
+                <div class="swiper-container" id="swiper1">
+                    <div class="swiper-wrapper" id="lbt"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <!--江泽民同志永垂不朽-->
+                <!--<a target='_blank' href='xwxq?newsType=1000012&id=21135'>-->
+                    <!--<img src="image/index/jzm.png" width="565px" height="350px"/>-->
+                <!--</a>-->
+            </div>
+            <div class="cont50">
+                <ul class="cont-menu" id="noticeTitle">
+                    <li class="cont-active">地方动态</li>
+                    <li>社会组织动态</li>
+                </ul>
+                <div class="cont-getlist" id="noticeBody">
+                    <table id="dfld"></table>
+                    <table id="shzzdt"></table>
+                </div>
+            </div>
+            <div class="cont70">
+                <ul class="cont-menu" id="jianguanTitle">
+                    <li class="cont-active">社会组织党建</li>
+                    <li>执法监督</li>
+                </ul>
+                <div class="cont-getlist" id="jianguanBody">
+                    <table id="shzzdj"></table>
+                    <table id="zfjd"></table>
+                </div>
+            </div>
+<!--
+            <div class="cont50">
+                <ul class="cont-menu" id="noticeTitle">
+                    &lt;!&ndash;<li class="cont-active">通知公告</li>&ndash;&gt;
+                    <li class="cont-active">高质量发展</li>
+                    <li>乡村振兴 </li>
+                    <li>地方亮点</li>
+                    <li>人才服务</li>
+                </ul>
+                <div class="cont-getlist" id="noticeBody">
+                    &lt;!&ndash;<table id="tzgg"></table>&ndash;&gt;
+                    <table id="gzlfz"></table>
+                    <table id="jzfp"></table>
+                    <table id="dfld"></table>
+                    <table id="rcfw"></table>
+                </div>
+            </div>
+-->
+        </div>
+
+        <div class="body-cont-right">
+            <div class="cont40">
+                <ul class="cont-menu" id="businessTitle">
+                    <li class="cont-active">时政要闻</li>
+                    <li>业务动态</li>
+                    <li>通知公告</li>
+                    <!--
+                    <li>社会组织党建</li>
+                    <li>执法监督</li>
+                    <li>社会组织动态</li>-->
+                </ul>
+                <div class="cont-getlist" id="businessBody">
+                    <table id="szyw"></table>
+                    <table id="ywdt"></table>
+                    <table id="tzgg"></table>
+                    <!--
+                    <table id="shzzdj"></table>
+                    <table id="zfjd"></table>
+                    <table id="shzzfc"></table>-->
+                </div>
+            </div>
+            <!--社会组织高质量发展案例库-->
+<!--            <div class="cont40" style="padding-top:10px;">-->
+<!--                <a href="xwlb?newsType=1950" target="_blank"><img src="image/index/gzlfzalk.png" width="544px" height="60px"/></a>-->
+<!--            </div>-->
+            <!--强国复兴有我-->
+            <!--<div class="cont40" style="padding-top:10px;">
+                <a href="xwlb?newsType=1949" target="_blank"><img src="image/index/qgfxyw.png" width="544px" height="60px"/></a>
+            </div>-->
+            <!--评比表彰-->
+            <div class="cont40 pbbz" style="padding-top:35px;">
+                <div class="pbbz_title" style="position: relative;">
+                    <a href="pbbz_index" target="_blank"><img src="image/index/pbbz-index2.png" width="544px" height="61px"/></a>
+                </div>
+            </div>
+            <!--全国社会组织查询-->
+            <div class="cont40 shzzcx" style="padding-top:35px;">
+                <div class="shzzcx-top">
+                    <img src="image/index/cx_shzz.png" width="544px" height="160px" style="opacity: 0.8;"/>
+                    <span class="shzzcx-title">全国社会组织查询</span>
+                    <div class="shzzcx-content">
+                        <input type="text" class="inp" name="orgName" id="orgName" placeholder="社会组织名称/统一社会信用代码" onkeydown="return orgKeyDown(this)"/>
+                        <input type="button" onclick="searchOrgData()" value="搜索" class="btn"/>
+                        <!--<p><input type="text" name="orgName" id="orgName" placeholder="社会组织名称" onkeydown="return orgKeyDown(this)"/></p>
+                        <p><input type="button" onclick="searchOrgData()" value="查询" /></p>-->
+                    </div>
+                    <!--<div class="shzzcx-ffshzz">
+                        <img src="image/index/ffshzz.png" style="margin-bottom: 5px;"/>
+                        <a href="https://xxgs.chinanpo.mca.gov.cn/gsxt/banillegalorg" target="_blank" style="color: #898989;cursor: pointer;">已取缔非法社会组织名单</a>
+                    </div>-->
+                </div>
+            </div>
+            <!--监管动态-->
+            <!--<div class="cont40 jgdt" style="padding-top:15px;">
+                <div class="jgdt-top">
+                    &lt;!&ndash;<img src="image/index/jgdt-bg.png" width="544px" height="160px" style="opacity: 0.8;"/>&ndash;&gt;
+                    <img src="image/index/cx_shzz.png" width="544px" height="160px" style="opacity: 0.8;"/>
+                    <a href="xzcfgg" target="_blank" class="jgdt-title" style="cursor: pointer;">监管动态</a>
+                    <span id="jianguandongtai_content"></span>
+                </div>
+            </div>-->
+
+            <!--网上办事大厅-->
+            <div class="cont40 bsdt" style="padding-top:35px;">
+                <div class="bsdt_title" style="position: relative;">
+                    <img src="image/index/wsbs-bg.png" width="544px" height="60px"/>
+                    <span style="position: absolute;top: 16px;left: 162px;display: inline-block;width: 90%;text-indent: 2em;font-size: 20px;color: white;letter-spacing: 4px;font-weight: 600;">网上办事大厅</span>
+                    <div class="bsdt_more_menu">
+                        <!--社会组织-->
+                        <a target="_blank" href="https://chinanpo.mca.gov.cn/npowork">社会组织</a>
+                        &nbsp;|&nbsp;
+                        <!--业务主管单位（党建工作机构）-->
+                        <a target="_blank" href="https://chinanpo.mca.gov.cn/legal">业务主管单位（党的工作领导机构）</a>
+                        &nbsp;|&nbsp;
+                        <!--登记管理机关-->
+                        <a target="_blank" href="https://tydl.chinanpo.mca.gov.cn">登记管理机关</a>
+                        &nbsp;|&nbsp;
+                        <!--宗教场所制证-->
+                        <!--<a target="_blank" href="https://zjcsdz.chinanpo.mca.gov.cn/">宗教场所制证</a>-->
+                        <a target="_blank" href="https://chinanpo.mca.gov.cn/zjdz">宗教场所制证</a>
+                        <!--评估服务机构-->
+                        <!--<a target="_blank" href="http://219.148.94.218:18082/tplogin">评估服务机构</a>-->
+                        <!--评估专家-->
+                        <!--<a target="_blank" href="http://219.148.94.218:18082/explogin">评估专家</a>-->
+                    </div>
+                </div>
+            </div>
+            <div class="cont40">
+                <div class="borders">
+                    <table width="100%" height="315px" border="0" cellspacing="0" cellpadding="0" style="border:1px solid #bababa">
+                        <tr height="50%">
+                            <td align="center" style="width:25%;" class="border-right border-bottom">
+                                <a class="bsdtButton" href="https://chinanpo.mca.gov.cn/npowork"  target="_blank">
+                                    <p class="bsdttp2"/>
+                                    <br>
+                                    <div class="bsdtwz">社会组织入口</div>
+                                </a>
+                            </td>
+                            <td align="center" style="width:25%;" class="border-right border-bottom">
+                                <a class="bsdtButton" href="https://chinanpo.mca.gov.cn/legal"  target="_blank">
+                                    <p class="bsdttp3"/>
+                                    <br>
+                                    <div class="bsdtwz">业务主管单位入口</div>
+                                </a>
+                            </td>
+                            <td align="center" style="width:25%;" class="border-right border-bottom">
+                                <a class="bsdtButton" href="https://tydl.chinanpo.mca.gov.cn"  target="_blank">
+                                    <p class="bsdttp4"/>
+                                    <br>
+                                    <div class="bsdtwz">登记管理机关入口</div>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="border-right border-bottom">
+                                <a class="bsdtButton" href="bszn" target="_blank">
+                                    <p class="bsdttp1"/>
+                                    <br>
+                                    <div class="bsdtwz">办事指南</div>
+                                </a>
+                            </td>
+                            <!--<td align="center" class="border-right border-bottom">
+                                <a class="bsdtButton" href="https://xxgs.chinanpo.mca.gov.cn/gsxt/newList"  target="_blank">
+                                    <p class="bsdttp5"/>
+                                    <br>
+                                    <div class="bsdtwz" style="color:red;">全国社会组织查询</div>
+                                </a>
+                            </td>-->
+                            <!--<td align="center" class="border-right border-bottom">
+                                &lt;!&ndash;<a class="bsdtButton" href="https://xxgs.chinanpo.mca.gov.cn/gsxt/illeagalorg"  target="_blank">
+                                    <p class="bsdttp6"/>
+                                    <br>
+                                    <div class="bsdtwz">非法社会组织查询</div>
+                                </a>&ndash;&gt;
+                                <a class="bsdtButton" href="https://zjcsdz.chinanpo.mca.gov.cn"  target="_blank">
+                                    <p class="bsdttp6"/>
+                                    <br>
+                                    <div class="bsdtwz">宗教场所制证</div>
+                                </a>
+                            </td>-->
+                            <td align="center" class="border-right">
+                                <!--<a class="bsdtButton" href="https://zcfg.chinanpo.mca.gov.cn/api-k/pages/knowledgefrontend/kl_index_new.html"  target="_blank">-->
+                                <a class="bsdtButton" href="zcfgIndex"  target="_blank">
+                                    <p class="bsdttp8"/>
+                                    <br>
+                                    <div class="bsdtwz">政策法规</div>
+                                </a>
+                            </td>
+                            <!--<td align="center">
+                                <a class="bsdtButton" href="https://auth.baidu.com/s/index.html#/officailPlatform"  target="_blank">
+                                    <p class="bsdttp9"/>
+                                    <br>
+                                    <div class="bsdtwz">社会组织官网保护计划</div>
+                                </a>
+                            </td>-->
+                            <td align="center" class="border-right border-bottom">
+                                <a class="bsdtButton" href="https://tsjb.chinanpo.mca.gov.cn/chinanpo/"  target="_blank">
+                                    <p class="bsdttp7"/>
+                                    <br>
+                                    <div class="bsdtwz">在线投诉举报</div>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!--2023打击整改非法社会组织专项行动-->
+            <!--<div class="cont40" style="padding-top:10px;">
+                <a href="jsbgt" target="_blank"><img src="image/index/djzgffzz2023.png" width="544px" height="60px"/></a>
+            </div>-->
+            <!--党史学习教育-->
+            <!--<div class="cont40" style="padding-top:10px;">
+                <a href="dsjy" target="_blank"><img src="image/index/dsjy2.png" width="544px" height="60px"/></a>
+            </div>-->
+            <!--<div class="cont40" style="padding-top:10px;">
+                &lt;!&ndash;行业协会乱收费专项清理整治&ndash;&gt;
+                <a href="xwlb?newsType=10001" target="_blank"><img src="image/index/lsfzz2.png" width="259.5px" height="60px"/></a>
+                &lt;!&ndash;“僵尸型”社会组织专项整治&ndash;&gt;
+                <a href="xwlb?newsType=1946" target="_blank"><img src="image/index/jszz2.png" width="259.5px" height="60px" style="margin-left: 20px;"/></a>
+            </div>-->
+            <!--<div class="cont20">
+                <div class="borders">
+                    <h3 class="wsbs"><span style="color: #FAFAF9">网上办事大厅</span></h3>
+                    <table width="100%" height="315px" border="0" cellspacing="0" cellpadding="0">
+                        <tr height="50%">
+                            <td align="center" style="border-right: 1px solid #e8e8e8;border-bottom: 1px solid #e8e8e8;">
+                                <a class="bsdtButton" href="bszn" target="_blank">
+                                    <p class="bsdttp1"/>
+                                    <br>
+                                    <div class="bsdtwz">办事指南</div>
+                                </a>
+                            </td>
+                            <td align="center" style="border-bottom: 1px solid #e8e8e8;">
+                                <a class="bsdtButton" href="https://chinanpo.mca.gov.cn/npowork"  target="_blank">
+                                    <p class="bsdttp2"/>
+                                    <br>
+                                    <div class="bsdtwz">社会组织入口</div>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="border-right: 1px solid #e8e8e8;">
+                                <a class="bsdtButton" href="https://chinanpo.mca.gov.cn/legal"  target="_blank">
+                                    <p class="bsdttp3"/>
+                                    <br>
+                                    <div class="bsdtwz">业务主管单位入口</div>
+                                </a>
+                            </td>
+                            <td align="center">
+                                <a class="bsdtButton" href="https://tydl.chinanpo.mca.gov.cn"  target="_blank">
+                                    <p class="bsdttp4"/>
+                                    <br>
+                                    <div class="bsdtwz">登记管理机关入口</div>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>-->
+            <!--<div class="cont30">
+                <div class="borders">
+                    <h3 class="shzzcx"><span style="color: #FAFAF9">全国社会组织信用信息公示平台</span></h3>
+                    <p><input type="text" name="orgName" id="orgName" placeholder="社会组织名称" onkeydown="return orgKeyDown(this)"/></p>
+                    <p><input type="text" name="orgUnifiedCode" id="orgUnifiedCode" placeholder="统一社会信用代码" onkeydown="return orgKeyDown(this)"/></p>
+                    <p><span>类型：</span>&lt;!&ndash;1社团，2民办非企业单位，3基金会，5国际性社团，6外国商会，7涉外基金会&ndash;&gt;
+                        <select name="type" id="type">
+                            <option value="" selected>全部类型</option>
+                            <option value="1">社会团体</option>
+                            <option value="2">民办非企业单位</option>
+                            <option value="3">基金会</option>
+                        </select>
+                    </p>
+                    <p><span>状态：</span>
+                        <select name="status" id="status">
+                            <option value="" selected>全选</option>
+                            <option value="1">正常</option>
+                            <option value="2">注销</option>
+                            <option value="3">撤销</option>
+                        </select>
+                    </p>
+                    <p><input type="button" onclick="searchOrgData()" value="查询" /></p>
+                </div>
+            </div>-->
+        </div>
+
+        <!--<div style="float: left; width: 100%; margin-top: 15px; border-top: 1px solid #bababa; border-bottom: 1px solid #bababa;">
+            <ul class="img-inventory-list img-inventory-list1" style="padding: 20px 0px 20px 0px;">
+                <li>&lt;!&ndash; 社会组织官网保护计划 &ndash;&gt;
+                    <a target="_blank" href="https://auth.baidu.com/s/index.html#/officailPlatform">
+                        <img src="image/index/gwbhjh.png" >
+                    </a>
+                </li>
+                <li>&lt;!&ndash;投诉举报&ndash;&gt;
+                    <a target="_blank" href="https://tsjb.chinanpo.mca.gov.cn/chinanpo/">
+                        <img src="image/index/tsjb2.png" >
+                    </a>
+                </li>
+            </ul>
+        </div>-->
+
+        <div style="float: left; width: 100%;margin-top: 20px;">
+            <ul class="service-list" style="border-bottom: 1px solid #bababa;">
+                <li>
+                    <a target="_blank" title="部管社会组织党建" href="https://dj.chinanpo.mca.gov.cn/">
+                        <img src="image/index/dangjian-01.png" >
+                        <img class="redimg" src="image/index/dangjian-02.png" >
+                        <br/>部管社会组织党建
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" title="部管社会组织纪检" href="https://jj.chinanpo.mca.gov.cn/">
+                        <img src="image/index/fwqd-03.png" >
+                        <img class="redimg" src="image/index/rcfw_px-02.png" >
+                        <br/>部管社会组织纪检
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" title="社会组织等级评估" href="shzzpg">
+                        <img src="image/index/shzzpg-01.png" >
+                        <img class="redimg" src="image/index/shzzpg-02.png" >
+                        <br/>社会组织评估
+                    </a>
+                </li>
+                <li class="info">
+                    <a target="_blank" title="人才服务和培训" href="https://px.chinanpo.mca.gov.cn/">
+                        <img src="image/index/last_szst-03.png" >
+                        <img class="redimg" src="image/index/last_szst-04.png" >
+                        <br/>人才服务和培训
+                    </a>
+                </li>
+                <li class="info">
+                    <a target="_blank" title="联系我们" href="lxwm">
+                        <img src="image/index/lxwm-01.png" >
+                        <img class="redimg" src="image/index/lxwm-02.png" >
+                        <br/>联系我们
+                    </a>
+                </li>
+            </ul>
+            <ul class="img-inventory-list img-inventory-list2" style="margin-top: 20px;">
+                <li><!-- 中国政府网 -->
+                    <a target="_blank" href="http://www.gov.cn/">
+                        <img src="image/index/zgzfw.png" >
+                    </a>
+                </li>
+                <li><!--国家政务服务平台-->
+                    <a target="_blank" href="http://gjzwfw.www.gov.cn/">
+                        <img src="image/index/gjzwfwpt.png" >
+                    </a>
+                </li>
+                <li><!--信用中国-->
+                    <a target="_blank" href="https://www.creditchina.gov.cn/">
+                        <img src="image/index/xyzg.png" >
+                    </a>
+                </li>
+                <!--民政部-->
+<!--                <li>-->
+<!--                    <a target="_blank" href="http://www.mca.gov.cn/">-->
+<!--                        <img src="image/index/mzb.png" >-->
+<!--                    </a>-->
+<!--                </li>-->
+                <li><!--慈善中国-->
+                    <a onclick="skipToCszg()" style="cursor:pointer">
+                        <img src="image/index/cszg.png" >
+                    </a>
+                </li>
+                <li><!--统一代码中心-->
+                    <a target="_blank" href="https://www.cods.org.cn/">
+                        <img src="image/index/tydmzx.png" >
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--底部-->
+    <div class="website-foot"></div>
+    <div id="openNotice" class="openNotice">
+        <p>尊敬的用户，您好：</p>
+        <p style="text-indent: 2em;">即日起，中国社会组织政务服务平台主域名（访问地址）正式切换为：https://chinanpo.mca.gov.cn。同时，为方便社会公众查询和社会组织办事，平台原访问网址：https://www.chinanpo.gov.cn，将在一个时期内作为辅域名继续保留。</p>
+        <p style="text-align: right;">敬请周知。</p>
+        <p style="text-align: center;"><span id="countdown">10</span>秒后自动关闭</p>
+    </div>
+    <div id="openNotice2" class="openNotice2">
+        <h2 class="title">民政部社会组织服务大厅</h2>
+        <h2 class="title">关于疫情防控期间有关服务措施调整的提示</h2>
+        <p>各全国性社会组织：</p>
+        <p style="text-indent: 2em;">为进一步贯彻落实北京市疫情防控要求，特别是配合做好朝阳区疫情防控工作，现就民政部社会组织服务大厅有关服务措施调整提示如下：</p>
+        <p style="text-indent: 2em;">一、自5月11日起，民政部社会组织服务大厅暂停现场业务办理，现场业务恢复时间另行公告。</p>
+        <p style="text-indent: 2em;">二、全国性社会组织通过网上申报、材料邮寄、电话咨询、结果寄达的方式办理登记、年检、慈善组织（基金会）管理、证章相关业务。</p>
+        <p style="text-indent: 2em;">三、现场业务暂停办理期间，全国性社会组织可通过以下电话进行业务咨询：</p>
+        <p style="text-indent: 2em;">（1）登记业务：58124117  58124118</p>
+        <p style="text-indent: 2em;">（2）社会团体、社会服务机构年检业务：58124122 58124123</p>
+        <p style="text-indent: 2em;">（3）慈善组织（基金会）管理业务：58124120</p>
+        <p style="text-indent: 2em;">（4）证书印章业务：58124119</p>
+        <p style="text-indent: 2em;">咨询时间：工作日上午8：00--11：30，下午13：30--17：00。</p>
+        <p style="text-indent: 2em;">四、全国性社会组织通过网上办理业务，可登录：</p>
+        <p style="text-indent: 2em;">（1）国家政务服务平台：<a href="http://gjzwfw.www.gov.cn" target="_blank">http://gjzwfw.www.gov.cn</a></p>
+        <p style="text-indent: 2em;">（2）中国社会组织政务服务平台：<a href="https://chinanpo.mca.gov.cn" target="_blank">https://chinanpo.mca.gov.cn</a></p>
+        <p style="text-indent: 2em;">邮寄地址：北京市朝阳区建国门南大街6号民政部社会组织服务大厅（<strong>邮寄信封上务必分别注明：</strong>登记业务、年检业务、慈善组织（基金会）管理业务，或者证章业务）</p>
+        <p style="text-indent: 2em;">感谢对我部疫情防控工作的支持。</p>
+        <p style="text-align: right;">民政部社会组织服务大厅</p>
+        <p style="text-align: right;padding-right: 39px;">2022年5月10日</p>
+    </div>
+<!--    </div>-->
+    </div>
+</body>
+<script src="js/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script src="js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/swiper/swiper.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var swiper1 = null;
+    $(function(){
+        // 网站置灰
+        // changeToGray(true);
+
+        // 弹窗,提示域名切换,10秒后自动关闭,也可手动关闭
+        // openNotice();
+        // openNotice2();
+
+        //加载顶部导航栏
+        $(".website-head").load("common/header.html");
+        //加载底部
+        $(".website-foot").load("common/footer.html");
+
+        //按照新闻类型获取数据
+        //轮播图
+        selectIndexNewsByNewsType('2350',1,3);
+        //二十大头条新闻
+        selectIndexNewsByNewsType('1000012',1,1);
+        //时政要闻
+        selectIndexNewsByNewsType('1945',1,5);
+        //通知公告
+        selectIndexNewsByNewsType('2351',1,5);
+        //业务动态
+        selectIndexNewsByNewsType('1938',1,5);
+        //社会组织党建
+        selectIndexNewsByNewsType('1919',1,5);
+        //执法监督
+        selectIndexNewsByNewsType('1942',1,5);
+        //社会组织动态
+        selectIndexNewsByNewsType('6000',1,8);
+
+        // //高质量发展
+        // selectIndexNewsByNewsType('1947',1,15);
+        // //乡村振兴
+        // selectIndexNewsByNewsType('1943',1,15);
+        // //人才服务
+        // selectIndexNewsByNewsType('1948',1,15);
+        // 社会组织动态,合并高质量发展,乡村振兴,人才服务:1947,1943,1948
+        selectIndexNewsByNewsType('1947,1943,1948',1,5);
+
+        //地方动态
+        selectIndexNewsByNewsType('3501',1,5);
+
+        //监管动态
+        selectIndexNewsByNewsType('1951',1,20);
+
+
+        //加载列表内容,只加载首先展示的内容,轮播图,业务动态,通知公告
+        // selectIndexNews();
+
+        //默认显示业务动态的列表
+        $('#businessBody table').eq(0).show();
+
+        //默认显示地方动态的列表
+        $("#dfld").show();
+
+        // 默认显示社会组织党建
+        $("#shzzdj").show();
+
+        // 列表轮播     业务动态0 - 社会组织党建1 - 执法监督2 - 社会组织动态3
+        /*var list_toggle1 = 0;
+        setInterval(function(){
+            $('#businessTitle li').eq(list_toggle1).addClass('cont-active').siblings().removeClass('cont-active');
+            $('#businessBody table').eq(list_toggle1).show().siblings().hide();
+            list_toggle1 == 3 ? list_toggle1 = 0 : list_toggle1 += 1 ;
+        }, 2000)*/
+
+        //设置业务动态的一排按钮的鼠标悬停时切换栏目
+        $("#businessTitle li").hover(function(){
+                var	index = $(this).index();
+                $(this).addClass('cont-active').siblings().removeClass('cont-active')
+                $('#businessBody table').eq(index).show().siblings().hide();
+            }
+        )
+
+        //时政要闻0 - 通知公告1
+        $('#businessTitle li').click(function() {
+            var index = $(this).index();
+            list_toggle1 = index;
+            $(this).addClass('cont-active').siblings().removeClass('cont-active')
+            $('#businessBody table').eq(index).show().siblings().hide();
+            if(index == 0){// 时政要闻
+                window.open("xwlb?newsType=1945");
+            }
+            else if(index == 1){// 业务动态
+                window.open("xwlb?newsType=1938");
+            }
+            else if(index == 2){// 通知公告
+                window.open("xwlb?newsType=2351");
+            }
+        })
+
+        // 列表轮播     通知公告0 - 疫情防控1 - 乡村振兴 2 - 地方亮点3
+        /* var list_toggle2 = 0;
+         setInterval(function(){
+             $('#noticeTitle li').eq(list_toggle2).addClass('cont-active').siblings().removeClass('cont-active');
+             $('#noticeBody table').eq(list_toggle2).show().siblings().hide();
+             list_toggle2 == 3 ? list_toggle2 = 0 : list_toggle2 += 1 ;
+         }, 2000)*/
+
+        $("#noticeTitle li").hover(function(){
+                var	index = $(this).index();
+                $(this).addClass('cont-active').siblings().removeClass('cont-active')
+                $('#noticeBody table').eq(index).show().siblings().hide();
+            }
+        )
+
+        // 地方动态0 - 社会组织动态1
+        $('#noticeTitle li').click(function(){
+            var	index = $(this).index();
+            $(this).addClass('cont-active').siblings().removeClass('cont-active')
+            $('#noticeBody table').eq(index).show().siblings().hide();
+            if(index == 0){// 地方动态
+                window.open("xwlb?newsType=3501");
+            }else if(index == 1){// 社会组织动态
+                window.open("xwlb?newsType=1947,1943,1948");
+            }
+        })
+
+        $("#jianguanTitle li").hover(function(){
+                var	index = $(this).index();
+                $(this).addClass('cont-active').siblings().removeClass('cont-active')
+                $('#jianguanBody table').eq(index).show().siblings().hide();
+            }
+        )
+
+        // 社会组织党建0 - 执法监督1
+        $('#jianguanTitle li').click(function(){
+            var	index = $(this).index();
+            $(this).addClass('cont-active').siblings().removeClass('cont-active')
+            $('#jianguanBody table').eq(index).show().siblings().hide();
+            if(index == 0){// 社会组织党建
+                window.open("xwlb?newsType=1919");
+            }else if(index == 1){// 执法监督
+                window.open("xwlb?newsType=1942");
+            }
+        })
+        // 二十大主题飘红
+        $('.logoLianghui').click(function(){
+            window.open("http://www.gov.cn/zhuanti/zggcddescqgdbdh/index.htm");
+        })
+    });
+
+    //网站首页变灰
+    function changeToGray(crayMode) {
+        var element = document.body;
+        if (crayMode) {
+            element.style.cssText = ' filter: grayscale(100%); -webkit-filter: grayscale(100%); -moz-filter: grayscale(100%); -ms-filter: grayscale(100%); -o-filter: grayscale(100%); filter: url("data:image/svg+xml;utf8,#grayscale"); filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1); -webkit-filter: grayscale(1);';
+        } else {
+            element.style.cssText = '';
+        }
+    }
+
+    // 弹窗,提示域名切换,10秒后自动关闭,也可手动关闭
+    var openNotice = function(){
+        // 倒计时
+        var countdown = 10;
+        var int = setInterval(function(){
+            $("#countdown").text(countdown);
+            countdown--;
+            // console.log(countdown);
+            if(countdown == 0){// 关闭倒计时
+                window.clearInterval(int);
+            }
+        },1000);
+        // 弹窗
+        layer.open({
+            type: 1,
+            title:"公告",// 标题
+            skin:"openNoticeSkin",// 弹框样式
+            btn:["关闭"],
+            yes:function(index,layero){// 第一个按钮的js
+                layer.close(index);
+            },
+            area: '500px',// 设置宽度,高度自适应
+            shadeClose:true,// 点击朦胧层自动关闭
+            time:10000,// 10秒后自动关闭
+            content: $('#openNotice'),
+        });
+    }
+
+    // 弹窗,提示域名切换,10秒后自动关闭,也可手动关闭
+    var openNotice2 = function(){
+        // 倒计时
+        // var countdown = 10;
+        // var int = setInterval(function(){
+        //     $("#countdown").text(countdown);
+        //     countdown--;
+        //     // console.log(countdown);
+        //     if(countdown == 0){// 关闭倒计时
+        //         window.clearInterval(int);
+        //     }
+        // },1000);
+        // 弹窗
+        layer.open({
+            type: 1,
+            title:"公告",// 标题
+            skin:"openNoticeSkin",// 弹框样式
+            btn:["关闭"],
+            yes:function(index,layero){// 第一个按钮的js
+                layer.close(index);
+            },
+            area: '900px',// 设置宽度,高度自适应
+            shadeClose:true,// 点击朦胧层自动关闭
+            // time:10000,// 10秒后自动关闭
+            content: $('#openNotice2'),
+        });
+    }
+
+    // 轮播图
+    var swiperHandle = function() {
+        swiper1 = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            autoplay: {
+                delay: 5000,//1秒切换一次
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    }
+    // 请求新闻数据
+    var selectIndexNews = function() {
+        $.ajax({
+            type: "post",
+            url: "./selectIndexNews",
+            dataType: "json",
+            async:true,
+            contentType:"application/json;charset=UTF-8",
+            success: function (result) {
+                // 轮播图 - 2350
+                $("#lbt").html(resultHandleUtil(2350, result.data.lbt));
+
+                // 业务动态 - 1938
+                $("#ywdt").html(resultHandleUtil(1938, result.data.ywdt));
+                // 社会组织党建 - 1919
+                $("#shzzdj").html(resultHandleUtil(1919, result.data.shzzdj));
+                // 执法监督 - 1942
+                $("#zfjd").html(resultHandleUtil(1942, result.data.zfjd));
+                // 社会组织动态 - 6000
+                $("#shzzfc").html(resultHandleUtil(6000, result.data.shzzfc));
+
+                // 通知公告 - 2351
+                $("#tzgg").html(resultHandleUtil(2351, result.data.tzgg));
+                
+                // 乡村振兴 - 1943
+                $("#jzfp").html(resultHandleUtil(1943, result.data.jzfp));
+                // 地方亮点 - 3501
+                $("#dfld").html(resultHandleUtil(3501, result.data.dfld));
+
+                加载轮播图
+                swiperHandle();
+            }
+        });
+    }
+    // 请求新闻数据
+    var selectIndexNewsByNewsType = function(newsType,pageNum,pageSize) {
+        $.ajax({
+            type: "post",
+            url: "./selectIndexNewsByNewsType",
+            dataType: "json",
+            async:true,
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify({"newsType":newsType,"pageNum":pageNum,"pageSize":pageSize}),
+            success: function (result) {
+                // 轮播图 - 2350
+                if(newsType == '2350'){
+                    $("#lbt").html(resultHandleUtil(2350, result.data));
+                    // 加载轮播图
+                    swiperHandle();
+                }else if(newsType == '1938'){//业务动态
+                    $("#ywdt").html(resultHandleUtil(1938, result.data));
+                }else if(newsType == '1919'){//社会组织党建
+                    $("#shzzdj").html(resultHandleUtil(1919, result.data));
+                }else if(newsType == '1942'){//执法监督
+                    $("#zfjd").html(resultHandleUtil(1942, result.data));
+                }else if(newsType == '6000'){//社会组织动态
+                    $("#shzzfc").html(resultHandleUtil(6000, result.data));
+                }else if(newsType == '2351'){//通知公告
+                    $("#tzgg").html(resultHandleUtil(2351, result.data));
+                }else if(newsType == '1947'){//高质量发展
+                    $("#gzlfz").html(resultHandleUtil(1947, result.data));
+                }else if(newsType == '1943'){//乡村振兴
+                    $("#jzfp").html(resultHandleUtil(1943, result.data));
+                }else if(newsType == '1948'){//人才服务
+                    $("#rcfw").html(resultHandleUtil(1948, result.data));
+                }else if(newsType == '3501'){//地方亮点
+                    $("#dfld").html(resultHandleUtil(3501, result.data));
+                }else if(newsType == '1945'){//时政要闻
+                    $("#szyw").html(resultHandleUtil(1945, result.data));
+                }else if(newsType == '1000012'){//二十大头条新闻
+                    ersidatoutiaoxinwen(result.data);
+                }
+                // 监管动态
+                else if(newsType == '1951'){
+                    jianguandongtai(result.data);
+                }
+                else if(newsType == '1947,1943,1948'){
+                    $("#shzzdt").html(resultHandleUtil(newsType, result.data));
+                }
+            }
+        });
+    }
+    // 二十大头条新闻
+    var ersidatoutiaoxinwen = function(data){
+        console.log("data",data);
+        if(data && data.rows && data.rows.length > 0){
+            var news = data.rows[0];
+            var big_title = "<a target='_blank' title='"+news.title+"' href='xwxq?newsType=" + news.newsType + "&id=" + news.id + "'>" + news.title + "</a>";
+            var small_title = "<a target='_blank' title='"+news.keyWord+"' href='xwxq?newsType=" + news.newsType + "&id=" + news.id + "'>" + news.keyWord + "</a>";
+            // 大标题
+            $("#toutiaoxinwen_big_title").html(big_title);
+            // 小标题
+            $("#toutiaoxinwen_small_title").html(small_title);
+        }
+    }
+    // 监管动态
+    var jianguandongtai = function(data){
+        console.log("data",data);
+        if(data && data.rows && data.rows.length > 0){
+            for (let i = 0; i < data.rows.length; i++) {
+                let news = data.rows[i];
+                let content = `<a href="xwxq?newsType=${news.newsType}&id=${news.id}" target="_blank" class="jgdt-content" style="display: none">${news.title}。>>>点击查看详情</a>`;
+                // 监管动态内容
+                $("#jianguandongtai_content").append(content);
+            }
+            // 显示第一个
+            $("#jianguandongtai_content").children().first().addClass("show").show();
+            let length = data.rows.length;
+            let index = -1;
+            let lastIndex = 0;
+            setInterval(() => {
+                if(index == -1){
+                    lastIndex = 0;
+                }
+                else{
+                    lastIndex = index;
+                }
+                index++;
+                if((index + 1) > length){
+                    index = 0;
+                }
+                // 隐藏所有
+                $("#jianguandongtai_content").children(".show").removeClass("show").slideUp(500,() => {
+                    // 显示下一个
+                    $($("#jianguandongtai_content").children()[index]).addClass("show").slideDown(500);
+                });
+
+            },5000);
+            // let length = data.rows.length;
+            // let index = -1;
+            // let news = {};
+            // let content = "";
+            // setInterval(() => {
+            //     index++;
+            //     if((index + 1) > length){
+            //         index = 0;
+            //     }
+            //     news = data.rows[index];
+            //     content = `<a href="xwxq?newsType=${news.newsType}&id=${news.id}" target="_blank" class="jgdt-content">${news.title}。>>>点击查看详情</a>`;
+            //     // 监管动态内容
+            //     $("#jianguandongtai_content").html(content);
+            // },5000)
+
+        }
+    }
+
+
+    //
+    var resultHandleUtil = function(newsType,data) {
+        //页面追加的内容
+        var item = '';
+        //新图片
+        var newImg = "";
+        //遍历数据
+        for (var i = 0; i < data.rows.length; i++) {
+            if(newsType == '2350'){//轮播图
+                //图片路径
+                // var imgSrc = data.rows[i].content.match(/<img.*?(?:>|\/>)/g)[0].match(/src=[\'\"]?([^\'\"]*)[\'\"]?/i)[1];
+                // var imgSrc = data.rows[i].content;
+                // https://chinanpo.mca.gov.cn/news/annex/1302/全国性社会团体成立登记_1612517186366.rar
+                // var imgSrc = "https://chinanpo.mca.gov.cn/news/annex/" + newsType + "/" + data.rows[i].lbtAnnexName;
+                // console.log("lbtAnnexName",data.rows[i].lbtAnnexName)
+                var imgSrc = data.rows[i].lbtAnnexName;
+                //拼接轮播图的内容
+                item += "<div class='swiper-slide'>" +
+                    "<a target='_blank' href='xwxq?newsType=" + data.rows[i].newsType + "&id=" + data.rows[i].id + "'><img src='"+imgSrc+"'><span>"+data.rows[i].title+"</span></a>" +
+                    "</div>";
+            }else{//非轮播图
+                //如果发布时间是两天以内的,加上new的图标
+                newImg = newIconHandle(data.rows[i].announceDate);
+                let showHighlight = false;
+                if(newsType == '2351' && data.rows[i].title == '民政部 中央社会工作部 农业农村部 市场监管总局 全国工商联关于加强社会组织规范化建设推动社会组织高质量发展的意见'){
+                    showHighlight = true;
+                }
+                //生成列表内容
+                item += "<tr class='textoverflow'><td>" +
+                    "<a ";
+                if(showHighlight){
+                    item += " style='color:red;font-weight:600;' "
+                }
+                item += "target='_blank' title='"+data.rows[i].title+"' href='xwxq?newsType=" + data.rows[i].newsType + "&id=" + data.rows[i].id + "'>" + data.rows[i].title + "&nbsp;&nbsp;" + newImg + "</a>" +
+                    "</a>" +
+                    "</td><td align='right'>"+
+                    "<span>" + data.rows[i].announceDate.substring(0, 11) + "</span>" +
+                    "</td></tr>";
+            }
+        }
+        return item;
+    }
+
+    function orgKeyDown(obj){
+        var keycode=window.event.keyCode;
+        if (keycode==13){
+            searchOrgData();
+        }
+    }
+    // 全国社会组织信息查询
+    function searchOrgData(){
+       var searchOrgPath = "https://xxgs.chinanpo.mca.gov.cn";
+        if($("#orgName").val() != '' || $("#unifiedCode").val() != ''){
+            var param = {
+                "o": $("#orgName").val(),
+                "u": $("#unifiedCode").val(),
+                "t": $("#type").val(),
+                "s": $("#status").val(),
+            }
+            window.open(searchOrgPath + "/gsxt/newList?b=" + btoa(encodeURIComponent(JSON.stringify(param))));
+        }else{
+            window.open(searchOrgPath + "/gsxt/newList");
+        }
+    }
+
+    //如果发布时间为两天以内的数据,加上new的图标
+    var newIconHandle = function(announceDate) {
+        //icon
+        var icon = "";
+        //系统当前时间
+        var dateEnd = new Date();
+        //发布时间
+        var dateBegin = new Date(announceDate);
+        //系统当前时间 - 发布时间,获取相差的毫秒数
+        var dateDiff = dateEnd.getTime() - dateBegin.getTime();//时间差的毫秒数
+        //发布时间距离当天有多少天
+        var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000));//计算出相差天数
+        //发布时间为两天以内
+        if(dayDiff <= 2){
+            //加上new的图片标记
+            icon = "<img class='new' src='image/index/new.png'>";
+        }
+        return icon;
+    }
+
+    //页面跳转
+    var skipToCszg = function(){
+        window.open('javascript:window.name;', '<script>location.replace("https://cszg.mca.gov.cn/platform/login.html")<\/script>');
+    }
+</script>
+<style>
+</style>
+</html>

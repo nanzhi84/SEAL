@@ -1,0 +1,583 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+    <script type="text/javascript" src="../../../plugins/jquery/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="../../../help/layui.js"></script>
+    <link href="../../../help/css/help.css" rel="stylesheet" type="text/css"/>
+    <link type="text/css" rel="stylesheet" href="../../../help/layui.css"/>
+    <link type="text/css" rel="stylesheet" href="themes/classic/css/base.css"/>
+    <link type="text/css" rel="stylesheet" href="themes/classic/css/publicpages.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../resource/skins/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" language="JavaScript" src="/dxxzsp/resource/scripts/public.js"></script>
+    <title>许可业务信息
+        
+        
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+        .modal {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            /* width: 40%;
+            max-width: 300px;
+            height: 25%;
+            max-height: 150px; */
+            margin: 100px auto;
+            border-radius: 10px;
+            background-color: #fff;
+            -webkit-animation: zoom 0.6s;
+            animation: zoom 0.6s;
+            resize: both;
+            overflow: auto;
+        }
+
+        @-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .modal-header {
+            box-sizing: border-box;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close {
+            color: #b7b7b7;
+            font-size: 30px;
+            font-weight: bold;
+            margin-right: 20px;
+            transition: all 0.3s;
+        }
+
+        .close:hover, .close:focus {
+            color: #95b4ed;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .modal-footer {
+            box-sizing: border-box;
+            border-top: 1px solid #ccc;
+            display: flex;
+            padding: 15px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .modal-footer button {
+            width: 60px;
+            height: 35px;
+            padding: 5px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            font-size: 16px;
+            color: white;
+            border-radius: 5px;
+            background-color: cornflowerblue;
+        }
+
+        .modal-footer button:hover, .modal-footer button:focus {
+            background-color: #95b4ed;
+            cursor: pointer;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 80%;
+            }
+
+            .denglu input {
+                vertical-align: middle;
+                height: 32px;
+                width: 144px;
+                color: #819cb9;
+                cursor: pointer;
+                float: left;
+                border: 1px solid #809ab7;
+            }
+
+            .inputlogin {
+                box-shadow: 0 0 0px 1000px white inset;
+            }
+
+            .input {
+                padding-left: 6px;
+            }
+
+            .marginleft10 {
+                margin-left: 10px;
+            }
+
+            input {
+                font-size: 12px;
+                font-family: Arial;
+                line-height: 18px;
+            }
+
+            .code {
+                background: url(code.jpg);
+                font-family: Arial;
+                font-style: italic;
+                color: blue;
+                font-size: 16px;
+                border: 0;
+                padding: 2px 3px;
+                letter-spacing: 3px;
+                font-weight: bolder;
+                float: left;
+                cursor: pointer;
+                width: 100px;
+                height: 25px;
+                line-height: 25px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .search-active {
+                border-top: 2px solid #0061c2 !important;
+                background-color: #ffffff;
+            }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start();
+            createCode();
+            document.getElementById('modal_search').style.display = "block";
+            $("#inputCode").val("");
+            $("#inputCode").focus();
+
+            //点击查询按钮
+            $("#search").click(function () {
+                var num = $("#num").val();
+                if (num == null || null == '') {
+                    alert("请输入许可号/批文号/企业名称查询！");
+                    return;
+                }
+                createCode();
+                document.getElementById('modal_search').style.display = "block";
+                $("#inputCode").val("");
+                $("#inputCode").focus();
+            });
+
+        });
+
+        function start() {
+
+            var num = $("#num").val();
+            var code = $("#inputCode").val();
+            var type = $("#type option:selected").val();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '/dxxzsp/corpinfo/getcorpinfocount.wf',
+                data: {
+                    num: num,
+                    type: type,
+                    code: code
+                },
+                processData: true,
+                success: function (data) {
+                    if (data.flag == '0') {
+                        alert(data.msg);
+                        return;
+                    }
+                    if (data.c == 0) {
+                        alert("未查询到【" + htmlEscape(num) + "】企业许可信息！");
+                        return;
+                    }
+
+                    var count = parseInt(data.c);
+                    layui.use('laypage', function () {
+                        var laypage = layui.laypage;
+                        laypage.render({
+                            elem: 'page'
+                            , count: count
+                            , limit: 10
+                            , jump: function (obj, first) {
+                                $.ajax({
+                                    type: "POST",
+                                    dataType: "json",
+                                    url: '/dxxzsp/corpinfo/getcorpinfo.wf',
+                                    data: {
+                                        pageNum: obj.curr,
+                                        pageSize: obj.limit,
+                                        num: $("#num").val(),
+                                        type: $("#type option:selected").val(),
+                                        code: $("#inputCode").val()
+                                    },
+                                    success: function (data) {
+                                        var result = data.listyj;
+                                        var html = "";
+
+                                        for (var i = 0; i < result.length; i++) {
+
+                                            if (type == "xuke") {
+                                            	var company_ywzl = result[i].ywzlInfos;
+                                            	for (var j = 0; j < company_ywzl.length; j++) {
+                                            					html += "<tr>";
+                                            					if (j == 0) {
+                                            						html += "<td rowspan='" + company_ywzl.length + "'>" + htmlEscape(result[i].company_name) + "</td>";
+                                                                html += "<td rowspan='" + company_ywzl.length + "'>" + htmlEscape(result[i].faren) + "</td>";
+                                            						html += "<td rowspan='" + company_ywzl.length + "'>" + htmlEscape(result[i].license_no) + "</td>";
+                                                                html += "<td rowspan='" + company_ywzl.length + "'>" + htmlEscape(result[i].fzjg) + "</td>";
+                                            					}
+                                            					html += "<td class='moretd' title='" + htmlEscape(company_ywzl[j].ywzl) + "'>" + htmlEscape(company_ywzl[j].ywzl) + "</td>";
+                                            					html += "<td class='moretd' title='" + htmlEscape(company_ywzl[j].fgfw) + "'>" + htmlEscape(company_ywzl[j].fgfw) + "</td>";
+                                            				/*if(result[i].fzjg!="工业和信息化部"){*/
+                                                                html += "<td class='moretd'>"+"----------"+"</td>";
+                                                            /*}else {
+                                                                html += "<td class='moretd' title='" + htmlEscape(company_ywzl[j].fzrq) + "'>" + htmlEscape(company_ywzl[j].fzrq) + "</td>";
+                                                            }*/
+                                                            html += "<td class='moretd' title='" + htmlEscape(company_ywzl[j].jzrq) + "'>" + htmlEscape(company_ywzl[j].jzrq) + "</td>";
+                                            					if (j == 0) {
+                                            						html += "<td rowspan='" + company_ywzl.length + "'><a href='javascript:showShouQuan(\"" + htmlEscape(result[i].lic_id) + "\")'>查看详情</a></td>";
+                                            					}
+                                                            if (j == 0) {
+                                                                html += "<td rowspan='" + company_ywzl.length + "'><a href='javascript:showYearReport(\"" + htmlEscape(result[i].lic_id) + "\")'>查看详情</a></td>";
+                                                            }
+                                            					html += "</tr>";
+                                            	}
+                                            } else if (type == "ws") {
+                                                var areaArr = result[i].rsarea.split(";");
+                                                var areaHtml = "";
+                                                for (var k = 0; k < areaArr.length; k++) {
+                                                    areaHtml += htmlEscape(areaArr[k]) + "<br/>";
+                                                }
+                                                html += "<tr><td class='moretd' title='" + htmlEscape(result[i].enterprise_name) + "'>" + htmlEscape(result[i].enterprise_name) + "</td><td class='moretd' title='" + htmlEscape(result[i].sdyjs_num) + "'>" + htmlEscape(result[i].sdyjs_num) + "</td><td class='moretd' title='" + htmlEscape(result[i].chinese_investors) + "'>" + htmlEscape(result[i].chinese_investors) + "</td>"
+                                                    + "<td class='moretd' title='" + htmlEscape(result[i].foreign_investor) + "'>" + htmlEscape(result[i].foreign_investor) + "</td>" + "<td class='moretd' title='" + htmlEscape(result[i].reg_capital) + "'>" + htmlEscape(result[i].reg_capital) + "</td>" + "<td class='moretd' title='" + htmlEscape(result[i].zfbl) + "'>" + htmlEscape(result[i].zfbl) + "</td>"
+                                                    + "<td class='moretd' title='" + htmlEscape(result[i].invest_amounts_) + "'>" + htmlEscape(result[i].invest_amounts_) + "</td>" + "<td class='moretd' title='" + htmlEscape(result[i].associationcontent) + "'>" + htmlEscape(result[i].associationcontent) + "</td>"
+                                                    + "<td class='moretd' title='" + htmlEscape(result[i].created) + "'>" + htmlEscape(result[i].created) + "</td></tr>";
+                                            }
+                                        }
+                                        $(".tablelist").empty();
+                                        $(".tablelist").append(html);
+                                    },
+                                    error: function (data) {
+                                        alert("未查询企业许可信息！");
+                                    }
+                                });
+                            }
+                        });
+                    });
+                },
+                error: function (data) {
+                    alert("未查询企业许可信息！");
+                }
+            });
+        }
+
+        function htmlEscape(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function closed() {
+            var inputCode = $("#inputCode").val();
+            if (inputCode.length <= 0) {
+                alert("请输入验证码！");
+                return false;
+            }
+            document.getElementById('modal_search').style.display = "none";
+            start();
+        }
+
+        function closed1() {
+            document.getElementById('modal_search').style.display = "none";
+        }
+
+        function openxuke(entid, num) {
+            var safeEntid = encodeURIComponent(entid);
+            var safeNum = encodeURIComponent(num);
+            window.open("/dxxzsp/xkz/xkzgl/resource/qyxkyw.jsp?entid=" + safeEntid + "&num=" + safeNum);
+        }
+
+
+        function showYearReport(num) {
+            var safeNum = encodeURIComponent(num);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/dxxzsp/corpinfo/getreporty",
+                data: {
+                    num: num
+                },
+                success: function (date) {
+                    if (date.ssss!=null){
+                        alert("未查询到该企业年报信息！");
+                        return;
+                    } else {
+                        var url = "/dxxzsp/xkz/xkzgl/resource/qiyereport.jsp?num="+safeNum+"&type=yreport";
+                        window.open(url);
+                    }
+                }
+            });
+        }
+
+        function showShouQuan(num) {
+            var safeNum = encodeURIComponent(num);
+            var url = "/dxxzsp/xkz/xkzgl/resource/qiyeshuquan.jsp?num="+safeNum;
+            window.open(url);
+        }
+
+        function createCode() {
+            var num = $("#num").val();
+            $.ajax({
+                url: "/dxxzsp/corpinfo/getCode",
+                async: false,
+                type: "post",
+                dataType: "json",
+                data: {
+                    num: num
+                },
+                processData: true,
+                success: function (res) {
+                    $("#imgcode").attr("src", res.src);
+                }, error: function () {
+                    alert("连接超时!");
+                }
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" type="text/css" id="base_css" href="/dxxzsp/resource/skins/default/css/base.css"/>
+    <link rel="stylesheet" type="text/css" id="login_css" href="/dxxzsp/resource/skins/default/css/login.css"/>
+    <link rel="stylesheet" type="text/css" id="style_css" href="/dxxzsp/resource/skins/default/css/style.css"/>
+</head>
+
+
+<body>
+<div>
+    
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<style type="text/css">
+	* {
+		padding: 0;
+		margin: 0;
+	}
+
+	.header {
+		background: url(/dxxzsp/resource/skins/default/css/img/zhglxt.jpg) no-repeat;
+		height: 150px;
+		width: 100%;
+		-webkit-background-size: cover;
+		background-size: cover;
+	}
+
+	.header > div {
+		width: 1040px;
+		height: 100%;
+		margin: 0 auto;
+	}
+</style>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+		<div class="header" >
+			<!-- <div class="">
+				<img src="/dxxzsp/resource/skins/default/css/img/logo.png"/>
+			</div> -->
+		</div>
+</body>
+</html>
+    <div style="height: 100%;width: 1100px; margin: 0 auto;padding: 20px 0px 20px 0px;min-height:800px">
+	  <span class="title" style="font-weight:bolder;font-size: 22px!important;line-height: 60px!important;"> 许可业务信息
+	   </span>
+        <div style="height: 100%;width: 1100px;margin-bottom:10px">
+            <div class="form-group" style="display: inline-block;">
+                <span style="font-weight: bolder;">业务种类：</span>
+                <select style="width:287px;    border: 1px solid #0E4579;"
+                        class="form-control chosen-select tag-input-style" value="xuke" id="type">
+                    <option value="xuke" selected="selected">许可业务信息</option>
+                    <option value="ws" >审定意见书企业信息</option>
+                </select>
+            </div>
+            <!--   <div class="form-group" style="width:300px;display: inline-block;"><span>公司名称：</span><input style="width:160px;" type="text" value="" id="corpname" /></div> -->
+            <div class="form-group" style="display: inline-block;font-weight:bolder;margin-left:25px;"><span>
+		  许可号/批文号/企业名称：
+		  </span><input style="width:287px;    border: 1px solid #0E4579;" type="text" value="京ICP证110182号" id="num"/></div>
+            <div style="width:10%;display: inline-block;float:right;">
+                <input type="button" id="search"
+                       style="vertical-align: middle;height: 31px;border:none;margin-right:2%;background-color:#0E4579; border-radius:10px;color:#FFF;font-size:16px;text-indent:0;cursor: pointer;"
+                       value="查询"/>
+            </div>
+        </div>
+
+        <div id="modal_search" class="modal">
+            <div class="modal-content" style=" width: 400px">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="text-align:left;">查询验证</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="margin:0 auto;">
+                        <input class="inputlogin marginleft10 input" type="text" style="width:auto;float:left;"
+                               id="inputCode" value="" placeholder="请输入验证码"/>
+                        <div class="denglu-code marginleft10" style="padding:0!important;">
+                            <div class="code" id="checkCode" onclick="createCode()">
+                                <img id="imgcode"></img>
+                                <input type="hidden" id="ckcode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <div class="denglu-btn marginleft10">
+                        <button type="button" class="btn btn-default" style="background-color:gray" onClick="closed1()">
+                            关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" style="background-color:blue" onClick="closed()">
+                            确定
+                        </button>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <table class="gridtable" align="center" style="text-align:center;width:100%;table-layout:fixed">
+            
+                <tr>
+                    <th style="width: 15%;text-align: center;">公司名称</th>
+                    <th style="width: 13%;text-align: center;">法定代表人</th>
+                    <th style="width: 12%;text-align: center;">许可证号</th>
+                    <th style="width: 12%;text-align: center;">发证机关</th>
+                    <th style="width: 30%;text-align: center;">业务种类</th>
+                    <th style="width: 13%;text-align: center;">覆盖范围</th>
+                    <th style="width: 15%;text-align: center;">发证日期</th>
+                    <th style="width: 15%;text-align: center;">有效期至</th>
+                    <th style="width: 7%;text-align: center;">授权信息</th>
+                    <th style="width: 7%;text-align: center;">年报公示</th>
+
+                    <!--<th>详细信息</th>-->
+                </tr>
+            
+            
+            <tbody class="tablelist">
+            </tbody>
+        </table>
+        <div id="page" style="float:right"></div>
+    </div>
+
+
+    <!--通用底部-->
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
+<script src="/dxxzsp/workflow/assets/common/js/horizon.base.js"></script>
+
+<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.g_footer{
+				width: 100%;
+				background-color: #4a4a4a;
+				height: 100px;
+				color: #9B9B9B;
+				font-size: 10px;
+				padding-top: 22px;
+				text-align: center;
+			}
+			.g_footer p{
+				text-align: center;
+				line-height:32px;
+			}
+			.biaoshi{
+				width: 39px;
+				height: 48px;
+			}
+
+			
+			.img{
+				padding-bottom: 16px;
+				text-align: center;
+				width: 39px;
+				height: 48px;
+				margin:0 auto;
+			}
+		</style>
+</head>
+<body>
+	<div class="g_footer">
+			
+			<p>
+				<span>主办单位: 中华人民共和国工业和信息化部</span>
+				<span>地址: 中国北京西长安街13号</span>
+				<span>邮编: 100804</span>
+			</p>
+	        <p>
+	        	<span>工业和信息化部</span>
+	        	<span>版权所有</span>
+	        </p>
+	</div>
+					
+
+</body>
+</html>
+</div>
+</body>
+</html>

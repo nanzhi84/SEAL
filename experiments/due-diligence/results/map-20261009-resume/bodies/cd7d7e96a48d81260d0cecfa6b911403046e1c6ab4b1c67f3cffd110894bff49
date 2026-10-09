@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <!-- 兼容性设置 -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="renderer" content="webkit" />
+  <!-- 视口设置，移动端必须，PC端非响应式可以去掉 -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <!-- SEO用 -->
+  <meta name="SiteName" content="武汉市市场监督管理局" />
+  <meta name="SiteDomain" content="http://scjgj.wuhan.gov.cn/" />
+  <meta name="SiteIDCode" content="4201000010" />
+  <meta name="ColumnName" content="首页" />
+  <meta name="ColumnDescription" content="首页,主要用于武汉市市场监督管理局首页等信息的发布" />
+  <meta name="ColumnKeywords" content="武汉市市场监督管理局,首页" />
+  <meta name="ColumnType" content="首页" />
+  <meta http-equiv=X-UA-Compatible content=IE=EmulateIE7>
+  <title>武汉市市场监督管理局</title>
+  <link rel="shortcut icon" href="/material/images/ico.png" />
+  <link rel="stylesheet" href="/material/2024/static/css/swiper.min.css">
+  <link rel="stylesheet" href="/material/2024/static/css/animate.min.css">
+  <link rel="stylesheet" href="/material/2024/static/css/common.css">
+  <link rel="stylesheet" href="/material/2024/static/css/ui.css">
+  <link rel="stylesheet" href="/material/2024/static/css/index.css">
+  <script src="/material/2024/static/js/flexible.js"></script>
+  <script src="/material/2024/static/js/jquery-3.6.0.min.js"></script>
+
+  <script src="/material/2024/static/js/swiper.min.js"></script>
+
+
+
+</head>
+<style>
+  .new_202412{
+    height:199px;
+  }
+  .zxzj .right h6 {
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+  }
+  .toutiao_box {
+    width: 90%;
+  }
+  .toutiao_box .toutiao a {
+    text-overflow:unset!important;
+  }
+  .list_zhengji li:not(.panel-more) .list_text_box .list_text {
+
+    max-width: calc(100% - (10px)) !important;
+
+  }
+  .hdjl_ul li i.s5 {
+  background-image: url(/material/2024/static/images/hdjl_icon5.png);
+}
+.hdjl_ul li h6 {
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+</style>
+
+<body>
+<!-- DOM 开始 -->
+<div class="wrap bf_size_dom" id="readStyle">
+
+  <!-- header 开始 -->
+
+  <script type="text/javascript" src="/material/voice/auxiliary.js"></script>
+<script type="text/javascript" src="/material/voice/monosyllabic.js"></script>
+<script type="text/javascript" src="/material/voice/polyphonic.js"></script>
+<script type="text/javascript" src="/material/voice/util.js"></script>
+<script type="text/javascript" src="/material/voice/nodebug.min.js"></script>
+<script type="text/javascript" src="/material/2024/static/layer/layer.js"></script>
+<link rel="stylesheet" href="/material/voice/auxiliary.css">
+<div class="header">
+    <div class="header_info">
+        <div class="inner w-row aic">
+            <div class="header_time w-col">
+                <div><span class="wel_text">您好，欢迎访问武汉市市场监督管理局（武汉市知识产权局）网站！</span>
+
+                    <script type="text/javaScript">
+                        var sysdate = new Date(); var year = sysdate.getFullYear(); var month = sysdate.getMonth(); var date = sysdate.getDate(); var day = sysdate.getDay();var hours = sysdate.getHours();var seconds = sysdate.getSeconds();var minutes = sysdate.getMinutes(); var week = ['日', '一', '二', '三', '四', '五', '六'];  if(minutes<10){
+                            document.write('今天是：' + year + "年" + (month + 1) + "月" + date
+                                + "日 星期" + week[day] + ' ' + hours + ':0' + minutes + ':' + seconds);
+                        }else{
+                            document.write('今天是：' + year + "年" + (month + 1) + "月" + date
+                                + "日 星期" + week[day] + ' ' + hours + ':' + minutes + ':' + seconds);
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="header_toolbar w-col">
+                <a href="https://www.gov.cn/" target="_blank">中国政府网</a> |
+                <a href="" id="StranLink">繁體</a> |
+                <a  id="login" style="cursor: pointer;">登录</a> |
+                <a id="zhuce" href="https://oauth.hubei.gov.cn:8443/hbyzw/zwfw/personInfo/personInfoReg.jsp?appCode=hbzfjyhpt" style="cursor: pointer;">注册</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="header_main">
+        <div class="inner w-row aic">
+            <h1 class="header_logo w-col">
+                <a href="https://scjgj.wuhan.gov.cn/">
+                    <img src="/material/2024/static/images/logo.png" alt="" />
+                    <span>(武汉市知识产权局)</span>
+                </a>
+            </h1>
+            <div class="search_box w-col">
+                <input onclick="if(this.value=='请输入关键字'){this.value='';}" id="textfield" class="search_input" type="text" placeholder="关键字搜索" />
+                <button class="search_btn" onclick="schkSearch()">搜索</button>
+            </div>
+            <script>
+                function schkSearch(){
+                    if($('#stextfield').val() == '' ){
+                        alert('请输入关键字');
+                        return false;
+                    }
+                    $url = '/SITE/whs_70/search.html?searchWord='+$('#textfield').val()+'&siteId=5&pageSize=10&orderBy=time&timeOrder=desc';
+
+                    window.open($url,'_blank');
+                }
+                $('#stextfield').on('keypress',function (event) {
+                    if (event.keyCode === 13){
+                        schkSearch();
+                    }
+                });
+            </script>
+        </div>
+    </div>
+    <!-- 移动端菜单开始 -->
+    <div class="menu-btn"><span></span><span></span><span></span></div>
+    <div class="menu bf_no_read">
+        <ul>
+            <li class="cur"><a href="/">首页</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/ggdt/">改革动态</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/">政府信息公开</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/bsfw/" >办事服务</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/hdjl/">互动交流</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/ztzl/" >专题专栏</a></li>
+        </ul>
+    </div>
+    <div class="mask"></div>
+    <!-- 移动端菜单结束 -->
+</div>
+<div class="nav_box">
+    <ul class="inner nav_fir">
+        <li class="cur"><a href="/">首页</a></li>
+        <li><a href="https://scjgj.wuhan.gov.cn/ggdt/">改革动态</a></li>
+        <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/">政府信息公开</a></li>
+        <li><a href="https://scjgj.wuhan.gov.cn/bsfw/" >办事服务</a></li>
+        <li><a href="https://scjgj.wuhan.gov.cn/hdjl/">互动交流</a></li>
+        <li><a href="https://scjgj.wuhan.gov.cn/ztzl/" >专题专栏</a></li>
+    </ul>
+</div>
+<script type="text/javascript" src="/material/js/font.js"></script>
+<!-- header 结束 -->
+
+<!-- sidenav开始 -->
+<div class="sidenav_box2">
+    <ul class="sidenav_ul">
+        <li>
+            <a href="javascript:;">
+                <div class="ewm_box">
+                    <img src="/material/2024/static/images/微信图片_20241210102210.jpg" alt="" />
+                </div>
+                <i class="s1"></i>
+                <p>官方微信</p>
+            </a>
+        </li>
+        <li>
+            <a href="https://weibo.com/u/2646683177" target="_blank">
+                <div class="ewm_box">
+                    <img src="/material/images/xlwb.png" alt="" />
+                </div>
+                <i class="s2"></i>
+                <p>官方微博</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <div class="ewm_box">
+                    <img src=" /material/images/touch_icon.png" alt="" />
+                </div>
+                <i class="s3"></i>
+                <p>手机版</p>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.toutiao.com/c/user/token/MS4wLjABAAAAI2Q0JgZ9xwDxW19kCvrinsn0x6nk_gTo2BF6ZgSavs4/?" target="_blank">
+                <div class="ewm_box">
+                    <img src="/material/images/toutiao.png" alt="" />
+                </div>
+                <i class="s4"></i>
+                <p>今日头条</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" id="wuzhangai">
+                <i class="s5"></i>
+                <p>无障碍</p>
+            </a>
+        </li>
+        <li>
+            <a href="/fzlm/znzs/index.shtml" target="_blank">
+                <i class="s6"></i>
+                <p>智能问答</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" id="backtopBtn">
+                <i class="s7"></i>
+                <p>返回顶部</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<link href="/material/wh-wza/indeci/static/css/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="/material/wh-wza/indeci/static/css/indeci.css" rel="stylesheet" type="text/css" />
+
+<script src="/material/wh-wza/indeci/static/js/iframe.js" id="barrierFree" data="sn=F6AECAF793ADC4FCB168F5F0FBF9498B06E6DE59B6C1E38F9AAEDA51F4FDC59F&amp;rcode=E441D7B65C024A95EDB6447B74A4556B628279A52B2A4E301F10929E0A2E5D6F4AAA47B6CBC83555CFD65D16D250909A09DD76A0DCFB9BF6CE83D34D9D7B832287C09512033ED9916A75F5EED3D4274C8B3843E1BD5F84BA7E5648EC30FF884BF86869BBB475FFAF5C1A0FEE6F0B64FB0EDAE139B80F00B2C9CB179C701736A1&helpsrc=/material/wh-wza/&isopen=0"></script>
+<!-- sidenav结束 -->
+
+<script type="text/javascript">
+    var path = window.location.href;
+    var li = document.querySelectorAll('.nav_fir li');
+    if(path.indexOf('/ggdt/')!==-1){
+        li[1].className = "cur"
+    }else if(path.indexOf('/zwgk_65/')!==-1){
+        li[2].className = "cur"
+    }else if(path.indexOf('/bsfw/')!==-1){
+        li[3].className = "cur"
+    }else if(path.indexOf('/hdjl/')!==-1){
+        li[4].className = "cur"
+    }else if(path.indexOf('/ztzl/')!==-1){
+        li[5].className = "cur"
+    }else{
+        li[0].className = "cur"
+    }
+</script>
+
+
+  <!-- content 开始 -->
+  <div class="content mt-30 mb-40">
+    <div class="inner">
+       <div class="swiper-container mb-30r" id="indexBannerSwiper1">
+        <div class="swiper-wrapper">
+
+
+          <div class="swiper-slide">
+            <div class="link_box">
+              <a href="https://www.12371.cn/special/20jsizqh/" target="_blank"><img src="/material/2024/static/images/index_banner.png" alt="" /></a>
+            </div>
+          </div>
+          <!--<div class="swiper-slide">
+              <div class="link_box">
+                  <a href=""><img src="/material/2024/static/images/index_banner.png" alt="" /></a>
+              </div>
+          </div>
+          <div class="swiper-slide">
+              <div class="link_box">
+                  <a href=""><img src="/material/2024/static/images/index_banner.png" alt="" /></a>
+              </div>
+          </div>-->
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination" id="indexBannerSwiper1Pag"></div>
+      </div>
+	     <!--<div class="swiper-container mb-30r" id="indexBannerSwiper1">
+        <div class="swiper-wrapper">
+
+
+          <div class="swiper-slide">
+            <div class="link_box">
+              <a href="http://59.173.98.164:9090/portal" target="_blank"><img src="/material/2024/static/images/Xyqy.jpg" alt="" /></a>
+            </div>
+          </div>      
+        </div>
+        <!-- 如果需要分页器 -->
+        <!--<div class="swiper-pagination" id="indexBannerSwiper1Pag"></div>
+      </div>-->
+	  <div class="toutiao_box mb-15">
+        <img src="/material/2024/static/images/toutiao_img.png" alt="" class="toutiao_img" />
+        <div class="swiper-container" id="ttSwiper">
+          <div class="swiper-wrapper">
+
+            
+              <div class="swiper-slide">
+                <div class="toutiao">
+                  <a href="https://scjgj.wuhan.gov.cn/jggg/ttxw/202412/t20241225_2508215.shtml" target="_blank">总书记的人民情怀 | “为老百姓提供用得上、用得起、用得好的信息...</a>
+                </div>
+              </div>
+
+            
+              <div class="swiper-slide">
+                <div class="toutiao">
+                  <a href="https://scjgj.wuhan.gov.cn/jggg/ttxw/202412/t20241225_2508211.shtml" target="_blank">“打开发展新天地、不断创造新辉煌”——习近平主席视察澳门特别...</a>
+                </div>
+              </div>
+
+            
+              <div class="swiper-slide">
+                <div class="toutiao">
+                  <a href="https://scjgj.wuhan.gov.cn/jggg/ttxw/202412/t20241217_2499015.shtml" target="_blank">中共中央举行纪念乔石同志诞辰100周年座谈会 习近平发表重要讲话</a>
+                </div>
+              </div>
+
+            
+
+          </div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination" id="ttSwiperPag"></div>
+      </div>
+      <div class="w-row mb-30r">
+        <div class="w-col" style="width: 52%;">
+          <div class="swiper-container" id="Swiper1">
+            <div class="swiper-wrapper">
+              
+                <div class="swiper-slide">
+                  <div class="img_mask_box">
+                    <a href="./jggg/tpxw/202609/t20260909_2845532.shtml" target="_blank">
+                      <img id="pic_preview_box_id" src="./jggg/tpxw/202609/W020260909599466887880_570.jpg" width="570"/>
+                      <div class="mask_title">
+                        <h3> 盛阅春会见中国中铁董事长陈文健</h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              
+                <div class="swiper-slide">
+                  <div class="img_mask_box">
+                    <a href="./jggg/tpxw/202608/t20260818_2835468.shtml" target="_blank">
+                      <img id="pic_preview_box_id" src="./jggg/tpxw/202608/W020260818419304000281_570.jpg" width="570"/>
+                      <div class="mask_title">
+                        <h3> 盛阅春率队赴恩施州咸丰县开展协作帮扶工作：完善机制、加强合作，推动两...</h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              
+                <div class="swiper-slide">
+                  <div class="img_mask_box">
+                    <a href="./jggg/tpxw/202608/t20260818_2835463.shtml" target="_blank">
+                      <img id="pic_preview_box_id" src="./jggg/tpxw/202608/W020260818417130762157_570.jpg" width="570"/>
+                      <div class="mask_title">
+                        <h3> 盛阅春熊征宇会见西藏自治区山南市乃东区党政代表团</h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              
+                <div class="swiper-slide">
+                  <div class="img_mask_box">
+                    <a href="./jggg/tpxw/202607/t20260721_2823437.shtml" target="_blank">
+                      <img id="pic_preview_box_id" src="./jggg/tpxw/202607/W020260721407047448442_570.jpg" width="570"/>
+                      <div class="mask_title">
+                        <h3> 中国材料大会2026在汉开幕</h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              
+
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination" id="Swiper1Pag"></div>
+            <!-- 如果需要导航按钮 -->
+            <div class="swiper-button-prev" id="Swiper1Prev"></div>
+            <div class="swiper-button-next" id="Swiper1Next"></div>
+          </div>
+        </div>
+        <div class="w-col" style="width: 45%;">
+          <div class="tab_pane tab_pane_hover tab_pane_mobile">
+            <ul class="tab tab_style3 mb-25r">
+              <li><a href="https://www.hubei.gov.cn/szyw/" target="_blank">时政要闻</a></li>
+              <li><a href="https://www.gov.cn/toutiao/" target="_blank">国务院要闻</a></li>
+              <li><a href="https://www.hubei.gov.cn/zwgk/hbyw/hbywqb/" target="_blank"> 湖北要闻</a></li>
+              <li><a href="https://www.wuhan.gov.cn/sy/whyw/" target="_blank">武汉要闻</a></li>
+              <li  class="cur"><a href="https://scjgj.wuhan.gov.cn/jggg/jgdt/" target="_blank">武汉市场监管</a></li>
+            </ul>
+            <div class="pane">
+              <ul  id="szyw" class="list_t">
+
+
+              </ul>
+              <ul  id="zfyw" class="list_t" style="display: none;    ">
+
+              </ul>
+              <ul  id="hbyw" class="list_t" style="display: none;    ">
+
+              </ul>
+              <ul  id="whyw" class="list_t" style="display: none;    ">
+
+              </ul>
+              <ul class="list_t" style="display: none;">
+
+                
+                  <li>
+                    <a href="./jggg/jgdt/202609/t20260921_2851383.shtml" class="list_text">武汉市2026年“全国药品安全宣传周”启动 市民就近体验安全用药便民服务</a>
+                    <span class="date hidden-xs">2026-09-15</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202609/t20260910_2845706.shtml" class="list_text">武汉：26项中国专利奖背后的融合密码</a>
+                    <span class="date hidden-xs">2026-09-10</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202609/t20260910_2845700.shtml" class="list_text">第十届湖北省长江质量奖揭晓，武汉6家企业获奖，创历史最好成绩</a>
+                    <span class="date hidden-xs">2026-09-01</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202608/t20260818_2835449.shtml" class="list_text">首个国际标准化组织秘书处落户，武汉获得全球光电子产业涂层领域国际标准组织权</a>
+                    <span class="date hidden-xs">2026-08-18</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202607/t20260728_2826443.shtml" class="list_text">从“企业寻路”到“服务上门” 武汉市蔡甸区探索商会驻点式知产保护新机制</a>
+                    <span class="date hidden-xs">2026-07-28</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202607/t20260703_2816466.shtml" class="list_text">守护特种设备安全  护航“十五五”新征程</a>
+                    <span class="date hidden-xs">2026-07-03</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202607/t20260702_2815791.shtml" class="list_text">武汉商业秘密保护体系加速成形织密创新“保护网”</a>
+                    <span class="date hidden-xs">2026-07-01</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202607/t20260702_2815803.shtml" class="list_text">淬炼精兵强监管 凝心聚力保安全</a>
+                    <span class="date hidden-xs">2026-07-01</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202607/t20260708_2818090.shtml" class="list_text">以信用修复工作创新助力经营主体信用提升</a>
+                    <span class="date hidden-xs">2026-06-29</span>
+                  </li>
+                
+                  <li>
+                    <a href="./jggg/jgdt/202606/t20260626_2813629.shtml" class="list_text">你我参与 守护未来 ——武汉市开展防范青少年药物滥用科普宣传</a>
+                    <span class="date hidden-xs">2026-06-26</span>
+                  </li>
+                
+
+
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      <div class="w-row mb-30r">
+        <div class="w-col" style="width: 52%;">
+          <div class="main_title mb-20r">
+            <img src="/material/2024/static/images/index_title1.png" alt="" />
+            <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/" target="_blank">通知公告</a></div>
+          <ul class="list_date3">
+            
+              <li>
+                <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/202610/t20261008_2857756.shtml" target="_blank">
+                  <div class="left">
+                    <b>08</b>
+                    <span>2026-10</span>
+                  </div>
+                  <div class="right">
+                    <h6>《武汉市知识产权发展资金管理办法（征求意见稿）》的公示</h6>
+                  </div>
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/202609/t20260921_2851772.shtml" target="_blank">
+                  <div class="left">
+                    <b>21</b>
+                    <span>2026-09</span>
+                  </div>
+                  <div class="right">
+                    <h6>武汉市市场监督管理局关于拟注销第四批有关企业第三类医疗器械经营许可证的公告</h6>
+                  </div>
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/202609/t20260918_2849739.shtml" target="_blank">
+                  <div class="left">
+                    <b>18</b>
+                    <span>2026-09</span>
+                  </div>
+                  <div class="right">
+                    <h6>关于依法注销特种设备生产和充装单位许可证的公告</h6>
+                  </div>
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/202609/t20260916_2848666.shtml" target="_blank">
+                  <div class="left">
+                    <b>16</b>
+                    <span>2026-09</span>
+                  </div>
+                  <div class="right">
+                    <h6>武汉市市场监督管理局关于拟取消有关企业第一类医疗器械生产备案及产品备案的公告</h6>
+                  </div>
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/202609/t20260915_2848138.shtml" target="_blank">
+                  <div class="left">
+                    <b>15</b>
+                    <span>2026-09</span>
+                  </div>
+                  <div class="right">
+                    <h6>关于停用武汉圣韩科技有限公司等倒闭失联单位特种设备的公告</h6>
+                  </div>
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/202609/t20260907_2844408.shtml" target="_blank">
+                  <div class="left">
+                    <b>07</b>
+                    <span>2026-09</span>
+                  </div>
+                  <div class="right">
+                    <h6>关于依法注销食品生产许可的公告</h6>
+                  </div>
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://scjgj.wuhan.gov.cn/jggg/tzgg/202608/t20260821_2837156.shtml" target="_blank">
+                  <div class="left">
+                    <b>21</b>
+                    <span>2026-08</span>
+                  </div>
+                  <div class="right">
+                    <h6>武汉市市场监督管理局关于注销第二批有关企业第三类医疗器械经营许可证及取消其医疗器械网络销售备案的公告</h6>
+                  </div>
+                </a>
+              </li>
+            
+
+          </ul>
+        </div>
+        <div class="w-col" style="width: 45%">
+          <div class="main_title mb-15r"><img src="/material/2024/static/images/index_title2.png" alt="" /> <a href="./zwgk_65/" target="_blank">政府信息公开</a></div>
+          <div class="zcfw_search_container mb-18r">
+            <div class="zcfw_title">我要找政策</div>
+            <div class="zcfw_search_box">
+              <select class="zcfw_op" name="year">
+                <option value="按标题" selected="">按标题</option>
+
+              </select>
+              <input id="textfield2" class="search_input" type="text" placeholder="请输入搜索关键词..." />
+              <button class="search_btn" onclick="schkSearch2()" ><img src="/material/2024/static/images/icon_search.png" alt="" /></button>
+              <script>
+                function schkSearch2(){
+                  if($('#stextfield2').val() == '' ){
+                    alert('请输入关键字');
+                    return false;
+                  }
+
+                  $url = 'https://scjgj.wuhan.gov.cn/SITE/whs_70/search.html?searchWord='+$('#textfield2').val()+'&siteId=5&pageSize=10&orderBy=time&timeOrder=desc';
+                  window.open($url,'_blank');
+                }
+                $('#stextfield2').on('keypress',function (event) {
+                  if (event.keyCode === 13){
+                    schkSearch2();
+                  }
+                });
+              </script>
+            </div>
+          </div>
+          <div class="tab_pane tab_pane_hover tab_pane_mobile mb-20r">
+            <ul class="tab tab_style3 mb-20r">
+              <li class="cur"><a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/gfxwjsjk/" target="_blank">规范性文件</a></li>
+              <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcjd/" target="_blank">政策解读</a></li>
+              <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcfg_6163/" target="_blank">其他主动公开文件</a></li>
+            </ul>
+            <div class="pane">
+              <ul class="list_date3 new_202412" >
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/gfxwjsjk/202608/t20260825_2838705.shtml" target="_blank">
+                      <div class="left">
+                        <b>26</b>
+                        <span>2026-08</span>
+                      </div>
+                      <div class="right">
+                        <h6>市市场监管局关于印发《武汉市市场监管领域首违不罚、轻微免罚清单 （修订）》的通知</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/gfxwjsjk/202608/t20260825_2838706.shtml" target="_blank">
+                      <div class="left">
+                        <b>26</b>
+                        <span>2026-08</span>
+                      </div>
+                      <div class="right">
+                        <h6>市市场监管局关于印发《武汉市市场监管涉企行政处罚不予处罚事项清单、减轻处罚 事项清单、从轻处罚事项清单 （修订）》的通知</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/gfxwjsjk/202607/t20260722_2823929.shtml" target="_blank">
+                      <div class="left">
+                        <b>22</b>
+                        <span>2026-07</span>
+                      </div>
+                      <div class="right">
+                        <h6>市市场监管局关于行政规范性文件清理结果的决定</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+
+              </ul>
+              <ul class="list_date3" style="display: none;">
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcjd/202608/t20260825_2838709.shtml" target="_blank">
+                      <div class="left">
+                        <b>26</b>
+                        <span>2026-08</span>
+                      </div>
+                      <div class="right">
+                        <h6>[图文方式]《武汉市市场监管领域首违不罚及轻微免罚清单》解读</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcjd/202608/t20260825_2838710.shtml" target="_blank">
+                      <div class="left">
+                        <b>26</b>
+                        <span>2026-08</span>
+                      </div>
+                      <div class="right">
+                        <h6>[音频方式][文字方式]《武汉市市场监管领域首违不罚及轻微免罚清单》解读</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcjd/202608/t20260825_2838711.shtml" target="_blank">
+                      <div class="left">
+                        <b>26</b>
+                        <span>2026-08</span>
+                      </div>
+                      <div class="right">
+                        <h6>[音频方式][文字方式]《武汉市市场监管涉企行政处罚不予处罚清单、减轻处罚清单、从轻处罚清单》 解读</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+              </ul>
+              <ul class="list_date3" style="display: none;">
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcfg_6163/202607/t20260713_2820390.shtml" target="_blank">
+                      <div class="left">
+                        <b>13</b>
+                        <span>2026-07</span>
+                      </div>
+                      <div class="right">
+                        <h6>市生态环境局  市市场监督管理局 关于2026年度武汉市生态环境监测机构 “双随机、一公开”监督检查情况的通报</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcfg_6163/202603/t20260326_2745416.shtml" target="_blank">
+                      <div class="left">
+                        <b>26</b>
+                        <span>2026-03</span>
+                      </div>
+                      <div class="right">
+                        <h6>市市场监管局关于2025年度法治政府建设情况的报告</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="https://scjgj.wuhan.gov.cn/zwgk_65/zcfgyjd/zcfg_6163/202503/t20250320_2554579.shtml" target="_blank">
+                      <div class="left">
+                        <b>19</b>
+                        <span>2025-03</span>
+                      </div>
+                      <div class="right">
+                        <h6>市市场监管局关于2024年度法治政府建设情况的报告</h6>
+                      </div>
+                    </a>
+                  </li>
+                
+              </ul>
+            </div>
+          </div>
+          <ul class="zfxxgk_ul">
+            <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/xxgkzn/" target="_blank">政府信息公开指南</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/fdzdgk/" target="_blank">法定主动公开内容</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/wzndbg/" target="_blank">政府网站监管年度报表</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/zfxxgkzd/" target="_blank">政府信息公开制度</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/xxgknb/" target="_blank">政府信息公开工作年度报告</a></li>
+            <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/ysqgk/" target="_blank">依申请公开</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="w-row mb-30r">
+        <div class="w-col" style="width: 52%;">
+          <div class="main_title mb-20r">
+            <a href="https://scjgj.wuhan.gov.cn/bsfw/" target="_blank"><img src="/material/2024/static/images/index_title3.png" alt="" />办事服务</a>
+            <a href="http://zwfw.hubei.gov.cn/webview/bszn/bmsy.html?department=11420100MB15525604" target="_blank" class="more">湖北政务服务网 &gt;&gt;</a>
+          </div>
+          <div class="link_box mb-20r"><a href="https://www.gsxt.gov.cn/index.html" target="_blank"><img src="/material/2024/static/images/xygs_img.png" alt="" /></a></div>
+
+          <div class="bsfw_tab_pane">
+            <ul class="tab bsfw_tab mb-25r">
+              <li  ><a href="javascript:;"><i class="s1"></i>我要查</a></li>
+              <li class="cur" ><a href="javascript:;"><i class="s2"></i>我要办</a></li>
+            </ul>
+
+            <div class="pane">
+              <ul class="bsfw_ul" style="display: none;">
+                <li>
+                  <a href="javascript:;">
+                    <i class="s1"></i>
+                    <h6>登记注册</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://www.gsxt.gov.cn/index.html" target="_blank"  title="市场主体登记注册信息" >市场主体登记注册信息</a></li>
+                    <li><a href="https://scjg.hubei.gov.cn/scjgyzt-public/xk/ylqx/" target="_blank"  title="医疗器械备案">医疗器械备案</a></li>
+                    <li><a href="https://scjg.hubei.gov.cn/scjgyzt-public/xk/jlxk/" target="_blank"  title="计量许可">计量许可</a></li>
+                    <li><a href="https://zsgs.hubyjj.cn:8096/gspt/pages/index/" target="_blank"  title="第一类医疗器械产品备案">第一类医疗器械产品备案</a></li>
+                    <li><a href="https://zsgs.hubyjj.cn:8096/gspt/pages/index/" target="_blank"  title="第一类医疗器械生产备案" >第一类医疗器械生产备案</a></li>
+                    <li><a href="https://www.nmpa.gov.cn/datasearch/home-index.html#category=yp" target="_blank"  title="执业药师注册">执业药师注册</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s2"></i>
+                    <h6>信用监管</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://hb.gsxt.gov.cn/index.html" target="_blank"  title="年报、行政处罚、抽查结果、经营异常状态等">年报、行政处罚、抽查结果、经营异常状态等</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s11"></i>
+                    <h6>广告查询</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://scjg.hubei.gov.cn/scjgyzt-public/xk/advertisement/" target="_blank"  title="保健食品广告">保健食品广告</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s3"></i>
+                    <h6>特种设备</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://113.57.190.149:82/developer/zjj/certificates/findYCertificatesList?type=TSC" target="_blank"  title="特种设备许可">特种设备许可</a></li>
+                    <li><a href="https://scjg.hubei.gov.cn/scjgyzt-public/xk/tzry/tzryAll/" target="_blank"  title="特种设备作业人员信息查询">特种设备作业人员信息查询</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s4"></i>
+                    <h6>认证认可检验检测</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://cx.cnca.cn/CertECloud/index/index/page" target="_blank"  title="全国认证认可结果查询">全国认证认可结果查询</a></li>
+                    <li><a href="http://cx.cnca.cn/CertECloud/result/skipResultList?certItemOne=B01&currentPosition=" target="_blank"  title="3C强制性产品认证查询">3C强制性产品认证查询</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s12"></i>
+                    <h6>标准</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://std.samr.gov.cn/" target="_blank"  title="国家/行业/地方/团体/企业标准查询">国家/行业/地方/团体/企业标准查询</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s6"></i>
+                    <h6>食品</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://scjg.hubei.gov.cn/scjgyzt-public/xk/spsc/" target="_blank"  title="食品生产许可证">食品生产许可证</a></li>
+                    <li><a href="https://scjg.hubei.gov.cn/scjgyzt-public/xk/spjy/" target="_blank"  title="食品经营许可证">食品经营许可证</a></li>
+                    <li><a href="https://scjg.hubei.gov.cn/scjgyzt-public/xk/xcy/" target="_blank"  title="小餐饮经营许可证">小餐饮经营许可证</a></li>
+                    <li><a href="https://scjgj.wuhan.gov.cn/zwgk_65/fdzdgk/gysyjs/spjg/cjxx/" target="_blank"  title="食品安全抽检信息">食品安全抽检信息</a></li>
+                  </ul>
+                </li>
+                <!--<li>
+                    <a href="javascript:;">
+                        <i class="s7"></i>
+                        <h6>知识产权</h6>
+                    </a>
+                    <ul class="more_list">
+                        <li><a href="https://pss-system.cponline.cnipa.gov.cn/conventionalSearch" target="_blank"  title="专利信息">专利信息</a></li>
+                        <li><a href="https://sbj.cnipa.gov.cn/sbj/sbcx/" target="_blank"  title="商标信息">商标信息</a></li>
+                    </ul>
+                </li>-->
+                <li>
+                  <a href="javascript:;">
+                    <i class="s8"></i>
+                    <h6>知识产权</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://pss-system.cponline.cnipa.gov.cn/conventionalSearch" target="_blank"  title="专利信息">专利信息</a></li>
+                    <li><a href="https://sbj.cnipa.gov.cn/sbj/sbcx/" target="_blank"  title="商标信息">商标信息</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s9"></i>
+                    <h6>合同</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://scjgj.wuhan.gov.cn/bsfw/htgl_65/htfb/" target="_blank"  title="合同示范文本、格式条款等">合同示范文本、格式条款等</a></li>
+
+                  </ul>
+                </li>
+                <!-- <li>
+                     <a href="javascript:;">
+                         <i class="s10"></i>
+                         <h6>其他</h6>
+                     </a>
+                     <ul class="more_list">
+                         <li><a href="http://zwfw.hubei.gov.cn/" target="_blank"  title="保健食品广告审查">保健食品广告审查</a></li>
+
+                     </ul>
+                 </li>-->
+              </ul>
+              <ul class="bsfw_ul">
+                <li>
+                  <a href="javascript:;">
+                    <i class="s1"></i>
+                    <h6>登记注册</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043421031001W0001" target="_blank"  title="名称自主申报、对企业名称争议的裁决">名称自主申报、对企业名称争议的裁决</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s2"></i>
+                    <h6>信用监管</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="https://hb.gsxt.gov.cn/index.html" target="_blank"  title="企业年报、信用修复等">企业年报、信用修复等</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s3"></i>
+                    <h6>特种设备</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300013101000020&taskType=01" target="_blank"  title="特种设备安装改造修理许可（承压类特种设备安装改造修理许可新增）">特种设备安装改造修理许可（承压类特种设备安装改造修理许可新增）</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043420131006W0003&taskType=01" target="_blank"  title="气瓶充装单位资质许可（气瓶充装单位资质许可首次）">气瓶充装单位资质许可（气瓶充装单位资质许可首次）</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043420131005W0001&taskType=01" target="_blank"  title="移动式压力容器充装许可（移动式压力容器充装许可新增）">移动式压力容器充装许可（移动式压力容器充装许可新增）</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s4"></i>
+                    <h6>认证认可检验检测</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bmsy.html?department=11420000MB1686999B" target="_blank"  title="检验检测机构资质认定">检验检测机构资质认定</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bmsy.html?department=11420000MB1686999B" target="_blank"  title="检验检测机构资质认定复查换证">检验检测机构资质认定复查换证</a></li>
+                    <li><a href="https://cccmb.cnca.cn/login" target="_blank"  title="免予办理强制性产品认证证明">免予办理强制性产品认证证明</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s5"></i>
+                    <h6>计量</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://223.75.53.41:8081/hbjl/a/login" target="_blank"  title="计量器具强制检定">计量器具强制检定</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s10"></i>
+                    <h6>质量发展</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://jingpin.hbsqi.com/" target="_blank"  title="湖北精品申报">湖北精品申报</a></li>
+                    <li><a href="https://scjg.hubei.gov.cn/hbnqi/home/home" target="_blank"  title="质量基础设施一站式服务平台">质量基础设施一站式服务平台</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s6"></i>
+                    <h6>武食安</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300013102300013&taskType=01" target="_blank"  title="食品<含保健食品、食品添加剂>生产许可">食品<含保健食品、食品添加剂>生产许可</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420102MB0Q59583R400013102400001&taskType=01" target="_blank"  title="食品经营许可（新办）">食品经营许可（新办）</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420102MB0Q59583R400013103100001&taskType=01" target="_blank"  title="食品生产加工小作坊生产许可（新办）">食品生产加工小作坊生产许可（新办）</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420102MB0Q59583R4420131016W0101&taskType=01" target="_blank"  title="小餐饮经营许可（核发）">小餐饮经营许可</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s7"></i>
+                    <h6>药品和医疗器械</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300017202800004" target="_blank"  title="第三类医疗器械经营许可（核发）">第三类医疗器械经营许可（核发）</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300017202200001" target="_blank"  title="麻醉药品、精神药品邮寄许可">麻醉药品、精神药品邮寄许可</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300017202000001" target="_blank"  title="麻醉药品、第一类精神药品运输许可">麻醉药品、第一类精神药品运输许可</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300017201300002&taskType=014" target="_blank"  title="科研和教学用毒性药品购买审批">科研和教学用毒性药品购买审批</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300017201900001&taskType=01" target="_blank"  title="第二类精神药品零售业务审批">第二类精神药品零售业务审批</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604300017202900002" target="_blank"  title="执业药师首次注册">执业药师首次注册</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB15525604342103100200101" target="_blank"  title="第一类医疗器械产品首次备案">第一类医疗器械产品首次备案</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043421072012W0001" target="_blank"  title="第一类医疗器械生产备案（核发）">第一类医疗器械生产备案（核发）</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s8"></i>
+                    <h6>知识产权</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043422073012W0001" target="_blank"  title="商标注册受理服务">商标注册受理服务</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043422073006W0001" target="_blank"  title="注册商标专用权质权登记服务">注册商标专用权质权登记服务</a></li>
+                    <li><a href="http://zscq.scjgj.wuhan.gov.cn:5019/login" target="_blank"  title="知识产权项目申报">知识产权项目申报</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=1142000001105516242422073002W0001" target="_blank"  title="知识产权维权援助">知识产权维权援助</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043421073002W0001" target="_blank"  title="地理标志保护产品申请的受理及初审">地理标志保护产品申请的受理及初审</a></li>
+                    <li><a href="https://whscjg.gssjy.com:8060/whscjg/qkl/#/" target="_blank"  title="区块链知识产权保护">区块链知识产权保护</a></li>
+
+                  </ul>
+                </li>
+                <li>
+                  <a href="javascript:;">
+                    <i class="s9"></i>
+                    <h6>合同</h6>
+                  </a>
+                  <ul class="more_list">
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043422031003W0001" target="_blank"  title="合同指导服务">合同指导服务</a></li>
+                    <li><a href="http://zwfw.hubei.gov.cn/webview/bszn/bsznpage.html?transactCode=11420100MB155256043421031014W0001" target="_blank"  title="合同示范文本、格式条款文本备案">合同示范文本、格式条款文本备案</a></li>
+
+                  </ul>
+                </li>
+                <!--<li>
+                    <a href="javascript:;">
+                        <i class="s10"></i>
+                        <h6>其他</h6>
+                    </a>
+                    <ul class="more_list">
+                        <li><a href="http://zwfw.hubei.gov.cn/" target="_blank"  title="保健食品广告审查">保健食品广告审查</a></li>
+
+                    </ul>
+                </li>-->
+              </ul>
+
+
+
+            </div>
+          </div>
+          <script>
+            $('.bsfw_tab_pane .tab li').hover(function () {
+              $(this).addClass('cur').siblings().removeClass('cur')
+              var index = $(this).index()
+              $(this).parents('.bsfw_tab_pane').children('.pane').children('div,ul').eq(index).show().siblings().hide()
+            })
+          </script>
+        </div>
+        <div class="w-col" style="width: 45%;">
+          <div class="main_title mb-20r"><img src="/material/2024/static/images/index_title4.png" alt="" />
+            <a href="https://scjgj.wuhan.gov.cn/hdjl/" target="_blank">互动交流</a>
+          </div>
+          <ul class="tab tab_style3 mb-20r">
+            <li class="cur"><a href="./hdjl/dczj/" target="_blank">调查征集</a></li>
+          </ul>
+          <div class="zxzj mb-20r">
+            
+              <a href="https://scjgj.wuhan.gov.cn/hdjl/dczj/202501/t20250109_2515200.shtml" target="_blank">
+                <div class="left">
+                  <img src="/material/2024/static/images/zxzj_icon.png" alt="" />
+                </div>
+                <div class="right">
+                  <h6>【民意征集】关于面向公众征求《武汉市知识产权运营引导基金管理暂行办法》意见的公告</h6>
+                  <p>2025-01-09</p>
+                </div>
+              </a>
+            
+
+          </div>
+          <ul class="list_t list_zhengji">
+            
+              <li>
+                <div class="list_text_box">
+                  <!--
+                                      <span class="zhengji_tag tag_pending"></span>
+                  -->
+                  <a href="https://scjgj.wuhan.gov.cn/hdjl/dczj/202412/t20241210_2496187.shtml" class="list_text">【民意征集】关于征求《武汉市市场监管涉企行政处罚不予处罚事项清单、减轻处罚事项清单、从轻处罚事项清...</a>
+                </div>
+                <span class="date">2024-08-07</span>
+              </li>
+            
+              <li>
+                <div class="list_text_box">
+                  <!--
+                                      <span class="zhengji_tag tag_pending"></span>
+                  -->
+                  <a href="https://scjgj.wuhan.gov.cn/hdjl/dczj/202101/t20210118_1600081.shtml" class="list_text">【民意征集】2020年度武汉市知识产权运营引导基金征集指南</a>
+                </div>
+                <span class="date">2020-11-18</span>
+              </li>
+            
+
+
+
+          </ul>
+          <div class="w-row mt-30r">
+            <div class="w-col" style="width: 203px;">
+              <ul class="link_boxs">
+                <li class="link_box"><a href="https://www.12315.cn/" target="_blank"><img src="/material/2024/static/images/12315_img.png" alt="" /></a></li>
+                <li class="link_box"><a href="https://hfjs.samr.gov.cn/" target="_blank"><img src="/material/2024/static/images/scjg_img.png" alt="" /></a></li>
+              </ul>
+            </div>
+            <div class="w-col" style="width: calc(100% - 213px);">
+              <ul class="hdjl_ul">
+                <li>
+                  <a href="https://wsxf.xinfang.gov.cn/mail/views/tsqqPage.html?id=4a5e966920954a5d9e665c799ab4a1df" target="_blank">
+                    <i class="s2"></i>
+                    <h6>局长信箱</h6>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wsxf.xinfang.gov.cn/mail/views/tsqqPage.html?id=4a5e966920954a5d9e665c799ab4a1df" target="_blank">
+                    <i class="s1"></i>
+                    <h6>智慧信访</h6>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://scjgj.wuhan.gov.cn/hdjl/zxft/" target="_blank">
+                    <i class="s3"></i>
+                    <h6>在线访谈</h6>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://scjgj.wuhan.gov.cn/hdjl/gpjb/" target="_blank">
+                    <i class="s4"></i>
+                    <h6>公平竞争审查举报</h6>
+                  </a>
+                </li>
+				<li>
+                  <a href="https://spjb.samr.gov.cn/#/homePage" target="_blank">
+                    <i class="s5"></i>
+                    <h6>全国食品安全内部知情人举报系统</h6>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ztzl_box">
+        <img src="/material/2024/static/images/ztzl01.png" alt="" class="mr-10" />
+        <div class="swiper-container" id="ztSwiper">
+          <div class="swiper-wrapper">
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://dsj.whippc.org.cn/ipServer" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/102965/images/P020251226431213773746.png'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://scjgj.wuhan.gov.cn/ztzl/jyjcfwygzlfz/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/jyjcfwygzlfz/images/P020241210595852556758.png'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://scjgj.wuhan.gov.cn/ztzl/xsdzlqs/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/xsdzlqs/images/P020241212629209798004.png'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://scjgj.wuhan.gov.cn/ztzl/jsqgtydsc/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/jsqgtydsc/images/P020241210596840239365.png'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://scjgj.wuhan.gov.cn/ztzl/sqxzjcgs/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/sqxzjcgs/images/P020250310620858177763.png'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://scjgj.wuhan.gov.cn/ztzl/xxzs/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/xxzs/images/P020250422605483585035.png'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://symmbh.com/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/102716/images/P020251111587626095426.jpg'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://scjgj.wuhan.gov.cn/ztzl/gsyd/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/gsyd/images/P020200806347022622507.jpg'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+              <div class="swiper-slide">
+                <div class="zt_img">
+                  <a href="https://scjgj.wuhan.gov.cn/ztzl/whmp/" target="_blank">
+                    <div class="img">
+                      <img src='./ztzl/whmp/images/P020211125558277063524.png'/>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            
+
+
+          </div>
+          <!-- 如果需要导航按钮 -->
+          <div class="swiper-button-prev" id="ztSwiperPrev"></div>
+          <div class="swiper-button-next" id="ztSwiperNext"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- content 结束 -->
+  <!-- footer 开始 -->
+<style>
+    .footer .links_box .links_list > li {
+        position: relative;
+        width: 18.5%!important;
+    }
+</style>
+<div class="footer">
+    <!-- links 开始 -->
+    <div class="links_box">
+        <div class="inner">
+            <ul class="links_list w-row">
+                <li class="w-col"><a href="https://www.wuhan.gov.cn/" target="_blank">武汉市人民政府</a></li>
+                <li class="more_links w-col"><a href="https://www.samr.gov.cn/" target="_blank">国家市场监督管理总局</a>
+                    <ul>
+                        <li><a href="https://www.nmpa.gov.cn/" target="_blank">国家药品监督管理局</a></li>
+                        <li><a href="https://www.cnipa.gov.cn/" target="_blank">国家知识产权局</a></li>
+                    </ul>
+                </li>
+                <li class="more_links w-col"><a href="https://scjg.hubei.gov.cn/" target="_blank">湖北省市场监督管理局</a>
+                    <ul>
+
+                        <li><a href="https://mpa.hubei.gov.cn/" target="_blank">湖北省药品监督管理局</a></li>
+                        <li><a href="https://zscqj.hubei.gov.cn/" target="_blank">湖北省知识产权局</a></li>
+                    </ul>
+                </li>
+                <li class="more_links w-col"><a href="https://scjg.hubei.gov.cn/" target="_blank">副省级城市市场监管部门</a>
+                    <ul>
+                        <li><a href="https://scjgj.gz.gov.cn/" target="_blank">广州市市场监督管理局</a></li>
+                        <li><a href="https://amr.sz.gov.cn/" target="_blank">深圳市市场监督管理局</a></li>
+                        <li><a href="http://scjg.hangzhou.gov.cn/" target="_blank">杭州市市场监督管理局</a></li>
+                        <li><a href="https://scj.shenyang.gov.cn/" target="_blank">沈阳市市场监督管理局</a></li>
+                        <li><a href="https://scjg.chengdu.gov.cn/" target="_blank">成都市市场监督管理局</a></li>
+                        <li><a href="https://amr.nanjing.gov.cn/" target="_blank">南京市市场监督管理局</a></li>
+                        <li><a href="http://scjg.xa.gov.cn/" target="_blank">西安市市场监督管理局</a></li>
+                        <li><a href="http://scjg.changchun.gov.cn/" target="_blank">长春市市场监督管理局</a></li>
+                        <li><a href="http://amr.jinan.gov.cn/" target="_blank">济南市市场监督管理局</a></li>
+                        <li><a href="https://scjg.dl.gov.cn/" target="_blank">大连市市场监督管理局</a></li>
+                        <li><a href="https://amr.qingdao.gov.cn/" target="_blank">青岛市市场监督管理局</a></li>
+                        <li><a href="https://scjg.xm.gov.cn/" target="_blank">厦门市市场监督管理局</a></li>
+                        <li><a href="http://scjgj.ningbo.gov.cn/" target="_blank">宁波市市场监督管理局</a></li>
+                    </ul>
+                </li>
+                <li class="more_links w-col">
+                    <a href="#" target="_blank">省内市场监管部门</a>
+                    <ul>
+                        <li><a href="http://scjg.xiangyang.gov.cn/" target="_blank">襄阳市市场监督管理局</a></li>
+                        <li><a href="http://scjg.yichang.gov.cn/" target="_blank">宜昌市市场监督管理局 </a></li>
+                        <li><a href="http://scjg.huangshi.gov.cn/" target="_blank">黄石市市场监督管理局 </a></li>
+                        <li><a href="http://scjg.shiyan.gov.cn/" target="_blank">十堰市市场监督管理局 </a></li>
+                        <li><a href="http://scjgj.jingzhou.gov.cn/" target="_blank">荆州市市场监督管理局 </a></li>
+                        <li><a href="http://scjdglj.jingmen.gov.cn/" target="_blank">荆门市市场监督管理局 </a></li>
+                        <li><a href="http://scjg.ezhou.gov.cn/" target="_blank">鄂州市市场监督管理局</a></li>
+                        <li><a href="http://scjg.xiaogan.gov.cn/" target="_blank">孝感市市场监督管理局</a></li>
+                        <li><a href="http://scjg.hg.gov.cn/" target="_blank"> 黄冈市市场监督管理局</a></li>
+                        <li><a href="http://scjg.xianning.gov.cn/" target="_blank"> 咸宁市市场监督管理局</a></li>
+                        <li><a href="http://scjdglj.suizhou.gov.cn/" target="_blank">随州市市场监督管理局</a></li>
+                        <li><a href="http://syjj.enshi.gov.cn/" target="_blank">恩施土家族苗族自治州市场监督管理局</a></li>
+                        <li><a href="http://scj.snj.gov.cn/" target="_blank">神农架林区市场监督管理局</a></li>
+
+
+
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- links 结束 -->
+    <!-- copyright 开始 -->
+    <div class="copyright">
+        <div class="inner">
+            <div class="w-row" style="align-items: center;">
+                <div class="w-col">
+                    <p class="handle">
+                        <a  href="javascript:SetHome(this,window.location.href)">设为首页</a> |
+                        <a href="javascript:addFavorite()">加入收藏</a> |
+                        <a href="https://scjgj.wuhan.gov.cn/fzlm/wzdt/">网站地图</a> |
+                        <a href="https://scjgj.wuhan.gov.cn/fzlm/lxwm/">联系我们</a>
+                    </p>
+                    <p>
+                        <span>主办 : 武汉市市场监督管理局</span>
+                        <span>地址：湖北省武汉市香港路259号</span>
+                        <span>联系电话：027-12315</span>
+                    </p>
+                    <p>
+                        <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">鄂ICP备20005334号</a>
+                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42010302000475"><img src="https://scjgj.wuhan.gov.cn/images/footer_icp.png" />鄂公网安备42010302000475号</a>
+                        <span>政府网站标识码：4201000010</span>
+                    </p>
+                </div>
+                <!--0102-->
+            <div class="w-col ewm_col">
+              <ul class="footer_ewm_ul">
+                <li>
+                  <a href="javascript:;" id="footerWxBtn">
+                    <i class="s1"></i>
+                    <h6>官方微信</h6>
+                    <img src="/material/2024/static/images/微信图片_20241210102210.jpg" class="ewm" />
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:;" id="footerWbBtn">
+                    <i class="s2"></i>
+                    <h6>官方微博</h6>
+                    <img src="/material/2024/static/images/xlwb.png" class="ewm" />
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:;" id="footerPhoneBtn">
+                    <i class="s3"></i>
+                    <h6>手机版</h6>
+                    <img src="/material/2024/static/images/touch_icon.png" class="ewm" />
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:;" id="footerTtBtn">
+                    <i class="s4"></i>
+                    <h6>今日头条</h6>
+                    <img src="/material/2024/static/images/toutiao.png" class="ewm" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+                <!--0102-->
+                <div class="w-col">
+                    <div class="gov">
+                        <a href="http://bszs.conac.cn/sitename?method=show&id=03F1F0A98E740F42E053022819AC3C2E" target="_blank">
+                            <img src="/material/images/red.png" />
+                        </a>
+                    </div>
+                    <div class="jc">
+                        <script id="_jiucuo_" sitecode="4201000010" src="https://scjgj.wuhan.gov.cn/material/js/jiucuo.js"></script>
+                    </div>
+                    <div class="jb">
+                        <a href="https://www.12377.cn/" target="_blank">
+                            <img src="/material/2024/static/images/jubao.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- copyright 结束 -->
+</div>
+<link type="text/css" rel="stylesheet" href="https://scjgj.wuhan.gov.cn/material/css/wltz.css" />
+<script type="text/javascript" src="https://scjgj.wuhan.gov.cn/material/js/add.js"></script>
+<script type="text/javascript" src="https://scjgj.wuhan.gov.cn/material/js/bootstrap.min.js"></script>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  style="height:165px;">
+    <div class="modal-header">
+        <button type="button" class="bootstrap-close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">&nbsp;</h3>
+    </div>
+    <div class="modal-body">
+        <p>您访问的链接即将离开“<span id="modalDomainName"></span>”门户网站 是否继续？</p>
+        <input id="modalOuterURL" type="hidden" />
+    </div>
+    <div class="modal-footer">
+        <button class="bootstrap-btn bootstrap-btn-default" data-dismiss="modal" aria-hidden="true">放弃</button>
+        <button class="bootstrap-btn bootstrap-btn-danger" onClick="toRedirect()">继续访问</button>
+    </div>
+</div>
+<script type="text/javascript" src="https://scjgj.wuhan.gov.cn/material/js/wltz.js"></script>
+<script type="text/javascript">
+    //设为首页
+    function SetHome(obj,url){
+        try{
+            obj.style.behavior='url(#default#homepage)';
+            obj.setHomePage(url);
+        }catch(e){
+            if(window.netscape){
+                try{
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                }catch(e){
+                    alert("抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入“about:config”并回车然后将[signed.applets.codebase_principal_support]设置为'true'");
+                }
+            }else{
+                alert("抱歉，您所使用的浏览器无法完成此操作。\n\n您需要手动将【"+url+"】设置为首页。");
+            }
+        }
+    }
+</script>
+
+<script id="_trs_ta_js" src="https://ta.trs.cn/c/js/ta.js?mpid=3410" async="async" defer="defer"></script>
+<script type="text/javascript" src="https://scjgj.wuhan.gov.cn/material/2024/static/js/ssoAjax.js"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6e134e8c47702f97b6be8cc253011e33";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+    <div class="footer_ewm_popup" id="footerWxPopup">
+      <div class="footer_ewm_card">
+        <div class="title">官方微信</div>
+        <img src="/material/2024/static/images/微信图片_20241210102210.jpg" />
+        <p>请打开微信扫一扫关注公众号</p>
+      </div>
+    </div>
+    <div class="footer_ewm_popup" id="footerWbPopup">
+      <div class="footer_ewm_card">
+        <div class="title">官方微博</div>
+        <img src="/material/2024/static/images/xlwb.png" />
+        <p>请打开微博扫一扫关注官方微博</p>
+      </div>
+    </div>
+    <div class="footer_ewm_popup" id="footerPhonePopup">
+      <div class="footer_ewm_card">
+        <div class="title">手机版</div>
+        <img src="/material/2024/static/images/touch_icon.png" />
+        <p>请打开手机扫一扫下载手机版</p>
+      </div>
+    </div>
+    <div class="footer_ewm_popup" id="footerTtPopup">
+      <div class="footer_ewm_card">
+        <div class="title">今日头条</div>
+        <img src="/material/2024/static/images/toutiao.png" />
+        <p>请打开今日头条扫一扫关注头条号</p>
+      </div>
+    </div>
+<!-- footer 结束 -->
+</div>
+<!-- DOM 结束 -->
+<script type="text/javascript" src="https://scjgj.wuhan.gov.cn/material/2024/static/js/index.js"></script>
+
+<!-- 外链弹框JS、CSS结束-->
+
+<script type="text/javascript" src="https://scjgj.wuhan.gov.cn/material/2024/static/js/common.js"></script>
+<script>
+    // 返回顶部
+    $('#backtopBtn').click(function () {
+        $("html").animate({ scrollTop: 0 }, 500);
+    });
+</script>
+
+  <script>
+    new Swiper("#ttSwiper", {
+      // direction: 'vertical',
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      speed: 1000,
+      loop: true,
+      uniqueNavElements: true,
+      pagination: {
+        el: "#ttSwiperPag",
+        clickable: true,
+      },
+      slidesPerView: 1,
+      spaceBetween: 0,
+      observer: true,//修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true,//修改swiper的父元素时，自动初始化swiper
+      on: {
+        resize: function () {
+          this.update(); //窗口变化时，更新Swiper的一些属性，如宽高等
+        },
+      },
+    });
+    /*      new Swiper("#indexBannerSwiper1", {
+              direction: 'vertical',
+              autoplay: {
+                  delay: 3000,
+                  disableOnInteraction: false,
+              },
+              speed: 1000,
+              loop: true,
+              uniqueNavElements: true,
+              pagination: {
+                  el: "#indexBannerSwiper1Pag",
+                  clickable: true,
+              },
+              slidesPerView: 1,
+              spaceBetween: 10,
+              observer: true,//修改swiper自己或子元素时，自动初始化swiper
+              observeParents: true,//修改swiper的父元素时，自动初始化swiper
+              on: {
+                  resize: function () {
+                      this.update(); //窗口变化时，更新Swiper的一些属性，如宽高等
+                  },
+              },
+          });*/
+    new Swiper("#Swiper1", {
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      speed: 1000,
+      loop: true,
+      uniqueNavElements: true,
+      pagination: {
+        el: "#Swiper1Pag",
+        clickable: true,
+      },
+      navigation: {
+        prevEl: "#Swiper1Prev",
+        nextEl: "#Swiper1Next",
+      },
+      slidesPerView: 1,
+      spaceBetween: 0,
+      observer: true,//修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true,//修改swiper的父元素时，自动初始化swiper
+      on: {
+        resize: function () {
+          this.update(); //窗口变化时，更新Swiper的一些属性，如宽高等
+        },
+      },
+    });
+    new Swiper("#ztSwiper", {
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      speed: 1000,
+      loop: true,
+      uniqueNavElements: true,
+      pagination: {
+        el: "#ztSwiperPag",
+        clickable: true,
+      },
+      navigation: {
+        prevEl: "#ztSwiperPrev",
+        nextEl: "#ztSwiperNext",
+      },
+      slidesPerView: 4,
+      spaceBetween: 20,
+      breakpoints: {
+        992: {  //当屏幕宽度小于等于992
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+        600: {  //当屏幕宽度小于等于 600
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+      },
+      observer: true,//修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true,//修改swiper的父元素时，自动初始化swiper
+      on: {
+        resize: function () {
+          this.update(); //窗口变化时，更新Swiper的一些属性，如宽高等
+        },
+      },
+    });
+  </script>
+</div>
+</body>
+
+</html>

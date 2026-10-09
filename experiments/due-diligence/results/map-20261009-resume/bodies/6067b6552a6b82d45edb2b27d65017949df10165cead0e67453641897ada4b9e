@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow-x: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200px">
+    <link rel="shortcut icon" href="/images/logo.ico">
+    <link href="https://static.xmlyun.cn/css/animate.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://static.xmlyun.cn/css/swiper.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/client/all.css?v=1.0.0.17">
+
+    <script type="text/javascript" src="https://static.xmlyun.cn/js/jquery-3.4.1.js"></script>
+    <!--将vue从global.js提取出来,方便开发时代码提示-->
+    <script src="https://static.xmlyun.cn/js/vue.min.js"></script>
+    <script src="/js/global.js?v=0.0.1"></script>
+    <script type="text/javascript" src="https://static.xmlyun.cn/js/swiper.min.js"></script>
+    <script src="https://static.xmlyun.cn/js/wow.min.js"></script>
+    <script type="text/javascript" src="/js/client/base.js"></script>
+    <script type="text/javascript" src="/js/client/include.js"></script>
+    <style type="text/css">
+        .ad_swiper_all .inner {
+            position: inherit;
+        }
+
+        .index_news_swiper {
+            margin-top: 15px;
+        }
+
+        /*.index_nav a {
+            width: 18%;
+        }
+
+        .index_news_swiper {
+            !*height: 612px;*!
+        }
+
+        .index_nav a:nth-child(6), .index_nav a:nth-child(7) {
+            width: 570px;
+            margin-top: 14px;
+            height: 70px;
+        }*/
+
+        .news_category_con {
+            position: relative;
+        }
+
+        .news_category_con .more {
+            position: absolute;
+            right: 0;
+            top: 13px;
+        }
+
+        .el-tabs__header {
+            margin-bottom: 0;
+        }
+
+        .el-tabs__header .el-tabs__item {
+            font-size: 18px;
+            line-height: 40px;
+            color: #000308;
+            font-weight: bold;
+            padding: 0 8px;
+        }
+
+        .el-tabs__active-bar {
+            background-color: #2b5a92;
+        }
+    </style>
+    <title>中国安全生产协会</title>
+</head>
+<body>
+<!--头部填充空间-->
+<div id="header"></div>
+
+<div id="client_index">
+    <div class="ad_swiper_all">
+        <div class="swiper-container ad_swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="topRotation in topRotationList">
+                    <img :src="topRotation.img" :alt="topRotation.name" @click="onRotationClick(topRotation.url)">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="inner">
+        </div>
+    </div>
+
+    <div class="index_bg">
+        <div class="inner">
+            <div class="index_news">
+                <!--左侧新闻-->
+                <div class="index_news_con">
+                    <div class="index_news_con_list" v-if="homeNewsCategory['L1']">
+                        <div class="news_category_con">
+                            <el-tabs v-model="l1TabActive">
+                                <el-tab-pane :label="homeNewsCategory['L1'].name" name="1"
+                                             v-if="isNotBlank(homeNewsCategory['L1'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['L1'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['L1'].id,homeNewsCategory['L1'].parentId,homeNewsCategory['L1'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="homeNewsCategory['L1-2'].name" name="2"
+                                             v-if="isNotBlank(homeNewsCategory['L1-2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['L1-2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['L1-2'].id,homeNewsCategory['L1-2'].parentId,homeNewsCategory['L1-2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
+                            <img class="more" src="/images/client/more.png"
+                                 @click="onMoreClick(l1TabActive==='1'?'L1':'L1-2')">
+                        </div>
+                    </div>
+                    <div class="index_news_con_list" v-if="homeNewsCategory['L2']">
+                        <div class="news_category_con">
+                            <el-tabs v-model="l2TabActive">
+                                <el-tab-pane :label="homeNewsCategory['L2'].name" name="1"
+                                             v-if="isNotBlank(homeNewsCategory['L2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['L2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['L2'].id,homeNewsCategory['L2'].parentId,homeNewsCategory['L2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="homeNewsCategory['L2-2'].name" name="2"
+                                             v-if="isNotBlank(homeNewsCategory['L2-2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['L2-2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['L2-2'].id,homeNewsCategory['L2-2'].parentId,homeNewsCategory['L2-2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
+                            <img class="more" src="/images/client/more.png"
+                                 @click="onMoreClick(l2TabActive==='1'?'L2':'L2-2')">
+                        </div>
+                    </div>
+                    <div class="index_news_con_list" v-if="homeNewsCategory['L3']">
+                        <div class="news_category_con">
+                            <el-tabs v-model="l3TabActive">
+                                <el-tab-pane :label="homeNewsCategory['L3'].name" name="1"
+                                             v-if="isNotBlank(homeNewsCategory['L3'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['L3'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['L3'].id,homeNewsCategory['L3'].parentId,homeNewsCategory['L3'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="homeNewsCategory['L3-2'].name" name="2"
+                                             v-if="isNotBlank(homeNewsCategory['L3-2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['L3-2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['L3-2'].id,homeNewsCategory['L3-2'].parentId,homeNewsCategory['L3-2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
+                            <img class="more" src="/images/client/more.png"
+                                 @click="onMoreClick(l3TabActive==='1'?'L3':'L3-2')">
+                        </div>
+                    </div>
+                </div>
+                <!--中间轮播-->
+                <div class="swiper-container index_news_swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="bottomRotation in bottomRotationList">
+                            <img :src="bottomRotation.img" :alt="bottomRotation.name"
+                                 @click="onRotationClick(bottomRotation.url)">
+                            <p>{{bottomRotation.name}}</p>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <!--右侧新闻-->
+                <div class="index_news_con">
+                    <div class="index_news_con_list" v-if="homeNewsCategory['R1']">
+                        <div class="news_category_con">
+                            <el-tabs v-model="r1TabActive">
+                                <el-tab-pane :label="homeNewsCategory['R1'].name" name="1"
+                                             v-if="isNotBlank(homeNewsCategory['R1'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['R1'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['R1'].id,homeNewsCategory['R1'].parentId,homeNewsCategory['R1'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="homeNewsCategory['R1-2'].name" name="2"
+                                             v-if="isNotBlank(homeNewsCategory['R1-2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['R1-2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['R1-2'].id,homeNewsCategory['R1-2'].parentId,homeNewsCategory['R1-2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
+                            <img class="more" src="/images/client/more.png"
+                                 @click="onMoreClick(r1TabActive==='1'?'R1':'R1-2')">
+                        </div>
+                    </div>
+                    <div class="index_news_con_list" v-if="homeNewsCategory['R2']">
+                        <div class="news_category_con">
+                            <el-tabs v-model="r2TabActive">
+                                <el-tab-pane :label="homeNewsCategory['R2'].name" name="1"
+                                             v-if="isNotBlank(homeNewsCategory['R2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['R2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['R2'].id,homeNewsCategory['R2'].parentId,homeNewsCategory['R2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="homeNewsCategory['R2-2'].name" name="2"
+                                             v-if="isNotBlank(homeNewsCategory['R2-2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['R2-2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['R2-2'].id,homeNewsCategory['R2-2'].parentId,homeNewsCategory['R2-2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
+                            <img class="more" src="/images/client/more.png"
+                                 @click="onMoreClick(r2TabActive==='1'?'R2':'R2-2')">
+                        </div>
+                    </div>
+                    <div class="index_news_con_list" v-if="homeNewsCategory['R3']">
+                        <div class="news_category_con">
+                            <el-tabs v-model="r3TabActive">
+                                <el-tab-pane :label="homeNewsCategory['R3'].name" name="1"
+                                             v-if="isNotBlank(homeNewsCategory['R3'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['R3'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['R3'].id,homeNewsCategory['R3'].parentId,homeNewsCategory['R3'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane :label="homeNewsCategory['R3-2'].name" name="2"
+                                             v-if="isNotBlank(homeNewsCategory['R3-2'])">
+                                    <div class="index_news_con_list_info">
+                                        <a href="JavaScript:void(0)" v-for="_news in homeNewsCategory['R3-2'].newsList"
+                                           @click="onNewsCategoryClick(homeNewsCategory['R3-2'].id,homeNewsCategory['R3-2'].parentId,homeNewsCategory['R3-2'].menuId,_news.link,_news.id)">
+                                            <p>{{removeLineBreaks(_news.title)}}</p>
+                                            <i>{{_news.createTime | formatTimer}}</i>
+                                        </a>
+                                    </div>
+                                </el-tab-pane>
+                            </el-tabs>
+                            <img class="more" src="/images/client/more.png"
+                                 @click="onMoreClick(r3TabActive==='1'?'R3':'R3-2')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="index_nav inner">
+        <a href="javascript:void(0)" @click="onMenuClick({id:24,exhibit:1})">
+            <img src="https://static.xmlyun.cn/images/index_nav4.png" alt="">
+            <p>安全科技</p>
+        </a>
+        <a href="javascript:void(0)" @click="onMenuClick({id:18,exhibit:1})">
+            <img src="https://static.xmlyun.cn/images/index_nav1.png" alt="">
+            <p>安全文化</p>
+        </a>
+        <a href="javascript:void(0)" @click="onMenuClick({id:22,exhibit:1})">
+            <img src="https://static.xmlyun.cn/images/index_nav3.png" alt="">
+            <p>安全标准</p>
+        </a>
+        <a href="javascript:void(0)" @click="onMenuClick({id:23,exhibit:1})">
+            <img src="https://static.xmlyun.cn/images/index_nav3-3.png" alt="">
+            <p>安全评价</p>
+        </a>
+        <!--<a href="https://www.aqncna.com/" target="_blank">
+            <img src="/images/client/index_nav5.png" alt="">
+            <p>定制培训</p>
+        </a>-->
+        <a href="javascript:void(0)" @click="onMenuClick({id:26,exhibit:1})">
+            <img src="https://static.xmlyun.cn/images/index_nav6.png" alt="">
+            <p>史志阅览</p>
+        </a>
+        <a href="javascript:void(0)" @click="onMenuClick({id:33,exhibit:1})">
+            <img src="https://static.xmlyun.cn/images/index_kepu.png" alt="">
+            <p>安全科普</p>
+        </a>
+        <a href="javascript:void(0)" @click="onMenuClick({id:27,exhibit:1})">
+            <img src="https://static.xmlyun.cn/images/index_nav7.png" alt="">
+            <p>监事工作</p>
+        </a>
+        <!--<a href="https://www.aqncna.com/" target="_blank">
+            <img src="https://static.xmlyun.cn/images/index_nav8.png" alt="">
+            <span>新职业网络学院</span>
+        </a>-->
+        <a href="javascript:void(0)" @click="onNewsCategoryClick(76,null,13)">
+            <img src="https://static.xmlyun.cn/images/index_nav9.png" alt="">
+            <span>协会刊物</span>
+        </a>
+    </div>
+
+   <!-- <div class="index_nav inner">
+        <a href="http://www.kxjsj-safety.com" target="_blank">
+            <img src="https://huawei-cloud.100anquan.com/china_safety/20251127/1993952436842270720.png" alt="">
+            <p>安全科学技术奖申报系统</p>
+        </a>
+        <a href="http://scitech.5anquan.com" target="_blank">
+            <img src="https://huawei-cloud.100anquan.com/china_safety/20251127/1993952629440516096.png" alt="">
+            <p>科技成果评价申请系统</p>
+        </a>
+        <a href="http://123.57.243.207" target="_blank">
+            <img src="https://huawei-cloud.100anquan.com/china_safety/20251127/1993952741818503168.png" alt="">
+            <p>安全文化创建申报系统</p>
+        </a>
+        <a href="http://cydj.5anquan.com/" target="_blank">
+            <img src="https://huawei-cloud.100anquan.com/china_safety/20251127/1993952829001306112.png" alt="">
+            <p>安全评价师从业注册平台</p>
+        </a>
+        <a href="#" target="_blank">
+            <img src="https://huawei-cloud.100anquan.com/china_safety/20251127/1993952920483270656.png" alt="">
+            <p>注安培训系统</p>
+        </a>
+        <a href="https://www.aqncna.com/" target="_blank">
+            <img src="https://huawei-cloud.100anquan.com/china_safety/20251127/1993953169524264960.png" alt="">
+            <span>新职业网络学院</span>
+        </a>
+        <a href="javascript:void(0)" @click="onNewsCategoryClick(76,null,13)">
+            <img src="https://huawei-cloud.100anquan.com/china_safety/20251127/1993953243285295104.png" alt="">
+            <span>协会刊物</span>
+        </a>
+    </div>-->
+</div>
+
+<!--尾部填充空间-->
+<div id="footer"></div>
+</body>
+
+<script src="/api-js/client/index.js?v=0.0.1"></script>
+<script>
+    const ad1 = new AdMove("declare", true);
+    ad1.Run();
+</script>
+</html>

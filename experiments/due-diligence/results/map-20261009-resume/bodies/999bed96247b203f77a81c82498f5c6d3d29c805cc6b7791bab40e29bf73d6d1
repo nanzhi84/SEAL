@@ -1,0 +1,3518 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="SiteName" content="福建省自然资源厅">
+	<meta name="SiteDomain" content="zrzyt.fujian.gov.cn/">
+	<meta name="SiteIDCode" content="3500000004">
+	<meta name="ColumnDescription"
+		content="省自然资源厅,">
+	<meta name="ColumnKeywords"
+		content="省自然资源厅,">
+    <meta name="renderer" content="ie-comp">
+    <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1" />
+    <title>
+		福建省自然资源厅
+	</title>
+	<link rel="stylesheet" href="./images/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="./images/20221008-zrzyt-style.css">
+	<link rel="stylesheet" type="text/css" href="./images/202142-zrzyt-media-style.css">
+	<link rel="stylesheet" type="text/css" href="./images/202142-zrzyt-golbal.css">
+
+	<link rel="stylesheet" href="./images/gtt.css">
+
+
+
+
+	<style>
+		/*轮播图1*/
+
+		.banBox {
+			position: relative;
+			overflow: hidden;
+			text-align: left;
+			background: white;
+		}
+
+		.banBox .pic a {
+			display: block;
+			overflow: hidden;
+		}
+
+		.banBox .pic img {
+			width: 100%;
+			height: 100%;
+		}
+
+		/* @media only screen and (min-width:1024px) {
+            .banBox .pic a {
+                height: 383px;
+            }
+        }
+
+        @media only screen and (max-width:1024px) and (min-width:750px) {
+            .banBox .pic a {
+                height: 480px;
+            }
+        }
+
+        @media only screen and (max-width:750px) and (min-width:450px) {
+            .banBox .pic a {
+                height: 350px;
+            }
+        }
+
+        @media only screen and (max-width:450px) {
+            .banBox .pic a {
+                height: 260px;
+            } */
+
+
+		/*.banBox .num {
+            bottom: 15px !important;
+        }*/
+
+		.banBox .num li a {
+			line-height: 14px !important;
+		}
+
+
+		@media only screen and (max-width:320px) {
+			.item p {
+				display: block;
+				overflow: hidden;
+				width: 60%;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+
+		.banBox .txt-bg {
+			position: absolute;
+			bottom: 0;
+			z-index: 1;
+			width: 100%;
+			opacity: 0.4;
+			overflow: hidden;
+			background-color: #000;
+			height: 35px;
+		}
+
+		.banBox .txt {
+			position: absolute;
+			bottom: 8px;
+			z-index: 2;
+			height: 25px;
+			width: 100%;
+			overflow: hidden;
+		}
+
+		.banBox .txt li {
+			width: 66%;
+			height: 28px;
+			line-height: 28px;
+			position: absolute;
+			bottom: 0px;
+			color: white;
+			padding-left: 10px;
+		}
+
+		.banBox .txt li a {
+			display: block;
+			color: #fff;
+			padding: 0 0 0 10px;
+			font-size: 18px;
+			text-decoration: none;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.banBox .num {
+			position: absolute;
+			z-index: 3;
+			bottom: 8px;
+			right: 6px;
+		}
+
+		.banBox .num li {
+			display: inline-block;
+			*float: left;
+			width: 10px;
+			height: 8px;
+			line-height: 30px;
+			background: #fff;
+			margin: 0 4px;
+			opacity: 0.5;
+			cursor: pointer;
+			border-radius: 4px;
+			opacity: 0.5;
+			overflow: hidden;
+		}
+
+		.banBox .num li a {
+			position: absolute;
+			z-index: 2;
+			display: block;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			text-decoration: none;
+			line-height: 27px;
+		}
+
+		.banBox .num li.on,
+		.banBox .num a:hover {
+			opacity: 1;
+			background-color: #ffffff;
+			width: 18px;
+		}
+
+		/* 底部轮播 */
+		#focusBox {
+			height: 192px;
+		}
+
+		#focusBox .txt-bg {
+			position: absolute;
+			bottom: 0;
+			z-index: 1;
+			width: 100%;
+			opacity: 0.5;
+			overflow: hidden;
+			background-color: #000;
+			height: 25px;
+		}
+
+		#focusBox .num {
+			position: absolute;
+			z-index: 3;
+			bottom: 8px;
+			right: 6px;
+		}
+
+		#focusBox .num li {
+			float: left;
+			width: 10px;
+			height: 10px;
+			line-height: 10px;
+			border-radius: 5px;
+			overflow: hidden;
+			margin-right: 11px;
+			cursor: pointer;
+			background: white;
+		}
+
+		#focusBox .num li.on,
+		#focusBox .num li:hover {
+			background-color: #ffce82;
+		}
+
+		/* 轮播图样式end */
+		.picMarquee-left .tempWrap {
+			width: 100% !important;
+			height: 192px;
+		}
+
+		.picMarquee-left li {
+			width: 100%;
+			margin-right: 15px !important;
+			margin-left: 0 !important;
+		}
+
+		.picMarquee-left li a {
+			display: inline-block;
+		}
+
+		@media only screen and (max-width:1400px) {
+
+			#focusBox,
+			.picMarquee-left .tempWrap {
+				height: auto;
+			}
+		}
+
+		/*其他样式*/
+		.qh-bt ul li.icon1 span {
+			display: none;
+		}
+
+		.qh-bt ul li.icon1 a h4 {
+			color: #125db2;
+		}
+
+		.back2 {
+			background-color: #125db2 !important;
+		}
+
+		.qh-bt ul li h4 {
+			z-index: 999 !important;
+		}
+
+		@media screen and (min-width: 1000px) {
+			.color1 {
+				color: #ffffff !important;
+			}
+
+			.back1 {
+				display: inline-block !important;
+			}
+
+			.tt-nr h4 a {
+				line-height: 50px;
+
+			}
+
+		}
+
+		@media screen and (max-width: 999px) {
+			.color1 {
+				color: #ffffff !important;
+			}
+
+			.back1 {
+				display: none !important;
+			}
+
+			.qh-bt ul li.icon1 {
+				background-color: #dbecfb;
+			}
+		}
+
+		.zdly-box1 .bd {
+			float: left;
+			margin-left: 11%;
+			margin-top: 4px;
+			height: 140px;
+			overflow: hidden;
+		}
+
+		.sx-jt {
+			position: absolute;
+			right: 10px;
+
+		}
+
+		.list-1 li span {
+			color: #333;
+		}
+
+		.zdly-xl2 {
+			z-index: 99999;
+		}
+
+		@media screen and (max-width: 450px) {
+			.news-nav ul {
+				width: 100% !important;
+			}
+
+			.xw-left img {
+				width: 80%
+			}
+		}
+
+		/* 新增最新文件改变的样式 */
+		.tab ul li {
+			margin-left: 3.2% !important;
+		}
+
+		.tab ul {
+			margin-left: 0 !important;
+		}
+
+		/*手机端相关系统显示切换条改变样式*/
+		@media screen and (max-width: 540px) {
+
+			.banBox .txt li a {
+				padding: 0px;
+			}
+
+			.sx-jt {
+				display: block;
+				left: 10px;
+				right: 0px;
+				top: 50px;
+			}
+
+			.sx-jt img {
+				margin-top: 20px;
+			}
+
+			.zdly-ul1 li {
+				width: 47.5% !important;
+			}
+
+			/*手机端轮播图文字大小*/
+			.banBox .txt li {
+				padding-left: 0px;
+				width: 52%;
+			}
+
+			.slb .banBox .txt li {
+				width: 70%;
+			}
+
+			.banBox .txt li a {
+				font-size: 12px;
+			}
+		}
+
+		/*  .zdly-ul1 li{
+              width: 46.5% ;
+          }*/
+
+		/*头条字体变红*/
+		.tt-nr h4 a {
+			color: #d7200f;
+		}
+
+		.zdly-ul1 {
+			margin-top: 1px !important;
+		}
+
+		.container {
+			margin-top: 0px;
+			padding-top: 25px;
+		}
+
+		.zcjd-ul li.icon4 {
+			background: url(/images/202142-zrzyt-zcbj4.png) no-repeat;
+		}
+
+		.zcjd-ul li.icon4 a p {
+			background: url(/images/202142-zrzyt-zc4.png) left center no-repeat;
+			padding-left: 50px;
+			margin-left: 40px;
+		}
+
+		.zcjd-ul li {
+			height: 60px;
+			line-height: 60px;
+		}
+
+		.zcjd-ul li.icon4 a {
+			color: #0393d6;
+		}
+
+		@media screen and (max-width: 999px) {
+			.zcjd-ul li.icon4 {
+				background-size: cover;
+			}
+
+			.slb .ywxt_list .zdly-ul1,
+			.zdly-box1 .bd {
+				float: inline-end;
+			}
+		}
+
+		@media screen and (max-width: 650px) {
+			.zcjd-ul li.icon4 a p {
+				background-size: 20%;
+				padding-left: 40px;
+			}
+		}
+
+		@media screen and (max-width: 540px) {
+			.zcjd-ul li.icon4 a p {
+				background-size: 18%;
+				padding-left: 40px;
+				margin-left: 30px;
+			}
+
+			.slb .zdly-box h5 {
+				z-index: 9;
+			}
+
+			.slb .zdly-box1 .bd {
+				height: 280px;
+			}
+
+			.slb .ywxt_list .zdly-ul1{
+                float: right;
+            }
+
+			.slb .zdly-ul1{
+                height: 280px;
+            }
+		}
+
+		@media screen and (max-width: 500px) {
+
+			.slb #focusBox .txt-bg,
+			.slb .banBox .txt-bg {
+				height: 20%;
+			}
+
+			.slb #focusBox .num {
+				bottom: 5%;
+			}
+
+			.slb .ztzl-right ul li {
+				margin-right: 12px !important;
+			}
+
+			.slb .banBox .txt {
+				bottom: 5px;
+			}
+		}
+
+		@media screen and (max-width: 450px) {
+			.slb .zdly-ul1 {
+				width: 98%;
+			}
+
+			.slb .ywxt_list .zdly-ul1 li {
+				margin-left: 2%;
+			}
+		}
+
+		@media screen and (max-width: 414px) {
+			.slb .zdly-ul1 li {
+				width: 94% !important;
+			}
+		}
+
+		@media screen and (min-width: 1000px) {
+
+			.tt-nr p a {
+				max-width: inherit;
+			}
+
+			.slb .xjxd-ul li a {
+				width: 70%;
+			}
+
+			.slb .xjxd-ul li {
+				line-height: 38px;
+			}
+
+			.slb .zdly-box1 .bd {
+				height: 280px;
+			}
+		}
+
+		@media screen and (max-width: 414px) {
+
+			.slb .banBox .num {
+				bottom: 6px;
+				left: 82%;
+				width: 40%;
+			}
+
+		}
+
+
+		.tt-nr p a {
+			font-size: 16px;
+		}
+
+		.tt-nr h4 a {
+			color: rgb(209, 1, 1);
+		}
+
+		.ftNero p.zy {
+			white-space: normal;
+		}
+
+		.yqfk-icon a, .yqfk-icon {
+  			color: #ffffff !important;
+  			font-size: 18px;
+  			font-weight: bold;
+  			padding-left: 20px;
+  			box-sizing: border-box;
+		}
+
+		.yqfk-icon {
+  			display: inline-block;
+  			background: url(/images/20220314-yqfk-icon.png) 8px center no-repeat #ba2b29;
+ 			width: 150px;
+  			height: 42px;
+  			line-height: 40px;
+  			border-radius: 10px 10px 10px 0px;
+  			text-align: center;
+  			position: absolute;
+  			right: -24px;
+		}
+
+		.slb .yqfk-icon a, .slb .yqfk-icon {
+  			padding-left: 20px;
+			font-size: 22px;
+		}
+
+		.slb .yqfk-icon {
+  			background: url(/images/20220314-yqfk-icon.png) 12px center no-repeat #ba2b29;
+  			width: 180px;
+  			height: 50px;
+  			line-height: 50px;
+  			right: 0px;
+  			top: 24px;
+		}
+
+		@media screen and (max-width: 998px) {
+			.yqfk-icon {
+  				right: 0;
+			}
+		}
+
+		@media screen and (max-width: 540px){
+			.yqfk-icon {
+  				background: 8px center no-repeat #ba2b29;
+  				width: 92px;
+  				right: -10px;
+  				top: -4px;
+			}
+
+			.yqfk-icon a, .yqfk-icon {
+  				font-size: 14px;
+				padding-left: 0;
+			}
+
+			.news-nav ul li {
+  				margin-right: 4px;
+			}
+		}
+		@media screen and (max-width: 400px){
+			.news-nav ul li {
+  				font-size: 14px;
+			}
+
+			.yqfk-icon {
+  				width: 80px;
+			}
+
+			.yqfk-icon a, .yqfk-icon {
+  				font-size: 12px;
+			}
+		}
+.zxwj{
+overflow:hidden;
+}
+
+
+
+
+
+	.carousel {
+		z-index: 999;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		background: #fff;
+		padding: 20px 20px 15px;
+		font-size: 14px;
+		border-radius: 3px;
+		-webkit-box-shadow: 1px 1px 5px #ccc;
+		box-shadow: 1px 1px 5px #ccc;
+	}
+
+	.carousel-close {
+		position: absolute;
+		width: 13px;
+		height: 13px;
+		right: 4px;
+		top: 6px;
+		background: url(/images/20240409gb.png) no-repeat;
+		background-size: contain;
+		z-index: 3;
+		cursor: pointer;
+	}
+	.carousel-inner {
+		position: relative;
+		width: 320px;
+	}
+	.carousel-ext {
+		overflow: hidden;
+		height: 180px;
+		cursor: pointer;
+	}
+	.el-carousel__container {
+		position: relative;
+		height: 130px;
+	}
+	.carousel-title {
+		position: absolute;
+		bottom: 18px;
+		width: 100%;
+	}
+	.carousel-detail {
+		position: absolute;
+		left: 0;
+		bottom: -6px;
+		color: #409eff;
+		cursor: pointer;
+	}
+	.tree-label {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+    .zdly-ul li {
+    display: block;  
+}
+/*  */
+
+     
+      .xx-box ul li {width: 125px;}
+.xx-box ul li span { width: 27px; margin: 8px 9px 10px 12px;}
+.xx-box ul li.add {width: 203px;}
+     
+      @media screen and (max-width: 992px){
+      .xx-box ul li.add {
+    width: 243px;
+} 
+.xx-box {
+    height: 247px;
+}
+}
+
+.xx-box ul li span.sp5, .gkzl_list li span.sp5 {
+    background: url(/images/2024xxicon5.png) no-repeat center;
+}
+
+.xx-box ul li span {
+    background: url(/images/2024xxicon55.png) no-repeat center;
+}
+	</style>
+	<style>
+		    /**/
+
+  /*  */
+
+
+	</style>
+</head>
+
+<body ms-controller="windowRoot">
+    
+	<div class="top-link_2021" id="top-link">
+	<div class="w_1300_2021 clearflx_2021">
+		<!--<span class="pho-menu_2021"><img src="images/2021menu.png" alt="" /></span>-->
+		<div class="logo_2021" role="serve" des="头部信息">
+			<a href="/"><img src="/images/20211009-zrzy-logo.png" alt="" /></a>
+		</div>
+		<div class="xyfd_2021">
+			<div class="rig-top_2021 clearflx_2021" role="serve" des="头部信息"> <span>网站支持IPv6</span>
+  
+				<ul class="clearflx_2021 ft-list_2021">
+					<li style="display: none;"><a href="javascript:StranBody()" title="繁体版" id='StranLink'  class="ydb_2021">繁体版
+                    
+  
+					</a>
+					<em>|</em>
+				</li>
+					<li><a href="javascript:;" class="ydb_2021">微信
+							<div class="ydtk_2021 clearflx">
+								<div class="ewp_2021">
+									<i><img src="/images/erweima1.jpg" width="100" alt="" />
+									</i>
+									<em>微信</em>
+								</div>
+							</div>
+  
+						</a>
+						<em>|</em>
+					</li>
+  
+  
+					<li><a href="javascript:;" class="ydb_2021">闽政通
+							<div class="ydtk_2021 clearflx">
+								<div class="ewp_2021"> <i><img src="/images/202142-zrzyt-cbewm.png" width="100" alt="" /></i> <em>闽政通APP</em> </div>
+							</div>
+						</a><em>|</em></li>
+					<li><a href="javascriprt:;" class="ydb_2021">国务院互联网+督察
+							<div class="ydtk_2021 clearflx">
+								<div class="ewp_2021">
+									<i><img src="/images/201904zrzyt_hlwdc.jpg" width="100" alt="" />
+									</i> <em>国务院互联网+督察</em>
+								</div>
+							</div>
+						</a><em>|</em></li>
+							<li><a href="https://zqztc.fujian.gov.cn/" target="_blank" title="政企直通车" class="ydb_2021">政企直通车
+							<div class="ydtk_2021 clearflx">
+								<div class="ewp_2021">
+									<i><img src="/images/20250627zqztc.jpg" width="100" alt="" />
+									</i> <em>政企直通车</em>
+								</div>
+							</div>
+						</a></li>
+				</ul>
+				<div class="gwp_2021">
+					<a href="http://www.gov.cn/" target="_blank" title="国务院">国务院</a>
+					<a href="http://www.mnr.gov.cn/" target="_blank" title="自然资源部">自然资源部</a>
+					<a href="https://www.fujian.gov.cn/" target="_blank" title="省政府">省政府</a>
+  
+				</div>
+			</div>
+			<div class="pho-fix_2021">
+  
+				<ul class="nav_2021 clearflx_2021" role="navigation" des="站点主目录">
+					<li ms-class="active_2021:currPath==''"><a href="/" title="首页">首页</a></li>
+  
+  
+					<li ms-class="active_2021:(currPath=='zwgk' && paths[4] !='zcjd')">
+						<a href="/zwgk/" title="政务公开">政务公开 <em></em></a>
+						<div class="nav_con_2021 m_3_2021">
+							<div class="nav_warp_2021">
+								<a href="/zwgk/zfxxgkzl/" title="政府信息公开" target="_blank">政府信息公开</a>
+								<a href="/zwgk/xwdt/" title="新闻动态" target="_blank">新闻动态</a>
+								<a href="/zwgk/zxwj/" title="最新文件" target="_blank">最新文件</a>
+								<a href="/zwgk/zcfg/" title="政策法规" target="_blank">政策法规</a>
+								<a href="/zwgk/zcjd/" title="政策解读" target="_blank">政策解读</a>
+								<a href="/zwgk/rsxx/" title="人事信息" target="_blank">人事信息</a>
+								<a href="/zwgk/zjxx/" title="资金信息" target="_blank">资金信息</a>
+								<a href="/zwgk/xzqlyx/" title="行政权力运行" target="_blank">行政权力运行</a>
+								<a href="/zwgk/zdly/" title="重点领域" target="_blank">重点领域</a>
+				
+                                                                 <!-- <a href="/zwgk/jsxm/" title="建设项目" target="_blank">建设项目</a> -->
+  
+
+							</div>
+						</div>
+					</li>
+  
+					<li ms-class="active_2021:paths[4]=='zcjd'">
+						<a href="/zwgk/zcjd/" title="解读回应">解读回应 </a>
+						<div class="nav_con_2021 m_5_2021">
+							<div class="nav_warp_2021">
+								<a href="http://www.fujian.gov.cn/jdhy/zcjd/" title="省政府政策文件解读">省政府政策文件解读</a>
+								<a href="/zwgk/zcjd/bmzcwjjd/" title="部门政策文件解读" target="_blank">部门政策文件解读</a>
+								<a href="/zwgk/zcjd/hygq/" title="回应关切" target="_blank">回应关切</a>
+							</div>
+						</div>
+					</li>
+					<li ms-class="active_2021:currPath=='wsbs'">
+						<a href="https://zwfw.fujian.gov.cn/province-dept/index?type=2&siteUnid=F3FFE2F69165215C470DE57A2C4A1C53&randomNum=0.6080398193733487" title="办事服务" target="_blank">办事服务 <em></em></a>
+						<div class="nav_con_2021 m_4_2021">
+							<div class="nav_warp_2021">
+								<a href="/wsbs/bgxz/" title="资料下载" target="_blank">资料下载</a>
+								<a href="/wsbs/ywxt/" title="业务系统" target="_blank">业务系统</a>
+								<a href="/wsbs/tdgh/" title="土地、规划" target="_blank">土地、规划</a>
+								<a href="/wsbs/dzkc/" title="地质、矿产" target="_blank">地质、矿产</a>
+								<a href="/wsbs/chdlxx/" title="测绘地理信息" target="_blank">测绘地理信息</a>
+								<a href="/wsbs/hyhd/" title="海岛海域" target="_blank">海岛海域</a>
+							</div>
+						</div>
+					</li>
+					<li ms-class="active_2021:currPath=='gzcy'">
+						<a href="/gzcy/" title="公众参与">公众参与 <em></em></a>
+						<div class="nav_con_2021 m_6_2021">
+							<div class="nav_warp_2021">
+								<a href="/gzcy/zxft/" title="在线访谈" target="_blank">在线访谈</a>
+								<a href="/gzcy/zrzyxx/" title="自然资源信箱" target="_blank">自然资源信箱</a>
+								<a href="/gzcy/yjzj/" title="意见征集" target="_blank">意见征集</a>
+								<a href="/gzcy/wsdc/" title="网上调查" target="_blank">网上调查</a>
+  
+							</div>
+						</div>
+					</li>
+  
+					<li ms-class="active_2021:currPath=='jggk'">
+						<a href="/jggk/" title="机构概况">机构概况 <em></em></a>
+						<div class="nav_con_2021 m_6_2021">
+							<div class="nav_warp_2021">
+								<a href="/jggk/btgk/" title="本厅概况" target="_blank">本厅概况</a>
+								<a href="/jggk/ldzc/" title="领导之窗" target="_blank">领导之窗</a>
+								<a href="/jggk/jgsz/" title="机构领导" target="_blank">机构设置</a>
+							</div>
+						</div>
+					</li>
+					<li ms-class="active_2021:currPath=='ztzl'"><a href="/ztzl/" title="专题专栏">专题专栏</a></li>
+				</ul>
+  
+  
+  
+  
+				<div class="pho-search_2021 clearflx_2021">
+					<form action="/ssp/main/index.html" class="form" method="get">
+						<input type="text" placeholder="请输入搜索内容" value="" name="key" class="inp_2021" id="selecttags" required="required" autocomplete="off" />
+  
+						<input id="siteId" name="siteId" type="hidden" value="ff8080816e59baf3016e5e6dcbbc3f25" />
+						<button class="iconfont" id="button_搜索" type="submit" value="搜索"></button>
+					</form>
+				</div>
+  
+  
+				<div class="wzx-bxo_2021">
+					<div class="ftb_2021"> <a href="#">繁体版</a>|<a href="#">EN</a>|<a class="login" href="#">登录</a>
+						<div><a class="login">退出</a><a class="login">你好,</a></div>
+					</div>
+					<div class="zzmsd-t_2021"> <a href="#" class="tbt1_2021">长者模式</a> <a href="#"
+							class="tbt2_2021">无障碍浏览</a> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+  </div>
+  <div class="sec-ban_2021">
+	<div class="w_1300_2021 clearflx_2021" role="interaction" des="搜索">
+		<div class="rqtq_2021 fl">
+			<p>福建省自然资源厅欢迎您！</p>
+			<p><i ms-text="now|date('yyyy年MM月dd日')"></i><i ms-text="nowWeek"></i></p>
+		</div>
+	  <div ms-controller="button" ms-visible="butt==false">
+		<div class="ss_box2_2021" id="header" ms-controller="list_rs">
+			<form action="/ssp/main/index.html" id="form" class="form" method="get" target="_blank" ms-blur="$togLinkkey">
+				<div class="picker_2021"><input type="text" value="本站" readonly="" /><a class="upDown_2021"></a>
+				</div>
+				<input type="text" placeholder="请输入您要搜索的内容" value="" name="key" class="inp_2021" id="selecttags" required="required" autocomplete="off" ms-duplex="tixing" ms-focus="$checkLock" style="left:18%;" />
+				<input id="siteId" name="siteId" type="hidden" value="ff8080816e59baf3016e5e6dcbbc3f25" />
+					<input id="isMain" name="isMain" type="hidden" value="" />
+				<button class="btn_2021 iconfont" id="button_搜索" type="submit" value="搜索"></button>
+				<div class="search-log_2021" id="searchTag" style="display: none;" ms-visible="!showlist&&LockLink">
+					<div class="rs_tit1_2021" ms-visible="historyKeys.length>0" style="display: none;">历史搜索：<a ms-if-loop="$index<5" ms-repeat="historyKeys" href="javascript:;" ms-text="el" ms-click="setPost(el)"></a></div>
+		  <div class="rs_tit1_2021" ms-visible="keys.length>0">热门搜索：<a ms-repeat="keys" href="javascript:;" ms-text="el.keyword" ms-click="setPost(el.keyword)"></a></div>
+  
+				</div>
+				<div class="lxglc-box_2021"  ms-visible="flags[0]" style="display: none;">
+                    <ul>
+                      <li ms-repeat="tipList" ms-click="getTip('flags', 0, el.wordName)"><a href="javascript:;" ms-text="el.wordName"></a></li>
+                    </ul>
+                </div>
+			</form>
+		</div>
+	  </div>
+	  <div ms-controller="button" ms-visible="butt==true" style="display:none;">
+		<div class="ss_box2_2021" id="header" ms-controller="list_rs" >
+		  <form action="/ssp/main/index.html" id="form" class="form" method="get" target="_blank" ms-blur="$togLinkkey">
+			<div ms-controller="autoVoice">
+			  <div class="picker_2021"><input type="text" value="本站" readonly="" /><a class="upDown_2021"></a>
+			  </div>
+			  <i class="trt-iconfont yy_icon voiceIcon yy_icon1" id="yuyin" ms-click="openFlag">  <img src="/images/conzzzyt_mkf.png" /></i>
+			  <input type="text" ms-attr-placeholder="identifyText" value="" name="key" class="input_inner old_text" id="selecttags" required="required" autocomplete="off" ms-duplex="serKey" ms-focus="$checkLock" style="left:18%;" />
+			  
+			  <input id="siteId" name="siteId" type="hidden" value="ff8080816e59baf3016e5e6dcbbc3f25" />
+			  <button class="btn_2021 iconfont" id="button_搜索" type="submit" value="搜索"></button>
+			  <div class="h-start h-start1 h-close" ms-visible="recordingFlag">
+				<!-- <i id="jianpan" class="iconfont wz_icon writeIcon" style="display: inline;">
+					<img src="/images/20230505return.png" />
+				</i> -->
+		
+				  <i id="jianpan" class="jianpan">
+					  <img src="../images/20230505return.png" />
+				  </i>
+				  <div class="pose h-start2 conphone" ms-visible="speakingFlag">
+					  <span id="start_record"><i><img src="../images/mkf20230831.png" /></i></span>
+					  <span id="lisening"  style="cursor:pointer;" ms-click="voiceStart">（点击开始说话）</span>
+				  </div>
+				  <div id="stop_record" class="pose h-close" ms-visible="!speakingFlag">
+					  <span><i><img src="../images/mkf20230831.png" /></i></span>
+					  <span id="lisening" style="cursor:pointer;" ms-click="voiceEnd"><text>点击结束</text><em ms-text="recordingTime"></em><text>秒</text></span>
+				  </div>
+			  </div>
+
+			</div>
+		   
+		  </form>
+	  </div>
+	</div>
+		<div class="aged_link" ms-controller="button">
+			<a href="javascript:;" ms-click="inSlb()" ms-visible="butt==false" class="aged_link_01">长者模式</a>
+			<a href="javascript:;" ms-click="outSlb()" ms-visible="butt==true" class="aged_link_01" style="display:none;">退出长者模式</a>
+			<a id="barrierFreeBtn" href="javascript:;" ms-visible="butt1==false" style="z-index:9;"
+				class="aged_link_02">无障碍浏览</a>
+			<a href="javascript:;" ms-click="outWza()" ms-visible="butt1==true" style="display:none;"
+				class="aged_link_02">退出无障碍</a>
+		</div>
+  
+	</div>
+  </div>
+  <div class="gaod_2021"></div>
+
+	<div class="bg clearflx jygl_main">
+		<div class="container">
+			<div class="tt-box clearflx" role="viewlist" des="横幅">
+				<div class="hf clearflx slideBox1">
+					<div class="bd">
+						<ul>
+							<li>
+								<a href="/ztzl/xxgcddesjsizqhjs/" title="学习贯彻党的二十届四中全会精神" width="100%" target="_blank">
+									<img width="100%" src="./images/251209xcgcddesjszqhjs.png" />
+								</a>
+							</li>
+							<li>
+								<a href="/ztzl/xxgcxjpxsd/" title="学习贯彻习近平新时代中国特色社会主义思想" width="100%" target="_blank">
+									<img width="100%" src="./images/1114-1.png" />
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<span class="fl">头条</span>
+				<div class="tt-nr fr">
+					
+						<h4 class="tth4a">
+							<a href="./zwgk/tt/202610/t20261008_7221418.htm" target="_blank" title="《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性、兜底性民生建设》">《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性、兜底性民生建设》</a>
+						</h4>
+					
+
+					<!--    <p>
+                        
+                            <a href="./zwgk/tt/202609/t20260929_7219528.htm" target="_blank" title="习近平就建设更高水平平安中国作出重要指示">习近平就建设更高水平平安中国作出重要指示</a><i>|</i>
+                        
+                            <a href="./zwgk/tt/202609/t20260928_7218685.htm" target="_blank" title="厚植中国式现代化的平安底色——习近平总书记重要论述指引平安中国建设砥砺前行谱写新篇">厚植中国式现代化的平安底色——习近平总书记重要论述指引平安中国建设砥砺前行谱写新篇</a><i>|</i>
+                        
+                        
+                            <a href="./zwgk/tt/202609/t20260924_7217693.htm" target="_blank" title="福建省召开全省领导干部会议">福建省召开全省领导干部会议</a>
+                        
+                    </p>  -->
+				</div>
+			</div>
+			<div class="clearflx">
+				<div class="xw-box clearflx rel">
+
+					<div class="xw-left fl" id="slideBox" role="viewlist" des="图片轮播">
+						<a class="prev" href="JavaScript:;"><img src="./images/202142-zrzyt-xwleft.png" alt="" /></a>
+						<a class="next" href="JavaScript:;"><img src="./images/202142-zrzyt-xwright.png" alt="" /></a>
+						<!--<img src="./images/202142-zrzyt-xwlb.png" alt="" />-->
+						<!-- 轮播图start -->
+						<div class="tpbox banBox">
+							<ul class="pic">
+								
+									<li>
+										<a target="_blank" href="https://liuyan.www.gov.cn/2026wwzfgzbgtjy/index.htm"
+											title="2026“@国务院 我为政府工作报告提建议”网民建言征集活动开始"><img src='./zwgk/xwdt/tpxw/202512/W020251211620109090878.jpg' thumb="" alt="2026“@国务院 我为政府工作报告提建议”网民建言征集活动开始" /></a>
+
+									</li>
+								
+									<li>
+										<a target="_blank" href="https://liuyan.www.gov.cn/2025wwzfgzbgtjy/bmdf.html?q=fj"
+											title="@国务院 我来说"><img src='./zwgk/xwdt/tpxw/202304/W020250311316607826503.jpg' thumb="" alt="@国务院 我来说" /></a>
+
+									</li>
+								
+									<li>
+										<a target="_blank" href="http://zrzyt.fujian.gov.cn/ztzl/sxzygwzxsqzx/ytygs/"
+											title="一图一故事"><img src='./zwgk/xwdt/tpxw/202108/W020210803351817831039.jpg' thumb="" alt="一图一故事" /></a>
+
+									</li>
+								
+									<li>
+										<a target="_blank" href="./zwgk/xwdt/tpxw/202610/t20261008_7221454.htm"
+											title="保护无居民海岛，我们共同努力"><img src='./zwgk/xwdt/tpxw/202610/W020261008333494791499.png' thumb="" alt="保护无居民海岛，我们共同努力" /></a>
+
+									</li>
+								
+									<li>
+										<a target="_blank" href="./zwgk/xwdt/tpxw/202610/t20261008_7221441.htm"
+											title="省自然资源厅党组成员、副厅长俞文峰到窗口体验矿产资源勘查、开采许可办理流程"><img src='./zwgk/xwdt/tpxw/202610/W020261008328704759331.jpg' thumb="" alt="省自然资源厅党组成员、副厅长俞文峰到窗口体验矿产资源勘查、开采许可办理流程" /></a>
+
+									</li>
+								
+									<li>
+										<a target="_blank" href="./zwgk/xwdt/tpxw/202610/t20261008_7221425.htm"
+											title="【一图一故事】走流程探堵点 系统互联提效能"><img src='./zwgk/xwdt/tpxw/202610/W020261008324759489684.png' thumb="" alt="【一图一故事】走流程探堵点 系统互联提效能" /></a>
+
+									</li>
+								
+									<li>
+										<a target="_blank" href="./zwgk/xwdt/tpxw/202609/t20260930_7220244.htm"
+											title="省自然资源厅部署自然资源领域安全生产工作"><img src='./zwgk/xwdt/tpxw/202609/W020260930355980729418.jpg' thumb="" alt="省自然资源厅部署自然资源领域安全生产工作" /></a>
+
+									</li>
+								
+									<li>
+										<a target="_blank" href="./zwgk/xwdt/tpxw/202609/t20260921_7216259.htm"
+											title="【一图一故事】开展实地调研 现场答疑解惑"><img src='./zwgk/xwdt/tpxw/202609/W020260921347420486450.png' thumb="" alt="【一图一故事】开展实地调研 现场答疑解惑" /></a>
+
+									</li>
+								
+
+							</ul>
+							<div class="txt-bg"></div>
+							<div class="txt">
+								<ul>
+									
+										<li>
+											<a target="_blank" href="https://liuyan.www.gov.cn/2026wwzfgzbgtjy/index.htm"
+												title="2026“@国务院 我为政府工作报告提建议”网民建言征集活动开始" />
+											2026“@国务院 我为政府工作报告提建议”网民建言征集活动开始
+											</a>
+
+										</li>
+									
+										<li>
+											<a target="_blank" href="https://liuyan.www.gov.cn/2025wwzfgzbgtjy/bmdf.html?q=fj"
+												title="@国务院 我来说" />
+											@国务院 我来说
+											</a>
+
+										</li>
+									
+										<li>
+											<a target="_blank" href="http://zrzyt.fujian.gov.cn/ztzl/sxzygwzxsqzx/ytygs/"
+												title="一图一故事" />
+											一图一故事
+											</a>
+
+										</li>
+									
+										<li>
+											<a target="_blank" href="./zwgk/xwdt/tpxw/202610/t20261008_7221454.htm"
+												title="保护无居民海岛，我们共同努力" />
+											保护无居民海岛，我们共同努力
+											</a>
+
+										</li>
+									
+										<li>
+											<a target="_blank" href="./zwgk/xwdt/tpxw/202610/t20261008_7221441.htm"
+												title="省自然资源厅党组成员、副厅长俞文峰到窗口体验矿产资源勘查、开采许可办理流程" />
+											省自然资源厅党组成员、副厅长俞文峰到窗口体验矿产资源勘查、开采许可办理流程
+											</a>
+
+										</li>
+									
+										<li>
+											<a target="_blank" href="./zwgk/xwdt/tpxw/202610/t20261008_7221425.htm"
+												title="【一图一故事】走流程探堵点 系统互联提效能" />
+											【一图一故事】走流程探堵点 系统互联提效能
+											</a>
+
+										</li>
+									
+										<li>
+											<a target="_blank" href="./zwgk/xwdt/tpxw/202609/t20260930_7220244.htm"
+												title="省自然资源厅部署自然资源领域安全生产工作" />
+											省自然资源厅部署自然资源领域安全生产工作
+											</a>
+
+										</li>
+									
+										<li>
+											<a target="_blank" href="./zwgk/xwdt/tpxw/202609/t20260921_7216259.htm"
+												title="【一图一故事】开展实地调研 现场答疑解惑" />
+											【一图一故事】开展实地调研 现场答疑解惑
+											</a>
+
+										</li>
+									
+
+								</ul>
+							</div>
+							<ul class="num"></ul>
+
+						</div>
+						<!-- 轮播图end -->
+					</div>
+
+					<div class="xw-right fr" ms-controller="tabGtyw" role="viewlist" des="要闻信息">
+						<div class="news-nav clearflx">
+							<!--<span class="more1">
+                            <a href="http://www.gov.cn/" target="_blank" style="display: none;" ms-if="curr==1"><i
+                                    class="iconfont"></i></a>
+                            <a href="http://www.fujian.gov.cn/" target="_blank" style="display: none;"
+                                ms-if="curr==2"><i class="iconfont"></i></a>
+                            <a href="./zwgk/xwdt/zrzyyw/" target="_blank"
+                                style="display: none;" ms-if="curr==0"><i class="iconfont"></i></a>
+                        </span>-->
+							<ul class="clearflx fl">
+								<li ms-class="curr:curr==1" ms-mouseover="$tog(1)">
+									<a href="http://www.gov.cn/" target="_blank">国务院信息</a>
+								</li>
+								<!--<i></i>-->
+								<li ms-class="curr:curr==2" ms-mouseover="$tog(2)">
+									<a href="http://www.fujian.gov.cn/" target="_blank">福建要闻</a>
+								</li>
+								<!--<i></i>-->
+								<li ms-class="curr:curr==0" ms-mouseover="$tog(0)">
+									<a href="./zwgk/xwdt/zrzyyw/" target="_blank">自然资源要闻</a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="nero_det">
+
+							<ul class="list-1" ms-visible="curr==1" style="display: none;" ms-controller="listGwyxx">
+								<li ms-repeat="list" ms-if-loop="$index<8"><span class="time"
+										ms-text="el.pubDate|date('MM-dd')"></span><i></i>
+									<a ms-attr-href="el.link" target="_blank" ms-attr-title="el.title"
+										ms-text="el.title "></a>
+								</li>
+							</ul>
+							<ul class="list-1" ms-visible="curr==2" ms-controller="listSzfdt" style="display: none;">
+								<li ms-repeat="list" ms-if-loop="$index<8"><span class="time"
+										ms-text="el.time|date('MM-dd')"></span><i></i>
+									<a ms-attr-href="el.url" target="_blank" ms-attr-title="el.title"
+										ms-text="el.title "></a>
+								</li>
+							</ul>
+							<ul class="list-1" ms-visible="curr==0">
+								
+									<li>
+										<span>
+											10-08
+										</span><i></i>
+										<a href="./zwgk/xwdt/zrzyyw/202610/t20261008_7221733.htm" target="_blank" title="福建日报整版聚焦我省低效用地再开发试点工作">福建日报整版聚焦我省低效用地再开发试点工作</a>
+									</li>
+
+								
+									<li>
+										<span>
+											10-08
+										</span><i></i>
+										<a href="https://mp.weixin.qq.com/s/H_fb39YhVNUZSXXoJu3cJw" target="_blank" title="关于政绩观，总书记这样嘱咐年轻干部">关于政绩观，总书记这样嘱咐年轻干部</a>
+									</li>
+
+								
+									<li>
+										<span>
+											10-08
+										</span><i></i>
+										<a href="./zwgk/xwdt/zrzyyw/202610/t20261008_7221454.htm" target="_blank" title="保护无居民海岛，我们共同努力">保护无居民海岛，我们共同努力</a>
+									</li>
+
+								
+									<li>
+										<span>
+											10-08
+										</span><i></i>
+										<a href="./zwgk/xwdt/zrzyyw/202610/t20261008_7221441.htm" target="_blank" title="省自然资源厅党组成员、副厅长俞文峰到窗口体验矿产资源勘查、开采许可办理流程">省自然资源厅党组成员、副厅长俞文峰到窗口体验矿产资源勘查、开采许可办理流程</a>
+									</li>
+
+								
+									<li>
+										<span>
+											10-08
+										</span><i></i>
+										<a href="./zwgk/xwdt/zrzyyw/202610/t20261008_7221429.htm" target="_blank" title="厦门：织密测量标志“安全网”">厦门：织密测量标志“安全网”</a>
+									</li>
+
+								
+									<li>
+										<span>
+											10-08
+										</span><i></i>
+										<a href="./zwgk/xwdt/zrzyyw/202610/t20261008_7221425.htm" target="_blank" title="【一图一故事】走流程探堵点 系统互联提效能">【一图一故事】走流程探堵点 系统互联提效能</a>
+									</li>
+
+								
+									<li>
+										<span>
+											10-08
+										</span><i></i>
+										<a href="./zwgk/xwdt/zrzyyw/202610/t20261008_7221418.htm" target="_blank" title="《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性、兜底性民生建设》">《求是》杂志发表习近平总书记重要文章《加强普惠性、基础性、兜底性民生建设》</a>
+									</li>
+
+								
+									<li>
+										<span>
+											09-30
+										</span><i></i>
+										<a href="./zwgk/xwdt/zrzyyw/202609/t20260930_7220442.htm" target="_blank" title="省自然资源厅在地质找矿理论与应用交流研讨会上作典型发言">省自然资源厅在地质找矿理论与应用交流研讨会上作典型发言</a>
+									</li>
+
+								
+
+							</ul>
+						</div>
+
+					</div>
+
+				</div>
+				<!--<em class="yy"><img src="./images/202142-zrzyt-yy2.png" alt="" /></em>-->
+			</div>
+
+			<div class="zdly-dbox clearflx">
+				<div class="w47 fl" role="viewlist" des="重点领域">
+					<div class="zdly-box rel clearflx">
+						<h5><img src="./images/202142-zrzyt-zdlybt1.png" alt="" /></h5>
+						<div class="clearflx">
+							<ul class="zdly-ul clearflx">
+								<li><a href="javascript:;">
+										<div class="zdly-nrbox">
+											<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" />
+											</div>
+											<div class="litTit">土地、规划公开</div>
+										</div>
+									</a>
+									<div class="zdly-xl zdly-xl2">
+										<img src="./images/20201022-xsj.png" class="xsj-dp" alt="" />
+										<div class="padp" id="tdgh">
+											
+												<span>
+													<a id="5633166"
+														href="https://220.160.52.204/publicweb/PublicWeb_fjzpg/SysQuery/TradeResultListView"
+														target="_blank"
+														title="土地出让结果">
+														土地出让结果
+													</a>
+												</span>
+											
+												<span>
+													<a id="5594827"
+														href="http://zd.zrzyt.fujian.gov.cn/"
+														target="_blank"
+														title="征地信息公开">
+														征地信息公开
+													</a>
+												</span>
+											
+												<span>
+													<a id="5594826"
+														href="http://220.160.53.57:7777/yggh/#/planpublic/pqgs"
+														target="_blank"
+														title="规划公开">
+														规划公开
+													</a>
+												</span>
+											
+										</div>
+									</div>
+								</li>
+								<li><a href="javascript:;">
+										<div class="zdly-nrbox">
+											<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" />
+											</div>
+											<div class="litTit">地质、矿产公开</div>
+										</div>
+									</a>
+									<div class="zdly-xl zdly-xl2">
+										<img src="./images/20201022-xsj.png" class="xsj-dp" alt="" />
+										<div class="padp">
+											
+												<span>
+													<a href="http://220.160.53.56:8088/ygkzxt/f" target="_blank" title="矿业权公开">矿业权公开</a>
+												</span>
+											
+												<span>
+													<a href="http://220.160.53.56:8088/ygkzxt/f/kyqsc.html" target="_blank" title="矿业权市场公示">矿业权市场公示</a>
+												</span>
+											
+												<span>
+													<a href="/zwgk/zdly/dzkc/kyqpggg/" target="_blank" title="矿业权评估公告">矿业权评估公告</a>
+												</span>
+											
+										</div>
+									</div>
+								</li>
+								<li><a href="javascript:;">
+										<div class="zdly-nrbox">
+											<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" />
+											</div>
+											<div class="litTit">测绘地理信息公开</div>
+										</div>
+									</a>
+									<div class="zdly-xl zdly-xl2" style="top:50px;">
+										<img src="./images/20201022-xsj.png" class="xsj-dp" alt="" />
+										<div class="padp">
+											
+												<span>
+													<a href="https://zrzyt.fujian.gov.cn/wsbs/bmfwcx/dtshjgcx/wb.htm" target="_blank" title="地图审核结果查询">地图审核结果查询</a>
+												</span>
+											
+												<span>
+													<a href="/zwgk/zdly/chdlxx/jcchcgfbgg/" target="_blank" title="基础测绘成果发布公告">基础测绘成果发布公告</a>
+												</span>
+											
+												<span>
+													<a href="/zwgk/zdly/chdlxx/chzzscyjgs/" target="_blank" title="测绘资质审查意见公示">测绘资质审查意见公示</a>
+												</span>
+											
+												<span>
+													<a href="/zwgk/zdly/chdlxx/swdwlmchba/" target="_blank" title="省外测绘单位来闽执业备案公告">省外测绘单位来闽执业备案公告</a>
+												</span>
+											
+										</div>
+									</div>
+								</li>
+								<li><a href="javascript:;">
+										<div class="zdly-nrbox">
+											<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" />
+											</div>
+											<div class="litTit">海域海岛公开</div>
+										</div>
+									</a>
+									<div class="zdly-xl zdly-xl2" style="top:50px;">
+										<img src="./images/20201022-xsj.png" class="xsj-dp" alt="" />
+										<div class="padp">
+											
+												<span>
+													<a href="http://zrzyt.fujian.gov.cn/zwgk/zfxxgkzl/zfxxgkml/hygl/index.htm" target="_blank" title="海域审批信息公开">海域审批信息公开</a>
+												</span>
+											
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<em class="yy1"><img src="./images/202142-zrzyt-yy1.png" alt="" /></em>
+				</div>
+				<div class="w50 fr" role="viewlist" des="业务系统">
+					<div class="zdly-box zdly-box1 clearflx rel phone-open">
+						<h5><a href="./wsbs/ywxt/" target="_blank"
+								title="业务系统"><img src="./images/202142-zrzyt-zdlybt2.png" alt="" /></a></h5>
+						<div class="bd">
+							<div class="ywxt_list">
+								
+									<ul class="zdly-ul zdly-ul1 clearflx">
+										
+											<li><a id="5589064"
+													href="https://www.fjyggh.com:7777/yggh/#/"
+													target="_blank"
+													title="福建阳光规划系统">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建阳光规划系统
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5589060"
+													href="http://zd.zrzyt.fujian.gov.cn"
+													target="_blank"
+													title="省级征地信息公开查询">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															省级征地信息公开查询
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5589056"
+													href="https://www.fjsbdcdj.com:9000/fjwwsb/"
+													target="_blank"
+													title="福建省不动产登记网上申请系统">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建省不动产登记网上申请系统
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5589052"
+													href="https://220.160.52.204/publicweb/PublicWeb_fjzpg/Main/Index"
+													target="_blank"
+													title="福建省土地使用权出让管理系统（网上交易模块）">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建省土地使用权出让管理系统（网上交易模块）
+														</div>
+													</div>
+												</a></li>
+										
+									</ul>
+								
+									<ul class="zdly-ul zdly-ul1 clearflx">
+										
+											<li><a id="5589063"
+													href="http://220.160.53.56:8088/ygkzxt/f"
+													target="_blank"
+													title="福建省阳光矿政系统">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建省阳光矿政系统
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5589051"
+													href="http://112.5.189.8:9300/fjdzzh/Business_MvcDzzh/DisasterSiteHomePage/Index"
+													target="_blank"
+													title="福建省地质灾害防治综合管理平台">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建省地质灾害防治综合管理平台
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5589053"
+													href="http://kyqgs.mnr.gov.cn/"
+													target="_blank"
+													title="全国矿业权人勘查开采信息公示系统">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															全国矿业权人勘查开采信息公示系统
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5617281"
+													href="https://fujian.tianditu.gov.cn/"
+													target="_blank"
+													title="天地图·福建">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															天地图·福建
+														</div>
+													</div>
+												</a></li>
+										
+									</ul>
+								
+									<ul class="zdly-ul zdly-ul1 clearflx">
+										
+											<li><a id="5589065"
+													href="http://112.111.2.28:8001"
+													target="_blank"
+													title="福建省自然资源科技管理信息系统">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建省自然资源科技管理信息系统
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5589061"
+													href="https://zrzyt.rcpxpt.com/"
+													target="_blank"
+													title="福建省自然资源网络教育培训平台">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建省自然资源网络教育培训平台
+														</div>
+													</div>
+												</a></li>
+										
+											<li><a id="5589062"
+													href="http://220.160.52.203/Portal/Default.aspx"
+													target="_blank"
+													title="福建省自然资源档案信息公开">
+													<div class="zdly-nrbox">
+														<div class="bsicon"><img src="./images/202142-zrzyt-zdian.png" alt="" /></div>
+														<div class="litTit">
+															福建省自然资源档案信息公开
+														</div>
+													</div>
+												</a></li>
+										
+									</ul>
+								
+							</div>
+						</div>
+						<div class="sx-jt fr hd">
+							<a href="javascript:;" class="prev"><img src="./images/202142-zrzyt-top.png" alt="" /></a>
+							<a href="javascript:;" class="next"><img src="./images/202142-zrzyt-bottom.png" alt="" /></a>
+						</div>
+					</div>
+
+					<em class="yy1"><img src="./images/202142-zrzyt-yy1.png" alt="" /></em>
+				</div>
+			</div>
+			<div class="qh-bt clearflx mar-T25" ms-controller="tabZwgk">
+				<ul class="clearflx">
+					<li class="icon1" ms-mouseover="$tog(0)" ms-class="back2:curr==0">
+						<a href="javascript:;" ms-click="linkTo('./zwgk/', 1 )"
+							ms-dblclick="linkTo('./zwgk/', 2)">
+
+							<h4 ms-class="color1:curr==0">政务公开</h4>
+							<span ms-class="back1:curr==0"><img src="./images/202142-zrzyt-qhbt22.png" alt="" /></span>
+						</a>
+					</li>
+						<li class="icon2" ms-mouseover="$tog(1)" ms-class="back2:curr==1">
+						<a href="javascript:;" ms-click="linkTo('https://zwfw.fujian.gov.cn/province-dept/index?type=2&siteUnid=F3FFE2F69165215C470DE57A2C4A1C53&randomNum=0.6080398193733487', 1 )"
+							ms-dblclick="linkTo('https://zwfw.fujian.gov.cn/province-dept/index?type=2&siteUnid=F3FFE2F69165215C470DE57A2C4A1C53&randomNum=0.6080398193733487', 2)">
+
+							<h4 ms-class="color1:curr==1">办事服务</h4>
+							<span ms-class="back1:curr==1"><img src="./images/202142-zrzyt-qhbt22.png" alt="" /></span>
+						</a>
+					</li>
+					<li class="icon3" ms-mouseover="$tog(2)" ms-class="back2:curr==2">
+						<a href="javascript:;" ms-click="linkTo('./gzcy/', 1 )"
+							ms-dblclick="linkTo('./gzcy/', 2)">
+
+							<h4 ms-class="color1:curr==2">公众参与</h4>
+							<span ms-class="back1:curr==2"><img src="./images/202142-zrzyt-qhbt11.png" alt="" /></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="clearflx zxwj" ms-controller="tabZwgk" role="viewlist">
+
+				<div class="clearflx rel qh-box ">
+
+					<!--政务公开切换-->
+					<div class="clearflx" ms-visible="curr==0">
+						<div class="clearflx">
+							<div class="detNero fl" ms-controller="tabGsgg">
+								<div class="tab tab4 clearflx">
+									<span class="more1">
+										<a href="./zwgk/zxwj/" target="_blank"
+											style="display: none;" ms-if="curr==0"><i class="iconfont"></i></a>
+										<a href="./zwgk/gsgg/" target="_blank"
+											style="display: none;" ms-if="curr==1"><i class="iconfont"></i></a>
+										<a href="./zwgk/zcfg/" target="_blank"
+											style="display: none;" ms-if="curr==2"><i class="iconfont"></i></a>
+										<a href="./zwgk/rsxx/" target="_blank"
+											style="display: none;" ms-if="curr==3"><i class="iconfont"></i></a>
+										<a href="./zwgk/zjxx/" target="_blank"
+											style="display: none;" ms-if="curr==4"><i class="iconfont"></i></a>
+										<a href="./zwgk/ghjh/" target="_blank"
+											style="display: none;" ms-if="curr==5"><i class="iconfont"></i></a>
+										<a href="./zwgk/tjxx/" target="_blank"
+											style="display: none;" ms-if="curr==6"><i class="iconfont"></i></a>
+									</span>
+									<ul class="ind-tit clearflx fl">
+										<li ms-class="on:curr==0" ms-mouseover="$tog(0)">
+											<a href="./zwgk/zxwj/"
+												target="_blank">最新文件</a>
+
+										</li>
+
+										<li ms-class="on:curr==1" ms-mouseover="$tog(1)">
+											<a href="./zwgk/gsgg/"
+												target="_blank">公示公告</a>
+
+										</li>
+
+										<li ms-class="on:curr==2" ms-mouseover="$tog(2)">
+											<a href="./zwgk/zcfg/"
+												target="_blank">政策法规</a>
+
+										</li>
+
+										<li ms-class="on:curr==3" ms-mouseover="$tog(3)">
+											<a href="./zwgk/rsxx/"
+												target="_blank">人事信息</a>
+
+										</li>
+
+										<li ms-class="on:curr==4" ms-mouseover="$tog(4)">
+											<a href="./zwgk/zjxx/"
+												target="_blank">资金信息</a>
+
+										</li>
+
+										<li ms-class="on:curr==5" ms-mouseover="$tog(5)">
+											<a href="./zwgk/ghjh/"
+												target="_blank">规划计划</a>
+
+										</li>
+
+										<li ms-class="on:curr==6" ms-mouseover="$tog(6)">
+											<a href="./zwgk/tjxx/"
+												target="_blank">统计信息</a>
+
+										</li>
+									</ul>
+
+								</div>
+
+								<ul class="list-2" ms-visible="curr==0">
+									
+										<li>
+											<span>
+												2026.09.30
+											</span><i></i>
+											<a href="./zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220873.htm" target="_blank" title="福建省自然资源厅转发自然资源部关于漳浦县朝阳水库工程水库淹没区项目用地土地征收批复的函">福建省自然资源厅转发自然资源部关于漳浦县朝阳水库工程水库淹没区项目用地土地征收批复的函</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.30
+											</span><i></i>
+											<a href="./zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220874.htm" target="_blank" title="福建省自然资源厅转发自然资源部关于国道G228线福安下白石白招至渔江段公路工程建设用地批复的函">福建省自然资源厅转发自然资源部关于国道G228线福安下白石白招至渔江段公路工程建设用地批复的函</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.30
+											</span><i></i>
+											<a href="./zwgk/zfxxgkzl/zfxxgkml/tdgl_19753/202609/t20260930_7220730.htm" target="_blank" title="福建省自然资源厅转发《自然资源部关于福建省漳平抽水蓄能电站项目用地土地征收的批复》的函">福建省自然资源厅转发《自然资源部关于福建省漳平抽水蓄能电站项目用地土地征收的批复》的函</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.30
+											</span><i></i>
+											<a href="./zwgk/zfxxgkzl/zfxxgkml/hygl/202609/t20260930_7220728.htm" target="_blank" title="福建省自然资源厅关于宁德蕉城立业管桩生产及物流码头建设项目填海竣工海域使用验收合格的函">福建省自然资源厅关于宁德蕉城立业管桩生产及物流码头建设项目填海竣工海域使用验收合格的函</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.29
+											</span><i></i>
+											<a href="./zwgk/zfxxgkzl/zfxxgkml/jsxmydsp/202609/t20260929_7220700.htm" target="_blank" title="福建省人民政府关于清流县2026年度第七批次农用地转用和土地征收的批复">福建省人民政府关于清流县2026年度第七批次农用地转用和土地征收的批复</a>
+										</li>
+
+									
+
+								</ul>
+								<ul class="list-2" ms-visible="curr==1" style="display: none;">
+									
+										<li>
+											<span>
+												2021.03.03
+											</span><i></i>
+											<a href="./zwgk/gsgg/201612/t20161220_701397.htm" target="_blank" title="省级海域类不动产登记表格下载">省级海域类不动产登记表格下载</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.10.08
+											</span><i></i>
+											<a href="./zwgk/gsgg/202610/t20261008_7221998.htm" target="_blank" title="低效用地再开发改革试点成果宣传项目单一来源公告">低效用地再开发改革试点成果宣传项目单一来源公告</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.28
+											</span><i></i>
+											<a href="./zwgk/gsgg/202609/t20260928_7219278.htm" target="_blank" title="2026年度开放课题申请指南">2026年度开放课题申请指南</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.28
+											</span><i></i>
+											<a href="./zwgk/gsgg/202609/t20260928_7218966.htm" target="_blank" title="招标公告">招标公告</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.24
+											</span><i></i>
+											<a href="./zwgk/gsgg/202609/t20260924_7217830.htm" target="_blank" title="福建省自然资源厅关于注销福州开睿动力通信科技有限公司等3家单位测绘资质的公告">福建省自然资源厅关于注销福州开睿动力通信科技有限公司等3家单位测绘资质的公告</a>
+										</li>
+
+									
+									<!--<li><span>2021.03.17</span><i></i>
+                                        <a href="#">省级海域类不动产登记表格下载</a>
+                                    </li>-->
+								</ul>
+								<ul class="list-2" ms-visible="curr==2" style="display: none;">
+									
+										<li>
+											<span>
+												2026.09.30
+											</span><i></i>
+											<a href="./zwgk/zcfg/zrzybwj/202609/t20260930_7220257.htm" target="_blank" title="自然资源部 国家林业和草原局关于支持服务业优质高效发展的通知">自然资源部 国家林业和草原局关于支持服务业优质高效发展的通知</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.08.31
+											</span><i></i>
+											<a href="./zwgk/zcfg/flfg/202608/t20260831_7206940.htm" target="_blank" title="中华人民共和国耕地保护和质量提升法">中华人民共和国耕地保护和质量提升法</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.08.17
+											</span><i></i>
+											<a href="./zwgk/zcfg/szfwj/202608/t20260817_7200699.htm" target="_blank" title="福建省人民代表大会常务委员会关于修改《福建省科学技术普及条例》等五项地方性法规的决定">福建省人民代表大会常务委员会关于修改《福建省科学技术普及条例》等五项地方性法规的决定</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.08.17
+											</span><i></i>
+											<a href="./zwgk/zcfg/szfwj/202608/t20260817_7200683.htm" target="_blank" title="福建省人民代表大会常务委员会关于修改《福建省生态环境保护条例》等十五项地方性法规的决定">福建省人民代表大会常务委员会关于修改《福建省生态环境保护条例》等十五项地方性法规的决定</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.05.21
+											</span><i></i>
+											<a href="./zwgk/zcfg/flfg/202605/t20260521_7150370.htm" target="_blank" title="中华人民共和国矿产资源法实施条例">中华人民共和国矿产资源法实施条例</a>
+										</li>
+
+									
+									<!--<li><span>2021.03.17</span><i></i>
+                                        <a href="#">省级海域类不动产登记表格下载</a>
+                                    </li>-->
+								</ul>
+								<ul class="list-2" ms-visible="curr==3" style="display: none;">
+									
+										<li>
+											<span>
+												2026.09.21
+											</span><i></i>
+											<a href="./zwgk/rsxx/202609/t20260921_7216399.htm" target="_blank" title="关于2025年度福建省工程系列自然资源专业中级职称评审结果的公示">关于2025年度福建省工程系列自然资源专业中级职称评审结果的公示</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.08.12
+											</span><i></i>
+											<a href="./zwgk/rsxx/202608/t20260812_7198767.htm" target="_blank" title="关于2025年度福建省工程系列自然资源专业初级职称评审结果的公示">关于2025年度福建省工程系列自然资源专业初级职称评审结果的公示</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.07.17
+											</span><i></i>
+											<a href="./zwgk/rsxx/202607/t20260717_7179264.htm" target="_blank" title="关于《2026年福建省省属事业单位公开招聘工作人员方案》拟聘人员的公示（一）">关于《2026年福建省省属事业单位公开招聘工作人员方案》拟聘人员的公示（一）</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.06.09
+											</span><i></i>
+											<a href="./zwgk/rsxx/202606/t20260609_7160986.htm" target="_blank" title="2026年度注册城乡规划师职业资格考试报考简章">2026年度注册城乡规划师职业资格考试报考简章</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.04.20
+											</span><i></i>
+											<a href="./zwgk/rsxx/202604/t20260420_7126839.htm" target="_blank" title="福建省自然资源厅职称改革领导小组 福建省职称改革工作办公室关于开展2025年度福建省工程系列自然资源专业高级职称评审工作的通知">福建省自然资源厅职称改革领导小组 福建省职称改革工作办公室关于开展2025年度福建省工程系列自然资源专业高级职称评审工作的通知</a>
+										</li>
+
+									
+
+								</ul>
+								<ul class="list-2" ms-visible="curr==4" style="display: none;">
+									
+										<li>
+											<span>
+												2026.10.08
+											</span><i></i>
+											<a href="./zwgk/zjxx/zfcg/202610/t20261008_7221998.htm" target="_blank" title="低效用地再开发改革试点成果宣传项目单一来源公告">低效用地再开发改革试点成果宣传项目单一来源公告</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.28
+											</span><i></i>
+											<a href="./zwgk/zjxx/zfcg/202609/t20260928_7218966.htm" target="_blank" title="招标公告">招标公告</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.23
+											</span><i></i>
+											<a href="./zwgk/zjxx/zfcg/202609/t20260923_7217479.htm" target="_blank" title="法律顾问服务流标公告">法律顾问服务流标公告</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.22
+											</span><i></i>
+											<a href="./zwgk/zjxx/zfcg/202609/t20260922_7216859.htm" target="_blank" title="低效用地再开发改革试点成果宣传项目实行单一来源采购方式的公示">低效用地再开发改革试点成果宣传项目实行单一来源采购方式的公示</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.09.07
+											</span><i></i>
+											<a href="./zwgk/zjxx/czyjs/202609/t20260907_7209967.htm" target="_blank" title="2025年度福建省自然资源地理信息中心单位决算">2025年度福建省自然资源地理信息中心单位决算</a>
+										</li>
+
+									
+									<!--<li><span>2021.03.17</span><i></i>
+                                        <a href="#">省级海域类不动产登记表格下载</a>
+                                    </li>-->
+								</ul>
+								<ul class="list-2" ms-visible="curr==5" style="display: none;">
+									
+										<li>
+											<span>
+												2026.07.15
+											</span><i></i>
+											<a href="./zwgk/ghjh/lsgh/qtzxgh/202607/t20260715_7178514.htm" target="_blank" title="福建省人民政府关于印发《福建省“十五五”自然资源保护利用规划》的通知">福建省人民政府关于印发《福建省“十五五”自然资源保护利用规划》的通知</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.07.15
+											</span><i></i>
+											<a href="./zwgk/ghjh/lsgh/qtzxgh/202607/t20260715_7178513.htm" target="_blank" title="政策解读丨《福建省“十五五”自然资源保护利用规划》">政策解读丨《福建省“十五五”自然资源保护利用规划》</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.04.17
+											</span><i></i>
+											<a href="./zwgk/zfxxgkzl/zfxxgkml/dzhjgl_19787/202604/t20260417_7125906.htm" target="_blank" title="福建省自然资源厅等六部门关于印发《福建省2026年地质灾害防治方案》的通知">福建省自然资源厅等六部门关于印发《福建省2026年地质灾害防治方案》的通知</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.03.03
+											</span><i></i>
+											<a href="./zwgk/ghjh/jhzj/202603/t20260303_7104261.htm" target="_blank" title="2025年度法治政府建设情况报告">2025年度法治政府建设情况报告</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.02.24
+											</span><i></i>
+											<a href="./zwgk/ghjh/jhzj/202602/t20260224_7099900.htm" target="_blank" title="回眸“十四五” | 我省测绘地理信息建设成效显著">回眸“十四五” | 我省测绘地理信息建设成效显著</a>
+										</li>
+
+									
+									<!--<li><span>2021.03.17</span><i></i>
+                                        <a href="#">省级海域类不动产登记表格下载</a>
+                                    </li>-->
+								</ul>
+								<ul class="list-2" ms-visible="curr==6" style="display: none;">
+									
+										<li>
+											<span>
+												2026.07.23
+											</span><i></i>
+											<a href="./zwgk/tjxx/hygltj/202607/t20260723_7191505.htm" target="_blank" title="2026年4-6月全省用海审批数据统计">2026年4-6月全省用海审批数据统计</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.07.09
+											</span><i></i>
+											<a href="./zwgk/tjxx/tdghgltj/202607/t20260709_7176145.htm" target="_blank" title="2026年二季度保障性住房供应情况">2026年二季度保障性住房供应情况</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.07.09
+											</span><i></i>
+											<a href="./zwgk/tjxx/dzkcgltj/202607/t20260709_7176107.htm" target="_blank" title="2026年第二季度全省矿业权许可审批统计报表">2026年第二季度全省矿业权许可审批统计报表</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.07.09
+											</span><i></i>
+											<a href="./zwgk/tjxx/dzkcgltj/202607/t20260709_7176105.htm" target="_blank" title="2026年第二季度全省矿业权登记审批统计报表">2026年第二季度全省矿业权登记审批统计报表</a>
+										</li>
+
+									
+										<li>
+											<span>
+												2026.07.02
+											</span><i></i>
+											<a href="./zwgk/gsgg/202607/t20260703_7171007.htm" target="_blank" title="2026年第二季度审图号公示">2026年第二季度审图号公示</a>
+										</li>
+
+									
+									<!--<li><span>2021.03.17</span><i></i>
+                                        <a href="#">省级海域类不动产登记表格下载</a>
+                                    </li>-->
+								</ul>
+							</div>
+							<ul class="zcjd-ul clearflx fr">
+								<li class="icon1">
+									<a href="./zwgk/zcjd/" target="_blank">
+
+										<p>解读回应</p>
+									</a>
+								</li>
+								<li class="icon2">
+									<a href="./zwgk/xzqlyx/" target="_blank">
+										<p>行政权力运行</p>
+									</a>
+								</li>
+								<li class="icon3">
+									<a href="https://data.fujian.gov.cn/oportal/catalog/index?filterParam=org_code&filterParamCode=11350000003899162L&page=1&from=index"
+										target="_blank">
+										<p>数据开放</p>
+									</a>
+								</li>
+								<li class="icon4">
+									<a href="./zwgk/zfxxgkzl/zc/gfxwjk/" target="_blank">
+										<p>政策文件库</p>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<ul class="zfxx-ul clearflx">
+							<li>
+								<a href="./zwgk/zfxxgkzl/zfxxgkzn/" target="_blank">
+									<span><img src="./images/202142-zrzyt-zfxxicon1.png" alt="" /></span>
+									<p>政府信息公开指南</p>
+								</a>
+							</li>
+							<li>
+								<a href="./zwgk/zfxxgkzl/zfxxgkzdgd/" target="_blank">
+									<span><img src="./images/202142-zrzyt-zfxxicon2.png" alt="" /></span>
+									<p>政府信息公开制度</p>
+								</a>
+							</li>
+							<li>
+								<a href="./zwgk/zfxxgkzl/zfxxgkml/" target="_blank">
+									<span><img src="./images/202142-zrzyt-zfxxicon3.png" alt="" /></span>
+									<p>法定主动公开内容</p>
+								</a>
+							</li>
+							<li>
+								<a href="./zwgk/zfxxgkzl/zfxxgkndbg/" target="_blank">
+									<span><img src="./images/202142-zrzyt-zfxxicon4.png" alt="" /></span>
+									<p>政府信息公开年报</p>
+								</a>
+							</li>
+							<li>
+								<a href="./zwgk/zfxxgkzl/ysqgk/" target="_blank">
+									<span><img src="./images/202142-zrzyt-zfxxicon5.png" alt="" /></span>
+									<p>政府信息公开申请</p>
+								</a>
+							</li>
+						</ul>
+
+					</div>
+					<!--网上办事切换-->
+					<div class="clearflx" style="display:none;" ms-visible="curr==1">
+						<div class="wsbs-icon">
+							<ul class="clearflx">
+								<li class="icon1">
+									<a href="./wsbs/tdgh/" target="_blank">
+										<h4>土地、规划管理</h4>
+										<span><img src="./images/202142-zrzyt-wsbstp1.png" alt="" /></span>
+									</a>
+								</li>
+								<li class="icon2">
+									<a href="./wsbs/dzkc/" target="_blank">
+										<h4>地质、矿产管理</h4>
+										<span><img src="./images/202142-zrzyt-wsbstp2.png" alt="" /></span>
+									</a>
+								</li>
+								<li class="icon3">
+									<a href="./wsbs/chdlxx/" target="_blank">
+										<h4>测绘地理信息管理</h4>
+										<span><img src="./images/202142-zrzyt-wsbstp3.png" alt="" /></span>
+									</a>
+								</li>
+								<li class="icon4">
+									<a href="./wsbs/hyhd/" target="_blank">
+										<h4>海域海岛管理</h4>
+										<span><img src="./images/202142-zrzyt-wsbstp4.png" alt="" /></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="clearflx">
+							<div class="wsbs-icon2 fl">
+								<ul class="clearflx">
+									<li>
+										<a href="http://zwfw.fujian.gov.cn/province-dept/index?type=2&siteUnid=F3FFE2F69165215C470DE57A2C4A1C53"
+											target="_blank">
+											<span><img src="./images/202142-zrzyt-wsbsicon1.png" alt="" /></span>
+											<p>福建省网上办事大厅<br>省自然资源厅分厅</p>
+										</a>
+									</li>
+									<li>
+										<a href="http://www.fujian.gov.cn/bsfw/bmfw/" target="_blank">
+											<span><img src="./images/202142-zrzyt-wsbsicon2.png" alt="" /></span>
+											<p>福建省便民服务大厅</p>
+										</a>
+									</li>
+									<li>
+										<a href="/zwgk/xzqlyx/xzqlqd/202012/t20201202_5470533.htm " target="_blank">
+											<span><img src="./images/202142-zrzyt-wsbsicon3.png" alt="" /></span>
+											<p>便民服务事项清单</p>
+										</a>
+									</li>
+									<li>
+										<a href="http://zwfw.fujian.gov.cn/listopen/power-list/index?paramsType=qzqd"
+											target="_blank">
+											<span><img src="./images/202142-zrzyt-wsbsicon4.png" alt="" /></span>
+											<p>权责清单</p>
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div class="wsbs-icon3 fr">
+								<ul class="clearflx">
+									<li>
+										<a href="https://zwfw.fujian.gov.cn/nloginIn?contType=3" target="_blank">
+											<img src="./images/202142-zrzyt-bsjd.png" alt="" />
+											<p>办事进度查询</p>
+											<i></i>
+										</a>
+									</li>
+									<li>
+										<a href="./wsbs/bgxz/" target="_blank">
+											<img src="./images/202142-zrzyt-zlxz.png" alt="" />
+											<p>资料下载</p>
+											<i></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+					<!--公众参与切换-->
+					<div class="gzcy clearflx" style="display:none" ms-visible="curr==2">
+						<div class="gzcy-left fl clearflx">
+							<div class="rel clearflx">
+								<div class="xx-box clearflx">
+
+									<ul class="clearflx">
+										<li class="">
+											<a href="./gzcy/zrzyxx/wyxx/" target="_blank">
+												<span class="sp2"></span>
+												<p class="fl">我要写信</p>
+											</a>
+										</li>
+										<li>
+											<a href="./gzcy/zrzyxx/" target="_blank">
+												<span class="sp2"></span>
+												<p class="fl">回复选登</p>
+											</a>
+										</li>
+										<li>
+											<a href="./gzcy/zrzyxx/" target="_blank">
+												<span class="sp3"></span>
+												<p class="fl">结果查询</p>
+											</a>
+										</li>
+										<li>
+											<a href="./gzcy/zrzyxx/" target="_blank">
+												<span class="sp4"></span>
+												<p class="fl">来信统计</p>
+											</a>
+										</li>
+                                        <li class="add">
+											<a href="https://12345.fujian.gov.cn/" target="_blank">
+												<span class="sp5"></span>
+												<p class="fl">12345便民服务平台</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="xjxd-box" ms-controller="gtxx">
+								<h4><a href="./gzcy/zrzyxx/" target="_blank">信件选登</a></h4>
+								<ul class="list-2 xjxd-ul">
+									<li ms-repeat="list" ms-if-loop="$index<4">
+										<span class="time" ms-text="el.postTime|date('yyyy.MM.dd')"></span><i></i>
+										<a ms-attr-href="'./gzcy/zrzyxx/detail.htm?id='+el.letterId"
+											ms-attr-title="el.title" target="_blank" ms-text="el.title"></a>
+									</li>
+
+								</ul>
+							</div>
+
+						</div>
+						<div class="gzcy-right fr">
+							<div class="yjzj1">
+								<div class="clearflx  zixu">
+									<h5 class="h5 fl"><a href="./gzcy/zxft/"
+											target="_blank">在线访谈</a></h5>
+									<div class="fr lian">
+										<!-- <a href="" target="_blank"> 下期预告 </a>| -->
+
+										<a href="./gzcy/zxft/wqft/" target="_blank"> 往期回顾 </a>|
+										<a href="./gzcy/zxft/zqyg/" target="_blank"> 长期预告 </a>
+									</div>
+								</div>
+								<div class="clearflx mar-T10">
+									<div class="zxft fl">
+										<a href="./gzcy/zxft/wqft/" target="_blank"><img src="./images/202142-zrzyt-zxfttp.png" alt="" /></a>
+									</div>
+									<div class="ftNero fr">
+										
+											<h4>
+												<a href="./gzcy/zxft/wqft/202607/t20260716_7178699.htm" target="_blank" title="《福建省“十五五”自然资源保护利用规划》">《福建省“十五五”自然资源保护利用规划》</a>
+											</h4>
+											<p class="lh"> 时间：
+												2026年07月16日 10时
+												</trs_document>
+											</p>
+											<p class="lh">嘉宾：
+												福建省自然资源厅综合处处长陈圆锋
+											</p>
+											<p class="zy"><span>摘要：</span>
+												2026年7月16日（星期四）10时，福建省自然资源厅综合处陈圆锋处长接受福建省自然资源厅网站专访，就“《福建省“十...
+											</p>
+										
+
+									</div>
+								</div>
+							</div>
+							<ul class="gzcy-ul clearflx">
+								<li class="icon1">
+									<a href="./gzcy/yjzj/" target="_blank">
+										<span><img src="./images/202142-zrzyt-gzcybicon1.png" alt="" /></span>
+										<p>意见征集</p>
+									</a>
+								</li>
+								<li class="icon2">
+									<a href="./gzcy/wsdc/" target="_blank">
+										<span><img src="./images/202142-zrzyt-gzcybicon2.png" alt="" /></span>
+										<p>网上调查</p>
+									</a>
+								</li>
+								<li class="icon3">
+									<a href="http://www.fujian.gov.cn/hdjl/hdjlzsk/" target="_blank">
+										<span><img src="./images/202142-zrzyt-gzcybicon3.png" alt="" /></span>
+										<p>互动交流知识库</p>
+									</a>
+								</li>
+								<li class="icon4">
+									<a href="https://zrzyt.fujian.gov.cn/isr/znwd/index.html?siteId=ff8080816e59baf3016e5e6dcbbc3f25"
+										target="_blank">
+										<span><img src="./images/202142-zrzyt-gzcybicon4.png" alt="" /></span>
+										<p>智能问答</p>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+				<em class="yy"><img src="./images/202142-zrzyt-yy2.png" alt="" /></em>
+			</div>
+			<div class="ztzl-box clearflx" role="viewlist" des="专题专栏">
+				<!--专题专栏左边轮播-->
+				<div class="ztzl-left fl rel" id="focusBox">
+					<div class="bd">
+						<ul>
+							
+								<li>
+									<a target="_blank" href="/ztzl/slhjxzqzjgxxjy/"
+										title="树立和践行正确政绩观学习教育">
+										<img src='./qt/tjzt/chang/202603/W020260323582998009864.png' thumb="" alt="树立和践行正确政绩观学习教育" />
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="http://zrzyt.fujian.gov.cn/ztzl/sxzygwzxsqzx/"
+										title="深学争优敢为争先实干争效">
+										<img src='./qt/tjzt/chang/202408/W020240809322320694998.png' thumb="" alt="深学争优敢为争先实干争效" />
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="http://zrzyt.fujian.gov.cn/ztzl/djjg/"
+										title="机关党建">
+										<img src='./qt/tjzt/chang/202206/W020220630330559878533.png' thumb="" alt="机关党建" />
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="/ztzl/jswmjsa/"
+										title="精神文明建设">
+										<img src='./ztzl/202105/W020210514563432821175.png' thumb="" alt="精神文明建设" />
+									</a>
+								</li>
+							
+						</ul>
+					</div>
+					<div class="txt-bg"></div>
+					<ul class="num"></ul>
+					<a class="prev" style="display:none;" href="javascript:void(0)"></a>
+					<a class="next" style="display:none;" href="javascript:void(0)"></a>
+					<a class="playState" style="display:none;" href="javascript:void(0)"></a>
+				</div>
+				<!--专题专栏右边轮播-->
+				<div class="ztzl-right fr rel picMarquee-left">
+					<a class="left-jt prev" href="javascript:;"><img src="./images/202142-zrzyt-ztleft.png" alt="" /></a>
+					<a class="right-jt next" href="javascript:;"><img src="./images/202142-zrzyt-ztright.png" alt="" /></a>
+					<ul class="clearflx bd">
+						
+							<li>
+								<a target="_blank" href="/ztzl/zkcgfbzl/"
+									title="找矿成果发布专栏"><img src='./ztzl/202604/W020260429400221519232.png' thumb="" alt="找矿成果发布专栏" /></a>
+							</li>
+						
+							<li>
+								<a target="_blank" href="/ztzl/yhyshjhqjycs/"
+									title="优化营商环境获取经营场所"><img src='./ztzl/202412/W020241212348493512540.png' thumb="" alt="优化营商环境获取经营场所" /></a>
+							</li>
+						
+							<li>
+								<a target="_blank" href="/gzcy/zrzyxx/wyxx/"
+									title="我为不动产登记提建议"><img src='./qt/tjzt/xiao/202104/W020241024300505610771.png' thumb="" alt="我为不动产登记提建议" /></a>
+							</li>
+						
+							<li>
+								<a target="_blank" href="/gzcy/zrzyxx/jbxx.htm"
+									title="耕地“非农化”问题举报信箱"><img src='./qt/tjzt/xiao/202105/W020211027367635021632.png' thumb="" alt="耕地“非农化”问题举报信箱" /></a>
+							</li>
+						
+							<li>
+								<a target="_blank" href="/qt/zszrzytjcjc/"
+									title="驻省自然资源厅纪检监察组信访举报"><img src='./qt/tjzt/xiao/202108/W020210809414848616589.jpg' thumb="" alt="驻省自然资源厅纪检监察组信访举报" /></a>
+							</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="carousel" id="img_float">
+			<div class="carousel-close" onclick="document.getElementById('img_float').style.display='none'"></div>
+			<a href="http://zrzyt.fujian.gov.cn/zwgk/rsxx/zkzp/202404/t20240403_6424270.htm" title="福建省自然资源厅直属事业单位公开招聘这些岗位，快来关注吧！" target="_blank">
+				<div class="carousel-inner">
+					<div class="carousel-ext">
+						<div class="el-carousel el-carousel--horizontal">
+							<div>
+								<img src="./images/20240409tp.png" />
+							</div>
+						</div>
+					</div>
+					<div class="carousel-title tree-label">福建省自然资源厅直属事业单位公开招聘这些岗位，快来关注吧！</div>
+					<div class="carousel-detail">查看详情</div>
+				</div>
+			</a>
+		</div> -->
+
+		<!--底部嵌套开始-->
+		<!-- 底部嵌套 -->
+<div id="footer_2021">
+    <div class="pho-foot_2021">
+        <div class="xzk_2021">
+            <ul>
+                <li>
+                    <p>省政府部门</p>
+                    <div class="mark_2021" style="display: none">
+                        <div class="dialog_2021">
+                            <ul>
+                                
+                                    <li><a href="http://fgw.fujian.gov.cn/" target="_blank" title="省发改委">省发改委</a></li>
+                                
+                                    <li><a href="http://jyt.fujian.gov.cn/" target="_blank" title="省教育厅">省教育厅</a></li>
+                                
+                                    <li><a href="http://kjt.fujian.gov.cn/" target="_blank" title="省科技厅">省科技厅</a></li>
+                                
+                                    <li><a href="http://gxt.fujian.gov.cn/" target="_blank" title="省工信厅">省工信厅</a></li>
+                                
+                                    <li><a href="http://mzzjt.fujian.gov.cn/" target="_blank" title="省民族宗教厅">省民族宗教厅</a></li>
+                                
+                                    <li><a href="http://gat.fujian.gov.cn/" target="_blank" title="省公安厅">省公安厅</a></li>
+                                
+                                    <li><a href="http://mzt.fujian.gov.cn/" target="_blank" title="省民政厅">省民政厅</a></li>
+                                
+                                    <li><a href="http://sft.fujian.gov.cn/" target="_blank" title="省司法厅">省司法厅</a></li>
+                                
+                                    <li><a href="http://czt.fujian.gov.cn/" target="_blank" title="省财政厅">省财政厅</a></li>
+                                
+                                    <li><a href="http://rst.fujian.gov.cn" target="_blank" title="省人社厅">省人社厅</a></li>
+                                
+                                    <li><a href="http://sthjt.fujian.gov.cn/" target="_blank" title="省生态环境厅">省生态环境厅</a></li>
+                                
+                                    <li><a href="http://zjt.fujian.gov.cn/" target="_blank" title="省住建厅">省住建厅</a></li>
+                                
+                                    <li><a href="http://jtyst.fujian.gov.cn/" target="_blank" title="省交通运输厅">省交通运输厅</a></li>
+                                
+                                    <li><a href="http://slt.fujian.gov.cn/" target="_blank" title="省水利厅">省水利厅</a></li>
+                                
+                                    <li><a href="http://nynct.fujian.gov.cn/" target="_blank" title="省农业农村厅">省农业农村厅</a></li>
+                                
+                                    <li><a href="http://swt.fujian.gov.cn/" target="_blank" title="省商务厅">省商务厅</a></li>
+                                
+                                    <li><a href="http://wlt.fujian.gov.cn/" target="_blank" title="省文旅厅">省文旅厅</a></li>
+                                
+                                    <li><a href="http://wjw.fujian.gov.cn/" target="_blank" title="省卫健委">省卫健委</a></li>
+                                
+                                    <li><a href="http://tyjrswt.fujian.gov.cn/" target="_blank" title="省退役军人厅">省退役军人厅</a></li>
+                                
+                                    <li><a href="http://yjt.fujian.gov.cn/" target="_blank" title="省应急厅">省应急厅</a></li>
+                                
+                                    <li><a href="http://sjt.fujian.gov.cn/" target="_blank" title="省审计厅">省审计厅</a></li>
+                                
+                                    <li><a href="http://wb.fujian.gov.cn/" target="_blank" title="省外办">省外办</a></li>
+                                
+                                    <li><a href="http://gzw.fujian.gov.cn/" target="_blank" title="省国资委">省国资委</a></li>
+                                
+                                    <li><a href="http://lyj.fujian.gov.cn/" target="_blank" title="省林业局">省林业局</a></li>
+                                
+                                    <li><a href="http://hyyyj.fujian.gov.cn/" target="_blank" title="省海洋渔业局">省海洋渔业局</a></li>
+                                
+                                    <li><a href="http://scjgj.fujian.gov.cn/" target="_blank" title="省市场监管局">省市场监管局</a></li>
+                                
+                                    <li><a href="http://gdj.fujian.gov.cn/" target="_blank" title="省广电局">省广电局</a></li>
+                                
+                                    <li><a href="http://tyj.fujian.gov.cn/" target="_blank" title="省体育局">省体育局</a></li>
+                                
+                                    <li><a href="http://tjj.fujian.gov.cn/" target="_blank" title="省统计局">省统计局</a></li>
+                                
+                                    <li><a href="http://gdb.fujian.gov.cn/" target="_blank" title="省人防办">省人防办</a></li>
+                                
+                                    <li><a href="http://ybj.fujian.gov.cn" target="_blank" title="省医保局">省医保局</a></li>
+                                
+                                    <li><a href="http://jrb.fujian.gov.cn/" target="_blank" title="省金融监管局">省金融监管局</a></li>
+                                
+                                    <li><a href="http://xfj.fujian.gov.cn/" target="_blank" title="省信访局">省信访局</a></li>
+                                
+                                    <li><a href="http://jgswglj.fujian.gov.cn/" target="_blank" title="省机关管理局">省机关管理局</a></li>
+                                
+                                    <li><a href="http://fgw.fujian.gov.cn/ztzl/szfjzt/" target="_blank" title="省数字办">省数字办</a></li>
+                                
+                                    <li><a href="http://lsj.fujian.gov.cn/" target="_blank" title="省粮储局">省粮储局</a></li>
+                                
+                                    <li><a href="http://jyj.sft.fujian.gov.cn/" target="_blank" title="省监狱管理局">省监狱管理局</a></li>
+                                
+                                    <li><a href="http://wwj.wlt.fujian.gov.cn/" target="_blank" title="省文物局">省文物局</a></li>
+                                
+                                    <li><a href="http://yjj.scjgj.fujian.gov.cn" target="_blank" title="省药监局">省药监局</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <p>省级自然资源主管部门</p>
+                    <div class="mark_2021" style="display: none">
+                        <div class="dialog_2021">
+                            <ul>
+                                
+                                    <li><a href="http://ghzrzyw.beijing.gov.cn/" target="_blank" title="北京市规划和自然资源委员会">北京市规划和自然资源委员会</a></li>
+                                
+                                    <li><a href="http://ghzyj.sh.gov.cn/" target="_blank" title="上海市规划和自然资源局">上海市规划和自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyt.xinjiang.gov.cn/" target="_blank" title="新疆维吾尔自治区自然资源厅">新疆维吾尔自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.nx.gov.cn/" target="_blank" title="宁夏回族自治区自然资源厅">宁夏回族自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.qinghai.gov.cn/index" target="_blank" title="青海省自然资源厅">青海省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.gansu.gov.cn/" target="_blank" title="甘肃省自然资源厅">甘肃省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.xizang.gov.cn/" target="_blank" title="西藏自治区自然资源厅">西藏自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.yn.gov.cn/" target="_blank" title="云南省自然资源厅">云南省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.guizhou.gov.cn/" target="_blank" title="贵州省自然资源厅">贵州省自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.sc.gov.cn/" target="_blank" title="四川省自然资源厅">四川省自然资源厅</a></li>
+                                
+                                    <li><a href="http://ghzrzyj.cq.gov.cn/" target="_blank" title="重庆市规划和自然资源局">重庆市规划和自然资源局</a></li>
+                                
+                                    <li><a href="http://dnr.gxzf.gov.cn/" target="_blank" title="广西壮族自治区自然资源厅">广西壮族自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://lr.hainan.gov.cn/" target="_blank" title="海南省自然资源和规划厅">海南省自然资源和规划厅</a></li>
+                                
+                                    <li><a href="http://nr.gd.gov.cn/" target="_blank" title="广东省自然资源厅">广东省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.hunan.gov.cn/" target="_blank" title="湖南省自然资源厅">湖南省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.hubei.gov.cn/html/index.html" target="_blank" title="湖北省自然资源厅">湖北省自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.henan.gov.cn/" target="_blank" title="河南省自然资源厅">河南省自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.shandong.gov.cn/" target="_blank" title="山东省自然资源厅">山东省自然资源厅</a></li>
+                                
+                                    <li><a href="http://bnr.jiangxi.gov.cn/" target="_blank" title="江西省自然资源厅">江西省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.ah.gov.cn/" target="_blank" title="安徽省自然资源厅">安徽省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.zj.gov.cn/" target="_blank" title="浙江省自然资源厅">浙江省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.jiangsu.gov.cn/" target="_blank" title="江苏省自然资源厅">江苏省自然资源厅</a></li>
+                                
+                                    <li><a href="https://www.hlj.gov.cn/" target="_blank" title="黑龙江省自然资源厅">黑龙江省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.jl.gov.cn/" target="_blank" title="吉林省自然资源厅">吉林省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.ln.gov.cn/" target="_blank" title="辽宁省自然资源厅">辽宁省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.nmg.gov.cn/" target="_blank" title="内蒙古自治区自然资源厅">内蒙古自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.shanxi.gov.cn/" target="_blank" title="山西省自然资源厅">山西省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.hebei.gov.cn/" target="_blank" title="河北省自然资源厅">河北省自然资源厅</a></li>
+                                
+                                    <li><a href="http://ghhzrzy.tj.gov.cn" target="_blank" title="天津市规划和自然资源局">天津市规划和自然资源局</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <p>市级自然资源主管部门</p>
+                    <div class="mark_2021" style="display: none">
+                        <div class="dialog_2021">
+                            <ul>
+                                
+                                    <li><a href="http://zygh.fuzhou.gov.cn/" target="_blank" title="福州市自然资源和规划局">福州市自然资源和规划局</a></li>
+                                
+                                    <li><a href="http://zygh.xm.gov.cn/" target="_blank" title="厦门市自然资源和规划局">厦门市自然资源和规划局</a></li>
+                                
+                                    <li><a href="http://zrzyj.zhangzhou.gov.cn/" target="_blank" title="漳州市自然资源局">漳州市自然资源局</a></li>
+                                
+                                    <li><a href="http://zyghj.quanzhou.gov.cn/" target="_blank" title="泉州市自然资源和规划局">泉州市自然资源和规划局</a></li>
+                                
+                                    <li><a href="http://zrzyj.sm.gov.cn/" target="_blank" title="三明市自然资源局">三明市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.putian.gov.cn/" target="_blank" title="莆田市自然资源局">莆田市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.np.gov.cn/" target="_blank" title="南平市自然资源局">南平市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.longyan.gov.cn/" target="_blank" title="龙岩市自然资源局">龙岩市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.ningde.gov.cn/" target="_blank" title="宁德市自然资源局">宁德市自然资源局</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                   <li>
+                    <p>其他</p>
+                    <div class="mark_2021" style="display: none">
+                        <div class="dialog_2021">
+                            <ul>
+                                
+                                    <li><a href="http://www.fjch.org.cn/" target="_blank" title="省测绘地理信息发展中心">省测绘地理信息发展中心</a></li>
+                                
+                                    <li><a href="http://www.fjland.cn" target="_blank" title="省土地估价与不动产登记代理行业协会">省土地估价与不动产登记代理行业协会</a></li>
+                                
+                                    <li><a href="http://www.landchina.com/" target="_blank" title="中国土地市场网">中国土地市场网</a></li>
+                                
+                                    <li><a href="http://www.people.com.cn/" target="_blank" title="人民日报">人民日报</a></li>
+                                
+                                    <li><a href="http://www.iziran.net/" target="_blank" title="中国自然资源报网">中国自然资源报网</a></li>
+                                
+                                    <li><a href="http://www.fjsen.com/" target="_blank" title="东南网">东南网</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="yqlj_con_2021" style="padding-top:6px;" role="navigation" des="网站链接">
+<div class="yqlj_tit w_1300_2021" style="padding-top:0px;margin:0 auto;padding-bottom:15px">
+    
+              <a href="http://www.hxzyb.com/" target="_blank" title="海峡资源报" class="fjyx" style="display: inline;">海峡资源报</a>
+ </div>
+        <div class="w_1300_2021 rel_2021">
+            <div class="yqlj_tit1_2021">
+                <ul>
+                    <li>
+                        <p>省政府部门<em></em><i></i></p>
+                        <div class="yqlj_con1_2021">
+                            <ul>
+                                
+                                    <li><a href="http://fgw.fujian.gov.cn/" target="_blank" title="省发改委">省发改委</a></li>
+                                
+                                    <li><a href="http://jyt.fujian.gov.cn/" target="_blank" title="省教育厅">省教育厅</a></li>
+                                
+                                    <li><a href="http://kjt.fujian.gov.cn/" target="_blank" title="省科技厅">省科技厅</a></li>
+                                
+                                    <li><a href="http://gxt.fujian.gov.cn/" target="_blank" title="省工信厅">省工信厅</a></li>
+                                
+                                    <li><a href="http://mzzjt.fujian.gov.cn/" target="_blank" title="省民族宗教厅">省民族宗教厅</a></li>
+                                
+                                    <li><a href="http://gat.fujian.gov.cn/" target="_blank" title="省公安厅">省公安厅</a></li>
+                                
+                                    <li><a href="http://mzt.fujian.gov.cn/" target="_blank" title="省民政厅">省民政厅</a></li>
+                                
+                                    <li><a href="http://sft.fujian.gov.cn/" target="_blank" title="省司法厅">省司法厅</a></li>
+                                
+                                    <li><a href="http://czt.fujian.gov.cn/" target="_blank" title="省财政厅">省财政厅</a></li>
+                                
+                                    <li><a href="http://rst.fujian.gov.cn" target="_blank" title="省人社厅">省人社厅</a></li>
+                                
+                                    <li><a href="http://sthjt.fujian.gov.cn/" target="_blank" title="省生态环境厅">省生态环境厅</a></li>
+                                
+                                    <li><a href="http://zjt.fujian.gov.cn/" target="_blank" title="省住建厅">省住建厅</a></li>
+                                
+                                    <li><a href="http://jtyst.fujian.gov.cn/" target="_blank" title="省交通运输厅">省交通运输厅</a></li>
+                                
+                                    <li><a href="http://slt.fujian.gov.cn/" target="_blank" title="省水利厅">省水利厅</a></li>
+                                
+                                    <li><a href="http://nynct.fujian.gov.cn/" target="_blank" title="省农业农村厅">省农业农村厅</a></li>
+                                
+                                    <li><a href="http://swt.fujian.gov.cn/" target="_blank" title="省商务厅">省商务厅</a></li>
+                                
+                                    <li><a href="http://wlt.fujian.gov.cn/" target="_blank" title="省文旅厅">省文旅厅</a></li>
+                                
+                                    <li><a href="http://wjw.fujian.gov.cn/" target="_blank" title="省卫健委">省卫健委</a></li>
+                                
+                                    <li><a href="http://tyjrswt.fujian.gov.cn/" target="_blank" title="省退役军人厅">省退役军人厅</a></li>
+                                
+                                    <li><a href="http://yjt.fujian.gov.cn/" target="_blank" title="省应急厅">省应急厅</a></li>
+                                
+                                    <li><a href="http://sjt.fujian.gov.cn/" target="_blank" title="省审计厅">省审计厅</a></li>
+                                
+                                    <li><a href="http://wb.fujian.gov.cn/" target="_blank" title="省外办">省外办</a></li>
+                                
+                                    <li><a href="http://gzw.fujian.gov.cn/" target="_blank" title="省国资委">省国资委</a></li>
+                                
+                                    <li><a href="http://lyj.fujian.gov.cn/" target="_blank" title="省林业局">省林业局</a></li>
+                                
+                                    <li><a href="http://hyyyj.fujian.gov.cn/" target="_blank" title="省海洋渔业局">省海洋渔业局</a></li>
+                                
+                                    <li><a href="http://scjgj.fujian.gov.cn/" target="_blank" title="省市场监管局">省市场监管局</a></li>
+                                
+                                    <li><a href="http://gdj.fujian.gov.cn/" target="_blank" title="省广电局">省广电局</a></li>
+                                
+                                    <li><a href="http://tyj.fujian.gov.cn/" target="_blank" title="省体育局">省体育局</a></li>
+                                
+                                    <li><a href="http://tjj.fujian.gov.cn/" target="_blank" title="省统计局">省统计局</a></li>
+                                
+                                    <li><a href="http://gdb.fujian.gov.cn/" target="_blank" title="省人防办">省人防办</a></li>
+                                
+                                    <li><a href="http://ybj.fujian.gov.cn" target="_blank" title="省医保局">省医保局</a></li>
+                                
+                                    <li><a href="http://jrb.fujian.gov.cn/" target="_blank" title="省金融监管局">省金融监管局</a></li>
+                                
+                                    <li><a href="http://xfj.fujian.gov.cn/" target="_blank" title="省信访局">省信访局</a></li>
+                                
+                                    <li><a href="http://jgswglj.fujian.gov.cn/" target="_blank" title="省机关管理局">省机关管理局</a></li>
+                                
+                                    <li><a href="http://fgw.fujian.gov.cn/ztzl/szfjzt/" target="_blank" title="省数字办">省数字办</a></li>
+                                
+                                    <li><a href="http://lsj.fujian.gov.cn/" target="_blank" title="省粮储局">省粮储局</a></li>
+                                
+                                    <li><a href="http://jyj.sft.fujian.gov.cn/" target="_blank" title="省监狱管理局">省监狱管理局</a></li>
+                                
+                                    <li><a href="http://wwj.wlt.fujian.gov.cn/" target="_blank" title="省文物局">省文物局</a></li>
+                                
+                                    <li><a href="http://yjj.scjgj.fujian.gov.cn" target="_blank" title="省药监局">省药监局</a></li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <p>省级自然资源主管部门<em></em><i></i></p>
+                        <div class="yqlj_con1_2021">
+                            <ul>
+                                
+                                    <li><a href="http://ghzrzyw.beijing.gov.cn/" target="_blank" title="北京市规划和自然资源委员会">北京市规划和自然资源委员会</a></li>
+                                
+                                    <li><a href="http://ghzyj.sh.gov.cn/" target="_blank" title="上海市规划和自然资源局">上海市规划和自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyt.xinjiang.gov.cn/" target="_blank" title="新疆维吾尔自治区自然资源厅">新疆维吾尔自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.nx.gov.cn/" target="_blank" title="宁夏回族自治区自然资源厅">宁夏回族自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.qinghai.gov.cn/index" target="_blank" title="青海省自然资源厅">青海省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.gansu.gov.cn/" target="_blank" title="甘肃省自然资源厅">甘肃省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.xizang.gov.cn/" target="_blank" title="西藏自治区自然资源厅">西藏自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.yn.gov.cn/" target="_blank" title="云南省自然资源厅">云南省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.guizhou.gov.cn/" target="_blank" title="贵州省自然资源厅">贵州省自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.sc.gov.cn/" target="_blank" title="四川省自然资源厅">四川省自然资源厅</a></li>
+                                
+                                    <li><a href="http://ghzrzyj.cq.gov.cn/" target="_blank" title="重庆市规划和自然资源局">重庆市规划和自然资源局</a></li>
+                                
+                                    <li><a href="http://dnr.gxzf.gov.cn/" target="_blank" title="广西壮族自治区自然资源厅">广西壮族自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://lr.hainan.gov.cn/" target="_blank" title="海南省自然资源和规划厅">海南省自然资源和规划厅</a></li>
+                                
+                                    <li><a href="http://nr.gd.gov.cn/" target="_blank" title="广东省自然资源厅">广东省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.hunan.gov.cn/" target="_blank" title="湖南省自然资源厅">湖南省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.hubei.gov.cn/html/index.html" target="_blank" title="湖北省自然资源厅">湖北省自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.henan.gov.cn/" target="_blank" title="河南省自然资源厅">河南省自然资源厅</a></li>
+                                
+                                    <li><a href="http://dnr.shandong.gov.cn/" target="_blank" title="山东省自然资源厅">山东省自然资源厅</a></li>
+                                
+                                    <li><a href="http://bnr.jiangxi.gov.cn/" target="_blank" title="江西省自然资源厅">江西省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.ah.gov.cn/" target="_blank" title="安徽省自然资源厅">安徽省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.zj.gov.cn/" target="_blank" title="浙江省自然资源厅">浙江省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.jiangsu.gov.cn/" target="_blank" title="江苏省自然资源厅">江苏省自然资源厅</a></li>
+                                
+                                    <li><a href="https://www.hlj.gov.cn/" target="_blank" title="黑龙江省自然资源厅">黑龙江省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.jl.gov.cn/" target="_blank" title="吉林省自然资源厅">吉林省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.ln.gov.cn/" target="_blank" title="辽宁省自然资源厅">辽宁省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.nmg.gov.cn/" target="_blank" title="内蒙古自治区自然资源厅">内蒙古自治区自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzyt.shanxi.gov.cn/" target="_blank" title="山西省自然资源厅">山西省自然资源厅</a></li>
+                                
+                                    <li><a href="http://zrzy.hebei.gov.cn/" target="_blank" title="河北省自然资源厅">河北省自然资源厅</a></li>
+                                
+                                    <li><a href="http://ghhzrzy.tj.gov.cn" target="_blank" title="天津市规划和自然资源局">天津市规划和自然资源局</a></li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <p>市级自然资源主管部门<em></em><i></i></p>
+                        <div class="yqlj_con1_2021">
+                            <ul>
+                                
+                                    <li><a href="http://zygh.fuzhou.gov.cn/" target="_blank" title="福州市自然资源和规划局">福州市自然资源和规划局</a></li>
+                                
+                                    <li><a href="http://zygh.xm.gov.cn/" target="_blank" title="厦门市自然资源和规划局">厦门市自然资源和规划局</a></li>
+                                
+                                    <li><a href="http://zrzyj.zhangzhou.gov.cn/" target="_blank" title="漳州市自然资源局">漳州市自然资源局</a></li>
+                                
+                                    <li><a href="http://zyghj.quanzhou.gov.cn/" target="_blank" title="泉州市自然资源和规划局">泉州市自然资源和规划局</a></li>
+                                
+                                    <li><a href="http://zrzyj.sm.gov.cn/" target="_blank" title="三明市自然资源局">三明市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.putian.gov.cn/" target="_blank" title="莆田市自然资源局">莆田市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.np.gov.cn/" target="_blank" title="南平市自然资源局">南平市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.longyan.gov.cn/" target="_blank" title="龙岩市自然资源局">龙岩市自然资源局</a></li>
+                                
+                                    <li><a href="http://zrzyj.ningde.gov.cn/" target="_blank" title="宁德市自然资源局">宁德市自然资源局</a></li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+               
+                    
+                    <li>
+                        <p>其他<em></em><i></i></p>
+                        <div class="yqlj_con1_2021">
+                            <ul>
+                                
+                                    <li><a href="http://www.fjch.org.cn/" target="_blank" title="省测绘地理信息发展中心">省测绘地理信息发展中心</a></li>
+                                
+                                    <li><a href="http://www.fjland.cn" target="_blank" title="省土地估价与不动产登记代理行业协会">省土地估价与不动产登记代理行业协会</a></li>
+                                
+                                    <li><a href="http://www.landchina.com/" target="_blank" title="中国土地市场网">中国土地市场网</a></li>
+                                
+                                    <li><a href="http://www.people.com.cn/" target="_blank" title="人民日报">人民日报</a></li>
+                                
+                                    <li><a href="http://www.iziran.net/" target="_blank" title="中国自然资源报网">中国自然资源报网</a></li>
+                                
+                                    <li><a href="http://www.fjsen.com/" target="_blank" title="东南网">东南网</a></li>
+                                
+                            </ul>
+                        </div>
+                    </li>
+                   
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="bot_bg_2021" role="serve" des="底部信息">
+        <div class="w_1300_2021 twhite1_2021">
+            <div class="bot_l_2021">
+              
+                <h3>
+<!--<a href="/jggk/btgk/" title="关于我们" target="_blank">关于我们</a>|<a href="javascript:;" title="网站声明">网站声明</a>|<a href="javascript:;" title="隐私保护">隐私保护</a>|-->
+<a href="/qt/lxwm/" target="_blank" title="联系我们">联系我们</a>|<a href="/qt/ysbh/" target="_blank" title="隐私保护">隐私保护</a>|<a href="/qt/zddt/" target="_blank" title="站点地图">站点地图</a>|<a href="/qt/sybz/" target="_blank" title="使用帮助">使用帮助</a></h3>
+                <p><span>网站标识码：3500000004 </span>
+<span>
+  <a href="https://beian.mps.gov.cn/#/query/webSearch?code=35010202001777" rel=\"noreferrer\" target=\"_blank\">
+     <img src="/images/202142-zrzyt-guohui.png" alt="" />闽公网安备35010202001777号
+   </a>
+</span>
+
+<a href="https://beian.miit.gov.cn/" target="_blank"><span>闽ICP备2021001621号-1</span></a></p>
+<p><span>中文域名：福建省自然资源厅.政务</span></p>
+               <!-- <p><span>网站维护联系电话：0591-87665820</span></p> -->
+            </div>
+            <span class="dzjg_2021 ">
+                <span id="_ideConac"></span>
+                 <span id="_span_jiucuo"></span>
+            </span>
+          <div class="bot_r_2021">
+          <h3><a href="javascript:;">新媒体矩阵</a></h3>
+          <ul>
+            <li><a href="javascript:;"><i class="iconfont"><img src="/images/20211009-db-icon1.png" alt="" /></i>福建自然资源官方微信</a>
+              <div class="codebox_2021"> <img src="/images/erweima1.jpg" /> </div>
+            </li>
+            <li><a href="javascript:;"><i class="iconfont"><img src="/images/20211009-db-icon2.png" alt="" /></i>土地卫片核查软件</a>
+              <div class="codebox_2021"> <img src="/images/535177001903615820.png" /> </div>
+            </li>
+            <li><a href="javascript:;"><i class="iconfont"><img src="/images/20211009-db-icon3.png" alt="" /></i>国务院互联网+督察</a>
+              <div class="codebox_2021"> <img src="/images/201904zrzyt_hlwdc.jpg" /> </div>
+            </li>
+            <li><a href="javascript:;"><i class="iconfont"><img src="/images/20211009-db-icon4.png" alt="" /></i>保密观官方微信</a>
+              <div class="codebox_2021"> <img src="/images/erweima3.jpg" alt="" /> </div>
+            </li>
+          </ul>
+          <div class="clear"></div>
+        </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="fot-bot_2021">
+        <div class="w_1300_2021">
+            <p><span>主办：福建省自然资源厅</span><span>承办：福建省自然资源地理信息中心</span></p>
+            <p>为确保最佳浏览效果，建议您使用以下浏览器版本：IE浏览器9.0版本及以上； Google Chrome浏览器 63版本及以上； 360浏览器9.1版本及以上，且IE内核9.0及以上。</p>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+// 网址收藏 2020-05-30
+  function addFavorite() {
+      var url = window.location;
+      var title = document.title;
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.indexOf("msie 8") > -1) {
+          external.AddToFavoritesBar(url, title, ''); //IE8
+      } else {
+          try {
+              window.external.addFavorite(url, title);
+          } catch (e) {
+              try {
+                  window.sidebar.addPanel(title, url, ""); //firefox
+              } catch (e) {
+                  alert("加入收藏失败，请使用Ctrl+D进行添加");
+              }
+          }
+      }
+  }
+
+</script>
+<!-- 底部嵌套end -->
+		<!--底部嵌套结束-->
+
+
+	</div>
+
+	<script src="/images/zrzyt.min.js"></script>
+<script src="/public/images/Fjtran.js"></script>
+<script>
+
+    (function () {
+        var PageInfo = {
+            docid: '',
+            chnlid: '',
+            siteid: '48',
+            title: "",
+            chnlname: "",
+            sitename: "省自然资源厅"
+        };
+        if (PageInfo.title == "") {
+            PageInfo.title = PageInfo.chnlname;
+        }
+        if (PageInfo.title == "") {
+            PageInfo.title = PageInfo.sitename;
+        }
+
+        require(["pageview", "list"], function (pageview, listModel) {
+            var pvTools = pageview();
+            pvTools.view(PageInfo, function (d) {
+                if (!d.error) {
+                    avalon.vmodels.windowRoot.pvCount = d.pvt;
+                    avalon.vmodels.windowRoot.siteCount = d.pvst;
+                }
+            })
+        })
+        require(["jquery"], function ($) {
+
+            $(window).scroll(function () {
+                $(this).scrollTop() > 435 ? $(".nav").addClass('fixed') : $(".nav").removeClass('fixed');
+            });
+            $(".tit_hov").slide({ titCell: ".hd li", mainCell: ".bd" });
+
+            var w = $(window).innerWidth();
+            if (w < 768) {
+                //手机版菜单隐藏，点击出现侧边菜单栏
+                $('.header-menu-mb').click(function () {
+
+                    if (!$(this).hasClass('show-nav')) {
+                        $(this).addClass('show-nav');
+                        $('.nav').stop(true, true).animate({ "right": 0 }, 500)
+                    }
+                    else {
+                        $(this).removeClass('show-nav');
+                        $('.nav').stop(true, true).animate({ "right": "-50%" }, 500)
+                    }
+
+                })
+
+            }
+
+
+            $('.yqlj_tit1>ul>li').click(function () {
+                if ($(this).hasClass('on')) {
+                    return
+                } else {
+                    $(this).addClass('on').siblings().removeClass('on');
+                    $(this).siblings().children('.yqlj_con1').slideUp()
+                    $(this).children('.yqlj_con1').slideDown();
+                }
+                return false; 阻止冒泡
+            })
+            $(document).click(function () {
+                $('.yqlj_con1').slideUp()
+                $('.yqlj_tit1>ul>li').removeClass('on');
+            })
+
+        })
+
+
+    })();
+</script>
+
+<script src="https://www.fujian.gov.cn/images/barrier.free.min.js" id="barrierFree" sn="31550503007b9300"></script>
+
+<script src="/images/2022gb_zrzyt.js"></script>
+
+<div style="display: none;" id="_jiucuo_" sitecode='3500000004'></div>
+<script>
+    	window.onload = function() {
+            var _currentUrl = window.location.href;
+            if(_currentUrl.indexOf("/qt/zszrzytjcjc/")<0){
+                var _script = document.createElement ("script")
+	    		_script.type = "text/javascript";
+	    		_script.src = 'https://zfwzgl.www.gov.cn/exposure/jiucuo.js';
+	    		_script.onload = function(){
+	    			$('#_span_jiucuo img').attr('alt','链接政府网站找错');
+	    		}
+	    		document.getElementsByTagName('head')[0].appendChild(_script);
+
+                var _newScript = document.createElement('script');
+            _newScript.type = 'text/javascript';
+            _newScript.src = 'https://dcs.conac.cn/js/14/000/0000/60940719/CA140000000609407190001.js';
+            _newScript.onload = function(){
+                                    $('#imgConac').attr('alt','党政机关');
+                            }
+            document.head.appendChild(_newScript); 
+            }
+	    		
+	    };
+</script>
+
+<script>
+    var SiteInfo = {
+        was4doc: 267424
+       ,itpSiteId: 282
+       ,itp4apply: 781
+       ,itp4advice : 777  //征集
+       ,itp4poll   : 1025   //调查
+       ,itp4letter : "817,818,819"   //信箱
+       ,was4rel:262249
+       ,siteHost:"zrzyt.fujian.gov.cn"
+     ,visitHost:"zrzyt.fujian.gov.cn"   //流量域名地址，避免后续有变更
+    }
+    $(".nav_menu").on("click",function(){
+        $(".big_nav_box").toggle();
+    })
+
+//头底部规范化脚本start
+$(window).scroll(function() {
+var ua = navigator.userAgent.toLowerCase();
+if(ua.match(/iPad/i)=="ipad" || ua.match(/Mobile/i)=="mobile") {
+
+}
+else{
+   $(this).scrollTop() > 207 ? $(".top-link_2021").addClass('fixed') : $(".top-link_2021").removeClass('fixed');
+}
+});
+
+
+//底部链接导航(pc)
+$('.yqlj_tit1_2021>ul>li').click(function () {
+   if ($(this).hasClass('on')) {
+       return
+   } else {
+       $(this).addClass('on').siblings().removeClass('on');
+        $(this).siblings().children('.yqlj_con1_2021').slideUp()
+       $(this).children('.yqlj_con1_2021').slideDown();
+   }
+   return false;   //阻止冒泡
+})
+$(document).click(function () {
+   $('.yqlj_con1_2021').slideUp()
+  $('.yqlj_tit1_2021>ul>li').removeClass('on');
+})
+//底部链接导航(移动)
+$('.xzk_2021>ul>li').click(function () {
+   if ( $(this).hasClass('on')) {
+       return
+   } else {
+        $(this).addClass('on').siblings().removeClass('on');
+      $(this).siblings().children('.mark_2021').slideUp()
+     $(this).children('.mark_2021').slideDown();
+   }
+   return false;   //阻止冒泡
+})
+$(document).click(function () {
+    $('.mark_2021').slideUp()
+    $('.xzk_2021>ul>li').removeClass('on');
+})
+//头底部规范化脚本end
+ //    avalon.log( SiteInfo )
+ require(["jquery","tools","dialog","url"],function( $ ,tools,dialog,urlModel){
+
+     var now = avalon.vmodels.windowRoot.ext;
+     tools.tab({name: "Show1", index: now})
+     $(".img_list").slide({
+         mainCell: ".pic",
+         effect: "fold",
+         autoPlay: true,
+         trigger: "mouseover",
+         interTime: 3500
+     });
+     $(document).ready(function() {
+         var whiteHost = ["120.35.29.56","120.35.29.200","www.1.cn","www.gov.mo","www.gov.hk","www.fjsen.com","www.crt.com.cn","fj.people.com.cn","www.fujiansme.com","app3.hxdtw.net","www.eeafj.cn","zqztc.fujiansme.com","220.160.52.171","szfb.fjeec.cn:444","fjaqi.fjemc.org.cn","www.fjjfypt.com","ifc.fujiansme.com","www.fjredcross.org.cn","220.160.52.168","wryfb.fjemc.org.cn","szfb.fjeec.cn","220.160.52.235","www.hxrc.com","220.160.52.229","58.22.3.131","112.5.189.8","220.160.52.158","220.160.52.204","220.160.53.55","pwq.hxee.com.cn","fjggzyjy.cn","www.fjcqjy.com"];
+             function showWarnDialog(url){
+                 var d = dialog({
+                     title: '提示信息',
+                     content: '您访问的链接是非政府网站链接，是否继续？',
+                     width: 320,
+                     okValue: "继续访问",
+                     ok: function () {
+                         window.open(url);
+                     },
+                     cancelValue: "放弃",
+                     cancel: function () {
+                         
+                     }
+                 });
+                 d.show();
+             }
+             $("a").click(function () {
+                 var url = $(this).attr("href") || "";
+                 var urlObj = urlModel.parse( url );
+                 if (urlObj.protocol) {    //外链或完整的链接
+                     if (/^[\d\.:]*$/.test(urlObj.hostname)) { //纯IP类型
+                         if(whiteHost.indexOf(urlObj.hostname) == -1){ // 非白名单
+                             showWarnDialog(url)
+                             return false;
+                         }
+                     } else if (whiteHost.indexOf(urlObj.hostname) > -1) {    //白名单
+     
+                     } else if(url.indexOf("javascript")>-1){
+                         
+                     } else if (url.indexOf(".gov.cn") == -1) {
+                         showWarnDialog(url)
+                         return false;
+                     }
+                 } else {  //本站点内连接
+     
+                 }
+             });
+     });
+ })
+
+
+/**bdtongji**/
+var _hmt = _hmt || [];
+(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?6cbb9cc9ce83fb03212bc458e023776b";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();
+</script>
+
+
+<script>
+ // 顶部搜索
+ var HisString = window.localStorage.getItem("HistoryList"),HisArr = [];
+  if (HisString != null) { HisArr = HisString.split(",") };
+  var Rs = avalon.define({
+      $id: "list_rs",
+      serKey: "",
+      keys: [],
+      linkKeys: [],
+      historyKeys: HisArr,
+      error: false,
+      showlist: false,
+      LockLink: false,
+  tipList: [] //头部搜索下拉框提示词
+          , tixing: ''   //提醒、头部搜索框输入监听
+          ,
+          flag : false ,   // 预设的状态标记
+          flags : [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false] ,   // 预设的状态标记
+      flagss : [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false] ,   // 预设的状态标记
+      $togs: function (name, i, e) {
+          e && e.preventDefault();
+          avalon.vmodels.list_rs[name].set(i, !avalon.vmodels.list_rs[name][i]);
+      },
+      setPost: function (key, e) {
+          if (e) e.preventDefault();
+          $("#header form #selecttags").val(key);
+          $("#header form").submit();
+          Rs.LockLink = false;
+          Rs.showlist = false;
+      },
+      // $getLinkKeys: function (val) { //获取联想词
+      //     $.ajax({
+      //         url: "/smartSearch/interface/word/list.do",
+      //         method: "post",
+      //         data: {
+      //             keyWord: val,
+      //             siteId: "ff808081624641aa0162476c0e0e0055"
+      //         },
+      //         success: function (res) {
+      //             function json(data) {
+      //                 var str = $.trim(data);
+      //                 str = str.replace(new RegExp("[\n\r]", "gm"), "");//过滤可能存在的换行
+      //                 var s = (new Function('return' + str))();
+      //                 return s
+      //             }
+      //             data = json(res);
+      //             Rs.error = data.error;
+      //             Rs.linkKeys = data.rows;
+      //         },
+      //         error: function (err) {
+      //             // avalon.log(err);
+      //             Rs.error = err;
+      //         }
+      //     })
+      // },
+      $togLinkkey: function () {
+          Rs.showlist = false;
+      },
+      $checkLock: function () {
+          Rs.LockLink = true;
+      },
+   getTip : function( name , i, val){
+          avalon.vmodels.windowRoot.flags.set(1, true);
+          avalon.vmodels.windowRoot.tixing = val;
+          avalon.vmodels.windowRoot[name].set(i, false);
+ $("#header form #selecttags").val(val);
+          $("#header form").submit();
+      }
+
+  })
+Rs.$watch("tixing", function(val){
+      if (avalon.vmodels.list_rs.flags[1]) {
+          avalon.vmodels.list_rs.flags.set(1, false);
+          return false;
+      }
+      if (val !== ""){
+          var nowDate = new Date().getTime();
+          $.ajax({
+              url: '/ssp/search/api/word?time=' + nowDate,
+              type: "POST",
+              dataType: "json",
+              data: {
+                  keyWord: val,
+                  rows: 5,
+                  siteId: "ff8080816e59baf3016e5e6dcbbc3f25",
+                  pageSize: 5
+              },
+              success: function (res) {
+                  if (res.error === false && res.datas.length > 0) {
+                      avalon.vmodels.list_rs.tipList = res.datas;
+                      avalon.vmodels.list_rs.flags.set(0, true);
+                  }
+              },
+              error: function (e) {
+                  avalon.log(e);
+              }
+          });
+      } else {
+          avalon.vmodels.list_rs.flags.set(0, false);
+      }
+  })
+  Rs.$watch("serKey", function (newVal, oldVal) {
+      if (newVal == "") {
+          Rs.showlist = false;
+          // Rs.LockLink = false;
+      } else {
+          // Rs.$getLinkKeys(newVal);
+          Rs.showlist = true;
+      }
+  })
+  function pushkeys(dataArr) {
+      for (var i = 0; i < dataArr.length; i++) {
+          var item = {
+              keyword: dataArr[i],
+          }
+          Rs.keys.push(item);
+      }
+  }
+
+var defKeywords = ["国家公园", "垃圾分类", "水质", "排行榜", "社保"];
+var hotKeyArr = [];
+//
+var keystr = "不动产,资质,矿业权,搬迁";
+hotKeyArr = keystr.split(",");
+//
+if (hotKeyArr !== undefined && hotKeyArr.length > 0) { defKeywords = hotKeyArr };
+pushkeys(defKeywords);
+
+
+//一级顶部搜索
+var clickOdd = true;
+$('.picker_2021').on("click", function () {
+    var showInput = $('.picker_2021 input');
+    var siteId = $('#form #siteId');
+    var isMain = $('#form #isMain');
+    if (clickOdd) {
+       showInput.val('本站');
+       siteId.attr('name', 'siteId');
+        isMain.attr('name', 'isMain');	
+        $('#form').attr('action', '/ssp/main/index.html');
+        isMain.val('1');
+        siteId.val('ff8080816e59baf3016e5e6dcbbc3f25');	
+        clickOdd = false;
+        return
+    } else {
+       showInput.val('全省');
+       siteId.attr('name', 'siteId');
+        isMain.attr('name', 'isMain');	
+        $('#form').attr('action', 'https://www.fujian.gov.cn/ssp/main/index.html');
+        isMain.val('1');
+        siteId.val('ff808081624641aa0162476c0e0e0055');	
+
+        clickOdd = true;
+
+    }
+})
+//浮动层定位设置插件
+$.fn.selectCity = function (targetId) {
+    var _seft = this;
+    var targetId = $(targetId);
+    this.click(function () {
+        var A_top = $(this).offset().top + $(this).outerHeight(true);  //  1
+        var A_left = $(this).offset().left;
+        targetId.show();
+    });
+    targetId.find("#tagClose").click(function () {
+        targetId.hide();
+    });
+    $(document).click(function (event) {
+        if (event.target.id != _seft.selector.substring(1)) {
+            targetId.hide();
+        }
+    });
+    targetId.click(function (e) {
+        e.stopPropagation(); //  2
+    });
+    return this;
+}
+//调用浮动层
+$(function () {
+    $("#selecttags").selectCity("#searchTag");
+});
+
+avalon.scan($(".ss_box2").get(0));
+// 顶部搜索 end
+
+(function() {
+    var links = document.getElementsByTagName('a');
+    for (var i = 0; i < links.length; i++) {
+        var link = links[i];
+        var href = link.getAttribute('href'); 
+        if (href && href.match(/^https?:\/\/zrzyt\.(fujian|fj)\.gov\.cn/)) {
+            var newHref = href.replace(/^https?:\/\/zrzyt\.(fujian|fj)\.gov\.cn/, '');
+            link.setAttribute('href', newHref);
+        }
+    }
+})();
+</script>
+<script>
+       var __location = window.location;
+if (typeof SiteInfo !== "undefined" && typeof SiteInfo.siteHost !== "undefined" && __location.host == SiteInfo.siteHost) {
+    if (__location.protocol == "http:") {
+        window.location.href = window.location.href.replace("http://", "https://");
+    }
+}
+</script>
+	<script src="./images/jquery.SuperSlide.js"></script>
+	<script src="./images/touch.js"></script>
+	<script type="text/javascript">
+
+		//加载外部css文件zhxr
+		function dynamicLoadCss(url) {
+			var head = document.getElementsByTagName('head')[0];
+			var link = document.createElement('link');
+			link.type = 'text/css';
+			link.rel = 'stylesheet';
+			link.href = url;
+			head.appendChild(link);
+		}
+		//  dynamicLoadCss("/images/20211013-zrzyt-new.css");
+		dynamicLoadCss("/images/iconfont.css");
+
+
+		var w = document.getElementsByTagName("body")[0].clientWidth;
+		require(["jquery", "tools", "list", "dialog"], function ($, tools, listModel, dialog) {
+
+			$(".slideBox1").slide({ mainCell: ".bd ul", effect: "fold", autoPlay: true });
+
+			var $slideBox = $("#slideBox");
+			var _w = $('#slideBox').width();
+			var slideH = 385 * _w / 686;
+			var slideImg = $("#slideBox .pic li img");
+			var slideLi = $("#slideBox .pic li");
+			$slideBox.height(slideH);
+			slideImg.height(slideH);
+			slideLi.height(slideH);
+
+			$slideBox.slide({
+				titCell: ".num ",
+				mainCell: ".pic",
+				effect: "fold",
+				autoPlay: true,
+				autoPage: "<li></li>", //自动分页
+				startFun: function (i) {
+					$(".txt li").eq(i).animate({
+						"bottom": 0
+					}).siblings().animate({
+						"bottom": -80
+					});
+				}
+			});
+
+			//左幻灯片
+			$("#focusBox").slide({
+				autoPage: "<li></li>",
+				titCell: ".num",
+				mainCell: ".bd ul",
+				effect: "leftLoop",
+				autoPlay: true,
+				trigger: "mouseover"
+			}).touch({
+				mainCell: ".bd ul",
+				prevCell: ".prev",
+				nextCell: ".next"
+			});
+
+			//滚动图
+			var visN = 2;
+			var img_w1 = $('.picMarquee-left .bd').width();
+			var img_w2;
+			if (w < 810) {
+				img_w2 = img_w1 / 2 - 13;
+			} else {
+				img_w2 = img_w1 / 2 - 15;
+			}
+
+			$('.picMarquee-left .bd li').width(img_w2);
+			$(".picMarquee-left").slide({
+				mainCell: ".bd",
+				autoPage: true,
+				effect: "leftLoop",
+				pnLoop: true,
+				scroll: 1,
+				vis: visN
+			}).touch({
+				mainCell: ".bd"
+			});
+
+			$(".zdly-box1").slide({
+				mainCell: "  .bd .ywxt_list",
+				autoPlay: true,
+				effect: "topLoop",
+
+
+				// autoPage: true
+			});
+
+
+			tools.tab([
+				{ name: "Mzt", index: 0 }
+
+			]);
+			//				国务院信息标签切换
+			var gtywktab = avalon.define({
+				$id: "tabGtyw",
+				curr: 0,
+				num: 2
+
+				// linkTo: function (url, type) {
+				// 	if (w >= 768 || type == 2) {
+				// 		window.open(url);
+				// 	} else { return }
+				// }
+				, $tog: function (i) {
+					gtywktab.curr = i;
+				}
+			});
+			//滑动
+			var startx, starty;
+			//获得角度
+			function getAngle(angx, angy) {
+				return Math.atan2(angy, angx) * 180 / Math.PI;
+			};
+
+			//根据起点终点返回方向  1向左2向右 0未滑动
+			function getDirection(startx, starty, endx, endy) {
+				var angx = endx - startx;
+				var angy = endy - starty;
+				var result = 0;
+
+				//如果滑动距离太短
+				if (Math.abs(angx) < 2 && Math.abs(angy) < 2) {
+					return result;
+				}
+
+				var angle = getAngle(angx, angy);
+				if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+					result = 1;
+				} else if (angle >= -45 && angle <= 45) {
+					result = 2;
+				}
+
+				return result;
+			}
+
+			//手指接触屏幕
+			$(".xw-right")[0].addEventListener("touchstart", function (e) {
+				startx = e.touches[0].pageX;
+				starty = e.touches[0].pageY;
+			}, false);
+			//手指离开屏幕
+			$(".xw-right")[0].addEventListener("touchend", function (e) {
+				var endx, endy;
+				endx = e.changedTouches[0].pageX;
+				endy = e.changedTouches[0].pageY;
+				var direction = getDirection(startx, starty, endx, endy);
+				switch (direction) {
+					case 0: break;
+					case 1:
+						if (gtywktab.curr == gtywktab.num) { gtywktab.curr = 0 } else { gtywktab.curr += 1 } break;
+					case 2:
+						if (gtywktab.curr == 0) { gtywktab.curr = gtywktab.num } else { gtywktab.curr -= 1 } break;
+					default:
+				}
+
+			}, false);
+
+
+
+
+			//政务公开，网上办事切换
+			var gsggtab = avalon.define({
+				$id: "tabGsgg",
+				curr: 0,
+				num: 5
+				, $tog: function (i) {
+					gsggtab.curr = i;
+				}
+			})
+
+
+			//手指接触屏幕
+			$(".detNero")[0].addEventListener("touchstart", function (e) {
+				startx = e.touches[0].pageX;
+				starty = e.touches[0].pageY;
+			}, false);
+			//手指离开屏幕
+			$(".detNero")[0].addEventListener("touchend", function (e) {
+				var endx, endy;
+				endx = e.changedTouches[0].pageX;
+				endy = e.changedTouches[0].pageY;
+				var direction = getDirection(startx, starty, endx, endy);
+				switch (direction) {
+					case 0: break;
+					case 1:
+						if (gsggtab.curr == gsggtab.num) { gsggtab.curr = 0 } else { gsggtab.curr += 1 } break;
+					case 2:
+						if (gsggtab.curr == 0) { gsggtab.curr = gsggtab.num } else { gsggtab.curr -= 1 } break;
+					default:
+				}
+
+			}, false);
+			//				政务公开标签切换
+			var zwgktab = avalon.define({
+				$id: "tabZwgk",
+				curr: 0,
+				linkTo: function (url, type) {
+					if (w >= 768 || type == 2) {
+						window.open(url);
+					} else { return }
+				}
+				, $tog: function (i) {
+					zwgktab.curr = i;
+				}
+			})
+			//省政府信息
+			var Szfdt = avalon.define({
+				$id: "listSzfdt",
+				list: [],
+				error: false
+			})
+			$.ajax({
+				url: 'https://www.fujian.gov.cn/szfxx',
+				dataType: "jsonp",
+				jsonpCallback: "pushInfoJsonpCallBackfj",
+				success: function (data) {
+					Szfdt.list = data.docs;
+				},
+				error: function (e) {
+					Szfdt.error = e;
+				}
+			});
+			// 国务院信息
+			var gwyxx = avalon.define({
+				$id: "listGwyxx",
+				list: [],
+				error: false
+			})
+			$.ajax({
+				url: 'https://www.gov.cn/pushinfo/v150203/pushinfo.jsonp',
+				dataType: "jsonp",
+				jsonp: "pushInfoJsonpCallBack",
+				jsonpCallback: "pushInfoJsonpCallBack",
+				success: function (data) {
+					gwyxx.list = data;
+				},
+				error: function (e) {
+					gwyxx.error = e;
+				}
+			});
+
+			$('.nLi1').mouseover(function () { $('.nLi1 .sub').show(); });
+			$('.nLi1').mouseout(function () { $('.nLi1 .sub').hide(); });
+			$('.nLi2').mouseover(function () { $('.nLi2 .sub').show(); });
+			$('.nLi2').mouseout(function () { $('.nLi2 .sub').hide(); });
+			$('.nLi3').mouseover(function () { $('.nLi3 .sub').show(); });
+			$('.nLi3').mouseout(function () { $('.nLi3 .sub').hide(); });
+			$('.slp').click(function () { $('.mzt-box').toggle(); })
+
+			listModel({
+				objId: 'gtxx',
+				Mode: 'letter',
+				objArgs: {
+					listCheck: { chnlIds: { required: false } },
+					listApi: {
+						url: '/staticitp/zrzyt/817818819/1.json?r=' + Math.random(), type: "get", pageName: '', prepageName: ''
+					}
+				}
+			});
+
+			$(".zdly-ul li").hover(function () {
+				$(this).addClass("curr");
+				$(this).find(".zdly-xl").show();
+				$(this).siblings().removeClass("curr")
+				$(this).siblings().find(".zdly-xl").hide();
+			})
+			$(".zdly-ul").mouseleave(function () {
+				$(".zdly-ul li").removeClass("curr")
+				$(".zdly-ul li .zdly-xl").hide();
+			})
+
+			//判断是否是手机端,是设置手机链接跳转 2022.09.26 ^-^ 
+			if (window.screen.width < 450) {
+				$('#5589064').attr("href", "http://220.160.53.57:7777/yggh-mobile")
+				$('#5594826').attr("href", "http://220.160.53.57:7777/yggh-mobile")
+			}
+		})
+// 		$('a').click(function(event) {
+//     var href = $(this).attr('href');
+//     if (href === 'http://112.111.2.28:8001') {
+//         alert('系统正在维护中！');
+//         return false; // 阻止跳转
+//     }
+// });
+	</script>
+</body>
+
+</html>

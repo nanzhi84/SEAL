@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" CONTENT="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="">
+    <meta name="keywords"   content="公路水运工程试验检测专业技术人员管理系统公路,水运,试验检测,全国公路水运工程试验检测,继续教育,网络平台,管理系统,公路水运工程试验检测专业技术人员管理系统,公路水运工程试验检测人员管理系统,全国公路水运工程试验检测管理系统" />
+    <meta name="description"    content="公路水运工程试验检测专业技术人员管理系统,包括考试报名、人员管理、继续教育、信息查询等"/>
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <title>公路水运工程试验检测专业技术人员管理系统-公共查询</title>
+    <link rel="stylesheet" href="../webpkg/css/main.css"/>
+    <link rel="stylesheet" href="../weblib/fonts/iconfont.css"/>
+    <link href="https://1.tel.jtzyzg.org.cn/allvideos/yxy/tiadlongrise/ltpu/images/common/ltpu.ico" type="image/ico" rel="shortcut icon">
+    <style>
+        .noticefont{
+            font-size: 24px;line-height: 42px;font-family:'楷体';
+            margin:5px 10px;text-indent: 3rem;
+            color: red;
+        }
+        .mask{
+            position: fixed;
+            width: 100%;
+            min-height: 100%;
+            left: 0;
+            top: 0;
+            background: rgba(0,0,0,.4);
+            opacity: 1;
+            z-index: 999;
+        }
+        .mask p{
+            color: white;
+            font-size: 32px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,50%);
+        }
+    </style>
+</head>
+<body ms-controller="publicQuery" class="ms-controller">
+     <div ms-controller="header" ms-html="header" ></div>
+    <div class="main mainlay pt-15"style="min-height: 350px">
+        <div class="block_inner pt-10 pb-10">
+            <ul class="sc_head clear">
+                <li class="sc_head_active" ms-class="on:isclick == '2'" ms-click="change('2')"><p><span class="icon icon_tab02"></span><b>&nbsp;&nbsp;考试查询</b></p></li>
+                <li class="sc_head_active " ms-class="on:isclick == '4'" ms-click="change('4')"><p><span class="icon icon_tab04"></span><b>&nbsp;&nbsp;登记查询</b></p></li>
+                <li class="sc_head_active " ms-class="on:isclick == '3'" ms-click="change('3')"><p><span class="icon icon_tab01"></span><b>&nbsp;&nbsp;学时查询</b></p></li>
+                <li class="sc_head_active " ms-class="on:isclick == '1'" ms-click="change('1')"><p><span class="icon icon_tab05"></span><b>&nbsp;&nbsp;信用查询</b></p></li>
+            </ul>
+            <div :class="('bg_f5',['sc_con':isclick!='4']" style="min-height: 181px">
+                <ul class="icon_item clear" ms-class="dn :isclick != '2'"  style="min-height: 380px">
+                    <li style="width: 47%;display: inline-block ;margin-left: 21px ;margin-top: 20px">
+                        <a style="padding-left: 30px" class="middle"
+                           ms-click="change('5')"
+
+                           target="_blank" rel="noopener noreferrer" >
+                            <span class="icon_item_icon"><i class="iconfont icon-icon-test1"></i></span>
+                            <span class="fs-16 fb" style="cursor: pointer;">公路水运工程试验检测专业技术人员职业资格考试成绩查询系统</span>
+                        </a>
+                    </li>
+                    <li style="width: 48%;display: inline-block ;margin-left: 21px ;margin-top: 20px">
+                        <a style="padding-left: 30px" class="middle"
+                           href="../../syjcReg/html/querySystem.html"class="middle"
+                           target="_blank" rel="noopener noreferrer" >
+                            <span class="icon_item_icon"><i class="iconfont icon-icon-test1"></i></span>
+                            <span class="fs-16 fb">公路水运工程试验检测专业技术人员职业资格考试合格人员查询系统</span>
+                        </a></li>
+                    <li style="width: 47%;margin: 10px 20px;display: inline-block ">
+                        <a style="padding-left: 30px" class="middle"
+                           href="https://www.jtzyzg.org.cn/LTPU/LEAP/home/html/querySystem.html?id=cer80eba48e9b31440d92d7e38d9efa5a83"
+                           target="_blank" rel="noopener noreferrer" >
+                            <span class="icon_item_icon"><i class="iconfont icon-10"></i></span>
+                            <span class="fs-16 fb">公路水运工程试验检测人员证书查询系统(2015年以前)</span>
+                        </a>
+                    </li>
+                    <li style="width: 48%;display: inline-block">
+                        <a style="padding-left: 30px" class="middle"
+                           href="https://zs.cpta.com.cn/certMng/loginPage.jsp?src=1"
+                           target="_blank" rel="noopener noreferrer" >
+                            <span class="icon_item_icon"><i class="iconfont icon-10"></i></span>
+                            <span class="fs-16 fb">公路水运工程试验检测专业技术人员职业资格电子证书查询验证系统</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="block-tab-item" ms-class="dn :isclick != '4'">
+                    <div class="filter show">
+                        <div class="hd row w">
+                            <div class="col v-m plr-20 col-22">
+                                <span class="v-m">查询条件</span>
+                            </div>
+                            <div class="col v-m col-2 t-c">
+                                <a href="javascript:;"  class="control fa-minus-circle"></a>
+                            </div>
+                        </div>
+                        <div class="bd" style="display: block">
+                            <table class="dj-form-table query-tab">
+                                <tr>
+                                    <th>姓名：</th>
+                                    <td colspan="2">
+                                        <div class="form"><input type="text" id="userName" ms-focus="userNameInit()" ms-blur="checkUserName()">
+                                        </div>
+                                        <span class="tip" id="userNameTips"></span>
+                                    </td>
+                                    <th>证件号码：</th>
+                                    <td colspan="2">
+                                        <div class="form"><input type="text" id="userCard" ms-focus="userCardInit()" ms-blur="checkUserCard()" autocomplete="off"></div>
+                                        <span class="tip" id="userCardTips"></span>
+                                    </td>
+                                    <th>登记单位：</th>
+                                    <td colspan="2">
+                                        <div class="form"><input type="text" id="userCompany" ms-focus="userCompanyInit()" ms-blur="checkUserCompany()"></div>
+                                        <span class="tip" id="userCompanyTips"></span>
+                                    </td>
+                                    <td colspan="2" style="padding-left:50px;text-align: right">
+                                        <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small" ms-click="search()">开始查询</a>
+                                        <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small hollow ml-10" ms-click="reset()">重置</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row w none" ms-if="recordList.length == 0"  style="min-height: 450px">
+                        <div class="col v-m t-c">
+                            <img src="https://1.tel.jtzyzg.org.cn/allvideos/yxy/tiadlongrise/ltpu/images/syjc/sc_none.png"/>
+                            <p ms-if="isSend">暂时还没有数据哦</p>
+                            <p ms-if="!isSend">正在查询中....</p>
+                        </div>
+                    </div>
+                    <table class="list-table dj-mt-20" ms-if="recordList.length >0">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="40%">
+                            <col width="18%">
+                        </colgroup>
+                        <tr>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>登记有效期至</th>
+                            <th>登记单位</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ms-repeat="recordList">
+                            <td>{{(pageNow - 1)*12 + $index+1}}</td>
+                            <td><a ms-attr-href="el.href" class="name" target="_blank"><t ms-text="el.name"></t></a></td>
+                            <td ms-text="el.during"></td>
+                            <td ms-text="el.nameoforganization"></td>
+                            <td><button class="button blue" ms-click="popbox_show(el.href)">查看更多</button></td>
+                        </tr>
+                    </table>
+                    <p class="pages tc fs-0" ms-if="showpage">
+                        <a class="pages_p" href="javascript:;" ms-click="page('0')" ms-text="'<'"></a>
+                        <a ms-repeat="pagelist" ms-class="on:pageNow==el" href="javascript:;" ms-click="pagejump()" ms-text="el"></a>
+                        <a class="pages_p" href="javascript:;" ms-click="page('1')">></a>
+                    </p>
+                </div>
+                <div class="block-tab-item" ms-class="dn :isclick != '3'" style="min-height: 500px">
+                    <div class="filter show">
+                        <div class="hd row w">
+                            <div class="col v-m plr-20 col-22">
+                                <span class="v-m">查询条件</span>
+                            </div>
+                            <div class="col v-m col-2 t-c">
+                                <a href="javascript:;"  class="control fa-minus-circle"></a>
+                            </div>
+                        </div>
+                        <div class="bd" style="display: block;height: 200px;">
+                            <p class="c-red ml-44">*温馨提示：请输入姓名和证件号码联合查询您的个人详细信息</p>
+                            <table class="dj-form-table query-tab query-hours-tab">
+                                <tr>
+                                    <th>姓名：</th>
+                                    <td colspan="2">
+                                        <div class="form">
+                                            <input type="text" id="hoursName" autocomplete="off" ms-focus="hoursInit('hoursName')" ms-blur="checkHoursName()">
+                                        </div>
+                                        <span class="tip" id="hoursNameTips"></span>
+                                    </td>
+                                    <th>证件号码：</th>
+                                    <td colspan="2">
+                                        <div class="form">
+                                            <input type="text" id="hoursCard" autocomplete="off" ms-focus="hoursInit('hoursCard')" ms-blur="checkHoursCard()" >
+                                        </div>
+                                        <span class="tip" id="hoursCardTips"></span>
+                                    </td>
+                                    <td colspan="2" style="padding-left:50px;text-align: right">
+                                        <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small" ms-click="searchHours()">开始查询</a>
+                                        <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small hollow ml-10" ms-click="resetHours()">重置</a>
+                                    </td>
+                                </tr>
+                                <tr style="position: relative;top: 10px">
+                                    <th>验证码：</th>
+                                    <td colspan="2">
+                                        <div class="form">
+                                            <input id="code" type="text"
+                                                   autocomplete="off"
+                                                   ms-focus="init('valicodeTips')"
+                                                   style="background-color: #fff;width: 70%"/>
+                                            <div id="checkCode" ms-click="getCodeImg('checkCode')" style="text-align:center;height: 35px;width: 92px;float: right;line-height: 35px;"></div>
+                                        </div>
+                                        <span class="tip" id="valicodeTips" style="color: red">请输入验证码</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row w none search-no-info" id="search-no-info"  ms-if="hoursList.length== 0" style="min-height: 450px">
+                        <div class="col v-m t-c">
+                            <img src="https://1.tel.jtzyzg.org.cn/allvideos/yxy/tiadlongrise/ltpu/images/syjc/sc_none.png"/>
+                            <p>请输入查询条件查询信息哦</p>
+                        </div>
+                    </div>
+
+                    <table class="list-table search-info-area dj-mt-20 "  ms-if="hoursList.length!= 0">
+                        <colgroup>
+                            <col width="15%">
+                            <col width="25%">
+                            <col width="22.5%">
+                            <col width="22.5%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="15%">
+                        </colgroup>
+                        <tr>
+                            <th>姓名</th>
+                            <th>证件号码</th>
+                            <th>证书管理号/编号</th>
+                            <th>发证机构</th>
+                            <th>发证时间</th>
+                            <th>继续教育状态</th>
+                            <th>详情</th>
+                        </tr>
+                        <tr ms-repeat="hoursList">
+                            <td ms-text="el.name"></td>
+                            <td ms-text="el.cardno"></td>
+                            <td ms-text="el.manageno"></td>
+                            <td ms-text="el.organization"></td>
+                            <td ms-text="el.ratifydate|truncate(10,'')"></td>
+                            <td ms-text="el.isfinished"></td>
+                            <td><button class="button blue"
+                                        ms-click="showcerDetail(el.id,el.isold,el.offlinehours,el.onlinehours,el.totalhours)" style="width:60%">查看详情</button></td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="block-tab-item" ms-class="dn :isclick != '1'">
+                    <div class="filter show">
+                        <div class="hd row w">
+                            <div class="col v-m plr-20 col-22">
+                                <span class="v-m">查询条件</span>
+                            </div>
+                            <div class="col v-m col-2 t-c">
+                                <a href="javascript:;" class="control fa-minus-circle"></a>
+                            </div>
+                        </div>
+                        <div class="bd" style="display: block">
+                            <table class="dj-form-table faith">
+                                <tr>
+                                    <th>行为性质：</th>
+                                    <td>
+                                        <select id="behaviorNature" class="form"
+                                                style="width:100%;height:40px;-webkit-border-radius:5px;">
+                                            <option value="0">请选择</option>
+                                            <option value="1">良好行为</option>
+                                            <option value="2">不良行为</option>
+                                        </select>
+                                        <span class="tip" id="behaviorNatureTips"></span>
+                                    </td>
+                                    <th>姓 名：</th>
+                                    <td>
+                                        <div class="form">
+                                            <input type="text" id="sincerityInfoName">
+                                        </div>
+                                        <span class="tip" id="sincerityInfoNameTips"></span>
+                                    </td>
+                                    <td rowspan="2" style="padding-left:50px;text-align: right">
+                                        <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small"
+                                           ms-click="subC()">开始查询</a>
+                                        <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small hollow ml-10"
+                                           ms-click="resetS()">重置</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>证件号码：</th>
+                                    <td>
+                                        <div class="form">
+                                            <input type="text" id="sincerityInfoCardNo" autocomplete="off">
+                                        </div>
+                                        <span class="tip" id="sincerityInfoCardNoTips"></span>
+                                    </td>
+                                    <th>实施部门：</th>
+                                    <td>
+                                        <div class="form">
+                                            <input type="text" id="sincerityInfoRegisterCompany">
+                                        </div>
+                                        <span class="tip" id="sincerityInfoRegisterCompanyTips"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row w none" ms-if="sincerityInfoRecordList.length == 0"  style="min-height: 450px">
+                        <div class="col v-m t-c">
+                            <img src="https://1.tel.jtzyzg.org.cn/allvideos/yxy/tiadlongrise/ltpu/images/syjc/sc_none.png"/>
+                            <p>暂时还没有数据哦</p>
+                        </div>
+                    </div>
+                    <table class="list-table dj-mt-20" ms-if="sincerityInfoRecordList.length >0">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="25%">
+                            <col width="30%">
+                            <col width="20%">
+                            <col width="15%">
+                        </colgroup>
+                        <tr>
+                            <th>序号</th>
+                            <th>诚信记录主体</th>
+                            <th>决定内容</th>
+                            <th>实施部门</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr ms-class-1="good:el.behaviornature=='1'" ms-class-2="bad:el.behaviornature!='1'" ms-repeat="sincerityInfoRecordList">
+                            <td>{{(pageNow - 1)*12 + $index+1}}</td>
+                            <td>
+                                <t ms-text="el.name"></t>
+                            </td>
+                            <td>
+                                <ul class="row w">
+                                    <li class="col v-m">决定日期：<b ms-text="el.decisiondate"></b></li>
+                                </ul>
+                                <p class="t-l" ms-text="el.decision|truncate(50,'..')" ms-attr-title="el.decision">予以通报批评，不批准其资质申请，并将其不良行为在全国建筑市场监管公共服务平台予以公布。自本通报印发之日起1年内不受理上述企业申请该项行政许可。</p>
+                            </td>
+                            <td>
+                                <h2 ms-text="el.department">住房城乡建设部</h2>
+                            </td>
+                            <td><a class="c-blue" style="cursor: pointer;" ms-click="goPsersonInfoPage(el.href)">查看更多</a></td>
+                        </tr>
+                    </table>
+                    <p class="pages tc fs-0" ms-if="SincertyShowPage">
+                        <a class="pages_p" href="javascript:;" ms-click="page('0')" ms-text="'<'"></a>
+                        <a ms-repeat="pagelist" ms-class="on:pageNow==el" href="javascript:;" ms-click="pagejump()"
+                           ms-text="el"></a>
+                        <a class="pages_p" href="javascript:;" ms-click="page('1')">></a>
+                    </p>
+                </div>
+
+                <div class="block-tab-item" ms-class="dn :isclick != '5'">
+                    <div class="filter show">
+                        <div class="hd row w">
+                            <h2 style="font-size: 26px;
+                            color: #0b087e;
+                            text-align: center;
+                            margin: 20px 0;"><b>公路水运工程试验检测专业技术人员职业资格考试成绩查询系统</b></h2>
+                        </div>
+                        <div class="bd" style="display: block">
+                            <table class="dj-form-table query-tab">
+                                <tr>
+                                    <th>准考证号：</th>
+                                    <td colspan="1">
+                                        <div class="form"><input type="text" id="examno" style="width: 139px;"></div>
+
+
+                                    </td>
+                                    <th>姓名：</th>
+                                    <td colspan="1">
+                                        <div class="form"><input type="text" id="examname">
+                                        </div>
+                                    </td>
+                                    <th>证件号码：</th>
+                                    <td colspan="1">
+                                        <div class="form"><input type="text" id="examcard"  style="width: 136px;" autocomplete="off"></div>
+                                        <span class="tip" id="examcardTips"></span>
+                                    </td>
+                                    <th>验证码：</th>
+                            <td colspan="2">
+                                <div style="display: flex;align-items: center;">
+                                    <div class="form">  <input style="width:120px;margin-right: 16px;" type="text" id="code3"/></div>
+
+                                <div id="checkCode03" ms-click="getCodeImg3('checkCode03')"
+                                     style="cursor: pointer;height: 40px;width: 100px;float: right;line-height: 40px;line-height: 40px;background-color: #bedef9;border-radius: 5px;"></div>
+
+                                </div>
+                            </td>
+                                    <td colspan="2" style="padding-left:50px;text-align: right">
+                                        <div style="display: flex;">
+                                            <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small" ms-click="searchScore()">开始查询</a>
+                                        <a href="javascript:;" class="dj-btn dj-btn-orange dj-btn-small hollow ml-10" ms-click="restscore()">重置</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                   <div class="row w none" ms-if="scoreList.length == 0"  style="min-height: 450px">
+                        <div class="col v-m t-c">
+                            <img src="https://1.tel.jtzyzg.org.cn/allvideos/yxy/tiadlongrise/ltpu/images/syjc/sc_none.png"/>
+                            <p>暂时还没有数据哦</p>
+                        </div>
+                    </div>
+                    <table class="list-table dj-mt-20" ms-if="scoreList.length >0">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="6%">
+                            <col width="12%">
+                            <col width="8%">
+                            <col width="10%">
+                            <col width="5%">
+                            <col width="8%">
+                            <col width="5%">
+                            <col width="8%">
+                            <col width="12%">
+                        </colgroup>
+                        <tr>
+                            <th>准考证号</th>
+                            <th>姓名</th>
+                            <th>证件号码</th>
+                            <th>行业</th>
+                            <th>级别</th>
+                            <th>科目</th>
+                            <th>考试情况</th>
+
+                            <th>年份</th>
+                            <th>成绩</th>
+                            <th>成绩报告</th>
+                        </tr>
+                        <tr ms-repeat="scoreList">
+                            <td ms-text="el.examno"></td>
+                            <td ms-text="el.personname"></td>
+                            <td ms-text="el.cardno"></td>
+                            <td >公路水运工程</td>
+                            <td ms-text="el.examleveldesc">公路水运工程试验检测师</td>
+                            <td ms-text="el.examsubjectdesc">道路工程</td>
+                            <td ms-text="el.examstatedesc" ></td>
+                            <td ms-text="el.examyear+'年'">2023年</td>
+                            <td ms-text="el.examscore"></td>
+
+                            <td><button class="button blue" ms-click="linkscore()">点击查询成绩报告</button></td>
+                        </tr>
+                        </table>
+
+                </div>
+            </div>
+            </div>
+            <div class="mask dn"></div>
+        </div>
+        <div class="pop-up-ts dis" id="regAlertBox">
+            <h2>查询关键词
+                <a class="pop_hide" style="cursor: pointer" ms-click="popbox_hide()">X</a>
+            </h2>
+            <div class="search_box">
+                <p class="fill name_list">
+                    <span>用户姓名：</span>
+                    <input type="text" placeholder="请输入用户姓名" ms-focus="initRegPop(1)" ms-blur="checkRegPop(1)" id="regPopName">
+                    <span class="tip" id="regPopNameTips"></span>
+                </p>
+
+                <p class="fill cer_list">
+                    <span>用户证件号：</span>
+                    <input type="text"  placeholder="请输入用户证件号" ms-focus="initRegPop(2)" ms-blur="checkRegPop(2)"  id="regNamecardno" autocomplete="off">
+                    <span class="tip" id="regNamecardnoTips"></span>
+                </p>
+            </div>
+            <p style="margin-bottom: 20px">
+                <a class="confirmBtn" ms-click="readMore()">确定</a>
+                <a class="cancleBtn" style="color:#3E3B9C;background-color: #fff;border: 1px solid;" ms-click="popbox_hide()">取消</a>
+            </p>
+        </div>
+    </div>
+
+    <div ms-if="ismask" class="mask" >
+        <p>正在查询中，请稍后...</p>
+    </div>
+
+    <div ms-include-src="'footer.html'"></div>
+    <script>
+        //判断浏览器版本提示更新
+        if(navigator.userAgent.indexOf("MSIE")>0){
+            if(navigator.userAgent.indexOf("MSIE 6.0")>0){
+                window.location.href="browserUpdate.html";
+            }
+            if(navigator.userAgent.indexOf("MSIE 7.0")>0){
+                window.location.href="browserUpdate.html";
+            }
+        }
+    </script>
+    <script src="../../syjc/weblib/require.js" data-main="../webpkg/init/publicQuery-7ab385bcdb.init"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+"""Shared boundary primitives; never include untrusted values in error messages."""
+
+import hashlib
+import json
+import os
+import re
+from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from uuid import uuid4
+
+
+class SealError(Exception):
+    def __init__(self, code):
+        self.code = code
+        super().__init__(code)
+
+
+def uid():
+    return str(uuid4())
+
+
+def canonical(value):
+    return json.dumps(
+        value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
+    ).encode()
+
+
+def digest(value):
+    return hashlib.sha256(value if isinstance(value, bytes) else canonical(value)).hexdigest()
+
+
+SENSITIVE = re.compile(
+    r"token|password|secret|authorization|api[-_]?key|session|signature|credential", re.I
+)
+BODY_SECRET = re.compile(
+    rb"(?:access[_-]?token|api[_-]?key|password|authorization|secret)\s*[\"']?\s*[:=]\s*[\"']?[^\s<\"']+",
+    re.I,
+)
+
+
+def safe_url(url):
+    try:
+        parts = urlsplit(url)
+        if parts.scheme not in ("http", "https") or not parts.hostname:
+            raise SealError("invalid_url")
+        host = parts.hostname.lower()
+        if ":" in host:
+            host = "[" + host + "]"
+        port = parts.port
+        if port and (parts.scheme, port) not in (("http", 80), ("https", 443)):
+            host += ":" + str(port)
+        # Preserve non-sensitive query order; sorting could change source semantics.
+        query = urlencode(
+            [
+                (k, "REDACTED" if SENSITIVE.search(k) else v)
+                for k, v in parse_qsl(parts.query, keep_blank_values=True)
+            ]
+        )
+        return urlunsplit((parts.scheme, host, parts.path or "/", query, ""))
+    except ValueError:
+        raise SealError("invalid_url") from None
+
+
+def public_url(url):
+    parts = urlsplit(url)
+    if (
+        parts.username
+        or parts.password
+        or any(SENSITIVE.search(k) for k, _ in parse_qsl(parts.query))
+    ):
+        raise SealError("sensitive_url_rejected")
+    return safe_url(url)
+
+
+def atomic_write(path, data):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_name(path.name + "." + uid() + ".tmp")
+    try:
+        with temp.open("xb") as file:
+            file.write(data)
+            file.flush()
+            os.fsync(file.fileno())
+        os.replace(temp, path)
+        descriptor = os.open(path.parent, os.O_RDONLY)
+        try:
+            os.fsync(descriptor)
+        finally:
+            os.close(descriptor)
+    finally:
+        temp.unlink(missing_ok=True)
+
+
+class Objects:
+    def __init__(self):
+        self.root = Path(os.environ.get("SEAL_ARCHIVE", ".seal")).resolve()
+
+    def path(self, key):
+        if not re.fullmatch(r"[0-9a-f]{64}", key):
+            raise SealError("invalid_object_key")
+        return self.root / "objects" / key[:2] / key[2:]
+
+    def put(self, body):
+        key = digest(body)
+        path = self.path(key)
+        if path.exists():
+            self.get(key)
+        else:
+            atomic_write(path, body)
+        return key
+
+    def get(self, key):
+        try:
+            body = self.path(key).read_bytes()
+        except OSError:
+            raise SealError("archive_unreadable") from None
+        if digest(body) != key:
+            raise SealError("archive_corrupt")
+        return body
+
+    def put_json(self, value):
+        return self.put(canonical(value))
+
+    def json(self, key):
+        return json.loads(self.get(key))

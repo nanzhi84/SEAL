@@ -1,0 +1,245 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta name="Articletitle" content="上海市市场监督管理局"><meta name="location" content="province=上海;city=上海;coord=31.20259,121.46147" /><meta name="SiteName" content="上海市市场监督管理局"><meta name="SiteDomain" content="scjgj.sh.gov.cn"><meta name="SiteIDCode" content="3100000017"><meta name="ColumnName" content="上海市市场监督管理局网站"><meta name="ColumnType" content="新闻动态"><meta name="description"content="上海市市场监督管理局门户网站是上海市市场监管局的对外门户，以公开政府信息、发布新闻动态、拓展网上办事、提供便民服务和网上互动为主要内容。"><meta name="keywords" content="市场监督管理,上海市场监管,企业服务,质量技术监督,食品安全监管,消费者权益保护">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>上海市市场监督管理局</title>
+<link href="css/public.css" type="text/css" rel="stylesheet" />
+<link href="css/content.css" type="text/css" rel="stylesheet" />
+<link href="css/calendar.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="js/cal.js"></script>
+<script language="JavaScript" src="js/captcha.js"></script>
+<script language="JavaScript" src="js/validateCode.js"></script>
+
+<!-- 开始无障碍 -->
+<!-- 无障碍工具条 -->
+	
+ 	<script src="js/jhelper_config.js" charset="gb2312"></script>
+	<noscript>不能读取工具条配置</noscript>
+	
+	<noscript>不能读取工具条</noscript>
+	<!-- 无障碍工具条 -->
+	<!-- 统一量化代码 -->
+
+<!-- 统一量化代码 -->
+<!-- 结束无障碍 -->
+
+
+<script type="text/javascript">
+	$(function(){
+		$.getJSON('https://api.ipify.org?format=json', function(data){
+			document.getElementById('w').value = data.ip+"@@"+Math.random().toFixed(6).slice(-6)+"35a7#3";
+		});
+		$("#button2").click(
+		function(){
+			/* var penOrganId=$("#penOrganId").val();
+			if(penOrganId==""){
+				alert("请选择处罚机关！");
+				return false;
+			} */
+			var caseName=$("#caseName").val();
+			 //判断时间
+		 var startDate = $("input[name='startDate']").val();
+		 var endDate = $("input[name='endDate']").val();
+		 //长度校验
+
+			// debugger
+			var length = $("input[name='caseName']").val().length;
+			if($.trim(caseName) !=""){
+				if(length < 2){
+					alert("请输入更详细的查询条件");
+					return;
+				}
+				var list = [];
+				for ( var i = 0; i <="有限公司".length-2; i++){
+					list.push("有限公司".substring(i,i+2));
+				}
+				for ( var i = 0; i <="有限公司".length-3; i++){
+					list.push("有限公司".substring(i,i+3));
+				}
+				for ( var i = 0; i <="有限责任公司".length-2; i++){
+					list.push("有限责任公司".substring(i,i+2));
+					list.push("股份有限公司".substring(i,i+2));
+				}
+				for ( var i = 0; i <="有限责任公司".length-3; i++){
+					list.push("有限责任公司".substring(i,i+3));
+					list.push("股份有限公司".substring(i,i+3));
+				}
+				for ( var i = 0; i <="有限责任公司".length-4; i++){
+					list.push("有限责任公司".substring(i,i+4));
+					list.push("股份有限公司".substring(i,i+4));
+				}
+				for ( var i = 0; i <="有限责任公司".length-5; i++){
+					list.push("有限责任公司".substring(i,i+5));
+					list.push("股份有限公司".substring(i,i+5));
+				}
+				console.log( list);
+				for ( var j = 0; j <=list.length; j++){
+					if($("input[name='caseName']").val()==list[j]){
+						console.log(list[j]);
+						alert("请输入更详细的查询条件");
+						return;
+					}
+				}
+				if($("input[name='caseName']").val()=="上海" || $("input[name='caseName']").val()=="有限公司"
+				||$("input[name='caseName']").val()=="有限责任公司" ||$("input[name='caseName']").val()=="股份有限公司"){
+					alert("请输入更详细的查询条件");
+					return;
+
+				}
+				 // if(!startDate){
+					//  alert("请输入\"处罚决定日期\"开始时间");
+					//  return;
+				 // }
+				 // if(!endDate){
+					//  alert("请输入\"处罚决定日期\"结束时间");
+					//  return;
+				 // }
+				 var start = new Date(startDate);
+				 var end = new Date(endDate);
+				 var end_t = start;
+				 end_t.setMonth(start.getMonth()+1);
+				 // if(end_t&lt;end){
+					//  alert("只能查询一个月内的数据");
+					//  return;
+				 // }
+			}
+			// else if(startDate  || endDate){
+			// 	if(!startDate){
+			// 		 alert("请输入\"处罚决定日期\"开始时间");
+			// 		 return;
+			// 	 }
+			// 	 if(!endDate){
+			// 		 alert("请输入\"处罚决定日期\"结束时间");
+			// 		 return;
+			// 	 }
+			// 	var start = new Date(startDate);
+			// 	 var end = new Date(endDate);
+			// 	 var end_t = start;
+			// 	 end_t.setMonth(start.getMonth()+1);
+			// 	 if(end_t&lt;end){
+			// 		 alert("只能查询一个月内的数据");
+			// 		 return;
+			// 	 }
+			// }
+
+			$("#form1").submit();
+		}
+		);
+
+
+	});
+</script>
+
+</head>
+<body style="text-align:center" onload="checkTime()">
+<div id="container"><!-- 辅助工具条需要的div -->
+		<div id="header"><!-- head start -->
+		<iframe src="index/head.html" height="180px" width="100%" frameborder="0" scrolling="no" ></iframe>
+ <input type="hidden" value="sy" id="dhNo">
+</div><!-- head end -->
+<div class="div_services">
+		<h1 class="h11">案件查询 | <a href="https://scjgj.sh.gov.cn/1538/">案件通报</a></h1>
+		<form name="form1" id="form1" action="punish!getList.action" method="post" onsubmit="validate(this);return false">
+		<input type="hidden" name="p" value=""/>
+		<input type="hidden" id="w" name="w" value=""/>
+		<input type="hidden" name="nextPage" value="" id="nextPage"/>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				class="table_search">
+				<tr>
+					<td width="18%" class="title">请输入查询条件</td>
+					<td width="26%">&nbsp;</td>
+					<td width="30%">&nbsp;</td>
+					<td width="26%">&nbsp;</td>
+				</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<!--<tr>
+					<th>主体名称：</th>
+					<td colspan="3"><input type="text" name="illegPt" value="" style="width:50%"/></td>
+				</tr>
+				<tr>
+					<th>违法行为：</th>
+					<td colspan="3"><input type="text" name="illegAct" value="" style="width:80%"/></td>
+				</tr>-->
+				<tr>
+					<th>当事人名称：</th>
+					<td colspan="3"><input type="text"  id="caseName" name="caseName" value="" style="width:57%"/></td>
+				</tr>
+
+
+
+
+
+
+
+
+				<tr>
+					<th>验证码：</th>
+					<td>
+						<input type="text" id = "validateCode" name = "validateCode" size="20" />
+					</td>
+					<td colspan="2">
+						<img id="cpt-img"  title="看不清，换一张" style="width: 200px"  onclick="loadCaptcha();return false;" align="absmiddle" />
+					</td>
+
+				</tr>
+				    <script type="text/javascript">
+						// 加载验证码
+						function loadCaptcha() {
+							// 验证码
+							cpt.reload("#validateCode", "#cpt-img", "chn-01");
+						}
+						$(function() {
+							// 初始化验证码
+							loadCaptcha();
+						});
+					</script>
+				<tr>
+					<td colspan="4" class="search"><input name="button2"
+						type="button" id="button2" value="查询" class="button" /></td>
+				</tr>
+			</table>
+			<div style="display:none;"><input type="text" name="pageno" value="1" /></div>
+		</form>
+	
+	<iframe id="tab1"  src="https://scjgj.sh.gov.cn/1073/" height="680px" width="100%" frameborder="0" scrolling="no"></iframe>
+	
+	</div>
+	<div id="footer"><!-- foot start -->
+		 <iframe src="index/foot.html" height="280px" width="100%" frameborder="0" scrolling="no"></iframe>
+		</div><!-- foot end -->
+	</div><!-- container end-->
+	<script language="javascript" src="js/gjj.js"></script>
+	<iframe width=174 height=189 name="gToday:normal:calendar.js" id="gToday:normal:calendar.js" src="js/calendar/calendar.htm" scrolling="no" frameborder="0" style="visibility:visible; z-index:999; position:absolute; left:-500px; top:0px;"></iframe>
+</body>
+</html>

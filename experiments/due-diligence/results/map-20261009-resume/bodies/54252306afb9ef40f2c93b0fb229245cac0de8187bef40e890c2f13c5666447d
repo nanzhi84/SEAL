@@ -1,0 +1,2898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+
+    <meta name="SiteName" content="国家税务总局">
+    <meta name="SiteDomain" content="https://12366.chinatax.gov.cn/">
+    <meta name="SiteIDCode" content="bm29000002">
+
+    <title>国家税务总局12366纳税服务平台</title>
+    <link type="image/x-icon" href="favicon.ico" rel="bookmark"/>
+    <link type="image/x-icon" href="favicon.ico" rel="icon"/>
+    <link type="image/x-icon" href="favicon.ico" rel="shortcut icon"/>
+
+    <link rel="stylesheet" href="core-plugins/12366/css/style/reset.css">
+    <link rel="stylesheet" href="core-plugins/12366/css/style/zxzbstyle.css">
+    <link rel="stylesheet" href="core-plugins/12366/css/style/style.css">
+    <link rel="stylesheet" href="core-plugins/12366/css/style/slide.css">
+    <link rel="stylesheet" href="core-plugins/12366/css/style/animate.min.css">
+    <link rel="stylesheet" href="core-plugins/12366/css/style/keyframes.css">
+    <link rel="stylesheet" href="core-plugins/12366/css/style/dialog.css" type="text/css">
+    <script type="text/javascript">
+        //手机端访问到网站地址直接重定向到手机地址
+        var tzdz='';
+        try {
+            var href = window.location.href;
+            var host = window.location.host;
+            tzdz = href.split(host)[1];
+            if(tzdz.length<2){
+                var urlhash = window.location.hash;
+                if (!urlhash.match("fromapp")){
+                    if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i))){
+                        window.location="/wap/pages/index.html";
+                    }
+                }
+            }else {
+                if(is_weixin()) {
+                    window.location="/wap/pages/index.html";
+                }
+            }
+        }catch(err){
+        }
+
+        /**
+         * 是否是微信在访问
+         */
+        function is_weixin(){
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+    <style type="text/css">
+        .guide-box{
+            width:800px!important;
+        }
+        .sign-btn.signing {
+            background: #FFF !important;
+            border-color: #3dce4b !important;
+            color: #3dce4b !important;
+        }
+        .sign-btn.signing:hover {
+            background: #3dce4b !important;
+            border-color: #3dce4b !important;
+            color: #FFF !important;
+        }
+        .sign-btn.btn-green-alter {
+            background: #3dce4b !important;
+            border-color: #3dce4b !important;
+            color: #FFF !important;
+        }
+        .sign-btn.btn-green-alter:hover {
+            background: #FFF !important;
+            border-color: #3dce4b !important;
+            color: #3dce4b !important;
+        }
+        .sign-btn.btn-orange {
+            border-color: #ffa42d !important;
+            background-color: #ffa42d !important;
+            color: #fff !important;
+            cursor: default !important;
+        }
+        .sign-btn.btn-gray {
+            border-color: #999 !important;
+            background-color: #fff !important;
+            color: #a7a7a7 !important;
+            cursor: default !important;
+        }
+        .sign-btn.btn-blue {
+            border-color: #0c6bcd !important;
+            background-color: #0c6bcd !important;
+            color: #fff !important;
+            cursor: default !important;
+        }
+        .s .card-l .smart-help-refer .sear-input-box .search-btn{
+            z-index: 1!important;
+        }
+        .xcpx-pxdd{
+        	overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		    display: block;
+        }
+        .showzd {
+            padding: 0 6px;
+            border-radius: 3px;
+            height: 14px;
+            line-height: 14px;
+            border: 1px solid #ff5a00;
+            background: #fffcf3;
+            vertical-align: middle;
+            margin-right: 4px;
+            font-size: 12px;
+            color: #ff5a00;
+        }
+
+        .fadeInUp{
+            -webkit-animation-name:none;
+            animation-name:none;
+        }
+    </style>
+    <style type="text/css">
+        #bay{
+            width:  176px;
+            height:  206px;
+            z-index: 1001;
+        }
+        .pc-wrap  {
+            display:  block;
+            overflow:  hidden;
+        }
+        .bay  img  {
+            display:  block;
+            width:  150px;
+            height:  180px;
+            padding-top:  26px;
+        }
+        .bay  .txt-box  {
+            position:  absolute;
+            height:  180px;
+            font-size:  0;
+            color:  #fff;
+            top:  26px;
+            left:  10px;
+            right:  36px;
+            text-align:  center;
+        }
+        .bay  .txt-box  .txt  {
+            display:  inline-block;
+            vertical-align:  middle;
+            font-size:  24px;
+        }
+        .bay  .txt-box  .fullheight  {
+            display:  inline-block;
+            height:  100%;
+            width:  0;
+            vertical-align:  middle;
+        }
+        .bay  .close-btn  {
+            position:  absolute;
+            cursor:  pointer;
+            right:  14px;
+            top:  14px;
+            width:  26px;
+            height:  26px;
+            background:  url('core-plugins/12366/images/piaochuangimg/close.png');
+        }
+        .fixed-img{position: fixed;}
+        .fixed-img.lt{left: 6px;top: 230px;}
+        .fixed-img.rt{top: 230px;right: 6px;}
+        .fixed-img.lb{bottom: 20px;left: 6px;}
+        .fixed-img.rb{bottom: 20px;right: 6px;}
+        .fixed-img .img-close{position: absolute;width: 24px;height: 24px;top: 0;right: 0;
+            z-index: 100;background: url('core-plugins/12366/images/piaochuangimg/img-close.png') no-repeat;cursor: pointer;}
+        .fixed-img .img-close:hover{background-position: 0 -24px;}
+        .fixed-img a{width: 150px;height: 100px;display: block;}
+        .fixed-img a img{width: 150px;height: 100%;}
+    </style>
+
+</head>
+<body>
+<div class="s index-page">
+    <div id="div-login-container"></div>
+    <!--引导页-->
+    <div id="guide"></div>
+    <!-- fixed -->
+    <div class="fixed-window">
+        <div class="people-img"></div>
+        <div class="smart link-sys" data-sys="znzx">智能咨询</div>
+        <div class="txt-btn-box zn-btn box-shadow-wrap">
+            <a href="bsfw/about12366/main" target="_blank">
+                <div class="txt">关于12366</div>
+            </a>
+        </div>
+        <!-- APP已下架，屏蔽下载入口
+        <div class="code-btn box-shadow-wrap" onclick="openURL('download/app/index')">
+            <div class="img-container">
+                <img src="core-plugins/normal/images/down-code.png" style="height: 78px;width: 78px;">
+            </div>
+        </div>
+        -->
+        <div class="top-btn box-shadow-wrap" onclick="toTop()">
+        </div>
+    </div>
+    <!--飘窗-->
+    <div id="bay" class="bay" style="display: none; width: 250px; height:310px;">
+        <div class="close-btn"></div>
+    </div>
+
+    <div id="float">
+
+    </div>
+
+    <!-- header -->
+    <div class="nav index-nav">
+        <div class="zero-inline">
+            <div class="mid-box clearfix">
+                <div class="fl">
+                    <div class="location">
+                        <i class="i-local"></i>
+                        <span class="state" id="selected_city">北京市</span>
+                        <span class="toggle">[切换]</span>
+                    </div>
+                    <div class="cities" id="index_cities">
+
+                    </div>
+                </div>
+                <div class="fr">
+                    <div class="sml-links">
+                        <div class="link">
+                            <a onclick="openpersonpage('collection')" id="collection">我的收藏</a>
+                        </div>
+                        <div class="link">
+                            <a onclick="openpersonpage('partnets')" id="partnets">好友申请</a>
+                        </div>
+                        <div class="link">
+                            <a onclick="openpersonpage('message')" id="message">我的消息</a>
+                            <!--<i class="i-s-arrow"></i>-->
+                        </div>
+
+                    </div>
+                    <div class="reg-login">
+                        <a href="usercenter/register/main">注册</a>
+                        <a>登录</a>
+                    </div>
+                    <div class="info reg-user" style="display: none;">
+                        <div class="avator">
+                            <img src="core-plugins/12366/css/qaimg/qa_user_tx.jpg" alt="">
+                        </div>
+                        <div class="name fn-text">用户名</div>
+                        <i class="i-s-arrow"></i>
+                        <div class="pop-up">
+                            <div class="item"><a href="usercenter/personal/main">个人中心</a></div>
+                            <div class="item"><a onclick="login_header.loginOut();">退出</a></div>
+                            <!-- 下面这个隐藏form用于its登出，和下面的iframe一起使用，实现跨域登出 -->
+                            <form style="display:none" id="formItsLogout" action="#" method="get" target="itsLogoutIframe">
+                                <input id="btnSubmitItsLogout" type="submit" value="ITS登出">
+                            </form>
+                        </div>
+                        <iframe id="itsLogoutIframe" name="itsLogoutIframe" style="display:none;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-box">
+            <div class="mid-box">
+                <div class="first-inline clearfix">
+                    <img class="logo fl" src="core-plugins/12366/css/images/logo_zj.png" alt="">
+                    <img class="logo fl" src="core-plugins/12366/css/images/logo_pt.png" alt="" style="margin-top: 20px;margin-left: 20px;">
+                    <div class="search-box fr">
+                        <div class="clearfix">
+                            <input class="fl" name="searchContent" type="text" placeholder="请输入要查询的内容" onkeydown="keyDown(this,event)">
+                            <a class="sear-btn fl" href="javascript:partSearch('all')"></a>
+                        </div>
+                        <div class="sear-tip v-black" id="hotwords">
+                            <span>大家都在搜：</span>
+                            <a href="javascript:partSearch('发票')">发票</a>
+                            <a href="javascript:partSearch('小微企业')">小微企业</a>
+                            <a href="javascript:partSearch('三证合一')">三证合一</a>
+                            <a href="javascript:partSearch('增值税')">增值税</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-wrap">
+            <div class="mid-box">
+                <div class="menu-box">
+                <div class="menu-item item-1">
+                    <span class="first-txt">纳税咨询</span>
+                    <div class="menu-second-box animated fadeInUp">
+                        <div class="menu-second">
+                            <a data-sys="znzx" target="_blank"
+                               class="second-item second-1 link-sys">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">智能咨询</span>
+                            </a>
+                            <!--<a href="zbhz" target="_blank" class="second-item second-2">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">众包互助</span>
+                            </a>-->
+                            <a href="nszx/onlinemessage/main" target="_blank" class="second-item second-3">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">网上留言</span>
+                            </a>
+                            <a target="_blank" class="second-item second-4 link-sys" data-sys="csad">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">在线咨询</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item item-2">
+                    <span class="first-txt">涉税查询</span>
+                    <div class="menu-second-box animated fadeInUp" style="left: 50px;">
+                        <div class="menu-second">
+                            <a href="sscx/main" target="_blank" class="second-item second-1">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">税法查询</span>
+                            </a>
+                            <a href="sscx/taxpayer/main" target="_blank" class="second-item second-2">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">纳税人信息查询</span>
+                            </a>
+                            <a target="_blank" class="second-item second-3 zzscy" data-module="zzscy" data-lx="2" onclick="toLog(this)">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">全国增值税发票查验</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item item-3">
+                    <a >
+                        <span class="first-txt">纳税辅导</span>
+                    </a>
+                    <div class="menu-second-box  animated fadeInUp" style="margin-left: -334px;">
+                        <div class="menu-second">
+                            <a href="nsrxt/videoondemand/main" target="_blank" class="second-item second-1">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">视频点播</span>
+                            </a>
+                            <a href="nsrxt/taxpayerAcademy/main" target="_blank" class="second-item second-2">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">纳税人学堂</span>
+                            </a>
+                            <a href="zqdetail/main?id=2f698b9a53424b5aa6d22d9754c5156a&mbfl=2" target="_blank" class="second-item second-5">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">减税降费</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item item-5">
+                    <span class="first-txt">办税服务</span>
+                    <div class="menu-second-box animated fadeInUp" style="right: 60px;">
+                        <div class="menu-second">
+                            <a href="bsfw/onlinetaxation/main" target="_blank" class="second-item second-1">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">网上办税</span>
+                            </a>
+                            <a href="bsfw/booktax/main" target="_blank" class="second-item second-2">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">预约办税</span>
+                            </a>
+                            <a href="bsfw/bsdt/" target="_blank" class="second-item second-3">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">办税地图</span>
+                            </a>
+                            <a href="bsfw/calendar/main" target="_blank" class="second-item second-4">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">办税日历</span>
+                            </a>
+                            <a href="bsznBLH/main" target="_blank" class="second-item second-6">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">办税指南</span>
+                            </a>
+                            <a href="zqdetail/n/main" target="_blank" class="second-item second-7">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">涉税专题</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item item-6">
+                    <span class="first-txt">在线互动</span>
+                    <div class="menu-second-box animated fadeInUp" style="right: 65px;">
+                        <div class="menu-second">
+                            <a href="hdgn/accusationcomplaint/entryAccu" target="_blank"
+                               class="second-item second-1">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">违法举报</span>
+                            </a>
+                            <a href="hdgn/accusationcomplaint/entryComp" target="_blank"
+                               class="second-item second-2">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">服务投诉</span>
+                            </a>
+                            <a id="zxft_url" class="second-item second-5">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">在线访谈</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item item-4">
+                    <a >
+                        <span class="first-txt">涉税专业服务</span>
+                    </a>
+                    <div class="menu-second-box  animated fadeInUp" style="left: inherit; right: 0; margin-left: auto;">
+                        <div class="menu-second">
+                            <a href="sszyfw/bulletinBoard/main" target="_blank" class="second-item second-1">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">涉税专业服务机构</span>
+                                <span class="second-txt" style="font-size:19px;padding-left: 5px;">公告栏</span>
+                            </a>
+                            <!--<a href="pxkt/main" target="_blank" class="second-item second-4">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">涉税专业服务机构</span>
+                                <span class="second-txt" style="font-size:19px;padding-left: 5px;">培训课堂</span>
+                            </a>
+                            <a href="sszyfw/taxKnowledgeBase/main" target="_blank" class="second-item second-3">
+                                <i class="second-grade"></i>
+                                <span class="second-txt">涉税专业服务机构</span>
+                                <span class="second-txt" style="font-size:19px;padding-left: 5px;">涉税知识库</span>
+                            </a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- content -->
+    <div class="con" style="padding-top: 10px;">
+        <div class="mid-box">
+            <div class="clearfix">
+                <div class="row clearfix">
+                    <div id="slide3d" class="slide-carousel slide-3d fl">
+                        <ul class="item-list clearfix" id="zqlbdiv">
+                        </ul>
+                        <!--indicators-->
+                        <div class="indicator-list">
+                        </div>
+                        <div class="controls">
+                            <a class="item-prev glyphicon glyphicon-menu-left" href="javascript:void(0);"></a>
+                            <a class="item-next glyphicon glyphicon-menu-right" href="javascript:void(0);"></a>
+                        </div>
+                    </div>
+                    <div class="card-l trisector box-shadow-wrap fr">
+                        <div class="hd clearfix">
+
+                            <a class="txt on" more="sscx/rdzs?more=1" onclick="getMoreZs('rd');" target="_blank">热点问题</a>
+                            <a class="txt" more="sscx/zxfg?more=1" onclick="getMoreZs('fg');"  target="_blank">最新法规</a>
+                        </div>
+                        <!-- 热点问题 -->
+                        <div class="stuff-box animated fadeInRight">
+                            <div class="index-hot-problem list-box" id="rdwtid">
+                            </div>
+                        </div>
+                        <!-- 最新法规 -->
+                        <div class="stuff-box animated fadeInRight" style="display: none;">
+                            <div class="list-box" id="zxfgid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="card-normal box-shadow-wrap fl">
+                        <div class="hd clearfix">
+                            <a class="txt on" more="nsrxt/videoondemand/main" href="nsrxt/videoondemand/main"
+                               target="_blank">视频点播</a>
+                            <a class="txt" more="openinglesson/main" href="openinglesson/main"
+                               target="_blank">开业第一课</a>
+                        </div>
+                        <!-- 视频点播 -->
+                        <div class="stuff-box animated fadeInRight">
+                            <div class="training-live clearfix video-live">
+                                <div class="broadcasting fl">
+                                    <a class="next toggle-btn" href="javascript:void(0)"></a>
+                                    <a class="prev toggle-btn" href="javascript:void(0)"></a>
+                                    <div class="head">
+                                        <ul id="video-img-head">
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                    <div class="body">
+                                        <ul id="video-img">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="training-box fr" id="video-info">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 开业第一课 -->
+                        <div class="stuff-box animated fadeInRight" style="display: none;">
+                            <div class="training-live clearfix lesson-live">
+                                <div class="broadcasting fl">
+                                    <a class="next toggle-btn"></a>
+                                    <a class="prev toggle-btn"></a>
+                                    <div class="head">
+                                        <ul id="lesson-img-head">
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                    <div class="body">
+                                        <ul id="lesson-img">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="training-box fr" id="lesson-info">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-l trisector box-shadow-wrap fr">
+                        <div class="hd clearfix">
+                            <a class="txt on link-sys" more="usercenter/index/znzxpage" data-sys="znzx" target="_blank">智能咨询</a>
+                            <!--<a class="txt" more="zbhz" href="zbhz" target="_blank">众包互助</a>-->
+                            <a class="txt" more="wsly" href="nszx/onlinemessage/main" target="_blank">网上留言</a>
+                            <a class="txt link-sys" more="usercenter/index/znzxpage" data-sys="csad" target="_blank">在线咨询</a>
+                        </div>
+                        <!-- 智能咨询 -->
+                        <div class="stuff-box animated fadeInRight">
+                            <div class="smart-help-refer">
+                                <div class="sear-input-box">
+                                    <input type="text" placeholder="请输入要咨询的内容" onkeydown="keyDownforSearch(this,event,1,'znzx')">
+                                    <div class="search-btn" onclick="indexSearch(this,1,'znzx')"></div>
+                                </div>
+                                <div class="sear-result-list">
+                                    <ul id="index-znzx-list">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 众包互助 -->
+                        <!--<div class="stuff-box animated fadeInRight" style="display: none;">
+                            <div class="smart-help-refer">
+                                <div class="sear-input-box">
+                                    <input type="text" placeholder="请输入要查询的内容" onkeydown="keyDownforSearch(this,event,2,'zbhz')" maxlength="50">
+                                    <div class="search-btn" onclick="indexSearch(this,2)" url="zbhz#"></div>
+                                </div>
+                                <div class="sear-result-list">
+                                    <ul id="index-zbhz-list">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>-->
+                        <!-- 网上留言 -->
+                        <div class="stuff-box animated fadeInRight" style="display: none;">
+                            <div class="smart-help-refer">
+                                <div class="sear-input-box">
+                                    <input type="text" placeholder="请输入要查询的内容" onkeydown="keyDownforSearch(this,event,4,'wsly')" maxlength="50">
+                                    <div class="search-btn" onclick="indexSearch(this,2)" url="nszx/onlinemessage/main#"></div>
+                                </div>
+                                <div class="sear-result-list">
+                                    <ul id="index-wsly-list">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 在线咨询 -->
+                        <div class="stuff-box animated fadeInRight" style="display: none;">
+                            <div class="smart-help-refer">
+                                <div class="sear-input-box">
+                                    <input type="text" placeholder="请输入要咨询的内容" onkeydown="keyDownforSearch(this,event,3,'csad')">
+                                    <div class="search-btn" onclick="indexSearch(this,3,'csad')"></div>
+                                </div>
+                                <div class="sear-result-list">
+                                    <ul id="index-zxzx-list">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="card-50per box-shadow-wrap fl">
+                        <div class="hd clearfix">
+                            <a class="txt on" href="bsfw/bsdt/" target="_blank">办税地图</a>
+                            <a class="txt" href="bsfw/calendar/main" target="_blank">办税日历</a>
+                        </div>
+                        <!-- 办税地图 -->
+                        <div class="stuff-box animated fadeInRight">
+                            <div class="index-tax-map">
+                                <a href="bsfw/bsdt/" target="_blank">
+                                    <!-- 这里图片占位 -->
+                                    <img src="core-plugins/12366/css/images/sample-10.png" alt="" id="bsdtImg">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- 办税日历 -->
+                        <div class="stuff-box animated fadeInRight" style="display: none;">
+                            <div class="tax-date clearfix">
+                                <div class="fl schedule-wrap" id="schedule-box">
+                                </div>
+                                <div class="fr">
+                                    <div class="events-box scroll" style="height: 100%;">
+                                        <div class="event-list">
+                                            <div class="list-item clearfix">
+                                                <i></i>
+                                                <div class="txt">
+                                                    申报缴纳资源税（水资源税除外）、按期汇总缴纳纳税人和电子应税凭证纳税人申报缴纳
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="no-data" style="display: none;">
+                                        <img src="core-plugins/12366/css/images/default-data-img.png" alt="">
+                                        <p>当日无需申报</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-50per box-shadow-wrap fr">
+                        <div class="hd clearfix">
+                            <a class="txt on" more="" id="textInterviewLink" target="_blank"  rel='noopener noreferrer'
+                               id="wzft_url">文字访谈</a>
+                        </div>
+                        <!-- 文字访谈 -->
+                        <!--<div class="stuff-box animated fadeInRight" style="display: none;">-->
+                        <div class="stuff-box animated fadeInRight">
+                            <div class="index-online-interview" id="textInterview-info">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="mid-box">
+            <div class="nothing"></div>
+            <a onclick="nfptJumpOutSidePage.showOutsideAlert('https://bszs.conac.cn/sitename?method=show&id=0895F7C120836C12E053012819AC7E96')">
+                <img src="core-plugins/12366/css/images/foot-img-1.png">
+            </a>
+            <a href="https://zfwzgl.www.gov.cn/exposure/jiucuo.html?site_code=bm29000002&url=12366.chinatax.gov.cn" target="_blank"><img src="core-plugins/12366/css/images/foot-img-2.png"></a>
+            <div class="txt">
+                <p style="color: #888888">版权所有：国家税务总局 网站标识码：bm29000002</p>
+                <p style="color: #888888">
+                    <a style="color: #888888" target="_blank" href="https://beian.miit.gov.cn/">
+                        京ICP备13021685号-2
+                    </a>
+                    <a style="color: #888888" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11040102700073">
+                        <img src="core-plugins/12366/images/guohui.png" alt="" style="margin-top: -3px;margin: 0 0 2px 0;">京公网安备 11040102700073号
+                    </a>
+                </p>
+                <p style="color: #888888">主办单位：国家税务总局 地址：北京市西城区枣林前街68号&nbsp&nbsp|&nbsp&nbsp<a href="http://www.chinatax.gov.cn/chinatax/c101263/c61304/content.html" style="color: #666;" target="_blank">联系我们</a></p>
+                <p style="color: #888888">建议您使用IE9及以上版本、Edge、Chrome、Firefox和360等主流浏览器浏览本网站</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none;" id="params"></div>
+
+<div id="outside" style="display: none;position: fixed;left: 50%;top: 50%;margin-left: -300px;margin-top: -160px;width: 600px;height: 270px;background: #fff;z-index: 10001;border: 2px solid;border-radius: 10px;">
+    <div style="width: 100%;height: 38px;position: relative;">
+        <span onclick="nfptJumpOutSidePage.cancelOutside()" style="position: absolute;top: 10px;right: 10px;width: 20px;height: 20px;line-height: 20px;color: #fff;text-align: center;background: #bebebe;cursor: pointer;">X</span>
+    </div>
+    <div style="width: 520px;height: 100px;margin: 15px auto 0;line-height: 35px;font-size: 1.5em;color: #000;text-align: center;padding-bottom: 15px;border-bottom: 1px solid #d4d4d4;">
+        <p>您即将离开12366纳税服务平台网站，<br>是否继续？</p></div>
+    <div style="width: 100%;padding: 25px 0;text-align: center;color: #000;">
+    <span onclick="nfptJumpOutSidePage.checkOutside()" style="cursor: pointer;display: inline-block;margin: 0 12px;font-size: 1.25em;width: 124px;height: 42px;color: #ab0d07;border-radius: 3px;-webkit-border-radius: 3px;border: #e1e1e1 1px solid;text-align: center;line-height: 42px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;
+    -webikt-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;">继续访问</span>
+        <span onclick="nfptJumpOutSidePage.cancelOutside()" style="cursor: pointer;display: inline-block;margin: 0 12px;font-size: 1.25em;line-height: 42px;color: #ab0d07;">放弃</span>
+    </div>
+</div>
+<div id="outside-mask" style="display: none;position: fixed;top: 0px;left: 0px;z-index: 1000;background: rgba(0, 0, 0, 0.7);filter: alpha(opacity = 80) !important;width: 100%;height: 100%;"></div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="core-plugins/12366/js/jquery.bay-window.js"></script>
+<script type="text/javascript" src="core-plugins/ew/depend/cookie/jquery.cookie-min.js"></script>
+<script type="text/javascript" src="core-plugins/12366/js/baseutil.js"></script>
+<script type="text/javascript" src="core-plugins/12366/js/alert.msg.js"></script>
+<script type="text/javascript" src="core-plugins/12366/js/base64util.js"></script>
+<script type="text/javascript" src="core-plugins/12366/js/schedule.js"></script>
+<script type="text/javascript" src="core-plugins/12366/js/slide3d.min.js"></script>
+<script type="text/javascript" src="js/province.js"></script>
+<script src="core-plugins/12366/js/jquery.SuperSlide.2.1.js"></script>
+
+<script type="text/javascript" src="core-plugins/12366/js/sscx/laydate/laydate.js"></script>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=gfrTV3LASJ1hHtK4hF80r7SdSdfFGXVF&s=1" ></script>
+<link rel="stylesheet" href="core-plugins/12366/css/style/global.css">
+<script type="text/javascript">
+var ctx_=window.location.pathname.split("/")[1];
+if(ctx_!=''){
+	ctx_='/'+ctx_;
+}
+
+//浏览器推荐
+// 尊敬的 windows 用户，我们强烈建议您升级操作系统或浏览器获得更安全的网络环境和更好的用户体验
+    /*
+     * @desc  判断浏览器的版本以及浏览器内核
+     */
+function BrowserType(){
+    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+    var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+    // var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+    var isIE=window.ActiveXObject || "ActiveXObject" in window
+    // var isEdge = userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1 && !isIE; //判断是否IE的Edge浏览器
+    var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
+    var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
+    var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器
+    var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1&&!isEdge; //判断Chrome浏览器
+
+    if (isIE){
+        var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+        reIE.test(userAgent);
+        var fIEVersion = parseFloat(RegExp["$1"]);
+        if(userAgent.indexOf('MSIE 6.0')!=-1){
+            return "IE6";
+        }else if(fIEVersion == 7)
+        { return "IE7";}
+        else if(fIEVersion == 8)
+        { return "IE8或360兼容模式";}
+        else if(fIEVersion == 9)
+        { return "IE9或360兼容模式";}
+        else if(fIEVersion == 10)
+        { return "IE10或360兼容模式";}
+        else if(userAgent.toLowerCase().match(/rv:([\d.]+)\) like gecko/)){
+            // return "IE11或360兼容模式";
+        }
+        else
+        { return "0"}//IE版本过低
+    }//isIE end
+    // if (isFF) { return "火狐";}
+    if (isOpera) { return "Opera";}
+}
+
+function getBrowserInfo() {
+    var explorer = navigator.userAgent.toLowerCase() ;
+    //ie
+    if (explorer.indexOf("msie") >= 0) {
+        var ver=explorer.match(/msie ([\d.]+)/)[1];
+        return {type:"IE",version:ver};
+    }
+    //firefox
+    else if (explorer.indexOf("firefox") >= 0) {
+        var ver=explorer.match(/firefox\/([\d.]+)/)[1];
+        return {type:"Firefox",version:ver};
+    }
+    //Opera
+    else if(explorer.indexOf("opera") >= 0){
+        var ver=explorer.match(/opera.([\d.]+)/)[1];
+        return {type:"Opera",version:ver};
+    }
+}
+
+function openRecommend(){
+    var browserType = BrowserType();
+    var browserVersion = getBrowserInfo();
+    if(browserType){
+        var div_ = '<DIV>' +
+            '<DIV class="iefix-mask modalDialog"></DIV>' +
+            '<DIV class="iefix-wrap modalDialog">' +
+            '<A class=iefix-close id=__ie_fix_close href="javascript:;"><I class=iefix-icon-close></I></A>' +
+            '<DIV class=iefix-con><I class=iefix-icon-up></I>' +
+            '<P class=iefix-txt>尊敬的用户，您目前使用的是'+browserType;
+        div_+= '浏览器。为了更好的用户体验，我们建议您使用360浏览器极速模式或者谷歌浏览器</P>' +
+        '</DIV>' +
+        '</DIV>' +
+        '</DIV>';
+        var $div = $(div_);
+        $("body").append($div);
+        $div.find("#__ie_fix_close").click(function(){
+            $div.remove();
+        });
+        $.cookie("browser",true);
+    }
+}
+//提示过的就不再提示
+if(!$.cookie("browser")){
+    // openRecommend();
+}
+    // 加载第三方系统地址信息
+    var syslink = {},jslog;
+    $.getJSON("js/sysconfig.json", function (data) {
+        syslink = data;
+        $('body').delegate(".link-sys","click",function(){
+            var sys = $(this).attr('data-sys');
+            if(sys == 'znzx'){
+                var url = syslink['znzx']+"?guide="+guide;
+                window.open(url);
+            }else if(sys == 'csad'){
+                var url = syslink['csad']+"&guide="+guide;
+                window.open(url);
+            }
+        });
+
+        // 全国增值税发票查验地址
+        $('.zzscy').attr('href', syslink['zzscy']);
+
+        jslog = syslink.jslog;
+        $.loadSCRIPT(syslink.jslog,"arlogAnchor",{"data-module":"sy","data-tag":"","data-id":"","data-title":""});
+    });
+
+    // 重写indexOf方法
+    if (!Array.prototype.indexOf) {
+        Array.prototype.indexOf = function (elt) {
+            var len = this.length >>> 0;
+            var from = Number(arguments[1]) || 0;
+            from = (from < 0)
+                ? Math.ceil(from)
+                : Math.floor(from);
+            if (from < 0)
+                from += len;
+            for (; from < len; from++) {
+                if (from in this &&
+                    this[from] === elt)
+                    return from;
+            }
+            return -1;
+        }
+    }
+    if (!Array.prototype.lastIndexOf) {
+        Array.prototype.lastIndexOf = function(searchElement /*, fromIndex*/) {
+            if (this === void 0 || this === null) {
+                throw new TypeError();
+            }
+            var n, k,
+                t = Object(this),
+                len = t.length >>> 0;
+            if (len === 0) {
+                return -1;
+            }
+            n = len - 1;
+            if (arguments.length > 1) {
+                n = Number(arguments[1]);
+                if (n != n) {
+                    n = 0;
+                }
+                else if (n != 0 && n != (1 / 0) && n != -(1 / 0)) {
+                    n = (n > 0 || -1) * Math.floor(Math.abs(n));
+                }
+            }
+            for (k = n >= 0
+                ? Math.min(n, len - 1)
+                : len - Math.abs(n); k >= 0; k--) {
+                if (k in t && t[k] === searchElement) {
+                    return k;
+                }
+            }
+            return -1;
+        };
+    }
+
+    // var index_ = localStorage.getItem("index_");
+    // if(index_){
+    //     $(".index-content").html(index_);
+    // }
+    var guide = $.cookie("guide");
+    if(!guide){
+        $("#guide").load("guide.html");
+    }
+    //拖拽
+    function allowDrop(ev){
+        ev.preventDefault();
+    }
+    var srcdiv = null;
+    function drag(ev,divdom){
+        srcdiv=divdom;
+        //divdom鼠标选中的div
+        // localStorage.setItem("text/html",divdom.innerHTML);
+    }
+    function drop(ev,divdom){
+        ev.preventDefault();
+        if(srcdiv != divdom){
+            //divdom与鼠标选中替换的div
+            srcdiv.innerHTML = divdom.innerHTML;
+            // divdom.innerHTML=localStorage.getItem("text/html");
+            var html_ = $(".index-content").html();
+            // localStorage.setItem("index_",html_);
+            $('#slide3d').slideCarsousel({slideType: '3d', indicatorEvent: 'mouseover'});
+            $('.hd .txt').mouseenter(function () {
+                var index = $(this).index(),
+                    more = $(this).attr("more");
+                if(!$(this).hasClass("on")){
+                    $(this).addClass('on').siblings().removeClass('on');
+                    $(this).parent().siblings('.stuff-box').hide().eq(index).show();
+                }
+            })
+        }
+    }
+    //查询添加轮播图的信息
+    function getlbxx() {
+        $.ajax({
+            type: 'post',
+            url: 'zqdetail/getzqlist',
+            data: {
+                "num": "7"
+            },
+            dataType: 'json',
+            success: function (res) {
+                var zqlist = res.json.zqlist;
+                var str = '';
+                var str1 = '';
+                var j = zqlist.length - 2
+                for (var i = 0; i < zqlist.length; i++) {
+                    if(j>=zqlist.length){
+                        j=0;
+                    }
+                    str += '<li class="item' + i + '">' +
+                        '<div class="item-content">' ;
+                    if(zqlist[j].MBFL == "4"){
+                        str+='<a onclick="nfptJumpOutSidePage.showOutsideAlert(\''+zqlist[j].PATH+'\')" target="_blank">';
+                    }else{
+                        str+='<a href="zqdetail/main?id=' + zqlist[j].ID + '&mbfl=' + zqlist[j].MBFL + '" target="_blank">'
+                    }
+                    str+=  '<img class="cover-img" src="filecenter/fileupload/download?fileId=' + zqlist[j].FJGLBYFJID + '&type=0" alt="">' +
+                        '</a></div></li>';
+                    if (i == 0) {
+                        str1 += '<a href="javascript:void(0);" data-slide-index="' + i + '" class="selected"></a>';
+                    } else {
+                        str1 += '<a href="javascript:void(0);" data-slide-index="' + i + '"></a>';
+                    }
+                    j++;
+                }
+                $("#zqlbdiv").html(str);
+                $(".indicator-list").html(str1);
+                $('#slide3d').slideCarsousel({slideType: '3d', indicatorEvent: 'mouseover'});
+            }
+        })
+    }
+
+    var login_header = {
+        /**
+         * 用户登录校验
+         *
+         * @param callback 回调函数
+         */
+        checkLogin: function (callback) {
+            $.ajax({
+                type: 'post',
+                url: 'usercenter/login/detail',
+                dataType: 'json',
+                success: function (res) {
+                    var isLogin = window.isLogin = (res.code === 1);
+
+                    // 未登录head
+                    if (!isLogin) {
+                        var cookienfid = getCookie('cookienfid');
+                        if (cookienfid) {
+                            login_header.ssoLogin(cookienfid, callback);
+                        } else {
+                            callback && callback.apply(this, [isLogin]);
+                        }
+                        return;
+                    }
+
+                    // 已登录，显示当前登录人信息
+                    $('.nav .info .name').html(res.data.yhnc);
+                    if (res.data.imgsrc) {
+                        var path = res.data.imgsrc;
+                        path = path.substring(1, path.length);
+                        $('.nav .info .avator img').attr('src', path);
+                    }
+
+                    $('.reg-login').hide();
+                    $('.nav .reg-user').show();
+
+                    callback && callback.apply(this, [isLogin]);
+                }
+            })
+        },
+
+        /**
+         * 用户注销登录
+         */
+        loginOut: function () {
+
+            // 获取用户信息，只有channel是5的用户才允许登出ITS
+            $.ajax({
+                type: 'get',
+                url: 'usercenter/login/detail',
+                dataType: 'json',
+                async: false,
+                success: function (res) {
+                    // console.debug(res);
+                    // console.debug(res.data.channel);
+                    if (res.data.channel === '5') {
+                        // console.debug('准备登出ITS');
+                        // 获取ITS登出的URL
+                        var itsLogoutUrl = '';
+                        $.ajax({
+                            type: 'get',
+                            url: 'usercenter/getItsLogoutUrl',
+                            dataType: 'json',
+                            async: false,
+                            success: function (res2) {
+                                // console.debug(res2);
+                                // console.debug(res2.json.itsLogoutUrl);
+                                itsLogoutUrl = res2.json.itsLogoutUrl;
+                            }
+                        });
+                        // console.debug("hidden form click " + itsLogoutUrl);
+                        $('#formItsLogout').attr('action', itsLogoutUrl);
+                        $('#btnSubmitItsLogout').click();
+                    }
+                }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: 'usercenter/login/out',
+                dataType: 'json',
+                success: function (res) {
+                    if (res === 0) {
+                        return;
+                    }
+                    // console.debug('已登出12366');
+
+                    // 返回首页
+                    location.href = '';
+                }
+            })
+        },
+        //销户
+        account : function(){
+            window.open("usercenter/portal/account/main");
+        },
+        // 单点登录
+        ssoLogin: function (cookienfid, callback) {
+            $.ajax({
+                type: 'post',
+                url: 'usercenter/sso/login/in',
+                dataType: 'json',
+                data: {'account': cookienfid},
+                success: function (res) {
+                    var isLogin = window.isLogin = (res.code === 1);
+
+                    // 未登录
+                    if (!isLogin) {
+                        callback && callback.apply(this, [isLogin]);
+                        return;
+                    }
+                    // 已登录，显示当前登录人信息
+                    $('.nav .info .name').html(res.data.yhnc);
+                    if (res.data.imgsrc) {
+                        $('.nav .info .avator img').attr('src', res.data.imgsrc);
+                    }
+
+                    $('.reg-login').hide();
+                    $('.nav .reg-user').show();
+
+                    getCount();
+                    callback && callback.apply(this, [isLogin]);
+                }
+            })
+        }
+    };
+
+    // 获取指定名称的cookie
+    function getCookie(name){
+        var strcookie = document.cookie;//获取cookie字符串
+        var arrcookie = strcookie.split("; ");//分割
+        //遍历匹配
+        for ( var i = 0; i < arrcookie.length; i++) {
+            var arr = arrcookie[i].split("=");
+            if (arr[0] == name){
+                return arr[1];
+            }
+        }
+        return "";
+    }
+
+    //用户课程报名情况
+    var userLesson = [];
+    var lazyLoad  = {
+        zxfg : true,
+        fwtz : true,
+        zbhz : true,
+        zxzb : true,
+        xcpx : true,
+        wzft : true,
+        wsly : true,
+        kydyk : true
+    }
+    $(function () {
+        //获得首页的轮播信息
+        getlbxx();
+
+        getCities();
+
+        //视频点播信息获取
+        getVideoOnDemand();
+
+        //视频访谈信息获取，暂时隐藏
+        // getVideoInterview();
+
+        //文字访谈链接获取
+        getTextInterviewLink();
+        //文字访谈预告获取
+        getTextInterviewNotice();
+
+        //智能咨询热点问题
+        getConsulting();
+
+        //获取收藏等条数信息
+        getCount();
+
+        //热词
+        getHotWords();
+        //飘窗
+        getPiaoChuang();
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $('.fixed-window').css('height', '388px');
+                $('.fixed-window .top-btn').show();
+            } else {
+                $('.fixed-window').css('height', '332px');
+                $('.fixed-window .top-btn').hide();
+            }
+        });
+
+
+        $('.hd .txt').mouseenter(function () {
+            var name = $(this).text();
+            if("最新法规" == name){
+                //获取最新法规
+                if(lazyLoad.zxfg){
+                    getzxfg();
+                }
+            }else if("服务通知" == name){
+                //获取服务通知
+                if(lazyLoad.fwtz){
+                    getfwtz();
+                }
+            }else if("众包互助" == name){
+                if(lazyLoad.zbhz){
+                    //众包互助
+                    getZbhz();
+                }
+            }else if("在线咨询" == name){
+                //同智能咨询
+            }else if("在线直播" == name){
+                if(lazyLoad.zxzb){
+                    //在线直播数据获取
+                    getLiveOnline();
+                }
+            }else if("现场培训" == name){
+                if(lazyLoad.xcpx){
+                    //用户培训信息获取
+                    getUserLesson();
+                }
+            }else if("办税日历" == name){
+                //不适用懒加载
+            }else if("文字访谈" == name){
+                if(lazyLoad.wzft){
+
+                }
+            } else if ("网上留言" == name) {
+                if(lazyLoad.wsly){
+                    //在线直播数据获取
+                    getWsly();
+                }
+            } else if ("开业第一课" == name) {
+                if(lazyLoad.kydyk){
+                    //在线直播数据获取
+                    getOpeningLesson();
+                }
+            }
+
+            var index = $(this).index(),
+                more = $(this).attr("more");
+            if(!$(this).hasClass("on")){
+                $(this).addClass('on').siblings().removeClass('on');
+                $(this).parent().siblings('.stuff-box').hide().eq(index).show();
+            }
+            // $(this).parent().find("a").attr("href", more);
+        })
+        // // 培训直播轮播
+        // jQuery(".training-live .broadcasting").slide({
+        //     mainCell:".body ul",
+        //     titCell: '.head li',
+        //     autoPlay:true
+        // });
+        // 登录校验
+        login_header.checkLogin();
+
+        // 首页点击登录按钮
+        $('.reg-login a').eq(1).on('click', function (item) {
+            $("#div-login-container").load("usercenter/login/main?flag=l", function () {
+                $(this).data('callback', function (data) {
+                });
+            });
+        });
+
+        // 窗口关闭事件
+        $('#div-login-container').on('click', '.close-btn', function () {
+            $('#div-login-container').empty();
+        });
+
+        // 头像点击
+        $('.s .nav .reg-user').click(function () {
+            $(this).toggleClass('on');
+            $(this).find('.pop-up').toggle();
+        });
+
+        //ip定位
+        $('.s .nav .location').click(function () {
+            $(this).toggleClass('on');
+            $('.s .nav .cities').toggle();
+        });
+
+        $(document).click(function (e) {
+            e = e || window.e;
+            target('.s .nav .location', '.s .nav .cities', e);
+            target('.s .nav .info', '.s .nav .info .pop-up', e);
+        });
+
+        function target(obj1, obj2, e) {
+            var tar = $(obj1);
+            if (!tar.is(e.target) && tar.has(e.target).length === 0) {
+                $(obj2).hide();
+                tar.removeClass('on');
+            }
+        }
+
+        // $('.traning-plain').on('click', '.signing', function () {
+        $('#training-info').on('click', '.signing', function () {
+            enterForTraining(this, $(this).attr('id'));
+        });
+        $('#training-info').on('click', '.btn-green-alter', function () {
+            cancelRegistration(this, $(this).attr('id'));
+        });
+
+
+
+        //热点问题获得
+        $.ajax({
+            type: 'post',
+            url: 'sscx/rdzs',
+            data: {bqtype: ''},
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                }
+                var obj = $('#rdwtid');
+                var list1 = res.data1;
+                var list2 = res.data;
+                obj.empty();
+                if(null!=list2&&list2.length>0){
+                    var i;
+                    var t, m, clspx;
+                    for (var i = 0; i < list2.length; i++) {
+                        m = i + 1;
+
+                        if (i == 0) {
+                            t = "one";
+                        }
+                        else if (i == 1) {
+                            t = "two";
+                        } else if (i == 2) {
+                            t = "three";
+                        } else {
+                            t = "";
+                        }
+                        clspx = "last-" + t;
+                        obj.append("<a class='fn-text' target='_blank' title='"+list2[i].RDWTBT+"' onclick='showRdDetail(\"" + list2[i].BH + "\",\"" + list2[i].TSLX + "\",\"" + 2 + "\")'><i class='" + clspx + "'>" + m + "</i>" + list2[i].RDWTBT + "</a>");
+                        // i++;
+                    }
+                }
+
+            }
+        })
+
+
+
+    });
+    function getMoreZs(bs) {
+
+        var type = $('#tabType').val();
+        type = type == null ? "" : type;
+        if(bs=="rd"){
+            window.open('sscx/rdzs?more=1&bqtype=');
+        }else if(bs=="fg"){
+            window.open("sscx/zxfg?more=1&bqtype=");
+        }
+        // var name = Math.random();
+        // var tempForm = document.createElement("form");
+        // tempForm.id = "tempForm2";
+        // tempForm.method = "post";
+        // tempForm.action = url;
+        // tempForm.target = name;
+        // var hideInput1 = document.createElement("input");
+        // hideInput1.type = "hidden";
+        // hideInput1.name = "more";
+        // hideInput1.value = "1";
+        // var hideInput2 = document.createElement("input");
+        // hideInput2.type = "hidden";
+        // hideInput2.name = "bqtype";
+        // hideInput2.value = '';
+        // // hideInput2.value = guide;
+        // tempForm.appendChild(hideInput1);
+        // tempForm.appendChild(hideInput2);
+        // document.body.appendChild(tempForm);
+        // tempForm.submit();
+        // document.body.removeChild(tempForm);
+    }
+
+
+    function showRdDetail(bh,tslx,flag){
+        if(tslx=='1'){
+            showRdtsXq(bh);
+        }else{
+            showDetail(bh,tslx,flag);
+        }
+    }
+
+    //知识详情
+    function showRdtsXq(bh, rdbt, rdly) {
+        var type = $('#tabType').val();
+        type = type == null ? "" : type;
+        var keywords = $('#keywords').val();
+        var url = "sscx/rddetail";
+        var name = Math.random();
+        var tempForm = document.createElement("form");
+        tempForm.id = "tempForm2";
+        tempForm.method = "post";
+        tempForm.action = url;
+        tempForm.target = name;
+        var hideInput1 = document.createElement("input");
+        hideInput1.type = "hidden";
+        hideInput1.name = "bh";
+        hideInput1.value = bh;
+
+        tempForm.appendChild(hideInput1);
+
+        document.body.appendChild(tempForm);
+        tempForm.submit();
+        document.body.removeChild(tempForm);
+    }
+
+    //知识详情
+    function showDetail(code, gjz, flag) {
+        var type = $('#tabType').val();
+        type = type == null ? "" : type;
+        var keywords = $('#keywords').val();
+        var url = "sscx/detail";
+        var name = Math.random();
+        var tempForm = document.createElement("form");
+        tempForm.id = "tempForm2";
+        tempForm.method = "post";
+        tempForm.action = url;
+        tempForm.target = name;
+
+        var hideInput1 = document.createElement("input");
+        hideInput1.type = "hidden";
+        hideInput1.name = "code";
+        hideInput1.value = code;
+
+        var hideInput2 = document.createElement("input");
+        hideInput2.type = "hidden";
+        hideInput2.name = "gjz";
+        hideInput2.value = "";
+
+        var hideInput3 = document.createElement("input");
+        hideInput3.type = "hidden";
+        hideInput3.name = "flag";
+        hideInput3.value = flag;
+
+        // var hideInput4 = document.createElement("input");
+        // hideInput4.type = "hidden";
+        // hideInput4.name = "lmlx";
+        // hideInput4.value = type == "1" ? "zxfg" : "sszsk";
+
+
+        tempForm.appendChild(hideInput1);
+        tempForm.appendChild(hideInput2);
+        tempForm.appendChild(hideInput3);
+
+        // tempForm.appendChild(hideInput5);
+        document.body.appendChild(tempForm);
+        tempForm.submit();
+        document.body.removeChild(tempForm);
+    }
+
+    //获取视频点播数据
+    function getVideoOnDemand() {
+        $.ajax({
+            // url: 'nsrxt/videoondemand/getRecentVideos',
+            url: 'usercenter/index/getVideoOnDemand',
+            type: 'post',
+            data: {num: '3'},
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                }
+
+                var list = res.data;
+                var lis = '';
+                if(list){
+                    $('#video-img').empty();
+                    $('#video-info').empty();
+                    for (var i = 0; i < list.length; i++) {
+
+                        list[i].FBSJ = list[i].FBSJ.substring(0, list[i].FBSJ.lastIndexOf(' '));
+                        var href = "video/play?bh="+ list[i].CODE;
+                        if(list[i].TYPE == "2"){
+                            href = list[i].ABSTRACT;
+                        }
+                        var img = '<li>' +
+                            '<a href="'+href+'" target="_blank" data-module="nsrxt_sp" data-lx="'+list[i].TYPE+'" data-tag="'+list[i].XZQH+'" data-id="'+list[i].CODE+'" data-title="'+list[i].title+'" onclick="toLog(this)">' +
+                            '<div class="explain-txt fn-text" title="'+list[i].TITLE+'">' + list[i].TITLE + '</div>' +
+                            '<img src="filecenter/fileupload/download?fileId=' + list[i].CONTENT + '&type=0" alt="">' +
+                            '</a>' +
+                            '</li>';
+                        var info = '<div class="training-item">' +
+                            '<a class="fn-text" href="'+href+'" target="_blank" title="'+list[i].TITLE+'" data-module="nsrxt_sp" data-lx="'+list[i].TYPE+'" data-tag="'+list[i].XZQH+'" data-id="'+list[i].CODE+'" data-title="'+list[i].title+'" onclick="toLog(this)">' + list[i].TITLE + '</a>' +
+                            '<div class="bottom-box">' +
+                            '<div class="bottom-item">' +
+                            '<i class="localtion"></i>' +
+                            '<span class="fn-text" title="'+list[i].UNITNAME+'">' + list[i].UNITNAME + '</span>' +
+                            '</div>' +
+                            '<div class="bottom-item">' +
+                            '<i class="time"></i>' +
+                            '<span class="fn-text" title="'+list[i].FBSJ+'">' + list[i].FBSJ + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                        //视频点播轮播
+                        $('#video-img').append(img);
+                        $('#video-info').append(info);
+                        lis += '<li></li>';
+                        // $("#video-img-head").append(lis);
+                    }
+                    if (list.length < 3) {
+                        for (var i = 0; i < 3 - list.length; i++) {
+                            $("#video-img-head").children().first().remove();
+                        }
+                    }
+                    jQuery(".video-live .broadcasting").slide({
+                        mainCell: ".body ul",
+                        titCell: '.head li',
+                        autoPlay: true,
+                        prevCell: ".next",
+                        nextCell: ".prev"
+                    });
+                }
+            }
+        });
+    }
+
+    //获取开业第一课数据
+    function getOpeningLesson() {
+        $.ajax({
+            url: 'usercenter/index/getOpeningLesson',
+            type: 'post',
+            data: {num: '3'},
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                }
+
+                var list = res.data;
+                var lis = '';
+                if(list){
+                    $('#lesson-img').empty();
+                    $('#lesson-info').empty();
+                    for (var i = 0; i < list.length; i++) {
+
+                        list[i].FBSJ = list[i].FBSJ.substring(0, list[i].FBSJ.lastIndexOf(' '));
+                        var href = "openinglesson/detail?bh="+ list[i].CODE;
+                        if(list[i].TYPE == "2"){
+                            href = list[i].ABSTRACT;
+                        }
+                        var img = '<li>' +
+                            '<a href="'+href+'" target="_blank" data-module="kydyk" data-lx="'+list[i].TYPE+'" data-tag="'+list[i].XZQH+'" data-id="'+list[i].CODE+'" data-title="'+list[i].title+'" onclick="toLog(this)">' +
+                            '<div class="explain-txt fn-text" title="'+list[i].TITLE+'">' + list[i].TITLE + '</div>' +
+                            '<img src="filecenter/fileupload/download?fileId=' + list[i].CONTENT + '&type=0" alt="">' +
+                            '</a>' +
+                            '</li>';
+                        var info = '<div class="training-item">' +
+                            '<a class="fn-text" href="'+href+'" target="_blank" title="'+list[i].TITLE+'" data-module="nsrxt_sp" data-lx="'+list[i].TYPE+'" data-tag="'+list[i].XZQH+'" data-id="'+list[i].CODE+'" data-title="'+list[i].title+'" onclick="toLog(this)">' + list[i].TITLE + '</a>' +
+                            '<div class="bottom-box">' +
+                            '<div class="bottom-item">' +
+                            '<i class="localtion"></i>' +
+                            '<span class="fn-text" title="'+list[i].UNITNAME+'">' + list[i].UNITNAME + '</span>' +
+                            '</div>' +
+                            '<div class="bottom-item">' +
+                            '<i class="time"></i>' +
+                            '<span class="fn-text" title="'+list[i].FBSJ+'">' + list[i].FBSJ + '</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+
+                        //开业第一课轮播
+                        $('#lesson-img').append(img);
+                        $('#lesson-info').append(info);
+                        lis += '<li></li>';
+                    }
+                    if (list.length < 3) {
+                        for (var i = 0; i < 3 - list.length; i++) {
+                            $("#lesson-img-head").children().first().remove();
+                        }
+                    }
+                }
+
+                lazyLoad.kydyk = false;
+                jQuery(".lesson-live .broadcasting").slide({
+                    mainCell: ".body ul",
+                    titCell: '.head li',
+                    autoPlay: true,
+                    prevCell: ".next",
+                    nextCell: ".prev"
+                });
+            }
+        });
+    }
+
+    //获取在线直播数据
+    function getLiveOnline() {
+        $.ajax({
+            // url: 'nsrxt/liveonline/getRecentLive',
+            url: 'usercenter/index/getLiveOnline',
+            data: {num: '3'},
+            type: 'post',
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                } else {
+                    var list = res.data;
+                    if(list){
+                        $('.zrar-col-space10').empty();
+                        var _html = "";
+
+                        for (var i = 0; i < list.length; i++) {
+                            var liveInfo = list[i];
+
+                            //视频类型为2(链接),视频地址即为视频链接地址
+                            if (liveInfo.TYPE == 2) {
+                                spdz = liveInfo.ABSTRACT;
+                            } else {
+                                spdz = "video/play?bh=" + liveInfo.CODE;
+                            }
+
+                            // 时间格式
+                            var date = liveInfo.STARTTIME;
+                            liveInfo.STARTTIME = date.substring(0, date.lastIndexOf(':'));
+                            if (liveInfo.YWXX == "1") {//在线直播进入详情页面，详情页面有日志，不需要日志记录
+                                spdz = "nsrxt/liveonline/onlineDetail?bh=" + liveInfo.CODE + "&fmdz=" + liveInfo.CONTENT;
+                                /*_html += '<div class="fr broad-info">' +
+                                    '<div class="vedio-info-box">' +
+                                    '<div class="info-item clearfix">' +
+                                    '<i class="vedio-name"></i>' +
+                                    '<a class="tit-txt" href="' + spdz + '" target="_blank" style="width: 240px;" title="'+liveInfo.TITLE+'">' + liveInfo.TITLE + '</a>';*/
+
+                                _html += '<div class="zrar-col-xs4">' +
+                                    '<div class="img-wrap">' +
+                                    '<a href="' + spdz + '"  target="_blank">' +
+                                    '<img src="filecenter/fileupload/download?fileId=' + liveInfo.CONTENT + '&type=0" alt="">' +
+                                    '<div class="img-mask"></div>' +
+                                    '<div class="img-tit" title="' + liveInfo.TITLE + '">' + liveInfo.TITLE + '</div>' +
+                                    '</a>' +
+                                    '</div>' +
+                                    '<div class="img-btm-item" title="' + liveInfo.UNITNAME + '"><i class="organize"></i>' + liveInfo.UNITNAME + '</div>' +
+                                    '<div class="img-btm-item"><i class="time"></i>直播时间：<span title="' + liveInfo.STARTTIME + '">' + liveInfo.STARTTIME + '</span></div>' +
+                                    '</div>';
+
+                            } else {
+                                /*_html += '<div class="fr broad-info">' +
+                                    '<div class="vedio-info-box">' +
+                                    '<div class="info-item clearfix">' +
+                                    '<i class="vedio-name"></i>' +
+                                    '<a class="tit-txt"  style="width: 240px;" title="'+liveInfo.TITLE+'" data-module="nsrxt-zxzb" data-url="'+spdz+'" data-lx="'+liveInfo.TYPE+'" data-tag="'+liveInfo.XZQH+'" data-id="'+liveInfo.CODE+'" data-title="'+liveInfo.TITLE+'" onclick="toLog(this)">' + liveInfo.TITLE + '</a>';                            }
+
+                            _html += '</div>' +
+                                '<div class="info-item clearfix">' +
+                                '<i class="vedio-address"></i>' +
+                                '<div class="tit-txt" title="'+liveInfo.UNITNAME+'">' + liveInfo.UNITNAME + '</div>' +
+                                '</div>' +
+                                '<div class="info-item clearfix">' +
+                                '<i class="vedio-time"></i>' +
+                                '<div class="tit-txt" style="width:auto;">直播时间：<span title="'+liveInfo.STARTTIME+'">' + liveInfo.STARTTIME + '</span></div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="fl broad-img">' +
+                                '<a   data-module="nsrxt-zxzb" data-lx="'+liveInfo.TYPE+'" data-tag="'+liveInfo.XZQH+'" data-url="'+spdz+'" data-id="'+liveInfo.CODE+'" data-title="'+liveInfo.TITLE+'" onclick="toLog(this)">' +
+                                '<img src="filecenter/fileupload/download?fileId=' + liveInfo.CONTENT + '&type=0" alt="">' +
+                                '</a>' +
+                                '</div>';*/
+
+                                _html += '<div class="zrar-col-xs4">' +
+                                    '<div class="img-wrap">' +
+                                    '<a  data-module="nsrxt-zxzb" data-lx="' + liveInfo.TYPE + '" data-tag="' + liveInfo.XZQH + '" data-url="'+spdz+'" data-id="' + liveInfo.CODE + '" data-title="' + liveInfo.TITLE + '" onclick="toLog(this)" >' +
+                                    '<img src="filecenter/fileupload/download?fileId=' + liveInfo.CONTENT + '&type=0" alt="">' +
+                                    '<div class="img-mask"></div>' +
+                                    '<div class="img-tit" title="' + liveInfo.TITLE + '">' + liveInfo.TITLE + '</div>' +
+                                    '</a>' +
+                                    '</div>' +
+                                    '<div class="img-btm-item" title="' + liveInfo.UNITNAME + '"><i class="organize"></i>' + liveInfo.UNITNAME + '</div>' +
+                                    '<div class="img-btm-item"><i class="time"></i>直播时间：<span title="' + liveInfo.STARTTIME + '">' + liveInfo.STARTTIME + '</span></div>' +
+                                    '</div>';
+
+
+                            }
+                        }
+                            $('.zrar-col-space10').append(_html);
+
+                        }
+                }
+                lazyLoad.zxzb = false;
+            }
+        });
+    }
+
+    //获取培训计划数据
+    //获取用户课程数据
+    function getUserLesson() {
+        if (userLesson) {
+            getTraining();
+            lazyLoad.xcpx = false;
+        } else {
+            $.ajax({
+                url: 'nsrxt/train/user/lesson',
+                type: 'post',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code === 1) {
+                        userLesson = res.data;
+                    }
+                    getTraining();
+                    lazyLoad.xcpx = false;
+                }
+            })
+        }
+    }
+    function getTraining() {
+        $.ajax({
+            url: 'nsrxt/train/searchindex',
+            type: 'post',
+            data: {
+                keyword: "",
+                area: ssjg,
+                type: "",
+                sign: "",
+                pageIndex: "1",
+                listCount: "4"
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res.json.data.code === 0) {
+                    return;
+                }
+
+                var dataList = res.json.data.data;
+                var currentDate = new Date(res.json.nowDate.replace(/-/g,"/"));
+                var bmrs;
+                var jhrs;
+                $('#training-info').empty();
+                for (var i = 0; i < dataList.length && i < 4; i++) {
+                    //判断报名状态
+                    //未报名
+                    dataList[i]['stateClass'] = 'signing';
+                    dataList[i]['stateText'] = '我要报名';
+
+
+                    // 人数已满
+                    jhrs = dataList[i].jhrs || 0;
+                    bmrs = dataList[i].bmrs || 0;
+                    if(parseInt(jhrs) <= parseInt(bmrs)) {
+                        dataList[i]['stateClass'] = 'btn-orange';
+                        dataList[i]['stateText'] = '名额已满';
+                    }
+
+                    // 报名截止
+                    var applyEnd = dataList[i]['bmjssj'];
+                    if(applyEnd) {
+                        var applyEndDate = new Date(applyEnd.replace(/-/g,"/").replace(/\.0/g,""));
+                        if (currentDate > applyEndDate) {
+                            dataList[i]['stateClass'] = 'btn-gray';
+                            dataList[i]['stateText'] = '报名截止';
+                        }
+                    }
+
+                    // 用户已登录下的状态
+                    if(jQuery.inArray(dataList[i].id, userLesson) > -1) {
+                        // 取消报名
+                        dataList[i]['stateClass'] = 'btn-green-alter';
+                        dataList[i]['stateText'] = '取消报名';
+                        // 正在培训
+                        var lessonStart = dataList[i]['pxkssj'];
+                        if(lessonStart) {
+                            var lessonStartDate = new Date(lessonStart.replace(/-/g,"/").replace(/\.0/g,""));
+                            if(currentDate > lessonStartDate) {
+                                dataList[i]['stateClass'] = 'btn-blue';
+                                dataList[i]['stateText'] = '正在培训';
+                            }
+                        }
+                    }
+                    // 培训过期
+                    var lessonEnd = dataList[i]['pxjssj'];
+                    if(lessonEnd) {
+                        var lessonEndDate = new Date(lessonEnd.replace(/-/g,"/").replace(/\.0/g,""));
+                        if (currentDate > lessonEndDate) {
+                            dataList[i]['stateClass'] = 'btn-gray';
+                            dataList[i]['stateText'] = '培训过期';
+                        }
+                    }
+
+                    // 时间格式
+                    // 培训开始时间
+                    var date = dataList[i]['pxkssj'];
+                    if(date) {
+                        dataList[i]['pxkssj'] = date.substring(0, date.lastIndexOf(':'));
+                    }
+
+                    var info = '<tr><td><a class="fn-text" href="nsrxt/train/detail?id=' + dataList[i].id + '" target="_blank" title="' + dataList[i].kcmc + '">' + dataList[i].kcmc + '</a></td>' +
+                        '<td><span class="xcpx-pxdd" title="' + dataList[i].pxdd + '">' + dataList[i].pxdd + '</span></td>' +
+                        '<td><span class="time">' + dataList[i].pxkssj + '</span></td>' +
+                        // '<td><a class="sign-btn ' + dataList[i].stateClass + '" id="' + dataList[i].id + '">' + dataList[i].stateText + '</a></td>'+
+                        '</tr>';
+
+                    $('#training-info').append(info);
+                }
+            }
+        });
+    }
+
+    //培训计划报名
+    function enterForTraining(obj, lessonId) {
+        // 判断是否已登录
+        login_header.checkLogin(function () {
+            var flag = isLogin;
+            // 已登录
+            if (flag) {
+                $.ajax({
+                    url: 'nsrxt/train/enter',
+                    type: 'post',
+                    data: {lessonId: lessonId},
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.code === 0) {
+                            // 异常
+                            $.error(res.msg);
+                            return false;
+                        }
+
+                        $.correct(res.msg);
+                        $(obj).removeClass('signing');
+                        $(obj).addClass('btn-green-alter');
+                        $(obj).html('取消报名');
+                    }
+                })
+            } else {
+                // 未登录，显示登录弹窗
+                $('.reg-login a').eq(1).click();
+            }
+        });
+    }
+
+    // 取消报名
+    function cancelRegistration(obj, lessonId) {
+        $.confirm("确定要取消本次报名?(在报名截止前可再次报名)", {okCall: function(){
+                $.ajax({
+                    url: 'nsrxt/train/cancel',
+                    type: 'post',
+                    data: {lessonId: lessonId},
+                    dataType: 'json',
+                    success: function (res) {
+                        if(res.code === 0) {
+                            // 异常
+                            return false;
+                        }
+
+                        $(obj).removeClass('btn-green-alter');
+                        $(obj).addClass('signing');
+                        $(obj).html('我要报名');
+                    }
+                })
+            }});
+    }
+
+    //获取文字访谈链接
+    function getTextInterviewLink() {
+        $.ajax({
+            url: 'hdgn/textinterview/getLink',
+            type: 'post',
+            data: {
+                num: '1'
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                } else {
+                    if (res.data.length == 0) {
+                        // $.info("暂无更多文字访谈信息");
+                        return;
+                    }
+                    // var linkInfo = res.data[0];
+                    $('#textInterviewLink').attr("href", res.data[0].LJDZ);
+                    $("#zxft_url").attr("url", res.data[0].LJDZ);
+                    //导航条在线访谈跳转
+                    $("#zxft_url").unbind().bind("click",function(e){
+                        var url = $(this).attr("url");
+                        $.open_new_window(url);
+                        $.loadLogScript(jslog+"?time="+new Date().getTime(),"arlogAnchor",{"data-module":"zxft","data-id":"","data-tag":"","data-title":""});
+                    });
+                }
+            }
+        });
+    }
+
+    //获取文字访谈预告
+    function getTextInterviewNotice() {
+        $.ajax({
+            url: 'hdgn/textinterview/getNotice',
+            type: 'post',
+            data: {
+                num: '1'
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                } else {
+                    var noticeInfo = res.data[0];
+
+                    if (noticeInfo == null) {
+                        return;
+                    }
+
+                    noticeInfo.KSSJ = noticeInfo.KSSJ.substring(0, noticeInfo.KSSJ.lastIndexOf(":"));
+                    noticeInfo.JSSJ = noticeInfo.JSSJ.substring(0, noticeInfo.JSSJ.lastIndexOf(":"));
+
+                    var _html = "<a class='word-vedio fl' href='" + noticeInfo.LJDZ + "' target='_blank'  rel='noopener noreferrer' data-module='zxft_wzft' data-lx='2' data-tag='' data-id='"+noticeInfo.ID+"' data-title='"+noticeInfo.LJMC+"' onclick='toLog(this)'>" +
+                        "<img src='filecenter/fileupload/download?fileId=" + noticeInfo.ID + "&type=0'  style='width: 302px;'>" +
+                        "</a>" +
+                        "<div class='interview-info fr'>" +
+                        "<a href='" + noticeInfo.LJDZ + "' target='_blank'  rel='noopener noreferrer' data-module='zxft_wzft' data-lx='2' data-tag='' data-id='"+noticeInfo.ID+"' data-title='"+noticeInfo.LJMC+"' onclick='toLog(this)'>" +
+                        "<div class='info-item clearfix'>" +
+                        "<div class='tit'>主&nbsp;&nbsp;&nbsp;题：</div>" +
+                        "<div class='txt text' title='"+noticeInfo.LJMC+"'>" + noticeInfo.LJMC + "</div>" +
+                        "</div>" +
+                        "<div class='info-item clearfix'>" +
+                        "<div class='tit'>开始时间：</div>" +
+                        "<div class='txt time' style='width: 150px' title='"+noticeInfo.KSSJ+"'>" + noticeInfo.KSSJ + "</div>" +
+                        "</div>" +
+                        "<div class='info-item clearfix'>" +
+                        "<div class='tit'>简&nbsp;&nbsp;&nbsp;介：</div>" +
+                        "<div class='txt brief' title='"+noticeInfo.LJMS+"'>" + noticeInfo.LJMS + "</div>" +
+                        "</div>" +
+                        "</a>" +
+                        "</div>";
+
+                    $('#textInterview-info').html(_html);
+                    $("#wzft_url").attr("href", noticeInfo.LJDZ);
+                }
+                lazyLoad.wzft = false;
+            }
+        });
+    }
+
+    //获取视频访谈数据
+    function getVideoInterview() {
+        $.ajax({
+            url: 'hdgn/videointerview/getRecentInterview',
+            type: 'post',
+            data: {
+                num: '1',
+                bt: '',
+                cjrjg: '',
+                lb: '',
+                kssj: ''
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                } else {
+                    var dataList = res.data;
+                    if(dataList){
+                        $('#videoInterview-info').empty();
+                        for (var i = 0; i < dataList.length; i++) {
+                            var videoInterviewInfo = dataList[i];
+
+                            var xzdz = videoInterviewInfo.xzdz;
+
+                            var regex = /.*\((.*)\)/;
+                            // 获取封面地址和视频地址
+                            var fjdz = xzdz.split(",");
+                            if (fjdz[0].substring(0, 2) == "fm") {
+                                var fmdz = fjdz[0].match(regex);
+                                fmdz = fmdz[1];
+                                if (fjdz.length > 1) {
+                                    var spdz = fjdz[1].match(regex);
+                                    spdz = spdz[1];
+                                }
+                            } else {
+                                var fmdz = fjdz[1].match(regex);
+                                fmdz = fmdz[1];
+                                if (fjdz.length > 1) {
+                                    var spdz = fjdz[0].match(regex);
+                                    spdz = spdz[1];
+                                }
+                            }
+                            //视频类型为2(链接),视频地址即为视频链接地址
+                            if (videoInterviewInfo.splx == 2) {
+                                spdz = videoInterviewInfo.ftfjlink;
+                            } else {
+                                spdz = "video/play?bh=" + videoInterviewInfo.bh;
+                            }
+
+                            // 时间格式
+                            var date = videoInterviewInfo.fbsj;
+                            videoInterviewInfo.fbsj = date.substring(0, date.lastIndexOf(':'));
+
+                            var info = '<a class="word-vedio fl" href="' + spdz + '" target="_blank" data-module="xzft" data-id="'+videoInterviewInfo.bh+'" data-lx="'+videoInterviewInfo.splx+'" data-module="zxft" data-tag="'+videoInterviewInfo.lb+'" data-title="'+videoInterviewInfo.zt+'" onclick="toLog(this)">' +
+                                '<img src="filecenter/fileupload/download?fileId=' + fmdz + '&type=0" style="width: 302px;">' +
+                                '</a>' +
+                                '<div class="interview-info fr">' +
+                                '<a href="' + spdz + '" target="_blank" data-module="xzft" data-id="'+videoInterviewInfo.bh+'"  data-lx="'+videoInterviewInfo.splx+'" data-module="zxft" data-tag="'+videoInterviewInfo.lb+'" data-title="'+videoInterviewInfo.zt+'" onclick="toLog(this)">' +
+                                '<div class="info-item clearfix">' +
+                                '<div class="tit">主&nbsp;&nbsp;&nbsp;题：</div>' +
+                                '<div class="txt text" title="'+videoInterviewInfo.zt+'">' + videoInterviewInfo.zt + '</div>' +
+                                '</div>' +
+                                '<div class="info-item clearfix">' +
+                                '<div class="tit">时&nbsp;&nbsp;&nbsp;间：</div>' +
+                                '<div class="txt time" title="'+videoInterviewInfo.fbsj+'">' + videoInterviewInfo.fbsj + '</div>' +
+                                '</div>' +
+                                '<div class="info-item clearfix">' +
+                                '<div class="tit">简&nbsp;&nbsp;&nbsp;介：</div>' +
+                                '<div class="txt brief" title="'+videoInterviewInfo.ftzy+'">' + videoInterviewInfo.ftzy + '</div>' +
+                                '</div>' +
+                                '</a>' +
+                                '</div>';
+
+                            $('#videoInterview-info').append(info);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function getCities() {
+        $.ajax({
+            type: 'post',
+            url: 'usercenter/region/getRegion',
+            success: function (res) {
+                var regions = $.json(res).json.region;
+                if (regions && regions.length > 0) {
+                    var css_ = '<div class="i-white-arrow"></div>';
+                    var panel = $("#index_cities").empty(),
+                        allregions = {};
+                    var phoneticInterval = "A-G,H-K,L-S,T-Z";
+                    var phoneticIntervals = phoneticInterval.split(",");
+                    for (var i = 0; i < phoneticIntervals.length; i++) {
+                        var _data = new Array();
+                        var phoneticInterval = phoneticIntervals[i];
+                        var start = phoneticInterval.substring(0, 1), end = phoneticInterval.substring(2, 3);
+                        start = start.charCodeAt(0), end = end.charCodeAt(0);
+                        for (var j = 0; j < regions.length; j++) {
+                            var address = regions[j];
+                            var name = address.xzqhmc;
+                            var bm = auxiliaryMethod.makePy(name, 1)[0];
+                            bm = bm.substring(0, 1).toLocaleUpperCase().charCodeAt(0);
+                            if (start <= bm && bm <= end) {
+                                _data.push(address);
+                            }
+                        }
+                        var div_ = '<div class="c-item">\n' +
+                            '                        <span>' + phoneticInterval + '</span>\n' +
+                            '                        <div class="c-data clearfix">';
+                        for (var j = 0; j < _data.length; j++) {
+                            div_ += '<a code="' + _data[j].xzqhbm + '" province="' + _data[j].xzqhmc + '">' + _data[j].xzqhmc + '</a>';
+                        }
+                        div_ += '</div></div>';
+                        panel.append(div_);
+                        panel.find("a").unbind().bind("click", function () {
+                            var city = $(this).text();
+                            var code = $(this).attr("code");
+                            checkCity(code, city);
+                            $("#index_cities").hide();
+                            return false;
+                        });
+                    }
+                }
+                // var city = localStorage.getItem("city");
+                var city = $.cookie("city");
+                if (city) {
+                    var code = city.split(",")[0],
+                        province = city.split(",")[1];
+                    checkCity(code, province);
+                } else {
+                    //浏览器自动定位
+                    if(window['BMap']) {
+                        var code = "11000000", province = "北京市";
+                        try {
+                            var geolocation = new BMap.Geolocation();
+                            geolocation.getCurrentPosition(function(r){
+                                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                                    var cityName = r.address.city,
+                                        city_ = cityName;
+                                    y = r.point.lat;
+                                    x = r.point.lng;
+                                    var cityxxArr={
+                                        cityName:r.address.city,
+                                        y : r.point.lat,
+                                        x : r.point.lng
+                                    }
+                                    cookieDo.setCookie("cityxx",JSON.stringify(cityxxArr) ,"d30");
+                                    var myGeo = new BMap.Geocoder();
+                                    myGeo.getLocation(new BMap.Point(x, y), function (result) {
+                                        province = result.addressComponents.province;
+                                        if (city_ == '宁波市' || city_ == '青岛市' || city_ == '深圳市' || city_ == '厦门市' || city_ == '大连市') {
+                                            province = city_;
+                                        }
+                                        code = $("#index_cities").find("a[province='" + province + "']").attr("code");
+                                        checkCity(code, province);
+                                    });
+                                }
+                                else {
+                                    checkCity(code, province);
+                                }
+                            },function(r){//定位超时失败则默认北京
+                                checkCity(code, province);
+                            });
+                            /*var myCity = new BMap.LocalCity();
+                            myCity.get(myFun);
+
+                            function myFun(result) {
+                                var cityName = result.name,
+                                    city_ = cityName;
+                                y = result.center.lat;
+                                x = result.center.lng;
+                                var myGeo = new BMap.Geocoder();
+                                myGeo.getLocation(new BMap.Point(x, y), function (result) {
+                                    province = result.addressComponents.province;
+                                    if (city_ == '宁波市' || city_ == '青岛市' || city_ == '深圳市' || city_ == '厦门市' || city_ == '大连市') {
+                                        province = city_;
+                                    }
+                                    code = $("#index_cities").find("a[province='" + province + "']").attr("code");
+                                    checkCity(code, province);
+                                });
+                            }*/
+                        } catch (e) {
+                            checkCity(code, province);
+                        }
+                    }else{
+                        //异常后定位到北京
+                        var code = "11000000", province = "北京市";
+                        checkCity(code, province);
+                    }
+                }
+            }
+        });
+    }
+    //cookie的相关操作
+    var cookieDo = {
+        //读取cookies
+        getCookie:function(name) {
+            var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+            if(arr=document.cookie.match(reg))
+
+                return unescape(arr[2]);
+            else
+                return null;
+        },
+        //删除cookies
+        delCookie:function(name)
+        {
+            var exp = new Date();
+            exp.setTime(exp.getTime() - 1);
+            var cval=this.getCookie(name);
+            if(cval!=null)
+                document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+        },
+        //设置cookie
+        setCookie:function(name,value,time)
+        {
+            var strsec = this.getsec(time);
+            var exp = new Date();
+            exp.setTime(exp.getTime() + strsec*1);
+            document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString()+";path=/";
+        },
+        //获取时间
+        getsec:function(str)
+        {
+            var str1=str.substring(1,str.length)*1;
+            var str2=str.substring(0,1);
+            if (str2=="s")
+            {
+                return str1*1000;
+            }
+            else if (str2=="h")
+            {
+                return str1*60*60*1000;
+            }
+            else if (str2=="d")
+            {
+                return str1*24*60*60*1000;
+            }
+        }
+    }
+  //选择地点
+    function checkCity(code,city) {
+        //未注册用户需使用IP地址匹配归属地，注册用户需使用用户资料中的地域字段匹配归属地
+        $.ajax({
+            type: 'post',
+            url: ctx_+'/usercenter/login/detail',
+            dataType: 'json',
+            success: function (res) {
+                if('0' == res.code){
+                }else{
+                    if(res.data.yhdzsf){
+		                // if(localStorage.getItem('city')==null){
+		                if($.cookie('city')==null){
+	                        code = res.data.yhdzsf;
+	                        city = province[code];
+		                }
+                    }
+                }
+                var imgCityName = changeMapImg(city);
+                $("#bsdtImg").attr("src","core-plugins/12366/images/provinceimage/map_"+imgCityName+".jpg");
+                $("#selected_city").text(city);
+
+                $("#selected_city").text(city).data("code",code);
+                // localStorage.setItem("city",code+","+city);
+                $.cookie('city',code+","+city,{ path: '/'});
+                //选择省市后回调事件共各页面完善各自业务需求
+                var callback = $.evalFunction('checkCitycallback');
+                if (callback) {
+                    callback.call(this, code,city);
+                }
+            }
+        })
+    }
+
+    //众包互助
+    function getZbhz() {
+        $.ajax({
+            type: 'post',
+            url: 'zbhz/data/last/list/index',
+            success: function (res) {
+                var data = $.json(res).data;
+                var panel = $("#index-zbhz-list").empty();
+                if (data && data.length > 0) {
+                    var lis = "";
+                    for (var i = 0; i < data.length; i++) {
+                        var zbhz = data[i],
+                            id = zbhz.id,
+                            wtbt = zbhz.wtbt;
+                        var class_ = getClass(i);
+                        if (zbhz.lx == '2') {
+                            var li = '<li><a class="fn-text" href="sszyfw/expertadvice/detail?bh=' + id + '" target="_blank">' +
+                                '<i class="' + class_ + '-item"></i>' + wtbt + '</a>' +
+                                '</li>';
+                        } else {
+                            var li = '<li><a class="fn-text" href="zbhz/toDetail?id=' + id + '" target="_blank">' +
+                                '<i class="' + class_ + '-item"></i>' + wtbt + '</a>' +
+                                '</li>';
+                        }
+                        lis += li;
+                    }
+                    panel.append(lis);
+                }
+                lazyLoad.zbhz = false;
+            }
+        });
+    }
+
+    function getWsly() {
+        $.ajax({
+            type: 'post',
+            url: 'nszx/onlinemessage/messagelist',
+            data: {currentPage: 1},
+            success: function (res) {
+                var data = $.json(res).pageSet;
+                var panel = $("#index-wsly-list").empty();
+                if (data && data.length > 0) {
+                    var lis = "";
+                    for (var i = 0; i < data.length && i < 4; i++) {
+                        var wsly = data[i],
+                            id = wsly.id,
+                            lybt = wsly.title;
+                        var class_ = getClass(i);
+                        var li = '<li><a class="fn-text" href="nszx/onlinemessage/detail?id=' + id + '" target="_blank">' +
+                            '<i class="' + class_ + '-item"></i>' + lybt + '</a>' +
+                            '</li>';
+                        lis += li;
+                    }
+                    panel.append(lis);
+                }
+                lazyLoad.wsly = false;
+            }
+        });
+    }
+
+    //获取智能咨询热点问题列表
+    function getConsulting() {
+        $.ajax({
+            type: 'post',
+            url: 'usercenter/index/consulting',
+            success: function (res) {
+                if (res == "") {
+                    return;
+                }
+                var data = $.json(res).data.content;
+                if (data && data.length > 0) {
+                    var panel = $("#index-znzx-list").empty();
+                    var panel2 = $("#index-zxzx-list").empty();
+                    var lis = "",zxzxlist="",znzxlength = data.length,flag = false;
+                    //在线咨询
+                    if(data.length>4){
+                        var length = data.length;
+                        if(length>8){
+                            length = 8
+                        }
+                        for (var i = 4; i < length; i++) {
+                            var data_ = data[i],
+                                id = data_.wtglid,
+                                wtid = data_.wtglwtid,
+                                wtbt = data_.wtmc;
+                            var class_ = getClass(i-4);
+                            var li = '<li><a class="fn-text" id="' + id + '" wtid="'+wtid+'" onclick="toDetail(this)" target="_blank">' +
+                                '<i class="' + class_ + '-item"></i>' + wtbt + '</a>' +
+                                '</li>';
+                            zxzxlist += li;
+                            panel2.data(id, wtbt);
+                        }
+                        panel2.append(zxzxlist);
+                        flag = true;
+                    }
+                    if (znzxlength > 4) {
+                        znzxlength = 4;
+                    }
+                    //智能咨询
+                    for (var i = 0; i < znzxlength; i++) {
+                        var data_ = data[i],
+                            id = data_.wtglid,
+                            wtid = data_.wtglwtid,
+                            wtbt = data_.wtmc;
+                        var class_ = getClass(i);
+                        var li = '<li><a class="fn-text" id="' + id + '" wtid="'+wtid+'" onclick="toDetail(this)" target="_blank">' +
+                            '<i class="' + class_ + '-item"></i>' + wtbt + '</a>' +
+                            '</li>';
+                        lis += li;
+                        panel.data(id, wtbt);
+                        if(!flag){
+                            panel2.data(id, wtbt);
+                        }
+                    }
+                    panel.append(lis);
+                    if(!flag) {
+                        panel2.append(lis);
+                    }
+                }
+            }
+        });
+    }
+
+    function getClass(item) {
+        switch (item) {
+            case(0):
+                return class_ = "first";
+            case(1):
+                return class_ = "second";
+            case(2):
+                return class_ = "third";
+            case(3):
+                return class_ = "fouth";
+        }
+    }
+
+    function toDetail(that) {
+        var id = $(that).attr("id"),
+            wtid = $(that).attr("wtid"),
+            bt = $(that).parents('ul').data(id);
+        bt = Base64.encode(bt);
+        var form = $('<form action="usercenter/index/detail" target="_blank" method="post"><input name="id" value="' + id + '"><input name="wtid" value="' + wtid + '"><input name="bt" value="' + bt + '"></form>');
+        $("body").append(form);
+        form.submit();
+        form.remove();
+    }
+
+    //返回顶部
+    function toTop() {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+
+    //初始化回车键事件全站检索
+    function keyDown(that,event){
+        ev= window.event||ev;
+        if(ev.keyCode==13){
+            partSearch(that.value);
+        }
+    }
+    //全文检索
+    function partSearch(searchcont) {
+        var searchContent = ""
+        if (searchcont == 'all') {
+            searchContent = $("input[name='searchContent']").val();
+        } else {
+            searchContent = searchcont;
+        }
+        var searchContentCode = Base64.encode(searchContent);
+        /*searchContentCode = encodeURIComponent(searchContentCode);
+        window.open("partSearchBLH/partSearchPage?content=" + searchContentCode, "partSearchPage");*/
+        var form = $("<form action='partSearchBLH/partSearchPage' target='_blank' method='post'><input type='hidden' name='content' value='"+searchContentCode+"'></form>");
+        $("body").append(form);
+        form.submit();
+        form.remove();
+    }
+    //获得飘窗信息
+    function getPiaoChuang(){
+        $.ajax({
+            url:"usercenter/index/piaochuang",
+            type:"post",
+            dataType:"json",
+            success:function(res){
+               var resjson =  res;
+               if(resjson.code == '1' && resjson.data.pc && resjson.data.pc.PCURL){
+                   var pcData = resjson.data.pc;
+                   var fbt = pcData.FBT == null?"":pcData.FBT;
+                   var str = '<a class="pc-wrap" href="'+pcData.PCURL+'" target="_blank">' +
+                       '            <img src="filecenter/fileupload/download?fileId='+pcData.FJGLBYFJID+'&type=0" style="width: 225px; height: 270px;" />' +
+                       '            <div class="txt-box">' +
+                       '                <div class="fullheight"></div>' +
+                       '                <div class="txt">'+fbt+'</div>' +
+                       '            </div>\n' +
+                       '        </a>'
+                    $("#bay").append(str);
+                    $("#bay").show();
+                   //飘窗的js
+                   $('#bay').autoMove({angle:-Math.PI/4, speed:100});
+               }
+
+               if (resjson.code == '1' && resjson.data.fdc && resjson.data.fdc.length > 0) {
+                   // 浮动窗
+                   var fdcData = resjson.data.fdc;
+                   for (var i = 0; i < fdcData.length; i++) {
+                       var pcwz;
+                       switch (i) {
+                           case 0:
+                               pcwz = "rb";
+                               break;
+                           case 1:
+                               pcwz = "lb";
+                               break;
+                           case 2:
+                               pcwz = "rt";
+                               break;
+                           case 3:
+                               pcwz = "lt";
+                               break;
+                       }
+
+                       var fdc = '<div class="fixed-img ' + pcwz + '" style="z-index: 1000">' +
+                           '<span class="img-close"></span>' +
+                           '<a href="'+fdcData[i].PCURL+'" target="_blank"><img src="filecenter/fileupload/download?fileId='+fdcData[i].FJID+'&type=0"></a>' +
+                           '</div>';
+
+                       $('#float').append(fdc);
+
+                   }
+                   $('.fixed-img .img-close').click(function () {
+                       $(this).parent('.fixed-img').hide()
+                   })
+               }
+            }
+        })
+    }
+    //办税日历
+    var mySchedule = new Schedule({
+        el: '#schedule-box',
+        clickCb: function (y, m, d) {
+        }
+    })
+    var ssjg = "";//创建人机构
+    function checkCitycallback(code, city) {
+        ssjg = "1" + code;
+        getUserLesson();
+        var year = $(".today").text().substring(0, 4);
+        var month = $(".today").text().substring(5, 7);
+        var day = "";
+        if ($(".schedule-wrap .schedule-bd .current-month span").hasClass('selected-style')) {
+            day = $(".schedule-wrap .schedule-bd .current-month span[class$='selected-style']").text();
+            if (day < 10) {
+                day = "0" + day;
+            }
+            var bssj = year + "-" + month + "-" + day;
+            $.ajax({
+                url: "bsfw/calendar/getCalendarListForDay",
+                type: "post",
+                dataType: "json",
+                data: {ssjg: ssjg, bssj: bssj},
+                success: function (res) {
+                    var list = res.json.list;
+                    var str = "";
+                    if (list != null && list.length > 0) {
+                        for (var i = 0; i < list.length; i++) {
+                            bssz = list[i].bssz;
+                            str += "<div class=\"list-item clearfix\">" + "<i></i>" + "<div class=\"txt\">" + bssz + "</div></div>";
+                        }
+                        $(".events-box").show().siblings().hide();
+                        $(".event-list").html(str);
+                    } else {
+                        $(".no-data").show().siblings().hide();
+                    }
+                }
+            });
+        } else {
+            if ($(".schedule-wrap .schedule-bd .current-month span").hasClass('today-flag')) {
+                day = $(".schedule-wrap .schedule-bd .current-month span[class$='today-flag']").text();
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                var bssj = year + "-" + month + "-" + day;
+                $.ajax({
+                    url: "bsfw/calendar/getCalendarListForDay",
+                    type: "post",
+                    dataType: "json",
+                    data: {ssjg: ssjg, bssj: bssj},
+                    success: function (res) {
+                        var list = res.json.list;
+                        var str = "";
+                        if (list.length > 0) {
+                            for (var i = 0; i < list.length; i++) {
+                                bssz = list[i].bssz;
+                                str += "<div class=\"list-item clearfix\">" + "<i></i>" + "<div class=\"txt\">" + bssz + "</div></div>";
+                            }
+                            $(".no-data").hide();
+                            $(".events-box").show();
+                            $(".event-list").html(str);
+                        } else {
+                            $(".event-list").html(str);
+                            $(".events-box").hide();
+                            $(".no-data").show();
+                        }
+                    }
+                });
+            } else {
+                var msg = "请选择办税日期！";
+                $(".no-data").hide();
+                $(".events-box").show();
+                $(".event-list").html("<p style='color: white;font-size: 18px;top: 75px;left: 30px;position: relative;'>" + msg + "</p>");
+            }
+        }
+    }
+
+    //查询办税事件
+    $('#schedule-box').bind("click", ".arrow", function () {
+        var year = $(".today").text().substring(0, 4);
+        var month = $(".today").text().substring(5, 7);
+        var day = "";
+        if ($(".schedule-wrap .schedule-bd .current-month span").hasClass('today-flag')) {
+            if ($(".schedule-wrap .schedule-bd .current-month span").hasClass('selected-style')) {
+                day = $(".schedule-wrap .schedule-bd .current-month span[class$='selected-style']").text();
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                var bssj = year + "-" + month + "-" + day;
+                $.ajax({
+                    url: "bsfw/calendar/getCalendarListForDay",
+                    type: "post",
+                    dataType: "json",
+                    data: {ssjg: ssjg, bssj: bssj},
+                    success: function (res) {
+                        var list = res.json.list;
+                        var str = "";
+                        if (list.length > 0) {
+                            for (var i = 0; i < list.length; i++) {
+                                bssz = list[i].bssz;
+                                str += "<div class=\"list-item clearfix\">" + "<i></i>" + "<div class=\"txt\">" + bssz + "</div></div>";
+                            }
+                            $(".events-box").show().siblings().hide();
+                            $(".event-list").html(str);
+                        } else {
+                            $(".no-data").show().siblings().hide();
+                        }
+                    }
+                });
+            } else {
+                day = $(".schedule-wrap .schedule-bd .current-month span[class$='today-flag']").text();
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                var bssj = year + "-" + month + "-" + day;
+                $.ajax({
+                    url: "bsfw/calendar/getCalendarListForDay",
+                    type: "post",
+                    dataType: "json",
+                    data: {ssjg: ssjg, bssj: bssj},
+                    success: function (res) {
+                        var list = res.json.list;
+                        var str = "";
+                        if (list.length > 0) {
+                            for (var i = 0; i < list.length; i++) {
+                                bssz = list[i].bssz;
+                                str += "<div class=\"list-item clearfix\">" + "<i></i>" + "<div class=\"txt\">" + bssz + "</div></div>";
+                            }
+                            $(".events-box").show().siblings().hide();
+                            $(".event-list").html(str);
+                        } else {
+                            $(".no-data").show().siblings().hide();
+                        }
+                    }
+                });
+            }
+        } else {
+            var msg = "请选择办税日期！";
+            $(".no-data").hide();
+            $(".events-box").show();
+            $(".event-list").html("<p style='color: white;font-size: 18px;top: 75px;left: 30px;position: relative;'>" + msg + "</p>");
+        }
+    });
+
+    //查询当日办税日历
+    $(".schedule-wrap .schedule-bd").bind('click', '.current-month', function (e) {
+        var year = $(".today").text().substring(0, 4);
+        var month = $(".today").text().substring(5, 7);
+        var day = e.target.innerHTML;
+        if (isNaN(day)) {//单击了日期圈外的空白处
+            return false;
+        }else{
+            if (day < 10) {
+                day = "0" + day;
+            }
+        }
+        var bssj = year + "-" + month + "-" + day;
+        $.ajax({
+            url: "bsfw/calendar/getCalendarListForDay",
+            type: "post",
+            dataType: "json",
+            data: {ssjg: ssjg, bssj: bssj},
+            success: function (res) {
+                var list = res.json.list;
+                var str = "";
+                if (list.length > 0) {
+                    for (var i = 0; i < list.length; i++) {
+                        bssz = list[i].bssz;
+                        str += "<div class=\"list-item clearfix\">" + "<i></i>" + "<div class=\"txt\">" + bssz + "</div></div>";
+                    }
+                    $(".events-box").show().siblings().hide();
+                    $(".event-list").html(str);
+                } else {
+                    $(".no-data").show().siblings().hide();
+                }
+            }
+        });
+    })
+
+    function getCount() {
+        $.ajax({
+            type: 'post',
+            url: 'usercenter/index/getCount',
+            success: function (res) {
+                var json = $.json(res).json.personmsg;
+                if (json) {
+                    var msg = $.json(json);
+                    if (msg) {
+                        var collection = msg.collectioncount,
+                            partnets = msg.partnets,
+                            message = msg.totalMsg;
+                        if (collection != 0 && collection != null) {
+                            if (collection > 100) {
+                                collection = '99+';
+                            }
+                            $("#collection").append('<span class="num-box">' + collection + '</span>');
+                        }
+                        if (partnets != 0 && partnets != null) {
+                            if (partnets > 100) {
+                                partnets = '99+';
+                            }
+                            $("#partnets").append('<span class="num-box">' + partnets + '</span>');
+                        }
+                        if (message != 0 && message != null) {
+                            if (message > 100) {
+                                message = '99+';
+                            }
+                            $("#message").append('<span class="num-box">' + message + '</span>');
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function keyDownforSearch(that,event,index_,sys){
+        ev= window.event||ev;
+        if(ev.keyCode==13){
+            indexSearch(that,index_,sys);
+        }
+    }
+
+    function indexSearch(that, index, sys) {
+        var url = $(that).attr("url")||$(that).next().attr("url"),
+            val = that.value||$(that).prev().val(),
+            input = '';
+        if (!val) {
+            val = '';
+        }
+        // 跳转系统类型
+        if(sys){
+           if(sys == 'znzx'){
+               url = syslink['znzx'];
+           }else if(sys == 'csad'){
+               url = syslink['csad'];
+           }
+        }
+
+        if (index != 2 && index != 4) {
+            val = Base64.encode(val);
+            // url = url + val;
+            input = '<input type="hidden" name="question" value="' + val + '">';
+            if(url.indexOf("?") > 0){
+                url += "&question="+ val+"&guide="+guide;
+            }else{
+                url += "?question="+ val+"&guide="+guide;
+            }
+            window.open(url);
+            return;
+        } else if (index == 2) {
+            url = url + encodeURI(val);
+        } else {
+            url = url + val;
+        }
+        var form = $('<form action="' + url + '" target="_blank" method="post">' + input + '</form>');
+        $('body').append(form);
+
+        form.submit();
+        form.remove();
+    }
+
+    function getHotWords() {
+        $.ajax({
+            type: 'post',
+            url: 'bsfw/follow/hotword',
+            success: function (res) {
+                var data = $.json(res).json;
+                if (data) {
+                    var words = $.json(data.words);
+                    if (words) {
+                        var panel = $("#hotwords");
+                        panel.find("a").remove();
+                        for (var i = 0; i < words.length; i++) {
+                            var word = words[i];
+                            panel.append('<a href="javascript:partSearch(\'' + word + '\')">' + word + '</a>');
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+	// 处理外链接日志
+	function toLog(ele) {
+        var id = undefine2string($(ele).attr("data-id"));
+        var lx = undefine2string($(ele).attr("data-lx"));
+        var module = undefine2string($(ele).attr("data-module"));
+        var tag = undefine2string($(ele).attr("data-tag"));
+        var title =undefine2string($(ele).attr("data-title"));
+
+        if (lx == 2) {
+            try {
+                $.loadLogScript(jslog+"?time="+new Date().getTime(),"arlogAnchor",{"data-module":module,"data-id":id,"data-tag":tag,"data-title":title});
+                // $.loadLogScript("//192.168.6.168/js/arlog.js","arlogAnchor",{"data-module":module,"data-id":id,"data-tag":tag,"data-title":title});
+            }catch (e){
+            }
+        }
+        if(module=="nsrxt-zxzb"){
+            var dataurl=$(ele).attr("data-url");
+            if(lx !="2"){
+                $.ajaxPost({
+                    type: "POST",
+                    url: "nsrxt/liveonline/play",
+                    // dataType: "json",
+                    data: {bh:id
+                    },
+                    async: false,
+                    callback: function (res) {
+                    }
+                });
+            }else{
+                window.open(dataurl);
+            }
+        }
+	}
+	// 将undefined转换成空字符串
+	function undefine2string(val) {
+        if (val == undefined) {
+            val = "";
+        }
+        return val;
+    }
+
+    function openpersonpage(tabId) {
+        var $form = $("<form action='usercenter/personal/main' method='post' target='_blank'><input type='hidden' name='tabId' value='" + tabId + "'></form>");
+        $("body").append($form);
+        $form.submit();
+        $form.remove();
+    }
+
+    function logincallback() {
+        window.location.reload();
+    }
+    //根据不同的省,切换图片
+    function changeMapImg(city){
+        var imgName = '';
+        switch(city){
+            case '安徽省':imgName='anhui';
+                break;
+            case '北京市':imgName='beijing';
+                break;
+            case '重庆市':imgName='chongqing';
+                break;
+            case '大连市':imgName='dalian';
+                break;
+            case '福建省':imgName='fujian';
+                break;
+            case '甘肃省':imgName='gansu';
+                break;
+            case '广东省':imgName='guangdong';
+                break;
+            case '广西壮族自治区':imgName='guangxi';
+                break;
+            case '贵州省':imgName='guizhou';
+                break;
+            case '海南省':imgName='hainan';
+                break;
+            case '河北省':imgName='hebei';
+                break;
+            case '黑龙江省':imgName='heilongjiang';
+                break;
+            case '河南省':imgName='henan';
+                break;
+            case '湖北省':imgName='hubei';
+                break;
+            case '湖南省':imgName='hunan';
+                break;
+            case '江苏省':imgName='jiangsu';
+                break;
+            case '江西省':imgName='jiangxi';
+                break;
+            case '吉林省':imgName='jilin';
+                break;
+            case '辽宁省':imgName='liaoning';
+                break;
+            case '内蒙古自治区':imgName='neimenggu';
+                break;
+            case '宁波市':imgName='ningbo';
+                break;
+            case '宁夏回族自治区':imgName='ningxia';
+                break;
+            case '青岛市':imgName='qingdao';
+                break;
+            case '青海省':imgName='qinghai';
+                break;
+            case '山东省':imgName='shandong';
+                break;
+            case '上海市':imgName='shanghai';
+                break;
+            case '山西省':imgName='shanxi1';
+                break;
+            case '陕西省':imgName='shanxi2';
+                break;
+            case '深圳市':imgName='shenzhen';
+                break;
+            case '四川省':imgName='sichuan';
+                break;
+            case '天津市':imgName='tianjin';
+                break;
+            case '厦门市':imgName='xiamen';
+                break;
+            case '新疆维吾尔自治区':imgName='xinjiang';
+                break;
+            case '西藏自治区':imgName='xizang';
+                break;
+            case '云南省':imgName='yunnan';
+                break;
+            case '浙江省':imgName='zhejiang';
+                break;
+            default:imgName='beijing';
+                break;
+        }
+        return imgName;
+    }
+
+
+    function getfwtz() {
+        // 服务通知数据获取
+        $.ajax({
+            type: 'post',
+            // url: 'fwtz/pagination',
+            url: 'fwtz/index',
+            data: {
+                pageIndex: 1,
+                listCount: 6
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                }
+
+                var obj = $('.service-news');
+                // var list = res.data;
+                var list = res.data.resultList;
+                obj.empty();
+                if(list&&list.length>0){
+                    for (var i = 0; i < list.length; i++) {
+                        // obj.append('<a class="fn-text" target="_blank" title="' + list[i].bt + '" href="fwtz/detail?bh=' + list[i].bh + '">' + list[i].bt + '</a>')
+                        if(list[i].YWXX=='0'){
+                            obj.append('<a class="fn-text" target="_blank" title="' + list[i].TITLE + '" href="fwtz/detail?bh=' + list[i].ID + '">' + list[i].TITLE + '</a>')
+                        }else{
+                            obj.append('<a class="fn-text" target="_blank" title="' + list[i].TITLE + '" href="fwtz/detail?bh=' + list[i].ID + '"><b class="showzd">置顶</b>' + list[i].TITLE + '</a>')
+                        }
+                    }
+                }
+                lazyLoad.fwtz = false;
+            }
+        });
+    }
+
+    function getzxfg() {
+        //最新法规获得
+        $.ajax({
+            type: 'post',
+            url: 'sscx/zxfg',
+            // data: {bqtype: guide},
+            data: {bqtype: ''},
+            dataType: 'json',
+            success: function (res) {
+                if (res.code === 0) {
+                    return;
+                }
+                var obj = $('#zxfgid');
+                var list = res.data;
+                obj.empty();
+                for (var i = 0; i < list.length; i++) {
+                    obj.append('<a class="fn-text" target="_blank" title="'+list[i].ZLTITLE+'" onclick="showDetail(\'' + list[i].ZLCODE + '\',\'' + list[i].ZLGJZ + '\',\'' + list[i].ZLFLAG + '\')"><span class="gray-circle"></span>' + list[i].ZLTITLE + '</a>')
+
+                }
+                lazyLoad.zxfg = false;
+            }
+        });
+    }
+
+    function openURL(url) {
+        window.open(url);
+    }
+
+    var nfptJumpOutSidePage = {
+        currentUrl: '',
+        acceptUrl: [],
+        showOutsideAlert: function (ourl) {
+            if (nfptJumpOutSidePage.acceptUrl.includes(ourl) || ourl.startsWith('https://12366.chinatax.gov.cn')) {
+                window.open(ourl)
+            } else {
+                nfptJumpOutSidePage.currentUrl = ourl
+                $('#outside').show()
+                $('#outside-mask').show()
+            }
+        },
+        checkOutside: function () {
+            $('#outside').hide()
+            $('#outside-mask').hide()
+            nfptJumpOutSidePage.acceptUrl.push(nfptJumpOutSidePage.currentUrl)
+            window.open(nfptJumpOutSidePage.currentUrl)
+        },
+        cancelOutside: function () {
+            $('#outside').hide()
+            $('#outside-mask').hide()
+        }
+    }
+</script>
+</body>
+</html>

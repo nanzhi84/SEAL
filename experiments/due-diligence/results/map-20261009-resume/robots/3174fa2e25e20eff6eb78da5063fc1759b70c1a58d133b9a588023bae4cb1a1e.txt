@@ -1,0 +1,84 @@
+Sitemap: https://www.epo.org/en/sitemap.xml
+Sitemap: https://www.epo.org/fr/sitemap.xml
+Sitemap: https://www.epo.org/de/sitemap.xml
+Sitemap: https://www.epo.org/en/legal/assets/sitemap.xml
+Sitemap: https://www.epo.org/en/legal/sitemap/sitemap-index-en.xml
+Sitemap: https://www.epo.org/de/legal/sitemap/sitemap-index-de.xml
+Sitemap: https://www.epo.org/fr/legal/sitemap/sitemap-index-fr.xml
+Sitemap: https://www.epo.org/en/boards-of-appeal/sitemap-index.xml
+
+
+User-agent: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0) LinkCheck by Siteimprove.com
+Disallow: /
+
+User-agent: *
+Crawl-delay: 1
+# CSS, JS, Images
+Allow: /core/*.css$
+Allow: /core/*.css?
+Allow: /core/*.js$
+Allow: /core/*.js?
+Allow: /core/*.gif
+Allow: /core/*.jpg
+Allow: /core/*.jpeg
+Allow: /core/*.png
+Allow: /core/*.svg
+Allow: /profiles/*.css$
+Allow: /profiles/*.css?
+Allow: /profiles/*.js$
+Allow: /profiles/*.js?
+Allow: /profiles/*.gif
+Allow: /profiles/*.jpg
+Allow: /profiles/*.jpeg
+Allow: /profiles/*.png
+Allow: /profiles/*.svg
+# Directories
+Disallow: /core/
+Disallow: /profiles/
+Disallow: /results
+Disallow: /api/as/*
+Disallow: /archive/epo/pubs/bulletin/
+Disallow: /metanav/
+# Files
+Disallow: /README.txt
+Disallow: /web.config
+# Paths (clean URLs)
+Disallow: /admin/
+Disallow: /comment/reply/
+Disallow: /filter/tips
+Disallow: /node/add/
+Disallow: /search/
+Disallow: /user/register
+Disallow: /user/password
+Disallow: /user/login
+Disallow: /user/logout
+# Paths (no clean URLs)
+Disallow: */taxonomy/term/*
+Disallow: /index.php/admin/
+Disallow: /index.php/comment/reply/
+Disallow: /index.php/filter/tips
+Disallow: /index.php/node/add/
+Disallow: /index.php/search/
+Disallow: /index.php/user/password
+Disallow: /index.php/user/register
+Disallow: /index.php/user/login
+Disallow: /index.php/user/logout
+Disallow: */legal/case-law/2019/*
+Disallow: */legal/case-law/2022/*
+Disallow: */legal/epc/2016/*
+Disallow: */legal/epc-1973/2006/*
+Disallow: */legal/guide-epc/2022/*
+Disallow: */legal/guide-pct/2022/*
+Disallow: */legal/guidelines-epc/2025/*
+Disallow: */legal/guidelines-pct/2025/*
+Disallow: */legal/guidelines-epc/2024/*
+Disallow: */legal/guidelines-pct/2024/*
+Disallow: */legal/guidelines-epc/2023/*
+Disallow: */legal/guidelines-pct/2023/*
+Disallow: */legal/guidelines-epc/2022/*
+Disallow: */legal/guidelines-pct/2022/*
+Disallow: /publication-content/*
+Disallow: /*node/*
+
+User-agent: Elastic-Crawler epo-org
+Allow: /publication-content/*

@@ -7,7 +7,7 @@ lang: zh
 
 ## 1. 仓库事实、目标与信任前提
 
-状态：修订后的设计基线，尚未实现生产业务。本仓库已有文档和 `experiments/scraper-benchmark/` 独立实验，但没有生产应用、生产依赖锁或数据库迁移。实验中的离线解析与框架试跑不等于本 Plan 的归档、版本、并发和发布合同已经通过。配对实验也未形成有效框架排名。本轮只修订文档，不执行采集 PoC、不安装依赖、不搭基础设施。
+状态：V1 第一版代码已落地，M0–M3 的合成端到端入口已实现。仓库现在包含 `src/seal/`、`recipes/generic/`、生产依赖锁、业务迁移和真实 Procrastinate Worker；独立实验仍不作为业务验收证据。实现与运行入口见 [README](../../README.md)。真实来源许可、人工核对与完整性验收尚未完成，不能宣布完整生产接入交付。
 
 V1 目标：团队开发者用普通 Python 接入真实 Source，持续采集并发布可追溯 JSON；来源失效后，发现异常、修复 Recipe、重新验证、手动升级并恢复发布。正常周期不需要逐次人工确认。
 
@@ -105,7 +105,7 @@ RawSnapshot 表示 **Scrapy 完成 HTTP 内容解压后、Spider 解析前的应
 归档顺序只需要以下优先级覆盖；这是局部示意，不是完整 settings。超时、robots、预算、429 重试排除等按 Source 规则另行配置，其他中间件优先级沿用锁定版本默认值：
 
 ```python
-# 设计配置示意，不是已实现的模块；最终顺序须由 M0 输出验证。
+# 当前实现的关键优先级；完整有效顺序由 M0 工件输出。
 DOWNLOADER_MIDDLEWARES = {
     "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware": 610,
     "seal.archive.ResponseArchiveMiddleware": 605,
@@ -173,7 +173,7 @@ Item Pipeline 核对引用属于本 Source 当前 Run 的观察，或显式批�
 
 ### 4.2 YAML 与代码分离
 
-以下为拟议配置，不是已实现业务文件。两个 Source 指向同一个不可变 RecipeVersion，参数和审核独立；选择器是普通 Python 函数的参数，不是新 DSL。
+以下是配置关系示意；CLI 每次 `source apply` 读取一个 Source 对象，当前可执行格式见 `examples/source.yaml`。两个 Source 指向同一个不可变 RecipeVersion，参数和审核独立；选择器是普通 Python 函数的参数，不是新 DSL。
 
 ```yaml
 sources:
@@ -210,7 +210,7 @@ bindings:
 
 ### 4.3 应用接口与依赖方向
 
-| 拟议应用函数 | 责任与返回 |
+| 应用函数职责 | 责任与返回 |
 | --- | --- |
 | `register_source(config)` / `pack_recipe(path, environment)` | 校验并保存配置/不可变代码版本；无执行未知构建 hook 的需要 |
 | `create_binding(source_id, recipe_version, params)` | 保存确切配置与参数摘要，不改变 Activation |
@@ -347,7 +347,7 @@ withdraw 在事务中记录结果不再有发布资格，并清除匹配的当�
 
 ## 8. 最小 CLI、运维与进一步精简
 
-拟议 CLI：`seal source apply`、`seal recipe pack`、`seal binding create`、`seal trial`、`seal replay`、`seal review export/import`、`seal activate --expect-generation N`、`seal run`、`seal worker`、`seal inspect/export`、`seal pause/retry/rollback/withdraw`。当前均未实现。写动作返回结构化回执、冲突/失败非零退出，不提供跳过审核的 `--force`。
+当前 CLI：`seal source apply`、`seal recipe pack`、`seal binding create`、`seal trial`、`seal replay`、`seal review export/import`、`seal activate --expect-generation N`、`seal run`、`seal worker`、`seal inspect/export`、`seal pause/retry/rollback/withdraw`。另提供 `seal db migrate`、`seal schedule/recover/finish`。写动作返回结构化回执、冲突/失败非零退出，不提供跳过审核的 `--force`。
 
 维护者使用受控 OS/数据库账号，遵循最小部署权限；Recipe 运行权限与应用信任一致，不声称独立无凭据边界。结构化日志只记录关联 ID、脱敏 URL、错误类别、预算/Stats、最近成功时间和产量；原文受控读取/备份。诊断不可写入 Cookie/Token。合法删除原文时记录影响、阻止继续导出失去证据的结果，不把“不可变”理解为永不删除。
 
@@ -364,7 +364,7 @@ Procrastinate 对单次手工 M1 可暂不运行，但周期、持久失败恢�
 
 ## 9. M0 至 M3 实施顺序
 
-先确定失败模式与独立预期，再实现行为验收路径和功能。只写真实用户路径 E2E，不在实现后补结构性单元测试。以下命令是**未来必须交付的验收入口，当前脚本不存在**，不是本轮已运行结果。
+先确定失败模式与独立预期，再实现行为验收路径和功能。只写真实用户路径 E2E，不在实现后补结构性单元测试。以下命令已实现，每次运行创建独立临时 PostgreSQL 集群和合成站点；M2/M3 运行真实 Worker。合成路径的断言结果以对应工件为准，真实来源退出条件单列。
 
 统一入口为 `scripts/acceptance.sh`；后续阶段复用前阶段，不重复创建测试平台。首次准备隔离测试数据，重跑创建新 namespace，不能污染生产。实施后从仓库根目录分别运行：
 
@@ -408,7 +408,7 @@ M0 先以本地确定站点验证机制，M1 在获得 URL/许可后完成一个
 
 每阶段产出 `manifest.json`、`assertions.json`、报告、CLI 回执、脱敏 Stats/请求账本、合成原文、候选/发布 JSON、Revision/Binding/Activation/撤回历史。Manifest 包含命令、环境锁、代码/配置/输入/预期摘要和未验证项；每条断言有 expected/actual、PASS/FAIL/BLOCKED、证据路径。工件不含真实凭据/个人信息；可重算摘要与业务断言，不要求不同运行 ID/时间戳一致。通过构建、HTTP 200 或一次退出码 0 不替代这些证据。
 
-当前仅可运行文档检查：`seiso check`，另可检查本地链接与 Generated 源稿一致性。它们不能证明 Middleware 顺序、断电持久性、并发 fencing 或真实来源覆盖。可视化源稿嵌在 Generated 的 `#am-source`，重生成不另建说明文档。
+当前可运行上述端到端入口、`scripts/verify_artifacts.py` 工件校验及文档检查 `seiso check`。端到端工件验证合成路径，文档检查不证明运行行为；真实断电持久性与来源覆盖仍未验证。可视化源稿嵌在 Generated 的 `#am-source`，重生成不另建说明文档。
 
 ## 11. 必须通过真实 PoC 验证的风险
 
@@ -423,3 +423,13 @@ M0 先以本地确定站点验证机制，M1 在获得 URL/许可后完成一个
 | PDF/来源覆盖/重跑成本 | 人工核对文本页序、缺失文档、分页；测量代表来源时间/内存/网络代价。超出边界先缩范围/业务分片，OCR/大型工作流另评估 |
 
 实现顺序以 M0→M1→M2→M3 为准。本次删除的是尚未实施的机制，没有生产数据迁移义务；历史 [ADR-0001](../adr/0001-recipe-driven-fixed-pipeline.md) 和 ADR-0002 的修订说明保留取舍，不再约束 V1。未来 Agent/外部作者准入会改变信任模型，必须单独重新设计，而不是直接复用 V1 执行权限。
+
+
+## 12. 第一版实现映射与尚未完成项
+
+- `src/seal/config.py`、`recipes.py`、`governance.py`：配置、不可变包/Binding、Gold 与 Trial/Replay 审核、CAS 启用、暂停/回滚/撤回。
+- `archive.py`、`items.py`、`crawl.py`：原生 Scrapy、归档前置、输入血缘、字段定位、独立 Replay、预算和关闭报告。
+- `runs.py`、`publish.py`、`queue.py`：三层 fencing、发布幂等、期限/三次尝试、同事务 Procrastinate 入队、周期与 stalled 恢复。
+- `schema.sql`：九类业务表；`scripts/acceptance.sh`：M0–M3 累积合成验收；首次失败工件保留，最新通过不抹除历史。
+
+当前实现边界：只开放规范化 URL 身份和 `generic_document.v1`；公开 GET/HEAD，Cookie 关闭；PDF 仅文本层且页面顺序需人工核对。孤儿对象保留供停机核对清理，尚无自动垃圾回收。部署使用固定 checkout 和虚拟环境，旧环境必须保留，不原位更新。真实来源接入、真实断电/整机故障、生产性能/资源规模尚未验收。上述剩余项以本 Plan 持续跟踪，不以合成通过替代。

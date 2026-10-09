@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+  	 <link rel="shortcut icon" href="https://www.gyac.org.cn/materialpub/2025/img/favicon.ico" />
+    <link rel="icon" sizes="any" mask href="https://www.gyac.org.cn/materialpub/2025/img/favicon.ico">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name=renderer content=ie-comp>
+    <meta name="viewport" content="user-scalable=no,width=414" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="">
+    <meta name="format-detection" content="telephone=no">
+    <title>贵阳仲裁委员会</title>
+  	<meta name="keywords" content="贵阳仲裁委员会" />
+	<meta name="description" content="贵阳仲裁委员会" />
+    <link rel="stylesheet" href="https://www.gyac.org.cn/materialpub/2025/css/global.css">
+    <link rel="stylesheet" href="https://www.gyac.org.cn/materialpub/2025/css/index.css">
+    <link rel="stylesheet" href="https://www.gyac.org.cn/materialpub/2025/css/swiper.min.css">
+  <script src="https://www.gyac.org.cn/materialpub/2025/js/jQuery.min.js"></script>
+</head>
+
+<body>
+    <div class="container container-bg">
+<script>
+			$(function() {
+				var key = $(".search-input");
+				$(".search-btn").click(function() {
+					if ($.trim(key.val()) != "") {
+						if (TextValidate()) {
+							window.open("/searchs.html?siteId=1&searchTxt="+$.trim(key.val())+"&searchTime=0");
+						} else {
+							return false;
+						}
+					} else {
+						alert("请输入关键字！");
+						$(".search-input").focus();
+						return false;
+					}
+				});
+				$(".search-input").keypress(function(e) {
+					if (e.keyCode == 13) {
+						$(".search-btn").click();
+					}
+				});
+			});
+
+			function TextValidate() {
+				var passPort = document.getElementById("keyWords");
+				// alert(passPort.value.length+"  "+passPort.value);
+				//特殊字符正则表达式
+				var txt = new RegExp(
+					"[ ,\\`,\\~,\\!,\\@,\#,\\$,\\%,\\^,\\+,\\*,\\&,\\\\,\\/,\\?,\\|,\\:,\\.,\\<,\\>,\\{,\\},\\(,\\),\\',\\;,\\=,\"]"
+				);
+				var flag = "0";
+				var flags = true;
+				for (var i = 0; i < passPort.value.length; i++) {
+					//alert(passPort.value.charAt(i));
+					//两种方法获取到每一个输入的字符
+					//character = passPort.value.substr(i,1); 或者下面的方法
+					character = passPort.value.charAt(i); //得到每一个输入的字符
+					if (txt.test(character)) {
+						flag = "1";
+					}
+				}
+				if (flag == "1") {
+					alert("输入内容不能包含下列这些特殊字符:\n , ` ~ ! @ # $ % ^ + & * \\ / ? | : . < > {} () [] \" ");
+					flags = false;
+					//passPort.select(); //全选
+					//passPort.value="";//或者清空
+					//passPort.focus();
+				}
+
+				return flags;
+			}
+</script>
+        <div class="header">
+            <div style="position: relative;height: 100%;z-index: 9;">
+          <!-- 头部 -->
+            <!-- logo -->
+            <div class="top-header">
+                <div class="logo"><a href="/"><img src="https://www.gyac.org.cn/materialpub/2025/img/logo.png?t=20250606" alt="贵阳仲裁委员会"></a></div>
+                <div class="search">
+                    <input type="text" class="search-input" id="keyWords" placeholder="请输入需要搜索的内容">
+                    <button class="search-btn"><i class="iconfont icon-search"></i>搜索</button>
+                </div>
+            </div>
+            <!-- logo -->
+
+            <!-- 侧边菜单栏 -->
+            <button class="menu-button index" id="menuButton"><i class="iconfont icon-caidan"></i>菜单</button>
+
+
+
+            <div class="center-header">
+                <!-- nav -->
+                <div class="nav">
+                    <div class="nav-list">
+                        <ul class="ac_nav navHe">
+                            <li class="ac_list active"><a href="/"><span>首页</span><span class="alias">HOME</span></a>
+
+                            </li>
+                            <li class="ac_list has-submenu 287"><a href="https://www.gyac.org.cn/n287/index.html"><span>关于我们</span><span class="alias">ABOUT US</span></a>
+                              	 <ul class="submenu">
+                                    <li><a href="https://www.gyac.org.cn/n288/index.html">贵仲简介</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n289/index.html">组成人员</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n290/index.html">办事机构</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n291/index.html">联系我们</a></li>
+                                </ul>
+                            </li>
+                            <li class="ac_list has-submenu 292"><a href="https://www.gyac.org.cn/n292/index.html"><span>仲裁指南</span><span
+                                        class="alias">Guidelines</span></a>
+                                <ul class="submenu">
+                                    <li><a href="https://www.gyac.org.cn/n293/index.html">受案范围</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n294/index.html">怎样申请仲裁</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n295/index.html">案件受理流程</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n296/index.html">仲裁费用收取</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n297/index.html">仲裁文书下载</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n329/index.html">常见问题</a></li>
+                                </ul>
+                            </li>
+                            <li class="ac_list has-submenu 299"><a href="https://www.gyac.org.cn/n299/index.html"><span>仲裁员</span><span
+                                        class="alias">Arbitrators</span></a>
+                                <ul class="submenu">
+                                    <li><a href="https://www.gyac.org.cn/n300/index.html">仲裁员名册</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n301/index.html">仲裁员守则</a></li>
+                                    <li><a href="https://xcx.gyac.org.cn/#/login">仲裁员办案端口</a></li>
+                                </ul>
+                            </li>
+                            <li class="ac_list has-submenu 303"><a href="https://www.gyac.org.cn/n303/index.html"><span>法律及法规</span><span class="alias">laws and regulations</span></a>
+                                <ul class="submenu">
+                                    <li><a href="https://www.gyac.org.cn/n304/index.html">现行仲裁规则</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n305/index.html">历年仲裁规则</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n306/index.html">仲裁法</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n308/index.html">纽约公约</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n309/index.html">相关法律规范</a></li>
+                                </ul>
+                            </li>
+                            <li class="ac_list has-submenu 310"><a href="https://www.gyac.org.cn/n310/index.html"><span>新闻动态</span><span class="alias">News</span></a>
+                                <ul class="submenu">
+                                    <li><a href="https://www.gyac.org.cn/n311/index.html">贵仲动态</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n312/index.html">通知公告</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n313/index.html">资讯中心</a></li>
+                                </ul>
+                            </li>
+                            <li class="ac_list has-submenu 314"><a href="https://www.gyac.org.cn/n314/index.html"><span>仲裁研究</span><span class="alias">Arbitration Studies</span></a>
+                                <ul class="submenu">
+                                    <li><a href="https://www.gyac.org.cn/n315/index.html">共话仲裁</a></li>
+                                    <li><a href="https://www.gyac.org.cn/n316/index.html">仲裁专论</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- nav -->
+            </div>
+            <!-- 头部 -->
+            <div class="banner-t">
+                <img src="https://www.gyac.org.cn/materialpub/2025/img/banner-logo.png?t=20250606" alt="">
+            </div>
+
+            <div class="header-nav">
+                <div class="header-nav-list greater550">
+                    <div class="header-nav-item"><a href="https://xcx.gyac.org.cn/#/login" target="_blank"><i
+                                class="iconfont icon-a-rongqi21"></i><span>网络立案</span><span class="subtitle">Online
+                                filing</span></a></div>
+                    <div class="header-nav-item"><a href="https://gdv.yuntrial.com/app/trialEnter?type=arbitration_normal" target="_blank"><i
+                                class="iconfont icon-a-rongqi3"></i><span>网络庭审</span><span class="subtitle">Online
+                                court
+                                trial</span></a></div>
+                    <div class="header-nav-item"><a href="https://www.gyac.org.cn/n304/index.html"><i
+                                class="iconfont icon-a-rongqi4"></i><span>仲裁规则</span><span class="subtitle">arbitration
+                                rules</span></a></div>
+                    <div class="header-nav-item"><a href="https://www.gyac.org.cn/n300/index.html"><i
+                                class="iconfont icon-a-rongqi30"></i><span>仲裁员名册</span><span class="subtitle">Arbitrator roster</span></a></div>
+                    <div class="header-nav-item"><a href="https://www.gyac.org.cn/n294/index.html"><i
+                                class="iconfont icon-a-rongqi5"></i><span>仲裁指引</span><span class="subtitle">Arbitration
+                                Guidelines</span></a></div>
+                    <div class="header-nav-item"><a href="https://www.gyac.org.cn/n296/index.html"><i
+                                class="iconfont icon-a-rongqi1"></i><span>费用速算</span><span class="subtitle">Quick Cost
+                                Calculation</span></a></div>
+                    <div class="header-nav-item"><a href="https://www.gyac.org.cn/n322/20250427/i4600.html" target="_blank"><i class="iconfont icon-tiaokuan"></i><span>示范条款</span><span
+                                class="subtitle">model
+                                clauses</span></a></div>
+                    <div class="header-nav-item"><a href="https://www.gyac.org.cn/n331/index.html" target="_blank"><i class="iconfont icon-hetong"></i><span>合同文本</span><span
+                                class="subtitle">Contract
+                                text</span></a></div>
+                    <div class="header-nav-item"><a href="https://www.gyac.org.cn/n297/index.html"><i
+                                class="iconfont icon-a-rongqi61"></i><span>文书下载</span><span class="subtitle">Document
+                                Download</span></a></div>
+  </div>
+              
+            </div>
+        </div>
+        <div style="width: 100%;height: 100%;position: absolute; top: 0;">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="https://www.gyac.org.cn/resource/info/logo/2025/05/20/84bedcef-e96c-4c66-b8c5-09b28ebfea3b.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://www.gyac.org.cn/resource/info/logo/2025/05/20/29fe24c6-42ab-452f-83f9-d998f2805095.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://www.gyac.org.cn/resource/info/logo/2025/05/20/6ce1af70-9b3e-4335-990a-0f646741766d.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://www.gyac.org.cn/resource/info/logo/2025/05/20/f131f490-8788-4858-ad0b-1dcbd5d00dde.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://www.gyac.org.cn/resource/info/logo/2025/05/20/4e950564-8fd0-4de3-8395-da7de70c69b2.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://www.gyac.org.cn/resource/info/logo/2025/05/20/64a088eb-2c70-4c35-aab0-ba1758d4f16c.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://www.gyac.org.cn/resource/info/logo/2025/05/20/bb4c9324-cc87-4e6d-b036-0697a92a6970.jpg" />
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+      <!-- 侧边菜单栏 -->
+                  <div class="overlay" id="overlay"></div>
+
+            <div class="sidebar" id="sidebar">
+                <img src="https://www.gyac.org.cn/materialpub/2025/img/logo.png?t=20250606" alt="">
+                <button class="close-btn" id="closeBtn">&times;</button>
+
+                <div class="side-bar">
+                    <div class="menu-item  ">
+                        <a href="/" class="first">首页</a>
+                    </div>
+							<!--贵仲概况-->
+                    <div class="menu-item parent-item">
+                        <a href="https://www.gyac.org.cn/n287/index.html" class="first">关于我们</a>
+                      <span class="toggle-icon"><i class="iconfont icon-icon_arrow_right"></i></span>
+                      <div class="submenuL">
+                            <a class="menu-item second" href="https://www.gyac.org.cn/n288/index.html">贵仲简介</a><a class="menu-item second" href="https://www.gyac.org.cn/n289/index.html">组成人员</a><a class="menu-item second" href="https://www.gyac.org.cn/n290/index.html">办事机构</a><a class="menu-item second" href="https://www.gyac.org.cn/n291/index.html">联系我们</a>
+                        </div>
+                    </div>
+							<!--仲裁指南-->
+                    <div class="menu-item parent-item">
+                        <a href="https://www.gyac.org.cn/n292/index.html" class="first">仲裁指南</a>
+                        <span class="toggle-icon"><i class="iconfont icon-icon_arrow_right"></i></span>
+                        <div class="submenuL">
+                             <a class="menu-item second" href="https://www.gyac.org.cn/n293/index.html">受案范围</a><a class="menu-item second" href="https://www.gyac.org.cn/n294/index.html">怎样申请仲裁</a><a class="menu-item second" href="https://www.gyac.org.cn/n295/index.html">案件受理流程</a><a class="menu-item second" href="https://www.gyac.org.cn/n296/index.html">仲裁费用收取</a><a class="menu-item second" href="https://www.gyac.org.cn/n297/index.html">仲裁文书下载</a><a class="menu-item second" href="https://www.gyac.org.cn/n329/index.html">常见问题</a>
+                        </div>
+                    </div>
+							<!--仲裁员-->
+                    <div class="menu-item parent-item  ">
+                        <a href="https://www.gyac.org.cn/n299/index.html" class="first">仲裁员</a>
+                        <span class="toggle-icon"><i class="iconfont icon-icon_arrow_right"></i></span>
+                        <div class="submenuL">
+                             <a class="menu-item second" href="https://www.gyac.org.cn/n300/index.html">仲裁员名册</a><a class="menu-item second" href="https://www.gyac.org.cn/n301/index.html">仲裁员守则</a><a class="menu-item second" href="https://xcx.gyac.org.cn/#/login">仲裁员办案端口</a>
+                        </div>
+                    </div>
+							<!--法律及法规-->
+                    <div class="menu-item parent-item  ">
+                        <a href="https://www.gyac.org.cn/n303/index.html" class="first">法律及规则</a>
+                        <span class="toggle-icon"><i class="iconfont icon-icon_arrow_right"></i></span>
+                        <div class="submenuL">
+                             <a class="menu-item second" href="https://www.gyac.org.cn/n304/index.html">现行仲裁规则</a><a class="menu-item second" href="https://www.gyac.org.cn/n305/index.html">历年仲裁规则</a><a class="menu-item second" href="https://www.gyac.org.cn/n306/index.html">仲裁法</a><a class="menu-item second" href="https://www.gyac.org.cn/n308/index.html">纽约公约</a><a class="menu-item second" href="https://www.gyac.org.cn/n309/index.html">相关法律规范</a>
+                        </div>
+                    </div>
+							<!--资讯中心-->
+                    <div class="menu-item parent-item  ">
+                        <a href="https://www.gyac.org.cn/n310/index.html" class="first">新闻动态</a>
+                        <span class="toggle-icon"><i class="iconfont icon-icon_arrow_right"></i></span>
+                        <div class="submenuL">
+                             <a class="menu-item second" href="https://www.gyac.org.cn/n311/index.html">贵仲动态</a><a class="menu-item second" href="https://www.gyac.org.cn/n312/index.html">通知公告</a><a class="menu-item second" href="https://www.gyac.org.cn/n313/index.html">资讯中心</a>
+                        </div>
+                    </div>
+							<!--仲裁研究-->
+                    <div class="menu-item parent-item  ">
+                        <a href="https://www.gyac.org.cn/n314/index.html" class="first">仲裁研究</a>
+                        <span class="toggle-icon"><i class="iconfont icon-icon_arrow_right"></i></span>
+                        <div class="submenuL">
+                             <a class="menu-item second" href="https://www.gyac.org.cn/n315/index.html">共话仲裁</a><a class="menu-item second" href="https://www.gyac.org.cn/n316/index.html">仲裁专论</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 侧边菜单栏 -->
+
+        <!-- 主体 -->
+        <div class="main">
+            <!-- 侧边栏 -->
+            <div class="sideBox">
+                <!--<div class="close-side" id="close-side">&times; 关闭</div>-->
+                <div class="side-title" id="close-side"><i class="iconfont icon-daohangshousuo-shousuo"></i>机构服务</div>
+              <div class="side-title exp" id="close-side-exp"><i class="iconfont icon-daohangshousuo-zhankai"></i><p>机构服务</p></div>
+                <div class="side-list">
+                    <a class="side-item" href="https://xcx.gyac.org.cn/#/login" target="_blank"><i class="iconfont icon-user"></i><p>我是当事人</p></a>
+                    <a class="side-item" href="https://xcx.gyac.org.cn/#/login" target="_blank"><i class="iconfont icon-male"></i><p>我是仲裁员</p></a>
+                    <a class="side-item" href="https://oa.gyac.org.cn:7090/" target="_blank"><i class="iconfont icon-lady"></i>我是仲裁秘书</a>
+                    <a class="side-item" href="https://www.gyac.org.cn/n325/index.html" target="_blank"><i class="iconfont icon-zaixianzixun"></i><p>咨询反馈</p></a>
+                    <a class="side-item" href="https://www.gyac.org.cn/n291/index.html" target="_blank"><i class="iconfont icon-3"></i><p>联系我们</p></a>
+                    <div class="side-item-container">
+                        <a class="side-item weixin"><i class="iconfont icon-weixin"></i><p>微信</p></a>
+                        <div class="qrcode weixin-qrcode">
+                            <img src="https://www.gyac.org.cn/materialpub/2025/img/wxewm.jpg" alt="微信二维码">
+                        </div>
+                    </div>
+                    <div class="side-item-container">
+                        <a class="side-item douyin"><img src="https://www.gyac.org.cn/materialpub/2025/img/dy.png" alt=""><p>抖音</p></a>
+                        <div class="qrcode douyin-qrcode">
+                            <img src="https://www.gyac.org.cn/materialpub/2025/img/dyewm.png" alt="抖音二维码">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 侧边栏 -->
+            <!-- 通知公告 -->
+            <div class="notice">
+                <div class="notice-layout">
+                    <div class="notice-title"><i class="iconfont icon-tongzhigonggao"></i>
+                        <h3>最新</h3><span>公告：</span>
+                    </div>
+                    <div class="swiper noticeSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <a href="https://www.gyac.org.cn/n312/20260915/i6581.html" title="关于周军同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定">关于周军同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定</a><span>2026/09/14</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="https://www.gyac.org.cn/n312/20260827/i6570.html" title="关于2026年数博会期间停办业务的通知">关于2026年数博会期间停办业务的通知</a><span>2026/08/27</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="https://www.gyac.org.cn/n312/20260507/i6472.html" title="贵阳仲裁委员会仲裁员遴选公告">贵阳仲裁委员会仲裁员遴选公告</a><span>2026/05/06</span>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="https://www.gyac.org.cn/n312/20250604/i5613.html" title="关于高应雪同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定">关于高应雪同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定</a><span>2025/06/03</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 通知公告 -->
+
+            <!-- 咨询中心 动态 -->
+            <div class="infomatr-content">
+                <div class="info-layout">
+                    <!-- 咨询 -->
+                    <div class="service-box">
+                        <div class="service-title">
+                            <h4>新闻<span>动态</span></h4>
+                            <span class="service-title-alias">News</span>
+                        </div>
+                        <div class="swiper serviceSwiper">
+                            <div class="swiper-wrapper">
+                                <a class="swiper-slide" title="南宁市司法局、南宁仲裁委员会一行到贵阳仲裁委员会调研座谈" href="https://www.gyac.org.cn/n311/20261008/i6586.html" target="_blank">
+                                    <img src="https://www.gyac.org.cn/resource/info/logo/2026/10/08/b6bf6e8f-c40c-46f3-919a-2d8732c7800d.jpg" alt="南宁市司法局、南宁仲裁委员会一行到贵阳仲裁委员会调研座谈"/>
+                                    <div class="serve-content">
+                                        <div class="serve-layout">
+                                            <span class="service-time">10/08</span><span
+                                                class="serve-title">南宁市司法局、南宁仲裁委员会一行到贵阳仲裁委员会调研座谈</span>
+                                        </div>
+                                    </div>
+                                </a><a class="swiper-slide" title="贵阳仲裁委员会与贵州省江苏商会召开宣贯新仲裁法推进多元解纷工作座谈会" href="https://www.gyac.org.cn/n311/20260923/i6584.html" target="_blank">
+                                    <img src="https://www.gyac.org.cn/resource/info/logo/2026/09/23/c1079d4f-9ef4-4b8f-9fec-faac3584de70.jpg" alt="贵阳仲裁委员会与贵州省江苏商会召开宣贯新仲裁法推进多元解纷工作座谈会"/>
+                                    <div class="serve-content">
+                                        <div class="serve-layout">
+                                            <span class="service-time">09/23</span><span
+                                                class="serve-title">贵阳仲裁委员会与贵州省江苏商会召开宣贯新仲裁法推进多元解纷工作座谈会</span>
+                                        </div>
+                                    </div>
+                                </a><a class="swiper-slide" title="重走长征路 奋进新征程 ——贵阳仲裁委员会党支部组织开展主题党建活动" href="https://www.gyac.org.cn/n311/20260914/i6580.html" target="_blank">
+                                    <img src="https://www.gyac.org.cn/resource/info/logo/2026/09/14/52d5ccf7-9408-4e1b-a93f-9c31c89a840c.jpg" alt="重走长征路 奋进新征程 ——贵阳仲裁委员会党支部组织开展主题党建活动"/>
+                                    <div class="serve-content">
+                                        <div class="serve-layout">
+                                            <span class="service-time">09/14</span><span
+                                                class="serve-title">重走长征路 奋进新征程 ——贵阳仲裁委员会党支部组织开展主题党建活动</span>
+                                        </div>
+                                    </div>
+                                </a><a class="swiper-slide" title="守正创新三十载 笃行致远新征程 ——贵阳仲裁委员会成立三十周年工作回顾会议在贵阳举行" href="https://www.gyac.org.cn/n311/20260907/i6575.html" target="_blank">
+                                    <img src="https://www.gyac.org.cn/resource/info/logo/2026/09/07/8a6b29e8-7f00-4a25-8470-97f4760b9775.jpg" alt="守正创新三十载 笃行致远新征程 ——贵阳仲裁委员会成立三十周年工作回顾会议在贵阳举行"/>
+                                    <div class="serve-content">
+                                        <div class="serve-layout">
+                                            <span class="service-time">09/07</span><span
+                                                class="serve-title">守正创新三十载 笃行致远新征程 ——贵阳仲裁委员会成立三十周年工作回顾会议在贵阳举行</span>
+                                        </div>
+                                    </div>
+                                </a><a class="swiper-slide" title="西安仲裁委、杭州仲裁委与贵阳仲裁委交流座谈" href="https://www.gyac.org.cn/n311/20260907/i6574.html" target="_blank">
+                                    <img src="https://www.gyac.org.cn/resource/info/logo/2026/09/07/33c07854-2486-41c9-8f5e-1d440e6d61a7.jpg" alt="西安仲裁委、杭州仲裁委与贵阳仲裁委交流座谈"/>
+                                    <div class="serve-content">
+                                        <div class="serve-layout">
+                                            <span class="service-time">09/03</span><span
+                                                class="serve-title">西安仲裁委、杭州仲裁委与贵阳仲裁委交流座谈</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="swiper-pagination page-btn"></div>
+                        </div>
+                    </div>
+                    <!-- 咨询 -->
+
+                    <!-- 动态 -->
+                    <div class="notice-box">
+                        <div class="laws-box">
+                            <div class="laws-tabs">
+                                <a class="laws-tab active" data-tab="tab1" href="https://www.gyac.org.cn/n311/index.html">贵仲动态</a>
+                              	 <a class="laws-tab" data-tab="tab2" href="https://www.gyac.org.cn/n313/index.html">资讯中心</a>
+                                <a class="laws-tab" data-tab="tab3" href="https://www.gyac.org.cn/n312/index.html">通知公告</a>
+                            </div>
+                            <div class="laws-list">
+                                <div class="laws-content-item active" id="tab1">
+                                    <ul class="laws-item-list">
+                                        <li class="laws-items" title="南宁市司法局、南宁仲裁委员会一行到贵阳仲裁委员会调研座谈"><a href="https://www.gyac.org.cn/n311/20261008/i6586.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">08</div>
+                                                    <div class="year-month">2026/10</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">南宁市司法局、南宁仲裁委员会一行到贵阳仲裁委员会调研座谈</div>
+                                                    <div class="law-abstract">2026年9月30日上午，南宁市司法局政治部主任、党组成员韦晓宁带队，南宁仲裁委员会秘书处副秘书长颜慧等一行 7 ...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="贵阳仲裁委员会与贵州省江苏商会召开宣贯新仲裁法推进多元解纷工作座谈会"><a href="https://www.gyac.org.cn/n311/20260923/i6584.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">23</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">贵阳仲裁委员会与贵州省江苏商会召开宣贯新仲裁法推进多元解纷工作座谈会</div>
+                                                    <div class="law-abstract">9月22日上午，贵阳仲裁委员会与贵州省江苏商会召开宣贯新仲裁法推进多元解纷工作座谈会。</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="重走长征路 奋进新征程 ——贵阳仲裁委员会党支部组织开展主题党建活动"><a href="https://www.gyac.org.cn/n311/20260914/i6580.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">14</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">重走长征路 奋进新征程 ——贵阳仲裁委员会党支部组织开展主题党建活动</div>
+                                                    <div class="law-abstract">9月11日，贵阳仲裁委员会党支部组织开展 &quot;重走长征路 奋进新征程&quot; 主题党建活动，带领党员和职工走进茅台镇四渡赤...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="分会动态丨贵阳仲裁委员会各分会稳步推进各项工作"><a href="https://www.gyac.org.cn/n311/20260914/i6579.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">08</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">分会动态丨贵阳仲裁委员会各分会稳步推进各项工作</div>
+                                                    <div class="law-abstract">8月27日上午，贵阳仲裁委员会黔东南分会驻会副主任余志宏、仲裁调解员杨荣英以及仲裁秘书熊慧一行拜访黔东南州工商业联...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="守正创新三十载 笃行致远新征程 ——贵阳仲裁委员会成立三十周年工作回顾会议在贵阳举行"><a href="https://www.gyac.org.cn/n311/20260907/i6575.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">07</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">守正创新三十载 笃行致远新征程 ——贵阳仲裁委员会成立三十周年工作回顾会议在贵阳举行</div>
+                                                    <div class="law-abstract">9月4日下午，值此三十周年之际，贵阳仲裁委员会“守正创新三十载 笃行致远新征程”工作回顾会议在贵阳举行</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="laws-content-item" id="tab2">
+                                    <ul class="laws-item-list">
+                                        <li class="laws-items" title="时代专论丨深刻认识习近平党建思想蕴含的强烈使命担当"><a href="https://www.gyac.org.cn/n313/20261008/i6585.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">08</div>
+                                                    <div class="year-month">2026/10</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">时代专论丨深刻认识习近平党建思想蕴含的强烈使命担当</div>
+                                                    <div class="law-abstract">习近平党建思想是习近平新时代中国特色社会主义思想的重要组成部分，强烈的使命担当贯穿这一思想始终，是其最为鲜明的理论...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="有力有序协调推进全面依法治国任务落实（权威发布·开局起步“十五五”）"><a href="https://www.gyac.org.cn/n313/20260917/i6583.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">17</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">有力有序协调推进全面依法治国任务落实（权威发布·开局起步“十五五”）</div>
+                                                    <div class="law-abstract">9月16日，国务院新闻办举行“开局起步‘十五五’”系列主题新闻发布会，介绍“十五五”时期推进全面依法治国任务落实和...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="最高法发布《关于依法审理涉人工智能纠纷案件的意见》"><a href="https://www.gyac.org.cn/n313/20260908/i6577.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">08</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">最高法发布《关于依法审理涉人工智能纠纷案件的意见》</div>
+                                                    <div class="law-abstract">2026年9月7日，最高人民法院举行《最高人民法院关于依法审理涉人工智能纠纷案件的意见》新闻发布会。会上，最高人民...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="第四届仲裁公信力评估指标体系公布"><a href="https://www.gyac.org.cn/n313/20260907/i6576.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">07</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">第四届仲裁公信力评估指标体系公布</div>
+                                                    <div class="law-abstract">近日，中国政法大学仲裁研究院发布了第四届仲裁公信力评估指标体系</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="新修改的《贵州省反不正当竞争条例》8月1日起施行"><a href="https://www.gyac.org.cn/n313/20260831/i6572.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">27</div>
+                                                    <div class="year-month">2026/08</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">新修改的《贵州省反不正当竞争条例》8月1日起施行</div>
+                                                    <div class="law-abstract">《贵州省人民代表大会常务委员会关于修改〈贵州省反不正当竞争条例〉的决定》已于2026年7月29日经贵州省第十四届人...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="laws-content-item" id="tab3">
+                                    <ul class="laws-item-list">
+                                        <li class="laws-items" title="关于周军同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定"><a href="https://www.gyac.org.cn/n312/20260915/i6581.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">14</div>
+                                                    <div class="year-month">2026/09</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">关于周军同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定</div>
+                                                    <div class="law-abstract">经贵阳仲裁委员会研究同意，决定周军同志不再担任贵阳仲裁委员会仲裁员。</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="关于2026年数博会期间停办业务的通知"><a href="https://www.gyac.org.cn/n312/20260827/i6570.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">27</div>
+                                                    <div class="year-month">2026/08</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">关于2026年数博会期间停办业务的通知</div>
+                                                    <div class="law-abstract">2026中国国际大数据产业博览会（以下简称数博会）定于2026年8月28日（星期五）至30日（星期日）在贵阳举办。</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="贵阳仲裁委员会仲裁员遴选公告"><a href="https://www.gyac.org.cn/n312/20260507/i6472.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">06</div>
+                                                    <div class="year-month">2026/05</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">贵阳仲裁委员会仲裁员遴选公告</div>
+                                                    <div class="law-abstract">为适应新时代仲裁事业高质量发展需求，进一步优化仲裁员队伍结构，提升民商事纠纷化解质效，充分发挥仲裁在服务市场化、法...</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="关于高应雪同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定"><a href="https://www.gyac.org.cn/n312/20250604/i5613.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">03</div>
+                                                    <div class="year-month">2025/06</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">关于高应雪同志不再担任贵阳仲裁委员会第六届委员会仲裁员的决定</div>
+                                                    <div class="law-abstract">经贵阳仲裁委员会研究同意，决定高应雪同志不再担任贵阳仲裁委员会仲裁员</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="laws-items" title="贵阳仲裁委员会第六届委员会关于增聘马文峰等66名仲裁员的决定"><a href="https://www.gyac.org.cn/n312/20250604/i5614.html" target="_blank">
+                                                <div class="law-time">
+                                                    <div class="date">26</div>
+                                                    <div class="year-month">2025/05</div>
+                                                </div>
+                                                <div class="law-main">
+                                                    <div class="law-title">贵阳仲裁委员会第六届委员会关于增聘马文峰等66名仲裁员的决定</div>
+                                                    <div class="law-abstract">2025年5月26日经我委六届八次全体委员会议审议同意，决定增聘马文峰等66名同志为贵阳仲裁委员会第六届委员会仲裁员</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 动态 -->
+                </div>
+            </div>
+            <!-- 咨询中心 动态 -->
+
+            <!-- banner -->
+            <div class="main-banner">
+                <img src="https://www.gyac.org.cn/materialpub/2025/img/q5w2n-2rou0.gif?t=20250606" alt="">
+              <!--<img th:src="@{${dfsurl}+'/materialpub/2025/img/main-banner.png'}" alt="">
+                <img th:src="@{${dfsurl}+'/materialpub/2025/img/rwbhwg.png'}" alt="" class="rwb">
+                <img th:src="@{${dfsurl}+'/materialpub/2025/img/banner-footer.png'}" alt="" class="gz">-->
+            </div>
+            <!-- banner -->
+
+            <!-- 仲裁平台 -->
+            <div class="law-sarbit-content">
+                <!-- 仲裁服务平台 -->
+                <div class="arbit-plat">
+                    <div class="arbit-title">
+                        <h4>仲裁<span>服务平台</span></h4>
+                        <span class="service-title-alias">Arbitration service platform</span>
+                    </div>
+                    <div class="arbit-content">
+                        <a href="https://xcx.gyac.org.cn/#/login" target="_blank" class="arbit-list-item">
+                         <div class="icon-span">
+                           <i class="iconF iconfont icon-a-rongqi71"></i>
+                            <img src="https://www.gyac.org.cn/materialpub/2025/img/arbit-icon.png" alt="">
+                          </div>
+                            <div class="arb-layout">
+                                <div class="arb-text">
+                                    <h2>当事人服务平台</h2>
+                                    <span>Party service platform</span>
+                                </div>
+                                <i class="iconfont icon-a-lujing24"></i>
+                            </div>
+                        </a>
+                        <a href="https://xcx.gyac.org.cn/#/login" target="_blank" class="arbit-list-item">
+                            <div class="icon-span"><i class="iconF iconfont icon-a-rongqi81"></i>
+                            <img src="https://www.gyac.org.cn/materialpub/2025/img/arbit-icon.png" alt=""></div>
+                            <div class="arb-layout">
+                                <div class="arb-text">
+                                    <h2>仲裁员服务平台</h2>
+                                    <span>Arbitrator Service Platform</span>
+                                </div>
+                                <i class="iconfont icon-a-lujing24"></i>
+                            </div>
+                        </a>
+                        <a href="https://gdv.yuntrial.com/app/trialEnter?type=arbitration_normal" class="arbit-list-item" target="_blank">
+                            <div class="icon-span"><i class="iconF iconfont icon-a-rongqi91"></i>
+                            <img src="https://www.gyac.org.cn/materialpub/2025/img/arbit-icon.png" alt=""></div>
+                            <div class="arb-layout">
+                                <div class="arb-text">
+                                    <h2>网络庭审服务平台</h2>
+                                    <span>Online court trial service platform</span>
+                                </div>
+                                <i class="iconfont icon-a-lujing24"></i>
+                            </div>
+                        </a>
+                        <a href="javascript:alert('平台正在建设中，敬请期待！');" class="arbit-list-item">
+                            <div class="icon-span"><i class="iconF iconfont icon-a-rongqi101"></i>
+                            <img src="https://www.gyac.org.cn/materialpub/2025/img/arbit-icon.png" alt=""></div>
+                            <div class="arb-layout">
+                                <div class="arb-text">
+                                    <h2>仲裁调解服务平台</h2>
+                                    <span>Arbitration and Mediation Service Platform</span>
+                                </div>
+                                <i class="iconfont icon-a-lujing24"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- 仲裁服务平台 -->
+                <div class="right-plat">
+                    <!-- 仲裁员 -->
+                    <div class="arbit-box">
+                        <div class="arbitbox-title">
+                            <a  href="https://www.gyac.org.cn/n300/index.html"><h4>仲裁<span>员</span></h4>
+                            <span class="service-title-alias">Arbitrator</span></a>
+                        </div>
+                        <div class="arbitbox-layout">
+                            <input type="text" class="name-input" placeholder="请输入姓名">
+                            <input type="text" class="adress-input" placeholder="请输入居住地">
+                            <input type="text" class="hobit-input" placeholder="请输入专长">
+                            <div class="btn-group">
+                                <button class="check"><i class="iconfont icon-search"></i>查询</button>
+                                <button class="reset">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 仲裁员 -->
+
+                    <!-- 仲裁条款 -->
+                    <div class="clause-box">
+                        <div class="clause-title">
+                            <a  href="https://www.gyac.org.cn/n322/index.html"><h4>仲裁<span>示范条款</span></h4>
+                            <span class="service-title-alias">Arbitration Model Clause</span></a>
+                        </div>
+                        <div class="clause-text">
+                          <a href="https://www.gyac.org.cn/n322/20250427/i4600.html" target="_blank">
+                            <p> 因本合同引起的或与本合同有关的任何争议，本合同各方当事人均同意提请贵阳仲裁委员会，按照申请仲裁时该会现行有效的仲裁规则进行仲裁。仲裁结果对本合同各当事人均有约束力。</p>
+                            <p>For any dispute arising from or in connection with this Contract, the parties agree to
+                                submit to the Guiyang Arbitration Commission(GYAC) for arbitration. The arbitration
+                                shall be conducted in accordance with the GYAC's arbitration rules in effect at the time
+                                of applying for arbitration. The arbitral award shall be binding upon all parties to
+                                this contract.</p>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 仲裁条款 -->
+                </div>
+            </div>
+            <!-- 仲裁平台 -->
+
+            <!-- 功能列表 -->
+            <div class="wiper-banner">
+                <!-- Swiper -->
+                <div class="swiper-container wiper-layout">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a class="wiper-item" href="https://www.gyac.org.cn/n328/20250427/i4607.html" target="_blank">
+                                <!--<i class="iconfont icon-zhishi"></i>-->
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2025/04/27/d3c42b2f-b663-4ba2-b0b0-9af97a39d280.png"/>
+                                <div class="wiper-main">
+                                    <h3>仲裁学院</h3>
+                                    <span></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="wiper-item" href="https://www.gyac.org.cn/n328/20250427/i4606.html" target="_blank">
+                                <!--<i class="iconfont icon-zhishi"></i>-->
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2025/04/27/82775161-8144-4c6b-9a9a-23dcf202aedf.png"/>
+                                <div class="wiper-main">
+                                    <h3>建设工程争议</h3>
+                                    <span>评审中心</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="wiper-item" href="https://www.gyac.org.cn/n328/20250427/i4604.html" target="_blank">
+                                <!--<i class="iconfont icon-zhishi"></i>-->
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2025/04/27/8cb0a804-46a6-4aff-8bf9-15fa8b36f6fc.png"/>
+                                <div class="wiper-main">
+                                    <h3>民商事</h3>
+                                    <span>调解中心</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="wiper-item" href="https://www.gyac.org.cn/n328/20250427/i4603.html" target="_blank">
+                                <!--<i class="iconfont icon-zhishi"></i>-->
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2025/04/27/c431b516-3949-4628-a7f1-04296e91b852.png"/>
+                                <div class="wiper-main">
+                                    <h3>金融</h3>
+                                    <span>仲裁院</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="wiper-item" href="https://www.gyac.org.cn/n328/20250427/i4602.html" target="_blank">
+                                <!--<i class="iconfont icon-zhishi"></i>-->
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2025/04/27/eb11a48c-d0ce-4aae-9e3b-fc26c649f13f.png"/>
+                                <div class="wiper-main">
+                                    <h3>建设工程</h3>
+                                    <span>仲裁院</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="wiper-item" href="https://www.gyac.org.cn/n328/20250427/i4601.html" target="_blank">
+                                <!--<i class="iconfont icon-zhishi"></i>-->
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2025/04/27/a3af325f-f55e-4195-86bc-7d628c7e64e0.png"/>
+                                <div class="wiper-main">
+                                    <h3>知识产权</h3>
+                                    <span>仲裁研究院</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Add Arrows -->
+                </div>
+                <div class="swiper-button-next wiper-next-btn"><img src="https://www.gyac.org.cn/materialpub/2025/img/wiper-right.png" alt=""></div>
+                <div class="swiper-button-prev wiper-prev-btn"><img src="https://www.gyac.org.cn/materialpub/2025/img/wiper-left.png" alt=""></div>
+            </div>
+            <!-- 功能列表 -->
+
+            <!-- 友情链接 -->
+            <div class="friend-link">
+                <div class="friend-title">
+                    <h4>友情<span>链接</span></h4>
+                    <span class="service-title-alias">Friendship link</span>
+                </div>
+                <!-- Swiper -->
+                <div class="swiper-container friend-layout">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="http://www.tjac.org.cn" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/02b42e8a-b1d6-4233-94be-fc7106d45b12.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="https://www.whac.org.cn/" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/2e2e04b4-65a9-4068-9ddb-251ba883e869.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="http://www.gzac.org" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/783f1e0c-d18e-4c7f-821e-d0082edb0d2a.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="http://www.chinalaw.gov.cn" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/48ec6ae9-680c-4cc3-876a-2999036bfc01.png"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="https://www.guiyang.gov.cn" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/efec53c4-8ba1-4c08-90f3-badf135a89ac.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="http://www.gov.cn" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/e786dfcc-f662-4438-b2e2-b6abcf1f1a90.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="http://www.court.gov.cn" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/d2c01505-c2b8-44a2-9965-5c1519c3b45f.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="http://www.china-arbitration.com" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/c9d92cf3-7ec6-45d5-ac13-bd0f3c454d94.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="https://www.guizhou.gov.cn/" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/2b699c4d-2f8f-4d2f-89b5-aa2ca431210f.jpg"/>
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a class="friend-item" href="http://www.nczcw.org/" target="_blank">
+                                <img src="https://www.gyac.org.cn/resource/info/logo/2024/04/02/b1303ae0-6dab-499b-aa74-03396c3837a2.jpg"/>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Add Arrows -->
+                </div>
+                <div class="swiper-button-next next-btn"><i class="iconfont icon-icon_arrow_left"></i></div>
+                <div class="swiper-button-prev prev-btn"><i class="iconfont icon-icon_arrow_left"></i></div>
+            </div>
+            <!-- 友情链接 -->
+        </div>
+        <!-- 主体 -->
+    </div>
+    <!-- 底部 -->
+    <div class="footer">
+        <!-- 各仲裁委员会信息 -->
+        <div class="footer-layout">
+            <div class="footer-list">
+                <div class="footer-item">
+                    <div class="footer-item-title">
+                        <h2>贵阳仲裁委员会</h2>
+                    </div>
+                    <ul class="footer-item-content">
+                        <li><i class="iconfont icon-dianhua"></i><span>立案咨询电话：0851-87110600、87110601</span></li>
+                        <li><i class="iconfont icon-youxiang"></i><span>邮编：550081</span></li>
+                        <li><i class="iconfont icon-location"></i><span>贵阳市观山湖区金融城ONE座4层、20层</span></li>
+                    </ul>
+                </div>
+                <div class="footer-item">
+                    <div class="footer-item-title">
+                        <h2>贵阳仲裁委员会黔东南分会</h2>
+                    </div>
+                    <ul class="footer-item-content">
+                        <li><i class="iconfont icon-dianhua"></i><span>立案咨询电话：0855-8670600</span></li>
+                        <li><i class="iconfont icon-youxiang"></i><span>邮编：556000</span></li>
+                        <li><i class="iconfont icon-location"></i><span>凯里市永丰西路5号京州·繁华里6栋一单元2层</span></li>
+                    </ul>
+                </div>
+                <div class="footer-item">
+                    <div class="footer-item-title">
+                        <h2>贵阳仲裁委员会黔南分会</h2>
+                    </div>
+                    <ul class="footer-item-content">
+                        <li><i class="iconfont icon-dianhua"></i><span>立案咨询电话：0854-8310110</span></li>
+                        <li><i class="iconfont icon-youxiang"></i><span>邮编：558000</span></li>
+                        <li><i class="iconfont icon-location"></i><span>都匀市迎宾路66号南州国际风情街6栋6楼</span></li>
+                    </ul>
+                </div>
+                <div class="footer-item">
+                    <div class="footer-item-title">
+                        <h2>贵阳仲裁委员会黔西南分会</h2>
+                    </div>
+                    <ul class="footer-item-content">
+                        <li><i class="iconfont icon-dianhua"></i><span>立案咨询电话：0859-3119200</span></li>
+                        <li><i class="iconfont icon-youxiang"></i><span>邮编：562400</span></li>
+                        <li><i class="iconfont icon-location"></i><span>兴义市桔丰东路43号邦誉知悦府2楼</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 各仲裁委员会信息 -->
+
+        <!-- 页脚 -->
+        <div class="footer-content">
+            <div class="footer-w1350">
+                <div class="footer-line">
+                    <span>版权所有：贵阳仲裁委员会</span>
+                    <span>网站标识码：5201000010</span>
+                  <span><a href="https://beian.miit.gov.cn/" target="_blank">黔ICP备17010035号</a></span>
+                  <span>技术支持：<a href="https://www.zzdsj.com.cn/" target="_blank">智政科技</a></span>
+                </div>
+                <div class="footer-line">
+                    <span>监督电话：0851-87110610</span>
+                    <span>发展处：0851-87110621</span>
+                    <span>仲裁调解咨询电话：0851-83890917</span>
+                </div>
+                <div class="footer-line">
+                    <span class="gongan"><img src="https://www.gyac.org.cn/materialpub/2025/img/gongan.png" alt=""></span><span
+                        class="beian"><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=52010302000218">贵公网安备52010302000218号</a></span>
+                </div>
+
+
+                <div class="footer-bottom">
+                    <span class="safe"><a href="https://xyt.xcc.cn/getpcInfo?sn=1720048348766806016&language=CN&certType=8&url=*.gyac.org.cn" target="_blank" style="position: relative;display: inline-block;height: 38px;">
+<div style="width:100%;height:100%;position: absolute;top: 0;left: 0;"></div><embed src="https://program.xinchacha.com/web/1720048348766806016=*.gyac.org.cn.svg" width="103" height="38" type="image/svg+xml" pluginspage="//www.adobe.com/svg/viewer/install/" style="width: 120px;"/></a></span>
+                </div>
+            </div>
+        </div>
+        <!-- 页脚 -->
+    </div>
+<script>
+  /**
+* 跳转外链提示
+* @param href
+*/
+/*$(document).ready(function () {
+	for (var i = 0; i < document.links.length; i++) {
+		var url = document.links[i].href.toLowerCase();
+		if (url.indexOf("http://cms.gyac.org.cn") == -1&& url.indexOf("https://cms.gyac.org.cn") == -1&&url.indexOf("http://gyac.org.cn") == -1&& url.indexOf("https://gyac.org.cn") == -1&& url.indexOf("http://www.gyac.org.cn") == -1& url.indexOf("https://www.gyac.org.cn") == -1 &&url.indexOf("javascript:") == -1 && url != "#" && !document.links[i].onclick) {
+			document.links[i].onclick = function () {
+				return confirm("您访问的链接即将离开“贵阳仲裁委员会门户网站”，是否继续？")
+			};
+		}
+	}
+});*/
+  $(".nav-list .ac_nav .ac_list."+$("#parentid").val()).addClass("active");
+  $(".nav-list .ac_nav .ac_list."+$("#parentid").val()).siblings().removeClass("active");
+	/**
+	 * 菜单下拉
+	 */
+	document.addEventListener('DOMContentLoaded', function() {
+		const submenus = document.querySelectorAll('.has-submenu');
+
+		for (let i = 0; i < submenus.length; i++) {
+			const submenu = submenus[i];
+			const submenuList = submenu.querySelector('.submenu');
+
+			// 鼠标移入时显示子菜单
+			submenu.addEventListener('mouseenter', function() {
+				submenuList.classList.add('active');
+			});
+
+			// 鼠标移出时隐藏子菜单
+			submenu.addEventListener('mouseleave', function() {
+				submenuList.classList.remove('active');
+			});
+		}
+	});
+</script>
+
+    <!-- 底部 -->
+</body>
+<script src="https://www.gyac.org.cn/materialpub/2025/js/index.js"></script>
+<script src="https://www.gyac.org.cn/materialpub/2025/js/swiper.min.js"></script>
+
+<script>
+  $(".btn-group .check").click(function(){
+    var name=$(".name-input").val();
+    var adress=$(".adress-input").val();
+    var hobit=$(".hobit-input").val();
+    if(name.trim()==""&&adress.trim()==""&&hobit.trim()==""){
+      alert("请输入关键字");
+    }else{
+      window.open("/n300/index.html?title="+name+"&szd="+adress+"&zyzc="+hobit);
+    }
+  })
+  $(".btn-group .reset").click(function(){
+    $(".name-input").val("");
+  	 $(".adress-input").val("");
+  	 $(".hobit-input").val("");
+  });
+  $(".name-input,.adress-input,.hobit-input").keypress(function(e) {
+		if (e.keyCode == 13) {
+			$(".btn-group .check").click();
+		}
+   });
+    /**
+    * 侧栏菜单显隐
+    */
+    document.addEventListener('DOMContentLoaded', function () {
+        const sideBox = document.querySelector('.sideBox');
+        const closeSide = document.querySelector('#close-side');
+        const closeSideExp = document.querySelector('#close-side-exp');
+        const sideList = document.querySelector('.side-list');
+        const threshold = 800;
+        let isManuallyClosed = false; // 添加标志变量
+
+        function handleScroll() {
+            // 如果用户手动关闭了侧边栏，则不再处理滚动事件
+            if (isManuallyClosed) return;
+
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+            if (scrollPosition < threshold) {
+                sideBox.classList.add('hidden');
+            } else {
+                sideBox.classList.remove('hidden');
+                sideBox.style.display = 'block';
+            }
+        }
+
+
+        // 初始检查
+        handleScroll();
+
+        // 添加滚动事件监听
+        window.addEventListener('scroll', handleScroll);
+
+        // 添加点击事件监听器到 closeSide 按钮
+        closeSide.addEventListener('click', function () {
+            sideBox.style.width="31px";
+          	 this.style.display="none";
+          	 sideList.style.display="none";
+            closeSideExp.style.display="flex";
+            isManuallyClosed = true; // 设置标志为true表示用户手动关闭
+        });
+      closeSideExp.addEventListener('click', function () {
+        sideBox.style.width="126px";
+        closeSide.style.display="flex";
+        closeSideExp.style.display="none";
+        sideList.style.display="block";
+      });
+
+        // document.querySelector('#show-side').addEventListener('click', function() {
+        //     isManuallyClosed = false;
+        //     handleScroll();
+        // });
+    });
+    /**
+     * 动态tab切换 
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+        var tabs = document.querySelectorAll('.laws-tab');
+
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].addEventListener('mouseenter', function () {
+                // 移除所有tab的active类
+                for (var j = 0; j < tabs.length; j++) {
+                    tabs[j].classList.remove('active');
+                }
+                // 给当前点击的tab添加active类
+                this.classList.add('active');
+
+                // 获取对应的内容id
+                var tabId = this.getAttribute('data-tab');
+
+                // 隐藏所有内容
+                var items = document.querySelectorAll('.laws-content-item');
+                for (var k = 0; k < items.length; k++) {
+                    items[k].classList.remove('active');
+                }
+
+                // 显示对应的内容
+                document.getElementById(tabId).classList.add('active');
+            });
+        }
+    });
+var swiper = new Swiper(".mySwiper", {
+  			autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+        loop: true,
+      spaceBetween: 0,
+      effect: "fade"
+    });
+  /*$(document).ready(function() {
+            // 图片路径数组
+            const images = [
+                '/materialpub/2025/img/header-bg.png',
+                '/materialpub/2025/img/banner2.jpg',
+                '/materialpub/2025/img/banner3.jpg',
+                '/materialpub/2025/img/banner4.jpg',
+                '/materialpub/2025/img/banner5.jpg',
+                '/materialpub/2025/img/banner6.jpg',
+                '/materialpub/2025/img/banner7.jpg'
+            ];
+            
+            let currentIndex = 0;
+            
+            // 初始化背景
+            $('.header').css('background', `url(${images[currentIndex]}) no-repeat center top`);
+            
+            // 切换背景函数
+            function changeBackground(direction) {
+                if(direction === 'next') {
+                    currentIndex = (currentIndex + 1) % images.length;
+                } else {
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                }
+                $('.header').css('background', `url(${images[currentIndex]}) no-repeat center top`);
+            }
+            
+            // 自动轮播（可选）
+            let autoPlay = setInterval(() => {
+                changeBackground('next');
+            }, 5000);
+        });*/
+</script>
+
+</html>

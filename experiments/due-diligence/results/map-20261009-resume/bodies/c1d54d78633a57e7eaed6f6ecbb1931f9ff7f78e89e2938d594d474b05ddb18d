@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+  <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+  <META HTTP-EQUIV="expires" CONTENT="0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="市属,国企,深圳,联合,产权,交易所,联交所,租赁,增资,托管,金融资产">
+  <link rel="shortcut icon" href="/r/cms/sotcbb/default/favicon.ico" type="image/x-icon">
+  <title class="titles">深圳联合产权交易网-公有产权平台</title>
+  <link media="screen" type="text/css" rel="stylesheet" href="/r/cms/sotcbb/default/css/reset.css" />
+  <link media="screen" type="text/css" rel="stylesheet" href="/r/cms/sotcbb/default/css/common.css?8567541020260644978" />
+  <link media="screen" type="text/css" rel="stylesheet" href="/r/cms/sotcbb/default/libs/swiper/idangerous.swiper2.7.6.css?8567541020260644978" />
+  <link media="screen" type="text/css" rel="stylesheet" href="/r/cms/sotcbb/default/css/home.css?8567541020260644978" />
+  <script>top.baseUiUrl= "";</script>
+  <script>top.res = '/r/cms/sotcbb/default';</script>
+  <script src="/r/cms/sotcbb/default/libs/jquery-3.6.1.min.js"></script>
+  <script src="/r/cms/sotcbb/default/libs/swiper/idangerous.swiper2.7.6.js?8567541020260644978"></script>
+  <script src="/r/cms/sotcbb/default/js/config.js?8567541020260644978"></script>
+  <script src="/r/cms/sotcbb/default/js/common.js?8567541020260644978"></script>
+  <script src="/r/cms/sotcbb/default/libs/moment.js"></script>
+  <script src="/r/cms/sotcbb/default/js/flexible.js"></script>
+  <script src="/r/cms/sotcbb/default/libs/browser-polyfill.min.js"></script>
+  <script src="/r/cms/sotcbb/default/libs/browser.min.js"></script>
+  <script src="/r/cms/sotcbb/default/js/home.js?8567541020260644978"></script>
+  <script src="/r/cms/sotcbb/default/js/stot.js"></script>
+  <script src="/r/cms/sotcbb/default/js/jquery.gbk.js?8567541020260644978"></script>
+  <script src="/r/cms/sotcbb/default/js/free_Web_load.js"></script>
+
+  <script src="/r/cms/sotcbb/default/js/soundmanager2.js?8567541020260644978"></script>
+  <script>
+    var _czc = _czc || [];
+    (function () {
+      var um = document.createElement("script");
+      um.src = "https://v1.cnzz.com/z.js?id=1281417655&async=1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(um, s);
+    })();
+  </script>
+</head>
+<style>
+  .xmtj{
+     width: 260px;
+    /* min-width: 1200px; */
+   /* height: 141px;*/
+    overflow: hidden;
+    position: relative;
+    margin-top: .4rem;
+   
+}
+ .xmtj a,
+ .xmtj img{
+  width: 260px;
+    height: 141px;
+}
+.xmtj img{
+ object-fit: initial !important;
+}
+.swiper-container{
+  height:180px;
+margin-bottom:30px;
+}
+.swiper-container img{
+  height:141px;
+ object-fit:initial !important;
+}
+#tzgg_tab li{
+  margin-right:0 !important;
+}
+
+</style>
+
+<body class="vab-theme-light">
+<div id="root">
+  <!--顶部-->
+<div class="vab-logo">
+  <div class="vab-width flex-between">
+      <div class="logo-wrap">
+          <a class="home-header-icon-1" href="https://www.szexgrp.com/">
+              <img src="/r/cms/sotcbb/default/images/header-logo.png" />
+          </a>
+          <a href="javascript:void(0)" style="margin-right: 10px; margin-top: 12px;">
+              <img src="/r/cms/sotcbb/default/images/line-log.png" />
+          </a>
+          <a class="home-header-icon-2" href="/">
+              <img src="/r/cms/sotcbb/default/images/ljs-tt.png" />
+          </a>
+          <div style="margin-left:20px;"><span id="ST_translate"
+                  style="display:inline-block;width:50px;line-height:50px;cursor:pointer;"
+                  onclick="do_simple_to_traditional();">繁体版</span></div>
+      </div>
+      <div class="login-wrap">
+          <div class="search-input_wrap">
+              <div class="select-all-btn">
+                  <span class="selected-name">全部</span>
+                  <div class="select-left-icon"></div>
+              </div>
+              <div class="select-all-area">
+                  <ul class="select-all-list">
+                      <li class="select-all-item">全部</li>
+                      <li class="select-all-item">项目</li>
+                      <li class="select-all-item">公告</li>
+                      <li class="select-all-item">新闻</li>
+                      <li class="select-all-item">标的</li>
+                      <!-- <li class="select-all-item">其他</li> -->
+                  </ul>
+              </div>
+              <input type="text" id="common-search-input-id" placeholder="输入关键词，搜项目、公告、规则..." class="search-input"
+                  onkeydown="enterSearch()">
+              <i class="icon-search" onclick="clickSearch()"></i>
+          </div>
+          <!-- <div class="center-vip">
+              <span class="register_in"><a target="_self" href="/login">登录</a></span>
+              <span class="register_in"><a target="_self" href="/register.htm">注册</a></span>
+          </div> -->
+
+
+          <div class="login">
+              <div id="userLogin" style="display: none;">
+                  <!-- <span class="header-avo" id="header-avo"></span> -->
+                  <span class="register_out" id="userName">我的业务</span>
+                  <div class="vip-ivsible">
+                      <div class="vip-visible-box">
+                          <div class="vip-top">
+                              <div class="header-visible-name">
+                              <p id="user-name-wel" title=""></p>
+                              </div>
+                              </div>
+                              <div class="user-btn">
+                      
+                          <p class="user-center" onclick="goSystem()">进入系统</p>
+                          <p class="logOut" onclick="userLogout()">退出</p>
+                          </div>
+                      </div>
+                  </div> 
+                  <!-- <span id="loginOut">退出</span> -->
+              </div>
+              <div id="userNotLogin" style="display: none;">
+                  <span class="register" onclick="userRegister()">注册</span>
+                  <span class="sxBox"> | </span>
+                  <span class="login-btn" onclick="userLogin()">登录</span>
+              </div>
+
+          </div>
+          <!-- <i class="divider"></i>
+        <span>注册</span> -->
+      </div>
+  </div>
+</div>
+<div class="swiper common-header">
+  <!-- 如果需要导航按钮 -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+  <div class="banner-swiper-pagination"></div>
+  <div class="swiper-wrapper">
+
+  </div>
+  <div class="vab-nav">
+      <ul class="vab-nav_wrap vab-width" id="js_tabNav">
+          <li class="vab-nav_item  active">
+              <span><a href='/'>首页</a></span>
+          </li>
+          <li class="vab-nav_item ">
+              <span><a href='/zjljsgsjj'>走进联交所</a></span>
+          </li>
+          <li class="vab-nav_item ">
+              <span><a href='/dflzdjfc'>党建廉政</a></span>
+          </li>
+          <li class="vab-nav_item ">
+              <span><a href='/xmgg'>项目公告</a></span>
+          </li>
+          <li class="vab-nav_item ">
+              <span><a href='/ywznblzn'>业务指南</a></span>
+          </li>
+          <li class="vab-nav_item ">
+              <span><a href='/cjsfw'>服务专栏</a></span>
+          </li>
+          <li class="vab-nav_item ">
+              <span><a href='/wlhz'>合作专区</a></span>
+          </li>
+      </ul>
+  </div>
+</div>
+<div class="visible-box">
+  <div class="li-child">
+      <div class="xmgg-visible-box vab-width">
+          <div class="nav-xmgg-visible">
+              <div class="nav-text-left">
+                  <div class="nav-text-left-content">
+                      <ul>
+                          <li>产权转让</li>
+                          <li><a href="/xmgg?id=xmggcqzrzspl"></a>正式披露</li>
+                          <li><a href="/xmgg?id=xmggcqzrypl"></a>预披露</li>
+                          <li><a href="/xmgg?id=xmggcqzryxzj"></a>意向征集</li>
+                          <li><a href="/xmgg?id=xmggcqzrzqzrzs"></a>产权转让招商</li>
+                      </ul>
+                      <ul>
+                          <li>金融资产转让</li>
+                          <li><a href="/xmgg?id=xmggjrzczrzspl"></a>正式披露</li>
+                          <li><a href="/xmgg?id=xmggjrzczrypl"></a>意向征集</li>
+                      </ul>
+                      <ul>
+                          <li>资产转让</li>
+                          <li><a href="/xmgg?id=xmggzczrzspl"></a>正式披露</li>
+                          <li><a href="/xmgg?id=xmggzczryxzj"></a>意向征集</li>
+                          <li><a href="/xmgg?id=xmggzczrzczrzs"></a>资产转让招商</li>
+                      </ul>
+                      <ul>
+                          <li>企业增资</li>
+                          <li><a href="/xmgg?id=xmggqyzzzspl"></a>正式披露</li>
+                          <li><a href="/xmgg?id=xmggqyzzypl"></a>预披露</li>
+                          <li><a href="/xmgg?id=xmggqyzzyxzj"></a>意向征集</li>
+                          <li><a href="/xmgg?id=xmggqyzzgqzrzs"></a>企业增资招商</li>
+                      </ul>
+                      <ul>
+                          <li>资产租赁</li>
+                          <li><a href="/xmgg?id=xmggzczlzsgg"></a>正式公告</li>
+                          <li><a href="/xmgg?id=xmggzczlybxxpl"></a>一般信息披露</li>
+                          <li><a href="/xmgg?id=xmggzczlzzzz"></a>自主招租</li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="nav-text-left-line"></div>
+              <div class="nav-text-left-right">
+                  <div class="nav-text-left-img1"><a href="/xmgg?id=xmggcqzrzspl"></a>挂牌公告</div>
+                  <div class="nav-text-left-img2"><a href="/tzgg.htm?id=cjgg"></a>通知公告</div>
+                  <div class="nav-text-left-img3"><a href="/xmgg?id=xmggcqzrzqzrzs"></a>产权转让招商</div>
+                  <div class="nav-text-left-img4"><a href="/xmgg?id=xmggcqzrypl"></a>预披露公告</div>
+              </div>
+          </div>
+      </div>
+      <!-- 党建廉政 -->
+      <div class="djlz-visible-box vab-width">
+          <div class="nav-xmgg-visible">
+              <div class="nav-text-left">
+                  <div class="nav-text-left-content">
+                      <ul>
+                          <li style="display: none;"></li>
+                          <!-- <li><a href="/dflzdsjyxx"></a>党史学习教育</li>  -->
+                          <li><a href="/dflzdjfc"></a>党建风采</li>
+                          <!--  <li><a href="/dflzsjdzt"></a>十九大专题</li> -->
+                          <li><a href="/dflzdflzjsxxzt"></a>廉洁建设</li>
+                         <li><a href="/djlzesjszqhztxx"></a>学习路上</li>
+
+                      </ul>
+                  </div>
+              </div>
+              <div class="nav-text-left-line"></div>
+              <div class="nav-text-left-right">
+                  <div class="nav-text-left-img1"><a href="/xmgg?id=xmggcqzrzspl"></a>挂牌公告</div>
+                  <div class="nav-text-left-img2"><a href="/tzgg.htm?id=cjgg"></a>通知公告</div>
+                  <div class="nav-text-left-img3"><a href="/xmgg?id=xmggcqzrzqzrzs"></a>产权转让招商</div>
+                  <div class="nav-text-left-img4"><a href="/xmgg?id=xmggcqzrypl"></a>预披露公告</div>
+              </div>
+          </div>
+      </div>
+      <!-- 走进联交所 -->
+      <div class="zjljs-visible-box vab-width">
+          <div class="nav-xmgg-visible">
+              <div class="nav-text-left">
+                  <div class="nav-text-left-content">
+                      <ul>
+                          <li style="display: none;"></li>
+                          <li><a href="/zjljsgsjj"></a>公司简介</li>
+                          <li><a href="/zjljskggd"></a>股权结构</li>
+                          <li><a href="/zjljszzjg"></a>组织架构</li>
+                          <li><a href="/zjljsfzlc"></a>发展历程</li>
+                      </ul>
+                      <ul>
+                          <li style="display: none;"></li>
+                          <li><a href="/zjljsywzz"></a>业务资质</li>
+                          <li><a href="/zjljsdtjd"></a>动态焦点</li>
+                          <li><a href="/zjljscgal"></a>成功案例</li>
+                          <li><a href="/zjljsjxry"></a>荣誉奖项</li>
+                      </ul>
+                      <ul>
+                          <li style="display: none;"></li>
+                          <li><a href="/zjljslxwm"></a>联系我们</li>
+                          <!-- <li><a href="/zjljsrczp"></a>人才招聘</li>
+                          <li><a href="/hzjg"></a>合作机构</li> -->
+                      </ul>
+                  </div>
+              </div>
+              <div class="nav-text-left-line"></div>
+              <div class="nav-text-left-right">
+                  <div class="nav-text-left-img1"><a href="/xmgg?id=xmggcqzrzspl"></a>挂牌公告</div>
+                  <div class="nav-text-left-img2"><a href="/tzgg.htm?id=cjgg"></a>通知公告</div>
+                  <div class="nav-text-left-img3"><a href="/xmgg?id=xmggcqzrzqzrzs"></a>产权转让招商</div>
+                  <div class="nav-text-left-img4"><a href="/xmgg?id=xmggcqzrypl"></a>预披露公告</div>
+              </div>
+          </div>
+      </div>
+      <!-- 业务指南 -->
+      <div class="ywzn-visible-box vab-width">
+          <div class="nav-xmgg-visible">
+              <div class="nav-text-left">
+                  <div class="nav-ywzn-left-content">
+                      <ul class="nav-ywzn-list">
+                          <li style="display: none;"></li>
+                          <li>
+                              <a href="/ywznzcfg">
+                                  <span>政策法规</span>
+                                  <div class="nav-left-icon-area">
+                                      <img class="outerIcon" src="/r/cms/sotcbb/default/images/u11.svg">
+                                      <img class="innerIcon" src="/r/cms/sotcbb/default/images/u14.png">
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/ywgz">
+                                  <span>交易规则</span>
+                                  <div class="nav-left-icon-area">
+                                      <img class="outerIcon" src="/r/cms/sotcbb/default/images/u11.svg">
+                                      <img class="innerIcon" src="/r/cms/sotcbb/default/images/u12.png">
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/ywlc">
+                                  <span>业务流程</span>
+                                  <div class="nav-left-icon-area">
+                                      <img class="outerIcon" src="/r/cms/sotcbb/default/images/u11.svg">
+                                      <img class="innerIcon" src="/r/cms/sotcbb/default/images/u22.png">
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/sfbz">
+                                  <span>收费标准</span>
+                                  <div class="nav-left-icon-area">
+                                      <img class="outerIcon" src="/r/cms/sotcbb/default/images/u11.svg">
+                                      <img class="innerIcon" src="/r/cms/sotcbb/default/images/u24.png">
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/ywznxgxz">
+                                  <span>相关下载</span>
+                                  <div class="nav-left-icon-area">
+                                      <img class="outerIcon" src="/r/cms/sotcbb/default/images/u11.svg">
+                                      <img class="innerIcon" src="/r/cms/sotcbb/default/images/u16.png">
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/cjwt">
+                                  <span>常见问题</span>
+                                  <div class="nav-left-icon-area">
+                                      <img class="outerIcon" src="/r/cms/sotcbb/default/images/u11.svg">
+                                      <img class="innerIcon" src="/r/cms/sotcbb/default/images/u18.png">
+                                  </div>
+                              </a>
+                          </li>
+                          <!-- <li><a href="/ywznzcfg"></a>政策法规</li>
+                          <li><a href="/ywgz"></a>业务规则</li>
+                          <li><a href="/ywznblzn"></a>办理指南</li>
+                          <li><a href="/gycql"></a>相关下载</li>
+                          <li><a href="/tgzt"></a>常见问题</li> -->
+                      </ul>
+                  </div>
+              </div>
+              <div class="nav-text-left-line"></div>
+              <div class="nav-text-left-right">
+                  <div class="nav-text-left-img1"><a href="/xmgg?id=xmggcqzrzspl"></a>挂牌公告</div>
+                  <div class="nav-text-left-img2"><a href="/tzgg.htm?id=cjgg"></a>通知公告</div>
+                  <div class="nav-text-left-img3"><a href="/xmgg?id=xmggcqzrzqzrzs"></a>产权转让招商</div>
+                  <div class="nav-text-left-img4"><a href="/xmgg?id=xmggcqzrypl"></a>预披露公告</div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>  <div class="vab-main vab-width">
+    <div class="vab-icon_box">
+      <ul class="vab-icon_wrap">
+        <li class="vab-icon_item">
+          <a href="/wlhzyqztyqjyzt" target="_self"></a>
+          <i class="icon-banner"></i>
+          <span class="vab-icon_text">央企权益交易服务</span>
+        </li>
+        <li class="vab-icon_item">
+          <a href="/wlhzyqztzyjrqyzt" target="_self"></a>
+          <i class="icon-banner"></i>
+          <span class="vab-icon_text">央企金融企业专题</span>
+        </li>
+        <li class="vab-icon_item">
+          <a href="/cjsfwzyfwzlzt" target="_self"></a>
+          <i class="icon-banner"></i>
+          <span class="vab-icon_text">国有资产租赁</span>
+        </li>
+        <li class="vab-icon_item">
+          <a href="/cjsfwzyfwzzzt" target="_self"></a>
+          <i class="icon-banner"></i>
+          <span class="vab-icon_text">企业增资服务</span>
+        </li>
+        <li class="vab-icon_item">
+          <!-- <a href="https://cs.sotcbb.com" target="_blank"></a> -->
+          <a href="/cjsfwzyfwtgzt" target="_self"></a>
+          <i class="icon-banner"></i>
+          <span class="vab-icon_text">登记托管服务</span>
+        </li>
+        <li class="vab-icon_item">
+          <a href="https://www.szxqcjj.com" target="_blank"></a>
+          <i class="icon-banner"></i>
+          <span class="vab-icon_text">小汽车增量指标竞价</span>
+        </li>
+        <li class="vab-icon_item">
+          <a onclick="fmwzJump(event)" target="_blank"></a>
+          <i class="icon-banner"></i>
+          <span class="vab-icon_text">罚没物资</span>
+        </li>
+      </ul>
+    </div>
+    <div class="vab-box">
+      <div class="vab-box_hd">
+        <div class="sy-title-bg">News information</div>
+        <span class="vab-box_title">新闻资讯</span>
+        <span class="vab-box_more" onclick="xwzxjumpUrl()">查看更多</span>
+      </div>
+      <div class="vab-box_bd">
+        <div class="vab-box_nav">
+          <span class="vab-nav_text" id="1" code="zjljsdtjd">集团要闻</span>
+          <i class="divider"></i>
+          <span class="vab-nav_text active" id="2" code="zjljsdtjdqydt">企业动态</span>
+          <i class="divider"></i>
+          <span class="vab-nav_text" id="3" code="zjljsdtjdhydt">行业动态</span>
+        </div>
+        <div class="vab-content">
+          <div class="vab-content_swiper">
+            <div class="swiper-news">
+              <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                  <a class="l-list-a" href="/details.htm?contentId=2438139" target="_blank"></a>
+                  <img class="vab-swiper_news-img" src="/r/cms/sotcbb/default/images/default-img.png" alt="">
+                  <div class="vab-swiper_news-title"><p class="vab-swiper_news-title-t">关于征集房地产盘活业务合作机构的公告</p></div>
+                </div>
+
+                <div class="swiper-slide">
+                  <a class="l-list-a" href="https://mp.weixin.qq.com/s/NYIwQa54VTn_oeU-4TSomQ" target="_blank"></a>
+                  <img src="/u/cms/sotcbb/202609/22164348k2li/15434512.png?r=0" class="vab-swiper_news-img" alt="图片">
+                  <div class="vab-swiper_news-title"><p class="vab-swiper_news-title-t">盘活资产，聚力前行！深易有约之走进福田区、南山区专题活动圆满完成</p></div>
+                </div>
+
+                <div class="swiper-slide">
+                  <a class="l-list-a" href="https://mp.weixin.qq.com/s/fdAE-hufTBo6zrOyayXKNw" target="_blank"></a>
+                  <img src="/u/cms/sotcbb/202609/22165135u6bb/785423.png?r=0" class="vab-swiper_news-img" alt="图片">
+                  <div class="vab-swiper_news-title"><p class="vab-swiper_news-title-t">盘活资产，聚力前行！深易有约之走进龙岗区专题活动顺利完成</p></div>
+                </div>
+
+                <div class="swiper-slide">
+                  <a class="l-list-a" href="https://mp.weixin.qq.com/s/xF05lG7Q3wteSw-XKNQCmQ" target="_blank"></a>
+                  <img src="/u/cms/sotcbb/202609/22164039hpx2/32155784.png?r=0" class="vab-swiper_news-img" alt="图片">
+                  <div class="vab-swiper_news-title"><p class="vab-swiper_news-title-t">深化央地合作 凝聚协同合力｜深交易赴招商局集团开展业务交流，深圳联交所随队参与座谈</p></div>
+                </div>
+
+                <div class="swiper-slide">
+                  <a class="l-list-a" href="https://mp.weixin.qq.com/s/uahvADUD5I4YQgmOOnuk6Q" target="_blank"></a>
+                  <img src="/u/cms/sotcbb/202609/08141056rbas/4d862205-c3bf-4529-b983-613775c5b837.png?r=0" class="vab-swiper_news-img" alt="图片">
+                  <div class="vab-swiper_news-title"><p class="vab-swiper_news-title-t">国有好房源，一站触达！深圳联交所国有房产交易平台即将上线</p></div>
+                </div>
+              </div>
+              <!-- 如果需要分页器 -->
+              <div class="news-swiper-pagination"></div>
+            </div>
+          </div>
+          <div class="vab-content_box">
+            <ul id="sy-jtyw" class="l-list-content xwzx-tab"  style="display: none;">
+              <!--分页数据-->
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/zhyhI4fHIU_EFU2jSny3oQ" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">招募令！深圳要素交易金融服务平台面向全国招募各类金融机构入驻</span>
+                </div>
+                <div class="l-tools-t">招募令！深圳要素交易金融服务平台面向全国招募各类金融机构入驻</div>
+                <div class="l-list-num">2024-09-19</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/5HO2dGBR0wber70eRo5ndA" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">国内首家！深圳市网络数据合规与流通促进会成立</span>
+                </div>
+                <div class="l-tools-t">国内首家！深圳市网络数据合规与流通促进会成立</div>
+                <div class="l-list-num">2024-09-18</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/0k9F8k4NjXGwtT3AfXczzw" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">深圳交易集团与深圳改革开放干部学院签署战略合作协议</span>
+                </div>
+                <div class="l-tools-t">深圳交易集团与深圳改革开放干部学院签署战略合作协议</div>
+                <div class="l-list-num">2024-09-18</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/pIaLWR9DORXpEcmtRagxfg" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">深圳首款金融公共数据产品“龙数贷”正式发布并在深数所上市</span>
+                </div>
+                <div class="l-tools-t">深圳首款金融公共数据产品“龙数贷”正式发布并在深数所上市</div>
+                <div class="l-list-num">2024-09-12</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/fgZJlHLKikvUtIzvkhvb6w" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">圳青春 易起拼丨深圳交易集团2025届校园招聘正式启动</span>
+                </div>
+                <div class="l-tools-t">圳青春 易起拼丨深圳交易集团2025届校园招聘正式启动</div>
+                <div class="l-list-num">2024-09-12</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/r6UfjucDrAHH7OIzXk7zmA" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">全国首创！这件事，再也不用跑腿办</span>
+                </div>
+                <div class="l-tools-t">全国首创！这件事，再也不用跑腿办</div>
+                <div class="l-list-num">2024-09-10</div>
+              </li>
+            </ul>
+            <ul id="sy-qydt" class="l-list-content xwzx-tab">
+              <!--分页数据-->
+              <li>
+                <a class="l-list-a" href="/details.htm?contentId=2438139" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">关于征集房地产盘活业务合作机构的公告</span>
+                </div>
+                <div class="l-tools-t">关于征集房地产盘活业务合作机构的公告</div>
+                <div class="l-list-num">2026-09-24</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/NYIwQa54VTn_oeU-4TSomQ" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">盘活资产，聚力前行！深易有约之走进福田区、南山区专题活动圆满完成</span>
+                </div>
+                <div class="l-tools-t">盘活资产，聚力前行！深易有约之走进福田区、南山区专题活动圆满完成</div>
+                <div class="l-list-num">2026-09-22</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/fdAE-hufTBo6zrOyayXKNw" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">盘活资产，聚力前行！深易有约之走进龙岗区专题活动顺利完成</span>
+                </div>
+                <div class="l-tools-t">盘活资产，聚力前行！深易有约之走进龙岗区专题活动顺利完成</div>
+                <div class="l-list-num">2026-09-19</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/xF05lG7Q3wteSw-XKNQCmQ" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">深化央地合作 凝聚协同合力｜深交易赴招商局集团开展业务交流，深圳联交所随队参与座谈</span>
+                </div>
+                <div class="l-tools-t">深化央地合作 凝聚协同合力｜深交易赴招商局集团开展业务交流，深圳联交所随队参与座谈</div>
+                <div class="l-list-num">2026-09-12</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/uahvADUD5I4YQgmOOnuk6Q" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">国有好房源，一站触达！深圳联交所国有房产交易平台即将上线</span>
+                </div>
+                <div class="l-tools-t">国有好房源，一站触达！深圳联交所国有房产交易平台即将上线</div>
+                <div class="l-list-num">2026-09-08</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/29hKI50p3O_A2gTFN8B0CQ" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">服务进机关，阳光润人心！“大院小事之深易有约”趣味问答活动圆满举办</span>
+                </div>
+                <div class="l-tools-t">服务进机关，阳光润人心！“大院小事之深易有约”趣味问答活动圆满举办</div>
+                <div class="l-list-num">2026-09-03</div>
+              </li>
+            </ul>
+            <ul id="sy-zsxx" class="l-list-content xwzx-tab" style="display: none;">
+              <!--分页数据-->
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/B3NG2mURjShAHRhR6OXzJQ" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">【经典案例】创新“现金+保函“组合保证金模式，成功引入社会资本参与肇庆高新区公共光伏项目</span>
+                </div>
+                <div class="l-tools-t">【经典案例】创新“现金+保函“组合保证金模式，成功引入社会资本参与肇庆高新区公共光伏项目</div>
+                <div class="l-list-num">2026-04-02</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="/details.htm?contentId=2388606" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">重庆联交所2025投资人大会暨“国企优投”赋能“四企”联动高质量发展大会</span>
+                </div>
+                <div class="l-tools-t">重庆联交所2025投资人大会暨“国企优投”赋能“四企”联动高质量发展大会</div>
+                <div class="l-list-num">2025-09-22</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="/details.htm?contentId=2387006" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">央地合作新进展！深圳联交所协办深圳央企联络服务站揭牌仪式并签约合作</span>
+                </div>
+                <div class="l-tools-t">央地合作新进展！深圳联交所协办深圳央企联络服务站揭牌仪式并签约合作</div>
+                <div class="l-list-num">2025-05-27</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="/details.htm?contentId=2387007" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">喜获多项殊荣，深圳联交所产权交易领域影响力再提升</span>
+                </div>
+                <div class="l-tools-t">喜获多项殊荣，深圳联交所产权交易领域影响力再提升</div>
+                <div class="l-list-num">2025-01-26</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/TPp5J9aLKSjqSE46vv5A0Q" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">近千人现场咨询！深圳联交所参展第十八届金博会</span>
+                </div>
+                <div class="l-tools-t">近千人现场咨询！深圳联交所参展第十八届金博会</div>
+                <div class="l-list-num">2024-11-26</div>
+              </li>
+              <li>
+                <a class="l-list-a" href="https://mp.weixin.qq.com/s/eB9gI0apUkC3iNqhyou5wQ" target="_blank"></a>
+                <div class="l-li-befor"></div>
+                <div class="l-list-title" style="width: 78%;">
+                  <span class="l-list-text">深圳联交所成功举办“新发展 新机遇·专精特新企业主题沙龙”活动</span>
+                </div>
+                <div class="l-tools-t">深圳联交所成功举办“新发展 新机遇·专精特新企业主题沙龙”活动</div>
+                <div class="l-list-num">2024-08-30</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vab-box">
+      <div class="vab-box_hd">
+        <div class="sy-title-bg">Project information</div>
+        <span class="vab-box_title">最新项目</span>
+      </div>
+      <div class="vab-box_bd vab-box_table">
+        <div class="cell-table">
+          <!-- 产权转让 -->
+          <div class="l-table-box">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon1"></i>
+              <p class="cell-table_hd-title">产权转让</p>
+              <span class="vab-box_more" onclick="gqzrjumpUrl()">查看更多</span>
+            </div>
+            <ul class="list-tab" id="gqzr_tab">
+              <li id="xmgggqzrzxgg" style="display: none;">最新公告</li>
+              <li id="xmggcqzrzspl" class="list-tab-active">正式披露</li>
+              <li id="xmggcqzrypl">预披露</li>
+              <li id="xmggcqzryxzj">意向征集</li>
+              <!-- <li id="xmggcqzrzqzrzs">产权转让招商</li> -->
+            </ul>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th class="table_price-gqzr" align="right" width="120px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_gqzr">资产
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- 资产转让 -->
+          <div class="l-table-box">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon3"></i>
+              <p class="cell-table_hd-title">资产转让</p>
+              <span class="vab-box_more" onclick="swzcjumpUrl()">查看更多</span>
+            </div>
+            <ul class="list-tab" id="swzc_tab">
+              <li id="xmggswzczrzxgg" style="display: none;">最新公告</li>
+              <li id="xmggzczrzspl" class="list-tab-active">正式披露</li>
+              <li id="xmggzczryxzj">意向征集</li>
+              <!-- <li id="xmggswzczrtzgg">通知公告</li> -->
+              <li id="xmggzczrzczrzs">资产转让招商</li>
+            </ul>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th class="table_price-swzc" align="right" width="120px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_swzc">
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- 企业增资 -->
+          <div class="l-table-box">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon5"></i>
+              <p class="cell-table_hd-title">企业增资</p>
+              <span class="vab-box_more" onclick="qyzzjumpUrl()">查看更多</span>
+            </div>
+            <ul class="list-tab" id="qyzz_tab">
+              <li id="xmggqyzzzxgg" style="display: none;">最新公告</li>
+              <li id="xmggqyzzzspl" class="list-tab-active">正式披露</li>
+              <li id="xmggqyzzypl">预披露</li>
+              <li id="xmggqyzzyxzj">意向征集</li>
+              <!-- <li id="xmggqyzzgqzrzs">企业增资招商</li> -->
+            </ul>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th class="table_price-qyzz" align="right" width="140px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_qyzz">
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- 金融资产转让 -->
+          <div class="l-table-box">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon2"></i>
+              <p class="cell-table_hd-title">金融资产转让</p>
+              <span class="vab-box_more" onclick="jrzcjumpUrl()">查看更多</span>
+            </div>
+            <ul class="list-tab" id="jrzc_tab">
+              <li id="xmggjrzczrzxgg" style="display: none;">最新公告</li>
+              <li id="xmggjrzczrzspl" class="list-tab-active">正式披露</li>
+              <li id="xmggjrzczrypl">意向征集</li>
+              <!-- <li id="xmggjrzczrtzgg">通知公告</li> -->
+              <!-- <li id="xmggjrzczrgqzrzs">金融资产转让招商</li> -->
+            </ul>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th class="table_price-jrzc" align="right" width="120px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_jrzc">
+              </ul>
+            </div>
+          </div>
+
+          <!-- 资产租赁 -->
+          <div class="l-table-box">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon4"></i>
+              <p class="cell-table_hd-title">资产租赁</p>
+              <span class="vab-box_more" onclick="zczljumpUrl()">查看更多</span>
+            </div>
+            <ul class="list-tab" id="zczl_tab">
+              <li id="xmggzczlzxgg" style="display: none;">最新公告</li>
+              <li id="xmggzczlzsgg" class="list-tab-active">正式公告</li>
+              <li id="xmggzczlybxxpl">一般信息披露</li>
+              <!-- <li id="xmggzczltzgg">通知公告</li> -->
+              <!-- <li id="xmggzczlgqzrzs">资产租赁招商</li> -->
+              <!-- <li id="xmggzczlzzzz">自主招租</li> -->
+            </ul>
+            <div class="cell-table_bd zczl_table">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th align="center" width="140px" style="display: none">发布日期</th>
+                  <th class="table_price-zczl" align="right" width="120px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_zczl">
+
+              </ul>
+            </div>
+          </div>
+          <!-- 股权转让项目 -->
+          <!-- <div class="l-table-box" style="height:400px;">
+              <div class="cell-table_hd">
+                <i class="cell-table_hd-icon3"></i>
+                <p class="cell-table_hd-title">中国机械工业集团专题</p>
+                <span class="vab-box_more" onclick="zgjxjumpUrl()">查看更多</span>
+              </div>
+              <ul class="list-tab" id="zgjx_tab">
+                <li id="xmggzczlzxgg" class="list-tab-active" code="3935">股权转让项目</li>
+                <li id="xmggzczlzsgg" code="3946">资产转让项目</li>
+              </ul>
+              <div class="cell-table_bd">
+                <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                  <thead>
+                  <tr>
+                    <th align="center" width="80px">序号</th>
+                    <th align="center">项目名称</th>
+                    <th align="left" width="50px">日期</th>
+                  </tr>
+                  </thead>
+                </table>
+                <ul class="l-list-content" id="list_zgjx">
+
+                </ul>
+              </div>
+            </div> -->
+          <!-- 资产转让项目-->
+          <!-- <div class="l-table-box" style="height:350px;">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon5"></i>
+              <p class="cell-table_hd-title">资产转让项目</p>
+              <span class="vab-box_more" onclick="zgjxjumpUrl()">查看更多</span>
+            </div>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th align="left" width="50px">日期</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_zczr">
+
+              </ul>
+            </div>
+          </div> -->
+          <!-- 招商信息 -->
+          <div class="l-table-box" style="height:350px;">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon9"></i>
+              <p class="cell-table_hd-title">招商信息</p>
+              <span class="vab-box_more" onclick="zsxxjumpUrl()">查看更多</span>
+            </div>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th align="left" width="50px">价格</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_zsxx">
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- 自主挂牌 -->
+          <div class="l-table-box" style="height:350px;">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon8"></i>
+              <p class="cell-table_hd-title">自主挂牌</p>
+              <span class="vab-box_more" onclick="zzgpjumpUrl()">查看更多</span>
+            </div>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th align="right" width="120px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_zzgp">
+              </ul>
+            </div>
+          </div>
+
+          <!-- 央企联合披露 -->
+          <div class="l-table-box" style="height:350px;">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon9"></i>
+              <p class="cell-table_hd-title">央企联合披露</p>
+              <span class="vab-box_more" onclick="lhpljumpUrl()">查看更多</span>
+            </div>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th align="left" width="120px">价格(万元)</th>
+                  <th align="center" width="120px">挂牌截止日期</th>
+                  <th align="center" width="120px">地区</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content"  id="list_lhpl">
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- 联合挂牌 -->
+          <div class="l-table-box" style="height:350px;">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon9"></i>
+              <p class="cell-table_hd-title">联合挂牌</p>
+              <span class="vab-box_more" onclick="lhgpjumpUrl()">查看更多</span>
+            </div>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th align="right" width="120px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content"  id="list_lhgp">
+
+              </ul>
+            </div>
+          </div>
+          <!-- 农村产权交易 -->
+          <div class="l-table-box">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon6"></i>
+              <p class="cell-table_hd-title">农村产权交易</p>
+              <span class="vab-box_more" onclick="nccqjumpUrl()">查看更多</span>
+            </div>
+            <ul class="list-tab" id="nccq_tab">
+              <li id="xmggnccqjyzxgg" style="display: none;">最新公告</li>
+              <li id="xmggnccqjygpgg" class="list-tab-active">挂牌公告</li>
+              <li id="xmggnccqjyyxzj">意向征集</li>
+              <!-- <li id="xmggnccqjytzgg">通知公告</li> -->
+              <!-- <li id="xmggnccqjygqzrzs">股权转让招商</li> -->
+            </ul>
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <th align="right" width="120px">价格</th>
+                  <th align="center" width="155px">挂牌截止日期</th>
+                  <th align="center" width="80px">状态</th>
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_nccq">
+
+              </ul>
+            </div>
+          </div>
+      
+         <!-- 其他招商 -->
+          <div class="l-table-box">
+            <div class="cell-table_hd">
+              <i class="cell-table_hd-icon6"></i>
+              <p class="cell-table_hd-title">其他招商</p>
+              <span class="vab-box_more" onclick="qtzsjumpUrl()">查看更多</span>
+            </div>
+            <!-- <ul class="list-tab" id="nccq_tab">
+              <li id="xmggnccqjyzxgg" style="display: none;">最新公告</li>
+              <li id="xmggnccqjygpgg" class="list-tab-active">挂牌公告</li>
+              <li id="xmggnccqjyyxzj">意向征集</li> -->
+              <!-- <li id="xmggnccqjytzgg">通知公告</li> -->
+              <!-- <li id="xmggnccqjygqzrzs">股权转让招商</li> -->
+            <!-- </ul> -->
+            <div class="cell-table_bd">
+              <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                <tr>
+                  <th align="center" width="80px">序号</th>
+                  <th align="center">项目名称</th>
+                  <!-- <th align="right" width="120px">价格</th> -->
+                  <th align="center" width="185px">截止日期</th>
+                  <!-- <th align="center" width="80px">状态</th> -->
+                </tr>
+                </thead>
+              </table>
+              <ul class="l-list-content" id="list_qtzs">
+
+              </ul>
+            </div>
+          </div>
+
+
+
+
+
+
+        </div>
+
+        <div class="vab-box_panel">
+          <div class="vab-panel_wrap">
+            <div class="big-filter"></div>
+            <div class="small-filter"></div>
+            <ul>
+              <li class="vab-panel_item">
+                <i class="panel-icon"></i>
+                <p class="vab-panel_title">成交项目</p>
+                <span class="vab-panel_num" id="js_cjxm"></span>
+                <span class="vab-panel_num-text">项</span>
+              </li>
+              <li>
+                <div class="zxxm-line"></div>
+              </li>
+              <li class="vab-panel_item">
+                <i class="panel-icon"></i>
+                <p class="vab-panel_title">挂牌项目</p>
+                <span class="vab-panel_num" id="js_gpxm"></span>
+                <span class="vab-panel_num-text">项</span>
+              </li>
+              <li>
+                <div class="zxxm-line"></div>
+              </li>
+              <li class="vab-panel_item">
+                <i class="panel-icon"></i>
+                <p class="vab-panel_title">预挂牌项目</p>
+                <span class="vab-panel_num" id="js_ygpxm"></span>
+                <span class="vab-panel_num-text">项</span>
+              </li>
+            </ul>
+          </div>
+          <!-- 竞价看板 -->
+          <div class="sy-jjkb" onclick="jjkbjumpUrl()"><div class="jjkb-box"></div></div>
+          <div class="sy-blzn" onclick="blznjumpUrl()"><div class="blzn-box"></div></div>
+
+          <!-- 中国信达 -->
+          <div class="sy-zgxd"    onclick="zgxdjumpUrl()" ><div class="zgxd-box"><div class="zgxd-text">中国信达资产管理股份有限公司项目专题</div></div></div>
+          <!-- 中国中信 -->
+          <div class="sy-zgzx"    onclick="zgzxjumpUrl()" ><div class="zgzx-box"><div class="zgzx-text">中国中信金融资产管理股份有限公司专题</div></div></div>
+          <!-- 储备粮交易 -->
+          <div class="sy-cbljy" onclick="cbljyjumpUrl()"><div class="cbljy-box"></div></div>
+          <!-- 中国东方资产管理股份有限公司深圳市分公司债权项目专栏 -->
+          <div class="sy-zgzx"    onclick="dfzcgljumpUrl()" ><div class="dfzcgl-box"><div class="zgzx-text">中国东方资产管理股份有限公司深圳市分公司债权项目专栏</div></div></div>
+          <!-- 项目推荐 -->
+          <div class="xmtj-tlt">项目推荐</div>
+          <!-- <div class="jyjt-xm"></div> -->
+      <div class="swiper xmtj" id="xmtj-list">
+              
+            </div>
+           <!--  <ul class="hqc-xm" id="xmtj-list">-->
+           
+             <!--
+             -->
+           <!--    </ul>-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通知公告 -->
+  <div class="tzgg-content vab-box">
+    <div class="tzgg-content-split">
+      <div class="tzgg-bg vab-width" style="padding-top: 20px;">
+        <div class="vab-box_hd">
+          <div class="sy-title-bg">Announcement</div>
+          <span class="vab-box_title">通知公告 </span>
+          <span class="vab-box_more" onclick="tzggJump()">查看更多</span>
+        </div>
+        <div class="tzgg-box">
+          <ul class="list-tab" id="tzgg_tab">
+            <li code="cjgg" class="list-tab-active">最新公告信息</li>
+            <li code="cjgg">成交公告/公示</li>
+            <li code="gzgg">更正公告</li>
+            <li code="bcgg">补充公告</li>
+            <li code="yqgg">延期公告</li>
+            <li code="zzgg">中止公告</li>
+            <li code="zjgg">终结公告</li>
+            <li code="hfgg">恢复公告</li>
+            <li code="wlkxql">往来款项清理</li>
+          </ul>
+          <div class="list-table-header">
+            <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+              <thead>
+              <tr>
+                <th align="center" width="100px">序号</th>
+                <th align="center">项目名称</th>
+                <!-- <th align="center" width="150px">状态</th> -->
+                <th align="center" width="200px">发布日期</th>
+                <!-- <th align="center" width="200px">截止日期</th> -->
+              </tr>
+              </thead>
+            </table>
+            <div class="tzgg-list">
+              <ul class="l-list-content tzgg-item-box" id="list_tzzxgg">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439363"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">大剧院南侧一楼部分区域招租成交公示</span>
+                  </div>
+                  <div class="l-tools-t">大剧院南侧一楼部分区域招租成交公示</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-08 19:06:16"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439329"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">罗湖区清平路28号水务综合楼1楼101号-109号招租成交公示</span>
+                  </div>
+                  <div class="l-tools-t">罗湖区清平路28号水务综合楼1楼101号-109号招租成交公示</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-08 13:18:01"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439328"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">罗湖枢纽交通层多经点位（场地编号：CN-B1-03）招租成交公示</span>
+                  </div>
+                  <div class="l-tools-t">罗湖枢纽交通层多经点位（场地编号：CN-B1-03）招租成交公示</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-08 13:15:48"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439288"
+                     target="_blank"></a>
+                  <div class="l-list-index">4</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">奥迪WAUKH44E37N (1191)成交公告</span>
+                  </div>
+                  <div class="l-tools-t">奥迪WAUKH44E37N (1191)成交公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-04 16:42:01"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439287"
+                     target="_blank"></a>
+                  <div class="l-list-index">5</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">奥迪WAUAV54L08D（6297）成交公告</span>
+                  </div>
+                  <div class="l-tools-t">奥迪WAUAV54L08D（6297）成交公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-04 16:40:01"))</script>
+                  </div>
+
+                </li>
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzcjgg">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439363"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">大剧院南侧一楼部分区域招租成交公示</span>
+                  </div>
+                  <div class="l-tools-t">大剧院南侧一楼部分区域招租成交公示</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-08 19:06:16"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439329"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">罗湖区清平路28号水务综合楼1楼101号-109号招租成交公示</span>
+                  </div>
+                  <div class="l-tools-t">罗湖区清平路28号水务综合楼1楼101号-109号招租成交公示</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-08 13:18:01"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439328"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">罗湖枢纽交通层多经点位（场地编号：CN-B1-03）招租成交公示</span>
+                  </div>
+                  <div class="l-tools-t">罗湖枢纽交通层多经点位（场地编号：CN-B1-03）招租成交公示</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-08 13:15:48"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439288"
+                     target="_blank"></a>
+                  <div class="l-list-index">4</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">奥迪WAUKH44E37N (1191)成交公告</span>
+                  </div>
+                  <div class="l-tools-t">奥迪WAUKH44E37N (1191)成交公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-04 16:42:01"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2439287"
+                     target="_blank"></a>
+                  <div class="l-list-index">5</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">奥迪WAUAV54L08D（6297）成交公告</span>
+                  </div>
+                  <div class="l-tools-t">奥迪WAUAV54L08D（6297）成交公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-10-04 16:40:01"))</script>
+                  </div>
+
+                </li>
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzgzgg">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2437880"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">关于广州市越秀区水荫二横路27号24A01项目的更正公告</span>
+                  </div>
+                  <div class="l-tools-t">关于广州市越秀区水荫二横路27号24A01项目的更正公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-09-23 18:26:01"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2434402"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">枫丹白鹭酒店及桃园高尔夫球场整体委托运营管理项目澄清更正公告</span>
+                  </div>
+                  <div class="l-tools-t">枫丹白鹭酒店及桃园高尔夫球场整体委托运营管理项目澄清更正公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-09-09 20:22:00"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2405037"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">关于侨城（亚洲）资产管理有限公司100%股权项目的更正公告</span>
+                  </div>
+                  <div class="l-tools-t">关于侨城（亚洲）资产管理有限公司100%股权项目的更正公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-01-06 19:04:00"))</script>
+                  </div>
+
+                </li>
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzbcgg">
+                <!--分页数据-->
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzyqgg">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2424954"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">湖北泰和流体控制技术股份有限公司110.8万股股份（约占总股本的1.5236%）延期公告</span>
+                  </div>
+                  <div class="l-tools-t">湖北泰和流体控制技术股份有限公司110.8万股股份（约占总股本的1.5236%）延期公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-06-30 10:39:01"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2415292"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">宜华生活科技股份有限公司、宜华健康医疗股份有限公司及深圳市星际商贸有限公司3户债权（包）延期公告</span>
+                  </div>
+                  <div class="l-tools-t">宜华生活科技股份有限公司、宜华健康医疗股份有限公司及深圳市星际商贸有限公司3户债权（包）延期公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-04-16 15:51:00"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2403921"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">宜华生活科技股份有限公司、宜华健康医疗股份有限公司及深圳市星际商贸有限公司3户债权（包）延期公告</span>
+                  </div>
+                  <div class="l-tools-t">宜华生活科技股份有限公司、宜华健康医疗股份有限公司及深圳市星际商贸有限公司3户债权（包）延期公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-12-26 11:57:00"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2401038"
+                     target="_blank"></a>
+                  <div class="l-list-index">4</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">宜华生活科技股份有限公司、宜华健康医疗股份有限公司及深圳市星际商贸有限公司3户债权（包）延期公告</span>
+                  </div>
+                  <div class="l-tools-t">宜华生活科技股份有限公司、宜华健康医疗股份有限公司及深圳市星际商贸有限公司3户债权（包）延期公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-12-09 11:15:00"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2389839"
+                     target="_blank"></a>
+                  <div class="l-list-index">5</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">立润富达广场西地块E座第14层新型产业用地/研发用房及13个地下停车库车位（标的二）延期公告</span>
+                  </div>
+                  <div class="l-tools-t">立润富达广场西地块E座第14层新型产业用地/研发用房及13个地下停车库车位（标的二）延期公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-10-09 14:20:03"))</script>
+                  </div>
+
+                </li>
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzzzgg">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2402662"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳湾科技生态园四区12栋B座40-41、45-47层办公物业招租信息公告中止公告</span>
+                  </div>
+                  <div class="l-tools-t">深圳湾科技生态园四区12栋B座40-41、45-47层办公物业招租信息公告中止公告</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-12-18 20:17:00"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2387418"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">罚没物资专场（标的1-66）中止公告</span>
+                  </div>
+                  <div class="l-tools-t">罚没物资专场（标的1-66）中止公告</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-09-18 15:37:00"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2374873"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">粤B68A1Q丰田牌GTM6500HFFHEVM等12台车辆（不含车牌）中止公告</span>
+                  </div>
+                  <div class="l-tools-t">粤B68A1Q丰田牌GTM6500HFFHEVM等12台车辆（不含车牌）中止公告</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-06-30 16:54:00"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2372226"
+                     target="_blank"></a>
+                  <div class="l-list-index">4</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">罚没报废车辆3批中止公告</span>
+                  </div>
+                  <div class="l-tools-t">罚没报废车辆3批中止公告</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-06-11 10:48:05"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2371824"
+                     target="_blank"></a>
+                  <div class="l-list-index">5</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">香港葵涌葵昌路51号九龙贸易中心B座13楼整层及8个停车位中止公告</span>
+                  </div>
+                  <div class="l-tools-t">香港葵涌葵昌路51号九龙贸易中心B座13楼整层及8个停车位中止公告</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-06-10 09:40:00"))</script>
+                  </div>
+                </li>
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzzjgg">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2438500"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳市下坪环境园渗滤液二厂报废设备一批终结公告</span>
+                  </div>
+                  <div class="l-tools-t">深圳市下坪环境园渗滤液二厂报废设备一批终结公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-09-29 11:05:07"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2438077"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">广东省深圳市福田区联合广场A座1708招租终结公告</span>
+                  </div>
+                  <div class="l-tools-t">广东省深圳市福田区联合广场A座1708招租终结公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-09-24 14:56:01"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2438022"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">东佳大厦3001房终结公告</span>
+                  </div>
+                  <div class="l-tools-t">东佳大厦3001房终结公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-09-24 13:32:02"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2438021"
+                     target="_blank"></a>
+                  <div class="l-list-index">4</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">东佳大厦2901房终结公告</span>
+                  </div>
+                  <div class="l-tools-t">东佳大厦2901房终结公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-09-24 13:31:02"))</script>
+                  </div>
+
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2437839"
+                     target="_blank"></a>
+                  <div class="l-list-index">5</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">关于终结中科天域（辽宁）数字科技发展有限公司80%股权项目的公告</span>
+                  </div>
+                  <div class="l-tools-t">关于终结中科天域（辽宁）数字科技发展有限公司80%股权项目的公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-09-23 16:44:02"))</script>
+                  </div>
+
+                </li>
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzhfgg">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2403306"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳湾科技生态园四区12栋B座40-41、45-47层办公物业招租信息公告恢复公告</span>
+                  </div>
+                  <div class="l-tools-t">深圳湾科技生态园四区12栋B座40-41、45-47层办公物业招租信息公告恢复公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-12-23 19:34:01"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2377152"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">粤B68A1Q丰田牌GTM6500HFFHEVM等12台车辆（不含车牌）恢复公告</span>
+                  </div>
+                  <div class="l-tools-t">粤B68A1Q丰田牌GTM6500HFFHEVM等12台车辆（不含车牌）恢复公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-07-15 09:00:01"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2373540"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">关于更正香港弥敦道607号新兴大厦24楼2401号室项目的公告</span>
+                  </div>
+                  <div class="l-tools-t">关于更正香港弥敦道607号新兴大厦24楼2401号室项目的公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-06-19 19:42:00"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2357868"
+                     target="_blank"></a>
+                  <div class="l-list-index">4</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳市罗湖区文锦南路商检大厦2902房物业招租信息公告恢复公告</span>
+                  </div>
+                  <div class="l-tools-t">深圳市罗湖区文锦南路商检大厦2902房物业招租信息公告恢复公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-02-25 20:16:00"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2356653"
+                     target="_blank"></a>
+                  <div class="l-list-index">5</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">关于更正深圳市臣田开元物业服务有限公司增资90%股权项目的公告</span>
+                  </div>
+                  <div class="l-tools-t">关于更正深圳市臣田开元物业服务有限公司增资90%股权项目的公告</div>
+
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-02-18 16:52:00"))</script>
+                  </div>
+                </li>
+              </ul>
+              <ul class="l-list-content tzgg-item-box" style="display: none;" id="list_tzwlkxql">
+                <!--分页数据-->
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2430719"
+                     target="_blank"></a>
+                  <div class="l-list-index">1</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳联合产权交易所关于清退保证金的通知</span>
+                  </div>
+                  <div class="l-tools-t">深圳联合产权交易所关于清退保证金的通知</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-08-12 18:24:17"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2427550"
+                     target="_blank"></a>
+                  <div class="l-list-index">2</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳联合产权交易所关于清退款项的通知</span>
+                  </div>
+                  <div class="l-tools-t">深圳联合产权交易所关于清退款项的通知</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-07-20 18:03:12"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2407898"
+                     target="_blank"></a>
+                  <div class="l-list-index">3</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳联合产权交易所关于清退保证金的通知</span>
+                  </div>
+                  <div class="l-tools-t">深圳联合产权交易所关于清退保证金的通知</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-01-29 14:52:16"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2406661"
+                     target="_blank"></a>
+                  <div class="l-list-index">4</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳联合产权交易所关于清退款项的通知</span>
+                  </div>
+                  <div class="l-tools-t">深圳联合产权交易所关于清退款项的通知</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2026-01-20 10:12:43"))</script>
+                  </div>
+                </li>
+
+
+
+                <li>
+                  <a class="l-list-a" href="/details.htm?contentId=2378739"
+                     target="_blank"></a>
+                  <div class="l-list-index">5</div>
+                  <div class="l-list-title" style="width: 74%;">
+                    <span class="l-list-text">深圳联合产权交易所关于清退保证金的通知</span>
+                  </div>
+                  <div class="l-tools-t">深圳联合产权交易所关于清退保证金的通知</div>
+                  <div class="l-list-startTime">
+                    <script>document.write(date("2025-07-24 17:24:19"))</script>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 党的建设 -->
+  <div class="vab-box ddjs-content">
+    <div class="vab-width">
+      <div class="vab-box_hd">
+        <div class="sy-title-bg">The party's construction</div>
+        <span class="vab-box_title">党的建设</span>
+        <span class="vab-box_more"  onclick="ddjsjumpUrl()">查看更多</span>
+      </div>
+      <div class="ddjs-box">
+        <ul class="ddjs-tab">
+          <li class="ddjs-tab-active" code="dflzdjfc">党建风采</li>
+          <!--  <li code="dflzdsjyxx">党史学习教育</li>-->
+          <!-- <li code="dflzsjdzt">十九大专题</li>-->
+          <li code="dflzdflzjsxxzt">廉洁建设</li>
+          <li code="djlzesjszqhztxx">学习路上</li>
+        </ul>
+        <div class="ddjs-list-box">
+          <ul class="l-list-content ddjs-tab-item" id="sy-djfc">
+            <!--分页数据-->
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/Th5fzOccTF_dQBCGnLSQSA" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">入党誓词中“保守党的秘密”的来历（转自共产党员微信）</span>
+              </div>
+              <div class="l-tools-t">入党誓词中“保守党的秘密”的来历（转自共产党员微信）</div>
+              <div class="l-list-num">2026-08-10</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/FSdTJK2YRaXDzkfYC9i7Yg" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">习近平在庆祝中国共产党成立105周年大会上的讲话，学金句，悟深意！（转自共产党员微信）</span>
+              </div>
+              <div class="l-tools-t">习近平在庆祝中国共产党成立105周年大会上的讲话，学金句，悟深意！（转自共产党员微信）</div>
+              <div class="l-list-num">2026-07-01</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/6pL087CoGGqL2T08BFZIPw" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">习近平党建思想，意义重大（转自共产党员微信）</span>
+              </div>
+              <div class="l-tools-t">习近平党建思想，意义重大（转自共产党员微信）</div>
+              <div class="l-list-num">2026-06-24</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/ZHp2-nAPH9KlkT4bldkk0Q" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">政绩观10题，你能答对几道？(转自旗帜微平台)</span>
+              </div>
+              <div class="l-tools-t">政绩观10题，你能答对几道？(转自旗帜微平台)</div>
+              <div class="l-list-num">2026-05-06</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/MQMsl1WiCM1eOVQC_yaCnw" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">总书记“公开课”｜显绩与潜绩的辩证法 （转自共产党员网）</span>
+              </div>
+              <div class="l-tools-t">总书记“公开课”｜显绩与潜绩的辩证法 （转自共产党员网）</div>
+              <div class="l-list-num">2026-04-15</div>
+            </li>
+          </ul>
+          <!-- <ul class="l-list-content ddjs-tab-item" id="sy-dsjyxx" style="display: none;">
+            <li>
+              <a class="l-list-a" href="/details.htm?contentId=1661971" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                  <span class="l-list-text">联交所开展全民国家安全教育日主题活动</span>
+              </div>
+              <div class="l-tools-t">联交所开展全民国家安全教育日主题活动</div>
+              <div class="l-list-num">2022-07-05</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="/details.htm?contentId=1660493" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                  <span class="l-list-text">我为群众办实事|联交所心系群众，提升服务办好身边事</span>
+              </div>
+              <div class="l-tools-t">我为群众办实事|联交所心系群众，提升服务办好身边事</div>
+              <div class="l-list-num">2021-07-14</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="/details.htm?contentId=1660492" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                  <span class="l-list-text">联交所观看庆祝中国共产党成立100周年大会现场直播</span>
+              </div>
+              <div class="l-tools-t">联交所观看庆祝中国共产党成立100周年大会现场直播</div>
+              <div class="l-list-num">2021-07-02</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="/details.htm?contentId=1660491" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                  <span class="l-list-text">情系老党员  慰问暖人心-----驻村工作队“七一”前夕开展走访慰问</span>
+              </div>
+              <div class="l-tools-t">情系老党员  慰问暖人心-----驻村工作队“七一”前夕开展走访慰问</div>
+              <div class="l-list-num">2021-07-01</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="/details.htm?contentId=1660490" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                  <span class="l-list-text">学党史·践初心-关爱少年儿童，助力乡村振兴</span>
+              </div>
+              <div class="l-tools-t">学党史·践初心-关爱少年儿童，助力乡村振兴</div>
+              <div class="l-list-num">2021-06-08</div>
+            </li>
+          </ul> -->
+          <!-- <ul class="l-list-content ddjs-tab-item" id="sy-sjdzt" style="display: none;" >
+
+          </ul> -->
+          <ul class="l-list-content ddjs-tab-item" id="sy-dflzjsxx" style="display: none;">
+            <!--分页数据-->
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/riP3frhNKKLq5SoTTw3Svw" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">莫耍“小聪明” 交出“明白账”——摒弃个人有关事项报告中的三类错误认识（转自廉洁深圳）</span>
+              </div>
+              <div class="l-tools-t">莫耍“小聪明” 交出“明白账”——摒弃个人有关事项报告中的三类错误认识（转自廉洁深圳）</div>
+              <div class="l-list-num">2026-08-16</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/3xvztNP9-ieeqoRrxFKyCQ" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">廉议汇丨勿让“键盘调研”取代“脚下调研”（转自廉洁深圳）</span>
+              </div>
+              <div class="l-tools-t">廉议汇丨勿让“键盘调研”取代“脚下调研”（转自廉洁深圳）</div>
+              <div class="l-list-num">2026-07-17</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/NSzy6-0W0PWuwgNvs4ksVw" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">制度治权，要防“纸笼禁虎”（转自共产党微信）</span>
+              </div>
+              <div class="l-tools-t">制度治权，要防“纸笼禁虎”（转自共产党微信）</div>
+              <div class="l-list-num">2026-06-17</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/xyWMHsB7vILRkNmQJnxD7g" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">“廉洁圳能量”微电影微视频展播⑥｜《餐桌轶事》（转自廉洁深圳）</span>
+              </div>
+              <div class="l-tools-t">“廉洁圳能量”微电影微视频展播⑥｜《餐桌轶事》（转自廉洁深圳）</div>
+              <div class="l-list-num">2026-05-08</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/B3wPpFZSG5Z9eye-dkMWUQ" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">纪法丨从典型案例看政绩观偏差问题的认定处理（转自廉洁深圳）</span>
+              </div>
+              <div class="l-tools-t">纪法丨从典型案例看政绩观偏差问题的认定处理（转自廉洁深圳）</div>
+              <div class="l-list-num">2026-04-10</div>
+            </li>
+          </ul>
+          <ul class="l-list-content ddjs-tab-item" id="sy-esjszqhztxx" style="display: none;">
+            <!--分页数据-->
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/l-Cqy_A-kK9RZQvSqJaxRw" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">从总书记的“板凳座谈会” 学习群众工作好方法（转自共产党员微信）</span>
+              </div>
+              <div class="l-tools-t">从总书记的“板凳座谈会” 学习群众工作好方法（转自共产党员微信）</div>
+              <div class="l-list-num">2026-08-11</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/8p5B1XB3dXx-1_sXCELyOQ" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">典说政绩观 | 志不立，天下无可成之事（转自共产党员微信）</span>
+              </div>
+              <div class="l-tools-t">典说政绩观 | 志不立，天下无可成之事（转自共产党员微信）</div>
+              <div class="l-list-num">2026-07-24</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/qMwdlyva3ppudhXwLYJCKw" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">对标16字总要求，答好政绩观考卷（转自共产党员微信）</span>
+              </div>
+              <div class="l-tools-t">对标16字总要求，答好政绩观考卷（转自共产党员微信）</div>
+              <div class="l-list-num">2026-06-29</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="/details.htm?contentId=2432356" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">中国共产党发展党员工作细则(转自共产党员网)</span>
+              </div>
+              <div class="l-tools-t">中国共产党发展党员工作细则(转自共产党员网)</div>
+              <div class="l-list-num">2026-05-19</div>
+            </li>
+            <li>
+              <a class="l-list-a" href="https://mp.weixin.qq.com/s/PQgKqfgOJ5GHYN81PGRB0g" target="_blank"></a>
+              <div class="l-li-befor"></div>
+              <div class="l-list-title" style="width: 78%">
+                <span class="l-list-text">党员干部因私出国（境），这些纪律规矩需注意！（转自共产党员网）</span>
+              </div>
+              <div class="l-tools-t">党员干部因私出国（境），这些纪律规矩需注意！（转自共产党员网）</div>
+              <div class="l-list-num">2026-05-08</div>
+            </li>
+          </ul>
+        </div>
+        <div class="ddjs-swiper-box">
+          <div class="ddjs-swiper">
+            <div class="swiper-wrapper">
+              <!--分页数据-->
+              <div class="swiper-slide ddjs-swiper-item">
+                <a class="l-list-a" href="/details.htm?contentId=2431933"></a>
+                <img class="ddjs-swiper-img" src="/r/cms/sotcbb/default/images/djlzLIdefault.png" alt="">
+                <div class="ddjs-swiper-text">
+                  <!-- <p>党的建设</p> -->
+                  <!-- <p>我为群众办实事 | 深圳阳光采购平台</p> -->
+                  <p>从总书记的“板凳座谈会” 学习群众工作好方法（转自共产党员微信）</p>
+                </div>
+              </div>
+              <div class="swiper-slide ddjs-swiper-item">
+                <a class="l-list-a" href="/details.htm?contentId=2431931"></a>
+                <img class="ddjs-swiper-img" src="/r/cms/sotcbb/default/images/djlzLIdefault.png" alt="">
+                <div class="ddjs-swiper-text">
+                  <!-- <p>党的建设</p> -->
+                  <!-- <p>我为群众办实事 | 深圳阳光采购平台</p> -->
+                  <p>入党誓词中“保守党的秘密”的来历（转自共产党员微信）</p>
+                </div>
+              </div>
+              <div class="swiper-slide ddjs-swiper-item">
+                <a class="l-list-a" href="/details.htm?contentId=2432168"></a>
+                <img class="ddjs-swiper-img" src="/r/cms/sotcbb/default/images/djlzLIdefault.png" alt="">
+                <div class="ddjs-swiper-text">
+                  <!-- <p>党的建设</p> -->
+                  <!-- <p>我为群众办实事 | 深圳阳光采购平台</p> -->
+                  <p>典说政绩观 | 志不立，天下无可成之事（转自共产党员微信）</p>
+                </div>
+              </div>
+              <div class="swiper-slide ddjs-swiper-item">
+                <a class="l-list-a" href="/details.htm?contentId=2431932"></a>
+                <img class="ddjs-swiper-img" src="/r/cms/sotcbb/default/images/djlzLIdefault.png" alt="">
+                <div class="ddjs-swiper-text">
+                  <!-- <p>党的建设</p> -->
+                  <!-- <p>我为群众办实事 | 深圳阳光采购平台</p> -->
+                  <p>习近平在庆祝中国共产党成立105周年大会上的讲话，学金句，悟深意！（转自共产党员微信）</p>
+                </div>
+              </div>
+              <div class="swiper-slide ddjs-swiper-item">
+                <a class="l-list-a" href="/details.htm?contentId=2432169"></a>
+                <img class="ddjs-swiper-img" src="/r/cms/sotcbb/default/images/djlzLIdefault.png" alt="">
+                <div class="ddjs-swiper-text">
+                  <!-- <p>党的建设</p> -->
+                  <!-- <p>我为群众办实事 | 深圳阳光采购平台</p> -->
+                  <p>对标16字总要求，答好政绩观考卷（转自共产党员微信）</p>
+                </div>
+              </div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="ddjs-swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 试运行弹窗 -->
+    <div class="runMessageBox">
+      <script>getMessageHtml();</script>
+    </div>
+  </div>
+  <!--底部-->
+<!-- <footer class="vab-footer">
+    <div class="vab-width">
+        <div class="vab-row">
+            <span class="vab-row_label">相关平台：</span>
+            <ul class="vab-row_content" id="js_platform">
+                <li class="vab-row_item" data-url="https://www.szexgrp.com/">
+                    <div>深圳交易集团</div>
+                </li>
+                <li class="vab-row_item" data-url="https://www.szggzy.com/">
+                    <div>深圳公共资源交易平台</div>
+                </li>
+                <li class="vab-row_item" data-url="http://www.sztc.com/">
+                    <div>深圳市国际招标有限公司</div>
+                </li>
+                <li class="vab-row_item" data-url="http://www.cerx.cn/">
+                    <div>深圳排放权交易所有限公司</div>
+                </li>
+            </ul>
+        </div>
+        <div class="vab-row">
+            <span class="vab-row_label">友情链接：</span>
+            <ul class="vab-row_content" id="js_link">
+                <li class="vab-row_item" data-url="http://www.sz.gov.cn/">
+                    <div>深圳市人民政府</div>
+                </li>
+                <li class="vab-row_item" data-url="http://fgw.sz.gov.cn/">
+                    <div>深圳市发展和改革委员会</div>
+                </li>
+                <li class="vab-row_item" data-url="http://gzw.sz.gov.cn/">
+                    <div>深圳市人民政府国有资产监督管理委员会</div>
+                </li>
+                <div class="divInput">
+                    <div class="input-cls" id="footer-select-div-id3">
+                        <input disabled="disabled" value="南方联合产权交易中心" type="text">
+                        <img src="/r/cms/sotcbb/default/images/right-page.png" alt="">
+                    </div>
+                    <div class="option-li" id="footer-select-div-option-id3" style="display: none;">
+                        <ul>
+                            <li>
+                                <a class="option-list" href="https://www.csuaee.com.cn/" target="_blank">南方联合产权交易中心</a>
+                            </li>
+                            <li>
+                                <a class="option-list" href="https://www.gduaee.com/" target="_blank">广东联合产权交易中心</a>
+                            </li>
+                            <li>
+                                <a class="option-list" href="http://gz.gemas.com.cn/" target="_blank">广州产权交易所</a>
+                            </li>
+                            <li>
+                                <a class="option-list" href="http://www.zhaeec.com/" target="_blank">珠海产权交易中心</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <div class="vab-footer_contact">
+            <span><a style="text-decoration: none;color: #fff;" href="/zjljsgsjj">关于我们</a> </span>
+            <i class="divider"></i>
+            <span><a style="text-decoration: none;color: #fff;" href="/zjljslxwm">联系我们</a> </span>
+        </div>
+        <div class="vab-footer_desc">
+            <p>版权所有：深圳联合产权交易所</p>
+            <p><a style="text-decoration: none;color: #fff;"
+                    href="https://beian.miit.gov.cn/#/Integrated/index">ICP备案号：粤ICP备11001592号</a></p>
+            <p><a style="text-decoration: none;color: #fff;"
+                    href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001710">公安备案号：粤公网安备44030502001710号</a>
+            </p>
+        </div>
+    </div>
+    <script>
+        $("#selectID").change(function () {
+            var opt = $("#selectID").val();
+            console.log(opt)
+        });
+    </script>
+</footer> -->
+
+<div class="footer-wrapper">
+    <div class="footer-main vab-width">
+        <div class="footer-logo">
+            <div class="footer-img-top"><img src="/r/cms/sotcbb/default/images/jyjt-icon.png" alt=""></div>
+            <div class="footer-img-bottom"><img src="/r/cms/sotcbb/default/images/lhcq-icon.png" alt=""></div>
+        </div>
+        <div class="footer-link"><span>友情连接</span>
+            <div class="divInput" style="margin-right: 10px;">
+                <div class="input-cls"><input disabled="disabled" value="公共资源交易专业网站" type="text"><img
+                        src="/r/cms/sotcbb/default/images/right-page.png" alt=""></div>
+                <div class="option-li" id="footer-select-div-option-id">
+                    <ul>
+                        <!-- <li><a title="公共资源交易专业网站" class="option-list" href="javascript:void(0);">公共资源交易专业网站</a></li> -->
+                        <li><a title="全国公共资源交易平台" class="option-list" href="http://www.ggzy.gov.cn/"
+                                target="_blank">全国公共资源交易平台</a></li>
+                        <li><a title="中国政府采购网" class="option-list" href="http://www.ccgp.gov.cn/"
+                                target="_blank">中国政府采购网</a></li>
+                        <li><a title="广东省公共资源交易平台" class="option-list" href="https://ygp.gdzwfw.gov.cn/"
+                                target="_blank">广东省公共资源交易平台</a></li>
+                        <li><a title="深圳市政府采购监管网" class="option-list" href="http://zfcg.sz.gov.cn/"
+                                target="_blank">深圳市政府采购监管网</a></li>
+                        <li><a title="e交易" class="option-list" href="https://www.ejy365.com/"
+                                target="_blank">e交易</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="divInput" style="margin-right: 10px;">
+                <div class="input-cls"><input disabled="disabled" value="深圳市政府机构网站" type="text"><img
+                        src="/r/cms/sotcbb/default/images/right-page.png" alt=""></div>
+                <div class="option-li">
+                    <ul>
+                        <!-- <li><a title="深圳市政府机构网站" class="option-list" href="javascript:void(0);">深圳市政府机构网站</a></li> -->
+                        <li><a title="深圳政府在线" class="option-list" href="http://www.sz.gov.cn/"
+                                target="_blank">深圳政府在线</a></li>
+                        <li><a title="深圳市发展和改革委员会" class="option-list" href="http://fgw.sz.gov.cn/"
+                                target="_blank">深圳市发展和改革委员会</a></li>
+                        <li><a title="深圳市财政局" class="option-list" href="http://szfb.sz.gov.cn/"
+                                target="_blank">深圳市财政局</a></li>
+                        <li><a title="深圳市规划和自然资源局" class="option-list" href="http://pnr.sz.gov.cn/"
+                                target="_blank">深圳市规划和自然资源局</a></li>
+                        <li><a title="深圳市住房和建设局" class="option-list" href="http://zjj.sz.gov.cn/"
+                                target="_blank">深圳市住房和建设局</a></li>
+                        <li><a title="深圳市人民政府国有资产监督管理委员会" class="option-list" href="http://gzw.sz.gov.cn/"
+                                target="_blank">深圳市人民政府国有资产监督管理委员会</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="divInput">
+                <div class="input-cls"><input disabled="disabled" value="交易集团旗下企业" type="text"><img
+                        src="/r/cms/sotcbb/default/images/right-page.png" alt=""></div>
+                <div class="option-li">
+                    <ul>
+                        <!-- <li><a title="交易集团旗下企业" class="option-list" href="javascript:void(0);">交易集团旗下企业</a></li> -->
+                        <!-- <li><a title="深圳交易咨询集团" class="option-list" href="https://www.sztc.com/"
+                                target="_blank">深圳交易咨询集团</a></li> -->
+                        <li><a title="深圳排放权交易所有限公司" class="option-list" href="https://new.szets.com/"
+                                target="_blank">深圳排放权交易所有限公司</a></li>
+                        <li><a title="深圳数据交易所" class="option-list" href="https://www.szdex.com/"
+                                target="_blank">深圳数据交易所</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="divInput" style="margin-right: 10px;">
+                <div class="input-cls"><input disabled="disabled" value="广东省政府机构网站" type="text"><img
+                        src="/r/cms/sotcbb/default/images/right-page.png" alt=""></div>
+                <div class="option-li">
+                    <ul>
+                        <!-- <li><a title="广东省政府机构网站" class="option-list" href="javascript:void(0);">广东省政府机构网站</a></li> -->
+                        <li><a title="广东省发展和改革委员会" class="option-list" href="http://drc.gd.gov.cn/"
+                                target="_blank">广东省发展和改革委员会</a></li>
+                        <li><a title="广东省财政厅" class="option-list" href="http://czt.gd.gov.cn/"
+                                target="_blank">广东省财政厅</a></li>
+                        <li><a title="广东省人民政府国有资产监督管理委员会" class="option-list" href="http://gzw.gd.gov.cn/"
+                                target="_blank">广东省人民政府国有资产监督管理委员会</a></li>
+                        <li><a title="广东省自然资源厅" class="option-list" href="http://nr.gd.gov.cn/"
+                                target="_blank">广东省自然资源厅</a></li>
+                        <li><a title="广东省住房和城乡建设厅" class="option-list" href="http://zfcxjst.gd.gov.cn/"
+                                target="_blank">广东省住房和城乡建设厅</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="divInput" style="margin-right: 10px;">
+                <div class="input-cls"><input disabled="disabled" value="国家部委网站" type="text"><img
+                        src="/r/cms/sotcbb/default/images/right-page.png" alt=""></div>
+                <div class="option-li">
+                    <ul>
+                        <!-- <li><a title="国家部委网站" class="option-list" href="javascript:void(0);">国家部委网站</a></li> -->
+                        <li><a title="中华人民共和国财政部" class="option-list" href="http://www.mof.gov.cn/index.htm"
+                                target="_blank">中华人民共和国财政部</a></li>
+                        <li><a title="中华人民共和国自然资源部" class="option-list" href="http://www.mnr.gov.cn/"
+                                target="_blank">中华人民共和国自然资源部</a></li>
+                        <li><a title="国务院国有资产监督管理委员会" class="option-list" href="http://www.sasac.gov.cn/"
+                                target="_blank">国务院国有资产监督管理委员会</a></li>
+                        <li><a title="中华人民共和国住房和城乡建设部" class="option-list" href="http://www.mohurd.gov.cn/"
+                                target="_blank">中华人民共和国住房和城乡建设部</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="divInput">
+                <div class="input-cls"><input disabled="disabled" value="产权交易机构" type="text"><img
+                        src="/r/cms/sotcbb/default/images/right-page.png" alt=""></div>
+                <div class="option-li">
+                    <ul>
+                        <!-- <li><a title="产权交易机构" class="option-list" href="javascript:void(0);">产权交易机构</a></li> -->
+                        <li><a title="中国企业国有产权交易机构协会" class="option-list" href="http://www.cspea.org.cn/"
+                            target="_blank">中国企业国有产权交易机构协会</a></li>
+                        <li><a title="全国产权行业信息化综合服务平台" class="option-list" href="https://www.cspea.com.cn/"
+                            target="_blank">全国产权行业信息化综合服务平台</a></li>
+                        <li><a title="中国设备资产循环平台" class="option-list" href="https://crrer.com"
+                            target="_blank">中国设备资产循环平台</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-contact"><span>关于我们</span>
+            <div class="contact-content"><img src="/r/cms/sotcbb/default/images/ljs_ewm.png" alt=""
+                    style="height: 60px; width: 60px">
+                <div class="contact-platform">深圳联合产权交易所</div>
+            </div>
+            <!-- <div class="contact-content"><img src="/r/cms/sotcbb/default/images/office-weixin.png" alt=""
+                    style="height: 60px; width: 60px">
+                <div class="contact-platform">深圳交易集团</div>
+            </div>
+            <div class="contact-content"><img src="/r/cms/sotcbb/default/images/office-weixin-jiaoyi.png" alt=""
+                    style="height: 60px; width: 60px">
+                <div class="contact-platform">深圳公共资源交易中心</div>
+            </div> -->
+            <div class="contact-content"><img src="/r/cms/sotcbb/default/images/new_office_weixin.png" alt=""
+                style="height: 60px; width: 60px">
+              <div class="contact-platform">深交易</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-desc">
+        <p><span>版权所有：</span><a style="color: #fff;text-decoration: none;" href="https://www.sotcbb.com">深圳联合产权交易所</a>
+        </p>
+        <p><span>ICP备案号：</span><a style="color: #fff;text-decoration: none;"
+                href="https://beian.miit.gov.cn/#/Integrated/index">粤ICP备11001592号</a></p>
+        <p><span>公安备案号：</span><a style="color: #fff;text-decoration: none;"
+                href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030502001710">粤公网安备44030502001710号</a>
+        </p>
+        <p style="display: none;"><span>清欠投诉电话：</span><a style="color: #fff;text-decoration: none;"
+                href="javascript:void(0);">0755-88653300</a></p>
+    </div>
+</div>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f77f76774e4072f82fa9bd84dc8788fd";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+  <!-- 右侧 -->
+
+<head>
+  <link media="screen" type="text/css" rel="stylesheet" href="/r/cms/sotcbb/default/css/yjfk.css">
+</head>
+
+  <div id="right-tool-id">
+      <div class="tools-div">
+            <div class="toolsName">
+              <div class="toolsImg app"></div>
+              <div><a href="javascript:void(0);">APP</a></div>
+              <div class="officialAccountImg">
+                  <div class="leftAndRight">
+                      <img src="/r/cms/sotcbb/default/images/app.png">
+                      <!-- <div>深圳联合产权交易所有限公司</div> -->
+                  </div>
+                  <!-- <div class="leftAndRight"><img src="../skin/default/images/office-weixin.png">
+                      <div>深圳交易集团</div>
+                  </div> -->
+              </div>
+          </div>
+          <div class="toolsName">
+              <div class="toolsImg gongzhonghao"></div>
+              <div><a href="javascript:void(0);">公众号</a></div>
+              <div class="officialAccountImg">
+                  <div class="leftAndRight">
+                      <img src="/r/cms/sotcbb/default/images/gongzhonghao-img.jpg">
+                      <!-- <div>深圳联合产权交易所有限公司</div> -->
+                  </div>
+                  <!-- <div class="leftAndRight"><img src="../skin/default/images/office-weixin.png">
+                      <div>深圳交易集团</div>
+                  </div> -->
+              </div>
+          </div>
+          <div class="toolsName"><a href="/zjljslxwm?siteId=192" target="_self">
+                  <div class="toolsImg lianxiwomen"></div>
+                  <div>联系我们</div>
+              </a></div>
+          <div class="toolsName" onclick="getFeedback()">
+              <div class="toolsImg shiyunxing"></div>
+              <div>意见反馈</div>
+          </div>
+      </div>
+      <div class="goback-img-cls" onclick="goBackTop()">
+          <div class="toolsImg huidaodingbu"></div>
+          <div class="nameTitle">回到顶部</div>
+      </div>
+  </div>
+  <div class="yjfk-wrapper" id="yjfk_dialog">
+      <div id="yjfk-container">
+          <p class="yjfk-title">意见反馈</p>
+          <div class="yjfk-content">
+              <div class="content-detail">1、投诉人可以以下情形为由提起投诉：（1）交易活动不符合法律法规、规章及操 作规则；（2）交易文件、交易过程或成交结果损害其合法权益；（3）对公司工作人员服务水平、质量及服务态度不满意；（4）针对公司工作人员或交易活动提出异议或不满的其他情形。</div>
+              <div class="content-detail">2、投诉人提起投诉应当坚持依法依规、诚实信用、实事求是的原则。</div>
+              <div class="content-detail">3、投诉原则上实行实名制，投诉应当有具体的投诉事项及事实依据，并提交真实、有效的证明材料，不得进行虚假、恶意投诉。</div>
+              <div class="content-detail">4、投诉人应当对在投诉处理过程中知悉的国家秘密、商业秘密、个人隐私和依法 不予公开的信息予以保密。</div>
+              <div class="content-detail">5、投诉事项有下列情形之一的，不予受理： (1)重复投诉且未提供新的证据； (2)已经或者依法应当通过诉讼、仲裁、行政复议等法定途径解决的； (3)投诉人未提供联系方式，无法取得有效联系的； (4)投诉人不能证明与投诉事项具有利害关系的; (5)超出本单位受理范围或不符合法律、法规规定的其他情形。</div>
+              <div class="content-detail">6、深圳联合产权交易所受理投诉后，在对投诉事项进行调查、核实的过程中，投诉人应当予以协助。</div>
+              <div class="content-detail">7、投诉处理过程中投诉人撤回投诉，视为投诉事项办结。</div>
+              <div class="content-detail">8、深圳联合产权交易所因处理投诉发生的第三方检验、检测、鉴定等费用，由提出申请的一方先行支付。投诉事项处理决定明确各方责任后，按照“谁过错谁负 担”的原则由承担责任的一方负担；各方都有责任的，由各方合理分担。</div>
+              <div class="content-detail">9、任何通知、决定、函件及其他文书，只要按本登记表的联系电话或邮箱发送， 即应视作即时送达。按本登记表联系地址邮寄发送的，文书签收之日即为送达之日，拒绝签收的，文书退回之日视为送达之日。投诉人联系方式如有变更，应及时通知深圳联合产权交易所，如未及时通知的，视为未变更，由此产生任何文书未送达的责任由投诉人自行承担。</div> 
+          </div>
+          <div class="yjfk-btn" onclick="linkTo()">
+              <span>我已知悉</span>
+              <span class="btn-count-down">（<span class="btn-count">10</span>&nbsp;s）</span>
+          </div> 
+      </div> 
+  </div>
+
+<script>
+// 意见反馈弹窗
+function getFeedback() {
+  $("#yjfk_dialog").show();
+  var num = $(".btn-count").text();
+  var timer = setInterval(function() {
+      num--;
+      $(".btn-count").html(num);
+      if(num === 0){
+          clearInterval(timer)
+          $(".btn-count-down").hide();
+          $(".yjfk-btn").addClass('yjfk-btn-active') // 按钮激活样式
+      }
+  }, 1000);
+}
+
+// 跳转至意见反馈页
+function linkTo() {
+  window.open('./yjfk.htm', "_self")
+}
+</script></div>
+</body>
+<script>
+  function lastUrl() {
+    return '/home/index.html'
+  }
+</script>
+</html>

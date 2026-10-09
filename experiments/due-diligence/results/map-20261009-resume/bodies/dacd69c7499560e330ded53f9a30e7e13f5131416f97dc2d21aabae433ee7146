@@ -1,0 +1,4528 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=9,IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit">
+		<meta name="Keywords" content="北京市规划和自然资源委员会" />
+		<meta name="Description" content="北京市规划和自然资源委员会" />
+		<meta name="SiteName" content="北京市规划和自然资源委员会">
+		<meta name="SiteDomain" content="ghzrzyw.beijing.gov.cn">
+		<meta name="SiteIDCode" content="1100000049">
+		<meta name="SiteUrl" content="http://ghzrzyw.beijing.gov.cn">
+		<title>北京市规划和自然资源委员会</title>
+		<link rel="stylesheet" type="text/css" href="https://ghzrzyw.beijing.gov.cn/images/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://ghzrzyw.beijing.gov.cn/images/animate.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://ghzrzyw.beijing.gov.cn/images/ySelect.css" />
+		<link rel="stylesheet" type="text/css" href="https://ghzrzyw.beijing.gov.cn/images/xin_style.css" />
+		<link rel="stylesheet" type="text/css" href="https://ghzrzyw.beijing.gov.cn/images/xin_select.css" />
+		<link rel="stylesheet" type="text/css" href="https://ghzrzyw.beijing.gov.cn/images/xin_index.css" />
+        <link rel="stylesheet" type="text/css" href="https://ghzrzyw.beijing.gov.cn/images/swiper.min.css" />
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/swiper.min.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/layer.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/ySelect.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/common.min.js"></script>
+		<script type="text/javascript">
+			//搜索
+			$(function(){
+			    $(".select_box").click(function(event){   
+			        event.stopPropagation();
+			        $(this).find(".option").toggle();
+			        $(this).parent().siblings().find(".option").hide();
+			    });
+			    $(document).click(function(event){
+			        var eo=$(event.target);
+			        if($(".select_box").is(":visible") && eo.attr("class")!="option" && !eo.parent(".option").length)
+			            $('.option').hide();                                    
+			    });
+			    $(".option li").click(function(){
+			        var check_value=$(this).text();
+			        var zlValue = $('.option li:eq(1)').html();
+			        var bqValue = $('.option li:eq(0)').html();
+			        $(this).parent().siblings(".select_txt").text(check_value);
+			        $("#select_value").val(check_value);
+			        if(check_value == zlValue) {
+			            $('#searchPlaceholder').prop('placeholder','');
+			            $('#form_search').attr("action","//www.beijing.gov.cn/so/s");
+			            $('#siteCode').attr("value","1100000088");
+			        }else if(check_value == bqValue) {
+			            $('#searchPlaceholder').prop('placeholder','');
+			            $('#form_search').attr("action","//ghzrzyw.beijing.gov.cn/so/s");
+			            $('#siteCode').attr("value","1100000049");
+			        }else {
+			            $('#searchPlaceholder').prop('placeholder','');
+			        }
+			    });
+			})
+
+			$(function(){
+				var wid=$(window).width();
+			    if (wid<1200){
+					$('body').addClass('tsphotobody')
+					// 移动端：显示移动端链接，隐藏PC链接
+					$('.pc-link').hide();
+					$('.mobile-link').show();
+					const meta = document.createElement('meta');
+					//设置meta元素的属性
+					meta.setAttribute('id', 'viewport');
+					meta.setAttribute('name', 'viewport');
+					meta.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=yes');
+					// 将新的 meta 元素添加到 head 中
+					document.head.appendChild(meta);
+					meta.setAttribute('content', 'width=device-width, initial-scale='+ (document.documentElement.clientWidth / 1200) +', user-scalable=yes');
+					// 移动端重组newsTab
+					var $originalNewsTab = $('#newsTab');
+					var $leftContent = $('.left-content');
+					
+					if ($originalNewsTab.length > 0 && $leftContent.length > 0) {
+						// 创建第一部分：中央精神、北京要闻、热点时事
+						var $firstPart = $('<div class="news-tab-box mobile-first-part" id="newsTabFirst"></div>');
+						var $firstNav = $('<div class="longulbox"><ul class="list-nav">' +
+							'<li class="active"><a href="javascript:void(0);" title="中央精神" data-target="#link_zyjs_mobile">中央精神</a></li>' +
+							'<li><a href="javascript:void(0);" title="北京要闻" data-target="#link_bjyw_mobile">北京要闻</a></li>' +
+							'<li><a href="javascript:void(0);" title="热点时事" data-target="#link_zwyw_mobile">热点时事</a></li>' +
+							'</ul></div>');
+						
+						var $firstPanels = $('<div class="panel-box">' +
+							'<div class="panel animated fadeIn on" id="link_zyjs_mobile">' +
+								'<ul class="list">' +
+									'<a class="more" href="https://www.beijing.gov.cn/ywdt/dzyjs/index.html" target="_blank" style="font-size: 16px;color: #3F4C6B;cursor: pointer;float:right"><img src="https://ghzrzyw.beijing.gov.cn/images/iconMore.png" /></a>' +
+									$('#link_zyjs .list').html() +
+								'</ul>' +
+							'</div>' +
+							'<div class="panel animated fadeIn" id="link_bjyw_mobile">' +
+								'<ul class="list">' +
+									'<a class="more" href="https://www.beijing.gov.cn/ywdt/yaowen/" target="_blank" style="font-size: 16px;color: #3F4C6B;cursor: pointer;float:right"><img src="https://ghzrzyw.beijing.gov.cn/images/iconMore.png" /></a>' +
+									$('#link_bjyw .list').html() +
+								'</ul>' +
+							'</div>' +
+							'<div class="panel animated fadeIn" id="link_zwyw_mobile">' +
+								'<ul class="list">' +
+									'<a class="more" href="/shouyexinxi/zwyw/" target="_blank" style="font-size: 16px;color: #3F4C6B;cursor: pointer;float:right"><img src="https://ghzrzyw.beijing.gov.cn/images/iconMore.png" /></a>' +
+									$('#link_zwyw .list').html() +
+								'</ul>' +
+							'</div>' +
+							'</div>');
+						
+						$firstPart.append($firstNav).append($firstPanels);
+						
+						// 创建第二部分：通知公告、工作动态
+						var $secondPart = $('<div class="news-tab-box mobile-second-part" id="newsTabSecond"></div>');
+						var $secondNav = $('<div class="longulbox"><ul class="list-nav">' +
+							'<li class="active"><a href="javascript:void(0);" title="通知公告" data-target="#link_notice_mobile">通知公告</a></li>' +
+							'<li><a href="javascript:void(0);" title="工作动态" data-target="#link_works_mobile">工作动态</a></li>' +
+							'</ul></div>');
+						
+						var $secondPanels = $('<div class="panel-box">' +
+							'<div class="panel animated fadeIn on" id="link_notice_mobile">' +
+								'<ul class="list">' +
+									'<a class="more" href="/zhengwuxinxi/tzgg/" target="_blank" style="font-size: 16px;color: #3F4C6B;cursor: pointer;float:right"><img src="https://ghzrzyw.beijing.gov.cn/images/iconMore.png" /></a>' +
+									$('#link_notice .list').html() +
+								'</ul>' +
+							'</div>' +
+							'<div class="panel animated fadeIn" id="link_works_mobile">' +
+								'<ul class="list">' +
+									'<a class="more" href="/zhengwuxinxi/gzdt/" target="_blank" style="font-size: 16px;color: #3F4C6B;cursor: pointer;float:right"><img src="https://ghzrzyw.beijing.gov.cn/images/iconMore.png" /></a>' +
+									$('#link_works .list').html() +
+								'</ul>' +
+							'</div>' +
+							'</div>');
+						
+						$secondPart.append($secondNav).append($secondPanels);
+						
+						// 替换原有的newsTab
+						$originalNewsTab.replaceWith($firstPart);
+						$leftContent.append($secondPart);
+						
+						// 添加tab切换功能
+						$('.mobile-first-part .list-nav a, .mobile-second-part .list-nav a').click(function(e) {
+							e.preventDefault();
+							
+							var $this = $(this);
+							var targetId = $this.data('target');
+							var $newsTabBox = $this.closest('.news-tab-box');
+							
+							// 移除所有导航项的active类
+							$newsTabBox.find('.list-nav li').removeClass('active');
+							// 为当前点击的导航项添加active类
+							$this.parent('li').addClass('active');
+							
+							// 隐藏所有面板
+							$newsTabBox.find('.panel-box .panel').removeClass('on');
+							// 显示目标面板
+							$(targetId).addClass('on');
+							
+							return false;
+						});
+					}
+					
+					// 更换移动端政府信息公开图标
+					$('.tsphotobody .dl-box dl:nth-child(1) .normal').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconZc.png');
+					$('.tsphotobody .dl-box dl:nth-child(1) .hover').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconZcHover.png');
+					
+					$('.tsphotobody .dl-box dl:nth-child(2) .normal').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconGkzn.png');
+					$('.tsphotobody .dl-box dl:nth-child(2) .hover').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconGkznHover.png');
+					
+					$('.tsphotobody .dl-box dl:nth-child(3) .normal').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconGkmu.png');
+					$('.tsphotobody .dl-box dl:nth-child(3) .hover').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconGkmuHover.png');
+					
+					$('.tsphotobody .dl-box dl:nth-child(4) .normal').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconGknb.png');
+					$('.tsphotobody .dl-box dl:nth-child(4) .hover').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconGknbHover.png');
+					
+					$('.tsphotobody .dl-box dl:nth-child(5) .normal').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconYsqgk.png');
+					$('.tsphotobody .dl-box dl:nth-child(5) .hover').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconYsqgkHover.png');
+					
+					$('.tsphotobody .dl-box dl:nth-child(6) .normal').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconWzgzbb.png');
+					$('.tsphotobody .dl-box dl:nth-child(6) .hover').attr('src', 'https://ghzrzyw.beijing.gov.cn/images/iconWzgzbbHover.png');
+
+
+					// 3D轮播功能（固定尺寸版，无响应式）
+					var threeSwiper = new Swiper('#mobile-swiper-container', {
+						effect : 'coverflow',
+						slidesPerView: 1.4,
+						centeredSlides: true,
+						initialSlide: 1,
+						coverflowEffect: {
+							rotate: 0,
+							stretch: '20%',
+							depth: 200,
+							modifier: 2,
+							slideShadows: false
+						},
+						loop: true,
+					});
+
+					var linkone=document.getElementsByTagName('link');
+					linkone[6].href="/images/2024swiper.css";      
+					var scriptone=document.getElementsByTagName('script');
+					scriptone[0].src="/images/2024swiper.js";   
+				}
+			    if (wid>1200){
+			        $('body').removeClass('tsphotobody');
+                    // PC端：显示PC链接，隐藏移动端链接
+					$('.pc-link').show();
+					$('.mobile-link').hide();
+					$('#viewport').remove();
+					var linkone=document.getElementsByTagName('link');
+					linkone[6].href="https://ghzrzyw.beijing.gov.cn/images/swiper.min.css";
+					var scriptone=document.getElementsByTagName('script');
+					scriptone[0].src="https://ghzrzyw.beijing.gov.cn/images/swiper.min.js";  
+					var swiper2 = new Swiper('#swiperContainer', {
+						slidesPerView: 4,
+						spaceBetween: 16,
+						slidesPerGroup: 4,
+						loop: false,
+						loopFillGroupWithBlank: true,
+						navigation: {
+							nextEl: '.swiper-button-next',
+							prevEl: '.swiper-button-prev',
+						},
+					});
+			    }
+
+
+			    $(" .tsphotobody  .classlastli").click(function(){
+			        $(this).parent().css('display','none');
+			    });
+			    $(".tsphotobody  .gdmore ").click(function(){
+			        $(this).parent().siblings().css('display','block');
+			    });
+
+				/*----------轮播------------*/
+				var swiper1= new Swiper('#swiper-container', {
+					pagination: {el: '.swiper-pagination'},      
+					autoplayDisableOnInteraction: false,
+					paginationClickable: true,
+					spaceBetween: 0,
+					autoplay:true,
+					autoplay: {
+						delay: 4000,
+						disableOnInteraction: false,
+					},
+					speed:500,
+					loop:true
+	            }); 
+				for(i=0;i<swiper1.pagination.bullets.length;i++){
+					swiper1.pagination.bullets[i].onClick=function(){
+						this.click();
+					};
+				} 
+				swiper1.params.pagination.clickable = true ;
+				swiper1.pagination.destroy()
+				swiper1.pagination.init()
+				swiper1.pagination.bullets.eq(0).addClass('swiper-pagination-bullet-active');
+			})
+
+			//doSubmit
+			$(document).ready(function(){
+			    $("#form_search").submit(function(e){
+			        var qt_value=$("#form_search")[0].qt.value;
+			        if(qt_value==null && qt_value ==""){
+			            alert("请输入关键词！");
+			            return;
+			        }
+			    });
+			});
+			
+			function doPostBack() {
+			    var recdignum = $('#recdignum').val();
+			    var recmobilephone = $('#recmobilephone').val();
+			    if (recdignum == '') {
+			        alert("请输入您在我局受理大厅申报时得到的业务编号");
+			        return;
+			    }
+			    /* if(recdignum != "" && recmobilephone == ""){
+						alert("请输入您在我局受理大厅申报时绑定的申请人电话");
+						return;
+					} */
+			    $("#oprform").submit();
+			}
+
+			function doPostBackForWH() {
+			    var FA_WEN_HAO = $('#FA_WEN_HAO').val();
+			    if (FA_WEN_HAO == '') {
+			        alert("请输入您要查询的业务文号");
+			        return;
+			    }
+			    $("#oprformForWH").submit();
+			}
+
+			function ShowStep(index, msg) {
+			    if (msg != "") {
+			        // tbStep的table的左边相对td的距离
+			        var offsetLeft = document.getElementById("tbStep").offsetLeft - 55;
+			        var date = document.getElementById("Fdate");
+			        date.style.display = "block";
+			        date.style.marginLeft = offsetLeft + (index * 110);
+			        date.innerHTML = msg;
+			    }
+			}
+
+			function Hide() {
+			    var date = document.getElementById("Fdate");
+			    date.style.display = "none";
+			}
+		</script>
+	</head>
+	<body>
+		<!---20251020-->
+		<script>
+			$.ajax( {
+			    url: '//yewu.ghzrzyw.beijing.gov.cn/gwwz/open/zxftarticle/getZxftarticleFirst',
+			    type: "get",
+			    scriptCharset:'UTF-8',
+			    success: function(res){
+			        //console.log(res.data);
+			        var data = res.data;
+			        var filePath = '';
+			        if(data.file){
+			            filePath = '//yewu.ghzrzyw.beijing.gov.cn/gwhdUploadFile/'+data.file.fileUrl;
+			        }else{
+			            filePath = '//yewu.ghzrzyw.beijing.gov.cn/common/plugins/images/defaultLogo.png';
+			        }
+			        //console.log('图片路径：' + filePath);
+			        //console.log('status：' + data.status);
+			        //console.log('主题：' + data.title);
+			        var releaseTime = '';
+			        if(data.releaseTime){
+			            releaseTime = data.releaseTime.substr(0,16);
+			        }
+			        //console.log('时间：' + releaseTime);
+			        //console.log('key：' + data.id);
+			        openDetail(data.id,data.status,filePath,data.title,releaseTime);
+			    }
+			});
+
+			//查看访谈详情
+			function openDetail(key,status,zxftPath,zxfttitle,zxfttime){
+			    var fileurl = '';
+			    if(status == '1'){
+			        fileurl = '//yewu.ghzrzyw.beijing.gov.cn/gwhd/zxft/ftdone.html?key='+key;
+			    }else if (status == '0'){
+			        fileurl = '//yewu.ghzrzyw.beijing.gov.cn/gwhd/zxft/ftdoing.html?key='+key;
+			    }else{
+			        return false;
+			    }
+					
+			    var strlist = '';
+			    strlist="<div style='width:100%;height:15px;'></div><a href='"+fileurl+"' class='zmhdconleft' target='_blank'><span  class='zxdtbox'><img src='"+zxftPath+"' /></span></a><br/><div style='width:100%;height:5px;'><span class='ztcon1'>主题："+zxfttitle+"</span><div style='width:100%;height:5px;'><span class='ztcon1'>时间："+zxfttime+"";
+			    $('#zxft_list').html(strlist);
+					
+			}
+
+		</script>
+		<script>
+			//国务院信息
+			$(function(){
+			    $.ajax({
+			        url :'//www.gov.cn/pushinfo/v150203/pushinfo.jsonp',
+			        dataType : "jsonp",
+			        scriptCharset:'UTF-8', 
+			        jsonp : "pushInfoJsonpCallBack",
+			        jsonpCallback:"pushInfoJsonpCallBack",
+			        success : function(data) {
+			            var str="";
+			            $.each(data,function(i,json){
+			                if (i >= 5){return false;}
+			                str+="<li><span>"+json.pubDate+"</span><a href='"+json.link+"' title='"+json.title+"'>"+json.title.substr(0,40)+"</a></li>";
+			                $("#gwyxx_list").html(str);
+									  
+			            });
+			        },
+			        error:function(){
+			            //alert("错误");
+			        }
+			    });
+			})
+	
+	</script>
+	<script>
+		$(function () {
+			$.ajax({
+				url: "https://www.beijing.gov.cn/shouye/tltt/pushCommitteeNews_33256.js",
+				dataType: "jsonp",
+				scriptCharset: "UTF-8",
+				jsonp: "pushInfoJsCallBack",
+				jsonpCallback: "pushInfoJsCallBack",
+				success: function (data) {
+					$.each(data.data2, function (i, json) {
+						if (i >= 5) {
+							return false;
+						}
+						var l = json.title.length;
+						var title = (l >= 47) ? json.title.substring(0, 45) + "..." : json.title;
+						// $("#zyjs_list").append("<li><a target='_blank' title='" + json.title + "' href='" + json.link + "'>" + title + "</a></li>");
+						// 填充原始元素
+						$("#zyjs_list").append("<li><a target='_blank' title='" + json.title + "' href='" + json.link + "'>" + title + "</a></li>");
+						// 同时填充移动端元素（如果存在）
+						$("#link_zyjs_mobile .list").append("<li><a target='_blank' title='" + json.title + "' href='" + json.link + "'>" + title + "</a></li>");
+					});
+					$.each(data.data3, function (i, json) {
+						if (i >= 5) {
+							return false;
+						}
+						var l = json.title.length;
+						var title = (l >=47) ? json.title.substring(0, 45) + "..." : json.title;
+						// $("#bjyw_list").append("<li><a target='_blank' title='" + json.title + "' href='" + json.link + "'>" + title + "</a></li>");
+						// 填充原始元素
+						$("#bjyw_list").append("<li><a target='_blank' title='" + json.title + "' href='" + json.link + "'>" + title + "</a></li>");
+						// 同时填充移动端元素（如果存在）
+						$("#link_bjyw_mobile .list").append("<li><a target='_blank' title='" + json.title + "' href='" + json.link + "'>" + title + "</a></li>");
+					});
+				},
+				error: function () {
+					alert("error");
+				},
+			});
+		});
+	</script>
+
+<style>
+.header-wrapper .container .top-info .logo.mobile-logo{
+    display: none;
+}
+.head-box .searchBox .mobile-btn-group{
+    display: none;
+}
+.index-tabBox-wrapper .container.mobile-business-section{
+	display: none;
+}
+
+.mobile-index-bottom-slider{
+    display:none;
+}
+
+.carousel-inner>.item>a>img, 
+.carousel-inner>.item>img {
+	width:1084px;
+	height:396px;
+}
+div.navigation-wrapper {background:none;}
+div.navigation-wrapper ul.list li {
+    display: block;
+    background: none;
+    text-align: left;
+    border-left: none;
+}
+div.navigation-wrapper ul.list li:hover a {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+div.today-recommend dl.item{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+div.today-recommend dl.item dt{
+	display: inline-block;
+}
+div.today-recommend dl.item dd{
+	width: 0;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+div.today-recommend dl.item dd ul.list{
+	position: relative;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+}
+div.today-recommend dl.item dd ul.list .more{
+	position: absolute;
+	top: 5px;
+        right: 10px;
+	font-size: 16px;
+	color: #3F4C6B;
+	cursor: pointer;
+}
+/*------------------------------------------------------------------------------*/
+.zmhdconleft {
+	width: 395px;
+	padding: 15px 0;
+}
+
+.zxdtbox {
+	width: 395px;
+	height: 240px;
+}
+
+.zxdtbox img {
+	width: 100%;
+	height: 100%;
+}
+
+.zxftbtmcon {
+	margin-top: 10px;
+}
+
+.ztcon1,
+.ztcon2,
+.ztcon3 {
+	display: block;
+	line-height: 22px;
+	font-size: 14px;
+	color: #2D3C5E;
+}
+
+div.index-tabs-wrapper .banner-tabs-box .server-wrap.online .left-cont {
+	width: 410px;
+}
+
+div.index-tabs-wrapper .banner-tabs-box .server-wrap.hud .right-cont {
+	width: 490px;
+	float: left;
+}
+
+.cxr_tp {
+	position: relative;
+}
+
+.cxr_tp .code-fixed {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+div.index-tabs-wrapper .banner-tabs-box {
+	overflow: inherit;
+}
+
+.cxr_tt {
+	width: 130px;
+	height: 130px;
+	position: absolute;
+	right: 8px;
+	bottom: 38px;
+}
+
+div.btm-banner img.banner-code {
+	width: 90%;
+}
+
+.cxr_con {
+	width: 130px !important;
+}
+
+div.btm-banner .code-fixed img.code-fixed {
+	display: none;
+	width: 240px;
+	position: absolute;
+	right: 130px;
+	bottom: -200px;
+	z-index: 99999;
+}
+
+div.index-tabs-wrapper .banner-tabs-box .hots-server dl.li dt,
+div.index-tabs-wrapper .banner-tabs-box .hots-server dl.li dd {
+	font-size: 16px;
+}
+
+div.index-tabs-wrapper .banner-tabs-box .hot-bottom2 a.item dl {
+	width: 155px;
+}
+
+div.index-tabs-wrapper .carousel-indicators.index_disli li {
+	width: 15px !important;
+	height: 15px !important;
+	border-radius: 10px;
+	background: #fff;
+}
+
+div.index-tabs-wrapper .carousel-indicators.index_disli li.active {
+	margin: 0;
+	width: 40px !important;
+	height: 10px !important;
+	background: #ff9a11;
+}
+.inner {
+	overflow: hidden;
+}
+
+.gdmore {
+	display: none;
+}
+
+div.top-wrap ul.tags {
+	width: auto;
+	float: left;
+	padding-bottom: 0 !important;
+}
+
+div.top-wrap ul.tagstwo {
+	float: none;
+	padding-bottom: 15px !important;
+}
+
+.classlastli,
+.morespan {
+	display: none;
+}
+
+#hot-business {
+	display: none;
+}
+
+/*-------------2014-1-12-----min-width: 320px;------*/
+.ariafooter{
+	width: 100% !important;
+}
+.tsphotobody {
+	width: 1200px !important;
+	min-width: 1200px !important;
+	overflow-x: hidden;
+	background: url(//ghzrzyw.beijing.gov.cn/images/bgMobileHomeHeader.png) no-repeat left 185px;
+    background-size: 100% auto;
+}
+.index-tabs-wrapper,
+.tsphotobody div.news-wrapper,
+body .index-tabBox-wrapper,
+.tsphotobody .index-bottom-slider {
+	width: 98% !important;
+}
+.tsphotobody .index-bottom-slider {
+	background: #FFF;
+	width: 100% !important;
+	padding: 20px 20px;
+	display: none;
+}
+.tsphotobody .container,
+.tsphotobody div.news-wrapper .left-content {
+	width: 100% !important;
+}
+
+/* .tsphotobody div.news-wrapper .left-content {
+	border-bottom: solid 20px #ecf2f5;
+} */
+
+
+/* .tsphotobody div.header-wrapper {
+	border-bottom: solid 2px #c63c4b;
+} */
+
+.tsphotobody div.header-wrapper .top-info {
+	background: #fff;
+	padding-top: 0;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 50px 33px 45px;
+}
+
+.tsphotobody .top-info .mobile-logo {
+    display: block !important;
+    position: static;
+    margin: 0;
+    padding: 0;
+}
+
+.tsphotobody .top-info .mobile-logo img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.tsphotobody .top-info ul {
+	position: relative;
+	flex: 1;
+	height: 120px;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+	line-height: 40px;
+}
+
+.tsphotobody .top-info li {
+	float: none !important;
+	display: inline-block;
+	padding: 0 !important;
+	padding: 0 34px !important;
+}
+
+.tsphotobody .top-info .topnavul li {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.tsphotobody .topnavul li a {
+	padding: 0 15px !important;
+	font-size: 32px !important;
+}
+
+/* 移动端隐藏桌面专用链接 */
+/* .tsphotobody .top-info .topnavul li.mobile-li {
+    display: none !important;
+} */
+
+/* .tsphotobody .top-info li:nth-child(4) {
+	display: none !important;
+} */
+.tsphotobody div.header-wrapper .top-info ul.list li:before {
+	height: 40px;
+	border-left: 3px solid #303030;
+	margin-top: -22.5px;
+	left: -1.5px !important;
+}
+
+.tsphotobody div.header-wrapper .top-info ul.list li a {
+	color: #303030;
+	font-size: 35px !important;
+	height: 40px !important;
+	line-height: 40px !important;
+	padding: 0 20px !important;
+}
+
+.tsphotobody div.header-wrapper .top-info ul.list li:first-of-type a{
+	padding-left: 0 !important;
+}
+
+.tsphotobody div.header-wrapper .top-info ul.list li:last-of-type a{
+	padding-right: 0 !important;
+}
+
+/* 移动端暂时隐藏无障碍 start*/
+/* .tsphotobody div.header-wrapper .top-info ul.list li:nth-last-of-type(2) a{
+	padding-right: 0 !important;
+}
+
+.tsphotobody div.header-wrapper .top-info ul.list li:last-of-type{
+	display: none;
+} */
+/* 移动端暂时隐藏无障碍 end*/
+
+.tsphotobody div.header-wrapper .top-info ul.list li.mobile-li {
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.tsphotobody div.header-wrapper .top-info ul.list li.mobile-li a{
+	padding: 0 !important;
+}
+
+.tsphotobody div.header-wrapper .top-info ul.list li.mobile-li::before{
+	width: 30px;
+	height: 30px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/iconLogin.png) no-repeat center center / 30px 30px;
+	left: -40px !important;
+	margin-top: 0;
+	top: 5px;
+	border: none;
+}
+
+.tsphotobody div.header-wrapper .head-box .logo {
+	order: 2;
+}
+.tsphotobody div.header-wrapper .head-box {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 60px 0 80px;
+	position: relative;
+}
+
+.tsphotobody div.header-wrapper .head-box .logo-text {
+	width: 80% !important;
+	margin: initial;
+	margin-left: 50px;
+}
+
+.tsphotobody div.header-wrapper .head-box .logo-text h1 {
+	font-size: 60px !important;
+	line-height: 1;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.tsphotobody div.header-wrapper .head-box .logo-text h3 {
+	font-size: 25px !important;
+	line-height: 1;
+	text-align: left;
+}
+.tsphotobody div.header-wrapper .head-box .searchBox {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+    padding: 60px 50px 0 50px;
+}
+.tsphotobody div.header-wrapper .head-box .searchBox .mobile-btn-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    order: 2;
+    padding: 0 0px 0 60px;
+}
+
+.tsphotobody div.header-wrapper .head-box .searchBox .mobile-btn-group > a{
+    width: auto;
+	height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.tsphotobody div.header-wrapper .head-box .searchBox .mobile-btn-group > a + a{
+    margin-left: 30px;
+}
+
+.tsphotobody div.header-wrapper .head-box .searchBox .mobile-btn-group > a > img{
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    margin: 0;
+}
+
+.tsphotobody div.header-wrapper .head-box .searchBox .mobile-btn-group > a > span{
+    margin-top: 0;
+    font-size: 30px !important;
+    color: #000000;
+    line-height: 40px;
+	letter-spacing: 1px;
+}
+
+.tsphotobody div.header-wrapper .head-box .logo img {
+	width: 100px;
+}
+
+.tsphotobody .box-search {
+    flex: 1;
+	width: 0;
+	height: 110px;
+	z-index: 11;
+}
+
+.tsphotobody .box-search .searchbox {
+	width: 100%;
+	height: 110px;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.4);
+	border: 4px solid #fff;
+}
+/* 移动端隐藏searchBox中的logo */
+.tsphotobody .searchBox .logo {
+    display: none;
+}
+.tsphotobody .box-search .searchbox .mod_select {
+	width: auto;
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	bottom: 4px;
+}
+
+.tsphotobody .box-search .searchbox .search-Box .import {
+	flex: 1;
+    width: 0;
+    height: 100%;
+    font-size: 40px !important;
+    line-height: 1;
+    margin-left: 0;
+    background: transparent;
+}
+
+.tsphotobody #form_search {
+	width: 100% !important;
+	height: 100% !important;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding-left: 220px;
+	padding-right: 200px;
+	border-radius: 8px;
+}
+
+.tsphotobody .box-search .searchbox .mod_select .select_box {
+	width: 200px !important;
+    height: 100% !important;
+    padding: 0 20px 0 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.tsphotobody .box-search .searchbox .mod_select .select_box .select_txt {
+	width: auto !important;
+	height: auto !important;
+	padding: 0;
+	line-height: 1;
+	font-size: 40px !important;
+	color: #303030;
+}
+
+.tsphotobody .box-search .searchbox .mod_select .select_box .select-icon {
+	top: 50%;
+	right: 0px;
+	width: 20px;
+	height: 15px;
+	background-size: 100% 100%;
+}
+
+.tsphotobody .box-search .searchbox .search-Box .btn-search {
+	position: absolute;
+    top: -4px;
+    right: -4px;
+    height: 110px;
+    width: 110px;
+    background-size: 50px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+	background-image: url(//ghzrzyw.beijing.gov.cn/images/iconSearch.png);
+}
+
+.tsphotobody .box-search .searchbox .mod_select .select_box .option li {
+	font-size: 40px;
+}
+
+.tsphotobody .box-search .searchbox .mod_select .select_box .option {
+	top: 102px;
+	width: 200px;
+	line-height: 80px;
+	padding: 0;
+}
+
+.tsphotobody .navigation-wrapper .container {
+	width: 100% !important;
+}
+
+.tsphotobody .navigation-wrapper .container ul {
+	width: auto !important;
+}
+
+.tsphotobody div.navigation-wrapper ul.list {
+	height: 120px;
+	line-height: 120px;
+}
+
+.tsphotobody div.navigation-wrapper ul.list li a {
+	font-size: 40px;
+	margin: 0 30px;
+	white-space: nowrap;
+}
+
+.tsphotobody .disnone {
+	display: none;
+}
+
+.tsphotobody div.header-wrapper .top-info ul.list .disnone:before {
+	border-left: none;
+}
+
+/*-----------------------头部结束---------尾部开始----------------*/
+.tsphotobody div.footer-red-wrapper>.container {
+	display: none;
+}
+
+.tsphotobody div.footer-red-wrapper .container {
+	width: 100% !important;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell {
+	float: none;
+	width: 100%;
+	background: none;
+	margin-left: 0;
+	min-height: auto;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.list li a {
+	font-size: 38px;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.text ul.list li {
+	font-size: 36px;
+	padding-left: 30px;
+}
+
+.tsphotobody div.footer-red-wrapper .bottom-container ul.list {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	text-align: left;
+}
+
+.tsphotobody div.footer-red-wrapper .bottom-container ul.list li {
+	font-size: 36px;
+	padding: 0 30px 15px 50px;
+}
+
+.tsphotobody .footererwm {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 50px;
+	width: 100%;
+
+}
+
+.tsphotobody .footererwm img {
+	width: 275px;
+	height: 305px;
+}
+
+.tsphotobody .container_cfxg {
+	flex-direction: row;
+	display: flex;
+	padding-bottom: 50px;
+	border-bottom: 2px solid #a71a2b;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .newlistul {
+	border-bottom: 2px solid #a71a2b;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.list li {
+	width: 25%;
+}
+
+
+
+/*----------2023-11-29----------*/
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info {
+	position: absolute;
+	bottom: 50px;
+	right: 10px;
+	width: 30% !important;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info a {
+	position: absolute;
+	bottom: 10px;
+	height: auto !important;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info span {
+	position: absolute;
+	top: 8px;
+	height: auto !important;
+}
+
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info .block {
+	display: block;
+	width: 100%;
+	height: 290px;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info .block a {
+	position: absolute;
+	left: 65px;
+	bottom: 0;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info .block img {
+	width: 120px;
+	height: auto;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info .block span {
+	display: block;
+}
+
+.tsphotobody div.footer-red-wrapper .middle-container .cell.left-info .block span img {
+	width: 250px;
+	height: auto;
+}
+
+.newnumber_box {
+	position: relative;
+}
+
+.tsphotobody .newnumber_box .newnumber_list {
+	width: 69% !important;
+}
+
+.tsphotobody .showboxsj {
+	display: block;
+}
+
+.tsphotobody .zfjgbsbox {
+	display: none;
+}
+
+.tsphotobody .bottom-containernew {
+	display: none;
+}
+
+/*-------------------尾部结束---------------------------*/
+.tsphotobody .iframeone {
+	width: 1200px !important;
+	min-width: 1200px !important;
+	height: 590px !important;
+}
+
+.tsphotobody .iframetwo {
+	width: 1200px !important;
+	min-width: 1200px !important;
+	height: 1119px !important;
+}
+
+.tsphotobody .container {
+	width: 100% !important;
+}
+
+.tsphotobody div.top-wrap .inner {
+	height: 130px;
+	overflow: hidden;
+}
+
+.tsphotobody .tags {
+	width: 100%;
+	position: relative;
+}
+
+.tsphotobody ul li {
+	margin: 0 20px !important;
+}
+
+.tsphotobody ul li a {
+	font-size: 38px !important;
+	line-height: 80px !important;
+	height: 80px !important;
+	background: #fff !important;
+	border-radius: 20px !important;
+	padding: 0 30px !important;
+
+}
+
+.tsphotobody ul .active a {
+	background: #BD1A2D !important;
+	color: #ffffff !important;
+}
+
+.tsphotobody .gdmore {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-size: 40px !important;
+	line-height: 130px !important;
+	border-left: 1px solid #000;
+	padding-left: 30px !important;
+}
+
+.tsphotobody .gdmore span {
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 58px;
+	right: -28px;
+	border: 12px solid transparent;
+	border-top: 20px solid #8A8A8A;
+
+}
+
+.tsphotobody div.top-wrap ul.tagstwo {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: #ffffff;
+	width: 90% !important;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
+	z-index: 11;
+	padding-bottom: 130px !important;
+	display: none;
+}
+
+.tsphotobody .tagstwo li {
+	margin: 0 20px !important;
+}
+
+.tsphotobody .tagstwo li a {
+	padding: 0 !important;
+}
+
+.tsphotobody .classlastli {
+	width: 40%;
+	height: 80px;
+	position: absolute;
+	bottom: 30px;
+	left: 30%;
+	font-size: 36px;
+	color: #000;
+	line-height: 70px;
+	text-align: center;
+	margin: 0 !important;
+	border: 2px solid #000;
+	border-radius: 40px;
+	display: block;
+}
+
+.tsphotobody #subnav {
+	width: 100% !important;
+}
+
+.tsphotobody .yourdress {
+	display: none;
+}
+
+.tsphotobody .contentowbox {
+	width: 100%;
+	overflow: hidden;
+}
+
+.tsphotobody .contentowbox form ul li {
+	float: none !important;
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+
+}
+
+.tsphotobody .contentowbox form ul li a {
+	padding: 0 !important;
+}
+
+.tsphotobody div.inner-main-wrap div.inner-box,
+.tsphotobody div.gov-list form.search {
+	padding: 5px 0 !important;
+}
+
+.tsphotobody div.gov-list form.search {
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+
+.tsphotobody div.gov-list form.search ul.tag-list.pd15 {
+	height: 120px;
+	line-height: 120px;
+	width: auto !important;
+}
+
+.tsphotobody .inner-box .contentowbox .active a {
+	background: none !important;
+	color: #000 !important;
+}
+
+.tsphotobody div.gov-list form.search ul.tag-list li a span {
+	width: 70%;
+	height: 10px;
+	border-radius: 10px;
+	position: absolute;
+	left: 15%;
+	bottom: 35px;
+	background: #BD1A2D;
+}
+
+.tsphotobody form ul li a {
+	padding: 0 !important;
+}
+
+.tsphotobody .nsjg-list {
+	border-top: 15px solid #f2f2f2;
+	padding: 30px 20px 0;
+}
+
+.tsphotobody .widone {
+	width: 220px;
+}
+
+.tsphotobody .widtwo {
+	width: 280px;
+}
+
+.tsphotobody .widthree {
+	width: 330px;
+}
+
+.tsphotobody .ldjj-list {
+	width: 100% !important;
+}
+
+.tsphotobody .ldjj-item a img {
+	width: 250px;
+	height: auto;
+}
+
+.tsphotobody .ldjj-list .ldjj-item {
+	width: 260px !important;
+}
+
+.tsphotobody .ldjj-list .itemR {
+	width: 71% !important;
+	position: relative;
+}
+
+.tsphotobody .name {
+	margin-top: 20px;
+	border: none !important;
+}
+
+.tsphotobody .name a {
+	font-size: 40px !important;
+	padding-top: 20px !important;
+}
+
+.tsphotobody .indroduce p {
+	display: none;
+}
+
+.tsphotobody .indroduce p:first-child {
+	width: 96%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	-webkit-line-clamp: 3;
+	display: -webkit-box;
+	font-size: 46px;
+	line-height: 1.5;
+	height: 180px;
+	-webkit-box-orient: vertical;
+}
+
+
+/*首页头部*/
+#g-top-banner {
+	width: 100%;
+	max-width: 1920px;
+	margin: 0 auto;
+	height: 200px;
+	overflow: hidden;
+}
+
+#g-top-banner a {
+	display: block;
+	width: 100%;
+	height: 200px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/jd100_2021_1920.jpg) center top no-repeat;
+}
+
+#g-top-banner img {
+	display: none;
+}
+
+/*----------------------------2024-1-15------------*/
+
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box {
+	overflow: visible;
+	width: 100%;
+}
+
+
+.tsphotobody .index-tabs-wrapper {
+	width: 100% !important;
+	background: none !important;
+	padding: 0 50px 50px;
+}
+
+.tsphotobody .carousel-inner>.item>a>img {
+	height: 500px !important;
+	width: 100% !important;
+}
+
+.tsphotobody .carousel-inner {
+	height: 500px !important;
+}
+
+.tsphotobody div.index-tabs-wrapper .carousel-indicators.index_disli li {
+	width: 25px !important;
+	height: 25px !important;
+	border-radius: 25px !important;
+	margin: 0 5px !important;
+}
+
+.tsphotobody div.index-tabs-wrapper .carousel-indicators.index_disli li.active {
+	width: 50px !important;
+}
+
+.tsphotobody .longulbox {
+	/* overflow-x: auto !important;
+	overflow-y: hidden !important; */
+	overflow: hidden !important;
+	height: 120px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.tsphotobody .longulbox::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 60px;
+    background-color: #bd1a2d;
+    border-radius: 3px;
+	margin-right: 20px;
+}
+
+.tsphotobody .longulbox::after {
+    content: '';
+    display: inline-block;
+    flex: 1;
+	width: 0;
+    height: 32px;
+    background: url(//ghzrzyw.beijing.gov.cn/images/bgZst.png) repeat-x left top;
+	background-size: 100% 100%;
+}
+
+.tsphotobody .longulbox ul {
+	width: auto !important;
+	padding-top: 0 !important;
+}
+
+.tsphotobody .longulbox ul li a {
+	font-size: 38px;
+}
+
+
+
+.tsphotobody div.news-wrapper .news-tab-box .longulbox ul.list-nav li {
+	padding-left: 0 !important;
+	margin: 0 !important;
+	margin-right: 40px !important;
+	height: 60px !important;
+}
+
+
+
+.tsphotobody div.news-wrapper .news-tab-box .longulbox ul.list-nav li:last-child {
+	border: none !important;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .longulbox ul.list-nav li a {
+	line-height: 60px !important;
+	font-size: 56px !important;
+	padding: 0 !important;
+	color: #000000;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .longulbox ul.list-nav li a:hover{
+	color: #000000;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .longulbox ul.list-nav li.active a {
+	background: none !important;
+	color: #000000 !important;
+}
+
+.tsphotobody div.news-wrapper .left-content {
+	float: none !important;
+}
+
+.tsphotobody div.news-wrapper .right-content {
+	float: none !important;
+	/* border-bottom: solid 20px #ecf2f5; */
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list{
+	padding-bottom: 60px;
+	position: relative;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list .more{
+	position: absolute;
+    right: 0px;
+	bottom: 0px;
+    display: grid;
+	margin: 0;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list .more img {
+	width: 130px !important;
+	height: 40px !important;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list li {
+	position: relative;
+	width: 100%;
+	height: auto;
+	padding-right: 0 !important;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	padding: 0 !important;
+	margin: 0;
+	border-bottom: 1px solid #c6c6c6;
+	word-break: break-word !important;
+    word-wrap: break-word !important;
+    white-space: unset !important;
+	margin: 0 !important;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list li:before {
+	position: relative;
+    content: '';
+    display: block;
+    width: 15px;
+    height: 15px;
+    background-color: #c9c9c9;
+	border: none;
+    margin-right: 30px;
+    border-radius: 0;
+    margin-top: 52.5px;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list li a {
+    flex: 1;
+	width: 0 !important;
+    height: auto !important;
+	padding: 30px 0 !important;
+    font-size: 46px !important;
+    line-height: 1.5 !important;
+    color: #303030 !important;
+}
+
+
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list li span {
+	font-size: 32px !important;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	top: unset;
+	color: #CCC;
+	display: block;
+	margin: 0;
+	text-align: right;
+    padding: 0;
+}
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list li span::before {
+	content: '';
+	width: 32px;
+	height: 32px;
+	background: url(https://ghzrzyw.beijing.gov.cn/images/icon_data_m.png) no-repeat;
+	background-size: 100% 100%;
+	display: inline-block;
+	vertical-align: middle;
+	margin: -10px 5px 0 0;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list li span + a{
+	padding-bottom: 60px !important;
+}
+
+.tsphotobody .right-content ul.list-nav .active a,
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li.active a {
+	background: none !important;
+	color: #BD1A2D !important;
+}
+
+/*----------------------------------*/
+
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li.active a {
+	padding: 0 !important;
+	padding-right: 30px !important;
+}
+
+.tsphotobody div.news-wrapper #infoTab.news-tab-box .panel-box .panel .dl-box dl{
+	width: calc(100% / 3) !important;
+	padding: 0 !important;
+	margin: 0 0 60px 0!important;
+}
+
+.tsphotobody div.news-wrapper #infoTab.news-tab-box .panel-box .panel .dl-box dl:nth-last-of-type(-n+3){
+	margin-bottom: 0 !important;
+}
+
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel .dl-box dl dt img.normal {
+	width: 200px;
+	margin: 0 0 30px 0;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel .dl-box dl dt img.hover {
+	width: 200px;
+	margin: 0 0 30px 0;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel .dl-box dl dd {
+	font-size: 46px !important;
+	line-height: 1;
+}
+
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li:before {
+	height: 44px !important;
+	top: 36% !important;
+}
+ 
+.moreglgg {
+	display: none;
+}
+
+.tsphotobody .moreglgg {
+	display: block;
+}
+
+.tsphotobody .moredivbox {
+	position: relative;
+}
+
+.tsphotobody .moreglgg {
+	position: absolute;
+	right: 35px;
+	top: 36px;
+	font-size: 32px;
+	color: #7A7D85 !important;
+}
+
+.tsphotobody .imgabig {
+	width: 30% !important;
+	margin-right: 4.5% !important;
+	display: inline-block;
+}
+
+.tsphotobody .imgabig img {
+	width: 100% !important;
+	height: auto !important;
+}
+
+.tsphotobody .imgabig:last-child {
+	margin-right: 0 !important;
+}
+
+
+
+
+.tsphotobody .nofloatbox {
+	width: 100% !important;
+	float: none !important;
+}
+
+.tsphotobody div.index-tabBox-wrapper .panel-box {
+	height: 555px !important;
+	overflow-y: auto;
+}
+.iframename{
+height:214px;
+}
+.tsphotobody .iframename {
+	height: 1520px !important;
+
+}
+
+.tsphotobody .thumbs-box {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.tsphotobody .thumbs-box a.item {
+	width: 32% !important;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .thumbs-box dl.img {
+	width: 100%;
+	margin: 0;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .thumbs-box dl.img dd {
+	height: 60px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .thumbs-box dl.img dd span {
+	line-height: 60px;
+	font-size: 30px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .thumbs-box dl.img {
+	height: 100%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .left-cont {
+	width: 100%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .title h3 {
+	font-size: 30px;
+	padding: 5px 0 5px 10px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap.hud .right-cont {
+	width: 100%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap.hud .right-cont .server-box {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap.hud .right-cont .server-box .title {
+	width: 100%
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap.hud .right-cont .server-box {
+	padding: 5px 8px 10px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .content dl.cell {
+	width: 33%;
+	height: auto;
+	margin-left: 0;
+	padding: 5px 0;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .content dl.cell dt img.normal {
+	width: 80px;
+	height: 80px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .content dl.cell dt img.hover {
+	width: 90px;
+	height: 90px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .content dl.cell dd {
+	padding-top: 0;
+	font-size: 18px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .right-cont {
+	width: 100%;
+	padding: 0;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box ul.img-box {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box ul.img-box li {
+	width: 48%;
+	height: 85px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .myzjbox {
+	width: 70%;
+	margin-left: 0;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .myzjbox .item {
+	height: auto;
+	width: 48%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hot-bottom2 a.item dl dt img {
+	width: 36px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hot-bottom2 a.item dl {
+	width: auto;
+	padding: 0 5px
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hot-bottom2 a.item dl dd {
+	font-size: 18px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hot-bottom2 a.item {
+	padding: 5px 0 5px 3px;
+}
+
+.tsphotobody .cxr_tt {
+	width: 125px;
+	height: 125px;
+	position: absolute;
+	right: 10px;
+	bottom: 30px;
+}
+
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box {
+	padding: 0 0 8px;
+}
+
+.tsphotobody div.index-tabs-wrapper .carousel-indicators.index_disli li {
+	width: 12px !important;
+	height: 12px !important;
+}
+
+.tsphotobody div.index-tabs-wrapper .carousel-indicators.index_disli li.active {
+	width: 30px !important;
+	height: 12px !important;
+}
+
+.tsphotobody div.navigation-wrapper ul.list li {
+	border: none !important;
+}
+
+.tsphotobody div.today-recommend {
+	display: none;
+	padding: 25px 50px 20px 50px;
+	overflow: hidden;
+}
+
+.tsphotobody div.today-recommend .item{
+	width: 100%;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tsphotobody div.today-recommend dl.item dt {
+	width: 100%;
+	padding: 0 0 30px 0;
+    border-bottom: 3px solid #efefef;
+}
+
+.tsphotobody div.today-recommend dl.item dt span {
+	display: block;
+	font-family: MicrosoftYaHei;
+    font-size: 56px;
+    font-weight: bold;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 0px;
+    color: #bd1a2d;
+}
+
+.tsphotobody div.today-recommend dl.item dt .img {
+	width: 225px;
+	height: 55px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/iconJqtj.png) no-repeat left top;
+	background-size: 100% 100%;
+}
+
+.tsphotobody div.today-recommend dl.item dd {
+	width: 100%;
+    padding: 50px 0 100px 0;
+    box-sizing: border-box;
+}
+
+.tsphotobody div.today-recommend dl.item dd ul.list {
+	display: table !important;
+	flex-direction: column;
+    position: relative;
+}
+
+.tsphotobody div.today-recommend dl.item dd ul.list .more{
+    position: absolute;
+    right: -30px;
+	bottom: -80px;
+    display: grid;
+	margin: 0;
+}
+
+.tsphotobody div.today-recommend dl.item dd ul.list .more .img {
+	width:130px !important;
+	height: 40px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/iconMore.png) no-repeat left top;
+	background-size: 100% 100%;
+
+}
+
+.tsphotobody div.today-recommend dl.item dd ul.list li {
+	background-size: 40px;
+	background-position: left 15px;
+    padding: 0 0 0 40px;
+    max-width: 100%;
+    margin: 0 !important;
+}
+
+.tsphotobody div.today-recommend dl.item dd ul.list li.file{
+	width: 100% !important;
+}
+
+.tsphotobody div.today-recommend dl.item dd ul.list li a {
+    width: 90%;
+    width: 100%;
+    height: auto !important;
+    line-height: 1.5 !important;
+    font-size: 46px !important;
+    word-break: break-word;
+    word-wrap: break-word;
+    white-space: unset;
+	color: #303030;
+    margin: 0;
+    padding: 0 0 20px 20px !important;
+}
+
+.tsphotobody div#hot-business{
+	display: block;
+	padding: 25px 50px 20px 50px;
+	overflow: hidden;
+}
+
+.tsphotobody div#hot-business .item{
+	width: 100%;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tsphotobody div#hot-business dl.item dt {
+	width: 100%;
+	padding: 0;
+}
+
+.tsphotobody div#hot-business dl.item dt a {
+	display: block;
+	font-family: MicrosoftYaHei;
+    font-size: 56px;
+    font-weight: bold;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: 0px;
+    color: #bd1a2d;
+	text-align: center;
+}
+
+.tsphotobody div#hot-business dl.item dd {
+	width: 100%;
+    padding: 50px 0 50px 0;
+    box-sizing: border-box;
+}
+
+.tsphotobody div#hot-business dl.item dd .panel-box {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top,
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-bottom {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-left,
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-right{
+	width: 0;
+	flex: 3;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-left > div,
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-right > div,
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-bottom > div {
+	width: 100% !important;
+    height: 160px;
+    background-color: #bd1a2d;
+    border: solid 1px #dbdbdb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 20px 0 !important;
+	border-radius: 20px !important;
+}
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-left > div:last-of-type,
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-right > div:last-of-type{
+	margin-bottom: 0;
+}
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-bottom > div {
+	margin-bottom: 0;
+}
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-left {
+	flex: 2;
+	margin-right: 20px;
+}
+.tsphotobody div#hot-business dl.item dd .panel-box .panel-top .panel-top-left > div{
+	height: 340px;
+}
+.tsphotobody div#hot-business dl.item dd .panel-box div > a{
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    height: 100%;
+    margin: 0 !important;
+    font-family: MicrosoftYaHei;
+    font-size: 46px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #ffecdd;
+}
+
+.tsphotobody div.news-wrapper .left-content,
+.tsphotobody div.news-wrapper .right-content {
+	padding: 0 0 60px 0;
+	height: auto;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .t-box{
+	width: 100%;
+	height: 120px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	background: url(//ghzrzyw.beijing.gov.cn/images/bgZfxxgk.png) no-repeat left top;
+	background-size: 100% 100%;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .t-box + .panel-box{
+	border: 2px solid #dbdbdb;
+	border-top: none;
+	padding: 70px 0 85px 0;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box ul.list-nav {
+	padding: 0;
+	width: auto;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .t-box ul.list-nav li a{
+	font-family: MicrosoftYaHei !important;
+	font-size: 60px !important;
+	font-weight: bold  !important;
+	font-stretch: normal  !important;
+	line-height: 75px !important;
+	letter-spacing: 0px !important;
+	color: #ffffff !important;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .t-box ul.list-nav li a:hover{
+	color: #ffffff !important;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel.on {
+	margin-bottom: 0;
+}
+.tsphotobody div.news-wrapper .news-tab-box .panel-box .panel.on .dl-box {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box {
+	padding: 0;
+}
+
+.tsphotobody div.news-wrapper .right-content {
+	width: 100%;
+}
+
+.tsphotobody div.index-tabBox-wrapper ul.list-nav {
+	width: 100%;
+	display: flex !important;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 0 !important;
+}
+
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li {
+	padding: 0;
+	font-size: 20px;
+	width: auto;
+	margin: 0 !important;
+}
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li > a {
+	line-height: 60px !important;
+    font-size: 56px !important;
+    padding: 0 !important;
+}
+
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li.active a{
+	background: none !important;
+    color: #000000 !important;
+	border: none;
+} 
+
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li a {
+	border-right: solid 1px #000;
+	border-radius: 0 !important;
+}
+
+.tsphotobody div.index-tabBox-wrapper ul.list-nav li:before {
+	border: none;
+}
+
+.tsphotobody div.index-tabBox-wrapper .title {
+	padding: 10px 0;
+}
+.tsphotobody div.index-tabBox-wrapper .title div {
+	margin: 20px;
+	width: auto !important;
+}
+
+.tsphotobody div.index-tabBox-wrapper .panel-box{
+	width: 100%;
+    height: auto !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden;
+}
+
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-left,
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-right{
+	width: 0;
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-left{
+	flex: 2;
+	margin-right: 20px;
+}
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-left > div,
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-right > div{
+	width: 100%;
+	height: 160px;
+	background-color: #f3f4f8;
+	border: solid 1px #dbdbdb;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.tsphotobody #newsTab2.index-tabBox-wrapper .panel-box .panel-left > div > a,
+.tsphotobody #newsTab2.index-tabBox-wrapper .panel-box .panel-right > div > a{
+	display: block;
+	width: 100% !important;
+	margin: 0 !important;
+	font-family: MicrosoftYaHei;
+	font-size: 60px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #000000;
+	text-align: center;
+}
+
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-left > div:last-of-type,
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-right > div:last-of-type{
+	margin-bottom: 0;
+}
+
+.tsphotobody div.index-tabBox-wrapper .panel-box .panel-left > div{
+	height: 250px;
+}
+
+.tsphotobody .fixed-wrap,
+.tsphotobody .fixed-banner
+{
+	display: none;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap {
+	width: 100%;
+}
+
+.tsphotobody div.news-wrapper .news-tab-box .panel-box {
+	padding: 10px 0 20px;
+}
+
+.tsphotobody div.index-bottom-slider .swiper-slide a.item-img img {
+	height: auto !important;
+	min-height: 45px;
+}
+
+.tsphotobody .swiper-button-next,
+.tsphotobody .swiper-button-prev {
+	margin-top: -20px;
+}
+
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .server-box .content {
+	padding-top: 0;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .news-tab-box ul.list-nav,
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .news-tab-box .panel-box {
+	display: none;
+}
+
+.tsphotobody .bottom-box .tags {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .news-tab-box .bottom-box ul.tags li {
+	padding: 3px 0 !important;
+	min-width: 30% !important;
+	font-size: 18px;
+	line-height: 42px;
+	margin: 10px 5px;
+
+}
+
+.tsphotobody .alert-mengban,
+.tsphotobody  .alert-warning {
+	display: none !important;
+}
+.alert-mengban{
+z-index:100000 !important;
+}
+.alert-warning{
+z-index:1000000 !important;
+}
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap .left-cont {
+	width: 100%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hots-server dl.li dt span {
+	font-size: 18px;
+	line-height: 36px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap.hud .right-cont {
+	width: 100%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hots-server dl.li dt,
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hots-server dl.li dd {
+	font-size: 18px;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .hots-server dl.li {
+	width: 44%;
+}
+
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .server-wrap.online .left-cont {
+	display: none;
+}
+
+.tsphotobody div.index-bottom-slider .swiper-button-next,
+.tsphotobody div.index-bottom-slider .swiper-button-prev {
+	width: 36px;
+	height: 36px;
+}
+
+/* .tsphotobody div.news-wrapper .news-tab-box .panel-box .panel ul.list li:before {
+	left: 5px;
+	margin-top: -5px;
+	display: none;
+} */
+
+
+
+.tsphotobody div.index-tabBox-wrapper .container {
+	background: #FFF;
+	width: calc(100% - 40px) !important;
+	margin: 0 20px;
+	display: none;
+}
+
+.tsphotobody div.index-tabBox-wrapper .container.mobile-business-section{
+	display: none;
+}
+
+.tsphotobody .swiper-slide,
+.tsphotobody .swiper-slide a img,
+.tsphotobody .swiper-slide a {
+	height: 400px !important;
+}
+
+.tsphotobody .footerdb {
+	display: none;
+}
+
+.tsphotobody .footerydd {
+	display: block;
+	background: #BD1A2D;
+	padding: 40px 0;
+}
+
+.tsphotobody .footererwm {
+	display: flex;
+	justify-content: space-around;
+}
+
+.tsphotobody .footererwm img {
+	width: 160px;
+	height: 183px;
+}
+
+.tsphotobody .lxwmljbox {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	padding: 20px 0;
+	border-bottom: 3px solid #c60c23;
+	margin-bottom: 30px;
+}
+
+.tsphotobody .lxwmljbox li {
+	width: 25%;
+}
+
+.tsphotobody .lxwmljbox li a {
+	display: block;
+	text-align: center;
+	font-size: 20px;
+	color: #fff;
+	line-height: 40px;
+}
+
+.tsphotobody .boxlxbshi {
+	padding-left: 30px;
+}
+
+.tsphotobody .boxlxbshi img {
+	height: 100px;
+	float: right;
+}
+
+.tsphotobody .boxlxbshi p {
+	font-size: 18px;
+	color: #fff;
+	margin-bottom: 15px;
+}
+
+.tsphotobody .boxlxbshi .telpthree {
+	margin-bottom: 25px;
+}
+
+.tsphotobody .zbhcbp {
+	font-size: 18px;
+	color: #fff;
+	margin: 0 30px 10px;
+}
+
+.alert-mengban {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+	background: #000000;
+	opacity: 0.8 !important;
+	filter: alpha(opacity=80) !important;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.alert-warning {
+	position: fixed;
+	left: 50%;
+	top: -400px;
+	margin-left: -300px;
+	width: 600px;
+	height: 270px;
+	background: #fff;
+	z-index: 1001;
+	display: none;
+}
+
+.alert-delete {
+	width: 100%;
+	height: 38px;
+	position: relative;
+}
+
+.alert-delete span {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 19px;
+	height: 19px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/sgzw_delete-ks.png) center center no-repeat;
+	cursor: pointer;
+}
+
+.alert-wzsm {
+	width: 480px;
+	height: 100px;
+	margin: 15px auto 0;
+	line-height: 35px;
+	font-size: 24px;
+	color: #000;
+	text-align: center;
+	font-family: "Microsoft YaHei";
+	padding-bottom: 15px;
+	border-bottom: 1px solid #d4d4d4;
+}
+
+.alert-wzsm p {
+	font-size: 24px;
+	font-family: "Microsoft YaHei";
+}
+
+.alert-footer {
+	width: 100%;
+	height: 105px;
+	font-size: 24px;
+	color: #000;
+}
+
+.alert-footer span {
+	cursor: pointer;
+	float: left;
+	font-family: "Microsoft YaHei";
+}
+
+.continue {
+	width: 124px;
+	height: 42px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/sgzw_continue-ks.png) center center no-repeat;
+}
+
+.fangqi {
+	line-height: 42px;
+	font-size: 20px;
+	color: #ab0d07;
+	margin-left: 20px;
+}
+
+.xuanze {
+	width: 210px;
+	height: 42px;
+	margin: 25px auto 0;
+}
+
+
+@media only screen and (max-width: 414px) {
+	.alert-warning {
+		position: fixed;
+		left: 2%;
+		top: -400px;
+		margin-left: 0;
+		width: 96%;
+		height: auto;
+		background: #fff;
+		background-size: 100%;
+		z-index: 1001;
+	}
+
+	.alert-wzsm {
+		width: 80%;
+		height: auto;
+		margin: 15px auto 0;
+		line-height: 28px;
+		font-size: 18px;
+		color: #000;
+		text-align: center;
+	}
+
+	.alert-wzsm p {
+		font-size: 18px;
+	}
+
+	.alert-footer {
+		width: 100%;
+		height: 70px;
+		line-height: 70px;
+		font-size: 18px;
+		color: white;
+		margin-top: 10px;
+	}
+
+	.continue {
+		width: 124px;
+		height: 42px;
+		background: url(//ghzrzyw.beijing.gov.cn/images/sgzw_continue-ks.png) center center no-repeat;
+		background-size: 100%;
+	}
+}
+.iconNav {
+	display: none;
+}
+.tsphotobody div.index-tabs-wrapper .banner-tabs-box .left-menu {
+	display: none;
+}
+/* background: url(//ghzrzyw.beijing.gov.cn/images/mb_iconNav_bg.png) no-repeat; */
+/* .tsphotobody .iconNav {
+	display: block;
+	background: url(//ghzrzyw.beijing.gov.cn/images/iconMenu.png) no-repeat;
+	background-size: 100% 100%;
+	width: 62px;
+	height: 54px;
+	position: absolute;
+	right: 50px;
+	top: 65px;
+	z-index: 9;
+	cursor: pointer;
+} */
+.tsphotobody .iconNav {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: url(//ghzrzyw.beijing.gov.cn/images/iconWebMap.png) no-repeat center top / 60px 60px;
+	padding-top: 75px;
+	position: absolute;
+	right: 50px;
+	top: 65px;
+	z-index: 9;
+	cursor: pointer;
+}
+.tsphotobody .iconNav::after{
+	content: '网站地图';
+	font-family: "MicrosoftYaHei";
+	font-size: 30px;
+	font-weight: normal;
+	font-stretch: normal;
+	line-height: 1;
+	letter-spacing: 1px;
+	color: #000000;
+}
+div.today-recommend dl.item dt:after{
+    right:-10px;
+}
+.tsphotobody div.today-recommend dl.item dt:after {
+	display: none;
+}
+div.today-recommend dl.item dd ul.list .more{
+    margin:3px 10px 0 0;
+}
+
+
+div.today-recommend dl.item dd ul.list .more img {
+	width:48px !important;
+}
+
+.tsphotobody div.news-wrapper {
+	background: #FFF;
+	width: 100% !important;
+}
+.tsphotobody div.news-wrapper .news-tab-box {
+	width: auto;
+	margin: 0 50px;
+}
+.tsphotobody .index-tabBox-wrapper {
+	background: #FFF;
+	width: 100% !important;
+	padding-top: 0;
+}
+.tsphotobody #link_notice_02 {
+	display: flex;
+	flex-direction: column;
+}
+.tsphotobody #link_notice_02>.link {
+	width: 100%;
+}
+.tsphotobody #link_notice_02>.link .item {
+	height: auto;
+}
+.tsphotobody #link_notice_02>.link .item dt img {
+	width: 42px;
+}
+.tsphotobody #link_notice_02>.link dl.item dd p.tit {
+	font-size: 32px;
+	margin-bottom: 20px;
+	height: auto;
+}
+.tsphotobody #link_notice_02>.link dl.item dd p.btm {
+	font-size: 30px;
+}
+.tsphotobody #link_notice_02 {
+	display: none;
+}
+
+
+
+/* threeViewSwiper：三图可见、间距30、中间突出（固定卡片 800×335） */
+.tsphotobody .mobile-index-bottom-slider{
+	display: block;
+}
+.tsphotobody .mobile-index-bottom-slider .swiper-container{
+    width: 100%;
+    padding: 50px 0 100px 0 !important;
+    overflow: hidden;
+	background: #FFFFFF;
+}
+
+.tsphotobody .mobile-index-bottom-slider .swiper-container .swiper-slide {
+	height: auto !important;
+	text-align: center;
+	font-size: 18px;
+	background: #eee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 300ms;
+	transform: scale(0.93);
+	flex-shrink: 0;
+}
+
+.tsphotobody .mobile-index-bottom-slider .swiper-container .swiper-wrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.tsphotobody .mobile-index-bottom-slider .swiper-container .swiper-slide-active,.swiper-slide-duplicate-active{
+     transform: scale(1);
+}
+
+.tsphotobody .mobile-index-bottom-slider .swiper-container .swiper-slide a{
+	display: inline-block;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.tsphotobody .mobile-index-bottom-slider .swiper-container .swiper-slide a img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block;
+}
+
+/* threeViewSwiper：三图可见、间距30、中间突出（固定卡片 800×335）end */
+
+.swiper-pagination-bullet{
+    width:12px;
+    height:12px;
+    background:#fff;
+    border:3px solid #fff;
+    opacity:1 !important;
+}
+.swiper-pagination-bullet-active{
+    width:40px;
+    background:#ff9a11;
+    border-radius:10px !important;
+}
+.tsphotobody .slideimg{
+    width:360px;
+    height:auto;
+    float:left;
+    margin:0 5px;
+}
+
+.tsphotobody .slideimg img{
+    width:100%;
+    height:auto;
+}
+.tsphotobody #carousel-generic #swiper-container{
+    height: 496px;
+}
+.tsphotobody .swiper-container.swiper-container-horizontal{
+    padding-bottom: 100px;
+}
+
+.tsphotobody .swiper-container-horizontal > .swiper-pagination.swiper-pagination-bullets{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+    transform: translate3d(0, 0, 0);
+    z-index: 10;
+}
+
+.tsphotobody .yddivbanner .swiper-pagination-bullet{
+    width: 20px !important;
+    height: 20px !important;
+    background: #c8d0e2;
+    border: none;
+    margin: 0;
+}
+
+.tsphotobody .yddivbanner .swiper-pagination-bullet.swiper-pagination-bullet-active{
+    background-color: #bd1a2d;
+}
+
+.tsphotobody .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet{
+    margin-right: 20px;
+}
+
+.tsphotobody .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet:last-of-type{
+    margin-right: 0;
+}
+
+/* 语音识别样式 start*/
+.box-search .searchbox .search-Box .import{
+    padding-right: 35px;
+}
+.box-search .searchbox .search-Box .voiceBtn {
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background: url(//ghzrzyw.beijing.gov.cn/images/voice.png) no-repeat;
+    /* background: url(/images/voice.png) no-repeat; */
+    background-size: 100% 100%;
+    right: 60px;
+    top: 18px;
+    cursor: pointer;
+}
+
+/* 语音输入框 */
+.voice-draw {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .3);
+                    z-index: 11;
+}
+
+.voice-div {
+    padding: 20px;
+    box-sizing: border-box;
+    width: 680px;
+    height: 389px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.voice-head {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.voice-head .voice-close {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url("https://ghzrzyw.beijing.gov.cn/images/voice-close.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.voice-con {
+    height: 200px;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+}
+
+.voice-tips-time {
+    color: #CCCCCC;
+}
+
+.identify-txt {
+    max-height: 160px;
+    overflow-y: scroll;
+}
+
+.identify-txt::-webkit-scrollbar {
+    display: none;
+}
+
+.voice-button {
+    text-align: center;
+}
+
+.voice-button-png {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: url("https://ghzrzyw.beijing.gov.cn/images/voice-button-png.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.voice-button-gif {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: url("https://ghzrzyw.beijing.gov.cn/images/voice-button-gif.gif") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.noIdentify-txt, .voice-button-png {
+    display: none;
+}
+
+.inp {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: fit-content;
+}
+
+/* 移动端样式 */
+.tsphotobody .box-search .searchbox .search-Box .voiceBtn{
+    position: absolute;
+	width: 40px;
+	height: 60px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/iconVoice.png) no-repeat;
+	background-size: 100% 100%;
+	right: 140px;
+	top: 20px;
+	cursor: pointer;
+}
+
+
+
+.tsphotobody .box-search .searchbox .search-Box .import {
+    padding-left: 0;
+    padding-right: 0;
+}
+/* 语音识别样式 end*/
+.banner-tabs-box div.today-recommend dl.item dd ul.list{
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-auto-flow: column;
+}
+.banner-tabs-box div.today-recommend dl.item dd ul.list li.file{
+    overflow: hidden;
+    width: 93%;
+}
+div.today-recommend{
+    padding: 15px 0 5px 12px;
+    box-sizing: border-box;
+}
+div.today-recommend dl.item dt .img {
+	width: 90px;
+	height: 115px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/jinqituijian.png) no-repeat left top;
+	background-size: 100% 100%;
+}
+div.today-recommend dl.item dd ul.list .more .img{
+	width: 48px;
+	height: 15px;
+	background: url(//ghzrzyw.beijing.gov.cn/images/moreLogo.png) no-repeat left top;
+	background-size: 100% 100%;
+}
+#carousel-generic #swiper-container{
+    height:396px;
+}
+</style>
+		<!--header-wrapper-->
+		<div class="header-wrapper">
+			<div class="container" region="mutual:文字输入区">
+				<!--top-info-->
+				<div class="top-info">
+                    <div class="logo mobile-logo"> 
+                        <a href="//www.beijing.gov.cn" title="首都之窗" target="_blank">
+                            <img src="https://ghzrzyw.beijing.gov.cn/images/logo.png" alt="首都之窗" title="首都之窗" />
+                        </a> 
+                    </div>
+					<ul class="list topnavul" region="slist:功能区">
+					    <li><a href="//banshi.beijing.gov.cn/" title="北京市政务服务网" target="_blank">北京市政务服务网</a></li>
+						<li class="mobile-li">
+							<!-- PC端专属空间链接 -->
+							<a href="//bjt.beijing.gov.cn/renzheng/open/login/goUserLogin?client_id=100100001058&redirect_uri=https://banshi.beijing.gov.cn/bjspacenew/web/login/sso/person/in&response_type=code&scope=user_info&state="
+							class="pc-link" title="访问我的专属空间" target="_blank">访问我的专属空间</a>
+							<!-- 移动端专属空间链接 -->
+							<a href="//bjt.beijing.gov.cn/renzheng/open/m/login/goUserLogin?client_id=100100001058&redirect_uri=https://banshi.beijing.gov.cn/bjspacenew/web/login/sso/person/in&response_type=code&scope=user_info&state="
+							class="mobile-link" title="访问我的专属空间" target="_blank">访问我的专属空间</a>
+						</li>
+						<li><a href="//ghzrzyw.beijing.gov.cn/jj/" title="智能问答" target="_blank">智能问答</a></li>
+						<li><a href="//ghzrzyw.beijing.gov.cn/en" title="English" target="_blank">English</a></li>
+						<li><a href="javascript:void(0)" clickhide="false" onclick="aria.start()" title="无障碍浏览">无障碍浏览</a></li>
+					</ul>
+				</div>
+				<!--/top-info-->
+
+				<!--head-box-->
+				<div class="head-box">
+					<a href="javascript:;" class="iconNav" id="iconNav"></a>
+					<div class="logo-text">
+						<a href = "//ghzrzyw.beijing.gov.cn/" target = "_blank"><h1>北京市规划和自然资源委员会</h1>
+						<h3>Beijing Municipal Commission of Planning and Natural Resources</h3></a>
+					</div>
+					<div class="searchBox">
+						<div class="logo">
+                            <a href="//www.beijing.gov.cn" title="首都之窗" target="_blank">
+                                <img src="https://ghzrzyw.beijing.gov.cn/images/logo.png" alt="首都之窗" title="首都之窗" />
+                            </a>
+                        </div>
+                        <!-- <div class="mobile-btn-group">
+                            <a href="https://bjt.beijing.gov.cn/renzheng/open/login/goUserLogin?client_id=100100001058&redirect_uri=https://banshi.beijing.gov.cn/bjspacenew/web/login/sso/person/in&response_type=code&scope=user_info&state="
+            class="pc-link" title="登录" target="_blank">
+                                <img src="https://ghzrzyw.beijing.gov.cn/images/iconLogin.png" alt="登录" title="登录" />
+                                <span>登录</span>
+                            </a>
+
+                            <a href="https://bjt.beijing.gov.cn/renzheng/open/m/login/goUserLogin?client_id=100100001058&redirect_uri=https://banshi.beijing.gov.cn/bjspacenew/web/login/sso/person/in&response_type=code&scope=user_info&state="
+            class="mobile-link" title="登录" target="_blank">
+                                <img src="https://ghzrzyw.beijing.gov.cn/images/iconLogin.png" alt="登录" title="登录" />
+                                <span>登录</span>
+                            </a>
+                            <a href="javascript:void(0)" onclick="aria.start()" title="无障碍浏览">
+                                <img src="https://ghzrzyw.beijing.gov.cn/images/iconWza.png" alt="无障碍" title="无障碍" />
+                                <span>无障碍</span>
+                            </a>
+                        </div> -->
+						<!-- 顶部-搜索 开始 -->
+						<div class="box-search">
+							<div class="searchbox">
+							<div class="mod_select">
+								<div class="select_box">
+									<span class="select_txt">搜本网</span>
+									<span class="select-icon"></span>
+									<ul class="option">
+										<li>搜本网</li>
+										<li>首都之窗</li>
+									</ul>
+								</div>
+							</div>
+							<form  id="form_search" action="//ghzrzyw.beijing.gov.cn/so/s" class="search-Box" style="width:425px;">
+							  <input type="hidden" id="siteCode" name="siteCode" value="1100000049" />
+							   <input type="hidden" name="tab" value="all" />
+								<input type="hidden" name="" value="搜本网" id="select_value" />
+								<input type="text" name="qt" id="searchPlaceholder" placeholder="请输入关键词" class="import" />
+								<input type="submit" value="搜索" class="btn-search" formtarget="_blank" />
+                                <!-- 语音识别icon start -->
+								<div class="voiceBtn"></div>
+								<!-- 语音识别icon end -->
+							</form>
+						  </div>
+						</div>
+					</div>
+					<!-- 顶部-搜索 结束 -->
+				</div>
+				<!--/head-box-->
+
+			</div>
+		</div>
+		<!--/header-wrapper-->
+
+		<!--index-tabs-wrapper 首页 Banner TAB切换区域-->
+		<div class="index-tabs-wrapper navigation-wrapper">
+			<div class="container">
+				<!--banner-tabs-box-->
+				<div class="banner-tabs-box">
+					<div class="left-menu" region="dir:主栏目导航区">
+						<!--政务信息-->
+						<div class="item"> <a href="/zhengwuxinxi/" data-url="#info" class="tit" title="政务公开" target="_blank">政务公开</a>
+							<div class="sub-item animated fadeIn">
+								<!--news-tab-box-->
+								<div class="news-tab-box" id="bannerTabs" region="slist:政务公开">
+									<ul class="list-nav list" id="navigation">
+										<li class="active red"> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_zcwj_hover.png" title="政策文件" alt="政策文件" class="normal" /> <a href="/zhengwuxinxi/zcwj/" title="政策文件" data-target="#link_banner_zcwj"
+											 target="_blank">政策文件</a> </li>
+										<li> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_home.png" alt="政策解读" title="政策解读" class="normal" />
+											<img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_home_hover.png" alt="政策解读" title="政策解读" class="hover" /> <a href="/zhengwuxinxi/2024zcjd/" title="政策解读" data-target="#link_banner_read" target="_blank">政策解读</a>
+										</li>
+										<li> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_file.png" alt="法律法规规章" title="法律法规规章" class="normal" />
+											<img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_file_hover.png" alt="法律法规规章" title="法律法规规章" class="hover" />
+											<a href="/zhengwuxinxi/zcfg/fl/" title="法律法规规章" data-target="#link_banner_file" target="_blank">法律法规规章</a> </li>
+										
+										<!-- <li> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_gongbao.png" alt="政府公报" title="政府公报" class="normal" />
+											<img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_gongbao_hover.png" alt="政府公报" title="政府公报" class="hover" /> <a href="//www.beijing.gov.cn/zhengce/gongbao/" title="政府公报" data-target="#link_banner_zcwj" target="_blank">政府公报</a>
+										</li> -->
+									</ul>
+									<!--panel-box-->
+									<div class="panel-box">
+										<div class="panel animated on" id="link_banner_zcwj">
+											<ul class="list">
+												
+													<li><span>
+															2026-09-28</span><a href="./zhengwuxinxi/zcwj/gfxwj/202609/t20260928_4883198.html"
+														 title="北京市规划和自然资源委员会关于做好轨道交通一体化连通工程规划管理工作的通知（试行）（京规自发〔2026〕337号）" target="_blank">
+															北京市规划和自然资源委员会关于做好轨道交通一体化连通工程规划管理工作的通知（试行）（京规自发〔2026〕337号）</a></li>
+												
+													<li><span>
+															2026-09-11</span><a href="./zhengwuxinxi/zcwj/gfxwj/202609/t20260911_4860161.html"
+														 title="北京市规划和自然资源委员会 北京市财政局关于印发《北京市罚没建筑物管理办法》的通知（京规自发〔2026〕298号）" target="_blank">
+															北京市规划和自然资源委员会 北京市财政局关于印发《北京市罚没建筑物管理办法》的通知（京规自发〔2026〕298号）</a></li>
+												
+													<li><span>
+															2026-09-09</span><a href="./zhengwuxinxi/zcwj/qtwj/202609/t20260909_4856920.html"
+														 title="北京市规划和自然资源委员会关于印发《北京市立体规划用地测量和三维地籍调查技术指南》的通知" target="_blank">
+															北京市规划和自然资源委员会关于印发《北京市立体规划用地测量和三维地籍调查技术指南》的通知</a></li>
+												
+													<li><span>
+															2026-08-21</span><a href="./zhengwuxinxi/zcwj/qtwj/202608/t20260821_4831480.html"
+														 title="北京市耕地保护规划（2023年—2035年）" target="_blank">
+															北京市耕地保护规划（2023年—2035年）</a></li>
+												
+													<li><span>
+															2026-08-21</span><a href="./zhengwuxinxi/zcwj/qtwj/202608/t20260821_4831359.html"
+														 title="北京市韧性城市空间专项规划（2022年—2035年）" target="_blank">
+															北京市韧性城市空间专项规划（2022年—2035年）</a></li>
+												
+													<li><span>
+															2026-08-21</span><a href="./zhengwuxinxi/zcwj/qtwj/202608/t20260821_4831350.html"
+														 title="模式口历史文化街区保护规划（2024年-2035年）" target="_blank">
+															模式口历史文化街区保护规划（2024年-2035年）</a></li>
+												
+											</ul>
+										</div>
+										<div class="panel animated " id="link_banner_read">
+											<ul class="list">
+												
+													<li><span>
+															2026-09-28</span><a href="./zhengwuxinxi/2024zcjd/202609/t20260928_4883203.html"
+														 title="政策解读：《关于做好轨道交通一体化连通工程规划管理工作的通知（试行）》" target="_blank">
+															政策解读：《关于做好轨道交通一体化连通工程规划管理工作的通知（试行）》</a></li>
+												
+													<li><span>
+															2026-09-28</span><a href="./zhengwuxinxi/2024zcjd/202609/t20260928_4883202.html"
+														 title="一图读懂《关于做好轨道交通一体化连通工程规划管理工作的通知（试行）》" target="_blank">
+															一图读懂《关于做好轨道交通一体化连通工程规划管理工作的通知（试行）》</a></li>
+												
+													<li><span>
+															2026-09-13</span><a href="./zhengwuxinxi/2024zcjd/202609/t20260913_4861710.html"
+														 title="一问一答丨《北京市测绘地理信息条例》" target="_blank">
+															一问一答丨《北京市测绘地理信息条例》</a></li>
+												
+													<li><span>
+															2026-09-13</span><a href="./zhengwuxinxi/2024zcjd/202609/t20260913_4861709.html"
+														 title="4张海报，带您了解北京市测绘地理信息条例" target="_blank">
+															4张海报，带您了解北京市测绘地理信息条例</a></li>
+												
+													<li><span>
+															2026-09-13</span><a href="./zhengwuxinxi/2024zcjd/202609/t20260913_4861706.html"
+														 title="赋能测绘地理信息成果应用 服务百姓美好生活" target="_blank">
+															赋能测绘地理信息成果应用 服务百姓美好生活</a></li>
+												
+													<li><span>
+															2026-09-13</span><a href="./zhengwuxinxi/2024zcjd/202609/t20260913_4861699.html"
+														 title="一图读懂丨《北京市测绘地理信息条例》" target="_blank">
+															一图读懂丨《北京市测绘地理信息条例》</a></li>
+												
+											</ul>
+										</div>
+										<div class="panel animated " id="link_banner_file">
+											<ul class="list">
+												
+													<li><span>
+															2026-07-22</span><a href="./zhengwuxinxi/zcfg/fl/202607/t20260722_4777408.html"
+														 title="中华人民共和国循环经济促进法" target="_blank">
+															中华人民共和国循环经济促进法</a></li>
+												
+													<li><span>
+															2026-07-22</span><a href="./zhengwuxinxi/zcfg/fl/202607/t20260722_4777392.html"
+														 title="中华人民共和国消防法" target="_blank">
+															中华人民共和国消防法</a></li>
+												
+													<li><span>
+															2026-07-22</span><a href="./zhengwuxinxi/zcfg/fl/202607/t20260722_4777373.html"
+														 title="中华人民共和国矿产资源法" target="_blank">
+															中华人民共和国矿产资源法</a></li>
+												
+													<li><span>
+															2026-07-22</span><a href="./zhengwuxinxi/zcfg/fl/202607/t20260722_4777352.html"
+														 title="中华人民共和国建筑法" target="_blank">
+															中华人民共和国建筑法</a></li>
+												
+													<li><span>
+															2021-04-22</span><a href="./zhengwuxinxi/zcfg/fl/202104/t20210422_2366102.html"
+														 title="中华人民共和国行政处罚法" target="_blank">
+															中华人民共和国行政处罚法</a></li>
+												
+													<li><span>
+															2019-12-13</span><a href="./zhengwuxinxi/zcfg/fl/201912/t20191213_1166989.html"
+														 title="中华人民共和国档案法" target="_blank">
+															中华人民共和国档案法</a></li>
+												
+											</ul>
+										</div>
+									</div>
+									<!--/panel-box-->
+									<!--bottom-box-->
+									<div class="bottom-box">
+										<ul class="tags">
+
+
+											<li> <a href="./zhengwuxinxi/jggk/" title="" target="_blank">
+													机构职能</a> </li>
+											<li> <a href="./zhengwuxinxi/xzsf/" title="" target="_blank">
+													行政收费</a> </li>
+											<li> <a href="./zhengwuxinxi/jhzj/" title="" target="_blank">
+													计划总结</a> </li>
+											<li> <a href="./zhengwuxinxi/rsxx/" title="" target="_blank">
+													人事信息</a> </li>
+											<li> <a href="./zhengwuxinxi/cwxx/" title="" target="_blank">
+													财务信息</a> </li>
+											<li> <a href="./zhengwuxinxi/ghcg/" title="" target="_blank">
+													规划成果</a> </li>
+											<li> <a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/zwgk/xzcfjggs.html" title="" target="_blank">
+													行政处罚结果</a> </li>
+											<li> <a href="./zhengwuxinxi/sjtj/" title="" target="_blank">
+													数据统计</a> </li>
+											<li> <a href="./zhengwuxinxi/zxzt/" title="" target="_blank">
+													专项专题</a> </li>
+											<li class="last"> <a href="./zhengwuxinxi/ssxm/" title="" target="_blank">
+													实事项目和折子工程</a> </li><li> <a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zxzt_xzzfgs/index.html" title="行政执法公示" target="_blank">行政执法公示</a> </li>
+										</ul>
+									</div>
+									<!--/bottom-box-->
+								</div>
+								<!--/news-tab-box-->
+							</div>
+						</div>
+						<!--政务信息end-->
+
+						<!--办事服务-->
+						<div class="item"> <a href="https://ghzrzyw.beijing.gov.cn/banshifuwu/xtdh/" data-url="#server" class="tit" title="政务服务">政务服务</a>
+							<div class="sub-item animated fadeIn" region="slist:政务服务">
+								<!--server-wrap-->
+								<div class="server-wrap">
+									<!--left-cont-->
+									<div class="left-cont">
+										<!--server-box-->
+										<div class="server-box">
+											<div class="title">
+												
+												<h3><a style="color:#BD1A2D" href="https://ghzrzyw.beijing.gov.cn/banshifuwu/xtdh/" title="服务导航">服务导航</a></h3>
+											</div>
+											<div class="content">
+												<dl class="cell"><a href="//bdc.ghzrzyw.beijing.gov.cn/eo/" title="北京市不动产登记领域网上办事服务平台" target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_11.png" alt="北京市不动产登记领域网上办事服务平台" title="北京市不动产登记领域网上办事服务平台" class="normal" />
+															<img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_11_hover.png" title="北京市不动产登记领域网上办事服务平台" alt="北京市不动产登记领域网上办事服务平台" class="animated hover" /> </dt>
+														<dd>北京市不动产登记领域<br>网上办事服务平台</dd>
+													</a>
+												</dl>
+
+												<dl class="cell"><a href="//bdc.ghzrzyw.beijing.gov.cn/ey/Pages/overView.html" title="全市预约号源情况" target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_04.png" title="全市预约号源情况" alt="全市预约号源情况" class="normal" />
+															<img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_04_hover.png" alt="全市预约号源情况" title="全市预约号源情况" class="animated hover" /> </dt>
+														<dd>全市预约号源情况</dd>
+													</a>
+												</dl>
+												<dl class="cell"><a href="http://yewu.ghzrzyw.beijing.gov.cn/bjdzbp/dzbpxt/login.htm" title="网上电子报盘系统"
+													 target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_01.png" alt="网上电子报盘系统" title="网上电子报盘系统" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_01_hover.png" alt="网上电子报盘系统" title="网上电子报盘系统" class="animated hover" /> </dt>
+														<dd>网上电子报盘系统</dd>
+													</a>
+												</dl>
+												<dl class="cell"><a href="//beijing.tianditu.gov.cn/" title="天地图 · 北京" target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_03.png" title="天地图 · 北京" alt="天地图 · 北京" class="normal" />
+															<img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_03_hover.png" title="天地图 · 北京" alt="天地图 · 北京" class="animated hover" /> </dt>
+														<dd>天地图 · 北京</dd>
+													</a>
+												</dl>
+												<dl class="cell"><a href="http://yewu.ghzrzyw.beijing.gov.cn/BJGW/DCHY/index.htm" title="北京市工程建设项目“多测合一”服务平台" target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/2021_dchy_red1.png" alt="北京市工程建设项目“多测合一”服务平台" title="北京市工程建设项目“多测合一”服务平台" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/2021_dchy_red_hover1.png" alt="北京市工程建设项目“多测合一”服务平台" title="北京市工程建设项目“多测合一”服务平台" class="animated hover" />
+														</dt>
+														<dd>&nbsp;&nbsp;北京市工程建设项目<br/>“多测合一”服务平台</dd>
+													</a>
+												</dl>
+												<dl class="cell"><a href="//recept.banshi.beijing.gov.cn/online/accept#/accept/entry?matterType=single&matterId=11183031927896&userType=legal&openRouteEnvFlag=prod" title="建设工程设计企业资质认定（部分乙级）"
+													 target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/nav_icon_red_zzrdbfyj.png" alt="建设工程设计企业资质认定（部分乙级）" title="建设工程设计企业资质认定（部分乙级）" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/nav_icon_red_zzrdbfyj_hover.png" title="建设工程设计企业资质认定（部分乙级）" alt="建设工程设计企业资质认定（部分乙级）" class="animated hover" /> </dt>
+														<dd>建设工程设计企业资质<br>认定（部分乙级）</dd>
+													</a>
+												</dl>
+												<dl class="cell"><a href="https://yewu.ghzrzyw.beijing.gov.cn/kcfw/qy/login.htm" title="北京市勘察设计行业服务平台"
+													 target="_blank"><dt> <img alt="北京市勘察设计行业服务平台" title="北京市勘察设计行业服务平台" class="normal" src="./images/nav_icon_kcsjhy_red.png" /> <img title="北京市勘察设计行业服务平台" alt="北京市勘察设计行业服务平台" class="animated hover" src="./images/nav_icon_kcsjhy_redhover.png" /></dt>
+														<dd>北京市勘察设计行业服务平台</dd>
+													</a>
+												</dl>
+
+												<dl class="cell"><a href="https://yewu.ghzrzyw.beijing.gov.cn/BJGW/SGTJG" title="施工图审查" target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_05.png" alt="施工图审查" title="施工图审查" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_05_hover.png" alt="施工图审查" title="施工图审查" class="animated hover" />
+														</dt>
+														<dd>&nbsp;&nbsp;施工图审查&nbsp;&nbsp;</dd>
+													</a>
+												</dl>
+												<dl class="cell"><a href="https://beijing.tianditu.gov.cn/bzdt/" title="北京市标准地图" target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/2021_bzdt_red.png" alt="北京市标准地图" title="北京市标准地图" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/2021_bzdt_red_hover.png" alt="北京市标准地图" title="北京市标准地图" class="animated hover" />
+														</dt>
+														<dd>&nbsp;&nbsp;北京市标准地图</dd>
+													</a>
+												</dl>
+												<dl class="cell"><a href="//banshi.beijing.gov.cn/"
+													 title="北京市政务服务网" target="_blank"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_06.png" alt="北京市政务服务网" title="北京市政务服务网" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_nav_icon_06_hover.png" alt="北京市政务服务网" title="北京市政务服务网" class="animated hover" /> </dt>
+														<dd>北京市政务服务网</dd>
+													</a>
+												</dl>
+												
+											</div>
+										</div>
+									</div>
+									<!--/left-cont-->
+
+									<!--right-cont-->
+									<div class="right-cont">
+										<!--server-box-->
+										<div class="server-box">
+											<div class="content" region="mutual:文字输入区">
+												<ul class="img-box">
+													<li><a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghhyys/shjgztcx.html" title="审批进度查询" target="_blank"><img src="https://ghzrzyw.beijing.gov.cn/images/2021_sy_spztcx.jpg" width="226" height="67" title="审批进度查询" /></a></li>
+													<li><a href="//bdc.ghzrzyw.beijing.gov.cn/eo/" title="不动产登记网上服务平台" target="_blank"><img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_bs_img_01.png" alt="不动产登记网上服务平台" title="不动产登记网上服务平台" /></a></li>
+													<li><a href="javascript:;"><img src="https://ghzrzyw.beijing.gov.cn/images/xin_item_bs_img_02.png" alt="12345热线" title="12345热线" /></a></li>
+													<li><a href="//banshi.beijing.gov.cn/pubtask/bmfw.html?locationCode=110000000000&deptCode=11110000MB1503996K" title="网上政务服务大厅" target="_blank"><img src="./images/wszwffdt.png" title="网上政务服务大厅" alt="网上政务服务大厅" /></a></li>
+													<a href="//ghzrzyw.beijing.gov.cn/banshifuwu/" data-target="#link_open" target="_blank" style="color: #BD1A2D;font-weight: bold;line-height:38px;font-size:16px;float:right;">查看更多>></a>
+												</ul>
+											</div>
+										</div>
+										<!--/server-box-->
+									</div>
+									<!--/right-cont-->
+								</div>
+								<!--/server-wrap-->
+							</div>
+						</div>
+						<!--办事服务end-->
+
+						<!--政民互动-->
+						<div class="item"> <a href="//yewu.ghzrzyw.beijing.gov.cn/gwhd/xxzx/hfcx.html" data-url="#interact" class="tit" title="政民互动" target="_blank">政民互动</a>
+							<div class="sub-item animated fadeIn">
+								<!--server-wrap-->
+								<div class="server-wrap hud online" region="slist:政民互动">
+									<!--left-cont-->
+									<div class="left-cont">
+										<div class="server-box">
+											<div class="title"> <a href="//yewu.ghzrzyw.beijing.gov.cn/gwhd/zxft/zxft_list.html" title="查看全部" class="more" target="_blank">查看全部</a>
+												<h3><a style="color:#BD1A2D" href="https://yewu.ghzrzyw.beijing.gov.cn/gwhd/zxft/zxft_list.html" title="视说规自">视说规自</a></h3>
+											</div>
+											<div id="zxft_list" >
+									
+											</div>
+											
+										</div>
+										<!--/server-box-->
+									</div>
+									<!--/left-cont-->
+
+									<!--right-cont-->
+									<div class="right-cont">
+										<!--server-box-->
+										<div class="server-box">
+											<div class="title">
+												<h3>投诉/咨询热线</h3>
+											</div>
+											<div class="content hots-server">
+												<dl class="li icon-01"> <dt><span>便民热线</span></dt>
+													<dd>80858586</dd>
+												</dl>
+												
+												
+												<dl class="li icon-04"> <dt><span>违法举报</span></dt>
+													<dd>12345</dd>
+												</dl>
+												<dl class="li icon-05" style="width:100%;"> <dt><span>扫黑除恶电话</span></dt>
+													<dd>80858586</dd>
+												</dl>
+											</div>
+										</div>
+										<!--/server-box-->
+
+										<!--民意征集-->
+										<div class="server-box hot-bottom2 cxr_tp">
+											<div class="title">
+												<h3>征集信箱</h3>
+											</div>
+											<div class="content"> <a href="/zhengminhudong/myzj" class="item" title="民意征集" target="_blank">
+													<dl> <dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_edit.png" alt="民意征集" title="民意征集" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_edit_white.png" alt="民意征集" title="民意征集" class="hover" /> </dt>
+														<dd>民意征集</dd>
+													</dl>
+												</a> <a href="/zhengminhudong/lxwm" class="item" title="联系我们" target="_blank">
+													<dl> <dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_tel.png" alt="联系我们" title="联系我们" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_tel_white.png" alt="联系我们" title="联系我们" class="hover" /> </dt>
+														<dd>联系我们</dd>
+													</dl>
+												</a> <a href="/zhengminhudong/cjwt" class="item" title="常见问题" target="_blank">
+													<dl> <dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_help.png" alt="常见问题" title="常见问题" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_help_white.png" alt="常见问题" title="常见问题" class="hover" /> </dt>
+														<dd>常见问题</dd>
+													</dl>
+												</a> <a href="//yewu.ghzrzyw.beijing.gov.cn/gwhd/xxzx/hfcx.html" class="item" title="我要咨询" target="_blank">
+													<dl> <dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_email.png" alt="我要咨询" title="我要咨询" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_slice_icon_email_white.png" alt="我要咨询" title="我要咨询" class="hover" /> </dt>
+														<dd>我要咨询</dd>
+													</dl>
+												</a> </div>
+												<div class="index-banner-wrapper cxr_tt">
+														<div class="container cxr_con">
+															<div class="btm-banner">																
+																<div class="code-fixed"> <img src="https://ghzrzyw.beijing.gov.cn/images/fixed_code.png" class="banner-code" alt="工程建设项目审批制度改革建议和投诉" title="工程建设项目审批制度改革建议和投诉" />
+																 <img src="https://ghzrzyw.beijing.gov.cn/images/xin_fixed_cod2.png" width="250" height="370" class="code-fixed" alt="工程建设项目审批制度改革建议和投诉" title="工程建设项目审批制度改革建议和投诉" />
+																  </div>
+															</div>
+														</div>
+													</div>
+												
+												
+										</div>
+										<!--民意征集end-->
+									</div>
+									<!--/right-cont-->
+								</div>
+							</div>
+						</div>
+						<!--政民互动end-->
+
+						<!--业务频道-->
+						<div class="item"> <a href="javascript:;" data-url="#channel" class="tit" title="业务频道">业务频道</a>
+							<div class="sub-item animated fadeIn">
+								<!--thumbs-box-->
+								<div class="thumbs-box" region="slist:业务频道"> <a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgs.html" class="item" title="城乡规划" target="_blank">
+										<dl class="img"> <dt style="background-image: url(/images/thumb_img_07.png)"></dt>
+											<dd><span>城乡规划</span></dd>
+										</dl>
+									</a> <a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/tdsc/tdzpgxm.html" class="item" title="自然资源管理" target="_blank">
+										<dl class="img"> <dt style="background-image: url(/images/thumb_img_08.png)"></dt>
+											<dd><span>自然资源管理</span></dd>
+										</dl>
+									</a> <a href="/budongchandengji/xtdh/" class="item" title="不动产登记" target="_blank">
+										<dl class="img"> <dt style="background-image: url(/images/thumb_img_09.png)"></dt>
+											<dd><span>不动产登记</span></dd>
+										</dl>
+									</a> <a href="/kanchasheji/" class="item" title="勘察设计" target="_blank">
+										<dl class="img"> <dt style="background-image: url(/images/thumb_img_10.png)"></dt>
+											<dd><span>勘察设计</span></dd>
+										</dl>
+									</a> <a href="/cehuidilixinxi/" class="item" title="测绘地理信息" target="_blank">
+										<dl class="img"> <dt style="background-image: url(/images/thumb_img_11.png)"></dt>
+											<dd><span>测绘地理信息</span></dd>
+										</dl>
+									</a> <a href="/biaozhunguanli/" class="item" title="标准管理" target="_blank">
+										<dl class="img"> <dt style="background-image: url(/images/thumb_img_12.png)"></dt>
+											<dd><span>标准管理</span></dd>
+										</dl>
+									</a> </div>
+								<!--/thumbs-box-->
+							</div>
+						</div>
+						<!--业务频道end-->
+					</div>
+
+					<!--焦点图-->
+					<div id="carousel-generic" class="carousel slide yddivbanner" data-interval="5000" data-ride="carousel">
+						<!-- Indicators -->
+						 <div class="swiper-container" id="swiper-container">
+                            <div class="swiper-wrapper">
+                                
+                                    <div class="swiper-slide">
+                                    <a href="https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/csgx/csgxzlsy/" target="_blank" title="口袋藏良策  万象始更新"><img src="./shouyexinxi/jdt/202608/W020260806602577341784.jpg" width="100%" height="400" alt="口袋藏良策  万象始更新" title="口袋藏良策  万象始更新" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/zxgh/202602/t20260203_4487075.html" target="_blank" title="现代化首都都市圈空间协同规划（2023-2035年）"><img src="./shouyexinxi/jdt/202602/W020260203494626754014.png" width="100%" height="400" alt="现代化首都都市圈空间协同规划（2023-2035年）" title="现代化首都都市圈空间协同规划（2023-2035年）" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="https://liuyan.www.gov.cn/2025wwzfgzbgtjy/bmdf.html?q=bj" target="_blank" title="@国务院 我来说"><img src="./shouyexinxi/jdt/202312/W020250311521758481800.jpg" width="100%" height="400" alt="@国务院 我来说" title="@国务院 我来说" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="https://www.gov.cn/zhengce/zczhjd/" target="_blank" title="重要政策举措及实施效果"><img src="./shouyexinxi/jdt/202307/W020230731564813867881.jpg" width="100%" height="400" alt="重要政策举措及实施效果" title="重要政策举措及实施效果" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/ztgh/sj_ztgh/202512/t20251219_4351947.html" target="_blank" title="北京城市总体规划实施体检报告公众读本（2024年度）"><img src="./shouyexinxi/jdt/202204/W020251219671403799668.png" width="100%" height="400" alt="北京城市总体规划实施体检报告公众读本（2024年度）" title="北京城市总体规划实施体检报告公众读本（2024年度）" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/xxgh/sj/202008/t20200829_1993379.html" target="_blank" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）"><img src="./shouyexinxi/jdt/202008/W020200830364424637706.jpg" width="100%" height="400" alt="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/fqgh/" target="_blank" title="分区规划（国土空间规划）（2017年-2035年）"><img src="./shouyexinxi/jdt/202003/W020200302444070941345.jpg" width="100%" height="400" alt="分区规划（国土空间规划）（2017年-2035年）" title="分区规划（国土空间规划）（2017年-2035年）" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/csfzxgh/201912/t20191213_1165343.html" target="_blank" title="北京城市副中心控制性详细规划"><img src="./shouyexinxi/jdt/201912/W020200107366857954761.jpg" width="100%" height="400" alt="北京城市副中心控制性详细规划" title="北京城市副中心控制性详细规划" /></a> </div>
+                                
+                                    <div class="swiper-slide">
+                                    <a href="https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/yhyshjbljzxkzt/zcwj/" target="_blank" title="优化营商环境“获取经营场所”"><img src="./shouyexinxi/jdt/201912/W020240729357082153978.jpg" width="100%" height="400" alt="优化营商环境“获取经营场所”" title="优化营商环境“获取经营场所”" /></a> </div>
+                                                                         
+                            </div>        
+                            <div class="swiper-pagination"></div>
+                        </div>
+					</div>
+					<!--焦点图end-->
+
+                                       
+					<!--今日推荐-->
+					<div class="today-recommend">
+						<!-- <img style="width:100%" src="./images/jinqituijian.png" alt="近期推荐" title="近期推荐" /> -->
+						<dl class="item"> <dt><a href="/shouyexinxi/jqtj/" title="近期推荐" target="_blank" data-target="#link_jqtj"><div class="img"></div></a></dt>
+							<dd>
+								<ul class="list" region="slist:近期推荐">
+                                    <!-- <img src="./images/moreLogo.png" /> -->
+									<a class="more" href="/shouyexinxi/jqtj/" target="_blank" data-target="#link_jqtj"><div class="img"></div></a>
+									
+										<li class="file"><a href="http://ghzrzyw.beijing.gov.cn/ziranziyuanguanli/ckqsp/202108/t20210820_2472749.html" title="关于提醒办理矿业权延续或注销手续的公告（每月更新）"
+											 target="_blank">
+												关于提醒办理矿业权延续或注销手续的公告（每月更新）</a></li>
+									
+										<li class="file"><a href="https://ghzrzyw.beijing.gov.cn/budongchandengji/bdcdj_bszn/bszn_bdcdjwscxml/202003/t20200330_1748870.html" title="北京市不动产登记信息网上查询操作指南"
+											 target="_blank">
+												北京市不动产登记信息网上查询操作指南</a></li>
+									
+										<li class="file"><a href="https://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgsxq.html?id=14ef3ee5b635081623e212aa7c3e3989" title="关于《北京城市副中心0601街区FZX-0601-0001等地块规划综合实施方案》的公示"
+											 target="_blank">
+												关于《北京城市副中心0601街区FZX-0601-0001等地块规划综合实施方案》的公示</a></li>
+									
+										<li class="file"><a href="https://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgsxq.html?id=e064faacd16523848c6e1f5a99c96d89" title="关于《大兴区生物医药基地东配套区D组团DX00-0505-0022、0031等地块规划综合实施方案》的公示"
+											 target="_blank">
+												关于《大兴区生物医药基地东配套区D组团DX00-0505-0022、0031等地块规划综合实施方案》的公示</a></li>
+									
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<!--今日推荐end-->
+					<!--热点业务 2026-03-09-->
+					<div id="hot-business">
+						<!-- <img style="width:100%" src="./images/recommand.png" alt="推荐业务" title="推荐业务" /> -->
+						<dl class="item"> <dt><a href="javascript:void(0);" title="热点业务">热点业务</a></dt>
+							<dd>
+								<div class="panel-box" >
+									<div class="panel-top">
+										<div class="panel-top-left">
+											<div><a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgs.html" title="规划类公示" target="_blank">规划类公示</a></div>
+										</div>
+										<div class="panel-top-right">
+											<div>
+												<a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghjsgcgh/jsgcgh.html" title="建设工程规划许可证" target="_blank" >建设工程规划许可证</a>
+											</div>
+											<div>
+												<a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/tdsc/tdzpgxm.html" title="土地市场" target="_blank">土地市场</a>
+											</div>
+										</div>
+									</div>
+									<div class="panel-bottom">
+										<div>
+											<a href="//bdc.ghzrzyw.beijing.gov.cn/eo/wizard/mainMenu.go" title="不动产登记领域网上办事服务平台" target="_blank">不动产登记领域网上办事服务平台</a>
+										</div>
+									</div>
+								</div>
+							</dd>
+						</dl>
+					</div>
+					<!--热点业务end-->
+				</div>
+				<!--/banner-tabs-box-->
+			</div>
+		</div>
+		<!--index-tabs-wrapper 首页 Banner TAB切换区域end-->
+
+		<!--中央精神，北京要闻，工作动态，通知公告，国务院信息，政务要闻 TAB区域-->
+		<div class="news-wrapper">
+			<div class="container">
+				<!--中央精神，北京要闻，工作动态，通知公告，国务院信息，政务要闻-->
+				<div class="left-content">
+					<!--news-tab-box-->
+					<div class="news-tab-box" id="newsTab">
+                        <div class="longulbox">
+							<ul class="list-nav">
+								<li class="active"><a href="https://www.beijing.gov.cn/ywdt/dzyjs/index.html" title="中央精神" target="_blank" data-target="#link_zyjs">中央精神</a></li>
+								<li><a href="https://www.beijing.gov.cn/ywdt/yaowen/" title="北京要闻" target="_blank" data-target="#link_bjyw">北京要闻</a></li>
+								<li><a href="/shouyexinxi/zwyw/" title="热点时事" target="_blank" data-target="#link_zwyw">热点时事</a></li>
+								<li><a href="/zhengwuxinxi/tzgg/" title="通知公告" target="_blank" data-target="#link_notice">通知公告</a></li>
+								<li><a href="/zhengwuxinxi/gzdt/" title="工作动态" target="_blank" data-target="#link_works">工作动态</a></li>
+							</ul>
+                        </div>
+						<!--panel-box-->
+						<div class="panel-box">
+						    <div class="panel animated fadeIn on" id="link_zyjs" region="slist:中央精神">
+								<ul class="list" id="zyjs_list">
+									
+								</ul>
+							</div>
+							<div class="panel animated fadeIn" id="link_bjyw" region="slist:北京要闻">
+								<ul class="list" id="bjyw_list">
+									
+								</ul>
+							</div>
+							<div class="panel animated fadeIn" id="link_works" region="slist:工作动态">
+								<ul class="list">
+									
+										<li><span>
+												2026-10-08</span><a href="./zhengwuxinxi/gzdt/mtg/202605/t20260513_4649451.html"
+											 target="_blank" title="“从严排查 规范管控”--市规划自然资源委门头沟分局联合属地政府开展公共公益项目专项检查">
+												“从严排查 规范管控”--市规划自然资源委门头沟分局联合属地政府开展公共公...</a></li>
+									
+										<li><span>
+												2026-10-08</span><a href="./zhengwuxinxi/gzdt/mtg/202610/t20261008_4892949.html"
+											 target="_blank" title="“多手段齐发力 严监管守底线”—市规划自然资源委门头沟分局多措并举织密筑牢监管网">
+												“多手段齐发力 严监管守底线”—市规划自然资源委门头沟分局多措并举织密筑...</a></li>
+									
+										<li><span>
+												2026-09-30</span><a href="./zhengwuxinxi/gzdt/mtg/202609/t20260930_4887301.html"
+											 target="_blank" title="市规划自然资源委门头沟分局深化协同联动执法机制 开展节前涉矿区域联合检查">
+												市规划自然资源委门头沟分局深化协同联动执法机制 开展节前涉矿区域联合检查</a></li>
+									
+										<li><span>
+												2026-09-29</span><a href="./zhengwuxinxi/gzdt/sj/202609/t20260929_4885256.html"
+											 target="_blank" title="深耕存量转型 赋能人民城市 ——2026年京津沪渝穗五城市规划院交流研讨会在市规划院顺利召开">
+												深耕存量转型 赋能人民城市 ——2026年京津沪渝穗五城市规划院交流研讨会在...</a></li>
+									
+										<li><span>
+												2026-09-24</span><a href="./zhengwuxinxi/gzdt/cp/202609/t20260924_4880179.html"
+											 target="_blank" title="昌平分局获2026年京津冀公民科学素质大赛应急科普赛道比赛优秀组织单位奖及代表队三等奖">
+												昌平分局获2026年京津冀公民科学素质大赛应急科普赛道比赛优秀组织单位奖及...</a></li>
+									
+								</ul>
+							</div>
+							<div class="panel animated fadeIn" id="link_notice" region="slist:通知公告">
+								<ul class="list">
+									
+										<li><span>
+												2026-10-08</span><a href="./zhengwuxinxi/tzgg/cp/202609/t20260930_4887517.html"
+											 target="_blank" title="北京市规划和自然资源委员会昌平分局--《责令改正违法行为通知书》送达公告--京规自（昌）责改字【2026】2001号】">
+												北京市规划和自然资源委员会昌平分局--《责令改正违法行为通知书》送达公告-...</a></li>
+									
+										<li><span>
+												2026-09-24</span><a href="./zhengwuxinxi/tzgg/my/202609/t20260922_4876464.html"
+											 target="_blank" title="接受调查通知书-京规自（密）调查字〔2026〕9号">
+												接受调查通知书-京规自（密）调查字〔2026〕9号</a></li>
+									
+										<li><span>
+												2026-09-23</span><a href="./zhengwuxinxi/tzgg/sj/202609/t20260923_4878357.html"
+											 target="_blank" title="关于领取2026年第三批注册测绘师注册证章的通知">
+												关于领取2026年第三批注册测绘师注册证章的通知</a></li>
+									
+										<li><span>
+												2026-09-23</span><a href="./zhengwuxinxi/tzgg/sj/202609/t20260923_4877387.html"
+											 target="_blank" title="关于暂停北京市丰台区岳各庄村A区棚户区改造土地开发项目DC-L02地块R2二类居住用地等2宗地国有建设用地使用权出让挂牌交易的公告">
+												关于暂停北京市丰台区岳各庄村A区棚户区改造土地开发项目DC-L02地块R2二类居...</a></li>
+									
+										<li><span>
+												2026-09-22</span><a href="./zhengwuxinxi/tzgg/sj/202609/t20260922_4876226.html"
+											 target="_blank" title="北京市规划展览馆​关于2026年中秋节、国庆节期间开放办法的通知">
+												北京市规划展览馆​关于2026年中秋节、国庆节期间开放办法的通知</a></li>
+									
+								</ul>
+							</div>
+							<div class="panel animated fadeIn" id="link_info" region="slist:国务院信息">
+								<ul class="list" id="gwyxx_list">
+									
+								</ul>
+							</div>
+							<div class="panel animated fadeIn" id="link_zwyw" region="slist:热点时事">
+								<ul class="list">
+									
+										<li><span>
+												2026-10-07</span><a href="./shouyexinxi/zwyw/202610/t20261007_4891743.html"
+											 target="_blank" title="全国铁路10月7日预计发送旅客2415万人次">
+												全国铁路10月7日预计发送旅客2415万人次</a></li>
+									
+										<li><span>
+												2026-10-06</span><a href="./shouyexinxi/zwyw/202610/t20261006_4891215.html"
+											 target="_blank" title="国务院安委办、应急管理部调度假期安全防范工作">
+												国务院安委办、应急管理部调度假期安全防范工作</a></li>
+									
+										<li><span>
+												2026-10-05</span><a href="./shouyexinxi/zwyw/202610/t20261005_4890657.html"
+											 target="_blank" title="国庆假期前三日约1.5万人走进党史展览馆">
+												国庆假期前三日约1.5万人走进党史展览馆</a></li>
+									
+										<li><span>
+												2026-10-04</span><a href="./shouyexinxi/zwyw/202610/t20261004_4890189.html"
+											 target="_blank" title="学习手记丨爱国，是人世间最深层、最持久的情感">
+												学习手记丨爱国，是人世间最深层、最持久的情感</a></li>
+									
+										<li><span>
+												2026-10-03</span><a href="./shouyexinxi/zwyw/202610/t20261003_4889679.html"
+											 target="_blank" title="工业和信息化部将加大工业遗产资源保护利用力度">
+												工业和信息化部将加大工业遗产资源保护利用力度</a></li>
+									
+								</ul>
+							</div>
+
+                            <div class="panel animated fadeIn" id="link_jqtj" region="slist:近期推荐">
+								<ul class="list">
+									
+										<li><span>
+												2026-03-04</span><a href="https://ghzrzyw.beijing.gov.cn/budongchandengji/bdcdj_bszn/bszn_bdcdjwscxml/202003/t20200330_1748870.html"
+											 target="_blank" title="北京市不动产登记信息网上查询操作指南">
+												北京市不动产登记信息网上查询操作指南</a></li>
+									
+										<li><span>
+												2026-08-28</span><a href="https://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgsxq.html?id=14ef3ee5b635081623e212aa7c3e3989"
+											 target="_blank" title="关于《北京城市副中心0601街区FZX-0601-0001等地块规划综合实施方案》的公示">
+												关于《北京城市副中心0601街区FZX-0601-0001等地块规划综合实施方案》的公示</a></li>
+									
+										<li><span>
+												2026-08-27</span><a href="https://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgsxq.html?id=e064faacd16523848c6e1f5a99c96d89"
+											 target="_blank" title="关于《大兴区生物医药基地东配套区D组团DX00-0505-0022、0031等地块规划综合实施方案》的公示">
+												关于《大兴区生物医药基地东配套区D组团DX00-0505-0022、0031等地块规划综合...</a></li>
+									
+										<li><span>
+												2026-09-07</span><a href="https://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgsxq.html?id=e2ae8d829e68bd2aba35c20f9b015c5f"
+											 target="_blank" title="关于西北旺镇HD00-0201-6010地块集体产业用地项目方案的公示">
+												关于西北旺镇HD00-0201-6010地块集体产业用地项目方案的公示</a></li>
+									
+										<li><span>
+												2026-08-28</span><a href="https://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgsxq.html?id=90c8762f05302ba82c784307b4d4c127"
+											 target="_blank" title="关于顺义区后沙峪镇温榆河生态走廊周边用地土地一级开发项目SY00-2101-200708地块二类居住用地项目规划设计方案的公示">
+												关于顺义区后沙峪镇温榆河生态走廊周边用地土地一级开发项目SY00-2101-20070...</a></li>
+									
+								</ul>
+							</div>
+							
+							
+						</div>
+						<!--/panel-box-->
+					</div>
+					<!--/news-tab-box-->
+				</div>
+				<!--中央精神，北京要闻，工作动态，通知公告，国务院信息，政务要闻end-->
+
+				<!--政务信息公开-->
+				<div class="right-content">
+					<!--news-tab-box-->
+					<div class="news-tab-box" id="infoTab">
+						<div class="t-box">
+							<!--<a href="javascript:;" id="infoTabMore" class="update-list">换一批</a>-->
+							<ul class="list-nav">
+								<li class="active" data-more="#infoTabMore"><a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/zfxxgkzn"
+									  data-target="#link_open" target="_blank">政府信息公开</a></li>
+							</ul>
+						</div>
+						<!--panel-box-->
+						<div class="panel-box">
+							<div class="panel animated flipInX on">
+								<div class="dl-box">
+									<dl region="slist:政策"><a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/zcwj/" target="_blank" title="政策"><dt> <img alt="政策" title="政策" class="normal" src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_zc.png" /> <img alt="政策" title="政策" class="animated rotateIn hover" src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_zc_hover.png" /> </dt>
+											<dd>政策</dd>
+										</a>
+									</dl>
+									<dl region="slist:公开指南"><a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/zfxxgkzn"
+										 target="_blank" title="公开指南"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_01.png" alt="公开指南" title="公开指南" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_01_hover.png" alt="公开指南" title="公开指南" class="animated rotateIn hover" /> </dt>
+											<dd>公开指南</dd>
+										</a>
+									</dl>
+									<dl region="slist:公开目录"><a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/zfxxgkml" target="_blank" title="公开目录"><dt>
+												<img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_02.png" alt="公开目录" title="公开目录" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_02_hover.png" alt="公开目录" title="公开目录" class="animated rotateIn hover" /> </dt>
+											<dd>公开目录</dd>
+										</a>
+									</dl>
+									<dl region="slist:公开年报"><a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/zfxxgknb" target="_blank"
+										 title="公开年报"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_03.png" alt="公开年报" title="公开年报" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_03_hover.png" alt="公开年报" title="公开年报" class="animated rotateIn hover" /> </dt>
+											<dd>公开年报</dd>
+										</a>
+									</dl>
+									<dl region="slist:依申请公开"><a href="//yewu.ghzrzyw.beijing.gov.cn/gwhd/ysqgk/sqlc.html" target="_blank" title="依申请公开"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_04.png" title="依申请公开" alt="依申请公开" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_04_hover.png" title="依申请公开" alt="依申请公开" class="animated rotateIn hover" /> </dt>
+											<dd>依申请公开</dd>
+										</a>
+									</dl>
+									<dl region="slist:网站工作年度报表"><a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/ndgzbb/" target="_blank" title="网站工作年度报表"><dt> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_06.png" alt="网站工作年度报表" title="网站工作年度报表" class="normal" /> <img src="https://ghzrzyw.beijing.gov.cn/images/xin_open_icon_06_hover.png" alt="网站工作年度报表" title="网站工作年度报表" class="animated rotateIn hover" /> </dt>
+											<dd>网站工作报表</dd>
+										</a>
+									</dl>
+								</div>
+							</div>
+						</div>
+						<!--/panel-box-->
+					</div>
+					<!--/news-tab-box-->
+				</div>
+				<!--政务信息公开end-->
+			</div>
+		</div>
+		<!--中央精神，北京要闻，通知公告，工作动态，国务院文件，国务院信息 TAB区域end-->
+
+
+		<!--规划类公示，规划类公告、土地招拍挂项目 TAB区域-->
+		<div class="index-tabBox-wrapper" id="newsTab2">
+			<div class="container mobile-business-section">
+				<div class="longulbox">
+					<ul class="list-nav">
+						<li class="active"><a href="javascript:void(0);" title="热点业务">热点业务</a></li>
+					</ul>
+				</div>
+				<div class="panel-box">
+					<div class="panel-left">
+						<div><a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgs.html" title="规划类公示" target="_blank">规划类公示</a></div>
+						<div><a href="//ghzrzyw.beijing.gov.cn/chengxiangguihua/ghlgg/" title="规划类公告" target="_blank">规划类公告</a></div>
+					</div>
+					<div class="panel-right">
+						<div>
+							<a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/tdsc/tdzpgxm.html" title="土地招拍挂项目" target="_blank" >土地招拍挂项目</a>
+						</div>
+						<div>
+							<a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/tdscydysq/ydysq.html" title="用地预申请" target="_blank">用地预申请</a>
+						</div>
+						<div>
+							<a href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/clzzydxx/" title="存量住宅用地信息" target="_blank">存量住宅用地信息</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="title moredivbox" >
+					<!--<a href="javascript:;" title="查看全部" class="btn-more">查看全部</a>-->
+					<ul class="list-nav nofloatbox" style="width:50%;float:left;">
+						<li class="active"><a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgs.html" title="规划类公示" data-target="#link_notice_01" target="_blank">规划类公示</a></li>
+						<li><a href="//ghzrzyw.beijing.gov.cn/chengxiangguihua/ghlgg/" title="规划类公告" data-target="#link_notice_02" target="_blank">规划类公告</a></li>
+					</ul>
+					<a href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/cxghghlgs/ghlgs.html" class="moreglgg">更多>></a>
+					<div width:50%;float:left;" class="nofloatbox">
+						<a class="imgabig" href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/tdsc/tdzpgxm.html" title="土地招拍挂项目" target="_blank" ><img src="https://ghzrzyw.beijing.gov.cn/images/sy_pic_tdzpb.png" /></a>
+						<a class="imgabig" href="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/tdscydysq/ydysq.html" title="用地预申请" target="_blank"><img src="https://ghzrzyw.beijing.gov.cn/images/sy_pic_ydysq.png" /></a>
+						<a class="imgabig" href="//ghzrzyw.beijing.gov.cn/zhengwuxinxi/clzzydxx/" title="存量住宅用地信息" target="_blank"><img src="https://ghzrzyw.beijing.gov.cn/images/sy_pic_clzzydxx.png" /></a>
+					</div>
+				</div>
+				<!--panel-box-->
+				<div class="panel-box" style="height:auto;">
+					<div class="panel animated fadeIn on" id="link_notice_01" region="slist:规划类公示">
+						<iframe class="iframename" src="//yewu.ghzrzyw.beijing.gov.cn/gwxxfb/portal/ghlgs2.html" frameborder="0" scrolling="no" class="frame" id="" role="list" width="100%" seamless></iframe>
+					</div>
+					<div class="panel animated fadeIn" id="link_notice_02" region="slist:规划类公告">
+						
+							<a href="./chengxiangguihua/ghlgg/hr_ghlgg/202610/t20261008_4893270.html" class="link" title="关于怀柔区怀柔镇大中富乐村工业一区锅炉房项目规划综合实施方案公示采信情况的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="关于怀柔区怀柔镇大中富乐村工业一区锅炉房项目规划综合实施方案公示采信情况的通告" title="
+										关于怀柔区怀柔镇大中富乐村工业一区锅炉房项目规划综合实施方案公示采信情况的通告" /></dt>
+									<dd>
+										<p class="tit">
+											关于怀柔区怀柔镇大中富乐村工业一区锅炉房项目规划综...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-10-08</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+							<a href="./chengxiangguihua/ghlgg/hr_ghlgg/202610/t20261008_4893234.html" class="link" title="关于北京春风药业改扩建工程二期项目方案公示反馈意见采信情况和总平面图公布的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="关于北京春风药业改扩建工程二期项目方案公示反馈意见采信情况和总平面图公布的通告" title="
+										关于北京春风药业改扩建工程二期项目方案公示反馈意见采信情况和总平面图公布的通告" /></dt>
+									<dd>
+										<p class="tit">
+											关于北京春风药业改扩建工程二期项目方案公示反馈意见...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-10-08</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+							<a href="./chengxiangguihua/ghlgg/sy_ghlgg/202610/t20261008_4892813.html" class="link" title="关于北京市顺义区马头庄村剩余地块综合改造土地一级开发项目二期SY00-1801-0503地块供地项目方案公示反馈意见采信情况和总平面图公布的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="关于北京市顺义区马头庄村剩余地块综合改造土地一级开发项目二期SY00-1801-0503地块供地项目方案公示反馈意见采信情况和总平面图公布的通告" title="
+										关于北京市顺义区马头庄村剩余地块综合改造土地一级开发项目二期SY00-1801-0503地块供地项目方案公示反馈意见采信情况和总平面图公布的通告" /></dt>
+									<dd>
+										<p class="tit">
+											关于北京市顺义区马头庄村剩余地块综合改造土地一级开...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-10-08</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+							<a href="./chengxiangguihua/ghlgg/dx_ghlgg/202610/t20261008_4892548.html" class="link" title="关于北京大兴国际机场噪声区安置房及配套设施项目(榆垡组团A区0419地块)设计方案总平面图公布的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="关于北京大兴国际机场噪声区安置房及配套设施项目(榆垡组团A区0419地块)设计方案总平面图公布的通告" title="
+										关于北京大兴国际机场噪声区安置房及配套设施项目(榆垡组团A区0419地块)设计方案总平面图公布的通告" /></dt>
+									<dd>
+										<p class="tit">
+											关于北京大兴国际机场噪声区安置房及配套设施项目(榆垡...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-10-08</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+							<a href="./chengxiangguihua/ghlgg/mtg_ghlgg/202609/t20260930_4886642.html" class="link" title="北京骏洋大厦改造项目方案公示反馈意见采信情况和总平面图公布的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="北京骏洋大厦改造项目方案公示反馈意见采信情况和总平面图公布的通告" title="
+										北京骏洋大厦改造项目方案公示反馈意见采信情况和总平面图公布的通告" /></dt>
+									<dd>
+										<p class="tit">
+											北京骏洋大厦改造项目方案公示反馈意见采信情况和总平...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-09-30</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+							<a href="./chengxiangguihua/ghlgg/pg_ghlgg/202609/t20260929_4884771.html" class="link" title="关于京平综合物流枢纽园区物流配套设施工程一期项目设计方案公示反馈意见采信情况和总平面图公布的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="关于京平综合物流枢纽园区物流配套设施工程一期项目设计方案公示反馈意见采信情况和总平面图公布的通告" title="
+										关于京平综合物流枢纽园区物流配套设施工程一期项目设计方案公示反馈意见采信情况和总平面图公布的通告" /></dt>
+									<dd>
+										<p class="tit">
+											关于京平综合物流枢纽园区物流配套设施工程一期项目设...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-09-29</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+							<a href="./chengxiangguihua/ghlgg/pg_ghlgg/202609/t20260929_4884759.html" class="link" title="关于马坊镇西太平庄村互助养老中心及综合服务场所项目方案公示反馈意见采信情况和总平面图公布的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="关于马坊镇西太平庄村互助养老中心及综合服务场所项目方案公示反馈意见采信情况和总平面图公布的通告" title="
+										关于马坊镇西太平庄村互助养老中心及综合服务场所项目方案公示反馈意见采信情况和总平面图公布的通告" /></dt>
+									<dd>
+										<p class="tit">
+											关于马坊镇西太平庄村互助养老中心及综合服务场所项目...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-09-29</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+							<a href="./chengxiangguihua/ghlgg/sy_ghlgg/202609/t20260922_4875993.html" class="link" title="关于李遂消防站项目方案公示反馈意见采信情况和总平面图公布的通告"
+							 target="_blank">
+								<dl class="item"> <dt><img src="https://ghzrzyw.beijing.gov.cn/images/xin_file.png" alt="关于李遂消防站项目方案公示反馈意见采信情况和总平面图公布的通告" title="
+										关于李遂消防站项目方案公示反馈意见采信情况和总平面图公布的通告" /></dt>
+									<dd>
+										<p class="tit">
+											关于李遂消防站项目方案公示反馈意见采信情况和总平面...
+										</p>
+										<p class="btm"> <span class="time">日期：
+												2026-09-22</span> <span class="day" style="display:none;">公示期：</span>
+										</p>
+									</dd>
+								</dl>
+							</a>
+						
+					</div>
+				</div>
+				<!--/panel-box-->
+			</div>
+		</div>
+		<!--规划类公示，规划类公告、土地招拍挂项目 TAB区域end-->
+
+		<!--底部鼠标滚动轮播图-->
+        <div class="mobile-index-bottom-slider">
+            <!-- <div class="index-sliderin">                        
+                
+					<div class="slideimg">
+						<a href="https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/csgx/csgxzlsy/" title="口袋藏良策  万象始更新" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202608/W020260806707097176629.png" width="280" height="116" alt="口袋藏良策  万象始更新" title="口袋藏良策  万象始更新" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/xxgh/sj/202008/t20200829_1993379.html" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202010/W020201009577006773097.jpg" width="280" height="116" alt="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="https://yewu.ghzrzyw.beijing.gov.cn/gwhd/qyfwztc/index.html" title="企业服务直通车" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202412/W020241218328393657019.jpg" width="280" height="116" alt="企业服务直通车" title="企业服务直通车" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/szkp/" title="数字科普平台" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202010/W020231229657540013128.png" width="280" height="116" alt="数字科普平台" title="数字科普平台" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zysj/index.html" title="住有所居" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202010/W020220222609712489948.png" width="280" height="116" alt="住有所居" title="住有所居" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/sgsxzspjg/index.html" title="行政许可和行政处罚结果公示信息（双公示）" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202006/W020210902415912423322.png" width="280" height="116" alt="行政许可和行政处罚结果公示信息（双公示）" title="行政许可和行政处罚结果公示信息（双公示）" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/ndgzbb/index.html" title="政府网站年度工作报表" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/201912/W020220318584817125310.png" width="280" height="116" alt="政府网站年度工作报表" title="政府网站年度工作报表" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zxzt_xzzfgs/index.html" title="行政执法公示" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202003/W020210918565935376961.jpg" width="280" height="116" alt="行政执法公示" title="行政执法公示" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="https://banshi.beijing.gov.cn/pubtask/bhyjs/ssfw/ssfw.html" title="企业“三送”服务指南" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202005/W020240719652276759940.jpg" width="280" height="116" alt="企业“三送”服务指南" title="企业“三送”服务指南" />
+						</a>
+					</div>
+				
+					<div class="slideimg">
+						<a href="http://www.gov.cn/zhuanti/zggcddescqgdbdh/index.htm" title="学习贯彻党的二十大精神" target="_blank" class="item-img">
+							<img src="./shouyexinxi/syzxzt/202301/W020230109623696329059.jpg" width="280" height="116" alt="学习贯彻党的二十大精神" title="学习贯彻党的二十大精神" />
+						</a>
+					</div>
+				                           
+            </div> -->
+			<div class="swiper-container" id="mobile-swiper-container">
+				<div class="swiper-wrapper">
+					
+						<div class="swiper-slide">
+							<a href="https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/csgx/csgxzlsy/" title="口袋藏良策  万象始更新" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202608/W020260806707097176629.png" alt="口袋藏良策  万象始更新" title="口袋藏良策  万象始更新" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/xxgh/sj/202008/t20200829_1993379.html" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202010/W020201009577006773097.jpg" alt="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="https://yewu.ghzrzyw.beijing.gov.cn/gwhd/qyfwztc/index.html" title="企业服务直通车" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202412/W020241218328393657019.jpg" alt="企业服务直通车" title="企业服务直通车" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/szkp/" title="数字科普平台" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202010/W020231229657540013128.png" alt="数字科普平台" title="数字科普平台" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zysj/index.html" title="住有所居" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202010/W020220222609712489948.png" alt="住有所居" title="住有所居" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/sgsxzspjg/index.html" title="行政许可和行政处罚结果公示信息（双公示）" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202006/W020210902415912423322.png" alt="行政许可和行政处罚结果公示信息（双公示）" title="行政许可和行政处罚结果公示信息（双公示）" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/ndgzbb/index.html" title="政府网站年度工作报表" target="_blank">
+								<img src="./shouyexinxi/syzxzt/201912/W020220318584817125310.png" alt="政府网站年度工作报表" title="政府网站年度工作报表" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zxzt_xzzfgs/index.html" title="行政执法公示" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202003/W020210918565935376961.jpg" alt="行政执法公示" title="行政执法公示" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="https://banshi.beijing.gov.cn/pubtask/bhyjs/ssfw/ssfw.html" title="企业“三送”服务指南" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202005/W020240719652276759940.jpg" alt="企业“三送”服务指南" title="企业“三送”服务指南" />
+							</a>
+						</div>
+					
+						<div class="swiper-slide">
+							<a href="http://www.gov.cn/zhuanti/zggcddescqgdbdh/index.htm" title="学习贯彻党的二十大精神" target="_blank">
+								<img src="./shouyexinxi/syzxzt/202301/W020230109623696329059.jpg" alt="学习贯彻党的二十大精神" title="学习贯彻党的二十大精神" />
+							</a>
+						</div>
+					
+					<!-- <div class="swiper-slide">
+					  <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/xxgh/sj/202008/t20200829_1993379.html" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202010/W020201009577006773097.jpg" alt="首都功能核心区控制性详细规划" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="https://yewu.ghzrzyw.beijing.gov.cn/gwhd/qyfwztc/index.html" title="企业服务直通车" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202412/W020241218328393657019.jpg" alt="企业服务直通车" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="https://yllhj.beijing.gov.cn/ztxx/zqsk/202207/t20220704_2762075.shtml" title="北京助企纾困政策集成" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202210/W020221019584222412586.jpg" alt="北京助企纾困政策集成" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/szkp/" title="数字科普平台" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202010/W020231229657540013128.png" alt="数字科普平台" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zysj/index.html" title="住有所居" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202010/W020220222609712489948.png" alt="住有所居" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/sgsxzspjg/index.html" title="行政许可和行政处罚结果公示信息（双公示）" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202006/W020210902415912423322.png" alt="行政许可和行政处罚结果公示信息（双公示）" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/ndgzbb/index.html" title="政府网站年度工作报表" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/201912/W020220318584817125310.png" alt="政府网站年度工作报表" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zxzt_xzzfgs/index.html" title="行政执法公示" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202003/W020210918565935376961.jpg" alt="行政执法公示" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/agzyjyjd/index.html" title="爱国主义教育基地" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202001/W020220222609939709479.png" alt="爱国主义教育基地" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="https://beijing.tianditu.gov.cn/bzdt/" title="北京标准地图" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202105/W020210511597792972472.jpg" alt="北京标准地图" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/wsghs/index.html" title="我是规划师" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202101/W020210120606589952350.jpg" alt="我是规划师" />
+					  </a>
+					</div>
+				
+					<div class="swiper-slide">
+					  <a href="https://banshi.beijing.gov.cn/pubtask/bhyjs/ssfw/ssfw.html" title="企业三送服务指南" target="_blank">
+						<img src="https://ghzrzyw.beijing.gov.cn/shouyexinxi/syzxzt/202005/W020240719652276759940.jpg" alt="企业三送服务指南" />
+					  </a>
+					</div> -->
+				  </div>
+			</div>
+        </div>
+		<!--底部鼠标滚动轮播图-->
+		<div class="index-bottom-slider">
+			<div class="container">
+				<!-- Swiper -->
+				<div class="swiper-container" id="swiperContainer">
+					<div class="swiper-wrapper" region="slist:专题专栏">
+						
+							<div class="swiper-slide">
+								<a href="https://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/csgx/csgxzlsy/" title="口袋藏良策  万象始更新" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202608/W020260806707097176629.png" width="280" height="116" alt="口袋藏良策  万象始更新" title="口袋藏良策  万象始更新" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/ghcg/xxgh/sj/202008/t20200829_1993379.html" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202010/W020201009577006773097.jpg" width="280" height="116" alt="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" title="首都功能核心区控制性详细规划（街区层面）（2018年—2035年）" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="https://yewu.ghzrzyw.beijing.gov.cn/gwhd/qyfwztc/index.html" title="企业服务直通车" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202412/W020241218328393657019.jpg" width="280" height="116" alt="企业服务直通车" title="企业服务直通车" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/szkp/" title="数字科普平台" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202010/W020231229657540013128.png" width="280" height="116" alt="数字科普平台" title="数字科普平台" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zysj/index.html" title="住有所居" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202010/W020220222609712489948.png" width="280" height="116" alt="住有所居" title="住有所居" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="http://yewu.ghzrzyw.beijing.gov.cn/gwxxfb/sgsxzspjg/index.html" title="行政许可和行政处罚结果公示信息（双公示）" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202006/W020210902415912423322.png" width="280" height="116" alt="行政许可和行政处罚结果公示信息（双公示）" title="行政许可和行政处罚结果公示信息（双公示）" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/ndgzbb/index.html" title="政府网站年度工作报表" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/201912/W020220318584817125310.png" width="280" height="116" alt="政府网站年度工作报表" title="政府网站年度工作报表" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="http://ghzrzyw.beijing.gov.cn/zhengwuxinxi/zxzt/zxzt_xzzfgs/index.html" title="行政执法公示" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202003/W020210918565935376961.jpg" width="280" height="116" alt="行政执法公示" title="行政执法公示" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="https://banshi.beijing.gov.cn/pubtask/bhyjs/ssfw/ssfw.html" title="企业“三送”服务指南" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202005/W020240719652276759940.jpg" width="280" height="116" alt="企业“三送”服务指南" title="企业“三送”服务指南" />
+								</a>
+							</div>
+						
+							<div class="swiper-slide">
+								<a href="http://www.gov.cn/zhuanti/zggcddescqgdbdh/index.htm" title="学习贯彻党的二十大精神" target="_blank"
+								 class="item-img">
+									<img src="./shouyexinxi/syzxzt/202301/W020230109623696329059.jpg" width="280" height="116" alt="学习贯彻党的二十大精神" title="学习贯彻党的二十大精神" />
+								</a>
+							</div>
+						
+					</div>
+					<div class="btn-swiper swiper-button-next"></div>
+					<div class="btn-swiper swiper-button-prev"></div>
+				</div>
+				<!-- /Swiper -->
+			</div>
+		</div>
+		<!--底部鼠标滚动轮播图end-->
+		 <!--//左侧定位图-->
+		<div class="fixed-banner" >
+			<ul class="list" style="right:50%; z-index:999;margin-right:350px;">
+			
+			</ul>
+		</div>
+
+		<!--//广告飘窗-->
+		
+		<!--//广告飘窗end-->
+
+		<!--//脚本-->
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/position.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/index.js"></script>
+		
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/jquery.bay-window.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/jquery.bay-window.min.js"></script>
+		<script type="text/javascript">
+			
+			$('#bay').autoMove({
+			    angle: -Math.PI / 4,
+			    speed: 100
+			});
+
+			function closeBay() {
+			    $('#bay').remove();
+			}
+
+         
+		</script>
+		<!--//脚本end-->
+
+
+		<a id="hash"  href="javascript:void(0)" onclick="return false;"></a>
+		<div class="alert-warning" id="alert-warning">
+				  <div class="alert-delete">
+			   <span id="closets"></span>
+			</div>	
+			<div class="alert-wzsm">
+				<p>您访问的链接即将离开“北京市规划和自然资源委员会”门户网站 是否继续？</p>
+				<p id="outUrl" style="display: none"></p>
+			</div>
+			<div class="alert-footer">		
+				 <div class="xuanze">
+								  <span class="continue" onclick="window.open(outUrl.innerText);document.getElementById('closets').click();"></span>	
+				<span class="fangqi">放弃</span>	
+				 </div>
+			</div>
+
+		</div>
+		<div class="alert-mengban"></div>
+		<!-- 语音输入框 start -->
+		<div class="voice-draw">
+			<div class="voice-div">
+				<div class="voice-head">
+					<span class="voice-close"></span>
+				</div>
+				<div class="voice-con">
+					<div class="init-txt">
+						<span class="voice-tips-txt">我在听，请说话</span><span class="voice-tips-time">(10s)</span>
+					</div>
+					<div class="noIdentify-txt">
+						<span class="voice-tips-txt">抱歉，没听清，请再说一遍吧</span>
+					</div>
+					<div class="identify-txt">
+						<span class="voice-tips-txt" id="voice-search-result"></span>
+					</div>
+				</div>
+				<div class="voice-button">
+					<span class="voice-button-png" id="btn_control"></span>
+					<span class="voice-button-gif"></span>
+				</div>
+			</div>
+		</div>
+		<!-- 语音输入框 end -->
+		<script>
+			$("a").each(function(){
+			    var htm=$(this).html();
+			    $(this).click(function(){
+			        if(this.href.toLowerCase().indexOf("huhuhu.xiaomiqiu.com")==-1&&this.href!=""&&this.href.toLowerCase().indexOf("javascript")==-1&&this.href.toLowerCase().indexOf(".gov.cn")==-1&&this.href.toLowerCase().indexOf("javascript:preVious")==-1&&this.href.toLowerCase().indexOf("javascript:next")==-1){
+
+			            document.getElementById('outUrl').innerText=this.href;
+						  document.getElementById('hash').click();
+			            $(".alert-mengban").fadeIn(200);
+			            $(".alert-warning").delay(200).show().animate({top:"75px"}, 300);
+			            $("#closets,.fangqi,.alert-mengban").click(function() {
+			                $(".alert-warning").animate({top:"-400px"}, 200).hide(300);
+			                $(".alert-mengban").delay(300).fadeOut(300);
+			            });
+			            $(".continue").click(function(){			
+						   $(".alert-warning").hide(200);
+								 $(".alert-mengban").delay(200).fadeOut(200);
+			            })
+			            return false;
+			        }
+			    });
+			});
+		</script>
+
+
+		<!--//浮动组件-->
+		<!--fixed-wrap 右侧悬浮组件-->
+    <div class="fixed-wrap fixed-02">
+        <ul class="list">
+            <li class="item_01"> <a href="javascript:;"><img src="./images/fixed_01.png" alt="微信" title="微信" /></a>
+                <div class="img-code"> <img sytle="width: 75%;height: 145px;" src="./images/fixed_code_wx_01.jpg" alt="北京规划自然资源微信" title="北京规划自然资源微信" /> <img sytle="width: 75%;height: 145px;" src="./images/fixed_code_wx_02.jpg" alt="北京市不动产登记" title="北京市不动产登记" /> <img sytle="width: 75%;height: 145px;" src="./images/cjdag.jpg" alt="北京城建档案馆查档预约" title="北京城建档案馆查档预约" />  </div>
+            </li>
+            <li class="item_02"> <a href="javascript:;"><img src="./images/fixed_02.png" alt="微博" title="微博" /></a>
+                <div class="img-code"> <img src="./images/fixed_code_wb.jpg" alt="微博" title="微博" /> </div>
+            </li>
+            <li class="item_03"><a href="https://beijing.tianditu.gov.cn/" target="_blank" title="天地图北京"><img src="./images/fixed_04.png" alt="天地图北京" title="天地图北京" /></a></li>
+            <li class="item_04"><a href="https://bdc.ghzrzyw.beijing.gov.cn/eo/" target="_blank" title="北京市不动产登记领域网上办事服务平台"><img src="./images/fixed_05.png" alt="北京市不动产登记领域网上办事服务平台" title="北京市不动产登记领域网上办事服务平台" /></a></li>
+            <li class="item_05"><a href="https://ghzrzyw.beijing.gov.cn/jj/" target="_blank" title="智能问答"><img src="./images/fixed_06.png" alt="智能问答" title="智能问答" /></a></li>
+
+     <li class="item_07"><a href="https://beijing.tianditu.gov.cn/gzwonemap/map.html" target="_blank" title="国土空间信息查询系统"><img alt="国土空间信息查询系统" title="国土空间信息查询系统" src="./images/gtkjxxcxxt.png" /></a></li>
+     </ul>
+    </div>
+
+<style>
+@media screen and (max-width:1200px) { 
+	div.fixed-wrap{display:none; }
+}
+div.fixed-wrap ul.list li .img-code img{
+width: 73% !important;
+height: 100% !important;
+}
+</style>
+    <!--/fixed-wrap-->
+<script type="text/javascript">
+//返回顶部
+        $(function() {
+            $('body').scroll2Top();
+        });
+    </script>
+		<!--//底部-->
+		<!--正式： https://ghzrzyw.beijing.gov.cn/zhandianxinxi/footer/index.html -->
+		<!--测式： https://ghzrzyw.beijing.gov.cn/test/test1/index.html -->
+		<!-- 页脚 -->
+		<iframe class="iframetwo" src="//ghzrzyw.beijing.gov.cn/zhandianxinxi/footer/index.html" frameborder="0" scrolling="no" width="100%" height="327" style="min-width: 1200px;" seamless></iframe>
+		<!--无障碍-->
+		<!-- <script defer async type="text/javascript" src="//wza.beijing.gov.cn/dist/aria.js?appid=6bee6469c3df848ee88bb9907c95fe28" charset="utf-8" wapForceOldFixed="false" loadData="false" id="ariascripts"></script> -->
+		<!--流量分析-->
+		<script>
+			var _vaq = _vaq || [];
+			_vaq.push(["setCookieDomain", "auto"]);
+			_vaq.push(['setPingTime',3000]);                                             
+			_vaq.push(['enableHeat']);
+			_vaq.push(['trackPageView']);
+			(function() {
+			    _vaq.push(['setSiteId',1105]);
+			    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
+			    g.defer=true; g.async=true; g.src='https://yhxw.tj.beijing.gov.cn/vas.js'; s.parentNode.insertBefore(g,s);
+			})();                                                                                     
+		</script>
+		<!-- 移动端导航 -->
+		<!-- 导航 -->
+<style>
+	.navBar {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		/* height: 100%; */
+		position: fixed;
+		right: -100%;
+		top: 185px;
+		bottom: 0;
+		z-index: 99;
+		padding: 0 50px 50px;
+		background: #BD1A2D;
+	}
+	/* 第一级菜单 */
+	.navMenu {
+		width: 100%;
+		height: 0;
+		flex: 1;
+		background: #BD1A2D;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	.navMenu .item {
+		width: 100%;
+		height: 200px;
+		font-size: 45px;
+		font-weight: bold;
+		color: #FFF;
+		padding: 0 60px;
+		border-bottom: solid 1px #a50014;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.navMenu .item .tit {
+		flex: 1;
+		color: #FFF;
+		display: flex;
+		align-items: center;
+	}
+	.navMenu .item .tit span {
+		flex: 1;
+	}
+	.navMenu .item .more {
+		width: 35px;
+		height: 35px;
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_arrow.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item .tit::before {
+		content: '';
+		display: block;
+		width: 65px;
+		height: 65px;
+		margin-right: 50px;
+	}
+	.navMenu .item:nth-of-type(1) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_01.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(2) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_02.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(3) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_03.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(4) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_04.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(5) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_05.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(6) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_06.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(7) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_07.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(8) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_08.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.navMenu .item:nth-of-type(9) .tit::before {
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_09.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.subNavBox {
+		width: 100%;
+		/* height: 100%; */
+		position: fixed;
+		right: -100%;
+		top: 185px;
+		bottom: 0;
+		z-index: 99;
+	}
+	.navBar .closeBox {
+		width: 100%;
+		height: 200px;
+		background: #BD1A2D;
+		border-bottom: solid 6px rgba(103,7,18,0.6);
+		padding: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.navBar .closeBox>a:first-child {
+		font-size: 60px;
+		font-weight: bold;
+		color: #FFF;
+		flex: 1;
+		text-align: center;
+	}
+	.navBar .closeBox .iconClose {
+		width: 90px;
+		height: 90px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: url(https://ghzrzyw.beijing.gov.cn/images/icon_nav_close.png) no-repeat center center;
+		background-size: 50px 50px;
+	}
+	.subNavBox .iframeNav {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+
+</style>
+<div class="navBar" id="navBar">
+	<div class="closeBox">
+		<a href="javascript:;"><span>网站地图</span></a>
+		<a href="javascript:;" class="iconClose"></a>
+	</div>
+	<div class="navMenu">
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>政务公开</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>政务服务</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>政民互动</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>城乡规划</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>自然资源管理</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>不动产登记</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>勘察设计</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;"  class="tit"><span>测绘地理信息</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		<div class="item">
+			<a href="javascript:;" class="tit"><span>标准管理</span></a>
+			<a href="javascript:;" class="more"></a>
+		</div>
+		
+	</div>
+</div>
+<div class="subNavBox">
+	<iframe class="iframeNav" frameborder="0" height="201" scrolling="no" src="//ghzrzyw.beijing.gov.cn/zhandianxinxi/mNav/index.html" style="min-width: 375px;" width="100%" seamless></iframe>
+</div>
+
+<script>
+	function menuOpen() {
+		if (parseInt($('#navBar').css('right')) < 0) {
+			$('#navBar').show().animate({
+				right: 0
+			},400)
+			// 禁止页面滚动
+			$('body').css({
+				position: 'fixed',
+				overflow: 'hidden'
+			})
+		} else {
+			$('#navBar').animate({
+				right: '-100%'
+			},400)
+			$('.iframeNav').animate({
+				left: 0
+			},400,function(){
+				$('.iframeNav').contents().find('.subNav').hide()
+			})
+			$('body').css({
+				position: 'static',
+				overflow: 'auto'
+			})
+		}
+	}
+	window.onload = function(){
+		// 导航一级菜单
+		$('.iframeone').contents().find('#iconNav').click(function(){
+			menuOpen()
+		})
+		$('#iconNav').click(function(){
+			menuOpen()
+		})
+		// 关闭
+		$('.navBar .closeBox .iconClose').click(function(){
+			$('#navBar').animate({
+				right: '-100%'
+			},400)
+			$('body').css({
+				position: 'static',
+				overflow: 'auto'
+			})
+		})
+		// 二级菜单
+		var subIndex = NaN
+		$('#navBar .navMenu .more,#navBar .navMenu .tit').click(function(){
+			subIndex = $(this).parent('.item').index()
+			$('.iframeNav').animate({
+				left: '-100%'
+			},400)
+			$('.iframeNav').contents().find('.subNav').eq(subIndex).show()
+		})
+		
+		$('.iframeNav').contents().find('.subNav .back').click(function(e){
+			console.log($('.iframeNav').contents().find('.subNav .back').html());
+			subIndex = NaN
+			$('.iframeNav').animate({
+				left: 0
+			},400,function(){
+				$('.iframeNav').contents().find('.subNav').hide()
+			})
+		})
+	}
+</script>
+<!--无障碍-->
+<script defer async type="text/javascript" src="//wza.beijing.gov.cn/dist/aria.js?appid=6bee6469c3df848ee88bb9907c95fe28" charset="utf-8" wapForceOldFixed="false" loadData="false" id="ariascripts"></script>
+		<!-- 语音识别js start-->
+		<!-- <script type="text/javascript" src="./images/speech.umd.js"></script>
+        <script type="text/javascript" src="./images/speech2.js"></script> -->
+
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/speech.umd.js"></script>
+		<script type="text/javascript" src="https://ghzrzyw.beijing.gov.cn/images/speech2.js"></script>
+		<!-- 语音识别js end-->
+	</body>
+</html>

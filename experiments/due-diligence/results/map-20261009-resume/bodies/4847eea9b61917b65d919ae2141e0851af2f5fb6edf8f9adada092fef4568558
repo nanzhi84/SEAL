@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="SiteName" content="中国民用航空局"><meta name="SiteDomain" content="www.caac.gov.cn"><meta name="SiteIDCode" content="bm70000001"><meta name="ColumnName" content="电子客票验真"><meta name="ColumnDescription" content="电子行程单验真"><meta name="ColumnKeywords" content="电子行程单"><meta name="ColumnType" content="航旅服务">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <link rel="stylesheet" type="text/css" href="../../../images/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../images/all.css" />
+    <script type="text/javascript" src="../../../images/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../../../images/scroll.js"></script>
+    <script type="text/javascript" src="../../../images/select.js"></script>
+    <script type="text/javascript" src="../../../images/jquery.js"></script>
+    <script type="text/javascript" src="../../../images/all.js"></script>
+    <link rel="icon" href="../../../images/favicon.png" type="image/x-icon" />
+		<link rel="shortcut icon" type="image/x-icon" href="../../../images/favicon.png" />
+
+    <title>中国民用航空局--电子客票验真</title>
+</head>
+
+<body>
+<div class="wrap">
+    <!--top-->
+    <style type="text/css">   
+.t_search input{font-family:Microsoft Yahei, Arial, Helvetica, sans-serif}
+.action_move{margin-top:4px}  
+.action_move i{margin-top:-2px} 
+/*.nav li a {
+    width: 106.6px;
+}*/
+
+</style> 
+<div style="display:none"><img src="../../../images/weixinLogo.jpg" /></div>
+<div class="wrap_header" style="background-color:#edebe9;opacity: 0.8;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=80); -moz-opacity:0.8; ">
+<div class="user_action top" style="padding:0px;height:30px;float:none;">        
+         <div style="float:left;margin-top: 3px;"> 
+        	<li class="chinese" style="line-height:25px;"><fjtignoreurl><a class="chinese" href="http://www.caac.gov.cn/INDEX/">简体中文</a></fjtignoreurl></li> 
+          <li class="chinese" style="line-height:25px;"><a class="chinese" href="http://www.caac.gov.cn/big5/www.caac.gov.cn">繁体中文</a></li>
+          <li class="chinese" style="line-height:25px;"><fjtignoreurl><a class="chinese" href="http://www.caac.gov.cn/English/Home/" target="_blank">ENGLISH</a></fjtignoreurl></li>
+          <li class="chinese" style="line-height:25px;"><fjtignoreurl><a class="chinese special" href="http://www.caac.gov.cn/INDEX/YDKHDXZ/" target="_blank">移动客户端</a></fjtignoreurl></li>
+          
+        </div >
+        <div style="float:right;margin-right:23px;">
+          <li class="action_move"><a href="https://mail.caac.gov.cn" target="_blank"><i class="t_mail d_inline"></i>政府邮箱</a></li>
+          <li class="action_move"><a href="../../GZPT/"  target="_blank"><i class="t_work d_inline"></i>工作平台入口</a></li>          
+          <li class="action_move" style="line-height:22px;"><a href="javascript:void(0);" id="toolbarSwitch" >【无障碍浏览】</a></li>
+        </div>
+       </div>
+      </div>
+<div class="top wrap_header_top" style="margin-top: 13px;height: 95px; "> 
+    <form class="headForm" action="" name="searchBar" method="get" accept-charset="utf-8" target="_blank" >
+      <input type="text" name="tab" class="channelid" value="all" style="display:none;" />
+      <!--<input type="text" name="siteCode" class="channelid" value="bm70010001" style="display:none;" />-->
+
+      <div class="logo" style="margin-top: 12px;"></div>
+       <div class="t_search" style="margin-top:52px;height:30px;margin-right:5px">
+             <input type="text" style="width:310px;" id="textfield" class="t_input_txt" name="qt" value="" />
+            <button id="caacSerch" class="t_search_btn" style="height:24px;line-height:24px;">搜索</button>
+      </div>
+         </form>
+  </div>
+  <!--end top-->
+  <div class="nav wrap_header" style="margin-top: 14px;">
+    <ul>
+      <li><a id="INDEX" href="../../">首&nbsp;页</a></li>
+      <li><a id="XWZX" href="../../../XWZX/">新闻中心</a></li>
+      <li><a id="XXGK" href="../../../XXGK/XXGK/">信息公开</a></li>
+      <li><a id="FWDT" href="../../../FWDT/">办事大厅</a></li>
+      <li style="display: none;"><a id="AQJG" href="../../../AQJG/">安全监管</a></li>
+	  <li><a id="HDJL" href="../../../HDJL/">互动交流</a></li>
+	  <li><a id="ZTZL" href="../../../ZTZL/">专题专栏</a></li>
+	  <li><a id="GYMH" href="../../../GYMH/">关于民航</a></li>
+	  <li><a id="WHMH" href="../../../WHMH/" class="caac">我和民航</a></li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="../../../images/search.js"></script>
+  <script src="../../../images/yahoo-dom-event.js" type="text/javascript"></script>
+  <script src="../../../images/suggest-yui2.js" type="text/javascript"></script>
+
+
+  <script type="text/javascript">
+function toSearchVaild(){
+    if(isnull($("#textfield").val())){
+        alert("请输入关键字");
+        return false;
+    }
+    return true;
+}
+    function isnull(val) {
+
+        var str = val.replace(/(^\s*)|(\s*$)/g, '');//去除空格;
+
+        if (str == '' || str == undefined || str == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+//gethotkeyword();
+
+
+
+    function init() {
+      var url = window.location.href;
+      var colName = url.split("/")[3];
+      if(colName=="big5")
+      {
+         colName = url.split("/")[5];
+      }
+      if(colName.length==0||colName=="index.html")
+      {
+        $("#INDEX").addClass("on");
+      }
+      else
+      {
+        $("#" + colName).addClass("on");
+       }
+      
+
+      $(".t_search_btn").click(function() {
+        var channelid = $(".channelid").val();
+        var keyword = $(".t_input_txt").val();
+        createlog(keyword, channelid);
+      });
+    }
+
+$(document).ready(function(){
+    $(".headForm").attr("action", config.searchPageURL);
+       init();
+
+let isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+if(isChrome){
+    var dataUrl = config.searchPageURL_Suggest+'/caacSuggest.jsp?result=false';
+    new TRSWAS.Suggest('textfield', dataUrl, {
+      useShim: false,
+      resultFormat: '约%result%条结果'
+    });
+
+}
+
+});
+
+
+      </script>
+    <!--main-->
+    <div class="wrap_w p_t20" style="padding-top:26px;">
+        <div class="itinerary_title">
+            <h6 style="color:#000;">行程单验真</h6>
+        </div>
+    </div>
+    <div class="itinerary_content" style="height:550px;">
+        <iframe id="mainframe" name="mainframe" marginwidth="0" marginheight="0" height="550" scrolling="no" src="https://www.travelsky.com.cn/pcValidate" frameborder="0" width="100%" height="100%" >
+        </iframe>
+        
+    </div>
+    <div style="width: 1000px;margin: 10px auto;font-size:15px;">
+        <img src="../../../images/verify_logo.jpg" style="margin: 10px auto;" />
+        <!--<font color="#ff6600" >&nbsp;其他验真网站：</font> <a href="http://b2c.csair.com/B2C40/modules/bookingnew/manage/checkOrder.jsp?lang=cn" target="_blank" style="text-decoration:underline">南方航空</a> <a href="http://flights.ch.com/show-check-ticket" target="_blank" style="text-decoration:underline">春秋航空</a>-->
+    </div>
+    <div class="wrap_w p_t20" style="padding-top:17px;">
+        <style typr="text/css">
+.info_query .step_08,.info_query .info_query2,.info_query .info_query1{padding-right:12px}
+</style>
+<script type="text/javascript" language="javascript" src="../../../images/jquery-ui-11.min.js"></script>
+<link rel="stylesheet" href="../../../images/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="../../../images/jquery-ui-1.9.2.custom.css" />
+        <style type="text/css">
+            .Ablue12px:hover{text-decoration:underline;  color:#006bd9; }
+            .query_content{
+                min-height:200px;
+            }
+            .info_query{background-color:#e8eff4}
+            .a_hangkong{
+                COLOR: #000000;
+                font-family: "宋体"; 
+                font-size: 14px;
+                text-decoration: none;
+            }
+            .content_ticket_list{
+                display: block;
+                width: 600px;
+                font-size: 14px;
+            }
+            .info_query div a {text-align: center;}
+            .content_ticket_classifys .content_ticket_list li{
+                margin-right: 5px;
+                width: 110px;
+                border:none;
+                font-size: 14px;
+            }
+            .content_ticket_classifys{
+                border:none;
+                font-size: 14px;
+            }
+            .content_ticket_classify{
+                padding-top: 30px;
+                padding-right: 0px;
+                padding-bottom: 0px;
+                padding-left: 0px;
+                font-size: 14px;
+            }
+
+            .content_ticket_list a{
+                line-height: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+
+            .content_ticket_classifys .special1 li {
+                height: 15px;
+                line-height: 15px;
+                margin-top: 10px;
+                width: 119px;
+                font-size: 14px;
+            }
+            .content_ticket_classify1 {  background: #fff url(/images/guide_1.png) no-repeat 10px center;  }
+            .content_ticket_classifys .content_ticket_classify1.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_11.png);  }
+            .content_ticket_classify2 {  background: #fff url(/images/guide_23.png) no-repeat 10px center;  }
+            .content_ticket_classifys .content_ticket_classify2.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_22.png);  }
+            .content_ticket_classify3 {  background: #fff url(/images/guide_3.png) no-repeat 10px center;  }
+            .content_ticket_classifys .content_ticket_classify3.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_33.png);  }
+            .content_ticket_classify4 {background: #fff url(/images/guide_4.png) no-repeat 10px center;  }
+            .content_ticket_classify5 {background: #fff url(/images/guide_5.png) no-repeat 10px center;  }
+            .content_ticket_classify6 {background: #fff url(/images/guide_6.png) no-repeat 10px center;  }
+            .content_ticket_classify7 {background: #fff url(/images/guide_7.png) no-repeat 10px center;  }
+            .content_ticket_classify8 {background: #fff url(/images/guide_8.png) no-repeat 10px center;  }
+            .content_ticket_classifys .content_ticket_classify4.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_44.png);  }
+            .content_ticket_classifys .content_ticket_classify5.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_55.png);  }
+            .content_ticket_classifys .content_ticket_classify6.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_66.png);  }
+            .content_ticket_classifys .content_ticket_classify7.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_77.png);  }
+            .content_ticket_classifys .content_ticket_classify8.selected {  background-color: #6b9dcc;  color: #fff;  background-image: url(/images/guide_88.png);  }
+
+            .ulhlzn li a,.ulhlzn_chenji li a{
+                height: 15px;
+                line-height: 15px;
+                text-align:left;
+                font-size: 14px;
+            }
+
+            .ulhlzn_chenji li{
+                margin-top: 15px;
+                font-size: 14px;
+            }
+
+            .content_ticket_classifys .special3 li{
+                width:228px;
+                height: 15px;
+                line-height: 15px;
+                font-size: 14px;
+            }
+
+            .content_ticket_classifys div li{
+                height: 15px;
+                line-height: 15px;
+                font-size: 14px;
+            }
+            #tbwszj a{
+                height: 25px;
+                line-height:25px;
+                color:#085085;
+                font-size: 14px;
+            }
+            #tbwszj td{
+                background-color: #ebf0f4;
+                font-size: 14px;
+            }
+
+            #tbtqyb a{
+                height: auto;
+                line-height:16px;
+                
+                font-size: 14px;
+            }
+
+            #tbtqyb TD {
+                FONT-SIZE: 12px;
+                line-height: 20px;
+                
+                font-size: 14px;
+            }
+
+            #tblhxx a{
+                height: 30px;
+                line-height:30px;
+                COLOR: #000000;
+                font-size: 14px;
+            }
+
+            #tbhbcx input{
+                width: auto;
+                height: 20px;
+                line-height: 20px;
+                font-size: 14px;
+            }
+
+            .ui-autocomplete { OVERFLOW-X: hidden; OVERFLOW-Y: auto; MAX-HEIGHT: 100px }
+            * HTML .ui-autocomplete { HEIGHT: 100px }
+        </style>
+        <script type="text/javascript" language="javascript" src="../../../images/jquery-ui.min.js"></script>
+        <script>        
+
+var plan_citys=["万象","上海","东京","乌鲁木齐","亚的斯亚贝巴","仰光","伊斯兰堡","伊斯坦布尔","伦敦","克拉斯诺亚尔斯克","兰州","内罗毕","利雅得","加德满都","北京","华沙","南京","南宁","卡拉奇","厦门","叶卡捷琳堡","吉隆坡","呼和浩特","哈尔滨","哥本哈根","圣彼得堡","基加利","塔什干","墨尔本","墨西哥城","多伦多","多哈","大兴","大连","大邱","大阪","天津","太原","奥克兰","威海","宁波","巴库","巴格达","巴黎","布鲁塞尔","常州","广州","底特律","延吉","开罗","德宏","德里","德黑兰","悉尼","成都","拉合尔","斯德哥尔摩","斯里巴加湾","新加坡","无锡","旧金山","昆明","明斯克","曼德勒","曼谷","杭州","武汉","沈阳","河内","法兰克福","洛杉矶","济南","济州","浦东","深圳","清莱","清迈","温哥华","烟台","特拉维夫","石家庄","福州","科伦坡","科威特","米兰","约翰内斯堡","纽约","维也纳","美娜多","胡志明市","苏黎世","莫斯科","西双版纳","西哈努克","西安","西雅图","赫尔辛基","达卡","达累斯萨拉姆","迪拜","郑州","里斯本","重庆","金边","釜山","长春","长沙","阿姆斯特丹","阿尔及尔","阿布扎比","阿拉木图","雅典","雅加达","青岛","首尔","首都","马尼拉","马德里","马斯科特"];
+
+var plan_airlines=["首尔航空","瑞士国际航空公司","阿曼航空服务公司","春秋航空有限公司","以色列航空公司","越南航空公司","九元航空有限公司","法国航空公司","全日本空输株式会社","乌兹别克斯坦航空公司","美国联合航空公司","泰国亚洲航空公司","柬埔寨天空吴哥航空","阿联酋阿提哈德航空公司","大韩航空","伊朗马汉航空公司","柬埔寨景成国际航空","美国航空公司","卢旺达航空公司","阿联酋航空公司","汉莎航空公司","德威航空","英国航空公司","土耳其航空公司","埃塞俄比亚航空公司","沙特阿拉伯航空公司","喜马拉雅航空","釜山航空公司","云南祥鹏航空有限责任公司","瑞丽航空有限公司","俄罗斯阿祖尔航空公司","神鹰航空","韩国真航空公司","日本航空公司","荷兰皇家航空公司","马印航空","泰国亚洲航空长途有限公司","马来西亚亚洲航空（长途）有限公司","北欧航空公司","广西北部湾航空有限责任公司","澜湄航空","菲律宾航空公司","菲鹰航空公司","缅甸航空国际有限公司","印度尼西亚鹰航空公司","菲律宾宿务航空公司","泰国狮子蒙特里航空","济州航空有限公司","华夏航空股份有限公司","韩亚航空公司","斯里兰卡航空公司","科威特航空公司","柬埔寨吴哥航空公司","青岛航空股份有限公司","新加坡客运航空公司","俄罗斯依可亚航空公司","海南航空控股股份有限公司","缅甸国际航空公司","越捷航空","文莱皇家航空公司","泰国微笑航空公司","泰国皇雀航空公司","孟加拉优速航空","中国南方航空股份有限公司","山东航空股份有限公司","老挝国家航空公司","北京首都航空有限公司","英国维珍航空公司","印尼狮子航空","中国国际航空股份有限公司","新西兰航空公司","伊拉克航空公司","巴基斯坦国际航空公司","芬兰航空公司","加拿大航空公司","印度尼西亚巴迪航空公司","菲律宾泛太平洋航空公司","阿塞拜疆航空公司","波兰航空公司","俄罗斯航空公司","达美航空公司","阿斯塔纳航空公司","上海航空股份有限公司","俄罗斯乌拉尔航空公司","埃及航空公司","菲律宾皇家航空","春秋航空日本株式会社","酷虎航空","坦桑尼亚航空公司","中国东方航空公司","上海吉祥航空有限公司","艾菲航空公司","卡塔尔航空公司","马来西亚航空公司","奥地利航空公司","昆明航空有限公司","肯尼亚航空公司","厦门航空有限公司","菲律宾菲亚航空公司","西班牙伊比利亚航空公司","墨西哥国际航空公司","胜安航空公司","阿尔及利亚航空公司","苏拉维加亚航空","深圳航空有限责任公司","印尼城市快线","意大利勒奥斯航空公司","四川航空集团公司","马来西亚亚洲航空公司","柬埔寨航空有限公司"];
+
+function initPlanDataCityAirLine(){
+    var urlstr="/caacgov/frontend/flight/plan/getairlines";
+    $.ajax({
+        type:"POST",
+        url:urlstr,
+        dataType:"json",
+        success: function(re){
+        	if(re!=null){
+        	    if(re.success){
+        	        plan_airlines=re.root;
+        	        $('#plan_airline').autocomplete({
+        	            minLength: 1,
+        	            source: plan_airlines
+        	        });
+             }
+        	}
+
+        }
+    });
+
+    var urlcity="/caacgov/frontend/flight/plan/getcitys";
+    $.ajax({
+        type:"POST",
+        url:urlcity,
+        dataType:"json",
+        success: function(re){
+        	if(re!=null){
+        	    if(re.success){
+        	        plan_citys=re.root;
+
+                $('#plan_ori').autocomplete({
+		   minLength: 1,
+		   source: plan_citys
+                });
+                $('#plan_arr').autocomplete({
+		   minLength: 1,
+		   source: plan_citys
+                });
+
+
+             }
+        	}
+        }
+    });
+
+}
+
+function formatDate(value, dateformat)
+{
+    function getFormatDate(date, dateformat)
+    {
+        var g = this, p = this.options;
+        if (isNaN(date)) return null;
+        var format = dateformat;
+        var o = {
+            "M+": date.getMonth() + 1,
+            "d+": date.getDate(),
+            "h+": date.getHours(),
+            "m+": date.getMinutes(),
+            "s+": date.getSeconds(),
+            "q+": Math.floor((date.getMonth() + 3) / 3),
+            "S": date.getMilliseconds()
+        };
+        if (/(y+)/.test(format))
+        {
+            format = format.replace(RegExp.$1, (date.getFullYear() + "")
+        .substr(4 - RegExp.$1.length));
+        }
+        for (var k in o)
+        {
+            if (new RegExp("(" + k + ")").test(format))
+            {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+            : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    }
+    if (!value) return "";
+    // /Date(1328423451489)/
+    if (typeof (value) == "string" && /^\/Date/.test(value))
+    {
+        value = value.replace(/^\//, "new ").replace(/\/$/, "");
+        eval("value = " + value);
+    }
+    if (value instanceof Date)
+    {
+        var format = dateformat || "yyyy-MM-dd";
+        return getFormatDate(value, format);
+    }
+    else
+    {
+        return value.toString();
+    }
+
+}
+            $(function() {                
+                 
+                $.datepicker.regional['zh-CN'] = {
+		closeText: '关闭',
+		prevText: '<上月',
+		nextText: '下月>',
+		currentText: '今天',
+		monthNames: ['一月','二月','三月','四月','五月','六月',
+		'七月','八月','九月','十月','十一月','十二月'],
+		monthNamesShort: ['一月','二月','三月','四月','五月','六月',
+		'七月','八月','九月','十月','十一月','十二月'],
+		dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+		dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+		dayNamesMin: ['日','一','二','三','四','五','六'],
+		weekHeader: '周',
+		dateFormat: 'yy-mm-dd',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: true,
+		yearSuffix: '年'};
+	$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+     
+                 
+	        var date=new Date();
+	        var nowdate=formatDate(date,"yyyy-MM-dd");
+	       //搜索日期选择
+	
+			$('#plan_fltDate').datepicker({
+			   numberOfMonths: 1,
+			   minDate:nowdate
+	        });  
+
+	       $('#inDate').datepicker({
+		   numberOfMonths: 1,
+		   minDate:nowdate,
+		   onSelect: function(dateText, inst) {
+			$('#outDate').datepicker('option','minDate',dateText);
+		   }
+	        });   
+                $('#outDate').datepicker({
+		   numberOfMonths: 1,
+		   minDate:nowdate,
+		   onSelect: function(dateText, inst) {
+			$('#inDate').datepicker('option','maxDate',dateText);
+		   }
+	        });     
+                $('#plan_ori').autocomplete({
+		   minLength: 1,
+		   source: plan_citys
+                });
+                $('#plan_arr').autocomplete({
+		   minLength: 1,
+		   source: plan_citys
+                });
+                $('#plan_airline').autocomplete({
+		   minLength: 1,
+		   source: plan_airlines
+                });
+
+
+                $('#plan_fltDate').datepicker({
+		   numberOfMonths: 1,
+		   minDate:nowdate
+	        });
+
+            });
+            function OpenNewURL()
+            {
+                var SetOut =document.getElementById("txtSetOut").value;
+                var Arrive=document.getElementById("txtArrive").value;
+                //if(SetOut==""&&Arrive=="")
+                //{
+                //	alert("请输入出发城市或者到达城市！");
+                //	return false;
+                //}
+                var url="?setout="+escape(SetOut)+"&arrive="+escape(Arrive);
+                window.open(url,"_blank")
+            }
+
+            var isvericode = true;
+
+            function OpenCountPage(){
+
+                var oriText=$("#homecity_name").val();// 出发城市显示名
+                var ori = $("#ori").val();  // 出发城市
+                var arrText=$("#getcity_name").val();// 到达城市显示名
+                var arr = $("#arr").val();  // 到达城市
+                var veriCode = $("#veriCode").val();//验证码
+
+                if(!isvericode){
+                   alert("请重新获取验证码")
+                   var timestamp = new Date().getTime();
+		   $("#codeImg").attr("src","/caacgov/comm/pcrimgflt?ttt="+timestamp);
+                   isvericode=true;
+                   return false;
+                }
+
+                if(veriCode == "" || typeof (veriCode) == "undefined"){
+                    alert("请输入验证码");
+                    return false;
+                }
+
+                if(ori == "" || ori == "{$ori}" ||oriText== "中文/拼音" ||typeof (ori) == "undefined"){
+                    alert("请输入出发城市");
+                    return false;
+                }
+
+                if(arr == "" || arr == "{$arr}" ||arrText== "中文/拼音" ||typeof (arr) == "undefined"){
+                    alert("请输入到达城市");
+                    return false;
+                }
+
+                var stadate = $("#inDate").val();  // 出发时间
+                var enddate = $("#outDate").val(); // 返回时间
+
+                if(stadate == "" || typeof (stadate) == "undefined"){
+                    alert("请输入出发日期");
+                    return false;
+                }
+
+                var journeyType = $("input[name='journeyType']:checked").val();
+                if(journeyType == "RT"){
+                    if(enddate == "" || typeof (enddate) == "undefined"){
+                        alert("请输入返回日期");
+                        return false;
+                    }
+                }
+                isvericode=false;
+                return true;
+            }
+//刷新验证码
+var timestamp = new Date().getTime();
+function sxCodeImg(){
+     timestamp = new Date().getTime();
+     $("#codeImg").attr("src","/caacgovflt/comm/pcrimgflt?stamp="+timestamp);
+     window.setTimeout(getSxCodeImg,3000);
+}
+function getSxCodeImg(){
+     var url="/caacgovflt/comm/crimgFltStamp?stamp="+timestamp ;
+    $.ajax({
+        type:"GET",
+        url:url,
+        success: function(json) {
+            if(window.sessionStorage && json.returnCode == "F60002") {
+                console.log(json.returnData);
+                window.sessionStorage.setItem("StampFlt",json.returnData);
+            }
+         },
+        error: function(){}
+    });
+}
+            $(function(){
+
+initPlanDataCityAirLine();
+			$("#vh,#codeImg,#index_fly_1").click(function(){
+				sxCodeImg();
+				isvericode=true;
+			});
+
+
+                $(".divYewu").click(function(){
+                    $(".query_content").slideUp(100);
+                    $(".query_content").eq($('.divYewu').index(this)).stop().slideToggle(100);
+                });
+                
+                $(document).bind("click",function(e){
+                   if($(e.target).closest('.query_content').length==0&&$(e.target).closest('.divYewu').length==0&&$(e.target).closest('.ui-autocomplete').length==0&&$(e.target).closest('.ui-corner-all').length==0&&$(e.target).closest('.address_hot').length==0&&$(e.target).closest('.jsContainer').length==0&&e.target.nodeName!="BODY"){
+                                        
+                        $('.query_content').slideUp(100);
+                      
+                        $(".g_conN").removeClass("on");
+
+                   }
+                })
+                
+                $('.query_content .right').click(function(){
+                    $('.query_content').slideUp(100);
+                });
+
+                var $menu=$(".content_ticket_classifys>ul>li");
+                $menu.mouseenter(function(){  
+                      
+                    if(!$(this).hasClass('selected')){                                  
+                       $menu.removeClass('selected');
+                       $(this).addClass('selected');
+                       $(".content_ticket_classifys div").slideUp(200).eq($menu.index(this)).slideDown(200);
+                    }                 
+                });
+
+                $(":radio[name='journeyType']").click(function(){
+                    if($(this).val()=="RT"){
+                        //$("#BackTime").show();
+			$("#outDate").removeAttr("disabled");
+                    }else{
+                        //$("#BackTime").hide();
+			$("#outDate").attr("disabled","disabled");
+                    }
+                });
+                img_turnBig("zfgdpjcx");
+                img_turnBig("index_fly_1");
+                img_turnBig("index_fly_2");
+                img_turnBig("index_fly_3");
+                img_turnBig("index_fly_4");
+                img_turnBig("index_fly_5");
+                img_turnBig("index_fly_6");
+				img_turnBig("index_fly_10");
+
+            })
+
+                              function img_turnBig(divID){
+				$("#"+divID).mouseenter(function(){
+				     $(this).prop("src","/images/"+divID+"_on.png");
+                                     $(this).css("margin-top","-20px");
+                                     $(this).css("margin-left","-7px");
+				})
+                                $("#"+divID).mouseleave(function(){
+				     $(this).prop("src","/images/"+divID+".png");
+                                     $(this).css("margin-top","0px");
+                                     $(this).css("margin-left","0px");
+				})
+                              }
+
+function OpenFltPlanPage(){
+  if($("#plan_ori").val().length<1){
+     alert("请输入出发城市");
+     return false;
+  }
+  
+  if($("#plan_arr").val().length<1){
+     alert("请输入到达城市");
+     return false;
+  }
+
+  return true;
+}
+        </script>
+<div class="info_query clearfix">
+   
+       <div class="info_query2 divHover" style="padding-left:26px">
+        <a class="step_02 divYewu" title="国内航班查询" ><img src="../../../images/index_fly_1.png" id="index_fly_1" /></a>
+        <p>国内航班查询</p>
+        <div class="query_content clearfix" style="padding-left: 0px;">
+            <p class="right" >关闭</p>
+            <table style="width:585px;margin-top: 20px;" height="130" border="0" cellspacing="0" cellpadding="0" id="tbhbcx">
+                <tbody><tr>
+                    <td align="center">
+                        <form name="formbook" action="../GNHBCX/" method="get" target="_blank" class="form" onsubmit="return OpenCountPage()">
+                            <input type="hidden" id="dtime" name="dtime" value="00:00" />
+                            <table width="585" height="120" border="0" align="center" cellpadding="0" cellspacing="0">
+                                <tbody><tr>
+                                    <td width="100%" align="center" valign="middle"><table width="100%" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                        <tr >
+                                            <td height="12" align="left"><img src="../../../images/1X1.gif" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td><table width="100%" height="30" cellpadding="0" cellspacing="0" border="0">
+                                                <tbody><tr >
+                                                    <td style="width: 100%">
+                                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td height="30" width="50%" align="left">&nbsp;&nbsp;&nbsp;<font class="font12">航&nbsp;班&nbsp;类&nbsp;型:</font>
+                                                                    <input type="radio" value="OW" name="journeyType" checked="checked" />
+                                                                    <font class="font12">单程</font>&nbsp;&nbsp;
+                                                                    <input type="radio" value="RT" name="journeyType" />
+                                                                    <font class="font12">往返</font></td>
+                                                                <td height="30" width="50%" align="left">&nbsp;&nbsp;&nbsp;<font class="font12">航&nbsp;段&nbsp;类&nbsp;型:</font>
+                                                                    <input type="radio" value="true" name="stop" checked="checked" />
+                                                                    <font class="font12">直飞</font>&nbsp;&nbsp;
+                                                                    <input type="radio" value="false" name="stop" />
+                                                                    <font class="font12">所有</font></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td height="35" align="left">&nbsp;&nbsp;&nbsp;<font class="font12">出&nbsp;发&nbsp;城&nbsp;市:</font>
+                                                                    <input type="text" value="" size="18" id="homecity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@Beijing|北京首都机场|PEK@Beijing|北京大兴机场|PKX@Shanghai|上海虹桥|SHA@Shanghai|上海浦东|PVG@Guangzhou|广州|CAN@Shenzhen|深圳|SZX@Chengdu|成都|CTU@Hangzhou|杭州|HGH@Wuhan|武汉天河|WUH@Wuhan|武汉王家墩|WJD@Xian|西安|XIY@Chongqing|重庆|CKG@" mod_address_reference="ori" mod_notice_tip="中文/拼音" style="height: 26px;" />
+		                                                    <input id="ori" name="ori" type="hidden" value="{$ori}" />
+                                                                   </td>
+                                                                <td height="35" valign="middle" align="left">&nbsp;&nbsp;&nbsp;<font class="font12">到&nbsp;达&nbsp;城&nbsp;市:</font>
+                                                                    <input type="text" value="" size="18" id="getcity_name" mod="address|notice" mod_address_source="hotel" mod_address_suggest="@Beijing|北京首都机场|PEK@Beijing|北京大兴机场|PKX@Shanghai|上海虹桥|SHA@Shanghai|上海浦东|PVG@Guangzhou|广州|CAN@Shenzhen|深圳|SZX@Chengdu|成都|CTU@Hangzhou|杭州|HGH@Wuhan|武汉天河|WUH@Wuhan|武汉王家墩|WJD@Xian|西安|XIY@Chongqing|重庆|CKG@" mod_address_reference="arr" mod_notice_tip="中文/拼音" style="height: 26px;" />
+		                                                    <input id="arr" name="arr" type="hidden" value="{$arr}" />
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><table width="100%" height="30" cellpadding="0" cellspacing="0">
+                                                <tbody><tr >
+                                                    <td width="100%">
+                                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+
+                                                            <tbody>
+                                                            <tr>
+                                                                <td height="35" width="50%" align="left">&nbsp;&nbsp;&nbsp;<font class="font12">出&nbsp;发&nbsp;日&nbsp;期:</font>
+                                                                    <input size="18" name="inDate" id="inDate" style="height: 26px;" />
+                                                                </td>
+
+                                                                <td height="35" width="50%"><div id="BackTime">
+                                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                                        <tbody><tr>
+                                                                            <td align="left" width="100%">&nbsp;&nbsp;&nbsp;<font class="font12">返&nbsp;回&nbsp;日&nbsp;期:</font>
+                                                                                <input size="18" id="outDate" name="outDate" style="height: 26px;" disabled="disabled" />
+                                                                            </td>
+                                                                        </tr>
+                                                                        </tbody></table>
+                                                                </div></td>
+
+
+                                                            </tr>
+                                                            </tbody></table></td>
+                                                </tr></tbody></table></td>
+
+                                        </tr>
+                                        <tr align="right" valign="middle" >
+                                            <td>
+                                                <table width="100%" height="30" cellpadding="0" cellspacing="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td height="35" width="50%" align="left">&nbsp;&nbsp;&nbsp;<font class="font12">航&nbsp;空&nbsp;公&nbsp;司:</font>
+                                                            <select name="airline" id="airline">
+                                                                <option value="" selected="selected">全部</option>
+                                                                <option value="CZ" >中国南方航空公司</option>
+                                                                <option value="MU" >中国东方航空公司</option>
+                                                                <option value="CA" >中国国际航空公司</option>
+																<option value="PN" >西部航空有限责任公司</option>
+                                                                <option value="HU" >海南航空公司</option>
+                                                                <option value="MF" >厦门航空公司</option>
+                                                                <option value="FM" >上海航空公司</option>
+                                                                <option value="ZH" >深圳航空公司</option>
+                                                                <option value="SC" >山东航空公司</option>
+																<option value="EU" >成都航空公司</option>
+																<option value="X2" >中国新华航空公司</option>
+																<option value="JR" >幸福航空责任有限公司</option>
+																<option value="3Q" >云南航空公司</option>
+																<option value="UQ" >新疆航空公司</option>
+                                                                <option value="3U" >四川航空公司</option>
+																<option value="WU" >武汉航空公司</option>
+																<option value="G4" >贵州航空公司</option>
+																<option value="GP" >中国通用航空公司</option>
+                                                                <option value="BK" >奥凯航空公司</option>
+                                                                <option value="KN" >中国联合航空公司</option>
+                                                                <option value="8C" >东星航空公司</option>
+                                                                <option value="HO" >吉祥航空公司</option>
+                                                                <option value="G5" >华夏航空公司</option>
+                                                                <option value="8L" >祥鹏航空公司</option>
+																<option value="3W" >南京航空公司</option>
+																<option value="ZJ" >浙江航空公司</option>
+																<option value="G8" >长城航空公司</option>
+																<option value="FJ" >福建航空公司</option>
+																<option value="9H" >长安航空公司</option>
+																<option value="GJ" >浙江长龙航空公司</option>
+																<option value="JD" >首都航空公司</option>
+																<option value="GS" >天津航空公司</option>
+																<option value="9C" >上海春秋航空公司</option>
+                                                            </select>
+                                                        </td>
+                                                        <td align="left"></td>
+                                                        <td align="left"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        </tbody></table></td>                                                                         
+                                </tr>
+
+<tr valign="middle" align="right">
+  <td>
+    <table width="100%" height="30" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        										
+	<td width="50%" height="35" align="left">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<font class="font12" style="padding-left: 14px;">验&nbsp;证&nbsp;码:</font> 
+	<input type="hidden" id="vhcode" value="" />
+	<input type="text" id="veriCode" name="veriCode" style="width: 80px;height: 26px;" class="hasDatepicker" value="" />
+	<img style="width:80px;" id="codeImg" alt="验证码" src="/caacgovflt/comm/pcrimgflt?stamp=8001370859409904" />
+	<td style="text-align:left">&nbsp;&nbsp;&nbsp;<input type="submit" value="查询" style="width: 94px; height: 28px;background-color: #00468f;color: #fff;border: none;" />
+          <font color="#FF6600" style="padding-left: 12px;">航班信息由中国航信提供</font>
+        </td>
+      </tr>
+	  <tr>
+    <td height="20">
+	<a id="vh" style=" width: 110px;padding-left: 130px; line-height: 20px; height: 54px;">看不清？换一张</a>
+	</td>
+   	  </tr>
+    </tbody></table>							
+	</td>												
+</tr>
+
+</tbody>
+                            </table>
+                        </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>      
+    </div>
+	
+    <a class="step_08" ><img src="../../../images/index_fly_9_2026.png" /></a>
+    <div class="info_query2">
+        <a class="step_04" href="./"   target="_blank" title="电子客票验真"><img src="../../../images/index_fly_3.png" id="index_fly_3" /></a>
+        <p>电子客票验真</p>
+    </div>
+    <a class="step_08"><img src="../../../images/index_fly_9_2026.png" /></a>
+    <div class="info_query1 divHover">
+        <a class="step_06 divYewu" title="航空旅行常识" style="margin-left: 15px;"><img src="../../../images/index_fly_5.png" id="index_fly_5" /></a>
+        <p style="width:86px;">航空旅行常识</p>
+        <div class="query_content" style="padding-left: 0px;">
+            <p class="right" >关闭</p>
+            <div class="content_ticket_classify" style="background-color:#ebf0f4;">
+                <div class="content_ticket_classifys">
+                    <ul class="content_ticket_list">
+                        <li class="content_ticket_classify1 selected"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;">客&nbsp;&nbsp;票&nbsp;&nbsp;销&nbsp;&nbsp;售</a></li>
+                        <li class="content_ticket_classify2"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;">乘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机</a></li>
+                        <li class="content_ticket_classify3" style="padding-left: 28px;padding-right: 7px;"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;">客舱安全与服务</a></li>
+                        <li class="content_ticket_classify4"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;">行&nbsp;&nbsp;李&nbsp;&nbsp;运&nbsp;&nbsp;输</a></li>
+                    </ul>
+                    <div class="special1 content_ticket_content" style="width: 100%;padding-bottom:10px;display: block;height: 119px;">
+
+                        <ul class="ulhlzn">
+                            <li ><a href="../HKLXCS/202303/t20230316_217590.html#flag01" target="_blank" >乘机有效证件</a></li>
+                            <li style="width:180px;"><a href="../HKLXCS/202303/t20230316_217590.html#flag04" target="_blank" >附加服务产品与航空保险</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217590.html#flag07" target="_blank">联程航班</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217590.html#flag10" target="_blank">客票自愿变更</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217590.html#flag13" target="_blank">非自愿退票</a></li>
+                        </ul>
+                        <ul class="ulhlzn" style="width:150px;">
+                            <li ><a href="../HKLXCS/202303/t20230316_217590.html#flag02" target="_blank" >购票渠道</a></li>
+                            <li ><a href="../HKLXCS/202303/t20230316_217590.html#flag05" target="_blank" >客票价格</a></li>
+                            <li ><a href="../HKLXCS/202303/t20230316_217590.html#flag08" target="_blank" >代码共享</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217590.html#flag11" target="_blank">非自愿变更</a></li>
+                        </ul>
+                        <ul class="ulhlzn">
+                            <li class="ulhlzn_li"><a href="../HKLXCS/202303/t20230316_217590.html#flag03" target="_blank" >购票相关信息</a></li>
+                            <li class="ulhlzn_li"><a href="../HKLXCS/202303/t20230316_217590.html#flag06" target="_blank" >行程单</a></li>
+                            <li class="ulhlzn_li"><a href="../HKLXCS/202303/t20230316_217590.html#flag09" target="_blank" >客票有效期</a></li>
+                            <li class="ulhlzn_li"><a href="../HKLXCS/202303/t20230316_217590.html#flag12" target="_blank" >自愿退票</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="special2 content_ticket_content" style="width: 100%;padding-bottom:10px;height: 119px;">
+
+                        <ul class="ulhlzn_chenji" style="width:180px;">
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag01" target="_blank">办理乘机手续</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag04" target="_blank">候机显示屏及广播</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag07" target="_blank">母婴室</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag10" target="_blank">文明乘机</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width:180px;">
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag02" target="_blank">乘机流程</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag05" target="_blank">误机</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag08" target="_blank">国内、国际到达</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag11" target="_blank">了解相关法律规定</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji">
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag03" target="_blank">登机牌的作用</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag06" target="_blank">漏乘</a></li>
+                            <li style="width: 157px;"><a href="../HKLXCS/202303/t20230316_217602.html#flag09" target="_blank">中转服务</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="special3 content_ticket_content" style="width: 100%;padding-bottom:10px;height: 119px;">
+
+                        <ul class="ulhlzn_chenji" style="width:157px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag01" target="_blank">大件行李的处理</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag04" target="_blank">及时阅读安全须知</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag07" target="_blank">文明乘机</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width:157px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag02" target="_blank">入座须知</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag05" target="_blank">紧急出口座位的说明</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag08" target="_blank">保管好个人物品</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width:157px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag03" target="_blank">客舱内取放行李</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag06" target="_blank">客舱压力变化的人体反应</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217600.html#flag09" target="_blank">客舱内禁止的行为</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width:100%;">
+                            <li style="width:400px"><a href="../HKLXCS/202303/t20230316_217600.html#flag10">严禁捏造、传递劫机、有炸弹、炸机等虚假信息</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="special4 content_ticket_content" style="width: 100%;padding-bottom:10px;height: 119px;">
+
+                        <ul class="ulhlzn_chenji" style="width:350px;">
+                            <li style="width:450px"><a href="../HKLXCS/202303/t20230316_217597.html#flag01" target="_blank">出行前向航空公司了解行李运输规定</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217597.html#flag03" target="_blank">随身携带及托运物品要求</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217597.html#flag05" target="_blank">不正常行李运输</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217597.html#flag07" target="_blank">个人防疫物资携带提示</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width:167px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217597.html#flag02" target="_blank">托运行李</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217597.html#flag04" target="_blank">提取托运行李</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217597.html#flag06" target="_blank">行李赔偿标准</a></li>
+                        </ul>
+
+                    </div>
+                    <ul class="content_ticket_list" >
+                        <li class="content_ticket_classify5"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;" text-align="left">特殊需求旅客</a></li>
+                        <li class="content_ticket_classify6"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;" text-align="left">不正常航班</a></li>
+                        <li class="content_ticket_classify7"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;" text-align="left">投&nbsp;&nbsp;诉&nbsp;&nbsp;维&nbsp;&nbsp;权</a></li>
+                        <li class="content_ticket_classify8" style="display:none;"><a href="javascript:void(0);" style="line-height: 35px;height: 35px;" text-align="left">其&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;他</a></li>
+                    </ul>
+                    <div class="special5 content_ticket_content" style="width: 100%;">
+
+                        <ul class="ulhlzn_chenji" style="width: 180px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217599.html#flag01" target="_blank">无成人陪伴儿童</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217599.html#flag04" target="_blank">伤病旅客</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217599.html#flag07" target="_blank">军人</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width: 180px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217599.html#flag02" target="_blank">孕妇旅客</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217599.html#flag05" target="_blank">残疾人旅客</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width: 157px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217599.html#flag03" target="_blank">婴儿旅客</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217599.html#flag06" target="_blank">年长旅客</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="special6 content_ticket_content" style="width: 100%;">
+
+                        <ul class="ulhlzn_chenji" style="width: 157px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217596.html#flag01" target="_blank">航班不正常原因</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217596.html#flag04" target="_blank">机上延误处置</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width: 180px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217596.html#flag02" target="_blank">航班不正常后旅客的权利</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217596.html#flag05" target="_blank">航班超售</a></li>
+                        </ul>
+                        <ul class="ulhlzn_chenji" style="width: 157px;">
+                            <li><a href="../HKLXCS/202303/t20230316_217596.html#flag03" target="_blank">大面积航班延误服务</a></li>
+                            <li><a href="../HKLXCS/202303/t20230316_217596.html#flag06" target="_blank">乘机时违反的法律法规条款</a></li>
+                        </ul>
+
+                    </div>
+                    <div class="special7 content_ticket_content" style="width: 100%;height: 245px;">
+
+                        <ul class="ulhlzn_chenji" style="width:530px;">
+                            <li style="width:100%;height: auto;margin-bottom: 28px;"><a href="../HKLXCS/202303/t20230316_217603.html#flag01" target="_blank">民航旅客在航空出行中，如果遇到客票退改签、航班延误或取消、托运行李丢失、延误或破损等服务问题，应当如何求助？</a></li>
+                            <li style="width:100%;height: auto;margin-bottom: 28px;"><a href="../HKLXCS/202303/t20230316_217603.html#flag02" target="_blank">民航旅客与航空公司、机场或者OTA平台之间发生公共航空运输旅客服务领域争议时，应当通过哪些渠道向民航局反馈？</a></li>
+                            <li style="width:100%;height: auto;line-height: 30px;"><a href="../HKLXCS/202303/t20230316_217603.html#flag03" target="_blank">12326受理的旅客或购票人投诉，应当具备哪些条件？</a></li>
+
+                            <li style="width:100%;height: auto;line-height: 30px;"><a href="../HKLXCS/202303/t20230316_217603.html#flag04" target="_blank">12326不予受理的投诉都存在哪些情形？</a></li>
+                            <li style="width:100%;height: auto;line-height: 30px;"><a href="../HKLXCS/202303/t20230316_217603.html#flag05" target="_blank">消费者事务中心对投诉的审核期限和程序是什么？</a></li>
+
+                            <li style="width:100%;height: auto;line-height: 30px;"><a href="../HKLXCS/202303/t20230316_217603.html#flag06" target="_blank">被投诉人应当在多长时间内回复投诉处理结果？</a></li>
+                            <li style="width:100%;height: auto;line-height: 30px;"><a href="../HKLXCS/202303/t20230316_217603.html#flag07" target="_blank">投诉人对于被投诉人的处理结果不满意，有什么后续处理方式？</a></li>
+                    
+                        </ul>
+
+                    </div>
+                    <div class="special8 content_ticket_content" style="width: 100%;">
+                        <ul>
+                            <li><a href="#flag1" target="_blank">特殊旅客</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#flag2" target="_blank">什么是代码共享</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <table width="74%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 15px;">
+                <tbody>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">                            
+							<img border="0" style="vertical-align:middle" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/SJMH/201606/t20160616_38492.html">视频：航空公益广告</a>                            
+						</td>
+						<td width="48%" align="left" valign="top">
+<!--                            
+							<img border="0" style="vertical-align:middle" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/XWZX/MHYW/201603/t20160315_29850.html">视频：五招教你远离假客票</a> 
+-->                           
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201605/t20160504_37057.html">视频：安全检查</a>
+						</td>
+					</tr>
+					<!--
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201510/t20151023_2654.html">视频：购买机票</a>
+							
+						</td>                        
+						<td width="48%" align="left" valign="top">
+								
+								<img border="0" style="vertical-align:middle" src="../../../images/button_video.gif" width="21" height="20" />
+								<a style="vertical-align:middle;display: inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201510/t20151023_2653.html">视频：办理乘机手续</a>
+								
+						</td>
+					</tr>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle;display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201510/t20151023_2656.html">视频：客舱安全与文明乘机</a>
+						
+						</td>
+						  <td width="48%" align="left" valign="top">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201510/t20151023_2655.html">视频：航班延误面面观</a>
+							
+						</td>
+					</tr>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201605/t20160504_37056.html">视频：行李运输</a>
+							
+						</td>
+						<td width="48%" align="left" valign="top">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201605/t20160504_37057.html">视频：安全检查</a>
+							
+						</td>
+					</tr>-->
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201605/t20160504_37058.html">视频：锂电池航空运输</a>
+						
+						</td>
+						<td width="48%" align="left" valign="top">
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201809/t20180918_191764.html">视频：OTA机票会变价吗？</a>
+						</td>
+					</tr>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201809/t20180918_191765.html">视频：飞行中的逆风与顺风</a>
+							
+						</td>
+						<td width="48%" align="left" valign="top">
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201809/t20180918_191766.html">视频：飞机是怎么导航的？</a>
+						</td>
+					</tr>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201809/t20180930_191947.html">视频：再见吧 纸质登机牌</a>
+							
+						</td>
+						<td width="48%" align="left" valign="top">
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201810/t20181024_192282.html">视频：怎样成为一名外航乘务员？</a>
+						</td>
+					</tr>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201811/t20181120_192990.html">视频：飞行服务站是啥？</a>
+							
+						</td>
+						<td width="48%" align="left" valign="top">
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201904/t20190404_195533.html" title="视频：飞机空中放油是个什么操作？">视频：飞机空中放油是个什么...</a>
+						</td>
+					</tr>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/ZGMHJSP/HLZN/201904/t20190404_195534.html" title="视频：大兴机场飞行校验为啥那么神速？">视频：大兴机场飞行校验为啥...</a>
+							
+						</td>						
+						<td width="48%" align="left" valign="top">
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/XWZX/GDTPXW/202105/t20210531_207760.html" title="视频：空中颠簸">视频：空中颠簸</a>
+						</td>
+					</tr>
+					<tr>
+						<td width="52%" align="left" valign="top" style="padding-left: 10px;">
+							
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/XWZX/GDTPXW/202106/t20210616_207971.html" title="视频：返航备降篇">视频：返航备降篇</a>
+							
+						</td>						
+						<td width="48%" align="left" valign="top">
+							<img border="0" style="vertical-align:middle;" src="../../../images/button_video.gif" width="21" height="20" />
+							<a style="vertical-align:middle; display:inline-block;line-height: 25px;height: 25px;color:#006bd9" target="_blank" href="http://www.caac.gov.cn/XWZX/GDTPXW/202107/t20210723_208587.html" title="视频：锂电池篇">视频：锂电池篇</a>							
+						</td>
+					</tr>
+
+                </tbody>
+			</table>
+        
+        </div>
+    </div>
+    <a class="step_08" style="margin-left: 10px;"><img src="../../../images/index_fly_9_2026.png" /></a>
+    <div class="info_query1 divHover">
+        <a class="step_05 divYewu" title="网上值机" ><img src="../../../images/index_fly_4.png" id="index_fly_4" /></a>
+        <p>网上值机</p>
+        <div class="query_content query_content1" style="width:617px;left:-655px;">
+            <p class="right" >关闭</p>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="    margin-top: 20px;">
+                <tbody><tr>
+                    <td height="6" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td width="50%" valign="top" align="right" style="padding-right:20px"><table width="333" border="0" cellspacing="1" cellpadding="1">
+                        <tbody><tr>
+                            <td width="333" valign="top" height="154" align="center"><table width="100%" border="0" cellspacing="1" cellpadding="1" id="tbwszj" style="margin-bottom: 15px;">
+                                <tbody><tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/GuoHang.gif" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">国航</td>
+                                    <td width="82" align="center"><a href="http://www.airchina.com.cn/cn/service/check-in/faqs_c3.shtml" target="_blank" class="A3">值机入口</a></td>
+                                    <td width="82" align="center"><a href="http://www.airchina.com.cn/cn/service/check-in/faqs_c3.shtml" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="http://www.airchina.com.cn/cn/service/check-in/faqs_c3.shtml" target="_blank" class="A3">操作指南</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/DongHang.gif" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">东航</td>
+                                    <td width="82" align="center"><a href="https://www.ceair.com/self-service/before/checkin" target="_blank" class="A3">值机入口</a></td>
+                                    <td width="82" align="center"><a href="https://www.ceair.com/self-service/before/checkin" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="https://www.ceair.com/self-service/before/checkin" target="_blank" class="A3">操作指南</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/NanHang.gif" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">南航</td>
+                                    <td width="82" align="center"><a href="http://www.csair.com/cn/tourguide/faq/flight/inquiry.shtml" target="_blank" class="A3">值机入口</a></td>
+                                    <td width="82" align="center"><a href="http://www.csair.com/cn/tourguide/faq/flight/inquiry.shtml" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="http://www.csair.com/cn/tourguide/faq/flight/inquiry.shtml" target="_blank" class="A3">出行帮助</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/HaiHang.gif" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">海航</td>
+                                    <td width="82" align="center"><a href="https://www.hnair.com/lvxingxinxi/zj/jczzzj/" target="_blank" class="A3">值机入口</a></td>
+                                    <td width="82" align="center"><a href="https://www.hnair.com/lvxingxinxi/zj/jczzzj/" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="https://www.hnair.com/lvxingxinxi/zj/jczzzj/" target="_blank" class="A3">操作指南</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/ShanHang.gif" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">山航</td>
+                                    <td width="82" align="center"><a href="https://www.sda.cn/webuser/valueProtocalIssue.html" target="_blank" class="A3">值机入口</a></td>
+                                    <td width="82" align="center"><a href="https://www.sda.cn/webuser/valueProtocalIssue.html" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="https://www.sda.cn/webuser/valueProtocalIssue.html" target="_blank" class="A3">操作指南</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/shanghang.jpg" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">上航</td>
+                                    <td width="82" align="center"><a href="https://www.ceair.com/self-service/before/checkin" target="_blank" class="A3" title="温馨提示:目前开通网上值机的航班有:上海、北京、广州、深圳、重庆、南京和桂林始发的所有上航实际承运国内航班(不包括代码共享航班)">值机入口</a></td>
+                                    <td width="82" align="center"><a href="https://www.ceair.com/self-service/before/checkin" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="https://www.ceair.com/self-service/before/checkin" target="_blank" class="A3">操作指南</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/ShenHang.gif" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">深航</td>
+                                    <td width="82" align="center"><a href="https://www.shenzhenair.com/szair_B2C/checkIn/initCheckInTC.action" target="_blank" class="A3">值机入口</a></td>
+                                    <td width="82" align="center"><a href="https://www.shenzhenair.com/szair_B2C/checkIn/initCheckInTC.action" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="https://www.shenzhenair.com/szair_B2C/checkIn/initCheckInTC.action" target="_blank" class="A3">使用手册</a></td>
+
+                                </tr>
+                                <tr>
+                                    <td width="48" height="20" align="center"><img src="../../../images/XiaHang.gif" width="29" height="21" /></td>
+                                    <td width="58" align="center" class="font14low">厦航</td>
+                                    <td width="82" align="center"><a href="https://www.xiamenair.com/brandnew_CN/separate-page/online-check-qa.html" target="_blank" class="A3">值机入口</a></td>
+                                    <td width="82" align="center"><a href="https://www.xiamenair.com/brandnew_CN/separate-page/online-check-qa.html" target="_blank" class="A3">常见问题</a></td>
+                                    <td width="82" align="center"><a href="https://www.xiamenair.com/brandnew_CN/separate-page/online-check-qa.html" target="_blank" class="A3">服务协议</a></td>
+                                </tr>
+                                </tbody></table></td>
+                        </tr>
+                        </tbody></table></td>
+                    <td width="49%" height="80" align="left" valign="middle" style="padding-right: 10px;"><table width="222" border="0" cellspacing="1" cellpadding="1">
+                        <tbody><tr>
+                            <td width="222" style="background-color: #ebf0f4;" align="center" valign="middle"><table width="220" border="0" cellspacing="1" cellpadding="1">
+                                <tbody><tr>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;为使旅客方便快捷出行，缓解机场值机柜台压力，各家航空公司相继开通“网上值机”服务。购买了电子客票且未办理过变更手续和有确定航班的成人旅客，可以免去到机场值机柜台长时间排队的烦恼，在航班预计起飞时间前，通过网络，足不出户地确认航班,选择喜爱的座位,打印登机牌,完成办理登机的手续。</td>
+                                </tr>
+                                </tbody></table></td>
+                        </tr>
+                        </tbody></table></td>
+                </tr>
+                <tr>
+                    <td height="4" colspan="2"></td>
+                </tr>
+                </tbody></table>
+
+        </div>
+    </div>
+    <a class="step_08"><img src="../../../images/index_fly_9_2026.png" /></a>
+    <div class="info_query2 divHover">
+        <a class="step_07 divYewu" title="航空天气预报"><img src="../../../images/index_fly_6.png" id="index_fly_6" /></a>
+        <p>航空天气预报</p>
+        <div class="query_content query_content1" style="left:-655px;">
+            <p class="right" >关闭</p>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 20px;" id="tbtqyb">
+                <tr>
+                    <td width="382" height="130" valign="top" align="right" style="padding-right:20px">
+                        <table width="96%" border="0" cellspacing="0" cellpadding="1">
+                            <tr>
+                                <td height="6" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td width="100%" align="center">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                        
+                                            <tr>
+                                                <td align="center" height="25" valign="middle">
+                                                    <a href="../HKTQYB/202601/t20260113_229748.html" target="_blank" title="西南、中南地区有低云低能见度天气，华北、华东、西南、西北、新疆地区局地有霜" style='COLOR: #085085;font-size: 16px;text-decoration: none;'>西南、中南地区有低云低能见度天气，华北、华东、西南、西北、新疆地区局地有霜</a><br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" style="padding-right:20px">
+                                                    <div class=TRS_Editor><p align="justify">　　未来24小时，东北地区东部和北部、新疆北部有小雪；西南地区东部、中南地区南部局地有低云低能见度天气；华北地区、华东地区、西南地区、西北地区、新疆局地有霜。</p>
+<p align="justify">　　<span><span><font color="#ff6600">注：本信息仅供出行参考，详情请咨询承运航空公司或出行机场，妥善安排出行。</font></span></span></p></div>
+                                                </td>
+                                            </tr>
+                                        
+                                    </table>
+                                </td>
+                                <td width="3" background="../../../images/pic_xxbg.gif"><img src="../../../images/1X1.gif" /></td>
+                            </tr>
+                          
+                        </table>
+                    </td>
+                    <td width="249" valign="top" style="padding-right:20px"><table width="100%" border="0" cellspacing="1" cellpadding="1">
+                         <tr>
+                                <td height="6" colspan="2"></td>
+                         </tr>                        
+                        <tr>
+                            <td height="25" colspan="2" align="center" class="bold12" valign="bottom"><a href="javascript:void(0)" style="COLOR: #085085;font-size: 16px;text-decoration: none;">常见情形解释</a><br/></td>
+                        </tr>
+                        
+                            <tr>
+                                <td width="10" align="center" valign="top"><img src="../../../images/dot_org_1.gif" width="8" height="12" /></td>
+                                <td width="96%" align="left"><a href="../HKTQYB/CJWT/201509/t20150915_1218.html" target="_blank" title="目的地机场所在城市天气状况良好，能见度佳，为什么还是因天气原因延误？" style='text-align:left;'>目的地机场所在城市天气状况良好，能见度佳，为什么还是因天气原因延误？</a></td>
+                            </tr>
+                        
+                            <tr>
+                                <td width="10" align="center" valign="top"><img src="../../../images/dot_org_1.gif" width="8" height="12" /></td>
+                                <td width="96%" align="left"><a href="../HKTQYB/CJWT/201509/t20150915_1217.html" target="_blank" title="航班不正常的原因有哪些?" style='text-align:left;'>航班不正常的原因有哪些?</a></td>
+                            </tr>
+                        
+                        
+                        
+                    </table>
+                  
+                    </td>
+                </tr>
+            </table>
+            <table> <tr><td></td><td align="right" height="20"><a href="../HKTQYB/index.html" class="Ablue12px" target="_blank">更多&gt;&gt;</a></td></tr></table>
+        </div>
+    </div>
+    <a class="step_08"><img src="../../../images/index_fly_9_2026.png" /></a>
+    <div class="info_query2 divHover">
+        <a class="step_03 divYewu" title="抵离港信息" ><img src="../../../images/index_fly_2.png" id="index_fly_2" /></a>
+        <p>抵离港信息</p>
+        <div class="query_content query_content1" style=" width: 633px;left:-655px">
+            <p class="right" >关闭</p>
+            <table border="0" cellspacing="0" cellpadding="0" style="margin-top: 20px;width: 100%;" id="tblhxx">
+                <tbody><tr>
+                    <td align="left" width="22%" height="26"><strong>&nbsp;&nbsp;机&nbsp;&nbsp;场</strong></td>
+                    <td align="left" height="26" width="3%"><strong>链接</strong></td>
+                    <td align="left" width="19%" height="26"><strong>&nbsp;垂询电话</strong></td>
+                    <td align="left" width="20%" height="26"><strong>&nbsp;&nbsp;机&nbsp;&nbsp;场</strong></td>
+                    <td align="left" width="3%" height="26"><strong>链接</strong></td>
+                    <td align="left" width="19%" height="26"><strong>&nbsp;垂询电话</strong></td>
+                </tr>
+                <tr>
+                    <td align="left" width="20%" height="20">北京首都国际机场</td>
+                    <td align="left" height="20" width="6%"><a href="https://www.bcia.com.cn/cydh.html" target="blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left">010-96158</td>
+                    <td align="left" width="20%" height="20">上海浦东机场</td>
+                    <td align="left" height="20" width="6%"><a href="https://www.shairport.com/" target="blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left">021-96990</td>
+                </tr>
+                <tr>
+                    <td align="left" height="20">广州白云国际机场</td>
+                    <td align="left" height="20"><a href="https://www.baiyunairport.com/" target="_blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left" height="20">020-36066999</td>
+                    <td align="left" height="20">上海虹桥机场</td>
+                    <td align="left" height="20"><a href="https://www.shairport.com/" target="_blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left" height="20">021-96990</td>
+                </tr>
+                <tr>
+                    <td align="left" height="20">深圳宝安国际机场</td>
+                    <td align="left" height="20"><a href="https://www.szairport.com/" target="_blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left" height="20">86-755-23456789</td>
+                    <td align="left" height="20">成都双流国际机场</td>
+                    <td align="left" height="20"><a href="https://www.cdairport.com/" target="_blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left" height="20">028-85205555</td>
+                </tr>
+                <tr>
+                    <td align="left" height="20">昆明长水国际机场</td>
+                    <td align="left" height="20"><a href="https://www.ynairport.com/" target="_blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left" height="20">0871-96566</td>
+                    <td align="left" height="20">海口美兰国际机场</td>
+                    <td align="left" height="20"><a href="http://www.mlairport.com/mljc/hxxx/" target="_blank"><img src="../../../images/pic_enter.gif" width="18" height="20" border="0" /></a></td>
+                    <td align="left" height="20">0898-65760114</td>
+                </tr>
+                <tr height="16">
+                    <td colspan="5">&nbsp;</td>
+                    <td align="right" height="20"><a href="../DLGXX/index.html" class="Ablue12px" target="_blank">更多&gt;&gt;</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div style="display:none;" ><img src="../../../images/index_fly_10_on.png" /></div>
+    </div>
+    <!--end main-->
+    <div class="bottom_panel" style="margin-top:-20px;"></div>
+</div>
+<!--上面结束-->
+<!--底部-->
+<div class="bottom" >
+  <div class="wrap_w">
+    <div class="link clearfix"> 
+	  <ul>
+	    <li>
+		  <div data-role="select_box" class="select_box d_inline">
+			<span><input type="text" readonly="readonly" value="内设机构" data-role="select_txt" class="select_txt" style="font-family:Microsoft Yahei, Arial, Helvetica, sans-serif" /></span>
+			<div data-role="option_con" class="select_con">
+			  <a href="http://www.caac.gov.cn/dev/bgt/" target="_blank" title="链接到“综合司”"><p data-role="option_item">综合司</p></a>
+			  <a href="http://www.caac.gov.cn/dev/hab/" target="_blank" title="链接到“航空安全办公室”"><p data-role="option_item">航空安全办公室</p></a>
+              <a href="http://www.caac.gov.cn/dev/zcfgs/" target="_blank" title="链接到“政策法规司”"><p data-role="option_item">政策法规司</p></a>
+              <a href="http://www.caac.gov.cn/dev/ghfzs/" target="_blank" title="链接到“发展计划司”"><p data-role="option_item">发展计划司</p></a>
+              <a href="http://www.caac.gov.cn/dev/cws/" target="_blank" title="链接到“财务司”"><p data-role="option_item">财务司</p></a>
+              <a href="http://www.caac.gov.cn/dev/rskjs/" target="_blank" title="链接到“人事科教司”"><p data-role="option_item">人事科教司</p></a>
+              <a href="http://www.caac.gov.cn/dev/gjhzs/" target="_blank" title="链接到“国际司”"><p data-role="option_item">国际司（港澳台办公室）</p></a>
+              <a href="http://www.caac.gov.cn/dev/yshs/" target="_blank" title="链接到“运输司”"><p data-role="option_item">运输司</p></a>
+              <a href="http://www.caac.gov.cn/dev/fbs/" target="_blank" title="链接到“飞行标准司”"><p data-role="option_item">飞行标准司</p></a>
+              <a href="http://www.caac.gov.cn/dev/shs/" target="_blank" title="链接到“航空器适航审定司”"><p data-role="option_item">航空器适航审定司</p></a>
+              <a href="http://www.caac.gov.cn/dev/jcs/" target="_blank" title="链接到“机场司”"><p data-role="option_item">机场司</p></a>
+              <a href="http://www.caac.gov.cn/dev/dkaqs/" target="_blank" title="链接到“低空安全司”"><p data-role="option_item">低空安全司</p></a>
+
+              <a href="http://www.caac.gov.cn/dev/kgbgs/" target="_blank" title="链接到“空管行业管理办公室”"><p data-role="option_item">空管行业管理办公室</p></a>
+              <a href="http://www.caac.gov.cn/dev/gaj/" target="_blank" title="链接到“公安局”"><p data-role="option_item">公安局</p></a>
+              <a href="http://www.caac.gov.cn/dev/dwbgs/" target="_blank" title="链接到“直属机关党委（思想政治工作办公室）”"><p data-role="option_item">直属机关党委（思想政治工作办公室）</p></a>
+              
+              <a href="http://www.caac.gov.cn/dev/qgmhgh/" target="_blank" title="链接到“全国民航工会”"><p data-role="option_item">全国民航工会</p></a>
+              <a href="http://www.caac.gov.cn/dev/ltxgbj/" target="_blank" title="链接到“离退休干部局”"><p data-role="option_item">离退休干部局</p></a>
+			</div> 
+		  </div>
+		</li>
+		<li>
+		  <div data-role="select_box" class="select_box d_inline">
+			<span><input type="text" readonly="readonly" value="地区管理局" data-role="select_txt" class="select_txt" style="font-family:Microsoft Yahei, Arial, Helvetica, sans-serif" /></span>
+			<div data-role="option_con" class="select_con">
+			  <a href="http://hb.caac.gov.cn" title="链接到“华北地区管理局”" target="_blank"><p data-role="option_item">华北地区管理局</p></a>
+			  <a href="http://db.caac.gov.cn" title="链接到“东北地区管理局”" target="_blank"><p data-role="option_item">东北地区管理局</p></a>
+                          <a href="http://hd.caac.gov.cn" title="链接到“华东地区管理局”" target="_blank"><p data-role="option_item">华东地区管理局</p></a>
+                          <a href="http://zn.caac.gov.cn" title="链接到“中南地区管理局”" target="_blank"><p data-role="option_item">中南地区管理局</p></a>
+                          <a href="http://xn.caac.gov.cn" title="链接到“西南地区管理局”" target="_blank"><p data-role="option_item">西南地区管理局</p></a>
+                          <a href="http://xb.caac.gov.cn" title="链接到“西北地区管理局”" target="_blank"><p data-role="option_item">西北地区管理局</p></a>
+                          <a href="http://xj.caac.gov.cn" title="链接到“新疆管理局”" target="_blank"><p data-role="option_item">新疆管理局</p></a>
+			</div>
+		  </div>
+		</li>
+		<li>
+		  <div data-role="select_box" class="select_box d_inline">
+			<span><input type="text" readonly="readonly" value="直属机构" data-role="select_txt" class="select_txt" style="font-family:Microsoft Yahei, Arial, Helvetica, sans-serif" /></span>
+			<div data-role="option_con" class="select_con">
+			  <a href="http://www.atmb.net.cn" title="链接到“空中交通管理局”" target="_blank"><p data-role="option_item">空中交通管理局</p></a>
+			  <a ><p data-role="option_item">机关服务局</p></a>
+              <a href="http://www.cauc.edu.cn" title="链接到“中国民航大学”" target="_blank"><p data-role="option_item">中国民航大学</p></a>
+              <a href="http://www.cafuc.edu.cn" title="链接到“中国民航飞行学院”" target="_blank"><p data-role="option_item">中国民航飞行学院</p></a>
+              <a href="http://www.camic.cn" title="链接到“中国民航管理干部学院”" target="_blank"><p data-role="option_item">中国民航管理干部学院</p></a>
+              <a href="https://www.gcac.edu.cn" title="链接到“广州民航职业技术学院”" target="_blank"><p data-role="option_item">广州民航职业技术学院</p></a>
+              <a href="https://www.shcac.edu.cn/" title="链接到“上海民航职业技术学院”" target="_blank"><p data-role="option_item">上海民航职业技术学院</p></a>
+              <a href="http://www.castc.org.cn" title="链接到“中国民航科学技术研究院”" target="_blank"><p data-role="option_item">中国民航科学技术研究院</p></a>
+              <a href="https://www.caacsri.com" title="连接到“民航第二研究所”" target="_blank"><p data-role="option_item">民航第二研究所</p></a>
+              <a href="http://www.caacnews.com.cn" title="链接到“中国民航报社出版社”" target="_blank"><p data-role="option_item">中国民航报社出版社（中国民用航空宣传教育中心）</p></a>
+              <!--<a href="http://www.mhzyy.cn" title="链接到“民航医学中心(总医院)”" target="_blank"><p data-role="option_item">民航医学中心（总医院）</p></a>->>
+              <a href="http://www.caacsc.cn" title="链接到“清算中心”" target="_blank"><p data-role="option_item">清算中心</p></a>
+              <!--<a href="#" title="链接到“中国民航飞行校验中心”" target="_blank"><p data-role="option_item">中国民航飞行校验中心</p></a>-->
+              <a href="http://www.caac.gov.cn/mhjxxzx/index.html" title="链接到“信息中心”" target="_blank"><p data-role="option_item">信息中心</p></a>
+              <a href="http://WWW.CAQS.CN" title="链接到“民航专业工程质量监督总站”" target="_blank"><p data-role="option_item">民航专业工程质量监督总站</p></a>
+
+              <a href="http://www.cah.com.cn" title="链接到“首都机场集团”" target="_blank"><p data-role="option_item">首都机场集团</p></a>
+              <a href="http://sjzx.caac.gov.cn/" title="链接到“审计中心”" target="_blank"><p data-role="option_item">审计中心</p></a>
+              <a href="http://www.icscc.org.cn" title="链接到“国际合作中心”" target="_blank"><p data-role="option_item">国际合作中心</p></a>
+              <a ><p data-role="option_item">中国民航机场建设集团有限公司</p></a>
+              <!--<a title="链接到“中国民航工程咨询公司”" target="_blank"><p data-role="option_item">中国民航工程咨询公司</p></a>-->
+              <a href="http://acc.caac.gov.cn/" title="链接到“中国民用航空适航审定中心”" target="_blank"><p data-role="option_item">中国民用航空适航审定中心</p></a>
+              <a href="http://www.caacmuseum.cn/" title="链接到“民航博物馆”" target="_blank"><p data-role="option_item">民航博物馆</p></a>
+
+              <a href="http://www.mhzyy.cn" title="链接到“民航医学中心(总医院)”" target="_blank"><p data-role="option_item">民航医学中心(总医院)</p></a>
+
+			</div>
+		  </div>
+		</li>
+		<li>
+		  <div data-role="select_box" class="select_box d_inline">
+			<span><input type="text" readonly="readonly" value="驻外机构" data-role="select_txt" class="select_txt" style="font-family:Microsoft Yahei, Arial, Helvetica, sans-serif" /></span>
+			<div data-role="option_con" class="select_con">
+			  <a href="http://www.caac.gov.cn/ICAO/" target="_blank" title="链接“中华人民共和国常驻国际民航组织理事会代表处”"><p data-role="option_item">中华人民共和国常驻国际民航组织理事会代表处</p></a>
+			</div>
+		  </div>
+		</li>
+		<li>
+		  <div data-role="select_box" class="select_box d_inline">
+			<span><input type="text" readonly="readonly" value="相关链接" data-role="select_txt" class="select_txt" style="font-family:Microsoft Yahei, Arial, Helvetica, sans-serif" /></span>
+			<div data-role="option_con" class="select_con">
+			  <a href="http://www.gov.cn/" target="_blank" title="链接到“中央政府门户网站”"><p data-role="option_item">中央政府门户网站</p></a>
+			  <a href="http://www.mot.gov.cn" target="_blank" title="链接“交通运输部”"><p data-role="option_item">交通运输部</p></a>
+			  <a href="http://www.nra.gov.cn/" target="_blank" title="链接“国家铁路局”"><p data-role="option_item">国家铁路局</p></a>
+                          <a href="http://www.spb.gov.cn/" target="_blank" title="链接到“国家邮政局”"><p data-role="option_item">国家邮政局</p></a>
+                          <a href="http://www.caac.gov.cn/GYMH/MHGK/STZZ/" target="_blank"><p data-role="option_item">民航社团组织</p></a>
+                          <a href="http://www.caac.gov.cn/GYMH/MHGK/HKGS/" target="_blank"><p data-role="option_item">航空运输企业</p></a>
+                          <a href="http://www.caac.gov.cn/GYMH/MHGK/MYJC/" target="_blank"><p data-role="option_item">民用机场</p></a>
+                          <a href="http://www.caac.gov.cn/GYMH/MHGK/BZQY/" target="_blank"><p data-role="option_item">民航运输保障企业</p></a>
+			</div>
+		  </div>
+		</li>
+	  </ul>
+	</div>
+	<div class="foot_info">
+		<div style="width:740px;margin-left:230px;" >
+                 <div style="float:left; width:125px;margin-top:20px;margin-left:-210px;">
+          	   <img src="../../../images/feiji.jpg" />
+                 </div>
+		  <div style="width:680px; float:left;margin-left:-69px">			 
+			 <div class="foot_nav" style="margin-left:-5px; padding-bottom:18px;text-align: left;">
+				<ul style="float:left;width: 290px;">
+				  <li class="d_inline" style="padding:0 5px;font-size:13px;"><a href="../../../GYMH/" target="_blank">关于我们</a></li><li class="d_inline" style="padding:0 5px;font-size:13px;"><a href="../../../WZDT/" target="_blank">站点地图</a></li><!--li class="d_inline" style="padding:0 5px;"><a href="../../GZLY/" target="_blank">联系我们</a></li><li class="d_inline" style="padding:0 5px;"><a href="../../GZLY/" target="_blank">网站纠错</a></li-->
+				</ul>
+				<ul>
+				  <li class="d_inline" style="padding:0 5px;border-left: none;color: white;font-size:13px;">地址：北京市东城区东四西大街155号（100710）</li>
+				</ul>
+			  </div>
+			  <div class="copyright" style="font-size:13px;">
+				<p style="text-align:left; padding-bottom:18px;"><label style="width:290px;display: inline-block;">版权所有：中国民用航空局</label>网站管理：中国民用航空局综合司</p>
+				<p style="text-align:left; padding-bottom:18px;"><label style="width:230px;display: inline-block;"><a href="https://beian.miit.gov.cn/" target="_blank" title="工业和信息化部政务服务平台" style =" color:#FFF;">ICP备案编号：京ICP备19046468号</a></label><label style="width: 230px;display: inline-block;"><img src="../../../images/caacgov-ga.png" width="16px" /><a href="https://beian.mps.gov.cn/#/query/webSearch?code=11010102007643" rel="noreferrer" target="_blank" style=" color: #fff; margin-left: 3px;">京公网安备11010102007643号</a></label><label style="width: 200px;display: inline-block;">政府网站识别码：bm70000001</label></p>
+			  </div>		    		     
+		  </div>
+		  <div style="float:left;margin-left:-70px; margin-top:13px;">
+			    <span id="_ideConac"></span>
+	          </div>
+                   <div style="float:right; margin-top:25px;" id="jiucuoDiv">
+                                
+                   </div>	 
+
+        </div>
+  </div>
+</div>
+<div align="left">
+<style>
+.foot_nav li a:hover{ color:#FFF;}
+</style>
+<script type="text/javascript">
+if (window.location.protocol === "https:") {
+var script10000021 = document.getElementById("10000021");
+script10000021.src = "https://www.caac.gov.cn/phpstat/count/10000021/10000021.js";
+}
+
+//百度统计
+var _hmt = _hmt || [];
+
+(function(){
+//百度统计
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4014848c4e18723269ffe0193734e573";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+
+
+var scriptConac=document.createElement('script');
+scriptConac.type='text/javascript';
+scriptConac.async=true;
+scriptConac.src="https://dcs.conac.cn/js/33/000/0000/40672372/CA330000000406723720001.js";
+var spanConac=document.getElementById("_ideConac");
+spanConac.parentNode.insertBefore(scriptConac,spanConac);
+var span_msg =document.createElement('span');
+var sitecode = "bm70000001";
+span_msg.innerHTML = "<img onclick='Link(\"" + sitecode+ "\")' style='margin:0;border:0;cursor: pointer;' src='http://pucha.kaipuyun.cn/exposure/images/jiucuo.png?v="+sitecode+"' />";
+var divJiucuo=document.getElementById("jiucuoDiv");
+ divJiucuo.insertBefore(span_msg,divJiucuo.firstChild); })(); 
+//点击图标
+function Link(site_code) {
+	//获取该站点需要纠错页面的url地址
+	var url = getCurrUrl();
+	//跳转至纠错系统填写页面 
+	window.open("http://pucha.kaipuyun.cn/exposure/jiucuo.html?site_code=" + site_code + "&url=" + encodeURIComponent(url));
+}
+//获取该站点需要纠错页面的url地址
+function getCurrUrl() {
+	var url = "";
+	if (parent !== window) {
+		try {
+			url = window.top.location.href;
+		} catch (e) {
+			url = window.top.document.referrer;
+		}
+	}
+	if (url.length == 0)
+		url = document.location.href;
+
+	return url;
+}
+</script>
+</div>
+<!-- PHPStat Start -->
+<script language="javascript">var __$nodeid='722';</script>
+<script language="JavaScript" charset="utf-8" src="/phpstat/count/10000021/10000021.js" id="10000021" async></script>
+<!-- /PHPStat End -->
+
+<!-- 无障碍浏览 -->
+<script type="text/javascript" src="../../../images/esdToolsInit.js"></script>
+<script type="text/javascript" src="../../../images/e_t_allSelector.js"></script>
+<!--side-->
+<style type="text/css">
+      .fix_tips .bdsharebuttonbox .bds_more {
+         display: block !important;
+         margin: 0 0 3px 14px !important;
+         width: 50px !important;
+         height: 50px !important;    
+         background: url(/images/50_icon.png) no-repeat !important;
+         background-position: 0 -150px !important; 
+         padding-left:0px !important;   
+    }
+    .bdshare_dialog_bottom{display:none !important;}
+	.fix05{background:url(/images/xcdyzf.png) no-repeat !important;    margin-bottom: 3px;
+    top: -3px;
+    position: relative;}
+    .bdshare_popup_box{display:none !important}
+	
+	
+	
+	.ico_size{
+		width:32px;
+		height:32px;
+	}
+	.social-share .icon-wechat .wechat-qrcode {
+		display:none;
+		border:1px solid #eee;
+		position:absolute;
+		z-index:9;
+		top:-170px;
+		left:105px;
+		width:200px;
+		height:192px;
+		color:#666;
+		font-size:12px;
+		text-align:center;
+		background-color:#fff;
+		box-shadow:0 2px 10px #aaa;
+		transition:all 200ms;
+		-webkit-tansition:all 350ms;
+		-moz-transition:all 350ms
+	}
+	.social-share .icon-wechat .wechat-qrcode.bottom {
+		top:40px;
+		left:-84px
+	}
+	.social-share .icon-wechat .wechat-qrcode.bottom:after {
+		display:none
+	}
+	.social-share .icon-wechat .wechat-qrcode h4 {
+		font-weight:normal;
+		height:26px;
+		line-height:26px;
+		font-size:12px;
+		background-color:#f3f3f3;
+		margin:0;
+		padding:0;
+		color:#777
+	}
+	.social-share .icon-wechat .wechat-qrcode .qrcode {
+		width:105px;
+		margin:10px auto
+	}
+	.social-share .icon-wechat .wechat-qrcode .qrcode table {
+		margin:0 !important
+	}
+	.social-share .icon-wechat .wechat-qrcode .help p {
+		font-weight:normal;
+		line-height:16px;
+		padding:0;
+		margin:0
+	}
+	.social-share .icon-wechat .wechat-qrcode:after {
+		content:'';
+		position:absolute;
+		left:50%;
+		margin-left:-6px;
+		bottom:-13px;
+		width:0;
+		height:0;
+		border-width:8px 6px 6px 6px;
+		border-style:solid;
+		border-color:#fff transparent transparent transparent
+	}
+/*
+	.social-share .icon-wechat:hover .wechat-qrcode {
+		display:block
+	}
+*/	
+	.wechat-display{
+		display:block !important;
+	}
+	a.bshareDiv, #bsPanel, #bsMorePanel, #bshareF {
+		border: none;
+		background: none;
+		padding: 0;
+		margin: 0;
+		font: 12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;
+		line-height: 14px;
+	}
+	#bsPanel {
+		position: fixed;
+		left: 0px;
+        right: 0px;
+		top: 0px;
+		bottom: 0px;
+		height: 180px;
+        margin:auto;
+		z-index: 100000000;
+		font-size: 12px;
+		width: 258px;
+		padding: 6px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+	}
+	div.bsTitle {
+		padding: 0 8px;
+		border-bottom: 1px solid #e8e8e8;
+		color: #666;
+		background: #f2f2f2;
+		text-align: left;
+	}
+	a.bsSiteLink {
+		text-decoration: none;
+		color: #666;
+	}
+	div.bsClear {
+		clear: both;
+		height: 0;
+		line-height: 0;
+		font-size: 0;
+		overflow: hidden;
+	}
+	div.bsLogoSel, div.bsRlogoSel {
+		border: 1px solid #ddd;
+		background: #f1f1f1;
+	}
+	div.bsRlogo, div.bsRlogoSel {
+		/*width: 68px;*/
+		width: 90px;
+		float: left;
+		margin: 0;
+		padding: 2px 0;
+	}
+/*	div.bsRlogo, div.bsRlogoSel {
+		width: 68px;
+		float: left;
+		margin: 0;
+		padding: 2px 0;
+	}*/
+	div.bsLogoSel a, div.bsRlogoSel a {
+		color: #000;
+		border: none;
+	}
+	div.bsLogo, div.bsRlogo {
+		border: 1px solid #fff;
+		background: #fff;
+	}
+	div.bsLogo a, div.bsRlogo a {
+		color: #666;
+		border: none;
+	}
+	div.bsRlogo a, div.bsRlogoSel a {
+		float: left;
+	}
+    </style> 
+<div class="fix_tips">
+    <i class="f_close" id="f_close"></i>
+    <ul>
+        <li ><a href="http://www.caac.gov.cn/INDEX/YDKHDXZ/" target="_blank"><i class="fix05" style="margin-top: 10px;width:60px;height:60px;background:url(/images/2wm.png) no-repeat !important;background-size: cover;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/2wm.png',sizingMethod='scale');background-size:60px 60px !important;top: 3px;"></i><span style="margin-top: 5px;">移动客户端</span></a></li>
+            
+       <li><a href="https://tousu.www.gov.cn/dc/index.htm" target="_blank" id="aXCX"><img src="../../../images/GWYXCX_2019.jpg" style="width:50px;" /></img><span style="line-height: 16px;">国务院<br>互联网+督查</span></a></li>
+<div id="divXCX" style="display:none;position: absolute;right: 100px;top: 150px;"><img src="../../../images/GWYXCX_2019.jpg" style="width: 150px;" /></div>
+<div id="divWXZLSJH" style="display:none;position: absolute;right: 100px;top: 100px;"><img src="../../../images/WXZLSJH_2021.jpg" style="width: 200px;" /></div>
+
+        <li style="background:#f6f6f6"> 
+			<div class="bdsharebuttonbox">                            
+                <A class="bds_more" id="rightFolat" href="javascript:void(0)"></A>
+            </div>
+			<span style="margin-left:27px">
+				分享
+			</span>
+		</li>
+        <li><a href="https://liuyan.www.gov.cn/2025wwzfgzbgtjy/bmdf.html?q=zgmhj"  target="_blank" style="padding: 4px 0;font-size:13px;" id="2025SFGW"><img src="../../../images/2025WOLAISHUO.jpg" style="width:72px;" /></a></li>
+                <div id="div_SIDE_2025SFGW" style="display:none;position: absolute;right: 100px;top: 200px;"><img src="../../../images/2025WOLAISHUO.jpg" style="width: 300px;" /></div>
+
+    </ul>
+</div>
+
+<div id="bsPanel" style="display:none;background: url(/images/background-opaque-dark.png);">
+	<div class="bsTitle">
+		<a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank">分享到</a>
+		<a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="shareHide();">X</a>
+		<div class="bsClear"></div>
+	</div>
+	<div style="background:#fff;">
+		<div id="icons" class="social-share" data-initialized="true" style="padding-left: 40px;padding-top: 20px;padding-bottom: 15px;">
+			<div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'" onmouseout="javascript:this.className='bsRlogo'" style="display:none;">
+				<a href="javascript:;" class="icon-peoplemb" style="text-decoration:none;line-height:120%;width: 100%;">
+					<div style="cursor:pointer;height:32px;text-align:center;">
+						<img class="ico_size" src="../../../images/peoplemb.gif" />
+					</div>
+					<div style="cursor:pointer;text-align:center;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;margin-top: 5px;">
+						人民微博
+					</div>
+				</a>
+			</div>
+			<div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'" onmouseout="javascript:this.className='bsRlogo'">
+				<a href="javascript:;" class="icon-wechat" style="text-decoration:none;line-height:120%;width: 100%;">
+					<div style="cursor:pointer;height:32px;text-align:center;">
+						<img class="ico_size" src="../../../images/weixin.gif" />
+					</div>
+					<div style="cursor:pointer;text-align:center;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;margin-top: 5px;">
+						微信
+					</div>
+				</a>
+			</div>
+			<div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'" onmouseout="javascript:this.className='bsRlogo'">
+				<a href="javascript:;" class="icon-weibo" style="text-decoration:none;line-height:120%;width: 100%;">
+					<div style="cursor:pointer;height:32px;text-align:center;">
+						<img class="ico_size" src="../../../images/sinaminiblog.gif" />
+					</div>
+					<div style="cursor:pointer;text-align:center;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;margin-top: 5px;">
+						新浪微博
+					</div>
+				</a>
+			</div>
+			<div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'" onmouseout="javascript:this.className='bsRlogo'" style="margin-top:5px;">
+				<a href="javascript:;" class="icon-qzone" style="text-decoration:none;line-height:120%;width: 100%;">
+					<div style="cursor:pointer;height:32px;text-align:center;">
+						<img class="ico_size" src="../../../images/qzone.gif" />
+					</div>
+					<div style="cursor:pointer;text-align:center;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;margin-top: 5px;">
+						QQ空间
+					</div>
+				</a>
+			</div>
+			<div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'" onmouseout="javascript:this.className='bsRlogo'" style="margin-top:5px;display:none;">
+				<a href="javascript:;" class="icon-renren" style="text-decoration:none;line-height:120%;width: 100%;">
+					<div style="cursor:pointer;height:32px;text-align:center;">
+						<img class="ico_size" src="../../../images/renren.gif" />
+					</div>
+					<div style="cursor:pointer;text-align:center;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;margin-top: 5px;">
+						人人网
+					</div>
+				</a>
+			</div>
+			<div class="bsRlogo" onmouseover="javascript:this.className='bsRlogoSel'" onmouseout="javascript:this.className='bsRlogo'" style="margin-top:5px;">
+				<a href="javascript:;" class="icon-douban" style="text-decoration:none;line-height:120%;width: 100%;">
+					<div style="cursor:pointer;height:32px;text-align:center;">
+						<img class="ico_size" src="../../../images/douban.gif" />
+					</div>
+					<div style="cursor:pointer;text-align:center;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;margin-top: 5px;">
+						豆瓣网
+					</div>
+				</a>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+</div>
+
+<script src="../../../images/social-share.js"></script>
+<script src="../../../images/qrcode.js"></script>
+<script type="text/javascript">
+    function setShareItem(){
+        var docchannelid = ''==''?'722':'';
+        var docchannelName = ''==''?'电子客票验真':'';
+        var docid = ''==''?'722':'';
+        var docName =''==''?'中国民用航空局--电子客票验真':'';
+        var docUrl = window.location.href;
+        var siteid='4';
+
+        var url = config.backstageURL + "/jsonp/sharelog/savelog";
+        var data = new Object();
+        data.channelId=docchannelid;
+        data.docId=docid;
+        data.docTitle=docName;
+        data.docUrl=docUrl;
+        data.channelName = docchannelName;
+        data.siteId=siteid;
+
+        jQuery.support.cors = true;
+        jQuery.ajax({
+            type:"GET",
+            url:url,
+            data:data,
+            dataType: "jsonp",
+            jsonp: "callbackparam", //服务端用于接收callback调用的function名的参数
+            jsonpCallback: "logback", //callback的function名称,服务端会把名称和data一起传递回来
+            success: function(json) {
+                //alert('');
+            },
+            error: function(){}
+        });
+    }
+
+    $(function(){
+
+        // 6个分享
+		$("#icons a").off("click");
+		$("#icons a").on("click",function(){
+			setShareItem();
+		});
+		
+        $(".icon-wechat").on("click",function(){
+              $(".wechat-qrcode").addClass("wechat-display");
+        }).mouseout(function(){
+              $(".wechat-qrcode").removeClass("wechat-display");
+        });
+
+                $(document).bind("click",function(e){
+                   if($(e.target).closest('#rightFolat').length==0&&$(e.target).closest('#bsPanel').length==0&&$(e.target).closest('#shareView').length==0&&$(e.target).closest('.bsTitle').length==0&&$(e.target).closest('#icons').length==0&&$(e.target).closest('.bsRlogo').length==0&&$(e.target).closest('.bsRlogoSel').length==0&&$(e.target).closest('.ico_size').length==0&&$(e.target).closest('.icon-peoplemb').length==0&&$(e.target).closest('.icon-weibo').length==0&&$(e.target).closest('.icon-wechat').length==0&&$(e.target).closest('.icon-qzone').length==0&&$(e.target).closest('.icon-renren').length==0&&$(e.target).closest('.icon-douban').length==0&&e.target.nodeName!="BODY"){
+                                        
+                        $("#bsPanel").hide();
+                      
+                   }
+                });
+
+		shareConfig();
+		shareView();
+$("#aXCX").hover(function(){$("#divXCX").show();},function(){$("#divXCX").hide();});
+$("#aWXZLSJH").hover(function(){$("#divWXZLSJH").show();},function(){$("#divWXZLSJH").hide();});
+
+$("#2025SFGW").hover(function(){$("#div_SIDE_2025SFGW").show();},function(){$("#div_SIDE_2025SFGW").hide();});
+
+
+    })
+
+                	
+	function shareConfig(){
+		var title =  $("title").html();
+		$("#icons").attr("data-title",title);
+		$("#icons").attr("data-description",title);
+	}
+	
+	function shareView(){
+		$("#shareView,#rightFolat").off("click");
+		$("#shareView,#rightFolat").on("click",function(){
+			$("#bsPanel").show();
+                            
+		});
+
+	}
+
+	function shareHide(){
+		$("#bsPanel").hide();
+
+	}
+</script>
+
+</body>
+<div id="jsContainer" class="jsContainer" style="height:0">
+    <div id="tuna_alert" style="display:none;position:absolute;z-index:999;overflow:hidden;"></div>
+    <div id="tuna_jmpinfo" style="visibility:hidden;position:absolute;z-index:120;"></div>
+</div>
+<script type="text/javascript" src="../../../images/fixinput.js"></script>
+	<script type="text/javascript" src="../../../images/address.js"></script>
+</html>

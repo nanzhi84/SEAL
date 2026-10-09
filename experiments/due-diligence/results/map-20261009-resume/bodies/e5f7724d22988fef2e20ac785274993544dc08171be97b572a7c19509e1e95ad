@@ -1,0 +1,2229 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>首页-云南省产权交易所门户网站</title>
+    <link rel="stylesheet" href="/r/cms/www/default/css/myIndex.css?20230713">
+    <link rel="stylesheet" href="/r/cms/www/default/css/swiper-bundle.min.css" />
+
+    <meta name="title" content="云南省产权交易所门户网站" />
+    <meta name="keywords" content="产权交易,招标采购" />
+    <meta name="description" content="云南省产权交易所门户网站" />
+    <script src="/r/cms/www/default/lib/layui/layui.all.js"></script>
+
+</head>
+
+<body class="no-nav-border">
+<!-- 顶部导航 -->
+<link rel="stylesheet" href="/r/cms/www/default/css/base.css?20241204">
+<link rel="stylesheet" href="/r/cms/www/default/css/myNormalize.css?20230621">
+<link rel="stylesheet" href="/r/cms/www/default/css/myHeader.css?20230128" />
+<link rel="stylesheet" href="/r/cms/www/default/icon/iconfont.css" />
+<link rel="stylesheet" href="/r/cms/www/default/fonts/iconfont.css">
+
+<link rel="stylesheet" href="/r/cms/www/default/css/password.css" />
+<link rel="stylesheet" href="/r/cms/www/default/css/jquery.my-message.1.1.css"/>
+<!--<link rel="icon" href="/r/cms/www/default/css/images/favicon.ico" type="image/vnd.microsoft.icon">-->
+<script>
+	localStorage.setItem('base', '');
+</script>
+
+<!-- IE兼容ES6基本语法 -->
+<!-- <script src="js/browser.min.js"></script> -->
+<!-- 转换 Iterator、Generator、Set、Maps、Proxy、Reflect、
+Symbol、Promise等语法 -->
+<!-- <script src="js/browser-polyfill.min.js"></script> -->
+<!-- ======== -->
+<script src="/r/cms/www/default/js/jquery-1.12.4.js"></script>
+<script src="/r/cms/www/default/js/jquery.cookie.js"></script>
+<script src="/r/cms/www/default/js/sm.js"></script>
+<script src="/r/cms/www/default/js/crypto-js.js"></script>
+<script src="/r/cms/www/default/js/jquery.my-message.1.1.js"></script>
+<script src="/r/cms/www/default/js/jquery.validate.js"></script>
+<script src="/r/cms/www/default/js/dayjs.min.js"></script>
+<script src="/r/cms/www/default/js/jquery.page.js"></script>
+<script src="/r/cms/www/default/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script src="/r/cms/www/default/js/app.js"></script>
+<script src="/r/cms/www/default/js/permCheck.js" type="text/javascript" charset="utf-8"></script>
+<script src="/r/cms/www/default/js/siteSurver.js"></script>
+<!-- 顶1部 -->
+<script type="text/javascript">
+	$(function() {
+		// GOV.yuyinInit("","true");
+		// register-sso
+		// 判断是否登录，登录了就显示隐藏相关信息
+		function isSsoLogin (){
+			var openSso = 'false';
+			if(openSso == 'true'){
+				$('.login-in1').css('display','none');
+				$('.login1').css('display','');
+			} else {
+				$('.login1').css('display','none');
+				$('.login-in1').css('display','');
+			}
+		}
+		isSsoLogin();
+	})
+</script>
+
+<!-- 公共头部容器 -->
+<div class="head-container">
+	<!-- 顶部区域 -->
+	<div class="head-top">
+		<!-- 顶部居中容器 -->
+		<div class="head-top-middle">
+			<div class="left">
+				<a href="javascript:void(0);">云南省产权交易所门户网站欢迎您！ </a>
+			</div>
+			<div class="right">
+				<a href="javascript:void(0);" style="margin-left: 20px">咨询电话：0871-63601051（工作日：9:00-12:00 13:00-17:00）</a>
+			</div>
+		</div>
+	</div>
+  <div class="head-middle k1200 row-between">
+    <!-- logo -->
+    <div class="logo">
+      <a href="/">
+        <img src="/r/cms/www/default/images/logo.png" alt="">
+        <h1 class="hide">云南省产权交易所集团</h1>
+      </a>
+    </div>
+    <!-- search -->
+    <div class="head-middle-search row-between">
+      <div id="divselect" class="base-select  search-select">
+        <cite id="index_search_type">产权交易<i class="ico"></i></cite>
+        <ul id="index_search_fix">
+          <li><a href="javascript:void(0);" selectid="1">产权交易</a></li>
+          <li><a href="javascript:void(0);" selectid="4">预披露</a></li>
+          <li><a href="javascript:void(0);" selectid="2">阳光采购</a></li>
+          <li><a href="javascript:void(0);" selectid="3">资讯公告</a></li>
+        </ul>
+        <input type="hidden" id="inputselect" value="1">
+      </div>
+      <div class="field">
+        <input type="text" name="nope" id="headerKeyword" class="search-input" placeholder="请输入您要搜索的关键词"  maxlength="40" value="" >
+      </div>
+      <button class="search-button" id="index_search_btn">项目搜索</button>
+    </div>
+  </div>
+	<!-- 导航区域 -->
+	<div class="nav-container">
+		<!-- 导航居中容器 -->
+		<div class="k1200">
+      <ul class="row-between">
+        <li class="nav-item active" >
+          <a href="/" class="nav-item-a">首页</a>
+        </li>
+
+          <li class="nav-item ">
+              <a href="/cqjy.jhtml" target="_self" class="nav-item-a">产权交易</a>
+                  <ul class="sub-nav">
+                      <li class="sub-nav-item"><a href="/cqjyzczr.jhtml?xmType=zczr" target="_self" >资产转让</a></li>
+                      <li class="sub-nav-item"><a href="/cqjyzczl.jhtml?xmType=zczl" target="_self" >资产租赁</a></li>
+                      <li class="sub-nav-item"><a href="/cqjycqzr.jhtml?xmType=cqzr" target="_self" >产权转让</a></li>
+                      <li class="sub-nav-item"><a href="/cqjyqyzz.jhtml?xmType=qyzz" target="_self" >企业增资</a></li>
+                      <li class="sub-nav-item"><a href="/cqjyqt.jhtml?xmType=qt" target="_self" >其他</a></li>
+                      <li class="sub-nav-item"><a href="/cqjyypl.jhtml" target="_self" >预披露</a></li>
+                      <li class="sub-nav-item"><a href="/cqjyxxlf.jhtml" target="_self" >信息联发</a></li>
+                      <li class="sub-nav-item"><a href="/cqjydzgz.jhtml" target="_self" >招商公告</a></li>
+                  </ul>
+          </li>
+
+          <li class="nav-item ">
+              <a href="/ygcg.jhtml" target="_self" class="nav-item-a">阳光采购</a>
+                  <ul class="sub-nav">
+                      <li class="sub-nav-item"><a href="/ygcggc.jhtml?projectType=GC" target="_self" >工程</a></li>
+                      <li class="sub-nav-item"><a href="/ygcghw.jhtml?projectType=HW" target="_self" >货物</a></li>
+                      <li class="sub-nav-item"><a href="/ygcgfw.jhtml?projectType=FW" target="_self" >服务</a></li>
+                      <li class="sub-nav-item"><a href="/ygcgqt.jhtml?projectType=QT" target="_self" >其他</a></li>
+                  </ul>
+          </li>
+
+          <li class="nav-item ">
+              <a href="/jgdt.jhtml" target="_self" class="nav-item-a">机构动态</a>
+          </li>
+
+          <li class="nav-item ">
+              <a href="/zcgzzcfg.jhtml" target="_blank" class="nav-item-a">政策规则</a>
+                  <ul class="sub-nav">
+                      <li class="sub-nav-item"><a href="/zcgzzcfg.jhtml" target="_self" >政策法规</a></li>
+                      <li class="sub-nav-item"><a href="/zcgzjygz.jhtml" target="_self" >交易规则</a></li>
+                      <li class="sub-nav-item"><a href="/zcgzjyzn.jhtml" target="_self" >交易指南</a></li>
+                      <li class="sub-nav-item"><a href="/zcgzcjwt.jhtml" target="_self" >常见问题</a></li>
+                  </ul>
+          </li>
+
+          <li class="nav-item ">
+              <a href="/djzxdjdt.jhtml" target="_self" class="nav-item-a">党建中心</a>
+                  <ul class="sub-nav">
+                      <li class="sub-nav-item"><a href="/djzxdjdt.jhtml" target="_self" >党建动态</a></li>
+                      <li class="sub-nav-item"><a href="/djzxxxyd.jhtml" target="_self" >学习园地</a></li>
+                      <li class="sub-nav-item"><a href="/djzxygfc.jhtml" target="_self" >员工风采</a></li>
+                  </ul>
+          </li>
+
+          <li class="nav-item ">
+              <a href="/tzgg.jhtml" target="_self" class="nav-item-a">公示公告</a>
+                  <ul class="sub-nav">
+                      <li class="sub-nav-item"><a href="/tz.jhtml" target="_self" >通知公告</a></li>
+                      <li class="sub-nav-item"><a href="/xmpyjg1.jhtml" target="_self" >项目评议结果</a></li>
+                  </ul>
+          </li>
+
+          <li class="nav-item ">
+              <a href="/aboutqyxx.jhtml" target="_self" class="nav-item-a">关于我们</a>
+                  <ul class="sub-nav">
+                      <li class="sub-nav-item"><a href="/aboutqyxx.jhtml" target="_self" >企业信息</a></li>
+                      <li class="sub-nav-item"><a href="/aboutjgjj.jhtml" target="_self" >机构简介</a></li>
+                      <li class="sub-nav-item"><a href="/aboutlxwm.jhtml" target="_self" >联系我们</a></li>
+                  </ul>
+          </li>
+
+          <li class="nav-item ">
+              <a href="/al.jhtml" target="_self" class="nav-item-a">案例</a>
+          </li>
+      </ul>
+		</div>
+	</div>
+</div>
+<script>
+// 加载地址图标
+// 		var logoUrl = "https://testynftp.ejy365.com/u/cms/kms/202412/27105143ar1h.png"
+var logoUrl = "/r/cms/www/default/images/favicon.ico"
+var linkTag = $('<link rel="icon" type="image/x-icon" href="' + logoUrl + '"/>');
+$($('head')[0]).append(linkTag);
+
+
+$(document).click(function () {
+  var ul = $("#divselect ul");
+  if (ul.css("display") != "none") {
+    ul.slideUp("fast");
+  }
+});
+
+
+// 头部搜索
+// 下拉搜索
+$("#divselect").click(function(event){
+  $("#divselect ul").slideToggle(300);
+  event.stopPropagation();
+
+})
+$("#divselect ul li a").click(function () {
+  var txt = $(this).text();
+  $("#divselect cite").html(txt + '<i class="ico"></i>');
+  var value = $(this).attr("selectid");
+  $("#inputselect").val(value);
+  $("#index_search_type").html(txt + "<i class='ico'></i>");
+});
+// 搜索
+$("#index_search_btn").click(function(){
+  var selectVal = $("#inputselect").val()
+  var txt = $("#headerKeyword").val().trim();
+    if(selectVal=='1'){
+        //产权交易
+        window.location.href = "/cqjy.jhtml?title="+txt
+    }else if(selectVal=='4'){
+        //预披露
+        window.location.href = "/cqjyypl.jhtml?title="+txt
+    }
+    else if(selectVal=='2'){
+        //阳光采购
+        window.location.href = "/ygcg.jhtml?title="+txt
+    }else {
+        //资讯
+        window.location.href = "/search.htm?q="+txt
+    }
+    console.log('searchClick', selectVal, txt)
+})
+
+</script>
+<a id="loginUrl" href="/login" style="display: none" target="_self"></a>
+<!--顶部导航 over-->
+<script src="/r/cms/www/default/js/swiper-bundle.min.js"></script>
+
+<!-- 大中部整体模块 -->
+<!-- 内容区域 -->
+<main class="main-container pb40">
+    <!-- 顶部轮播 -->
+    <div class="swiper" id="top-swiper">
+        <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <a href="https://ynygcg.ejy365.com/" title="云南省阳光采购平台"  target="_blank">
+                    <img src="https://yn-ftp.ejy365.com/u/cms/www/202506/18153512mqj1.jpg" alt="云南省阳光采购平台" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/zszl/41635.jhtml" title="云南省行政事业性资产招商专栏"  target="_blank">
+                    <img src="https://yn-ftp.ejy365.com/u/cms/www/202602/09160439ilo8.png" alt="云南省行政事业性资产招商专栏" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/zszl/41696.jhtml" title="中国信达资产管理股份有限公司云南省分公司优质资产推介"  target="_blank">
+                    <img src="https://yn-ftp.ejy365.com/u/cms/www/202602/12114219vtjb.png" alt="中国信达资产管理股份有限公司云南省分公司优质资产推介" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="http://36.147.33.49:13408/home" title="保山市综合性要素和资源交易服务平台正式上线"  target="_blank">
+                    <img src="https://yn-ftp.ejy365.com/u/cms/www/202503/31171032155d.jpg" alt="保山市综合性要素和资源交易服务平台正式上线" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjydzgz/41434.jhtml" title="云南省戎合投资控股有限公司资产推介"  target="_blank">
+                    <img src="https://yn-ftp.ejy365.com/u/cms/www/202504/0114455159ho.jpg" alt="云南省戎合投资控股有限公司资产推介" />
+                  </a>
+                </div>
+        </div>
+        <!-- 分页器 -->
+        <div class="swiper-pagination"></div>
+    </div>
+   <!-- 快捷入口 -->
+  <div class="row-between k1200">
+    <div class="quick-entry mt-40">
+      <h3 class="entry-head">快捷入口</h3>
+      <ul class="quick-list row-wrap">
+          <li>
+            <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?xmType=zczr" title="资产转让" class="quick-item"  target="_blank" >
+              <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21100717v7jv.jpg" alt="资产转让" class="quick-item-bg"/>
+              <p>资产转让</p>
+              <sub>TRANSFER OF ASSETS</sub>
+            </a>
+          </li>
+          <li>
+            <a href="https://cynee.ejy365.com/cqjyzczl.jhtml?xmType=zczl" title="资产租赁" class="quick-item"  target="_blank" >
+              <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21100839xn99.jpg" alt="资产租赁" class="quick-item-bg"/>
+              <p>资产租赁</p>
+              <sub>ASSET LEASING</sub>
+            </a>
+          </li>
+          <li>
+            <a href="https://cynee.ejy365.com/cqjycqzr.jhtml?xmType=cqzr" title="产权转让" class="quick-item"  target="_blank" >
+              <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21100906v6i0.jpg" alt="产权转让" class="quick-item-bg"/>
+              <p>产权转让</p>
+              <sub>TRANSFER OF PROPERTY RIGHTS</sub>
+            </a>
+          </li>
+          <li>
+            <a href="https://cynee.ejy365.com/cqjyqyzz.jhtml?xmType=qyzz" title="企业增资" class="quick-item"  target="_blank" >
+              <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21100917xjfp.jpg" alt="企业增资" class="quick-item-bg"/>
+              <p>企业增资</p>
+              <sub>ENTERPRISE CAPITAL INCREASE</sub>
+            </a>
+          </li>
+          <li>
+            <a href="https://ynygcg.ejy365.com/" title="阳光采购" class="quick-item"  target="_blank" >
+              <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21100933sfjn.jpg" alt="阳光采购" class="quick-item-bg"/>
+              <p>阳光采购</p>
+              <sub>SUNSHINE PROCUREMENT</sub>
+            </a>
+          </li>
+          <li>
+            <a href="https://cynee.ejy365.com/cqjycqzr.jhtml?xmType=qt" title="要素交易" class="quick-item" >
+              <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21100944bp7d.jpg" alt="要素交易" class="quick-item-bg"/>
+              <p>要素交易</p>
+              <sub>OTHER ELEMENTS</sub>
+            </a>
+          </li>
+      </ul>
+    </div>
+    <div class="login-entry mt-40">
+      <h3 class="entry-head">登录入口</h3>
+      <ul class="row-wrap login-entry-list pt10">
+        <li>
+          <a href="https://www.ejy365.com/ynLogin"  target="_blank"  class="login-item column-center" title="会员登录">
+            <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21101024x84t.png" alt="会员登录" class="login-item-icon">
+            <span>会员登录</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.ejy365.com/eweb/jgdl"  target="_blank"  class="login-item column-center" title="机构登录">
+            <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21101039as5d.png" alt="机构登录" class="login-item-icon">
+            <span>机构登录</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://jjxt.e-jy.com.cn/ejyjj/login.aspx?ReturnUrl=/ejyjj/"  target="_blank"  class="login-item column-center" title="竞价登录">
+            <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21101054g1wi.png" alt="竞价登录" class="login-item-icon">
+            <span>竞价登录</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://eb.ejy365.com/BidOpening/bidopeninghallaction/hall/login"  target="_blank"  class="login-item column-center" title="开标登录">
+            <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21101106ks8u.png" alt="开标登录" class="login-item-icon">
+            <span>开标登录</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://pw.ejy365.com/#/login"  target="_blank"  class="login-item column-center" title="评委登录">
+            <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21101117e56f.png" alt="评委登录" class="login-item-icon">
+            <span>评委登录</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://eb.ejy365.com/TPPingBiao/frame/pages_pb/frame/login/loginpb"  target="_blank"  class="login-item column-center" title="评标登录">
+            <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21101127220y.png" alt="评标登录" class="login-item-icon">
+            <span>评标登录</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- 广告位1 -->
+  <div class="k1200 adv mt40">
+            <a href="https://www.cynee.net/cqjy.jhtml?ywType=02" title="行政事业性资产项目"  target="_blank">
+              <img src="https://yn-ftp.ejy365.com/u/cms/www/202509/1711031885ai.jpg" alt="行政事业性资产项目">
+            </a>
+
+  </div>
+  <!-- 产权转让-->
+  <div class="k1200 mt40"  style="display:flex; justify-content:space-between;">
+    <div class="index-list-left-pic-wrapper">
+      <div class="list-title-wrapper">
+        <div class="list-title">产权转让</div>
+        <div class="bottom-line"></div>
+      </div>
+      <img class="index-list-left-pic" src="/r/cms/www/default/images/index/cqjy.jpg" alt="产权转让">
+    </div>
+    <div>
+      <div class="module-head row pb10">
+        <ul class="module-head-tab row">
+          <li data-url="/cqjy.jhtml?xmType=cqzr&projectType=GQ" data-id="GQ" class="selected">产股权</li>
+          <div style="border-left: 1px solid #999;height: 13px;float: left;display: inline;margin: 3px 20px 0 0;"></div>
+          <li data-url="/cqjyypl.jhtml" data-id="ypl" ><a href="/cqjyypl.jhtml" target="_blank">预披露</a></li>
+        </ul>
+        <a href="/cqjy.jhtml?xmType=cqzr" target="_blank" class="more-btn head-right">更多 &gt;</a>
+      </div>
+      <div class="module-body mt20">
+        <table class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123GQ260044" style="text-align:left;">
+              N0123GQ260044
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy430039" target="_blank" title="西双版纳茶光农业产业运营管理有限公司15%股权">西双版纳茶光农业产业运营管理有限公司15%股权</a>
+            </td>
+            <td title="3,199,700.00元"><span class="fcdd2">3,199,700.00元</span></td>
+            <td>
+              2026-10-29 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123GQ260046" style="text-align:left;">
+              N0123GQ260046
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy429722" target="_blank" title="临沧能投粤电居正实业有限公司10%股权">临沧能投粤电居正实业有限公司10%股权</a>
+            </td>
+            <td title="1.00元"><span class="fcdd2">1.00元</span></td>
+            <td>
+              2026-10-28 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123GQ260043" style="text-align:left;">
+              N0123GQ260043
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428698" target="_blank" title="昆明福保祥瑞包装有限责任公司34%股权">昆明福保祥瑞包装有限责任公司34%股权</a>
+            </td>
+            <td title="3,300,700.00元"><span class="fcdd2">3,300,700.00元</span></td>
+            <td>
+              2026-10-26 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123GQ260025-4" style="text-align:left;">
+              N0123GQ260025-4
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy426333" target="_blank" title="云南益众建筑节能技术开发有限公司100%股权(四次挂牌)">云南益众建筑节能技术开发有限公司100%股权(四次挂牌)</a>
+            </td>
+            <td title="69,237,200.00元"><span class="fcdd2">69,237,200.00元</span></td>
+            <td>
+              2026-10-13 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123GQ260033" style="text-align:left;">
+              N0123GQ260033
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy425341" target="_blank" title="云南天沐实业有限公司100%股权">云南天沐实业有限公司100%股权</a>
+            </td>
+            <td title="187,129,400.00元"><span class="fcdd2">187,129,400.00元</span></td>
+            <td>
+              2026-10-16 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 企业增资-->
+  <div class="k1200 mt40" style="display:flex; justify-content:space-between;">
+    <div class="index-list-left-pic-wrapper">
+      <div class="list-title-wrapper">
+        <div class="list-title">企业增资</div>
+        <div class="bottom-line"></div>
+      </div>
+       <img class="index-list-left-pic" src="/r/cms/www/default/images/index/qyzz.jpg" alt="企业增资">
+    </div>
+    <div>
+      <div class="module-head row pb10">
+        <ul class="module-head-tab row">
+          <li data-url="/cqjy.jhtml?xmType=qyzz&projectType=ZZKG" data-id="ZZKG"  class="selected">增资扩股</li>
+        </ul>
+        <a href="/cqjy.jhtml?xmType=qyzz" target="_blank" class="more-btn head-right">更多 &gt;</a>
+      </div>
+      <div class="module-body mt20">
+        <table class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123ZZKG260002" style="text-align:left;">
+              N0123ZZKG260002
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=zzcq681849" target="_blank" title="富滇银行股份有限公司2026年增资扩股项目">富滇银行股份有限公司2026年增资扩股项目</a>
+            </td>
+            <td title="3.63元/股"><span class="fcdd2">3.63元/股</span></td>
+            <td>
+              2026-10-08 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZZKG260001" style="text-align:left;">
+              N0123ZZKG260001
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=zzcq642774" target="_blank" title="丽江市南瓜坪水库开发建设有限责任公司增资扩股项目">丽江市南瓜坪水库开发建设有限责任公司增资扩股项目</a>
+            </td>
+            <td title="280,000,000.00元"><span class="fcdd2">280,000,000.00元</span></td>
+            <td>
+              2026-06-30 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZZKG250002" style="text-align:left;">
+              N0123ZZKG250002
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=zzcq408701" target="_blank" title="贵研电子材料（云南）有限公司增资扩股项目">贵研电子材料（云南）有限公司增资扩股项目</a>
+            </td>
+            <td title="1.18元/每注册资本金元"><span class="fcdd2">1.18元/每注册资本金元</span></td>
+            <td>
+              2025-05-28 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZZKG240002" style="text-align:left;">
+              N0123ZZKG240002
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=zzcq334498" target="_blank" title="云南锡业新材料有限公司增资扩股项目">云南锡业新材料有限公司增资扩股项目</a>
+            </td>
+            <td title="1.95元/每注册资本金元"><span class="fcdd2">1.95元/每注册资本金元</span></td>
+            <td>
+              2024-11-05 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="YPL-ZZKG2026071500021" style="text-align:left;">YPL-ZZKG2026071500021</td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="https://www.ejy365.com/advance/detail/216" target="_blank" title="富滇银行股份有限公司2026年增资扩股项目">富滇银行股份有限公司2026年增资扩股项目</a>
+            </td>
+            <td title="-"><span class="fcdd2">-</span></td>
+            <td>-</td>
+            <td>信息预披露</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 资产转让-->
+  <div class="k1200 mt40" style="display:flex; justify-content:space-between;">
+    <div class="index-list-left-pic-wrapper">
+      <div class="list-title-wrapper">
+        <div class="list-title">资产转让</div>
+        <div class="bottom-line"></div>
+      </div>
+      <img class="index-list-left-pic" src="/r/cms/www/default/images/index/zczr.jpg" alt="资产转让">
+    </div>
+    <div>
+      <div class="module-head row pb10">
+        <ul class="module-head-tab row">
+          <li data-url="/cqjy.jhtml?xmType=zczr" data-id="" class="selected">全部</li>
+          <li data-url="/cqjy.jhtml?xmType=zczr&projectType=ESSB" data-id="ESSB">二手设备</li>
+          <li data-url="/cqjy.jhtml?xmType=zczr&projectType=FC" data-id="FC">房地产</li>
+          <li data-url="/cqjy.jhtml?xmType=zczr&projectType=WZ" data-id="WZ">废旧物资</li>
+          <li data-url="/cqjy.jhtml?xmType=zczr&projectType=CL" data-id="CL">二手车</li>
+          <li data-url="/cqjy.jhtml?xmType=zczr&projectType=TD" data-id="TD">土地</li>
+          <li data-url="/cqjy.jhtml?xmType=zczr&projectType=ZQ" data-id="ZQ">债权</li>
+          <li data-url="/cqjy.jhtml?xmType=zczr&projectType=LQ" data-id="LQ">林木</li>
+
+        </ul>
+        <a href="/cqjy.jhtml?xmType=zczr" target="_blank" class="more-btn head-right">更多 &gt;</a>
+      </div>
+      <div class="module-body mt20">
+        <table data-id="" style="display:table;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123WZ260136" style="text-align:left;">
+              N0123WZ260136
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy431965" target="_blank" title="云南天安化工有限公司一号堆场内的废旧物资一批转让">云南天安化工有限公司一号堆场内的废旧物资一批转让</a>
+            </td>
+            <td title="246,100.00元"><span class="fcdd2">246,100.00元</span></td>
+            <td>
+              2026-10-20 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FC260033-3" style="text-align:left;">
+              N0123FC260033-3
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy431558" target="_blank" title="彝盟盛景酒店研究中心房产一批【第3次挂牌】">彝盟盛景酒店研究中心房产一批【第3次挂牌】</a>
+            </td>
+            <td title="15,080,000.00元"><span class="fcdd2">15,080,000.00元</span></td>
+            <td>
+              2026-11-02 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ESSB260001-2" style="text-align:left;">
+              N0123ESSB260001-2
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy431554" target="_blank" title="云南国星能源有限公司13台液化石油气储罐转让(二次挂牌)">云南国星能源有限公司13台液化石油气储罐转让(二次挂牌)</a>
+            </td>
+            <td title="410,400.00元"><span class="fcdd2">410,400.00元</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FC261231" style="text-align:left;">
+              N0123FC261231
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy430893" target="_blank" title="丽江尚品国际酒店房产">丽江尚品国际酒店房产</a>
+            </td>
+            <td title="36,063,100.00元"><span class="fcdd2">36,063,100.00元</span></td>
+            <td>
+              2026-10-29 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FC261232" style="text-align:left;">
+              N0123FC261232
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy429801" target="_blank" title="蒙自市护国路银龙新苑小区D1-D2幢D1单元-1至3层D1号住宅">蒙自市护国路银龙新苑小区D1-D2幢D1单元-1至3层D1号住宅</a>
+            </td>
+            <td title="2,053,300.00元/套"><span class="fcdd2">2,053,300.00元/套</span></td>
+            <td>
+              2026-10-14 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="ESSB" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123ESSB260001-2" style="text-align:left;">
+              N0123ESSB260001-2
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy431554" target="_blank" title="云南国星能源有限公司13台液化石油气储罐转让(二次挂牌)">云南国星能源有限公司13台液化石油气储罐转让(二次挂牌)</a>
+            </td>
+            <td title="410,400.00元"><span class="fcdd2">410,400.00元</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ESSB260011" style="text-align:left;">
+              N0123ESSB260011
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy426988" target="_blank" title="机器设备及配件一批">机器设备及配件一批</a>
+            </td>
+            <td title="6,415,700.00元"><span class="fcdd2">6,415,700.00元</span></td>
+            <td>
+              2026-10-08 17:00:00
+            </td>
+            <td>
+              竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ESSB260010" style="text-align:left;">
+              N0123ESSB260010
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy426098" target="_blank" title="云南省烟草烟叶公司15辆运输工具">云南省烟草烟叶公司15辆运输工具</a>
+            </td>
+            <td title="310,000.00元"><span class="fcdd2">310,000.00元</span></td>
+            <td>
+              2026-09-29 17:00:00
+            </td>
+            <td>
+              竞价已结束
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ESSB260009" style="text-align:left;">
+              N0123ESSB260009
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy412107" target="_blank" title="三臂凿岩台车1辆">三臂凿岩台车1辆</a>
+            </td>
+            <td title="3,378,800.00元"><span class="fcdd2">3,378,800.00元</span></td>
+            <td>
+              2026-08-14 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ESSB260006" style="text-align:left;">
+              N0123ESSB260006
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy409643" target="_blank" title="玉钢公司棒材范围内的建筑物、设备资产及账内外资材备件转让">玉钢公司棒材范围内的建筑物、设备资产及账内外资材备件转让</a>
+            </td>
+            <td title="29,653,200.00元/批"><span class="fcdd2">29,653,200.00元/批</span></td>
+            <td>
+              2026-08-26 17:00:00
+            </td>
+            <td>
+              竞价已结束
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="FC" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123FC260033-3" style="text-align:left;">
+              N0123FC260033-3
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy431558" target="_blank" title="彝盟盛景酒店研究中心房产一批【第3次挂牌】">彝盟盛景酒店研究中心房产一批【第3次挂牌】</a>
+            </td>
+            <td title="15,080,000.00元"><span class="fcdd2">15,080,000.00元</span></td>
+            <td>
+              2026-11-02 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FC261231" style="text-align:left;">
+              N0123FC261231
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy430893" target="_blank" title="丽江尚品国际酒店房产">丽江尚品国际酒店房产</a>
+            </td>
+            <td title="36,063,100.00元"><span class="fcdd2">36,063,100.00元</span></td>
+            <td>
+              2026-10-29 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FC261232" style="text-align:left;">
+              N0123FC261232
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy429801" target="_blank" title="蒙自市护国路银龙新苑小区D1-D2幢D1单元-1至3层D1号住宅">蒙自市护国路银龙新苑小区D1-D2幢D1单元-1至3层D1号住宅</a>
+            </td>
+            <td title="2,053,300.00元/套"><span class="fcdd2">2,053,300.00元/套</span></td>
+            <td>
+              2026-10-14 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="ZZCQ2026082700009_1" style="text-align:left;">
+              ZZCQ2026082700009_1
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejypl13803" target="_blank" title="昆明市官渡区金马镇、吴井路房产一批【第2次挂牌】">昆明市官渡区金马镇、吴井路房产一批【第2次挂牌】</a>
+            </td>
+            <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+            <td>
+              2026-10-10 17:00:00
+            </td>
+            <td>
+              详见公告
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FC250857" style="text-align:left;">
+              N0123FC250857
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy342828" target="_blank" title="云南航信空港网络有限公司持有的银海领域小区房产一套">云南航信空港网络有限公司持有的银海领域小区房产一套</a>
+            </td>
+            <td title="477,400.00元"><span class="fcdd2">477,400.00元</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="WZ" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123WZ260136" style="text-align:left;">
+              N0123WZ260136
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy431965" target="_blank" title="云南天安化工有限公司一号堆场内的废旧物资一批转让">云南天安化工有限公司一号堆场内的废旧物资一批转让</a>
+            </td>
+            <td title="246,100.00元"><span class="fcdd2">246,100.00元</span></td>
+            <td>
+              2026-10-20 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123WZ260129" style="text-align:left;">
+              N0123WZ260129
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy427577" target="_blank" title="昆明卡互卡支付科技有限公司废旧物资一批">昆明卡互卡支付科技有限公司废旧物资一批</a>
+            </td>
+            <td title="976,300.00元"><span class="fcdd2">976,300.00元</span></td>
+            <td>
+              2026-10-09 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="ZZCQ2026072400020_3" style="text-align:left;">
+              ZZCQ2026072400020_3
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejypl13653" target="_blank" title="昆明焦化制气有限公司闲置及废旧资产一批(四次挂牌)">昆明焦化制气有限公司闲置及废旧资产一批(四次挂牌)</a>
+            </td>
+            <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+            <td>
+              2026-10-13 17:00:00
+            </td>
+            <td>
+              详见公告
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123WZ260135" style="text-align:left;">
+              N0123WZ260135
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy426986" target="_blank" title="云南省黑色冶金产品质量监督检验站闲置资产一批">云南省黑色冶金产品质量监督检验站闲置资产一批</a>
+            </td>
+            <td title="419,168.00元/批"><span class="fcdd2">419,168.00元/批</span></td>
+            <td>
+              2026-09-23 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123WZ260133" style="text-align:left;">
+              N0123WZ260133
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy424708" target="_blank" title="闲置喷煤设备EM59立磨设备一批">闲置喷煤设备EM59立磨设备一批</a>
+            </td>
+            <td title="306,700.00元/批"><span class="fcdd2">306,700.00元/批</span></td>
+            <td>
+              2026-09-18 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="CL" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123CL260293" style="text-align:left;">
+              N0123CL260293
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428932" target="_blank" title="云南省烟草公司普洱市公司车辆一批">云南省烟草公司普洱市公司车辆一批</a>
+            </td>
+            <td title="74,900.00元"><span class="fcdd2">74,900.00元</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="ZZCQ2026091500036" style="text-align:left;">
+              ZZCQ2026091500036
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejypl13773" target="_blank" title="云南工投曲靖经开区产业投资开发有限公司2辆公务用车">云南工投曲靖经开区产业投资开发有限公司2辆公务用车</a>
+            </td>
+            <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+            <td>
+              2026-10-09 17:00:00
+            </td>
+            <td>
+              详见公告
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123CL260289" style="text-align:left;">
+              N0123CL260289
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy423610" target="_blank" title="云南工投昭阳产业投资开发有限公司公务用车一辆">云南工投昭阳产业投资开发有限公司公务用车一辆</a>
+            </td>
+            <td title="18,400.00元"><span class="fcdd2">18,400.00元</span></td>
+            <td>
+              2026-10-13 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="ZZCQ2026070200052_1" style="text-align:left;">
+              ZZCQ2026070200052_1
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejypl13432" target="_blank" title="昆明民泰保安有限责任公司10辆车辆转让(二次挂牌)">昆明民泰保安有限责任公司10辆车辆转让(二次挂牌)</a>
+            </td>
+            <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+            <td>
+              2026-10-13 17:00:00
+            </td>
+            <td>
+              详见公告
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123CL260290" style="text-align:left;">
+              N0123CL260290
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy424693" target="_blank" title="全路面起重机一辆">全路面起重机一辆</a>
+            </td>
+            <td title="360,300.00元/辆"><span class="fcdd2">360,300.00元/辆</span></td>
+            <td>
+              2026-09-24 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="TD" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123TD260004" style="text-align:left;">
+              N0123TD260004
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy429721" target="_blank" title="曲靖市沾益区花山街道大树屯村两宗土地使用权">曲靖市沾益区花山街道大树屯村两宗土地使用权</a>
+            </td>
+            <td title="128,300.00元"><span class="fcdd2">128,300.00元</span></td>
+            <td>
+              2026-10-28 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123TD260003" style="text-align:left;">
+              N0123TD260003
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy411046" target="_blank" title="曲靖市沾益区花山工业园区HS-348-4土地使用权">曲靖市沾益区花山工业园区HS-348-4土地使用权</a>
+            </td>
+            <td title="33,192,431.00元"><span class="fcdd2">33,192,431.00元</span></td>
+            <td>
+              2026-08-26 17:00:00
+            </td>
+            <td>
+              竞价已结束
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123TD250009-3" style="text-align:left;">
+              N0123TD250009-3
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy410508" target="_blank" title="云南香格里拉太阳魂酒庄产业有限公司持有的土地使用权及在建工程(三次挂牌)">云南香格里拉太阳魂酒庄产业有限公司持有的土地使用权及在建工程(三次挂牌)</a>
+            </td>
+            <td title="15,010,389.70元"><span class="fcdd2">15,010,389.70元</span></td>
+            <td>
+              2026-08-25 17:00:00
+            </td>
+            <td>
+              竞价已结束
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123TD250007-3" style="text-align:left;">
+              N0123TD250007-3
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy402368" target="_blank" title="昆钢圆山物流园三宗国有建设用地土地使用权转让">昆钢圆山物流园三宗国有建设用地土地使用权转让</a>
+            </td>
+            <td title="302,819,600.00元/258.58亩"><span class="fcdd2">302,819,600.00元/258.58亩</span></td>
+            <td>
+              2026-09-29 17:00:00
+            </td>
+            <td>
+              竞价已结束
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123TD250009-2" style="text-align:left;">
+              N0123TD250009-2
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy400496" target="_blank" title="云南香格里拉太阳魂酒庄产业有限公司持有的土地使用权及在建工程(二次挂牌)">云南香格里拉太阳魂酒庄产业有限公司持有的土地使用权及在建工程(二次挂牌)</a>
+            </td>
+            <td title="15,010,389.70元"><span class="fcdd2">15,010,389.70元</span></td>
+            <td>
+              2026-07-24 17:00:00
+            </td>
+            <td>
+              已重新挂牌
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="ZQ" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123ZQ250003" style="text-align:left;">
+              N0123ZQ250003
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy338121" target="_blank" title="富滇银行2025年云南地区第一批不良贷款资产包转让">富滇银行2025年云南地区第一批不良贷款资产包转让</a>
+            </td>
+            <td title="61,987,965.43元"><span class="fcdd2">61,987,965.43元</span></td>
+            <td>
+              2025-12-24 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZQ250002" style="text-align:left;">
+              N0123ZQ250002
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy281787" target="_blank" title="云南天行健经贸有限公司单户受托资产债权">云南天行健经贸有限公司单户受托资产债权</a>
+            </td>
+            <td title="14,530,000.00元"><span class="fcdd2">14,530,000.00元</span></td>
+            <td>
+              2025-06-26 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZQ250001-2" style="text-align:left;">
+              N0123ZQ250001-2
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy275054" target="_blank" title="师宗县富盛磷电有限公司债权【第2次挂牌】">师宗县富盛磷电有限公司债权【第2次挂牌】</a>
+            </td>
+            <td title="8,300,000.00元"><span class="fcdd2">8,300,000.00元</span></td>
+            <td>
+              2025-05-23 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZQ250001" style="text-align:left;">
+              N0123ZQ250001
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy245407" target="_blank" title="师宗县富盛磷电有限公司债权">师宗县富盛磷电有限公司债权</a>
+            </td>
+            <td title="9,500,000.00元"><span class="fcdd2">9,500,000.00元</span></td>
+            <td>
+              2025-03-14 17:00:00
+            </td>
+            <td>
+              已重新挂牌
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZQ240001-3" style="text-align:left;">
+              N0123ZQ240001-3
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy176401" target="_blank" title="重庆市泰恒汽车销售有限公司债权项目(三次挂牌)">重庆市泰恒汽车销售有限公司债权项目(三次挂牌)</a>
+            </td>
+            <td title="16,296,900.00元/批"><span class="fcdd2">16,296,900.00元/批</span></td>
+            <td>
+              2024-06-12 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="ZSCQ" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123ZSCQ260038" style="text-align:left;">
+              N0123ZSCQ260038
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy409334" target="_blank" title="《目瑙纵歌进行曲》（曲）一个月表演权信息网络传播权使用许可项目（普通许可）">《目瑙纵歌进行曲》（曲）一个月表演权信息网络传播权使用许可项目（普通许可）</a>
+            </td>
+            <td title="5,000.00元"><span class="fcdd2">5,000.00元</span></td>
+            <td>
+              2026-10-22 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZSCQ260039" style="text-align:left;">
+              N0123ZSCQ260039
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy423248" target="_blank" title="《目瑙纵歌进行曲》 （曲）一年表演权改编权信息网络传播权使用许可项目（普通许可）">《目瑙纵歌进行曲》 （曲）一年表演权改编权信息网络传播权使用许可项目（普通许可）</a>
+            </td>
+            <td title="5,000.00元"><span class="fcdd2">5,000.00元</span></td>
+            <td>
+              2026-09-21 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZSCQ260034" style="text-align:left;">
+              N0123ZSCQ260034
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy402223" target="_blank" title="《目瑙纵歌进行曲》（曲）一年改编权使用许可项目（普通许可）">《目瑙纵歌进行曲》（曲）一年改编权使用许可项目（普通许可）</a>
+            </td>
+            <td title="10,000.00元"><span class="fcdd2">10,000.00元</span></td>
+            <td>
+              2026-08-27 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZSCQ260035" style="text-align:left;">
+              N0123ZSCQ260035
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy402221" target="_blank" title="《目瑙纵歌进行曲》（曲）一年改编权信息网络传播权使用许可项目（普通许可）">《目瑙纵歌进行曲》（曲）一年改编权信息网络传播权使用许可项目（普通许可）</a>
+            </td>
+            <td title="20,000.00元"><span class="fcdd2">20,000.00元</span></td>
+            <td>
+              2026-08-27 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123ZSCQ260036" style="text-align:left;">
+              N0123ZSCQ260036
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy402220" target="_blank" title="《目瑙纵歌进行曲》（曲）三年改编权信息网络传播权使用许可项目（普通许可">《目瑙纵歌进行曲》（曲）三年改编权信息网络传播权使用许可项目（普通许可</a>
+            </td>
+            <td title="30,000.00元"><span class="fcdd2">30,000.00元</span></td>
+            <td>
+              2026-08-27 17:00:00
+            </td>
+            <td>
+              报名已截止
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="LQ" style="display:none;" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="N0123LQ260001-2" style="text-align:left;">
+              N0123LQ260001-2
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy354013" target="_blank" title="橡胶林木资产一批【第2次挂牌】">橡胶林木资产一批【第2次挂牌】</a>
+            </td>
+            <td title="2,252,900.00元"><span class="fcdd2">2,252,900.00元</span></td>
+            <td>
+              2026-02-10 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123LQ260001" style="text-align:left;">
+              N0123LQ260001
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy346429" target="_blank" title="橡胶林木资产一批">橡胶林木资产一批</a>
+            </td>
+            <td title="2,252,900.00元"><span class="fcdd2">2,252,900.00元</span></td>
+            <td>
+              2026-01-22 17:00:00
+            </td>
+            <td>
+              已重新挂牌
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123LQ250001-2" style="text-align:left;">
+              N0123LQ250001-2
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy280563" target="_blank" title="橡胶林木资产一批【第2次挂牌】">橡胶林木资产一批【第2次挂牌】</a>
+            </td>
+            <td title="6,387,360.00元"><span class="fcdd2">6,387,360.00元</span></td>
+            <td>
+              2025-06-16 17:00:00
+            </td>
+            <td>
+              已成交
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123LQ250001" style="text-align:left;">
+              N0123LQ250001
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy260107" target="_blank" title="橡胶林木资产一批">橡胶林木资产一批</a>
+            </td>
+            <td title="7,984,200.00元"><span class="fcdd2">7,984,200.00元</span></td>
+            <td>
+              2025-04-25 17:00:00
+            </td>
+            <td>
+              已重新挂牌
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 资产租赁-->
+  <div class="k1200 mt40" style="display:flex; justify-content:space-between;">
+    <div class="index-list-left-pic-wrapper">
+      <div class="list-title-wrapper">
+        <div class="list-title">资产租赁</div>
+        <div class="bottom-line"></div>
+      </div>
+      <img class="index-list-left-pic" src="/r/cms/www/default/images/index/zczl.jpg" alt="资产租赁">
+    </div>
+    <div>
+      <div class="module-head row pb10">
+        <ul class="module-head-tab row">
+          <li data-url="/cqjy.jhtml?xmType=zczl" data-id=""  class="selected">全部</li>
+          <li data-url="/cqjy.jhtml?xmType=zczl&projectType=FCZZ" data-id="FCZZ">资产招租</li>
+          <li data-url="/cqjy.jhtml?xmType=zczl&projectType=ADQ" data-id="ADQ">经营权有偿转让</li>
+        </ul>
+        <a href="/cqjy.jhtml?xmType=zczl" target="_blank" class="more-btn head-right">更多 &gt;</a>
+      </div>
+      <div class="module-body mt20">
+        <table data-id="" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="ZZCQ2026083100068_1" style="text-align:left;">
+              ZZCQ2026083100068_1
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejypl13871" target="_blank" title="大理市下关文化路、人民街、幸福路一批资产租赁(二次挂牌)">大理市下关文化路、人民街、幸福路一批资产租赁(二次挂牌)</a>
+            </td>
+            <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+            <td>
+              2026-10-30 17:00:00
+            </td>
+            <td>
+              详见公告
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261039" style="text-align:left;">
+              N0123FCZZ261039
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428947" target="_blank" title="腾冲市腾越街道天成社区叠水河小区（酒店南区）商业房地产租赁">腾冲市腾越街道天成社区叠水河小区（酒店南区）商业房地产租赁</a>
+            </td>
+            <td title="981,500.00元/年"><span class="fcdd2">981,500.00元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261041" style="text-align:left;">
+              N0123FCZZ261041
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428941" target="_blank" title="大理机场2026年候机楼A2-06、B2-11店铺经营性资源租赁项目">大理机场2026年候机楼A2-06、B2-11店铺经营性资源租赁项目</a>
+            </td>
+            <td title="540,900.00元/年"><span class="fcdd2">540,900.00元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261040" style="text-align:left;">
+              N0123FCZZ261040
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428940" target="_blank" title="大理机场2026年广告资源租赁项目">大理机场2026年广告资源租赁项目</a>
+            </td>
+            <td title="2,553,334.40元/年"><span class="fcdd2">2,553,334.40元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261035" style="text-align:left;">
+              N0123FCZZ261035
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428590" target="_blank" title="云南省烟草公司普洱市公司宁洱县分公司磨黑烟叶收购站原办公区房屋租赁">云南省烟草公司普洱市公司宁洱县分公司磨黑烟叶收购站原办公区房屋租赁</a>
+            </td>
+            <td title="9,240.00元/年"><span class="fcdd2">9,240.00元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="FCZZ" style="display:none;"  class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="ZZCQ2026083100068_1" style="text-align:left;">
+              ZZCQ2026083100068_1
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejypl13871" target="_blank" title="大理市下关文化路、人民街、幸福路一批资产租赁(二次挂牌)">大理市下关文化路、人民街、幸福路一批资产租赁(二次挂牌)</a>
+            </td>
+            <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+            <td>
+              2026-10-30 17:00:00
+            </td>
+            <td>
+              详见公告
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261039" style="text-align:left;">
+              N0123FCZZ261039
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428947" target="_blank" title="腾冲市腾越街道天成社区叠水河小区（酒店南区）商业房地产租赁">腾冲市腾越街道天成社区叠水河小区（酒店南区）商业房地产租赁</a>
+            </td>
+            <td title="981,500.00元/年"><span class="fcdd2">981,500.00元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中竞价中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261041" style="text-align:left;">
+              N0123FCZZ261041
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428941" target="_blank" title="大理机场2026年候机楼A2-06、B2-11店铺经营性资源租赁项目">大理机场2026年候机楼A2-06、B2-11店铺经营性资源租赁项目</a>
+            </td>
+            <td title="540,900.00元/年"><span class="fcdd2">540,900.00元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261040" style="text-align:left;">
+              N0123FCZZ261040
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428940" target="_blank" title="大理机场2026年广告资源租赁项目">大理机场2026年广告资源租赁项目</a>
+            </td>
+            <td title="2,553,334.40元/年"><span class="fcdd2">2,553,334.40元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          <tr>
+            <td title="N0123FCZZ261035" style="text-align:left;">
+              N0123FCZZ261035
+            </td>
+            <td style="text-align:left;">
+              <a class="hidden_txt name-td" href="/property-info.htm?infokey=ejy428590" target="_blank" title="云南省烟草公司普洱市公司宁洱县分公司磨黑烟叶收购站原办公区房屋租赁">云南省烟草公司普洱市公司宁洱县分公司磨黑烟叶收购站原办公区房屋租赁</a>
+            </td>
+            <td title="9,240.00元/年"><span class="fcdd2">9,240.00元/年</span></td>
+            <td>
+              2026-10-12 17:00:00
+            </td>
+            <td>
+              报名中
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table data-id="ADQ" style="display:none;"  class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="150">项目编号</th>
+            <th width="250">公告标题</th>
+            <th width="150">挂牌价（元）</th>
+            <th width="150">报名截止时间</th>
+            <th width="150">状态</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 综合招商-->
+  <div class="k1200 mt40" style="display:flex; justify-content:space-between;">
+    <div class="index-list-left-pic-wrapper">
+      <div class="list-title-wrapper">
+        <div class="list-title">综合招商</div>
+        <div class="bottom-line"></div>
+      </div>
+      <img class="index-list-left-pic" src="/r/cms/www/default/images/index/zhzs.jpg" alt="综合招商">
+    </div>
+    <div>
+      <div class="module-head row pb10">
+        <ul class="module-head-tab row">
+          <li data-id="" class="selected">全部</li>
+        </ul>
+        <a href="/cqjydzgz.jhtml" target="_blank" class="more-btn head-right">更多 &gt;</a>
+      </div>
+      <div class="module-body mt20">
+        <table data-id="" class="bidding-table">
+          <thead>
+          <tr class="bidding-thead">
+            <th width="400">公告名称</th>
+            <th width="100">公告类型</th>
+            <th width="100">所在地</th>
+            <th width="150">挂牌价格</th>
+            <th width="150">发布时间</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td title="景洪市城投管道燃气有限责任公司40%股权项目招商公告" style="text-align:left;">
+              <a class="hidden_txt name-td" href="/cqjydzgz/41843.jhtml" target="_blank" title="景洪市城投管道燃气有限责任公司40%股权项目招商公告">景洪市城投管道燃气有限责任公司40%股权项目招商公告</a>
+            </td>
+            <td style="text-align:left;">
+              股权招商
+            </td>
+            <td>西双版纳傣族自治州</td>
+            <td title=""><span class="fcdd2"></span></td>
+
+            <td>
+              2026-09-28 14:53:42
+            </td>
+          </tr>
+          <tr>
+            <td title="华融晋商资产管理股份有限公司云南省资产处置项目招商公告" style="text-align:left;">
+              <a class="hidden_txt name-td" href="/cqjydzgz/41841.jhtml" target="_blank" title="华融晋商资产管理股份有限公司云南省资产处置项目招商公告">华融晋商资产管理股份有限公司云南省资产处置项目招商公告</a>
+            </td>
+            <td style="text-align:left;">
+              资产招商
+            </td>
+            <td></td>
+            <td title=""><span class="fcdd2"></span></td>
+
+            <td>
+              2026-09-18 10:30:31
+            </td>
+          </tr>
+          <tr>
+            <td title="西双版纳傣族园有限公司可利用资产招商公告" style="text-align:left;">
+              <a class="hidden_txt name-td" href="/cqjydzgz/41839.jhtml" target="_blank" title="西双版纳傣族园有限公司可利用资产招商公告">西双版纳傣族园有限公司可利用资产招商公告</a>
+            </td>
+            <td style="text-align:left;">
+              招商
+            </td>
+            <td></td>
+            <td title=""><span class="fcdd2"></span></td>
+
+            <td>
+              2026-09-16 11:22:10
+            </td>
+          </tr>
+          <tr>
+            <td title="重庆市两江春城1栋写字楼资产招商推荐" style="text-align:left;">
+              <a class="hidden_txt name-td" href="/cqjydzgz/41838.jhtml" target="_blank" title="重庆市两江春城1栋写字楼资产招商推荐">重庆市两江春城1栋写字楼资产招商推荐</a>
+            </td>
+            <td style="text-align:left;">
+              招商
+            </td>
+            <td>重庆市</td>
+            <td title=""><span class="fcdd2"></span></td>
+
+            <td>
+              2026-09-15 18:29:52
+            </td>
+          </tr>
+          <tr>
+            <td title="滇池湖滨半岛四幢别墅项目招商公告" style="text-align:left;">
+              <a class="hidden_txt name-td" href="/cqjydzgz/41834.jhtml" target="_blank" title="滇池湖滨半岛四幢别墅项目招商公告">滇池湖滨半岛四幢别墅项目招商公告</a>
+            </td>
+            <td style="text-align:left;">
+              资产招商
+            </td>
+            <td>昆明市</td>
+            <td title=""><span class="fcdd2"></span></td>
+
+            <td>
+              2026-09-04 02:01:23
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 竞价大厅 -->
+  <div class="k1200 mt40">
+    <div class="module-head row pb10">
+      <h3>竞价大厅</h3>
+      <img src="/r/cms/www/default/images/index/module-head-icon-r.png" alt="竞价大厅">
+      <ul class="module-head-tab row ml30" id="jjdtTab">
+        <li data-id="1">产权交易</li>
+        <li data-id="2">阳光采购</li>
+      </ul>
+    </div>
+    <div class="module-body mt20 jjdt">
+      <div class="jjdt-item" data-id="1">
+        <iframe src="https://api.ejy365.com/e-jy/portal/jjdt/list?orgId=101023&pages=1&pageSize=10&t=2" frameborder="0" ></iframe>
+      </div>
+      <div class="jjdt-item" data-id="2">
+        <iframe src="https://bid.ejy365.com/board/boardListStaticYN?businessSource=CG" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+  <!-- 州市国资 在后台管理-互动-广告管理-州市国资中配置-->
+  <div class="k1200 mt40">
+    <div class="module-head row pb10">
+      <h3>州市国资</h3>
+      <img src="/r/cms/www/default/images/index/module-head-icon-r.png" alt="州市国资">
+    </div>
+    <div class="module-body mt20 zdtj row-between">
+          <div id="zsgz-swiper" class="swiper zdtj-item mb10">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530300"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202505/091106322o1g.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=532900"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202505/19104745j4r4.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530500"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202505/19104838r4y0.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=532500"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202505/09164427uriy.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530100"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202507/171552020ak6.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530400"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202507/17160447lc4b.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530700"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202507/171622544byx.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=532600"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202507/17164922mprt.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530600"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/30103434r0g0.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530800"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/301038229zrg.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=530900"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/30104010842w.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=532300"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/30104636eoy7.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=533300"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/30104757hwfz.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=533100"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/30105801ob1t.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=533400"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/30105959i86o.jpg" />
+                  </a>
+                </div>
+                <div class="swiper-slide">
+                  <a href="https://cynee.ejy365.com/cqjyzczr.jhtml?areaCode=532800"  target="_blank">
+                    <img class="slide-img" src="https://yn-ftp.ejy365.com/u/cms/www/202509/30110105rcsr.jpg" />
+                  </a>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+    </div>
+  </div>
+  <!-- 机构动态 -->
+  <!--
+  <div class="k1200 mt40">
+    <div class="module-head row pb10">
+      <h3>机构动态</h3>
+      <img src="/r/cms/www/default/images/index/module-head-icon-r.png" alt="机构动态">
+      <a href="/jgdt.jhtml" target="_blank" class="more-btn head-right" title="机构动态">更多 &gt;</a>
+    </div>
+    <div class="module-body mt20">
+      <ul class="jgdt row-wrap">
+            <li class="jgdt-item">
+              <a href="/jgdt/41844.jhtml" target="_blank" title="云交所与勐腊县人民政府交流座谈" class="row-between">
+                <div class="jgdt-item-time mr10">
+                  <p class="day">28</p>
+                  <p class="date">2026.09</p>
+                </div>
+                <div class="jgdt-item-content">
+                  <h4 class="jgdt-item-title hidden_txt">云交所与勐腊县人民政府交流座谈</h4>
+                  <p class="ellipsis-2" title=""></p>
+                </div>
+              </a>
+            </li>
+            <li class="jgdt-item">
+              <a href="/jgdt/41818.jhtml" target="_blank" title="云交所与马关县夹寒箐镇进行座谈交流" class="row-between">
+                <div class="jgdt-item-time mr10">
+                  <p class="day">28</p>
+                  <p class="date">2026.08</p>
+                </div>
+                <div class="jgdt-item-content">
+                  <h4 class="jgdt-item-title hidden_txt">云交所与马关县夹寒箐镇进行座谈交流</h4>
+                  <p class="ellipsis-2" title=""></p>
+                </div>
+              </a>
+            </li>
+            <li class="jgdt-item">
+              <a href="/jgdt/41807.jhtml" target="_blank" title="云交所外部董事到滇西产权交易所调研指导" class="row-between">
+                <div class="jgdt-item-time mr10">
+                  <p class="day">29</p>
+                  <p class="date">2026.07</p>
+                </div>
+                <div class="jgdt-item-content">
+                  <h4 class="jgdt-item-title hidden_txt">云交所外部董事到滇西产权交易所调研指导</h4>
+                  <p class="ellipsis-2" title="7月24日，云交所外部董事姚勇、王劭莹一行赴滇西产权交易所开展实地调研。">7月24日，云交所外部董事姚勇、王劭莹一行赴滇西产权交易所开展实地调研。</p>
+                </div>
+              </a>
+            </li>
+            <li class="jgdt-item">
+              <a href="/jgdt/41806.jhtml" target="_blank" title="云交所为康旅集团作国有资产交易及存量资产盘活专题培训" class="row-between">
+                <div class="jgdt-item-time mr10">
+                  <p class="day">28</p>
+                  <p class="date">2026.07</p>
+                </div>
+                <div class="jgdt-item-content">
+                  <h4 class="jgdt-item-title hidden_txt">云交所为康旅集团作国有资产交易及存量资产盘活专题培训</h4>
+                  <p class="ellipsis-2" title="7月23日，云交所召开2026年上半年经济运行分析会。会议全面复盘公司上半年经营发展成效，精准梳理核心业务运行情况，深刻剖析当前的痛点与短板，系统部署下半年攻坚任务。">7月23日，云交所召开2026年上半年经济运行分析会。会议全面复盘公司上半年经营发展成效，精准梳理核心业务运行情况，深刻剖析当前的痛点与短板，系统部署下半年攻坚任务。</p>
+                </div>
+              </a>
+            </li>
+            <li class="jgdt-item">
+              <a href="/jgdt/41804.jhtml" target="_blank" title="云交所召开2026年上半年经济运行分析会" class="row-between">
+                <div class="jgdt-item-time mr10">
+                  <p class="day">24</p>
+                  <p class="date">2026.07</p>
+                </div>
+                <div class="jgdt-item-content">
+                  <h4 class="jgdt-item-title hidden_txt">云交所召开2026年上半年经济运行分析会</h4>
+                  <p class="ellipsis-2" title="7月23日，云交所召开2026年上半年经济运行分析会。会议全面复盘公司上半年经营发展成效，精准梳理核心业务运行情况，深刻剖析当前的痛点与短板，系统部署下半年攻坚任务。">7月23日，云交所召开2026年上半年经济运行分析会。会议全面复盘公司上半年经营发展成效，精准梳理核心业务运行情况，深刻剖析当前的痛点与短板，系统部署下半年攻坚任务。</p>
+                </div>
+              </a>
+            </li>
+            <li class="jgdt-item">
+              <a href="/jgdt/41803.jhtml" target="_blank" title="云南省产权交易所集团有限公司2025年社会责任（ESG）报告" class="row-between">
+                <div class="jgdt-item-time mr10">
+                  <p class="day">24</p>
+                  <p class="date">2026.07</p>
+                </div>
+                <div class="jgdt-item-content">
+                  <h4 class="jgdt-item-title hidden_txt">云南省产权交易所集团有限公司2025年社会责任（ESG）报告</h4>
+                  <p class="ellipsis-2" title="云南省产权交易所集团有限公司2025年社会责任（ESG）报告">云南省产权交易所集团有限公司2025年社会责任（ESG）报告</p>
+                </div>
+              </a>
+            </li>
+      </ul>
+    </div>
+  </div>
+  -->
+  <!-- 信息联发 -->
+  <div class="k1200 mt40">
+    <div class="module-head row pb10">
+      <h3>信息联发</h3>
+      <img src="/r/cms/www/default/images/index/module-head-icon-r.png" alt="信息联发">
+      <a href="/cqjyxxlf.jhtml" target="_blank" class="more-btn head-right" title="信息联发">更多 &gt;</a>
+    </div>
+    <div class="module-body mt20">
+      <table class="bidding-table">
+        <thead>
+          <tr class="bidding-thead">
+            <th>公告编号</th>
+            <th width="400">公告名称</th>
+            <th width="150">公告类型</th>
+            <th width="150">挂牌价格</th>
+            <th width="150">发布时间</th>
+            <th width="150">挂牌截止时间</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <td>
+            北部湾产权交易所集团
+          </td>
+          <td>
+            <a class="hidden_txt name-td" href="/cqjyxxlf/41840.jhtml" target="_blank" title="北海市茶亭路49号北部湾壹号雅苑海恒阁1507号、1907号房产分别转让项目 ">北海市茶亭路49号北部湾壹号雅苑海恒阁1507号、1907号房产分别转让项目 </a>
+          </td>
+          <td>合作机构</td>
+          <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+          <td>
+            2026-09-17 15:10:36
+          </td>
+          <td>
+            2026-09-18 17:00:00
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            云南省公共资源交易中心
+          </td>
+          <td>
+            <a class="hidden_txt name-td" href="/cqjyxxlf/41836.jhtml" target="_blank" title="大理市下关人民南路17号苹果园宿舍01号商铺
+租赁项目（二次挂牌）">大理市下关人民南路17号苹果园宿舍01号商铺
+租赁项目（二次挂牌）</a>
+          </td>
+          <td>行政事业资产</td>
+          <td title="14,364.00 元/年"><span class="fcdd2">14,364.00 元/年</span></td>
+          <td>
+            2026-09-15 17:47:51
+          </td>
+          <td>
+            2026-10-16 17:00:00
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            云南省公共资源交易中心
+          </td>
+          <td>
+            <a class="hidden_txt name-td" href="/cqjyxxlf/41813.jhtml" target="_blank" title="大理市下关人民南路17号苹果园宿舍2间商铺租赁项目竞价招租">大理市下关人民南路17号苹果园宿舍2间商铺租赁项目竞价招租</a>
+          </td>
+          <td>行政事业资产</td>
+          <td title="详见交易公告"><span class="fcdd2">详见交易公告</span></td>
+          <td>
+            2026-08-17 13:40:04
+          </td>
+          <td>
+            2026-08-26 17:00:00
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            深圳联合产权交易所
+          </td>
+          <td>
+            <a class="hidden_txt name-td" href="/cqjyxxlf/41791.jhtml" target="_blank" title="旅顺新港扩建项目6至9号泊位所有权和后方约26万㎡场地使用权（含配套海域使用权）及约38万㎡旅游休闲用地使用权（包括约68万㎡专属海域）">旅顺新港扩建项目6至9号泊位所有权和后方约26万㎡场地使用权（含配套海域使用权）及约38万㎡旅游休闲用地使用权（包括约68万㎡专属海域）</a>
+          </td>
+          <td>合作机构</td>
+          <td title=""><span class="fcdd2"></span></td>
+          <td>
+            2026-07-02 20:00:56
+          </td>
+          <td>
+            2027-06-09 00:00:00
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            深圳联合产权交易所
+          </td>
+          <td>
+            <a class="hidden_txt name-td" href="/cqjyxxlf/41742.jhtml" target="_blank" title="深圳市***茶业股份有限公司债权转让意向征集">深圳市***茶业股份有限公司债权转让意向征集</a>
+          </td>
+          <td>合作机构</td>
+          <td title=""><span class="fcdd2"></span></td>
+          <td>
+            2026-04-29 18:01:30
+          </td>
+          <td>
+            2026-10-31 00:00:00
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- 广告位2 -->
+  <div class="k1200 adv mt40">
+          <a href="https://cynee.ejy365.com/cqjydzgz.jhtml" title=""  target="_blank">
+          <img src="https://yn-ftp.ejy365.com/u/cms/www/202509/12093834rjz0.jpg" alt="">
+          </a>
+  </div>
+  <!-- 站群联盟 -->
+  <div class="mt40 zqlm hide">
+    <div class="k1200">
+      <div class="module-head row pb40 no-bd">
+        <h3 class="fcff">站群联盟</h3>
+        <img src="/r/cms/www/default/images/index/module-head-icon-w.png" alt="站群联盟">
+      </div>
+      <div class="module-body row-between">
+        <div class="map-box" id="map"></div>
+        <ul class="website-list" id="websiteList">
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- 友情链接 -->
+  <div class="k1200 mt40 f-link">
+    <div class="module-head row pb10">
+      <h3>友情链接</h3>
+      <img src="/r/cms/www/default/images/index/module-head-icon-r.png" alt="友情链接">
+      <div class="head-right">
+        <button id="link_prev" class="module-head-btn iconfont"> &#xe851; </button>
+        <button id="link_next" class="module-head-btn iconfont"> &#xe850; </button>
+      </div>
+    </div>
+    <div class="module-body row" style="overflow: hidden; align-items: flex-start;" id="f_link">
+          <div class="row-wrap link-module" data-group="0">
+            <div class="link-item">
+              <a href="http://www.sasac.gov.cn/index.html" target="_blank" title="国务院国资委" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21163733krag.png" alt="国务院国资委">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://www.yn.gov.cn/" target="_blank" title="云南省人民政府" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202504/211705347awm.jpg" alt="云南省人民政府">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://gzw.yn.gov.cn/" target="_blank" title="云南省国资委" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21163803race.png" alt="云南省国资委">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://ggzy.yn.gov.cn/ynggfwpt-home-web/#/homePage?page=undefined" target="_blank" title="云南省公共资源交易平台" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/211640136tqy.png" alt="云南省公共资源交易平台">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://hljygcg.ejy365.com/" target="_blank" title="黑龙江阳光平台" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/211642191co0.png" alt="黑龙江阳光平台">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="http://www.lnygcg.com/" target="_blank" title="辽宁阳光采购平台" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21164411a9lt.png" alt="辽宁阳光采购平台">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="http://www.cspea.org.cn/" target="_blank" title="中国企业国有交易协会" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/2116384151z1.png" alt="中国企业国有交易协会">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="https://www.ejy365.com/" target="_blank" title="e交易" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/21164032xxcx.png" alt="e交易">
+              </a>
+            </div>
+            <div class="link-item">
+              <a href="	 https://nmgygcg.ejy365.com/" target="_blank" title="内蒙古阳光采购" class="row-center">
+                <img src="https://yn-ftp.ejy365.com/u/cms/www/202502/211640551mww.png" alt="内蒙古阳光采购">
+              </a>
+            </div>
+          </div>
+    </div>
+  </div>
+</main>
+<!-- 轮播 -->
+<script>
+    var mySwiper1 = new Swiper('#top-swiper', {
+        direction: 'horizontal', // 水平切换选项
+        loop: true, // 循环模式选项
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false, //交互后是否停止
+        },
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    })
+
+    /*州市国资轮播*/
+    var mySwiper2 = new Swiper('#zsgz-swiper', {
+      direction: 'horizontal', // 水平切换选项
+      loop: true, // 循环模式选项
+      slidesPerView: 4,
+      spaceBetween: 15,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false, //交互后是否停止
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    })
+
+    mySwiper2.el.onmouseover = function (){
+      mySwiper2.navigation.$nextEl.addClass('active')
+      mySwiper2.navigation.$prevEl.addClass('active')
+    }
+
+    mySwiper2.el.onmouseout = function (){
+      mySwiper2.navigation.$nextEl.removeClass('active')
+      mySwiper2.navigation.$prevEl.removeClass('active')
+    }
+
+</script>
+<!-- 底部导航 -->
+<link rel="stylesheet" type="text/css" href="/r/cms/www/default/css/myFooter.css"/>
+<div class="footer-container">
+	<!-- 居中容器 -->
+	<div class="footer-middle">
+		<div class="footer-left">
+			<ul>
+				<li>网站导航</li>
+        <li><a href="/cqjy.jhtml" target="_blank" >产权交易</a></li>
+        <li><a href="/ygcg.jhtml" target="_blank" >阳光采购</a></li>
+        <li><a href="/jgdt.jhtml" target="_blank" >机构动态</a></li>
+			</ul>
+			<ul>
+				<li style="height: 20px"></li>
+        <li><a href="/zcgzzcfg.jhtml" target="_blank" >政策规则</a></li>
+        <li><a href="/djzx.jhtml" target="_blank" >党建中心</a></li>
+        <li><a href="/aboutqyxx.jhtml" target="_blank" >关于我们</a></li>
+			</ul>
+			<ul>
+				<li>联系我们</li>
+				<li>电话：0871-63601051</li>
+        <li>邮箱：yncqjys@163.com</li>
+				<li>地址：云南省昆明市滇池度假区滇池路1103号华夏国际广场B座2-3层</li>
+			</ul>
+			<ul>
+				<li>技术支持</li>
+				<li>技术支持：江苏易交易信息科技有限公司</li>
+        <li>电话：400-828-9082</li>
+				<li>地址：江苏省常州市钟楼区玉龙南路280号常州大数据产业园4号楼21层</li>
+			</ul>
+		</div>
+		<div class="footer-right">
+			<img src="https://testynftp.ejy365.com/u/cms/kms/202412/27105127e9ft.jpg" alt="">
+			<p><img src="/r/cms/www/default/images/wx-icon.png" alt="">关注微信公众号</p>
+		</div>
+	</div>
+</div>
+<div class="bottom">
+	Copyright © 2025 云南省产权交易所集团有限公司 滇ICP备16005875号
+</div>
+<script src="/r/cms/www/default/js/front.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		console.log(new Date())
+		var date = new Date()
+		$(".new-date").html(date.getFullYear());
+		$(".blogroll").css("right",(405-(($(".blogroll").width())/2)));
+		$('.body-top-nav .link').on('mouseenter',function(){
+			$('.blogroll').show()
+		})
+		$('.body-top-nav .link').on('mouseleave',function(){
+			$('.blogroll').hide()
+		})
+		$('.blogroll').on('mouseleave',function(){
+			$('.blogroll').hide()
+		});
+		$('.statistics .clicks li').click(function(){
+			var index = $(this).index();
+			$('.statistics .clicks li a').removeClass('reds');
+			$(this).find('a').addClass('reds');
+			$(".statistics .click-content .quantity").eq(index).removeClass("none").siblings().addClass("none");
+		});
+	});
+
+	$(function () {
+		Cms.siteFlow("");
+	});
+</script>
+<!--底部导航 over-->
+<!-- 底部模块 -->
+<script src="/r/cms/www/default/js/yn.js"></script>
+<script src="/r/cms/www/default/js/echarts.min.js"></script>
+<script src="/r/cms/www/default/js/jquery.jSlider.js"></script>
+<script src="/r/cms/www/default/js/unslider.min.js"></script>
+<script src="/r/cms/www/default/js/index.js?20230128"></script>
+</body>
+</html>

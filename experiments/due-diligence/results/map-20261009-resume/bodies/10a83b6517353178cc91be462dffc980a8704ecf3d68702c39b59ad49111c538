@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge; IE=8; IE=9">
+		<meta name="SiteName" content="东莞市自然资源局网站">
+<meta name="SiteDomain" content="nr.dg.gov.cn">
+<meta name="SiteIDCode" content="4419000031">
+<meta name="Keywords" content="" />
+<meta name="description" content="" />
+<script>window.NFCMS_SITE_ID=769041;window.NFCMS_PUB_TYPE="page";window.NFCMS_PAGE_ID="16";</script><script src="//statistics.gd.gov.cn/scripts/s.js?t=1791446302" async></script>
+
+		<title>东莞市自然资源局</title>
+		<link href="/css/index.css" rel="stylesheet">
+		<link href="/css/index_sj.css" rel="stylesheet">
+		<script language="JavaScript" src="/js/tab.js"></script>
+		<script language="JavaScript" src="/js/jquery.js"></script>
+		<script language="javascript" type="text/javascript" src="/js/floatAdv.js"></script>
+		<!--网站变灰色-->
+<!-- <style></style>
+<script>
+  setTimeout(function(){
+  var innerHTMLss = document.getElementsByTagName("style")[0].innerHTML; 
+    innerHTMLss+= 'html,body {-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);-o-filter: grayscale(100%);filter: grayscale(100%);filter: gray;}'; 
+    document.getElementsByTagName("style")[0].innerHTML = innerHTMLss;
+ },400)
+</script> -->
+<!--网站变灰色-->
+		<style type="text/css">
+			/* floatNotice样式 */
+			.floatNotice {
+				position: absolute;
+				top: 0;
+				left: 0;
+				padding: 1px;
+				/*background-color: #fff;
+			border: 1px solid #355e92;*/
+				overflow: hidden;
+				z-index: 20000;
+			}
+
+			.floatNotice .floatNotice-btn {
+				display: block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 16px;
+				height: 16px;
+				line-height: 16px;
+				text-align: center;
+				font-family: "微软雅黑";
+				cursor: pointer;
+				color: #555;
+			}
+
+			.floatNotice-cnt {
+				width: 250px;
+				display: block;
+				height: auto;
+			}
+
+			.floatNotice-cnt p {
+				height: auto;
+				line-height: 34px;
+				display: block;
+				color: #333;
+				font-size: 16px;
+				text-indent: 2em;
+				margin: 0px;
+				padding: 0px;
+			}
+
+			.floatNotice .floatNotice-btn:hover {
+				color: #dec5c9;
+				background-color: #355e92;
+			}
+
+			.floatNotice img {}
+
+			.floatNotice .bbz-txt {
+				display: block;
+				padding: 10px;
+				width: 230px;
+				color: #fff;
+				font-size: 20px;
+				text-align: center;
+				line-height: 1.5;
+				transition: background .2s
+			}
+
+			.floatNotice .bbz-txt img {
+				border: 0;
+				width: 100%
+			}
+
+			//.floatNotice .bbz-txt:hover{background:#008438}
+		</style>
+		<script type="text/javascript">
+			/* 浮动通知 */
+			function floatNotice(idClass) {
+				$(idClass).each(function() {
+					var aSize = $(this).find("a").size();
+					if (aSize != 0) {
+						var idClass = $(this);
+						idClass.show(0);
+						var x = 0,
+							y = 0;
+						var xTrue = true,
+							yTrue = true;
+						var step = 1;
+						var deplay = 30;
+						var play = function() {
+							var clear = 0;
+							var xW = $(window).width() - idClass[0].offsetWidth;
+							var yH = $(window).height() - idClass[0].offsetHeight;
+							var xLeft = x + idClass[0].scrollLeft; //alert($("body")[0].scrollLeft); 
+							var yTop = y + idClass[0].scrollTop + $(window).scrollTop();
+							idClass.css({
+								top: yTop,
+								left: xLeft
+							});
+							x = x + step * (xTrue ? 1 : -1);
+							if (x < clear) {
+								xTrue = true;
+								x = clear;
+							}
+							if (x > xW) {
+								xTrue = false;
+								x = xW;
+							}
+							y = y + step * (yTrue ? 1 : -1);
+							if (y < clear) {
+								yTrue = true;
+								y = clear;
+							}
+							if (y > yH) {
+								yTrue = false;
+								y = yH;
+							}
+						};
+						var t = setInterval(play, deplay);
+						idClass.mouseover(function() {
+								clearInterval(t);
+							})
+							.mouseout(function() {
+								t = setInterval(play, deplay);
+							});
+						idClass.find(".floatNotice-btn").click(function() {
+							idClass.hide(0);
+						});
+					}
+				});
+			}
+		</script>
+		<script>
+			$(function() {
+				$('.sv_newalert').animate({
+					right: '10px'
+				}, 1000);
+				$('.sv_newalert .close').click(function() {
+					$('.sv_newalert').hide();
+				});
+			});
+		</script>
+
+		<script type="text/javascript">
+			if ((navigator.userAgent.match(/(iPhone|iPod|Android)/i))) {
+				if (window.location.href.indexOf('ref=pc') == -1)
+					window.location.href = "/mobile";
+			}
+		</script>
+		<style type="text/css">
+			.cnwza {
+				height: 40px;
+				line-height: 40px;
+				text-align: right;
+				width: 75px;
+				float: left;
+				margin-left: 10px
+			}
+
+			/*对联广告*/
+			.duilian {
+				top: 400px;
+				position: absolute;
+				width: 250px;
+				overflow: hidden;
+			}
+
+			.duilian_left {
+				left: 11px;
+			}
+
+			.duilian_right {
+				right: 11px;
+				text-align: right;
+			}
+
+			.duilian_con {
+				width: 250px;
+
+				overflow: hidden; z-index:999;
+			}
+
+			.duilian_close {
+				width: 100%;
+				height: 24px;
+				line-height: 24px;
+				text-align: left;
+				display: block;
+				font-size: 13px;
+				color: #555555;
+				text-decoration: none;
+			}
+
+			.info_div_right {
+				width: 555px;
+			}
+		</style>
+		<!--[if IE]>
+	<script type="text/javascript" src="/land/xhtml/js/html5.min.js"></script>
+	<script type="text/javascript" src="/land/xhtml/js/respond.min.js"></script>
+<![endif]-->
+		<script type="text/javascript">
+			//js无缝滚动代码
+			function marquee(i, direction) {
+				var obj = document.getElementById("marquee" + i);
+				var obj1 = document.getElementById("marquee" + i + "_1");
+				var obj2 = document.getElementById("marquee" + i + "_2");
+				if (direction == "up") {
+					if (obj2.offsetTop - obj.scrollTop <= 0) {
+						obj.scrollTop -= (obj1.offsetHeight + 20);
+					} else {
+						var tmp = obj.scrollTop;
+						obj.scrollTop++;
+						if (obj.scrollTop == tmp) {
+							obj.scrollTop = 1;
+						}
+					}
+				} else {
+					if (obj2.offsetWidth - obj.scrollLeft <= 0) {
+						obj.scrollLeft -= obj1.offsetWidth;
+					} else {
+						obj.scrollLeft++;
+					}
+				}
+			}
+
+			function marqueeStart(i, direction) {
+				var obj = document.getElementById("marquee" + i);
+				var obj1 = document.getElementById("marquee" + i + "_1");
+				var obj2 = document.getElementById("marquee" + i + "_2");
+
+				obj2.innerHTML = obj1.innerHTML;
+				var marqueeVar = window.setInterval("marquee(" + i + ", '" + direction + "')", 30);
+				obj.onmouseover = function() {
+					window.clearInterval(marqueeVar);
+				}
+				obj.onmouseout = function() {
+					marqueeVar = window.setInterval("marquee(" + i + ", '" + direction + "')", 30);
+				}
+			}
+		</script>
+		<style>
+			.news_hot_info p {
+				display: none;
+			}
+
+			.news_hot_info p:first-child {
+				display: block;
+				text-overflow: -o-ellipsis-lastline;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				line-clamp: 1;
+				-webkit-box-orient: vertical;
+			}
+		</style>
+
+
+	</head>
+
+	<body>
+		
+<body>
+	<!-- 节假日横幅 S-->
+ <!-- 节假日横幅 E-->
+	<DIV id="img" class="div_float_ad" style="z-index:999;display:none">
+<!-- 此处放关闭功能 -->
+<div align='right' style='position:absolute;top:-20px;right:0px;margin:2px;padding:2px;z-index:2000;'>
+	<a href='#' onclick='hidfloatad()' style='color:while;text-decoration:none;font-size:11px;'>关闭</a></div>
+	
+<SCRIPT language=JavaScript> 
+	function hidfloatad()
+	{
+		 document.getElementById("img").style.display="none";
+	}
+</SCRIPT>
+</DIV> 
+<SCRIPT language=JavaScript> 
+   var ad1=new AdMove("img");
+      ad1.Run();
+</SCRIPT> 
+
+	
+		<!--对联广告-->
+	 <div class="duilian duilian_left" style="display:none"><a class="duilian_close" href="#" >关闭</a>
+			<div class="duilian_con">
+				
+
+			</div>
+		</div> 
+		<div class="duilian duilian_right" style="width: 308px; top: 2730.8px;">
+			<!-- <A class=duilian_close href="#">关闭</A>
+ <DIV class=duilian_con style="width:308px;"><a href="/land/ygbh/ydindex.shtml"  TARGET="_blank"><img src="/land/xhtml/images/20190621.jpg"/></a>  </DIV>-->
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var duilian = $("div.duilian");
+				var duilian_close = $("a.duilian_close");
+
+				var screen_w = screen.width;
+				if (screen_w > 1024) {
+					duilian.show();
+				}
+
+				$(window).scroll(function() {
+					var scrollTop = $(window).scrollTop();
+					duilian.stop().animate({
+						top: scrollTop + 400
+					});
+				});
+				duilian_close.click(function() {
+					$(this).parent().hide();
+					return false;
+				});
+
+
+			});
+		</script>
+		<style>
+   
+     .slh{
+        cursor:pointer; 
+        background:#dd0900;
+        font-weight:bold;
+        margin-top:11px;
+        float:left;
+        font-size:16px;
+        display: inline-block;
+        width:96px;
+        text-align:center;
+        line-height:30px;
+        height:30px;
+        border-radius:6px;
+		    position: absolute;
+    right: 216px;
+    top: -6px;
+    color: #fff;
+    }
+   .slh i{
+        background:url("/images/slh.png") no-repeat;
+        width: 17px;
+        height: 18px;
+        vertical-align: -4px;
+        display:inline-block;
+        margin-right:6px;
+    }
+   .fl-right{ position: relative;}
+</style>
+<!-- background:url(/images/20190109bg.jpg) center top no-repeat; -->
+<div style="padding:0 20px">
+		<div id="main">
+			<div class="header">
+				<!-- <img src="/images/syx.png" style="position:absolute;top:10px;right: 20px;z-index: 999;"> -->
+				<div class="top ">
+					<div class="header-logo fl-left mar-top3">
+						<a href="/" target="_blank"><img src="/images/2019logo.png"  alt="东莞市自然资源局"></a>
+					</div>
+					<div class="fl-right"> 
+						<a href="//nr.dg.gov.cn/older/" class="slh" title="长者助手"><i></i>长者助手</a>
+						<span id="jqr"><a href="//nr.dg.gov.cn/znjqr"  style="height:40px;line-height:40px;text-align:right;width:75px;margin-left:10px" target="_blank">智能机器人</a></span>
+						
+						<!-- <span id="wza">无障碍</span> -->
+						<a href="javascript:void(0)" class="cnwza">网站无障碍</a>
+						<div class="clear"></div>
+						<div class="header-search  padd-left">
+							<span class="hot-search line">热门搜索 : <a href="/gkmlpt/index#624" target="_blank">通知公告</a><a
+									href="/gkmlpt/index#625" target="_blank">工作动态</a></span>
+							<form id="searchForm" onsubmit="return false;" method="get" name="searchForm"
+								action="//search.gd.gov.cn/search/local_msg/769041/" target="_blank">
+								<!-- <input type="hidden" value="4419000031" name="siteCode"> -->
+								<input name="keywords" onfocus="this.value=''" value="请输入您要搜索的关键字"
+									class="fl-left text-input mar-top">
+								<div class="fl-left padd-top">
+									<img src="/images/2019search.png" onclick="jmpser();" style="cursor:pointer;">
+								</div>
+							</form>
+						</div>
+					</div>
+					<script type="text/javascript">
+						function jmpser() {
+							if (document.all.searchForm.keywords.value == "请输入您要搜索的关键字") {
+								alert("请输入您要搜索的关键字");
+								return;
+							}
+
+							document.all.searchForm.action = "//search.gd.gov.cn/search/local_msg/769041/";
+							document.all.searchForm.submit();
+
+						}
+					</script>
+				</div>
+				<div id="menu">
+					<ul id="nav">
+						<li class="hover" id="one1" onmouseover="setTab('one',1,7)">
+							<a href="/" target="_parent">网站首页</a>
+						</li>
+						<li class="" id="one2" onmouseover="setTab('one',2,7)">
+															<a href="http://nr.dg.gov.cn/gkmlpt/index#625" target="_parent">新闻资讯</a>
+													</li>
+						<li class="" id="one3" onmouseover="setTab('one',3,7)">
+							<a href="/gkmlpt/index" target="_parent">政务公开</a>
+						</li>
+						<li class="" id="one4" onmouseover="setTab('one',4,7)">
+							<a href="//www.gdzwfw.gov.cn/portal/branch-hall?orgCode=MB2C90020"
+								target="_blank">政务服务</a>
+						</li>
+						<li class="" id="one5" onmouseover="setTab('one',5,7)">
+															<a href="http://nr.dg.gov.cn/gzhd/index.html" target="_parent">公众互动</a>
+													</li>
+						<li class="" id="one6" onmouseover="setTab('one',6,7)">
+							<a href="/gkmlpt/index#628" target="_parent">业务工作</a>
+						</li>
+						<li class="" id="one7" onmouseover="setTab('one',7,7)">
+															<a href="http://nr.dg.gov.cn/ztpd/index.html" target="_parent">专题频道</a>
+													</li>
+					</ul>
+				</div>
+			</div>
+			<div class="notice" id="con_one_1" style="display: block;">
+				<marquee style="width:400px; margin-right:10px; padding-left:10px; overflow:hidden;" direction="left"
+					behavior="SCROLL" scrollamount="2" scrolldelay="2" height="30" onmouseover="stop()"
+					onmouseout="start()">
+					<script language="JavaScript" src="/js/date.js"></script>
+					<script language="JavaScript" src="/js/weather.js"></script>
+				</marquee>
+			</div>
+			<div class="notice" style="display: none;" id="con_one_2">
+				<div class="sub-column " style="padding-left: 142px;">
+					<ul>
+						<li>
+							<a href="/gkmlpt/index#625" target="_parent">工作动态</a>|
+						</li>
+						<li>
+							<a href="/gkmlpt/index#624" target="_parent">通知公告</a> |
+						</li>
+						<li>
+															<a href="http://nr.dg.gov.cn/xwzx/gwhgg/index.html" target="_parent"
+									title="规委会工作">规委会工作</a>&nbsp;|
+													</li>
+						<li>
+															<a href="http://nr.dg.gov.cn/jgjj/jgxzxk/index.html" target="_parent"
+									title="机构行政许可">机构行政许可</a> |
+													</li>
+						
+						<li>
+															<a href="http://nr.dg.gov.cn/ztpd/qzqd/zndzml/index.html" target="_parent"
+									title="职能调整目录">职能调整目录</a>
+													</li>
+
+					</ul>
+				</div>
+			</div>
+			<div class="notice" style="display: none;" id="con_one_3">
+				<div class="sub-column">
+					<ul>
+						<li>
+							<a href="/gkmlpt/guide" target="_blank">信息公开指南</a> |
+						</li>
+						<li>
+							<a href="/gkmlpt/annualreport#663" target="_blank">信息公开年度报告</a> |
+						</li>
+						<li>
+							<a href="//ysqgk.gd.gov.cn/769038/choice"
+								target="_blank">依申请公开</a> |
+						</li>
+						<li>
+							<a href="/gkmlpt/index#606" target="_parent">组织机构</a> |
+						</li>
+						<li>
+
+							<a href="/gkmlpt/policy" target="_parent">政策文件</a>
+							|
+						</li>
+						<li>
+							<a href="/gkmlpt/index#611" target="_parent">财政信息</a> |
+						</li>
+						<li>
+							<a href="/gkmlpt/index#616" target="_parent">规划计划</a> |
+						</li>
+						<li>
+							<a href="/gkmlpt/index#621" target="_parent">统计信息</a> |
+						</li>
+						<li>
+							<a href="/gkmlpt/index#622" target="_parent">应急管理</a> |
+						</li>
+						<li>
+							<a href="/gkmlpt/index#623" target="_parent">其他</a> |
+						</li>
+						<li>
+							<a href="/gkmlpt/index#628" target="_parent">业务工作</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="notice" style="display: none;" id="con_one_4">
+				<div class="sub-column " style="  padding-left: 421px;">
+					<ul>
+
+					</ul>
+				</div>
+			</div>
+			<div class="notice" style="display: none;" id="con_one_5">
+				<div class="sub-column " style="padding-left: 513px;">
+					<ul>
+						<li>
+															<a href="http://nr.dg.gov.cn/gzhd/wyxx/index.html" target="_parent"
+									title="我要写信">我要写信</a>
+							&nbsp;|&nbsp;
+						</li>
+						<li>
+															<a href="http://nr.dg.gov.cn/gzhd/dczj/index.html" target="_parent"
+									title="调查征集">调查征集</a>
+							&nbsp;|&nbsp;
+						</li>
+						<li>
+															<a href="http://nr.dg.gov.cn/gzhd/jgxntszx/index.html" target="_parent"
+									title="机关效能投诉中心">机关效能投诉中心</a>
+													</li>
+					</ul>
+				</div>
+			</div>
+			<div class="notice" style="display: none;" id="con_one_6">
+				<div class="sub-column " style="padding-left: 213px;">
+						<ul>
+											<li>
+							<a href="http://nr.dg.gov.cn/ywgsxt/index.html" target="_parent">建设项目用地预审与选址意见书</a> | </li>						<li>
+							<a href="http://nr.dg.gov.cn/zfxxgkml/ywgz/tdsc/yjsc/tdxxgs/index.html" target="_parent">土地供应</a> | </li>						<li>
+							<a href="http://nr.dg.gov.cn/zfxxgkml/ywgz/tdsc/yjsc/djxx/index.html" target="_parent">地价信息</a> | </li>						<li>
+							<a href="http://nr.dg.gov.cn/gkmlpt/index#3853" target="_parent">闲置土地认定</a> | </li>						<li>
+							<a href="http://nr.dg.gov.cn/zfxxgkml/ywgz/tdgl/index.html" target="_parent">地矿管理</a> | </li>					</ul>
+				</div>
+			</div>
+			<div class="notice" style="display: none;" id="con_one_7">
+				<div class="sub-column ">
+					<ul>
+
+<li>
+															<a href="http://nr.dg.gov.cn/ztpd/ddjy/djfc/" target="_parent"
+									title="党的建设">党的建设</a>
+							|
+						</li>
+						
+						<li>
+															<a href="http://nr.dg.gov.cn/ztpd/csgx/gggs/" target="_parent"
+									title="城市更新">城市更新</a>
+							|
+						</li>
+						<li>
+															<a href="http://nr.dg.gov.cn/ztpd/qgtdr/index.html" target="_parent"
+									title="全国土地日">全国土地日</a>
+							|
+						</li>
+						
+						<li>
+															<a href="http://nr.dg.gov.cn/ztpd/ghsjdwxx/index.html" target="_parent"
+									title="城乡规划设计单位诚信信息公告">城乡规划设计单位诚信信息公告</a>
+							|
+						</li>
+						<li>
+															<a href="http://nr.dg.gov.cn/ztpd/cjdafw/index.html" target="_parent"
+									title="城建档案服务">城建档案服务</a>
+													</li>
+					</ul>
+				</div>
+			</div>
+			<!--<script>
+  	setTimeout(function(){$('#big_img').slideUp(5000,'linear');}, 7000);
+  </script>-->
+
+			<div class="center padd">
+				<!-- 节假日横幅 -->
+				<!-- <div><img src="/images/banner1.png" alt="" style="width:100%;margin-bottom:10px"></div> -->
+				<div class="news">
+					<div class="news_pic fl-left">
+						<iframe scrolling="no" height="330" width="100%" frameborder="0"
+							src="//nr.dg.gov.cn/news_pic.html" allowtransparency="true"></iframe>
+					</div>
+					<div class="news_work fl-right">
+						<div class="font_size news_titlet">
+							<span class="hover" id="five1" onmouseover="setTab('five',1,4)">
+								<a href="/gkmlpt/index#625"
+										target="_blank">工作动态</a>							</span>
+							<font color="#cccccc" style="padding:0 7px; font-size:14px; font-weight:normal"> | </font>
+							<span id="five2" onmouseover="setTab('five',2,4)" class=""> <a href="/gkmlpt/index#624"
+									target="_blank">通知公告</a> </span>
+							<font color="#cccccc" style="padding:0 7px; font-size:14px; font-weight:normal"> | </font>
+							<span id="five3" onmouseover="setTab('five',3,4)" class=""> <a
+									href="//www.gd.gov.cn/xxts/" target="_blank">政声传递</a> </span>
+							<font color="#cccccc" style="padding:0 7px; font-size:14px; font-weight:normal"> | </font>
+							<!-- <span id="five4" onmouseover="setTab('five',4,5)" class="">
+								 <a href="http://nr.dg.gov.cn/xwzx/ywtzgg/index.html"
+										target="_blank">业务通知公告</a>							</span>
+							<font color="#cccccc" style="padding:0 7px; font-size:14px; font-weight:normal"> | </font> -->
+							<span id="five4" onmouseover="setTab('five',4,4)" class="">
+								 <a href="http://nr.dg.gov.cn/xwzx/gwhgg/index.html"
+										target="_blank">规委会工作</a>							</span>
+						</div>
+						<div id="con_five_1" style="display: block;">
+								<div class="news_hot mar-top2" id="gzdt_hot">
+									
+								</div>
+							<script>
+								$.ajax({
+									type: "get",
+									url: "/postmeta/g/625_1.json",
+									dataType: "json",
+									success: function(data) {
+                                        console.log(data)
+										var len =1;
+                                        var html=''
+										for (var i = 0; i < len; i++) {
+											var tp = data.articles[i];
+                                            var title = tp.title.length > 21 ? tp.title.substring(0, 21) + '...' : tp.title
+                                            var abstract = tp.abstract.length > 56 ? tp.abstract.substring(0, 56) + '...' : tp.abstract
+                                            html+='<div class="news_hot_title">\
+                                            <img src="/images/heat.png" class="fl-left mar-left">\
+                                            <span class="fl-left"> <a href="'+tp.url+'" target="_blank" title="'+title+'">'+title+'</a>\
+                                            </span>\
+                                        </div>\
+                                        <div class="news_hot_info fl-left padd-r-l">\
+                                           '+ abstract +'  <a class="acolor_1" href="'+tp.url+'" target="_blank">[详细]</a>\
+                                        </div>';
+										}
+                                        $('#gzdt_hot').html(html)     
+									}
+								});
+							</script>
+							<ul class="news_ul" id="gzdt2">
+
+							</ul>
+							<script>
+								$.ajax({
+									type: "get",
+									url: "/postmeta/g/625_1.json",
+									dataType: "json",
+									success: function(data) {
+										var len = 6;
+										var html='';
+										for(var i = 0; i < len; i++) {
+											let tp = data.articles[i];
+											var title = tp.title.length > 32 ? tp.title.substring(0, 32) + '...' : tp.title
+												if(i!=0){
+													html+='<li><a href="'+tp.url+'" target="_blank" title="'+tp.title+'">'+title+'</a></li>';
+												}
+										} 
+										$('#gzdt2').html(html)    
+									}
+								});
+							</script>
+
+						</div>
+						<div id="con_five_2" style="display: none;">
+							<div class="news_hot mar-top2" id="tzgg_hot">
+									
+							</div>
+							<script>
+									$.ajax({
+									type: "get",
+									url: "/postmeta/g/624_1.json",
+									dataType: "json",
+									success: function(data) {
+                                        console.log(data)
+										var len =1;
+                                        var html=''
+										for (var i = 0; i < len; i++) {
+											var tp = data.articles[i];
+                                            var title = tp.title.length > 21 ? tp.title.substring(0, 21) + '...' : tp.title
+                                            var abstract = tp.abstract.length > 56 ? tp.abstract.substring(0, 56) + '...' : tp.abstract
+                                            html+='<div class="news_hot_title">\
+                                            <img src="/images/heat.png" class="fl-left mar-left">\
+                                            <span class="fl-left"> <a href="'+tp.url+'" target="_blank" title="'+title+'">'+title+'</a>\
+                                            </span>\
+                                        </div>\
+                                        <div class="news_hot_info fl-left padd-r-l">\
+                                           '+ abstract +'  <a class="acolor_1" href="'+tp.url+'" target="_blank">[详细]</a>\
+                                        </div>';
+										}
+                                        $('#tzgg_hot').html(html)     
+									}
+								});
+							</script>
+
+							<ul class="news_ul" id="tzgg_list2">
+
+							</ul>
+							<script>
+							$.ajax({
+									type: "get",
+									url: "/postmeta/g/624_1.json",
+									dataType: "json",
+									success: function(data) {
+										var len = 6;
+										var html='';
+										for(var i = 0; i < len; i++) {
+											let tp = data.articles[i];
+											var title = tp.title.length > 32 ? tp.title.substring(0, 32) + '...' : tp.title
+												if(i!=0){
+													html+='<li><a href="'+tp.url+'" target="_blank" title="'+tp.title+'">'+title+'</a></li>';
+												}
+										} 
+										$('#tzgg_list2').html(html)    
+									}
+								});
+								
+							</script>
+						</div>
+						<div id="con_five_3" style="display: none; padding-top: 15px;">
+							<ul id="zscd"></ul>
+							<script type="text/javascript">
+								$(function() {
+									function checkString(s, l, tag) {
+										if (s.length > l) {
+											return s.substring(0, l) + tag;
+										} else {
+											return s
+										}
+									}
+
+									$.ajax({
+										url: '//app.gd.gov.cn/xxts/pushinfo_json.php',
+										dataType: "jsonp",
+										jsonp: "pushInfoJsonpCallBack",
+										jsonpCallback: "pushInfoJsonpCallBack",
+										success: function(data) {
+											$.each(data, function(i, json) {
+												if (i < 10) {
+													$("#zscd").append('<li><span style="float:right;">' + json
+														.pubDate + '</span><a href="' + json.link +
+														'" title="' + json.title + '" target="_blank">' +
+														checkString(json.title, 30, '...') + '</a></li>');
+												}
+											});
+										}
+									});
+								})
+							</script>
+						</div>
+						<!-- <div id="con_five_4" style="display: none;">
+														<ul class="news_ul">
+															</ul>
+						</div> -->
+						<div id="con_five_4" style="display: none;">
+															<div class="news_hot mar-top2">
+									<div class="news_hot_title">
+										<img src="/images/heat.png" class="fl-left mar-left">
+										<span class="fl-left"> <a href="http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4581284.html" target="_blank"
+												title="关于召开法定规划委员会2026年第3次会议市民申请旁听的公告">关于召开法定规划委员会2026年第3...</a>
+										</span>
+									</div>
+									<div class="news_hot_info fl-left padd-r-l">
+										　　为增强会议议事的透明度，推动公众参与，法定规划委员会2026年第3次会议设市民旁听席。现就市民申...
+										<a class="acolor_1" href="http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4581284.html" target="_blank">[详细]</a>
+									</div>
+								</div>
+														<ul class="news_ul">
+																	<li>
+										<a href="http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4579258.html" target="_blank"
+											title="关于召开法定规划委员会2026年第3次会议市民申请旁听的公告">关于召开法定规划委员会2026年第3次会议市民申请旁听的公告</a>
+									</li>
+																	<li>
+										<a href="http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4578122.html" target="_blank"
+											title="关于召开法定规划委员会2026年第3次会议市民申请旁听的公告">关于召开法定规划委员会2026年第3次会议市民申请旁听的公告</a>
+									</li>
+																	<li>
+										<a href="http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4558955.html" target="_blank"
+											title="关于公开征集东莞市自然资源和城市管理 委员会法定规划委员会非公务委员和 委员会聘任专家的公告">关于公开征集东莞市自然资源和城市管理 委员会法定规划委员会非公务...</a>
+									</li>
+																	<li>
+										<a href="http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4550117.html" target="_blank"
+											title="关于召开法定规划委员会2026年第1次会议市民申请旁听的公告">关于召开法定规划委员会2026年第1次会议市民申请旁听的公告</a>
+									</li>
+																	<li>
+										<a href="http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4547056.html" target="_blank"
+											title="关于详细规划委员会2026年第5次会议（第四届市规委会第78次控规与城市更新委员会会议）和专项规划委员会2026年第4次会议（第四届市规委会第21次专项与环艺委员会会议）市民申请旁听的预公告">关于详细规划委员会2026年第5次会议（第四届市规委会第78次控...</a>
+									</li>
+															</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div class="bsfw mar-top2">
+					<div class="djzl"><a href="/ztpd/ddjy/djfc/" target="_blank"><img src="/images/2020ddjstop.jpg"></a>
+					</div>
+				</div>
+				<div class="mar-top1"><a href="//app.dg.gov.cn/u/zwfw/index" target="_blank"><img
+							src="/images/2019imgqzqd.png" style="width:100%"></a></div>
+				<div class="news_info mar-top2">
+					<div class="info_left fl-left">
+						<div class="info_title ">
+							<strong class="padd-1 fl-left line"> <a href="/gkmlpt/index#628" target="_blank">业务工作</a>
+							</strong>
+							<span class="fl-right mar-top15"><i></i></span>
+						</div>
+						<div class="info_div mar-top2">
+							<div class="info_div_left fl-left">
+								<div class="info_div_title">
+									<strong class=" hover" id="zz1" onmouseover="setTab('zz',1,2)"><a
+											href="/gkmlpt/index#618" target="_blank">国土空间总体规划</a> </strong>
+
+									<strong id="zz2" onmouseover="setTab('zz',2,2)"> <a href="/gkmlpt/index#655"
+											target="_blank">测绘工作</a> </strong>
+								</div>
+								<ul class="news_ul" id="con_zz_1" style="display:block">
+
+
+								</ul>
+								<script>
+									$.ajax({
+										type: "get",
+										url: "//nr.dg.gov.cn/postmeta/g/618_1.json",
+										dataType: "json",
+										success: function(data) {
+											var len = 6;
+											for (var i = 0; i < len; i++) {
+												var tp = data.articles[i];
+												var fz = tp.title.length;
+												var dy;
+												var ad;
+												var ap = tp.created_at.substring(0, 10);
+												if (tp.title.length >= 17) {
+													dy = tp.title.substring(17, fz);
+													ad = tp.title.replace(dy, "...");
+												} else {
+													ad = tp.title;
+												}
+												var ad = tp.title.replace(dy, "...");
+												$('#con_zz_1').append('<li><a href="' + tp.url + '" target="_blank" title="' + tp
+													.title + '">' + ad + '</a></li>')
+											}
+										}
+									});
+								</script>
+								<ul class="news_ul" id="con_zz_2" style="display:none">
+
+								</ul>
+								<script>
+									$.ajax({
+										type: "get",
+										url: "//nr.dg.gov.cn/postmeta/g/655_1.json",
+										dataType: "json",
+										success: function(data) {
+											var len = 6;
+											for (var i = 0; i < len; i++) {
+												var tp = data.articles[i];
+												var fz = tp.title.length;
+												var dy;
+												var ad;
+												var ap = tp.created_at.substring(0, 10);
+												if (tp.title.length >= 18) {
+													dy = tp.title.substring(18, fz);
+													ad = tp.title.replace(dy, "...");
+												} else {
+													ad = tp.title;
+												}
+												var ad = tp.title.replace(dy, "...");
+												$('#con_zz_2').append('<li><a href="' + tp.url + '" target="_blank" title="' + tp
+													.title + '">' + ad + '</a></li>')
+											}
+										}
+									});
+								</script>
+							</div>
+							<div class="info_div_right fl-right" id="Tab2">
+								<div class="info_div_title">
+									<strong class="hover" id="two1" onmouseover="setTab('two',1,2)"> <a
+											href="/gkmlpt/index#648" target="_blank">土地征收</a> </strong>
+									
+								
+									<strong id="two2" onmouseover="setTab('two',2,2)" class=""> <a
+											href="//nr.dg.gov.cn/ztpd/csgx/gggs/index.html"
+											target="_blank">城市更新公告公示</a> </strong>
+								</div>
+								<ul class="news_ul" id="con_two_1">
+
+
+								</ul>
+								<script>
+									$.ajax({
+										type: "get",
+										url: "//nr.dg.gov.cn/postmeta/g/648_1.json",
+										dataType: "json",
+										success: function(data) {
+											var len = 6;
+											for (var i = 0; i < len; i++) {
+												var tp = data.articles[i];
+												var fz = tp.title.length;
+												var dy;
+												var ad;
+												var ap = tp.created_at.substring(0, 10);
+												if (tp.title.length >= 35) {
+													dy = tp.title.substring(35, fz);
+													ad = tp.title.replace(dy, "...");
+												} else {
+													ad = tp.title;
+												}
+												var ad = tp.title.replace(dy, "...");
+												$('#con_two_1').append('<li><a href="' + tp.url + '" target="_blank" title="' + tp
+													.title + '">' + ad + '</a></li>')
+											}
+										}
+									});
+								</script>
+							
+								<ul class="news_ul" id="con_two_2" style="display:none">
+																			<li>
+											<a href="http://nr.dg.gov.cn/ztpd/csgx/gggs/content/post_4582666.html" target="_blank"
+												title="台易电子公司增资扩产项目“三旧”改造总体实施方案批复结果公告">台易电子公司增资扩产项目“三旧”改造总体实施方案批复结果公告</a>
+										</li>
+																			<li>
+											<a href="http://nr.dg.gov.cn/ztpd/csgx/gggs/content/post_4582110.html" target="_blank"
+												title="望牛墩镇东兴路旧厂房“三旧”改造项目（原辉卓电器）总体实施方案批复结果公告">望牛墩镇东兴路旧厂房“三旧”改造项目（原辉卓电器）总体实施方案批复结果...</a>
+										</li>
+																			<li>
+											<a href="http://nr.dg.gov.cn/ztpd/csgx/gggs/content/post_4577810.html" target="_blank"
+												title="万江新村产业园区智能制造中心二期“三旧”改造总体实施方案批复结果公告">万江新村产业园区智能制造中心二期“三旧”改造总体实施方案批复结果公告</a>
+										</li>
+																			<li>
+											<a href="http://nr.dg.gov.cn/ztpd/csgx/gggs/content/post_4575201.html" target="_blank"
+												title="东莞市博鑫电子技术有限公司改造地块“三旧”改造单元总体实施方案批复结果公告">东莞市博鑫电子技术有限公司改造地块“三旧”改造单元总体实施方案批复结果...</a>
+										</li>
+																			<li>
+											<a href="http://nr.dg.gov.cn/ztpd/csgx/gggs/content/post_4570457.html" target="_blank"
+												title="关于《东莞市厚街镇厚山现代化产业园区（厚山城中村片区）统筹规划调整》的批后公示">关于《东莞市厚街镇厚山现代化产业园区（厚山城中村片区）统筹规划调整》的...</a>
+										</li>
+																			<li>
+											<a href="http://nr.dg.gov.cn/ztpd/csgx/gggs/content/post_4559443.html" target="_blank"
+												title="关于《常平镇黄泥塘工业园区连片“工改工”更新单元“三旧”改造总体实施方案》的批复、征地预公告、征地补偿安置方案公告、征地公告等结果公告">关于《常平镇黄泥塘工业园区连片“工改工”更新单元“三旧”改造总体实施方...</a>
+										</li>
+																	</ul>
+							</div>
+						</div>
+						<div class="tdsc mar-top2" id="Tab3">
+							<div class="info_right_title">
+								<div class="rleft">
+									<a href="/gkmlpt/index#636" target="_blank">土地市场</a>
+								</div>
+								<div class="rright">
+									<ul id="con_sc_1">
+										<li class="hover" id="sid1" onmouseover="setTab('sid',1,8)">
+											<a href="/gkmlpt/index#619" target="_blank">年度计划</a>
+										</li>
+										<li class="hx">|</li>
+										<li id="sid2" onmouseover="setTab('sid',2,8)" class="">
+											<a href="/gkmlpt/index#639" target="_blank">地价信息</a>
+										</li>
+										<li class="hx">|</li>
+										<li id="sid3" onmouseover="setTab('sid',3,8)" class="">
+											<a href="/gkmlpt/index#640" target="_blank">土地供应</a>
+										</li>
+
+									</ul>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="info_div_left fl-left">
+								<span id="sc1" onmouseover="setTab('sc',1,2)" class="hover"> <a href="/gkmlpt/index#636"
+										target="_blank">一级市场</a> </span>
+								<span style="background:url(/images/20230907134723.png) no-repeat;background-size:100% 100%;width:295px" class="hover"> <a href="http://nr.dg.gov.cn/zfxxgkml/qt/tzgg/content/post_208145.html"
+										target="_blank" style="color:#Fff;margin-left:67px">三旧改造地价计收</a> </span>
+							</div>
+							<div class="info_div_right fl-right" id="con_sid_1">
+								<ul class="news_ul" id="ndtdgyjh_gkml">
+
+								</ul>
+								<script>
+									$.ajax({
+										type: "get",
+										url: "//nr.dg.gov.cn/postmeta/g/620_1.json",
+										dataType: "json",
+										success: function(data) {
+											var len = 6;
+											for (var i = 0; i < len; i++) {
+												var tp = data.articles[i];
+												var fz = tp.title.length;
+												var dy;
+												var ad;
+												var ap = tp.created_at.substring(0, 10);
+												if (tp.title.length > 30) {
+													dy = tp.title.substring(30, fz);
+													ad = tp.title.replace(dy, "...");
+												} else {
+													ad = tp.title;
+												}
+												var ad = tp.title.replace(dy, "...");
+												$('#ndtdgyjh_gkml').append('<li><a href="' + tp.url + '" target="_blank" title="' + tp
+													.title + '">' + ad + '</a></li>')
+											}
+										}
+									});
+								</script>
+							</div>
+							<div class="info_div_right fl-right" id="con_sid_2" style="display:none">
+								<ul class="news_ul" id="djxx_gkml">
+
+								</ul>
+								<script>
+									$.ajax({
+										type: "get",
+										url: "//nr.dg.gov.cn/postmeta/g/639_1.json",
+										dataType: "json",
+										success: function(data) {
+											var len = 6;
+											for (var i = 0; i < len; i++) {
+												var tp = data.articles[i];
+												var fz = tp.title.length;
+												var dy;
+												var ad;
+												var ap = tp.created_at.substring(0, 10);
+												if (tp.title.length > 30) {
+													dy = tp.title.substring(30, fz);
+													ad = tp.title.replace(dy, "...");
+												} else {
+													ad = tp.title;
+												}
+												var ad = tp.title.replace(dy, "...");
+												$('#djxx_gkml').append('<li><a href="' + tp.url + '" target="_blank" title="' + tp
+													.title + '">' + ad + '</a></li>')
+											}
+										}
+									});
+								</script>
+							</div>
+							<div class="info_div_right fl-right" id="con_sid_3" style="display:none">
+								<ul class="news_ul" id="tdxxgs_gkml">
+
+								</ul>
+								<script>
+									$.ajax({
+										type: "get",
+										url: "//nr.dg.gov.cn/postmeta/g/640_1.json",
+										dataType: "json",
+										success: function(data) {
+											var len = 6;
+											for (var i = 0; i < len; i++) {
+												var tp = data.articles[i];
+												var fz = tp.title.length;
+												var dy;
+												var ad;
+												var ap = tp.created_at.substring(0, 10);
+												if (tp.title.length > 30) {
+													dy = tp.title.substring(30, fz);
+													ad = tp.title.replace(dy, "...");
+												} else {
+													ad = tp.title;
+												}
+												var ad = tp.title.replace(dy, "...");
+												$('#tdxxgs_gkml').append('<li><a href="' + tp.url + '" target="_blank" title="' + tp
+													.title + '">' + ad + '</a></li>')
+											}
+										}
+									});
+								</script>
+							</div>
+
+							<div class="info_div_right fl-right" id="con_sid_5" style="display:none">
+								<ul class="news_ul">
+									
+								</ul>
+							</div>
+							<div class="info_div_right fl-right" id="con_sid_6" style="display:none">
+								<ul class="news_ul">
+								
+								</ul>
+							</div>
+							<div class="info_div_right fl-right" id="con_sid_7" style="display:none">
+								<ul class="news_ul">
+								
+								</ul>
+							</div>
+							<div class="info_div_right fl-right" id="con_sid_8" style="display:none">
+								<ul class="news_ul">
+								
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="info_right fl-right">
+						<div class="zwgk">
+							<a href="/gkmlpt/index" target="_blank"><img src="/images/zwgk.jpg"></a>
+						</div>
+						<ul>
+							<li class="icon-01">
+								<a href="/gkmlpt/guide" target="_blank">信息公开指南</a>
+							</li>
+							<li class="icon-05">
+								<a href="/gkmlpt/index" target="_blank">政务信息公开目录</a>
+							</li>
+							<li class="icon-02">
+								<a href="/gkmlpt/annualreport" target="_blank">政务信息公开年度报告</a>
+							</li>
+							<li class="icon-03">
+								<a href="//ysqgk.gd.gov.cn/769038/choice"
+									target="_blank">政务信息依申请公开</a>
+							</li>
+							<!-- <li class="icon-06">
+								<a href="/gkmlpt/index#609" target="_blank">政策法规及规范性文件</a>
+							</li>
+							<li class="icon-04">
+								<a href="/gkmlpt/index#616" target="_blank">规划计划</a>
+							</li> -->
+							<li class="icon-07">
+								<a href="/gkmlpt/index#3732" target="_blank">政府网站年度工作报表</a>
+							</li>
+							<li class="icon-08">
+								<a href="//ysq.dg.gov.cn/query.html" target="_blank">市依申请系统（处理状态查询）</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="ghj_div mar-top2">
+					<div class="ghj_div_left">
+						<div class="ghj_title">
+							<span class="hover">规划业务办理查询</span>
+							<span style="width:280px;"><a href="http://120.86.191.153/DG.GisClient/default.aspx"
+									target="_blank">东莞市控制性详细规划成果查询系统</a></span>
+							<div class="clear"></div>
+						</div>
+						<div class="left_cxx">
+							<form id="form1" onsubmit="on_submit()" method="post" name="form1"
+								action="//121.10.6.230/DGQUERYCASE/QueryCaseStatus.aspx" target="_blank">
+								<input id="caseid" type="hidden" name="caseid">
+								<table cellspacing="0" cellpadding="0" width="100%" border="0">
+									<tbody>
+										<tr>
+											<td width="12%">案件编号：</td>
+											<td width="10%">
+												<label> <select id="zb" style="HEIGHT: 28px; WIDTH: 60px" name="zb">
+														<option value="莞城">莞城</option>
+														<option selected value="东城">东城</option>
+														<option value="南城">南城</option>
+														<option value="万江">万江</option>
+														<option value="石龙">石龙</option>
+														<option value="虎门">虎门</option>
+														<option value="中堂">中堂</option>
+														<option value="望牛墩">望牛墩</option>
+														<option value="麻涌">麻涌</option>
+														<option value="石碣">石碣</option>
+														<option value="高埗">高埗</option>
+														<option value="洪梅">洪梅</option>
+														<option value="道滘">道滘</option>
+														<option value="厚街">厚街</option>
+														<option value="沙田">沙田</option>
+														<option value="长安">长安</option>
+														<option value="寮步">寮步</option>
+														<option value="大岭山">大岭山</option>
+														<option value="大朗">大朗</option>
+														<option value="黄江">黄江</option>
+														<option value="樟木头">樟木头</option>
+														<option value="凤岗">凤岗</option>
+														<option value="塘厦">塘厦</option>
+														<option value="谢岗">谢岗</option>
+														<option value="清溪">清溪</option>
+														<option value="常平">常平</option>
+														<option value="桥头">桥头</option>
+														<option value="横沥">横沥</option>
+														<option value="东坑">东坑</option>
+														<option value="企石">企石</option>
+														<option value="石排">石排</option>
+														<option value="茶山">茶山</option>
+														<option value="松山湖">松山湖</option>
+														<option value="虎门港">虎门港</option>
+														<option value="生态园">生态园</option>
+														<option value="东部园区">东部园区</option>
+														<option value="滨海湾新区">滨海湾新区</option>
+													</select> </label>
+											</td>
+											<td width="26%"><input id="bm" name="bm"></td>
+											<td width="9%" align="right">查询码：</td>
+											<td width="28%" align="center"><input id="textfield" name="querycode"></td>
+											<td width="15%" align="right">
+												<input
+													style="CURSOR: pointer; BORDER-TOP: #fff 0px solid; HEIGHT: 32px; BORDER-RIGHT: #fff 0px solid; WIDTH: 101px; BORDER-BOTTOM: #fff 0px solid; BORDER-LEFT: #fff 0px solid;margin-top: 15px;"
+													height="32" alt="" src="/images/2019search_img.png" type="image"
+													width="101" border="0">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+							<script language="javascript" type="text/javascript">
+								function on_submit() {
+									document.getElementById("caseid").value = document.getElementById("zb").value + document.getElementById(
+										"bm").value;
+								}
+							</script>
+						</div>
+						<div class="right_blzn">
+							<ul>
+																	<li class="hover" id="ghjpqgs1" onmouseover="setTab('ghjpqgs',1,5)">
+										<a href="http://nr.dg.gov.cn/ghgs/slgs/index.html" target="_blank">受理公示</a>
+									</li>
+																									<li id="ghjpqgs2" onmouseover="setTab('ghjpqgs',2,5)">
+										<a href="http://nr.dg.gov.cn/ghgs/pqgs/index.html" target="_blank">批前公示</a>
+									</li>
+																									<li id="ghjpqgs3" onmouseover="setTab('ghjpqgs',3,5)">
+										<a href="http://nr.dg.gov.cn/ghgs/phgg/index.html" target="_blank">批后公告</a>
+									</li>
+																									<li id="ghjpqgs4" onmouseover="setTab('ghjpqgs',4,5)">
+										<a href="http://nr.dg.gov.cn/ghgs/cnsgs/index.html" target="_blank">承诺书公示</a>
+									</li>
+															</ul>
+							<div class="clear"></div>
+						</div>
+						<div id="con_ghjpqgs_1">
+							<iframe frameborder="0" src="//zrzyywrk.dg.cn/nrm/#/dggsweb?ptname=slgs&istop=1"
+								allowtransparency="true" scrolling="no" width="100%" height="350"></iframe>
+						</div>
+						<div id="con_ghjpqgs_2" class="right_slgs" style="display: none;">
+							<iframe frameborder="0" src="//zrzyywrk.dg.cn/nrm/#/dggsweb?ptname=pqgs&istop=1"
+								allowtransparency="true" scrolling="no" width="100%" height="350"></iframe>
+						</div>
+						<div id="con_ghjpqgs_3" class="right_slgs" style="display: none;">
+							<iframe frameborder="0" src="//zrzyywrk.dg.cn/nrm/#/dggsweb?ptname=phgs&istop=1"
+								allowtransparency="true" scrolling="no" width="100%" height="350"></iframe>
+						</div>
+						<div id="con_ghjpqgs_4" class="right_slgs" style="display: none;">
+							<iframe frameborder="0" src="//zrzyywrk.dg.cn/nrm/#/dggsweb?ptname=crsgs&istop=1"
+								allowtransparency="true" scrolling="no" width="100%" height="350"></iframe>
+						</div>
+					</div>
+					<div class="ghj_div_right">
+						
+						<div class="imgHover1">
+							<a href="//www.gdzwfw.gov.cn/portal/branch-hall?orgCode=MB2C90020" target="_blank"><img
+									src="/images/2019img4.png"></a>
+						</div>
+						<div class=" imgHover1" style="margin-top:3px;"><a href="/gkmlpt/index#611" target="_blank"><img
+									src="/images/ygzj.png"></a></div>
+								<div class="imgHover1" style="margin-top:3px;">
+							<a href="https://guangdong.tianditu.gov.cn/nr-gdland-web/goods-shelf" target="_blank"><img
+									src="/images/ydyg.png" width="100%"></a>
+						</div>
+						<div class=" imgHover1" style="margin-top:3px;"><a href="http://zrzyywrk.dg.cn/wbdtweb/"
+								target="_blank"><img src="/images/e639453df9ab4ae98b6f0868a2ac3912.png"></a></div>
+						<div class=" imgHover1" style="margin-top:3px;">
+							<a href="http://g.hyyb.org/hyyb/#/" target="_blank"><img src="/images/2019img6.png"></a>
+						</div>
+						<div class=" imgHover1" style="margin-top:3px;margin-bottom:5px;">
+							<a href="https://g.hyyb.org/hyyb/#/cityHome/dongguan/city_conventionalForecast"
+								target="_blank"><img src="/images/2019img6aa.png"></a>
+						</div>
+						<div class="imgHover1" style="margin-top:3px;margin-bottom:5px;">
+							<a href="http://nr.dg.gov.cn/ztpd/dzyj/" target="_blank"><img src="/images/20260616img.png"></a>
+						</div>
+						<!--<div class="fwpic2">
+							<iframe scrolling="no" height="100%" width="100%" frameborder="0"
+								src="./nesting/2019zt_1_center_pic.shtml" allowtransparency="true"></iframe>
+						</div>-->
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="plink">
+					<ul>
+						<li>
+							<a href="http://www.dg.gov.cn/zdlyxxgk/index.html" target="_blank"><img
+									src="/images/f610c574c15f42c9a610fde42cb4ea82.png"
+									style="FILTER: alpha(opacity=100); opacity: 1"
+									onmouseover="this.style.opacity=0.4;this.filters.alpha.opacity=40"
+									onmouseout="this.style.opacity=1;this.filters.alpha.opacity=100"></a>
+						</li>
+							<li>
+								<a href="https://credit.dg.gov.cn"  target="_blank"><img src="/images/9a6acd2310cc45caa9245343f1e12a5a.png"
+										style="FILTER: alpha(opacity=100); opacity: 1"
+										onmouseover="this.style.opacity=0.4;this.filters.alpha.opacity=40"
+										onmouseout="this.style.opacity=1;this.filters.alpha.opacity=100"></a>
+							</li>
+		<li><img src="/images/2019img1.gif"></li>
+						
+					</ul>
+				</div>
+			
+				<script type="text/javascript">
+					function onc(curr) {
+						//document.getElementById(curr).style.display='none';
+						var s = document.getElementById(curr).style;
+						if (s.display == 'none') {
+							s.display = "";
+							document.getElementById("d3").className = 'more1';
+						} else {
+							s.display = "none";
+							document.getElementById("d3").className = 'more';
+						}
+					}
+				</script>
+
+
+				<div class="xnc3">
+					<div class="bsfw mar-top2" style="width: 350px; float:left;">
+						<div class="info_title"> <strong class="padd-1 fl-left line">
+								<a href="http://www.gdzwfw.gov.cn/portal/branch-hall?orgCode=MB2C90020"
+									target="_blank">政务服务</a>
+							</strong> <span class="fl-right mar-top15" style="width:212px;"><i></i></span> </div>
+						<div class="wsgh_div_1 fl-left">
+							
+							<ul>
+								<li style="width:150px;"><a href="https://guangdong.tianditu.gov.cn/dongguan/"
+										target="_blank" rel="noopener noreferrer"><img src="/images/wz_pic.png"><span>天地图.东莞市地理信息
+											<br>
+											公共服务平台</span></a></li>
+								<!-- <li style="width:92px;"><a><img src="/images/xh_pic.png"><span>东莞市测绘<br>
+											地理信息协会</span></a></li> -->
+							
+								<li style="width:150px;"><a href="https://guangdong.tianditu.gov.cn/chjgptyzq/natureWeb3/surveyinspectweb.html#/" target="_blank" rel="noopener noreferrer"><img
+											src="/images/20200430img1.png"><span>广东省测绘地理信息监管与服务系统</span></a></li>
+							</ul>
+						</div>
+
+
+
+					</div>
+					<div class="gzhd mar-top2" style="width: 776px;float: right;">
+						<div class="info_title"> <strong class="padd-1 fl-left line">
+								<a href="http://nr.dg.gov.cn/gzhd/index.html" target="_blank">公众互动</a>
+															</strong> <span class="fl-right mar-top15" style="width:632px;"><i></i></span> </div>
+						<div class="xnbg mar-top1">
+							<div>
+								<ul>
+									<li>
+										<div class="xntis"><img src="/images/xnwb.png">自然资源微博</div>
+										<div class="weixewm"> <a
+												href="https://weibo.com/u/2722453194?zw=news&amp;is_hot=1"
+												target="_blank"><img src="/images/xnwbewm_new.png"></a> </div>
+									</li>
+									<li>
+										<div class="xntis"><img src="/images/xnwx.png">自然资源微信</div>
+										<div class="weixewm"><img src="/images/xnwxewm_new.png"></div>
+									</li>
+
+								</ul>
+							</div>
+
+						</div>
+
+						<div class="xnbt mar-top1">
+							<ul>
+								<li>
+									<a href="http://nr.dg.gov.cn/gzhd/wyxx/index.html" target="_blank"><img
+												src="/images/xnbt1.png">我要写信</a>								</li>
+								<li>
+									<a href="http://nr.dg.gov.cn/gzhd/dczj/index.html" target="_blank"><img
+												src="/images/xnbt2.png">征集调查</a>								</li>
+								<li>
+									<a href="http://nr.dg.gov.cn/gzhd/jgxntszx/index.html" target="_blank"><img
+												src="/images/xnbt3.png" style="margin-right: 42px;">机关效能投诉中心</a>
+																	</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="wsgh_div_3 fl-left mar-top1">
+					<div class="font_size news_titlet" style="margin-bottom: 5px;">
+						<span class="" id="gzfw1" onmouseover="setTab(&#39;gzfw&#39;,1,2)"
+							style="cursor:pointer;">便民服务</span>
+						<font color="#cccccc" style="padding:0 10px; font-size:14px; font-weight:normal"> | </font>
+						<span id="gzfw2" onmouseover="setTab(&#39;gzfw&#39;,2,2)" style="cursor:pointer;"
+							class="hover">主题服务</span>
+					</div>
+					<div id="con_gzfw_1" style="height: 100px; display: none;">
+						<div id="hyh_html">
+							<div class="da_div">
+								<ul>
+
+									<li> <a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E7%BD%91%E4%B8%8A%E9%A2%84%E7%BA%A6%E6%8C%82%E5%8F%B7"
+											target="_blank">
+											<img src="/images/8982e59d3bd342b98541214504e49535.png"> <br>
+											网上预约挂号
+										</a> </li>
+									<li> <a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E6%B0%94%E8%B1%A1%E9%A2%84%E6%8A%A5%E6%9F%A5%E8%AF%A2"
+											target="_blank">
+											<img src="/images/1f8303001c7040e9b03fe2e669ea7cda.png"> <br>
+											气象预报查询
+										</a> </li>
+									<li> <a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E5%85%AC%E7%A7%AF%E9%87%91%E6%9F%A5%E8%AF%A2"
+											target="_blank">
+											<img src="/images/0c40457ba794481baf8ff38cb335240d.png"> <br>
+											公积金查询
+										</a> </li>
+									<!---<li> <a href=""
+											target="_blank">
+											<img src="/images/f5064c5505f04dc3810afd715aece8df.png"> <br>
+                    个人社保查询
+                    </a> </li>
+									<li> <a href=""
+											target="_blank">
+											<img src="/images/b5a7048b43874f588abdcf2cd326d583.png"> <br>
+                    交通违法
+                    </a> </li>
+									<li> <a href=""
+											target="_blank">
+											<img src="/images/6726821521814706bab90be58ebb079c.png"> <br>
+                    环境信息
+                    </a> </li>-->
+
+								</ul>
+							</div>
+							<div class="da_div" style="display:none">
+								<ul>
+
+									<li> <a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E5%B8%82%E5%9B%BD%E5%AE%B6%E7%A8%8E%E5%8A%A1%E5%B1%80"
+											target="_blank">
+											<img src="/images/9e76bb645aad46b38cf1a45c5d5e61aa.png"> <br>
+											市国家税务局
+										</a> </li>
+									<li> <a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E4%B8%9C%E8%8E%9E%E8%AD%A6%E5%AF%9F%E7%BD%91"
+											target="_blank">
+											<img src="/images/c3d5ac0c82af4664b63c44631d07885a.png"> <br>
+											东莞警察网
+										</a> </li>
+									<li> <a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E4%B8%9C%E8%8E%9E%E5%9F%8E%E5%B8%82%E5%BD%A2%E8%B1%A1%E7%BD%91"
+											target="_blank">
+											<img src="/images/b581cbb619514480ab2b4fa66c1f7a40.png"> <br>
+											东莞城市形象...
+										</a> </li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="con_gzfw_2" style="display: block; height: 100px;">
+						<div class="ggfw-icon text" style=" padding-top: 10px;">
+							<ul>
+								<li><a href="http://www.dg.gov.cn/ztfw_whjy.html" target="_blank"><img
+											src="/images/index_fw_r2_c1.png">教育服务</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_shbz.html" target="_blank"><img
+											src="/images/index_fw_r3_c8.png">社会保障</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_ylws.html" target="_blank"><img
+											src="/images/index_fw_r1_c14.png">医疗卫生</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_ldjy.html" target="_blank"><img
+											src="/images/index_fw_r8_c2.png">劳动就业</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_zfzf.html" target="_blank"><img
+											src="/images/index_fw_r7_c9.png">住房租房</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_jtcx.html" target="_blank"><img
+											src="/images/index_fw_r9_c15.png">交通出行</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_zjbl.html" target="_blank"><img
+											src="/images/index_fw_r13_c2.png">证件办理</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_qykb.html" target="_blank"><img
+											src="/images/index_fw_r11_c9.png">企业开办</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_zzrd.html" target="_blank"><img
+											src="/images/index_fw_r12_c17.png">资质认定</a></li>
+								<li><a href="https://www.dg.gov.cn/ztfw_gysy.html" target="_blank"><img
+											src="/images/index_fw_r18_c3.png">公共事业</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_hysy.html" target="_blank"><img
+											src="/images/index_fw_r17_c10.png">婚育收养</a></li>
+								<li><a href="http://www.dg.gov.cn/ztfw_jyns.html" target="_blank"><img
+											src="/images/index_fw_r19_c16.png">经营纳税</a></li>
+							</ul>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<script type="text/javascript">
+						$("#hyh").click(function() {
+							$("#hyh_html .da_div").each(function(index, element) {
+								var display = $(this).css("display");
+								if (display == "block") {
+									$(this).css("display", "none");
+								}
+								if (display == "none") {
+									$(this).css("display", "block");
+								}
+							});
+						});
+					</script>
+				</div>
+
+			</div>
+		</div>
+</div>
+		<div class="footer-div1">
+			<link href="/css/yqlj.css" rel="stylesheet">
+			<script type="text/javascript">
+				$(function() {
+					$(".select").each(function() {
+						var s = $(this);
+						var z = parseInt(s.css("z-index"));
+						var dt = $(this).children("dt");
+						var dd = $(this).children("dd");
+						var _show = function() {
+							dd.slideDown(200);
+							dt.addClass("cur");
+							s.css("z-index", z + 1);
+						}; //展开效果
+						var _hide = function() {
+							dd.slideUp(200);
+							dt.removeClass("cur");
+							s.css("z-index", z);
+						}; //关闭效果
+						dt.click(function() {
+							dd.is(":hidden") ? _show() : _hide();
+						});
+						dd.find("a").click(function() {
+							dt.html($(this).html());
+							_hide();
+						}); //选择效果（如需要传值，可自定义参数，在此处返回对应的“value”值 ）
+						$("body").click(function(i) {
+							!$(i.target).parents(".select").first().is(s) ? _hide() : "";
+						});
+					})
+				})
+			</script>
+
+
+
+			<div class="dome_div">
+				<div class="demo">
+					<dl class="select">
+						<dt>部门机构</dt>
+						<dd style="">
+							<ul>
+								<li><a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E4%B8%AD%E5%9B%BD%E4%B8%9C%E8%8E%9E"
+										target="_blank">中国东莞</a></li>
+								<li><a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E4%B8%9C%E8%8E%9E%E5%B8%82%E4%BA%A4%E9%80%9A%E8%BF%90%E8%BE%93%E5%B1%80"
+										target="_blank">东莞市交通运输局</a></li>
+								<li><a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E4%B8%9C%E8%8E%9E%E5%B8%82%E5%8F%91%E5%B1%95%E5%92%8C%E6%94%B9%E9%9D%A9%E5%B1%80"
+										target="_blank">东莞市发展和改革局</a></li>
+								<li><a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E4%B8%9C%E8%8E%9E%E5%B8%82%E6%B0%91%E6%94%BF%E5%B1%80"
+										target="_blank">东莞市民政局</a></li>
+							</ul>
+						</dd>
+					</dl>
+					<dl class="select">
+						<dt>自然资源网</dt>
+						<dd style="">
+							<ul>
+								<li><a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E8%87%AA%E7%84%B6%E8%B5%84%E6%BA%90%E9%83%A8"
+										target="_blank">自然资源部</a></li>
+								
+								<li><a href="http://libs.dg.gov.cn/code/xhtml/loading.html?from=%E5%B9%BF%E4%B8%9C%E7%9C%81%E8%87%AA%E7%84%B6%E8%B5%84%E6%BA%90%E5%8E%85"
+										target="_blank">广东省自然资源厅</a></li>
+								
+							</ul>
+						</dd>
+					</dl>
+					<dl class="select">
+						<dt>自然资源分局</dt>
+						<dd style="">
+							<ul>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158850.html">东莞市自然资源局莞城分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158891.html">东莞市自然资源局石龙分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158893.html">东莞市自然资源局虎门分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159821.html">东莞市自然资源局东城分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159319.html">东莞市自然资源局万江分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159161.html">东莞市自然资源局南城分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158379.html">东莞市自然资源局中堂分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158381.html">东莞市自然资源局望牛墩分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159165.html">东莞市自然资源局麻涌分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158382.html">东莞市自然资源局石碣分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159355.html">东莞市自然资源局高埗分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159357.html">东莞市自然资源局洪梅分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159168.html">东莞市自然资源局道滘分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159166.html">东莞市自然资源局厚街分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159127.html">东莞市自然资源局沙田分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159128.html">东莞市自然资源局长安分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158852.html">东莞市自然资源局寮步分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159129.html">东莞市自然资源局大岭山分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158854.html">东莞市自然资源局大朗分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158856.html">东莞市自然资源局黄江分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159132.html">东莞市自然资源局樟木头分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158697.html">东莞市自然资源局凤岗分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159130.html">东莞市自然资源局塘厦分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158699.html">东莞市自然资源局谢岗分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158701.html">东莞市自然资源局清溪分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158745.html">东莞市自然资源局常平分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159216.html">东莞市自然资源局桥头分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158703.html">东莞市自然资源局横沥分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158499.html">东莞市自然资源局东坑分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159217.html">东莞市自然资源局企石分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_158741.html">东莞市自然资源局石排分局</a>
+									</li>
+																	<li><a target="_blank"
+											href="http://nr.dg.gov.cn/ymys/yqljgtfj/content/post_159219.html">东莞市自然资源局茶山分局</a>
+									</li>
+															</ul>
+						</dd>
+					</dl>
+					<dl class="select">
+						<dt>直属机构</dt>
+						<dd style="">
+							<ul>
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193310.html">东莞市不动产登记中心</a>
+								</li>
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193309.html">东莞市土地储备中心</a>
+								</li>
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193300.html">东莞市地理信息与规划编制研究中心</a>
+								</li>
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193299.html">东莞市地质环境与海域使用动态监测站</a>
+								</li>
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193290.html">东莞市城建档案馆</a>
+								</li>
+								
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193276.html">东莞市土地开发中心</a>
+								</li>
+
+								
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193264.html">东莞市规划展览馆</a>
+								</li>
+								<li><a target="_blank"
+										href="http://nr.dg.gov.cn/zfxxgkml/zzjg/zsjg/content/post_3193260.html">东莞市测绘院</a>
+								</li>
+								
+
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+
+			<div class="footer-div">
+				<div class="footer-div2">
+
+					<p style="">主办单位：东莞市自然资源局   <a href="http://beian.miit.gov.cn/"
+							target="_blank">备案号：粤ICP备19108287号-2</a>  ©2014-2016 AllRightsReserved</p>
+					<p style=""><span>地址：东莞市东城大道268号测绘大厦 咨询电话：0769-12345  <span>技术支持：</span>开普云</span> 
+						<span style="font-weight: bold;">
+							<a href="http://nr.dg.gov.cn/ymys/wzdt/index.html" target="_blank">网站地图</a> 
+							网站标识码：4419000031
+						</span>
+					</p>
+
+					<p>
+
+						<a target="_blank"
+							href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44190002005685"><img
+								src="/images/tb.png" style="float:left">粤公网安备 44190002005685号</a>
+
+
+					</p>
+				</div>
+				<div class="fl-right">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td><script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='//dcs.conac.cn/js/20/304/0000/60101131/CA203040000601011310001.js' type='text/javascript'%3E%3C/script%3E"));</script>
+								</td>
+								<td>
+									<script id="_jiucuo_" sitecode='4419000031' src='https://zfwzgl.www.gov.cn/exposure/jiucuo.js'></script>
+								</td>
+								<td><img src="/images/slh_tb.png" alt="slh" style="padding-top:5px;height:80px;margin:0 10px"></td>
+								<td><img src="/images/mobile.png" style="padding-top:5px;width:70px;height:80px;"></td>
+
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+			
+			
+			<!-- <div class="mnav">
+				<ul>
+					<li>
+											</li>
+					<li>
+											</li>
+					<li><a href="http://www.gdzwfw.gov.cn/portal/branch-hall?orgCode=MB2C90020" target="_parent"><img
+								src="/images/mnav3.png"><br>服务</a>
+					</li>
+					<li>
+											</li>
+				</ul>
+			</div> -->
+		</div>
+		<script src="//app.dg.gov.cn/wza/dist/aria.js?appid=17b67a641ea9bf92c8ba326afd7e0205" charset="utf-8"></script>
+
+		<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?374254675ead45d87d0c0a9f7c02cfb6";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+	</body>
+
+</html>

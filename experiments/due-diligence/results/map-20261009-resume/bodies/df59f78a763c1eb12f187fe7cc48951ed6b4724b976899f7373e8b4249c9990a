@@ -1,0 +1,2199 @@
+﻿
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+<META HTTP-EQUIV="expires" CONTENT="0">
+<title>全国排污许可证管理信息平台-公开端</title>
+	 
+ 
+ 
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/permitExt/thscommon/style/artDialog/aero.css" />
+
+<script type="text/javascript" src="/permitExt/thscommon/javascript/baiduStatistics.js"></script>
+
+<script type="text/javascript" src="/permitExt/thscommon/javascript/jquery.min.js"></script>
+<script type="text/javascript" src="/permitExt/thscommon/javascript/json2.js"></script>
+<script type="text/javascript" src="/permitExt/thscommon/javascript/jquery.artDialog.js"></script>
+<script type="text/javascript" src="/permitExt/thscommon/javascript/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/permitExt/thscommon/javascript/jquery.media.js"></script>
+<script type="text/javascript" src="/permitExt/thscommon/javascript/upload.js"></script>
+<script type="text/javascript" src="/permitExt/thscommon/javascript/exportWord.js"></script>
+<script type="text/javascript" src="/permitExt/util/xzxk/swfupload/swfupload.js"></script>
+<script type="text/javascript" src="/permitExt/util/xzxk/swfupload/handlers.js"></script>
+<script type="text/javascript" src="/permitExt/util/xzxk/swfupload/fileprogress.js"></script>
+
+<!--validate start  -->
+<link rel="stylesheet" href="/permitExt/thscommon/javascript/jQuery-Validation-Engine-master/css/validationEngine.jquery.css" type="text/css" />
+<link rel="stylesheet" href="/permitExt/thscommon/javascript/jQuery-Validation-Engine-master/css/template.css" type="text/css" />
+ <script src="/permitExt/thscommon/javascript/jQuery-Validation-Engine-master/js/languages/jquery.validationEngine-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+<script src="/permitExt/thscommon/javascript/jQuery-Validation-Engine-master/js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+<!--validate end  -->
+
+<script type="text/javascript" src="/permitExt/js/urlhanzi.js"></script>
+	<link rel="stylesheet" type="text/css" href="/permitExt/outside/css/style5.css?ran=1791476385377" /> 
+	<link rel="stylesheet" type="text/css" href="/permitExt/outside/css/style6.css?ran=1791476385377" />
+	<script type="text/javascript" src="/permitExt/outside/js/jquery.js"></script>
+	<script type="text/javascript" src="/permitExt/outside/js/main.js?ran=1791476385377"></script>
+	<script type="text/javascript" src="/permitExt/outside/js/scroll.js?ran=1791476385377"></script>
+	<link rel="stylesheet" href="/permitExt/outside/default/css/indexold.css" />
+</head>
+
+<style type="text/css">  
+#tab_bar {  
+    width:100%;
+    height: 40px;  
+    float: left;   
+}  
+#tab_bar ul {  
+    padding: 0px;  
+    margin: 0px;  
+    height: 40px;  
+    text-align: center;  
+}  
+  
+#tab_bar li {  
+    list-style-type: none;  
+    float: left;  
+    width: 33.3%;  
+    height: 40px;  
+    background-color: #fff;  
+}  
+  
+.tab_css {  
+    width:100%;
+    /* display: none;   */
+    float: left;  
+}  
+.top-her{
+	display: none;
+}
+
+/* 小喇叭&公告内容 */
+.tips {
+	color: white;
+	font-size: 14px;
+	width: 1100px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+}
+
+/* 小喇叭图标容器 */
+.tips-img {
+	width: 17px;
+	height: 15px;
+	cursor: pointer;
+	margin-right: 4px;
+}
+
+/* 小喇叭图标 */
+.tips-img img {
+	width: 17px;
+	height: 15px;
+	cursor: pointer;
+}
+
+/* 公告文字容器 */
+.tips-font-box {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	box-sizing: border-box;
+}
+
+/* 公告文字 */
+.tips-font {
+	display: inline-block;
+	padding-left: 20px;
+	animation: marquee 36s linear infinite;
+}
+
+.tips-font:hover {
+	display: inline-block;
+	padding-left: 20px;
+	animation-play-state: paused;
+	/* cursor: pointer; */
+}
+
+/* 公告文字动画效果 */
+@keyframes marquee {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+}
+</style>  
+<script type="text/javascript">  
+    var myclick = function(v) { 
+    	$('#mores-link >.morea').eq(v-1).show().siblings('.morea').hide();
+        var llis = document.getElementById("top-nav").getElementsByTagName("li");  
+        for(var i = 0; i < llis.length; i++) {  
+            var lli = llis[i];  
+            if(lli == document.getElementById("tab" + v)) {  
+                $(lli).addClass('cur')
+            } else {  
+            	$(lli).removeClass('cur')
+            }  
+        }  
+        var divs = document.getElementsByClassName("top-her");  
+        for(var i = 0; i < divs.length; i++) {  
+            var divv = divs[i];  
+            if(divv == document.getElementById("top" + v + "_her")) {  
+                divv.style.display = "block";  
+            } else {  
+                divv.style.display = "none";  
+            }  
+        }   
+    }  
+</script> 
+<script type="text/javascript">
+$(function(){  
+	move({
+	    id: 'float_right',
+	    r: 10,
+	    t: 300,
+	    f: 1
+	});
+	move({
+	    id: 'float_right1',
+	    r: 10,
+	    t: 290,
+	    f: 1
+	});
+	myclick(1);
+	
+	$("div.list_lh").myScroll({
+		speed:4000, //数值越大，速度越慢
+		rowHeight:24 //li的高度
+	});
+	$('#tab7').hover(function(){
+		$(this).addClass('cur');
+	},function(){
+		$(this).removeClass('cur');
+	})
+	$('#tab11').hover(function(){
+		$(this).addClass('cur');
+	},function(){
+		$(this).removeClass('cur');
+	})
+});
+//二维码浮动div
+function move(zhu) {
+    var d = document;
+    var dde = d.documentElement;
+    var db = d.body;
+    var w = window;
+    var o = d.getElementById(zhu.id);
+    var ie6 = /msie 6/i.test(navigator.userAgent);
+
+    if (o) {
+        var pubCss = 'position:' + (zhu.f && !ie6 ? 'fixed' : 'absolute') + ';' + (zhu.t != undefined ? 'top:' + zhu.t + 'px;' : 'bottom:0;');
+        if (zhu.r != undefined && zhu.l == undefined) {
+            o.style.cssText += pubCss + 'right:' + zhu.r + 'px';
+        } else {
+            o.style.cssText += pubCss + 'margin-left:' + zhu.l + 'px';
+        }
+
+        if (zhu.f && ie6) {
+            var topCss = ';top:expression(documentElement.scrollTop+' + (zhu.t == undefined ? dde.clientHeight - o.offsetHeight : zhu.t) + '+px);';
+            var rightCss = ';right:expression(documentElement.scrollRight+' + (zhu.r == undefined ? dde.clientWidth - o.offsetWidth : zhu.r) + '+px);';
+            if (zhu.r != undefined && zhu.l == undefined) {
+                o.style.cssText += rightCss + topCss;
+            } else {
+                o.style.cssText += topCss;
+            }
+        } else {
+            if (!zhu.f) {
+                var timer;
+                //窗口大小改变事件与滚动条滚动事件
+                w.onresize = w.onscroll = function () {
+                    clearInterval(timer); //清空时间
+                    timer = setInterval(function () {
+                        //双选择为了修复chrome 下xhtml解析时dd.scrollTop为 0
+                        var top = (dde.scrollTop || db.scrollTop);
+                        var c = top - o.offsetTop + (zhu.t != undefined ? zhu.t : (w.innerHeight || dde.clientHeight) - o.offsetHeight);
+                        if (c != 0) {
+                            o.style.top = o.offsetTop + Math.ceil(Math.abs(c) / 10) * (c < 0 ? -1 : 1) + 'px';
+                        } else {
+                            clearInterval(timer); //清空时间
+                        }
+                    }, 10);
+                };
+            }
+        }
+    }
+}
+</script>
+
+<!-- 引入一洽 -->
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    var _echatServer = ['e.echatsoft.com'];
+    window._echat=window._echat||function(){(_echat.q=_echat.q||[]).push(arguments)};_echat.l=+new Date;
+    _echat('initParam', { companyId: 12555, routeEntranceId:253});
+    _echat('initParam', { metaData: '' }); //加入metaData 参数
+    (function () {
+        var echat = document.createElement('script');
+        echat.type = 'text/javascript';
+        echat.async = true;
+        echat.id = 'echatmodulejs';
+        echat.setAttribute('charset','UTF-8');
+        echat.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'es.echatsoft.com/visitor/echat.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(echat, s);
+    })();
+</script>
+
+<body style="position:relative;">
+<!-- 二维码浮动div -->
+<div id="float_right" style="background:url(/permitExt/outside/img/xpwxkz.jpg) no-repeat;filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/permitExt/outside/img/xpwxkz.jpg',sizingMethod='scale');position: fixed;right:10px;top:300px;" >
+<p style="font-size: 12px;font-weight: bold;color: green;">官方微信公众号</p>
+</div>
+	<div class="header">
+		<div class="banner-3d-l" id="particles-js"></div>
+		<!-- <div class="banner-3d-r" id="particles2-js"></div> -->
+		<img class="banner-img" src="/permitExt/outside/images/logo.png">
+		<div class="ggao">
+			<div class="ggao-w">
+				
+
+
+
+<!--
+<li style="list-style:none;color: #fff;"><img src="../outside/images/ggao.png" style="width:17px;height:15px;">&nbsp;&nbsp;因2024年7月26日、27日凌晨0:30-1:00环保云网络升级，届时全国排污许可证管理信息平台公开端、企业端、管理端将无法正常访问，请及时保存数据，避开维护时段进行业务办理，谢谢合作。
+</li> --> 
+
+<style>
+/* 小喇叭&公告内容 */
+.tips {
+	color: white;
+	font-size: 18px;
+	width: 1100px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+}
+
+/* 小喇叭图标容器 */
+.tips-img {
+	width: 17px;
+	height: 15px;
+	cursor: pointer;
+	margin-right: 4px;
+}
+
+/* 小喇叭图标 */
+.tips-img img {
+	width: 17px;
+	height: 15px;
+	cursor: pointer;
+}
+
+/* 公告文字容器 */
+.tips-font-box {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	box-sizing: border-box;
+}
+
+/* 公告文字 */
+.tips-font {
+	display: inline-block;
+	padding-left: 20px;
+	animation: marquee 36s linear infinite;
+}
+
+.tips-font:hover {
+	display: inline-block;
+	padding-left: 20px;
+	animation-play-state: paused;
+	/* cursor: pointer; */
+}
+
+/* 公告文字动画效果 */
+@keyframes marquee {
+	0% {
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(-100%);
+	}
+}
+</style>
+<!-- 小喇叭&公告内容-->
+<div class="tips"> 
+	<!-- 小喇叭 -->
+	<div class="tips-img"
+		title="温馨提示：警惕各类 App、小程序收费引流！本官方平台免费使用，直接登录即可。切勿轻信缴费跳转信息，谨防网络诈骗。法网恢恢，疏而不漏，违法必将追责。">
+		<img src="../outside/images/ggao.png" alt="" />
+	</div>
+	<!-- 公告内容 -->
+	<div class="tips-font-box">
+		<p class="tips-font">
+			温馨提示：警惕各类 App、小程序收费引流！本官方平台免费使用，直接登录即可。切勿轻信缴费跳转信息，谨防网络诈骗。法网恢恢，疏而不漏，违法必将追责。
+		</p>
+	</div>
+</div>
+			</div>
+		</div>
+	</div>
+	<div class="top-nav" style="background-color: #fff;width:84%;margin:0 auto;margin-top:15px">
+		
+		<ul class="clear_float" id="top-nav" style="width:95%;margin:0 auto;">
+			<li class="cur" id="tab1" onMouseOver="myclick(1)" style="width:11%"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!sqqlist.action">申请前信息公开</a></li>
+			<li id="tab2" onMouseOver="myclick(2)"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!licenseInformation.action">许可信息公开</a></li>
+			<li id="tab10" onMouseOver="myclick(10)"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xxgkXqzgList.action">限期整改</a></li>
+			<li id="tab9" onMouseOver="myclick(9)"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getRegisterInfo.action">登记信息公开</a></li>
+			<li id="tab3" onMouseOver="myclick(3)"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xkgg_zxggList.action">许可注销公告</a></li>
+			<li id="tab4" onMouseOver="myclick(4)"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xkgg_cxggList.action">许可撤销公告</a></li>
+			<li id="tab5" onMouseOver="myclick(5)"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xkgg_yssmList.action">许可遗失声明</a></li>
+			<li id="tab8" onMouseOver="myclick(8)" style="width:8%"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xkgg_zytzList.action">重要通知</a></li>
+			<li id="tab6" onMouseOver="myclick(6)" style="width:8%"><a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!lawsStandard.action">法规标准</a></li>
+			<!-- <li id="tab11" style="width:8%"><a href="http://permit.mee.gov.cn/china-ets/info/#/part-list" target="_blank">碳排放</a></li> -->
+			<li id="tab7"><a href="https://permit.mee.gov.cn/permitExt/outside/LicenseRedirect" style="color: orange">网上申报</a></li>
+		</ul>
+
+		<div class="mores" id="mores-link">
+			<a class="morea" style="display:block" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!sqqlist.action">更多</a>
+			<a class="morea" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!licenseInformation.action">更多</a>
+			<a class="morea" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xkgg_zxggList.action">更多</a>
+			<a class="morea" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xkgg_cxggList.action">更多</a>
+			<a class="morea" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!xkgg_yssmList.action">更多</a>
+			<a class="morea" href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_faguibiaozhun.jsp">更多</a>
+		</div>
+
+	</div>
+
+	<!-- 申请前信息公开 -->
+	<div class="content1 clear_float top-her" id="top1_her">
+		<div class="information-disclosure border">
+			<div class="tb-con">
+				<table cellspacing="0" cellpadding="0" class="tabtd" >
+					<tr class="tbhead">
+						<td width="10%">省/直辖市</td>
+						<td width="8%">地市</td>
+						<td width="17%">单位名称</td>
+						<td width="14%">行业类别</td>
+						<td width="17%">生产经营场所地址</td>
+						<td width="16%">信息公开起止日期</td>
+						<td width="10%">公开内容查看</td>
+						<td width="8%">填写反馈</td>
+					</tr>                      
+                      
+                      	
+		                    <tr>
+		                    	<td title="安徽省">安徽省</td>
+								<td title="蚌埠市">蚌埠市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="蚌埠新城灰弘环境科技有限公司">蚌埠新城灰弘环境科技有限公司</td>						
+								<td title="危险废物治理" style="text-align: left;">危险废物治理</td>
+								<td title="安徽省蚌埠市龙子湖区李楼乡贾庵村生活垃圾填埋场西南侧" style="text-align: left;">安徽省蚌埠市龙子湖区李楼乡贾庵村生活垃圾填埋场西南侧</td>
+								<td title="2026-10-09至2026-10-14">2026-10-09至2026-10-14</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=e55a6d8782be43dba81261a8a64014cb"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=3c206dd33bd34a309cd135d862ac4845" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="浙江省">浙江省</td>
+								<td title="杭州市">杭州市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="杭州普罗星淀粉有限公司">杭州普罗星淀粉有限公司</td>						
+								<td title="淀粉及淀粉制品制造" style="text-align: left;">淀粉及淀粉制品制造</td>
+								<td title="浙江省杭州经济技术开发区下沙街道金乔街50号" style="text-align: left;">浙江省杭州经济技术开发区下沙街道金乔街50号</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=9cfe7ebfef3e45f887957fea2f00d737"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=f9c584ae71b348a08d6daf12df06c83b" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="广东省">广东省</td>
+								<td title="中山市">中山市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="建华建材（中山）有限公司">建华建材（中山）有限公司</td>						
+								<td title="其他建筑材料制造" style="text-align: left;">其他建筑材料制造</td>
+								<td title="中山市小榄镇绩东一福安路19号" style="text-align: left;">中山市小榄镇绩东一福安路19号</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=c4475d3588194a15a5bf9f482114ccef"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=1b07d15b445448268dbc47a09898d1c2" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="湖北省">湖北省</td>
+								<td title="十堰市">十堰市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="正和汽车科技（十堰）股份有限公司">正和汽车科技（十堰）股份有限公司</td>						
+								<td title="汽车车身、挂车制造" style="text-align: left;">汽车车身、挂车制造</td>
+								<td title="湖北省十堰市茅箭区东风大道66号" style="text-align: left;">湖北省十堰市茅箭区东风大道66号</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=c6745fc614bc48e9a8cd8739fa8b8872"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=bd1951271db74d8eb747c54edaefa2b7" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="广东省">广东省</td>
+								<td title="惠州市">惠州市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="惠州美欧亚奢饰品电镀有限公司">惠州美欧亚奢饰品电镀有限公司</td>						
+								<td title="金属表面处理及热处理加工" style="text-align: left;">金属表面处理及热处理加工</td>
+								<td title="博罗县龙溪电镀基地112栋3楼" style="text-align: left;">博罗县龙溪电镀基地112栋3楼</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=9a2e8647ae834111a9e99c763b1efb79"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=482f52c0ea1140c5a85628c45aa32023" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="安徽省">安徽省</td>
+								<td title="亳州市">亳州市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="法兰泰克（安徽）装备科技有限公司">法兰泰克（安徽）装备科技有限公司</td>						
+								<td title="生产专用起重机制造" style="text-align: left;">生产专用起重机制造</td>
+								<td title="安徽省亳州市蒙城县经济开发区纬四路南经八路西" style="text-align: left;">安徽省亳州市蒙城县经济开发区纬四路南经八路西</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=c239e89fde424befb826b2f2080f3b79"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=914f70e14aa0483c80d90e627b67bbe1" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="山东省">山东省</td>
+								<td title="枣庄市">枣庄市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="联泓新材料科技股份有限公司">联泓新材料科技股份有限公司</td>						
+								<td title="有机化学原料制造" style="text-align: left;">有机化学原料制造</td>
+								<td title="滕州市木石镇驻地（木石工业园区）" style="text-align: left;">滕州市木石镇驻地（木石工业园区）</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=2cf1a97bf36244799fba788b2e7ae97f"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=09c4b8841ad24d97918311e71f7aaede" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="江西省">江西省</td>
+								<td title="抚州市">抚州市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="抚州优沃克环境科技有限公司">抚州优沃克环境科技有限公司</td>						
+								<td title="危险废物治理" style="text-align: left;">危险废物治理</td>
+								<td title="江西省抚州市临川经济开发区抚北工业园安通大道13号" style="text-align: left;">江西省抚州市临川经济开发区抚北工业园安通大道13号</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=f004d8d6312847cd8c8a400b1dbd9826"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=b82cfcc090be405886807293c75da9e2" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="河北省">河北省</td>
+								<td title="邯郸市">邯郸市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="馆陶县正好环保科技有限公司">馆陶县正好环保科技有限公司</td>						
+								<td title="生物质能发电-生活垃圾焚烧发电" style="text-align: left;">生物质能发电-生活垃圾焚烧发电</td>
+								<td title="河北省邯郸市馆陶县经济开发区南1号路西段北侧" style="text-align: left;">河北省邯郸市馆陶县经济开发区南1号路西段北侧</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=f36e1f4a3076493993c6e38c664c312c"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=3ef88dad4c0c435fa8d675731dfb3fca" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="广西壮族自治区">广西壮族自治区</td>
+								<td title="梧州市">梧州市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="中稀域潇(广西)稀土有限公司">中稀域潇(广西)稀土有限公司</td>						
+								<td title="稀土金属冶炼" style="text-align: left;">稀土金属冶炼</td>
+								<td title="广西壮族自治区梧州市岑溪市马路镇岭腰村、荔王村鼎立新材料科技产业园" style="text-align: left;">广西壮族自治区梧州市岑溪市马路镇岭腰村、荔王村鼎立新材料科技产业园</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=c30d3514cfcb4436a7719d823c7f2700"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=194d1bc3f5764722bba8b85e619b9a00" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="山东省">山东省</td>
+								<td title="临沂市">临沂市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="临沂钢投新能源有限公司">临沂钢投新能源有限公司</td>						
+								<td title="炼焦" style="text-align: left;">炼焦</td>
+								<td title="山东省临沂市临港区域高端不锈钢与先进特钢园区西片区内" style="text-align: left;">山东省临沂市临港区域高端不锈钢与先进特钢园区西片区内</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=3904a7b0b73d4964abeca5ed3f60190d"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=db6d7370343c4860b80c30a55f65071c" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="江苏省">江苏省</td>
+								<td title="连云港市">连云港市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="东方国际集装箱（连云港）有限公司">东方国际集装箱（连云港）有限公司</td>						
+								<td title="集装箱制造" style="text-align: left;">集装箱制造</td>
+								<td title="江苏省连云港市经济技术开发区新光路6号（南厂）、9号（北厂）" style="text-align: left;">江苏省连云港市经济技术开发区新光路6号（南厂）、9号（北厂）</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=9577e34ce32e4ebbbf708862cc1ae8f0"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=5d8e5b793348459bb74c5e9324736158" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="湖北省">湖北省</td>
+								<td title="宜昌市">宜昌市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="宜昌鑫汇陶瓷有限公司">宜昌鑫汇陶瓷有限公司</td>						
+								<td title="建筑陶瓷制品制造" style="text-align: left;">建筑陶瓷制品制造</td>
+								<td title="当阳市玉阳街道窑湾村（帝豪陶瓷院内）" style="text-align: left;">当阳市玉阳街道窑湾村（帝豪陶瓷院内）</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=93fa04a8fed849debe0ae962ed162eb6"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=45d61ad4acaa44e39f7024ece76546a8" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="河北省">河北省</td>
+								<td title="石家庄市">石家庄市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="河北欣港药业有限公司">河北欣港药业有限公司</td>						
+								<td title="化学药品原料药制造" style="text-align: left;">化学药品原料药制造</td>
+								<td title="赵县赵元路富强街2号" style="text-align: left;">赵县赵元路富强街2号</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=4e9a9b43e4d24a8ab0d773f014710e88"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=ee315f84d42645e492a325d25bb5e3f5" target="_blank">填写</a></td>
+							</tr>
+                      	
+		                    <tr>
+		                    	<td title="山西省">山西省</td>
+								<td title="阳泉市">阳泉市</td>
+								<td style="text-align: left;padding-left:10px;" class="font-green" title="多氟多阳福新材料有限公司">多氟多阳福新材料有限公司</td>						
+								<td title="无机盐制造" style="text-align: left;">无机盐制造</td>
+								<td title="山西省阳泉高新技术产业开发区庙堰新材料产业园（南3区-化工）" style="text-align: left;">山西省阳泉高新技术产业开发区庙堰新材料产业园（南3区-化工）</td>
+								<td title="2026-10-08至2026-10-13">2026-10-08至2026-10-13</td>
+								<td><a style="text-decoration:underline;color:blue" target="view_window" href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xxgk/xxgk!showImage.action?dataid=b308ec0172c24fdb8d207ed0d9a209c3"><img src="../outside/img/img/check.png" /></a></td>
+								<td><a style="color: blue;" href="https://permit.mee.gov.cn/permitExt/syssb/xxgk/xxgk!showggfk.action?pkid=90db366506334d33b3fd9543d754558b" target="_blank">填写</a></td>
+							</tr>
+                      	
+                      
+				</table>
+			</div>
+		</div>
+	</div>
+	
+
+	
+	<!-- 许可信息公开 -->
+	<div class="content1 clear_float top-her" id="top2_her">
+		<div class="information-disclosure1 border" style="">
+			<div class="tb-con1">
+				<table cellspacing="0" cellpadding="0" class="tabtd" >
+					<tr class="tbhead">
+						<td width="8%">省/直辖市</td>
+						<td width="6%">地市</td>
+						<td width="17%">许可证编号</td>
+						<td width="17%">单位名称</td>
+						<td width="14%">行业类别</td>
+						<td width="16%">有效期限</td>
+						<td width="10%">发证日期</td>
+						<td width="6%">管理类别</td>
+						<td width="6%">查看</td>
+					</tr>                 
+                       
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+									<td title="广州市">广州市</td>
+									<td class="font-green" title="91440113759422823H001Q">91440113759422823H001Q</td>
+									<td title="广州市亿钻珠宝有限公司" style="text-align: left;">广州市亿钻珠宝有限公司</td>
+									<td title="珠宝首饰及有关物品制造" style="text-align: left;">珠宝首饰及有关物品制造</td>
+									<td title="2025-04-14至2030-04-13">2025-04-14至2030-04-13</td>
+									<td title="2025-04-14">2025-04-14</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=d46b8a8fd7e64e5d9ead962bd7f3baf6" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="广西壮族自治区">广西壮族自治区</td>
+									<td title="玉林市">玉林市</td>
+									<td class="font-green" title="914509006902049741001U">914509006902049741001U</td>
+									<td title="广西桂牛水牛乳业股份有限公司" style="text-align: left;">广西桂牛水牛乳业股份有限公司</td>
+									<td title="液体乳制造" style="text-align: left;">液体乳制造</td>
+									<td title="2026-10-11至2031-10-10">2026-10-11至2031-10-10</td>
+									<td title="2026-10-08">2026-10-08</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=987bcdfb711549d3a20fd26358d5e690" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+									<td title="广州市">广州市</td>
+									<td class="font-green" title="91440115MAEQP6A10T001V">91440115MAEQP6A10T001V</td>
+									<td title="广州市恒达环保涂料有限公司" style="text-align: left;">广州市恒达环保涂料有限公司</td>
+									<td title="涂料制造" style="text-align: left;">涂料制造</td>
+									<td title="2026-03-20至2031-03-19">2026-03-20至2031-03-19</td>
+									<td title="2026-03-20">2026-03-20</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=66a001fcfe244a88957f9c1139897a61" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+									<td title="广州市">广州市</td>
+									<td class="font-green" title="91440101MA5CY9PU1E001R">91440101MA5CY9PU1E001R</td>
+									<td title="广州文冲船舶修造有限公司" style="text-align: left;">广州文冲船舶修造有限公司</td>
+									<td title="船舶修理" style="text-align: left;">船舶修理</td>
+									<td title="2026-01-28至2031-01-27">2026-01-28至2031-01-27</td>
+									<td title="2026-01-28">2026-01-28</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=0526f48848e547258305a70838a1bf68" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+									<td title="广州市">广州市</td>
+									<td class="font-green" title="914401157083781487001W">914401157083781487001W</td>
+									<td title="名幸电子（广州南沙）有限公司" style="text-align: left;">名幸电子（广州南沙）有限公司</td>
+									<td title="电子电路制造" style="text-align: left;">电子电路制造</td>
+									<td title="2024-11-05至2029-11-04">2024-11-05至2029-11-04</td>
+									<td title="2024-11-05">2024-11-05</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=891bd728f40a478ba8024516dbabba07" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="上海市">上海市</td>
+									<td title="市辖区">市辖区</td>
+									<td class="font-green" title="913101206074310850001V">913101206074310850001V</td>
+									<td title="上海华谊工业气体有限公司" style="text-align: left;">上海华谊工业气体有限公司</td>
+									<td title="其他基础化学原料制造" style="text-align: left;">其他基础化学原料制造</td>
+									<td title="2025-12-18至2030-12-17">2025-12-18至2030-12-17</td>
+									<td title="2025-12-18">2025-12-18</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=c4d69dd1ad9a4d94af22502b6e70a378" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+									<td title="云浮市">云浮市</td>
+									<td class="font-green" title="91445322MAC2YHBW4M001V">91445322MAC2YHBW4M001V</td>
+									<td title="云浮市粤海水务发展有限公司郁南分公司" style="text-align: left;">云浮市粤海水务发展有限公司郁南分公司</td>
+									<td title="污水处理及其再生利用" style="text-align: left;">污水处理及其再生利用</td>
+									<td title="2025-07-29至2030-07-28">2025-07-29至2030-07-28</td>
+									<td title="2025-07-29">2025-07-29</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=2a705e4bfbec4b469465b4ab1ac907d0" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+									<td title="云浮市">云浮市</td>
+									<td class="font-green" title="91445321MA51R4KP76001V">91445321MA51R4KP76001V</td>
+									<td title="新兴县清源环保工程有限公司" style="text-align: left;">新兴县清源环保工程有限公司</td>
+									<td title="污水处理及其再生利用" style="text-align: left;">污水处理及其再生利用</td>
+									<td title="2025-07-29至2030-07-28">2025-07-29至2030-07-28</td>
+									<td title="2025-07-29">2025-07-29</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=c507441b8fa34612b26264929e682fc9" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="安徽省">安徽省</td>
+									<td title="宣城市">宣城市</td>
+									<td class="font-green" title="91341822695711537M001P">91341822695711537M001P</td>
+									<td title="广德金鑫食品有限公司" style="text-align: left;">广德金鑫食品有限公司</td>
+									<td title="牲畜屠宰" style="text-align: left;">牲畜屠宰</td>
+									<td title="2026-10-24至2031-10-23">2026-10-24至2031-10-23</td>
+									<td title="2026-09-08">2026-09-08</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=6f7005f5b2f04391897642e3abee275a" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="云南省">云南省</td>
+									<td title="保山市">保山市</td>
+									<td class="font-green" title="91530502MA6L4M244N001V">91530502MA6L4M244N001V</td>
+									<td title="保山昶都电极有限公司" style="text-align: left;">保山昶都电极有限公司</td>
+									<td title="石墨及碳素制品制造" style="text-align: left;">石墨及碳素制品制造</td>
+									<td title="2023-08-03至2028-08-02">2023-08-03至2028-08-02</td>
+									<td title="2023-05-17">2023-05-17</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=7395f878b75c4b52a66f9a8451c7d954" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="陕西省">陕西省</td>
+									<td title="宝鸡市">宝鸡市</td>
+									<td class="font-green" title="91610324MAECQ8JX8H001U">91610324MAECQ8JX8H001U</td>
+									<td title="扶风县绿胜污水处理有限责任公司" style="text-align: left;">扶风县绿胜污水处理有限责任公司</td>
+									<td title="污水处理及其再生利用" style="text-align: left;">污水处理及其再生利用</td>
+									<td title="2025-07-14至2030-07-13">2025-07-14至2030-07-13</td>
+									<td title="2025-07-14">2025-07-14</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=712ba4aec2524454a9fe48ac00e0a7f1" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="山东省">山东省</td>
+									<td title="德州市">德州市</td>
+									<td class="font-green" title="91371481L40607379H001U">91371481L40607379H001U</td>
+									<td title="乐陵市益民调味食品有限公司" style="text-align: left;">乐陵市益民调味食品有限公司</td>
+									<td title="其他调味品、发酵制品制造" style="text-align: left;">其他调味品、发酵制品制造</td>
+									<td title="2026-10-08至2031-10-07">2026-10-08至2031-10-07</td>
+									<td title="2026-10-08">2026-10-08</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=51d410b75bf2447292e8c65179cce23e" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="山东省">山东省</td>
+									<td title="济南市">济南市</td>
+									<td class="font-green" title="91370112776307480J002Q">91370112776307480J002Q</td>
+									<td title="济南玖久同心食品有限公司" style="text-align: left;">济南玖久同心食品有限公司</td>
+									<td title="速冻食品制造" style="text-align: left;">速冻食品制造</td>
+									<td title="2026-10-08至2031-10-07">2026-10-08至2031-10-07</td>
+									<td title="2026-10-08">2026-10-08</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=886b0bd8c0664140ba7d8e05cce51d8f" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="安徽省">安徽省</td>
+									<td title="合肥市">合肥市</td>
+									<td class="font-green" title="913401227049078827001P">913401227049078827001P</td>
+									<td title="安徽丰乐农化有限责任公司" style="text-align: left;">安徽丰乐农化有限责任公司</td>
+									<td title="化学农药制造" style="text-align: left;">化学农药制造</td>
+									<td title="2024-06-07至2029-06-06">2024-06-07至2029-06-06</td>
+									<td title="2024-06-07">2024-06-07</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=55369b6973044b1ea0f61cf460211a72" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+			                    <tr>
+			                    	<td title="山东省">山东省</td>
+									<td title="济南市">济南市</td>
+									<td class="font-green" title="91370100MA3DJK6JXL001U">91370100MA3DJK6JXL001U</td>
+									<td title="济南国际医院有限公司" style="text-align: left;">济南国际医院有限公司</td>
+									<td title="专科医院" style="text-align: left;">专科医院</td>
+									<td title="2025-01-14至2030-01-13">2025-01-14至2030-01-13</td>
+									<td title="2025-01-14">2025-01-14</td>
+									<td title=""></td>
+									<td><a href="https://permit.mee.gov.cn/perxxgkinfo/xkgkAction!xkgk.action?xkgk=getxxgkContent&dataid=f56d954735ff4c00a651329a671bc9b2" target="_blank" ><img src="../outside/img/img/check.png" /></a></td>
+								</tr>	
+	                      	
+                      	
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 限期整改 -->
+    <div class="content1 clear_float top-her" id="top10_her">
+        <div class="information-disclosure1 border" style="">
+            <div class="tb-con1">
+                <table cellspacing="0" cellpadding="0" class="tabtd" >
+                    <tr class="tbhead">
+                        <td width="10%">省/直辖市</td>
+                        <td width="8%">地市</td>
+                        <td width="17%">整改通知书编号</td>
+                        <td width="19%">单位名称</td>
+                        <td width="14%">行业类别</td>
+                        <td width="16%">有效期限</td>
+                        <td width="10%">下达时间</td>
+                        <td width="6%">查看</td>
+                    </tr>                 
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+	
+	<!-- 登记信息公开 -->
+    <div class="content1 clear_float top-her" id="top9_her">
+        <div class="information-disclosure1 border" style="">
+            <div class="tb-con1">
+                <table cellspacing="0" cellpadding="0" class="tabtd" >
+                    <tr class="tbhead">
+                        <td width="10%">省/直辖市</td>
+                        <td width="10%">地市</td>
+                        <td width="20%">登记编号</td>
+                        <td width="20%">单位名称</td>
+                        <td width="20%">行业类别</td>
+
+                        <td width="10%">登记时间</td>
+                        <td width="10%">查看</td>
+                    </tr>                 
+                       
+                            
+                                <tr>
+                                    <td title="广东省">广东省</td>
+                                    <td title="汕头市">汕头市</td>
+                                    <td class="font-green" title="92440514MAEQM9N90G001Z">92440514MAEQM9N90G001Z</td>
+                                    <td title="汕头市潮南区峡山荣安汽车修配店（个体工商户）" style="text-align: left;">汕头市潮南区峡山荣安汽车修配店（个体工商户）</td>
+                                    <td title="汽车修理与维护" style="text-align: center;">汽车修理与维护</td>
+
+                                    <td title="2026-10-09">2026-10-09</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=359cee19-67f3-42cf-8bc9-a372df4a1c13" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="山东省">山东省</td>
+                                    <td title="临沂市">临沂市</td>
+                                    <td class="font-green" title="91371327MA3MAG9WXB002X">91371327MA3MAG9WXB002X</td>
+                                    <td title=" 莒南县金琨家禽养殖场" style="text-align: left;"> 莒南县金琨家禽养殖场</td>
+                                    <td title="鸡的饲养" style="text-align: center;">鸡的饲养</td>
+
+                                    <td title="2026-10-09">2026-10-09</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=126e4964-2a47-4531-9701-fe5a6216c3f2" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="广东省">广东省</td>
+                                    <td title="揭阳市">揭阳市</td>
+                                    <td class="font-green" title="hb445200500005601I001X">hb445200500005601I001X</td>
+                                    <td title="惠来县泽炯水产养殖场" style="text-align: left;">惠来县泽炯水产养殖场</td>
+                                    <td title="海水养殖" style="text-align: center;">海水养殖</td>
+
+                                    <td title="2026-10-09">2026-10-09</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=5801387c-ecfc-408f-bf65-a2f1982a16a3" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="广西壮族自治区">广西壮族自治区</td>
+                                    <td title="贺州市">贺州市</td>
+                                    <td class="font-green" title="92451103MA5MJQPL18001X">92451103MA5MJQPL18001X</td>
+                                    <td title="贺州市平桂区沙田裕农种养场" style="text-align: left;">贺州市平桂区沙田裕农种养场</td>
+                                    <td title="猪的饲养" style="text-align: center;">猪的饲养</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=df587d50-76d4-4857-ada5-f0c1566adea8" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="广东省">广东省</td>
+                                    <td title="中山市">中山市</td>
+                                    <td class="font-green" title="92442000MA56KMTA7L001X">92442000MA56KMTA7L001X</td>
+                                    <td title="中山市风顺五金加工厂(个体工商户）" style="text-align: left;">中山市风顺五金加工厂(个体工商户）</td>
+                                    <td title="其他未列明金属制品制造" style="text-align: center;">其他未列明金属制品制造</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=18d36f5d-3569-43aa-8542-f448bc08bf13" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="江苏省">江苏省</td>
+                                    <td title="苏州市">苏州市</td>
+                                    <td class="font-green" title="91320506MAKGYG4X29001W">91320506MAKGYG4X29001W</td>
+                                    <td title="苏州市安创电气有限公司" style="text-align: left;">苏州市安创电气有限公司</td>
+                                    <td title="金属制品业" style="text-align: center;">金属制品业</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=d422cb8f-26e5-483b-9498-6a58876119be" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="青海省">青海省</td>
+                                    <td title="西宁市">西宁市</td>
+                                    <td class="font-green" title="91630121926789615x001Y">91630121926789615x001Y</td>
+                                    <td title="大通县城关星星加油站" style="text-align: left;">大通县城关星星加油站</td>
+                                    <td title="机动车燃油零售" style="text-align: center;">机动车燃油零售</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=be255d05-fafa-4fae-bb5c-a7bb8d1deabc" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="广东省">广东省</td>
+                                    <td title="广州市">广州市</td>
+                                    <td class="font-green" title="91440114MAEU4DM58Y001X">91440114MAEU4DM58Y001X</td>
+                                    <td title="广州市鑫福塑胶制品有限公司" style="text-align: left;">广州市鑫福塑胶制品有限公司</td>
+                                    <td title="塑料零件及其他塑料制品制造" style="text-align: center;">塑料零件及其他塑料制品制造</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=b1561940-89b6-434f-9457-28a6bac95480" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="河北省">河北省</td>
+                                    <td title="邯郸市">邯郸市</td>
+                                    <td class="font-green" title="92130425MAE9EEKU8J001Y">92130425MAE9EEKU8J001Y</td>
+                                    <td title="大名子贺养鸡场" style="text-align: left;">大名子贺养鸡场</td>
+                                    <td title="鸡的饲养" style="text-align: center;">鸡的饲养</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=62369024-d8d6-43e3-824e-d023f47e3321" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="广东省">广东省</td>
+                                    <td title="广州市">广州市</td>
+                                    <td class="font-green" title="91440118MAKHJB4K14001Y">91440118MAKHJB4K14001Y</td>
+                                    <td title="广州市灵溪鲜泉食品科技有限公司" style="text-align: left;">广州市灵溪鲜泉食品科技有限公司</td>
+                                    <td title="瓶(罐)装饮用水制造" style="text-align: center;">瓶(罐)装饮用水制造</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=e2fd04b6-1532-43a5-99dd-ee0f8d0eeda4" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="广东省">广东省</td>
+                                    <td title="佛山市">佛山市</td>
+                                    <td class="font-green" title="91440605MA55DMXD8C001X">91440605MA55DMXD8C001X</td>
+                                    <td title="佛山市奇源空调设备有限公司" style="text-align: left;">佛山市奇源空调设备有限公司</td>
+                                    <td title="结构性金属制品制造" style="text-align: center;">结构性金属制品制造</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=1657fe4c-0125-4ee8-afe5-7b88d3263147" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="浙江省">浙江省</td>
+                                    <td title="温州市">温州市</td>
+                                    <td class="font-green" title="92330381MA2C48UP03001W">92330381MA2C48UP03001W</td>
+                                    <td title="瑞安市荣黄再生资源回收有限公司" style="text-align: left;">瑞安市荣黄再生资源回收有限公司</td>
+                                    <td title="废弃资源综合利用业" style="text-align: center;">废弃资源综合利用业</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=f0b2bce6-749f-4d40-b5c5-a6b75e203400" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="河南省">河南省</td>
+                                    <td title="开封市">开封市</td>
+                                    <td class="font-green" title="92410223MAEW87872H001X">92410223MAEW87872H001X</td>
+                                    <td title="尉氏县乾耀养殖场" style="text-align: left;">尉氏县乾耀养殖场</td>
+                                    <td title="家禽饲养" style="text-align: center;">家禽饲养</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=bff51321-a1a5-4856-9c12-202cc1a869cc" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="安徽省">安徽省</td>
+                                    <td title="滁州市">滁州市</td>
+                                    <td class="font-green" title="91341100MAED8RAQ82001Y">91341100MAED8RAQ82001Y</td>
+                                    <td title="卡姿果果（滁州）生物科技有限公司" style="text-align: left;">卡姿果果（滁州）生物科技有限公司</td>
+                                    <td title="其他酒制造" style="text-align: center;">其他酒制造</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=6fe0f2a0-2e38-400d-b5a5-cb9c76724f37" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                                <tr>
+                                    <td title="广东省">广东省</td>
+                                    <td title="揭阳市">揭阳市</td>
+                                    <td class="font-green" title="hb445200500005600K001Y">hb445200500005600K001Y</td>
+                                    <td title="黄顺鑫" style="text-align: left;">黄顺鑫</td>
+                                    <td title="其他未列明金属制品制造" style="text-align: center;">其他未列明金属制品制造</td>
+
+                                    <td title="2026-10-08">2026-10-08</td>
+                                    <td class="bgcolor1">
+	                                    <a href="https://permit.mee.gov.cn/register/library/registerShow.vm?enterid=6b595441-c19f-4de9-8789-b37de555d8e1" target="_blank" >
+	                                        <img src="/permitExt/outside/img/img/check.png" />
+	                                    </a>
+	                                </td>
+                                </tr>   
+                            
+                        
+                </table>
+            </div>
+        </div>
+    </div>
+	
+	<!-- 排污许可注销公告 -->
+	<div class="content1 clear_float top-her" id="top3_her">
+		<div class="information-disclosure1 border tab_css" style="" id="tab2_content">
+            <div class="tb-con2" style="float: right;">
+				<table cellspacing="0" cellpadding="0" class="tabtd" >
+					<tr class="tbhead1">
+						<td width="10%">省/直辖市</td>
+						<td width="8%">地市</td>
+						<td width="17%">许可证编号</td>
+						<td width="17%">单位名称</td>
+						<td width="17%">行业类别</td>
+						<td width="17%">注销类型</td>
+						<td width="17%">注销时间</td>
+					</tr>
+		            
+	                      	
+			                    <tr>
+			                    	<td title="山东省">山东省</td>
+			                    	<td title="德州市">德州市</td>
+			                    	<td class="font-green" title="91371428764842355L001Q">91371428764842355L001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="山东鑫恒信空调设备有限公司.">山东鑫恒信空调设备有限公司.</td>
+			                    	<td title="玻璃纤维增强塑料制品制造">玻璃纤维增强塑料制品制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="河南省">河南省</td>
+			                    	<td title="南阳市">南阳市</td>
+			                    	<td class="font-green" title="91411321MA9L2QFE47001U">91411321MA9L2QFE47001U</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="南阳市鸿达包装材料有限公司">南阳市鸿达包装材料有限公司</td>
+			                    	<td title="塑料丝、绳及编织品制造">塑料丝、绳及编织品制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="西藏自治区">西藏自治区</td>
+			                    	<td title="拉萨市">拉萨市</td>
+			                    	<td class="font-green" title="115401226868318952001R">115401226868318952001R</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="当雄县住房和城乡建设局">当雄县住房和城乡建设局</td>
+			                    	<td title="污水处理及其再生利用">污水处理及其再生利用</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="秦皇岛市">秦皇岛市</td>
+			                    	<td class="font-green" title="91130302MA0CTT8X68001Q">91130302MA0CTT8X68001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="秦皇岛增晟能源科技有限公司">秦皇岛增晟能源科技有限公司</td>
+			                    	<td title="机动车燃油零售">机动车燃油零售</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="排污单位被依法终止不再排放污染物">排污单位被依法终止不再排放污染物</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="山东省">山东省</td>
+			                    	<td title="滨州市">滨州市</td>
+			                    	<td class="font-green" title="91371626MAC458EB0Q001U">91371626MAC458EB0Q001U</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="山东博晟新材料有限公司">山东博晟新材料有限公司</td>
+			                    	<td title="耐火陶瓷制品及其他耐火材料制造">耐火陶瓷制品及其他耐火材料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+			                    	<td title="江门市">江门市</td>
+			                    	<td class="font-green" title="92440783MA4W3BXD6N001W">92440783MA4W3BXD6N001W</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="开平市水口镇利源五金制品厂">开平市水口镇利源五金制品厂</td>
+			                    	<td title="有色金属铸造">有色金属铸造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="广西壮族自治区">广西壮族自治区</td>
+			                    	<td title="玉林市">玉林市</td>
+			                    	<td class="font-green" title="91450923MAA7J1518P001P">91450923MAA7J1518P001P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="玉林市金鳞棉纺织加工有限公司">玉林市金鳞棉纺织加工有限公司</td>
+			                    	<td title="棉纺织及印染精加工">棉纺织及印染精加工</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="山东省">山东省</td>
+			                    	<td title="日照市">日照市</td>
+			                    	<td class="font-green" title="91371122MA3D3B561M001U">91371122MA3D3B561M001U</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="莒县永聚机械有限公司">莒县永聚机械有限公司</td>
+			                    	<td title="黑色金属铸造">黑色金属铸造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="黑龙江省">黑龙江省</td>
+			                    	<td title="佳木斯市">佳木斯市</td>
+			                    	<td class="font-green" title="91230805MAE99G3B2U001Q">91230805MAE99G3B2U001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="中建材耀华(内江)节能玻璃有限公司佳木斯分公司">中建材耀华(内江)节能玻璃有限公司佳木斯分公司</td>
+			                    	<td title="特种玻璃制造">特种玻璃制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="海南省">海南省</td>
+			                    	<td title="文昌市">文昌市</td>
+			                    	<td class="font-green" title="91460000MA5TWLFE4M001V">91460000MA5TWLFE4M001V</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="文昌昌宏建材有限公司">文昌昌宏建材有限公司</td>
+			                    	<td title="粘土砖瓦及建筑砌块制造">粘土砖瓦及建筑砌块制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="排污许可证有效期届满未延续">排污许可证有效期届满未延续</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="黑龙江省">黑龙江省</td>
+			                    	<td title="牡丹江市">牡丹江市</td>
+			                    	<td class="font-green" title="91231000752354610E001X">91231000752354610E001X</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="牡丹江市富通道桥建设维养有限责任公司">牡丹江市富通道桥建设维养有限责任公司</td>
+			                    	<td title="其他非金属矿物制品制造">其他非金属矿物制品制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="排污许可证有效期届满未延续">排污许可证有效期届满未延续</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="陕西省">陕西省</td>
+			                    	<td title="咸阳市">咸阳市</td>
+			                    	<td class="font-green" title="91610400667960050B001W">91610400667960050B001W</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="咸阳盛翼机械制造股份有限公司">咸阳盛翼机械制造股份有限公司</td>
+			                    	<td title="金属结构制造">金属结构制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="山东省">山东省</td>
+			                    	<td title="滨州市">滨州市</td>
+			                    	<td class="font-green" title="91371626738167819T002P">91371626738167819T002P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="邹平汇泽实业有限公司">邹平汇泽实业有限公司</td>
+			                    	<td title="机制纸及纸板制造">机制纸及纸板制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="江苏省">江苏省</td>
+			                    	<td title="泰州市">泰州市</td>
+			                    	<td class="font-green" title="91321291MAC686D151001V">91321291MAC686D151001V</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="泰州德协环保科技有限公司">泰州德协环保科技有限公司</td>
+			                    	<td title="固体废物治理">固体废物治理</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="陕西省">陕西省</td>
+			                    	<td title="咸阳市">咸阳市</td>
+			                    	<td class="font-green" title="91610422MA6XWAE17T001Q">91610422MA6XWAE17T001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="陕西海川源环保科技有限公司">陕西海川源环保科技有限公司</td>
+			                    	<td title="其他建筑材料制造">其他建筑材料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="应当注销的其他情形">应当注销的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+	                
+	                
+				</table>
+			</div> 
+		</div>
+	</div>
+	
+	<div class="content1 clear_float top-her" id="top4_her">          
+        <!-- 许可证撤销 -->
+        <div class="information-disclosure1 border tab_css" style="" id="tab3_content">
+        	
+            <div class="tb-con3" style="float: right;">
+				<table cellspacing="0" cellpadding="0" class="tabtd" >
+					<tr class="tbhead1">
+						<td width="10%">省/直辖市</td>
+						<td width="8%">地市</td>
+						<td width="17%">许可证编号</td>
+						<td width="17%">单位名称</td>
+						<td width="17%">行业类别</td>
+						<td width="17%">撤销类型</td>
+						<td width="17%">撤销时间</td>
+					</tr>
+	                 
+	                      	
+								<tr>
+			                    	<td title="河南省">河南省</td>
+			                    	<td title="焦作市">焦作市</td>
+			                    	<td class="font-green" title="91410822MA4505L14K001Q">91410822MA4505L14K001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="焦作志合食品科技有限公司">焦作志合食品科技有限公司</td>
+			                    	<td title="果菜汁及果菜汁饮料制造">果菜汁及果菜汁饮料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-10-08">2026-10-08</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="重庆市">重庆市</td>
+			                    	<td title="市辖区">市辖区</td>
+			                    	<td class="font-green" title="12500232798010274A001Q">12500232798010274A001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="重庆市武隆区仙女山街道社区卫生服务中心">重庆市武隆区仙女山街道社区卫生服务中心</td>
+			                    	<td title="医院">医院</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-09-30">2026-09-30</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="海南省">海南省</td>
+			                    	<td title="乐东黎族自治县">乐东黎族自治县</td>
+			                    	<td class="font-green" title="91469033MA5RDPW54E001W">91469033MA5RDPW54E001W</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="海南大永铝业钢化玻璃有限公司">海南大永铝业钢化玻璃有限公司</td>
+			                    	<td title="特种玻璃制造">特种玻璃制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-09-25">2026-09-25</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="保定市">保定市</td>
+			                    	<td class="font-green" title="911306270925655344001U">911306270925655344001U</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="河北瑞天建材制造有限公司">河北瑞天建材制造有限公司</td>
+			                    	<td title="砖瓦、石材等建筑材料制造">砖瓦、石材等建筑材料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-09-09">2026-09-09</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="保定市">保定市</td>
+			                    	<td class="font-green" title="91130627052676651U002Z">91130627052676651U002Z</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="保定丰饶农业科技股份有限公司">保定丰饶农业科技股份有限公司</td>
+			                    	<td title="有机肥料及微生物肥料制造">有机肥料及微生物肥料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-08-07">2026-08-07</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="保定市">保定市</td>
+			                    	<td class="font-green" title="91130627MABXE3YC67001V">91130627MABXE3YC67001V</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="唐县尧暖热力有限公司">唐县尧暖热力有限公司</td>
+			                    	<td title="热力生产和供应">热力生产和供应</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-07-22">2026-07-22</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="河南省">河南省</td>
+			                    	<td title="南阳市">南阳市</td>
+			                    	<td class="font-green" title="92411323MA443FXU00001R">92411323MA443FXU00001R</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="西峡县隆盛钙粉厂.">西峡县隆盛钙粉厂.</td>
+			                    	<td title="其他建筑材料制造">其他建筑材料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="对不具备申请资格或者不符合法定条件的申请人准予行政许可">对不具备申请资格或者不符合法定条件的申请人准予行政许可</td>
+			                    	<td title="2026-07-21">2026-07-21</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="广东省">广东省</td>
+			                    	<td title="肇庆市">肇庆市</td>
+			                    	<td class="font-green" title="91441202MA53LKEA96001Q">91441202MA53LKEA96001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="肇庆双新汽车销售服务有限公司">肇庆双新汽车销售服务有限公司</td>
+			                    	<td title="汽车新车零售">汽车新车零售</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-07-01">2026-07-01</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="保定市">保定市</td>
+			                    	<td class="font-green" title="91130627320096259D001V">91130627320096259D001V</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="唐县德瑞新型建材制造有限公司">唐县德瑞新型建材制造有限公司</td>
+			                    	<td title="粘土砖瓦及建筑砌块制造">粘土砖瓦及建筑砌块制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-06-29">2026-06-29</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="广东省">广东省</td>
+			                    	<td title="肇庆市">肇庆市</td>
+			                    	<td class="font-green" title="914412005645908949001Y">914412005645908949001Y</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="肇庆市德诺金属制品有限公司">肇庆市德诺金属制品有限公司</td>
+			                    	<td title="金属结构制造">金属结构制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-06-16">2026-06-16</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="湖北省">湖北省</td>
+			                    	<td title="襄阳市">襄阳市</td>
+			                    	<td class="font-green" title="914206007959157051001X">914206007959157051001X</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="湖北航宇精工科技有限公司">湖北航宇精工科技有限公司</td>
+			                    	<td title="汽车零部件及配件制造">汽车零部件及配件制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-05-20">2026-05-20</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="四川省">四川省</td>
+			                    	<td title="甘孜藏族自治州">甘孜藏族自治州</td>
+			                    	<td class="font-green" title="12513337452698593Q001R">12513337452698593Q001R</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="稻城县人民医院">稻城县人民医院</td>
+			                    	<td title="综合医院">综合医院</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-05-12">2026-05-12</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="浙江省">浙江省</td>
+			                    	<td title="杭州市">杭州市</td>
+			                    	<td class="font-green" title="913301106917449649001Q">913301106917449649001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="浙江诺特健康科技股份有限公司杭州第一分公司">浙江诺特健康科技股份有限公司杭州第一分公司</td>
+			                    	<td title="其他方便食品制造">其他方便食品制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-05-11">2026-05-11</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="河南省">河南省</td>
+			                    	<td title="周口市">周口市</td>
+			                    	<td class="font-green" title="9141168106757771X8001U">9141168106757771X8001U</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="项城市百川畅银新能源有限公司">项城市百川畅银新能源有限公司</td>
+			                    	<td title="生物质能发电">生物质能发电</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-05-08">2026-05-08</td>
+								</tr>
+	                      	
+								<tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="保定市">保定市</td>
+			                    	<td class="font-green" title="92130627MA09BGCQ8F001X">92130627MA09BGCQ8F001X</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="唐县高升有机肥加工厂">唐县高升有机肥加工厂</td>
+			                    	<td title="有机肥料及微生物肥料制造">有机肥料及微生物肥料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="依法可以撤销排污许可证的其他情形">依法可以撤销排污许可证的其他情形</td>
+			                    	<td title="2026-04-30">2026-04-30</td>
+								</tr>
+	                      	
+	                 
+                	
+				</table>
+			</div> 
+		</div>
+    </div>
+	<div class="content1 clear_float top-her" id="top5_her">
+	
+		<!-- 许可证遗失声明 -->
+		<div class="information-disclosure1 border tab_css" style="display: block" id="tab1_content">
+        	
+			<div class="tb-con1" style="float: right;" >
+				<table cellspacing="0" cellpadding="0" class="tabtd" >
+					<tr class="tbhead1">
+						<td width="10%">省/直辖市</td>
+						<td width="8%">地市</td>
+						<td width="17%">许可证编号</td>
+						<td width="17%">单位名称</td>
+						<td width="17%">行业类别</td>
+						<td width="17%">遗失原因</td>
+						<td width="17%">遗失时间</td>
+					</tr>
+	                 
+	                      	
+			                    <tr>
+			                    	<td title="山西省">山西省</td>
+			                    	<td title="晋中市">晋中市</td>
+			                    	<td class="font-green" title="911400000783453245001P">911400000783453245001P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="山西国新和盛新能源有限公司">山西国新和盛新能源有限公司</td>
+			                    	<td title="有机化学原料制造">有机化学原料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="保管不慎，排污许可证正本 遗失">保管不慎，排污许可证正本 遗失</td>
+			                    	<td title="2026-09-01">2026-09-01</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="石家庄市">石家庄市</td>
+			                    	<td class="font-green" title="91130184MAD0P96G0T001V">91130184MAD0P96G0T001V</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="石家庄中启禾生物科技有限公司">石家庄中启禾生物科技有限公司</td>
+			                    	<td title="复混肥料制造">复混肥料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="丢失">丢失</td>
+			                    	<td title="2026-09-01">2026-09-01</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="唐山市">唐山市</td>
+			                    	<td class="font-green" title="91130224MA08K6E09B001U">91130224MA08K6E09B001U</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="滦南达鹏保温材料有限公司">滦南达鹏保温材料有限公司</td>
+			                    	<td title="其他建筑材料制造">其他建筑材料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="保管不善">保管不善</td>
+			                    	<td title="2026-09-28">2026-09-28</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="浙江省">浙江省</td>
+			                    	<td title="嘉兴市">嘉兴市</td>
+			                    	<td class="font-green" title="913304027377868453001P">913304027377868453001P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="嘉兴市金鹰新材料股份有限公司">嘉兴市金鹰新材料股份有限公司</td>
+			                    	<td title="金属表面处理及热处理加工">金属表面处理及热处理加工</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="因保管不当，遗失">因保管不当，遗失</td>
+			                    	<td title="2026-01-15">2026-01-15</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+			                    	<td title="湛江市">湛江市</td>
+			                    	<td class="font-green" title="91440881769334851P001Z">91440881769334851P001Z</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="广东众星电器有限公司">广东众星电器有限公司</td>
+			                    	<td title="家用厨房电器具制造">家用厨房电器具制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="因保管不当遗失。">因保管不当遗失。</td>
+			                    	<td title="2026-09-23">2026-09-23</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="云南省">云南省</td>
+			                    	<td title="昭通市">昭通市</td>
+			                    	<td class="font-green" title="91530602MAEADPHL01001Q">91530602MAEADPHL01001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="昭通宏阳稼食品有限公司">昭通宏阳稼食品有限公司</td>
+			                    	<td title="米、面制品制造">米、面制品制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="因保管不当遗失。">因保管不当遗失。</td>
+			                    	<td title="2026-09-23">2026-09-23</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="云南省">云南省</td>
+			                    	<td title="昭通市">昭通市</td>
+			                    	<td class="font-green" title="91530602MAEADPHL01001Q">91530602MAEADPHL01001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="昭通宏阳稼食品有限公司">昭通宏阳稼食品有限公司</td>
+			                    	<td title="米、面制品制造">米、面制品制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="因保管不当遗失。">因保管不当遗失。</td>
+			                    	<td title="2026-09-23">2026-09-23</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="唐山市">唐山市</td>
+			                    	<td class="font-green" title="91130223MA07M8FU6G001P">91130223MA07M8FU6G001P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="滦县吉善源圣业再生资源有限公司">滦县吉善源圣业再生资源有限公司</td>
+			                    	<td title="其他基础化学原料制造">其他基础化学原料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="因保管不善，丢失。">因保管不善，丢失。</td>
+			                    	<td title="2026-06-01">2026-06-01</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="湖南省">湖南省</td>
+			                    	<td title="长沙市">长沙市</td>
+			                    	<td class="font-green" title="91430181MAE2QW6D8M001Q">91430181MAE2QW6D8M001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="湖南建源新材料有限公司">湖南建源新材料有限公司</td>
+			                    	<td title="涂料制造">涂料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="因保管不善，遗失了原长沙市秉城新型材料有限公司排污许可证正本和副本（许可证编号91430181MA7B68EX34001Q）">因保管不善，遗失了原长沙市秉城新型材料有限公司排污许可证正本和副本（许可证编号91430181MA7B68EX34001Q）</td>
+			                    	<td title="2026-09-10">2026-09-10</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="湖南省">湖南省</td>
+			                    	<td title="株洲市">株洲市</td>
+			                    	<td class="font-green" title="914302033384454452001P">914302033384454452001P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="株洲市新湘金属表面处理有限公司">株洲市新湘金属表面处理有限公司</td>
+			                    	<td title="金属表面处理及热处理加工">金属表面处理及热处理加工</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="泡水">泡水</td>
+			                    	<td title="2026-09-07">2026-09-07</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="福建省">福建省</td>
+			                    	<td title="泉州市">泉州市</td>
+			                    	<td class="font-green" title="91350504MA2YFT598B001P">91350504MA2YFT598B001P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="泉州市佰众联合科技有限公司">泉州市佰众联合科技有限公司</td>
+			                    	<td title="其他纸制品制造">其他纸制品制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="我企业因保管不善，遗失排污证正本、副本，特此声明">我企业因保管不善，遗失排污证正本、副本，特此声明</td>
+			                    	<td title="2026-09-22">2026-09-22</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="广东省">广东省</td>
+			                    	<td title="肇庆市">肇庆市</td>
+			                    	<td class="font-green" title="91441223MA55HG2859001Q">91441223MA55HG2859001Q</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="广宁县南拓加油站有限责任公司">广宁县南拓加油站有限责任公司</td>
+			                    	<td title="机动车燃油零售">机动车燃油零售</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="内部转移文件过程遗失排污证副本">内部转移文件过程遗失排污证副本</td>
+			                    	<td title="2026-08-01">2026-08-01</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="河北省">河北省</td>
+			                    	<td title="沧州市">沧州市</td>
+			                    	<td class="font-green" title="91130922757509028Y001P">91130922757509028Y001P</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="青县冀丰钢铁有限公司">青县冀丰钢铁有限公司</td>
+			                    	<td title="钢压延加工">钢压延加工</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="保管不善，丢失。">保管不善，丢失。</td>
+			                    	<td title="2026-09-22">2026-09-22</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="河南省">河南省</td>
+			                    	<td title="郑州市">郑州市</td>
+			                    	<td class="font-green" title="92410181MA40FP6108001X">92410181MA40FP6108001X</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="巩义市北山口金鑫建筑材料厂">巩义市北山口金鑫建筑材料厂</td>
+			                    	<td title="其他建筑材料制造">其他建筑材料制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="我企业排污许可证正副本因保管不善，遗失，特此声明。">我企业排污许可证正副本因保管不善，遗失，特此声明。</td>
+			                    	<td title="2026-09-18">2026-09-18</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td title="山西省">山西省</td>
+			                    	<td title="吕梁市">吕梁市</td>
+			                    	<td class="font-green" title="91141182MA7XN7D82K001U">91141182MA7XN7D82K001U</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="山西汾盛酒庄有限公司">山西汾盛酒庄有限公司</td>
+			                    	<td title="白酒制造">白酒制造</td>
+			                    	<td style="text-align: left;padding-left:10px;" title="管理不当造成遗失">管理不当造成遗失</td>
+			                    	<td title="2026-09-10">2026-09-10</td>
+								</tr>
+	                      	
+	                 
+                	
+				</table>
+			</div> 
+        </div>
+	</div>
+	
+	<!-- 重要通知 -->
+	<div class="content1 clear_float top-her" id="top8_her">
+		<div class="information-disclosure1 border tab_css" style="display: block" id="tab8_content">
+			<div class="tb-con3" style="float: right;" >
+				<table cellspacing="0" cellpadding="0" class="tabtd" >
+					<tr class="tbhead1">
+						<td width="85%">通知内容</td>
+						<td width="15%">通知时间</td>
+					</tr>
+	                  
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ" title="关于调整2024年排污许可证年度执行报告报送时间的公告">关于调整2024年排污许可证年度执行报告报送时间的公告</a>
+			                    	</td>
+	                    			<td title="2025-01-02">2025-01-02</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=4e9b17bb-1f5d-4833-a4ea-817f23437f82&type=ZYTZ" title="全国排污许可证管理信息平台更新通知">全国排污许可证管理信息平台更新通知</a>
+			                    	</td>
+	                    			<td title="2024-04-26">2024-04-26</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=7152da31-9782-4188-b9dd-adbbb71442d5&type=ZYTZ" title="关于调整2023年度排污许可证执行报告报送时间的通知">关于调整2023年度排污许可证执行报告报送时间的通知</a>
+			                    	</td>
+	                    			<td title="2024-01-08">2024-01-08</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=d83fbbbf-9a22-4ec0-8c4b-41c7337fd0af&type=ZYTZ" title="全国排污许可证管理信息平台优化工业噪声管理模块相关功能">全国排污许可证管理信息平台优化工业噪声管理模块相关功能</a>
+			                    	</td>
+	                    			<td title="2023-09-29">2023-09-29</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=5efc92a3-2abc-40bd-97b6-de9c008e3ee7&type=ZYTZ" title="全国排污许可证管理信息平台优化固体废物管理模块相关功能">全国排污许可证管理信息平台优化固体废物管理模块相关功能</a>
+			                    	</td>
+	                    			<td title="2022-03-25">2022-03-25</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a28ad712-e4dc-4cac-9530-c988a984f2c8&type=ZYTZ" title="执行报告优化通知">执行报告优化通知</a>
+			                    	</td>
+	                    			<td title="2022-01-10">2022-01-10</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=f41f3192-3bfe-43b3-81e5-31a6a82ad807&type=ZYTZ" title="全国排污许可证管理信息平台简化排污许可证变更审批流程(2021年7月30日)">全国排污许可证管理信息平台简化排污许可证变更审批流程(2021年7月30日)</a>
+			                    	</td>
+	                    			<td title="2021-07-30">2021-07-30</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=1cb074b5-6725-40ac-b951-73a94f9f469f&type=ZYTZ" title="全国排污许可证管理信息平台更新通知（2021年4月23日）">全国排污许可证管理信息平台更新通知（2021年4月23日）</a>
+			                    	</td>
+	                    			<td title="2021-04-23">2021-04-23</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=d2b6420d-8cbb-4c00-acc8-8af42f52e93f&type=ZYTZ" title="全国排污许可证管理信息平台更新通知（2021年3月19日）">全国排污许可证管理信息平台更新通知（2021年3月19日）</a>
+			                    	</td>
+	                    			<td title="2021-03-19">2021-03-19</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=b0f7918b-d3f8-4560-b255-fceb5ff3a8a0&type=ZYTZ" title="全国排污许可证管理信息平台更新通知（2021年1月12日）">全国排污许可证管理信息平台更新通知（2021年1月12日）</a>
+			                    	</td>
+	                    			<td title="2021-01-12">2021-01-12</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=e615e70b-79f5-41fc-956f-6d15279c6d27&type=ZYTZ" title="全国排污许可证管理信息平台更新通知（2020年9月3日）">全国排污许可证管理信息平台更新通知（2020年9月3日）</a>
+			                    	</td>
+	                    			<td title="2020-09-03">2020-09-03</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=f24bdda0-8cd9-4d82-892a-3eb9c75c6b58&type=ZYTZ" title="全国排污许可证管理信息平台更新通知（2020年8月21日）">全国排污许可证管理信息平台更新通知（2020年8月21日）</a>
+			                    	</td>
+	                    			<td title="2020-08-20">2020-08-20</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a32fbf20-dcd7-4c5b-8379-916d791cc8e4&type=ZYTZ" title="全国排污许可证管理信息平台更新通知(2020年7月1日)">全国排污许可证管理信息平台更新通知(2020年7月1日)</a>
+			                    	</td>
+	                    			<td title="2020-06-29">2020-06-29</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=e93c0179-c17b-4ff7-979c-35ca841e0e44&type=ZYTZ" title="平台问题咨询等通知">平台问题咨询等通知</a>
+			                    	</td>
+	                    			<td title="2020-05-29">2020-05-29</td>
+								</tr>
+	                      	
+			                    <tr>
+			                    	<td style="text-align: left;padding-left:10px;">
+			                    		<a href="https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=06094231-45fe-41b8-9a52-3487c33a073b&type=ZYTZ" title="货运港口、水处理通用工序等9行业排污许可证可正式申报">货运港口、水处理通用工序等9行业排污许可证可正式申报</a>
+			                    	</td>
+	                    			<td title="2020-05-29">2020-05-29</td>
+								</tr>
+	                      	
+	                 
+                	
+				</table>
+			</div>
+        </div>
+	</div>
+	
+	
+	<!--法律法规  -->
+	<div class="content1 clear_float top-her" id="top6_her">
+		<div class="border" style="overflow:hidden;height:514px;">
+			<div class="width-50">
+				<div class="modules">
+					<div class="modules-banner">
+						<a>
+							<img src='/permitExt/outside/images/law.png'>
+							<span class="textspan">法律法规</span>
+						</a>
+					</div>
+					<div class="modules-list">
+						<ul>
+			          	    
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=86ee831b-08b9-48dc-8673-cccaf39574cd&type=Law" title="排污许可管理办法">
+											
+											
+												排污许可管理办法 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=e3bd81d4-b8e2-4658-9c02-adadf750c907&type=Law" title="排污许可管理条例（中华人民共和国国务院令 第736号）">
+											
+												排污许可管理条例（中华人民共和国国务院令……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=17a5acc5-a148-4f08-a37a-444b14492ece&type=Law" title="排污许可管理办法（试行）">
+											
+											
+												排污许可管理办法（试行） 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=6943fef8-0aee-4997-98cc-33aaf6e27ba4&type=Law" title="排污许可证管理暂行规定">
+											
+											
+												排污许可证管理暂行规定 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=10ff6ea4-b9b7-402c-9596-89c5f3c1c249&type=Law" title="国务院办公厅关于印发控制污染物排放许可制实施方案的通知">
+											
+												国务院办公厅关于印发控制污染物排放许可制……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+	                 		
+						</ul>
+					</div>
+				</div>
+				<hr style="margin:0;border:1px solid #dedede;width:99%">
+				<div class="modules" >
+					<div class="modules-banner">
+						<a>
+							<img src='/permitExt/outside/images/pfbz.png'>
+							<span class="textspan">实施行业排放标准</span>
+						</a>
+					</div>
+					<div class="modules-list">
+						<ul>
+			          	    
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=f45dfebd-4c0f-439e-8e35-be195c90beaa&type=SSHYPFBZ" title="锅炉大气污染物排放标准 GB13271-2014">
+											
+												锅炉大气污染物排放标准 GB13271-……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=b1f2a6ab-69d5-4e31-8b0d-ab0a97316051&type=SSHYPFBZ" title="关于执行大气污染物特别排放限值的公告">
+											
+											
+												关于执行大气污染物特别排放限值的公告 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=89c9a94e-0293-472c-a1d0-89b5e3322771&type=SSHYPFBZ" title="火电厂大气污染物排放标准 GB13223-2011">
+											
+												火电厂大气污染物排放标准 GB13223……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=3af76a84-5b5c-4b6f-9f32-7da3dd62cd83&type=SSHYPFBZ" title="制浆造纸工业水污染物排放标准 GB3544-2008">
+											
+												制浆造纸工业水污染物排放标准 GB354……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+	                 		
+						</ul>
+					</div>
+				</div>
+				<hr style="margin:0;border:1px solid #dedede;width:99%">
+				<div class="modules">
+					<div class="modules-banner">
+						<a>
+							<img src='/permitExt/outside/images/jszn.png'>
+							<span class="textspan">行业可行技术指南</span>
+						</a>
+					</div>
+					<div class="modules-list">
+						<ul>
+			          	    
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=3c78d7b4-bff1-49ae-8599-1ab21d9858da&type=HYKXJSZN" title="制浆造纸工业污染防治可行技术指南">
+											
+											
+												制浆造纸工业污染防治可行技术指南 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=db5d5d9e-5fa1-4e11-931b-682600ac749c&type=HYKXJSZN" title="造纸行业木材制浆工艺污染防治可行技术指南 （试行）">
+											
+												造纸行业木材制浆工艺污染防治可行技术指南……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=2d85327c-c6cc-4aa9-b5fb-cdab2de5b1d2&type=HYKXJSZN" title="造纸行业废纸制浆及造纸工艺污染防治可行技术指南（试行）">
+											
+												造纸行业废纸制浆及造纸工艺污染防治可行技……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=560dabb5-85ff-4652-81f0-895b09c53d7e&type=HYKXJSZN" title="造纸行业非木材制浆工艺污染防治可行技术指南（试行）">
+											
+												造纸行业非木材制浆工艺污染防治可行技术指……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=0f3a76db-6430-4e75-8154-e3ab4845cff8&type=HYKXJSZN" title="钢铁行业焦化工艺污染防治最佳可行技术指南 （试行）">
+											
+												钢铁行业焦化工艺污染防治最佳可行技术指南……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+	                 		
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="width-50">
+				<div class="modules">
+					<div class="modules-banner">
+						<a>
+							<img src='/permitExt/outside/images/jsgf.png'>
+							<span class="textspan">许可技术规范</span>
+						</a>
+					</div>
+					<div class="modules-list">
+						<ul>
+			          	    
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=a4ffae63-191f-4716-adc0-ade07f72adca&type=XKJSGF" title="排污许可证质量核查技术规范">
+											
+											
+												排污许可证质量核查技术规范 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=9b8dd4b9-4019-4e8d-8528-0b28a62b8b63&type=XKJSGF" title="排污单位污染物排放口二维码标识技术规范">
+											
+											
+												排污单位污染物排放口二维码标识技术规范 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=91eb0296-24c7-483b-bbf0-7a533c9f99fb&type=XKJSGF" title="排污许可证申请与核发技术规范 工业固体废物（试行）">
+											
+												排污许可证申请与核发技术规范 工业固体废……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=b6d1a751-13c6-4cde-9f86-5dd130944d22&type=XKJSGF" title="排污许可证申请与核发技术规范 稀有稀土金属冶炼">
+											
+												排污许可证申请与核发技术规范 稀有稀土金……
+											
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=9857fa9c-46e0-4326-b535-d36ccbd62356&type=XKJSGF" title="排污许可证申请与核发技术规范 工业炉窑">
+											
+											
+												排污许可证申请与核发技术规范 工业炉窑 
+											
+										</a>
+				          	    	</li>
+		                      	
+	                 		
+						</ul>
+					</div>
+				</div>
+				<hr style="margin:0;border:1px solid #dedede">
+				<div class="modules">
+					<div class="modules-banner">
+						<a>
+							<img src='/permitExt/outside/images/jczn.png'>
+							<span class="textspan">行业自行监测指南</span>
+						</a>
+					</div>
+					<div class="modules-list">
+						<ul>
+			          	    
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=81014dc2-071b-4e29-a9a7-8a55eccdb4ae&type=HYZXJCZN" title="排污单位自行监测技术指南 印刷工业">
+											
+											
+												排污单位自行监测技术指南 印刷工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=38a6c005-529b-42fd-b310-062e57643fe6&type=HYZXJCZN" title="排污单位自行监测技术指南 电子工业">
+											
+											
+												排污单位自行监测技术指南 电子工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=d0b45140-0b35-4817-a055-5c9deeddd0fd&type=HYZXJCZN" title="排污单位自行监测技术指南 砖瓦工业">
+											
+											
+												排污单位自行监测技术指南 砖瓦工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=2c605435-304d-44dc-9eb5-fd082f781bcf&type=HYZXJCZN" title="排污单位自行监测技术指南 陶瓷工业">
+											
+											
+												排污单位自行监测技术指南 陶瓷工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=b4cbce0a-7441-43a7-b37a-611f68f71de4&type=HYZXJCZN" title="排污单位自行监测技术指南 储油库、加油站">
+											
+											
+												排污单位自行监测技术指南 储油库、加油站 
+											
+										</a>
+				          	    	</li>
+		                      	
+	                 		
+						</ul>
+					</div>
+				</div>
+				<hr style="margin:0;border:1px solid #dedede">
+				<div class="modules">
+					<div class="modules-banner">
+						<a>
+							<img src='/permitExt/outside/images/jg.png'>
+							<span class="textspan">许可监管要求</span>
+						</a>
+					</div>
+					<div class="modules-list">
+						<ul>
+			          	    
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=81014dc2-071b-4e29-a9a7-8a55eccdb4ae&type=XKJGYQ" title="排污单位自行监测技术指南 印刷工业">
+											
+											
+												排污单位自行监测技术指南 印刷工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=38a6c005-529b-42fd-b310-062e57643fe6&type=XKJGYQ" title="排污单位自行监测技术指南 电子工业">
+											
+											
+												排污单位自行监测技术指南 电子工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=d0b45140-0b35-4817-a055-5c9deeddd0fd&type=XKJGYQ" title="排污单位自行监测技术指南 砖瓦工业">
+											
+											
+												排污单位自行监测技术指南 砖瓦工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=2c605435-304d-44dc-9eb5-fd082f781bcf&type=XKJGYQ" title="排污单位自行监测技术指南 陶瓷工业">
+											
+											
+												排污单位自行监测技术指南 陶瓷工业 
+											
+										</a>
+				          	    	</li>
+		                      	
+				                    <li class="modules-li">
+										<a href="https://permit.mee.gov.cn/perxxgkinfo/outside/news_detail.jsp?pkid=b4cbce0a-7441-43a7-b37a-611f68f71de4&type=XKJGYQ" title="排污单位自行监测技术指南 储油库、加油站">
+											
+											
+												排污单位自行监测技术指南 储油库、加油站 
+											
+										</a>
+				          	    	</li>
+		                      	
+	                 		
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!--以下内容无变更  -->
+	<div class="content bg-green" style="margin-top:10px">
+		<div class="pos-relative" style="height: 70px;">
+			<hr />
+			<div class="pos-absolute guide bg-green font-white font-b"><img src="/permitExt/outside/img/img/1.png" />申报指南</div>
+		</div>
+		<p class="guide-summary font-white">本平台可以查询排污单位许可后信息公开内容，包括排污单位排口位置、数量、排放方式、排放去向、排放污染物种类、排放浓度限值、排放量和排放污染物执行标准等信息。同时，排污单位可登录本平台网上申报排污许可相关行政审批事项。</p>
+		<div class="guide-details clear_float">
+			<ul class="fl">
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">1</div>
+					</div>
+					<span>排污单位登录本平台，点击导航栏“网上申报”按钮，进入国家排污许可申请子系统；</span>
+				</li>
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">2</div>
+					</div>
+					<span>排污单位首次使用系统，需自行注册账户，并用此账户登录、办理排污许可所有申报审批事项；</span>
+				</li>
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">3</div>
+					</div>
+					<span>首次申报进入“业务办理-许可证申请”模块，点击“我要申报”按钮，开始网上申报；可以查看已有业务的申报状态；</span>
+				</li>
+			</ul>
+			<ul class="fr">
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">4</div>
+					</div>
+					<span>请按照《技术规范》要求填写申请表格，并上传相关材料附件；页面提示供参考；</span>
+				</li>
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">5</div>
+					</div>
+					<span>申报过程中可在“业务办理-信息公开”模块进行申请前信息公开；</span>
+				</li>
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">6</div>
+					</div>
+					<span>填报完成后，点击“提交”按钮，完成本次申报；</span>
+				</li>
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">7</div>
+					</div>
+					<span>提交成功后，可以查看审批状态和结果；</span>
+				</li>
+				<li>
+					<div class="fl" style="height: 30px">
+						<div class="num bg-white">8</div>
+					</div>
+					<span>原则上一次申报，一源一数，一数多用，减少重复申报。</span>
+				</li>
+			</ul>
+		</div>
+		<div style="width: 100%;text-align: center;margin-top: 30px;"><img src="/permitExt/outside/img/img/4.png" /></div>
+	</div>
+	<div class="content clear_float">
+		<div class="contact-us fl">
+			<p class="title" style="font-weight: bold;" >联系方式：</p>
+			<p>为规范排污许可答疑工作，现停止使用原平台系统技术支持电话、名录和技术规范技术支持电话答疑渠道，</p>
+			<!-- <p>开通邮箱答疑渠道，平台系统技术支持邮箱：pwxkpt@acee.org.cn，</p> -->
+			<p>名录和技术规范技术支持邮箱：pwxk@acee.org.cn</p>
+			
+			
+<!-- 			<p class="title" style="font-weight: bold;">信息平台交流：</p> -->
+<!-- 			<p><script src="//wp.qiye.qq.com/qidian/2852138061/e140a006e6e768fcfaba98d82eec1292" charset="utf-8"></script></p> -->
+			<!-- <p><img src="../outside/img/img/tel.png" />010-84910665</p>
+			<p><img src="../outside/img/img/mail.png" />480890684</p> -->
+		</div>
+		<div class="annexes fl">
+			<p class="title" style="font-weight: bold;">附件资料：</p>
+			<p><img src="/permitExt/outside/img/img/word.png" /><a href="/permitExt/outside/word/排污许可证申领信息公开情况说明表（样本）.doc" target="_blank" style="color:blue;">排污许可证申领信息公开情况说明表（样本）</a></p>
+			<p><img src="/permitExt/outside/img/img/word.png" /><a href="/permitExt/outside/word/承诺书(样本)-20180824新.doc" target="_blank" style="color:blue;">承诺书(样本)-20180824新</a></p>
+			<!-- <p><img src="/permitExt/outside/img/img/word.png" /><a href="/permitExt/outside/word/排污许可证申请表（试行）.doc" target="_blank" style="color:blue;">排污许可证申请表（试行）</a></p> -->
+			<p><img src="/permitExt/outside/img/img/lianjie001.png" /><a href="/permitExt/outside/word/各行业申请表样本.zip" target="_blank" style="color:blue;">各行业申请表样本</a></p>
+			<p><img src="/permitExt/outside/img/img/pdf.png" /><a href="/permitExt/outside/word/控制污染物排放许可制实施方案、管理暂行规定、通知.pdf" target="_blank" style="color:blue;">控制污染物排放许可制实施方案、管理暂行规定、通知</a></p>
+			<p><img src="/permitExt/outside/img/img/pdf.png" /><a href="/permitExt/outside/word/火电行业排污许可技术规范讲解课件.pdf" target="_blank" style="color:blue;">火电行业排污许可技术规范讲解课件</a></p>
+			<p><img src="/permitExt/outside/img/img/pdf.png" /><a href="/permitExt/outside/word/造纸行业排污许可技术规范课件.pdf" target="_blank" style="color:blue;">造纸行业排污许可技术规范课件</a></p>
+			<p><img src="/permitExt/outside/img/img/pdf.png" /><a href="/permitExt/outside/word/国家排污许可申请核发系统信息公开系统功能介绍.pdf" target="_blank" style="color:blue;">国家排污许可申请核发系统信息公开系统功能介绍</a></p>
+			<p><img src="/permitExt/outside/img/img/pdf.png" /><a href="/permitExt/outside/word/排污许可制地方培训班学习材料.pdf" target="_blank" style="color:blue;">排污许可制地方培训班学习材料</a></p>
+			<p><img src="/permitExt/outside/img/img/lianjie001.png" /><a href="/permitExt/syssp/gztck/gzt-ck!gotoinfoform.action" target="_blank" style="color:blue;">各行业排污许可技术规范培训视频汇总</a></p>
+			<p><img src="/permitExt/outside/img/img/lianjie001.png" /><a href="/permitExt/outside/word/无法上传附件或图片解决方案.zip" target="_blank" style="color:blue;">无法上传附件或图片解决方案</a></p>
+			<p><img src="/permitExt/outside/img/img/lianjie001.png" /><a href="/permitExt/outside/word/2020年度温室气体排放报告补充数据表.xlsx" target="_blank" style="color:blue;">2020年度温室气体排放报告补充数据表</a></p>
+			
+		</div>
+	</div>
+	<!-- 如需将页面做成iframe嵌套，请从这里结束剪切 -->
+	<!-- <div class="footer bg-green font-white">
+		<p>版权所有©中华人民共和国生态环境部</p>
+	</div> -->
+	<div class="footerold bg-green">
+       	<div class="footerold__inner">
+         	<div class="lf" style="float:left;">
+         		<div class="links"></div>
+            	<div style="width: 70px;float: left;padding: 25px 0 8px;" >
+            		<a href="http://bszs.conac.cn/sitename?method=show&id=1ACC49F8764D14F7E053012819ACEFF4" target="_blank"><img class="footerold_BLImg" 
+            		 style="vertical-align: middle; border: 0;" src="/permitExt/outside/default/img/MEPC_base_footer_v2019_14.png" /></a>
+            	</div>	
+            	<div class="info">
+              		<div class="info-item" style="width:30%"><span>版本说明：全国排污许可证管理信息平台-公开端 V3.0</span></div>
+              		<div class="info-item" style="width:25%">版本所有：中华人民共和国生态环境部</div>
+              		<div class="info-item" style="width:20%">ICP备案编号：京ICP备05009132号</div>
+              		<div class="info-item" style="width:30%">技术支持：生态环境部环境工程评估中心</div>
+              		<div class="info-item" style="width:25%">网站标识码：bm17000009</div>
+              		<div class="info-item" style="width:20%;cursor: pointer;"  
+              		 onclick="window.open('http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11040102700072', '_blank');" >
+	              		<img class="" src="/permitExt/outside/default/img/jh.png" style="vertical-align: middle;margin-left: -23px;">
+	              		京公网安备：11040102700072号
+	              	</div>
+              	</div>	
+          	</div>
+          	<div class="rt">
+          		<script id="_jiucuo_" sitecode='bm17000009' src='https://zfwzgl.www.gov.cn/exposure/jiucuo.js'></script>
+            	<img src="/permitExt/outside/default/img/code.png" />
+          	</div>
+       	</div>
+     </div>
+	<script type="text/javascript" src="/permitExt/outside/js/particles.min.js"></script>
+	<script type="text/javascript" src="/permitExt/outside/js/app.js"></script>
+</body>
+</html>

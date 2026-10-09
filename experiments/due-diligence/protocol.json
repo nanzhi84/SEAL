@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "scope": "All rows in docs/reference/due-diligence-source-map.md; public GET-only source feasibility; no production activation",
+  "authorization": "User requested each mapped source experiment and retained golden samples on 2026-10-09",
+  "network": {
+    "global_concurrency": 8,
+    "per_host_concurrency": 1,
+    "delay_seconds": 1.5,
+    "timeout_seconds": 20,
+    "max_response_bytes": 5242880,
+    "max_requests": 2400,
+    "max_redirects": 4,
+    "retries": 0,
+    "tls_verify": true,
+    "cookies": false,
+    "environment_proxy": false,
+    "robots": "200 rules obeyed; 404/410 treated as absent; denial, network error or invalid document => policy unknown/blocked"
+  },
+  "failure_contracts": [
+    "Every input row has exactly one final report row; duplicate URLs retain independent map IDs",
+    "200 challenge, login, error page or JS shell is not business-data extraction success",
+    "Robots unknown/denied is a policy result, not evidence the content URL itself is down",
+    "Network failures are current-environment observations, never proof of permanent source unavailability",
+    "Each sent request has a ledger entry; budgets include robots and redirect hops",
+    "Session identifiers and sensitive headers do not enter generated artifacts",
+    "Golden bytes are unchanged archived application bodies with sha256 and explicit extraction expectations",
+    "Fetch/extraction golden samples do not assert full-site completeness or production review approval",
+    "Offline golden verification makes zero network requests and reports deterministic assertion outcomes",
+    "Failures and interrupted campaigns are retained; no stealth retries, proxy rotation or CAPTCHA bypass"
+  ],
+  "golden_tiers": {
+    "entry": "Public non-challenge HTML with stable title and locator evidence; verifies entry parsing only",
+    "content": "Public list/detail/PDF with independently checked expected facts; verifies specified extraction fields only"
+  }
+}

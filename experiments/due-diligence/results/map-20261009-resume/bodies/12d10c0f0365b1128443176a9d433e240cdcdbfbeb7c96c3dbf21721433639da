@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<meta http-equiv="Content-Language" content="utf-8" />
+<meta name="viewport" content="width=1300, maximum-scale=2, user-scalable=no">
+<meta name="format-detection" content="telephone=no, email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<title>首页----中国互联网络信息中心</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="filetype" content="0">
+<meta name="domain" content="www.cnnic.cn">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="filetype" content="0">
+<meta name="nodeid" content="1">
+<meta name="filetype" content="1" />
+<meta name="publishedtype" content="1" />
+<meta name="pagetype" content="2" />
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<link charset="utf-8" rel="stylesheet" href="/img/MAIN/2022/07/13/css/index.css" inline>
+<link charset="utf-8" rel="stylesheet" href="/img/MAIN/2022/07/13/css/animate.min.css" inline>
+<link charset="utf-8" rel="stylesheet" href="/img/MAIN/2022/07/13/css/swiper4.min.css">
+<script charset="utf-8" src="/img/MAIN/2022/07/13/js/jquery-1.11.1.min.js" inline></script>
+<script charset="utf-8" src="/img/MAIN/2022/07/13/js/swiper4.min.js"></script>
+</head>
+<body>
+<style>
+.top .swiper-slide .img-banner1{position: relative !important;left: 0 !important;margin-left: 0 !important;width: 100%;height: 453px;}
+.top{height:auto;}
+#homeswiper .img-banner1{height: auto;}
+@media screen and (max-width: 1350px){
+    .main-news .right-news-wrap .tab1-wrap .list-tab li {
+        font-size:1.2em !important;
+    }
+}
+.phone .left-swiper-wrap{
+display: none;
+}
+
+</style>
+
+<div class="main" id="main">
+    <!-- main主内容开始div -->
+    <div id="hd_search"></div>
+    <!-- 板块 banner 轮播图 -->
+    <div class="bk bk-top top" id="homeswiper">
+      <div class="swiper1-wrap">
+        <div class="swiper1 swiper-container">
+          <div class="swiper-wrapper"><div class="swiper-slide"><a href="https://www.cnnic.net.cn/n4/2026/0930/c326-11686.html" target="_blank"><img src="/NMediaFile/2026/0930/MAIN1790735900753DHJ07WND4G.jpg" class="img-banner1"/></a></div>
+</div>
+        </div>
+      </div>
+      <!--div class="pagi1-wrap">
+        <div class="pagi1-box">
+          <span>1 / 6</span>
+        </div>
+      </div>-->
+    </div>
+    <script>
+      $(function () {
+        // 轮播1
+        var $slidesBig = $('.swiper1 .swiper-slide')
+        var len = $slidesBig.length
+        var $pagi = $('.pagi1-box span')
+        $pagi.html('1 / ' + len)
+
+        window.$slideBigimg = null
+        window.SWIPER1 = new Swiper('.swiper1', {
+          effect: 'slide',
+          slidesPerView: 1,
+          initialSlide: 0,
+          centeredSlides: true,
+          loop: true,
+          speed: 600,
+         autoplay: {
+             delay: 4000,
+             stopOnLastSlide: false,
+             disableOnInteraction: true,
+          },
+          pagination: {
+            el: '.swiper1-wrap .swiper-pagination',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.arrow-right3',
+            prevEl: '.arrow-left3',
+          },
+          paginationClickable: true,
+          // touchRatio: -1,
+          coverflowEffect: {
+            rotate: 0,
+            stretch: 2,
+            depth: 100,
+            modifier: 2.2,
+            slideShadows: false
+          },
+          on: {
+            init: function (swiper) {
+              // this.detachEvents()
+              console.log('this啦', this)
+            },
+            click: function () {
+              // 当前蒙版存在时候才切换内容
+            },
+            transitionStart: function (swiper) {
+              // window.$slideBigimg && $slideBigimg.removeClass('show')
+              $pagi.html(this.realIndex + 1 + ' / ' + len)
+            },
+            slideChange: function (swiper) {
+
+            }
+          }
+        })
+      })
+    </script>
+    <!-- 板块 导航文字 -->
+    <div id="hd_daohang"></div>
+    <!-- 板块 要闻 -->
+    <div class="bk main-news g-w1200">
+      <!-- 左侧轮播图 -->
+      <div class="left-swiper-wrap">
+        <div class="swiper-container-news swiper-container">
+          <div class="swiper-wrapper"><div class="swiper-slide"><a href="https://www.cnnic.net.cn/n4/2026/0930/c326-11686.html" target="_blank"><img src="/NMediaFile/2026/0930/MAIN1790740227204WWKV78BBXJ.jpg" class="img-slide" width="598" height="362"/><div class="desc">
+                <div class="page-index">
+                  <span class="num1">3</span><span class="slash"> /</span><span class="num2">6</span>
+                </div>
+                <p></p>
+</div></a></div>
+<div class="swiper-slide"><a href="https://www.cnnic.net.cn/n4/2026/0930/c326-11689.html" target="_blank"><img src="/NMediaFile/2026/1008/MAIN1791428020851CQ4OJ6TZ1S.png" class="img-slide" width="598" height="362"/><div class="desc">
+                <div class="page-index">
+                  <span class="num1">3</span><span class="slash"> /</span><span class="num2">6</span>
+                </div>
+                <p></p>
+</div></a></div>
+<div class="swiper-slide"><a href="https://www.cnnic.net.cn/n4/2026/0930/c326-11688.html" target="_blank"><img src="/NMediaFile/2026/1008/MAIN1791427967256Q930SPR8PC.jpg" class="img-slide" width="598" height="362"/><div class="desc">
+                <div class="page-index">
+                  <span class="num1">3</span><span class="slash"> /</span><span class="num2">6</span>
+                </div>
+                <p></p>
+</div></a></div>
+<div class="swiper-slide"><a href="https://www.cnnic.net.cn/n4/2026/0930/c326-11687.html" target="_blank"><img src="/NMediaFile/2026/1008/MAIN1791427828219Z50YMYX1KJ.jpg" class="img-slide" width="598" height="362"/><div class="desc">
+                <div class="page-index">
+                  <span class="num1">3</span><span class="slash"> /</span><span class="num2">6</span>
+                </div>
+                <p></p>
+</div></a></div>
+</div>
+</div>
+<div class="pagi1"></div>
+</div>
+      <!-- 右侧新闻列表 -->
+      <div class="right-news-wrap">
+        <div class="tab1-wrap">
+          <ul class="list-tab"><li>
+  <img src="/img/MAIN/2022/07/13/images/index-icon-hot.png" alt="" class="icon-hot">
+
+<span class="item-tab"><a href="/11/38/326/index.html" target="_blank">新闻动态</a></span>
+</li>
+<li>  
+<span class="item-tab"><a href="/11/39/index.html" target="_blank">通知公告</a></span>
+</li>
+<!--<li>  
+<span class="item-tab"><a href="/177/178/index.html" target="_blank">基础资源大讲堂</a></span>
+</li>
+--></ul>
+        </div>
+        <div class="tab1-news-wrap">
+            <ul class="list-news-tab1"><li><a href='/n4/2026/1008/c326-11699.html' target="_blank">第七届中国互联网基础资源大会“全标识融合应用论坛”在京召开</a></li>
+<li><a href='/n4/2026/1008/c326-11698.html' target="_blank">第七届中国互联网基础资源大会“智能经济创新发展论坛”在京召开</a></li>
+<li><a href='/n4/2026/1008/c326-11697.html' target="_blank">第七届中国互联网基础资源大会“IETF菁才交流研讨论坛”在京召开</a></li>
+<li><a href='/n4/2026/1008/c326-11696.html' target="_blank">第七届中国互联网基础资源大会“域名应用与发展论坛”在京召开</a></li>
+<li><a href='/n4/2026/1008/c326-11695.html' target="_blank">第七届中国互联网基础资源大会“域名基础设施智能与安全论坛”在京召开</a></li>
+</ul>
+            <ul class="list-news-tab1"><li><a href='/n4/2026/0917/c39-11677.html' target="_blank">关于组织开展2026年度互联网域名管理技术国家工程实验室开放课题申报工作的通知</a></li>
+<li><a href='/n4/2026/0831/c39-11669.html' target="_blank">关于征集2026年度互联网域名管理技术国家工程实验室开放课题指南建议的通知</a></li>
+<li><a href='/n4/2026/0810/c39-11663.html' target="_blank">中国互联网络信息中心2025年度部门决算</a></li>
+<li><a href='/n4/2026/0623/c326-11627.html' target="_blank">中国互联网络信息中心获批建设北京市重点实验室</a></li>
+<li><a href='/n4/2026/0622/c326-11626.html' target="_blank">防范非法金融活动宣传月|当“熟人”请求遇上网络黑手：一场关于信任与技术的攻防</a></li>
+</ul>
+            <ul class="list-news-tab1"><li><a href='/n4/2023/0428/c178-10786.html' target="_blank">王义桅：关于一带一路的十个基本问题</a></li>
+<li><a href='/n4/2023/0324/c178-10769.html' target="_blank">熊湘怡：智库的使命与功能 兼谈使命下的写作</a></li>
+<li><a href='/n4/2022/0909/c178-10214.html' target="_blank">黄澄清：谈事业单位保密与安全工作的体会和感想</a></li>
+<li><a href='/n4/2022/0909/c178-10215.html' target="_blank">李星：互联网的挑战和未来互联网的研究思路</a></li>
+<li><a href='/n4/2022/0909/c178-10216.html' target="_blank">白津夫：“十四五”数字经济发展展望</a></li>
+</ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function () {
+        var $listNews = $('.main-news .list-news-tab1')
+        $('.main-news .tab1-wrap li').first().addClass('active')
+        $('.main-news .tab1-wrap li').mouseenter(function () {
+          $(this).addClass('active').siblings().removeClass('active')
+          $listNews.eq($(this).index()).show().siblings().hide()
+        })
+        // 要闻 swiper
+        window.SWIPER1 = new Swiper('.swiper-container-news', {
+          mousewheelControl: false,
+          keyboardControl: false,
+          // effect: 'fade',
+          loop: true,
+          autoplay: true,
+          pagination: {
+            el: '.pagi1',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.arrow-right',
+            prevEl: '.arrow-left',
+          },
+          onInit: function (swiper) {
+
+          },
+          onSlideChangeEnd: function (swiper) {
+          }
+        })
+      })
+    </script>
+    <!-- 板块 服务-->
+    <div class="bk bk-service" >
+      <div class="common-tit1 g-text-center"><span class="tit1">服务大厅</span></div>
+      <div class="g-w1200 content-service">
+        <div class="left-whois">
+          <div class="whois-wrap g-text-center g-mb-30"><img src="/img/MAIN/2022/07/13/images/index-whois.png" alt="" class="whois"></div>
+<div class="keys-wrap">
+<ul class="list-key g-clearfix" id="indexServiceType"><li class="active"><span>.CN</span></li>
+<li><span>.中国</span></li>
+<li><span>.公司</span></li>
+<li><span>.网络</span></li>
+<li><span>IPv4</span></li>
+<li><span>IPv6</span></li>
+<li><span>AS号码</span></li>
+
+<script>
+  var currentWhoisType = $('#indexServiceType li')[0].innerText
+   $(function(){
+      $("#indexServiceType li").on("click",function(){
+            currentWhoisType = $(this)[0].innerText
+          $('#domain').val('')
+          $('#vcinput').val('')
+            if($(this)[0].innerText.indexOf('CN') > -1 || $(this)[0].innerText.indexOf('中国') > -1){
+        $('#indexCodeWrap').css('display','block')      
+    }else{
+        $('#indexCodeWrap').css('display','none')      
+    }
+      })
+    })
+</script></ul>
+</div>
+		  <form target="_blank" method="get" name="f" id="whois_form" accept-charset="utf-8">
+<input id="queryType" name="queryType" value="Domain" type="hidden">
+<div class="input-domain-wrap">
+<input type="text" class="input-domain input-whois" id="domain" name="domain" placeholder="请输入要查询的内容">
+<img src="/img/MAIN/2022/07/13/images/index-q.png" alt="" class="icon-q" id="searchHelp" onclick="javascript:window.open('/n4/2022/0831/c169-10193.html')">
+</div>
+<div class="input-code-wrap" id="indexCodeWrap">
+<input type="text" class="input-code" id="vcinput" name="vcinput" placeholder="请输入验证码">
+<div class="code-wrap">
+  <img id="vcimage" border="0" name="vcimage" alt="code..." align="absmiddle" src="https://webwhois.cnnic.cn/validatecode/image.jsp?0.048218440983595956" width="110" height="48">
+</div>
+</div>
+<div class="btn-search-whois-wrap" id="searchFn">
+<img src="/img/MAIN/2022/07/13/images/index-icon-search2.png" alt="" class="icon-search2" onclick="javascript:beforesubmit();">
+</div>
+</form>
+
+<script>
+function beforesubmit(){
+return true;
+}
+/*
+function beforesubmit(){
+    if($(".input-whois").val() == "")
+    {
+        alert("请输入要查询的域名");
+        return false;
+    }
+    var act = "https://webwhois.cnnic.cn/WhoisServlet?queryType=Domain&domain="+$(".input-whois").val();
+//alert(act);
+
+   window.open(act,'_blank')
+
+    //$("#whois_form").attr("action", act);
+    //$("#whois_form").submit();
+    return true;
+}
+*/
+   $(function(){
+      $('#searchHelp').on("click",function(){
+      window.open("https://cnnic.cn/sybzts/201207/t20120726_32715.htm","_blank")
+      })
+
+    $("#searchFn").on('click',function(){
+      handleSearchFn()
+    })
+
+    $("#vcimage").on('click',function(){
+      $(this).attr('src', 'https://webwhois.cnnic.cn/validatecode/image.jsp?' + Math.random())
+    })
+})
+
+function handleSearchFn(){
+   console.log(currentWhoisType )
+   if(!$('#domain').val()){
+     alert('请输入您想查询的信息,然后提交')
+     return;
+   }
+   switch(currentWhoisType){
+       case '.CN':
+       case '.中国':
+            if(!$('#vcinput').val()){
+               alert('请输入验证码')
+               return;
+             }
+            window.open('https://webwhois.cnnic.cn/WhoisServlet?queryType=Domain&domain='+$('#domain').val()+currentWhoisType+'&vcinput=' + $('#vcinput').val(),'_blank')
+            
+            break;
+      case '.公司':
+      case '.网络':
+            window.open('http://whois.ngtld.cn/WhoisServlet?queryType=domain&queryData='+$('#domain').val()+currentWhoisType+'&x=56&y=28','_blank')
+            break;
+      case 'IPv4':
+            var ipv4_1Reg =/^[ ]*(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])[ ]*$/;
+		var ipv4_2Reg =/^[ ]*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])) - ((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))[ ]*$/;
+		var ipv4_3Reg =/^[ ]*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\/([12]?[0-9]|3[012])[ ]*$/;
+            if(ipv4_1Reg.test($('#domain').val()) || ipv4_2Reg.test($('#domain').val()) || ipv4_3Reg.test($('#domain').val())){
+              
+    window.open('http://ipwhois.cnnic.cn/bns/query/Query/ipwhoisQuery.do?queryOption=ipv4&txtquery=' +$('#domain').val() ,'_blank')
+           }else{
+               alert("请输入正确的IP地址");
+		return false;
+           }
+            break;
+      case 'IPv6': 
+window.open('https://ipwhois.cnnic.cn/bns/query/Query/ipwhoisQuery.do?txtquery='+$('#domain').val()+'&queryOption=ipv6&CSRT=13716581114779199258','_blank')
+            break;
+      case 'AS号码':
+window.open('https://ipwhois.cnnic.cn/bns/query/Query/ipwhoisQuery.do?txtquery='+$('#domain').val()+'&queryOption=asn&CSRT=13716581114779199258','_blank')
+            break;
+   }
+}
+</script>
+        </div>
+        <div class="right-links-wrap">
+        <ul class="list-service g-clearfix">
+          <li><div class="top-logo"><a href="/11/191/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-service-logo1.png" alt="" class="icon-service"></a></div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0829/c70-10042.html' target="_blank">我要注册</a></div>
+<div class="item-link"><a href='/n4/2022/0916/c174-10601.html' target="_blank">注册服务机构</a></div>
+<div class="item-link"><a href='/n4/2022/0919/c90-10604.html' target="_blank">用户FAQ</a></div>
+</div></li>
+          <li><div class="top-logo"><a href="/11/192/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-service-logo2.png" alt="" class="icon-service"></a></div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0829/c71-10044.html' target="_blank">我要注册</a></div>
+<div class="item-link"><a href='/n4/2022/0916/c174-10602.html' target="_blank">注册服务机构</a></div>
+<div class="item-link"><a href='/n4/2022/0919/c90-10605.html' target="_blank">用户FAQ</a></div>
+</div></li>
+          <li><div class="top-logo"><a href="/11/193/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-service-logo3.png" alt="" class="icon-service"></a></div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0915/c77-10559.html' target="_blank">我要注册</a></div>
+<div class="item-link"><a href='/n4/2022/0722/c79-253.html' target="_blank">注册服务机构</a></div>
+<div class="item-link"><a href='/n4/2024/0206/c77-10923.html' target="_blank">用户FAQ</a></div>
+</div></li>
+          <li><div class="top-logo"><a href="/11/194/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-service-logo4.png" alt="" class="icon-service"></a></div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0915/c77-10559.html' target="_blank">我要注册</a></div>
+<div class="item-link"><a href='/n4/2022/0722/c79-253.html' target="_blank">注册服务机构</a></div>
+<div class="item-link"><a href='/n4/2024/0206/c77-10924.html' target="_blank">用户FAQ</a></div>
+</div></li>
+          <li><div class="top-logo"><a href="/11/195/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-service-logo5.png" alt="" class="icon-service"></a></div>
+  <div class="logo-desc">SDNS技术服务</div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0813/c32-321.html' target="_blank">SDNS权威云</a></div>
+<div class="item-link"><a href='/n4/2022/0829/c32-10038.html' target="_blank">SDNS递归云</a></div>
+<div class="item-link"><a href='/n4/2022/0829/c32-10040.html' target="_blank">DNS抗攻击</a></div>
+</div></li>
+          <li><div class="top-logo"><a href="/11/196/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-service-logo6.png" alt="" class="icon-service"></a></div>
+  <div class="logo-desc">云注册局服务</div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0805/c33-312.html' target="_blank">解决方案</a></div>
+<div class="item-link"><a href='/n4/2022/0805/c33-313.html' target="_blank">数据托管</a></div>
+<div class="item-link"><a href='/n4/2022/0805/c33-314.html' target="_blank">品牌保护</a></div>
+</div></li>
+          <li><div class="top-logo"><a href="/11/197/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-service-logo7.png" alt="" class="icon-service"></a></div>
+  <div class="logo-desc">IP/AS分配</div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0801/c82-266.html' target="_blank">IPv4申请</a></div>
+<div class="item-link"><a href="/n4/2022/0801/c82-266.html" target="_blank">IPv6申请</a></div><div class="item-link"><a href='/n4/2022/0801/c84-273.html' target="_blank">用户FAQ</a></div>
+</div></li>
+          <li><div class="top-logo" style="position: relative;"><a href="/11/198/index.html" target="_blank"><img src="/NMediaFile/2022/0713/MAIN1657700683064XOYB9KXA82.png" alt="" class="icon-service" width="64" style="height: 25px;position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);"></a></div>
+  <div class="logo-desc">网域产品</div>
+  <div class="bottom-links"><div class="item-link"><a href='/n4/2022/0831/c170-10194.html' target="_blank">解析系列</a></div>
+<div class="item-link"><a href="/n4/2022/0831/c170-10194.html" target="_blank">监控防护系列</a></div><div class="item-link"><a href="/n4/2022/0831/c170-10194.html" target="_blank">产品服务</a></div></div></li>
+        </ul>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function () {
+        $('.bk-service .list-key li').click(function () {
+          $(this).addClass('active').siblings().removeClass('active')
+        })
+      })
+    </script>
+    <!-- 板块 统计数据 -->
+    <div class="bk bk-tongji" >
+      <div class="content-tongji g-w1200">
+        <div class="common-tit2 g-text-center g-mb-30"><span class="tit2">统计报告数据</span></div>
+        <div class="data-wrap g-clearfix">
+          <div class="left-data-wrap g-fl"><img src="/NMediaFile/2025/0224/MAIN17403877067558VOD1NTWA8.png" class="left-data"/>
+</div>
+          <div class="right-download">
+<div class="download-wrap g-mb-25">
+<a href="/6/86/88/index.html" target="_blank"><img src="/img/MAIN/2022/07/13/images/index-download-report.png" alt="" class="icon-download"></a>
+</div>
+<div class="box-report">
+<ul class="list-download"><li><a href='/n4/2026/0304/c88-11549.html' target="_blank">第57次《中国互联网络发展状况统计报告》</a></li>
+<li><a href='/n4/2025/1226/c88-11445.html' target="_blank">《数字消费发展报告（2025）》</a></li>
+<li><a href='/n4/2025/1120/c88-11422.html' target="_blank">《从互联网大数据看中小企业发展（2025）》</a></li>
+<li><a href='/n4/2025/1021/c88-11391.html' target="_blank">《生成式人工智能应用发展报告（2025）》</a></li>
+<li><a href='/n4/2025/0721/c88-11328.html' target="_blank">第56次《中国互联网络发展状况统计报告》</a></li>
+<li><a href='/n4/2025/0117/c88-11229.html' target="_blank">第55次《中国互联网络发展状况统计报告》</a></li>
+
+</ul>
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+    <!-- 板块 科技平台 -->
+    <div class="bk bk-keji" >
+      <div class="common-tit3 g-text-center g-mb-30"><span class="tit3">科技平台</span></div>
+      <div class="content-keji g-w1200 g-clearfix">
+        <div class="left-tab2-wrap g-fl">
+<ul class="list-tab2 g-text-center"><li><a href="/n4/2022/0714/c11-208.html" target="_blank">互联网域名管理技术<br>国家工程实验室</a></li>
+<li><a href="http://bd.cnnic.cn" target="_blank">中国互联网基础资源<br>大数据平台</a></li>
+<li><a href="/5/45/46/index.html" target="_blank">国家域名基础资源<br>运行服务平台</a></li>
+  <!--<li><a href="http://www.internet.cn/" target="_blank">中国互联网博物馆</a></li>-->
+</ul>
+</div>
+        <div class="right-keji">
+<ul class="list-keji"><li><a href="/n4/2022/0714/c11-208.html" target="_blank"><img src="/NMediaFile/2022/0714/MAIN1657779561788SO7B7KJ7NT.jpg" class="img-keji" width="848" height="460"/></a></li>
+<li><a href="https://bd.cnnic.cn/" target="_blank"><img src="/NMediaFile/2022/0714/MAIN1657779599871UZGZI7NIQI.png" class="img-keji" width="848" height="460"/></a></li>
+<li><a href="/5/45/46/index.html" target="_blank"><img src="/NMediaFile/2022/0714/MAIN1657779616111TFNWGWTB6B.jpg" class="img-keji" width="848" height="460"/></a></li>
+</ul>
+</div>
+      </div>
+    </div>
+    <script>
+      $(function () {
+        var $listKeji = $('.right-keji .list-keji li')
+        $('.bk-keji .left-tab2-wrap li').first().addClass('active')
+        $('.bk-keji .left-tab2-wrap li').mouseenter(function () {
+          $(this).addClass('active').siblings().removeClass('active')
+          $listKeji.eq($(this).index()).fadeIn(400).siblings().hide()
+        })
+      })
+    </script>
+    <!-- 板块 专题 -->
+    
+    <!-- 板块 五星级注册服务机构-->
+    
+    <!-- 板块 版权信息 -->
+    <div class="bk bk-copy" >
+      <div id="bt_xinxi"></div>
+      <div id="bt_copyright"></div>
+    </div>
+    <!-- 板块 回到顶部，暂时隐藏，请忽略 -->
+    <div class="box-fixed" id="box-fixed">
+<ul class="list-fixed-btns"><button class="button-close" style="background: none;position: absolute;right: 10px;top: 4px;color: darkgrey;" onclick="javascript:turnoff('box-fixed')" title="关闭div">X</button>     
+<li class="btn-fixed-whois">
+          <img src="/img/MAIN/2022/07/11/static/images/index-fixed-search.png" alt="" class="icon-fixed">
+          <span>WHOIS查询</span>
+        </li>
+        <li class="btn-fixed-report">
+         <img src="/img/MAIN/2022/07/11/static/images/index-fixed-download.png" alt="" class="icon-fixed">
+           <a href="https://cnnic.cn/6/86/88/index.html" target="_blank"><span>
+            报告下载
+          </span></a>
+        </li>
+        <li class="btn-fixed-contactus">
+          <img src="/img/MAIN/2022/07/11/static/images/icon-lianxiwomen.png" alt="" class="icon-fixed">
+          <a href="https://cnnic.cn/n4/2022/0901/c49-10202.html" target="_blank"><span>
+            联系我们
+          </span></a>
+        </li>
+        <li class="backtop">
+          <img src="/img/MAIN/2022/07/11/static/images/index-fixed-backtop.png" alt="" class="icon-fixed">
+          <span>返回顶部</span>
+        </li>
+<script>
+        function turnoff(obj){
+            document.getElementById(obj).style.display="none";
+        }
+    </script></ul>
+</div>
+    <script>
+      $(function () {
+        if (/Android|iPhone/i.test(navigator.userAgent)) {
+          return
+        }
+        var $window = $(window)
+        var timer = null
+        var $backTop = $('.backtop')
+        var $boxFixed = $('#box-fixed')
+        $window.scroll(function () {
+          clearTimeout(timer)
+          timer = setTimeout(function () {
+            if ($window.scrollTop() > window.innerHeight / 2 + 10) {
+              // $boxFixed.fadeIn(400)
+            } else {
+              // $boxFixed.fadeOut(400)
+            }
+          }, 20)
+        })
+        $backTop.click(function () {
+          $window.scrollTop(0)
+        })
+        $('.btn-fixed-whois').click(function () {
+          $window.scrollTop($('.bk-service').offset().top)
+        })
+
+        $('.btn-fixed-report').click(function () {
+          $window.scrollTop($('.bk-tongji').offset().top)
+        })
+        $('.btn-fixed-contactus').click(function () {
+          $window.scrollTop($('.bk-copy').offset().top)
+        })
+      })
+    </script>
+</div>
+
+<!-- main结尾div,勿删 -->
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#hd_search').load('/30/26/index.html');//通用检索版块
+	$('#hd_daohang').load('/30/27/index.html');//通用导航版块
+	$('#bt_xinxi').load('/30/28/index.html');//通用网站信息版块
+	$('#bt_copyright').load('/30/29/index.html');//通用版权版块
+});
+</script>
+<script src="/img/MAIN/2022/07/9/js/jquery.cookie.js"></script>
+<script src="/img/MAIN/2022/07/9/js/md5.js"></script>
+<script src="/img/MAIN/2022/07/9/js/tool.js"></script>
+<div hidden="hidden" id="dot"></div>
+<script>
+    // 初始化 Swiper 并设置自动滚动
+    var mySwiper = new Swiper('.swiper1', {
+        // 自动滚动
+        autoplay: {
+            delay: 3000, // 自动切换的时间间隔，单位为毫秒
+            disableOnInteraction: false, // 用户操作后是否停止自动滚动
+        },
+        // 分页器
+        pagination: {
+            el: '.swiper1 .swiper-pagination', // 确保分页器的 DOM 元素路径正确
+            clickable: true, // 分页器可点击
+        },
+        // 导航按钮
+        navigation: {
+            nextEl: '.swiper1 .swiper-button-next', // 确保导航按钮的 DOM 元素路径正确
+            prevEl: '.swiper1 .swiper-button-prev',
+        },
+        // 其他可选配置
+        loop: true, // 是否循环滚动
+        speed: 500, // 切换速度，单位为毫秒
+    });
+</script>
+
+</body>
+</html>

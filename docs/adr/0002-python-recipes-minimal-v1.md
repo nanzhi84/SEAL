@@ -6,7 +6,7 @@ lang: zh
 # ADR-0002：可信 Python Recipe、Scrapy 原生执行与轻量 V1
 
 - 日期：2026-10-08
-- 状态：修订后的 V1 设计决策；尚未实现，关键集成必须通过 M0 PoC
+- 状态：已实施为 V1 第一版；合成验收与真实来源剩余条件见 Plan 第 12 节
 - 取代：[ADR-0001](0001-recipe-driven-fixed-pipeline.md) 的声明式 Recipe、算子执行器和自研任务队列；同时替换本 ADR 前版的沙箱/可信 Fetcher 推荐
 - 规范合同：[V1 Plan](../plans/v1-information-pipeline.md)；派生概览：[Generated](../generated/v1-overview.html)
 
@@ -14,7 +14,7 @@ lang: zh
 
 V1 的 Recipe 由团队开发者编写、审查和维护，不执行未经人工审查的 Agent 生成代码，也不接受外部用户任意 Python。普通 Python 能直接表达分支、循环、分页、附件引用和共享 helper。当前业务需要可靠采集、历史追溯、有限 Trial、人工审核与故障修复，不需要一个执行不可信代码的平台。
 
-仓库有独立采集实验，但没有生产管线或生产数据迁移。本修订不是以安全降级绕过现有线上约束，而是纠正未实施设计中的信任假设。实验的局部解析成绩和无有效配对的框架对比，不能当作本架构已经验收的依据。
+作出本决策时，仓库只有独立采集实验，没有生产管线或生产数据迁移。本修订不是以安全降级绕过现有线上约束，而是纠正未实施设计中的信任假设。实验的局部解析成绩和无有效配对的框架对比，不能当作本架构已经验收的依据。
 
 ## 决策
 
@@ -103,8 +103,8 @@ Procrastinate 的 [有限重试](https://procrastinate.readthedocs.io/en/stable/
 
 ## 依据与验证边界
 
-本轮核对 Context7 官方 Scrapy `/scrapy/scrapy` 与 Procrastinate `/websites/procrastinate_readthedocs_io_en_stable` 文档，并查看上文链接的 Scrapy 公开源码。latest/master 是可变资料，不是生产依赖锁；M0 必须固定实际 Python/Scrapy/reactor/Procrastinate/psycopg/解析器版本并输出有效配置，不沿用未经集成验收的 release 快照。
+设计阶段核对 Context7 官方 Scrapy `/scrapy/scrapy` 与 Procrastinate `/websites/procrastinate_readthedocs_io_en_stable` 文档，并查看上文链接的 Scrapy 公开源码。latest/master 是可变资料，不是生产依赖锁；M0 必须固定实际 Python/Scrapy/reactor/Procrastinate/psycopg/解析器版本并输出有效配置，不沿用未经集成验收的 release 快照。
 
-许可核查入口保留为实际拟采用组件：[Scrapy BSD-3-Clause](https://github.com/scrapy/scrapy/blob/master/LICENSE)、[Procrastinate MIT](https://github.com/procrastinate-org/procrastinate/blob/main/LICENSE.md)、[Parsel BSD](https://github.com/scrapy/parsel/blob/master/LICENSE)、[lxml](https://github.com/lxml/lxml/blob/master/LICENSE.txt)、[pypdf](https://github.com/py-pdf/pypdf/blob/main/LICENSE)。最终安装还需检查传递/原生依赖与部署许可；本轮未安装、测量性能或出具供应链验收。
+许可核查入口保留为实际拟采用组件：[Scrapy BSD-3-Clause](https://github.com/scrapy/scrapy/blob/master/LICENSE)、[Procrastinate MIT](https://github.com/procrastinate-org/procrastinate/blob/main/LICENSE.md)、[Parsel BSD](https://github.com/scrapy/parsel/blob/master/LICENSE)、[lxml](https://github.com/lxml/lxml/blob/master/LICENSE.txt)、[pypdf](https://github.com/py-pdf/pypdf/blob/main/LICENSE)。最终安装还需检查传递/原生依赖与部署许可；第一版已安装锁定依赖并运行合成验收，尚未测量生产性能或出具完整供应链许可验收。
 
 必须实证的风险是：归档顺序/异常传播、HTML/PDF 应用层复现、缓存归因、文件/DB 故障窗口、reactor/子进程/heartbeat、Procrastinate 事务与 stalled 恢复、旧任务 fencing、真实来源覆盖与重跑成本。参见 [Plan 风险](../plans/v1-information-pipeline.md#11-必须通过真实-poc-验证的风险) 与 [阶段验收](../plans/v1-information-pipeline.md#9-m0-至-m3-实施顺序)。文档检查不证明这些能力已实现；M0 失败先修正窄接口与合同，不默认恢复独立 Fetcher 或引入另一个复杂框架。

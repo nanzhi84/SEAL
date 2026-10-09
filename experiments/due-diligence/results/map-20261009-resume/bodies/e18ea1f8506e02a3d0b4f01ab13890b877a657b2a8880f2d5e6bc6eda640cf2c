@@ -1,0 +1,3886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript" nonce="">
+    var UC = "uc";
+    var ATTA = "atta";
+    var ZUUL="root";
+    //附件上传
+    var ctx = "";
+    var API = "/api/";
+    var attaServiceName = "atta";
+    var flowServiceName = "flow";
+    var myUserId = '';
+    var userEname = '';
+    var userType = "";
+    var orgId = '';
+    var roles = '';
+    var pageRoot = '';
+    window.HOST_TYPE = '2'
+    var xwkDict = {};
+</script>
+<link rel="stylesheet" href="/zbxUI/adminlte/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="/zbxUI/font/css/font-awesome.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/css/adminlte.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/sweetalert2/bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/toastr/toastr.min.css">
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/daterangepicker.css"/>
+<link rel="stylesheet" type="text/css" href="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.css">
+<link rel="stylesheet" href="/zbxUI/adminlte/select2/css/select2.min.css">
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/easyui/jquery.easyui.min.js"></script>
+<script  nonce="">
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+</script>
+
+<script type="text/javascript" src="/zbxUI/adminlte/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/sweetalert2/sweetalert2.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/toastr/toastr.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/moment.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/zh-cn.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/daterangepicker.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/date/tempusdominus-bootstrap-4.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/select2/js/select2.full.min.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/select2/i18n/zh-CN.js"></script>
+<script type="text/javascript" src="/zbxUI/adminlte/js/adminlte.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/md5.js"></script>
+<script type="text/javascript" src="/zbxUI/js/baiduTemplate.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/jsencrypt.js"></script>
+<!--<script type="text/javascript" src="/zbxUI/js/distpicker.min.js"></script>-->
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/additional-methods.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery-validation/messages_zh.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v3/jquery.form.min.js"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/xwkTools.min.js?20250904"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/zbxTools.min.2.0.js?20230720"></script>
+<script type="text/javascript" src="/zbxUI/js/v2/baseTools.min.2.0.js?20221207"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><meta charset="UTF-8">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<meta name="viewport" content="width=1200, initial-scale=1.0">
+<link rel="stylesheet" href="/static/dpmweb/qd/css/public.css">
+ <link rel="stylesheet" href="/static/dpmweb/qd/css/style.css">
+<link rel="stylesheet" href="/static/dpmweb/js/swiper/swiper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ffcalendar/css/calendar.css">
+<link rel="stylesheet" href="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.css">
+<link rel="stylesheet" href="/static/dpmweb/js/social-share/share-infodetail.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/picture-editing/cropper/cropper.min.css">
+<link rel="stylesheet" href="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.all.css">
+<link rel="stylesheet" href="/static/dpmweb/js/viewer/viewer.min.css">
+<script src="/static/dpmweb/js/swiper/swiper.min.js"></script>
+<script src="/static/dpmweb/js/ffcalendar/js/calendar.js"></script>
+<script src="/static/dpmweb/js/dpm.js"></script>
+<script src="/static/dpmweb/js/jquery.media.js"></script>
+<script src="/static/dpmweb/js/ekko-lightbox/ekko-lightbox.min.js"></script>
+<script src="/static/dpmweb/js/qrcode.js"></script>
+<script src="/static/dpmweb/js/jquery-mmenu/jquery.mmenu.min.all.js"></script>
+
+<script src="/static/dpmweb/js/picture-editing/cropper/cropper.js"></script>
+<script src="/static/dpmweb/js/moment.min.js"></script>
+<script src="/static/dpmweb/js/validator.js"></script>
+<script src="/zbxUI/js/jquery.steps.min.js"></script>
+<script src="/static/dpmweb/js/picker.js"></script>
+<script src="/static/dpmweb/js/viewer/viewer-jquery.min.js"></script>
+<!--<script src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>-->
+<link rel="icon" type="image/svg+xml" href="/static/dpmweb/qd/images/favicon.ico">
+<script type="text/javascript" src="/static/dpmweb/qd/js/distpicker.min.js"></script>
+<!--百度地图-->
+<script src="https://api.map.baidu.com/api?v=3.0&ak=Sa8oRtLi9EEMQHc0DGtGrITMRt4LSCOy"></script>
+<script nonce="">
+    //全局变量
+    var loginUserType = "";
+    var subAccountNo = "";
+
+    /*var editorFlagEntity = apiGet('/web/configurate/editor_flag');*/
+    var editorFlag = "T";
+    /* if(null!=editorFlagEntity){
+         editorFlag = editorFlagEntity.configValue;
+     }
+     var ifDemoApplyEntity = apiGet('/web/configurate/if_demo_apply');*/
+    var ifDemoApply = "T";
+    /* if(null!=ifDemoApplyEntity){
+         ifDemoApply = ifDemoApplyEntity.configValue;
+     }*/
+    //获取保证金支付方式文本
+    function pubBailMethodText(proId) {
+        var pub = apiGet("/web/detail/pub/" + proId).entity;
+        var pubBailMethod = pub.pubBailMethod;
+        if (doNull(pubBailMethod) != '') {
+            var pubBailMethodText = "";
+            if (pubBailMethod.indexOf('2') > -1 && pubBailMethod.indexOf('4') > -1) {
+                pubBailMethodText = "银行转账，其他";
+            } else if (pubBailMethod.indexOf('2') > -1) {
+                pubBailMethodText = "银行转账";
+            } else if (pubBailMethod.indexOf('4') > -1) {
+                pubBailMethodText = "其他";
+            }
+        }
+        return pubBailMethodText;
+    }
+
+    $(function () {
+        //当前页面导航高亮
+        var pathName = window.location.pathname;
+        var mainNav = $('.navigation-inner ul >li');
+        if (pathName == "/qd/index") {
+            mainNav.eq(0).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/qd/p/pro/index") {
+            mainNav.eq(1).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/qd/p/item/index") {
+            mainNav.eq(2).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/qd/c/jygz/") {
+            mainNav.eq(3).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/c/zcfg/xgfl/" || pathName == "/c/zcfg/zc/" || pathName == "/qd/c/zcfg/zc/gj" || pathName == "/qd/c/zcfg/zc/shengj" || pathName == "/qd/c/zcfg/zc/sj" || pathName == "/qd/c/zcfg/zc/wzwd") {
+            mainNav.eq(4).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/qd/p/html/xgxz" || pathName == "/qd/c/xgxz") {
+            mainNav.eq(5).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/qd/p/html/jrfw/") {
+            mainNav.eq(6).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/qd/c/jyfw/bmszjjyfw" || pathName == "/qd/c/jyfw/jjsysm" || pathName == "/qd/c/jyfw/wbhklj" || pathName == "/qd/c/jyfw/kjrmbhklj" || pathName == "/qd/c/jyfw/sfbz") {
+            mainNav.eq(7).addClass('current').siblings().removeClass('current')
+        }
+        else if (pathName == "/qd/c/gywm/qyjj" || pathName == "/qd/c/gywm/qywh" || pathName == "/qd/c/gywm/spjj") {
+            mainNav.eq(8).addClass('current').siblings().removeClass('current')
+        }
+        else {
+            mainNav.removeClass('current')
+        }
+
+
+        $('#menu').mmenu();
+        // 这是Pc导航
+        var qcloud = {};
+        $('[_t_nav]').hover(function () {
+            var _nav = $(this).attr('_t_nav');
+            clearTimeout(qcloud[_nav + '_timer']);
+            qcloud[_nav + '_timer'] = setTimeout(function () {
+                $('[_t_nav]').each(function () {
+                    $(this)[_nav == $(this).attr('_t_nav') ? 'addClass' : 'removeClass']('nav-up-selected');
+                });
+                $('#' + _nav).stop(true, true).slideDown(200);
+            }, 150);
+        }, function () {
+            var _nav = $(this).attr('_t_nav');
+            clearTimeout(qcloud[_nav + '_timer']);
+            qcloud[_nav + '_timer'] = setTimeout(function () {
+                $('[_t_nav]').removeClass('nav-up-selected');
+                $('#' + _nav).stop(true, true).slideUp(200);
+            }, 150);
+        });
+
+
+
+        // 返回顶部
+        $('.to_top').click(function () {
+            $('body,html').animate({ scrollTop: 0 }, 300);
+        })
+
+    })
+
+
+    //单位转换成万元
+    function toWan(v) {
+        if (doNull(v) == "" && v != 0) {
+            return "";
+        }
+        return (parseFloat(v) / 10000).toFixed(6);
+    }
+    //单位转换成元
+    function toYuan(v) {
+        if (doNull(v) == "") { return ""; }
+        return (parseFloat(v) * 10000).toFixed(2);
+    }
+
+    //是否负数
+    function isLessThenZero(numStr) {
+        return Number(numStr) < 0;
+    }
+
+    // 优化支持负数的大写
+    function getChinese(currencyDigits) {
+        var lessFlag = false;
+        if (isLessThenZero(currencyDigits)) {
+            lessFlag = true;
+        }
+        currencyDigits = Math.abs(Number(currencyDigits));
+        var MAXIMUM_NUMBER = 99999999999.99;
+        var CN_ZERO = "零";
+        var CN_ONE = "壹";
+        var CN_TWO = "贰";
+        var CN_THREE = "叁";
+        var CN_FOUR = "肆";
+        var CN_FIVE = "伍";
+        var CN_SIX = "陆";
+        var CN_SEVEN = "柒";
+        var CN_EIGHT = "捌";
+        var CN_NINE = "玖";
+        var CN_TEN = "拾";
+        var CN_HUNDRED = "佰";
+        var CN_THOUSAND = "仟";
+        var CN_TEN_THOUSAND = "万";
+        var CN_HUNDRED_MILLION = "亿";
+        var CN_SYMBOL = "人民币";
+        var CN_DOLLAR = "元";
+        var CN_TEN_CENT = "角";
+        var CN_CENT = "分";
+        var CN_INTEGER = "整";
+
+        var integral;
+        var decimal;
+        var outputCharacters;
+        var parts;
+        var digits, radices, bigRadices, decimals;
+        var zeroCount;
+        var i, p, d;
+        var quotient, modulus;
+
+        currencyDigits = currencyDigits.toString();
+        currencyDigits = currencyDigits.replace(/,/g, "");
+        currencyDigits = currencyDigits.replace(/^0+/, "");
+
+        parts = currencyDigits.split(".");
+        if (parts.length > 1) {
+            integral = parts[0];
+            decimal = parts[1];
+            decimal = decimal.substr(0, 2);
+        }
+        else {
+            integral = parts[0];
+            decimal = "";
+        }
+        digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE);
+        radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+        bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION);
+        decimals = new Array(CN_TEN_CENT, CN_CENT);
+
+        outputCharacters = "";
+        if (Number(integral) > 0) {
+            zeroCount = 0;
+            for (i = 0; i < integral.length; i++) {
+                p = integral.length - i - 1;
+                d = integral.substr(i, 1);
+                quotient = p / 4;
+                modulus = p % 4;
+                if (d == "0") {
+                    zeroCount++;
+                }
+                else {
+                    if (zeroCount > 0) {
+                        outputCharacters += digits[0];
+                    }
+                    zeroCount = 0;
+                    outputCharacters += digits[Number(d)] + radices[modulus];
+                }
+                if (modulus == 0 && zeroCount < 4) {
+                    outputCharacters += bigRadices[quotient];
+                    zeroCount = 0;
+                }
+            }
+            outputCharacters += CN_DOLLAR;
+        }
+
+        if (decimal != "") {
+            for (i = 0; i < decimal.length; i++) {
+                d = decimal.substr(i, 1);
+                if (d != "0") {
+                    outputCharacters += digits[Number(d)] + decimals[i];
+                }
+            }
+        }
+
+        if (outputCharacters == "") {
+            outputCharacters = CN_ZERO + CN_DOLLAR;
+        }
+        if (decimal == "") {
+            outputCharacters += CN_INTEGER;
+        }
+        outputCharacters = lessFlag ? '负' + outputCharacters : outputCharacters;
+        return outputCharacters;
+    }
+
+    //万元大写
+    function ChineseMillion(obj, obj2) {
+        var currencyDigits;
+        if (obj2 != null) {
+            currencyDigits = obj;
+        } else {
+            currencyDigits = $(obj).val();
+        }
+
+        var MAXIMUM_NUMBER = 99999999999.99;
+        var CN_ZERO = "零";
+        var CN_ONE = "壹";
+        var CN_TWO = "贰";
+        var CN_THREE = "叁";
+        var CN_FOUR = "肆";
+        var CN_FIVE = "伍";
+        var CN_SIX = "陆";
+        var CN_SEVEN = "柒";
+        var CN_EIGHT = "捌";
+        var CN_NINE = "玖";
+        var CN_TEN = "拾";
+        var CN_HUNDRED = "佰";
+        var CN_THOUSAND = "仟";
+        var CN_TEN_THOUSAND = "万";
+        var CN_HUNDRED_MILLION = "亿";
+        var CN_SYMBOL = "人民币";
+        var CN_DOLLAR = "元";
+        var CN_TEN_CENT = "角";
+        var CN_CENT = "分";
+        var CN_INTEGER = "整";
+        var CN_MINUS = "负";
+        var CN_TEN_THOUSAND_HUNDRED_MILLION = "万亿";
+
+        var integral;
+        var decimal;
+        var outputCharacters;
+        var parts;
+        var digits, radices, bigRadices, decimals;
+        var zeroCount;
+        var i, p, d;
+        var quotient, modulus;
+
+        currencyDigits = currencyDigits.toString();
+        currencyDigits = currencyDigits.replace(/,/g, "");
+        currencyDigits = currencyDigits.replace(/^0+/, "");
+        if (currencyDigits.indexOf(".") == -1) {
+            currencyDigits += ".000000";
+        }
+        parts = currencyDigits.split(".");
+        outputCharacters = "";
+        //"-0"
+        if (parts[0].indexOf("-") == 0 && Number(parts[0]) == 0) {
+            outputCharacters = CN_MINUS;
+        }
+        if (parts.length > 1) {
+            integral = Number(parts[0]) * 10000;
+            integral = integral.toString();
+            decimal = parts[1];
+            decimal = decimal.substr(0, 6);
+        }
+        else {
+            integral = parts[0];
+            decimal = "";
+        }
+
+        digits = new Array(CN_ZERO, CN_ONE, CN_TWO, CN_THREE, CN_FOUR, CN_FIVE, CN_SIX, CN_SEVEN, CN_EIGHT, CN_NINE);
+        radices = new Array("", CN_TEN, CN_HUNDRED, CN_THOUSAND);
+        bigRadices = new Array("", CN_TEN_THOUSAND, CN_HUNDRED_MILLION, CN_TEN_THOUSAND_HUNDRED_MILLION);
+        decimals = new Array(CN_THOUSAND, CN_HUNDRED, CN_TEN, CN_DOLLAR, CN_TEN_CENT, CN_CENT);
+
+
+        if (Number(integral) < 0) {
+            integral = Math.abs(Number(integral));
+            integral = integral.toString();
+            outputCharacters = CN_MINUS;
+        }
+
+        if (Number(integral) > 0) {
+            zeroCount = 0;
+            for (i = 0; i < integral.length; i++) {
+                p = integral.length - i - 1;
+                d = integral.substr(i, 1);
+                quotient = p / 4;
+                modulus = p % 4;
+                if (d == "0") {
+                    zeroCount++;
+                }
+                else {
+                    if (zeroCount > 0) {
+                        outputCharacters += digits[0];
+                    }
+                    zeroCount = 0;
+                    outputCharacters += digits[Number(d)] + radices[modulus];
+                }
+                if (modulus == 0 && zeroCount < 4) {
+                    outputCharacters += bigRadices[quotient];
+                    zeroCount = 0;
+                }
+
+            }
+            //outputCharacters += CN_TEN_THOUSAND;
+        }
+
+        if (decimal != "") {
+            for (i = 0; i < decimal.length; i++) {
+                d = decimal.substr(i, 1);
+                if (d != "0") {
+                    outputCharacters += digits[Number(d)] + decimals[i];
+                }
+            }
+        }
+
+        if (outputCharacters == "" || outputCharacters == CN_MINUS) {
+            outputCharacters = CN_ZERO + CN_TEN_THOUSAND;
+        }
+        if (decimal == "") {
+            outputCharacters += CN_INTEGER;
+        }
+        outputCharacters = outputCharacters;
+        if (obj2 != null) {
+            //var id=$(obj).attr("id");
+            // $("nobr").remove("#nobr_"+id);
+            //$(obj).parent().append('<nobr id="nobr_'+id+'">' + outputCharacters + '</nobr>');
+            return outputCharacters;
+        } else {
+            $(obj).parent().find('nobr').remove();
+            $(obj).parent().append('<nobr>' + outputCharacters + '</nobr>');
+        }
+    }
+    //数字价格(元)==》汉字价格(元)
+    function bigTxtYuan(textId, val) {
+        var vt = getChinese(val);
+        $("#" + textId).html("(" + vt + ")");
+    }
+    //数字价格(万元)==》汉字价格(万元)
+    function bigTxtWanYuan(textId, val) {
+        var vt = ChineseMillion(val, '-');
+        $("#" + textId).html("(" + vt + ")");
+    }
+    // 附件类型的反显
+    function getAttaType(originalFlag, electronicFlag, copyFlag) {
+        var str = "";
+        if (originalFlag == "T") {
+            str += "原件 ";
+        }
+        if (copyFlag == "T") {
+            str += "复印件 ";
+        }
+        if (electronicFlag == "T") {
+            str += "电子版 "
+        }
+        return str;
+    }
+
+    // 获取当前location
+    function getUrl() {
+        var url = "/qd/p/login";
+        //var domainName = window.location.protocol;
+        //url = domainName+url;
+        return url;
+    }
+
+    function createProDo(templateCode, proId) {
+        xwkPost(ATTA, "/createWord/" + templateCode + "?proId=" + proId, "", createDoOk)
+    }
+    function createCertDo(templateCode, proId) {
+        var cert = apiGet("my/cert/" + proId).entity;
+        xwkPost(ATTA, "/createWord/" + templateCode + "?certId=" + cert.certId, "", createDoOk)
+    }
+    function createDoOk(data) {
+        xwkPost(ATTA, "/download/", "fullFileName=" + data.message, downCallback);
+    }
+    function downCallback(data) {
+        var token = data.message;
+        window.open("/api/" + ATTA + "/download/?token=" + token);
+    }
+
+    function getAttaType(originalFlag, electronicFlag, copyFlag) {
+        var str = "";
+        if (originalFlag == "T") {
+            str += "原件 ";
+        }
+        if (copyFlag == "T") {
+            str += "复印件 ";
+        }
+        if (electronicFlag == "T") {
+            str += "电子版 "
+        }
+        return str;
+    }
+
+    /*==============附件相关start================*/
+    function batchUploadCb(res, formName) {
+        if (res.result == 'T') {
+            var id = formName.split("_")[1];
+            var fileUrls = res.message;
+            var storeIds = res.entity;
+            if (doNull(fileUrls) != '') {
+                fileUrls = fileUrls.substr(0, fileUrls.length - 1)
+                storeIds = storeIds.substr(0, storeIds.length - 1)
+            }
+            apiPut('/proAtta/' + id, 'templateUrl=' + fileUrls.replaceAll(",", "|") + '&storeIds=' + storeIds.replaceAll(",", "|"), proAttaList);
+        } else {
+            XWK.alert(res.message);
+        }
+    }
+    function proAttaListCb() {
+        $("div[id^='attaList_']").each(function () {
+            var id = $(this).attr("id").split("_")[1];
+            proAttaFileList(id, "attaList_");
+        })
+    }
+    function proAttaFileList(id, boxName) {
+        xwkLoad(ATTA, "/store/?objId=" + id + "&attaKey=dpm_proAtta_file", "atta-list_html", boxName + id);
+    }
+    function quickBatchUpload(id, callback) {
+        // 批量存储时，无法对应到proAttaId，所以id为pro或者packId，将返回值存储在proAtta中
+        attaUpload('dpm_proAtta_file', id, '项目公开附件', callback)
+    }
+    function continueUpload(proAttaId, proAttaName, callback) {
+        attaUpload('dpm_proAtta_file', proAttaId, proAttaName, callback);
+    }
+    // 删除附件信息
+    function delProAtta(index, storeIds, electronicUrl, proAttaId, callback) {
+        XWK.confirm.xwkDelete(ATTA, '/store/' + storeIds.split('|')[index], '该附件', function () {
+            var electronicUrlArr = electronicUrl.split("|");
+            var storeIdsArr = storeIds.split("|");
+            electronicUrlArr.splice(index, 1);
+            storeIdsArr.splice(index, 1);
+            // 组装字段
+            var newTemp = "";
+            var newIds = "";
+            for (var i = 0; i < electronicUrlArr.length; i++) {
+                newTemp += electronicUrlArr[i] + "|";
+            }
+            for (var i = 0; i < storeIdsArr.length; i++) {
+                newIds += storeIdsArr[i] + "|";
+            }
+            // 修改proAtta的信息
+            apiPut("/proAtta/" + proAttaId, "electronicUrl=" + newTemp.substring(0, newTemp.length - 1) + "&storeIds=" + newIds.substring(0, newIds.length - 1), callback);
+        })
+    }
+    //渲染详情页附件
+    function loadPubAtta(proId, tableView) {
+        if (document.getElementById("important_electronicUrl_file")) {
+            var proAttaImportantList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_important").rows;
+            if (proAttaImportantList.length > 0) {
+                var electronicUrl = proAttaImportantList[0].electronicUrl;
+                var storeIds = proAttaImportantList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#important_electronicUrl_file').empty();
+                    $('#' + tableView).find('#important_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("bidMethodContent_electronicUrl_file")) {
+            var proAttaBidMethodList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_bidMethodContent").rows;
+            if (proAttaBidMethodList.length > 0) {
+                var electronicUrl = proAttaBidMethodList[0].electronicUrl;
+                var storeIds = proAttaBidMethodList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#bidMethodContent_electronicUrl_file').empty();
+                    $('#' + tableView).find('#bidMethodContent_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("buyerCondition_electronicUrl_file")) {
+            var proAttaBuyerList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_buyerCondition").rows;
+            if (proAttaBuyerList.length > 0) {
+                var electronicUrl = proAttaBuyerList[0].electronicUrl;
+                var storeIds = proAttaBuyerList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#buyerCondition_electronicUrl_file').empty();
+                    $('#' + tableView).find('#buyerCondition_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("sellerConditions_electronicUrl_file")) {
+            var proAttaSellerList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_sellerConditions").rows;
+            if (proAttaSellerList.length > 0) {
+                var electronicUrl = proAttaSellerList[0].electronicUrl;
+                var storeIds = proAttaSellerList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#sellerConditions_electronicUrl_file').empty();
+                    $('#' + tableView).find('#sellerConditions_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("capitalIncreasePlan_electronicUrl_file")) {
+            var proAttaCapitalIncreasePlanList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_capitalIncreasePlan").rows;
+            if (proAttaCapitalIncreasePlanList.length > 0) {
+                var electronicUrl = proAttaCapitalIncreasePlanList[0].electronicUrl;
+                var storeIds = proAttaCapitalIncreasePlanList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#capitalIncreasePlan_electronicUrl_file').empty();
+                    $('#' + tableView).find('#capitalIncreasePlan_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("dealCondition_electronicUrl_file")) {
+            var proAttaDealConditionList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_dealCondition").rows;
+            if (proAttaDealConditionList.length > 0) {
+                var electronicUrl = proAttaDealConditionList[0].electronicUrl;
+                var storeIds = proAttaDealConditionList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#dealCondition_electronicUrl_file').empty();
+                    $('#' + tableView).find('#dealCondition_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("pubOthers_electronicUrl_file")) {
+            var proAttaPubOthersList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubOthers").rows;
+            if (proAttaPubOthersList.length > 0) {
+                var electronicUrl = proAttaPubOthersList[0].electronicUrl;
+                var storeIds = proAttaPubOthersList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#pubOthers_electronicUrl_file').empty();
+                    $('#' + tableView).find('#pubOthers_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("bailMemo_electronicUrl_file")) {
+            var proAttaBailMemoList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubBailMemo").rows;
+            if (proAttaBailMemoList.length > 0) {
+                var electronicUrl = proAttaBailMemoList[0].electronicUrl;
+                var storeIds = proAttaBailMemoList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#bailMemo_electronicUrl_file').empty();
+                    $('#' + tableView).find('#bailMemo_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("seWay_electronicUrl_file")) {
+            var proAttaSeWayList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_seWay").rows;
+            if (proAttaSeWayList.length > 0) {
+                var electronicUrl = proAttaSeWayList[0].electronicUrl;
+                var storeIds = proAttaSeWayList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#seWay_electronicUrl_file').empty();
+                    $('#' + tableView).find('#seWay_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("pubWayDesc_electronicUrl_file")) {
+            var proAttaPubWayDescList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubWayDesc").rows;
+            if (proAttaPubWayDescList.length > 0) {
+                var electronicUrl = proAttaPubWayDescList[0].electronicUrl;
+                var storeIds = proAttaPubWayDescList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#pubWayDesc_electronicUrl_file').empty();
+                    $('#' + tableView).find('#pubWayDesc_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("pubBailMemo_electronicUrl_file")) {
+            var proAttaPubBailMemoList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_pubBailMemo").rows;
+            if (proAttaPubBailMemoList.length > 0) {
+                var electronicUrl = proAttaPubBailMemoList[0].electronicUrl;
+                var storeIds = proAttaPubBailMemoList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#pubBailMemo_electronicUrl_file').empty();
+                    $('#' + tableView).find('#pubBailMemo_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+        if (document.getElementById("buyerPromise_electronicUrl_file")) {
+            var proAttaBuyerPromiseList = apiGet("/web/proAtta?objId=" + proId + "&proAttaCode=pub_buyerPromise").rows;
+            if (proAttaBuyerPromiseList.length > 0) {
+                var electronicUrl = proAttaBuyerPromiseList[0].electronicUrl;
+                var storeIds = proAttaBuyerPromiseList[0].storeIds;
+                if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                    var opStr = '';
+                    var electronicUrlAttr = electronicUrl.split("|");
+                    for (var i = 0; i < electronicUrlAttr.length; i++) {
+                        opStr += '</br>';
+                        opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                        opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    }
+                    console.log("tableView::", tableView);
+                    $('#' + tableView).find('#buyerPromise_electronicUrl_file').empty();
+                    $('#' + tableView).find('#buyerPromise_electronicUrl_file').append(opStr);
+                }
+            }
+        }
+    }
+    //删除单附件
+    function delProAttaSingle(type, storeIds, proAttaId, callback) {
+        XWK.confirm.xwkDelete(ATTA, '/store/' + storeIds, '该附件', function () {
+            // 修改proAtta的信息
+            if (doNull(proAttaId) != '') {
+                apiPut("/proAtta/" + proAttaId, type + "=&storeIds=", callback);
+            }
+        })
+    }
+    /*==============附件相关end================*/
+    function updateModel() {
+        alert("该模板需要根据您的需求定制，请联系系统建设单位！");
+    }
+    function printBill() {
+        alert("该单据需要根据您的需求定制，请联系系统建设单位！");
+    }
+    function getMainStatus(mainStatus, exceptionStatus) {
+        if (exceptionStatus != null && exceptionStatus != 0) {
+            if (exceptionStatus == '1') {
+                return "中止";
+            } else if (exceptionStatus == '3') {
+                return "终结";
+            } else if (exceptionStatus == '4') {
+                return "流拍";
+            } else if (exceptionStatus == '5') {
+                return "异常结束";
+            }
+        } else {
+            if (mainStatus == 0) {
+                return "录入中";
+            } else if (mainStatus == 10) {
+                return "审核中";
+            } else if (mainStatus == 1) {
+                return "退回";
+            } else if (mainStatus == 2) {
+                return "已撤回";
+            } else if (mainStatus == 5) {
+                return "待认领";
+            } else if (mainStatus == 30) {
+                return "挂牌中";
+            } else if (mainStatus == 40) {
+                return "等待竞价";
+            } else if (mainStatus == 70) {
+                return "竞价中";
+            } else if (mainStatus >= 79 && mainStatus < 100) {
+                return "已成交";
+            } else if (mainStatus == 100) {
+                return "已归档";
+            }
+        }
+
+    }
+    function iconChange(obj, id, type) {
+        if ($(obj).attr("class").indexOf("fa-xmark") > -1) {
+            $(obj).removeClass().addClass("fas fa-check text-success");
+            apiPut('/proAtta/' + id, type + 'Flag=T');
+        } else {
+            $(obj).removeClass().addClass("fas fa-xmark text-danger");
+            apiPut('/proAtta/' + id, type + 'Flag=F');
+        }
+    }
+    /*====================签章合同=================*/
+    function downloadFile(contactId) {
+        apiPost('/web/fdd/downloadContract/' + contactId + '?fileIdType=contactId', '', downloadFileCb);
+    }
+    function downloadFileCb(data) {
+        console.log(data);
+        window.open(data.message);
+    }
+
+    function myLoadEditor(idName, width, height, defRemark) {
+        if (doNull(editorFlag) == "F") {
+            return;
+        }
+        if (doNull(width) == "") width = document.getElementById(idName).style.width;
+        if (doNull(height) == "") height = document.getElementById(idName).style.height;
+        if (doNull(width) == "") width = '100%';
+        if (doNull(height) == "") height = 500;
+        if (doNull(defRemark) == "") defRemark = '';
+        //window.editor = KindEditor.create('#'+idName,{
+        KindEditor.create('#' + idName, {
+            resizeType: 1,
+            width: width,
+            height: height,
+            afterFocus: function (e) {//鼠标获取焦点
+                if (this.html() == defRemark) { this.html(defRemark); }
+            },
+            afterBlur: function (e) {
+                this.sync();
+                if (this.html() == "" || $('#' + idName).val().replace(/\s/g, "") == "") { this.html(defRemark); }
+            },
+            /* afterChange : function() {
+                 $('.word_count1').html(this.count()); //字数统计包含HTML代码
+                 $('.word_count2').html(this.count('text'));  //字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字
+                 var limitNum = 2000;  //设定限制字数
+                 var pattern = "0/"+limitNum;
+                 $('.word_surplus').html(pattern); //输入显示
+                 if(this.count('text') > limitNum) {
+                     pattern = ('字数超过限制，请适当删除部分内容');
+                     //超过字数限制自动截取
+                     var strValue = this.html();
+                      strValue = strValue.substring(0,limitNum);
+                     this.html(strValue);
+                 } else {
+                 //计算剩余字数
+                     //var result = limitNum - this.count('text');
+                     pattern = this.count('text') + '/'+limitNum;
+                 }
+                 $('#'+idName+'_num').html(pattern); //输入显示
+             },*/
+            allowImageUpload: true
+        });
+    }
+
+    //=====数字位数大写等处理=====start===
+
+    function getTitleName(thsTitle) {
+        $("#div_title").attr('title', thsTitle);
+        $("#main ul li a span").first().html(thsTitle);
+    }
+
+    //只能输入数字（包含小数）
+    function numberType(obj) {
+        var va = obj.value;
+        if (isNaN(va)) {
+            obj.value = '';
+            XWK.alert('请输入正确的数值！', 'error');
+            return;
+        }
+        va = Number(va);
+        var flag = /^\d+(\.\d+)?$/.test(va);
+        if (!flag) {
+            obj.value = va.replace(/[^\d\.]/g, '');
+        } else {
+            obj.value = va;
+        }
+    }
+    //只能输入数字（包含小数和负数）
+    function numberTypeFloat(obj) {
+        var va = obj.value;
+        if (isNaN(va)) {
+            obj.value = '';
+            XWK.alert('请输入正确的数值！', 'error');
+            return;
+        }
+        va = Number(va);
+        var flag = /^(-)?\d+(\.\d+)?$/.test(va);
+        if (!flag) {
+            obj.value = va.replace(/[^\d\.-]/g, '');
+        } else {
+            obj.value = va;
+        }
+    }
+    //只能输入数字（不包含小数和负数）
+    function numberTypeInt(obj) {
+        var va = obj.value;
+        if (isNaN(va)) {
+            obj.value = '';
+            XWK.alert('请输入正确的数值！', 'error');
+            return;
+        }
+        va = Number(va);
+        var flag = /^[0-9]*$/.test(va);
+        if (!flag) {
+            //alert("请您输入正整数！")
+            obj.value = va.replace(/[^\d]/g, '');
+        } else {
+            obj.value = va;
+        }
+    }
+    //保留小数位数
+    function numberPoint(obj, length) {
+        var va = obj.value;
+        var vaback = va;
+        if (/^-/.test(va)) {
+            numberTypeFloat(obj);
+        } else {
+            numberType(obj);
+        }
+        var va = obj.value;
+        if (va == '' && vaback == 'T') {
+            obj.value = vaback;
+        }
+        if (isNaN(va) && vaback != 'T') {
+            obj.value = "";
+            return;
+        }
+        if (doNull(va) != '' && doNull(length) != '') {
+            var s = va.indexOf('.');
+            if (s == 0) {
+                obj.value = "";
+                return;
+            }
+            var s2 = va.indexOf('-.');
+            if (s2 == 0) {
+                obj.value = "";
+                return;
+            }
+            if (s < 0) {
+                var zero = ".";
+                for (var i = 0; i < length; i++) {
+                    zero += "0";
+                }
+                obj.value = va + zero;
+            } else {
+                var len = va.substring(s + 1, va.length).length;//小数点后数字的长度
+                if (len < length) {
+                    for (var j = 0; j < length - len; j++) {
+                        obj.value += "0";
+                    }
+                } else {
+                    obj.value = obj.value.substring(0, s + 1 + length);
+                }
+
+            }
+        }
+    }
+    //=====数字位数大写等处理=====end===
+    function uenV(obj) {
+        var va = obj.value;
+        var flag = /^[a-zA-Z][a-zA-Z0-9_]{4,30}$/.test(va);
+        if (!flag) {
+            XWK.alert("登录名应为5-30位字符，必须以英文字母开头，支持英文字母、数字、_的组合。用户名注册后不可修改！")
+            obj.value = ''
+            // return /^[a-zA-Z][a-zA-Z0-9_]{5,15}$/i.test(value);
+        }
+    }
+
+    function loadCms() {
+        $("xwk_cms").each(function () {
+            loadComp(this, $(this).attr("type"), $(this).attr("code"))
+        })
+    }
+    function loadComp(obj, type, code) {
+        $.ajax({
+            type: 'get',
+            url: "/web/qd/" + type + "/" + code,
+            dataType: 'text',
+            success: function (myData) {
+                $(obj).html(myData);
+            }
+        });
+    }
+    function capFirstLetter(string, proCode) {
+        if (string == "utrh" || string == "utrl") {
+            string = "utrm";
+        }
+        if ("HA2021DF500030,HA2020DF500048,HA2020DF500044,HA2020DF500034,HA2020DF500033".indexOf(proCode) >= 0) {
+            string = "utrg";
+        }
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+    function getProPricePub(proId) {
+        var proUtrz = apiGet("/web/utrz/details/pro/" + proId).entity;
+        if (null != proUtrz) {
+            return proUtrz.proPricePub;
+        }
+    }
+    //判断项目状态代码，修改前请与领导确认。涉及很多页面反显
+    function getMainStartAndExp(mainStatus, exceptionStatus, proType, dealTime, pubFlag, objType) {
+        if (objType == 'pack') {
+            //return ["详见公告","label_gray"];
+            return ["详见公告"];
+        }
+        if (pubFlag == 'T') {
+            return ["已归档", "label_gray"];
+        } else if (proType == 'P3' || proType == 'PG6') {
+            if (exceptionStatus == "1") {
+                return ["已中止", "label_gray"];
+            } else if (exceptionStatus == "3") {
+                return ["已终结", "label_gray"];
+            } else if (parseFloat(mainStatus) == 30 && exceptionStatus == "0") {
+                return ["挂牌中"];
+            } else {
+                return ["无人报名已撤牌", "label_gray"];
+            }
+        } else {
+            if (exceptionStatus == "1") {
+                return ["已中止", "label_gray"];
+            } else if (exceptionStatus == "3") {
+                return ["已终结", "label_gray"];
+            } else if (exceptionStatus == "4") {
+                return ["已流拍", "label_gray"];
+            } else if (exceptionStatus == "5") {
+                return ["已结束", "label_gray"];
+            } else {
+                if (parseFloat(mainStatus) == 30) {
+                    return ["挂牌中"];
+                } else if (parseFloat(mainStatus) > 37 && doNull(dealTime) == '') {
+                    return ["信息发布结束", "label_green"];
+                } else if (doNull(dealTime) != '') {
+                    return ["已成交", "label_green"];
+                } else if (parseFloat(mainStatus) == 37) {
+                    return ["无人报名已撤牌", "label_gray"];
+                }
+            }
+        }
+    }
+    function getCompArea(proId) {
+        var comp = apiGet("/web/detail/comp/" + proId).entity;
+        return doNull(comp.city);
+    }
+    //委托项目表单用dpm的表单，将dpm的js写到前台======开始
+    function showUtrgForm(gzType) {
+        if (gzType == 'P3') {
+            $('.show3').show();
+            $('.showP3').show();
+        } else if (gzType == 'G3') {
+            $('.show3').show();
+            $('.showG').show();
+            $('.showG3').show();
+        } else if (gzType == 'G0') {
+            $('.showG').show();
+            $('.showG0').show();
+        } else if (gzType == 'T3') {
+            $('.show3').show();
+        }
+    }
+    function loadPubProAtta(objId, form, code, name) {
+        if (doNull(form) == '') {
+            form = "pubForm";
+        }
+        var proAttaList = apiGet("/proAtta?objId=" + objId + "&proAttaCode=" + code).rows;
+        var electronicUrlAttr = '';
+        var uploadStr = '';
+        var opStr = '';
+        if (proAttaList.length > 0) {
+            var electronicUrl = proAttaList[0].electronicUrl;
+            var storeIds = proAttaList[0].storeIds;
+            if (doNull(electronicUrl) != '' && doNull(storeIds) != '') {
+                electronicUrlAttr = electronicUrl.split("|");
+                var storeIdsAttr = storeIds.split("|");
+                for (var i = 0; i < electronicUrlAttr.length; i++) {
+                    opStr += '</br>';
+                    opStr += '<i class="fa fa-download text-success mr-1"></i>';
+                    opStr += '<a  target="_blank" href="' + electronicUrlAttr[i] + '" >' + electronicUrlAttr[i].split("/")[electronicUrlAttr[i].split("/").length - 1].split(".")[0] + '</a>';
+                    opStr += '<span style="cursor:pointer" class="ml-3" onclick="delPubAtta(\'' + i + '\', \'' + storeIds + '\', \'' + electronicUrl + '\', \'' + proAttaList[0].proAttaId + '\',\'' + code + '\',\'' + name + '\', renderFile)"><i class="fal fa-trash"></i> 删除</span>';
+                }
+                console.log("code::", code);
+                console.log("code1::", code + '_electronicUrl_file');
+                // $('#'+form).find('#'+code+'_electronicUrl_file').attr("href",electronicUrl);
+                // $('#'+form).find('#'+code+'_electronicUrl_file').show();
+            }
+            $('#' + form).find('#' + code + '_electronicUrl_file').empty();
+            $('#' + form).find('#' + code + '_electronicUrl_file').append(opStr);
+        }
+        if (electronicUrlAttr.length > 0) {
+            uploadStr = '<button type="button" class="btn btn-outline-primary btn-sm mr-1" onclick="upLoadatta(\'' + objId + '\',\'' + name + '\',\'' + code + '\')"><i class="fas fa-cloud-upload"></i> 继续上传</a>';
+        } else {
+            uploadStr = '<button type="button" class="btn btn-outline-primary btn-sm mr-1" onclick="upLoadatta(\'' + objId + '\',\'' + name + '\',\'' + code + '\')"><i class="fas fa-cloud-upload"></i> 上传附件</a>';
+        }
+        $('#' + form).find('#' + code + '_upload').empty();
+        $('#' + form).find('#' + code + '_upload').append(uploadStr);
+    }
+    function checkProTypeGroup(key, value) {
+        proType = key;
+        $('#TypeGroup').remove();
+        $("#" + key).prepend("<span class='badge bg-success' id='TypeGroup'><i class='fas fa-check'></i></span>");
+        $("#proForm").find("input[name='proType']").val(key)
+        $("#proForm").find("input[name='proTypeTxt']").val(value)
+    }
+    function checkPackTypeGroup(key, value) {
+        packType = key;
+        $('#TypeGroup').remove();
+        $("#" + key).prepend("<span class='badge bg-success' id='TypeGroup'><i class='fas fa-check'></i></span>");
+        $("#packForm").find("input[name='packType']").val(key)
+        $("#packForm").find("input[name='packTypeTxt']").val(value)
+    }
+    //隐藏动态报价
+    function hideDynamicEdit() {
+        //河南开放动态报价20240522
+        if (systemIfBiddyn != 'T') {
+            //$("[name='ifBiddyn']").filter("[value='T']").hide();
+            $(".showIfBiddyn").hide();
+            $("input[name='ifBiddyn'][value='T']").attr("checked", false);
+            $("input[name='ifBiddyn'][value='F']").attr("checked", true);
+        }
+    }
+    function myBatchUploadSingleCback(data) {
+        console.log("11111111111", proId)
+        console.log("11111111111", proAttaId)
+        // 将附件存储在proAtta
+        apiPut("/proAtta/batch/" + proAttaId, "objId=" + proAttaId + "&openFlag=F&electronicUrl=" + (data.message).replaceAll(",", "|") + "&storeIds=" + (data.entity).replaceAll(",", "|"), attaCallback);
+    }
+    function delayTypeClick() {
+        var delayType = doNull($("input[name='delayType']:checked").val());
+        if (delayType == "T") {
+            $('#delayMaxInput').attr("required", "ture");
+        } else {
+            $('#delayMaxInput').removeAttr("required");
+            $('#delayMaxInput').val("");
+            $('#delayMax').val("999");
+        }
+        $("#delayMaxInput").valid()
+    }
+    function hideIfDemoApply() {
+        if (ifDemoApply == 'F') {
+            $(".ifDemoApply").hide();
+        } else {
+            $(".ifDemoApply").show();
+        }
+    }
+    //获取完整的项目状态，标的和包通用
+    /*  function getUnityProMainStatus(obj){
+          return getMainStatusdpm(obj.mainStatus,obj.pubFlag)+"<span class='text-danger'>"+getRepubFlagdpm(obj.repubFlag,obj.exceptionStatus)+"</span>";
+      }*/
+    function getRepubFlag(v0, v1) {
+        var opStr = "";
+        if (v0 == 'T') {
+            opStr = "（重新挂牌）";
+        } else {
+            opStr = getExceptionStatus(v1);
+        }
+        return opStr;
+    }
+    function getExceptionStatus(v) {
+        var opStr = "";
+        if (v == '0') {
+            opStr = "";
+        } else if (v == '1') {
+            opStr = "（中止）";
+        } else if (v == '3') {
+            opStr = "（终结）";
+        } else if (v == '4') {
+            opStr = "（流拍）";
+        } else if (v == '5') {
+            opStr = "（异常结束）";
+        }
+        return opStr;
+    }
+    function hideDynamicView() {
+        //河南开放动态报价20240522
+        if (systemIfBiddyn != 'T') {
+            $(".showIfBiddyn").hide();
+        }
+    }
+    /*var orgCode = apiGet('/configurate/org_code').entity;*/
+    function openUrl(type, objId) {
+        if (doNull(objId) != "") {
+            proId = objId;
+        }
+        window.open("/qd/detail/pro/" + proId);
+    }
+    function attaCallback(data) {
+        templateUrl = data;
+        renderFile();
+    }
+    //获取完整的项目状态，标的和包通用
+    function getUnityProMainStatus(obj) {
+        return getMainStatusdpm(obj.mainStatus, obj.pubFlag) + "<span class='text-danger'>" + getRepubFlagdpm(obj.repubFlag, obj.exceptionStatus) + "</span>";
+    }
+    function pubProAttaCallback() {
+        if (doNull(electronicUrl) != '') {
+            $('#' + proAttaCode + '_electronicUrl_file').attr("href", electronicUrl);
+            $('#' + proAttaCode + '_electronicUrl_file').show();
+        }
+    }
+    function renderFile() {
+        var code = $("#proAttaPubForm").find("input[name='proAttaCode']").val();
+        var name = $("#proAttaPubForm").find("input[name='proAttaName']").val();
+        loadPubProAtta(proId, "pubForm", code, name);
+    }
+    function getMainStatusdpm(v, v0) {
+        var opStr = "";
+        if (v == '0') {
+            opStr = "暂存";
+        } else if (v == '1') {
+            opStr = "退回";
+        } else if (v == '2') {
+            opStr = "已撤回";
+        } else if (v == '5') {
+            opStr = "待认领";
+        } else if (v == '10') {
+            opStr = "审核中";
+        } else if (v == '30') {
+            opStr = "挂牌中";
+        } else if (v == '35') {
+            opStr = "延牌";
+        } else if (v == '37') {
+            opStr = "撤牌";
+        } else if (v == '40') {
+            opStr = "摘牌";
+        } else if (v == '70') {
+            opStr = "组织交易";
+        } else if (v == '79') {
+            opStr = "已成交";
+        } else if (v == '84') {
+            opStr = "价款划入单据生成";
+        } else if (v == '86') {
+            opStr = "划入价款完成";
+        } else if (v == '88') {
+            opStr = "合同上传完成";
+        } else if (v == '90') {
+            opStr = "成交确认";
+        } else if (v == '92') {
+            opStr = "交易凭证已生成";
+        } else if (v == '93') {
+            opStr = "生成价款划出单据";
+        } else if (v == '94') {
+            opStr = "价款已划出";
+        }
+        if (v0 == 'T') {
+            opStr += "（归档）";
+        }
+        if (v == '100') {
+            opStr = "归档";
+        }
+        return opStr;
+    }
+
+    function getRepubFlagdpm(v0, v1) {
+        var opStr = "";
+        if (v0 == 'T') {
+            opStr = "（重新挂牌）";
+        } else {
+            opStr = getExceptionStatus(v1);
+        }
+        return opStr;
+    }
+    //委托项目表单用dpm的表单，将dpm的js写到前台======结束
+
+    //判断是否登录
+    function ifLogin() {
+        var loginUser = 'LoginUser(userId=, userEname=null, userCname=null, deptId=null, deptIds=null, deptEname=null, deptCname=null, orgId=null, orgIds=null, orgEname=null, orgCname=null, clientId=null, roles=null, ipAddress=null, initPwdFlag=null, passwordSSHA=null)'
+        var loginUserCname = ''
+        var flag = false
+        if (loginUser && loginUserCname) {
+            flag = true
+        }
+        console.log(flag)
+        return flag
+    }
+
+    //申请开通子账户
+    var applySubAccountLock = false;
+    function applySubAccount() {
+        //防重复提交
+        if (applySubAccountLock) return;
+        applySubAccountLock = true;
+        //检查是否已实名认证
+        if (subAccountNo == '') {
+            //认证
+            var user = getEntity("/user/");
+            if (user && doNull(user.auditFlag) != "T") {
+                XWK.alert("请先认证！", "error");
+                applySubAccountLock = false;
+                return 'F';
+            }
+            //自然人
+            if (doNull(loginUserType) == 'A11002') {
+                /*if(loginUserAuthFlag=='F'){
+                    XWK.alert("请先实名认证！","error");
+                    return 'F';
+                }*/
+                //个人用户需要检查银行账号
+                if (doNull(loginUserType) == 'A11002') {
+                    var userBanks = apiGet("/my/userBank?mainStatus=W").rows;
+                    if (userBanks.length != 1) {
+                        XWK.alert('请先到资金管理-我的银行卡-添加银行卡！', 'error');
+                        applySubAccountLock = false;
+                        return;
+                    }
+                }
+            }
+
+            applySubAccountDo();
+        } else {
+            applySubAccountLock = false;
+            window.location.href = "/qd/my/#my/wallet/subAccount-in"
+        }
+        /*if(doNull(loginUserType) == 'A11002'){
+            var userBankList = apiGet("/my/userBank?mainStatus=W").rows;
+            if (userBankList.length > 0) {
+                LG.go('my/userBank/userBank-choose', '选择子账户需要绑定的银行账号');
+            }else{
+                XWK.alert('请先添加银行账号！','error');
+            }
+        }else{
+            applySubAccountDo();
+        }*/
+    }
+
+    function subAccountOut(){
+		var user = getEntity("/user/");
+		//获取登录人信息
+        if(user){
+        	if(doNull(user.accountOutFlag)=='F'){
+				XWK.alert("账户异常，请联系管理员！","error")
+        	}else{
+        		window.location.href = "/qd/my/#my/wallet/subAccount-out";
+        	}
+        }
+	}
+
+    //申请开通子账户
+    function applySubAccountDo() {
+        apiPost("/wallet/account/customerOpen", "", applySubAccountDoCB);
+        setTimeout(()=>{
+            applySubAccountLock = false;
+        },1000)
+    }
+    function applySubAccountDoCB(data) {
+        if (doNull(data.result) == 'T') {
+            XWK.alert('开通子账户成功！');
+            //location.reload();
+            getSubAccountStatus();
+            window.location.href = "/qd/my/#my/wallet/subAccount-in"
+        } else {
+            XWK.alert(data.message, 'error');
+        }
+    }
+    function billTypeDict(billType) {
+        if (billType == 'txIn') {
+            return "充值"
+        } else if (billType == 'txOutToExternal') {
+            return "提现"
+        } else if (billType == 'bailIn') {
+            return "保证金划入"
+        } else if (billType == 'bailRefund') {
+            return "保证金退回"
+        } else if (billType == 'billIn') {
+            return "价款划入"
+        } else if (billType == 'billRefund') {
+            return "价款退回"
+        } else if (billType == 'billOutToExternal') {
+            return "价款划出到外部"
+        } else if (billType == 'billOutToJst') {
+            return "价款划出到缴税通"
+        } else if (billType == 'bailToBill') {
+            return "保证金转价款"
+        } else if (billType == 'buyerFeeIn') {
+            return "买方服务费划入"
+        } else if (billType == 'sellerFeeIn') {
+            return "卖方服务费划入"
+        } else if (billType == 'buyerFeeOut') {
+            return "买方服务费划出"
+        } else if (billType == 'sellerFeeOut') {
+            return "卖方服务费划出"
+        } else if (billType == 'buyerFeeRefund') {
+            return "买方服务费退回"
+        } else if (billType == 'sellerFeeRefund') {
+            return "卖方服务费退回"
+        } else if (billType == 'bailToFee') {
+            return "保证金转服务费"
+        } else if (billType == 'billToFee') {
+            return "价款转服务费"
+        } else if (billType == 'penaltyIn') {
+            return "赔偿金划入"
+        } else if (billType == 'bailToPenalty') {
+            return "保证金转赔偿金"
+        } else if (billType == 'penaltyOutToExternal') {
+            return "赔偿金划出到外部"
+        } else if (billType == 'penaltyOutToJst') {
+            return "赔偿金划出到缴税通"
+        } else if (billType == 'otherIn') {
+            return "其他费用划入"
+        } else if (billType == 'otherRefund') {
+            return "其他费用退回"
+        } else if (billType == 'otherOutToExternal') {
+            return "其他费用划出外部"
+        } else if (billType == 'otherOutToJst') {
+            return "其他费用划出缴税通"
+        }
+    }
+    function billTypeDpmDict(billType) {
+        if (billType == 'bailIn') {
+            return "保证金划入"
+        } else if (billType == 'bailRefund') {
+            return "保证金划出"
+        } else if (billType == 'billIn') {
+            return "价款划入"
+        } else if (billType == 'billOut') {
+            return "价款划出"
+        } else if (billType == 'buyerFeeIn') {
+            return "成交方服务费"
+        } else if (billType == 'sellerFeeIn') {
+            return "转让方服务费"
+        } else if (billType == 'bailToBill') {
+            return "保证金转价款"
+        } else if (billType == 'bailToFee') {
+            return "保证金转服务费"
+        } else if (billType == 'billToFee') {
+            return "价款转服务费"
+        } else if (billType == 'buyerFeeOut') {
+            return "成交方服务费划转到收益账户"
+        } else if (billType == 'buyerFeeRefund') {
+            return "成交方服务费退回"
+        } else if (billType == 'sellerFeeOut') {
+            return "转让方服务费划转到收益账户"
+        } else if (billType == 'sellerFeeRefund') {
+            return "转让方服务费退回"
+        } else if (billType == 'penaltyIn') {
+            return "赔偿金划入"
+        } else if (billType == 'bailToPenalty') {
+            return "保证金转赔偿金"
+        } else if (billType == 'penaltyOut') {
+            return "赔偿金划出"
+        } else if (billType == 'otherIn') {
+            return "其他费用划入"
+        } else if (billType == 'otherRefund') {
+            return "其他费用退回"
+        } else if (billType == 'otherOut') {
+            return "其他费用划出"
+        }
+    }
+
+    function applySignFile(buyerId, buyerName, sysName, packId, proId, callback) {
+        let tasks = [];  // 存储所有需要执行的异步任务
+        //创建签章文件
+        // 任务1: 根据用户类型生成承诺书
+        if (loginUserType == "A11001") {
+            tasks.push(new Promise((resolve) => {
+                createBuyerDoPdf('dpm_companyPromise_pdf', buyerId, '交易授权委托书-' + buyerName, resolve);
+            }));
+        }else {
+            //createBuyerDoPdf('dpm_personPromise_pdf',buyerId,'个人报名交易提示及意向方承诺-'+buyerName)
+        }
+         // 任务2: 根据系统类型生成相关文件
+        if (doNull(sysName) == "utrf") {
+            //涉讼项目没有专场，只会报名在标的上
+            var pro = getEntity("/my/pro/"+proId);
+            if(pro){
+                if(pro.transMethod=='pm'){
+                    tasks.push(new Promise((resolve) => {
+                        createBuyerDoPdf('dpm_auctionAgreement_pdf', buyerId, '竞买协议-' + buyerName, resolve);
+                    }));
+                }else{
+                    tasks.push(new Promise((resolve) => {
+                        createBuyerDoPdf('dpm_saleNotice_pdf', buyerId, '变卖须知-' + buyerName, resolve);
+                    }));
+                }
+            }
+        }
+
+        // 等待所有任务完成，如果没有任务则直接执行回调
+        if (tasks.length > 0) {
+            Promise.all(tasks).then(() => {
+                console.log("所有任务完成");
+                if (callback) callback();
+            });
+        } else {
+            console.log("没有任务需要执行");
+            if (callback) callback();
+        }
+    }
+
+    function createBuyerDoPdf(templateCode, buyerId, fileName, callback) {
+         xwkPost(ATTA, "/createPdf/" + templateCode + "?buyerId=" + buyerId + "&fileName=" + buyerId +"-"+ fileName, "", function(data) {
+            createBuyerDoOk(data, callback);
+        });
+    }
+
+
+    function getPicUrl(url, proTmp, proId) {
+        if (proTmp == "T") {
+            if (url.indexOf("uc.qdcq.net") > -1) {
+                return url.replace(".s.jpg", ".m.jpg");
+            }
+            return url;
+        } else {
+            /*if(doNull(proId)!=''){
+                var res = xwkGet('atta', "store?page=1&rows=5&objId="+proId+"&attaKey=dpm_pro_pic&mainFlag=T");
+                if (res.total > 0) {
+                    url= res.rows[0].fileUrl;
+                }else {
+                    url="/static/dpmweb/qd/images/detail-default.png";
+                }
+            }*/
+            if (doNull(url) == '') {
+                url = "/static/dpmweb/qd/images/detail-default.png";
+            }
+            return url;
+        }
+
+    }
+
+    /**
+     * 计算表单哈希值
+     * @param {string} verificationId - 验证ID
+     * @param {string} scene - 场景
+     * @param {string} businessId - 业务ID
+     * @param {string} mobile - 手机号
+     * @returns {string} SHA-256哈希值的十六进制字符串
+     */
+    async function calculateFormHash(verificationId, scene, businessId, mobile) {
+        try {
+            // 拼接参数字符串（顺序必须固定）
+            const content = verificationId + "|" + scene + "|" + businessId + "|" + mobile;
+            console.log("content::", content)
+
+            // 创建TextEncoder用于将字符串转换为UTF-8字节数组
+            const encoder = new TextEncoder();
+            const data = encoder.encode(content);
+
+            // 使用Web Crypto API计算SHA-256哈希（异步）
+            const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+
+            // 将ArrayBuffer转换为十六进制字符串
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            console.log("hashHex::", hashHex)
+            return hashHex;
+
+        } catch (error) {
+            console.error('计算formHash失败:', error);
+            XWK.alert('计算表单哈希失败！', 'error');
+        }
+    }
+
+    //检查密码
+    function checkPasswd(t, e) {
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()\-_=+\[\]{}|;:,.<>?/~`'"\\]{8,30}$/;
+        if (!passwordRegex.test(e)) {
+            return "密码长度应在8-30位之间，可包含大小写英文字母、数字和特殊符号，至少包含英文字母和数字！"
+        }
+        return "";
+    }
+    function formatNumber(number) {
+        // 转换为字符串，以便操作
+        let str = number.toString()
+
+        // 如果是整数，直接返回
+        if (!str?.includes('.')) {
+            return str
+        }
+
+        // 去除末尾的零
+        while (str.endsWith('0')) {
+            str = str.slice(0, -1)
+        }
+
+        // 如果小数点后只剩一个零，也去除
+        if (str.endsWith('.')) {
+            str = str.slice(0, -1)
+        }
+
+        return str
+    }
+
+    //判断用户名是否已存在
+    function userExist(userEname){
+        var x = apiGet("/exist/"+userEname,"",UC);
+        if(x){
+            if(x.result=="T"){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+</script>
+<title>青岛产权交易所综合交易平台</title>
+<script  nonce="">
+    var myServer = "dpm";
+    var EZC = "dpm";
+    var DPM = "dpm";
+    var pageRoot = "qdweb";
+    var BID = "bid";
+    var MC = "mc";
+    var AUCTION = "auction";
+    var WALLET = "wallet";
+    var isAuth = apiGet("/web/getConfig/isAuth");
+    var dictKv = apiGet("/dict/kvMap");
+    var systemIfBiddyn = "";
+    var systemIfBiddynEntity = apiGet('/web/configurate/system_if_biddyn');
+    if(null!=systemIfBiddynEntity){
+        systemIfBiddyn = systemIfBiddynEntity.entity.configValue;
+    }
+    var pubBailEndTimeStrEntity = apiGet('/web/configurate/bail_end_time');
+    var pubBailEndTimeStr = "";
+    if(null!=pubBailEndTimeStrEntity){
+        pubBailEndTimeStr = pubBailEndTimeStrEntity.entity.configValue;
+    }
+</script>
+    <title>青岛产权交易所综合交易平台</title>
+    
+</head>
+<form id="pro-list_form">
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="rows" value="10">
+    <input type="hidden" name="mainStatus" id="mainStatus">
+    <input type="hidden" name="model" id="model">
+    <input type="hidden" name="ctyCode" id="ctyCode">
+    <input type="hidden" name="orderBy" id="orderBy" value="p.create_time, p.real_pub_start_time desc">
+</form>
+
+<body>
+<!-- 手机导航 -->
+    <div class="mm-page mm-slideout">
+<!-- 头部 -->
+<header>
+	<div id="top" class="w1365 clearfix">
+		<div class="top_main">
+			<h1 class="fl logo"><a href="/qd/index"><img src="/static/dpmweb/qd/images/logo.png" alt="青岛产权交易所logo" /></a></h1>
+			<ul class="top_right fr">
+				<li class="t_link">
+					<span style="color: #666;">&nbsp;新系统：</span>
+					<a id="loginHref" href="/qd/p/login" target="_blank">登录</a>
+					<a id="registerHref" href="/qd/p/register" target="_blank">注册</a>
+					<a id="userCenter" href="/qd/my" target="_blank" class="noline">您好，</a>
+					<a id="userCenter1" href="/qd/my" target="_blank" title="用户中心" class="noline">用户中心</a>
+					<a id="userLogout" href="javascript:logoutweb(getUrl())" title="退出">&nbsp;&nbsp;退出</a>
+					<a id="RetPassword" href="/qd/p/resetPasswd" target="_blank">找回密码</a>
+					<a href="/qd/c/jjzn" target="_blank">操作指南</a>
+					<!--<a href="https://cqjy.qdcq.net/portal/page?to=aqck" target="_blank">竞价指南</a>-->
+					<br>
+					<span  style="color: #666;">&nbsp;旧系统：</span>
+					<a href="https://cqjy.qdcq.net" target="_blank">登录</a>
+					<a href="https://cqjy.qdcq.net/portal/page?to=regUser" target="_blank">注册</a>
+				</li>
+				<li class="ewm">
+					<img src="/static/dpmweb/qd/images/wx_ewm.jpg"  title="公众号"/>
+					<div class="desc" style="position:relative">公众号</div>
+				</li>
+				&nbsp;
+				<li class="ewm">
+					<img src="/static/dpmweb/qd/images/h5_ewm.png" title="掌上交易"/>
+					<div class="desc" style="position:relative">掌上交易</div>
+				</li>
+				<!--临时添加app二维码-->
+				<!--&nbsp;
+				<li class="ewm">
+					<img src="/static/dpmweb/qd/app/app.apk.png" title="app"/>
+					<div class="desc" style="position:relative">app</div>
+				</li>-->
+			</ul>
+		</div>
+	</div>
+</header>
+<a href="#menu" class="menuLine"><span></span><span></span><span></span></a>
+<script  nonce="">
+	$(function() {
+		if(doNull('') == '') {
+			$('#loginHref').show()
+			$('#registerHref').show()
+			$('#RetPassword').show()
+			$('#userCenter').hide()
+			$('#userCenter1').hide()
+			$('#userLogout').hide()
+			
+		} else {
+			$('#loginHref').hide()
+			$('#registerHref').hide()
+			$('#RetPassword').hide()
+			$('#userCenter').show()
+			$('#userCenter1').show()
+			$('#userLogout').show()
+		}
+		$("#advsSearch").find("input[type='submit']").submit(function() {
+			advsSearch();
+		});
+	})
+
+	function advsSearch() {
+		if($("#searchType").val() == "1") {
+			$("#advsSearch").attr("action", "/qd/p/pro/index");
+			$("#advsSearch").find("input[name='sysName']").val("utrg");
+		} else if($("#searchType").val() == "2") {
+			$("#advsSearch").attr("action", "/qd/p/html/search");
+		}
+		//$("#advsSearch").submit();
+	}
+
+	function goDpm() {
+		var hostname = window.location.hostname;
+		if(hostname == "new.qdcq.net" || hostname == "www.qdcq.net") {
+			window.location.href = "https://dpm.qdcq.net/";
+		} else {
+			window.location.href = 'https://qddpm.zbxsoft.com/';
+		}
+	}
+</script>
+<style>
+	.top_right li.ewm {
+		width: 88px;
+		height: 88px;
+		box-shadow: none;
+	}
+	.top_right li.ewm img {
+		box-shadow: 2px 2px 5px #ddd;
+	}
+	.top_right li.ewm .desc {
+		font-size: 12px;
+		text-align: center;
+		width: 100%;
+		height: 15px;
+		display: inline-block;
+		color: #6c757d;
+		line-height: 15px;
+		top: -5px;
+	}
+	.top_right li span.ewm img {
+		width: 90%;
+		height: 90%;
+	}
+
+</style> <style>
+.nav_ul li{width:135px;}
+#xmxx .navigation-down-inner::before{left:180px;}
+#zcfg .navigation-down-inner::before{left:585px;}
+#xgxz .navigation-down-inner::before{left:720px;}
+#jyfw .navigation-down-inner::before{left:990px;}
+#gywm .navigation-down-inner::before{left:1125px;}
+
+/*20260403新增*/
+.menu-txtlist li{padding:0 35px;}
+.menu-txtlist li.b-l-none{border-left:0;}
+.menu-txtlist2 li{margin-top:25px;}
+  </style>	
+ 	
+ <!--导航-->
+<div class="head-v3">
+ <div class="navigation-up">
+    <div class="navigation-inner">
+      <ul class="nav_ul">
+        <li id="nav0" class="current" _t_nav="home"> <a href="/qd/index">首&nbsp;&nbsp;&nbsp;&nbsp;页</a> </li>
+        <li id="nav1" _t_nav="xmxx"> <a href="/qd/p/pro/index" target="_blank">项目信息</a> </li>
+         <li id="nav2"> <a href="/qd/p/item/index" target="_blank">竞价大厅</a> </li>
+        <li id="nav3"> <a href="/qd/c/jygz/" target="_blank">交易规则</a> </li>
+        <li id="nav4"  _t_nav="zcfg"> <a href="/qd/c/zcfg/xgfl/" target="_blank">政策法规</a> </li>
+        <li id="nav5" _t_nav="xgxz"> <a href="/qd/p/html/xgxz" target="_blank">相关下载</a> </li>
+        <li id="nav6"> <a href="/qd/p/html/jrfw/" target="_blank">金融服务</a> </li>
+         <li id="nav7" _t_nav="jyfw"> <a href="/qd/c/jyfw/bmszjjyfw/" target="_blank">交易服务</a> </li>
+         <li id="nav8" _t_nav="gywm"> <a href="/qd/c/gywm/qyjj" target="_blank">关于我们</a> </li>
+      </ul>
+    </div>
+  </div>
+	<div class="navigation-down">
+		<!--项目信息菜单内容-->
+		<div id="xmxx" class="nav-down-menu" style="display:none;" _t_nav="xmxx">
+			<div class="navigation-down-inner">
+				<ul class="menu-txtlist menu-txtlist2" >
+					
+					<li class="b-l-none" style="padding:0px 50px;">
+						<a href="/qd/p/pro/index?sysName=utrg" target="_blank">产权转让</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrz" target="_blank">企业增资</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysNames=utrm,utrc" target="_blank">资产转让</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrl" target="_blank">资产租赁</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utri" target="_blank">资产招商 </a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrf" target="_blank">涉讼资产</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index-tj" target="_blank">项目推介 </a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrd">债权资产</a>
+					</li>
+					<li class="b-l-none" style="padding:0px 14px;">
+						<a href="/qd/p/pro/index?sysName=utre">合伙企业份额转让</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrt">体育资源</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrk">科技成果</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrw">无形资产</a>
+					</li>
+					<li style="padding:0px 50px;">
+						<!--<a href="/qd/p/pro/index?sysName=utra">艺术品</a>-->
+						<a href="/qdysp/index" target="_blank">艺术品</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrr">资源交易</a>
+					</li>
+					<li>
+						<a href="/qd/p/pro/index?sysName=utry">环境资源</a>
+					</li>
+					<!-- 其他（对应综合产权）-->
+					<li>
+						<a href="/qd/p/pro/index?sysName=utrh">其他 </a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--项目信息菜单内容end-->
+
+		<!-- 政策法规菜单内容-->
+		<div id="zcfg" class="nav-down-menu" style="display:none;" _t_nav="zcfg">
+			<div class="navigation-down-inner">
+				<ul class="menu-txtlist" style=" margin-left: 400px;">
+					
+					<li style="padding:0 60px;">
+						<a href="/qd/c/zcfg/xgfl/">相关法律</a>
+					</li>
+					<li style="padding:0 60px;">
+						<a>相关政策 </a>
+						<ol>
+							<a href="/qd/c/zcfg/zc/gj/">国家级相关政策</a>
+							<a href="/qd/c/zcfg/zc/shengj/">省级相关政策</a>
+							<a href="/qd/c/zcfg/zc/sj/">市级相关政策</a>
+							<a href="/qd/c/zcfg/zc/wzwd/">国资问答</a>
+						</ol>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 政策法规菜单内容end-->
+
+		<!--  相关下载菜单内容-->
+		<div id="xgxz" class="nav-down-menu" style="display:none;" _t_nav="xgxz">
+			<div class="navigation-down-inner">
+				<ul class="menu-txtlist">
+					
+					<li class="b-l-none">
+						<a href="/qd/c/xgxz/yxsqb/">意向申请表</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/gycgq/">产权转让</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/swzc/">资产转让</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/zzkg/">增资扩股</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/zczl/">资产租赁</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/sszc/">涉讼资产</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/qyzc/">&nbsp;&nbsp;权益资产&nbsp;</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/gycqdj/">国有产权登记</a>
+					</li>
+					<li class="b-l-none">
+						<a href="/qd/c/xgxz/tyzyjy/">体育资源交易</a>
+					</li>
+					<li>
+						<a href="/qd/c/xgxz/qt/">其他</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--  相关下载菜单内容end-->
+
+		<!--  交易服务菜单内容-->
+		<div id="jyfw" class="nav-down-menu" style="display:none;" _t_nav="jyfw">
+			<div class="navigation-down-inner">
+				<ul class="menu-txtlist">
+					
+					<li class="b-l-none" style="padding-right:30px;">
+						<a href="/qd/c/jyfw/bmszjjyfw/">部门设置及交易服务</a>
+					</li>
+					<li style="padding:0 40px;">
+						<a href="https://cqjy.qdcq.net/portal/login.jsp" target="_blank">客户注册及登录</a>
+					</li>
+					<li>
+						<a href="/qd/c/jyfw/jjsysm/">竞价使用说明</a>
+					</li>
+					<li>
+						<a href="/qd/c/jyfw/wbhklj/">外币汇款路径</a>
+					</li>
+					<li class="b-l-none"  style="padding-right:30px;">
+						<a href="/qd/c/jyfw/kjrmbhklj/">跨境人民币汇款路径</a>
+					</li>
+					<li>
+						<a href="/qd/c/jyfw/sfbz/">收费标准</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--  交易服务菜单内容end-->
+
+		<!--  关于我们菜单内容-->
+		<div id="gywm" class="nav-down-menu" style="display:none;" _t_nav="gywm">
+			<div class="navigation-down-inner">
+				<ul class="menu-txtlist">
+					
+					<li>
+						<a href="/qd/c/gywm/qyjj">关于我们</a>
+					</li>
+					<li>
+						<a href="/qd/c/gywm/qywh/">企业文化</a>
+					</li>
+					<li>
+						<a href="/qd/c/gywm/spjj/">视频简介</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--  关于我们菜单内容end-->
+	</div>
+</div><style>
+	.home-banner .swiper-slide {
+		justify-content: center;
+	}
+	
+</style>
+<!-- 首页横幅banner -->
+<div class="banBox poHiiden">
+	<xwk_cms type="component" code="bannerimg"></xwk_cms>
+</div>
+<!--主体内容-->
+<div id="content" class="w1365">
+	<!--快速入口-->
+	<div class="kjrhBox">
+		<!--div class="kjrh_t">
+        <li><a>快捷入口</a>
+          <p><img src="images/iocn-kjrk.png" /></p>
+        </li>
+      </div-->
+		<style>
+			.kjrh_c li.tszc a {
+				background-position: -992px -108px;
+			}
+			/*20260414新增*/
+			.kjrh_c li {width: 12.5%;}
+			.kjrh_c li:nth-child(8n) {border-right: none;}
+			.kjrh_c li:nth-child(9n) {border-right: 1px #eee solid;}
+			
+			/*20260518新增*/
+			.kjrh_c li.ynqpt a {background-position: 21px -228px;}
+			.kjrh_c li.kjcgpt a {background-position: -179px -228px;}
+			.kjrh_c li.nccqpt a {background-position: -373px -228px;}
+			.kjrh_c li.tycyzypt a {background-position: -584px -228px;}
+			.kjrh_c li.sbgxshlypt a {background-position: -787px -228px;}
+			.kjrh_c li.ssqyfbpt a {background-position: -982px 10px;}
+			.kjrh_c li.phclzczl a {background-position: -982px -228px;}
+			.kjrh_c li.ygcg a {background-position: -585px -108px;}
+			
+			.kjrh_c li.zcd a {background-position: -786px -108px;}
+			.kjrh_c li.cqzr a {background-position: 23px 10px;}
+			.kjrh_c li.qyzz a {background-position: -180px 10px;}
+			.kjrh_c li.zczr a {background-position: -370px 10px;}
+			.kjrh_c li.zczl a {background-position: -585px 10px;}
+			.kjrh_c li.jrzc a {background-position: -785px 10px;}
+			.kjrh_c li.sszc a {background-position: 21px -108px;}
+			.kjrh_c li.zsxm a {background-position: -180px -108px;}
+		</style>
+		<div class="kjrh_c kjrh_c_new">
+			<ul class="kjrh_li">
+				<li class="ynqpt">
+					<a href="/qd/p/html/ynqjy" target="_blank">用能权交易<br />平台</a>
+				</li>
+				<li class="kjcgpt">
+					<a href="https://kjcq.qdcq.net/" target="_blank">科技成果<br />交易平台</a>
+				</li>
+				<li class="nccqpt">
+					<a href="https://www.qdnccq.net/home/home" target="_blank">农村产权<br />交易平台</a>
+				</li>
+				<li class="tycyzypt">
+					<a href="/qd/p/typt/index" target="_blank">体育产业资源<br />交易平台</a>
+				</li>
+				<li class="sbgxshlypt">
+					<a href="/qd/p/sbgxxhly/index" target="_blank">设备循环更新<br />利用平台</a>
+				</li>
+				<li class="ssqyfbpt">
+					<a href="/qd/p/ssqycjfb/index" target="_blank">市属企业应用<br />场景发布平台</a>
+				</li>
+				<li class="phclzczl">
+					<a href="/qd/p/ssqyclzcfb/index" target="_blank">闲置资产<br />专区</a>
+				</li>
+				<li class="ygcg">
+					<a href="https://www.qdygcg.com/#/home" target="_blank">阳光采购平台</a>
+				</li>
+				<li class="zcd">
+					<!--<a href="/qd/p/html/jrfw/" target="_blank">金融服务</a>-->
+					<a href="https://www.qdygcg.net/" target="_blank">青慧采商城</a>
+				</li>
+
+				<li class="cqzr">
+					<a href="/qd/p/pro/index?sysName=utrg" target="_blank">产权转让</a>
+				</li>
+				<li class="qyzz">
+					<a href="/qd/p/pro/index?sysName=utrz" target="_blank">企业增资</a>
+				</li>
+				<li class="zczr">
+					<a href="/qd/p/pro/index?sysNames=utrm,utrc" target="_blank">资产转让</a>
+				</li>
+				<li class="zczl">
+					<a href="/qd/p/pro/index?sysName=utrl" target="_blank">资产租赁</a>
+				</li>
+				<li class="jrzc">
+					<a href="/qd/p/pro/index?sysName=utrd&proType=finance" target="_blank">债权资产</a>
+				</li>
+				<li class="sszc">
+					<a href="/qd/p/pro/index?sysName=utrf" target="_blank">涉讼资产</a>
+				</li>
+				<li class="zsxm">
+					<a href="/qd/p/pro/index?sysName=utri" target="_blank">资产招商</a>
+				</li>
+				<!--<li class="qyxmzq">
+					<a href="/qd/c/qyxmzq">项目专区</a>
+				</li>-->
+				<!--<li class="tszc">
+					<a href="/qd/p/tszcpt/index" target="_blank">特殊资产</a>
+				</li>
+				<li class="hzxmzq">
+					<a href="/qd/p/pro/index?typeFlag=hzjg" target="_blank">合作项目专区</a>
+				</li>-->
+			</ul>
+			<!--搜索-->
+			<ul class="search_cont">
+				<a>搜索</a>
+				<form id="advsSearch" method="get">
+					<select id="searchType" style="border:0;" class="sea_selbox">
+						<option value="1"> 项目 </option>
+						<option value="2"> 资讯 </option>
+					</select>
+					<input class="search_input" type="text" name="key" placeholder="请输入关键词进行搜索">
+					<input class="search_submit" type="submit" value=" " onclick="advsSearch()">
+				</form>
+
+			</ul>
+		</div>
+	</div>
+
+	<!--产权转让 start-->
+	<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title cqzr_title">产权转让</p>
+			<span class="more"><a href="/qd/p/pro/index?sysName=utrg" target="_blank">更多></a></span>
+		</div>
+		<div class="xm_cont">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrgListBox">
+
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+	<p class="clear"></p>
+	<!--国有产权 end-->
+	<!--企业增资 start-->
+	<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title qyzz_title">企业增资</p>
+			<span class="more"><a href="/qd/p/pro/index?sysName=utrz" target="_blank">更多></a></span>
+		</div>
+		<div class="xm_cont">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">拟募集资金总额</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrzListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--企业增资 end-->
+	<!--资产转让 start-->
+	<div class="gpxm mt40 tab-nav">
+
+		<div class="xm_tt">
+			<p class="xm_title">
+				<a class="tab-link" data-tab="tab10" style="color: #fff;">资产转让</a>
+			</p>
+			<p class="xm_fl">
+				<a class="tab-link" data-tab="tab11">设备</a>
+				<a class="tab-link" data-tab="tab12">交通运输工具</a>
+				<a class="tab-link" data-tab="tab13">房产</a>
+				<a class="tab-link" data-tab="tab14">在建工程</a>
+				<a class="tab-link" data-tab="tab15">知识产权</a>
+				<a class="tab-link" data-tab="tab16">土地使用权</a>
+				<a class="tab-link" data-tab="tab17">其它资产</a>
+			</p>
+		</div>
+
+		<!--全部资产转让-->
+		<div class="xm_cont tab-cont active" id="tab10" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--设备-->
+		<div class="xm_cont tab-cont" id="tab11" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmMachinesListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=machines&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--交通运输工具-->
+		<div class="xm_cont tab-cont" id="tab12" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmVehicleListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=car&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--房产-->
+		<div class="xm_cont tab-cont" id="tab13" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmHouseListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<!--<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=housing" target="_blank">更多></a>-->
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=house&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--在建工程-->
+		<div class="xm_cont tab-cont" id="tab14" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmConstructionprojectListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=constructionproject&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--知识产权-->
+		<div class="xm_cont tab-cont" id="tab15" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmPatentsListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=ipr&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--土地使用权-->
+		<div class="xm_cont tab-cont" id="tab16" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmGlebeListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=glebe&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--其它资产-->
+		<div class="xm_cont tab-cont" id="tab17" style="height:518px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrmOtherListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<!--<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=otherassets" target="_blank">更多></a> -->
+				<a href="/qd/p/pro/index?sysNames=utrm,utrc&proType=otherAsset&status=all" target="_blank">更多></a>
+			</span>
+		</div>
+	</div>
+	<!--资产转让 end-->
+	<!--资产租赁 start-->
+	<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title zczl_title">资产租赁</p>
+			<span class="more"><a href="/qd/p/pro/index?sysName=utrl" target="_blank" style="display:block">更多></a>
+			</span>
+		</div>
+		<div class="xm_cont">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">首年租金</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrlListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--资产租赁 end-->
+	<!--资产招商 start-->
+	<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title zczs_title">资产招商</p>
+			<span class="more"><a href="/qd/p/pro/index?sysName=utri" target="_blank" style="display:block">更多></a>
+			</span>
+		</div>
+		<div class="xm_cont">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+					<tr>
+						<th width="18%">项目编号</th>
+						<th width="">项目名称</th>
+						<th width="20%">转让底价</th>
+						<th width="12%">披露起始日期</th>
+						<th width="12%">披露截止日期</th>
+					</tr>
+				</thead>
+				<tbody id="utriListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--资产招商 end-->
+	<!--砂石土资源 start-->
+	<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title sstzy_title">砂石土资源</p>
+			<span class="more"><a href="/qd/p/pro/index?sysName=utrr&proType=ss&status=all" target="_blank"
+								  style="display:block">更多></a></span>
+		</div>
+		<div class="xm_cont">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">转让底价</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrrSsListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--砂石土资源 end-->
+
+	<!--金融资产 start-->
+	<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title jrzc_title">债权资产</p>
+			<span class="more"><a href="/qd/p/pro/index?sysName=utrd" target="_blank"
+								  style="display:block">更多></a></span>
+		</div>
+		<div class="xm_cont">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th width="">项目名称</th>
+					<th width="20%">挂牌价格</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrdFinanceListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--金融资产 end-->
+	<!--用能权 start-->
+	<div class="gpxm mt40" style=" display: none;">
+		<div class="xm_tt">
+			<p class="xm_title ynq_title">用能权</p>
+			<span class="more"><a href="/qd/p/html/ynqjy" target="_blank" style="display:block">更多></a></span>
+		</div>
+		<div class="xm_cont">
+
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="20%">项目编号</th>
+					<th>项目名称</th>
+					<th width="15%">转让单价（元）</th>
+					<th width="15%">转让数量（吨）</th>
+					<th width="15%">披露起始日期</th>
+					<th width="15%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utryListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--用能权 end-->
+	<!--涉讼资产 start-->
+	<div class="sszc mt20 tab-nav">
+		<div class="xm_tt">
+			<p class="xm_title">
+				<a class="tab-link" data-tab="tab21" style="color: #fff;">涉讼资产</a>
+			</p>
+			<p class="xm_fl">
+				<a class="tab-link" data-tab="tab22">司法拍卖</a>
+				<a class="tab-link" data-tab="tab23">司法变卖</a>
+			</p>
+		</div>
+		<!--全部涉讼资产-->
+		<div class="xm_cont tab-cont active" id="tab21" style="max-height:300px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th>项目名称</th>
+					<th width="20%">挂牌价格</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrfListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysName=utrf" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--拍卖-->
+		<div class="xm_cont tab-cont" id="tab22" style="max-height:300px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th>项目名称</th>
+					<th width="20%">挂牌价格</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrfbListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysName=utrf&transMethod=pm" target="_blank">更多></a>
+			</span>
+		</div>
+		<!--变卖-->
+		<div class="xm_cont tab-cont" id="tab23" style="max-height:300px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th>项目名称</th>
+					<th width="20%">挂牌价格</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utrfpListBox">
+
+				</tbody>
+			</table>
+			<span class="more">
+				<a href="/qd/p/pro/index?sysName=utrf&transMethod=bm" target="_blank">更多></a>
+			</span>
+		</div>
+
+	</div>
+	<!--涉讼资产 end-->
+	<!--艺术品交易 start-->
+		<!--2026-07-01 14:19姜凯忠提出：把艺术品交易这个模块先隐藏掉-->
+	<div class="gpxm mt40" style="display:none;">
+		<div class="xm_tt">
+			<p class="xm_title zsxm_title">艺术品交易</p>
+			<!--<span class="more"> <a href="/qd/p/pro/index?sysName=utra" target="_blank" style="display:block">更多></a>-->
+			<span class="more"> <a href="https://ysp.qdcq.net/qdysp/index" target="_blank" style="display:block">更多></a>	
+			</span>
+		</div>
+		<div class="xm_cont">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th>项目名称</th>
+					<th width="20%">挂牌价格</th>
+					<th width="12%">披露起始日期</th>
+					<th width="12%">披露截止日期</th>
+				</tr>
+				</thead>
+				<tbody id="utraListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--艺术品交易 end-->
+	<!--招商项目 start-->
+	<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title zsxm_title">项目推介</p>
+			<span class="more"> <a href="/qd/p/pro/index-tj" target="_blank" style="display:block">更多></a> </span>
+		</div>
+		<div class="xm_cont" style="display:block;height:176px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+				<tr>
+					<th width="18%">项目编号</th>
+					<th>项目名称</th>
+					<th width="12%">信息披露日期</th>
+				</tr>
+				</thead>
+				<tbody id="zsxmListBox">
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!--招商项目 end-->
+	<!--合作项目 start-->
+	<!--<div class="gpxm mt40">
+		<div class="xm_tt">
+			<p class="xm_title zsxm_title">合作机构项目</p>
+			<span class="more"> <a href="/qd/p/pro/index?typeFlag=hzjg" target="_blank" style="display:block">更多></a>
+			</span>
+		</div>
+		<div class="xm_cont" style="display:block;height:176px;">
+			<table class="xmTab" width="100%" cellspacing="0" cellpadding="0" border="0">
+				<thead>
+					<tr>
+						<th width="18%">项目编号</th>
+						<th>项目名称</th>
+						<th width="12%">信息披露日期</th>
+					</tr>
+				</thead>
+				<tbody id="zzxmListBox">
+
+				</tbody>
+			</table>
+
+		</div>
+	</div>-->
+	<!--合作项目 end-->
+
+	<!--项目公告 start-->
+	<div class="xmgg mt20">
+		<p class="xmgg_tt"></p>
+		<ul class="xmgg_ul">
+			<li class="cj">
+				<a href="/qd/p/notice/list?noticeType=deal" target="_blank">成交公告</a>
+			</li>
+			<li class="zj">
+				<a href="/qd/p/notice/list?noticeType=end" target="_blank">终结公告</a>
+			</li>
+			<li class="zz">
+				<a href="/qd/p/notice/list?noticeType=pause" target="_blank">中止公告</a>
+			</li>
+			<li class="hf">
+				<a href="/qd/p/notice/list?noticeType=resume" target="_blank">恢复公告</a>
+			</li>
+		</ul>
+	</div>
+	<p class="clear"></p>
+	<!--项目公告 end-->
+	<!--竞价大厅 start-->
+	<div class="jjdt mt40 tab-nav">
+		<div class="xm_tt">
+			<p class="xm_fl jjdt_title">
+				<a class="tab-link cur" data-tab="tab31">竞价大厅(新)</a>
+				<a class="tab-link" data-tab="tab30">竞价大厅</a>
+			</p>
+		</div>
+		<div class="jjdt_cont tab-cont active" id="tab31">
+			<iframe src="/qd/p/item/kanban" scrolling="no" frameborder="0" width="100%" height="271"></iframe>
+			<span class="more"> <a href="/qd/p/item/index" target="_blank">更多></a> </span>
+		</div>
+		<div class="jjdt_cont tab-cont " id="tab30">
+			<iframe src="https://cqjy.qdcq.net/portal/pro/dtbj.jsp?size=8" scrolling="no" width="100%" height="260" frameborder="0"></iframe>
+			<div class="jjdt-legend"> <span><i class="ired"></i>红色：已出价</span> <span><i class="igreen"></i>绿色：未出价</span> <span><i class="iyellow"></i>黄色：价格变化</span> </div>
+			<span class="more"> <a href="https://cqjy.qdcq.net/portal/pro/items.jsp" target="_blank">更多></a> </span>
+		</div>
+	</div>
+	<!--竞价大厅 end-->
+	<!--市场动态 end-->
+	<div class="scdt mt40">
+		<div class="scdt_box mr30">
+			<p class="scdt_tt">
+				<a href="/qd/c/scgg/" class="cur">市场公告</a><span class="more"><a href="/qd/c/scgg/"
+																				target="_blank">更多></a></span>
+			</p>
+			<div class="scdt_con">
+				<ul class="ul_li">
+					<xwk_cms type="component" code="scgg"></xwk_cms>
+				</ul>
+			</div>
+		</div>
+		<div class="scdt_box scyw">
+			<p class="scdt_tt">
+				<a href="/qd/c/scyw/">市场要闻</a><span class="more"><a href="/qd/c/scyw/" target="_blank">更多></a></span>
+			</p>
+			<div class="scdt_con">
+				<ul class="ul_li">
+					<xwk_cms type="component" code="scyw"></xwk_cms>
+				</ul>
+			</div>
+		</div>
+		<!--20260331姜经理提出市场推介这块不想要了-->
+		<!--<div class="scdt_box sctj">
+			<p class="scdt_tt">
+				<a href="/qd/c/sctj/">市场推介</a><span class="more"><a href="/qd/c/sctj/" target="_blank">更多></a></span>
+			</p>
+			<div class="scdt_con">
+				<ul class="ul_li">
+					<xwk_cms type="component" code="sctj"></xwk_cms>
+				</ul>
+			</div>
+		</div>-->
+		<p class="clear"></p>
+	</div>
+	<!--市场动态 end-->
+	<!--友情链接 start-->
+	<div class="yqlj mt40">
+		<p class="scdt_tt">
+			<a href="javascript:void(0);">友情链接</a><span class="more"> <a href="/qd/c/yqlj/">更多></a></span>
+		</p>
+		<div class="links">
+
+			<ul id="menubot">
+				<li class="mainlevel" id="mainlevel_02">
+					<a>------- 政府部门 -------</a>
+					<ul class="sub_nav_01">
+						<include "inc/zfbm.html" />
+						<xwk_cms type="component" code="yqlj_zfbm"></xwk_cms>
+					</ul>
+				</li>
+				<li class="mainlevel">
+					<a>------- 国资系统 -------</a>
+					<ul class="sub_nav_01">
+						<include "inc/gzxt.html" />
+						<xwk_cms type="component" code="yqlj_gzxt"></xwk_cms>
+					</ul>
+				</li>
+				<li class="mainlevel">
+					<a>------- 产权机构 -------</a>
+					<ul class="sub_nav_01">
+						<include "inc/cqjg.html" />
+						<xwk_cms type="component" code="yqlj_cqjg"></xwk_cms>
+					</ul>
+				</li>
+				<li class="mainlevel">
+					<a>------- 其 它 -------</a>
+					<ul class="sub_nav_01" style="height: 55px;margin-top: -97px;">
+						<include "inc/qt.html" />
+						<xwk_cms type="component" code="yqlj_qt"></xwk_cms>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<p class="clear"></p>
+	<!--友情链接 end-->
+</div>
+<!--主体内容end-->
+<script type="text/template" id="pro-list_html">
+	<?if(rows.length > 0){?>
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<tr>
+		<td class="text-center">
+			<?=doNull(rows[i].jcNo)?>
+		</td>
+		<td class="nowrap">
+			<?if(doNull(rows[i].packFlag)=='T'){?>
+			<a href="/qd/p/pro/list?packId=<?=rows[i].proId?>&sysName=<?=rows[i].sysName?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+				<?}else{?>
+				<!--是否为老项目-->
+				<?if(doNull(rows[i].proTmp)=='T'){?>
+				<a href="https://cqjy.qdcq.net/portal/pro/index.jsp?proId=<?=doNull(rows[i].proId)?>&packId=<?=doNull(rows[i].packId)?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+					<?}else{?>
+					<a href="detail/pro/<?=doNull(rows[i].proId)?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+						<?}?>
+						<?}?>
+
+						<?if(rows[i].proName.length>32){?>
+						<?=doNull(rows[i].proName.substring(0,32)+"...")?>
+						<?}else{?>
+						<?=doNull(rows[i].proName)?>
+						<?}?>
+
+					</a>
+
+					<!--预披露项目名称上增加一个标识“预披露”-->
+					<?if(doNull(rows[i].proType) == 'P3' || doNull(rows[i].proType) == 'PG6'){?>
+					<em class="ypl">预</em>
+					<?}?>
+		</td>
+		<td class="text-center">
+			<?if(doNull(rows[i].proType)!='P3'){?>
+				<?if(doNull(rows[i].packFlag)=='T'){?>
+				详见公告
+				<?}else if(doNull(rows[i].proTmp)=='T' && doNull(rows[i].perPrice)!='' && doNull(rows[i].perPrice)!=0 && doNull(rows[i].unit)!=''){?>
+					<?if(doNull(rows[i].unit).indexOf("万元")>-1){?>
+						<?=rows[i].perPrice?>
+					<?}else{?>
+						<?=parseFloat(doNull(rows[i].perPrice)).toFixed(2)?>
+					<?}?>
+					<?=rows[i].unit?>
+				<?}else{?>
+				<?if(doNull(rows[i].sysName).toLowerCase()=='utrz'){?>
+				<? if(rows[i].proTmp == 'T'){?>
+				<? if(rows[i].proPricePub != 'null万元'){?>
+				<?=rows[i].proPricePub?>
+				<?}?>
+				<?}else{?>
+				<?if(doNull(rows[i].priceUnit).indexOf("万元")>-1){?>
+				<?if(doNull(rows[i].yuanFlag)=="T"){?>
+				<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?>
+				<?if(doNull(rows[i].proPriceHigh)!=''){?>
+				- <?=parseFloat(doNull(rows[i].proPriceHigh)).toFixed(2)?>
+				<?}?>
+				<?=doNull(rows[i].priceUnit).replace('万元','元')?>
+				<?}else{?>
+				<?=toWan(rows[i].proPrice)?>
+				<?if(doNull(rows[i].proPriceHigh)!=''){?>
+				- <?=toWan(doNull(rows[i].proPriceHigh))?>
+				<?}?>
+				<?=doNull(rows[i].priceUnit)?>
+				<?}?>
+				<?}else{?>
+				<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?>
+				<?if(doNull(rows[i].proPriceHigh)!=''){?>
+				- <?=parseFloat(doNull(rows[i].proPriceHigh)).toFixed(2)?>
+				<?}?>
+				<?=doNull(rows[i].priceUnit)?>
+				<?}?>
+				<?}?>
+
+				<?}else if(rows[i].proPrice==null){?>
+				待定
+				<?}else{?>
+				<?if(doNull(rows[i].priceUnit).indexOf("万元")>-1){?>
+				<?if(doNull(rows[i].yuanFlag)=="T"){?>
+				<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?><?=doNull(rows[i].priceUnit).replace('万元','元')?>
+				<?}else{?>
+				<?=toWan(rows[i].proPrice)?><?=doNull(rows[i].priceUnit)?>
+				<?}?>
+				<?}else{?>
+				<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?><?=doNull(rows[i].priceUnit)?>
+				<?}?>
+				<?}?>
+				<?}?>
+			<?}else{?>
+			待定
+			<?}?>
+		</td>
+		<td class="text-center">
+			<?=doNull(rows[i].realPubStartTime)?>
+		</td>
+		<td class="text-center">
+			<?=doNull(rows[i].realPubEndTime)?>
+		</td>
+	</tr>
+	<?}?>
+	<?}else{?>
+	<tr>
+		<td class="no-data text-center" colspan="5">
+			<p class="ico"><img src="/static/dpmweb/qd/images/ico-nopro.png"></p>
+			<p class="txt">暂无项目</p>
+		</td>
+	</tr>
+	<?}?>
+</script>
+<script type="text/template" id="ysppro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<tr>
+		<td class="text-center">
+			<?=doNull(rows[i].jcNo)?>
+		</td>
+		<td class="nowrap">
+			<?if(doNull(rows[i].packFlag)=='T'){?>
+			<a href="/qdysp/p/pro/list?packId=<?=rows[i].proId?>&sysName=<?=rows[i].sysName?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+				<?}else{?>
+				<!--是否为老项目-->
+				<?if(doNull(rows[i].proTmp)=='T'){?>
+				<a href="https://cqjy.qdcq.net/portal/pro/index.jsp?proId=<?=doNull(rows[i].proId)?>&packId=<?=doNull(rows[i].packId)?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+					<?}else{?>
+					<a href="/qdysp/detail/pro/<?=doNull(rows[i].proId)?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+						<?}?>
+						<?}?>
+						<!--预披露项目名称上增加一个标识“预披露”-->
+						<?if(doNull(rows[i].proType) == 'P3' || doNull(rows[i].proType) == 'PG6'){?>
+						<em class="ypl">预</em>
+						<?}?>
+						<?if(rows[i].proName.length>32){?>
+						<?=doNull(rows[i].proName.substring(0,32)+"...")?>
+						<?}else{?>
+						<?=doNull(rows[i].proName)?>
+						<?}?>
+
+					</a>
+		</td>
+		<td class="text-center">
+			<?if(doNull(rows[i].packFlag)=='T'){?>
+			详见公告
+			<?}else{?>
+			<?if(doNull(rows[i].sysName).toLowerCase()=='utrz'){?>
+			<?if(doNull(rows[i].priceUnit).indexOf("万元")>-1){?>
+			<?if(doNull(rows[i].yuanFlag)=="T"){?>
+			<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?>
+			<?if(doNull(rows[i].proPriceHigh)!=''){?>
+			- <?=parseFloat(doNull(rows[i].proPriceHigh)).toFixed(2)?>
+			<?}?>
+			<?=doNull(rows[i].priceUnit).replace('万元','元')?>
+			<?}else{?>
+			<?=toWan(rows[i].proPrice)?>
+			<?if(doNull(rows[i].proPriceHigh)!=''){?>
+			- <?=toWan(doNull(rows[i].proPriceHigh))?>
+			<?}?>
+			<?=doNull(rows[i].priceUnit)?>
+			<?}?>
+			<?}else{?>
+			<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?>
+			<?if(doNull(rows[i].proPriceHigh)!=''){?>
+			- <?=parseFloat(doNull(rows[i].proPriceHigh)).toFixed(2)?>
+			<?}?>
+			<?=doNull(rows[i].priceUnit)?>
+			<?}?>
+			<?}else if(Number.parseFloat(rows[i].proPrice)==0){?>
+			面议
+			<?}else if(rows[i].proPrice==null){?>
+			待定
+			<?}else{?>
+			<?if(doNull(rows[i].priceUnit).indexOf("万元")>-1){?>
+			<?if(doNull(rows[i].yuanFlag)=="T"){?>
+			<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?><?=doNull(rows[i].priceUnit).replace('万元','元')?>
+			<?}else{?>
+			<?=toWan(rows[i].proPrice)?><?=doNull(rows[i].priceUnit)?>
+			<?}?>
+			<?}else{?>
+			<?=parseFloat(doNull(rows[i].proPrice)).toFixed(2)?><?=doNull(rows[i].priceUnit)?>
+			<?}?>
+			<?}?>
+			<?}?>
+		</td>
+		<td class="text-center">
+			<?=doNull(rows[i].realPubStartTime)?>
+		</td>
+		<td class="text-center">
+			<?=doNull(rows[i].realPubEndTime)?>
+		</td>
+	</tr>
+	<?}?>
+</script>
+<script type="text/template" id="ynqpro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<tr>
+		<td><?=doNull(rows[i].jcNo)?></td>
+		<td><!--是否为老项目-->
+			<?if(doNull(rows[i].proTmp)=='T'){?>
+			<a href="https://cqjy.qdcq.net/portal/pro/index.jsp?proId=<?=doNull(rows[i].proId)?>&packId=<?=doNull(rows[i].packId)?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+				<?}else{?>
+				<a class="complink" href="detail/pro/<?=doNull(rows[i].proId)?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+					<?}?>
+					<?=doNull(rows[i].proName)?>
+				</a>
+		</td>
+		<td><?=doNull(rows[i].perPrice)?></td>
+		<td><?=doNull(rows[i].itemNum)?></td>
+		<td><?=doNull(rows[i].realPubStartTime)?></td>
+		<td><?=doNull(rows[i].realPubEndTime)?></td>
+	</tr>
+	<?}?>
+</script>
+<script type="text/template" id="hzjgpro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<tr>
+		<td><?=doNull(rows[i].jcNo)?></td>
+		<td>
+			<a class="complink" href="detail/pro/<?=doNull(rows[i].proId)?>" title="<?=doNull(rows[i].proName)?>" target="_blank">
+				<?=doNull(rows[i].proName)?>
+			</a>
+		</td>
+		<td><?=doNull(rows[i].realPubStartTime)?></td>
+	</tr>
+	<?}?>
+</script>
+<script type="text/template" id="zspro-list_html">
+	<? for ( var i = 0; i < rows.length; i++) {?>
+	<tr>
+		<td><?=doNull(rows[i].propCode)?></td>
+		<td>
+			<a class="complink" href="detail/prop/<?=doNull(rows[i].propertyStockId)?>" title="<?=doNull(rows[i].propName)?>" target="_blank">
+				<?=doNull(rows[i].propName)?>
+			</a>
+		</td>
+		<td><?=doNull(rows[i].pubStartTime)?></td>
+	</tr>
+	<?}?>
+</script>
+
+<script  nonce="">
+	$(function () {
+		loadCms();
+
+		//产权转让 rows默认值为5，page为1，如果需要改变，需要传参。
+		apiLoad('/web/pro/utrg/home?rows=8&proStatus=allNotException&sysNames=utrg,utre', 'pro-list_html', 'utrgListBox');
+		//企业增资
+		apiLoad('/web/pro/utrz/home?rows=8&proStatus=allNotException', 'pro-list_html', 'utrzListBox');
+		//资产租赁
+		apiLoad('/web/pro/utrl/home?rows=8&proStatus=allNotException', 'pro-list_html', 'utrlListBox');
+		//资产招商
+		apiLoad('/web/pro/utri/home?rows=8&proStatus=allNotException', 'pro-list_html', 'utriListBox');
+
+		//资产转让全部
+		apiLoad('/web/pro/utrm/home?rows=10&proStatus=allNotException&sysNames=utrm,utrc', 'pro-list_html', 'utrmListBox');
+		//设备
+		//apiLoad('/web/pro/utrm/home?rows=10&proType=machines&proStatus=pub', 'pro-list_html', 'utrmMachinesListBox');
+		apiLoad('/web/pro/utrm/home?rows=10&proType=machines&proStatus=allNotException', 'pro-list_html', 'utrmMachinesListBox');
+		//交通运输工具
+		apiLoad('/web/pro/utrm/home?rows=10&proType=car&proStatus=allNotException', 'pro-list_html', 'utrmVehicleListBox');
+		//房产
+		apiLoad('/web/pro/utrm/home?rows=10&proType=house&proStatus=allNotException', 'pro-list_html', 'utrmHouseListBox');
+		//在建工程
+		apiLoad('/web/pro/utrm/home?rows=10&proType=constructionproject&proStatus=allNotException', 'pro-list_html', 'utrmConstructionprojectListBox');
+		//知识产权
+		apiLoad('/web/pro/utrm/home?rows=10&proType=ipr&proStatus=allNotException', 'pro-list_html', 'utrmPatentsListBox');
+		//土地使用权
+		apiLoad('/web/pro/utrm/home?rows=10&proType=glebe&proStatus=allNotException', 'pro-list_html', 'utrmGlebeListBox');
+		//其它资产
+		apiLoad('/web/pro/utrm/home?rows=10&proType=otherAsset&proStatus=allNotException', 'pro-list_html', 'utrmOtherListBox');
+		//艺术品交易
+		apiLoad('/web/pro/utra/home?rows=6&proStatus=allNotException', 'ysppro-list_html', 'utraListBox');
+
+		//金融资产
+		//apiLoad('/web/pro/utrd/home?rows=8&proType=finance&proStatus=all', 'pro-list_html', 'utrdFinanceListBox');
+
+		//债权资产
+		apiLoad('/web/pro/utrd/home?rows=10&proTypes=nonFinance,finance,assetDebt&proStatus=allNotException&sysNames=utrm,utrd', 'pro-list_html', 'utrdFinanceListBox');
+
+		//用能权 
+		apiLoad('/web/pro/utry/home?rows=6&proStatus=allNotException', 'ynqpro-list_html', 'utryListBox');
+
+		//涉讼资产
+		apiLoad('/web/pro/utrf/home?rows=6&proStatus=allNotException', 'pro-list_html', 'utrfListBox');
+		//拍卖
+		apiLoad('/web/pro/utrf/home?rows=6&transMethod=pm&proStatus=allNotException', 'pro-list_html', 'utrfbListBox');
+		//变卖
+		apiLoad('/web/pro/utrf/home?rows=6&transMethod=bm&proStatus=allNotException', 'pro-list_html', 'utrfpListBox');
+
+		//招商项目
+		//apiLoad('/web/pro/utrl/home?rows=5&proType=investment&proStatus=all', 'zspro-list_html', 'zsxmListBox');
+		apiLoad('web/propertyStock?page=1&rows=5&propStatus=1&propertyStockType=introduction&orderBy= pub_start_time desc ', 'zspro-list_html', 'zsxmListBox');
+		//合作项目
+		apiLoad('/web/proAndPackPage?rows=5&proStatus=allNotException&typeFlag=hzjg&orderBy=real_pub_start_time desc', 'hzjgpro-list_html', 'zzxmListBox');
+        
+        //砂石土资源
+        apiLoad('/web/pro/utrr/home?rows=5&proType=ss&proStatus=allNotException', 'pro-list_html', 'utrrSsListBox');
+
+		//tab切换
+		// 为每个标签链接绑定点击事件
+		$('.tab-link').click(function () {
+			// 移除同一祖先元素所有标签的'cur'类，然后为当前点击的标签添加'cur'类
+			$(this).parents().find('.tab-link').removeClass('cur');
+			$(this).addClass('cur');
+
+			// 获取data-tab属性值，即要显示的标签ID
+			var tabId = $(this).attr('data-tab');
+			// 为当前点击的标签添加'active'类，然后移除所有兄弟标签的'active'类
+			$('#' + tabId).addClass('active').siblings().removeClass('active');
+
+		});
+
+      //友情链接
+      $('li.mainlevel').click(function(){
+          $(this).find('ul').show("");
+       });
+      $('li.mainlevel').mouseleave(function(){
+         $(this).find('ul').hide("");
+       });
+  
+    });
+</script>
+<style>
+	#menubot .mainlevel ul {margin-top:-320px;}
+	/**20260331新增 */
+	.scdt_box{width:calc(50% - 15px);}
+	/**20260401新增 */
+	.jjdt_title a{ margin: 0 12px 0 0; padding: 0 15px; min-width: 140px; text-align: center; border-radius: 10px 10px 0px 0px;}
+	/**20260425新增 */
+	.xm_cont{min-height: 180px;}
+</style><!-- 底部 -->
+<footer>
+	<div id="bottom">
+		<div class="w1365 bottom_cont">
+			<div class="bottom_cont_l">
+				<h3>青岛产权交易所</h3>
+				<ul>
+					<li>地址：青岛市崂山区深圳路156号国金中心9号楼15层</li>
+					<li>邮编：266100　业务咨询电话及邮箱：
+						<a href="/qd/c/jyfw/bmszjjyfw/" target="_blank" class="underline">请点击查看</a>
+					</li>
+					<li>技术部门咨询电话：0532-66718922</li>
+					<li>监督举报电话：0532-66718919</li>
+				</ul>
+			</div>
+			<div class="bottom_cont_r">
+			<!--<p><img src="/static/dpmweb/qd/images/ewm_cfpm.jpg " alt="司法拍卖二维码 " /><span>青岛司法拍卖</span></p>-->
+			<p><img src="/static/dpmweb/qd/images/wx_ewm.jpg " alt="微信二维码 " /><span>青岛产权交易所</span></p>
+			</div>
+		</div>
+		<p class="clear"></p>
+		<p class="copyright">© 2018 All rights reserved 青岛产权交易所
+			<a class="pr10" href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2021012480号-1</a>
+			<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021202000680" target="_blank"> <img src="/static/dpmweb/qd/images/police_2021.png"> 鲁公网安备 37021202000672号</a>
+			<a class="pl10" href="https://www.zbxsoft.com/" target="_blank">技术支持：北京中百信软件技术有限公司</a>
+			<a style="color:#4a8ed5; display: inline; margin-left: 10px;" target="_blank" title="网站统计" href="https://v6.51.la/land/L4FfPzp7114YNMly">网站统计</a>
+		</p>
+	</div>
+</footer>
+<!--返回顶部-->
+<div class="to_top" style="bottom:15px;right:20px;">
+	<img src="/static/dpmweb/qd/images/totop.png " alt="返回顶部 ">
+</div>
+<script  nonce="">
+	// 返回顶部
+	$('.to_top').click(function() {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 300);
+	})
+</script>
+<!--百度访问量统计-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?94490335063c5ccdcd5729807660ee6b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!--51LA访问量统计-->
+<script>
+!function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"L4FfPzp7114YNMly",ck:"L4FfPzp7114YNMly"});
+</script>
+
+    </div>
+</body>
+<style>
+.flexbox{z-index: 999;position:fixed;right:28px;top:16%; width:70px; background: #fff;}
+.flexbox h3{background:#eee;cursor:pointer; text-align:center;padding:6px 0;}
+.flexbox ul {display: flex;justify-content: space-between;flex-wrap: wrap;}
+.flexbox ul li{position: relative;width:calc(50% - 0.5px); box-sizing:border-box; padding:6px 0px 2px 0px; margin-top:1px; background:#666; font-size:14px;  color:#fff; line-height:20px; text-align:center;}
+.flexbox ul li a{color:#fff; letter-spacing:1.5px; writing-mode: vertical-lr; /* 从左到右的垂直排列 */  text-orientation: upright; /* 文本方向为直立 */}
+
+.flexbox ul li div {display: none;z-index:1000; position:absolute; top:0; left:-352px; width:350px;min-height: 80px; background:#d95555; padding:8px; text-align:left; overflow:hidden;} 
+.flexbox ul li div p{color:#fff;line-height:24px;} 
+.flexbox ul li.b-red{background:#d95555;}
+.flexbox ul li:hover {background: #dd3c3c; } 
+.flexbox ul li:hover div {display: block;} 
+
+@media screen and (max-height:850px){
+	/**/
+	.flexbox{top:80px;right:10px;width:101px;}
+	
+@media screen and (max-height:700px){
+	/**/
+	.flexbox{position: absolute;}
+}
+
+</style>
+
+<div class="flexbox">
+  <h3>
+  	<a href="javascript:void(0);">
+  	<img src="/static/dpmweb/qd/images/icon_zxkf.png">
+  	</a>
+  </h3>
+  <ul>
+    <li><a href="javascript:void(0);">交易一部</a>
+     <div>
+        <p>负责对接青岛啤酒集团有限公司、青岛红星化工集团有限责任公司、青岛城运控股集团有限公司、青岛国际机场集团有限公司、青岛华通国有资本运营（集团）有限责任公司、青岛城市建设投资（集团）有限责任公司、青岛城市发展集团有限公司、青岛市政空间开发集团有限责任公司、青岛地铁集团有限公司、青岛能源集团有限公司、青岛水务集团有限公司、青岛海检集团有限公司、青岛财通集团有限公司、青岛银行、青岛农商银行、中路财产保险股份有限公司等企业；负责市南区、城阳区、胶州市、莱西市、高新区交易业务。</p>
+        <p style="padding-top:20px;">
+                             地址：青岛市崂山区深圳路156号国金中心9号楼15层<br />
+                              联系电话：0532-66718918、66718930、66718936、66718938、66718939<br/>
+                              邮箱：jyb1@qdcq.net
+        </p>
+
+      </div>
+    </li>
+    
+    <li><a href="javascript:void(0);">交易二部</a>
+      <div>
+        <p>负责对接青岛澳柯玛控股集团有限公司、青岛海湾集团有限公司、青岛国信发展（集团）有限责任公司、青岛海发国有资本投资运营集团有限公司、青岛国际投资有限公司、青岛饮料集团有限公司、青岛旅游集团有限公司、青岛报业传媒集团有限公司、青岛广电影视传媒集团、青岛出版集团、青岛演艺集团等企业；负责市级行政事业单位、市北区、李沧区、崂山区、黄岛区（西海岸新区）、即墨区、平度市、保税区、自贸区交易业务。</p>
+        <p style="padding-top:25px;">
+                             地址：青岛市崂山区深圳路156号国金中心9号楼15层<br />
+                             联系电话：0532-66718935、66718931、66718929、66718932、66718926<br/>
+                             邮箱：jyb2@qdcq.net
+        </p>
+        
+      </div>
+    </li>
+
+    <li><a href="javascript:void(0);">金融事务部</a>
+      <div>
+        <p>负责对接青岛融资担保集团有限公司、青岛农村商业银行股份有限公司、青岛银行股份有限公司、青岛市农业融资担保有限责任公司、中路财产保险股份有限公司交易业务。为国有股权增资扩股、股权转让（含并购）、国有实物资产处置、司法拍卖、罚没资产处置、阳光采购及农村产权交易等业务，提供融资、咨询、撮合、做市等金融增值服务；为银行及非银行金融机构的金融债权转让、不良资产（含抵债资产）处置，提供项目招商、挂牌转让等专业化服务；整合线上资产处置平台与线下房产经纪机构资源，构建资源库，为存量国有资产盘活提供招商引流与精准推介服务；为各类资产提供线上智能评估及市场化网络询价服务；为大宗资产交易定制个性化解决方案，协助对接银行、证券公司、商业保理公司、律师事务所、会计师事务所等专业服务机构。</p>
+        <p style="padding-top:20px;">
+        	地址：青岛市崂山区深圳路156号国金中心9号楼14层<br />
+                                 联系电话：0532-66710182、66718915、66710960<br/>
+                                    邮箱：jmj@qdcq.net
+        </p>
+      </div>
+    </li>
+    
+    <li><a href="javascript:void(0);">涉讼资产部</a> 
+      <div>
+        <p>负责为青岛市两级人民法院提供司法拍卖、司法变卖以及司法辅助工作，提供符合法律、行政法规和司法解释规定的网络司法拍卖服务，保证服务全程的信息数据真实、准确、完整和安全。</p>
+        <p style="padding-top:20px;">
+        	地址：青岛市崂山区深圳路156号国金中心9号楼15层<br />
+        	联系电话：0532-66718925<br/>
+        	邮箱：sfpm@qdcq.net
+        </p>
+         <p style="float:left;width:250px;padding-top:25px;">青岛产权交易所司法拍卖、变卖及司法辅助24小时客服</p>
+         <p style="float:right;margin-top:10px;"><img src="/static/dpmweb/qd/images/wx_cffz.jpg" width="100"></p>
+      </div>
+    </li>
+    
+     <li><a href="javascript:void(0);">农村产权流转交易平台</a> 
+     <div style="width:260px;left:-252px;">
+      <p>青岛市农村产权流转交易平台运营维护</p>
+       <p style="padding-top:20px;">
+        	地址：青岛市崂山区深圳路156号国金中心9号楼14层<br />
+        	联系电话：0532-66710328<br />
+        	邮箱：nccq@qdcq.net
+       </p>
+     </div>
+    </li>
+    
+    <li><a href="javascript:void(0);" style="letter-spacing:5px;">科技成果交易平台</a>
+     <div>
+      <p>提供科技企业股权交易、科技成果交易、征集科技项目投资人、技术授权四大类标准技术交易业务，为各类市场主体特别是高校、科研院所提供一站式信息披露、意向登记、交易结算等交易所核心服务，同时，链接各类市场资源，提供交易咨询、成果匹配、信息梳理、投融资对接等一揽子服务，创新引领区域内科技成果转移转化。</p>
+       <p style="padding-top:20px;">青岛市崂山区深圳路156号国金中心9号楼14层<br />
+        联系电话：0532-66710305、88910828<br />邮箱：lhm@qdcq.net</p>
+       
+     </div>
+    </li>
+    
+    <li><a href="javascript:void(0);">青岛国易采购平台</a>
+     <div>
+      <p>负责“青慧采”网上商城的市场推广，承接市、区两级行政事业单位及国企的小额零星采购，负责推广青岛本地产品，拓展域外销售渠道，助力青岛好品推全国。助力实现采购流程的阳光化、数字化和集约化，构建多方共赢的采购服务生态圈。</p>
+       <p style="padding-top:20px;">地址：青岛市崂山区深圳路156号国金中心9号楼14层<br />
+       联系电话：0532-66710575、66710582、66710580、66710579<br />
+       邮箱：gycg@qdcq.net</p>
+     </div>
+    </li>
+    
+    <li><a href="javascript:void(0);">青岛阳光采购平台</a>
+     <div style="top:auto;bottom:0;">
+      <p>负责市级阳光采购平台系统运维及交易场地维护，为国有企业实施阳光采购提供全流程电子化综合性服务，可实现采购公告发布、供应商投标、开标评标定标、结果公示、档案归档等采购全流程线上操作；围绕国企采购提供国有企业政策解读、业务讲解、系统培训等服务，拓展采购咨询等市场化增值服务。为企业提供多元化、数字化、个性化的采购体验，助力企业采购提质增效，推动企业采购管理升级，积极构建我市国企阳光采购新生态。</p>
+        <p style="padding-top:20px;">地址：青岛市崂山区深圳路156号国金中心9号楼1层<br />
+        联系电话：0531-88915572、88913595、88912763、88916723、88912570、88913107、88915512<br />
+        邮箱：market@qdygcg.com</p>
+     </div>
+    </li>
+    
+     <li><a href="javascript:void(0);" style="letter-spacing:4px;">北部区域中心</a>
+      <div style="top:auto;bottom:0;left:-382px;width:380px;">
+        <p>受理即墨区国有企业、国有金融企业、中央企业、民营企业等交易主体委托的产权转让、增资扩股、资产转让、债权转让、资产租赁、破产重整等项目，受理农村产权交易项目，负责司法拍卖、司法变卖，办理交易信息披露、意向方登记、竞价、交割、结算、业务归档等交易业务；阳光采购平台北部中心驻点，青岛产权交易所各交易主体可选择就近办理招投标业务。</p>
+        <p style="padding-top:20px;">地址：青岛市即墨区通济街128号万丽国际广场A座704室<br />
+          联系电话：0532-66612601、66611850&nbsp;<br />
+          邮箱：wxw@qdcq.net</p>
+      </div>
+    </li>
+    
+     <li class="b-red"><a href="javascript:void(0);">业务监督与投诉</a> 
+      <div style="top:auto;bottom:0;width:200px;left:-202px;">
+        <p>如果您在产交所相关业务办理过程中遇到服务态度、流程效率、违规操作等问题请拨打电话：0532-66718919</p>
+      </div>
+    </li>
+      <li style="width: 100%;">
+          <a href="javascript:void(0);">青岛仲裁</a>
+          <div style="top:auto;bottom:0;width:200px;left:-202px;">
+              <p style="text-align: center;margin: 3px 0px;">
+                  <a style="writing-mode: horizontal-tb;" target="_blank" href="http://www.qdac.org/gyqz/bhjs/202201/t20220121_4269333.shtml">青岛仲裁简介</a>
+              </p>
+              <p style="text-align: center;margin: 3px 0px;">
+                  <a style="writing-mode: horizontal-tb;" target="_blank" href="https://zhzc.qdac.org:7089/login">一键申请仲裁</a>
+              </p>
+          </div>
+      </li>
+  </ul>
+</div>
+<!--智能客服-->
+<script id="zbxScript" src="/zbx_service/embed.js"></script>
+<a class="close-robot" onclick="robothiden()" title="关闭">×</a>
+
+<style>
+	#zbx_service{height: 600px !important; width: 1000px !important;right: calc(50% - 500px) !important;}
+	#zbx_service_icon img{display: none;}
+	#zbx_service_icon{ bottom:auto !important; top: calc(16% - 56px); right:8px !important; padding:10px;background-color: #fff; box-shadow: 0 0 10px rgba(200,200,200,0.3); border-radius:50%; cursor: move;}
+	#zbx_service_icon{width: 105px; height: 105px; background:#f2f2f2 url('/static/dpmweb/qd/images/robot.gif') no-repeat center 8px; background-size:80px; }
+	#zbx_service,#zbx_service iframe,.ant-pro-layout .ant-pro-layout-bg-list{border-radius: 24px 24px 8px 8px !important;}
+	
+    #zbx_service_icon::after { content: "机器人客服"; position: absolute; bottom:0px;left: 50%; transform: translateX(-50%); padding:0px 2px; font-size: 14px; font-weight: normal; white-space: nowrap;  z-index: 9999;  pointer-events: none; /*background: rgba(255,255,255,0.8);*/}
+
+	.close-robot {
+		position: fixed;
+		top: calc(18% - 20px); 
+		right:5px !important; 
+		font-weight: 500;
+		font-size: 24px;
+		color: #999;
+		z-index: 9999;
+		cursor: pointer;
+		display: block;
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		line-height: 26px;
+		border-radius: 50%;		
+		/*background: rgba(255,255,255,0.8);*/
+	}
+	
+	.close-robot:hover {
+		color: #333;
+		/*background: rgba(255,255,255,1);*/
+	}
+	
+    
+    /* 拖拽条 - 避开右上角关闭按钮区域 */
+    #zbx-drag-handle {
+        position: fixed;
+        height: 40px;
+        cursor: move;
+        z-index: 10001;
+        user-select: none;
+        display: none;
+        pointer-events: auto;
+       /* background: rgba(255, 0, 0, 0.3);*/
+    }
+    
+    /* 拖拽条右侧留出空间，避免遮挡关闭按钮 */
+    #zbx-drag-handle::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    #zbx_service_icon.dragging {
+    	z-index: 9998; 
+        opacity: 0.8;
+        cursor: grabbing;
+    }
+    
+    body.dragging {
+        user-select: none;
+        cursor: grabbing;
+    }
+    
+ @media screen and (max-height:850px){
+	/**/
+	#zbx_service_icon{top:20px; }
+}   
+</style>
+
+<script>
+// ========== 关闭智能客服（使用官方方法 + 备用方法） ==========
+function robothiden() {
+    // 方法1：尝试调用客服窗口自带的关闭方法
+    try {
+        if (typeof zbxEmbed !== 'undefined' && zbxEmbed.closeFrameModal) {
+            zbxEmbed.closeFrameModal();
+            console.log('使用 zbxEmbed.closeFrameModal() 关闭');
+        }
+    } catch(e) { console.log('zbxEmbed.closeFrameModal 调用失败:', e); }
+    
+    // 方法2：尝试调用 iframe 内部的关闭方法
+    try {
+        var iframe = $('#zbx_service iframe')[0];
+        if (iframe && iframe.contentWindow && iframe.contentWindow.zbxClose) {
+            iframe.contentWindow.zbxClose();
+        }
+    } catch(e) {}
+    
+    // 方法3：隐藏所有相关元素（备用方案）
+    $("#zbx_service").hide();
+    $("#zbx_service_icon").hide();
+    $(".close-robot").hide();
+    $("#zbx-drag-handle").hide();
+}
+
+// 打开智能客服
+function robotShow() {
+    // 尝试调用官方打开方法
+    try {
+        if (typeof zbxEmbed !== 'undefined' && zbxEmbed.openFrameModal) {
+            zbxEmbed.openFrameModal();
+        }
+    } catch(e) {}
+    
+    $("#zbx_service").show();
+    $("#zbx_service_icon").show();
+    $(".close-robot").show();
+    $("#zbx-drag-handle").show();
+    updateDragHandle();
+}
+
+// 更新拖拽条位置（右侧留出50px避免遮挡关闭按钮）
+function updateDragHandle() {
+    var $win = $("#zbx_service");
+    var $handle = $("#zbx-drag-handle");
+    if ($win.length && $win.is(":visible") && $handle.length) {
+        var rect = $win[0].getBoundingClientRect();
+        $handle.css({
+            top: rect.top + 'px',
+            left: rect.left + 'px',
+            width: (rect.width - 50) + 'px'  // 右侧留出50px，避免遮挡关闭按钮
+        });
+    }
+}
+
+// ========== 同步图标和关闭按钮的相对位置（右上角） ==========
+function syncIconAndClosePosition() {
+    var $icon = $("#zbx_service_icon");
+    var $close = $(".close-robot");
+    if (!$icon.length || !$close.length) return;
+    
+    var iconRect = $icon[0].getBoundingClientRect();
+    
+    // 关闭按钮在图标右上角
+    var closeLeft = iconRect.right - $close.outerWidth() + 5;
+    var closeTop = iconRect.top - $close.outerHeight() / 2;
+    
+    $close.css({
+        left: closeLeft + 'px',
+        top: closeTop + 'px',
+        right: 'auto',
+        bottom: 'auto'
+    });
+}
+
+// ========== 拖拽状态 ==========
+var dragType = null;
+
+// 窗口拖拽数据
+var winDrag = {
+    active: false,
+    startX: 0, startY: 0,
+    startLeft: 0, startTop: 0
+};
+
+// 图标拖拽数据
+var iconDrag = {
+    active: false,
+    startX: 0, startY: 0,
+    startLeft: 0, startTop: 0,
+    closeStartLeft: 0, closeStartTop: 0
+};
+
+// ========== 初始化窗口拖拽 ==========
+function setupWindowDrag() {
+    var $win = $("#zbx_service");
+    if (!$win.length) return;
+    
+    var rect = $win[0].getBoundingClientRect();
+    $win.css({
+        left: rect.left + 'px',
+        top: rect.top + 'px',
+        right: 'auto',
+        bottom: 'auto'
+    });
+    
+    var $handle = $("#zbx-drag-handle");
+    if (!$handle.length) {
+        $handle = $('<div id="zbx-drag-handle"></div>');
+        $('body').append($handle);
+    }
+    $handle.css({
+        top: rect.top + 'px',
+        left: rect.left + 'px',
+        width: (rect.width - 50) + 'px',
+        display: 'block'
+    });
+    
+    $handle.off('mousedown').on('mousedown', function(e) {
+        if (e.which !== 1) return;
+        if (dragType === 'icon') return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        dragType = 'window';
+        winDrag.active = true;
+        winDrag.startX = e.clientX;
+        winDrag.startY = e.clientY;
+        
+        var rect = $win[0].getBoundingClientRect();
+        winDrag.startLeft = rect.left;
+        winDrag.startTop = rect.top;
+        
+        $('body').css('user-select', 'none');
+    });
+}
+
+// ========== 初始化图标拖拽 ==========
+function setupIconDrag() {
+    var $icon = $("#zbx_service_icon");
+    var $close = $(".close-robot");
+    if (!$icon.length || !$close.length) return;
+    
+    var iconRect = $icon[0].getBoundingClientRect();
+    $icon.css({
+        left: iconRect.left + 'px',
+        top: iconRect.top + 'px',
+        right: 'auto',
+        bottom: 'auto'
+    });
+    
+    syncIconAndClosePosition();
+    $icon.css('cursor', 'move');
+    
+    $icon.off('mousedown').on('mousedown', function(e) {
+        if (e.which !== 1) return;
+        if (dragType === 'window') return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        dragType = 'icon';
+        iconDrag.active = true;
+        iconDrag.startX = e.clientX;
+        iconDrag.startY = e.clientY;
+        
+        var iconRect = $icon[0].getBoundingClientRect();
+        iconDrag.startLeft = iconRect.left;
+        iconDrag.startTop = iconRect.top;
+        
+        var closeRect = $close[0].getBoundingClientRect();
+        iconDrag.closeStartLeft = closeRect.left;
+        iconDrag.closeStartTop = closeRect.top;
+        
+        $icon.addClass('dragging');
+        $('body').css('user-select', 'none');
+    });
+}
+
+// ========== 全局鼠标移动 ==========
+$(document).on('mousemove', function(e) {
+    // 窗口拖拽
+    if (dragType === 'window' && winDrag.active) {
+        var $win = $("#zbx_service");
+        if (!$win.length) return;
+        
+        var dx = e.clientX - winDrag.startX;
+        var dy = e.clientY - winDrag.startY;
+        
+        var newLeft = winDrag.startLeft + dx;
+        var newTop = winDrag.startTop + dy;
+        
+        newLeft = Math.max(0, Math.min(newLeft, window.innerWidth - $win.outerWidth()));
+        newTop = Math.max(0, Math.min(newTop, window.innerHeight - $win.outerHeight()));
+        
+        $win.css({ left: newLeft + 'px', top: newTop + 'px' });
+        
+        var $handle = $("#zbx-drag-handle");
+        if ($handle.length) {
+            $handle.css({ left: newLeft + 'px', top: newTop + 'px' });
+        }
+    }
+    
+    // 图标拖拽
+    if (dragType === 'icon' && iconDrag.active) {
+        var $icon = $("#zbx_service_icon");
+        var $close = $(".close-robot");
+        if (!$icon.length) return;
+        
+        var dx = e.clientX - iconDrag.startX;
+        var dy = e.clientY - iconDrag.startY;
+        
+        var newIconLeft = iconDrag.startLeft + dx;
+        var newIconTop = iconDrag.startTop + dy;
+        
+        newIconLeft = Math.max(0, Math.min(newIconLeft, window.innerWidth - $icon.outerWidth()));
+        newIconTop = Math.max(0, Math.min(newIconTop, window.innerHeight - $icon.outerHeight()));
+        
+        $icon.css({ left: newIconLeft + 'px', top: newIconTop + 'px' });
+        
+        if ($close.length) {
+            var newCloseLeft = iconDrag.closeStartLeft + dx;
+            var newCloseTop = iconDrag.closeStartTop + dy;
+            
+            newCloseLeft = Math.max(0, Math.min(newCloseLeft, window.innerWidth - $close.outerWidth()));
+            newCloseTop = Math.max(0, Math.min(newCloseTop, window.innerHeight - $close.outerHeight()));
+            
+            $close.css({
+                left: newCloseLeft + 'px',
+                top: newCloseTop + 'px'
+            });
+        }
+    }
+});
+
+// ========== 全局鼠标松开 ==========
+$(document).on('mouseup', function() {
+    if (dragType === 'window') {
+        winDrag.active = false;
+        dragType = null;
+        $('body').css('user-select', '');
+        updateDragHandle();
+    }
+    
+    if (dragType === 'icon') {
+        iconDrag.active = false;
+        dragType = null;
+        var $icon = $("#zbx_service_icon");
+        if ($icon.length) $icon.removeClass('dragging');
+        $('body').css('user-select', '');
+    }
+});
+
+// ========== 监听窗口大小变化 ==========
+$(window).on('resize', function() {
+    syncIconAndClosePosition();
+    updateDragHandle();
+});
+
+// ========== 监听元素出现 ==========
+var dragObserver = new MutationObserver(function() {
+    if ($("#zbx_service").length) setupWindowDrag();
+    if ($("#zbx_service_icon").length && $(".close-robot").length) setupIconDrag();
+});
+
+dragObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+// 立即执行
+if ($("#zbx_service").length) setupWindowDrag();
+if ($("#zbx_service_icon").length && $(".close-robot").length) setupIconDrag();
+
+// 定时更新
+setInterval(function() {
+    if (dragType !== 'window') {
+        updateDragHandle();
+    }
+    if (dragType !== 'icon') {
+        syncIconAndClosePosition();
+    }
+}, 300);
+
+// ========== 仲裁菜单悬浮效果 ==========
+(function() {
+    var li = document.getElementById('arbitrationLi');
+    var div = document.getElementById('arbitrationDiv');
+    if (!li || !div) return;
+
+    var timer = null;
+
+    function show() {
+        if (timer) clearTimeout(timer);
+        div.style.display = 'block';
+    }
+
+    function hide() {
+        timer = setTimeout(function() {
+            div.style.display = 'none';
+        }, 80);
+    }
+
+    li.addEventListener('mouseenter', show);
+    li.addEventListener('mouseleave', hide);
+    div.addEventListener('mouseenter', show);
+    div.addEventListener('mouseleave', hide);
+})();
+
+</script><!--20221129 侧边栏-->
+<div class="control-sidebar bg-white full" id="modal-sd"  data-backdrop="static" tabindex="-1">
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-sd"></div>
+</div>
+
+<div class="control-sidebar-inner  bg-white full" id="modal-si"  data-backdrop="static" tabindex="-1">
+    <!-- Control sidebar content goes here -->
+    <div class="modal-sidebar-head">
+        <h5 class="modal-title"></h5>
+        <div class="modal-sidebar-header-right">
+            <button type="button" class="fullscreen" data-widget="fullscreenModal">
+                <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+            </button>
+            <button type="button" class="close" data-widget="modal-sidebar-inner-close">
+                <span aria-hidden="true" class="fal fa-xmark"></span>
+            </button>
+        </div>
+    </div>
+    <div class="control-sidebar-content mt-4" id="modalBox-si"> </div>
+</div>
+<!--20200717 new bootstrapbox start-->
+<div class="modal fade full" id="modal-xl" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl" style="min-width: 90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <div class="modal-header-right">
+                    <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                        <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                    </button>
+                    <button type="button" class="close" data-dismiss="modal" title="关闭">
+                        <i class="fal fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBox-xl" style="min-height:550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--大-->
+<div class="modal fade full" id="modal-lg" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <div class="modal-header-right">
+                    <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                        <i class="fal fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                    </button>
+                    <button type="button" class="close" data-dismiss="modal" title="关闭">
+                        <i class="fal fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBox-lg" style="min-height:250px; max-height: 550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--中-->
+<div class="modal fade full" id="modal-md" data-backdrop="static"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <div class="modal-header-right">
+                    <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                        <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                    </button>
+                    <button type="button" class="close" data-dismiss="modal" title="关闭">
+                        <i class="fal fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBox-md" style="min-height:250px;  max-height: 450px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--小-->
+<div class="modal fade full" id="modal-sm" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <div class="modal-header-right">
+                    <button type="button" class="fullscreen" data-widget="fullscreenModal" title="全屏">
+                        <i class="far fa-arrow-up-right-and-arrow-down-left-from-center"></i>
+                    </button>
+                    <button type="button" class="close" data-dismiss="modal" title="关闭">
+                        <i class="fal fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBox-sm"  style="min-height:250px; max-height: 350px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--不带关闭按钮-->
+<div class="modal fade" id="modal-noclose" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body" id="modalBox-noclose"  style="min-height:450px; max-height: 550px; overflow: auto"></div>
+        </div>
+    </div>
+</div>
+<!--删除-->
+<div class="modal fade" id="modal-del" data-backdrop="static"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-trash-o"></i> 删除提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;">确定删除<text id="modalBox-del"></text>吗？</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary modal-del-commit" data-dismiss="modal" onclick="xwkDelete(XWK.apiServiceName,XWK.apiUrl,XWK.callBack)">确定</button>
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-confirm" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-window-restore"></i> 操作提示</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:50px; padding-left:18px;"><text id="modalBox-confirm"></text></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary modal-confirm-commit" data-dismiss="modal" onclick="apiSubmit(XWK.apiUrl,XWK.formName,XWK.callBack,XWK.apiMethod,XWK.apiServiceName,XWK.contentType)">确定</button>
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-loading" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fa fa-dog"></i> 运行中</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="min-height:150px">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--附件-->
+<div id="attaHiddenDiv" style="display:none"></div>
+
+<script  nonce="">
+    function logout(toUrl){
+        var url = '/login/logout';
+        if(toUrl){
+            url = '/login/logout?toUrl=' + toUrl;
+        }
+        if(confirm('您确定工作已经保存，并退出该系统?')) {
+            window.location.href = url;
+        }
+    }
+
+    function logoutweb(toUrl){
+        var url = '/login/logout';
+        if(toUrl){
+            url = '/login/logout?toUrl=' + toUrl;
+        }
+        if(confirm('您确定工作已经保存，并退出该系统?')) {
+            window.location.href = url;
+        }
+    }
+</script> <style>
+.float_ggbox{position:fixed;left:20px;bottom:calc(50% - 230px);z-index:9999;}
+.float_ggbox li{width:240px;padding:10px; margin-bottom:10px; overflow:hidden; background:#e94e54; border-radius:8px; display:flex; justify-content:center; align-items:center; }
+.float_ggbox li a{color:#fff;font-size:28px; line-height:150%; align-self:center; text-align: center;letter-spacing:1.5px; }
+.float_ggbox li span{ display: none;}
+.float_ggbox .close{position:absolute; top:0px;left:0px; z-index:999; cursor:pointer; width:20px; height:20px; line-height:20px;font-size:18px; color:#fff; border-radius:100%; background:rgba(0,0,0,0.1)!important; text-align:center;}
+
+.float_ggbox:not(:has(li)) {
+		display: none !important;
+	}
+</style>   
+ <ul class="float_ggbox">
+<a onclick="hide()" class="close">×</a>
+<xwk_cms type="component" code="sypc"></xwk_cms>
+</ul>
+
+<script type="text/javascript">
+	function hide() {
+		$(".float_ggbox").hide();
+	}
+// 延迟10秒执行
+	setTimeout(function() {
+	
+		$(function() {
+		$('.float_ggbox:not(:has(li))').hide();
+	    });
+	}, 10000); // 10秒
+</script></html>
