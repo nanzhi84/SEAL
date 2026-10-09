@@ -1,76 +1,1100 @@
-<!doctype html><html lang="zh"><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SEAL V1.2 Runtime — Draft</title>
-<style>body{font:16px/1.75 system-ui,sans-serif;color:#163244;background:#edf3f5;
-max-width:1080px;margin:32px auto;padding:0 24px}main{padding:32px;background:white;
-border-radius:12px}h1{font-size:30px}h2{border-top:1px solid #dae5e9;padding-top:28px}
-.status{background:#fff1d5;border-left:5px solid #bd7400;padding:16px 20px;border-radius:5px}
-p,td{overflow-wrap:anywhere}a{color:#14607b}pre{white-space:pre-wrap;background:#eff4f6;padding:20px;border-radius:6px}
-code{font-size:0.88em}.table{overflow-x:auto}table{border-collapse:collapse;width:100%}
-th,td{padding:12px;border:1px solid #d5e1e7;text-align:left;vertical-align:top}th{background:#eff4f6}
-</style><main><aside class="status"><b>Draft · 真实验收阻塞</b><br>
-Runtime 实现与离线测试不能替代 T0 / T7S / T8 的真实原文证据。</aside>
-<p>派生自唯一 <a href="../plans/v1.2-heterogeneous-sources.md">V1.2 Plan</a>；
-<a href="https://github.com/nanzhi84/SEAL/issues/1">Issue #1</a>。</p><h1>V1.2：异构 Source 的 Runtime 基础设施</h1>
-<p>本变更关联 <a href="https://github.com/nanzhi84/SEAL/issues/1">Issue #1</a>，需求快照更新时间 为 2026-10-09 10:03:28 UTC，开发基线为主分支 <code>ee39884</code>。 范围是 T0–T6、T7S、T8；111 个入口的批量推广、Evaluation、Management 和 Agent 不在本次范围。 唯一人工来源台账仍为 <a href="../reference/source-adaptation.md">Source 适配参考第 9 节</a>。</p>
-<p>当前交付为 <strong>Draft</strong>：可执行的 Runtime 扩展和合成验收不能替代 A/B/C 真实样本验收。 本会话对样本域名的继承代理请求返回 Tunnel 403；历史分类工件的业务 JSON、详情和附件 原文并未全部入库。阻塞证据及原文可用性见 <a href="../../experiments/v1.2-acceptance/samples/audit.json">样本审计</a> 和 <a href="../../experiments/v1.2-acceptance/samples/network-diagnostic.json">网络诊断</a>。 不得用旧实验 PASS、入口 HTTP 200、合成样本或历史 HTML 的离线解析宣称 T7S/T8 通过。</p>
-<h2>1. 既有实现审计与迁移选择</h2>
-<p>读取 AGENTS.md、ADR-0001/0002/0003、V1.1 Runtime Plan、Schema/迁移、Recipe、 CLI/Worker/Replay/Export/Inspect 和累计 M3/Smoke。仓库没有 GitHub Actions 配置； 本地工程入口为既有 acceptance.sh、工件校验、Ruff 和 seiso。 Source → 不可变 RecipeVersion/Binding → Run → Scrapy → 归档 → Observation/Revision/Result 已经具备；公共 JSON 取值仍限字符串，文档身份仍是 URL，Recheck 仍以详情 URL 为种子。</p>
-<div class="table"><table><thead><tr><th>路线</th><th>对现有合同的影响</th><th>选择依据</th></tr></thead><tbody>
-<tr><td>扩展 seal_document</td><td>URL 非空、URL 身份、body_hash Revision、Completion 和 Export 都需混入业务身份；API 的 N 条记录不能各占同一个 URL</td><td>必须改变多个历史公共语义，或伪造不存在的 URL；不选</td></tr>
-<tr><td>新增最小 Record 表</td><td>增量增加身份、版本、处理结果和本轮 emission；保留旧 Document/Revision/Result</td><td>实现 URL 原文与业务 Record 分离，旧不可变行不改写；本次选择</td></tr>
+<!doctype html>
+<html lang="zh-CN" data-theme="paper" data-mode="auto" data-style="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Answer me with HTML 0.4.9">
+<title>V1.2：异构 Source 的 Runtime 基础设施</title>
+<style>
+html[data-theme="blueprint"], html[data-theme="blueprint"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 0px;
+  --shadow: none;
+  --bw: 1.5px;
+  --head-font: var(--font-sans);
+  --bg: #f6f6f3;
+  --paper: #ffffff;
+  --ink: #16181d;
+  --ink-2: #4b5260;
+  --ink-3: #8b929e;
+  --line: #1d2026;
+  --line-2: #d6dae1;
+  --fill: #f3f5f8;
+  --accent: #1d5fbf;
+  --accent-bg: #e4ecf8;
+  --ok: #1d5fbf;
+  --ok-bg: #e4ecf8;
+  --err: #c62828;
+  --err-bg: #fbeaea;
+  --warn: #a8620a;
+  --warn-bg: #fdf3e2;
+  --head-bg: #16181d;
+  --head-fg: #ffffff;
+}
+html[data-theme="blueprint"][data-mode="dark"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="blueprint"][data-mode="auto"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+}
+
+html[data-theme="shadcn"], html[data-theme="shadcn"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 8px;
+  --shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --bw: 1px;
+  --head-font: var(--font-sans);
+  --bg: #fafafa;
+  --paper: #ffffff;
+  --ink: #09090b;
+  --ink-2: #71717a;
+  --ink-3: #a1a1aa;
+  --line: #e4e4e7;
+  --line-2: #f0f0f2;
+  --fill: #f4f4f5;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --ok: #16a34a;
+  --ok-bg: #f0fdf4;
+  --err: #dc2626;
+  --err-bg: #fef2f2;
+  --warn: #d97706;
+  --warn-bg: #fffbeb;
+  --head-bg: #18181b;
+  --head-fg: #fafafa;
+}
+html[data-theme="shadcn"][data-mode="dark"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="shadcn"][data-mode="auto"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+}
+
+html[data-theme="paper"], html[data-theme="paper"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+  --radius: 2px;
+  --shadow: none;
+  --bw: 1px;
+  --head-font: var(--font-serif);
+  --bg: #f5f2ea;
+  --paper: #fdfbf6;
+  --ink: #1f1c17;
+  --ink-2: #57514a;
+  --ink-3: #8c867b;
+  --line: #cbc3b4;
+  --line-2: #e5dfd3;
+  --fill: #f3eee4;
+  --accent: #8c2f1e;
+  --accent-bg: #f5e5df;
+  --ok: #2e6a3b;
+  --ok-bg: #e4efe5;
+  --err: #a3251b;
+  --err-bg: #f7e3e0;
+  --warn: #7f5300;
+  --warn-bg: #f6ecd6;
+  --head-bg: #1f1c17;
+  --head-fg: #fdfbf6;
+}
+html[data-theme="paper"][data-mode="dark"] {
+  --bg: #15130f;
+  --paper: #1c1a15;
+  --ink: #ebe5d8;
+  --ink-2: #b5ad9e;
+  --ink-3: #7b7467;
+  --line: #4a443a;
+  --line-2: #2d2a24;
+  --fill: #242119;
+  --accent: #e59a7d;
+  --accent-bg: #3a2219;
+  --ok: #8cc79a;
+  --ok-bg: #1c3122;
+  --err: #f0928a;
+  --err-bg: #3a1d1a;
+  --warn: #e3b866;
+  --warn-bg: #352a13;
+  --head-bg: #ebe5d8;
+  --head-fg: #15130f;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="paper"][data-mode="auto"] {
+  --bg: #15130f;
+  --paper: #1c1a15;
+  --ink: #ebe5d8;
+  --ink-2: #b5ad9e;
+  --ink-3: #7b7467;
+  --line: #4a443a;
+  --line-2: #2d2a24;
+  --fill: #242119;
+  --accent: #e59a7d;
+  --accent-bg: #3a2219;
+  --ok: #8cc79a;
+  --ok-bg: #1c3122;
+  --err: #f0928a;
+  --err-bg: #3a1d1a;
+  --warn: #e3b866;
+  --warn-bg: #352a13;
+  --head-bg: #ebe5d8;
+  --head-fg: #15130f;
+}
+}
+
+html[lang="ja"][data-theme][data-mode] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans CJK JP", "Noto Sans JP", "PingFang SC", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Answer me with HTML base — uses theme variables only, never hard-coded colors (theme tokens and decorations: themes/<name>.js). Exception: the var() fallbacks of diagrams (flow / sequence) equal the blueprint light tokens, guarded by a test. */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+code, pre, kbd { font-family: var(--font-mono); }
+
+/* ── Toolbar ─────────────────────────────── */
+.am-toolbar {
+  position: fixed; top: 12px; right: 12px; z-index: 10; display: flex; gap: 6px;
+}
+.am-btn {
+  font: 12px/1 var(--font-sans); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 7px 10px; cursor: pointer;
+}
+.am-btn:hover { border-color: var(--ink-3); }
+.am-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Theme and mode lists: a label and a native select inside one button-like box */
+.am-pick {
+  display: flex; align-items: center; gap: 6px; font: 12px/1 var(--font-sans); color: var(--ink-2); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 0 4px 0 10px;
+}
+.am-pick:hover { border-color: var(--ink-3); }
+.am-pick:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.am-pick select {
+  font: inherit; color: var(--ink); background: transparent; border: 0; padding: 6px 2px; cursor: pointer; outline: none;
+}
+.am-pick option { color: var(--ink); background: var(--paper); }
+
+/* ── Header ───────────────────────────────── */
+.am-head { margin: 0 0 20px; padding-right: 300px; }
+.am-head h1 { margin: 0; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
+.am-sub { margin: 4px 0 0; color: var(--ink-2); }
+.am-head-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+.am-head-meta b { font-family: var(--font-mono); font-weight: 400; color: var(--ink-3); margin-right: 6px; }
+.am-intro { margin-top: 12px; max-width: 80ch; }
+
+/* ── sheet template ────────────────────────── */
+.am-sheet { max-width: 1680px; margin: 0 auto; padding: 32px 28px 40px; }
+.am-frame { position: relative; }
+.am-grid {
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 20px; align-items: start;
+}
+.am-ruler { display: none; }
+.am-ruler span { flex: 1; display: flex; align-items: center; justify-content: center; }
+.am-ruler--top, .am-ruler--bottom { left: 18px; right: 18px; height: 18px; }
+.am-ruler--top { top: 0; }
+.am-ruler--bottom { bottom: 0; }
+.am-ruler--left, .am-ruler--right { top: 18px; bottom: 18px; width: 18px; flex-direction: column; }
+.am-ruler--left { left: 0; }
+.am-ruler--right { right: 0; }
+.am-ruler--top span + span, .am-ruler--bottom span + span { border-left: 1px solid var(--line); }
+.am-ruler--left span + span, .am-ruler--right span + span { border-top: 1px solid var(--line); }
+
+/* ── Panels ───────────────────────────────── */
+.am-panel {
+  background: var(--paper); border: var(--bw) solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); min-width: 0; overflow: hidden;
+}
+.am-panel-head {
+  display: flex; align-items: stretch; gap: 0; border-bottom: var(--bw) solid var(--line); min-height: 34px;
+}
+.am-panel-id {
+  display: flex; align-items: center; justify-content: center; min-width: 34px; padding: 0 8px;
+  background: var(--head-bg); color: var(--head-fg); font-weight: 600; font-size: 14px;
+}
+.am-panel-head h2 { margin: 0; padding: 7px 12px; font-size: 15px; font-weight: 600; flex: 1; display: flex; align-items: center; }
+.am-panel-meta { align-self: center; padding: 0 12px; font: 11px/1.3 var(--font-mono); color: var(--ink-2); text-align: right; }
+.am-panel-body { padding: 14px 16px 16px; }
+.am-panel-body > * + * { margin-top: 12px; }
+
+/* ── Markdown body ───────────────────────── */
+.am-md > :first-child { margin-top: 0; }
+.am-md > :last-child { margin-bottom: 0; }
+.am-md p { margin: 0 0 8px; }
+.am-md ul, .am-md ol { margin: 0 0 8px; padding-left: 20px; }
+.am-md li + li { margin-top: 3px; }
+.am-md h3, .am-md h4 { margin: 14px 0 6px; font-size: 13px; }
+.am-md a { color: var(--accent); }
+.am-md blockquote { margin: 0 0 8px; padding: 2px 12px; border-left: 3px solid var(--line-2); color: var(--ink-2); }
+.am-md :not(pre) > code { font-size: 0.9em; background: var(--fill); padding: 1px 5px; border-radius: 4px; }
+.am-md hr { border: 0; border-top: 1px solid var(--line-2); margin: 12px 0; }
+.am-md table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.am-md th {
+  text-align: left; font: 11px/1.3 var(--font-mono); color: var(--ink-2); font-weight: 400;
+  padding: 6px 10px; border-bottom: 1px solid var(--line-2);
+}
+/* th { text-align: left } outranks the align attribute from Markdown alignment, so restore right and center columns explicitly. */
+.am-md th[align="right"] { text-align: right; }
+.am-md th[align="center"] { text-align: center; }
+.am-md td { padding: 7px 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.am-md tbody tr:nth-child(even) td { background: var(--fill); }
+.am-table-wrap { overflow-x: auto; }
+.am-code {
+  margin: 0; padding: 12px 14px; background: var(--fill); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow-x: auto; font-size: 12.5px; line-height: 1.5;
+}
+
+/* ── Status badges ok / no / warn ──────────────── */
+.am-status { white-space: nowrap; font-weight: 500; }
+.am-status--ok { color: var(--ok); }
+.am-status--no { color: var(--err); }
+.am-status--warn { color: var(--warn); }
+.am-status-icon { display: inline-block; width: 1.1em; font-weight: 700; }
+
+/* ── callout ─────────────────────────────── */
+.am-callout {
+  border: 1px solid var(--line-2); border-left: 3px solid var(--accent); background: var(--accent-bg);
+  padding: 10px 14px; border-radius: var(--radius);
+}
+.am-callout--ok { border-left-color: var(--ok); background: var(--ok-bg); }
+.am-callout--warn { border-left-color: var(--warn); background: var(--warn-bg); }
+.am-callout--err { border-left-color: var(--err); background: var(--err-bg); }
+.am-callout-title { font-weight: 600; margin-bottom: 4px; }
+
+/* ── kv title block ─────────────────────────── */
+.am-kv {
+  display: grid; grid-template-columns: repeat(var(--kv-cols, 2), minmax(0, 1fr)); margin: 0;
+  border-top: var(--bw) solid var(--line); border-left: var(--bw) solid var(--line);
+}
+.am-kv-cell { border-right: var(--bw) solid var(--line); border-bottom: var(--bw) solid var(--line); padding: 6px 10px 8px; min-width: 0; }
+.am-kv-cell--wide { grid-column: 1 / -1; }
+.am-kv dt { font: 11px/1.4 var(--font-mono); color: var(--ink-2); }
+.am-kv dd { margin: 2px 0 0; font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.am-kv-cell--wide dd { font-size: 17px; font-weight: 600; }
+
+/* ── timeline ────────────────────────────── */
+.am-timeline { list-style: none; margin: 0; padding: 0; }
+.am-timeline--h { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); padding-top: 4px; }
+.am-timeline--h li { position: relative; text-align: center; padding: 0 6px; }
+.am-timeline--h li::before {
+  content: ""; position: absolute; top: 31px; left: 0; right: 0; border-top: var(--bw) solid var(--line);
+}
+.am-timeline--h li:first-child::before { left: 50%; }
+.am-timeline--h li:last-child::before { right: 50%; }
+.am-tl-when { display: block; font-size: 15px; font-weight: 500; height: 24px; }
+.am-tl-dot {
+  position: relative; display: block; width: 11px; height: 11px; margin: 2px auto 8px;
+  border: var(--bw) solid var(--line); border-radius: 50%; background: var(--paper);
+}
+.am-tl-item--hi .am-tl-dot { background: var(--accent); border-color: var(--accent); }
+.am-tl-title { display: block; font-size: 12.5px; font-weight: 500; }
+.am-tl-text { display: block; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+.am-timeline--v li { position: relative; padding: 0 0 14px 22px; }
+.am-timeline--v li::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: -6px; border-left: var(--bw) solid var(--line-2); }
+.am-timeline--v li:last-child::before { display: none; }
+.am-timeline--v .am-tl-dot { position: absolute; left: 0; top: 4px; margin: 0; }
+.am-timeline--v .am-tl-when { display: inline; height: auto; font: 12px var(--font-mono); color: var(--ink-2); margin-right: 8px; }
+.am-timeline--v .am-tl-title { display: inline; font-size: 14px; }
+.am-timeline--v .am-tl-text { margin-top: 2px; }
+
+/* ── annot sentence notes ──────────────────────── */
+.am-annot + .am-annot { border-top: 1px solid var(--line-2); padding-top: 12px; }
+.am-annot-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.am-annot-meta { font: 11px var(--font-mono); font-weight: 400; color: var(--ink-2); }
+.am-annot-scroll { overflow-x: auto; }
+.am-annot-line {
+  position: relative; display: inline-block; white-space: pre; font: 14px/1.6 var(--font-mono);
+  padding-bottom: calc(var(--rows, 0) * 17px + 14px);
+}
+.am-annot-line--wrap { display: block; white-space: normal; padding-bottom: 10px; }
+.am-annot-line--wrap .am-seg { white-space: nowrap; }
+.am-seg { position: relative; }
+.am-seg::after {
+  content: ""; position: absolute; left: 1px; right: 1px; top: calc(100% + 1px); height: 5px;
+  border: 1px solid var(--accent); border-top: 0;
+}
+.am-seg-n {
+  position: absolute; left: 0; top: calc(100% + 8px + var(--row, 0) * 17px);
+  font: 11px/16px var(--font-sans); color: var(--accent); white-space: nowrap;
+}
+.am-seg--err { color: var(--err); }
+.am-seg--err::after { border-color: var(--err); }
+.am-seg--err .am-seg-n { color: var(--err); }
+.am-annot-caption { font-size: 12px; color: var(--ink-2); }
+
+/* ── limits bars ───────────────────────── */
+.am-lim + .am-lim { margin-top: 14px; }
+.am-lim-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; margin-bottom: 4px; }
+.am-lim-val { font: 12px var(--font-mono); color: var(--accent); white-space: nowrap; }
+.am-lim-track { position: relative; height: 12px; border: 1px solid var(--line-2); background: var(--fill); border-radius: calc(var(--radius) / 2); }
+.am-lim-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent-bg); border-right: 1px solid var(--accent); }
+.am-lim-mark { position: absolute; top: -4px; bottom: -4px; border-left: 2px solid var(--accent); }
+.am-lim.is-over .am-lim-fill { background: var(--err-bg); border-right-color: var(--err); }
+.am-lim.is-over .am-lim-val { color: var(--err); }
+.am-lim-ticks { position: relative; height: 16px; font: 10px/16px var(--font-mono); color: var(--ink-3); }
+.am-lim-ticks span { position: absolute; transform: translateX(-50%); }
+.am-lim-ticks span:first-child { transform: none; }
+.am-lim-note { font-size: 11px; color: var(--ink-2); margin-left: 6px; }
+
+/* ── tree ─────────────────────────── */
+.am-tree { font-size: 13px; }
+.am-tree-root { display: flex; justify-content: center; position: relative; padding-bottom: 18px; }
+.am-tree-root::after { content: ""; position: absolute; bottom: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-root--solo { padding-bottom: 12px; }
+.am-tree-root--solo::after { display: none; }
+.am-tree-box {
+  border: var(--bw) solid var(--line); background: var(--paper); padding: 6px 14px; text-align: center;
+  border-radius: var(--radius); font-weight: 600;
+}
+.am-tree-box small { display: block; font-weight: 400; color: var(--ink-2); font-size: 12px; }
+.am-tree-box--root { background: var(--accent-bg); font-size: 15px; padding: 8px 28px; }
+.am-tree-cols { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); }
+.am-tree-col { position: relative; padding: 18px 8px 0; min-width: 0; }
+.am-tree-col::before { content: ""; position: absolute; top: 0; left: 0; right: 0; border-top: var(--bw) solid var(--line); }
+.am-tree-col:first-child::before { left: 50%; }
+.am-tree-col:last-child::before { right: 50%; }
+.am-tree-col::after { content: ""; position: absolute; top: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-list, .am-tree-list ul { list-style: none; margin: 0; padding: 0; }
+.am-tree-col > .am-tree-list { margin: 8px 0 0 14px; }
+.am-tree-list ul { margin-left: 16px; }
+.am-tree-list li { position: relative; padding: 3px 0 3px 18px; }
+.am-tree-list li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 12px; border-top: 1px solid var(--ink-3); }
+.am-tree-list li::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1px solid var(--ink-3); }
+.am-tree-list li:last-child::after { bottom: auto; height: 0.95em; }
+.am-tree-tag { font: 11px var(--font-mono); color: var(--ink-3); margin-right: 4px; }
+.am-tree code { font: 12px var(--font-mono); }
+.am-tree-sub { display: block; font-size: 11.5px; color: var(--ink-2); }
+.am-tree-hi > .am-tree-label { color: var(--accent); font-weight: 600; }
+
+/* ── Diagrams (flow / sequence) ───────────────── */
+.am-diagram { margin: 0; overflow-x: auto; text-align: center; }
+/* Embedded previews can lose html[data-theme]; the fallbacks keep diagrams readable, and defined theme variables still win. */
+.am-diagram svg { max-width: 100%; height: auto; font-family: var(--font-sans, sans-serif); }
+.am-diagram text { fill: var(--ink, #16181d); font-size: 13px; }
+.am-node-shape { fill: var(--paper, #ffffff); stroke: var(--line, #1d2026); stroke-width: var(--bw, 1.5px); }
+.am-node--hi .am-node-shape { fill: var(--accent-bg, #e4ecf8); stroke: var(--accent, #1d5fbf); }
+.am-node--hi text { fill: var(--accent, #1d5fbf); font-weight: 600; }
+.am-edge { fill: none; stroke: var(--ink-2, #4b5260); stroke-width: 1.3; }
+.am-edge--dashed { stroke-dasharray: 5 4; }
+.am-arrow { fill: var(--ink-2, #4b5260); }
+.am-edge-label rect { fill: var(--paper, #ffffff); }
+.am-diagram .am-edge-label text { fill: var(--accent, #1d5fbf); font-size: 11.5px; }
+.am-cluster { fill: var(--fill, #f3f5f8); stroke: var(--line-2, #d6dae1); stroke-width: 1; stroke-dasharray: 4 3; }
+.am-diagram .am-cluster-label { fill: var(--ink-2, #4b5260); font: 11px var(--font-mono, monospace); }
+.am-lifeline { stroke: var(--ink-3, #8b929e); stroke-width: 1; stroke-dasharray: 4 4; }
+.am-actor { fill: var(--paper, #ffffff); stroke: var(--line, #1d2026); stroke-width: var(--bw, 1.5px); }
+.am-note { fill: var(--warn-bg, #fdf3e2); stroke: var(--warn, #a8620a); stroke-width: 1; }
+.am-diagram .am-step { fill: var(--ink-3, #8b929e); font: 10px var(--font-mono, monospace); }
+
+/* ── doc template ────────────────────────── */
+.am-doc { max-width: 1120px; margin: 0 auto; padding: 40px 28px 64px; }
+.am-doc-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.am-doc-layout--notoc { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+.am-toc { position: sticky; top: 24px; font-size: 13px; }
+.am-toc a { display: block; color: var(--ink-2); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid var(--line-2); }
+.am-toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+.am-doc-body > .am-panel + .am-panel { margin-top: 20px; }
+
+/* ── Responsive and print ─────────────────────────── */
+@media (max-width: 1100px) {
+  .am-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .am-grid > .am-panel { grid-column: auto !important; }
+  .am-grid > .am-panel.am-span-wide { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 760px) {
+  .am-sheet, .am-doc { padding: 56px 12px 24px; }
+  .am-head { padding-right: 0; }
+  .am-grid { grid-template-columns: minmax(0, 1fr); }
+  .am-grid > .am-panel.am-span-wide { grid-column: auto !important; }
+  .am-doc-layout { grid-template-columns: minmax(0, 1fr); }
+  .am-toc { position: static; }
+  .am-timeline--h { grid-template-columns: minmax(0, 1fr); }
+  .am-tree-cols { grid-template-columns: minmax(0, 1fr); }
+  /* Tables and diagrams keep their size: the wrapper scrolls horizontally when they overflow. */
+  .am-md th, .am-md td { min-width: 6em; }
+  .am-diagram svg { max-width: none; }
+}
+.am-colophon { text-align: center; padding: 0 0 28px; font: 11px var(--font-mono); color: var(--ink-3); }
+
+@media print {
+  .am-toolbar { display: none; }
+  body { background: var(--paper); }
+  .am-panel { break-inside: avoid; box-shadow: none; }
+}
+.am-panel--bare { border: 0; background: transparent; box-shadow: none; }
+.am-panel--bare > .am-panel-body { padding: 0; }
+.am-panel--bare .am-kv { background: var(--paper); }
+
+
+html[data-theme="blueprint"] .am-frame { border: 1px solid var(--line); padding: 30px; }
+html[data-theme="blueprint"] .am-frame::before {
+  content: ""; position: absolute; inset: 18px; border: 1px solid var(--line); pointer-events: none;
+}
+html[data-theme="blueprint"] .am-ruler {
+  display: flex; position: absolute; font: 10px/1 var(--font-mono); color: var(--ink-3);
+}
+@media (max-width: 760px) {
+  html[data-theme="blueprint"] .am-frame { padding: 0; border: 0; }
+  html[data-theme="blueprint"] .am-frame::before, html[data-theme="blueprint"] .am-ruler { display: none; }
+}
+
+html[data-theme="shadcn"] .am-panel-id { border-radius: 6px; min-width: 24px; height: 24px; margin: 9px 0 9px 14px; font-size: 12px; }
+html[data-theme="shadcn"] .am-panel-head { border-bottom-width: 1px; }
+html[data-theme="shadcn"] .am-kv { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
+
+html[data-theme="paper"][lang="ja"][data-mode] { --font-serif: "Iowan Old Style", Palatino, Georgia, "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP", "Noto Serif JP", "Songti SC", serif; }
+html[data-theme="paper"] .am-head h1, html[data-theme="paper"] .am-panel-head h2, html[data-theme="paper"] .am-md, html[data-theme="paper"] .am-intro, html[data-theme="paper"] .am-callout { font-family: var(--font-serif); }
+html[data-theme="paper"] .am-head h1 { font-weight: 600; letter-spacing: 0; }
+html[data-theme="paper"] .am-md p, html[data-theme="paper"] .am-md li, html[data-theme="paper"] .am-md blockquote, html[data-theme="paper"] .am-intro { font-size: 15.5px; line-height: 1.75; }
+html[data-theme="paper"] .am-md p { margin-bottom: 12px; }
+html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
+</style>
+</head>
+<body>
+<div class="am-toolbar">
+<label class="am-pick">主题<select data-am="theme"><option value="blueprint">图纸</option><option value="shadcn">卡片</option><option value="paper" selected>纸张</option></select></label>
+<label class="am-pick">明暗<select data-am="mode"><option value="auto" selected>跟随系统</option><option value="light">亮</option><option value="dark">暗</option></select></label>
+<button class="am-btn" type="button" data-am="copy" data-done="已复制 ✓">复制源稿</button>
+</div>
+<main class="am-doc">
+<header class="am-head"><h1>V1.2：异构 Source 的 Runtime 基础设施</h1><div class="am-head-meta"><span><b>kind</b>plan</span></div><div class="am-intro am-md"><div class="am-md"><p>本变更关联 <a href="https://github.com/nanzhi84/SEAL/issues/1">Issue #1</a>，需求快照更新时间
+为 2026-10-09 10:03:28 UTC，开发基线为主分支 <code>ee39884</code>。
+基础设施范围是 T0–T6、T7S、T8。用户随后授权的 111 个 A/B/C 入口 Recipe 扩展验收见第 8 节；Evaluation、Management 和 Agent 仍未实现。
+唯一人工来源台账仍为 <a href="../reference/source-adaptation.md">Source 适配参考第 9 节</a>。</p>
+<p>2026-10-09 在本地环境补齐真实公开来源验收。原云端 Tunnel 403 与缺失业务 bytes
+是历史阻塞快照，保留原工件，不再作为本地来源可用性的结论。
+首轮使用真实 CLI、Scrapy、独立 PostgreSQL 与内容寻址原文，完成 A 4、B 2、C 2
+个完整来源；另保留 B 两个原样本的真实 partial 和附件不支持证据。
+机器映射与可重复命令见 <a href="../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json">真实工件索引</a>。
+随后扩展处理全部 111 个研究入口：98 complete、3 partial、8 blocked、2 acceptance_failed。
+最终映射与复跑命令见 <a href="../../experiments/v1.2-acceptance/results/expanded-final/real-evidence-index.json">扩展工件索引</a>。
+技术通过只针对明确样本范围，不授予内容质量审核。</p>
+</div></div></header>
+<div class="am-doc-layout">
+<nav class="am-toc" aria-label="目录"><a href="#panel-A">A · 1. 既有实现审计与迁移选择</a><a href="#panel-B">B · 2. 冻结的 Record 与定位合同</a><a href="#panel-C">C · 3. Discovery、分页和资源边界</a><a href="#panel-D">D · 4. Recipe、Recheck、Manifest 与查询</a><a href="#panel-E">E · 5. 样本与来源合同</a><a href="#panel-F">F · 6. 联合验收与复现</a><a href="#panel-G">G · 7. 限制与后续</a><a href="#panel-H">H · 8. Recipe 扩展验收</a><a href="#panel-I">I · 9. Recheck 与 JSON 规模修正</a></nav><div class="am-doc-body">
+<section class="am-panel" id="panel-A">
+<header class="am-panel-head"><span class="am-panel-id">A</span><h2>1. 既有实现审计与迁移选择</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>读取 AGENTS.md、ADR-0001/0002/0003、V1.1 Runtime Plan、Schema/迁移、Recipe、
+CLI/Worker/Replay/Export/Inspect 和累计 M3/Smoke。仓库没有 GitHub Actions 配置；
+本地工程入口为既有 acceptance.sh、工件校验、Ruff 和 seiso。
+Source → 不可变 RecipeVersion/Binding → Run → Scrapy → 归档 → Observation/Revision/Result
+已经具备；公共 JSON 取值仍限字符串，文档身份仍是 URL，Recheck 仍以详情 URL 为种子。</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>路线</th>
+<th>对现有合同的影响</th>
+<th>选择依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扩展 seal_document</td>
+<td>URL 非空、URL 身份、body_hash Revision、Completion 和 Export 都需混入业务身份；API 的 N 条记录不能各占同一个 URL</td>
+<td>必须改变多个历史公共语义，或伪造不存在的 URL；不选</td>
+</tr>
+<tr>
+<td>新增最小 Record 表</td>
+<td>增量增加身份、版本、处理结果和本轮 emission；保留旧 Document/Revision/Result</td>
+<td>实现 URL 原文与业务 Record 分离，旧不可变行不改写；本次选择</td>
+</tr>
 </tbody></table></div>
-<p>真实 dd-247 历史入口 HTML 的脚本可复算地声明 GET API、<code>data.data.dataList</code> 和多行渲染， 没有独立详情 URL；它支持以上兼容性判断，却不能证明 API 的稳定业务键。 T0 要求的<strong>真实 C 响应双路线实验仍阻塞</strong>。选择目前由代码合同及真实入口脚本支持， 不得将这一待完成实证改标通过。取得真实响应后须复核身份字段及迁移结论。</p>
-<p>只新增 <code>0003_records.sql</code>、<code>0004_discovery.sql</code>，不修改 <code>schema.sql</code> 或 <code>0002_runtime.sql</code>，不回填、不改写历史结果。升级前停止旧 Worker；仍须为旧源码重新 pack/create Binding，环境摘要漂移检查保持有效。历史归档合同仍为 1。</p>
-<h2>2. 冻结的 Record 与定位合同</h2>
-<p><code>type=record</code> 包含 <code>record_type</code>、<code>record_key</code>、<code>schema_version</code>、类型化 JSON <code>data</code>、 可空 <code>detail_url</code>、每个 data 字段的 locator、<code>key_locator</code>、主 snapshot/observation、 补充输入，以及无详情时必需的 <code>frozen_parent_request={url,role,method:GET}</code>。 身份为 <code>(source_id, namespace, record_type, record_key)</code>；禁止列表下标或位置哈希作为键。 URL 键必须与实际归档响应及详情 URL 一致；JSON 整数键仅允许显式 <code>key_string</code> 转换。</p>
-<p>一个响应可输出 0..N Record；一 Record 可引用多个输入，同一 snapshot 可被多个 Record 共享。每字段值必须从已归档输入复算，不接纳脱离原文的替代值。 JSON Pointer 保持数字、布尔、null、数组及对象类型，严格区别 false/0 和整数/浮点数， 拒绝非法转义、负数组下标、NaN/Infinity 和过深 JSON；旧字符串 locator 不变。 <code>record.v1</code> 是技术 JSON 合同，<code>schema_version</code> 为来源输出版本标识，不意味着业务准确性审核。</p>
-<p>内容指纹只取 Record 类型、Schema 版本和有效 data；输入、页码、locator 位置、抓取时间 不进入业务指纹。列表重排只改变原文/定位证据，不改变各业务版本。 同一 Binding 的有效基线负责内容变化归因；换 Binding 的不同输出记为 reprocessed， 不能由新结果推断来源更新。原文 bytes hash 与业务内容变化分别记录。</p>
-<p>stage 只写不可变处理结果与 emission；完成事务按键聚合。同键同内容去重并合并所有 输入血缘；同键异内容保留候选，整个键排除有效输出并使本轮 partial。 只有最终 complete 的完成事务推进 Record 当前指针；失败或 partial 不覆盖此前成功视图。 未观察旧 Record 一律 unknown，不自动删除，包括本轮零结果或声明范围不完整的情况。 写入继续遵守 Source → Run → Record 锁顺序及 generation/run_seq/attempt fencing。</p>
-<h2>3. Discovery、分页和资源边界</h2>
-<p>使用 Scrapy <code>request_scheduled</code> 信号在 Scheduler/原生 Dupefilter 之前记录发现，覆盖初始 种子及后续请求，保存实际 RequestFingerprinter 指纹、角色、父 URL/原文/Observation。 原生 <code>request_dropped</code> 标记去重；多个父页面可关联同一指纹，Discovery 不调度任何请求。 分页循环由原生去重终止，Recipe 仍可诊断不明确的分页或模板。</p>
-<p>下载 Guard、归档、callback 和 item 校验关联 requested、archived、parsed、failed、skipped； 越界、预算、截止、下载失败、解析失败与去重分开计数。重试/跳转保留 transport 关系， 不能把已恢复的临时失败误判为未采资源。证据事件按 attempt 有上限；超过上限明确 partial。 发现数、实际网络交换、归档数、解析数、有效 Record 数分别报告，不据此宣称全站覆盖。</p>
-<p>仍只允许冻结 GET/HEAD、无请求体，保留地址、敏感 URL/headers/body、响应大小及预算限制。 <code>host_path_scopes</code> 将每个主机与各自允许路径绑定；跨主机附件必须显式声明该映射， 不能扩大为多个主机共享路径的并集。静态 iframe 只跟进同主机公开 GET 子页。 普通展示资源不采集。业务 PDF/TXT/CSV 可归档及定位；不支持的 Excel/无文本层 PDF 保留归档、错误和未知范围，不引入 OCR 或浏览器。</p>
-<h2>4. Recipe、Recheck、Manifest 与查询</h2>
-<p>共享 helper 为普通 Python：HTML 正文、表格逐行、嵌套 JSON 列表、父来源 Request、 静态 iframe/附件及文本 PDF。不同 HTML 结构由 selector 参数或源级 Python 控制； 不引入 DSL、Registry、新 Frontier、消息队列、爬虫框架或工作流引擎。 既有 generic Recipe 和 Candidate 继续可用。</p>
-<p>在线 Run Mode 只有 collect/recheck；Replay 仍为归档离线模式。 Recheck 选择 Record 的实际详情 URL，或冻结父列表/API 请求；相同父请求仅生成一个种子， 请求内部仍由 Scrapy 原生去重。周期任务的到期查询也包含 Record，Procrastinate 继续 负责持久调度。旧 V1.1 文档 Recheck 路径保留。</p>
-<p>完成报告引用内容寻址、版本化 Manifest Artifact，包含研究 ID、Source、Binding、 RecipeVersion、Run、业务 scope、结果引用和资源统计。研究 ID 来自冻结配置， 不等同于 Source ID，不创建第二份人工状态表。<code>inspect research/source/run/manifest</code> 及 Export 可回查机器事实；Export 保留 documents，增量增加 records。 显式 Run 包括 partial 中有效输出；默认视图只选最近 complete 的成功输出， 已消失或未观察数据不自动抹除。所有出口 <code>quality_status=not_evaluated</code>。</p>
-<h2>5. 样本选择与真实验收边界</h2>
-<p>T1 复用 491 行研究总表、111 个 A/B/C 稳定 ID 以及原有优先级，不回写未完成的适配状态。 优选 A：dd-017/041/116 列表详情、dd-102 iframe；B：dd-468 静态链接、dd-004 附件； C：dd-247 多记录 JSON、dd-009 固定查询，dd-248/250 为同机制 JSON 备选。 每个样本的栏目、分页/参数、可枚举性、原文可用性与替代条件见样本 audit.json。 所有替代仍需同类同机制证据，网络全类阻塞时不能用放宽边界完成数量门槛。</p>
-<p>历史 dd-116、dd-004、dd-468 HTML 可离线审查并编写源级 Recipe，但历史解析结果与新的 在线 Runtime 采集分开记录。C 类 API 真实 bytes 缺失时不能为机构名猜测稳定业务键。</p>
-<h2>6. 联合验收和结果</h2>
-<p>合成测试与真实来源验收分别出具工件；在线外部网站不作为普通 CI 强制依赖。 既有 V1.1 M3/Smoke 验证历史数据、Worker、Replay、归档及三层 fencing；新增联合脚本 验证多 Record、类型定位、独立版本、重复/冲突、父 API Recheck、Discovery、附件、 Manifest 和 CLI/Export/Inspect 的技术状态一致性。</p>
-<div class="table"><table><thead><tr><th>工作包</th><th>当前结果</th><th>证据/未完成项</th></tr></thead><tbody>
-<tr><td>T0</td><td>部分完成，实证阻塞</td><td>接口与兼容迁移已冻结；真实 C 响应双路线比较待原文</td></tr>
-<tr><td>T1</td><td>已完成来源机制审计</td><td>samples/audit.json；不宣称适配成功</td></tr>
-<tr><td>T2</td><td>技术验收通过</td><td>0..N、多输入、类型定位、独立版本、冲突、重排、Recheck 和零网络 Replay</td></tr>
-<tr><td>T3</td><td>技术验收通过</td><td>原生发现、血缘、去重、循环、预算、越界、下载和解析失败</td></tr>
-<tr><td>T4</td><td>技术验收通过</td><td>同主机静态 iframe、PDF/CSV 归档定位；不支持附件明确 partial</td></tr>
-<tr><td>T5</td><td>技术验收通过</td><td>Manifest、统计、unknown、终止原因及 CLI/Worker/Export/Inspect 一致性</td></tr>
-<tr><td>T6</td><td>技术验收通过</td><td>共享普通 Python helper、源级定制、旧 generic Recipe 保持兼容</td></tr>
-<tr><td>T7S</td><td>阻塞</td><td>代理拒绝；缺少每类至少两条有效在线结果及对应输入</td></tr>
-<tr><td>T8</td><td>合成通过，完整验收阻塞</td><td>303/303 联合断言通过；真实两轮、真实 Recheck/Replay 待补</td></tr>
+<p>T0 已补真实 C 双路线实验：公募基金管理人 API 两页各 10 条，报告总数 165。
+冻结筛选易方达、pageSize=20 的响应交叉复核法定机构名称及展示字段。
+<code>lineId</code> 没有官方永久身份语义，明确排除；采用原文 <code>houseName</code> 自然键。
+更名可形成新身份，旧项保持 unknown，不声称永久注册 ID 连续性。
+在隔离 PostgreSQL 中复制实际历史 Document 与 Record 约束：同一响应 10 行
+沿用 URL 身份只留下 1 行，NULL URL 被拒；独立 Record 保留 10 行。
+实验原文、哈希、检查与完整命令见
+<a href="../../experiments/v1.2-acceptance/live_samples/c_route_experiment.py">双路线脚本</a> 和
+<a href="../../experiments/v1.2-acceptance/live_samples/c-route-experiment.json">实验回执</a>。
+由真实业务 bytes 与旧表约束共同支持既有 Record 迁移选择，不修改历史行。</p>
+<p>首轮新增 <code>0003_records.sql</code>、<code>0004_discovery.sql</code>；第 9 节修复增量新增
+<code>0005_recheck_plan.sql</code>。不修改 <code>schema.sql</code> 或
+<code>0002_runtime.sql</code>，不回填、不改写历史结果。升级前停止旧 Worker；仍须为旧源码重新
+pack/create Binding，环境摘要漂移检查保持有效。历史归档合同仍为 1。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-B">
+<header class="am-panel-head"><span class="am-panel-id">B</span><h2>2. 冻结的 Record 与定位合同</h2></header>
+<div class="am-panel-body"><div class="am-md"><p><code>type=record</code> 包含 <code>record_type</code>、<code>record_key</code>、<code>schema_version</code>、类型化 JSON <code>data</code>、
+可空 <code>detail_url</code>、每个 data 字段的 locator、<code>key_locator</code>、主 snapshot/observation、
+补充输入，以及非 URL 业务键需要的 <code>frozen_parent_request={url,role,method:GET}</code>。
+JSON 有展示 detail_url 时仍冻结父 API；旧行仅从已接受的原文输入恢复唯一父请求。
+身份为 <code>(source_id, namespace, record_type, record_key)</code>；禁止列表下标或位置哈希作为键。
+URL 键必须与实际归档响应及详情 URL 一致；JSON 整数键仅允许显式 <code>key_string</code> 转换。</p>
+<p>一个响应可输出 0..N Record；一 Record 可引用多个输入，同一 snapshot 可被多个 Record
+共享。每字段值必须从已归档输入复算，不接纳脱离原文的替代值。
+JSON Pointer 保持数字、布尔、null、数组及对象类型，严格区别 false/0 和整数/浮点数，
+拒绝非法转义、负数组下标、NaN/Infinity 和过深 JSON；旧字符串 locator 不变。
+<code>record.v1</code> 是技术 JSON 合同，<code>schema_version</code> 为来源输出版本标识，不意味着业务准确性审核。</p>
+<p>内容指纹只取 Record 类型、Schema 版本和有效 data；输入、页码、locator 位置、抓取时间
+不进入业务指纹。列表重排只改变原文/定位证据，不改变各业务版本。
+同一 Binding 的有效基线负责内容变化归因；换 Binding 的不同输出记为 reprocessed，
+不能由新结果推断来源更新。原文 bytes hash 与业务内容变化分别记录。</p>
+<p>stage 只写不可变处理结果与 emission；完成事务按键聚合。同键同内容去重并合并所有
+输入血缘；同键异内容保留候选，整个键排除有效输出并使本轮 partial。
+只有最终 complete 的完成事务推进 Record 当前指针；失败或 partial 不覆盖此前成功视图。
+未观察旧 Record 一律 unknown，不自动删除，包括本轮零结果或声明范围不完整的情况。
+写入继续遵守 Source → Run → Record 锁顺序及 generation/run_seq/attempt fencing。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-C">
+<header class="am-panel-head"><span class="am-panel-id">C</span><h2>3. Discovery、分页和资源边界</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>使用 Scrapy <code>request_scheduled</code> 信号在 Scheduler/原生 Dupefilter 之前记录发现，覆盖初始
+种子及后续请求，保存实际 RequestFingerprinter 指纹、角色、父 URL/原文/Observation。
+原生 <code>request_dropped</code> 标记去重；多个父页面可关联同一指纹，Discovery 不调度任何请求。
+分页循环由原生去重终止，Recipe 仍可诊断不明确的分页或模板。</p>
+<p>下载 Guard、归档、callback 和 item 校验关联 requested、archived、parsed、failed、skipped；
+越界、预算、截止、下载失败、解析失败与去重分开计数。重试/跳转保留 transport 关系，
+不能把已恢复的临时失败误判为未采资源。证据事件按 attempt 有上限；超过上限明确 partial。
+发现数、实际网络交换、归档数、解析数、有效 Record 数分别报告，不据此宣称全站覆盖。</p>
+<p>仍只允许冻结 GET/HEAD、无请求体，保留地址、敏感 URL/headers/body、响应大小及预算限制。
+<code>host_path_scopes</code> 将每个主机与各自允许路径绑定；跨主机附件必须显式声明该映射，
+不能扩大为多个主机共享路径的并集。静态 iframe 只跟进同主机公开 GET 子页。
+普通展示资源不采集。业务 PDF/TXT/CSV 可归档及定位；不支持的 Excel/无文本层 PDF
+保留归档、错误和未知范围，不引入 OCR 或浏览器。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-D">
+<header class="am-panel-head"><span class="am-panel-id">D</span><h2>4. Recipe、Recheck、Manifest 与查询</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>共享 helper 为普通 Python：HTML 正文、表格逐行、嵌套 JSON 列表、父来源 Request、
+静态 iframe/附件及文本 PDF。不同 HTML 结构由 selector 参数或源级 Python 控制；
+不引入 DSL、Registry、新 Frontier、消息队列、爬虫框架或工作流引擎。
+既有 generic Recipe 和 Candidate 继续可用。</p>
+<p>在线 Run Mode 只有 collect/recheck；Replay 仍为归档离线模式。
+Recheck 仅对 response_url 身份使用详情 URL；稳定业务键使用冻结父列表/API 请求，
+相同父请求仅生成一个种子。调度按到期记录和请求预算冻结本轮目标，完成后才推进检查日期；
+请求内部仍由 Scrapy 原生去重。周期任务的到期查询也包含 Record，Procrastinate 继续
+负责持久调度。旧 V1.1 文档 Recheck 路径保留。</p>
+<p>完成报告引用内容寻址、版本化 Manifest Artifact，包含研究 ID、Source、Binding、
+RecipeVersion、Run、业务 scope、结果引用和资源统计。研究 ID 来自冻结配置，
+不等同于 Source ID，不创建第二份人工状态表。<code>inspect research/source/run/manifest</code>
+及 Export 可回查机器事实；Export 保留 documents，增量增加 records。
+显式 Run 包括 partial 中有效输出；默认视图只选最近 complete 的成功输出，
+已消失或未观察数据不自动抹除。所有出口 <code>quality_status=not_evaluated</code>。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-E">
+<header class="am-panel-head"><span class="am-panel-id">E</span><h2>5. 样本与来源合同</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>唯一人工台账仍为 Source 适配参考第 9 节。配置中的研究 ID、Source、Recipe 与参数
+是有限取样合同，不是另一份人工适配状态表。机器 Run/Record 事实由工件生成。</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>研究 ID</th>
+<th>本轮业务范围</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>dd-017、dd-041、dd-116</td>
+<td>各栏目前两页，实际链接发现每页一篇冻结详情</td>
+<td>complete，各 2 Record</td>
+</tr>
+<tr>
+<td>A</td>
+<td>dd-102</td>
+<td>北京处罚公开 iframe 前两页 40 行及建设银行详情</td>
+<td>complete，41 Record</td>
+</tr>
+<tr>
+<td>B</td>
+<td>dd-468</td>
+<td>2021 高校名单说明与两份真实 XLS</td>
+<td>partial，1 个说明 Record；XLS 保留原文与 unsupported_content_type</td>
+</tr>
+<tr>
+<td>B</td>
+<td>dd-004</td>
+<td>诺亚信告知书、决定书的公告信息与两份真实 PDF</td>
+<td>partial，2 个公告 Record；扫描件保留原文与 pdf_text_layer_required</td>
+</tr>
+<tr>
+<td>B</td>
+<td>dd-050</td>
+<td>中国海事仲裁委员会首页声明的规则 PDF</td>
+<td>complete，1 个文本 PDF Record</td>
+</tr>
+<tr>
+<td>B</td>
+<td>dd-151</td>
+<td>IPO 固定 Corporate Plan 页面与官方 assets 主机 PDF</td>
+<td>complete，1 个文本 PDF Record；不代表商标核验</td>
+</tr>
+<tr>
+<td>C</td>
+<td>dd-247</td>
+<td>固定空筛选、pageSize=10 的前两页 API</td>
+<td>complete，20 个机构 Record，法定全称自然键</td>
+</tr>
+<tr>
+<td>C</td>
+<td>dd-009</td>
+<td>固定 q=TESCO 的前两页公开公司搜索投影</td>
+<td>complete，29 个公司 Record，以公司编号为键；排除 officer</td>
+</tr>
 </tbody></table></div>
-<p>代码完成后独立审查数据一致性、并发、异常、范围、泄漏和测试可靠性；问题先修再交付。 最终 PR 应保留此矩阵和可复现命令，维持 Draft，不关闭 Issue #1。</p>
-<p>验收工件入口为 <a href="../../experiments/v1.2-acceptance/results/evidence-index.json">evidence-index.json</a>。 V1.2 联合 303/303、V1.1 累计 M3 136/136、V1.1 Smoke 1191/1191 均通过； Smoke 包含原版旧库 C01，helper 8/8、Discovery 14/14 和历史 HTML 28/28 通过。 其中的压缩包保存本轮合成归档、Source/Binding/Run/Record/Replay 映射、断言、Manifest 与请求账本；每个 suite 保留原始 SHA256。真实样本的映射仍在 samples/audit.json 中， 未发生采集的 Source/Binding 为 null，Run/Record/Replay 为空，不能用合成 ID 填充。 历史原版数据库由独立、干净的 <code>ee39884</code> checkout 生成，provenance 声明它是本轮合成 兼容输入；<code>court-confirmed</code> 仅是旧 harness 查找目录名，不表示真实法院采集。</p>
-<p>安装仍使用 <code>uv sync --frozen</code>，需要 PostgreSQL 的 initdb/pg_ctl/psql/pg_dump 在 PATH。 测试自行启动隔离 PostgreSQL 和 loopback 服务器，不使用生产 DSN。新建目录运行：</p>
-<pre><code>./experiments/v1.2-acceptance/acceptance.sh --output work/v12-new
-uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-new
-uv run --frozen python experiments/v1.2-acceptance/test_helpers.py
-uv run --frozen python experiments/v1.2-acceptance/test_discovery.py
-uv run --frozen python experiments/v1.2-acceptance/samples/verify.py
-./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output work/v11-m3-new</code></pre>
-<p>已有交付工件可离线复验，无需启动数据库或访问外站：</p>
-<pre><code>mkdir -p work/v12-evidence
-tar -xzf experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz -C work/v12-evidence
-uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-evidence/synthetic/joint
-uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-m3
-uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-smoke</code></pre>
-<p>复跑包含 C01 的 Smoke 前，将解包的 <code>synthetic/v11-baseline</code> 复制到不存在的 <code>artifacts/acceptance/v1.1-smoke/court-confirmed</code>，避免覆盖已有历史输入。随后运行 <code>acceptance.sh --stage smoke --baseline work/v11-m3-new --output work/v11-smoke-new</code>； 该命令位于 experiments/v1.1-runtime-acceptance，不加入 <code>--live</code>。 代码 lint 使用 Ruff；仓库没有单独类型检查器或 GitHub Actions 工作流。 seiso 新 Plan 检查通过，全 docs 检查仍报告 V1.1 文档中 6 个缺失的 ignored 工件链接， 这是开发基线已有的问题，不改写历史文档或伪造历史文件消除它。</p>
-<p>独立 Review 见 <a href="../../experiments/v1.2-acceptance/results/review.json">review.json</a>。 发现并修复了共享损坏归档误缓存、Discovery/Source 锁序死锁、空 API 被当作旧详情 Recheck 种子、附件 Recheck 虚假修订、迟到回调写入和缺定位诊断归因等问题。 回归覆盖这些边界；审查没有把未验证的外站覆盖或断电耐久性记为通过。</p>
-<h2>7. 后续工作与限制</h2>
-<p>取得允许访问的公开样本后，补齐真实 C 路线实验、A/B/C 每类至少两源及各类两轮采集、 真实 iframe/附件、父 API Recheck 和零网络 Replay 工件，再决定是否可转为 Ready。 111 条批量推广另行分批 PR，复用相同 Manifest 并回写唯一人工台账。 暂不实现删除治理、任意用户查询、POST、OCR、动态页面或受限查询； 技术 complete 不表示业务全量覆盖或内容已经审核。</p>
-</main><template id="am-source">---
+<p>B 原样本未强行添加 OCR/Excel。按 Issue 的同类、同机制规则，增加台账内
+静态业务附件来源 dd-050、dd-151，满足至少两条完整 B 来源及真实文本 PDF 定位。
+原样本的 partial 不计入这个完整来源数量，不把公告投影冒充扫描件或逐校内容。
+所有样本均声明有限栏目、页数、字段与附件，不承诺源站全量或原地图的主体核验业务。</p>
+<p><a href="../../experiments/v1.2-acceptance/live_samples/a.json">Source 与预期合同</a>、
+<a href="../../experiments/v1.2-acceptance/live_samples/b.json">B 配置</a>、
+<a href="../../experiments/v1.2-acceptance/live_samples/c.json">C 配置</a> 固定字段锚点、精确条数、URL 和原文要求。
+三个源级普通 Python Recipe 分别承载 HTML、静态资源与固定查询差异，继续复用共享 helper。
+未引入浏览器、OCR、Excel 解析依赖或第二套 Frontier。</p>
+<p>SAFE 网站在公开未认证 HTML 中写入随机匿名 JSESSIONID。
+本地完整归档保留原文与哈希供回看和复算；交付包排除包含该标识的原文对象。
+公开包记录原始哈希和 local_only 原因，不清洗原文、不伪造原文摘要。
+因此公开包不能独立复算 SAFE 全部原文字段；完整验证须使用本地归档或重新公开 GET。
+请求从未携带 Cookie、会话路径、认证信息，也未提交验证码或主体查询表单。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-F">
+<header class="am-panel-head"><span class="am-panel-id">F</span><h2>6. 联合验收与复现</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>环境为 Python 3.12.13、PostgreSQL 17.11、uv.lock、macOS arm64；
+initdb、pg_ctl、psql、pg_dump 需在 PATH。脚本覆盖外部 DSN，启动独立 loopback PG，
+清理测试集群；业务请求是真实公开 GET，数据与生产系统隔离。
+所有出口仍为 quality_status=not_evaluated。</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>工作包</th>
+<th>当前结果</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>T0</td>
+<td>PASS</td>
+<td>真实 C bytes、实际 PostgreSQL 双路线、9 项检查</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>PASS</td>
+<td>491 行研究及 A34/B73/C4 机制审计；复用唯一人工台账</td>
+</tr>
+<tr>
+<td>T2–T6</td>
+<td>PASS</td>
+<td>隔离联合验收与真实 HTML/表格/JSON/PDF/helper 组合</td>
+</tr>
+<tr>
+<td>T7S</td>
+<td>PASS（限定样本）</td>
+<td>完整来源 A=4、B=2、C=2；两个 B 原样本另记 partial</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>PASS（工程范围）</td>
+<td>真实两轮、Recheck、零网络 Replay、字段复算、故障与历史旧库兼容</td>
+</tr>
+</tbody></table></div>
+<p>每个完整来源执行 collect 两轮、Recheck 与原文 Replay。
+partial 来源执行两轮和 Replay，验证当前视图不推进且 Recheck 明确拒绝未成功基线。
+对每轮核对精确 Record 数、声明 URL、完整附件归档和错误集合。
+字段与业务键使用独立的 HTML/JSON/PDF 定位复算；不得缺 locator 或结果证据。
+Recheck 种子精确等于前轮详情或冻结父 GET/API，多个 Record 共享一个父请求。
+Replay 校验原始输入集合、业务值与 SEAL Downloader 的零 HTTP 交换，不声称操作系统外联审计。
+真实两轮没有制造网站内容变化；重排、单条变化、冲突与缺失 unknown 由隔离联合场景验证。</p>
+<p>独立 review 修复 SAFE Recheck 从第 2 页错误扩到第 3 页的问题，按源站页号约束前两页。
+曾误通过的旧工件保留在本地，不改写为最终证据。
+恢复 HTTPPROXY_ENABLED=False，保持 V1.1 禁环境代理的边界。
+先用故障本地环境代理复现 retryable、零 Record、没有到达源站；修复后沿真实 CLI
+验证 10 个独立业务值、归档，以及源站关闭后的零网络 Replay。
+<a href="../../experiments/v1.2-acceptance/proxy_behavior.py">代理行为脚本</a> 保留红绿工件映射。</p>
+<p><a href="../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json">最终工件索引</a>
+给出实际断言数量、来源/版本/Run/Record、归档摘要、回归包及本地/公开复算边界。
+既有云端合成 303/303、M3 136/136、Smoke 1191/1191 是历史记录；本地最终结果以该索引为准。
+仓库没有 GitHub Actions 或单独静态类型检查器，不报告远端 CI 通过。</p>
+<p>新目录执行真实来源和独立离线校验：</p>
+</div>
+<pre class="am-code"><code data-lang="sh">uv sync --frozen
+uv run --frozen python experiments/v1.2-acceptance/live.py --output artifacts/acceptance/v1.2-repeat-real
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-repeat-real
+# 可用 --source dd-247 缩小在线范围；外站不作为普通 CI 强制门禁。
+uv run --frozen python experiments/v1.2-acceptance/proxy_behavior.py --output artifacts/acceptance/v1.2-repeat-proxy
+./experiments/v1.2-acceptance/acceptance.sh --output artifacts/acceptance/v1.2-repeat-joint
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.2-repeat-m3</code></pre>
+<div class="am-md"><p>离线公开包验证明确跳过 SAFE 私有原文，仍复算其余来源及所有保存断言：</p>
+</div>
+<pre class="am-code"><code data-lang="sh">mkdir -p artifacts/acceptance/v1.2-public-replay
+# 输入目录须为新目录，保留历史与失败证据。
+tar -xzf experiments/v1.2-acceptance/results/real-final/real-evidence.tar.gz -C artifacts/acceptance/v1.2-public-replay
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-public-replay/real --public</code></pre>
+<div class="am-md"><p>历史 C01 输入使用显式 --compatibility-baseline，避免硬编码路径被误认为原版库。
+原版输入 provenance 的 61 个文件摘要与 ee39884 的 18 个源码摘要已核实。
+缺失、不完整、摘要损坏及 V1.2 库冒充历史库均在已有 C01 行为路径明确拒绝。
+旧 court-confirmed 目录保持不变；兼容输入选择只修改验收入口，不修改 Runtime 迁移。</p>
+</div>
+<pre class="am-code"><code data-lang="sh">mkdir -p artifacts/acceptance/v1.2-regression-replay
+tar -xzf experiments/v1.2-acceptance/results/real-final/real-regression-evidence.tar.gz -C artifacts/acceptance/v1.2-regression-replay
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.2-repeat-m3 --compatibility-baseline artifacts/acceptance/v1.2-regression-replay/regression/original-baseline --output artifacts/acceptance/v1.2-repeat-smoke
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/v1.2-repeat-smoke
+uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.2-acceptance experiments/v1.1-runtime-acceptance
+seiso check docs/plans/v1.2-heterogeneous-sources.md docs/reference/source-adaptation.md README.md</code></pre>
+<div class="am-md"><p>全 docs 检查中，V1.1 Plan 的 6 个既有 ignored 工件链接可能在缺历史工件的 checkout 报缺失。
+这不由伪造历史文件消除；新文档的相关链接须单独通过检查。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-G">
+<header class="am-panel-head"><span class="am-panel-id">G</span><h2>7. 限制与后续</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>T0/T7S/T8 的限定工程样本已经补齐；PR 仍未因此自动合并或关闭 Issue #1。
+第 8 节记录已执行的 111 项逐源扩展处理；扩大到完整业务范围仍须另冻结合同并复验。
+教育部 XLS、深圳扫描 PDF 与行业分类 DOCX 的正文解析仍不支持；如需这些具体业务数据，需另行确定能力范围。
+不实现删除治理、任意用户查询、POST、OCR、动态页面、受限查询、正式 Evaluation 或 Management。
+技术 complete 不代表全量覆盖、语义准确性审核、持续可用性或生产规模验证。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-H">
+<header class="am-panel-head"><span class="am-panel-id">H</span><h2>8. Recipe 扩展验收</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>用户于 2026-10-09 授权继续尽可能适配 A/B/C 来源并记录受阻原因。以既有分类
+34 个 A、73 个 B、4 个 C（合计 111 个稳定研究 ID）为本轮处理集合，保留既有
+8 个 complete 和 2 个 partial 的历史证据；逐项处理其余 101 个入口。这里的“入口”沿用研究 ID，不等同于 111 个不同网站。</p>
+<p>复用 Runtime 与共享 helper，由源级 Recipe 或明确参数封装网站差异。Source 限定
+真实公开栏目、入口到详情的链接、固定样本和有界分页；配置先冻结精确 URLs、业务键、
+条数及独立字段锚点，再实现与运行。不将导航、登录提示或正文仅在附件中的页面标题
+充当业务正文，也不把新闻或政策样本等同于原地图的主体核验业务。</p>
+<p>实现前沿用已有行为失败合同：网络/TLS/HTTP、挑战或授权、列表/详情模板漂移、正文
+与日期定位歧义、链接发现缺失、重查种子越界、身份重复与版本变化、附件无文本层、
+Replay 缺输入或产生 HTTP。成功来源执行真实 CLI 两次 collect、Recheck、Replay，
+独立复算字段/键与原文摘要；不增加实现镜像的单元测试。</p>
+<p>受阻来源保留机器诊断事实与可核实的请求状态、URL、原文哈希、失败工件和下一步，
+区分当前网络失败、访问限制、正文未定位、原链接失效、缺稳定身份、能力边界和验收
+失败；不把未完成或未执行称为不可适配。遇到只有栏目候选时再检查一层实际详情，
+在已知禁止路径、登录、验证码、POST 或动态执行边界停止，不尝试绕过。</p>
+<p>新样本合同与机器诊断写入 <code>experiments/v1.2-acceptance/expanded_samples/</code>，验收产物
+使用新目录，历史文件不覆盖。唯一人工状态继续回写 Source 适配参考第 9 节；最终
+工件索引由真实运行生成，包含所有 111 个 ID 的处理结果、失败分类、版本和复跑命令。
+含会话标识的原文仅留本地，公开包明确披露缺失范围并保留未改写原始摘要。</p>
+</div>
+<pre class="am-code"><code data-lang="sh"># 当前正向合同：A 29、B1 31、B2 28、C 2；辅助合同为 dd-375 的预期 partial。
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/expanded_samples/a.json --samples experiments/v1.2-acceptance/expanded_samples/b1.json --samples experiments/v1.2-acceptance/expanded_samples/b2.json --samples experiments/v1.2-acceptance/expanded_samples/c.json --samples experiments/v1.2-acceptance/expanded_samples/aux.json --output artifacts/acceptance/v1.2-expanded-repeat
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-expanded-repeat
+# 单源复跑在对应 --samples 后加 --source dd-198；首次使用新的输出目录。
+# 受阻公开入口诊断：最多每源三个已知 URL，不执行挑战，不替代业务验收。
+uv run --frozen python experiments/v1.2-acceptance/expanded_probe.py --source dd-016 --source dd-220 --output artifacts/acceptance/v1.2-network-repeat</code></pre>
+<div class="am-md"><p>2026-10-09 最终结果由实际 Run 与冻结原文汇总，覆盖全部 111 个研究 ID：</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th align="right">complete</th>
+<th align="right">partial</th>
+<th align="right">blocked</th>
+<th align="right">acceptance_failed</th>
+<th align="right">合计</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td align="right">33</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">34</td>
+</tr>
+<tr>
+<td>B</td>
+<td align="right">61</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">2</td>
+<td align="right">73</td>
+</tr>
+<tr>
+<td>C</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr>
+<td>合计</td>
+<td align="right">98</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">2</td>
+<td align="right">111</td>
+</tr>
+</tbody></table></div>
+<p>相较首轮新增 90 个 complete 与 1 个明确 partial。98 个 complete 均执行两轮
+collect、Recheck、零网络 Replay；3 个 partial 执行两轮 collect 与 Replay，未将其
+提升为可推进当前指针的 complete。最终有效验收合计 401 个实际 Run、首轮 232 个 Record（228 个
+来自 complete 范围、4 个来自 partial 范围）、8497/8497 保存断言。独立原文复算
+覆盖 924 次 Record 投影；公开包显式排除 SAFE 后复算 760 次。独立审查
+<a href="../../experiments/v1.2-acceptance/results/expanded-final/review.json">1555/1555 项通过</a>；失败历史另存，未加入通过断言总数。每源的 Source、
+Binding、RecipeVersion、Run、范围与原文摘要见 <a href="../../experiments/v1.2-acceptance/results/expanded-final/dispositions.json">机器事实</a>，
+人工状态与下一步仅维护在 Source 适配参考第 9 节。</p>
+<p>新增 Recipe 共五组，复用既有 helper 与 Runtime，不新增浏览器、OCR 或动态执行。
+A 支持真实 HTML 正文及公开文本 PDF；B 将源站链接发现、重定向、正文片段及公开表格
+封装为参数与 Recipe；C 新增 AMAC 两个名录的固定前两页、多 Record、名称自然键与
+类型化字段。C 不把接口内部行号冒充永久机构 ID，更名形成新身份，旧记录保持 unknown。
+国民经济行业分类通知正文与两份 DOCX 已归档，但附件正文缺受支持 locator，因此 partial。</p>
+<p>电影备案 dd-448 的单篇真实 HTML 包含 156 行、电影许可 dd-449 包含 22 行表格。
+Recipe 从归档原文逐项定位公开 JS 字面值，不执行 JS；保留完整公告正文，各公告
+仍为一个 URL 身份 Record，未完成逐电影实体建模或全站备案数据覆盖。</p>
+<p>受阻与未完整通过的具体原因：</p>
+<ul>
+<li>dd-004 扫描 PDF 无文本层；dd-468 XLS、dd-375 DOCX 缺正文解析能力。正文壳与附件证据均保留，不将其计入 complete。</li>
+<li>dd-016 HTTP/HTTPS 重定向循环、最新入口 502；dd-220 HTTP 超时且 HTTPS 证书主机名不匹配。当前网络事实不能推断永久不可适配。</li>
+<li>dd-211 的真实公开 HTML 被 <code>sensitive_body_rejected</code> 拒绝，原因是登录模板中的 password 变量；其 14 页合同 PDF 也无文本层。保留工程误判问题，不弱化全局归档安全规则。</li>
+<li>dd-262 Cookie/JS 挑战、dd-357 CAS 登录、dd-370 微信验证、dd-410 HTTP 202 WAF/JS 挑战，均未取得匿名业务正文。</li>
+<li>dd-299 两个官方详情 HTTP 403；dd-484 最终固定合同详情 HTTP 403。只描述已请求路径，不把入口可读或历史通过作为当前正文可用证据。</li>
+<li>dd-380 在两个最终复测批次中均有界下载失败、没有 HTTP 响应。dd-380 与 dd-484 已有 Recipe 和历史通过证据，但最终未通过，因此归类 acceptance_failed，不计成功。</li>
+</ul>
+<p>已解决的问题也保留在逐源机器诊断中：HTTP 端口 80 链接重定向 HTTPS、EPO 正文
+选择器误选图片/导航、TRS 正文中的 style/空段落、图片主体的官方文本替代、正文中
+静态表格值以 JS 字面量提供，以及附件链接位于通知正文容器外。替换样本时明确
+所选公开出版物范围，不宣称原业务主体核验、查询或全站枚举已适配。</p>
+<p>完整本地原文在 ignored 工件目录，公开包约 44 MB；SAFE 的 9 个会话标识原文对象
+不进入公开包，原始 bytes 与摘要未改写。公开复算须显式 <code>--public</code>，它会明确跳过
+SAFE 原文字段；默认完整验证应拒绝缺失原文。其余工件、诊断与失败历史可离线核实：</p>
+</div>
+<pre class="am-code"><code data-lang="sh">mkdir -p artifacts/acceptance/v1.2-expanded-public-repeat
+tar -xzf experiments/v1.2-acceptance/results/expanded-final/real-evidence.tar.gz -C artifacts/acceptance/v1.2-expanded-public-repeat
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-expanded-public-repeat/real --public</code></pre>
+<div class="am-md"><p>合并工件使用 <code>expansion_report.py</code>，逐一校验已有正向与失败 Manifest，不重新生成
+运行结果；各组精确输入目录、命令与摘要均保存在扩展索引。dd-380/dd-484 的固定
+合同保留在 <code>expanded_samples/b2-deferred.json</code>，只有公开访问状态变化后才按原合同
+重新四轮验收；当前不继续对拒绝或持续失败路径重复请求。</p>
+<p>第 8 节扩展时的联合、M3、Smoke 与代理故障验收沿用第 6 节历史工件；
+该阶段新增源未修改引擎代码。第 9 节修复改变引擎，当前版本另行验收。这里验证的是样本抓取、存储、身份、归档定位与
+复跑行为；全站完整性、原地图业务完整核验、正式 Evaluation、长期稳定性和生产
+规模仍未验证。</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-I">
+<header class="am-panel-head"><span class="am-panel-id">I</span><h2>9. Recheck 与 JSON 规模修正</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>用户提出三项 P1 和一项 P2，先冻结本节失败合同，再添加真实 CLI/Scrapy/隔离
+PostgreSQL 行为验收，观察现有失败后修正实现。仍使用同一个 Plan 与 Generated，
+先前第 8 节原文与版本证据保持不变；引擎变更后重新 pack/Binding，不将旧工件
+声称为新版本已经验收。</p>
+<p>业务边界：Record 身份来源于稳定业务键，展示用 detail_url 不赋予另一种身份；
+调度按到期范围组织有限请求，采集与 Replay 继续共享原文定位合同。JSON 对象的
+解析复用只存在于单个验证/Crawl 的有界生命周期内，数据边界仍是已校验摘要的
+不可变原文；具体 API 分页保留在来源 Recipe，不新增缓存服务或分页 DSL。</p>
+<p>实现前失败方式与验收要求：</p>
+<ul>
+<li>JSON 返回稳定 id 与 detailUrl：两轮 collect、Recheck 和 Replay 始终保留同一个业务键/Record ID；没有详情到业务键映射时复查冻结父 API 请求，不能产生 URL 键替代记录。历史配置和已接受行也不能静默改变身份。</li>
+<li>200 条独立详情、请求预算 100、仅一条到期：调度仅计划到期范围；更多到期项按请求预算分批。相同父 API 请求去重，返回的额外记录仍可验证，未计划项不能列为未观察。</li>
+<li>排队、失败、重试与并发：调度不提前推迟业务 next_check；仅成功完成事务推进已观察范围。失败保留有界的重试机会；同一 Source 的待执行任务不重复领取，旧 generation/attempt 不覆盖新计划或当前指针。</li>
+<li>1000 条 Record、每条 10 个类型化字段：真实采集及原文复算保持完整值和键，并产出可重复性能数据；JSON Pointer 不随字段数重复解析完整大响应。重复 JSON 键、非法 Pointer、false/0、1/1.0、非有限数、补充输入混淆及摘要损坏继续拒绝。</li>
+<li>真实 pageNo/pageSize API：验证冻结总数、每页条数、末页及明确终止。提前空页、总数漂移、重复身份、分页超过合同或请求预算必须主动诊断；通用 JSON 示例声明单页范围，不默默冒充全量分页。</li>
+</ul>
+<p>端到端工件保存实际 CLI/Worker 回执、请求账本、Run 种子与计划范围、数据库可观察
+状态、导出、原文哈希、断言以及性能环境/运行命令。工件使用新目录，失败与历史
+均保留。具体实现选择与执行结果在上述行为通过后补入本节。</p>
+<p>实际实现与边界：</p>
+<ul>
+<li><code>recheck.py</code> 单独负责目标计划、父请求证明、未观察范围与完成日期；<code>runs</code> 冻结计划，<code>queue</code> 在 Source 锁下按默认 Binding 的输出合同选择到期 Record/Document，<code>completion</code> 事务提交时推进日期。采集、领域验证和存储职责仍分离。</li>
+<li><code>key_locator.kind=response_url</code> 才直接复查详情。其他业务键冻结父 GET；历史缺 parent 元数据时，只允许从该 Record 已接受 complete Result 的主 snapshot/Run inputs 恢复唯一请求，校验原文摘要。无法证明则显式 <code>record_recheck_request_missing</code>，不猜当前入口、不改旧身份。</li>
+<li>自动调度按到期时间/身份排序，以不同 GET 请求为预算单位；相同父 API 的到期目标合并。Run 保存 <code>recheck_plan</code>；未计划项不计缺失，API 额外返回的有效记录不提前推进检查日期。手动 <code>--recheck</code> 保持即刻复查全部已知范围，超预算返回 <code>recheck_budget_exceeded</code>，不创建 Run、不改日期。</li>
+<li>排队和失败不推进业务 <code>next_check</code>。仅 complete 中已观察的计划目标推进；未观察目标仍 unknown，并获得独立重试退避。失败退避从 30 秒指数增加、上限 1 小时；恢复清零。Source generation/run_seq/attempt fencing、待执行去重与单源 savepoint 保持有效，一个来源缺父请求不会阻塞其他来源。</li>
+<li><code>0005_recheck_plan.sql</code> 只增加 Run 计划与 Record/Document 退避元数据及索引。历史字段、不可变候选与原文不回填改写；升级停止 Worker，迁移后新 pack/Binding。迁移验收冻结升级前全部列并逐值核对，新增 nullable 元数据不能导致整行形状的假失败。</li>
+<li><code>record_validation.py</code> 承担类型、locator、key 与原文字节验证；<code>records.py</code> 保留持久化/版本职责。每个 Pipeline 拥有一个显式传入的 JSON LRU，至多 16 个解码对象、实际 Python 对象大小合计 64 MiB，关闭时全部释放。每条 Record 仍重新校验 snapshot/body 的内容摘要；同一 Record 的多个字段/key 共享已解析输入。超过 LRU 上限的输入只在本条验证中复用；无 hash 的独立调用不进入共享缓存。</li>
+<li>通用 JSON Recipe 要求显式 <code>json_scope=single_page</code>；未声明返回 <code>pagination_contract_missing</code>。完整分页由普通 <code>recipes/amac_full</code> 承担，校验成功 envelope、页号、冻结总数、每页长度、自然键唯一性与有界终止，不增加通用分页 DSL。</li>
+</ul>
+<p>性能样本固定为 1000 条 × 10 字段，同一 252,764 字节响应、同一解释器/依赖与并发 4，
+经过真实 CLI/Scrapy/隔离 PostgreSQL 的 Collect、值变化 Collect 和零 HTTP Replay。
+首 Collect CPU 为 14.67 → 2.20 秒（降低 85.0%），Replay 为 14.94 → 1.96 秒
+（降低 86.88%）；峰值 RSS 约 108/110 → 108/107 MB。基线业务与类型断言本来通过，
+性能目标明确 RED；优化后性能与业务均 GREEN。各路径单次实测，不外推真实网站延迟或生产吞吐，
+本次引擎同时包含 Recheck 修正，不将前后差异称为严格隔离的缓存因果实验。
+16,889,202 字节超额响应的解码树下限 73,128,280 字节：Collect/Replay 均只解析一次，
+不驻留 LRU、关闭后 0 entries/bytes；临时解析峰值约 441/422 MB，仍受 Source 响应预算限制。
+缓存容量累计逐出尚无独立 E2E 实测，正常命中、超额不驻留、无 hash 输入隔离与释放已有真实 CLI 证据。</p>
+<p>真实 C 全量 profile 选择 dd-250 基金托管机构，而非改写原两页样本：冻结官方 API
+<code>total=67</code>、<code>pageSize=10</code>，7 页为 10×6+7；两轮 Collect、Recheck 均各 7 个实际 GET，
+Replay 为 0 GET，四轮均 67 个自然键 Record。Recheck 的 7 个父种子与 Recipe 后续分页
+由 Scrapy 原生 Dupefilter 合并，保留 6 次去重事实。独立探测页 8 为空，但正常运行
+根据 total 和末页长度终止，不请求多余页。API 无快照 token，跨页原子一致性未证明；
+机构名自然键不代表永久注册 ID，更名仍产生新身份。总数漂移、提前空页、短末页、
+重复键、坏 envelope、超页数/预算、错误起始页均产生具体 partial，保留已归档输入。</p>
+<p>2026-10-10 新引擎另外复跑 dd-017（A，两篇指导案例）、dd-050（B，一份文本 PDF）、
+dd-247（C，前两页 20 家）；每个均两轮 Collect、Recheck、零 HTTP Replay，合计
+232/232 保存断言与 92 次独立原文投影。dd-250 为 77/77 保存断言、268 次字段/键投影，
+独立完整分页核验 488/488。先前 98 个通过来源仅有其中这四个在本次引擎上复跑；
+其余 94 个保留第 8 节历史版本、时间和范围，不能由当前专项结果推断全部已重新验收。</p>
+<p>当前验收表与统一公开原文包见
+<a href="../../experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json">修复工件索引</a>。
+各工件保存精确 28 个引擎文件摘要、冻结 RecipeVersion/Binding、输入 bytes、断言、请求
+账本、运行命令和独立核验；有效行为/性能 RED 与验收配置/流程失败分别列出，旧失败不覆盖。</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>当前验收</th>
+<th align="right">保存断言</th>
+<th>业务证据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>联合 Runtime</td>
+<td align="right">419/419</td>
+<td>原有 Record/Discovery/附件/Worker/fencing 与本次复查行为同入口</td>
+</tr>
+<tr>
+<td>Recheck 专项</td>
+<td align="right">115/115</td>
+<td>200 条详情仅一条到期只发 1 GET；101 条到期按 100+1 分批；共享父 API、失败退避、身份与历史证明</td>
+</tr>
+<tr>
+<td>M3</td>
+<td align="right">136/136</td>
+<td>真实 Worker、迁移旧字段逐值保持、故障恢复</td>
+</tr>
+<tr>
+<td>Smoke</td>
+<td align="right">1200/1200</td>
+<td>Golden、负例、恢复、升级后历史 Replay 与原文不变</td>
+</tr>
+<tr>
+<td>JSON 性能</td>
+<td align="right">36043/36043</td>
+<td>1000×10 三轮；独立复算 46091/46091</td>
+</tr>
+<tr>
+<td>JSON 边界</td>
+<td align="right">91/91</td>
+<td>超额树、无 hash 两响应、释放；独立复算 157/157</td>
+</tr>
+<tr>
+<td>C 分页行为</td>
+<td align="right">154/154</td>
+<td>全量/重排/Replay/故障/终止与单页声明</td>
+</tr>
+<tr>
+<td>真实 A/B/C 三源</td>
+<td align="right">232/232</td>
+<td>12 个实际 Run、92 次原文字段/键投影</td>
+</tr>
+<tr>
+<td>真实 C 全量</td>
+<td align="right">77/77</td>
+<td>4 个实际 Run、7 页/67 家与 488/488 独立核验</td>
+</tr>
+<tr>
+<td>环境代理故障</td>
+<td align="right">13/13</td>
+<td>真实 CLI/Scrapy 在拒绝连接代理环境下仍直接采集，Replay 零网络</td>
+</tr>
+</tbody></table></div>
+<p>环境为 macOS arm64、Python 3.12.13、项目 <code>uv.lock</code>、PostgreSQL 17.11；所有验收
+使用隔离 loopback 数据库和临时归档，不连接开发/生产数据。真实来源仅匿名公开 GET，
+无 Cookie/账号、环境代理或浏览器。每个运行选择新输出目录；旧引擎性能基线从统一包
+提取，不能用新引擎重新生成并冒充修复前数据。</p>
+</div>
+<pre class="am-code"><code data-lang="sh"># 原联合入口包含复查场景；不另增加单元测试。
+./experiments/v1.2-acceptance/acceptance.sh --output artifacts/acceptance/v1.2-review-repeat-joint
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.2-review-repeat-m3
+# compatibility-baseline 使用统一包内的历史数据库与原文，先迁移再重新 pack/Replay。
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.2-review-repeat-m3 --compatibility-baseline HISTORICAL_INPUT_DIRECTORY --output artifacts/acceptance/v1.2-review-repeat-smoke
+uv run --frozen python experiments/v1.2-acceptance/json_pointer_performance.py --baseline HISTORICAL_PERFORMANCE_DIRECTORY/summary.json --output artifacts/acceptance/v1.2-review-repeat-performance
+uv run --frozen python experiments/v1.2-acceptance/json_pointer_boundaries.py --output artifacts/acceptance/v1.2-review-repeat-boundaries
+uv run --frozen python experiments/v1.2-acceptance/pagination_acceptance.py --output artifacts/acceptance/v1.2-review-repeat-pagination
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/full_pagination/live.json --output artifacts/acceptance/v1.2-review-repeat-amac-full
+uv run --frozen python experiments/v1.2-acceptance/full_pagination_verify.py artifacts/acceptance/v1.2-review-repeat-amac-full --samples experiments/v1.2-acceptance/full_pagination/live.json
+uv run --frozen python experiments/v1.2-acceptance/live.py --source dd-017 --source dd-050 --source dd-247 --output artifacts/acceptance/v1.2-review-repeat-abc
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-review-repeat-abc</code></pre>
+<div class="am-md"><p>M3 首次整行比较仅因新 <code>recheck_plan=null</code> 列而失败，诊断证明原有字段完全不变；
+Smoke 首次 C01 在恢复旧数据库后漏执行迁移，Replay 返回 UndefinedColumn。修正
+现有验收升级路径并保留全量旧列比较，不建旧内部 Schema 兼容层、不改写失败工件。
+JSON 原身份改 URL、提前推迟日期、过量详情种子、首单页假 complete、错起页假 complete
+以及修复前性能不足的有效 RED 均保留；中间环境漂移/测试范围误配单独标识。
+旧 parser 的空 JSON 单元用例仅在相应真实 E2E 替代断言通过后删除一个方法，其余不删。
+新增手写代码均不超过 500 行；旧大文件拆分后保留场景 AST 相等证明。</p>
+<p>统一包只封装已保存 bytes，不重新计算或伪造 Run。可在当前 checkout 使用新目录
+离线解包、复算，历史工件无需覆盖；两个验证器独立绑定包/索引摘要和当前源码：</p>
+</div>
+<pre class="am-code"><code data-lang="sh">uv run --frozen python experiments/v1.2-acceptance/review_evidence.py --verify experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json --current-src --report artifacts/acceptance/v1.2-review-repeat-package-verification.json
+mkdir -p artifacts/acceptance/v1.2-review-repeat-offline
+tar -xzf experiments/v1.2-acceptance/results/review-fixes-final/review-evidence.tar.gz -C artifacts/acceptance/v1.2-review-repeat-offline
+uv run --frozen python experiments/v1.2-acceptance/review_fixes_verify.py --evidence-root artifacts/acceptance/v1.2-review-repeat-offline/review --index experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json --output artifacts/acceptance/v1.2-review-repeat-independent.json</code></pre></div>
+</section>
+</div>
+</div>
+</main>
+<footer class="am-colophon">Generated by Answer me with HTML 0.4.9 · 2026-10-10 00:24</footer>
+<textarea id="am-source" hidden readonly aria-hidden="true">---
 kind: plan
 lang: zh
 ---
@@ -79,15 +1103,17 @@ lang: zh
 
 本变更关联 [Issue #1](https://github.com/nanzhi84/SEAL/issues/1)，需求快照更新时间
 为 2026-10-09 10:03:28 UTC，开发基线为主分支 `ee39884`。
-范围是 T0–T6、T7S、T8；111 个入口的批量推广、Evaluation、Management 和 Agent 不在本次范围。
+基础设施范围是 T0–T6、T7S、T8。用户随后授权的 111 个 A/B/C 入口 Recipe 扩展验收见第 8 节；Evaluation、Management 和 Agent 仍未实现。
 唯一人工来源台账仍为 [Source 适配参考第 9 节](../reference/source-adaptation.md)。
 
-当前交付为 **Draft**：可执行的 Runtime 扩展和合成验收不能替代 A/B/C 真实样本验收。
-本会话对样本域名的继承代理请求返回 Tunnel 403；历史分类工件的业务 JSON、详情和附件
-原文并未全部入库。阻塞证据及原文可用性见
-[样本审计](../../experiments/v1.2-acceptance/samples/audit.json) 和
-[网络诊断](../../experiments/v1.2-acceptance/samples/network-diagnostic.json)。
-不得用旧实验 PASS、入口 HTTP 200、合成样本或历史 HTML 的离线解析宣称 T7S/T8 通过。
+2026-10-09 在本地环境补齐真实公开来源验收。原云端 Tunnel 403 与缺失业务 bytes
+是历史阻塞快照，保留原工件，不再作为本地来源可用性的结论。
+首轮使用真实 CLI、Scrapy、独立 PostgreSQL 与内容寻址原文，完成 A 4、B 2、C 2
+个完整来源；另保留 B 两个原样本的真实 partial 和附件不支持证据。
+机器映射与可重复命令见 [真实工件索引](../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json)。
+随后扩展处理全部 111 个研究入口：98 complete、3 partial、8 blocked、2 acceptance_failed。
+最终映射与复跑命令见 [扩展工件索引](../../experiments/v1.2-acceptance/results/expanded-final/real-evidence-index.json)。
+技术通过只针对明确样本范围，不授予内容质量审核。
 
 ## 1. 既有实现审计与迁移选择
 
@@ -102,12 +1128,19 @@ Source → 不可变 RecipeVersion/Binding → Run → Scrapy → 归档 → Obs
 | 扩展 seal_document | URL 非空、URL 身份、body_hash Revision、Completion 和 Export 都需混入业务身份；API 的 N 条记录不能各占同一个 URL | 必须改变多个历史公共语义，或伪造不存在的 URL；不选 |
 | 新增最小 Record 表 | 增量增加身份、版本、处理结果和本轮 emission；保留旧 Document/Revision/Result | 实现 URL 原文与业务 Record 分离，旧不可变行不改写；本次选择 |
 
-真实 dd-247 历史入口 HTML 的脚本可复算地声明 GET API、`data.data.dataList` 和多行渲染，
-没有独立详情 URL；它支持以上兼容性判断，却不能证明 API 的稳定业务键。
-T0 要求的**真实 C 响应双路线实验仍阻塞**。选择目前由代码合同及真实入口脚本支持，
-不得将这一待完成实证改标通过。取得真实响应后须复核身份字段及迁移结论。
+T0 已补真实 C 双路线实验：公募基金管理人 API 两页各 10 条，报告总数 165。
+冻结筛选易方达、pageSize=20 的响应交叉复核法定机构名称及展示字段。
+`lineId` 没有官方永久身份语义，明确排除；采用原文 `houseName` 自然键。
+更名可形成新身份，旧项保持 unknown，不声称永久注册 ID 连续性。
+在隔离 PostgreSQL 中复制实际历史 Document 与 Record 约束：同一响应 10 行
+沿用 URL 身份只留下 1 行，NULL URL 被拒；独立 Record 保留 10 行。
+实验原文、哈希、检查与完整命令见
+[双路线脚本](../../experiments/v1.2-acceptance/live_samples/c_route_experiment.py) 和
+[实验回执](../../experiments/v1.2-acceptance/live_samples/c-route-experiment.json)。
+由真实业务 bytes 与旧表约束共同支持既有 Record 迁移选择，不修改历史行。
 
-只新增 `0003_records.sql`、`0004_discovery.sql`，不修改 `schema.sql` 或
+首轮新增 `0003_records.sql`、`0004_discovery.sql`；第 9 节修复增量新增
+`0005_recheck_plan.sql`。不修改 `schema.sql` 或
 `0002_runtime.sql`，不回填、不改写历史结果。升级前停止旧 Worker；仍须为旧源码重新
 pack/create Binding，环境摘要漂移检查保持有效。历史归档合同仍为 1。
 
@@ -115,7 +1148,8 @@ pack/create Binding，环境摘要漂移检查保持有效。历史归档合同�
 
 `type=record` 包含 `record_type`、`record_key`、`schema_version`、类型化 JSON `data`、
 可空 `detail_url`、每个 data 字段的 locator、`key_locator`、主 snapshot/observation、
-补充输入，以及无详情时必需的 `frozen_parent_request={url,role,method:GET}`。
+补充输入，以及非 URL 业务键需要的 `frozen_parent_request={url,role,method:GET}`。
+JSON 有展示 detail_url 时仍冻结父 API；旧行仅从已接受的原文输入恢复唯一父请求。
 身份为 `(source_id, namespace, record_type, record_key)`；禁止列表下标或位置哈希作为键。
 URL 键必须与实际归档响应及详情 URL 一致；JSON 整数键仅允许显式 `key_string` 转换。
 
@@ -162,7 +1196,8 @@ stage 只写不可变处理结果与 emission；完成事务按键聚合。同�
 既有 generic Recipe 和 Candidate 继续可用。
 
 在线 Run Mode 只有 collect/recheck；Replay 仍为归档离线模式。
-Recheck 选择 Record 的实际详情 URL，或冻结父列表/API 请求；相同父请求仅生成一个种子，
+Recheck 仅对 response_url 身份使用详情 URL；稳定业务键使用冻结父列表/API 请求，
+相同父请求仅生成一个种子。调度按到期记录和请求预算冻结本轮目标，完成后才推进检查日期；
 请求内部仍由 Scrapy 原生去重。周期任务的到期查询也包含 Record，Procrastinate 继续
 负责持久调度。旧 V1.1 文档 Recheck 路径保留。
 
@@ -173,88 +1208,733 @@ RecipeVersion、Run、业务 scope、结果引用和资源统计。研究 ID 来
 显式 Run 包括 partial 中有效输出；默认视图只选最近 complete 的成功输出，
 已消失或未观察数据不自动抹除。所有出口 `quality_status=not_evaluated`。
 
-## 5. 样本选择与真实验收边界
+## 5. 样本与来源合同
 
-T1 复用 491 行研究总表、111 个 A/B/C 稳定 ID 以及原有优先级，不回写未完成的适配状态。
-优选 A：dd-017/041/116 列表详情、dd-102 iframe；B：dd-468 静态链接、dd-004 附件；
-C：dd-247 多记录 JSON、dd-009 固定查询，dd-248/250 为同机制 JSON 备选。
-每个样本的栏目、分页/参数、可枚举性、原文可用性与替代条件见样本 audit.json。
-所有替代仍需同类同机制证据，网络全类阻塞时不能用放宽边界完成数量门槛。
+唯一人工台账仍为 Source 适配参考第 9 节。配置中的研究 ID、Source、Recipe 与参数
+是有限取样合同，不是另一份人工适配状态表。机器 Run/Record 事实由工件生成。
 
-历史 dd-116、dd-004、dd-468 HTML 可离线审查并编写源级 Recipe，但历史解析结果与新的
-在线 Runtime 采集分开记录。C 类 API 真实 bytes 缺失时不能为机构名猜测稳定业务键。
+| 类别 | 研究 ID | 本轮业务范围 | 结果 |
+| --- | --- | --- | --- |
+| A | dd-017、dd-041、dd-116 | 各栏目前两页，实际链接发现每页一篇冻结详情 | complete，各 2 Record |
+| A | dd-102 | 北京处罚公开 iframe 前两页 40 行及建设银行详情 | complete，41 Record |
+| B | dd-468 | 2021 高校名单说明与两份真实 XLS | partial，1 个说明 Record；XLS 保留原文与 unsupported_content_type |
+| B | dd-004 | 诺亚信告知书、决定书的公告信息与两份真实 PDF | partial，2 个公告 Record；扫描件保留原文与 pdf_text_layer_required |
+| B | dd-050 | 中国海事仲裁委员会首页声明的规则 PDF | complete，1 个文本 PDF Record |
+| B | dd-151 | IPO 固定 Corporate Plan 页面与官方 assets 主机 PDF | complete，1 个文本 PDF Record；不代表商标核验 |
+| C | dd-247 | 固定空筛选、pageSize=10 的前两页 API | complete，20 个机构 Record，法定全称自然键 |
+| C | dd-009 | 固定 q=TESCO 的前两页公开公司搜索投影 | complete，29 个公司 Record，以公司编号为键；排除 officer |
 
-## 6. 联合验收和结果
+B 原样本未强行添加 OCR/Excel。按 Issue 的同类、同机制规则，增加台账内
+静态业务附件来源 dd-050、dd-151，满足至少两条完整 B 来源及真实文本 PDF 定位。
+原样本的 partial 不计入这个完整来源数量，不把公告投影冒充扫描件或逐校内容。
+所有样本均声明有限栏目、页数、字段与附件，不承诺源站全量或原地图的主体核验业务。
 
-合成测试与真实来源验收分别出具工件；在线外部网站不作为普通 CI 强制依赖。
-既有 V1.1 M3/Smoke 验证历史数据、Worker、Replay、归档及三层 fencing；新增联合脚本
-验证多 Record、类型定位、独立版本、重复/冲突、父 API Recheck、Discovery、附件、
-Manifest 和 CLI/Export/Inspect 的技术状态一致性。
+[Source 与预期合同](../../experiments/v1.2-acceptance/live_samples/a.json)、
+[B 配置](../../experiments/v1.2-acceptance/live_samples/b.json)、
+[C 配置](../../experiments/v1.2-acceptance/live_samples/c.json) 固定字段锚点、精确条数、URL 和原文要求。
+三个源级普通 Python Recipe 分别承载 HTML、静态资源与固定查询差异，继续复用共享 helper。
+未引入浏览器、OCR、Excel 解析依赖或第二套 Frontier。
 
-| 工作包 | 当前结果 | 证据/未完成项 |
+SAFE 网站在公开未认证 HTML 中写入随机匿名 JSESSIONID。
+本地完整归档保留原文与哈希供回看和复算；交付包排除包含该标识的原文对象。
+公开包记录原始哈希和 local_only 原因，不清洗原文、不伪造原文摘要。
+因此公开包不能独立复算 SAFE 全部原文字段；完整验证须使用本地归档或重新公开 GET。
+请求从未携带 Cookie、会话路径、认证信息，也未提交验证码或主体查询表单。
+
+## 6. 联合验收与复现
+
+环境为 Python 3.12.13、PostgreSQL 17.11、uv.lock、macOS arm64；
+initdb、pg_ctl、psql、pg_dump 需在 PATH。脚本覆盖外部 DSN，启动独立 loopback PG，
+清理测试集群；业务请求是真实公开 GET，数据与生产系统隔离。
+所有出口仍为 quality_status=not_evaluated。
+
+| 工作包 | 当前结果 | 证据 |
 | --- | --- | --- |
-| T0 | 部分完成，实证阻塞 | 接口与兼容迁移已冻结；真实 C 响应双路线比较待原文 |
-| T1 | 已完成来源机制审计 | samples/audit.json；不宣称适配成功 |
-| T2 | 技术验收通过 | 0..N、多输入、类型定位、独立版本、冲突、重排、Recheck 和零网络 Replay |
-| T3 | 技术验收通过 | 原生发现、血缘、去重、循环、预算、越界、下载和解析失败 |
-| T4 | 技术验收通过 | 同主机静态 iframe、PDF/CSV 归档定位；不支持附件明确 partial |
-| T5 | 技术验收通过 | Manifest、统计、unknown、终止原因及 CLI/Worker/Export/Inspect 一致性 |
-| T6 | 技术验收通过 | 共享普通 Python helper、源级定制、旧 generic Recipe 保持兼容 |
-| T7S | 阻塞 | 代理拒绝；缺少每类至少两条有效在线结果及对应输入 |
-| T8 | 合成通过，完整验收阻塞 | 303/303 联合断言通过；真实两轮、真实 Recheck/Replay 待补 |
+| T0 | PASS | 真实 C bytes、实际 PostgreSQL 双路线、9 项检查 |
+| T1 | PASS | 491 行研究及 A34/B73/C4 机制审计；复用唯一人工台账 |
+| T2–T6 | PASS | 隔离联合验收与真实 HTML/表格/JSON/PDF/helper 组合 |
+| T7S | PASS（限定样本） | 完整来源 A=4、B=2、C=2；两个 B 原样本另记 partial |
+| T8 | PASS（工程范围） | 真实两轮、Recheck、零网络 Replay、字段复算、故障与历史旧库兼容 |
 
-代码完成后独立审查数据一致性、并发、异常、范围、泄漏和测试可靠性；问题先修再交付。
-最终 PR 应保留此矩阵和可复现命令，维持 Draft，不关闭 Issue #1。
+每个完整来源执行 collect 两轮、Recheck 与原文 Replay。
+partial 来源执行两轮和 Replay，验证当前视图不推进且 Recheck 明确拒绝未成功基线。
+对每轮核对精确 Record 数、声明 URL、完整附件归档和错误集合。
+字段与业务键使用独立的 HTML/JSON/PDF 定位复算；不得缺 locator 或结果证据。
+Recheck 种子精确等于前轮详情或冻结父 GET/API，多个 Record 共享一个父请求。
+Replay 校验原始输入集合、业务值与 SEAL Downloader 的零 HTTP 交换，不声称操作系统外联审计。
+真实两轮没有制造网站内容变化；重排、单条变化、冲突与缺失 unknown 由隔离联合场景验证。
 
-验收工件入口为 [evidence-index.json](../../experiments/v1.2-acceptance/results/evidence-index.json)。
-V1.2 联合 303/303、V1.1 累计 M3 136/136、V1.1 Smoke 1191/1191 均通过；
-Smoke 包含原版旧库 C01，helper 8/8、Discovery 14/14 和历史 HTML 28/28 通过。
-其中的压缩包保存本轮合成归档、Source/Binding/Run/Record/Replay 映射、断言、Manifest
-与请求账本；每个 suite 保留原始 SHA256。真实样本的映射仍在 samples/audit.json 中，
-未发生采集的 Source/Binding 为 null，Run/Record/Replay 为空，不能用合成 ID 填充。
-历史原版数据库由独立、干净的 `ee39884` checkout 生成，provenance 声明它是本轮合成
-兼容输入；`court-confirmed` 仅是旧 harness 查找目录名，不表示真实法院采集。
+独立 review 修复 SAFE Recheck 从第 2 页错误扩到第 3 页的问题，按源站页号约束前两页。
+曾误通过的旧工件保留在本地，不改写为最终证据。
+恢复 HTTPPROXY_ENABLED=False，保持 V1.1 禁环境代理的边界。
+先用故障本地环境代理复现 retryable、零 Record、没有到达源站；修复后沿真实 CLI
+验证 10 个独立业务值、归档，以及源站关闭后的零网络 Replay。
+[代理行为脚本](../../experiments/v1.2-acceptance/proxy_behavior.py) 保留红绿工件映射。
 
-安装仍使用 `uv sync --frozen`，需要 PostgreSQL 的 initdb/pg_ctl/psql/pg_dump 在 PATH。
-测试自行启动隔离 PostgreSQL 和 loopback 服务器，不使用生产 DSN。新建目录运行：
+[最终工件索引](../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json)
+给出实际断言数量、来源/版本/Run/Record、归档摘要、回归包及本地/公开复算边界。
+既有云端合成 303/303、M3 136/136、Smoke 1191/1191 是历史记录；本地最终结果以该索引为准。
+仓库没有 GitHub Actions 或单独静态类型检查器，不报告远端 CI 通过。
 
-```sh
-./experiments/v1.2-acceptance/acceptance.sh --output work/v12-new
-uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-new
-uv run --frozen python experiments/v1.2-acceptance/test_helpers.py
-uv run --frozen python experiments/v1.2-acceptance/test_discovery.py
-uv run --frozen python experiments/v1.2-acceptance/samples/verify.py
-./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output work/v11-m3-new
-```
-
-已有交付工件可离线复验，无需启动数据库或访问外站：
+新目录执行真实来源和独立离线校验：
 
 ```sh
-mkdir -p work/v12-evidence
-tar -xzf experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz -C work/v12-evidence
-uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-evidence/synthetic/joint
-uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-m3
-uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-smoke
+uv sync --frozen
+uv run --frozen python experiments/v1.2-acceptance/live.py --output artifacts/acceptance/v1.2-repeat-real
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-repeat-real
+# 可用 --source dd-247 缩小在线范围；外站不作为普通 CI 强制门禁。
+uv run --frozen python experiments/v1.2-acceptance/proxy_behavior.py --output artifacts/acceptance/v1.2-repeat-proxy
+./experiments/v1.2-acceptance/acceptance.sh --output artifacts/acceptance/v1.2-repeat-joint
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.2-repeat-m3
 ```
 
-复跑包含 C01 的 Smoke 前，将解包的 `synthetic/v11-baseline` 复制到不存在的
-`artifacts/acceptance/v1.1-smoke/court-confirmed`，避免覆盖已有历史输入。随后运行
-`acceptance.sh --stage smoke --baseline work/v11-m3-new --output work/v11-smoke-new`；
-该命令位于 experiments/v1.1-runtime-acceptance，不加入 `--live`。
-代码 lint 使用 Ruff；仓库没有单独类型检查器或 GitHub Actions 工作流。
-seiso 新 Plan 检查通过，全 docs 检查仍报告 V1.1 文档中 6 个缺失的 ignored 工件链接，
-这是开发基线已有的问题，不改写历史文档或伪造历史文件消除它。
+离线公开包验证明确跳过 SAFE 私有原文，仍复算其余来源及所有保存断言：
 
-独立 Review 见 [review.json](../../experiments/v1.2-acceptance/results/review.json)。
-发现并修复了共享损坏归档误缓存、Discovery/Source 锁序死锁、空 API 被当作旧详情
-Recheck 种子、附件 Recheck 虚假修订、迟到回调写入和缺定位诊断归因等问题。
-回归覆盖这些边界；审查没有把未验证的外站覆盖或断电耐久性记为通过。
+```sh
+mkdir -p artifacts/acceptance/v1.2-public-replay
+# 输入目录须为新目录，保留历史与失败证据。
+tar -xzf experiments/v1.2-acceptance/results/real-final/real-evidence.tar.gz -C artifacts/acceptance/v1.2-public-replay
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-public-replay/real --public
+```
 
-## 7. 后续工作与限制
+历史 C01 输入使用显式 --compatibility-baseline，避免硬编码路径被误认为原版库。
+原版输入 provenance 的 61 个文件摘要与 ee39884 的 18 个源码摘要已核实。
+缺失、不完整、摘要损坏及 V1.2 库冒充历史库均在已有 C01 行为路径明确拒绝。
+旧 court-confirmed 目录保持不变；兼容输入选择只修改验收入口，不修改 Runtime 迁移。
 
-取得允许访问的公开样本后，补齐真实 C 路线实验、A/B/C 每类至少两源及各类两轮采集、
-真实 iframe/附件、父 API Recheck 和零网络 Replay 工件，再决定是否可转为 Ready。
-111 条批量推广另行分批 PR，复用相同 Manifest 并回写唯一人工台账。
-暂不实现删除治理、任意用户查询、POST、OCR、动态页面或受限查询；
-技术 complete 不表示业务全量覆盖或内容已经审核。
-</template></html>
+```sh
+mkdir -p artifacts/acceptance/v1.2-regression-replay
+tar -xzf experiments/v1.2-acceptance/results/real-final/real-regression-evidence.tar.gz -C artifacts/acceptance/v1.2-regression-replay
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.2-repeat-m3 --compatibility-baseline artifacts/acceptance/v1.2-regression-replay/regression/original-baseline --output artifacts/acceptance/v1.2-repeat-smoke
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/v1.2-repeat-smoke
+uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.2-acceptance experiments/v1.1-runtime-acceptance
+seiso check docs/plans/v1.2-heterogeneous-sources.md docs/reference/source-adaptation.md README.md
+```
+
+全 docs 检查中，V1.1 Plan 的 6 个既有 ignored 工件链接可能在缺历史工件的 checkout 报缺失。
+这不由伪造历史文件消除；新文档的相关链接须单独通过检查。
+
+## 7. 限制与后续
+
+T0/T7S/T8 的限定工程样本已经补齐；PR 仍未因此自动合并或关闭 Issue #1。
+第 8 节记录已执行的 111 项逐源扩展处理；扩大到完整业务范围仍须另冻结合同并复验。
+教育部 XLS、深圳扫描 PDF 与行业分类 DOCX 的正文解析仍不支持；如需这些具体业务数据，需另行确定能力范围。
+不实现删除治理、任意用户查询、POST、OCR、动态页面、受限查询、正式 Evaluation 或 Management。
+技术 complete 不代表全量覆盖、语义准确性审核、持续可用性或生产规模验证。
+
+## 8. Recipe 扩展验收
+
+用户于 2026-10-09 授权继续尽可能适配 A/B/C 来源并记录受阻原因。以既有分类
+34 个 A、73 个 B、4 个 C（合计 111 个稳定研究 ID）为本轮处理集合，保留既有
+8 个 complete 和 2 个 partial 的历史证据；逐项处理其余 101 个入口。这里的“入口”沿用研究 ID，不等同于 111 个不同网站。
+
+复用 Runtime 与共享 helper，由源级 Recipe 或明确参数封装网站差异。Source 限定
+真实公开栏目、入口到详情的链接、固定样本和有界分页；配置先冻结精确 URLs、业务键、
+条数及独立字段锚点，再实现与运行。不将导航、登录提示或正文仅在附件中的页面标题
+充当业务正文，也不把新闻或政策样本等同于原地图的主体核验业务。
+
+实现前沿用已有行为失败合同：网络/TLS/HTTP、挑战或授权、列表/详情模板漂移、正文
+与日期定位歧义、链接发现缺失、重查种子越界、身份重复与版本变化、附件无文本层、
+Replay 缺输入或产生 HTTP。成功来源执行真实 CLI 两次 collect、Recheck、Replay，
+独立复算字段/键与原文摘要；不增加实现镜像的单元测试。
+
+受阻来源保留机器诊断事实与可核实的请求状态、URL、原文哈希、失败工件和下一步，
+区分当前网络失败、访问限制、正文未定位、原链接失效、缺稳定身份、能力边界和验收
+失败；不把未完成或未执行称为不可适配。遇到只有栏目候选时再检查一层实际详情，
+在已知禁止路径、登录、验证码、POST 或动态执行边界停止，不尝试绕过。
+
+新样本合同与机器诊断写入 `experiments/v1.2-acceptance/expanded_samples/`，验收产物
+使用新目录，历史文件不覆盖。唯一人工状态继续回写 Source 适配参考第 9 节；最终
+工件索引由真实运行生成，包含所有 111 个 ID 的处理结果、失败分类、版本和复跑命令。
+含会话标识的原文仅留本地，公开包明确披露缺失范围并保留未改写原始摘要。
+
+```sh
+# 当前正向合同：A 29、B1 31、B2 28、C 2；辅助合同为 dd-375 的预期 partial。
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/expanded_samples/a.json --samples experiments/v1.2-acceptance/expanded_samples/b1.json --samples experiments/v1.2-acceptance/expanded_samples/b2.json --samples experiments/v1.2-acceptance/expanded_samples/c.json --samples experiments/v1.2-acceptance/expanded_samples/aux.json --output artifacts/acceptance/v1.2-expanded-repeat
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-expanded-repeat
+# 单源复跑在对应 --samples 后加 --source dd-198；首次使用新的输出目录。
+# 受阻公开入口诊断：最多每源三个已知 URL，不执行挑战，不替代业务验收。
+uv run --frozen python experiments/v1.2-acceptance/expanded_probe.py --source dd-016 --source dd-220 --output artifacts/acceptance/v1.2-network-repeat
+```
+
+
+2026-10-09 最终结果由实际 Run 与冻结原文汇总，覆盖全部 111 个研究 ID：
+
+| 类别 | complete | partial | blocked | acceptance_failed | 合计 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| A | 33 | 1 | 0 | 0 | 34 |
+| B | 61 | 2 | 8 | 2 | 73 |
+| C | 4 | 0 | 0 | 0 | 4 |
+| 合计 | 98 | 3 | 8 | 2 | 111 |
+
+相较首轮新增 90 个 complete 与 1 个明确 partial。98 个 complete 均执行两轮
+collect、Recheck、零网络 Replay；3 个 partial 执行两轮 collect 与 Replay，未将其
+提升为可推进当前指针的 complete。最终有效验收合计 401 个实际 Run、首轮 232 个 Record（228 个
+来自 complete 范围、4 个来自 partial 范围）、8497/8497 保存断言。独立原文复算
+覆盖 924 次 Record 投影；公开包显式排除 SAFE 后复算 760 次。独立审查
+[1555/1555 项通过](../../experiments/v1.2-acceptance/results/expanded-final/review.json)；失败历史另存，未加入通过断言总数。每源的 Source、
+Binding、RecipeVersion、Run、范围与原文摘要见 [机器事实](../../experiments/v1.2-acceptance/results/expanded-final/dispositions.json)，
+人工状态与下一步仅维护在 Source 适配参考第 9 节。
+
+新增 Recipe 共五组，复用既有 helper 与 Runtime，不新增浏览器、OCR 或动态执行。
+A 支持真实 HTML 正文及公开文本 PDF；B 将源站链接发现、重定向、正文片段及公开表格
+封装为参数与 Recipe；C 新增 AMAC 两个名录的固定前两页、多 Record、名称自然键与
+类型化字段。C 不把接口内部行号冒充永久机构 ID，更名形成新身份，旧记录保持 unknown。
+国民经济行业分类通知正文与两份 DOCX 已归档，但附件正文缺受支持 locator，因此 partial。
+
+电影备案 dd-448 的单篇真实 HTML 包含 156 行、电影许可 dd-449 包含 22 行表格。
+Recipe 从归档原文逐项定位公开 JS 字面值，不执行 JS；保留完整公告正文，各公告
+仍为一个 URL 身份 Record，未完成逐电影实体建模或全站备案数据覆盖。
+
+受阻与未完整通过的具体原因：
+
+- dd-004 扫描 PDF 无文本层；dd-468 XLS、dd-375 DOCX 缺正文解析能力。正文壳与附件证据均保留，不将其计入 complete。
+- dd-016 HTTP/HTTPS 重定向循环、最新入口 502；dd-220 HTTP 超时且 HTTPS 证书主机名不匹配。当前网络事实不能推断永久不可适配。
+- dd-211 的真实公开 HTML 被 `sensitive_body_rejected` 拒绝，原因是登录模板中的 password 变量；其 14 页合同 PDF 也无文本层。保留工程误判问题，不弱化全局归档安全规则。
+- dd-262 Cookie/JS 挑战、dd-357 CAS 登录、dd-370 微信验证、dd-410 HTTP 202 WAF/JS 挑战，均未取得匿名业务正文。
+- dd-299 两个官方详情 HTTP 403；dd-484 最终固定合同详情 HTTP 403。只描述已请求路径，不把入口可读或历史通过作为当前正文可用证据。
+- dd-380 在两个最终复测批次中均有界下载失败、没有 HTTP 响应。dd-380 与 dd-484 已有 Recipe 和历史通过证据，但最终未通过，因此归类 acceptance_failed，不计成功。
+
+已解决的问题也保留在逐源机器诊断中：HTTP 端口 80 链接重定向 HTTPS、EPO 正文
+选择器误选图片/导航、TRS 正文中的 style/空段落、图片主体的官方文本替代、正文中
+静态表格值以 JS 字面量提供，以及附件链接位于通知正文容器外。替换样本时明确
+所选公开出版物范围，不宣称原业务主体核验、查询或全站枚举已适配。
+
+完整本地原文在 ignored 工件目录，公开包约 44 MB；SAFE 的 9 个会话标识原文对象
+不进入公开包，原始 bytes 与摘要未改写。公开复算须显式 `--public`，它会明确跳过
+SAFE 原文字段；默认完整验证应拒绝缺失原文。其余工件、诊断与失败历史可离线核实：
+
+```sh
+mkdir -p artifacts/acceptance/v1.2-expanded-public-repeat
+tar -xzf experiments/v1.2-acceptance/results/expanded-final/real-evidence.tar.gz -C artifacts/acceptance/v1.2-expanded-public-repeat
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-expanded-public-repeat/real --public
+```
+
+合并工件使用 `expansion_report.py`，逐一校验已有正向与失败 Manifest，不重新生成
+运行结果；各组精确输入目录、命令与摘要均保存在扩展索引。dd-380/dd-484 的固定
+合同保留在 `expanded_samples/b2-deferred.json`，只有公开访问状态变化后才按原合同
+重新四轮验收；当前不继续对拒绝或持续失败路径重复请求。
+
+第 8 节扩展时的联合、M3、Smoke 与代理故障验收沿用第 6 节历史工件；
+该阶段新增源未修改引擎代码。第 9 节修复改变引擎，当前版本另行验收。这里验证的是样本抓取、存储、身份、归档定位与
+复跑行为；全站完整性、原地图业务完整核验、正式 Evaluation、长期稳定性和生产
+规模仍未验证。
+
+
+## 9. Recheck 与 JSON 规模修正
+
+用户提出三项 P1 和一项 P2，先冻结本节失败合同，再添加真实 CLI/Scrapy/隔离
+PostgreSQL 行为验收，观察现有失败后修正实现。仍使用同一个 Plan 与 Generated，
+先前第 8 节原文与版本证据保持不变；引擎变更后重新 pack/Binding，不将旧工件
+声称为新版本已经验收。
+
+业务边界：Record 身份来源于稳定业务键，展示用 detail_url 不赋予另一种身份；
+调度按到期范围组织有限请求，采集与 Replay 继续共享原文定位合同。JSON 对象的
+解析复用只存在于单个验证/Crawl 的有界生命周期内，数据边界仍是已校验摘要的
+不可变原文；具体 API 分页保留在来源 Recipe，不新增缓存服务或分页 DSL。
+
+实现前失败方式与验收要求：
+
+- JSON 返回稳定 id 与 detailUrl：两轮 collect、Recheck 和 Replay 始终保留同一个业务键/Record ID；没有详情到业务键映射时复查冻结父 API 请求，不能产生 URL 键替代记录。历史配置和已接受行也不能静默改变身份。
+- 200 条独立详情、请求预算 100、仅一条到期：调度仅计划到期范围；更多到期项按请求预算分批。相同父 API 请求去重，返回的额外记录仍可验证，未计划项不能列为未观察。
+- 排队、失败、重试与并发：调度不提前推迟业务 next_check；仅成功完成事务推进已观察范围。失败保留有界的重试机会；同一 Source 的待执行任务不重复领取，旧 generation/attempt 不覆盖新计划或当前指针。
+- 1000 条 Record、每条 10 个类型化字段：真实采集及原文复算保持完整值和键，并产出可重复性能数据；JSON Pointer 不随字段数重复解析完整大响应。重复 JSON 键、非法 Pointer、false/0、1/1.0、非有限数、补充输入混淆及摘要损坏继续拒绝。
+- 真实 pageNo/pageSize API：验证冻结总数、每页条数、末页及明确终止。提前空页、总数漂移、重复身份、分页超过合同或请求预算必须主动诊断；通用 JSON 示例声明单页范围，不默默冒充全量分页。
+
+端到端工件保存实际 CLI/Worker 回执、请求账本、Run 种子与计划范围、数据库可观察
+状态、导出、原文哈希、断言以及性能环境/运行命令。工件使用新目录，失败与历史
+均保留。具体实现选择与执行结果在上述行为通过后补入本节。
+
+实际实现与边界：
+
+- `recheck.py` 单独负责目标计划、父请求证明、未观察范围与完成日期；`runs` 冻结计划，`queue` 在 Source 锁下按默认 Binding 的输出合同选择到期 Record/Document，`completion` 事务提交时推进日期。采集、领域验证和存储职责仍分离。
+- `key_locator.kind=response_url` 才直接复查详情。其他业务键冻结父 GET；历史缺 parent 元数据时，只允许从该 Record 已接受 complete Result 的主 snapshot/Run inputs 恢复唯一请求，校验原文摘要。无法证明则显式 `record_recheck_request_missing`，不猜当前入口、不改旧身份。
+- 自动调度按到期时间/身份排序，以不同 GET 请求为预算单位；相同父 API 的到期目标合并。Run 保存 `recheck_plan`；未计划项不计缺失，API 额外返回的有效记录不提前推进检查日期。手动 `--recheck` 保持即刻复查全部已知范围，超预算返回 `recheck_budget_exceeded`，不创建 Run、不改日期。
+- 排队和失败不推进业务 `next_check`。仅 complete 中已观察的计划目标推进；未观察目标仍 unknown，并获得独立重试退避。失败退避从 30 秒指数增加、上限 1 小时；恢复清零。Source generation/run_seq/attempt fencing、待执行去重与单源 savepoint 保持有效，一个来源缺父请求不会阻塞其他来源。
+- `0005_recheck_plan.sql` 只增加 Run 计划与 Record/Document 退避元数据及索引。历史字段、不可变候选与原文不回填改写；升级停止 Worker，迁移后新 pack/Binding。迁移验收冻结升级前全部列并逐值核对，新增 nullable 元数据不能导致整行形状的假失败。
+- `record_validation.py` 承担类型、locator、key 与原文字节验证；`records.py` 保留持久化/版本职责。每个 Pipeline 拥有一个显式传入的 JSON LRU，至多 16 个解码对象、实际 Python 对象大小合计 64 MiB，关闭时全部释放。每条 Record 仍重新校验 snapshot/body 的内容摘要；同一 Record 的多个字段/key 共享已解析输入。超过 LRU 上限的输入只在本条验证中复用；无 hash 的独立调用不进入共享缓存。
+- 通用 JSON Recipe 要求显式 `json_scope=single_page`；未声明返回 `pagination_contract_missing`。完整分页由普通 `recipes/amac_full` 承担，校验成功 envelope、页号、冻结总数、每页长度、自然键唯一性与有界终止，不增加通用分页 DSL。
+
+性能样本固定为 1000 条 × 10 字段，同一 252,764 字节响应、同一解释器/依赖与并发 4，
+经过真实 CLI/Scrapy/隔离 PostgreSQL 的 Collect、值变化 Collect 和零 HTTP Replay。
+首 Collect CPU 为 14.67 → 2.20 秒（降低 85.0%），Replay 为 14.94 → 1.96 秒
+（降低 86.88%）；峰值 RSS 约 108/110 → 108/107 MB。基线业务与类型断言本来通过，
+性能目标明确 RED；优化后性能与业务均 GREEN。各路径单次实测，不外推真实网站延迟或生产吞吐，
+本次引擎同时包含 Recheck 修正，不将前后差异称为严格隔离的缓存因果实验。
+16,889,202 字节超额响应的解码树下限 73,128,280 字节：Collect/Replay 均只解析一次，
+不驻留 LRU、关闭后 0 entries/bytes；临时解析峰值约 441/422 MB，仍受 Source 响应预算限制。
+缓存容量累计逐出尚无独立 E2E 实测，正常命中、超额不驻留、无 hash 输入隔离与释放已有真实 CLI 证据。
+
+真实 C 全量 profile 选择 dd-250 基金托管机构，而非改写原两页样本：冻结官方 API
+`total=67`、`pageSize=10`，7 页为 10×6+7；两轮 Collect、Recheck 均各 7 个实际 GET，
+Replay 为 0 GET，四轮均 67 个自然键 Record。Recheck 的 7 个父种子与 Recipe 后续分页
+由 Scrapy 原生 Dupefilter 合并，保留 6 次去重事实。独立探测页 8 为空，但正常运行
+根据 total 和末页长度终止，不请求多余页。API 无快照 token，跨页原子一致性未证明；
+机构名自然键不代表永久注册 ID，更名仍产生新身份。总数漂移、提前空页、短末页、
+重复键、坏 envelope、超页数/预算、错误起始页均产生具体 partial，保留已归档输入。
+
+2026-10-10 新引擎另外复跑 dd-017（A，两篇指导案例）、dd-050（B，一份文本 PDF）、
+dd-247（C，前两页 20 家）；每个均两轮 Collect、Recheck、零 HTTP Replay，合计
+232/232 保存断言与 92 次独立原文投影。dd-250 为 77/77 保存断言、268 次字段/键投影，
+独立完整分页核验 488/488。先前 98 个通过来源仅有其中这四个在本次引擎上复跑；
+其余 94 个保留第 8 节历史版本、时间和范围，不能由当前专项结果推断全部已重新验收。
+
+当前验收表与统一公开原文包见
+[修复工件索引](../../experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json)。
+各工件保存精确 28 个引擎文件摘要、冻结 RecipeVersion/Binding、输入 bytes、断言、请求
+账本、运行命令和独立核验；有效行为/性能 RED 与验收配置/流程失败分别列出，旧失败不覆盖。
+
+| 当前验收 | 保存断言 | 业务证据 |
+| --- | ---: | --- |
+| 联合 Runtime | 419/419 | 原有 Record/Discovery/附件/Worker/fencing 与本次复查行为同入口 |
+| Recheck 专项 | 115/115 | 200 条详情仅一条到期只发 1 GET；101 条到期按 100+1 分批；共享父 API、失败退避、身份与历史证明 |
+| M3 | 136/136 | 真实 Worker、迁移旧字段逐值保持、故障恢复 |
+| Smoke | 1200/1200 | Golden、负例、恢复、升级后历史 Replay 与原文不变 |
+| JSON 性能 | 36043/36043 | 1000×10 三轮；独立复算 46091/46091 |
+| JSON 边界 | 91/91 | 超额树、无 hash 两响应、释放；独立复算 157/157 |
+| C 分页行为 | 154/154 | 全量/重排/Replay/故障/终止与单页声明 |
+| 真实 A/B/C 三源 | 232/232 | 12 个实际 Run、92 次原文字段/键投影 |
+| 真实 C 全量 | 77/77 | 4 个实际 Run、7 页/67 家与 488/488 独立核验 |
+| 环境代理故障 | 13/13 | 真实 CLI/Scrapy 在拒绝连接代理环境下仍直接采集，Replay 零网络 |
+
+环境为 macOS arm64、Python 3.12.13、项目 `uv.lock`、PostgreSQL 17.11；所有验收
+使用隔离 loopback 数据库和临时归档，不连接开发/生产数据。真实来源仅匿名公开 GET，
+无 Cookie/账号、环境代理或浏览器。每个运行选择新输出目录；旧引擎性能基线从统一包
+提取，不能用新引擎重新生成并冒充修复前数据。
+
+```sh
+# 原联合入口包含复查场景；不另增加单元测试。
+./experiments/v1.2-acceptance/acceptance.sh --output artifacts/acceptance/v1.2-review-repeat-joint
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.2-review-repeat-m3
+# compatibility-baseline 使用统一包内的历史数据库与原文，先迁移再重新 pack/Replay。
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.2-review-repeat-m3 --compatibility-baseline HISTORICAL_INPUT_DIRECTORY --output artifacts/acceptance/v1.2-review-repeat-smoke
+uv run --frozen python experiments/v1.2-acceptance/json_pointer_performance.py --baseline HISTORICAL_PERFORMANCE_DIRECTORY/summary.json --output artifacts/acceptance/v1.2-review-repeat-performance
+uv run --frozen python experiments/v1.2-acceptance/json_pointer_boundaries.py --output artifacts/acceptance/v1.2-review-repeat-boundaries
+uv run --frozen python experiments/v1.2-acceptance/pagination_acceptance.py --output artifacts/acceptance/v1.2-review-repeat-pagination
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/full_pagination/live.json --output artifacts/acceptance/v1.2-review-repeat-amac-full
+uv run --frozen python experiments/v1.2-acceptance/full_pagination_verify.py artifacts/acceptance/v1.2-review-repeat-amac-full --samples experiments/v1.2-acceptance/full_pagination/live.json
+uv run --frozen python experiments/v1.2-acceptance/live.py --source dd-017 --source dd-050 --source dd-247 --output artifacts/acceptance/v1.2-review-repeat-abc
+uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-review-repeat-abc
+```
+
+M3 首次整行比较仅因新 `recheck_plan=null` 列而失败，诊断证明原有字段完全不变；
+Smoke 首次 C01 在恢复旧数据库后漏执行迁移，Replay 返回 UndefinedColumn。修正
+现有验收升级路径并保留全量旧列比较，不建旧内部 Schema 兼容层、不改写失败工件。
+JSON 原身份改 URL、提前推迟日期、过量详情种子、首单页假 complete、错起页假 complete
+以及修复前性能不足的有效 RED 均保留；中间环境漂移/测试范围误配单独标识。
+旧 parser 的空 JSON 单元用例仅在相应真实 E2E 替代断言通过后删除一个方法，其余不删。
+新增手写代码均不超过 500 行；旧大文件拆分后保留场景 AST 相等证明。
+
+统一包只封装已保存 bytes，不重新计算或伪造 Run。可在当前 checkout 使用新目录
+离线解包、复算，历史工件无需覆盖；两个验证器独立绑定包/索引摘要和当前源码：
+
+```sh
+uv run --frozen python experiments/v1.2-acceptance/review_evidence.py --verify experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json --current-src --report artifacts/acceptance/v1.2-review-repeat-package-verification.json
+mkdir -p artifacts/acceptance/v1.2-review-repeat-offline
+tar -xzf experiments/v1.2-acceptance/results/review-fixes-final/review-evidence.tar.gz -C artifacts/acceptance/v1.2-review-repeat-offline
+uv run --frozen python experiments/v1.2-acceptance/review_fixes_verify.py --evidence-root artifacts/acceptance/v1.2-review-repeat-offline/review --index experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json --output artifacts/acceptance/v1.2-review-repeat-independent.json
+```
+</textarea>
+<script>
+(() => {
+  const root = document.documentElement;
+  // Each toolbar list sets one root attribute; its options name the values, so the runtime names no theme or mode.
+  for (const [name, attr] of [['theme', 'data-theme'], ['mode', 'data-mode']]) {
+    const select = document.querySelector(`select[data-am="${name}"]`);
+    if (!select) continue;
+    select.value = root.getAttribute(attr);
+    select.addEventListener('change', () => root.setAttribute(attr, select.value));
+  }
+
+  const copyBtn = document.querySelector('[data-am="copy"]');
+  copyBtn?.addEventListener('click', async () => {
+    const nodes = document.querySelectorAll('#am-source');
+    const text = nodes[nodes.length - 1]?.value ?? '';
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      document.body.append(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    const original = copyBtn.textContent;
+    copyBtn.textContent = copyBtn.dataset.done;
+    setTimeout(() => { copyBtn.textContent = original; }, 1400);
+  });
+})();
+(() => {
+// Pure planner for justified ("photo wall") rows on sheet pages. No DOM access.
+//
+// This file must stay inlinable into the page script: top-level declarations only, no imports, and the exports are
+// `planLayout` and the constants the DOM adapter shares (STEP, MAX_SCALE, MIN_SCALE). The page build strips the `export ` keyword,
+// and test/layout-plan.test.js checks that this still works.
+//
+// planLayout({ width, gap, cols, panels }) -> { rows: [{ columns: [{ panels: [index, ...], width }], height }] }
+//
+// Input (all lengths in px):
+//   width   container width
+//   gap     space between columns, and between two panels stacked in one column
+//   cols    most columns in one row (the planner never uses more than MAX_COLUMNS, but spans stay shares of `cols`)
+//   panels  one entry per panel, in reading order:
+//     samples   [{ w, h }] panel height at sampled widths, ascending by w (heights between samples are interpolated)
+//     minWidth  narrowest feasible width (clamped to `width`)
+//     maxWidth  widest useful width; beyond it the panel only gains empty space (default: no limit)
+//     natural   natural diagram width for a diagram-only panel (default: none)
+//     pad       panel width not used by the diagram (padding and border; default 0)
+//     span      the author's width hint in grid columns (default 1); span >= cols keeps the panel alone in its row
+//
+// Output: { rows, maxScale }. Rows are in reading order; a row is a list of columns (at most `cols`); a column holds one panel or two
+// consecutive panels, stacked. For integer inputs the column widths plus the gaps between them equal `width`.
+// Rows are chosen by dynamic programming over break points; widths by a search in STEP px steps. Cost per row:
+//   H = tallest column; waste = sum((H - columnHeight) * columnWidth) + sum over diagrams wider than maxWidth of (w - maxWidth) * h
+//   dev = sum(((w - preferred) / oneColumn)^2) + SCALE_WEIGHT * sum over diagrams of (ln(scale) / ln(MAX_SCALE))^2
+//   cost = waste / 1000 + PREF_WEIGHT * dev * H
+// Scale band: diagrams on one page stay at similar sizes. With the result's `maxScale` as the diagram size limit, a diagram is
+// shown at scale min(maxScale, (width - pad) / natural). The planner tries a few bands [lo, lo * BAND_RATIO] (lo in BAND_LOS) and
+// keeps the cheapest plan in which no diagram is narrower than scale lo and none is shown above the band's top, so the largest and
+// smallest diagram scale on the page differ by at most BAND_RATIO. A panel wider than its diagram's top size keeps the diagram at
+// that size, and the page script must set the diagram's max-width to natural * maxScale. The band starts no higher than the
+// largest scale the page allows the least roomy diagram, so one wide diagram lowers the band for the others.
+// If no band is feasible the plan is made without a band (maxScale = MAX_SCALE); if no plan fits (or the input is unusable) the
+// result is a single column: one panel per row at the full width.
+
+const STEP = 10;
+const MAX_SCALE = 1.25;
+const MIN_SCALE = 0.75; // the narrowest a diagram is shown, as a share of its natural width
+const MAX_COLUMNS = 6; // rows with more columns are unreadable, and the search grows steeply with the column count
+const BAND_RATIO = 1.25; // the largest and smallest diagram scale on a page differ by at most this
+const BAND_LOS = [MIN_SCALE, 0.85, 0.95, 1]; // lower ends tried for the band; lo * BAND_RATIO is the upper end (1.25 means no upper limit)
+const SCALE_WEIGHT = 3;
+const PREF_WEIGHT = 0.15;
+
+function heightAt(samples, w) {
+  const i = samples.findIndex((s) => s.w >= w);
+  if (i === -1) return samples[samples.length - 1].h;
+  if (i === 0) return samples[0].h;
+  const a = samples[i - 1];
+  const b = samples[i];
+  return a.h + ((b.h - a.h) * (w - a.w)) / (b.w - a.w);
+}
+
+// Every way to split `len` consecutive panels into columns of 1 or 2 panels, as lists of column sizes.
+function splits(len) {
+  if (len === 0) return [[]];
+  return [1, 2].filter((k) => k <= len).flatMap((k) => splits(len - k).map((rest) => [k, ...rest]));
+}
+
+function singleColumn(width, panels) {
+  return { rows: panels.map((_, i) => ({ columns: [{ panels: [i], width }], height: 0 })) };
+}
+
+function planLayout({ width, gap = 0, cols = 3, panels }) {
+  const usable = Number.isFinite(width) && width > 0 && panels.every((p) => Array.isArray(p.samples) && p.samples.length > 0);
+  if (!usable) return singleColumn(width, panels);
+
+  // `cols` stays the unit of the author's spans; no row gets more than MAX_COLUMNS columns however large `cols` is.
+  const maxColumns = Math.min(cols, MAX_COLUMNS);
+  const oneColumn = Math.max(1, (width - gap * (cols - 1)) / cols);
+  // Per-panel limits. With a band [lo, lo * BAND_RATIO], a diagram is no narrower than scale lo and shown at most at the top of the
+  // band: a wider panel keeps it at that size and gains empty space, which the cost counts as waste.
+  const prepare = (lo) => panels.map((p) => {
+    const pad = p.pad ?? 0;
+    const diagram = lo > 0 && p.natural > 0;
+    const scaleCap = diagram ? Math.min(MAX_SCALE, lo * BAND_RATIO) : MAX_SCALE;
+    return {
+      ...p,
+      minWidth: Math.min(width, Math.max(Math.ceil(p.minWidth || 0), diagram ? Math.ceil(p.natural * lo + pad) : 0)),
+      maxWidth: Math.min(p.maxWidth ?? Infinity, diagram ? p.natural * scaleCap + pad : Infinity),
+      scaleCap,
+      pad,
+      preferred: Math.min(width, (p.span ?? 1) * oneColumn + ((p.span ?? 1) - 1) * gap),
+      alone: (p.span ?? 1) >= cols,
+    };
+  });
+  let info = prepare(0);
+  // Beyond its maxWidth a panel only gains empty space, so its height stops changing there (matters when a band lowers maxWidth).
+  const heightOf = (p, w) => heightAt(p.samples, Math.min(w, p.maxWidth));
+  const columnHeight = (col, w) => col.reduce((h, k) => h + heightOf(info[k], w), 0) + gap * (col.length - 1);
+
+  function bestColumns(columns) {
+    const avail = width - gap * (columns.length - 1);
+    const mins = columns.map((c) => Math.max(...c.map((k) => info[k].minWidth)));
+    const minsFrom = mins.map((_, n) => mins.slice(n).reduce((s, w) => s + w, 0));
+    if (minsFrom[0] > avail) return null;
+    let best = null;
+    const evaluate = (ws) => {
+      const hs = ws.map((w, n) => columnHeight(columns[n], w));
+      const H = Math.max(...hs);
+      let waste = 0;
+      let dev = 0;
+      ws.forEach((w, n) => {
+        waste += (H - hs[n]) * w;
+        for (const k of columns[n]) {
+          const p = info[k];
+          if (w > p.maxWidth) waste += (w - p.maxWidth) * heightOf(p, w);
+          dev += ((w - p.preferred) / oneColumn) ** 2;
+          if (p.natural > 0) {
+            const scale = Math.min(p.scaleCap, Math.max(w - p.pad, 1) / p.natural);
+            dev += SCALE_WEIGHT * (Math.log(scale) / Math.log(MAX_SCALE)) ** 2;
+          }
+        }
+      });
+      const cost = waste / 1000 + PREF_WEIGHT * dev * H;
+      if (!best || cost < best.cost) best = { cost, ws, height: H, columns };
+    };
+    const choose = (n, used, ws) => {
+      if (n === columns.length - 1) {
+        const w = avail - used;
+        if (w >= mins[n]) evaluate([...ws, w]);
+        return;
+      }
+      for (let w = mins[n]; used + w + minsFrom[n + 1] <= avail; w += STEP) choose(n + 1, used + w, [...ws, w]);
+    };
+    choose(0, 0, []);
+    return best;
+  }
+
+  // Best columns for one row of panels i..j.
+  function bestRow(i, j) {
+    if (j > i && info.slice(i, j + 1).some((p) => p.alone)) return null;
+    let best = null;
+    for (const split of splits(j - i + 1)) {
+      if (split.length > maxColumns) continue;
+      let next = i;
+      const columns = split.map((size) => Array.from({ length: size }, () => next++));
+      const r = bestColumns(columns);
+      if (r && (!best || r.cost < best.cost)) best = r;
+    }
+    return best;
+  }
+
+  // Row breaks in reading order, for the band set up in `info`. A row holds at most 2 * maxColumns panels. Null if nothing fits.
+  function solve() {
+    const n = panels.length;
+    const total = Array(n + 1).fill(Infinity);
+    const from = Array(n + 1).fill(-1);
+    const chosen = Array(n + 1).fill(null);
+    total[0] = 0;
+    for (let j = 1; j <= n; j++) {
+      for (let i = Math.max(0, j - 2 * maxColumns); i < j; i++) {
+        if (total[i] === Infinity) continue;
+        const r = bestRow(i, j - 1);
+        if (r && total[i] + r.cost < total[j]) {
+          total[j] = total[i] + r.cost;
+          from[j] = i;
+          chosen[j] = r;
+        }
+      }
+    }
+    if (total[n] === Infinity) return null;
+    const rows = [];
+    for (let j = n; j > 0; j = from[j]) {
+      const r = chosen[j];
+      rows.unshift({ columns: r.columns.map((panelsInColumn, c) => ({ panels: panelsInColumn, width: r.ws[c] })), height: r.height });
+    }
+    return { rows, cost: total[n] };
+  }
+
+  let best = null;
+  const diagrams = panels.filter((p) => p.natural > 0);
+  if (diagrams.length > 1) {
+    // No diagram can be shown larger than the page allows, so the band cannot start above the smallest of those limits.
+    const reach = Math.min(...diagrams.map((p) => Math.min(MAX_SCALE, Math.max(width - (p.pad ?? 0), 1) / p.natural)));
+    for (const lo of new Set([...BAND_LOS.filter((x) => x < reach), reach])) {
+      info = prepare(lo);
+      const r = solve();
+      if (r && (!best || r.cost < best.cost)) best = { ...r, maxScale: Math.min(MAX_SCALE, lo * BAND_RATIO) };
+    }
+    info = prepare(0);
+  }
+  best ??= solve();
+  return best ? { rows: best.rows, maxScale: best.maxScale ?? MAX_SCALE } : singleColumn(width, panels);
+}
+
+// DOM adapter for the sheet's justified ("photo wall") layout. Not a module: compose.js puts it after src/runtime/layout-plan.js
+// (which defines planLayout and the shared STEP, MAX_SCALE, MIN_SCALE) inside one function scope of the page script.
+//
+// It measures every panel at sampled widths, asks planLayout for rows and column widths, and applies them with flexbox.
+// The rendered HTML keeps the plain CSS grid: with JavaScript off, at the single-column breakpoint, or while printing, the grid is what
+// shows (the planned widths belong to the screen width, so print never gets a mix of the two); after printing the layout comes back.
+
+const grid = document.querySelector('.am-grid');
+const panels = grid ? [...grid.children].filter((el) => el.classList.contains('am-panel')) : [];
+
+if (panels.length > 1) {
+  const SINGLE_COLUMN = '(max-width: 760px)'; // the single-column breakpoint in src/themes/base.css
+  const TWO_COLUMNS = '(max-width: 1100px)'; // below this the CSS grid has two columns
+  const SAMPLE_STEP = 20; // width sampling step, px; the planner interpolates between samples
+  const TEXT_MIN = 260; // text keeps at least about 16 CJK characters per line
+  const TABLE_COL_MIN = 96; // per table column, px
+  const DIAGRAM_MIN = 160;
+  const RESIZE_DELAY = 150;
+  const OVERFLOWING = '.am-table-wrap, .am-diagram, .am-annot-scroll, pre';
+
+  const original = new Map([grid, ...panels, ...grid.querySelectorAll('.am-diagram > svg')].map((el) => [el, el.getAttribute('style')]));
+  const restoreStyle = (el) => (original.get(el) === null ? el.removeAttribute('style') : el.setAttribute('style', original.get(el)));
+
+  // Back to the plain grid markup and styles.
+  const restore = () => {
+    for (const box of grid.querySelectorAll(':scope > .am-col')) box.replaceWith(...box.children);
+    for (const el of original.keys()) restoreStyle(el);
+  };
+
+  // The author's width hint, rendered as data-span only when the author wrote one. The inline grid-column is the no-JavaScript fallback
+  // and may hold spans the server added, so it is never read here.
+  const spanHint = (el) => Number(el.dataset.span) || 1;
+  const diagramOnly = (el) => {
+    const body = el.querySelector(':scope > .am-panel-body');
+    return body && body.children.length === 1 ? body.querySelector(':scope > .am-diagram > svg') : null;
+  };
+  const naturalWidth = (svg) => Number(svg.getAttribute('width')) || 0;
+
+  // Height (and, for panels with tables or code, the narrowest width without sideways scrolling) at sampled widths.
+  // Only one panel is displayed while it is measured, so each width change lays out that panel alone.
+  function measure(width) {
+    grid.style.display = 'block';
+    for (const el of panels) {
+      el.style.display = 'none';
+      el.style.boxSizing = 'border-box';
+      for (const svg of el.querySelectorAll('.am-diagram > svg')) {
+        svg.style.width = '100%';
+        svg.style.maxWidth = `${naturalWidth(svg) * MAX_SCALE}px`;
+      }
+    }
+    const info = panels.map((el) => {
+      const svg = diagramOnly(el);
+      const svgs = [...el.querySelectorAll('.am-diagram > svg')];
+      const scrollers = el.querySelectorAll(OVERFLOWING);
+      const tableCols = Math.max(0, ...[...el.querySelectorAll('table tr:first-child')].map((tr) => tr.children.length));
+      el.style.display = '';
+      el.style.width = `${width}px`;
+      const pad = svg ? el.offsetWidth - svg.parentElement.clientWidth : 0;
+      const natural = svg ? naturalWidth(svg) : 0;
+      const shrunk = Math.max(0, ...svgs.map((s) => naturalWidth(s) * MIN_SCALE)) + (svg ? pad : 34);
+      const floor = svg ? Math.max(DIAGRAM_MIN, natural * MIN_SCALE + pad) : Math.max(TEXT_MIN, shrunk, tableCols * TABLE_COL_MIN + 34);
+      const from = Math.min(width, Math.floor(floor / STEP) * STEP);
+      const samples = [];
+      let fits = null;
+      for (let w = from; ; w += SAMPLE_STEP) {
+        w = Math.min(w, width);
+        el.style.width = `${w}px`;
+        if (fits === null && !svg && scrollers.length && ![...scrollers].some((s) => s.scrollWidth > s.clientWidth + 1)) fits = w;
+        samples.push({ w, h: el.offsetHeight });
+        if (w === width) break;
+      }
+      el.style.display = 'none';
+      return {
+        samples,
+        minWidth: svg ? floor : Math.max(floor, fits ?? (scrollers.length ? width : 0)),
+        maxWidth: svg ? natural * MAX_SCALE + pad : Infinity,
+        natural,
+        pad,
+        span: spanHint(el),
+      };
+    });
+    for (const el of panels) {
+      el.style.display = '';
+      el.style.width = '';
+    }
+    return info;
+  }
+
+  // Each column gets a fixed width. A row adds up to the full width, so flex-wrap breaks rows by itself.
+  // Stacked panels go into a column wrapper whose last panel absorbs the extra height.
+  function apply(plan, gap) {
+    grid.style.display = 'flex';
+    grid.style.flexWrap = 'wrap';
+    grid.style.alignItems = 'stretch';
+    grid.style.gap = `${gap}px`;
+    for (const el of panels) {
+      el.style.gridColumn = '';
+      el.style.gridRow = '';
+      el.style.flex = '0 0 auto';
+    }
+    for (const row of plan.rows) {
+      for (const col of row.columns) {
+        const width = `${col.width}px`;
+        if (col.panels.length === 1) {
+          panels[col.panels[0]].style.width = width;
+          continue;
+        }
+        const box = document.createElement('div');
+        box.className = 'am-col';
+        box.style.cssText = `width:${width};flex:0 0 auto;display:flex;flex-direction:column;gap:${gap}px`;
+        panels[col.panels[0]].before(box);
+        for (const k of col.panels) {
+          panels[k].style.width = '';
+          box.append(panels[k]);
+        }
+        panels[col.panels[col.panels.length - 1]].style.flex = '1 1 auto';
+      }
+    }
+  }
+
+  // Diagram-only panels show their diagram at most at the top of the page's scale band; a wider panel gains empty space instead.
+  function capDiagrams(maxScale) {
+    for (const el of panels) {
+      const svg = diagramOnly(el);
+      if (svg) svg.style.maxWidth = `${naturalWidth(svg) * maxScale}px`;
+    }
+  }
+
+  const containerWidth = () => Math.floor(grid.getBoundingClientRect().width);
+
+  function justify() {
+    if (printing || printQuery.matches) return;
+    try {
+      // A vertical scrollbar can appear or vanish once the rows change height; plan again if the width moved.
+      let planned = -1;
+      for (let pass = 0; pass < 3 && planned !== containerWidth(); pass++) {
+        restore();
+        if (matchMedia(SINGLE_COLUMN).matches) return;
+        planned = containerWidth();
+        const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+        const cols = Math.max(1, Number(getComputedStyle(grid).getPropertyValue('--cols')) || 3);
+        const plan = planLayout({ width: planned, gap, cols: matchMedia(TWO_COLUMNS).matches ? Math.min(cols, 2) : cols, panels: measure(planned) });
+        apply(plan, gap);
+        capDiagrams(plan.maxScale);
+      }
+      // The width never settled: columns planned for another width would overflow or leave gaps, so show the plain grid.
+      if (planned !== containerWidth()) restore();
+    } catch {
+      restore();
+    }
+  }
+
+  // Printing: back to the plain grid (spans and all), and the layout again afterwards. Browsers disagree on which of the
+  // `beforeprint` event and the print media query change fires first, or at all, so listen to both; both are idempotent.
+  // While `printing` is set (beforeprint to afterprint) justify() does nothing, so a late resize cannot bring flex widths into the print layout.
+  let printing = false;
+  const printQuery = matchMedia('print');
+  let timer = 0;
+  const later = () => {
+    clearTimeout(timer);
+    timer = setTimeout(justify, RESIZE_DELAY);
+  };
+  const toPrint = () => {
+    clearTimeout(timer);
+    restore();
+  };
+  justify();
+  addEventListener('resize', later);
+  addEventListener('beforeprint', () => {
+    printing = true;
+    toPrint();
+  });
+  addEventListener('afterprint', () => {
+    printing = false;
+    later();
+  });
+  printQuery.addEventListener('change', (e) => (e.matches ? toPrint() : later()));
+  // Late changes to panel heights: web fonts arriving, and images inside the grid finishing their load (load does not bubble, so capture it).
+  document.fonts?.ready.then(later);
+  grid.addEventListener('load', later, true);
+  // Switching theme changes paddings and fonts, hence panel heights.
+  document.querySelector('[data-am="theme"]')?.addEventListener('click', later);
+}
+})();
+</script>
+</body>
+</html>

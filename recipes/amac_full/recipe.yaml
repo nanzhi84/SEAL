@@ -1,0 +1,9 @@
+family: amac-trustee-full-enumeration
+entrypoint: recipe:AmacFullSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  required: [expected_total, max_pages]
+  properties:
+    expected_total: {type: integer, minimum: 0, maximum: 1000}
+    max_pages: {type: integer, minimum: 1, maximum: 100}

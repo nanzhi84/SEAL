@@ -1,0 +1,9 @@
+family: live-fixed-public-query
+entrypoint: recipe:LiveCSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  required: [source, max_pages]
+  properties:
+    source: {enum: [dd-247, dd-009]}
+    max_pages: {const: 2}

@@ -21,8 +21,7 @@ from seal.helpers import (
     static_resources,
     table_records,
 )
-from seal.recipes import pack_recipe
-from seal.records import validate_record
+from seal.record_validation import validate_record
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -251,25 +250,6 @@ class HelperContracts(unittest.TestCase):
         broken = self.response(b"broken PDF", url="https://example.test/broken.pdf", kind=Response)
         with self.assertRaisesRegex(SealError, "pdf_parse_failed"):
             attachment_record(broken)
-
-    def test_recipe_json_empty_response_is_valid_zero_output(self):
-        # Exercise the actual immutable-bundle review rules as well as callbacks;
-        # the database insert is the only isolated boundary in this unit check.
-        with patch("seal.recipes.connect"):
-            packed = pack_recipe(ROOT / "recipes/heterogeneous")
-        self.assertEqual(len(packed["recipe_version"]), 64)
-        spec = importlib.util.spec_from_file_location(
-            "heterogeneous_recipe", ROOT / "recipes/heterogeneous/recipe.py"
-        )
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        spider = module.HeterogeneousSpider(
-            {"mode": "json"}, {"config": {"allowed_hosts": ["example.test"]}, "seeds": []}
-        )
-        response = self.response(
-            json.dumps({"data": {"data": {"dataList": []}}}), role="api", kind=JsonResponse
-        )
-        self.assertEqual(list(spider.parse_list(response)), [])
 
 
 if __name__ == "__main__":

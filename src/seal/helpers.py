@@ -12,7 +12,7 @@ from pypdf import PdfReader
 from scrapy.http import TextResponse
 
 from .core import SealError, public_url
-from .records import json_pointer
+from .record_validation import json_pointer
 
 
 def input_reference(response):
@@ -149,7 +149,9 @@ def record_item(
         **input_reference(response),
         "locators": locators,
         "key_locator": key_locator,
-        "frozen_parent_request": frozen_request(response) if detail_url is None else None,
+        "frozen_parent_request": frozen_request(response)
+        if key_locator.get("kind") != "response_url" or detail_url is None
+        else None,
         "supplementary_inputs": supplementary_inputs or [],
     }
 

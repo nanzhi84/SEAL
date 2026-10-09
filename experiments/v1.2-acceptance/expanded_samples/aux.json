@@ -1,0 +1,88 @@
+[
+  {
+    "research_id": "dd-375",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-375",
+      "entry_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html"
+      ],
+      "allowed_hosts": [
+        "www.stats.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+        "/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ],
+      "host_path_scopes": {
+        "www.stats.gov.cn": [
+          "/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+          "/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+          "/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+        ]
+      },
+      "research_ids": [
+        "dd-375"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅国民经济行业分类第1号修改单通知的真实HTML正文及其两份DOCX原文归档；DOCX分类/修改单正文不解析，显式partial，不把通知代替完整行业分类。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 6,
+        "seconds": 90,
+        "response_bytes": 5242880
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_aux",
+    "params": {
+      "attachment_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ]
+    },
+    "expected": {
+      "statuses": [
+        "partial"
+      ],
+      "errors": [
+        "unsupported_content_type"
+      ],
+      "min_records": 1,
+      "record_count": 1,
+      "min_pages": 0,
+      "roles": [
+        "detail",
+        "attachment"
+      ],
+      "allowed_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ],
+      "archived_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ],
+      "stable_keys": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html"
+      ],
+      "title_anchors": [
+        "关于执行国民经济行业分类第1号修改单的通知"
+      ],
+      "body_anchors": [
+        "GB/T 4754-2017",
+        "统计调查制度要严格执行"
+      ],
+      "min_body_chars": 400
+    }
+  }
+]

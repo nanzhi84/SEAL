@@ -17,7 +17,7 @@ from scrapy.http import HtmlResponse
 
 from seal.config import SourceConfig, load_file
 from seal.core import Objects, digest
-from seal.records import validate_record
+from seal.record_validation import validate_record
 
 ROOT = Path(__file__).resolve().parents[3]
 HERE = Path(__file__).resolve().parent

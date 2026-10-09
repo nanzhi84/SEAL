@@ -1,0 +1,17 @@
+family: v12-live-public-html-samples
+entrypoint: live_a:LiveASpider
+params_schema:
+  type: object
+  additionalProperties: false
+  required: [source, fixed_details]
+  properties:
+    source:
+      type: string
+      enum: [dd-017, dd-041, dd-116, dd-102]
+    max_pages: {type: integer, minimum: 1, maximum: 2, default: 2}
+    fixed_details:
+      type: array
+      minItems: 1
+      maxItems: 5
+      uniqueItems: true
+      items: {type: string, format: uri}

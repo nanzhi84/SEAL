@@ -1,0 +1,1513 @@
+{
+  "artifact_version": 1,
+  "status": "PASS",
+  "reviewed_at": "2026-10-09T16:26:34.905139+00:00",
+  "scope": "Read-only Plan section9, README and Source-adaptation section9 consistency; no source/recipe/doc edits or online reruns",
+  "inputs_sha256": {
+    "docs/plans/v1.2-heterogeneous-sources.md": "82c50d464d464f63c5c4056322a644c11950b9e56d156db35071c2f99ac270cb",
+    "README.md": "a8f1f4814fec4bd2d14a930463300ecc9bcab796b5bb151109d63ba1e1823c12",
+    "docs/reference/source-adaptation.md": "133800aeaaf9073327c8ce3ee89a4b15604ce7cc73e393440e4d6a836112919e",
+    "artifacts/acceptance/v1.2-review-joint-final/manifest.json": "e7b25914b27c1adebc9de6f508120f85d3614ab0af92576ef5ded314515ceb55",
+    "artifacts/acceptance/v1.2-review-joint-final/assertions.json": "2da1a0d9498083c3af74b225484cb6b5e040c9edae11911adc4a69e4eaae9f6b",
+    "artifacts/acceptance/v1.2-recheck-final/manifest.json": "1a9c55c19fec9ca7dbffe4072e73d67f4070a22a006b3eca19513288ff05684f",
+    "artifacts/acceptance/v1.2-recheck-final/assertions.json": "1d887c85e58a1b50d2b4a7b0be91574b662acb4eb8d72237aa3b77ae5339f664",
+    "artifacts/acceptance/v1.2-review-m3-final-v2/manifest.json": "771408e1d64682a616f258e76c299e4da66b342f1a019216abd821caae3b66aa",
+    "artifacts/acceptance/v1.2-review-m3-final-v2/assertions.json": "b1afca0c146b2a4d9a9078a8a99b309107743ec41fe162a38e9c688de4b4bb0e",
+    "artifacts/acceptance/v1.2-review-smoke-final-v2/manifest.json": "9eb27758946b801e6a81bb30af0abc171b898df69063cc8752ec08a2099ff109",
+    "artifacts/acceptance/v1.2-review-smoke-final-v2/assertions.json": "75b362302475527136ea8b465b5f87761f3ace4de682cd1a2d46b57ef604bcf1",
+    "artifacts/acceptance/v1.2-json-pointer-final/manifest.json": "5f630897bb223903ba2c0996ca5e206dd5d1980f10b92d3520fce318d96cae4d",
+    "artifacts/acceptance/v1.2-json-pointer-final/assertions.json": "e95d5386fce1e8b8cd88517b54483af584bf13d547c2c145302308192818b6cb",
+    "artifacts/acceptance/v1.2-json-pointer-boundaries-complete/manifest.json": "88594dbd61f1251bbbe5833ed25092b79c2f8f978c66d0dfb13bead6751d2561",
+    "artifacts/acceptance/v1.2-json-pointer-boundaries-complete/assertions.json": "68ac3a0e0cf9878c274d0cfaa979e2b101911ba63a2482be0d88411047e9f9d0",
+    "artifacts/acceptance/v1.2-pagination-final/manifest.json": "b488468e4673d18c85ebfe39292af4b386feddb34dec385cff01dc46dc5a9ae5",
+    "artifacts/acceptance/v1.2-pagination-final/assertions.json": "a26af924ac2af0956ba847802cfd955a2cbf2e805762677d80f7798dbd2e6d38",
+    "artifacts/acceptance/v1.2-review-real-abc-final/manifest.json": "001bd602860fbb9086f2aa8b4f228a96d172699c9be199e4a0ecb877de3d6e7a",
+    "artifacts/acceptance/v1.2-review-real-abc-final/assertions.json": "24ca5965c5fcc9b7105e0cddfa656988e2986548af73d8e1b076ee848872216e",
+    "artifacts/acceptance/v1.2-amac-full-final/manifest.json": "cd0905c65993cea6923c0802f7be4dd94ae93d9a44a02a0750c657aee4f99785",
+    "artifacts/acceptance/v1.2-amac-full-final/assertions.json": "aeffd1bfd2e679d01d9214a780d047d6b6a0425925ef70b11ee8f4528bd30501",
+    "artifacts/acceptance/v1.2-review-proxy-final/manifest.json": "5f43f1ae95936f4f0828955c9700e0186694f5822c66b2b350da6e41bc23281a",
+    "artifacts/acceptance/v1.2-review-proxy-final/assertions.json": "a862ed15b640439b2aee9251f10beafe192238d38a9f7f356805a6cd9a92c323",
+    "artifacts/acceptance/v1.2-review-real-abc-final/v12-live-dd-017-first.json": "99f803ac82ca4f3ad1bf03ae6ac94999b8fe8a3ab67dfedbf5bc4d9908e0a5c2",
+    "artifacts/acceptance/v1.2-review-real-abc-final/live_dd_050-first.json": "53728a38f8a0b6893f40616f1404d695eff3c724fa73633cef25ceeeb8dd8497",
+    "artifacts/acceptance/v1.2-review-real-abc-final/v12_live_dd_247-first.json": "4a075aa59f185d661d80dffdf29d9ebafe8447b91fdbda7ff480101d54e5126b",
+    "artifacts/acceptance/v1.2-amac-full-final/full_dd_250-first.json": "392b1aab1dda8532faae470706fa4d6c13f0417117d3c2e70fc82d7e3e1905a1",
+    "artifacts/acceptance/v1.2-amac-full-independent-verification.json": "64f6c5c0c666bc14a1ea2002cae4154ea235b4146f05cc3f4189787c951a0355",
+    "artifacts/acceptance/v1.2-json-pointer-baseline/summary.json": "809a40cdd5b1029e17152eb941eb5bae64ae26e035458c4a1b71899e8b6637c0",
+    "artifacts/acceptance/v1.2-json-pointer-final/summary.json": "16bef9371f505b8cec2e01b677eb8242431b9f929f5163c0ae70fdcb03851a90",
+    "recipes/amac_full/recipe.py": "01df766a3737f0bc6f8c965f26f6af812552aaf12629b34f2ae961d2497781f5",
+    "experiments/v1.2-acceptance/full_pagination_verify.py": "314ead23a332d69a2875986b27674c88aa2ab2c4162b7c7a9cc8083f1e0aa102"
+  },
+  "checks": [
+    {
+      "name": "联合 Runtime_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "联合 Runtime_saved_count",
+      "actual": 419,
+      "expected": 419,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-joint-final/assertions.json"
+    },
+    {
+      "name": "联合 Runtime_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "联合 Runtime_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-joint-final/manifest.json"
+    },
+    {
+      "name": "联合 Runtime_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "Recheck 专项_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "Recheck 专项_saved_count",
+      "actual": 115,
+      "expected": 115,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-recheck-final/assertions.json"
+    },
+    {
+      "name": "Recheck 专项_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "Recheck 专项_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-recheck-final/manifest.json"
+    },
+    {
+      "name": "Recheck 专项_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "M3_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "M3_saved_count",
+      "actual": 136,
+      "expected": 136,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-m3-final-v2/assertions.json"
+    },
+    {
+      "name": "M3_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "M3_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-m3-final-v2/manifest.json"
+    },
+    {
+      "name": "M3_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "Smoke_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "Smoke_saved_count",
+      "actual": 1200,
+      "expected": 1200,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-smoke-final-v2/assertions.json"
+    },
+    {
+      "name": "Smoke_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "Smoke_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-smoke-final-v2/manifest.json"
+    },
+    {
+      "name": "Smoke_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "JSON 性能_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "JSON 性能_saved_count",
+      "actual": 36043,
+      "expected": 36043,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-json-pointer-final/assertions.json"
+    },
+    {
+      "name": "JSON 性能_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "JSON 性能_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-json-pointer-final/manifest.json"
+    },
+    {
+      "name": "JSON 性能_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "JSON 边界_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "JSON 边界_saved_count",
+      "actual": 91,
+      "expected": 91,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-json-pointer-boundaries-complete/assertions.json"
+    },
+    {
+      "name": "JSON 边界_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "JSON 边界_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-json-pointer-boundaries-complete/manifest.json"
+    },
+    {
+      "name": "JSON 边界_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "C 分页行为_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "C 分页行为_saved_count",
+      "actual": 154,
+      "expected": 154,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-pagination-final/assertions.json"
+    },
+    {
+      "name": "C 分页行为_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "C 分页行为_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-pagination-final/manifest.json"
+    },
+    {
+      "name": "C 分页行为_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "真实 A/B/C 三源_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "真实 A/B/C 三源_saved_count",
+      "actual": 232,
+      "expected": 232,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-real-abc-final/assertions.json"
+    },
+    {
+      "name": "真实 A/B/C 三源_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "真实 A/B/C 三源_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-real-abc-final/manifest.json"
+    },
+    {
+      "name": "真实 A/B/C 三源_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "真实 C 全量_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "真实 C 全量_saved_count",
+      "actual": 77,
+      "expected": 77,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-amac-full-final/assertions.json"
+    },
+    {
+      "name": "真实 C 全量_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "真实 C 全量_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-amac-full-final/manifest.json"
+    },
+    {
+      "name": "真实 C 全量_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "环境代理故障_documented_count",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "环境代理故障_saved_count",
+      "actual": 13,
+      "expected": 13,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-proxy-final/assertions.json"
+    },
+    {
+      "name": "环境代理故障_all_pass",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "环境代理故障_engine_files",
+      "actual": 28,
+      "expected": 28,
+      "status": "PASS",
+      "evidence": "artifacts/acceptance/v1.2-review-proxy-final/manifest.json"
+    },
+    {
+      "name": "环境代理故障_current_engine",
+      "actual": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "expected": {
+        "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+        "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+        "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+        "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+        "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+        "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+        "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+        "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+        "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+        "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+        "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+        "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+        "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+        "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+        "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+        "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+        "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+        "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+        "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+        "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+        "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+        "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+        "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+        "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+        "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+        "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+        "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+        "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "ledger_all_source_ids",
+      "actual": 491,
+      "expected": 491,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "historical_total_complete",
+      "actual": 98,
+      "expected": 98,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "current_engine_four_ids",
+      "actual": [
+        "dd-017",
+        "dd-050",
+        "dd-247",
+        "dd-250"
+      ],
+      "expected": [
+        "dd-017",
+        "dd-050",
+        "dd-247",
+        "dd-250"
+      ],
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "remaining_historical_complete",
+      "actual": 94,
+      "expected": 94,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "plan_current_vs_historical_boundary",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "readme_current_vs_historical_boundary",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "ledger_current_vs_historical_boundary",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-017_source_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-017_binding_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-017_frozen_scope_current_four",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-050_source_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-050_binding_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-050_frozen_scope_current_four",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-247_source_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-247_binding_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-247_frozen_scope_current_four",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-250_source_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-250_binding_mapping",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "dd-250_frozen_scope_current_four",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "full_independent488",
+      "actual": 488,
+      "expected": 488,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "full_independent_all_pass",
+      "actual": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "full_natural_record_count",
+      "actual": 67,
+      "expected": 67,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "full_terminal_page",
+      "actual": 7,
+      "expected": 7,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "first_terminal_page_rows",
+      "actual": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "expected": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "second_terminal_page_rows",
+      "actual": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "expected": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_terminal_page_rows",
+      "actual": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "expected": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "replay_terminal_page_rows",
+      "actual": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "expected": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        7
+      ],
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "plan_full_natural_key_not_registered_id",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "plan_no_atomic_claim",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "ledger_no_atomic_claim",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "plan_declared_single_page",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "same_performance_dataset",
+      "actual": {
+        "records": 1000,
+        "fields_per_record": 10,
+        "original_bytes": 252764,
+        "original_sha256": "f929011181b873e04eb3dac67d14d67f6a7c7429a4277cd88c4f88c7dd64db3c"
+      },
+      "expected": {
+        "records": 1000,
+        "fields_per_record": 10,
+        "original_bytes": 252764,
+        "original_sha256": "f929011181b873e04eb3dac67d14d67f6a7c7429a4277cd88c4f88c7dd64db3c"
+      },
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "performance_collect_cpu_values",
+      "actual": [
+        14.67,
+        2.2
+      ],
+      "expected": [
+        14.67,
+        2.2
+      ],
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "performance_replay_cpu_values",
+      "actual": [
+        14.94,
+        1.96
+      ],
+      "expected": [
+        14.94,
+        1.96
+      ],
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "performance_collect_drop_percent",
+      "actual": 85.0,
+      "expected": 85.0,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "performance_replay_drop_percent",
+      "actual": 86.88,
+      "expected": 86.88,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "performance_not_extrapolated",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "performance_not_isolated_causal_claim",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "lru_eviction_unverified_disclosed",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_one_due_one_seed",
+      "actual": 1,
+      "expected": 1,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_101_due_first_batch_100",
+      "actual": 100,
+      "expected": 100,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_101_due_second_batch_one",
+      "actual": 1,
+      "expected": 1,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_manual_all_over_budget_explicit",
+      "actual": "recheck_budget_exceeded",
+      "expected": "recheck_budget_exceeded",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_shared_parent_dedup_budget",
+      "actual": 1,
+      "expected": 1,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_failure_backoff_only_selected",
+      "actual": 2,
+      "expected": 2,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_failure_backoff_bounded",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_recovered_backoff_reset",
+      "actual": 0,
+      "expected": 0,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_manual_over_budget_no_new_run",
+      "actual": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_manual_over_budget_no_date_change",
+      "actual": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_failed_does_not_postpone_any_record",
+      "actual": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_missing_record_not_postponed",
+      "actual": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_101_due_queue_dates_unchanged",
+      "actual": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "recheck_stale_generation_preserves_dates",
+      "actual": "PASS",
+      "expected": "PASS",
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "plan_automatic_due_manual_all_explicit",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "readme_automatic_due_manual_all_explicit",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "plan_failure_date_backoff_boundary",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "readme_failure_date_backoff_boundary",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "source_budget_proactive_and_native_dedup",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "full_verify_required_samples_declared",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "full_verify_doc_required_samples_present",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    },
+    {
+      "name": "no_unexpected_missing_local_links",
+      "actual": true,
+      "expected": true,
+      "status": "PASS",
+      "evidence": null
+    }
+  ],
+  "passed": 111,
+  "failed": [],
+  "resolved_finding": {
+    "document": "docs/plans/v1.2-heterogeneous-sources.md",
+    "reason": "full_pagination_verify.py reproduction command missed required --samples; root added actual frozen sample path and regenerated Generated",
+    "corrected_command": "uv run --frozen python experiments/v1.2-acceptance/full_pagination_verify.py artifacts/acceptance/v1.2-review-repeat-amac-full --samples experiments/v1.2-acceptance/full_pagination/live.json"
+  },
+  "missing_local_links": [],
+  "package_boundary": "One unique missing unified index is being generated by adapt_b; final package must resolve it",
+  "reproduction": {
+    "command": "python3 work/document_review.py",
+    "program": "\"\"\"Read-only document/manifest consistency review; writes only its JSON report.\"\"\"\nimport hashlib\nimport json\nimport re\nfrom datetime import datetime,timezone\nfrom pathlib import Path\n\nROOT=Path('/Users/yoryon/SEAL')\nOUTPUT=ROOT/'experiments/v1.2-acceptance/results/review-fixes-final/document-review.json'\nchecks=[]\ninputs={}\ndef read(path):\n p=ROOT/path\n data=p.read_bytes()\n inputs[str(path)]=hashlib.sha256(data).hexdigest()\n return data.decode()\ndef value(path):return json.loads(read(path))\ndef check(name,actual,expected=True,evidence=None):\n checks.append({'name':name,'actual':actual,'expected':expected,'status':'PASS'if actual==expected else'FAIL','evidence':evidence})\nplan=read('docs/plans/v1.2-heterogeneous-sources.md')\nreadme=read('README.md')\nreference=read('docs/reference/source-adaptation.md')\nsection=plan.split('## 9. Recheck 与 JSON 规模修正',1)[1]\nsource_section=reference.split('## 9. Source 适配与审计总表',1)[1]\ncurrent={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()for p in (ROOT/'src').rglob('*')if p.is_file()and'__pycache__'not in p.parts}\nsuites=[('联合 Runtime',419,'v1.2-review-joint-final'),('Recheck 专项',115,'v1.2-recheck-final'),('M3',136,'v1.2-review-m3-final-v2'),('Smoke',1200,'v1.2-review-smoke-final-v2'),('JSON 性能',36043,'v1.2-json-pointer-final'),('JSON 边界',91,'v1.2-json-pointer-boundaries-complete'),('C 分页行为',154,'v1.2-pagination-final'),('真实 A/B/C 三源',232,'v1.2-review-real-abc-final'),('真实 C 全量',77,'v1.2-amac-full-final'),('环境代理故障',13,'v1.2-review-proxy-final')]\nfor label,total,directory in suites:\n prefix='artifacts/acceptance/'+directory\n manifest=value(prefix+'/manifest.json')\n assertions=value(prefix+'/assertions.json')\n check(label+'_documented_count',f'| {label} | {total}/{total} |'in section)\n check(label+'_saved_count',len(assertions),total,prefix+'/assertions.json')\n check(label+'_all_pass',all(x['status']=='PASS'and x['actual']==x['expected']for x in assertions))\n engine={k:v for k,v in manifest['code'].items()if k.startswith('src/')}\n check(label+'_engine_files',len(engine),28,prefix+'/manifest.json')\n check(label+'_current_engine',engine,current)\nrows=[line for line in source_section.splitlines()if re.match(r'^\\| dd-\\d{3} \\|',line)]\npassed=[line for line in rows if '| 已适配 | 通过 |'in line]\nupdated=[line for line in passed if 'Codex／2026-10-10'in line]\nupdated_ids=[re.search(r'dd-\\d+',line)[0]for line in updated]\ncheck('ledger_all_source_ids',len(rows),491)\ncheck('historical_total_complete',len(passed),98)\ncheck('current_engine_four_ids',updated_ids,['dd-017','dd-050','dd-247','dd-250'])\ncheck('remaining_historical_complete',len(passed)-len(updated),94)\ncheck('plan_current_vs_historical_boundary','其余 94 个保留第 8 节历史版本' in section)\ncheck('readme_current_vs_historical_boundary','新引擎已复验四个真实来源' in readme and '历史版本保留' in readme)\ncheck('ledger_current_vs_historical_boundary','其余 94 个 complete 仍保留 2026-10-09 的历史版本证据' in source_section)\nabc='artifacts/acceptance/v1.2-review-real-abc-final'\nfor rid in ['dd-017','dd-050','dd-247','dd-250']:\n line=next(x for x in updated if x.startswith('| '+rid+' |'))\n if rid=='dd-250':capture=value('artifacts/acceptance/v1.2-amac-full-final/full_dd_250-first.json')\n else:\n  candidates=list((ROOT/abc).glob('*-configuration.json'))\n  config=next(json.loads(p.read_text())for p in candidates if json.loads(p.read_text())['research_id']==rid)\n  source=config['source']['id']\n  capture=value(abc+'/'+source+'-first.json')\n check(rid+'_source_mapping','Source='+capture['export']['source_id']in line)\n check(rid+'_binding_mapping','Binding='+capture['inspect']['run']['binding_id'][:12]in line)\n check(rid+'_frozen_scope_current_four','当前引擎上两轮 collect、Recheck、零网络 Replay'in line)\nproof=value('artifacts/acceptance/v1.2-amac-full-independent-verification.json')\ncheck('full_independent488',len(proof['checks']),488)\ncheck('full_independent_all_pass',proof['status'],'PASS')\ncheck('full_natural_record_count',proof['expected_total'],67)\ncheck('full_terminal_page',proof['terminal_page'],7)\nfor r in proof['rounds']:\n check(r['round']+'_terminal_page_rows',[p['rows']for p in r['pages']],[10,10,10,10,10,10,7])\ncheck('plan_full_natural_key_not_registered_id','机构名自然键不代表永久注册 ID' in section)\ncheck('plan_no_atomic_claim','API 无快照 token，跨页原子一致性未证明' in section)\ncheck('ledger_no_atomic_claim','不承诺跨页原子快照'in next(x for x in updated if x.startswith('| dd-250 |')))\ncheck('plan_declared_single_page','json_scope=single_page'in section and'pagination_contract_missing'in section)\nbase=value('artifacts/acceptance/v1.2-json-pointer-baseline/summary.json')\nperf=value('artifacts/acceptance/v1.2-json-pointer-final/summary.json')\ncheck('same_performance_dataset',base['dataset'],perf['dataset'])\ncheck('performance_collect_cpu_values',[base['timings'][0]['cpu_seconds'],perf['timings'][0]['cpu_seconds']],[14.67,2.2])\ncheck('performance_replay_cpu_values',[round(base['timings'][1]['cpu_seconds'],2),perf['timings'][2]['cpu_seconds']],[14.94,1.96])\ncheck('performance_collect_drop_percent',round((1-perf['timings'][0]['cpu_seconds']/base['timings'][0]['cpu_seconds'])*100,1),85.0)\ncheck('performance_replay_drop_percent',round((1-perf['timings'][2]['cpu_seconds']/base['timings'][1]['cpu_seconds'])*100,2),86.88)\ncheck('performance_not_extrapolated','各路径单次实测，不外推真实网站延迟或生产吞吐'in section)\ncheck('performance_not_isolated_causal_claim','不将前后差异称为严格隔离的缓存因果实验'in section)\ncheck('lru_eviction_unverified_disclosed','缓存容量累计逐出尚无独立 E2E 实测'in section)\nrecheck=value('artifacts/acceptance/v1.2-recheck-final/assertions.json')\nbyname={x['name']:x for x in recheck}\nfor name,expected in [('one_due_one_seed',1),('101_due_first_batch_100',100),('101_due_second_batch_one',1),('manual_all_over_budget_explicit','recheck_budget_exceeded'),('shared_parent_dedup_budget',1),('failure_backoff_only_selected',2),('failure_backoff_bounded',True),('recovered_backoff_reset',0)]:\n check('recheck_'+name,byname[name]['actual'],expected)\nfor name in ['manual_over_budget_no_new_run','manual_over_budget_no_date_change','failed_does_not_postpone_any_record','missing_record_not_postponed','101_due_queue_dates_unchanged','stale_generation_preserves_dates']:\n check('recheck_'+name,byname[name]['status'],'PASS')\ncheck('plan_automatic_due_manual_all_explicit','按到期时间/身份排序' in section and '手动 `--recheck`'in section and '超预算返回 `recheck_budget_exceeded`'in section)\ncheck('readme_automatic_due_manual_all_explicit','自动 Recheck 仅冻结到期目标'in readme and '手动 `--recheck` 即刻复查全部已知范围'in readme and'recheck_budget_exceeded'in readme)\ncheck('plan_failure_date_backoff_boundary','排队和失败不推进业务 `next_check`'in section and'30 秒指数增加、上限 1 小时'in section)\ncheck('readme_failure_date_backoff_boundary','排队不推进 `next_check`'in readme and'失败保留到期日期'in readme and'30 秒至 1 小时退避'in readme)\nrecipe=read('recipes/amac_full/recipe.py')\ncheck('source_budget_proactive_and_native_dedup','pagination_limit'in recipe and 'required_pages > min('in recipe and 'yield follow('in recipe and '.dont_filter'not in recipe)\nchecker=read('experiments/v1.2-acceptance/full_pagination_verify.py')\nverify_command=next(line for line in section.splitlines()if line.startswith('uv run --frozen python experiments/v1.2-acceptance/full_pagination_verify.py'))\ncheck('full_verify_required_samples_declared','parser.add_argument(\"--samples\", type=Path, required=True)'in checker)\ncheck('full_verify_doc_required_samples_present','--samples experiments/v1.2-acceptance/full_pagination/live.json'in verify_command)\nlinks=[]\nfor path,text,start in [('README.md',readme,1),('docs/plans/v1.2-heterogeneous-sources.md',plan,328),('docs/reference/source-adaptation.md',reference,158)]:\n for n,line in enumerate(text.splitlines(),1):\n  if n<start:continue\n  for href in re.findall(r'\\]\\(([^)]+)\\)',line):\n   if re.match(r'(https?://|mailto:|app:|codex:)',href):continue\n   filename=href.split('#',1)[0].split('?',1)[0]\n   if not filename:continue\n   resolved=(ROOT/path).parent/filename\n   if not resolved.exists():links.append({'document':path,'line':n,'href':href,'resolved':str(resolved.resolve()),'expected_during_pack':resolved.resolve()==OUTPUT.with_name('review-evidence-index.json')})\ncheck('no_unexpected_missing_local_links',all(x['expected_during_pack']for x in links))\nresult={'artifact_version':1,'status':'PASS_PENDING_MASTER_INDEX'if links else'PASS','reviewed_at':datetime.now(timezone.utc).isoformat(),'scope':'Read-only Plan section9, README and Source-adaptation section9 consistency; no source/recipe/doc edits or online reruns','inputs_sha256':inputs,'checks':checks,'passed':sum(x['status']=='PASS'for x in checks),'failed':[x['name']for x in checks if x['status']=='FAIL'],'resolved_finding':{'document':'docs/plans/v1.2-heterogeneous-sources.md','reason':'full_pagination_verify.py reproduction command missed required --samples; root added actual frozen sample path and regenerated Generated','corrected_command':verify_command},'missing_local_links':links,'package_boundary':'One unique missing unified index is being generated by adapt_b; final package must resolve it','reproduction':{'command':'python3 work/document_review.py','program':Path(__file__).read_text()},'limits':['External URL accessibility not re-probed','Historical94 sources were not rerun by this review','Generated browser1440/390 QA performed by root, not duplicated here']}\nif result['failed']:result['status']='FAIL'\nOUTPUT.parent.mkdir(parents=True,exist_ok=True)\nOUTPUT.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\\n')\nprint(json.dumps({'status':result['status'],'checks':len(checks),'passed':result['passed'],'failed':result['failed'],'missing_local_unique':len({x['resolved']for x in links}),'output':str(OUTPUT)},ensure_ascii=False))\n"
+  },
+  "limits": [
+    "External URL accessibility not re-probed",
+    "Historical94 sources were not rerun by this review",
+    "Generated browser1440/390 QA performed by root, not duplicated here"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "branch": "feat/v1.2-heterogeneous-sources",
+  "base_head": "f9714855e6586254e99cb0b5f55ee143aa1dd871",
+  "working_changes": "Local; no commit or push",
+  "engine_set_sha256": "7b7cbb62130c02a2d0f55792ebda6b66b95ef0af25c3a02be661d8ffb5f584fc",
+  "package_verification": {
+    "bytes": 32729312,
+    "current_src_verified": true,
+    "files": 2719,
+    "groups": 24,
+    "index": "experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json",
+    "index_sha256": "9fa6664aefe21d511316772d062def73add364e591f84e0987be44668be01917",
+    "limits": "Integrity PASS preserves all recorded RED/fixture FAIL; it does not relabel them as successful behavior.",
+    "package_sha256": "296b156a62cc5ef0a5efdc6e753e177aa01d4fa4707509611a052a1e9bcccc30",
+    "positive_assertions": 38480,
+    "preserved_failed_assertions": 27,
+    "preserved_failed_cases": 1,
+    "src_files": 28,
+    "status": "PASS"
+  },
+  "fresh_independent_review": {
+    "status": "PASS",
+    "checks": 281680,
+    "errors": []
+  },
+  "document_review": {
+    "status": "PASS",
+    "checks": 111
+  },
+  "deterministic_reassembly": {
+    "directory": "artifacts/acceptance/v1.2-review-assembly-repeat",
+    "tar_byte_identical": true,
+    "index_byte_identical": true
+  },
+  "checks": {
+    "reference_contract": "15/15 PASS",
+    "ruff_check": "PASS",
+    "ruff_format": "84 files PASS",
+    "git_diff_check": "PASS",
+    "handwritten_python_file_limit": "all <=500 lines",
+    "generated": "9 panels, embedded Plan exact, 1440/390 no document overflow or JS error, actual screenshots inspected"
+  },
+  "artifacts_sha256": {
+    "experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json": "9fa6664aefe21d511316772d062def73add364e591f84e0987be44668be01917",
+    "experiments/v1.2-acceptance/results/review-fixes-final/review-evidence.tar.gz": "296b156a62cc5ef0a5efdc6e753e177aa01d4fa4707509611a052a1e9bcccc30",
+    "experiments/v1.2-acceptance/results/review-fixes-final/independent-review.json": "3c2f3c5924e689cc9719b51ec0f3adb372bc80a33447afd30f88336eee593dd3",
+    "experiments/v1.2-acceptance/results/review-fixes-final/document-review.json": "e2e8b9800e96b300981b3a71e830083e8aaceba939730ab009282b39390951e1",
+    "docs/plans/v1.2-heterogeneous-sources.md": "82c50d464d464f63c5c4056322a644c11950b9e56d156db35071c2f99ac270cb",
+    "docs/generated/v1.2-heterogeneous-sources.html": "b00eccb8aaaf91402488387e501766166abe913d1163c4d5cf356d22957ac9c6",
+    "docs/reference/source-adaptation.md": "133800aeaaf9073327c8ce3ee89a4b15604ce7cc73e393440e4d6a836112919e",
+    "README.md": "a8f1f4814fec4bd2d14a930463300ecc9bcab796b5bb151109d63ba1e1823c12",
+    "experiments/source-accessibility/results/classification/reference-verification.json": "2cc27673d60ce53e8057c7e9362805c3c88da65d089050584835e7cb0e8a5e89"
+  },
+  "source_acceptance_boundary": {
+    "historical_complete_sources": 98,
+    "current_engine_revalidated_source_ids": [
+      "dd-017",
+      "dd-050",
+      "dd-247",
+      "dd-250"
+    ],
+    "other_94": "Historical engine only",
+    "scope": "Frozen publications/API profile; no whole-site or formal Evaluation claim",
+    "assertion_count_note": "Separate suites reuse some scenarios; totals are not independent coverage counts"
+  }
+}

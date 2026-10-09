@@ -1,0 +1,339 @@
+[
+  {
+    "research_id": "dd-468",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-468",
+      "attachment_paths": [
+        "./W020211027623974108131.xls",
+        "./W020211027623974133601.xls"
+      ]
+    },
+    "source": {
+      "id": "live_dd_468",
+      "entry_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html"
+      ],
+      "allowed_hosts": [
+        "www.moe.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/jyb_xxgk/s5743/s5744/A03/202110/"
+      ],
+      "host_path_scopes": {
+        "www.moe.gov.cn": [
+          "/jyb_xxgk/s5743/s5744/A03/202110/"
+        ]
+      },
+      "research_ids": [
+        "dd-468"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅2021-10-25全国高等学校名单HTML及其声明的2份XLS附件；公开GET和原文归档。结构化验收HTML的全国3012所、普通2756所、本科1270所、专科1486所、成人256所说明；XLS尚不解析，显式partial，不代表逐校表格或现行名单。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "statuses": [
+        "partial"
+      ],
+      "anchors": [
+        "全国高等学校名单",
+        "截至2021年9月30日",
+        "3012所",
+        "2756所",
+        "1270所",
+        "1486所",
+        "256所"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "errors": [
+        "unsupported_content_type"
+      ],
+      "stable_keys": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html"
+      ],
+      "allowed_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "archived_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "record_count": 1
+    }
+  },
+  {
+    "research_id": "dd-004",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-004",
+      "attachment_paths": [
+        "document/恢复经营主体登记（备案）告知书-深圳市诺亚信高科技集团有限公司.pdf",
+        "document/恢复经营主体登记（备案）决定书-深圳市诺亚信高科技集团有限公司.pdf"
+      ]
+    },
+    "source": {
+      "id": "live_dd_004",
+      "entry_urls": [
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx"
+      ],
+      "allowed_hosts": [
+        "amr.sz.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xyjggs.webui/xyjggs/index.aspx",
+        "/xyjggs.webui/xyjggs/document/"
+      ],
+      "host_path_scopes": {
+        "amr.sz.gov.cn": [
+          "/xyjggs.webui/xyjggs/index.aspx",
+          "/xyjggs.webui/xyjggs/document/"
+        ]
+      },
+      "research_ids": [
+        "dd-004"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅公开首页中深圳市诺亚信高科技集团有限公司的2026-08-17告知书与2026-09-24决定书2条明确公告及各自PDF。公告title/date/attachment_path结构化，以源附件路径作为稳定键；PDF均无文本层，原文归档且显式partial。其他栏目、全量企业核验、验证码和OCR不在范围。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "partial"
+      ],
+      "anchors": [
+        "深圳市诺亚信高科技集团有限公司（告知书）",
+        "深圳市诺亚信高科技集团有限公司（决定书）",
+        "2026-08-17",
+        "2026-09-24"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "errors": [
+        "pdf_text_layer_required"
+      ],
+      "stable_keys": [
+        "document/恢复经营主体登记（备案）告知书-深圳市诺亚信高科技集团有限公司.pdf",
+        "document/恢复经营主体登记（备案）决定书-深圳市诺亚信高科技集团有限公司.pdf"
+      ],
+      "allowed_urls": [
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%91%8A%E7%9F%A5%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%86%B3%E5%AE%9A%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf"
+      ],
+      "archived_urls": [
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%91%8A%E7%9F%A5%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%86%B3%E5%AE%9A%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf"
+      ],
+      "record_count": 2
+    }
+  },
+  {
+    "research_id": "dd-050",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-050",
+      "attachment_paths": [
+        "/data/upload/image/20260609/1780974990520465.pdf"
+      ]
+    },
+    "source": {
+      "id": "live_dd_050",
+      "entry_urls": [
+        "http://www.cmac.org.cn/"
+      ],
+      "allowed_hosts": [
+        "www.cmac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/",
+        "/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "host_path_scopes": {
+        "www.cmac.org.cn": [
+          "/",
+          "/data/upload/image/20260609/1780974990520465.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-050"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "同类B补充文本PDF验收：仅首页明确链接的中国海事仲裁委员会仲裁规则-中文版（2021）PDF（2026-06-09链接）及父入口；70个物理页中可提取文本页的按页正文和自身标题locator。仅此静态附件，其他首页栏目与公开PDF均不采集，不代表全文排版或法律时效审核。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中国海事仲裁委员会仲裁规则",
+        "示范仲裁条款",
+        "仲裁裁决是终局的",
+        "一九八八年六月二十一日"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "stable_keys": [
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "allowed_urls": [
+        "http://www.cmac.org.cn/",
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "archived_urls": [
+        "http://www.cmac.org.cn/",
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "record_count": 1
+    }
+  },
+  {
+    "research_id": "dd-151",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-151",
+      "attachment_paths": [
+        "https://assets.publishing.service.gov.uk/media/69fb5beccd2e0e8b5b20b1f3/IPO-Corporate-Plan_2026-27.pdf"
+      ]
+    },
+    "source": {
+      "id": "live_dd_151",
+      "entry_urls": [
+        "https://www.gov.uk/government/publications/intellectual-property-office-corporate-plan-2026-to-2027"
+      ],
+      "allowed_hosts": [
+        "www.gov.uk",
+        "assets.publishing.service.gov.uk"
+      ],
+      "allowed_path_prefixes": [
+        "/government/publications/intellectual-property-office-corporate-plan-2026-to-2027",
+        "/media/69fb5beccd2e0e8b5b20b1f3/IPO-Corporate-Plan_2026-27.pdf"
+      ],
+      "host_path_scopes": {
+        "www.gov.uk": [
+          "/government/publications/intellectual-property-office-corporate-plan-2026-to-2027"
+        ],
+        "assets.publishing.service.gov.uk": [
+          "/media/69fb5beccd2e0e8b5b20b1f3/IPO-Corporate-Plan_2026-27.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-151"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "同类B静态附件补充：原台账英国Intellectual Property Office的2026-2027 Corporate Plan新闻公开链接到此publication；仅该publication可见PDF链接及其官方assets.publishing.service.gov.uk附件。严格限定每个host各自唯一path，公开GET归档；20页文本、业务标题及正文PDF页定位验收。附件明示Open Government Licence/Crown copyright 2026；不采集IPO全部入口、不判定法律时效。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 20971520
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "Corporate Plan 2026 to 2027",
+        "Intellectual Property Office",
+        "Published: May 2026",
+        "Open Government Licence"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "stable_keys": [
+        "https://assets.publishing.service.gov.uk/media/69fb5beccd2e0e8b5b20b1f3/IPO-Corporate-Plan_2026-27.pdf"
+      ],
+      "allowed_urls": [
+        "https://www.gov.uk/government/publications/intellectual-property-office-corporate-plan-2026-to-2027",
+        "https://assets.publishing.service.gov.uk/media/69fb5beccd2e0e8b5b20b1f3/IPO-Corporate-Plan_2026-27.pdf"
+      ],
+      "archived_urls": [
+        "https://www.gov.uk/government/publications/intellectual-property-office-corporate-plan-2026-to-2027",
+        "https://assets.publishing.service.gov.uk/media/69fb5beccd2e0e8b5b20b1f3/IPO-Corporate-Plan_2026-27.pdf"
+      ],
+      "record_count": 1
+    }
+  }
+]

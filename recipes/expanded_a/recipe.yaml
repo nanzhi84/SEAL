@@ -1,0 +1,18 @@
+family: v12-expanded-public-publications
+entrypoint: expanded_a:ExpandedASpider
+params_schema:
+  type: object
+  additionalProperties: false
+  required: [mode, record_type, min_body_chars]
+  properties:
+    mode: {type: string, enum: [html, pdf]}
+    record_type: {type: string, minLength: 1, maxLength: 100}
+    min_body_chars: {type: integer, minimum: 80, maximum: 200000}
+    title_css: {type: string, minLength: 1}
+    title_xpath: {type: string, minLength: 1}
+    body_css: {type: string, minLength: 1}
+    body_xpath: {type: string, minLength: 1}
+    date_css: {type: string, minLength: 1}
+    date_xpath: {type: string, minLength: 1}
+    title_pattern: {type: string, minLength: 1}
+    date_pattern: {type: string, minLength: 1}

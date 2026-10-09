@@ -1,0 +1,38 @@
+family: expanded-b1-public-static-business
+entrypoint: recipe:ExpandedB1Spider
+params_schema:
+  type: object
+  additionalProperties: false
+  required: [documents, routes, attachments, pdf_titles]
+  properties:
+    documents:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        required: [url, title, body]
+        properties:
+          url: {type: string}
+          title: {type: string}
+          body: {type: string}
+    routes:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        required: [parent, url, role, mechanism]
+        properties:
+          parent: {type: string}
+          url: {type: string}
+          role: {type: string, enum: [list, detail, attachment]}
+          mechanism: {type: string, enum: [href, script_page, script_attachment]}
+    attachments:
+      type: array
+      uniqueItems: true
+      items: {type: string}
+    pdf_titles:
+      type: object
+      additionalProperties:
+        type: array
+        minItems: 1
+        items: {type: string}

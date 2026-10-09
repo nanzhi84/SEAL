@@ -1,0 +1,2170 @@
+{
+  "artifact_version": "expanded-source-outcomes.v1",
+  "assigned_ids": [
+    "dd-016",
+    "dd-033",
+    "dd-045",
+    "dd-046",
+    "dd-051",
+    "dd-054",
+    "dd-059",
+    "dd-060",
+    "dd-061",
+    "dd-062",
+    "dd-066",
+    "dd-077",
+    "dd-079",
+    "dd-084",
+    "dd-085",
+    "dd-088",
+    "dd-097",
+    "dd-106",
+    "dd-133",
+    "dd-160",
+    "dd-188",
+    "dd-197",
+    "dd-201",
+    "dd-206",
+    "dd-208",
+    "dd-211",
+    "dd-215",
+    "dd-220",
+    "dd-225",
+    "dd-227",
+    "dd-229",
+    "dd-231",
+    "dd-237",
+    "dd-238",
+    "dd-262"
+  ],
+  "assignment": "B73扣除dd004/050/151/468后按ID数值排序前35条",
+  "outcomes": [
+    {
+      "research_id": "dd-016",
+      "class": "B",
+      "name": "公报案例",
+      "status": "blocked",
+      "reason_code": "public_redirect_or_endpoint_error",
+      "reason": "直接GET复核HTTP/HTTPS入口及详情此前均最终302（重定向循环）；最新不跟随重定向的HTTPS入口返回502空正文。当前仍未取得可采集的真实业务正文，不执行会话或Cookie绕过。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“公报案例”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "evidence": [
+        {
+          "requested_url": "http://gongbao.court.gov.cn/ArticleList.html?serial_no=al",
+          "url": "http://gongbao.court.gov.cn/ArticleList.html?serial_no=al",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:24.627920+00:00",
+          "status": 302,
+          "content_type": "text/html",
+          "bytes": 141,
+          "sha256": "512e03038dbfdfbe72aef9be66d00efb27671a085cb3dacf01f8a5a6911c0a50"
+        },
+        {
+          "requested_url": "http://gongbao.court.gov.cn/Details/183e1bc22d338f9c7ad2ef3e83871f.html",
+          "url": "http://gongbao.court.gov.cn/Details/183e1bc22d338f9c7ad2ef3e83871f.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:24.628248+00:00",
+          "status": 302,
+          "content_type": "text/html",
+          "bytes": 141,
+          "sha256": "512e03038dbfdfbe72aef9be66d00efb27671a085cb3dacf01f8a5a6911c0a50"
+        },
+        {
+          "requested_url": "https://gongbao.court.gov.cn/ArticleList.html?serial_no=al",
+          "url": "https://gongbao.court.gov.cn/ArticleList.html?serial_no=al",
+          "role": "https_entry_url",
+          "observed_at": "2026-10-09T14:48:42.870093+00:00",
+          "status": 302,
+          "content_type": "text/html",
+          "bytes": 141,
+          "sha256": "512e03038dbfdfbe72aef9be66d00efb27671a085cb3dacf01f8a5a6911c0a50"
+        },
+        {
+          "requested_url": "https://gongbao.court.gov.cn/Details/183e1bc22d338f9c7ad2ef3e83871f.html",
+          "url": "https://gongbao.court.gov.cn/Details/183e1bc22d338f9c7ad2ef3e83871f.html",
+          "role": "https_candidate_url",
+          "observed_at": "2026-10-09T14:48:42.870396+00:00",
+          "status": 302,
+          "content_type": "text/html",
+          "bytes": 141,
+          "sha256": "512e03038dbfdfbe72aef9be66d00efb27671a085cb3dacf01f8a5a6911c0a50"
+        },
+        {
+          "research_id": "dd-016",
+          "requested_url": "https://gongbao.court.gov.cn/ArticleList.html?serial_no=al",
+          "status": 502,
+          "redirect_location": null,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "observed_at": "2026-10-09T15:02:15.340358+00:00",
+          "mechanism": "single direct public GET with automatic redirect disabled; no cookies or JS"
+        }
+      ],
+      "next_step": "站方恢复无会话公开HTML访问或提供官方可归档公开端点后复验；不执行Cookie挑战或忽略TLS。"
+    },
+    {
+      "research_id": "dd-033",
+      "class": "B",
+      "name": "全国人民法庭信息网",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“全国人民法庭信息网”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。详情href为HTTP端口80，实际直接GET后重定向为同主机HTTPS，保留两种请求URL证据。",
+      "source_id": "expanded_b1_dd_033",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://rmft.court.gov.cn/0/index.jhtml",
+          "url": "https://rmft.court.gov.cn/0/index.jhtml",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:24.628385+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 98769,
+          "sha256": "795e42a5c29b96c7e2ad5e8308c83c39babe34b8c0485fb1a57b85d1788820ad"
+        },
+        {
+          "requested_url": "http://rmft.court.gov.cn:80/2050/ftxw/3877.jhtml",
+          "url": "https://rmft.court.gov.cn/2050/ftxw/3877.jhtml",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:24.628506+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 18435,
+          "sha256": "28dd1f32184e53948a0ecc6e6394099ad42b5342e6c686762735a4decdd26d1c"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_033-first.json",
+        "sha256": "50a293e846fd65e7b48cd455b5a2d3a1cd47aac00da5da6fe668acd3d45a1ca5",
+        "status": "partial",
+        "errors": [
+          "list_template_changed"
+        ],
+        "records": 0
+      },
+      "corrected_four_path_manifest": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-fixes/manifest.json",
+        "sha256": "ec1ce714b50c28d53f74a802649a7432867b61a9233c58becc06a82f7893263f"
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "e42124f1-e98b-4f81-9354-3acabab7aff0",
+          "79f0104c-1923-4b88-96ce-ab0471791e1b",
+          "1f2a5642-511c-4dbb-bd4f-46aa8357e023",
+          "4a52902f-78bc-452d-b826-2e12104213fc"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-045",
+      "class": "B",
+      "name": "中国仲裁网",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“中国仲裁网”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_045",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://www.china-arbitration.com/",
+          "url": "http://www.china-arbitration.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:25.406859+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 27811,
+          "sha256": "18d4ae37b40eb987ca1f1489f58f52b372f335c0bf0fce942c5108ca1e83a924"
+        },
+        {
+          "requested_url": "http://www.china-arbitration.com/index/News/detail.html?id=2860",
+          "url": "http://www.china-arbitration.com/index/News/detail.html?id=2860",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:25.461509+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 31911,
+          "sha256": "158de4e371b4c4b36d4e41f7b733b09c22eddac461546aedff016c85d6eb5e06"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_045-first.json",
+        "sha256": "3bea88504b09894f72cc26006634756498be9599a3b316feffa3cbfa793a6f7a",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "3e86454a-2a33-4046-bf0b-047bc3fd77c4",
+          "109e7aa0-3e62-4047-92c3-e6f2f6e2b099",
+          "b8d4d90a-3764-44a9-b763-98b019cdee5e",
+          "83e329f9-f6db-4f66-b8be-4efa2f597c9a"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-046",
+      "class": "B",
+      "name": "中国国际经济贸易仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“中国国际经济贸易仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。原主页嵌入password:null元数据被Runtime sensitive_body_rejected，保留失败工件；本次入口限定已由真实主页声明且公开GET可得的文章详情本身，不采原首页或组织查询。",
+      "source_id": "expanded_b1_dd_046",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.cietac.org/",
+          "url": "https://www.cietac.org/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:25.485750+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 156581,
+          "sha256": "81aa110bb55388ef4ed894607fadab273d27573a18a4c8976642e6dfe8622e4e"
+        },
+        {
+          "requested_url": "https://www.cietac.org/articles/36498",
+          "url": "https://www.cietac.org/articles/36498",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:25.544890+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 119318,
+          "sha256": "1673c9227ba4f3039391bb0b8dde17f5e6dbb917df916a6e3dc998674486e243"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_046-first.json",
+        "sha256": "734e2e4c67a7aa34e3b454353fef66f6dd2efe9187666cfe1b12233e0468917d",
+        "status": "partial",
+        "errors": [
+          "download_failed",
+          "sensitive_body_rejected",
+          "unresolved_seed"
+        ],
+        "records": 0
+      },
+      "corrected_four_path_manifest": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-fixes/manifest.json",
+        "sha256": "ec1ce714b50c28d53f74a802649a7432867b61a9233c58becc06a82f7893263f"
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "d553a03f-1849-4b01-bb4a-100b3ef42ccd",
+          "1ae0ee1d-3952-4c96-a0b0-0ee726206b03",
+          "30ac7b01-7c75-43eb-9df6-fbda6569fc32",
+          "87e3be7c-e170-4d01-aab2-32dc75d92816"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-051",
+      "class": "B",
+      "name": "天津仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“天津仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。包含公告正文及其明确声明的2页文本PDF课题名单；PDF自身可回看的标题为“附件”。",
+      "source_id": "expanded_b1_dd_051",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.tjac.org.cn/",
+          "url": "https://www.tjac.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:25.635828+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 43940,
+          "sha256": "6847fd9097467abac40bd45d46ee715da9587c6a64995ffb2757ee6944ce9e52"
+        },
+        {
+          "requested_url": "https://www.tjac.org.cn/wap/article/index.html?id=1753",
+          "url": "https://www.tjac.org.cn/wap/article/index.html?id=1753",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:25.720852+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 32418,
+          "sha256": "bced60ee40da963c1fba654128d396043162e68d6a51c4645e9193fc175380f2"
+        },
+        {
+          "requested_url": "https://www.tjac.org.cn/uploads/files/20260911/1789116110313234.pdf",
+          "url": "https://www.tjac.org.cn/uploads/files/20260911/1789116110313234.pdf",
+          "role": "attachment",
+          "observed_at": "2026-10-09T14:46:44.516426+00:00",
+          "status": 200,
+          "content_type": "application/pdf",
+          "bytes": 298206,
+          "sha256": "e14809ca2c4b5b2af952afee3af497e37542290fc27672c3245e5787ec5c67d0"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_051-first.json",
+        "sha256": "4a5277eafeb454567eb78c239bbcb99b3bde7e420337bea518d1bff3646deba6",
+        "status": "complete",
+        "errors": [],
+        "records": 2
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 2,
+        "runs": [
+          "9f220acc-64df-43f2-a461-4bc5eff9a683",
+          "4047bad3-bd9d-4899-955d-f74ad0f6ee6b",
+          "5f32324b-65b7-4e40-9495-f6aaa71763e0",
+          "24d8849a-36a1-4354-ba70-206a049d344f"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-054",
+      "class": "B",
+      "name": "济南仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“济南仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_054",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://zcb.jinan.gov.cn/index.html",
+          "url": "https://zcb.jinan.gov.cn/index.html",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:25.755161+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 33245,
+          "sha256": "12ccae823cef8d6b62f8b2ebac3a909ccc5b20b921d8b395e9b3928331ca5051"
+        },
+        {
+          "requested_url": "https://zcb.jinan.gov.cn/col/col10366/art/2026/art_15aac77923484a0f9d956e85125b43f6.html",
+          "url": "https://zcb.jinan.gov.cn/col/col10366/art/2026/art_15aac77923484a0f9d956e85125b43f6.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:25.815089+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 28274,
+          "sha256": "3729b1103a934b2078dc8bc9b28a62053ed090033bfec9dfe2d91ba1d40e2d9c"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_054-first.json",
+        "sha256": "71f22f0555365c5fb2ea061998dee14ebd098625b38c3075057f905aa3b536c0",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "a6db79c9-8b57-4b2a-972c-c939df394d0d",
+          "ce1a85c7-90d0-4ac4-9f65-f0a110de506f",
+          "027ed60a-1f88-4ef1-85f1-7046ed17bba5",
+          "f8712a71-1f1a-48c8-a478-a68bf53787c6"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-059",
+      "class": "B",
+      "name": "杭州仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“杭州仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_059",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.hzarbitration.org.cn/",
+          "url": "https://www.hzarbitration.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:25.879016+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 27216,
+          "sha256": "5d51d984763956784d2a6b8bca33a067ca131f831079de84c9e0aaa078f90b94"
+        },
+        {
+          "requested_url": "https://www.hzarbitration.org.cn/content/content_9220352.html",
+          "url": "https://www.hzarbitration.org.cn/content/content_9220352.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:26.024999+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 32688,
+          "sha256": "96dcee4d47a37aed53ff471aaf2824d3a7be574e6e00b6c5478e25a4b1634c8e"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_059-first.json",
+        "sha256": "fce250fe8fd3cc5e7e844d7e594dae54bd2e0c6af688a184334f5d979dd9b276",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "9125ad94-e624-44f8-965f-bb67971e6216",
+          "c0a002a9-a74d-4463-9520-9fc5d72ffe4c",
+          "c5cbb343-9770-4f8a-b8e9-3d5ecbd86b3c",
+          "ac3cbbe6-02c6-4def-af68-ce2ca62d8ac8"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-060",
+      "class": "B",
+      "name": "宁波仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“宁波仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_060",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.nbac.org.cn/",
+          "url": "https://www.nbac.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:26.112544+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=GB2312",
+          "bytes": 30414,
+          "sha256": "121fafce8d8f5e6e659c00084c2d9770ea3c74eefeded3efc5be1bde34a0dfb1"
+        },
+        {
+          "requested_url": "https://www.nbac.org.cn/html/xinwendongtai/tongzhigonggao/2026/0728/3134.html",
+          "url": "https://www.nbac.org.cn/html/xinwendongtai/tongzhigonggao/2026/0728/3134.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:26.118118+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=GB2312",
+          "bytes": 24662,
+          "sha256": "66b29f12cb040a1403248f51bbdcf9186f2c44d34daadcfe096259637197e9d6"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_060-first.json",
+        "sha256": "2f1a8fd55dcc4631f122e5d2d16288cdd37c0a41d17a85bd3cd59d930f807a22",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "8c4cbcb2-4990-4fbf-b0b0-07eff4f8c33f",
+          "b39d973a-e601-497a-a7ff-99d01d105607",
+          "3d3632b7-2a8e-402f-adcf-19fc835291dc",
+          "d868f087-4030-42ba-a832-d20943551e1e"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-061",
+      "class": "B",
+      "name": "南京仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“南京仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_061",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://ac.nanjing.gov.cn/",
+          "url": "http://ac.nanjing.gov.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:26.473639+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 22500,
+          "sha256": "b824154839b67f45b7ff8c97120993e172a77e81fb4f29d7bc29bbf1f3758d66"
+        },
+        {
+          "requested_url": "https://ac.nanjing.gov.cn/zczx/flzx/202606/t20260616_5860492.html",
+          "url": "https://ac.nanjing.gov.cn/zczx/flzx/202606/t20260616_5860492.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:26.578749+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 17730,
+          "sha256": "5ae643a5d55344dc5bb5c745312b063506776571d747c5479c8e64c49deff3d6"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_061-first.json",
+        "sha256": "08971ba766bc9c0ca859823a114634a1aa233ee0f63b60771f0d164d927a9448",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "b09f6f11-bee1-4eb2-b11d-2a6ca9012fbc",
+          "fc833bc6-3e3f-45b4-be02-91082e046302",
+          "24c402aa-96cc-49fd-97e4-f43d0859fb46",
+          "8d17a779-0f1e-4be0-b655-e655c02d4da1"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-062",
+      "class": "B",
+      "name": "海南国际仲裁院",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“海南国际仲裁院”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_062",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.hiac.org.cn/",
+          "url": "https://www.hiac.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:26.644076+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 39515,
+          "sha256": "0aa4f03ece454c846ddb748f3127fe9167bde01e9a541f3162964092ac5c2b1c"
+        },
+        {
+          "requested_url": "https://www.hiac.org.cn/article/1508/8.html",
+          "url": "https://www.hiac.org.cn/article/1508/8.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:26.822139+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 47826,
+          "sha256": "8de892fcf98c4d68f8261f6f690e2597265826a88dd89f3b82dd6dcadbc8006b"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_062-first.json",
+        "sha256": "39d09b7e696f96535435a9f657d32e9f6627d2e9b703d2a7f10cd356c2b23e68",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "00ef08dc-d5a8-4603-a1d1-63fddf05605a",
+          "5bdb3169-ac5d-44f8-a551-c0643bd20e3f",
+          "f98a53ab-3d92-4244-b933-00d08508078c",
+          "d891d7fb-dab1-4992-9fd5-4ff053d78a9d"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-066",
+      "class": "B",
+      "name": "大连仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“大连仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_066",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.diac.org.cn/",
+          "url": "https://www.diac.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:26.882840+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 35568,
+          "sha256": "02a1408692991138c95bb88b46fa5062d092ad091c18787eb89547b8ffeed0c0"
+        },
+        {
+          "requested_url": "https://www.diac.org.cn/News/Content.aspx?newsId=2049",
+          "url": "https://www.diac.org.cn/News/Content.aspx?newsId=2049",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:26.892201+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 113600,
+          "sha256": "e363ab6c316b01a778deccdeaa690444bdfb701d53935e260a292e456ede69de"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_066-first.json",
+        "sha256": "6eb103d151e53aa1073292e838374c94bcf6a81b628244426ff32646d3f31deb",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "6090dac2-fa95-493f-9c9f-e604d11dfe60",
+          "33a29ce7-f49b-43b6-a06a-e28e14486725",
+          "ca599309-ada7-4c37-b581-02cfbdb30ec1",
+          "fdbac0c8-7357-44b5-86f3-d6102ddd24d0"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-077",
+      "class": "B",
+      "name": "银川仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“银川仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。原候选司法部发布会全文为31张PNG，无OCR；改为同入口声明的仲裁邮政文书送达服务公告，不代表原图文发布会已适配。",
+      "source_id": "expanded_b1_dd_077",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://www.yinchuanzcw.org.cn/",
+          "url": "http://www.yinchuanzcw.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:26.951603+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 27211,
+          "sha256": "01e360cf8fe538fe2015e4d135ff9ac8acffe8ffb75ce0c022d584356cdb412b"
+        },
+        {
+          "requested_url": "http://www.yinchuanzcw.org.cn/tptt/202509/t20250930_1044351.html",
+          "url": "http://www.yinchuanzcw.org.cn/tptt/202509/t20250930_1044351.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:27.339342+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 20841,
+          "sha256": "ef2fbb0dd7f9a8d90c8ad4a8c87697b2c966a075f484906e323dc692ba67c713"
+        },
+        {
+          "requested_url": "http://www.yinchuanzcw.org.cn/tptt/202306/t20230627_742029.html",
+          "url": "http://www.yinchuanzcw.org.cn/tptt/202306/t20230627_742029.html",
+          "role": "alternative_detail",
+          "observed_at": "2026-10-09T14:46:44.753929+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 18865,
+          "sha256": "f96455b95d301e84d46cea522d163e3dc24862153d472b93a6b68aaac49fd508"
+        },
+        {
+          "requested_url": "http://www.yinchuanzcw.org.cn/yw/202608/t20260814_1147283.html",
+          "url": "http://www.yinchuanzcw.org.cn/yw/202608/t20260814_1147283.html",
+          "role": "alternative_detail",
+          "observed_at": "2026-10-09T14:46:44.884835+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 27046,
+          "sha256": "5efa3f2544c0b4f5ebd2b96d7b1a9cfa6983ec8e545da907710a36ee630cacaf"
+        },
+        {
+          "requested_url": "http://www.yinchuanzcw.org.cn/yw/202608/t20260806_1145053.html",
+          "url": "http://www.yinchuanzcw.org.cn/yw/202608/t20260806_1145053.html",
+          "role": "alternative_detail",
+          "observed_at": "2026-10-09T14:46:45.470362+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 17267,
+          "sha256": "ea95bb7951f8e41c7524eb6d014e9edce8e78b636c7941bdbc4dc4b0b7ad66dd"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_077-first.json",
+        "sha256": "561ee6569a6cc6b7ef4bbcfdf8854bdf8334dba7f5fb4a0d3882aa4cff853e35",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "50143416-69ca-4aa2-92ad-203bdd8b86a7",
+          "a60aa995-25fe-474f-86ce-d606a3ab81d4",
+          "b2addfce-50b5-4320-b556-5452ed315b0a",
+          "6dafd57a-4aed-4b55-a2db-f050101f219c"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-079",
+      "class": "B",
+      "name": "沈阳仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“沈阳仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_079",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://syzcb.shenyang.gov.cn/",
+          "url": "https://syzcb.shenyang.gov.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:27.586818+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 22805,
+          "sha256": "37ec8c1dd1da3e33b1573c07c55289e10e4b515bf4a1ee6c456842e50b11d060"
+        },
+        {
+          "requested_url": "https://syzcb.shenyang.gov.cn/gzxx/202606/t20260609_5038738.html",
+          "url": "https://syzcb.shenyang.gov.cn/gzxx/202606/t20260609_5038738.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:27.631216+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 29562,
+          "sha256": "fb55ec6f6ebb81c04bd9d1f0ba002b018b4c61e7e850d6a223c91e6ebc17703b"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_079-first.json",
+        "sha256": "885014f91dbd0e6c4eaa26d10633471c82e77acce1871ef7cedf01eaa2714d31",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "b9090244-98d9-4cd9-8aa8-ad97747560ee",
+          "e4b6399a-9f23-4afb-89ee-6d8513d7d5ae",
+          "aea7b4fa-3cce-46ba-8b0a-b249bec2cc51",
+          "fb3f8d41-8cec-4200-b205-16616ff950b9"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-084",
+      "class": "B",
+      "name": "贵阳仲裁委员会心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“贵阳仲裁委员会心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_084",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.gyac.org.cn/",
+          "url": "https://www.gyac.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:27.650273+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 74013,
+          "sha256": "7b7fa8bb243d002af5e86be2d790315968b87cce0252121f97f26e65922f4bb9"
+        },
+        {
+          "requested_url": "https://www.gyac.org.cn/n312/20261009/i6588.html",
+          "url": "https://www.gyac.org.cn/n312/20261009/i6588.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:28.077690+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 31184,
+          "sha256": "27c439ece306308dc8871d6406670a337999fd718cf849ba9d42b82d20449128"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_084-first.json",
+        "sha256": "7513e252b34d90df6287da8679c73181456c2af4f685d2590b70b29aad773782",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "e7d6fb81-17b6-42ad-bef1-0a96d465f036",
+          "9d011825-6e4e-40f9-97fa-094e5c35e543",
+          "724c1d8b-77fc-420c-9674-13b4e49802a6",
+          "581dca55-8f54-43d4-ab6d-2767541c741a"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-085",
+      "class": "B",
+      "name": "昆明仲裁委员会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“昆明仲裁委员会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。正文附申请表DOC/DOCX为可选办理材料，采集限公告正文，不下载或填报申请表。",
+      "source_id": "expanded_b1_dd_085",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://kmzcw.km.org.cn/",
+          "url": "http://kmzcw.km.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:28.294136+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 17101,
+          "sha256": "37fc1a41d97612f45d656b495c454db8fadc176781b1b3bcca55c294bf6af5a4"
+        },
+        {
+          "requested_url": "http://kmzcw.km.org.cn/c/2026-09-09/5110464.shtml",
+          "url": "http://kmzcw.km.org.cn/c/2026-09-09/5110464.shtml",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:28.336281+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 28673,
+          "sha256": "0420579ea313a78bdb37239fb2f4d6f76a552b6442104f3d0d70a999c975141d"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_085-first.json",
+        "sha256": "fb8c8729b2230305a770d21098cbd048b6f89c0145743d60cf49448360c19dc5",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "24776e89-7072-4f23-9c2c-21234230ffef",
+          "3ed83259-e918-4b5e-888d-5cecd5d20758",
+          "985b30ec-50cb-423d-b813-6ce5206e67ee",
+          "60459dfb-1a4a-4820-acf8-3c60701fac50"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-088",
+      "class": "B",
+      "name": "国际商会国际仲裁院（ICC）",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“国际商会国际仲裁院（ICC）”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_088",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://iccwbo.org/",
+          "url": "https://iccwbo.org/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:29.007724+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 184974,
+          "sha256": "2159b6f0ef904675a684f08d489b542fbb33460a58e60281ba983d5834349c68"
+        },
+        {
+          "requested_url": "https://iccwbo.org/news-publications/news/new-icc-rules-of-arbitration-enhance-efficiency-clarity-and-usability/",
+          "url": "https://iccwbo.org/news-publications/news/new-icc-rules-of-arbitration-enhance-efficiency-clarity-and-usability/",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:29.148343+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 153116,
+          "sha256": "483589987be3cfba74d6007029de112d19135c5b97a2fdad8a6e7b33234beedc"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_088-first.json",
+        "sha256": "a8680d385bc1ececc03efc099acad70443f87a8bbbba48c480324916fa61da12",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "91e1c6be-4be9-48bf-8587-876bae0c4b34",
+          "9c78251b-8e25-40ee-9c62-0918f6f84897",
+          "89988e43-5624-400c-a418-f617f99ae030",
+          "07e83e6d-7e05-49e4-a6e2-be648dd2be41"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-097",
+      "class": "B",
+      "name": "信用四川",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“信用四川”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_097",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://credit.sc.gov.cn/",
+          "url": "https://credit.sc.gov.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:29.343495+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 98310,
+          "sha256": "9bf1fd3360066124ab2bd9d360488b562883b813c76c0800209a19c38712132f"
+        },
+        {
+          "requested_url": "https://credit.sc.gov.cn/749/22064.html",
+          "url": "https://credit.sc.gov.cn/749/22064.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:29.382554+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 33281,
+          "sha256": "9c4bf794739e9dfd856e74c910224e874a46bf0271b8f4420c977595df2c19b3"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_097-first.json",
+        "sha256": "6d88fb5e8e55f3d7851f2332f1b0a3fe64d02fcc11e3fc3ab97336fa0560ddce",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "2c4e4589-a0ad-47a1-8770-f3df908f3aa7",
+          "b3e44943-77e5-4d6d-a638-ff991d9bb011",
+          "a5a75558-c422-4a6b-9a46-fa93509fe352",
+          "7ffdd903-79bf-4989-a698-99fafd4f869d"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-106",
+      "class": "B",
+      "name": "中国人民银行征信中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“中国人民银行征信中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_106",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.pbccrc.org.cn/",
+          "url": "https://www.pbccrc.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:29.636142+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 33356,
+          "sha256": "137bfcbf548ffbd540000602c664a920ebcd35ccf9710fc5bf7c3b0b052c28a4"
+        },
+        {
+          "requested_url": "https://www.pbccrc.org.cn/xczl/xyxf/20251222/7c7abc6bf4984eebbc0d1fa23fcab368.html",
+          "url": "https://www.pbccrc.org.cn/xczl/xyxf/20251222/7c7abc6bf4984eebbc0d1fa23fcab368.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:29.639669+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 5935,
+          "sha256": "e66137373ea5cbec2cac857f2228fc8b31f9c8697561b7aa98dab949a109c725"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_106-first.json",
+        "sha256": "24fac7350b3a164237d6c7ff39c1dec61a9c50743be1fcec61d4139f88f9afeb",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "2e711b44-9c2d-452e-84ba-2565d99b0112",
+          "91916eff-733e-46de-9d06-45bcfebf1b65",
+          "a34c46f1-d03d-40d1-93a3-2fd2ed221240",
+          "e2430bc1-c691-4a94-b8f4-92a04267c55b"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-133",
+      "class": "B",
+      "name": "中国专利保护协会",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“中国专利保护协会”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_133",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://www.ppac.org.cn/",
+          "url": "http://www.ppac.org.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:29.977661+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 21415,
+          "sha256": "94f17d629bfdf0527070d192af1154862e3685859d6ea784cdc400b3e18a352e"
+        },
+        {
+          "requested_url": "http://www.ppac.org.cn/news/detail-1-667.html",
+          "url": "http://www.ppac.org.cn/news/detail-1-667.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:30.020248+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 26741,
+          "sha256": "d50fbfb5e4afee1ca2e942096bc42b3b2023bf60b0c62a531c047b5597bc711c"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_133-first.json",
+        "sha256": "06258f5390b435514b07bb2d54560bbb8900396e12cf25f7edd9cd3e67788352",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "7e62d5a3-ac16-4a57-a850-7f7affc2b72b",
+          "e9d85a9c-ed41-4f76-beee-ad7c6f4f925f",
+          "707799db-f4d9-4058-9841-ad12c9b7f83f",
+          "4867f0c8-6e7e-477d-9365-a6a9549b2c4a"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-160",
+      "class": "B",
+      "name": "上交所科创板",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“上交所科创板”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_160",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://star.sse.com.cn/",
+          "url": "http://star.sse.com.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:30.056843+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 21858,
+          "sha256": "eca62ec0c56680d44f2ac99a3d549f86e433b51efc9ae0789b12fabee46112f5"
+        },
+        {
+          "requested_url": "http://star.sse.com.cn/star/media/news/c/c_20250711_10786935.shtml",
+          "url": "http://star.sse.com.cn/star/media/news/c/c_20250711_10786935.shtml",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:30.101870+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 23394,
+          "sha256": "3c777fa33c1986f91b7e37ded0b0cc8e9fe448c218ab0cc4ac817620528d6d11"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_160-first.json",
+        "sha256": "4d5e5713113f1e7ff4c87fe68ab72bf0249e867e704083a968a41b3f436739a8",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "e4863f38-f602-4c22-b44f-056da4f9b6dd",
+          "91b11b98-b0a9-43a1-ad5d-e27d69295808",
+          "2531a19b-7942-4e35-a6a6-dffad2c7dcb4",
+          "ce0bf33b-8965-409f-818a-f6c7b9db383f"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-188",
+      "class": "B",
+      "name": "上海股权托管交易中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“上海股权托管交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。取非公开发行通知列表第1、2页各1份实际业务通知，第1页通知正文为文本PDF，第2页通知为HTML。",
+      "source_id": "expanded_b1_dd_188",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.china-see.com/index.do",
+          "url": "https://www.china-see.com/index.do",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:30.106130+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 144299,
+          "sha256": "b98f310b96208791dfec373a605fafaaeb81fe7debbaf7604a36426453717730"
+        },
+        {
+          "requested_url": "https://www.china-see.com:443/disclosure.do?articleType=increase",
+          "url": "https://www.china-see.com:443/disclosure.do?articleType=increase",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:30.240276+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 50998,
+          "sha256": "4b9433e175e7c513ea886ae903cb60e51ff94f076b77f09b529411807cf1fcf2"
+        },
+        {
+          "requested_url": "https://www.china-see.com:443/disclosureDetail.do?articleId=664978303&articleType=increase",
+          "url": "https://www.china-see.com:443/disclosureDetail.do?articleId=664978303&articleType=increase",
+          "role": "detail",
+          "observed_at": "2026-10-09T14:46:43.840409+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 36341,
+          "sha256": "d87a65a8b54d1f29207bd73c5e2b5980d9a7ec8888e7399e84888752e39a1036"
+        },
+        {
+          "requested_url": "https://www.china-see.com/disclosure.do?articleType=increase&pageNo=2",
+          "url": "https://www.china-see.com/disclosure.do?articleType=increase&pageNo=2",
+          "role": "page2",
+          "observed_at": "2026-10-09T14:46:44.209404+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 50723,
+          "sha256": "f24cb39916700fa944704f29c28a9d298974fff440b751c7dba87bc5817ae1e0"
+        },
+        {
+          "requested_url": "https://www.china-see.com:443/attached/file/20251222/20251222174204_621.pdf",
+          "url": "https://www.china-see.com:443/attached/file/20251222/20251222174204_621.pdf",
+          "role": "attachment",
+          "observed_at": "2026-10-09T14:48:43.041968+00:00",
+          "status": 200,
+          "content_type": "application/pdf;charset=UTF-8",
+          "bytes": 65699,
+          "sha256": "21b93b94ebee05570dc267195d983685912ce262eb80c30777ce94bde49d7ec9"
+        },
+        {
+          "requested_url": "https://www.china-see.com/disclosureDetail.do?articleId=664972758&articleType=increase",
+          "url": "https://www.china-see.com/disclosureDetail.do?articleId=664972758&articleType=increase",
+          "role": "detail2",
+          "observed_at": "2026-10-09T14:48:43.557796+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 37584,
+          "sha256": "e85c1c2862f30a17232fa9a175a697241cf2dc387c894d0d226472c4b104e853"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_188-first.json",
+        "sha256": "bc501850f1aadd109f55ec883261da930b3f05722464de2b9a97c5ab8fb1cb4c",
+        "status": "complete",
+        "errors": [],
+        "records": 2
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 2,
+        "runs": [
+          "7bdc76db-44d1-4140-919b-c7fbcf3bdd26",
+          "9b11f8a1-b833-4989-ba6c-2c3b93f52494",
+          "4aaa7812-ff8c-4be8-806d-0bc9f0a17725",
+          "5555dde6-592e-45de-a113-cedaeab7f192"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-197",
+      "class": "B",
+      "name": "全国产权行业信息化综合服务平台",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“全国产权行业信息化综合服务平台”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_197",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.cspea.com.cn/",
+          "url": "https://www.cspea.com.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:30.359794+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 40570,
+          "sha256": "4ef7687dc16913ccb283b2aacc6d5940c47c28cfb08622fb686f6f054812a691"
+        },
+        {
+          "requested_url": "https://www.cspea.com.cn/infodetail/20250526327fe46",
+          "url": "https://www.cspea.com.cn/infodetail/20250526327fe46",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:30.551016+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 126128,
+          "sha256": "0d5ef70557c88504900253a1de02bb0f3e6fe8568ebd1b89beed56cc7df899d2"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_197-first.json",
+        "sha256": "50d02f84f1ad8e1f1888f46570e68409d00a62f93b6447bc157a045d12bb40e0",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "15ef706b-6693-4655-988e-ec9e79356777",
+          "72fceac9-eade-4b5e-ba13-02a4371db260",
+          "e0de26d7-f65a-403d-8be1-b8e219c75ec2",
+          "e7556a93-9a85-4848-8490-bd38c0fff412"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-201",
+      "class": "B",
+      "name": "天津产权交易中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“天津产权交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_201",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.tpre.cn/",
+          "url": "https://www.tpre.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:30.576802+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 62247,
+          "sha256": "83084e074a4ce251692043e93c23bdff2040b406d8f1a8fc8fc520c838321644"
+        },
+        {
+          "requested_url": "https://www.tpre.cn/content/2026/16629.html",
+          "url": "https://www.tpre.cn/content/2026/16629.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:30.722804+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 14036,
+          "sha256": "4d047f0829b14f13819ae84bc6224e0e5d89ddf2aea24a66b5b43e5e883a37a9"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_201-first.json",
+        "sha256": "deacd3195b0b540110dc73535402cb090049962c13a6a1504f3d9eefb78064b5",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "92462f25-f451-44a5-af1f-adcf23c59b4a",
+          "75a6e87f-af79-44db-8d49-e1c8739461dc",
+          "ba7aea24-c755-4238-984e-940c13d3943e",
+          "d1fcf1da-d580-43fd-906a-1273f397efb9"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-206",
+      "class": "B",
+      "name": "宁波产权交易中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“宁波产权交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。仅中心动态入口首屏1篇公开新闻；当前分页由JS构建，未声明可冻结的静态下一页链接，不代表全栏目。",
+      "source_id": "expanded_b1_dd_206",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.nbcqjy.org:443/nb/index",
+          "url": "https://www.nbcqjy.org:443/nb/index",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:31.146627+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 68537,
+          "sha256": "536f046119e6229f3484aa6831b087abd253c50095b2becd855f65605cb4d051"
+        },
+        {
+          "requested_url": "https://www.nbcqjy.org:443/nb/c/news/zxdt",
+          "url": "https://www.nbcqjy.org:443/nb/c/news/zxdt",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:31.162167+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 28184,
+          "sha256": "833198f5e748c0979faf5ddd24a36c598e381f565914b905cc0481649bb9ff42"
+        },
+        {
+          "requested_url": "https://www.nbcqjy.org:443/nb/a/news/0cca515a85bb4a5c84a73b70056c8ba6",
+          "url": "https://www.nbcqjy.org:443/nb/a/news/0cca515a85bb4a5c84a73b70056c8ba6",
+          "role": "detail",
+          "observed_at": "2026-10-09T14:46:43.840743+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 29921,
+          "sha256": "8d6914a8786136af5e9cecffd456046e1b37915fb57906a4183abda95c02e0ef"
+        },
+        {
+          "requested_url": "https://www.nbcqjy.org/static/dpmweb/nb/js/web.js",
+          "url": "https://www.nbcqjy.org/static/dpmweb/nb/js/web.js",
+          "role": "pagination_js",
+          "observed_at": "2026-10-09T14:46:44.320115+00:00",
+          "status": 200,
+          "content_type": "application/javascript; charset=utf-8",
+          "bytes": 151276,
+          "sha256": "e1719e2134c18486f3a0094167ccc38f7389bc48fc81dc79550cd5a9f5f4de83"
+        },
+        {
+          "requested_url": "https://www.nbcqjy.org/static/dpmweb/js/dpm.js",
+          "url": "https://www.nbcqjy.org/static/dpmweb/js/dpm.js",
+          "role": "pagination_impl",
+          "observed_at": "2026-10-09T14:48:43.786235+00:00",
+          "status": 200,
+          "content_type": "application/javascript; charset=utf-8",
+          "bytes": 7540,
+          "sha256": "c08e85e474d1d97675af43e81b759e01ef7030b70cf8a9177b8e966c9b999294"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_206-first.json",
+        "sha256": "a2e9aef299fbd5cc3f9501787cd5cd3ea80f905840b9df11b2045c821a15882a",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "54733f97-5ca3-4036-a5cf-0e27c813bbb6",
+          "c0fe3d81-2053-4c4b-bd78-8c6287b05101",
+          "56c9573b-6511-4194-99a7-5947a1bf6e66",
+          "87634f37-e81d-4f95-a9bd-b3bc50f515a5"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-208",
+      "class": "B",
+      "name": "广东联合产权交易中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“广东联合产权交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。原资产栏目正文需POST动态装载；本次限定首页声明的股权项目公开静态基本信息（项目编号、保证金、转让方、挂牌日期）；不代表原资产包栏目或动态交易条件已适配。",
+      "source_id": "expanded_b1_dd_208",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.gduaee.com/",
+          "url": "https://www.gduaee.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:31.638758+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 65872,
+          "sha256": "cb79c374ba7943d4f81f2a754b334953fd8352c441aebb9edf14bbbddb89acfe"
+        },
+        {
+          "requested_url": "https://www.gduaee.com/www/article/xmdt/swzczcb/",
+          "url": "https://www.gduaee.com/www/article/xmdt/swzczcb/",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:31.841517+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 15711,
+          "sha256": "7e7ec640d94dbc541c3639cbf5a1b4a694b33b68bfb41d44f264a22da9a5b796"
+        },
+        {
+          "requested_url": "https://www.gduaee.com/portal/pro/index.jsp?proId=29616085a95641849a12b111d1bce790&packId=",
+          "url": "https://www.gduaee.com/portal/pro/index.jsp?proId=29616085a95641849a12b111d1bce790&packId=",
+          "role": "detail",
+          "observed_at": "2026-10-09T14:46:43.840876+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 17746,
+          "sha256": "5b31c0e86566ccdcc0a251b6568f52c09e25267c7233ae8e8e52b3426cf0b55b"
+        },
+        {
+          "requested_url": "https://www.gduaee.com/js/cms.js",
+          "url": "https://www.gduaee.com/js/cms.js",
+          "role": "navigation_js",
+          "observed_at": "2026-10-09T14:46:44.471422+00:00",
+          "status": 200,
+          "content_type": "application/javascript",
+          "bytes": 3122,
+          "sha256": "c86300f57bf738d8217456f91b251328f447c898429283d2ddad022638ecb2d8"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_208-first.json",
+        "sha256": "3edc276937ddffb72be9e790d6fd0ee38a5b339fa167d75135c24e5848fd85db",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "70c47d15-b369-4d8e-90b7-d4863ee9e57c",
+          "3fc46882-6034-4274-9149-c0c65e53e400",
+          "d06f6877-7772-4625-b655-8d6d70039733",
+          "f9e71961-3a2d-47fa-ab82-d6dbea0faab8"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-211",
+      "class": "B",
+      "name": "珠海产权交易中心",
+      "status": "blocked",
+      "reason_code": "safe_archival_policy_and_image_pdf",
+      "reason": "公开首页与完整项目HTML均被Runtime sensitive_body_rejected（全站登录脚本变量/属性password触发保守字段规则）；公开GET成功不等于工程可归档。真实声明的资产出租合同PDF共14页且全部0文本，没有OCR能力，不能以公告壳或空PDF冒充业务正文。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“珠海产权交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。取实际公开项目说明表格，注册/实名认证/报名行为及办理模板附件不在本次正文范围。原项目HTML未通过安全归档策略，未绕过或裁剪响应；仅额外验证该项目声明的1个合同范本PDF，非文本层。",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.zhaeec.com/",
+          "url": "https://www.zhaeec.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:32.386420+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 60734,
+          "sha256": "183869429b79da5fd4bde0ddc54b9a2ab46403b71d8aa34f97964da6d6548b35"
+        },
+        {
+          "requested_url": "https://www.zhaeec.com/prjs/lease/detail/17231.html",
+          "url": "https://www.zhaeec.com/prjs/lease/detail/17231.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:32.511262+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 100033,
+          "sha256": "a55e6cf51d13b31e72e835f2c0d9476c3029b34eed0d2cd11dcde8e236a140e3"
+        },
+        {
+          "role": "business_template_pdf",
+          "requested_url": "https://www.zhaeec.com/LbFiles?type=fwcz_xmfj_zspl&id=19546&fname=%E8%B5%84%E4%BA%A7%E5%87%BA%E7%A7%9F%E5%90%88%E5%90%8C%EF%BC%88%E8%8C%83%E6%9C%AC%EF%BC%89.pdf&index=12",
+          "observed_at": "2026-10-09T14:59:45.307137+00:00",
+          "url": "https://www.zhaeec.com/LbFiles?type=fwcz_xmfj_zspl&id=19546&fname=%E8%B5%84%E4%BA%A7%E5%87%BA%E7%A7%9F%E5%90%88%E5%90%8C%EF%BC%88%E8%8C%83%E6%9C%AC%EF%BC%89.pdf&index=12",
+          "status": 200,
+          "content_type": "application/pdf",
+          "bytes": 764212,
+          "sha256": "945142a868afab4503ff115c2e6c77e1775faa6e3a259b06db6136dbe20cd979",
+          "page_count": 14,
+          "text_chars_per_page": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "next_step": "保留工程失败；另行审查安全归档字段对公开登录脚本变量的误判，或由站方提供不含登录模板的公开正文；扫描PDF若为目标则需独立授权OCR能力。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_211-first.json",
+        "sha256": "f807310dfb8151742c11e57084c8b150323de4af4d4f2bd32098b8b6d10e5657",
+        "status": "partial",
+        "errors": [
+          "download_failed",
+          "sensitive_body_rejected",
+          "unresolved_seed"
+        ],
+        "records": 0
+      }
+    },
+    {
+      "research_id": "dd-215",
+      "class": "B",
+      "name": "福建省产权交易所",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“福建省产权交易所”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_215",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.fjcqjy.com/",
+          "url": "https://www.fjcqjy.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:32.831330+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 136849,
+          "sha256": "28ce989215bf75bd3accf6078be826a42acb4581090aa205513f0ae94ea7d807"
+        },
+        {
+          "requested_url": "https://www.fjcqjy.com/html/tzgg/27115569492420923500.shtml",
+          "url": "https://www.fjcqjy.com/html/tzgg/27115569492420923500.shtml",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:32.832902+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 12929,
+          "sha256": "4fe3b490c4fd8a052fc22b7c1ab3859209971e7cf3bc4137d372c0f713a90e58"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_215-first.json",
+        "sha256": "7e636fd05ab6651fc1c89b38771224c5f472e25d75e30d0e365850b58aff137e",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "bfb0adb5-a431-4b54-b8fb-51cc41024658",
+          "14f0a603-8706-49cb-9682-3544ef0c4cf9",
+          "360469dc-fe54-4ad1-8c7b-ea1440c32051",
+          "463d7d18-c906-4ca2-9b7a-5146c3315dc9"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-220",
+      "class": "B",
+      "name": "常州产权交易所",
+      "status": "blocked",
+      "reason_code": "public_endpoint_unavailable",
+      "reason": "HTTP 入口与详情18秒直接GET均超时；同主机HTTPS入口和详情证书主机名不匹配，未关闭证书验证。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“常州产权交易所”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "evidence": [
+        {
+          "requested_url": "http://www.czcq.com.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:32.996850+00:00",
+          "error": "TimeoutError",
+          "detail": "timed out"
+        },
+        {
+          "requested_url": "http://www.czcq.com.cn/czcq/news/info?id=3797&column=18",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:33.116184+00:00",
+          "error": "TimeoutError",
+          "detail": "timed out"
+        },
+        {
+          "requested_url": "https://www.czcq.com.cn/",
+          "role": "https_entry_url",
+          "observed_at": "2026-10-09T14:48:42.870540+00:00",
+          "error": "URLError",
+          "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.czcq.com.cn'. (_ssl.c:1010)>"
+        },
+        {
+          "requested_url": "https://www.czcq.com.cn/czcq/news/info?id=3797&column=18",
+          "role": "https_candidate_url",
+          "observed_at": "2026-10-09T14:48:42.870666+00:00",
+          "error": "URLError",
+          "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.czcq.com.cn'. (_ssl.c:1010)>"
+        }
+      ],
+      "next_step": "站方恢复无会话公开HTML访问或提供官方可归档公开端点后复验；不执行Cookie挑战或忽略TLS。"
+    },
+    {
+      "research_id": "dd-225",
+      "class": "B",
+      "name": "江西省产权交易所",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“江西省产权交易所”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。原体育赛事候选正文只有JPG，无OCR；改为同入口声明的进贤县49%股权成交公告表格，不代表原赛事图片正文已适配。",
+      "source_id": "expanded_b1_dd_225",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://jxcq.jxggzyjy.cn/",
+          "url": "https://jxcq.jxggzyjy.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:33.732263+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 183452,
+          "sha256": "35ef4606439572a5ee47846fda06e1d04f6b3c5b0870973437969b4323d381e0"
+        },
+        {
+          "requested_url": "https://jxcq.jxggzyjy.cn/cqjy/004/004021/004021001/20260911/65ddb826-9163-40bd-868a-de03c0a57324.html",
+          "url": "https://jxcq.jxggzyjy.cn/cqjy/004/004021/004021001/20260911/65ddb826-9163-40bd-868a-de03c0a57324.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:36.366363+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 3706,
+          "sha256": "636f6ed4def3e6e9e1b3a6f6c382221fa04eeaf14175f4701381a2b1f8650841"
+        },
+        {
+          "requested_url": "https://jxcq.jxggzyjy.cn/cqjy/005/005003/005003001/policy_statute.html",
+          "url": "https://jxcq.jxggzyjy.cn/cqjy/005/005003/005003001/policy_statute.html",
+          "role": "detail",
+          "observed_at": "2026-10-09T14:46:43.840994+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 8050,
+          "sha256": "14168f38ee27819324978c7bebf12699e6e8196854d56582d8ec9e2cb80fcc77"
+        },
+        {
+          "requested_url": "https://jxcq.jxggzyjy.cn/cqjy/005/005003/005003001/20260929/c18b5895-b6f7-41ee-adcc-a26382dc7f91.html",
+          "url": "https://jxcq.jxggzyjy.cn/cqjy/005/005003/005003001/20260929/c18b5895-b6f7-41ee-adcc-a26382dc7f91.html",
+          "role": "actual_detail",
+          "observed_at": "2026-10-09T14:48:43.587978+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 4456,
+          "sha256": "d7c84b082f1f41c3ad87569d7a569db6efa477ee025dc88cdecf6c843f912fb3"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_225-first.json",
+        "sha256": "abebbec268a10ff1198a02f58d0872d4bd2859e250483a542a8f13c9a6ab5039",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "185e982f-78f1-4011-8dc7-a322ab978626",
+          "aa25f3f9-d31d-4751-b6fa-b0df072b8917",
+          "a2ddbb51-4b44-415d-b841-4c1937535774",
+          "6db2a195-018c-4b32-a441-8cc980040d12"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-227",
+      "class": "B",
+      "name": "长沙联合产权交易所",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“长沙联合产权交易所”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_227",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.cscqjy.com.cn/",
+          "url": "https://www.cscqjy.com.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:36.574604+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 57102,
+          "sha256": "2ca574bc53c08c5a2bada9b6113fada245739da3874213b5d5c99463bce3d129"
+        },
+        {
+          "requested_url": "https://www.cscqjy.com.cn/zhongyaogonggao/guapaigonggao/2026-09-21/3580.html",
+          "url": "https://www.cscqjy.com.cn/zhongyaogonggao/guapaigonggao/2026-09-21/3580.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:37.145007+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 22005,
+          "sha256": "6245b0d737c158ca427dd61f373ae38903623701081be40281967e2e4173f579"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_227-first.json",
+        "sha256": "2660451c476fcd56da97b9622f7e6f0c1a6502e208a0aeffa1719193c48e9868",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "34c172d9-f166-4691-b350-3d2fff5724c9",
+          "a27682cd-b773-408d-908c-7fb4813a41d2",
+          "8bf3cd2b-8c50-46be-897f-ee9c3107a103",
+          "9c3a9df7-864b-4fcf-9f2f-305580a04e7e"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-229",
+      "class": "B",
+      "name": "黑龙江联合产权交易所",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“黑龙江联合产权交易所”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_229",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://www.hljcqjy.com/",
+          "url": "https://www.hljcqjy.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:37.167659+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 55612,
+          "sha256": "cf532d9e47b570ffd9db5bad2a2e2ed88558e2e28889d1a155cf8cefc59c3605"
+        },
+        {
+          "requested_url": "https://www.hljcqjy.com/detail.php?cid=7&id=2350&pid=2",
+          "url": "https://www.hljcqjy.com/detail.php?cid=7&id=2350&pid=2",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:37.347835+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 6317,
+          "sha256": "30954941346e0a1a2bad0744b426259e7b346f7775f3ac82dc8e30abf527d199"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_229-first.json",
+        "sha256": "6a7d073b28bf0f78795b3709f5e016e4e7e211487d992a9bf944d6cecb78d066",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "6af46c98-59ff-4100-a151-510f3dfc41f4",
+          "e0392b69-0ba8-4876-92c1-ae50126f5b89",
+          "839ce374-84ed-4ade-9459-1fc38cf004ad",
+          "aa47a3ea-a1bc-45e0-aed7-21e4e483f7bc"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-231",
+      "class": "B",
+      "name": "郑州市公共资源交易中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“郑州市公共资源交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_231",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "https://zzggzy.zhengzhou.gov.cn/",
+          "url": "https://zzggzy.zhengzhou.gov.cn/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:38.051379+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 215314,
+          "sha256": "9d355284e9123987ba29f37be87d1a083500c7bdacce63ce4fa07e81ec41daf2"
+        },
+        {
+          "requested_url": "https://zzggzy.zhengzhou.gov.cn/jsgc/004002/20261009/9ed31de0-8b2f-4ac0-bf1e-d9d6f401c763.html",
+          "url": "https://zzggzy.zhengzhou.gov.cn/jsgc/004002/20261009/9ed31de0-8b2f-4ac0-bf1e-d9d6f401c763.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:38.318155+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 29590,
+          "sha256": "98eaa36f5d6f22ce0d8db998ec41639be5416ab37be40054330458644a4e8c5e"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_231-first.json",
+        "sha256": "06b3f0b5ab143853e04d7944a5c58e26e09967ea180ea6263ab09226f93ea8fb",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "50431d70-a10b-4ef3-9211-268f5e2ed548",
+          "f255c221-b94b-4d8b-a398-cf821b2ff8b1",
+          "d1e43d25-9912-4f24-b47e-c2dc8f80a8cb",
+          "8beba3a9-e9e1-4501-b283-ed1660ecbac3"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-237",
+      "class": "B",
+      "name": "烟台联合产权交易中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“烟台联合产权交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_237",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://www.ytcq.com/",
+          "url": "http://www.ytcq.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:38.460011+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 293933,
+          "sha256": "0b8cb98fd1c67f1f04b9480a1bb8f0c44c41bf8dbf4d68e1fa260ae5a7f89ce6"
+        },
+        {
+          "requested_url": "http://www.ytcq.com/xwzx/001001/20240904/dfeec866-2f5e-4a40-b423-05168c0898c7.html",
+          "url": "http://www.ytcq.com/xwzx/001001/20240904/dfeec866-2f5e-4a40-b423-05168c0898c7.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:38.503482+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 6470,
+          "sha256": "481bc3d33e4305a9c1f01e7e62916819d08ef7ea92e5649abf1354b11090a23d"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_237-first.json",
+        "sha256": "d139af4b40d2b91a9c559adc61415c4b2577715ea68a52803e2ad3ea53d0b7db",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "0fd33484-2e8e-428a-b2a4-68324ea18571",
+          "be51caa7-8f57-42f0-a8b1-6d2ff6a73d71",
+          "ebae07f8-ae96-4d74-b499-05f8c6cbb10b",
+          "d874fa2e-d3b7-413b-987b-ea3de7429cb7"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-238",
+      "class": "B",
+      "name": "潍坊产权交易中心",
+      "status": "ready",
+      "reason_code": "bounded_public_business_contract_frozen",
+      "reason": "最终同一Recipe版本上真实CLI两轮collect、recheck及离线Replay全部complete；记录主键、标题/正文锚点、原文归档与locator复算均通过。范围仅限所声明公开业务样本，质量仍not_evaluated。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“潍坊产权交易中心”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "source_id": "expanded_b1_dd_238",
+      "sample_contract": "experiments/v1.2-acceptance/expanded_samples/b1.json",
+      "evidence": [
+        {
+          "requested_url": "http://www.wfcqjy.com/",
+          "url": "http://www.wfcqjy.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:38.554025+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 108388,
+          "sha256": "9aff048443f2f06ce9444bcb1824c27226872277fbcad8a4ebedffc01c14f02a"
+        },
+        {
+          "requested_url": "http://www.wfcqjy.com/index.php?c=article&id=4817",
+          "url": "http://www.wfcqjy.com/index.php?c=article&id=4817",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:38.630475+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 16538,
+          "sha256": "c4b9c42e1f5d5ed0f722c250202447a5d0482b4ab12313aa31bf3b13d08e2cf7"
+        }
+      ],
+      "next_step": "按最终recipe运行全部配置，两轮collect、recheck及离线replay；仅完整验收通过才计adapted。",
+      "first_runtime_evidence": {
+        "path": "artifacts/acceptance/v1.2-expanded-b1-first/expanded_b1_dd_238-first.json",
+        "sha256": "c19b96781f46de47099e04f6ec7bf4dd8367ce6d10754e865588bcab4d8559df",
+        "status": "complete",
+        "errors": [],
+        "records": 1
+      },
+      "acceptance": {
+        "status": "PASS",
+        "runtime_status": "complete",
+        "record_count": 1,
+        "runs": [
+          "29abe25e-8263-47ec-a52f-b1e0703aafec",
+          "d23e74dd-e138-4db7-be4d-5403cd08c2d8",
+          "99c8e7fd-531b-40ac-b594-db16995edd5d",
+          "e8a7f765-903e-4d05-a108-6992aa487b0c"
+        ],
+        "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+        "errors": [],
+        "manifest": "artifacts/acceptance/v1.2-expanded-b1-frozen/manifest.json"
+      }
+    },
+    {
+      "research_id": "dd-262",
+      "class": "B",
+      "name": "开票信息查询",
+      "status": "blocked",
+      "reason_code": "cookie_challenge_required",
+      "reason": "原候选和首页当前新闻详情均HTTP200但仅Cookie计算/重载JS，无标题及正文；未执行acw_sc__v2挑战。",
+      "scope": "仅从实际公开入口沿声明链接采集限定公告、规则、政策或新闻正文；不代表原台账“开票信息查询”主体核验业务、全站或最新完整结果，不访问登录/报名/查询/申请入口。",
+      "evidence": [
+        {
+          "requested_url": "https://www.qcc.com/",
+          "url": "https://www.qcc.com/",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:38.821892+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 38840,
+          "sha256": "925fdc4f269ea2e60023d6461408acc001c86a9ad56338cd866f189e2dfbf361"
+        },
+        {
+          "requested_url": "https://www.qcc.com/post/719452258.html",
+          "url": "https://www.qcc.com/post/719452258.html",
+          "role": "candidate",
+          "observed_at": "2026-10-09T14:38:38.993925+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 23670,
+          "sha256": "63b42ad46e26ed09ac4c9ffd35c56636b48e3d72f45526dbe0c4c5db6f5d0d05"
+        },
+        {
+          "requested_url": "https://www.qcc.com/post/719445674.html",
+          "url": "https://www.qcc.com/post/719445674.html",
+          "role": "current_detail",
+          "observed_at": "2026-10-09T14:46:44.724960+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 23670,
+          "sha256": "60bc3c6b73cf253d302588007b8a8c901d7029a989a5c196e34db145d85a1171"
+        }
+      ],
+      "next_step": "站方恢复无会话公开HTML访问或提供官方可归档公开端点后复验；不执行Cookie挑战或忽略TLS。"
+    }
+  ],
+  "probe_storage": "work/expanded-b1：原文仅在ignored work目录，公开合同只保留URL/状态/hash与业务锚点",
+  "network": "direct public GET without cookies/auth/browser/OCR/Excel/environment proxy",
+  "positive_contract_count": 31,
+  "blocked_count": 4,
+  "contract_sha256": "fbfd87a2b8cd18759ed2d595a3407c4223b80a70ac543772a0a898f5eb0bd2d5",
+  "prior_failure_artifacts": [
+    "artifacts/acceptance/v1.2-expanded-b1-first",
+    "artifacts/acceptance/v1.2-expanded-b1-fixes",
+    "artifacts/acceptance/v1.2-expanded-b1-final"
+  ],
+  "final_acceptance": {
+    "status": "PASS",
+    "artifact": "artifacts/acceptance/v1.2-expanded-b1-frozen",
+    "manifest_sha256": "d87b6365ef3fb93fded19f06a05b9a52344a5e24efbca5df91f520e13cb35538",
+    "command": "uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/expanded_samples/b1.json --output artifacts/acceptance/v1.2-expanded-b1-frozen",
+    "offline_verify_command": "uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-expanded-b1-frozen",
+    "source_count": 31,
+    "initial_business_records": 33,
+    "record_projections": 132,
+    "files_verified": 437,
+    "assertions": {
+      "passed": 2641,
+      "total": 2641
+    },
+    "recipe_version": "5bcf8f3a0875a27dc9fd07b65569eba057ab34ac2a0cac0be791d16b982fe6e2",
+    "independent_review": {
+      "passed": 221,
+      "total": 221,
+      "prior_source_body_matches": 33,
+      "field_and_key_projections": 396,
+      "src_files": 25,
+      "locator_errors": [],
+      "report_sha256": "a33bc9676cc228d96b66af21cd8846ea1118b72c82a2c534b6745b6b36090210",
+      "report_path": "work/expanded-b1/independent-review.json"
+    },
+    "network": "real public direct GET, isolated PostgreSQL, no credentials/cookies/browser/OCR/Excel/environment proxy",
+    "limitations": [
+      "Bounded announced samples only, not whole sites or original subject verification",
+      "Business quality not_evaluated",
+      "Four explicit blockers remain; no HTML shell accepted as complete",
+      "Historical failed/mixed-recipe artifacts are preserved and excluded from final success count"
+    ]
+  }
+}

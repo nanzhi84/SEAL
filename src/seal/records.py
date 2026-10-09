@@ -1,190 +1,10 @@
-"""Typed business records with immutable emissions and independent content versions.
+"""Immutable business Record emissions, versions and current-pointer persistence."""
 
-Raw HTTP URL identity stays in the historical resource tables. A record's business
-identity and normalized content never depend on list position or fetch metadata.
-"""
-
-import json
-import math
-import re
 from collections import defaultdict
-from typing import Literal
 
-from pydantic import Field
-
-from .config import Strict
-from .core import Objects, SealError, canonical, digest, public_url, uid
+from .core import Objects, SealError, digest, public_url, uid
 from .db import connect, fenced, j, locked_run, one
-
-
-class ParentRequest(Strict):
-    url: str
-    role: str = Field(min_length=1, max_length=64, pattern=r"^[a-zA-Z0-9_-]+$")
-    method: Literal["GET"] = "GET"
-
-
-class RecordCandidate(Strict):
-    type: Literal["record"]
-    record_type: str = Field(min_length=1, max_length=128, pattern=r"^[a-zA-Z0-9_.-]+$")
-    record_key: str = Field(min_length=1, max_length=2048)
-    schema_version: str = Field(min_length=1, max_length=128, pattern=r"^[a-zA-Z0-9_.-]+$")
-    data: dict = Field(min_length=1, max_length=1000)
-    snapshot_id: str
-    observation_id: str
-    locators: dict
-    key_locator: dict
-    detail_url: str | None = None
-    frozen_parent_request: ParentRequest | None = None
-    supplementary_inputs: list[dict] = Field(default_factory=list, max_length=1000)
-
-
-def json_value(value, depth=0):
-    """Reject Python-only values, nonfinite numbers and unbounded nesting."""
-    if depth > 32:
-        raise SealError("record_data_too_deep")
-    if value is None or type(value) in (str, bool, int):
-        return
-    if type(value) is float:
-        if not math.isfinite(value):
-            raise SealError("record_nonfinite_number")
-        return
-    if type(value) is list:
-        for child in value:
-            json_value(child, depth + 1)
-        return
-    if type(value) is dict and all(type(key) is str for key in value):
-        for child in value.values():
-            json_value(child, depth + 1)
-        return
-    raise SealError("record_data_not_json")
-
-
-def typed_equal(left, right):
-    """JSON types are significant: false != 0 and 1 != 1.0."""
-    if type(left) is not type(right):
-        return False
-    if type(left) is dict:
-        return left.keys() == right.keys() and all(
-            typed_equal(left[key], right[key]) for key in left
-        )
-    if type(left) is list:
-        return len(left) == len(right) and all(
-            typed_equal(a, b) for a, b in zip(left, right, strict=True)
-        )
-    return left == right
-
-
-def _invalid_constant(_value):
-    raise SealError("record_nonfinite_number")
-
-
-def _unique_json_object(pairs):
-    value = {}
-    for key, child in pairs:
-        if key in value:
-            raise SealError("ambiguous_json_object_key")
-        value[key] = child
-    return value
-
-
-def json_pointer(body, pointer):
-    """Resolve RFC 6901 without accepting ambiguous array indices or escapes."""
-    if not isinstance(pointer, str) or (pointer and not pointer.startswith("/")):
-        raise SealError("invalid_json_pointer")
-    value = json.loads(
-        body, parse_constant=_invalid_constant, object_pairs_hook=_unique_json_object
-    )
-    if not pointer:
-        return value
-    for token in pointer[1:].split("/"):
-        if re.search(r"~(?![01])", token):
-            raise SealError("invalid_json_pointer")
-        token = token.replace("~1", "/").replace("~0", "~")
-        try:
-            if type(value) is list:
-                if not re.fullmatch(r"0|[1-9][0-9]*", token):
-                    raise SealError("invalid_json_pointer")
-                value = value[int(token)]
-            elif type(value) is dict:
-                value = value[token]
-            else:
-                raise SealError("invalid_json_pointer")
-        except (IndexError, KeyError, ValueError):
-            raise SealError("missing_json_pointer") from None
-    return value
-
-
-def located_value(snapshot, body, locator):
-    # The old text locator keeps its historical string/strip semantics.
-    from .items import text_value
-
-    if locator.get("kind") == "json" and "transform" not in locator:
-        return json_pointer(body, locator.get("pointer"))
-    return text_value(snapshot, body, locator)
-
-
-def validate_record(item):
-    value = RecordCandidate.model_validate(item)
-    json_value(value.data)
-    if len(canonical(value.data)) > 2000000:
-        raise SealError("record_data_too_large")
-    if set(value.locators) != set(value.data):
-        raise SealError("record_locator_fields_mismatch")
-    objects = Objects()
-    snapshot = objects.json(value.snapshot_id)
-    if snapshot["method"] != "GET" or snapshot["status"] != 200:
-        raise SealError("invalid_record_response")
-    inputs = {value.snapshot_id: (snapshot, objects.get(snapshot["body_hash"]))}
-    lineage = [{"snapshot_id": value.snapshot_id, "observation_id": value.observation_id}]
-    for entry in value.supplementary_inputs:
-        if set(entry) != {"snapshot_id", "observation_id"}:
-            raise SealError("invalid_supplementary_input")
-        other = objects.json(entry["snapshot_id"])
-        if other["method"] != "GET" or other["status"] != 200:
-            raise SealError("invalid_supplementary_response")
-        inputs[entry["snapshot_id"]] = (other, objects.get(other["body_hash"]))
-        if entry not in lineage:
-            lineage.append(entry)
-    for field, expected in value.data.items():
-        locator = value.locators[field]
-        if not isinstance(locator, dict):
-            raise SealError("invalid_record_locator")
-        target = inputs.get(locator.get("snapshot_id", value.snapshot_id))
-        if target is None or not typed_equal(located_value(*target, locator), expected):
-            raise SealError("record_field_locator_mismatch")
-    key_locator = value.key_locator
-    target = inputs.get(key_locator.get("snapshot_id", value.snapshot_id))
-    if target is None:
-        raise SealError("record_key_locator_mismatch")
-    if key_locator.get("kind") == "response_url":
-        if set(key_locator) - {"kind", "snapshot_id"}:
-            raise SealError("invalid_record_key_locator")
-        key = public_url(target[0]["url"])
-        if value.detail_url is None or public_url(value.detail_url) != key:
-            raise SealError("record_key_locator_mismatch")
-    elif key_locator.get("transform") == "key_string":
-        if key_locator.get("kind") != "json":
-            raise SealError("invalid_record_key_transform")
-        key = json_pointer(target[1], key_locator.get("pointer"))
-        if type(key) not in (str, int):
-            raise SealError("invalid_record_key_transform")
-        key = str(key)
-    else:
-        key = located_value(*target, key_locator)
-    if type(key) is not str or key != value.record_key:
-        raise SealError("record_key_locator_mismatch")
-    output = value.model_dump(
-        exclude={"type", "snapshot_id", "observation_id", "supplementary_inputs"}
-    )
-    # Locators without an explicit snapshot refer to this immutable main input.
-    output["primary_snapshot_id"] = value.snapshot_id
-    if value.detail_url is not None:
-        output["detail_url"] = public_url(value.detail_url)
-    if value.frozen_parent_request is not None:
-        output["frozen_parent_request"]["url"] = public_url(value.frozen_parent_request.url)
-    elif value.detail_url is None:
-        raise SealError("record_parent_request_required")
-    return output, lineage
+from .record_validation import validate_record
 
 
 def _stage_resource(c, source, run, entry):
@@ -270,9 +90,8 @@ def _stage_resource(c, source, run, entry):
             )["id"]
         )
     c.execute(
-        """UPDATE seal_document SET latest_revision=%s,latest_observation=%s,
-           next_check=now()+(%s * interval '1 second') WHERE id=%s""",
-        (revision_id, entry["observation_id"], source["config"]["recheck_seconds"], document["id"]),
+        "UPDATE seal_document SET latest_revision=%s,latest_observation=%s WHERE id=%s",
+        (revision_id, entry["observation_id"], document["id"]),
     )
     resource_input = {
         "document_id": document["id"],
@@ -300,8 +119,8 @@ def stage_record_resource(context, entry):
         return _stage_resource(c, source, run, entry)
 
 
-def stage_record(context, item):
-    output, lineage = validate_record(item)
+def stage_record(context, item, validation=None):
+    output, lineage = validate_record(item, validation)
     with connect() as c:
         source, run = locked_run(c, context["id"])
         fenced(source, run, context["attempt_epoch"])
@@ -575,14 +394,13 @@ def accept_records(c, source, run, outputs):
         candidate = result["candidate"]
         c.execute(
             """UPDATE seal_record SET latest_version=%s,latest_result=%s,detail_url=%s,
-               parent_request=%s,next_check=now()+(%s * interval '1 second')
+               parent_request=%s
                WHERE id=%s AND source_id=%s AND namespace=%s""",
             (
                 output["record_version_id"],
                 result["id"],
                 candidate["detail_url"],
                 j(candidate["frozen_parent_request"]),
-                source["config"]["recheck_seconds"],
                 output["record_id"],
                 source["id"],
                 run["namespace"],

@@ -5,7 +5,8 @@ from datetime import datetime, timezone
 
 import procrastinate
 
-from .db import connect, dsn, locked_run
+from .core import SealError
+from .db import connect, dsn, locked_run, one
 
 app = procrastinate.App(connector=procrastinate.PsycopgConnector(conninfo=dsn()))
 
@@ -32,39 +33,23 @@ def enqueue(c, run_id):
 
 
 def schedule_due():
+    from .recheck import has_due
     from .runs import create_run
 
-    created = []
+    created, rejections = [], []
     with connect() as c:
-        has_records = bool(
-            c.execute("SELECT to_regclass('seal_record') AS name").fetchone()["name"]
-        )
         sources = c.execute(
             "SELECT * FROM seal_source WHERE binding_id IS NOT NULL AND NOT paused AND (cooldown_until IS NULL OR cooldown_until<=now()) ORDER BY id FOR UPDATE SKIP LOCKED"
         ).fetchall()
         for source in sources:
             now = datetime.now(timezone.utc)
+            binding = one(c, "SELECT config FROM seal_binding WHERE id=%s", (source["binding_id"],))
             for mode, interval, due in (
                 ("collect", source["config"]["poll_seconds"], source["next_poll"] <= now),
                 (
                     "recheck",
                     source["config"]["recheck_seconds"],
-                    c.execute(
-                        "SELECT 1 FROM seal_document d WHERE source_id=%s AND namespace='runtime' "
-                        "AND next_check<=now() AND EXISTS "
-                        "(SELECT 1 FROM seal_result r WHERE r.document_id=d.id) LIMIT 1",
-                        (source["id"],),
-                    ).fetchone()
-                    is not None
-                    or (
-                        has_records
-                        and c.execute(
-                            "SELECT 1 FROM seal_record WHERE source_id=%s AND namespace='runtime' "
-                            "AND latest_result IS NOT NULL AND next_check<=now() LIMIT 1",
-                            (source["id"],),
-                        ).fetchone()
-                        is not None
-                    ),
+                    has_due(c, source["id"], binding["config"]["output_schema"]),
                 ),
             ):
                 if not due:
@@ -75,29 +60,30 @@ def schedule_due():
                 ).fetchone()
                 if pending:
                     continue
-                slot = f"{source['id']}:{source['generation']}:{mode}:{int(now.timestamp()) // interval}"
-                run_id = create_run(source["binding_id"], mode, c, slot=slot)
-                enqueue(c, run_id)
+                # Active-run deduplication plus the Source lock serializes due batches.
+                # A terminal batch must not occupy the whole interval's slot: its
+                # remaining due targets may need another batch immediately.
+                suffix = (
+                    source["run_seq"] + 1 if mode == "recheck" else int(now.timestamp()) // interval
+                )
+                slot = f"{source['id']}:{source['generation']}:{mode}:{suffix}"
+                try:
+                    with c.transaction():
+                        run_id = create_run(
+                            source["binding_id"], mode, c, slot=slot, due_only=mode == "recheck"
+                        )
+                        enqueue(c, run_id)
+                except SealError as exc:
+                    rejections.append({"source_id": source["id"], "mode": mode, "reason": exc.code})
+                    continue
                 if mode == "collect":
                     c.execute(
                         "UPDATE seal_source SET next_poll=now()+(%s * interval '1 second') WHERE id=%s",
                         (interval, source["id"]),
                     )
-                else:
-                    c.execute(
-                        "UPDATE seal_document d SET next_check=now()+(%s * interval '1 second') "
-                        "WHERE source_id=%s AND namespace='runtime' AND EXISTS "
-                        "(SELECT 1 FROM seal_result r WHERE r.document_id=d.id)",
-                        (interval, source["id"]),
-                    )
-                    if has_records:
-                        c.execute(
-                            "UPDATE seal_record SET next_check=now()+(%s * interval '1 second') "
-                            "WHERE source_id=%s AND namespace='runtime' AND latest_result IS NOT NULL",
-                            (interval, source["id"]),
-                        )
                 created.append(run_id)
-    return {"run_ids": created}
+                source = one(c, "SELECT * FROM seal_source WHERE id=%s", (source["id"],))
+    return {"run_ids": created, "recheck_rejections": rejections}
 
 
 @app.periodic(cron="* * * * *")

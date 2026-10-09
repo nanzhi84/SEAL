@@ -1,0 +1,213 @@
+{
+  "artifact_version": 1,
+  "review_kind": "independent_behavior_and_disclosure_review",
+  "reviewed_at_utc": "2026-10-09T12:45:06.413788+00:00",
+  "status": "PASS",
+  "scope": "Final bounded acceptance artifacts, prior oracle failures, SAFE pagination/recheck boundaries, frozen parent deduplication, Replay archived-input provenance, and public evidence disclosure. No raw session identifiers retained.",
+  "checks": [
+    {
+      "check": "oracle_rejects_empty_result_evidence",
+      "status": "PASS",
+      "evidence": {
+        "rejection": "no_result_evidence"
+      }
+    },
+    {
+      "check": "oracle_rejects_missing_body_locator",
+      "status": "PASS",
+      "evidence": {
+        "rejection": "incomplete_field_locators"
+      }
+    },
+    {
+      "check": "safe_first_exact_41",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_first_declared_url_scope",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_first_no_page3",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_second_exact_41",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_second_declared_url_scope",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_second_no_page3",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_recheck_exact_41",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_recheck_declared_url_scope",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_recheck_no_page3",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_replay_exact_41",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_replay_declared_url_scope",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_replay_no_page3",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_all_rounds_same_record_identity_set",
+      "status": "PASS"
+    },
+    {
+      "check": "safe_exact_frozen_recheck_seeds",
+      "status": "PASS",
+      "evidence": {
+        "distinct_expected_seeds": 3,
+        "actual_seeds": 3
+      }
+    },
+    {
+      "check": "public_query_exact_parent_dedup_v12_live_dd_247",
+      "status": "PASS",
+      "evidence": {
+        "distinct_parent_requests": 2
+      }
+    },
+    {
+      "check": "public_query_exact_parent_dedup_v12_live_dd_009",
+      "status": "PASS",
+      "evidence": {
+        "distinct_parent_requests": 2
+      }
+    },
+    {
+      "check": "replay_closed_archive_inputs_v12-live-dd-116-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_v12_live_dd_009-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_v12-live-dd-017-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_live_dd_050-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_v12_live_dd_247-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_v12-live-dd-102-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_live_dd_151-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_v12-live-dd-041-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_live_dd_468-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "replay_closed_archive_inputs_live_dd_004-replay",
+      "status": "PASS"
+    },
+    {
+      "check": "public_bundle_matches_index_hash",
+      "status": "PASS"
+    },
+    {
+      "check": "public_archive_contains_no_session_marker_values",
+      "status": "PASS",
+      "evidence": {
+        "matching_members": 0
+      }
+    },
+    {
+      "check": "public_discloses_safe_local_only",
+      "status": "PASS"
+    },
+    {
+      "check": "public_original_bodies_withheld_unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "full_local_verification_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "public_explicit_verification_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "public_default_verification_exit",
+      "status": "PASS"
+    },
+    {
+      "check": "public_default_rejects_full_evidence_claim",
+      "status": "PASS"
+    }
+  ],
+  "verification": {
+    "full_local": {
+      "exit": 0,
+      "files": 177,
+      "record_projections": 401,
+      "assertions": 739,
+      "error_count": 0
+    },
+    "public_explicit": {
+      "exit": 0,
+      "files": 168,
+      "record_projections": 237,
+      "assertions": 739,
+      "error_count": 0
+    },
+    "public_default": {
+      "exit": 1,
+      "files": 168,
+      "record_projections": 401,
+      "assertions": 739,
+      "error_count": 165
+    }
+  },
+  "safe_round_record_counts": {
+    "first": 41,
+    "second": 41,
+    "recheck": 41,
+    "replay": 41
+  },
+  "disclosure": {
+    "withheld_original_bodies": 9,
+    "raw_bytes_modified": false,
+    "safe_full_field_verification": "local_archive_only",
+    "public_default_full_verification": "rejected",
+    "public_other_sources_verification": "passed"
+  },
+  "limitations": [
+    "The public package excludes SAFE raw bodies and does not independently reproduce that Source field evidence.",
+    "Replay review proves no SEAL Downloader HTTP exchanges and exact archived input reuse; no operating system egress audit was performed.",
+    "Source scopes are bounded samples, not whole-site completeness or formal business quality Evaluation."
+  ]
+}

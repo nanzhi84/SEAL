@@ -2,9 +2,13 @@
 
 Self-Evolving Agentic Ingestion Loop：面向异构信息源的持续采集、原文归档和结构化提取项目。
 
-## V1.1 当前实现：Runtime
+## V1.2 当前实现：Runtime
 
 **Scrapy + 可信 Python Recipe + Procrastinate + PostgreSQL + 内容寻址原文归档。** 模块化单体，不新增服务。团队维护的 Recipe 使用普通 Python 和原生 Scrapy；不执行未经审查的 Agent 代码或外部任意 Python。
+
+V1.2 增加业务 Record、Discovery、多记录 JSON、静态 iframe 和业务附件。2026-10-09 的真实来源扩展处理全部 111 个 A/B/C 研究入口：98 个在冻结样本范围内 complete、3 个 partial、8 个受阻、2 个最终下载验收失败；比首轮新增 90 个通过来源。每项保留具体取样范围，不代表全站或原地图主体核验业务完成。[V1.2 Plan](docs/plans/v1.2-heterogeneous-sources.md) 集中记录合同、样本替换、运行命令和证据，[可视化](docs/generated/v1.2-heterogeneous-sources.html) 为其唯一派生物。
+
+2026-10-10 已修正 JSON 稳定身份 Recheck、到期记录分批、失败重试日期和重复 JSON 解析；补齐 AMAC 完整 7 页、67 条的来源 Recipe。新引擎已复验四个真实来源，先前 98 个通过来源的全套证据仍按历史版本保留。[修复验收索引](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json) 和 Plan 第 9 节记录当前范围与复跑命令。
 
 长期架构分为三个逻辑平面：
 
@@ -17,12 +21,15 @@ V1.1 删除 Trial、Gold Comparison、Review 和发布门禁。候选 Binding �
 ## 设计文档与历史
 
 - [版本记录](CHANGELOG.md)：V1.1 / 0.1.1 的变更、升级注意事项、验收结果及复现前提。
+- [扩展真实验收工件](experiments/v1.2-acceptance/results/expanded-final/real-evidence-index.json)：111 项处理结果、401 次 Run、8497/8497 验收断言及复跑入口；SAFE 的 9 个含会话标识原文对象仅留本地，公开包明确排除。
+- [本次修复工件](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json)：当前引擎的联合、迁移、Smoke、性能、分页及四个真实来源，保留有效 RED 与验收配置失败。
+- [首轮与 Runtime 历史回归工件](experiments/v1.2-acceptance/results/real-final/real-evidence-index.json)：首轮 10 个样本和当时引擎上的合成端到端回归，保留历史成功及失败证据。
 - [V1.1 Plan](docs/plans/v1.1-runtime.md)：架构、配置/数据合同、增量迁移、失败方式、验收及未交付能力。
 - [ADR-0003](docs/adr/0003-runtime-evaluation-management.md)：正式确立 Runtime、Evaluation、Management 三平面边界。
 - [V1.1 可视化](docs/generated/v1.1-runtime.html)：Plan 的唯一单页派生物。
 - [V1 Plan](docs/plans/v1-information-pipeline.md)、[ADR-0002](docs/adr/0002-python-recipes-minimal-v1.md)、[V1 可视化](docs/generated/v1-overview.html)：原样保留的历史设计，不是当前 CLI 合同。
 - [ADR-0001](docs/adr/0001-recipe-driven-fixed-pipeline.md)：早期历史提案。
-- [独立实验](experiments/scraper-benchmark/README.md)、[Source 适配与审计总表](docs/reference/source-adaptation.md)：历史研究及其工件，不由 Runtime 使用，也不代表 V1.1 质量验收。
+- [独立实验](experiments/scraper-benchmark/README.md)、[Source 适配与审计总表](docs/reference/source-adaptation.md)：原始研究及当前逐源验收台账；分类研究不由 Runtime 使用，也不代表业务质量审核。
 - [协作准则](AGENTS.md)：文档使用 seiso 管理，每个计划只配一个 Generated。
 
 ## 安装与升级
@@ -46,6 +53,8 @@ uv run --frozen seal --help
 - 当前 Source 配置不再接受 `expected_urls`；历史 Binding 快照保持不变。
 - 在线 Document namespace 改为 runtime，文档 ID 和修订链不变。旧治理列只保留历史数据，当前代码不读写它们。
 - 升级后重新打包 Recipe、创建 Binding，执行普通 Run/Replay 并选择默认版本。旧版本包含 V1 引擎摘要，不能冒充在 V1.1 环境原样复现。
+
+V1.2 增量迁移 `0003_records.sql`、`0004_discovery.sql`、`0005_recheck_plan.sql` 新增 Record、Discovery 与复查计划/退避元数据；保留历史结果和原文。更新前停 Worker，迁移后重新 pack Recipe 并创建 Binding。
 
 迁移带摘要登记，可重复执行。旧 checkout/venv 应保留；严格复现 V1 需使用配套的旧数据库副本，不让旧 Worker 连接升级后的库。回退恢复配套备份，不执行破坏性的 down migration。**V1 发布 JSON 消费者必须显式适配运行数据出口，不能继续把它视为已审核数据。**
 
@@ -84,7 +93,7 @@ uv run --frozen seal inspect source public_notices
 uv run --frozen seal export public_notices --output latest-runtime-results.json
 ```
 
-Worker 每分钟检查到期 Source、已知文档复查和 stalled jobs。默认一个 Crawl 执行槽；Scrapy 只管理单 Crawl 内的请求。Run 与 Procrastinate defer 同事务，不建第二套 URL Frontier。
+Worker 每分钟检查到期 Source、已知 Record/文档复查和 stalled jobs。自动 Recheck 仅冻结到期目标，按唯一父 API/详情 GET 的请求预算分批；未计划的记录不计缺失。排队不推进 `next_check`，成功完成才推进实际检查目标；失败保留到期日期，并使用独立的 30 秒至 1 小时退避。手动 `--recheck` 即刻复查全部已知范围，超过预算明确返回 `recheck_budget_exceeded`，需使用调度分批或调整冻结预算。默认一个 Crawl 执行槽；Scrapy 只管理单 Crawl 内的请求。Run 与 Procrastinate defer 同事务，不建第二套 URL Frontier。
 
 默认导出汇总每个文档最近成功在线 Run 的结果，包含候选 Binding 的运行，不只包含默认版本。失败的新 Run 不覆盖旧成功视图，报告执行状态和 stale。这是运行便利视图，不是完整性或质量保证；需要确定范围时使用 `--run`。
 

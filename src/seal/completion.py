@@ -128,17 +128,13 @@ def finish_run(run_id, epoch=None):
             finish_discovery(c, run, run["report"].get("finish_reason", "unknown"))
             discovery = summarize_discovery(c, run)
             errors.extend(discovery.get("unknown_coverage_reasons", []))
-        unobserved_records = []
+        from .recheck import complete_dates, failed_dates, scope_details
+
+        unobserved = []
         if records_available:
-            unobserved_records = c.execute(
-                """SELECT r.id AS record_id,r.record_type,r.record_key
-                   FROM seal_record r WHERE r.source_id=%s AND r.namespace=%s
-                     AND r.latest_result IS NOT NULL AND NOT EXISTS (
-                       SELECT 1 FROM seal_record_emission e WHERE e.record_id=r.id
-                         AND e.run_id=%s AND e.attempt_epoch=%s)
-                   ORDER BY r.record_type,r.record_key""",
-                (source["id"], run["namespace"], run_id, epoch),
-            ).fetchall()
+            from .recheck import unobserved_records
+
+            unobserved = unobserved_records(c, source, run)
         errors = sorted(set(errors))
         resource_counts = one(
             c,
@@ -151,16 +147,15 @@ def finish_run(run_id, epoch=None):
             input_roles=dict(Counter(entry["role"] for entry in run["inputs"])),
         )
         scope_evidence = {
+            **scope_details(run),
             "seed_count": len(run["seeds"]),
             "resolved_seed_count": sum(
                 (seed["url"], seed["role"]) in used_seeds for seed in run["seeds"]
             ),
             "business_population": "unknown",
-            "unknown_coverage": bool(errors)
-            or discovery["unknown_coverage"]
-            or bool(unobserved_records),
+            "unknown_coverage": bool(errors) or discovery["unknown_coverage"] or bool(unobserved),
             "unknown_coverage_reasons": sorted(
-                set(errors + (["records_unobserved"] if unobserved_records else []))
+                set(errors + (["records_unobserved"] if unobserved else []))
             ),
             "pagination_inputs": [
                 entry["snapshot_id"] for entry in run["inputs"] if entry["role"] in ("list", "api")
@@ -169,8 +164,8 @@ def finish_run(run_id, epoch=None):
                 entry["snapshot_id"] for entry in run["inputs"] if entry["role"] == "attachment"
             ],
             "record_absence_semantics": "unobserved_is_unknown_never_deleted",
-            "unobserved_records": unobserved_records,
-            "unobserved_record_count": len(unobserved_records),
+            "unobserved_records": unobserved,
+            "unobserved_record_count": len(unobserved),
         }
         report = dict(
             run["report"],
@@ -202,7 +197,7 @@ def finish_run(run_id, epoch=None):
             scope_evidence.update(
                 unknown_coverage=True,
                 unknown_coverage_reasons=sorted(
-                    set(errors + (["records_unobserved"] if unobserved_records else []))
+                    set(errors + (["records_unobserved"] if unobserved else []))
                 ),
             )
             status = completion_status(errors, online, epoch, run["max_attempts"])
@@ -210,6 +205,10 @@ def finish_run(run_id, epoch=None):
             from .records import accept_records
 
             accept_records(c, source, run, record_finish["outputs"])
+        if status == "complete":
+            complete_dates(c, source, run, record_finish["outputs"], outputs)
+        else:
+            failed_dates(c, source, run, status)
         c.execute(
             "UPDATE seal_run SET status=%s,report=%s,errors=%s,completed_at=now() WHERE id=%s",
             (status, j(report), j(errors), run_id),

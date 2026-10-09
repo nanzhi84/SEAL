@@ -15,6 +15,11 @@ def main():
     parser.add_argument("--stage", choices=["m0", "m1", "m2", "m3", "smoke"], required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--baseline", type=Path, help="Current M3 artifacts reused by smoke R12")
+    parser.add_argument(
+        "--compatibility-baseline",
+        type=Path,
+        help="Explicit historical database/archive input for smoke C01",
+    )
     parser.add_argument("--live", action="store_true", help="Opt-in bounded public-source smoke")
     parser.add_argument(
         "--live-source",

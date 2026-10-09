@@ -1,0 +1,76 @@
+{
+  "review": "C public source projection, frozen parameters and real acceptance evidence",
+  "samples": [
+    {
+      "source_id": "v12_live_dd_247",
+      "status": "PASS",
+      "checked_evidence": [
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_247-first.json",
+          "sha256": "b14418f5d196f73236452f55e89f05afcef23cec11ca411be8cb63d86a6e7eec",
+          "status": "complete",
+          "records": 20
+        },
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_247-second.json",
+          "sha256": "5fc659ee8f880ffb48eccbeac145775b80eac6ba1d90c346ed43c4760534a092",
+          "status": "complete",
+          "records": 20
+        },
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_247-recheck.json",
+          "sha256": "3bd31d70e9cfc4155c6f019bff24da5318f8de08a7f1ec1dca64905a7ab83056",
+          "status": "complete",
+          "records": 20
+        },
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_247-replay.json",
+          "sha256": "f75a026b395e19ef768f3e3ee2e7d889f6350618dcbf1890cf091ae779920987",
+          "status": "complete",
+          "records": 20
+        }
+      ]
+    },
+    {
+      "source_id": "v12_live_dd_009",
+      "status": "PASS",
+      "checked_evidence": [
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_009-first.json",
+          "sha256": "fa2494c4e19b7f48e3ebd64a0cbff8bfa764ae2771a0b17a91effe4fe561c92d",
+          "status": "complete",
+          "records": 29
+        },
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_009-second.json",
+          "sha256": "c22932f923fb12c7fb68532cdea678fcdb15a395a555b70d5735a7aed0709863",
+          "status": "complete",
+          "records": 29
+        },
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_009-recheck.json",
+          "sha256": "d59dc090ea6feada780cac11ef9fd3a4ed6feaf703cc225acf93097bd25b7189",
+          "status": "complete",
+          "records": 29
+        },
+        {
+          "path": "artifacts/acceptance/v1.2-live-first/v12_live_dd_009-replay.json",
+          "sha256": "4e7ffe0d280bef1ea81eb9f65ec37f0af2788299855c3e3b346fdedfe322f370",
+          "status": "complete",
+          "records": 29
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "identity_decisions": [
+    "dd-247 houseName is the scoped legal-name natural key; lineId omitted because permanent ID semantics were not verified. Renaming creates a new identity; old remains unknown.",
+    "dd-009 public company_number from real /company/ href. Search results are parent-request projections; profile crawling and officer results excluded."
+  ],
+  "scope": [
+    "AMAC fixed blank filters pageNo 1-2 pageSize 10; 20 of API reported 165 records.",
+    "Companies House q=TESCO pages 1-2; 29 company results from mixed entity results. No exact entity match or complete-company coverage claim."
+  ],
+  "discovery_review": "Recheck each has two unique parent seeds. Existing page2 is rediscovered from page1, and Scrapy natively drops that duplicate. No request outside the two-page sample is yielded.",
+  "t0_route_evidence": "experiments/v1.2-acceptance/live_samples/c-route-experiment.json"
+}

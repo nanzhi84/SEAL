@@ -1,0 +1,15 @@
+{
+  "status": "VERIFIED_TEST_ORACLE_DRIFT",
+  "artifact": "artifacts/acceptance/v1.2-review-m3-final",
+  "changes": [
+    {
+      "table": "run",
+      "row": 0,
+      "column": "recheck_plan",
+      "before": "<ABSENT>",
+      "after": null
+    }
+  ],
+  "historical_values_changed": false,
+  "repair": "Freeze every pre-upgrade column and compare every historical value; retain failed artifact."
+}

@@ -127,6 +127,13 @@ class HeterogeneousSpider(scrapy.Spider):
             yield from links
             yield from resources
         else:
+            if mode == "json" and self.params.get("json_scope") != "single_page":
+                # Generic JSON extraction declares one response only. Actual
+                # total/cursor/query semantics belong in a reviewed Source
+                # recipe, such as recipes/amac_full, rather than an implicit
+                # complete claim for the first page of an unknown API.
+                yield self.diagnostic(response, "pagination_contract_missing")
+                return
             try:
                 yield from self.records(response, mode)
             except (KeyError, TypeError, ValueError, SealError) as exc:

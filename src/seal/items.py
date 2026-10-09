@@ -139,12 +139,12 @@ def validate_candidate(item):
     return output, snapshot
 
 
-def stage_item(context, item):
+def stage_item(context, item, validation=None):
     run_id, epoch = context["id"], context["attempt_epoch"]
     if item.get("type") == "record":
         from .records import stage_record
 
-        return stage_record(context, item)
+        return stage_record(context, item, validation)
     if item.get("type") == "diagnostic":
         allowed = {
             "download_failed",
@@ -172,6 +172,9 @@ def stage_item(context, item):
             "json_record_parse_failed",
             "pdf_parse_failed",
             "pagination_limit",
+            "pagination_contract_missing",
+            "pagination_total_changed",
+            "pagination_incomplete",
             "sample_detail_limit",
             "attachment_format_unsupported",
             "record_parse_failed",
@@ -269,8 +272,8 @@ def stage_item(context, item):
                     (doc["id"], observation_key),
                 )["id"]
         c.execute(
-            "UPDATE seal_document SET latest_revision=%s,latest_observation=%s,next_check=now()+(%s * interval '1 second') WHERE id=%s",
-            (revision, item["observation_id"], source["config"]["recheck_seconds"], doc["id"]),
+            "UPDATE seal_document SET latest_revision=%s,latest_observation=%s WHERE id=%s",
+            (revision, item["observation_id"], doc["id"]),
         )
         if run["mode"] != "replay":
             c.execute(
@@ -315,18 +318,26 @@ def stage_item(context, item):
 class ItemPipeline:
     @classmethod
     def from_crawler(cls, crawler):
+        from .record_validation import JsonInputCache
+
         value = cls()
         value.context = crawler.settings["SEAL_CONTEXT"]
         value.crawler = crawler
         value.io = asyncio.Semaphore(value.context["config"]["concurrency"])
+        value.validation = JsonInputCache()
         return value
+
+    def close_spider(self):
+        self.validation.close()
+        for name, value in self.validation.stats().items():
+            self.crawler.stats.set_value("seal/record_json_" + name, value)
 
     async def process_item(self, item):
         from scrapy.exceptions import DropItem
 
         async with self.io:
             try:
-                await asyncio.to_thread(stage_item, self.context, dict(item))
+                await asyncio.to_thread(stage_item, self.context, dict(item), self.validation)
             except Exception as exc:
                 code = exc.code if isinstance(exc, SealError) else "invalid_candidate"
                 self.crawler.stats.inc_value("seal/errors")

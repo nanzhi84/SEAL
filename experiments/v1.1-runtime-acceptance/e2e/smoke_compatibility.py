@@ -7,22 +7,52 @@ import subprocess
 from pathlib import Path
 
 import psycopg
+from psycopg import sql
 
 from .smoke_cases import semantic
 from .smoke_support import offline_guard, sha, write
 
 
-def historical(s):
+def historical(s, compatibility_baseline=None):
     h = s.h
-    evidence = Path("artifacts/acceptance/v1.1-smoke/court-confirmed")
+    evidence = compatibility_baseline or Path("artifacts/acceptance/v1.1-smoke/court-confirmed")
     with s.case(
         "C01", "Previous Recipe/Binding/Result format and historical input compatibility"
     ) as case:
         if not (evidence / "database.sql").is_file():
+            if compatibility_baseline is not None:
+                h.check("explicit_historical_database_present", False)
             case["reason"] = (
                 "Previous acceptance database unavailable; generate the prior baseline first"
             )
             return
+        h.check("historical_archive_present", (evidence / "archive/objects").is_dir())
+        declaration = evidence / "manifest.json"
+        if declaration.is_file():
+            declared = json.loads(declaration.read_text())["files"]
+        else:
+            declaration = evidence / "provenance.json"
+            h.check("historical_hash_declaration_present", declaration.is_file())
+            declared = json.loads(declaration.read_text())["copied_files_sha256"]
+        h.check("historical_sql_hash_declared", "database.sql" in declared)
+        h.check(
+            "historical_input_hashes_verified",
+            bool(declared)
+            and all(
+                (evidence / name).resolve().is_relative_to(evidence.resolve())
+                and (evidence / name).is_file()
+                and sha((evidence / name).read_bytes()) == expected
+                for name, expected in declared.items()
+            ),
+        )
+        h.check(
+            "historical_objects_content_addressed",
+            all(
+                sha(path.read_bytes()) == path.parent.name + path.name
+                for path in (evidence / "archive/objects").glob("*/*")
+                if path.is_file()
+            ),
+        )
         original_env = dict(h.env)
         with psycopg.connect(h.env["SEAL_DATABASE_URL"], autocommit=True) as connection:
             connection.execute("CREATE DATABASE compatibility")
@@ -48,9 +78,54 @@ def historical(s):
             shutil.copytree(evidence / "archive", archive)
             h.env["SEAL_ARCHIVE"] = str(archive)
             with psycopg.connect(h.env["SEAL_DATABASE_URL"]) as connection:
+                h.check(
+                    "historical_schema_predates_records",
+                    connection.execute("SELECT to_regclass('seal_record')").fetchone()[0],
+                    None,
+                )
                 run_id, binding = connection.execute(
                     "SELECT id,binding_id FROM seal_run WHERE source_id='golden_g01' AND mode='collect' AND status='complete' ORDER BY created_at LIMIT 1"
                 ).fetchone()
+                columns = {}
+                for table in (
+                    "recipe_version",
+                    "binding",
+                    "run",
+                    "document",
+                    "revision",
+                    "result",
+                    "fetch_observation",
+                    "decision",
+                ):
+                    columns[table] = [
+                        row[0]
+                        for row in connection.execute(
+                            "SELECT column_name FROM information_schema.columns "
+                            "WHERE table_schema='public' AND table_name=%s ORDER BY ordinal_position",
+                            ("seal_" + table,),
+                        )
+                    ]
+
+            def historical_values():
+                with psycopg.connect(h.env["SEAL_DATABASE_URL"]) as connection:
+                    return {
+                        table: connection.execute(
+                            sql.SQL(
+                                "SELECT to_jsonb(t) FROM (SELECT {} FROM {} ORDER BY id) t"
+                            ).format(
+                                sql.SQL(",").join(map(sql.Identifier, names)),
+                                sql.Identifier("seal_" + table),
+                            )
+                        ).fetchall()
+                        for table, names in columns.items()
+                    }
+
+            # Current code writes the current schema: follow the public upgrade
+            # path before making a new Binding/Replay, preserving all old values.
+            old_values = historical_values()
+            h.check("legacy_export_before_upgrade", len(h.export("golden_g01")["documents"]), 1)
+            h.check("historical_public_migration", h.cli("db", "migrate")["schema"], "v1.2")
+            h.check("historical_old_columns_unchanged", historical_values(), old_values)
             before_binding = h.cli("inspect", "binding", binding)
             before_run = h.cli("inspect", "run", run_id)
             before_export = h.cli("export", "golden_g01", "--run", run_id)
@@ -108,6 +183,9 @@ def historical(s):
                     "replay": replay,
                     "new_export": after_export,
                     "historical_sql_sha256": sha((evidence / "database.sql").read_bytes()),
+                    "historical_input_path": str(evidence),
+                    "historical_declaration": str(declaration),
+                    "historical_declaration_sha256": sha(declaration.read_bytes()),
                 },
             )
         finally:

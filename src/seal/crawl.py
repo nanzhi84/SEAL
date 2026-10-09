@@ -48,7 +48,7 @@ def settings_for(context):
         "EXTENSIONS": {"seal.crawl.Completion": 100, "seal.discovery.Discovery": 110},
         "HTTPCACHE_ENABLED": False,
         "COOKIES_ENABLED": False,
-        "HTTPPROXY_ENABLED": True,
+        "HTTPPROXY_ENABLED": False,
         "ROBOTSTXT_OBEY": False,
         "RETRY_ENABLED": not replay,
         "RETRY_TIMES": 2,

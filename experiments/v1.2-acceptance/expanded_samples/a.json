@@ -1,0 +1,2288 @@
+[
+  {
+    "research_id": "dd-019",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-019",
+      "entry_urls": [
+        "https://www.court.gov.cn/zixun/xiangqing/512041.html"
+      ],
+      "allowed_hosts": [
+        "www.court.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/zixun/xiangqing/512041.html"
+      ],
+      "host_path_scopes": {
+        "www.court.gov.cn": [
+          "/zixun/xiangqing/512041.html"
+        ]
+      },
+      "research_ids": [
+        "dd-019"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：最高法网络法治典型案例发布正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".detail > .title",
+      "body_css": "#zoom",
+      "min_body_chars": 100,
+      "date_css": ".detail_mes .message li:nth-child(2)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "人民法院网络法治典型案例",
+        "网络生态治理长效机制"
+      ],
+      "title_anchors": [
+        "人民法院网络法治典型案例"
+      ],
+      "body_anchors": [
+        "网络生态治理长效机制"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.court.gov.cn/zixun/xiangqing/512041.html"
+      ],
+      "allowed_urls": [
+        "https://www.court.gov.cn/zixun/xiangqing/512041.html"
+      ],
+      "archived_urls": [
+        "https://www.court.gov.cn/zixun/xiangqing/512041.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-039",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-039",
+      "entry_urls": [
+        "https://www.spp.gov.cn/spp/dfjcdt/202610/t20261009_738135.shtml"
+      ],
+      "allowed_hosts": [
+        "www.spp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/spp/dfjcdt/202610/t20261009_738135.shtml"
+      ],
+      "host_path_scopes": {
+        "www.spp.gov.cn": [
+          "/spp/dfjcdt/202610/t20261009_738135.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-039"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：检察机关地方工作新闻正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".detail_tit",
+      "body_css": "#fontzoom",
+      "min_body_chars": 100,
+      "date_css": ".detail_extend1"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "林草资源领域行刑反向衔接",
+        "证据转化与互认"
+      ],
+      "title_anchors": [
+        "林草资源领域行刑反向衔接"
+      ],
+      "body_anchors": [
+        "证据转化与互认"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.spp.gov.cn/spp/dfjcdt/202610/t20261009_738135.shtml"
+      ],
+      "allowed_urls": [
+        "https://www.spp.gov.cn/spp/dfjcdt/202610/t20261009_738135.shtml"
+      ],
+      "archived_urls": [
+        "https://www.spp.gov.cn/spp/dfjcdt/202610/t20261009_738135.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-040",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-040",
+      "entry_urls": [
+        "https://www.spp.gov.cn/spp/gjgb/202608/t20260821_735328.shtml"
+      ],
+      "allowed_hosts": [
+        "www.spp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/spp/gjgb/202608/t20260821_735328.shtml"
+      ],
+      "host_path_scopes": {
+        "www.spp.gov.cn": [
+          "/spp/gjgb/202608/t20260821_735328.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-040"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：最高检公报 2026 年第 2 号目录；不采目录链接全文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".detail_tit",
+      "body_css": "#fontzoom",
+      "min_body_chars": 100,
+      "date_css": ".detail_extend1"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "总第211号",
+        "中华人民共和国渔业法"
+      ],
+      "title_anchors": [
+        "总第211号"
+      ],
+      "body_anchors": [
+        "中华人民共和国渔业法"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.spp.gov.cn/spp/gjgb/202608/t20260821_735328.shtml"
+      ],
+      "allowed_urls": [
+        "https://www.spp.gov.cn/spp/gjgb/202608/t20260821_735328.shtml"
+      ],
+      "archived_urls": [
+        "https://www.spp.gov.cn/spp/gjgb/202608/t20260821_735328.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-053",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-053",
+      "entry_urls": [
+        "http://www.qdac.org/bhdt/tsgg/202608/t20260807_10696290.shtml"
+      ],
+      "allowed_hosts": [
+        "www.qdac.org"
+      ],
+      "allowed_path_prefixes": [
+        "/bhdt/tsgg/202608/t20260807_10696290.shtml"
+      ],
+      "host_path_scopes": {
+        "www.qdac.org": [
+          "/bhdt/tsgg/202608/t20260807_10696290.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-053"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：仲裁委员会公开鉴定机构公告正文；不调用案件服务；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".n_contit strong",
+      "body_css": ".n_con .trs_editor_view",
+      "min_body_chars": 100,
+      "date_css": ".n_contit p"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "委托鉴定机构名册",
+        "山东方盛司法鉴定所"
+      ],
+      "title_anchors": [
+        "委托鉴定机构名册"
+      ],
+      "body_anchors": [
+        "山东方盛司法鉴定所"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://www.qdac.org/bhdt/tsgg/202608/t20260807_10696290.shtml"
+      ],
+      "allowed_urls": [
+        "http://www.qdac.org/bhdt/tsgg/202608/t20260807_10696290.shtml"
+      ],
+      "archived_urls": [
+        "http://www.qdac.org/bhdt/tsgg/202608/t20260807_10696290.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-108",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-108",
+      "entry_urls": [
+        "https://xy.cace.org.cn/NEWS/NContent?key=abd84a28f92b34d6696312c7a632014d"
+      ],
+      "allowed_hosts": [
+        "xy.cace.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/NEWS/NContent"
+      ],
+      "host_path_scopes": {
+        "xy.cace.org.cn": [
+          "/NEWS/NContent"
+        ]
+      },
+      "research_ids": [
+        "dd-108"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：信息通信行业信用评价复查通知及公开 HTML 表格；不调用主体查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "h3",
+      "body_css": "article",
+      "min_body_chars": 100,
+      "date_css": ".fbsj span:nth-child(1)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "2025年度信用评价复查",
+        "信用工作办公室"
+      ],
+      "title_anchors": [
+        "2025年度信用评价复查"
+      ],
+      "body_anchors": [
+        "信用工作办公室"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://xy.cace.org.cn/NEWS/NContent?key=abd84a28f92b34d6696312c7a632014d"
+      ],
+      "allowed_urls": [
+        "https://xy.cace.org.cn/NEWS/NContent?key=abd84a28f92b34d6696312c7a632014d"
+      ],
+      "archived_urls": [
+        "https://xy.cace.org.cn/NEWS/NContent?key=abd84a28f92b34d6696312c7a632014d"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-115",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-115",
+      "entry_urls": [
+        "https://scjgj.wuhan.gov.cn/jggg/tzgg/202610/t20261008_2857756.shtml"
+      ],
+      "allowed_hosts": [
+        "scjgj.wuhan.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/jggg/tzgg/202610/t20261008_2857756.shtml"
+      ],
+      "host_path_scopes": {
+        "scjgj.wuhan.gov.cn": [
+          "/jggg/tzgg/202610/t20261008_2857756.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-115"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：武汉市监局资金管理办法征求意见公示正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".article_title",
+      "body_css": ".article_content",
+      "min_body_chars": 100,
+      "date_css": ".date"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "知识产权发展资金管理办法",
+        "公示反映方式"
+      ],
+      "title_anchors": [
+        "知识产权发展资金管理办法"
+      ],
+      "body_anchors": [
+        "公示反映方式"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://scjgj.wuhan.gov.cn/jggg/tzgg/202610/t20261008_2857756.shtml"
+      ],
+      "allowed_urls": [
+        "https://scjgj.wuhan.gov.cn/jggg/tzgg/202610/t20261008_2857756.shtml"
+      ],
+      "archived_urls": [
+        "https://scjgj.wuhan.gov.cn/jggg/tzgg/202610/t20261008_2857756.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-123",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-123",
+      "entry_urls": [
+        "http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4581284.html"
+      ],
+      "allowed_hosts": [
+        "nr.dg.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xwzx/gwhgg/content/post_4581284.html"
+      ],
+      "host_path_scopes": {
+        "nr.dg.gov.cn": [
+          "/xwzx/gwhgg/content/post_4581284.html"
+        ]
+      },
+      "research_ids": [
+        "dd-123"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：东莞法定规划委员会会议旁听公告；不调用不动产核验；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".cen-title",
+      "body_css": "#zoom",
+      "min_body_chars": 100,
+      "date_pattern": "<meta\\s+name=\"PubDate\"\\s+content=\"([^\"]+)\""
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "申请旁听的公告",
+        "市民旁听席"
+      ],
+      "title_anchors": [
+        "申请旁听的公告"
+      ],
+      "body_anchors": [
+        "市民旁听席"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4581284.html"
+      ],
+      "allowed_urls": [
+        "http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4581284.html"
+      ],
+      "archived_urls": [
+        "http://nr.dg.gov.cn/xwzx/gwhgg/content/post_4581284.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-131",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-131",
+      "entry_urls": [
+        "https://www.dsedt.gov.mo/public/data/nc/c/attach/d20511906374ce2b23d250acfd4a776350ae3d26/tc/News_20260526_tc.pdf?ts=1779724800000"
+      ],
+      "allowed_hosts": [
+        "www.dsedt.gov.mo"
+      ],
+      "allowed_path_prefixes": [
+        "/public/data/nc/c/attach/d20511906374ce2b23d250acfd4a776350ae3d26/tc/News_20260526_tc.pdf"
+      ],
+      "host_path_scopes": {
+        "www.dsedt.gov.mo": [
+          "/public/data/nc/c/attach/d20511906374ce2b23d250acfd4a776350ae3d26/tc/News_20260526_tc.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-131"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：澳门兰花进口注意事项 PDF 公开贸易通知；不调用专利查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "pdf",
+      "record_type": "public_pdf_publication",
+      "title_pattern": "(蘭花進口本澳\\s*\\n注意事項)",
+      "min_body_chars": 300,
+      "date_pattern": "日期：(2026-05-22)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "蘭花進口本澳",
+        "第2/2017 號法律"
+      ],
+      "title_anchors": [
+        "蘭花進口本澳"
+      ],
+      "body_anchors": [
+        "第2/2017 號法律"
+      ],
+      "min_body_chars": 300,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.dsedt.gov.mo/public/data/nc/c/attach/d20511906374ce2b23d250acfd4a776350ae3d26/tc/News_20260526_tc.pdf?ts=1779724800000"
+      ],
+      "allowed_urls": [
+        "https://www.dsedt.gov.mo/public/data/nc/c/attach/d20511906374ce2b23d250acfd4a776350ae3d26/tc/News_20260526_tc.pdf?ts=1779724800000"
+      ],
+      "archived_urls": [
+        "https://www.dsedt.gov.mo/public/data/nc/c/attach/d20511906374ce2b23d250acfd4a776350ae3d26/tc/News_20260526_tc.pdf?ts=1779724800000"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-139",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-139",
+      "entry_urls": [
+        "https://www.epo.org/en/news-events/news/opposition-matters-2026"
+      ],
+      "allowed_hosts": [
+        "www.epo.org"
+      ],
+      "allowed_path_prefixes": [
+        "/en/news-events/news/opposition-matters-2026"
+      ],
+      "host_path_scopes": {
+        "www.epo.org": [
+          "/en/news-events/news/opposition-matters-2026"
+        ]
+      },
+      "research_ids": [
+        "dd-139"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：EPO 异议会议新闻正文；不调用专利数据库；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "h1",
+      "body_css": "main .field--name-body",
+      "min_body_chars": 100,
+      "date_css": ".main-date"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "Opposition Matters 2026",
+        "patent opposition proceedings"
+      ],
+      "title_anchors": [
+        "Opposition Matters 2026"
+      ],
+      "body_anchors": [
+        "patent opposition proceedings"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.epo.org/en/news-events/news/opposition-matters-2026"
+      ],
+      "allowed_urls": [
+        "https://www.epo.org/en/news-events/news/opposition-matters-2026"
+      ],
+      "archived_urls": [
+        "https://www.epo.org/en/news-events/news/opposition-matters-2026"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-142",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-142",
+      "entry_urls": [
+        "https://www.kipo.go.kr/ko/kpoBultnFileDown.do?ntatcSeq=21075&ntatcAtflSeq=2&sysCd=SCD02&aprchId=BUT0000029"
+      ],
+      "allowed_hosts": [
+        "www.kipo.go.kr"
+      ],
+      "allowed_path_prefixes": [
+        "/ko/kpoBultnFileDown.do"
+      ],
+      "host_path_scopes": {
+        "www.kipo.go.kr": [
+          "/ko/kpoBultnFileDown.do"
+        ]
+      },
+      "research_ids": [
+        "dd-142"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：KIPO 公开 AI 知识产权新闻 PDF，HTML 含外链 key 不进入可交付归档；不调用专利检索；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "pdf",
+      "record_type": "public_pdf_publication",
+      "title_pattern": "(“AI는 도구, 권리는 사람의 기여로”\\.\\.\\.\\n지 재 위, AI활 용 지 식 재 산 권 안 내 서 5종 종 합 점 검)",
+      "min_body_chars": 5000,
+      "date_pattern": "보도시점 (2026\\.10\\. 8\\.\\(목\\) 낮12시)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "AI는 도구, 권리는 사람의 기여로",
+        "AI는 발명자가 될 수 없으며"
+      ],
+      "title_anchors": [
+        "AI는 도구, 권리는 사람의 기여로"
+      ],
+      "body_anchors": [
+        "AI는 발명자가 될 수 없으며"
+      ],
+      "min_body_chars": 5000,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.kipo.go.kr/ko/kpoBultnFileDown.do?ntatcSeq=21075&ntatcAtflSeq=2&sysCd=SCD02&aprchId=BUT0000029"
+      ],
+      "allowed_urls": [
+        "https://www.kipo.go.kr/ko/kpoBultnFileDown.do?ntatcSeq=21075&ntatcAtflSeq=2&sysCd=SCD02&aprchId=BUT0000029"
+      ],
+      "archived_urls": [
+        "https://www.kipo.go.kr/ko/kpoBultnFileDown.do?ntatcSeq=21075&ntatcAtflSeq=2&sysCd=SCD02&aprchId=BUT0000029"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-153",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-153",
+      "entry_urls": [
+        "https://www.cnnic.cn/n4/2026/0917/c39-11677.html"
+      ],
+      "allowed_hosts": [
+        "www.cnnic.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/n4/2026/0917/c39-11677.html"
+      ],
+      "host_path_scopes": {
+        "www.cnnic.cn": [
+          "/n4/2026/0917/c39-11677.html"
+        ]
+      },
+      "research_ids": [
+        "dd-153"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：CNNIC 互联网域名实验室开放课题通知；不调用域名查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "h1",
+      "body_css": ".box-text",
+      "min_body_chars": 100,
+      "date_css": ".time"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "开放课题申报工作的通知",
+        "相关单位协同创新"
+      ],
+      "title_anchors": [
+        "开放课题申报工作的通知"
+      ],
+      "body_anchors": [
+        "相关单位协同创新"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.cnnic.cn/n4/2026/0917/c39-11677.html"
+      ],
+      "allowed_urls": [
+        "https://www.cnnic.cn/n4/2026/0917/c39-11677.html"
+      ],
+      "archived_urls": [
+        "https://www.cnnic.cn/n4/2026/0917/c39-11677.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-159",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-159",
+      "entry_urls": [
+        "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10833854/files/17dbc3d62e684e35b8e9ee04260be8fc.pdf"
+      ],
+      "allowed_hosts": [
+        "www.sse.com.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/aboutus/mediacenter/conference/c/10833854/files/17dbc3d62e684e35b8e9ee04260be8fc.pdf"
+      ],
+      "host_path_scopes": {
+        "www.sse.com.cn": [
+          "/aboutus/mediacenter/conference/c/10833854/files/17dbc3d62e684e35b8e9ee04260be8fc.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-159"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：上交所 2026-09-21 至 09-30 市场运行例行发布 PDF；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "pdf",
+      "record_type": "public_pdf_publication",
+      "title_pattern": "^(沪市市场运行情况例行发布)",
+      "min_body_chars": 1500,
+      "date_pattern": "（(2026 年 9 月 21 日至 2026 年 9 月 30 日)）"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "沪市市场运行情况例行发布",
+        "上证综指 3842"
+      ],
+      "title_anchors": [
+        "沪市市场运行情况例行发布"
+      ],
+      "body_anchors": [
+        "上证综指 3842"
+      ],
+      "min_body_chars": 1500,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10833854/files/17dbc3d62e684e35b8e9ee04260be8fc.pdf"
+      ],
+      "allowed_urls": [
+        "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10833854/files/17dbc3d62e684e35b8e9ee04260be8fc.pdf"
+      ],
+      "archived_urls": [
+        "https://www.sse.com.cn/aboutus/mediacenter/conference/c/10833854/files/17dbc3d62e684e35b8e9ee04260be8fc.pdf"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-183",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-183",
+      "entry_urls": [
+        "http://yss.mof.gov.cn/zhuantilanmu/dfzgl/zcfg/202111/t20211110_3764807.htm"
+      ],
+      "allowed_hosts": [
+        "yss.mof.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/zhuantilanmu/dfzgl/zcfg/202111/t20211110_3764807.htm"
+      ],
+      "host_path_scopes": {
+        "yss.mof.gov.cn": [
+          "/zhuantilanmu/dfzgl/zcfg/202111/t20211110_3764807.htm"
+        ]
+      },
+      "research_ids": [
+        "dd-183"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：财政部地方政府专项债券用途调整政策通知正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "h2.title_con",
+      "body_css": ".TRS_Editor .TRS_Editor",
+      "min_body_chars": 100,
+      "date_css": ".docreltime"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "地方政府专项债券用途调整操作指引",
+        "严禁先挪用、后调整"
+      ],
+      "title_anchors": [
+        "地方政府专项债券用途调整操作指引"
+      ],
+      "body_anchors": [
+        "严禁先挪用、后调整"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://yss.mof.gov.cn/zhuantilanmu/dfzgl/zcfg/202111/t20211110_3764807.htm"
+      ],
+      "allowed_urls": [
+        "http://yss.mof.gov.cn/zhuantilanmu/dfzgl/zcfg/202111/t20211110_3764807.htm"
+      ],
+      "archived_urls": [
+        "http://yss.mof.gov.cn/zhuantilanmu/dfzgl/zcfg/202111/t20211110_3764807.htm"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-198",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-198",
+      "entry_urls": [
+        "http://www.cspea.org.cn/article/hydt/bwxx/202607/20260700011917.shtml"
+      ],
+      "allowed_hosts": [
+        "www.cspea.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/article/hydt/bwxx/202607/20260700011917.shtml"
+      ],
+      "host_path_scopes": {
+        "www.cspea.org.cn": [
+          "/article/hydt/bwxx/202607/20260700011917.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-198"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：产权交易协会公开政策新闻正文；不调用产权交易查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".articlenr h3",
+      "body_css": "#zoom",
+      "min_body_chars": 100,
+      "date_pattern": "var tm = '([^']+)';"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "加强新时代社会工作的意见",
+        "学习贯彻工作部署推进会"
+      ],
+      "title_anchors": [
+        "加强新时代社会工作的意见"
+      ],
+      "body_anchors": [
+        "学习贯彻工作部署推进会"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://www.cspea.org.cn/article/hydt/bwxx/202607/20260700011917.shtml"
+      ],
+      "allowed_urls": [
+        "http://www.cspea.org.cn/article/hydt/bwxx/202607/20260700011917.shtml"
+      ],
+      "archived_urls": [
+        "http://www.cspea.org.cn/article/hydt/bwxx/202607/20260700011917.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-209",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-209",
+      "entry_urls": [
+        "http://gz.gemas.com.cn/article/zdtj/bstj/202309/20230900055374.shtml"
+      ],
+      "allowed_hosts": [
+        "gz.gemas.com.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/article/zdtj/bstj/202309/20230900055374.shtml"
+      ],
+      "host_path_scopes": {
+        "gz.gemas.com.cn": [
+          "/article/zdtj/bstj/202309/20230900055374.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-209"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：广州产权交易所 2023 年房产转让预公告；不代表当前项目状态；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".article_title",
+      "body_css": "#zoom",
+      "min_body_chars": 100,
+      "date_pattern": "var tm = '([^']+)';"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "两地房产预公告",
+        "项目名称"
+      ],
+      "title_anchors": [
+        "两地房产预公告"
+      ],
+      "body_anchors": [
+        "项目名称"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://gz.gemas.com.cn/article/zdtj/bstj/202309/20230900055374.shtml"
+      ],
+      "allowed_urls": [
+        "http://gz.gemas.com.cn/article/zdtj/bstj/202309/20230900055374.shtml"
+      ],
+      "archived_urls": [
+        "http://gz.gemas.com.cn/article/zdtj/bstj/202309/20230900055374.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-246",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-246",
+      "entry_urls": [
+        "https://www.amac.org.cn/hydj/xxgcddesdjs/202506/t20250610_26744.html"
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/hydj/xxgcddesdjs/202506/t20250610_26744.html"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/hydj/xxgcddesdjs/202506/t20250610_26744.html"
+        ]
+      },
+      "research_ids": [
+        "dd-246"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：基金业协会党建学习正文；不调用私募基金主体查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".job-tit",
+      "body_css": ".TRS_Editor",
+      "min_body_chars": 100,
+      "date_css": ".job-date"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中央八项规定精神",
+        "没有规矩"
+      ],
+      "title_anchors": [
+        "中央八项规定精神"
+      ],
+      "body_anchors": [
+        "没有规矩"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.amac.org.cn/hydj/xxgcddesdjs/202506/t20250610_26744.html"
+      ],
+      "allowed_urls": [
+        "https://www.amac.org.cn/hydj/xxgcddesdjs/202506/t20250610_26744.html"
+      ],
+      "archived_urls": [
+        "https://www.amac.org.cn/hydj/xxgcddesdjs/202506/t20250610_26744.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-265",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-265",
+      "entry_urls": [
+        "http://www.cctaa.cn/zxtz/202609/t20260928_1159780.html"
+      ],
+      "allowed_hosts": [
+        "www.cctaa.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/zxtz/202609/t20260928_1159780.html"
+      ],
+      "host_path_scopes": {
+        "www.cctaa.cn": [
+          "/zxtz/202609/t20260928_1159780.html"
+        ]
+      },
+      "research_ids": [
+        "dd-265"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：注册税务师协会公开培训通知正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".title",
+      "body_css": "#fontzoom",
+      "min_body_chars": 100,
+      "date_css": ".date"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "高级研修班的通知",
+        "中税协秘函〔2026〕36号"
+      ],
+      "title_anchors": [
+        "高级研修班的通知"
+      ],
+      "body_anchors": [
+        "中税协秘函〔2026〕36号"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://www.cctaa.cn/zxtz/202609/t20260928_1159780.html"
+      ],
+      "allowed_urls": [
+        "http://www.cctaa.cn/zxtz/202609/t20260928_1159780.html"
+      ],
+      "archived_urls": [
+        "http://www.cctaa.cn/zxtz/202609/t20260928_1159780.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-320",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-320",
+      "entry_urls": [
+        "http://zrzyt.shanxi.gov.cn/xw/chnl399/202610/t20261008_10230954.shtml"
+      ],
+      "allowed_hosts": [
+        "zrzyt.shanxi.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xw/chnl399/202610/t20261008_10230954.shtml"
+      ],
+      "host_path_scopes": {
+        "zrzyt.shanxi.gov.cn": [
+          "/xw/chnl399/202610/t20261008_10230954.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-320"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：山西鸟类保护政策新闻正文；不调用土地业务核验；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".ztzx_frame_title",
+      "body_css": "#UCAP-CONTENT",
+      "min_body_chars": 100,
+      "date_css": ".ztzx_frame_subtitle_l span:nth-child(1)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "总林长令",
+        "野生动物保护法"
+      ],
+      "title_anchors": [
+        "总林长令"
+      ],
+      "body_anchors": [
+        "野生动物保护法"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://zrzyt.shanxi.gov.cn/xw/chnl399/202610/t20261008_10230954.shtml"
+      ],
+      "allowed_urls": [
+        "http://zrzyt.shanxi.gov.cn/xw/chnl399/202610/t20261008_10230954.shtml"
+      ],
+      "archived_urls": [
+        "http://zrzyt.shanxi.gov.cn/xw/chnl399/202610/t20261008_10230954.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-323",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-323",
+      "entry_urls": [
+        "https://zrzy.jl.gov.cn/zwgk/tzgg/202610/t20261008_9726861.html"
+      ],
+      "allowed_hosts": [
+        "zrzy.jl.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/zwgk/tzgg/202610/t20261008_9726861.html"
+      ],
+      "host_path_scopes": {
+        "zrzy.jl.gov.cn": [
+          "/zwgk/tzgg/202610/t20261008_9726861.html"
+        ]
+      },
+      "research_ids": [
+        "dd-323"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：吉林矿产探矿权竞卖公告正文；不跟随登录 iframe；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".TRS_Editor > div:first-child",
+      "body_css": ".TRS_Editor",
+      "min_body_chars": 100,
+      "date_css": ".yqlj_left p:first-child"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "19宗战略性矿产探矿权",
+        "公告〔2026〕23号"
+      ],
+      "title_anchors": [
+        "19宗战略性矿产探矿权"
+      ],
+      "body_anchors": [
+        "公告〔2026〕23号"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://zrzy.jl.gov.cn/zwgk/tzgg/202610/t20261008_9726861.html"
+      ],
+      "allowed_urls": [
+        "https://zrzy.jl.gov.cn/zwgk/tzgg/202610/t20261008_9726861.html"
+      ],
+      "archived_urls": [
+        "https://zrzy.jl.gov.cn/zwgk/tzgg/202610/t20261008_9726861.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-324",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-324",
+      "entry_urls": [
+        "https://zrzyt.hlj.gov.cn/zrzyt/c112206/202608/c00_31968789.shtml"
+      ],
+      "allowed_hosts": [
+        "zrzyt.hlj.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/zrzyt/c112206/202608/c00_31968789.shtml"
+      ],
+      "host_path_scopes": {
+        "zrzyt.hlj.gov.cn": [
+          "/zrzyt/c112206/202608/c00_31968789.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-324"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：黑龙江重点建设项目自然资源要素保障政策新闻正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3,
+      "user_agent": "SEAL-SourceExperiment/1.0 (bounded public-source feasibility)"
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "h1",
+      "body_css": ".article_content",
+      "min_body_chars": 100,
+      "date_xpath": "/html/body/div[2]/div[2]/div/div[1]/div[1]/span[1]/b"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "自然资源要素保障",
+        "项目跟着规划走"
+      ],
+      "title_anchors": [
+        "自然资源要素保障"
+      ],
+      "body_anchors": [
+        "项目跟着规划走"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://zrzyt.hlj.gov.cn/zrzyt/c112206/202608/c00_31968789.shtml"
+      ],
+      "allowed_urls": [
+        "https://zrzyt.hlj.gov.cn/zrzyt/c112206/202608/c00_31968789.shtml"
+      ],
+      "archived_urls": [
+        "https://zrzyt.hlj.gov.cn/zrzyt/c112206/202608/c00_31968789.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-326",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-326",
+      "entry_urls": [
+        "http://zrzy.jiangsu.gov.cn/xwzx/xwbb/2026/10/09092344183605.html"
+      ],
+      "allowed_hosts": [
+        "zrzy.jiangsu.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xwzx/xwbb/2026/10/09092344183605.html"
+      ],
+      "host_path_scopes": {
+        "zrzy.jiangsu.gov.cn": [
+          "/xwzx/xwbb/2026/10/09092344183605.html"
+        ]
+      },
+      "research_ids": [
+        "dd-326"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：江苏天地图应用案例新闻正文；不调用地籍业务查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "td[style*=\"font-size:19px\"]",
+      "body_css": "#fontzoom",
+      "min_body_chars": 100,
+      "date_pattern": "<meta\\s+name=\"PubDate\"\\s+content=\"([^\"]+)\""
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "天地图典型应用案例",
+        "日均地图瓦片调用量"
+      ],
+      "title_anchors": [
+        "天地图典型应用案例"
+      ],
+      "body_anchors": [
+        "日均地图瓦片调用量"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://zrzy.jiangsu.gov.cn/xwzx/xwbb/2026/10/09092344183605.html"
+      ],
+      "allowed_urls": [
+        "http://zrzy.jiangsu.gov.cn/xwzx/xwbb/2026/10/09092344183605.html"
+      ],
+      "archived_urls": [
+        "http://zrzy.jiangsu.gov.cn/xwzx/xwbb/2026/10/09092344183605.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-327",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-327",
+      "entry_urls": [
+        "https://zrzyt.zj.gov.cn/art/2025/10/13/art_1229101716_2575686.html"
+      ],
+      "allowed_hosts": [
+        "zrzyt.zj.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/art/2025/10/13/art_1229101716_2575686.html"
+      ],
+      "host_path_scopes": {
+        "zrzyt.zj.gov.cn": [
+          "/art/2025/10/13/art_1229101716_2575686.html"
+        ]
+      },
+      "research_ids": [
+        "dd-327"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：浙江国土空间详细规划政策解读正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".title",
+      "body_css": "#zoom",
+      "min_body_chars": 100,
+      "date_css": ".fbrq_time"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "详细规划体系",
+        "起草背景"
+      ],
+      "title_anchors": [
+        "详细规划体系"
+      ],
+      "body_anchors": [
+        "起草背景"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://zrzyt.zj.gov.cn/art/2025/10/13/art_1229101716_2575686.html"
+      ],
+      "allowed_urls": [
+        "https://zrzyt.zj.gov.cn/art/2025/10/13/art_1229101716_2575686.html"
+      ],
+      "archived_urls": [
+        "https://zrzyt.zj.gov.cn/art/2025/10/13/art_1229101716_2575686.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-329",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-329",
+      "entry_urls": [
+        "http://zrzyt.fujian.gov.cn/zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220873.htm"
+      ],
+      "allowed_hosts": [
+        "zrzyt.fujian.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220873.htm"
+      ],
+      "host_path_scopes": {
+        "zrzyt.fujian.gov.cn": [
+          "/zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220873.htm"
+        ]
+      },
+      "research_ids": [
+        "dd-329"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：福建征地审批公开函正文；不调用全量征地查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".article_title",
+      "body_css": ".TRS_Editor .TRS_Editor",
+      "min_body_chars": 100,
+      "date_css": ".article_time"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "土地征收批复的函",
+        "自然资函〔2026〕550号"
+      ],
+      "title_anchors": [
+        "土地征收批复的函"
+      ],
+      "body_anchors": [
+        "自然资函〔2026〕550号"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://zrzyt.fujian.gov.cn/zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220873.htm"
+      ],
+      "allowed_urls": [
+        "http://zrzyt.fujian.gov.cn/zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220873.htm"
+      ],
+      "archived_urls": [
+        "http://zrzyt.fujian.gov.cn/zwgk/zfxxgkzl/zfxxgkml/qtyzdgkxx/202609/t20260930_7220873.htm"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-337",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-337",
+      "entry_urls": [
+        "http://lr.hainan.gov.cn/xxgk_317/0200/0202/202610/t20261009_4158352.html"
+      ],
+      "allowed_hosts": [
+        "lr.hainan.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xxgk_317/0200/0202/202610/t20261009_4158352.html"
+      ],
+      "host_path_scopes": {
+        "lr.hainan.gov.cn": [
+          "/xxgk_317/0200/0202/202610/t20261009_4158352.html"
+        ]
+      },
+      "research_ids": [
+        "dd-337"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：海南公开行政执法证件遗失公告正文；不调用土地查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "#zoom h2:first-of-type",
+      "body_css": "#zoom",
+      "min_body_chars": 100,
+      "date_css": "#NewsArticlePubDay"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "行政执法证件遗失公告",
+        "公告作废"
+      ],
+      "title_anchors": [
+        "行政执法证件遗失公告"
+      ],
+      "body_anchors": [
+        "公告作废"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://lr.hainan.gov.cn/xxgk_317/0200/0202/202610/t20261009_4158352.html"
+      ],
+      "allowed_urls": [
+        "http://lr.hainan.gov.cn/xxgk_317/0200/0202/202610/t20261009_4158352.html"
+      ],
+      "archived_urls": [
+        "http://lr.hainan.gov.cn/xxgk_317/0200/0202/202610/t20261009_4158352.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-348",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-348",
+      "entry_urls": [
+        "http://zrzygh.qingdao.gov.cn/gggs/tdgl/202609/t20260930_10745418.shtml"
+      ],
+      "allowed_hosts": [
+        "zrzygh.qingdao.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/gggs/tdgl/202609/t20260930_10745418.shtml"
+      ],
+      "host_path_scopes": {
+        "zrzygh.qingdao.gov.cn": [
+          "/gggs/tdgl/202609/t20260930_10745418.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-348"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：青岛国有建设用地使用权出让预申请公开公告正文；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": "h2",
+      "body_css": "#zoom",
+      "min_body_chars": 100,
+      "date_pattern": "<meta\\s+content=\"([^\"]+)\"\\s+name=\"DocRelTime\""
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "使用权出让预申请公告",
+        "宗地号"
+      ],
+      "title_anchors": [
+        "使用权出让预申请公告"
+      ],
+      "body_anchors": [
+        "宗地号"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://zrzygh.qingdao.gov.cn/gggs/tdgl/202609/t20260930_10745418.shtml"
+      ],
+      "allowed_urls": [
+        "http://zrzygh.qingdao.gov.cn/gggs/tdgl/202609/t20260930_10745418.shtml"
+      ],
+      "archived_urls": [
+        "http://zrzygh.qingdao.gov.cn/gggs/tdgl/202609/t20260930_10745418.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-385",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-385",
+      "entry_urls": [
+        "http://www.chinatorch.gov.cn/kjfw/tztg/202605/8f73017d4ff84709ba6b750f8ec5b5f8.shtml"
+      ],
+      "allowed_hosts": [
+        "www.chinatorch.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/kjfw/tztg/202605/8f73017d4ff84709ba6b750f8ec5b5f8.shtml"
+      ],
+      "host_path_scopes": {
+        "www.chinatorch.gov.cn": [
+          "/kjfw/tztg/202605/8f73017d4ff84709ba6b750f8ec5b5f8.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-385"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：火炬统计数据年审通知正文；不声称高新区名册覆盖；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".title",
+      "body_css": ".pages_content",
+      "min_body_chars": 100,
+      "date_css": ".pages-date > .font:first-child"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "火炬统计数据年审工作的通知",
+        "防范统计造假责任"
+      ],
+      "title_anchors": [
+        "火炬统计数据年审工作的通知"
+      ],
+      "body_anchors": [
+        "防范统计造假责任"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://www.chinatorch.gov.cn/kjfw/tztg/202605/8f73017d4ff84709ba6b750f8ec5b5f8.shtml"
+      ],
+      "allowed_urls": [
+        "http://www.chinatorch.gov.cn/kjfw/tztg/202605/8f73017d4ff84709ba6b750f8ec5b5f8.shtml"
+      ],
+      "archived_urls": [
+        "http://www.chinatorch.gov.cn/kjfw/tztg/202605/8f73017d4ff84709ba6b750f8ec5b5f8.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-423",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-423",
+      "entry_urls": [
+        "http://www.caac.gov.cn/FWDT/ZZCX/JTGLL/201709/P020211028531881614696.pdf"
+      ],
+      "allowed_hosts": [
+        "www.caac.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/FWDT/ZZCX/JTGLL/201709/P020211028531881614696.pdf"
+      ],
+      "host_path_scopes": {
+        "www.caac.gov.cn": [
+          "/FWDT/ZZCX/JTGLL/201709/P020211028531881614696.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-423"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：民航局 2021.10 历史设备许可目录 PDF；不代表当前资质状态；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "pdf",
+      "record_type": "public_pdf_publication",
+      "title_pattern": "^(民用航空空中交通通信导航监视设备使用许可目录)",
+      "min_body_chars": 10000,
+      "date_pattern": "（(2021\\.10) 更新）"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "通信导航监视设备使用许可目录",
+        "甚高频地空通信电台"
+      ],
+      "title_anchors": [
+        "通信导航监视设备使用许可目录"
+      ],
+      "body_anchors": [
+        "甚高频地空通信电台"
+      ],
+      "min_body_chars": 10000,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://www.caac.gov.cn/FWDT/ZZCX/JTGLL/201709/P020211028531881614696.pdf"
+      ],
+      "allowed_urls": [
+        "http://www.caac.gov.cn/FWDT/ZZCX/JTGLL/201709/P020211028531881614696.pdf"
+      ],
+      "archived_urls": [
+        "http://www.caac.gov.cn/FWDT/ZZCX/JTGLL/201709/P020211028531881614696.pdf"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-434",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-434",
+      "entry_urls": [
+        "https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf"
+      ],
+      "allowed_hosts": [
+        "www.nppa.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf"
+      ],
+      "host_path_scopes": {
+        "www.nppa.gov.cn": [
+          "/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-434"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：新闻出版署光盘复制单位 SID 码公开 PDF 全文；无可观察发布日期，不生成 date 字段；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "pdf",
+      "record_type": "public_pdf_publication",
+      "title_pattern": "^(全国只读类光盘复制单位光盘来源识别码（SID码）一览表)",
+      "min_body_chars": 2500
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "SID码",
+        "佛山市锋隆电子有限公司 IFPI A100-123"
+      ],
+      "title_anchors": [
+        "SID码"
+      ],
+      "body_anchors": [
+        "佛山市锋隆电子有限公司 IFPI A100-123"
+      ],
+      "min_body_chars": 2500,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf"
+      ],
+      "allowed_urls": [
+        "https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf"
+      ],
+      "archived_urls": [
+        "https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-482",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-482",
+      "entry_urls": [
+        "http://www.ccgp.gov.cn/news/202609/t20260928_27408954.htm"
+      ],
+      "allowed_hosts": [
+        "www.ccgp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/news/202609/t20260928_27408954.htm"
+      ],
+      "host_path_scopes": {
+        "www.ccgp.gov.cn": [
+          "/news/202609/t20260928_27408954.htm"
+        ]
+      },
+      "research_ids": [
+        "dd-482"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅冻结的单篇公开出版物：中国政府采购网采购统计公开新闻正文；不调用招标主体查询；直接 GET 业务详情，仅验证本篇标题/正文/可观察日期，不代表列表发现、全部历史或原地图主体核验业务。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 3,
+        "seconds": 90,
+        "response_bytes": 3000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_a",
+    "params": {
+      "mode": "html",
+      "record_type": "public_publication",
+      "title_css": ".vF_detail_header h2",
+      "body_css": ".vF_detail_content",
+      "min_body_chars": 100,
+      "date_css": "#pubTime"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "政府采购简要情况",
+        "33212.96亿元"
+      ],
+      "title_anchors": [
+        "政府采购简要情况"
+      ],
+      "body_anchors": [
+        "33212.96亿元"
+      ],
+      "min_body_chars": 100,
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "stable_keys": [
+        "http://www.ccgp.gov.cn/news/202609/t20260928_27408954.htm"
+      ],
+      "allowed_urls": [
+        "http://www.ccgp.gov.cn/news/202609/t20260928_27408954.htm"
+      ],
+      "archived_urls": [
+        "http://www.ccgp.gov.cn/news/202609/t20260928_27408954.htm"
+      ]
+    }
+  }
+]

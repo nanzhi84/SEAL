@@ -1,0 +1,78 @@
+{
+  "probes": [
+    {
+      "name": "dd-247-entry",
+      "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+      "observed_at": "2026-10-09T12:15:20.912156+00:00",
+      "via": "ordinary urllib GET using system network; no browser; zero retries",
+      "status": 200,
+      "final_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+      "content_type": "text/html",
+      "sha256": "256331c335f56fa1c1dd4fa22bf5fe7c8b34224d70e17af7a8bdfc166b4b2246",
+      "bytes": 319582
+    },
+    {
+      "name": "dd-247-page1",
+      "url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=&registerAddr=&officeAddr=",
+      "observed_at": "2026-10-09T12:15:21.572616+00:00",
+      "via": "ordinary urllib GET using system network; no browser; zero retries",
+      "status": 200,
+      "final_url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=&registerAddr=&officeAddr=",
+      "content_type": "application/json;charset=UTF-8",
+      "sha256": "249511bb0e884e9a8eb8c8a82f99fc0658352da8d05d8c0664933c9e0380668a",
+      "bytes": 1767
+    },
+    {
+      "name": "dd-247-page2",
+      "url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=2&pageSize=10&houseName=&registerAddr=&officeAddr=",
+      "observed_at": "2026-10-09T12:15:21.789649+00:00",
+      "via": "ordinary urllib GET using system network; no browser; zero retries",
+      "status": 200,
+      "final_url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=2&pageSize=10&houseName=&registerAddr=&officeAddr=",
+      "content_type": "application/json;charset=UTF-8",
+      "sha256": "e2b4ec570ccd0d0f8883aa07baad516bd3083a2521ce6a6fe1cd89548d26ea7d",
+      "bytes": 1777
+    },
+    {
+      "name": "dd-009-page1",
+      "url": "https://find-and-update.company-information.service.gov.uk/search?q=TESCO",
+      "observed_at": "2026-10-09T12:15:21.981552+00:00",
+      "via": "ordinary urllib GET using system network; no browser; zero retries",
+      "status": 200,
+      "final_url": "https://find-and-update.company-information.service.gov.uk/search?q=TESCO",
+      "content_type": "text/html;charset=UTF-8",
+      "sha256": "1b381956ea34b3b5583a466b57cd9b737bf392ef55719629abf126eb192fe711",
+      "bytes": 49197
+    },
+    {
+      "name": "dd-009-page2",
+      "url": "https://find-and-update.company-information.service.gov.uk/search?q=TESCO&page=2",
+      "observed_at": "2026-10-09T12:15:24.289725+00:00",
+      "via": "ordinary urllib GET using system network; no browser; zero retries",
+      "status": 200,
+      "final_url": "https://find-and-update.company-information.service.gov.uk/search?q=TESCO&page=2",
+      "content_type": "text/html;charset=UTF-8",
+      "sha256": "96522702b0a0e311ad212c1dc2ca31da842f81c85260d8c65a2c933862acccb8",
+      "bytes": 53411
+    },
+    {
+      "url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=%E6%98%93%E6%96%B9%E8%BE%BE&registerAddr=&officeAddr=",
+      "status": 200,
+      "sha256": "9f279bbb842b7fd6aa3300e49437a1b75c235008bdc82fd431fb1afe5eec8361",
+      "bytes": 305,
+      "purpose": "Verify whether lineId is positional under the public houseName filter"
+    },
+    {
+      "url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=20&houseName=&registerAddr=&officeAddr=",
+      "status": 200,
+      "sha256": "d0e7d564054cb61c1671f2ba5b628d7f1f488731a31b63fcc6afd9e37e56be20",
+      "bytes": 3398,
+      "purpose": "Verify native lineId across pagination size change"
+    }
+  ],
+  "blockers": [],
+  "business_key_decision": {
+    "dd-247": "houseName法定全称自然键；lineId虽然在筛选/pageSize实验中不变，但缺少官方业务ID语义，禁止将它当永久稳定业务键。名称更改属于新自然身份。",
+    "dd-009": "company href公开编号；仅搜索投影，officer结果排除。"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "artifact_version": 1,
+  "scope": "Final delivery navigation, bounded acceptance totals and byte-identical reassembly; not additional source runs",
+  "checks": [
+    {
+      "name": "frozen_assembly_reproducible",
+      "status": "PASS",
+      "public_archive_sha256": "4f53eaff8d83c5a5e0b0680eaf415da4d67b249bc3ea4f1c3757f18aa984c020",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/expansion_report.py --evidence original=artifacts/acceptance/v1.2-source-final --evidence a=artifacts/acceptance/v1.2-expanded-a --evidence b1=artifacts/acceptance/v1.2-expanded-b1-frozen --evidence b2=artifacts/acceptance/v1.2-expanded-b2-positive-final --evidence c=artifacts/acceptance/v1.2-expanded-c-final --evidence aux=artifacts/acceptance/v1.2-expanded-aux-final-v2 --diagnostics experiments/v1.2-acceptance/expanded_samples/a-outcomes.json --diagnostics experiments/v1.2-acceptance/expanded_samples/b1-outcomes.json --diagnostics experiments/v1.2-acceptance/expanded_samples/b2-outcomes.json --diagnostics experiments/v1.2-acceptance/expanded_samples/c-outcomes.json --failure-evidence b1_first=artifacts/acceptance/v1.2-expanded-b1-first --failure-evidence b2_first=artifacts/acceptance/v1.2-expanded-b2-first --failure-evidence b2_final_failed=artifacts/acceptance/v1.2-expanded-b2-final --failure-evidence b2_retry_failed=artifacts/acceptance/v1.2-expanded-b2-accepted --failure-evidence aux_first=artifacts/acceptance/v1.2-expanded-aux-final --local-output artifacts/acceptance/v1.2-expanded-all-final --public-output experiments/v1.2-acceptance/results/expanded-final",
+      "condition": "Use new local-output and public-output directories; frozen group artifacts must exist"
+    },
+    {
+      "name": "independent_real_source_review",
+      "status": "PASS",
+      "assertions": {
+        "passed": 1555,
+        "total": 1555
+      },
+      "path": "review.json"
+    },
+    {
+      "name": "reference_register_contract",
+      "status": "PASS",
+      "assertions": 15,
+      "command": "uv run --frozen python experiments/source-accessibility/verify_reference.py"
+    },
+    {
+      "name": "ruff_check",
+      "status": "PASS",
+      "command": "uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.2-acceptance experiments/v1.1-runtime-acceptance"
+    },
+    {
+      "name": "ruff_format_check",
+      "status": "PASS",
+      "files": 67,
+      "command": "uvx --from ruff==0.16.10 ruff format --check src recipes experiments/v1.2-acceptance experiments/v1.1-runtime-acceptance"
+    },
+    {
+      "name": "document_links",
+      "status": "PASS",
+      "command": "seiso check docs/plans/v1.2-heterogeneous-sources.md docs/reference/source-adaptation.md README.md"
+    },
+    {
+      "name": "git_diff_whitespace",
+      "status": "PASS",
+      "command": "git diff --check"
+    },
+    {
+      "name": "generated_document_visual",
+      "status": "PASS",
+      "environment": "Installed Chrome via Playwright, local file at 1440 and 390 pixels",
+      "results": [
+        {
+          "width": 1440,
+          "overflow": false,
+          "panels": 8,
+          "hasFinalCounts": true,
+          "has924": true,
+          "has98": true,
+          "errors": []
+        },
+        {
+          "width": 390,
+          "overflow": false,
+          "panels": 8,
+          "hasFinalCounts": true,
+          "has924": true,
+          "has98": true,
+          "errors": []
+        }
+      ],
+      "scope": "Page errors, document overflow, actual rendered counts, eight panels and desktop/mobile screenshot inspection"
+    }
+  ],
+  "documents": {
+    "README.md": "b91247eb58aa1c612debed098e9fa65abca8e76c88e9121180a7eae43b19df5a",
+    "docs/plans/v1.2-heterogeneous-sources.md": "9b547113f830b85c0600d68b3548a224943787bb2911781c8d44c60db1db85b9",
+    "docs/generated/v1.2-heterogeneous-sources.html": "86ca16848fb85a15bf5bcf48904772a9d0a7d3a725d676df8f6ed0477702e02d",
+    "docs/reference/source-adaptation.md": "5dc9eff379caaea582d89e550f14cc55f5ce7489aa677b611b90064d3fd94b99"
+  },
+  "acceptance_metrics": {
+    "accepted_samples": 101,
+    "final_acceptance_run_count": 401,
+    "first_round_record_count": 232,
+    "record_projection_count": 924,
+    "historical_failed_runs_included": false
+  },
+  "isolated_postgres_remaining": 0,
+  "git_branch": "feat/v1.2-heterogeneous-sources",
+  "git_head": "f9714855e6586254e99cb0b5f55ee143aa1dd871",
+  "local_changes_committed": false,
+  "local_changes_pushed": false
+}

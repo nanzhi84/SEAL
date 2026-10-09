@@ -6,16 +6,16 @@ import subprocess
 import time
 from datetime import datetime, timedelta, timezone
 
-from .core import SealError, public_url, uid
+from .core import SealError, uid
 from .db import connect, j, locked_run, one
 
 
-def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
+def create_run(binding_id, mode, connection=None, replay_from=None, slot=None, due_only=False):
     if mode not in ("collect", "recheck", "replay"):
         raise SealError("unsupported_run_mode")
     if connection is None:
         with connect() as c:
-            return create_run(binding_id, mode, c, replay_from, slot)
+            return create_run(binding_id, mode, c, replay_from, slot, due_only)
     c = connection
     binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (binding_id,))
     source = one(c, "SELECT * FROM seal_source WHERE id=%s FOR UPDATE", (binding["source_id"],))
@@ -36,37 +36,11 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
     config = binding["config"]
     seeds = [{"url": url, "role": config["seed_role"]} for url in config["entry_urls"]]
     replay_inputs = []
+    recheck_plan = None
     if mode == "recheck":
-        seeds = [
-            {"url": d["url"], "role": "detail"}
-            for d in c.execute(
-                "SELECT url FROM seal_document d WHERE source_id=%s AND namespace='runtime' "
-                "AND EXISTS (SELECT 1 FROM seal_result r WHERE r.document_id=d.id) ORDER BY identity",
-                (source["id"],),
-            ).fetchall()
-        ]
-        if c.execute("SELECT to_regclass('seal_record') AS name").fetchone()["name"]:
-            records = c.execute(
-                "SELECT detail_url,parent_request FROM seal_record WHERE source_id=%s "
-                "AND namespace='runtime' AND latest_result IS NOT NULL ORDER BY record_type,record_key",
-                (source["id"],),
-            ).fetchall()
-            for record in records:
-                if record["detail_url"]:
-                    seeds.append({"url": public_url(record["detail_url"]), "role": "detail"})
-                elif record["parent_request"]:
-                    seeds.append(dict(record["parent_request"]))
-                else:
-                    raise SealError("record_recheck_request_missing")
-            # A frozen API page is a single input, regardless of its Record count.
-            # This is seed preparation only; Scrapy still owns request deduplication.
-            unique = {}
-            for seed in seeds:
-                key = (public_url(seed["url"]), seed.get("method", "GET"))
-                unique.setdefault(key, seed)
-            seeds = list(unique.values())
-        if not seeds:
-            raise SealError("no_documents_to_recheck")
+        from .recheck import plan_recheck
+
+        seeds, recheck_plan = plan_recheck(c, source, config, due_only)
     if mode == "replay":
         original = one(c, "SELECT * FROM seal_run WHERE id=%s", (replay_from,))
         if original["source_id"] != source["id"]:
@@ -74,12 +48,13 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
         if not original["inputs"]:
             raise SealError("replay_inputs_missing")
         seeds, replay_inputs = original["seeds"], original["inputs"]
+        recheck_plan = original.get("recheck_plan")
     seq = source["run_seq"] + 1 if online else 0
     if online:
         c.execute("UPDATE seal_source SET run_seq=%s WHERE id=%s", (seq, source["id"]))
     c.execute(
-        """INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,replay_inputs,slot)
-        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+        """INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,replay_inputs,slot,recheck_plan)
+        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
         (
             identity,
             source["id"],
@@ -92,6 +67,7 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
             j(seeds),
             j(replay_inputs),
             slot,
+            j(recheck_plan) if recheck_plan is not None else None,
         ),
     )
     return identity
@@ -99,8 +75,18 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
 
 def end_run(connection, source, run, status, reason):
     from .manifest import terminal_report
+    from .recheck import failed_dates, scope_details, unobserved_records
 
+    unobserved = unobserved_records(connection, source, run)
+    scope = dict(
+        run["report"].get("scope_evidence", {}),
+        **scope_details(run),
+        unobserved_records=unobserved,
+        unobserved_record_count=len(unobserved),
+    )
+    run = dict(run, report=dict(run["report"], scope_evidence=scope))
     report = terminal_report(connection, source, run, status, reason)
+    failed_dates(connection, source, run, status)
     connection.execute(
         "UPDATE seal_run SET status=%s,completed_at=now(),errors=%s,report=%s WHERE id=%s",
         (status, j(report["errors"]), j(report), run["id"]),

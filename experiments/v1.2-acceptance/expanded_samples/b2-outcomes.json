@@ -1,0 +1,2215 @@
+{
+  "artifact_version": 1,
+  "assigned_ids": [
+    "dd-299",
+    "dd-318",
+    "dd-322",
+    "dd-328",
+    "dd-331",
+    "dd-332",
+    "dd-333",
+    "dd-338",
+    "dd-339",
+    "dd-340",
+    "dd-341",
+    "dd-345",
+    "dd-346",
+    "dd-350",
+    "dd-352",
+    "dd-357",
+    "dd-369",
+    "dd-370",
+    "dd-372",
+    "dd-374",
+    "dd-380",
+    "dd-389",
+    "dd-410",
+    "dd-445",
+    "dd-448",
+    "dd-449",
+    "dd-450",
+    "dd-455",
+    "dd-466",
+    "dd-474",
+    "dd-479",
+    "dd-481",
+    "dd-484",
+    "dd-485"
+  ],
+  "probe_scope": "bounded public GET,no cookies/auth/environment proxy,one original candidate and at most one official alternate detail; raw sensitive responses stay ignored work/",
+  "status": "final_positive_collection_passed_with_all_assigned_failures_retained",
+  "outcomes": [
+    {
+      "research_id": "dd-299",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.073089+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 52944,
+          "sha256": "4d9e03d921fa62d6ac0d7304fb23fc30c3075fd8721ada7b6cb86d46f841a83e",
+          "url": "https://www.rerc.com.cn/",
+          "final_url": "https://www.rerc.com.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.073325+00:00",
+          "status": 403,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 146,
+          "sha256": "32f2fa940d4b4fe19aca1e53a24e5aac29c57b7c5ee78588325b87f1b649c864",
+          "url": "https://www.rerc.com.cn/news/notice/20260707/961.html",
+          "final_url": "https://www.rerc.com.cn/news/notice/20260707/961.html"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:49:58.165247+00:00",
+          "status": 403,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 146,
+          "sha256": "32f2fa940d4b4fe19aca1e53a24e5aac29c57b7c5ee78588325b87f1b649c864",
+          "url": "https://www.rerc.com.cn/zrzy/20260205/853.html",
+          "final_url": "https://www.rerc.com.cn/zrzy/20260205/853.html"
+        }
+      ],
+      "status": "blocked",
+      "reason_code": "detail_http_403",
+      "reason": "规定notice候选及官网另一个zrzy实际详情均HTTP403，146字节拒绝页；入口200不等于正文可取。",
+      "scope": "仅已观察的两条静态详情；不推断整个网站永远不可用。",
+      "next_step": "站方允许公开详情访问或提供另一个经确认开放的正文入口后复验；不绕过拒绝。"
+    },
+    {
+      "research_id": "dd-318",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.073369+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 123014,
+          "sha256": "774257e79296f7ce40e1b69d176fe2b01b435fc47d666da92a58cfcff440442b",
+          "url": "https://ghhzrzy.tj.gov.cn/",
+          "final_url": "https://ghhzrzy.tj.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.073404+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 64918,
+          "sha256": "8ccd0006cb001aff3364df31f2e996d5cc890000760b2f843becbed984eb1e36",
+          "url": "https://ghhzrzy.tj.gov.cn/sy_143/xydt/202609/t20260928_7383799.html",
+          "final_url": "https://ghhzrzy.tj.gov.cn/sy_143/xydt/202609/t20260928_7383799.html"
+        },
+        {
+          "url": "https://ghhzrzy.tj.gov.cn/sy_143/xydt/202609/t20260928_7383799.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "8ccd0006cb001aff3364df31f2e996d5cc890000760b2f843becbed984eb1e36",
+          "snapshot_id": "f1fa7b0c43272f2590ce99a1e1c848fe881a1d61d273c5341e36bf7d17c6b0cc",
+          "observed_at": "2026-10-09 23:13:33.846488+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_318-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://ghhzrzy.tj.gov.cn/sy_143/xydt/202609/t20260928_7383799.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "c664d9e4-bdf2-46f9-abbf-fb96d045d7e4",
+          "6751b005-8c17-4862-b925-4c87ea6ef46e",
+          "a1036ca0-0a2e-46dc-a1b1-c52a65144e21",
+          "5ceaf50f-d6a9-42eb-925c-f4166297954a"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 899,
+        "title_chars": 23
+      }
+    },
+    {
+      "research_id": "dd-322",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.073446+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 137564,
+          "sha256": "3012ee0482666bcc9628e75f1e75905995b4cf5b4e37832973906552b5fe4340",
+          "url": "https://zrzy.ln.gov.cn/",
+          "final_url": "https://zrzy.ln.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.073478+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 55958,
+          "sha256": "b3792131a1aa2d3f49e31659a75a18038e953936595a88648757a6d78977a456",
+          "url": "https://zrzy.ln.gov.cn/zrzy/zfgkzdgz/-tdgy--zfhy--spjg--zcps--jytabljggk/2026092109254948431/index.shtml",
+          "final_url": "https://zrzy.ln.gov.cn/zrzy/zfgkzdgz/-tdgy--zfhy--spjg--zcps--jytabljggk/2026092109254948431/index.shtml"
+        },
+        {
+          "url": "https://zrzy.ln.gov.cn/zrzy/zfgkzdgz/-tdgy--zfhy--spjg--zcps--jytabljggk/2026092109254948431/index.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "b3792131a1aa2d3f49e31659a75a18038e953936595a88648757a6d78977a456",
+          "snapshot_id": "45de7cafc5c3efe13e4f866e08fb0882769f6dcb3fe17841d57425014fbe3b7c",
+          "observed_at": "2026-10-09 23:13:39.378202+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_322-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://zrzy.ln.gov.cn/zrzy/zfgkzdgz/-tdgy--zfhy--spjg--zcps--jytabljggk/2026092109254948431/index.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "426651e0-02a0-48ec-bef0-a2e0aff3a190",
+          "26fccdd1-ca20-47a9-8f15-082f54f54dff",
+          "f2fe54bc-4a28-4fa5-9301-1f60493d4558",
+          "dd27a1ec-9ffe-485f-81a9-877ca3f92bad"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 1161,
+        "title_chars": 22
+      }
+    },
+    {
+      "research_id": "dd-328",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.724350+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 77951,
+          "sha256": "1933b7794828d2b51cca79c4ae463b3132cde85b4a0a9d3f63076841b23ea918",
+          "url": "https://zrzyt.ah.gov.cn/",
+          "final_url": "https://zrzyt.ah.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.769100+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 15659,
+          "sha256": "0c19c86ac1606b827c93326562684c7c952fee98d637ba7863728618329d665a",
+          "url": "https://zrzyt.ah.gov.cn/xwdt/tpxw/150597451.html",
+          "final_url": "https://zrzyt.ah.gov.cn/xwdt/tpxw/150597451.html"
+        },
+        {
+          "url": "https://zrzyt.ah.gov.cn/xwdt/tpxw/150597451.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "0c19c86ac1606b827c93326562684c7c952fee98d637ba7863728618329d665a",
+          "snapshot_id": "1f86b05accbcb396c0ef25a8a3c475af46772e248af2444375c205cd0aa34262",
+          "observed_at": "2026-10-09 23:13:45.451824+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_328-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://zrzyt.ah.gov.cn/xwdt/tpxw/150597451.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "0d94a195-a302-443f-9d44-e504b68c94fa",
+          "e1d1d52d-5f15-4a2d-848a-f7ab288a4fbd",
+          "fb7beb1b-514f-44c1-8223-d6d4c730f4ec",
+          "a8785d5e-0425-456e-9cea-3108a041470a"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 165,
+        "title_chars": 39
+      }
+    },
+    {
+      "research_id": "dd-331",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:19.808761+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 75331,
+          "sha256": "77b1f8bbe69ee79384f3b8e54938c4231414efa661bdd6930901755452474be2",
+          "url": "http://dnr.shandong.gov.cn/",
+          "final_url": "http://dnr.shandong.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:20.336499+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 38107,
+          "sha256": "13cd652007fa704edd00bc51610d85bf11f5dfb64086ace0755803954d1804dc",
+          "url": "http://dnr.shandong.gov.cn/zwgk_324/xxgkml/ywdt/tzgg_29303/202609/t20260915_4993404.html",
+          "final_url": "http://dnr.shandong.gov.cn/zwgk_324/xxgkml/ywdt/tzgg_29303/202609/t20260915_4993404.html"
+        },
+        {
+          "url": "http://dnr.shandong.gov.cn/zwgk_324/xxgkml/ywdt/tzgg_29303/202609/t20260915_4993404.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "13cd652007fa704edd00bc51610d85bf11f5dfb64086ace0755803954d1804dc",
+          "snapshot_id": "b4055046d25b72b704b529ad989bc1a235a49301044052ab1166612280c73612",
+          "observed_at": "2026-10-09 23:13:51.611945+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_331-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://dnr.shandong.gov.cn/zwgk_324/xxgkml/ywdt/tzgg_29303/202609/t20260915_4993404.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "e0882433-18ec-4e48-9a16-672577df8f7b",
+          "0100a64c-2458-4fb3-ab08-c9131783a783",
+          "c6bc62dd-55b8-45bc-a7d4-1480e2f56e70",
+          "47a55fc4-7ff6-417c-a1a2-2d7fbf6922bd"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 497,
+        "title_chars": 28
+      }
+    },
+    {
+      "research_id": "dd-332",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:20.414431+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 134912,
+          "sha256": "eff32394494fc65f2b9bdda372d7a20635b407d928440649fa98347bc0e3ecf7",
+          "url": "https://dnr.henan.gov.cn/",
+          "final_url": "https://dnr.henan.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:20.502761+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 24750,
+          "sha256": "c2560d40aa9d6a2b6049adfe7010f9aac26907163e989d882d00c7655a4b39d8",
+          "url": "http://dnr.henan.gov.cn/2026/09-23/3431811.html",
+          "final_url": "https://dnr.henan.gov.cn/2026/09-23/3431811.html"
+        },
+        {
+          "url": "https://dnr.henan.gov.cn/2026/09-23/3431811.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "c2560d40aa9d6a2b6049adfe7010f9aac26907163e989d882d00c7655a4b39d8",
+          "snapshot_id": "8fad3c0e61e1fa7db6c4d3dccd7b83a3d6b1949498f8058a4cdc43f84b030991",
+          "observed_at": "2026-10-09 23:14:00.177069+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_332-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://dnr.henan.gov.cn/2026/09-23/3431811.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "d51146f1-67ce-4b46-af41-b3399a5f7cc5",
+          "33ac1c5a-f94d-4acb-8fdc-3c13dc83d5e3",
+          "395d49b8-161a-4bd7-bb66-bfe23835dfda",
+          "8e68540f-f02c-481e-ada0-0c7254eaaa03"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 230,
+        "title_chars": 20
+      }
+    },
+    {
+      "research_id": "dd-333",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:20.662063+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 110211,
+          "sha256": "4699f4cb5a16b0ce7b6423019201ed4d524039b063a2e48d3258885aea00df86",
+          "url": "http://zrzyt.hubei.gov.cn/",
+          "final_url": "http://zrzyt.hubei.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:20.960555+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 39282,
+          "sha256": "30fa122e00250089f7d03d225394a16f60d77525c7f08a236b5e7b0cfe19c33f",
+          "url": "http://zrzyt.hubei.gov.cn/bmdt/zrzyyw/202609/t20260923_6021526.shtml",
+          "final_url": "http://zrzyt.hubei.gov.cn/bmdt/zrzyyw/202609/t20260923_6021526.shtml"
+        },
+        {
+          "url": "http://zrzyt.hubei.gov.cn/bmdt/zrzyyw/202609/t20260923_6021526.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "30fa122e00250089f7d03d225394a16f60d77525c7f08a236b5e7b0cfe19c33f",
+          "snapshot_id": "75debff205ccfc3cb6b154f0fedc4093a3035cd9376aa93c2f2e163d322c92d6",
+          "observed_at": "2026-10-09 23:14:08.091243+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_333-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://zrzyt.hubei.gov.cn/bmdt/zrzyyw/202609/t20260923_6021526.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "f8f42dba-a387-4e0d-a592-a44db749db7e",
+          "a2627e36-cf17-4d3a-abfc-b8833e9bb53a",
+          "fbe66e03-6038-42bb-8f69-7811732e5612",
+          "16b9c792-3e38-45ba-b263-1ae9edc01d0f"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 606,
+        "title_chars": 33
+      }
+    },
+    {
+      "research_id": "dd-338",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:21.181201+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 106094,
+          "sha256": "59e70e82d97cd380abd1a441b03b5ef8106f7916c6515ea76d85a86fc0fc12c7",
+          "url": "http://ghzrzyj.cq.gov.cn/",
+          "final_url": "http://ghzrzyj.cq.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:21.263606+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 72829,
+          "sha256": "f7b36b490177ada62ef2ffdcc3317406821950599ad6cf76533879e1b1a4ca7b",
+          "url": "http://ghzrzyj.cq.gov.cn/zwxx_186/tzgg/202609/t20260930_16174199.html",
+          "final_url": "http://ghzrzyj.cq.gov.cn/zwxx_186/tzgg/202609/t20260930_16174199.html"
+        },
+        {
+          "url": "http://ghzrzyj.cq.gov.cn/zwxx_186/tzgg/202609/t20260930_16174199.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "f7b36b490177ada62ef2ffdcc3317406821950599ad6cf76533879e1b1a4ca7b",
+          "snapshot_id": "99a126c0026d70b2cabce84e90cde06e21a919bca4b2c95c6fe5d5750e328d7d",
+          "observed_at": "2026-10-09 23:14:13.956736+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_338-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://ghzrzyj.cq.gov.cn/zwxx_186/tzgg/202609/t20260930_16174199.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "bf51f073-4b6f-474a-8d07-317eab013af0",
+          "96299a38-21a8-4cba-9bc4-74850d6eb6ab",
+          "79603f5a-ab50-45c0-b538-0a1c35158a21",
+          "20360935-1651-442e-9504-a1ca6437e0b5"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 781,
+        "title_chars": 41
+      }
+    },
+    {
+      "research_id": "dd-339",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:21.579913+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 73782,
+          "sha256": "685bd804944fc22465e67fe1a37ef4b88d5030fded3c6b6f4741df4318d2fed1",
+          "url": "http://dnr.sc.gov.cn/",
+          "final_url": "http://dnr.sc.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:21.581389+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 52393,
+          "sha256": "5dd46015df7ecd9e7f015edeeef4f3bf7ed930f2493cac07b5f4e9c79295a47e",
+          "url": "http://dnr.sc.gov.cn/scdnr/scgsgg/2026/10/9/8f86cba2e97d4e2bbe8b3a7c96782778.shtml",
+          "final_url": "http://dnr.sc.gov.cn/scdnr/scgsgg/2026/10/9/8f86cba2e97d4e2bbe8b3a7c96782778.shtml"
+        },
+        {
+          "url": "http://dnr.sc.gov.cn/scdnr/scgsgg/2026/10/9/8f86cba2e97d4e2bbe8b3a7c96782778.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "5dd46015df7ecd9e7f015edeeef4f3bf7ed930f2493cac07b5f4e9c79295a47e",
+          "snapshot_id": "1d9a71644dc3a21228214657ecb0241123885ef0f5499dee52271b7e1d917476",
+          "observed_at": "2026-10-09 23:14:20.049889+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_339-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://dnr.sc.gov.cn/scdnr/scgsgg/2026/10/9/8f86cba2e97d4e2bbe8b3a7c96782778.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "a6515dfb-a3a6-4141-911d-dadbb3b9f240",
+          "c4444aca-b6bc-4e92-a809-3c4a06488ddf",
+          "fe42bebc-7b3d-4ff6-bf2d-01ac5866a55a",
+          "9f1417d1-2d3c-4aa7-b755-76030a9cc173"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 433,
+        "title_chars": 37
+      }
+    },
+    {
+      "research_id": "dd-340",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:21.996015+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 123200,
+          "sha256": "77a9c414284c433311a3288515eb9e6050850a6f24e10da1f584c8f92301ebd5",
+          "url": "https://zrzy.guizhou.gov.cn/",
+          "final_url": "https://zrzy.guizhou.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:22.094938+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 57911,
+          "sha256": "d7adc27eb995aac78161dea26116c8210b89cb6813b340b3bd2cf79c2485111c",
+          "url": "https://zrzy.guizhou.gov.cn/wzgb/xwzx/tzgg/202607/t20260714_90621074.html",
+          "final_url": "https://zrzy.guizhou.gov.cn/wzgb/xwzx/tzgg/202607/t20260714_90621074.html"
+        },
+        {
+          "url": "https://zrzy.guizhou.gov.cn/wzgb/xwzx/tzgg/202607/t20260714_90621074.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "d7adc27eb995aac78161dea26116c8210b89cb6813b340b3bd2cf79c2485111c",
+          "snapshot_id": "e5c9fd787aa76ebade6b671a79887521c8ed2d7197bfde06913699516ce5ee5a",
+          "observed_at": "2026-10-09 23:14:25.439090+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_340-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://zrzy.guizhou.gov.cn/wzgb/xwzx/tzgg/202607/t20260714_90621074.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "1fd41f54-686d-445b-9582-f4e9de05c524",
+          "a406bb5f-5a21-4c07-8aa7-2956c23b99a0",
+          "233d4758-b95a-40da-a92d-af4836a21a9a",
+          "302dbecf-6388-46db-9d7f-9bbfc48b0799"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 977,
+        "title_chars": 11
+      }
+    },
+    {
+      "research_id": "dd-341",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:22.280473+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 29533,
+          "sha256": "cbd64823621b54f2ef063cf0a3ac682442479c80152296e1f609fe81055773d2",
+          "url": "https://dnr.yn.gov.cn/",
+          "final_url": "https://dnr.yn.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:22.639101+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 13428,
+          "sha256": "0586587e02253e14c972fc655f11f406a4a95c9405f3dfe925788ee307122c5e",
+          "url": "https://dnr.yn.gov.cn/html/2026/ziranziyuanxinxi_0930/4053971.html",
+          "final_url": "https://dnr.yn.gov.cn/html/2026/ziranziyuanxinxi_0930/4053971.html"
+        },
+        {
+          "url": "https://dnr.yn.gov.cn/html/2026/ziranziyuanxinxi_0930/4053971.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "7120e54412f329b46be3b88086a4c7fa3fff70a3c7abe5909f210a036163850f",
+          "snapshot_id": "299add802e6192436cf045a10fa87e5e9d1e52aa5ae9a216520a2d597061ffe4",
+          "observed_at": "2026-10-09 23:14:30.818492+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_341-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://dnr.yn.gov.cn/html/2026/ziranziyuanxinxi_0930/4053971.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "5ff964fd-c785-4e41-9387-2498b1d4f6d7",
+          "37fc05ca-cbaa-4df3-ae14-0057885800bb",
+          "613d5449-7cd7-4c7e-8598-acc3e6e664e2",
+          "446a2213-71f9-489f-9a6e-4687648d6d71"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 2369,
+        "title_chars": 30
+      }
+    },
+    {
+      "research_id": "dd-345",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:22.737064+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 105020,
+          "sha256": "2164247f7f3aa6d924e6cca0cf86ae9ce3f2ba5bda89971c3598eab4ad956ce3",
+          "url": "https://zrzyt.nx.gov.cn/",
+          "final_url": "https://zrzyt.nx.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:22.810511+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 37248,
+          "sha256": "d38753f70907ad8ce25ade46d31861f4ba962a5b4b10c83103c35ed703358732",
+          "url": "https://zrzyt.nx.gov.cn/gk/fdzdgknr/tzgg/202609/t20260929_5360568.html",
+          "final_url": "https://zrzyt.nx.gov.cn/gk/fdzdgknr/tzgg/202609/t20260929_5360568.html"
+        },
+        {
+          "role": "pdf",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:49:58.165565+00:00",
+          "status": 200,
+          "content_type": "application/pdf",
+          "encoding": null,
+          "bytes": 87540,
+          "sha256": "3cfeca2c5ca399e62da7368b2cb14cf8462a5facef9399c8b97f0c2d8c5d7807",
+          "url": "https://zrzyt.nx.gov.cn/gk/fdzdgknr/tzgg/202609/W020260929538360178198.pdf",
+          "final_url": "https://zrzyt.nx.gov.cn/gk/fdzdgknr/tzgg/202609/W020260929538360178198.pdf"
+        },
+        {
+          "url": "https://zrzyt.nx.gov.cn/gk/fdzdgknr/tzgg/202609/W020260929538360178198.pdf",
+          "method": "GET",
+          "role": "attachment",
+          "status": 200,
+          "sha256": "3cfeca2c5ca399e62da7368b2cb14cf8462a5facef9399c8b97f0c2d8c5d7807",
+          "snapshot_id": "9768d5a19eb94c7ae21fe20f629c0a78f408e409b5df2d681a1a5b3edfb408f5",
+          "observed_at": "2026-10-09 23:14:37.266200+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_345-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅规定通知页面实际链接的2页文字PDF通知；不产出附件标题壳HTML为正文，不覆盖页面其余5份DOCX规范附件；不代表规范附表字段、主体核验或全站。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "e1c93ef3-1bad-4662-b6a8-2d2e3e439988",
+          "8eb399a2-fd95-427d-bd47-c86c047e944a",
+          "facef0ca-32c7-4445-8090-06a844b8fc3a",
+          "93dad573-7770-45eb-a05d-3f6458c9397c"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 197,
+        "title_chars": 32
+      }
+    },
+    {
+      "research_id": "dd-346",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:23.096822+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 82035,
+          "sha256": "17c1c5776e6eb2485d3418a53fc12a7d8c80470d9109ce283c20961ccd63cf52",
+          "url": "http://zrzyt.xinjiang.gov.cn/",
+          "final_url": "http://zrzyt.xinjiang.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:23.598266+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 39558,
+          "sha256": "36b606e54a560a2bba300a1b47846ea52a5ed58ff07738ac9cc510ad309517ff",
+          "url": "http://zrzyt.xinjiang.gov.cn/xjgtzy/gzdt/202609/8a1bf109ac9b48a7a58155892deca92e.shtml",
+          "final_url": "http://zrzyt.xinjiang.gov.cn/xjgtzy/gzdt/202609/8a1bf109ac9b48a7a58155892deca92e.shtml"
+        },
+        {
+          "url": "http://zrzyt.xinjiang.gov.cn/xjgtzy/gzdt/202609/8a1bf109ac9b48a7a58155892deca92e.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "36b606e54a560a2bba300a1b47846ea52a5ed58ff07738ac9cc510ad309517ff",
+          "snapshot_id": "90cac1a8f6818b09db748cbf54b8aa78f4eb2e46fa961e6b5f44d9bbda3051e9",
+          "observed_at": "2026-10-09 23:14:44.916452+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_346-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://zrzyt.xinjiang.gov.cn/xjgtzy/gzdt/202609/8a1bf109ac9b48a7a58155892deca92e.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "bb67752e-4e71-47bb-9602-e5f873c6e287",
+          "2249cd94-9688-4888-8b61-bd3e7c562401",
+          "fba54cd7-a187-4a3c-be30-78fd1cd846c3",
+          "62c926ad-9078-48b3-8f2d-68e43dc617a2"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 644,
+        "title_chars": 32
+      }
+    },
+    {
+      "research_id": "dd-350",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:24.875346+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 68768,
+          "sha256": "dfc14da9c08e5a64f6b492f4ca28872f99ffd7b472cae4e9cef02e959946fadf",
+          "url": "http://zygh.xm.gov.cn/",
+          "final_url": "http://zygh.xm.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:24.895093+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 52962,
+          "sha256": "57777853e9396d15f643d0aa535e30c599abeb3ee73f5275226089b12a029009",
+          "url": "http://zygh.xm.gov.cn/zfxxgk/zfxxgkml/cltzydxx/202609/t20260904_3015927.htm",
+          "final_url": "http://zygh.xm.gov.cn/zfxxgk/zfxxgkml/cltzydxx/202609/t20260904_3015927.htm"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:51:09.580363+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 36913,
+          "sha256": "f05573d4a9b5644ef6a371c9da8166fbf23d4914548a0809fc1633dbc942292d",
+          "url": "http://zygh.xm.gov.cn/dtxx/bwdt/202609/t20260908_3016340.htm",
+          "final_url": "http://zygh.xm.gov.cn/dtxx/bwdt/202609/t20260908_3016340.htm"
+        },
+        {
+          "url": "http://zygh.xm.gov.cn/dtxx/bwdt/202609/t20260908_3016340.htm",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "f05573d4a9b5644ef6a371c9da8166fbf23d4914548a0809fc1633dbc942292d",
+          "snapshot_id": "bd7e9e86bbbb879ecaf8f4fe6d92a3b78a16387f55913a307d4baac2ce779df5",
+          "observed_at": "2026-10-09 23:14:50.672482+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_350-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://zygh.xm.gov.cn/dtxx/bwdt/202609/t20260908_3016340.htm；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。原规定候选的非正文/附件或访问失败已保留，改用该官网入口一层链接的公开文本范围。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "84174ad3-9dd0-435c-938b-7d61894150b5",
+          "26185297-fb86-4495-b702-baa46e90cecd",
+          "f718618e-9c59-43ae-baf3-24a43e34eca7",
+          "71ceac05-8b2e-499d-b518-a714c16ca384"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 622,
+        "title_chars": 34
+      }
+    },
+    {
+      "research_id": "dd-352",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:25.748617+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 59614,
+          "sha256": "ff3a10d3f01f84ed738b502daa078f36d3c071abe18090d2d8b637fef81ff233",
+          "url": "http://zrzy.xjbt.gov.cn/",
+          "final_url": "http://zrzy.xjbt.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:25.931745+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 27138,
+          "sha256": "8454a5db3515c69a5e94ac35a0466cdcf234018626826013b7f506ee4edadb2a",
+          "url": "http://zrzy.xjbt.gov.cn/c/2026-09-22/8505759.shtml",
+          "final_url": "http://zrzy.xjbt.gov.cn/c/2026-09-22/8505759.shtml"
+        },
+        {
+          "url": "http://zrzy.xjbt.gov.cn/c/2026-09-22/8505759.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "8454a5db3515c69a5e94ac35a0466cdcf234018626826013b7f506ee4edadb2a",
+          "snapshot_id": "1d1579d5d7a0244f997d7429e8e04cb601a881f02875e62fcfb9c2545949df2e",
+          "observed_at": "2026-10-09 23:14:56.611173+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_352-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://zrzy.xjbt.gov.cn/c/2026-09-22/8505759.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "690e81ca-fd05-45d2-9f6f-392b823e1596",
+          "6b3649eb-66b1-4135-8876-52e4ed6eaa44",
+          "bb82ee79-813e-43f4-925f-47ce7d82f58f",
+          "596044d6-4b34-4ce3-9304-30a7f0b1b173"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 1117,
+        "title_chars": 45
+      }
+    },
+    {
+      "research_id": "dd-357",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:26.535125+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 14714,
+          "sha256": "5efc1a7324745e6279670c92649974b941c09fd9899cab7ea6c6ef3eac5b84db",
+          "url": "https://permit.mee.gov.cn/permitExt/defaults/default-index%21getInformation.action",
+          "final_url": "https://permit.mee.gov.cn/cas/login?service=https%3A%2F%2Fpermit.mee.gov.cn%2FpermitExt%2Foutside%2FLicenseRedirect"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:26.835691+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 14715,
+          "sha256": "cddb818b293cacbbcacd61f7dfb1a1a0d92b6d43d3a0329ec6c438335341b1a5",
+          "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+          "final_url": "https://permit.mee.gov.cn/cas/login?service=http%3A%2F%2Fpermit.mee.gov.cn%2Fperxxgkinfo%2Foutside%2FLicenseRedirect"
+        }
+      ],
+      "status": "blocked",
+      "reason_code": "mandatory_cas_login",
+      "reason": "入口及规定样本均重定向CAS登录页，没有匿名业务正文。",
+      "scope": "原全国排污许可入口与规定样本匿名GET。",
+      "next_step": "站方提供真正匿名公开业务入口后复验；不使用身份凭据。"
+    },
+    {
+      "research_id": "dd-369",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:26.987364+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 36949,
+          "sha256": "4e8d1080c61110215304eed30d32b00bbc8562e7b319487b52873a26c28341d5",
+          "url": "https://www.crra.org.cn/",
+          "final_url": "https://www.crra.org.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:27.872985+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 9957,
+          "sha256": "62bd2571a370dc4b8a0ebbc81ba9cd2204f3ed08a400d02638ed28bcb25fc796",
+          "url": "https://www.crra.org.cn/news/down",
+          "final_url": "https://www.crra.org.cn/news/down"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:49:58.165682+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 25188,
+          "sha256": "2e74d71e2d205cafab1bc8129ed2fad3e9c20d4a66c0fe12735791f9a9220d25",
+          "url": "https://www.crra.org.cn/news/zsyq/1538.html",
+          "final_url": "https://www.crra.org.cn/news/zsyq/1538.html"
+        },
+        {
+          "url": "https://www.crra.org.cn/news/zsyq/1538.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "2e74d71e2d205cafab1bc8129ed2fad3e9c20d4a66c0fe12735791f9a9220d25",
+          "snapshot_id": "09c4b90fc13d38062d3817bc0406f817fd2880eabadde4cb35ef4b585d8240bc",
+          "observed_at": "2026-10-09 23:15:02.776199+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_369-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://www.crra.org.cn/news/zsyq/1538.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。原规定候选的非正文/附件或访问失败已保留，改用该官网入口一层链接的公开文本范围。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "8536187d-6ca9-43d9-830b-222b3f7c72d5",
+          "528b02c0-a996-4aea-b727-b680a9ac89df",
+          "a0a05b41-5a0a-4290-8707-02543a1f6b03",
+          "730e2dec-3dbd-41ed-91c3-98bc69e3f7cd"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 1517,
+        "title_chars": 19
+      }
+    },
+    {
+      "research_id": "dd-370",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:27.902639+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 184215,
+          "sha256": "31868d514dd1ef08587a6cf1b8abc5c3b3ad64d628234f9506d5c6d9950368fc",
+          "url": "http://www.chemicalsafety.org.cn/index.php",
+          "final_url": "http://www.chemicalsafety.org.cn/index.php"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:27.905746+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 18164,
+          "sha256": "63d23183168259adb53ebf50b0e2c1b0d750d260213f23d82e407a5804676c10",
+          "url": "http://www.chemicalsafety.org.cn/xinwenzixun/shizhengyaowen/detail/6abdceccb8b16",
+          "final_url": "https://mp.weixin.qq.com/mp/wappoc_appmsgcaptcha?poc_token=REDACTED&target_url=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2Fjyr1EAZqYPLf0tDNv1Y0ZA"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:49:58.165806+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 18165,
+          "sha256": "b562ef92302be5952cf52f24302f107ee73d73bbcd508811453e075fa5a6404a",
+          "url": "http://www.chemicalsafety.org.cn/index.php/tongzhigonggao/detail/6ab4f2539bdd5",
+          "final_url": "https://mp.weixin.qq.com/mp/wappoc_appmsgcaptcha?poc_token=REDACTED&target_url=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2FiEp6Y7jljYslcXZ_jhQbCg"
+        }
+      ],
+      "status": "blocked",
+      "reason_code": "redirected_weixin_challenge",
+      "reason": "规定新闻及官网通知两条真实详情重定向微信环境异常/验证码页，无匿名正文。",
+      "scope": "这两条被官网链接的详情；入口可读不证明正文。",
+      "next_step": "站方提供无需挑战的公开正文或自有正文页面后复验；不执行微信验证码。"
+    },
+    {
+      "research_id": "dd-372",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:28.288089+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 131153,
+          "sha256": "7129397c3d31ce01871d1e74371bde4485f5b4b7aa1fa30e05c63aaf795edc72",
+          "url": "https://www.cwec.org.cn/",
+          "final_url": "https://www.cwec.org.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:28.379924+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 30231,
+          "sha256": "ea4a74de5f206d6f225364f503acc49c9cf9b3d01c109f514040a8dbe5ea11f3",
+          "url": "https://www.cwec.org.cn/cate_newinfo/156797.html",
+          "final_url": "https://www.cwec.org.cn/cate_newinfo/156797.html"
+        },
+        {
+          "url": "https://www.cwec.org.cn/cate_newinfo/156797.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "76aa62f8cbefe4d6ac228e674735672a1794c5e8816ae4ddb13cb66fa160141a",
+          "snapshot_id": "54d2afbc21ee7e98da246663a048e7915f53018569d7c4e5dd64754051654bd7",
+          "observed_at": "2026-10-09 23:15:08.922063+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_372-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://www.cwec.org.cn/cate_newinfo/156797.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。仅公开编制说明，公告提到的会员系统汇总文档仍需登录且未采集。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "044b3816-5813-44b3-a066-6043ae350bac",
+          "318dd20c-577c-4d58-af14-546928818ec2",
+          "385848b0-cb9a-4308-a470-7de4519a688a",
+          "72a7bb35-a29b-4762-9e75-628b9df50854"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 1086,
+        "title_chars": 27
+      }
+    },
+    {
+      "research_id": "dd-374",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:28.992356+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 60178,
+          "sha256": "b0ad3f289bdaa219136b0455dcf6cfbb80348d619bb76c473d256a146025ca0b",
+          "url": "https://www.acef.com.cn/",
+          "final_url": "https://www.acef.com.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:29.096406+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 41357,
+          "sha256": "1d9b6d348682bb60fb7c0f36b377bcb49b8c35c2c21eefdb0f4a6b3a7f0d960d",
+          "url": "https://www.acef.com.cn/a/jdt/2026/0924/30243.html",
+          "final_url": "https://www.acef.com.cn/a/ltzl/news/2026/0910/30242.html"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:51:09.580667+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 42036,
+          "sha256": "3efa6c00945f717e0c037e2e4b782258cd2f97968d2e605e21ae978e07e7baff",
+          "url": "https://www.acef.com.cn/a/news/gndt/2026/0904/30236.html",
+          "final_url": "https://www.acef.com.cn/a/news/gndt/2026/0904/30236.html"
+        },
+        {
+          "url": "https://www.acef.com.cn/a/news/gndt/2026/0904/30236.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "baaee88b617858e24d7a313e81dc2932a4c9acf8b8edaae6024ddde38ba64c6b",
+          "snapshot_id": "f09ae54519f537d0d702717537fcbc231bfdc30348cc6234a4d3f5b458542c7b",
+          "observed_at": "2026-10-09 23:15:15.066305+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_374-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://www.acef.com.cn/a/news/gndt/2026/0904/30236.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。原规定候选的非正文/附件或访问失败已保留，改用该官网入口一层链接的公开文本范围。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "8a10af17-a82a-4629-990f-dda3b0bbd704",
+          "3bc3ded8-d592-4ae6-81a1-1b950296cc56",
+          "50bf9648-5828-4b99-bc61-320c8a43cc44",
+          "92e22d31-520d-4920-b7ec-c67902295a84"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 785,
+        "title_chars": 27
+      }
+    },
+    {
+      "research_id": "dd-380",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:29.650551+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 32315,
+          "sha256": "83c189bbc1ddd5056a4ca017d8b6d795d64140a31c65a8bdaa07c9a3e19efb71",
+          "url": "http://www.innocom.gov.cn/",
+          "final_url": "http://www.innocom.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:30.131693+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 19241,
+          "sha256": "b9303a17cfb18d1d4d37dd8f50a0aae5e7c25ad002bd04889d243b70c4045f99",
+          "url": "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml",
+          "final_url": "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+        },
+        {
+          "url": "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": null,
+          "error": "DownloadFailedError",
+          "attempts": 3,
+          "runtime_status": "retryable",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-final/expanded_dd_380-first.json"
+        },
+        {
+          "url": "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": null,
+          "error": "DownloadFailedError",
+          "attempts": 3,
+          "runtime_status": "retryable",
+          "errors": [
+            "download_failed",
+            "unresolved_seed"
+          ],
+          "observed_at": "2026-10-09 23:11:09.886396+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-accepted/expanded_dd_380-first.json"
+        }
+      ],
+      "status": "failed",
+      "reason_code": "final_e2e_public_download_failed",
+      "reason": "原真实probe与旧recipe首轮四轮曾PASS；最终冻结recipe两个独立全集实际均三次bounded下载失败且无HTTP响应，当前不计适配成功；正文解析机制存在，不推断鉴权/永久停站或伪造HTTP状态。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "公开网络可达性恢复后在同固定URL、同参数与同公开GET上重新四轮验收；现阶段停止继续请求，保留历史成功与最终失败。"
+    },
+    {
+      "research_id": "dd-389",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:30.261932+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 23435,
+          "sha256": "659cb7adfee2ce4d72d1671955b80d7af58f6aa59ae6130f7a94ef43bba09c2b",
+          "url": "http://www.nsstec.org.cn/",
+          "final_url": "http://www.nsstec.org.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:30.459122+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 27350,
+          "sha256": "e28e9b1f181a9fcc0e4de890cbb98e07d59618e82567b9ba7c38fc4845e39f59",
+          "url": "http://www.nsstec.org.cn/tzgg/354521.shtml",
+          "final_url": "http://www.nsstec.org.cn/tzgg/354521.shtml"
+        },
+        {
+          "url": "http://www.nsstec.org.cn/tzgg/354521.shtml",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "e28e9b1f181a9fcc0e4de890cbb98e07d59618e82567b9ba7c38fc4845e39f59",
+          "snapshot_id": "b685e9718382002b45e5716a11a9e9520ef689a731374320dbbfc00f439f9806",
+          "observed_at": "2026-10-09 23:15:20.235034+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_389-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://www.nsstec.org.cn/tzgg/354521.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "cdcffe88-91da-46bf-a2f1-a2d1a59a4d67",
+          "d39d110f-f30b-4ad1-956e-6136d612dccf",
+          "89de2519-07da-47fb-84eb-8c03be488024",
+          "887e50b7-a6c3-41d6-852a-39693007aa93"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 290,
+        "title_chars": 22
+      }
+    },
+    {
+      "research_id": "dd-410",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:30.813530+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 85790,
+          "sha256": "e41b56a4f2b03915921cfaf58e568e9d76091c0297c16e208d8064153bb24cd8",
+          "url": "https://www.cde.org.cn/",
+          "final_url": "https://www.cde.org.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:31.106340+00:00",
+          "status": 202,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 25111,
+          "sha256": "54cbd127c8ccb8538af47dc409687c869c8109213a759b33c169ac8ce2c8f092",
+          "url": "https://www.cde.org.cn/main/news/viewInfoCommon/7779bef1b715bc652c1fee2dd2055f08",
+          "final_url": "https://www.cde.org.cn/main/news/viewInfoCommon/7779bef1b715bc652c1fee2dd2055f08"
+        }
+      ],
+      "status": "blocked",
+      "reason_code": "detail_http_202_javascript_challenge",
+      "reason": "规定CDE详情真实GET为HTTP202且响应为JS/WAF挑战，没有业务正文。",
+      "scope": "规定viewInfoCommon详情；入口HTML200仅证明官网首页可读。",
+      "next_step": "站方开放该详情或提供可匿名读取的正文接口后复验；不运行挑战JS或浏览器绕过。"
+    },
+    {
+      "research_id": "dd-445",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:31.204603+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 53622,
+          "sha256": "b6a31e58f37c6bd02b41332d32d252af95cba41905e80e42c006d0ad0675a29c",
+          "url": "https://press.nppa.gov.cn/",
+          "final_url": "https://press.nppa.gov.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:31.378190+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 26090,
+          "sha256": "d691472ddd28a30f3ad5c424a9f1be9cd282d88db53c22d0eeb1c3644f358243",
+          "url": "https://press.nppa.gov.cn/ggl/202609/t20260930_1010642.html",
+          "final_url": "https://press.nppa.gov.cn/ggl/202609/t20260930_1010642.html"
+        },
+        {
+          "url": "https://press.nppa.gov.cn/ggl/202609/t20260930_1010642.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "d691472ddd28a30f3ad5c424a9f1be9cd282d88db53c22d0eeb1c3644f358243",
+          "snapshot_id": "fe72feeff51e78aa5d3ee2a166ca66b3e7ee168bada25dd045be50d49dfbce60",
+          "observed_at": "2026-10-09 23:15:26.268221+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_445-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://press.nppa.gov.cn/ggl/202609/t20260930_1010642.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "7e6c7720-e3cf-4e7c-b5d3-2bb24b498ec0",
+          "53278031-d48c-4508-9a55-c6ed7b41ed85",
+          "ee279fc5-217a-4429-961a-539a26c10643",
+          "ab8be3c8-46aa-40fb-b9d2-9a750d0522f2"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 3356,
+        "title_chars": 59
+      }
+    },
+    {
+      "research_id": "dd-448",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:31.634210+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 32143,
+          "sha256": "059e20881a8b11c50bc97f93fc9bf36e4a37c569af0574be8c5d0ec5b8be6dfe",
+          "url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/",
+          "final_url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:31.843327+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 372965,
+          "sha256": "863a1c3e08aaa512833797f3522a86db4a4b847d4c340757221baf2bfc6ccfb2",
+          "url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/202609/t20260930_1010816.html",
+          "final_url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/202609/t20260930_1010816.html"
+        },
+        {
+          "url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/202609/t20260930_1010816.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "863a1c3e08aaa512833797f3522a86db4a4b847d4c340757221baf2bfc6ccfb2",
+          "snapshot_id": "2da0ad4673425f15988941bc0a03c3d22667f28626b7d6848825e4f3e8c8aad2",
+          "observed_at": "2026-10-09 23:15:32.266193+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_448-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅规定2026年8月下电影备案立项公示完整HTML统计段落及8个公开表格：7表77/42/9/10/7/4/7行共156条备案，另1表为注释。原生备案号、片名、结论、地区及公开JS document.write中的_badw备案单位/_biju编剧字面文本全部定位到原文；不执行JS，不将序号当电影稳定键，整体公示URL为文档身份；不追逐片详情链接或剧情全文，不代表主体核验、全站或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "public_js_mechanism": {
+        "same_response_body_sha256": "863a1c3e08aaa512833797f3522a86db4a4b847d4c340757221baf2bfc6ccfb2",
+        "raw_script_count": 327,
+        "dom_script_count": 327,
+        "all_script_sequence_texts_equal": true,
+        "literal_fields": [
+          "_badw",
+          "_biju"
+        ],
+        "mechanism": "source template document.write public literal, exact character spans; no JS execution",
+        "table_rows": [
+          77,
+          42,
+          9,
+          10,
+          7,
+          4,
+          7,
+          0
+        ],
+        "external_api_required": false
+      },
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "2a9485ec-31a6-4b99-9a47-45382539c01b",
+          "d8973e2f-5d27-4c09-ac5c-4897529c4b17",
+          "1a2144f9-2e33-4501-bc71-36e95f178779",
+          "0a046770-112f-4157-b90d-ab1cac23c391"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 9220,
+        "title_chars": 52
+      }
+    },
+    {
+      "research_id": "dd-449",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:31.886195+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 31948,
+          "sha256": "9ee5e1529c5644840b68f5e3d64bf45370bde9bfb21693d4e2e6c2a0bc809c48",
+          "url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dygyxkz/",
+          "final_url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dygyxkz/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:32.323159+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 57112,
+          "sha256": "349d70d6f50ac80dfa0d0cce215019035b0c2a661733727e322ee37cf4c3ca42",
+          "url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dygyxkz/202607/t20260716_999345.html",
+          "final_url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dygyxkz/202607/t20260716_999345.html"
+        },
+        {
+          "url": "https://www.chinafilm.gov.cn/xxgk/gsxx/dygyxkz/202607/t20260716_999345.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "349d70d6f50ac80dfa0d0cce215019035b0c2a661733727e322ee37cf4c3ca42",
+          "snapshot_id": "86342bd68ff6fb562a6c4190e7423fb966787f891be55ba9075d912dbfa67b1b",
+          "observed_at": "2026-10-09 23:15:45.608920+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_449-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://www.chinafilm.gov.cn/xxgk/gsxx/dygyxkz/202607/t20260716_999345.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。完整22行许可公示表格的原生文本及经官网公开JS确认的_bima字面编码，定位到原文字符；不执行JS，不将序号当稳定业务键。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "public_js_mechanism": {
+        "same_response_body_sha256": "349d70d6f50ac80dfa0d0cce215019035b0c2a661733727e322ee37cf4c3ca42",
+        "raw_script_count": 35,
+        "dom_script_count": 35,
+        "all_script_sequence_texts_equal": true,
+        "literal_fields": [
+          "_bima"
+        ],
+        "mechanism": "source template document.write public literal, exact character spans; no JS execution",
+        "table_rows": [
+          22
+        ],
+        "external_api_required": false
+      },
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "3f89d4bc-a03b-4084-a3d7-c110e16b6df2",
+          "63ef6e0c-fcdf-451f-a462-dad913100bc9",
+          "7c4dd982-7a2d-41c6-95f5-8f2b88391605",
+          "effbda26-7126-4bb2-b039-0036a74a3f01"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 1298,
+        "title_chars": 38
+      }
+    },
+    {
+      "research_id": "dd-450",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:32.367905+00:00",
+          "status": 200,
+          "content_type": null,
+          "encoding": null,
+          "bytes": 48383,
+          "sha256": "f2d50b879870bb87f4c425aa45e347457a33f7195fd443cf130f4db41ac46a33",
+          "url": "https://dsj.nrta.gov.cn/index.shanty",
+          "final_url": "https://dsj.nrta.gov.cn/index.shanty"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:32.445471+00:00",
+          "status": 200,
+          "content_type": null,
+          "encoding": null,
+          "bytes": 3651,
+          "sha256": "c2459ac139fbc7d2d292a6ecae4eb85bf3ac8afce65a2bedc812f510e993c476",
+          "url": "https://dsj.nrta.gov.cn/article.shanty?id=011ffde10bc20005402881a01ffddcdd",
+          "final_url": "https://dsj.nrta.gov.cn/article.shanty?id=011ffde10bc20005402881a01ffddcdd"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:49:58.165904+00:00",
+          "status": 200,
+          "content_type": null,
+          "encoding": null,
+          "bytes": 10077,
+          "sha256": "e9688aac2710e71a17f898b5b22fa1be43bf5bcd764e3b23edc5558a603797ca",
+          "url": "https://dsj.nrta.gov.cn/article.shanty?id=014e7123d1d2791f4028819a4d2365a7",
+          "final_url": "https://dsj.nrta.gov.cn/article.shanty?id=014e7123d1d2791f4028819a4d2365a7"
+        },
+        {
+          "url": "https://dsj.nrta.gov.cn/article.shanty?id=014e7123d1d2791f4028819a4d2365a7",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "e9688aac2710e71a17f898b5b22fa1be43bf5bcd764e3b23edc5558a603797ca",
+          "snapshot_id": "c96efbf7a232cb2fa556aa0d45689fec0d2a6464080232ab5e713899b45cbf53",
+          "observed_at": "2026-10-09 23:15:51.647561+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_450-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://dsj.nrta.gov.cn/article.shanty?id=014e7123d1d2791f4028819a4d2365a7；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。原规定候选的非正文/附件或访问失败已保留，改用该官网入口一层链接的公开文本范围。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "4e4b4f26-9615-4abb-bfba-7746bd90a05d",
+          "4a27a251-87c2-4a3a-98a8-e2085e45e710",
+          "46226320-e91b-4956-beb5-3479206c53a7",
+          "8bb2791f-4dc4-4381-93db-c3a89a33d939"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 1653,
+        "title_chars": 22
+      }
+    },
+    {
+      "research_id": "dd-455",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:32.629928+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 39301,
+          "sha256": "3ac8cc291ae980e44c70f5f80d667e7cfb8ebcea9e474e6ee004c7c248650925",
+          "url": "https://www.nppa.gov.cn/bsfw/jggs/yxspjg/",
+          "final_url": "https://www.nppa.gov.cn/bsfw/jggs/yxspjg/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:33.188827+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 93059,
+          "sha256": "66b704ee7ca66249269fca3def4b8fb8dfff8030348cde99b895bf2cdcc5c832",
+          "url": "https://www.nppa.gov.cn/bsfw/jggs/yxspjg/yxspbgxx/202601/t20260126_947941.html",
+          "final_url": "https://www.nppa.gov.cn/bsfw/jggs/yxspjg/yxspbgxx/202601/t20260126_947941.html"
+        },
+        {
+          "url": "https://www.nppa.gov.cn/bsfw/jggs/yxspjg/yxspbgxx/202601/t20260126_947941.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "66b704ee7ca66249269fca3def4b8fb8dfff8030348cde99b895bf2cdcc5c832",
+          "snapshot_id": "40bdb43ef58cb81d10dcb2ebfd105fdac43289fb1ce1ff8938f1f99821152edf",
+          "observed_at": "2026-10-09 23:16:01.173765+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_455-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://www.nppa.gov.cn/bsfw/jggs/yxspjg/yxspbgxx/202601/t20260126_947941.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "1c722c68-a452-4720-962d-21187c0e62e1",
+          "9d16a04e-5b60-4fb1-9a1e-9dac086894e3",
+          "1badd56f-45ab-41d9-9f54-fbb4b034eed9",
+          "d5cd8436-50d3-4590-867f-561d4945d15a"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 36225,
+        "title_chars": 13
+      }
+    },
+    {
+      "research_id": "dd-466",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:33.520896+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 21334,
+          "sha256": "199145acb97761314c37304cb905a5fb759e18b9afe45212a92f121fdd95d16b",
+          "url": "https://www.chsi.com.cn/xlcx/",
+          "final_url": "https://www.chsi.com.cn/xlcx/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:33.886883+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 19056,
+          "sha256": "dcaa67c560d2fefc79f18b65e074438868ee5062db63e67d7038455766f23201",
+          "url": "https://www.chsi.com.cn/xlcx/200710/20071019/1407132.html",
+          "final_url": "https://www.chsi.com.cn/xlcx/200710/20071019/1407132.html"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:51:09.580944+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 28920,
+          "sha256": "e5d4423f024af08557f7cfca63ee0d6985be48d701b80699454830a4dd7d699c",
+          "url": "https://www.chsi.com.cn/jyzx/201408/20140829/1245955796.html",
+          "final_url": "https://www.chsi.com.cn/jyzx/201408/20140829/1245955796.html"
+        },
+        {
+          "url": "https://www.chsi.com.cn/jyzx/201408/20140829/1245955796.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "e5d4423f024af08557f7cfca63ee0d6985be48d701b80699454830a4dd7d699c",
+          "snapshot_id": "1375032fc7883005efb1270b68521fe7ac1eee8ae5667bae341a543290a6d27a",
+          "observed_at": "2026-10-09 23:16:07.782009+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_466-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://www.chsi.com.cn/jyzx/201408/20140829/1245955796.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。原规定候选的非正文/附件或访问失败已保留，改用该官网入口一层链接的公开文本范围。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "7ff61e7e-ed0c-4aa8-b824-e860cb712b3a",
+          "718e1031-a0f4-43a0-b09b-30755e794d1b",
+          "1bf4d3c8-48d3-48d3-967d-e0ee55d34dd9",
+          "28cb97ac-8e09-4c95-a4b8-0289a8702972"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 3193,
+        "title_chars": 28
+      }
+    },
+    {
+      "research_id": "dd-474",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:34.187916+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 32708,
+          "sha256": "43ab9e426d8b8c8df80fbc91800de45935b8b6c5b4f910e7b27e808473e33b56",
+          "url": "http://www.cpta.com.cn/",
+          "final_url": "http://www.cpta.com.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:34.583289+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 17576,
+          "sha256": "8932a0cb6ff19dc2399468f6c8219c579f47782395db8dbe65532d7672071258",
+          "url": "http://www.cpta.com.cn/2026/2247.html",
+          "final_url": "http://www.cpta.com.cn/2026/2247.html"
+        },
+        {
+          "url": "http://www.cpta.com.cn/2026/2247.html",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "8932a0cb6ff19dc2399468f6c8219c579f47782395db8dbe65532d7672071258",
+          "snapshot_id": "7e574005719f9616375865ffb9274eb995eb1f24b77a1f0f5aacfcb5dd639636",
+          "observed_at": "2026-10-09 23:16:13.898348+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_474-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://www.cpta.com.cn/2026/2247.html；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "34f261a0-55b8-4d20-b4db-5375eaf09cb5",
+          "d6cee97b-67e7-44f0-b30e-ae21e9783f47",
+          "175269a0-e5ca-4c74-9955-9f14e1ccc900",
+          "3af1564b-4ca2-4cd0-922b-d22806bd6d22"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 186,
+        "title_chars": 32
+      }
+    },
+    {
+      "research_id": "dd-479",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:34.711776+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 65707,
+          "sha256": "c5d23bd8c4335c3ca7ee408c203a867cff35a5038b07976df631323d7de24a0e",
+          "url": "http://www.cxedu.org.cn/",
+          "final_url": "http://www.cxedu.org.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:34.761239+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 23614,
+          "sha256": "4e7a6563b3da39c784869c2e581203f1d2af92fdd653d05d33ef31634b513ce1",
+          "url": "http://www.cxedu.org.cn/articles_detail/176",
+          "final_url": "http://www.cxedu.org.cn/articles_detail/176"
+        },
+        {
+          "url": "http://www.cxedu.org.cn/articles_detail/176",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "4e7a6563b3da39c784869c2e581203f1d2af92fdd653d05d33ef31634b513ce1",
+          "snapshot_id": "218130c1dde8430196d26341d26e056c4b075d0ef40bebbeffa9e8178e55f7ec",
+          "observed_at": "2026-10-09 23:16:19.160163+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_479-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://www.cxedu.org.cn/articles_detail/176；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "bd929801-536b-499c-be6f-ed92fa69dfb8",
+          "8f835de1-9d25-4b13-bb2b-23466757e5c8",
+          "1b92a581-2fcf-4e01-b5ea-4e2810277e25",
+          "68c9b27f-db36-46d6-b69b-f54c503578df"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 534,
+        "title_chars": 23
+      }
+    },
+    {
+      "research_id": "dd-481",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:34.783736+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 187124,
+          "sha256": "d8d01cb2e4e01de7a6ecdd35b13010d69f42a7ca74bce850b832ff161e7d364f",
+          "url": "https://cnhsi.com.cn/",
+          "final_url": "https://cnhsi.com.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:35.375445+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "encoding": "utf-8",
+          "bytes": 31801,
+          "sha256": "51dcdc375d9095bc4e0e63053260ff7a5b2997ef73405b18a2c07ad7a6e9061d",
+          "url": "https://cnhsi.com.cn/News/?id=0105ecf5-d185-e911-813e-d988f6a8f2d2",
+          "final_url": "https://cnhsi.com.cn/News/?id=0105ecf5-d185-e911-813e-d988f6a8f2d2"
+        },
+        {
+          "url": "https://cnhsi.com.cn/News/?id=0105ecf5-d185-e911-813e-d988f6a8f2d2",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "51dcdc375d9095bc4e0e63053260ff7a5b2997ef73405b18a2c07ad7a6e9061d",
+          "snapshot_id": "028440c59f02ed71696a20f54cfc579f3ccb41257e3b6587fd4e1ba949eebb66",
+          "observed_at": "2026-10-09 23:16:25.092080+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_481-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL https://cnhsi.com.cn/News/?id=0105ecf5-d185-e911-813e-d988f6a8f2d2；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "3af9a8cb-4725-407a-a0c8-b0994b23c637",
+          "1a69d2bb-6dc7-4b59-ba69-adb161d70bce",
+          "1038e562-38eb-4099-b9a8-1101969ef521",
+          "be8d3eb8-afb4-4441-8926-235e153fdeed"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 553,
+        "title_chars": 40
+      }
+    },
+    {
+      "research_id": "dd-484",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:35.418342+00:00",
+          "error": "Remote end closed connection without response",
+          "url": "http://htgs.ccgp.gov.cn/GS8/contractpublish/search"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:35.466193+00:00",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 12467,
+          "sha256": "dce534298d5ad0967e2fe3d556898bb87ee9b0c7a05be8a7fc9d594478f47ed5",
+          "url": "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0",
+          "final_url": "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+        },
+        {
+          "url": "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0",
+          "method": "GET",
+          "role": "detail",
+          "status": 403,
+          "sha256": "ddff1135fedba0cfdec5b60e758edfde86655215b69f2ff3137c5a4ec6a17865",
+          "snapshot_id": "3d417bd040f075e5bd45eb930cf848b2a20fcb127da9aa031d150667025d7440",
+          "observed_at": "2026-10-09 23:07:03.571467+08:00",
+          "runtime_status": "partial",
+          "errors": [
+            "download_failed",
+            "http_error",
+            "unresolved_seed"
+          ],
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-final/expanded_dd_484-first.json"
+        }
+      ],
+      "status": "failed",
+      "reason_code": "latest_e2e_detail_http403",
+      "reason": "原公开详情probe和首轮旧recipe曾完整通过；冻结最终recipe全集这一轮固定详情实际返回HTTP403、partial，当前不计适配成功。遇到明确拒绝后停止该路径。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。当前默认列表入口断连；明确仅原已知合同详情，不声称列表发现/验证码筛选可用。",
+      "next_step": "站方恢复该固定公开详情匿名访问后重新验收；当前正文、默认列表与筛选可用性均未知，不绕过HTTP403。"
+    },
+    {
+      "research_id": "dd-485",
+      "class": "B",
+      "evidence": [
+        {
+          "role": "entry",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:35.735160+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=GBK",
+          "encoding": "gbk",
+          "bytes": 89624,
+          "sha256": "deebf1bb0b5a5e8d607ac27e67a372604c07e2e322e28c01593b2ed40c28d4cc",
+          "url": "http://www.ctba.org.cn/",
+          "final_url": "http://www.ctba.org.cn/"
+        },
+        {
+          "role": "candidate",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "observed_at": "2026-10-09T14:38:35.975815+00:00",
+          "status": 200,
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 14318,
+          "sha256": "e340a1201fa66f583ba94322d78a9359bed2273363402907098ebb9a2267f83b",
+          "url": "http://www.ctba.org.cn/zbcg/zzdg2026.html",
+          "final_url": "http://www.ctba.org.cn/zbcg/zzdg2026.html"
+        },
+        {
+          "role": "alternate",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "observed_at": "2026-10-09T14:49:58.166010+00:00",
+          "status": 200,
+          "content_type": "text/html;charset=GBK",
+          "encoding": "gbk",
+          "bytes": 11741,
+          "sha256": "4da8a8658b44d8cbe9f0426ce2b9daa5ad6a51999a15fb88ad299d9b41a50546",
+          "url": "http://www.ctba.org.cn/list_show.jsp?record_id=352861001106",
+          "final_url": "http://www.ctba.org.cn/list_show.jsp?record_id=352861001106"
+        },
+        {
+          "url": "http://www.ctba.org.cn/list_show.jsp?record_id=352861001106",
+          "method": "GET",
+          "role": "detail",
+          "status": 200,
+          "sha256": "4da8a8658b44d8cbe9f0426ce2b9daa5ad6a51999a15fb88ad299d9b41a50546",
+          "snapshot_id": "2c0a768a90c2ad2ef8b328da255247226288c357d5c74ff3c0843857dcf2e787",
+          "observed_at": "2026-10-09 23:16:33.651082+08:00",
+          "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/expanded_dd_485-first.json"
+        }
+      ],
+      "status": "ready",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "reason": "冻结最终RecipeVersion上的完整正向集合：两轮collect、Recheck、零网络Replay与每轮title/body独立业务合同均PASS；工程范围不代表原主体核验、全站、完整附件或法律时效。",
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://www.ctba.org.cn/list_show.jsp?record_id=352861001106；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。原规定候选的非正文/附件或访问失败已保留，改用该官网入口一层链接的公开文本范围。",
+      "next_step": "本条声明的固定公开工程范围已完成验收；额外附件/全站/主体核验需按各scope单独扩展。",
+      "acceptance": {
+        "artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+        "manifest_sha256": "fa34293989c50ac250b9e3f59e5612a9e956f24cec860e9536316ebba1ae89ec",
+        "recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+        "runs": [
+          "0e33882c-796f-4f8a-89ad-efb5aa576d75",
+          "25d6b908-5179-41c6-80c7-e73029400037",
+          "0c3b47a2-6fcb-47c6-8fc2-e48a572628c4",
+          "ac2c6e8d-d656-437f-899e-6d30cdb4e4b0"
+        ],
+        "runtime_status": "complete",
+        "record_count": 1,
+        "body_chars": 1311,
+        "title_chars": 22
+      }
+    }
+  ],
+  "prior_acceptance_attempts": [
+    {
+      "artifact": "artifacts/acceptance/v1.2-expanded-b2-first",
+      "status": "FAIL",
+      "reason": "dd481 body segments included two empty p elements, Runtime correctly rejected empty_field_segments; all other29 sourcesPASS; dd448 prior engineering scope contained statistics only, now expanded to all156 rows. No prior bytes rewritten."
+    },
+    {
+      "artifact": "artifacts/acceptance/v1.2-expanded-b2-final",
+      "status": "FAIL",
+      "reason": "Final frozen recipe all30 executed:28PASS;dd380 bounded download failures without HTTP response;dd484 actualHTTP403, forbidden path stopped. dd448 full156-row document and dd481 empty-format fix passed all4 rounds. No bytes rewritten."
+    },
+    {
+      "artifact": "artifacts/acceptance/v1.2-expanded-b2-accepted",
+      "status": "FAIL",
+      "reason": "Current29 selected all executed:28PASS, dd380 again3DownloadFailedError without response; stopped further requests to380. No archived bytes or old manifest changed."
+    }
+  ],
+  "acceptance_artifact": "artifacts/acceptance/v1.2-expanded-b2-positive-final/manifest.json",
+  "counts": {
+    "ready": 28,
+    "blocked": 4,
+    "failed": 2
+  },
+  "final_recipe_version": "5d67507a2d9737a40f4986d3e83feb649e315111d0daa52bdee6facab28b0aef",
+  "limits": "28 accepted Source/publication Records; dd448 contains156 rows and dd449 contains22 rows in document body, not178 independently identified movie entities. Original auth/captcha/OCR/Excel/private verification paths remain outside each positive scope."
+}

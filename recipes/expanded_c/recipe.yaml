@@ -1,0 +1,9 @@
+family: expanded-amac-public-json
+entrypoint: recipe:ExpandedCSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  required: [source, max_pages]
+  properties:
+    source: {enum: [dd-248, dd-250]}
+    max_pages: {const: 2}

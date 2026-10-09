@@ -1,0 +1,14 @@
+family: industry-classification-notice-docx-evidence
+entrypoint: recipe:ClassificationNotice
+params_schema:
+  type: object
+  properties:
+    attachment_urls:
+      type: array
+      items:
+        type: string
+      minItems: 2
+      maxItems: 2
+  required:
+    - attachment_urls
+  additionalProperties: false
