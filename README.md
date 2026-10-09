@@ -2,38 +2,32 @@
 
 Self-Evolving Agentic Ingestion Loop：面向异构信息源的持续采集、原文归档和结构化提取项目。
 
-## V1 当前实现
+## V1.1 当前实现：Runtime
 
-**Scrapy + 可信 Python Recipe + Procrastinate + PostgreSQL + 轻量原文归档。** Recipe 由团队开发者编写、审查和维护，使用普通 Python 分支、循环、分页与共享 helper。V1 不接入 Agent 自动生成并执行未经人工审查的代码，不接受外部用户上传任意 Python。
+**Scrapy + 可信 Python Recipe + Procrastinate + PostgreSQL + 内容寻址原文归档。** 模块化单体，不新增服务。团队维护的 Recipe 使用普通 Python 和原生 Scrapy；不执行未经审查的 Agent 代码或外部任意 Python。
 
-- **原生采集**：Scrapy 管理单次 Crawl 的请求、下载、重试、跳转和解析回调；Procrastinate 管理持久 Crawl 任务、周期采集与有界重跑，不建立第二套 URL Frontier。
-- **轻量归档**：ResponseArchiveMiddleware 在 HTTP 解压之后、Spider 解析之前保存应用层 Response；正文按内容去重，每次有效观察和内容变化历史仍保留。归档失败阻断发布。
-- **独立版本与启用**：不可变 RecipeVersion 包含代码、helper 和依赖环境；多个 Source 可共享代码，但各自保留 YAML 参数、Binding、审核与 Activation。
-- **业务质量与发布**：首次接入、升级和异常修复经过 Trial、少量 Gold Fixtures、基础校验及人工核对。正常周期通过固定门禁后自动发布 JSON；无预期集合时覆盖率保持未知。
-- **恢复与维护**：历史原文 Replay、内容 Revision、ProcessingResult、旧任务提交校验和发布幂等支持诊断与修复。回滚不删除历史，错误结果通过独立撤回处理。
+长期架构分为三个逻辑平面：
 
-不建设 gVisor/容器沙箱、可信 Fetcher、Fetcher RPC、网络代理、自定义 Download Handler、Agent Harness、Evaluation 平台或管理服务。CLI 与本地内容寻址目录即可起步，不要求容器或额外存储产品。
+- **Runtime**：执行、归档、解析、技术校验、持久化、版本追溯和故障恢复，本次交付。
+- **Evaluation**：未来针对具体 Binding 的真实结果与原文独立评估质量，本次未实现。
+- **Management**：当前仅配置、不可变版本和默认 Binding 选择；人工审核、正式激活、发布与治理回滚未实现。
 
-**信任边界：** Scrapy 设置和中间件是可信代码的工程约束，不能阻止恶意 Python 绕过网络限制或使用同权限存储。内容哈希不是防篡改存证；应用层归档不是网络传输取证。将来开放不可信代码执行时，必须单独引入隔离与可信执行边界。
+V1.1 删除 Trial、Gold Comparison、Review 和发布门禁。候选 Binding 与默认 Binding 使用同一 Run 路径。运行成功不等于数据准确或完整；导出明确标记 `quality_status: not_evaluated`，**不是已审核的业务数据出口**。
 
-## 文档与状态
+## 设计文档与历史
 
-- [V1 Plan](docs/plans/v1-information-pipeline.md)：完整架构、数据流、关键接口、版本/发布规则、M0–M3 与端到端验收合同。
-- [ADR-0002](docs/adr/0002-python-recipes-minimal-v1.md)：当前设计决策、删除的复杂度、框架依据及技术风险。
-- [可视化设计说明](docs/generated/v1-overview.html)：Plan 的单页派生物。
-- [ADR-0001](docs/adr/0001-recipe-driven-fixed-pipeline.md)：已被取代的历史提案，不再约束 V1。
-- [独立实验](experiments/scraper-benchmark/README.md)：实验边界、已有工件与未验证项；不等于生产架构已经验收。
-- [尽调入口地图](docs/reference/due-diligence-source-map.md)：491 条官方核验入口原始清单，作为逐项实验的来源基线。
-- [尽调地图逐项实验](docs/reference/due-diligence-source-experiment.md)：491 条入口结果、失败原因、182 条 golden 记录及零网络复验命令；其中 7 条核对了具体内容字段。
-- [协作准则](AGENTS.md)：文档维护规则。
+- [版本记录](CHANGELOG.md)：V1.1 / 0.1.1 的变更、升级注意事项、验收结果及复现前提。
+- [V1.1 Plan](docs/plans/v1.1-runtime.md)：架构、配置/数据合同、增量迁移、失败方式、验收及未交付能力。
+- [ADR-0003](docs/adr/0003-runtime-evaluation-management.md)：正式确立 Runtime、Evaluation、Management 三平面边界。
+- [V1.1 可视化](docs/generated/v1.1-runtime.html)：Plan 的唯一单页派生物。
+- [V1 Plan](docs/plans/v1-information-pipeline.md)、[ADR-0002](docs/adr/0002-python-recipes-minimal-v1.md)、[V1 可视化](docs/generated/v1-overview.html)：原样保留的历史设计，不是当前 CLI 合同。
+- [ADR-0001](docs/adr/0001-recipe-driven-fixed-pipeline.md)：早期历史提案。
+- [独立实验](experiments/scraper-benchmark/README.md)、[尽调入口地图](docs/reference/due-diligence-source-map.md)、[尽调地图实验](docs/reference/due-diligence-source-experiment.md)：历史研究及其工件，不由 Runtime 使用，也不代表 V1.1 质量验收。
+- [协作准则](AGENTS.md)：文档使用 seiso 管理，每个计划只配一个 Generated。
 
-当前已有可运行 CLI、Worker、九张业务表、不可变 Recipe/Binding、审核启用、归档/Replay、修订/发布和 M0–M3 合成端到端验收。真实来源访问许可、人工核对及完整性验收尚未完成；合成站点成绩不等于生产接入结论。
+## 安装与升级
 
-文档使用 [seiso](https://github.com/nanzhi84/seiso) 管理，运行 `seiso check` 检查。文档检查通过不代表框架 PoC、真实来源覆盖或业务验收通过。
-
-## 安装与数据边界
-
-前提：`uv`、Python 3.12.13、PostgreSQL 17。`.python-version` 与 `uv.lock` 固定解释器和完整依赖。数据库需预先创建，首次初始化账号需要建表/函数权限。
+前提：`uv`、Python 3.12.13、PostgreSQL 17。`.python-version` 与 `uv.lock` 固定解释器和依赖，数据库需预先创建。首次初始化账号需要建表/函数权限。
 
 ```bash
 uv sync --frozen
@@ -43,84 +37,115 @@ uv run --frozen seal db migrate
 uv run --frozen seal --help
 ```
 
-`db migrate` 可重复执行，安装 `seal_*` 业务表和 Procrastinate 官方表，不清空已有数据。凭据放环境或 PostgreSQL 标准认证配置，不提交到代码或 Source YAML。运行账号应独占归档目录；数据库与归档需配套备份。
+凭据使用环境或 PostgreSQL 标准认证配置，不放 Source YAML、代码或工件。运行账号应独占归档目录；数据库与归档配套备份。
 
-## 注册、审核与发布
+**已有 V1 部署需先停所有 Worker/CLI 写入并备份。** 原 `src/seal/schema.sql` 不改写，新增 `src/seal/migrations/0002_runtime.sql`：
 
-从 [Source 示例](examples/source.yaml) 与 [参数示例](examples/params.yaml) 复制配置，填写获授权 URL、允许路径、范围、频率和选择器。确认适合存档后才将 `archive_approved` 改为 `true`。可用 `expected_urls` 声明独立确认的有限文档集合；省略时覆盖率保持 `unknown`。
+- 保留 V1 历史 Run、Trial、Review/Gold payload、发布记录、Revision、Result 和原文。
+- 终止尚未完成的旧任务，防止升级后恢复旧流程。旧 Source 暂停并递增操作代次；旧配置保存到迁移审计。
+- 当前 Source 配置不再接受 `expected_urls`；历史 Binding 快照保持不变。
+- 在线 Document namespace 改为 runtime，文档 ID 和修订链不变。旧治理列只保留历史数据，当前代码不读写它们。
+- 升级后重新打包 Recipe、创建 Binding，执行普通 Run/Replay 并选择默认版本。旧版本包含 V1 引擎摘要，不能冒充在 V1.1 环境原样复现。
+
+迁移带摘要登记，可重复执行。旧 checkout/venv 应保留；严格复现 V1 需使用配套的旧数据库副本，不让旧 Worker 连接升级后的库。回退恢复配套备份，不执行破坏性的 down migration。**V1 发布 JSON 消费者必须显式适配运行数据出口，不能继续把它视为已审核数据。**
+
+## 从配置到一次完整运行
+
+复制 [Source 示例](examples/source.yaml) 与 [参数示例](examples/params.yaml)，填写获授权 URL、访问范围、预算及选择器。确认来源允许存档后才设置 `archive_approved: true`；这是存档许可确认，不是解析质量审批。
 
 ```bash
 uv run --frozen seal source apply source.yaml
 uv run --frozen seal recipe pack recipes/generic
 uv run --frozen seal binding create public_notices --recipe RECIPE_DIGEST --params params.yaml
-uv run --frozen seal trial BINDING_ID
-uv run --frozen seal inspect run TRIAL_RUN_ID
-uv run --frozen seal review export TRIAL_RUN_ID --output review.json
+
+# ID 取自 JSON 回执；不要求默认 Binding、Trial 或审核。
+uv run --frozen seal run public_notices --binding BINDING_ID
+uv run --frozen seal inspect run RUN_ID
+uv run --frozen seal export public_notices --run RUN_ID --output run-results.json
 ```
 
-ID 均取自 JSON 回执。人工从来源入口检查分页、原文和字段后，编辑 `review.json`：填写实际检查的 `scope`、设置 `approved: true`，在 `gold` 填独立预期。每个 Gold 对象至少包含 `title` 和 `body`，可加 `url`、`date`。审核人取执行 CLI 的 OS 账号，不信任文件自报身份。
+原文先落盘、提交 Observation 后才交给 Spider；Pipeline 验证 Schema、输入归属与 locator，再保存 Revision 和 ProcessingResult。整个 Crawl 结束后保存技术报告，不生成发布事件。partial 的有效结果也可按 Run 导出；归档损坏条目进入 `unavailable`。原文、Source URL、Binding、RecipeVersion、Run、Revision、Observation 和 Result 均可追溯。
+
+同一个 RecipeVersion 可被多个 Source 的 Binding 复用。修改参数/执行配置需创建新 Binding，不影响旧 Binding 或在途任务。跨 Source 使用 Binding 会拒绝。
+
+## 默认版本、持久任务与恢复
 
 ```bash
-uv run --frozen seal review import review.json
-uv run --frozen seal activate BINDING_ID --expect-generation 0
-uv run --frozen seal run public_notices
-uv run --frozen seal export public_notices --output published.json
-```
-
-未审核、证据不匹配或 generation 冲突均非零退出。YAML 变更不会改变旧 Binding/在途 Run；执行配置变化后创建新 Binding 并重新审核。正常周期合格即可自动发布。导出只读取发布指针，包含原文、版本、时间、覆盖范围、陈旧状态和撤回信息；证据损坏条目进入 `unavailable`。
-
-## 持续运行、恢复和修复
-
-```bash
+# 只选择调度默认值，不代表正式启用或发布批准。
+uv run --frozen seal source select public_notices --binding BINDING_ID --expect-generation 0
 uv run --frozen seal run public_notices --enqueue
 uv run --frozen seal worker
-# 常驻 Worker 每分钟自动检查到期来源与 stalled jobs；也可手动触发。
-uv run --frozen seal schedule
+
+# 候选也可以走同一持久队列，不改变默认值。
+uv run --frozen seal run public_notices --binding CANDIDATE_BINDING_ID --enqueue
 uv run --frozen seal run public_notices --recheck --enqueue
+uv run --frozen seal schedule
 uv run --frozen seal inspect source public_notices
-uv run --frozen seal pause public_notices --reason '人工维护'
-uv run --frozen seal replay HISTORICAL_RUN_ID --binding REPAIRED_BINDING_ID
-uv run --frozen seal trial REPAIRED_BINDING_ID
+uv run --frozen seal export public_notices --output latest-runtime-results.json
 ```
 
-升级需新 Binding、历史 Replay、在线 Trial 与人工审核；在新审核文件填 `replay_run_id`，再以当前 generation 启用。A/B 独立审核与升级。模板/字段故障置 `needs_repair`，旧 Trial 不能清除新故障；临时下载失败可有限重跑，429 设置冷却。
+Worker 每分钟检查到期 Source、已知文档复查和 stalled jobs。默认一个 Crawl 执行槽；Scrapy 只管理单 Crawl 内的请求。Run 与 Procrastinate defer 同事务，不建第二套 URL Frontier。
+
+默认导出汇总每个文档最近成功在线 Run 的结果，包含候选 Binding 的运行，不只包含默认版本。失败的新 Run 不覆盖旧成功视图，报告执行状态和 stale。这是运行便利视图，不是完整性或质量保证；需要确定范围时使用 `--run`。
 
 ```bash
+uv run --frozen seal pause public_notices --reason '人工维护'
+uv run --frozen seal replay HISTORICAL_RUN_ID --binding REPAIRED_BINDING_ID
 uv run --frozen seal retry RUN_ID
 uv run --frozen seal recover
 uv run --frozen seal finish RUN_ID
-uv run --frozen seal rollback OLD_BINDING_ID --expect-generation N --reason '回滚原因'
-uv run --frozen seal withdraw RESULT_ID --reason '错误提取及影响说明'
+
+# 选择新版本或选回旧版本使用同一命令，也可解除暂停。
+uv run --frozen seal source select public_notices --binding BINDING_ID --expect-generation N
 ```
 
-`recover` 使用官方 stalled 检测，默认 30 秒 heartbeat 超时；每个逻辑 Run 最多三次 attempts，总 deadline 不重置。`finish` 只重入已结束采集的提交事务。回滚创建新 generation，不撤回错误结果；独立 `withdraw` 后，自动任务不会复活被撤回的 Result。
+选择版本或暂停递增 generation；CAS 冲突非零退出。候选与默认 Binding 共用 Source 的 run_seq/write_seq、attempt epoch 和 generation fencing，旧进程不得覆盖新状态。暂停与冷却对所有在线 Binding 生效，Replay 不推进在线状态。
 
-每次 Crawl 使用独立短生命周期进程；父进程死亡、暂停与 deadline 会终止它。生产日常使用队列，默认一个 Crawl 执行槽；同步 CLI 用于人工操作，重叠提交受 fencing 保护，但不提供跨 Crawl 网络总限流。
+每个逻辑 Run 最多三次 attempts，总 deadline 不重置。网络暂时性故障可有限 retry；解析/Schema 错误返回 partial，修复后直接发起新 Run，不需要重新审核。`finish` 仅重入已结束采集的技术提交事务，完成提交后崩溃不重复下载。
 
-## Recipe 和运行边界
+## 模块、版本与安全边界
 
-[示例 Recipe](recipes/generic/recipe.py) 是普通 Scrapy Spider，支持分页 HTML、TXT、JSON、文本层 PDF，附件仅为 `not_fetched` 引用。PDF 按页提取并保存文本跨度，不支持 OCR/视觉表格；复杂阅读顺序需要人工核对。字段从归档输入重新验证 XPath、字符范围、JSON Pointer 或 PDF 页码/跨度。
+```text
+CLI / Procrastinate
+  → configuration + recipes：Source / 不可变 RecipeVersion / Binding
+  → runs：固定上下文、epoch、期限与进程生命周期
+  → crawl：Scrapy 原生下载和回调
+  → archive：内容寻址 body / snapshot / Observation
+  → items：Schema / 血缘 / Revision / ProcessingResult
+  → completion：技术完成报告，无审核发布
+  → export / inspect：运行数据、原文引用和版本追溯
+```
 
-Recipe 包由 `recipe.yaml`、源码和包内 helper/资源组成；manifest 声明 family、entrypoint、参数 JSON Schema。打包不运行 hook，拒绝符号链接、常见私密文件与已知非 Scrapy 网络 import；这些检查不能替代代码审查。候选支持有序 `supplementary_inputs`，主资源决定 Revision，全体输入决定 Result。
+[示例 Recipe](recipes/generic/recipe.py) 支持分页 HTML、TXT、JSON、文本层 PDF，附件只保存 `not_fetched` 引用。当前身份规则为规范化 URL，输出 Schema 为 `generic_document.v1`。不支持 OCR、浏览器或复杂附件合并。
 
-当前 Source 身份只支持规范化 URL，输出 Schema 为 `generic_document.v1`。RecipeVersion 记录包、依赖锁、解释器、系统库及 SEAL 代码摘要，每次运行检查环境漂移。升级必须保留旧 checkout/虚拟环境，在新目录安装；不要原位覆盖旧环境。Run 按版本保存的 Python 路径启动。
+RecipeVersion 摘要覆盖包内源码/helper/资源、依赖锁、解释器、系统库及 SEAL 引擎/迁移。运行检查环境漂移；升级使用新 checkout/venv，不原位覆盖共享环境。字段 locator 从归档输入重新核对；可选 `transform: date_iso` 做日期规范化，`segments.separator` 连接已定位片段，最终仍严格比较输出。匹配原文或转换正确不证明业务语义正确。Runtime 固定关闭自动 robots 检查，历史 `robots` 配置不再启用辅助请求；业务 URL 的范围、地址和 HTTP 错误检查仍生效。
 
-模块边界：`config/recipes/governance` 管准入；`archive/items/crawl` 接入 Scrapy；`runs/publish` 管执行和发布；`queue` 只连接 Procrastinate。生产/Trial 关闭缓存、Cookie、环境代理。Replay 缺失或多义输入立即失败，不下载补齐。孤儿对象暂保留、不自动删除；清理需停机核对数据库引用。
+在线关闭 HTTP 缓存、Cookie、环境代理；Replay 缺失或多义映射明确失败，不下载补齐。Scrapy/中间件和普通子进程不是恶意 Python 隔离设施。内容哈希用于去重和损坏检测，不是防篡改存证。部署使用最小权限和配套备份，不承诺多租户隔离、分布式高可用或传输层取证；孤儿对象暂保留，清理需停机核对引用。
 
-## 端到端验收
+## 可重复端到端验收
 
-额外要求 `initdb`、`pg_ctl` 在 PATH。脚本创建和销毁独立 PostgreSQL 集群、临时原文目录、仅监听 `127.0.0.1` 的合成站点，覆盖传入的业务数据库环境变量；M2/M3 使用真实 Worker。故障注入只影响临时测试库。
+额外要求 `initdb`、`pg_ctl` 在 PATH。脚本覆盖外部业务数据库环境变量，创建独立 PostgreSQL 集群、临时原文目录和仅监听 `127.0.0.1` 的合成站点；结束后销毁测试集群。M2/M3 使用真实 Worker；故障注入只作用于隔离测试数据。
 
 ```bash
-./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0
-./scripts/acceptance.sh --stage m1 --output artifacts/acceptance/m1
-./scripts/acceptance.sh --stage m2 --output artifacts/acceptance/m2
-./scripts/acceptance.sh --stage m3 --output artifacts/acceptance/m3
+./scripts/acceptance.sh --stage m3 --output artifacts/acceptance/v1.1
 uv run --frozen python scripts/verify_artifacts.py ACTUAL_OUTPUT_DIRECTORY
-seiso check
 uvx --from ruff==0.16.10 ruff check src recipes scripts
+seiso check
 ```
 
-后续阶段包含前阶段。重用输出目录会新建带时间戳的子目录，保留首次失败。工件包含 manifest、断言 expected/actual、CLI 回执、请求账本、缓存 PoC、合成原文和报告；manifest 保存命令、环境锁、代码及全部工件摘要。校验脚本重算摘要与断言，完整复验需重跑 E2E。
+M0–M3 仍为累积入口，但场景已改为 V1.1 Runtime 合同，不再包含业务 Gold Comparison。保留工程独立预期，覆盖原生采集、候选运行、历史迁移/Replay、A→A→B→A、同键异值、版本共享、事务回滚、进程强杀、三层 fencing、有限恢复和敏感信息不落盘。
 
-合成验收不能确认真实来源许可/覆盖、真实断电持久性或生产性能。外部连接事务与 stalled 恢复依据 Procrastinate 的[官方事务接口](https://procrastinate.readthedocs.io/en/stable/howto/production/external_connection.html)和[恢复接口](https://procrastinate.readthedocs.io/en/stable/howto/production/retry_stalled_jobs.html)，以锁定版本实测工件为准。
+重用输出目录会创建时间戳子目录，保留失败与历史工件。manifest、断言 expected/actual、CLI 回执、请求账本、合成原文和 JSON 可独立校验；完整行为复验需重跑 E2E。实际结果见 V1.1 Plan 第 9 节。
+
+独立小样本验收复用同一入口，需要仓库根目录的 `seal-v1.1-runtime-golden-fixtures/` 和本次 M3 工件：
+
+```bash
+./scripts/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1 --output artifacts/acceptance/smoke
+# 公开来源仅显式启用；可用 --live-source live_court / live_spp / live_python 缩小范围。
+./scripts/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1 --live --output artifacts/acceptance/smoke-live
+uv run --frozen python scripts/verify_artifacts.py artifacts/acceptance/smoke --recorded-outcomes
+```
+
+`smoke` 校验 M3 与当前 Runtime 的文件摘要一致，逐例保存 PASS/FAIL/UNVERIFIED；存在失败时非零退出。`--recorded-outcomes` 校验工件完整性和断言状态是否如实记录，同时列出失败断言，并不把失败改成通过。外网不加入必须通过的 CI。固定 Golden 的 `update_date/document_no` 当前无对应输出字段；日期和表格转换修复的独立验收见本地 `artifacts/acceptance/v1.1-runtime-fixes/report.md`。原始 `v1.1-smoke` 工件保持不变。
+
+尚未验证真实来源质量/完整性、真实断电持久性或生产规模。Evaluation 的分层/风险抽样和小样本人工核对、Management 的审核/正式发布与治理回滚、Agent 自进化均留待后续版本。

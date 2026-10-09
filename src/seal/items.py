@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import re
 from datetime import date
 from io import BytesIO
 
@@ -28,11 +29,42 @@ class Candidate(Strict):
 
 
 def text_value(snapshot, body, locator):
+    transform = locator.get("transform")
+    if "transform" in locator and transform != "date_iso":
+        raise SealError("unsupported_locator_transform")
+    if "separator" in locator and locator.get("kind") != "segments":
+        raise SealError("invalid_segment_separator")
+    value = located_text(snapshot, body, locator)
+    if transform == "date_iso":
+        match = re.fullmatch(r"([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})", value)
+        if match is None:
+            match = re.fullmatch(r"([0-9]{4})年([0-9]{1,2})月([0-9]{1,2})日", value)
+        try:
+            if match is None:
+                raise ValueError
+            return date(*map(int, match.groups())).isoformat()
+        except ValueError:
+            raise SealError("invalid_locator_date") from None
+    return value
+
+
+def located_text(snapshot, body, locator):
     kind = locator.get("kind")
     if kind == "segments":
         if not locator["segments"]:
             raise SealError("empty_field_segments")
-        return "\n".join(text_value(snapshot, body, part) for part in locator["segments"])
+        separator = locator.get("separator", "\n")
+        # Delimiters can format verified fragments, never supply unlocated content.
+        if not isinstance(separator, str) or not re.fullmatch(
+            r"[\s:：,，;；/|·—-]{0,8}", separator
+        ):
+            raise SealError("invalid_segment_separator")
+        if any("snapshot_id" in part for part in locator["segments"]):
+            raise SealError("nested_snapshot_not_supported")
+        parts = [text_value(snapshot, body, part) for part in locator["segments"]]
+        if "separator" in locator and any(not part for part in parts):
+            raise SealError("empty_field_segments")
+        return separator.join(parts)
     if kind == "xpath":
         selector = Selector(body.decode(snapshot["encoding"] or "utf-8", errors="strict"))
         nodes = selector.xpath(locator["path"])
@@ -196,7 +228,7 @@ def stage_item(context, item):
         revision = doc["latest_revision"]
         if not previous or previous["body_hash"] != snapshot["body_hash"]:
             revision = uid()
-            # Replay/trial have isolated documents; their observation may be shared.
+            # Replay has isolated documents and references the original observation.
             observation_key = item["observation_id"]
             row = c.execute(
                 "INSERT INTO seal_revision(id,document_id,predecessor,body_hash,snapshot_id,observation_id) VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT(document_id,observation_id) DO NOTHING RETURNING id",
@@ -219,7 +251,7 @@ def stage_item(context, item):
             "UPDATE seal_document SET latest_revision=%s,latest_observation=%s,next_check=now()+(%s * interval '1 second') WHERE id=%s",
             (revision, item["observation_id"], source["config"]["recheck_seconds"], doc["id"]),
         )
-        if run["namespace"] == "production":
+        if run["mode"] != "replay":
             c.execute(
                 "UPDATE seal_fetch_observation SET eligible=true WHERE id=%s",
                 (item["observation_id"],),

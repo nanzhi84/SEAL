@@ -8,7 +8,7 @@ import psycopg
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 
-from .core import SealError, uid
+from .core import SealError, digest, uid
 
 j = Jsonb
 
@@ -66,12 +66,11 @@ def fenced(source, run, epoch):
         raise SealError("stale_attempt")
     if run["status"] not in ("running", "finishing"):
         raise SealError("inactive_attempt")
-    if run["mode"] in ("production", "recheck"):
+    if run["mode"] in ("collect", "recheck"):
         if (
             source["generation"] != run["generation"]
             or source["write_seq"] != run["run_seq"]
             or source["paused"]
-            or source["binding_id"] != run["binding_id"]
         ):
             raise SealError("superseded")
 
@@ -89,11 +88,31 @@ def migrate():
 
     with connect() as connection:
         connection.execute("SELECT pg_advisory_xact_lock(72032101)")
-        connection.execute(Path(__file__).with_name("schema.sql").read_text())
+        connection.execute("""
+            CREATE TABLE IF NOT EXISTS seal_migration (
+                name text PRIMARY KEY, checksum text NOT NULL,
+                applied_at timestamptz NOT NULL DEFAULT now()
+            )
+        """)
+        root = Path(__file__).parent
+        for path in [root / "schema.sql", *sorted((root / "migrations").glob("*.sql"))]:
+            checksum = digest(path.read_bytes())
+            previous = connection.execute(
+                "SELECT checksum FROM seal_migration WHERE name=%s", (path.name,)
+            ).fetchone()
+            if previous:
+                if previous["checksum"] != checksum:
+                    raise SealError("applied_migration_changed")
+                continue
+            connection.execute(path.read_text())
+            connection.execute(
+                "INSERT INTO seal_migration(name,checksum) VALUES(%s,%s)",
+                (path.name, checksum),
+            )
         installed = connection.execute(
             "SELECT to_regclass('procrastinate_jobs') AS name"
         ).fetchone()["name"]
     if installed is None:
         with app.open():
             app.schema_manager.apply_schema()
-    return {"schema": "v1", "queue": "procrastinate"}
+    return {"schema": "v1.1", "queue": "procrastinate"}

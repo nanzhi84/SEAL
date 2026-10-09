@@ -64,6 +64,11 @@ kind = "readme"
 path = "experiments/**/results/**"
 kind = "generated"
 
+# 原始验收材料保持不变，由路径声明文档类型。
+[[kinds]]
+path = "seal-v1.1-runtime-golden-fixtures/*.md"
+kind = "reference"
+
 [lint]
 select = ["ALL"]
 languages = ["en", "zh", "ja"]

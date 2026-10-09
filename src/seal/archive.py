@@ -9,7 +9,7 @@ from urllib.parse import unquote, urlsplit
 from scrapy.exceptions import IgnoreRequest
 from scrapy.http import HtmlResponse, JsonResponse, Response, TextResponse, XmlResponse
 
-from .core import BODY_SECRET, Objects, SealError, digest, public_url, safe_url, uid
+from .core import BODY_SECRET, Objects, SealError, check_address, digest, public_url, safe_url, uid
 from .db import connect, j, record_error
 
 HEADERS = {
@@ -143,14 +143,12 @@ class RequestGuard(Component):
             url = public_url(request.url)
             parsed = urlsplit(url)
             path = posixpath.normpath(unquote(parsed.path))
-            if parsed.hostname not in self.config["allowed_hosts"] or (
-                path != "/robots.txt"
-                and not any(
-                    path.startswith(p.rstrip("/") + "/") or path == p.rstrip("/")
-                    for p in self.config["allowed_path_prefixes"]
-                )
+            if parsed.hostname not in self.config["allowed_hosts"] or not any(
+                path.startswith(p.rstrip("/") + "/") or path == p.rstrip("/")
+                for p in self.config["allowed_path_prefixes"]
             ):
                 raise SealError("request_out_of_scope")
+            check_address(parsed.hostname)
             if request.method not in self.config["methods"] or request.body:
                 raise SealError("request_method_rejected")
             if any(
@@ -221,7 +219,7 @@ class ResponseArchiveMiddleware(Component):
             raise IgnoreRequest(code) from None
 
     def cooldown(self, until):
-        if self.context["mode"] in ("production", "recheck"):
+        if self.context["mode"] != "replay":
             with connect() as c:
                 c.execute(
                     "UPDATE seal_source SET cooldown_until=%s WHERE id=%s",

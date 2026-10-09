@@ -108,6 +108,12 @@ class Site:
                     body = b"x" * 200000
                 elif path == "/probe/badpdf":
                     body, headers["Content-Type"] = b"broken PDF", "application/pdf"
+                elif path == "/probe/invalid-date":
+                    body = (
+                        '<meta charset="utf-8"><h1 class="title">Calendar</h1>'
+                        '<time class="published">2026年02月30日</time>'
+                        '<div class="article-body"><p>Invalid date input</p></div>'
+                    ).encode()
                 elif path.startswith("/cache/"):
                     count = sum(r["path"] == path for r in owner.ledger)
                     body = b"public cache fixture"

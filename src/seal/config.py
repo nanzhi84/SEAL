@@ -52,19 +52,19 @@ class SourceConfig(Strict):
     archive_approved: bool
     scope: str = Field(min_length=5, max_length=2000)
     seed_role: Literal["list", "detail"] = "list"
-    expected_urls: list[str] | None = None
     poll_seconds: int = Field(default=3600, ge=60)
     recheck_seconds: int = Field(default=86400, ge=60)
     budget: Budget = Budget()
     concurrency: int = Field(default=2, ge=1, le=8)
     delay: float = Field(default=0.1, ge=0.0, le=60.0)
-    robots: bool = True
+    # Historical external configuration remains readable; Runtime never enables it.
+    robots: bool = False
     user_agent: str = "SEAL/0.1 (+authorized archival crawler)"
 
-    @field_validator("entry_urls", "expected_urls")
+    @field_validator("entry_urls")
     @classmethod
     def urls(cls, values):
-        return None if values is None else [public_url(u) for u in values]
+        return [public_url(u) for u in values]
 
     @model_validator(mode="after")
     def check_scope(self):
@@ -74,7 +74,7 @@ class SourceConfig(Strict):
             raise SealError("source_archive_approval_required")
         if any(not p.startswith("/") or ".." in p for p in self.allowed_path_prefixes):
             raise SealError("invalid_path_scope")
-        for url in self.entry_urls + (self.expected_urls or []):
+        for url in self.entry_urls:
             parsed = urlsplit(url)
             if parsed.hostname not in self.allowed_hosts or not any(
                 parsed.path.startswith(p) for p in self.allowed_path_prefixes

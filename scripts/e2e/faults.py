@@ -29,7 +29,7 @@ def until(predicate, seconds=20):
 
 def m0_faults(h):
     # Body installation fails in the exact hash directory, while the bundle remains readable.
-    h.config("disk", entries=[h.site.url + "/a/one"], expected=False, seed_role="detail")
+    h.config("disk", entries=[h.site.url + "/a/one"], seed_role="detail")
     binding = h.binding("disk")
     body = b"<h1>First notice</h1><time>2026-01-02</time><article>Public content A</article>"
     key = hashlib.sha256(body).hexdigest()
@@ -39,15 +39,15 @@ def m0_faults(h):
     target.unlink(missing_ok=True)
     target.mkdir()
     try:
-        failed = h.cli("trial", binding, ok=False)
+        failed = h.cli("run", "disk", "--binding", binding, ok=False)
         run = h.cli("inspect", "run", failed["run_id"])
         h.check("disk_failure_callback_blocked", len(run["results"]), 0)
-        h.check("disk_failure_publication_zero", len(h.export("disk")["documents"]), 0)
+        h.check("disk_failure_completion_zero", len(h.export("disk")["documents"]), 0)
     finally:
         target.rmdir()
         if saved is not None:
             target.write_bytes(saved)
-    h.config("dbfail", entries=[h.site.url + "/a/one"], expected=False, seed_role="detail")
+    h.config("dbfail", entries=[h.site.url + "/a/one"], seed_role="detail")
     binding = h.binding("dbfail")
     sql(
         h,
@@ -56,7 +56,7 @@ def m0_faults(h):
     CREATE TRIGGER e2e_observation_fault BEFORE INSERT ON seal_fetch_observation FOR EACH ROW EXECUTE FUNCTION e2e_reject_observation();""",
     )
     try:
-        failed = h.cli("trial", binding, ok=False)
+        failed = h.cli("run", "dbfail", "--binding", binding, ok=False)
         run = h.cli("inspect", "run", failed["run_id"])
         h.check("db_failure_callback_blocked", len(run["results"]), 0)
         h.check("db_failure_no_dangling_snapshot_ref", len(run["observations"]), 0)
@@ -67,15 +67,15 @@ def m0_faults(h):
         )
     h.config("replayfault")
     binding = h.binding("replayfault")
-    trial = h.cli("trial", binding)
-    state = h.cli("inspect", "run", trial["run_id"])["run"]
+    original = h.cli("run", "replayfault", "--binding", binding)
+    state = h.cli("inspect", "run", original["run_id"])["run"]
     before = len(h.site.ledger)
     sql(
         h,
         "UPDATE seal_run SET inputs=%s::jsonb WHERE id=%s",
-        (json.dumps(state["inputs"][1:]), trial["run_id"]),
+        (json.dumps(state["inputs"][1:]), original["run_id"]),
     )
-    failed = h.cli("replay", trial["run_id"], ok=False)
+    failed = h.cli("replay", original["run_id"], ok=False)
     h.check("missing_replay_mapping_fails", "replay_miss" in failed["errors"])
     h.check("missing_replay_never_downloads", len(h.site.ledger), before)
     # Restore the fixture input then create an explicit conflicting mapping.
@@ -84,9 +84,9 @@ def m0_faults(h):
     sql(
         h,
         "UPDATE seal_run SET inputs=%s::jsonb WHERE id=%s",
-        (json.dumps(altered), trial["run_id"]),
+        (json.dumps(altered), original["run_id"]),
     )
-    failed = h.cli("replay", trial["run_id"], ok=False)
+    failed = h.cli("replay", original["run_id"], ok=False)
     h.check("ambiguous_replay_mapping_fails", "replay_ambiguous" in failed["errors"])
     h.check("ambiguous_replay_never_downloads", len(h.site.ledger), before)
 
@@ -138,8 +138,7 @@ def cache_poc(h):
 def concurrency_and_recovery(h):
     h.config("fence")
     binding = h.binding("fence")
-    h.approve(binding)
-    h.cli("activate", binding, "--expect-generation", "0")
+    h.select("fence", binding, 0)
     # Trigger holds the finish boundary under a real PostgreSQL advisory lock.
     sql(
         h,
@@ -156,12 +155,12 @@ def concurrency_and_recovery(h):
             lambda: (
                 sql(
                     h,
-                    "SELECT count(*) FROM seal_result r JOIN seal_document d ON d.id=r.document_id WHERE d.source_id='fence' AND d.namespace='production'",
+                    "SELECT count(*) FROM seal_result r JOIN seal_document d ON d.id=r.document_id WHERE d.source_id='fence' AND d.namespace='runtime'",
                 )[0][0]
                 == 2
             )
         )
-        h.check("staged_results_are_not_published", len(h.export("fence")["documents"]), 0)
+        h.check("staged_results_are_not_completed", len(h.export("fence")["documents"]), 0)
         os.kill(h.worker.pid, signal.SIGKILL)
         h.worker.wait(timeout=5)
         h.worker_log.close()
@@ -189,7 +188,7 @@ def concurrency_and_recovery(h):
     final = h.cli("inspect", "run", queued["run_id"])["run"]
     h.check("killed_worker_recovered", final["status"], "complete")
     h.check("stalled_recovery_new_attempt", final["attempt_epoch"], 2)
-    h.check("stalled_recovery_publish_once", len(h.export("fence")["documents"]), 2)
+    h.check("stalled_recovery_complete_once", len(h.export("fence")["documents"]), 2)
     # A delayed queued run loses eligibility when a newer synchronous run starts.
     old = h.cli("run", "fence", "--enqueue")
     h.cli("run", "fence")
@@ -216,10 +215,9 @@ def delayed_fencing(h):
     for kind in ("run", "attempt", "generation"):
         name = "delay_" + kind
         h.site.version = "A"
-        h.config(name, entries=[h.site.url + f"/{name}/one"], expected=False, seed_role="detail")
+        h.config(name, entries=[h.site.url + f"/{name}/one"], seed_role="detail")
         binding = h.binding(name)
-        h.approve(binding)
-        h.cli("activate", binding, "--expect-generation", "0")
+        h.select(name, binding, 0)
         h.site.delay_started.clear()
         h.site.delay_release.clear()
         h.site.delay_next = True
@@ -235,7 +233,7 @@ def delayed_fencing(h):
                 raise AssertionError("delayed source was never reached")
             old_run = sql(
                 h,
-                "SELECT id FROM seal_run WHERE source_id=%s AND mode='production' ORDER BY created_at DESC LIMIT 1",
+                "SELECT id FROM seal_run WHERE source_id=%s AND mode='collect' ORDER BY created_at DESC LIMIT 1",
                 (name,),
             )[0][0]
             h.site.version = "B"
@@ -243,7 +241,7 @@ def delayed_fencing(h):
                 h.cli("retry", old_run)
             else:
                 if kind == "generation":
-                    h.cli("activate", binding, "--expect-generation", "1")
+                    h.select(name, binding, 1)
                 h.cli("run", name)
             h.site.delay_release.set()
             stdout, stderr = old.communicate(timeout=15)

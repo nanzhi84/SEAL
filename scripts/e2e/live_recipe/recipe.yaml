@@ -1,0 +1,13 @@
+family: public-source-smoke
+entrypoint: recipe:LiveSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  properties:
+    links: {type: string}
+    next_page: {type: string}
+    title: {type: string}
+    body: {type: string}
+    date: {type: string}
+    per_page: {type: integer, minimum: 1, maximum: 10}
+    pages: {type: integer, minimum: 1, maximum: 2}

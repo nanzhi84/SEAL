@@ -13,7 +13,7 @@ app = procrastinate.App(connector=procrastinate.PsycopgConnector(conninfo=dsn())
 @app.task(
     name="seal.crawl",
     queue="seal",
-    lock="seal:production",
+    lock="seal:runtime",
     retry=procrastinate.RetryStrategy(max_attempts=3, wait=5),
 )
 def crawl_job(run_id):
@@ -37,17 +37,17 @@ def schedule_due():
     created = []
     with connect() as c:
         sources = c.execute(
-            "SELECT * FROM seal_source WHERE binding_id IS NOT NULL AND NOT paused AND NOT needs_repair AND (cooldown_until IS NULL OR cooldown_until<=now()) ORDER BY id FOR UPDATE SKIP LOCKED"
+            "SELECT * FROM seal_source WHERE binding_id IS NOT NULL AND NOT paused AND (cooldown_until IS NULL OR cooldown_until<=now()) ORDER BY id FOR UPDATE SKIP LOCKED"
         ).fetchall()
         for source in sources:
             now = datetime.now(timezone.utc)
             for mode, interval, due in (
-                ("production", source["config"]["poll_seconds"], source["next_poll"] <= now),
+                ("collect", source["config"]["poll_seconds"], source["next_poll"] <= now),
                 (
                     "recheck",
                     source["config"]["recheck_seconds"],
                     c.execute(
-                        "SELECT 1 FROM seal_document WHERE source_id=%s AND namespace='production' AND next_check<=now() LIMIT 1",
+                        "SELECT 1 FROM seal_document WHERE source_id=%s AND namespace='runtime' AND next_check<=now() LIMIT 1",
                         (source["id"],),
                     ).fetchone()
                     is not None,
@@ -64,14 +64,14 @@ def schedule_due():
                 slot = f"{source['id']}:{source['generation']}:{mode}:{int(now.timestamp()) // interval}"
                 run_id = create_run(source["binding_id"], mode, c, slot=slot)
                 enqueue(c, run_id)
-                if mode == "production":
+                if mode == "collect":
                     c.execute(
                         "UPDATE seal_source SET next_poll=now()+(%s * interval '1 second') WHERE id=%s",
                         (interval, source["id"]),
                     )
                 else:
                     c.execute(
-                        "UPDATE seal_document SET next_check=now()+(%s * interval '1 second') WHERE source_id=%s AND namespace='production'",
+                        "UPDATE seal_document SET next_check=now()+(%s * interval '1 second') WHERE source_id=%s AND namespace='runtime'",
                         (interval, source["id"]),
                     )
                 created.append(run_id)

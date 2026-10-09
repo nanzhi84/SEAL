@@ -11,6 +11,8 @@ from .db import connect, j, locked_run, one
 
 
 def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
+    if mode not in ("collect", "recheck", "replay"):
+        raise SealError("unsupported_run_mode")
     if connection is None:
         with connect() as c:
             return create_run(binding_id, mode, c, replay_from, slot)
@@ -21,13 +23,11 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
         existing = c.execute("SELECT id FROM seal_run WHERE slot=%s", (slot,)).fetchone()
         if existing:
             return existing["id"]
-    production = mode in ("production", "recheck")
-    if production and (
-        source["binding_id"] != binding_id or source["paused"] or source["needs_repair"]
-    ):
-        raise SealError("source_not_ready")
+    online = mode != "replay"
+    if online and source["paused"]:
+        raise SealError("source_paused")
     if (
-        production
+        online
         and source["cooldown_until"]
         and source["cooldown_until"] > datetime.now(timezone.utc)
     ):
@@ -40,7 +40,7 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
         seeds = [
             {"url": d["url"], "role": "detail"}
             for d in c.execute(
-                "SELECT url FROM seal_document WHERE source_id=%s AND namespace='production' ORDER BY identity",
+                "SELECT url FROM seal_document WHERE source_id=%s AND namespace='runtime' ORDER BY identity",
                 (source["id"],),
             ).fetchall()
         ]
@@ -53,8 +53,8 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
         if not original["inputs"]:
             raise SealError("replay_inputs_missing")
         seeds, replay_inputs = original["seeds"], original["inputs"]
-    seq = source["run_seq"] + 1 if production else 0
-    if production:
+    seq = source["run_seq"] + 1 if online else 0
+    if online:
         c.execute("UPDATE seal_source SET run_seq=%s WHERE id=%s", (seq, source["id"]))
     c.execute(
         """INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,replay_inputs,slot)
@@ -64,7 +64,7 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
             source["id"],
             binding_id,
             mode,
-            "production" if production else mode + ":" + identity,
+            "runtime" if online else mode + ":" + identity,
             source["generation"],
             seq,
             datetime.now(timezone.utc) + timedelta(seconds=config["budget"]["seconds"] * 3 + 120),
@@ -89,12 +89,12 @@ def begin_attempt(run_id):
                 (j(["attempts_or_deadline_exhausted"]), run_id),
             )
             return None
-        if run["mode"] in ("production", "recheck"):
+        if run["mode"] not in ("collect", "recheck", "replay"):
+            raise SealError("unsupported_run_mode")
+        if run["mode"] != "replay":
             if (
-                source["binding_id"] != run["binding_id"]
-                or source["generation"] != run["generation"]
+                source["generation"] != run["generation"]
                 or source["paused"]
-                or source["needs_repair"]
                 or source["write_seq"] > run["run_seq"]
             ):
                 c.execute(
@@ -155,7 +155,7 @@ def receipt(run_id):
 
 
 def execute_run(run_id):
-    from .publish import finish_run
+    from .completion import finish_run
 
     state = receipt(run_id)
     if state["status"] == "finishing":
@@ -193,7 +193,7 @@ def execute_run(run_id):
                     "SELECT generation,paused FROM seal_source WHERE id=%s",
                     (context["source_id"],),
                 )
-            if context["mode"] in ("production", "recheck") and (
+            if context["mode"] != "replay" and (
                 source["generation"] != context["generation"] or source["paused"]
             ):
                 cancelled = True

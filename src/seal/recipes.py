@@ -24,7 +24,8 @@ def environment():
     if not lock.exists():
         raise SealError("environment_lock_missing")
     engine = {p.name: digest(p.read_bytes()) for p in Path(__file__).parent.glob("*.py")}
-    engine["schema.sql"] = digest(Path(__file__).with_name("schema.sql").read_bytes())
+    for path in Path(__file__).parent.rglob("*.sql"):
+        engine[str(path.relative_to(Path(__file__).parent))] = digest(path.read_bytes())
     return {
         "python": platform.python_version(),
         "implementation": platform.python_implementation(),
@@ -41,7 +42,7 @@ def environment():
         "lock_hash": digest(lock.read_bytes()),
         "engine": engine,
         "archive_contract": 1,
-        "validation_contract": 1,
+        "validation_contract": 2,
     }
 
 
@@ -141,7 +142,7 @@ def create_binding(source_id, version, params):
         source = one(c, "SELECT * FROM seal_source WHERE id=%s FOR UPDATE", (source_id,))
         config = SourceConfig.model_validate(source["config"]).execution()
         fingerprint = digest(
-            {"config": config, "params": params, "recipe_version": version, "contract": 1}
+            {"config": config, "params": params, "recipe_version": version, "contract": 2}
         )
         c.execute(
             "INSERT INTO seal_binding(id,source_id,recipe_version,config,params,fingerprint) VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING",

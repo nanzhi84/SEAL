@@ -10,6 +10,11 @@ from pathlib import Path
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("directory", type=Path)
+    parser.add_argument(
+        "--recorded-outcomes",
+        action="store_true",
+        help="Verify evidence and truthful PASS/FAIL recording, allowing documented failed assertions",
+    )
     args = parser.parse_args()
     root = args.directory.resolve()
     manifest = json.loads((root / "manifest.json").read_text())
@@ -23,8 +28,13 @@ def main():
         ):
             failures.append("artifact_hash_mismatch:" + name)
     assertions = json.loads((root / "assertions.json").read_text())
+    failed_assertions = []
     for assertion in assertions:
-        if assertion["status"] != "PASS" or assertion["expected"] != assertion["actual"]:
+        equal = assertion["expected"] == assertion["actual"]
+        recorded = "PASS" if equal else "FAIL"
+        if assertion["status"] == "FAIL":
+            failed_assertions.append(assertion["name"])
+        if assertion["status"] != recorded or (not args.recorded_outcomes and not equal):
             failures.append("assertion:" + assertion["name"])
     print(
         json.dumps(
@@ -32,6 +42,8 @@ def main():
                 "verified_files": len(manifest["files"]),
                 "assertions": len(assertions),
                 "failures": failures,
+                "failed_assertions": failed_assertions,
+                "mode": "recorded_outcomes" if args.recorded_outcomes else "require_pass",
                 "scope": manifest["scope"],
                 "unverified": manifest["unverified"],
             },

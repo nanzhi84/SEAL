@@ -1,4 +1,4 @@
-"""Boundary rejections, immutable input validation and deterministic publication."""
+"""Boundary rejections, immutable input validation and deterministic completion."""
 
 import hashlib
 import json
@@ -43,8 +43,7 @@ def configuration_and_determinism(h):
     recipe.write_text(source)
     version = h.cli("recipe", "pack", bundle)["recipe_version"]
     binding = h.binding("contract", recipe=version)
-    h.approve(binding)
-    h.cli("activate", binding, "--expect-generation", "0")
+    h.select("contract", binding, 0)
     h.cli("run", "contract")
     original = h.export("contract")
     h.env["SEAL_E2E_NONDET"] = "1"
@@ -52,7 +51,7 @@ def configuration_and_determinism(h):
         changed = h.cli("run", "contract", ok=False)
         h.check("same_key_different_output_blocked", "nondeterministic_output" in changed["errors"])
         h.check(
-            "nondeterminism_does_not_replace_published_results",
+            "nondeterminism_does_not_replace_completed_results",
             [d["result_id"] for d in h.export("contract")["documents"]],
             [d["result_id"] for d in original["documents"]],
         )
@@ -78,12 +77,61 @@ def configuration_and_determinism(h):
     h.check("restored_evidence_hash", hashlib.sha256(blob.read_bytes()).hexdigest(), key)
 
 
+def runtime_contracts(h):
+    from .faults import sql
+
+    h.config(
+        "partial",
+        entries=[h.site.url + "/partial/one", h.site.url + "/probe/badpdf"],
+        seed_role="detail",
+    )
+    binding = h.binding("partial")
+    failed = h.cli("run", "partial", "--binding", binding, ok=False)
+    h.check("partial_has_technical_error", failed["status"], "partial")
+    data = h.cli("export", "partial", "--run", failed["run_id"])
+    h.check("partial_valid_json_retained", len(data["documents"]), 1)
+    h.check("partial_not_quality_evaluated", data["quality_status"], "not_evaluated")
+    h.check(
+        "partial_raw_preserved", len(h.cli("inspect", "run", failed["run_id"])["observations"]) >= 2
+    )
+    h.check("partial_not_in_success_view", len(h.export("partial")["documents"]), 0)
+    h.cli("export", "a", "--run", failed["run_id"], ok=False)
+    h.check("cross_source_export_rejected", True)
+
+    h.config("zero", entries=[h.site.url + "/zero/one"], seed_role="detail")
+    folder = h.root / "zero-recipe"
+    shutil.copytree("recipes/generic", folder)
+    file = folder / "recipe.py"
+    file.write_text(file.read_text().replace("        yield item", "        return"))
+    version = h.cli("recipe", "pack", folder)["recipe_version"]
+    zero = h.cli("run", "zero", "--binding", h.binding("zero", recipe=version))
+    h.check("empty_run_is_not_quality_failure", zero["status"], "complete")
+    h.check("empty_run_count_explicit", zero["report"]["result_count"], 0)
+    h.check("no_quality_coverage_claim", "coverage" not in zero["report"])
+
+    h.config("queued_candidate")
+    binding = h.binding("queued_candidate")
+    queued = h.cli("run", "queued_candidate", "--binding", binding, "--enqueue")
+    h.start_worker()
+    h.wait_worker()
+    result = h.cli("inspect", "run", queued["run_id"])
+    h.check("queued_candidate_without_default_complete", result["run"]["status"], "complete")
+    h.check("queued_candidate_json", len(result["results"]), 2)
+    h.check(
+        "no_v11_publication_records",
+        sql(
+            h, "SELECT count(*) FROM seal_decision WHERE kind!='control' AND id NOT LIKE 'legacy-%'"
+        )[0][0],
+        0,
+    )
+
+
 def stopped_source_replay(h):
     history = h.cli("inspect", "source", "b")
     run = next(
         r["id"]
         for r in reversed(history["runs"])
-        if r["mode"] == "production" and r["status"] == "complete"
+        if r["mode"] == "collect" and r["status"] == "complete"
     )
     before = len(h.site.ledger)
     h.site.close()

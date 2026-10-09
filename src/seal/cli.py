@@ -18,6 +18,10 @@ def parser():
     db.add_parser("migrate")
     source = commands.add_parser("source").add_subparsers(dest="action", required=True)
     source.add_parser("apply").add_argument("file", type=Path)
+    select = source.add_parser("select")
+    select.add_argument("source")
+    select.add_argument("--binding", required=True)
+    select.add_argument("--expect-generation", type=int, required=True)
     recipe = commands.add_parser("recipe").add_subparsers(dest="action", required=True)
     recipe.add_parser("pack").add_argument("path", type=Path)
     binding = (
@@ -28,23 +32,12 @@ def parser():
     binding.add_argument("source")
     binding.add_argument("--recipe", required=True)
     binding.add_argument("--params", required=True, type=Path)
-    commands.add_parser("trial").add_argument("binding")
     replay = commands.add_parser("replay")
     replay.add_argument("run")
     replay.add_argument("--binding")
-    review = commands.add_parser("review").add_subparsers(dest="action", required=True)
-    ex = review.add_parser("export")
-    ex.add_argument("run")
-    ex.add_argument("--output", required=True, type=Path)
-    review.add_parser("import").add_argument("file", type=Path)
-    for name in ("activate", "rollback"):
-        cmd = commands.add_parser(name)
-        cmd.add_argument("binding")
-        cmd.add_argument("--expect-generation", type=int, required=True)
-        if name == "rollback":
-            cmd.add_argument("--reason", required=True)
     run = commands.add_parser("run")
     run.add_argument("source")
+    run.add_argument("--binding")
     run.add_argument("--enqueue", action="store_true")
     run.add_argument("--recheck", action="store_true")
     commands.add_parser("worker").add_argument("--once", action="store_true")
@@ -60,53 +53,46 @@ def parser():
     export = commands.add_parser("export")
     export.add_argument("source")
     export.add_argument("--output", type=Path)
-    for name, arg in (("pause", "source"), ("withdraw", "result")):
-        cmd = commands.add_parser(name)
-        cmd.add_argument(arg)
-        cmd.add_argument("--reason", required=True)
+    export.add_argument("--run")
+    pause = commands.add_parser("pause")
+    pause.add_argument("source")
+    pause.add_argument("--reason", required=True)
     return root
 
 
 def dispatch(args):
-    from . import governance, recipes, runs
+    from . import configuration, recipes, runs
+    from .completion import finish_run
     from .db import connect, decision, locked_run, migrate, one
+    from .export import export_source
     from .inspect import inspect_record
-    from .publish import export_source, finish_run
 
     if args.command == "db":
         return migrate()
     if args.command == "source":
-        return governance.register_source(load_file(args.file))
+        if args.action == "select":
+            return configuration.select_binding(args.source, args.binding, args.expect_generation)
+        return configuration.register_source(load_file(args.file))
     if args.command == "recipe":
         return recipes.pack_recipe(args.path)
     if args.command == "binding":
         return recipes.create_binding(args.source, args.recipe, load_file(args.params))
-    if args.command == "trial":
-        return runs.execute_run(runs.create_run(args.binding, "trial"))
     if args.command == "replay":
         with connect() as c:
             run = one(c, "SELECT * FROM seal_run WHERE id=%s", (args.run,))
         return runs.execute_run(
             runs.create_run(args.binding or run["binding_id"], "replay", replay_from=args.run)
         )
-    if args.command == "review":
-        if args.action == "import":
-            return governance.review_import(load_file(args.file))
-        result = governance.review_export(args.run)
-        write_json(args.output, result)
-        return result
-    if args.command in ("activate", "rollback"):
-        return governance.activate(
-            args.binding, args.expect_generation, getattr(args, "reason", None)
-        )
     if args.command == "run":
         with connect() as c:
             source = one(c, "SELECT * FROM seal_source WHERE id=%s FOR UPDATE", (args.source,))
-            if not source["binding_id"]:
-                raise SealError("activation_required")
-            run_id = runs.create_run(
-                source["binding_id"], "recheck" if args.recheck else "production", c
-            )
+            binding_id = args.binding or source["binding_id"]
+            if not binding_id:
+                raise SealError("binding_required")
+            binding = one(c, "SELECT source_id FROM seal_binding WHERE id=%s", (binding_id,))
+            if binding["source_id"] != args.source:
+                raise SealError("binding_source_mismatch")
+            run_id = runs.create_run(binding_id, "recheck" if args.recheck else "collect", c)
             if args.enqueue:
                 from .queue import enqueue
 
@@ -134,14 +120,12 @@ def dispatch(args):
     if args.command == "inspect":
         return inspect_record(args.kind, args.identity)
     if args.command == "export":
-        result = export_source(args.source)
+        result = export_source(args.source, args.run)
         if args.output:
             write_json(args.output, result)
         return result
     if args.command == "pause":
-        return governance.pause(args.source, args.reason)
-    if args.command == "withdraw":
-        return governance.withdraw(args.result, args.reason)
+        return configuration.pause(args.source, args.reason)
     if args.command == "worker":
         from .queue import worker
 

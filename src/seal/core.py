@@ -1,6 +1,7 @@
 """Shared boundary primitives; never include untrusted values in error messages."""
 
 import hashlib
+import ipaddress
 import json
 import os
 import re
@@ -70,6 +71,22 @@ def public_url(url):
     ):
         raise SealError("sensitive_url_rejected")
     return safe_url(url)
+
+
+def check_address(host):
+    """Basic address boundary; explicit loopback opt-in is for isolated acceptance."""
+    if host.rstrip(".").lower() == "localhost" or host.lower().endswith(
+        (".localhost", ".local", ".internal")
+    ):
+        raise SealError("non_public_address")
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return  # Hostname scope is enforced separately; this is not a DNS-rebinding sandbox.
+    if not address.is_global and not (
+        address.is_loopback and os.environ.get("SEAL_ALLOW_LOOPBACK") == "1"
+    ):
+        raise SealError("non_public_address")
 
 
 def atomic_write(path, data):

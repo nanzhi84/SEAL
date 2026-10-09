@@ -1,0 +1,77 @@
+{
+  "purpose": "independent runtime contract checks; no Evaluation module",
+  "cases": [
+    {
+      "id": "R01",
+      "name": "两页发现列表",
+      "setup": "GET /list/1，后续由 Recipe 跟进 /list/2",
+      "expected": "发现且只发现四个详情链接：/notice/simple, /notice/alternate, /notice/date-trap, /notice/table，不能无证据宣称全站覆盖"
+    },
+    {
+      "id": "R02",
+      "name": "同 URL 三次内容 A→B→A",
+      "setup": "reset; /changing(A); /__control/revision?value=B; /changing(B); /__control/revision?value=A; /changing(A)",
+      "expected": "同一文档三次按序不同观察且按相邻内容变动产生 3 个 Revision；A,B,A 仅有 2 份不同的 BodyBlob；原文摘要与 fixture 文件一致"
+    },
+    {
+      "id": "R03",
+      "name": "相同原文两次观察",
+      "setup": "连续两次采集 /notice/simple",
+      "expected": "允许有两个 Observation；内容不变时不产生新的 Revision；BodyBlob 可复用"
+    },
+    {
+      "id": "R04",
+      "name": "gzip 压缩响应",
+      "setup": "GET /compressed，响应体含 Content-Encoding: gzip",
+      "expected": "如果现有归档契约是解压后原文，归档原文的 SHA256 应等于 fixtures/notice_simple.html；不得混淆网络压缩体和解析原文"
+    },
+    {
+      "id": "R05",
+      "name": "HTTP 重定向",
+      "setup": "GET /redirect，302 Location=/notice/simple",
+      "expected": "最终目标页可完成解析与归档；是否额外归档 302 按仓库已定义的策略核验，不临时改变策略"
+    },
+    {
+      "id": "R06",
+      "name": "暂时 503 错误",
+      "setup": "reset; GET /flaky 首次 503、后续 200",
+      "expected": "根据仓库已有有限重试/错误契约处理，不能无限重试或将 503 页面伪装成合法公告"
+    },
+    {
+      "id": "R07",
+      "name": "必需字段缺失",
+      "setup": "GET /notice/missing-title",
+      "expected": "如果 title 为 Schema 必需字段，记录技术校验失败并保留已归档原文；不得虚构 title"
+    },
+    {
+      "id": "R08",
+      "name": "空正文",
+      "setup": "GET /empty 返回 200 且 body 为空",
+      "expected": "技术契约明确分类空响应，不能生成假正常数据或引起无限循环"
+    },
+    {
+      "id": "R09",
+      "name": "候选与默认隔离",
+      "setup": "创建默认 Binding A、非默认 Binding B；通过 B 显式 run；随后查询默认选择",
+      "expected": "B 可运行并留存结果，A 默认配置未被改动，export/run 的来源血缘明确"
+    },
+    {
+      "id": "R10",
+      "name": "Replay 无网络",
+      "setup": "完成 /notice/simple 采集并归档后停止 fixture HTTP 服务，再 Replay 已保存输入",
+      "expected": "Replay 成功不依赖网络；使用相同 RecipeVersion 时解析结果稳定；不同版本不修改原始 BodyBlob"
+    },
+    {
+      "id": "R11",
+      "name": "同步与 Worker 路径一致",
+      "setup": "对同一 fixture 用同步执行与 Procrastinate 持久入队各运行一次",
+      "expected": "相同代码/输入的语义 JSON 等价；都具有完整血缘；技术状态一致（忽略运行 ID、时间等波动字段）"
+    },
+    {
+      "id": "R12",
+      "name": "故障恢复、重入和旧任务竞争",
+      "setup": "用现有 acceptance 的受控故障注入，避免新增模拟架构",
+      "expected": "Worker 强杀后有界恢复；已提交结果重入不产生非预期副作用；过期任务不覆盖更新状态；凡未复现的保持 UNVERIFIED"
+    }
+  ]
+}

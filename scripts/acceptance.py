@@ -12,9 +12,21 @@ from e2e.harness import Harness
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--stage", choices=["m0", "m1", "m2", "m3"], required=True)
+    parser.add_argument("--stage", choices=["m0", "m1", "m2", "m3", "smoke"], required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--baseline", type=Path, help="Current M3 artifacts reused by smoke R12")
+    parser.add_argument("--live", action="store_true", help="Opt-in bounded public-source smoke")
+    parser.add_argument(
+        "--live-source",
+        action="append",
+        choices=["live_court", "live_spp", "live_python"],
+        help="Restrict opt-in live work to the named sources",
+    )
     args = parser.parse_args()
+    if args.stage == "smoke":
+        from e2e.smoke import main as smoke
+
+        return smoke(args)
     # Preserve first failures. Reusing a requested output creates a unique child.
     output = args.output
     if output.exists():
@@ -37,6 +49,7 @@ def main():
         if args.stage == "m3":
             scenarios.m3(h, binding, run)
             contracts.configuration_and_determinism(h)
+            contracts.runtime_contracts(h)
             contracts.stopped_source_replay(h)
     except Exception as exc:
         error = exc

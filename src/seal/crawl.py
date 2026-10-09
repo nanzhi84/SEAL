@@ -45,7 +45,7 @@ def settings_for(context):
         "HTTPCACHE_ENABLED": False,
         "COOKIES_ENABLED": False,
         "HTTPPROXY_ENABLED": False,
-        "ROBOTSTXT_OBEY": config["robots"] and not replay,
+        "ROBOTSTXT_OBEY": False,
         "RETRY_ENABLED": not replay,
         "RETRY_TIMES": 2,
         "RETRY_HTTP_CODES": [500, 502, 503, 504, 522, 524, 408],

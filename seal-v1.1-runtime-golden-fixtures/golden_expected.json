@@ -1,0 +1,125 @@
+{
+  "purpose": "fixture-only; not production Evaluation",
+  "version": "1.0",
+  "notes": [
+    "expected is a schema-agnostic semantic projection. Make explicit, documented mapping to repository output schema; do not silently change golden to match actual.",
+    "Content uses paragraphs separated with a single newline. Normalize only irrelevant whitespace through a documented function.",
+    "G05 nullable field: if repository Schema requires publication_date, expect technical rejection instead of modifying the Schema."
+  ],
+  "cases": [
+    {
+      "id": "G01",
+      "url_path": "/notice/simple",
+      "fixture": "notice_simple.html",
+      "expected": {
+        "title": "关于合成测试数据的通知",
+        "publication_date": "2026-09-01",
+        "update_date": "2026-09-12",
+        "document_no": "测规〔2026〕1号",
+        "content": "第一条 本页仅供测试。\n第二条 不代表真实法规。"
+      },
+      "focus": "基础 HTML、归档、字段抽取",
+      "fixture_sha256": "f27f8a8e541b9e57f50e7c8be966cff9412a3b7c109cc84c8627e49e1639cfb5"
+    },
+    {
+      "id": "G02",
+      "url_path": "/notice/alternate",
+      "fixture": "notice_alternate.html",
+      "expected": {
+        "title": "关于备用版式的公告",
+        "publication_date": "2026-08-30",
+        "update_date": null,
+        "document_no": "测发〔2026〕2号",
+        "content": "公告正文第一段。\n公告正文第二段。"
+      },
+      "focus": "备用 DOM 结构",
+      "fixture_sha256": "fd88486c589c4a66aa0eaded6f7616700ef23221e723e14e7522f3ae34a8d417"
+    },
+    {
+      "id": "G03",
+      "url_path": "/notice/date-trap",
+      "fixture": "notice_date_trap.html",
+      "expected": {
+        "title": "关于日期字段含义的通知",
+        "publication_date": "2025-08-01",
+        "update_date": "2026-09-20",
+        "document_no": "测规〔2025〕3号",
+        "content": "发布日期与更新时间含义不同。"
+      },
+      "focus": "发布日期不能被更新时间替换",
+      "fixture_sha256": "9aff2c189bef4087cb3e64a8bc5e04d506160c573292747cdf13b1aedabf3cf7"
+    },
+    {
+      "id": "G04",
+      "url_path": "/notice/table",
+      "fixture": "notice_table.html",
+      "expected": {
+        "title": "关于表格信息的公告",
+        "publication_date": "2026-07-16",
+        "update_date": null,
+        "document_no": null,
+        "content": "地区：甲区\n状态：有效"
+      },
+      "focus": "表格内容保留",
+      "fixture_sha256": "d214e3620b46900124bb734b549c616e751bc319637e573412260c155b55d017"
+    },
+    {
+      "id": "G05",
+      "url_path": "/notice/missing-optional",
+      "fixture": "notice_missing_optional.html",
+      "expected": {
+        "title": "未注明发布日期的说明",
+        "publication_date": null,
+        "update_date": null,
+        "document_no": null,
+        "content": "原文没有提供发布日期。"
+      },
+      "focus": "缺失字段不能编造，若正式 Schema 禁止 null 则按负例测试",
+      "fixture_sha256": "291338339e1f59223f6fe7f4539ad76f1ad12245a3181644e34a764fc92b7492"
+    },
+    {
+      "id": "G06",
+      "url_path": "/notice/unicode",
+      "fixture": "notice_unicode.html",
+      "expected": {
+        "title": "关于ＡＩ与数据 & 安全的说明",
+        "publication_date": "2026-10-01",
+        "update_date": null,
+        "document_no": null,
+        "content": "第（一）条：保留中文标点。\n第二条：正确还原 <标签> 字符。"
+      },
+      "focus": "UTF-8、HTML 实体、中文标点",
+      "fixture_sha256": "5f04b041586c3ebb343cc6902d7c2b00ef34b3f25a6eb736452a0e3caf07ffa6"
+    },
+    {
+      "id": "G07",
+      "url_path": "/changing",
+      "fixture": "notice_change_a.html",
+      "server_revision": "A",
+      "expected": {
+        "title": "动态文档版本实验",
+        "publication_date": "2026-07-01",
+        "update_date": null,
+        "document_no": null,
+        "content": "第一条 版本 A。"
+      },
+      "focus": "Revision A",
+      "fixture_sha256": "8ada80768b7f7d4f797025cb90664d1813d584650d814966cc9d3f279c5c5a9f"
+    },
+    {
+      "id": "G08",
+      "url_path": "/changing",
+      "fixture": "notice_change_b.html",
+      "server_revision": "B",
+      "expected": {
+        "title": "动态文档版本实验",
+        "publication_date": "2026-07-01",
+        "update_date": null,
+        "document_no": null,
+        "content": "第一条 版本 B。"
+      },
+      "focus": "Revision B",
+      "fixture_sha256": "1cf654af37d5b8202402f314613236a92cbc2770ca8956fe2f5dd0446fd282d2"
+    }
+  ]
+}

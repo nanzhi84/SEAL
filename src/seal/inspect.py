@@ -23,11 +23,11 @@ def inspect_record(kind, identity):
             return {
                 "source": source,
                 "documents": c.execute(
-                    "SELECT * FROM seal_document WHERE source_id=%s AND namespace='production' ORDER BY identity",
+                    "SELECT * FROM seal_document WHERE source_id=%s ORDER BY identity",
                     (identity,),
                 ).fetchall(),
                 "revisions": c.execute(
-                    "SELECT r.* FROM seal_revision r JOIN seal_document d ON r.document_id=d.id WHERE d.source_id=%s AND d.namespace='production' ORDER BY r.created_at",
+                    "SELECT r.* FROM seal_revision r JOIN seal_document d ON r.document_id=d.id WHERE d.source_id=%s ORDER BY r.created_at",
                     (identity,),
                 ).fetchall(),
                 "decisions": c.execute(

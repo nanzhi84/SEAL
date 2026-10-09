@@ -21,6 +21,7 @@ class Harness:
         self.env.pop("SEAL_DATABASE_URL", None)
         self.env.pop("SEAL_ARCHIVE", None)
         self.env["SEAL_ARCHIVE"] = str(self.root / "archive")
+        self.env["SEAL_ALLOW_LOOPBACK"] = "1"
         self.assertions, self.receipts = [], []
         self.site = Site()
         self.worker = None
@@ -57,7 +58,9 @@ class Harness:
             capture_output=True,
         )
         self.pg_started = True
-        self.cli("db", "migrate")
+        from .migration import upgrade_history
+
+        upgrade_history(self)
 
     def cli(self, *args, ok=True):
         p = subprocess.run(
@@ -92,7 +95,7 @@ class Harness:
         if not passed:
             raise AssertionError(name)
 
-    def config(self, source="a", entries=None, expected=True, **extra):
+    def config(self, source="a", entries=None, **extra):
         data = {
             "id": source,
             "entry_urls": entries or [self.site.url + f"/{source}/list"],
@@ -104,11 +107,6 @@ class Harness:
             "recheck_seconds": 3600,
             "budget": {"requests": 40, "seconds": 25, "response_bytes": 100000},
         }
-        if expected:
-            data["expected_urls"] = [
-                self.site.url + f"/{source}/one",
-                self.site.url + f"/{source}/two",
-            ]
         data.update(extra)
         path = self.root / f"{source}.json"
         path.write_text(json.dumps(data))
@@ -124,22 +122,10 @@ class Harness:
             "binding_id"
         ]
 
-    def approve(self, binding, trial=None, replay=None):
-        trial = trial or self.cli("trial", binding)["run_id"]
-        review_path = self.root / "review.json"
-        self.cli("review", "export", trial, "--output", review_path)
-        review = json.loads(review_path.read_text())
-        review.update(
-            {
-                "approved": True,
-                "scope": "Synthetic entry, both pages and every field checked",
-                "gold": [{"title": "First notice", "body": "Public content " + self.site.version}],
-            }
+    def select(self, source, binding, generation):
+        return self.cli(
+            "source", "select", source, "--binding", binding, "--expect-generation", generation
         )
-        if replay:
-            review["replay_run_id"] = replay
-        review_path.write_text(json.dumps(review))
-        return self.cli("review", "import", review_path)
 
     def export(self, source="a"):
         return self.cli("export", source)
@@ -186,6 +172,7 @@ class Harness:
             if p.is_file()
         }
         manifest = {
+            "version": "v1.1",
             "stage": stage,
             "command": f"./scripts/acceptance.sh --stage {stage} --output <new-directory>",
             "python": sys.version,

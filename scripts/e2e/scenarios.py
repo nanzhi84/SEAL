@@ -3,13 +3,11 @@ import shutil
 
 def m0(h):
     endpoints = ["redirect", "meta", "retry", "deflate", "pdf", "json", "txt"]
-    h.config(
-        "probe", [h.site.url + "/probe/" + p for p in endpoints], expected=False, seed_role="detail"
-    )
+    h.config("probe", [h.site.url + "/probe/" + p for p in endpoints], seed_role="detail")
     binding = h.binding("probe")
-    trial = h.cli("trial", binding)
-    h.check("native_crawl_complete", trial["status"], "complete")
-    run = h.cli("inspect", "run", trial["run_id"])
+    run_result = h.cli("run", "probe", "--binding", binding)
+    h.check("native_crawl_complete", run_result["status"], "complete")
+    run = h.cli("inspect", "run", run_result["run_id"])
     statuses = [o["status"] for o in run["observations"]]
     h.check("every_retry_archived", statuses.count(503), 2)
     h.check("redirect_archived", 302 in statuses)
@@ -19,7 +17,7 @@ def m0(h):
     )
     h.check("callback_inputs_durable", all(r["checks"]["input_verified"] for r in run["results"]))
     before = len(h.site.ledger)
-    replay = h.cli("replay", trial["run_id"])
+    replay = h.cli("replay", run_result["run_id"])
     h.check("offline_replay_complete", replay["status"], "complete")
     h.check("replay_zero_requests", len(h.site.ledger), before)
     replay_run = h.cli("inspect", "run", replay["run_id"])
@@ -30,13 +28,13 @@ def m0(h):
         sorted(r["output_hash"] for r in replay_run["results"]),
     )
     for endpoint in ("304", "429", "large", "badpdf", "missing"):
-        h.config("bad", [h.site.url + "/probe/" + endpoint], expected=False, seed_role="detail")
-        bad_binding = h.binding("bad")
-        failed = h.cli("trial", bad_binding, ok=False)
-        h.check(f"reject_{endpoint}", failed["status"] in ("partial", "failed"))
+        name = "bad_" + endpoint
+        h.config(name, [h.site.url + "/probe/" + endpoint], seed_role="detail")
+        failed = h.cli("run", name, "--binding", h.binding(name), ok=False)
+        h.check(f"reject_{endpoint}", failed["status"] in ("partial", "failed", "retryable"))
     h.config("sensitive")
     h.site.failure = "sensitive"
-    failed = h.cli("trial", h.binding("sensitive"), ok=False)
+    failed = h.cli("run", "sensitive", "--binding", h.binding("sensitive"), ok=False)
     h.check("sensitive_body_blocked", failed["status"], "partial")
     h.site.failure = None
     h.check(
@@ -54,57 +52,71 @@ def m0(h):
 def m1(h):
     h.config()
     binding = h.binding()
-    h.cli("activate", binding, "--expect-generation", "0", ok=False)
-    h.check("unreviewed_binding_rejected", True)
-    trial = h.cli("trial", binding)
-    h.check("trial_isolated", len(h.export()["documents"]), 0)
-    h.approve(binding, trial["run_id"])
-    h.cli("activate", binding, "--expect-generation", "0")
-    h.cli("activate", binding, "--expect-generation", "0", ok=False)
-    h.check("activation_cas_conflict", True)
-    run = h.cli("run", "a")
+    run = h.cli("run", "a", "--binding", binding)
+    h.check("candidate_without_default_runs", run["status"], "complete")
+    source = h.cli("inspect", "source", "a")
+    h.check("run_does_not_select_default", source["source"]["binding_id"], None)
+    h.check(
+        "no_governance_or_publication_events", {d["kind"] for d in source["decisions"]}, {"control"}
+    )
     exported = h.export()
     h.check(
-        "published_expected_set",
+        "runtime_expected_set",
         sorted(d["title"] for d in exported["documents"]),
         ["First notice", "Second notice"],
     )
     h.check(
-        "publication_traceability",
+        "runtime_traceability",
         all(
-            d["revision_id"] and d["result_id"] and d["body_hash"] and d["binding_id"] == binding
+            d["revision_id"]
+            and d["result_id"]
+            and d["body_hash"]
+            and d["observation_id"]
+            and d["run_id"] == run["run_id"]
+            and d["binding_id"] == binding
             for d in exported["documents"]
         ),
     )
+    h.check("results_not_quality_approved", exported["quality_status"], "not_evaluated")
+    h.select("a", binding, 0)
+    rejected = h.cli(
+        "source", "select", "a", "--binding", binding, "--expect-generation", "0", ok=False
+    )
+    h.check("default_selection_cas", rejected["error"], "generation_conflict")
     h.cli("run", "a")
     again = h.export()
-    h.check("normal_cycle_no_manual_review", len(again["documents"]), 2)
+    h.check("normal_cycle_complete", len(again["documents"]), 2)
     h.check(
-        "repeat_no_new_publications",
-        [d["publication_id"] for d in again["documents"]],
-        [d["publication_id"] for d in exported["documents"]],
+        "repeat_reuses_results",
+        [d["result_id"] for d in again["documents"]],
+        [d["result_id"] for d in exported["documents"]],
     )
-    changed = h.binding(params={"body": "section"})
-    h.cli("activate", changed, "--expect-generation", "1", ok=False)
-    h.check("changed_parameters_need_review", True)
+    h.check("repeat_no_new_revisions", len(h.cli("inspect", "source", "a")["revisions"]), 2)
+    changed = h.binding(params={"body": "article", "title": "h1"})
+    candidate = h.cli("run", "a", "--binding", changed)
+    h.check("non_default_binding_same_runtime", candidate["status"], "complete")
+    h.check(
+        "same_content_new_binding_no_revision", len(h.cli("inspect", "source", "a")["revisions"]), 2
+    )
+    h.check(
+        "new_binding_new_processing_result",
+        {d["result_id"] for d in h.export()["documents"]}.isdisjoint(
+            d["result_id"] for d in again["documents"]
+        ),
+    )
+    h.check(
+        "candidate_does_not_change_default",
+        h.cli("inspect", "source", "a")["source"]["binding_id"],
+        binding,
+    )
     h.site.failure = "empty"
     h.cli("run", "a", ok=False)
-    h.check("partial_preserves_publication", len(h.export()["documents"]), 2)
+    h.check("partial_preserves_successful_view", len(h.export()["documents"]), 2)
     h.site.failure = None
-    h.cli("run", "a", ok=False)
-    h.check("needs_repair_requires_review", True)
-    h.approve(binding)
-    h.cli("activate", binding, "--expect-generation", "1")
-    h.config("unknown", expected=False)
-    unknown = h.binding("unknown")
-    h.approve(unknown)
-    h.cli("activate", unknown, "--expect-generation", "0")
-    h.cli("run", "unknown")
-    h.check(
-        "unknown_coverage_not_100_percent",
-        h.export("unknown")["documents"][0]["coverage"]["status"],
-        "unknown",
-    )
+    h.check("failure_needs_no_reapproval", h.cli("run", "a")["status"], "complete")
+    h.config("other")
+    rejected = h.cli("run", "other", "--binding", binding, ok=False)
+    h.check("cross_source_binding_rejected", rejected["error"], "binding_source_mismatch")
     return binding, run["run_id"]
 
 
@@ -114,9 +126,7 @@ def m2(h, binding, previous_run):
     h.start_worker()
     h.wait_worker()
     h.check(
-        "real_worker_publishes_recheck",
-        {d["body"] for d in h.export()["documents"]},
-        {"Public content B"},
+        "real_worker_rechecks", {d["body"] for d in h.export()["documents"]}, {"Public content B"}
     )
     h.site.version = "A"
     h.cli("run", "a", "--recheck")
@@ -136,22 +146,23 @@ def m2(h, binding, previous_run):
         h.cli("inspect", "run", old["run_id"])["run"]["status"],
         "superseded",
     )
-    result = h.export()["documents"][0]["result_id"]
-    h.cli("withdraw", result, "--reason", "synthetic incorrect extraction")
-    export = h.export()
-    h.check("withdrawal_exported", len(export["withdrawals"]), 1)
-    h.check("withdrawal_clears_pointer", len(export["documents"]), 1)
-    h.cli("activate", binding, "--expect-generation", "3")
-    h.cli("run", "a", ok=False)
-    h.check("withdrawn_result_never_republished", len(h.export()["documents"]), 1)
+    h.select("a", binding, 2)
+    historical = h.cli("export", "a", "--run", previous_run)
+    h.check(
+        "historical_run_revision_stable",
+        {d["body"] for d in historical["documents"]},
+        {"Public content A"},
+    )
+    h.check(
+        "historical_run_ids_stable", {d["run_id"] for d in historical["documents"]}, {previous_run}
+    )
 
 
 def m3(h, binding, previous_run):
     recipe = h.cli("inspect", "binding", binding)["recipe_version"]
     h.config("b")
     b = h.binding("b", recipe=recipe)
-    h.approve(b)
-    h.cli("activate", b, "--expect-generation", "0")
+    h.select("b", b, 0)
     h.cli("run", "b")
     h.check("shared_initial_recipe", h.cli("inspect", "binding", b)["recipe_version"], recipe)
     before = h.export("b")
@@ -173,14 +184,16 @@ def m3(h, binding, previous_run):
     )
     new_recipe = h.cli("recipe", "pack", fixed)["recipe_version"]
     a2 = h.binding("a", recipe=new_recipe)
-    replay = h.cli("replay", previous_run, "--binding", a2)
-    trial = h.cli("trial", a2)
-    h.approve(a2, trial["run_id"], replay["run_id"])
-    h.cli("activate", a2, "--expect-generation", "4")
-    h.cli("run", "a")
-    h.check("a_fixed_and_published", len(h.export()["documents"]), 2)
+    h.cli("replay", previous_run, "--binding", a2)
+    h.cli("run", "a", "--binding", a2)
+    h.check("candidate_repair_results_saved", len(h.export()["documents"]), 2)
+    h.select("a", a2, 3)
     h.check("b_stays_old_version", h.export("b")["documents"][0]["recipe_version"], recipe)
     h.site.broken = False
-    h.cli("rollback", binding, "--expect-generation", "5", "--reason", "synthetic rollback")
-    h.check("rollback_new_generation", h.cli("inspect", "source", "a")["source"]["generation"], 6)
-    h.check("rollback_keeps_withdrawal", len(h.export()["withdrawals"]), 1)
+    h.select("a", binding, 4)
+    h.check(
+        "select_previous_version_new_generation",
+        h.cli("inspect", "source", "a")["source"]["generation"],
+        5,
+    )
+    h.cli("run", "a")

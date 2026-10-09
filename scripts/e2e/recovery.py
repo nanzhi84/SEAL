@@ -1,4 +1,4 @@
-"""Crash windows around durable bodies and committed publication."""
+"""Crash windows around durable bodies and committed completion."""
 
 import os
 import signal
@@ -18,12 +18,11 @@ def stop_worker(h):
 
 
 def crash_boundaries(h):
-    for boundary in ("body", "published"):
+    for boundary in ("body", "completed"):
         name = "crash_" + boundary
         h.config(name)
         binding = h.binding(name)
-        h.approve(binding)
-        h.cli("activate", binding, "--expect-generation", "0")
+        h.select(name, binding, 0)
         if boundary == "body":
             table, trigger = "seal_fetch_observation", "BEFORE INSERT"
             condition = "NEW.source_id='crash_body' AND NEW.url LIKE '%/one'"
@@ -50,9 +49,9 @@ def crash_boundaries(h):
                     "body_durable_before_db_commit",
                     len(list((h.root / "archive" / "objects").glob("*/*"))) >= before_objects,
                 )
-                h.check("uncommitted_body_not_published", len(h.export(name)["documents"]), 0)
+                h.check("uncommitted_body_not_completed", len(h.export(name)["documents"]), 0)
             else:
-                h.check("publication_before_job_ack", len(h.export(name)["documents"]), 2)
+                h.check("completion_before_job_ack", len(h.export(name)["documents"]), 2)
             stop_worker(h)
             until(
                 lambda run_id=queued["run_id"]: (
@@ -82,12 +81,14 @@ def crash_boundaries(h):
         h.wait_worker()
         run = h.cli("inspect", "run", queued["run_id"])["run"]
         h.check(boundary + "_crash_recovered", run["status"], "complete")
-        h.check(boundary + "_crash_publication_count", len(h.export(name)["documents"]), 2)
+        h.check(boundary + "_crash_completion_count", len(h.export(name)["documents"]), 2)
         events = sql(
-            h, "SELECT count(*) FROM seal_decision WHERE source_id=%s AND kind='publish'", (name,)
+            h,
+            "SELECT jsonb_array_length(report->'outputs') FROM seal_run WHERE source_id=%s AND status='complete' ORDER BY run_seq DESC LIMIT 1",
+            (name,),
         )[0][0]
         h.check(boundary + "_crash_no_duplicate_events", events, 2)
-        if boundary == "published":
+        if boundary == "completed":
             h.check("committed_run_not_downloaded_again", len(h.site.ledger), before_requests)
 
 
@@ -100,7 +101,7 @@ from seal.queue import enqueue
 try:
     with connect() as c:
         binding=c.execute("SELECT binding_id FROM seal_source WHERE id='fence'").fetchone()['binding_id']
-        run=create_run(binding,'production',c)
+        run=create_run(binding,'collect',c)
         enqueue(c,run)
         raise RuntimeError('synthetic rollback')
 except RuntimeError:
@@ -116,8 +117,7 @@ except RuntimeError:
     h.check("business_and_queue_rollback_together", after, before)
     h.config("bounded")
     binding = h.binding("bounded")
-    h.approve(binding)
-    h.cli("activate", binding, "--expect-generation", "0")
+    h.select("bounded", binding, 0)
     h.site.failure = "page"
     first = h.cli("run", "bounded", ok=False)
     second = h.cli("retry", first["run_id"], ok=False)
