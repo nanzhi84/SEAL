@@ -355,6 +355,11 @@ def main():
         action="store_true",
         help="Verify disclosed inputs; explicitly report private raw Sources",
     )
+    parser.add_argument(
+        "--recorded-outcomes",
+        action="store_true",
+        help="Verify raw fields and truthful recorded PASS/FAIL without promoting a failed suite",
+    )
     args = parser.parse_args()
     root = args.directory.resolve()
     manifest = json.loads(root.joinpath("manifest.json").read_text())
@@ -372,8 +377,14 @@ def main():
             errors.append({"file": name, "error": "artifact_hash_mismatch"})
         files += 1
     assertions = json.loads(root.joinpath("assertions.json").read_text())
+    failed_assertions = []
     for item in assertions:
-        if item["actual"] != item["expected"] or item["status"] != "PASS":
+        equal = item["actual"] == item["expected"]
+        if item["status"] != ("PASS" if equal else "FAIL"):
+            errors.append({"assertion": item["name"], "error": "untruthful_assertion"})
+        if not equal:
+            failed_assertions.append(item["name"])
+        if not args.recorded_outcomes and not equal:
             errors.append({"assertion": item["name"], "error": "failed_assertion"})
     for path in root.glob("*.json"):
         value = json.loads(path.read_text())
@@ -389,6 +400,9 @@ def main():
                 "files": files,
                 "record_projections": records,
                 "assertions": len(assertions),
+                "failed_assertions": failed_assertions,
+                "mode": "recorded_outcomes" if args.recorded_outcomes else "require_pass",
+                "recorded_suite_status": manifest.get("real_source_acceptance", {}).get("status"),
                 "errors": errors,
                 "local_only_sources": private,
             },

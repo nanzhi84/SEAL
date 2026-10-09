@@ -8,7 +8,9 @@ Self-Evolving Agentic Ingestion Loop：面向异构信息源的持续采集、�
 
 V1.2 增加业务 Record、Discovery、多记录 JSON、静态 iframe 和业务附件。2026-10-09 的真实来源扩展处理全部 111 个 A/B/C 研究入口：98 个在冻结样本范围内 complete、3 个 partial、8 个受阻、2 个最终下载验收失败；比首轮新增 90 个通过来源。每项保留具体取样范围，不代表全站或原地图主体核验业务完成。[V1.2 Plan](docs/plans/v1.2-heterogeneous-sources.md) 集中记录合同、样本替换、运行命令和证据，[可视化](docs/generated/v1.2-heterogeneous-sources.html) 为其唯一派生物。
 
-2026-10-10 已修正 JSON 稳定身份 Recheck、到期记录分批、失败重试日期和重复 JSON 解析；补齐 AMAC 完整 7 页、67 条的来源 Recipe。新引擎已复验四个真实来源，先前 98 个通过来源的全套证据仍按历史版本保留。[修复验收索引](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json) 和 Plan 第 9 节记录当前范围与复跑命令。
+2026-10-10 已修正 JSON 稳定身份 Recheck、到期记录分批、失败重试日期和重复 JSON 解析；补齐 AMAC 完整 7 页、67 条的来源 Recipe。[上一轮修复验收索引](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json) 和 Plan 第 9 节保留该版本四个真实来源的复验。
+
+本轮修正敏感字段 null/空值误判，新增锁定版本的 XLS/DOCX 解析与可复算 Locator。当前引擎 `a64a8d2` 完成 7 个来源的限定业务合同，另确认 2 个 partial；其余 93 个 adapted 来源仍是历史成功、当前未复验。111 项的最新已知状态合计为 100 adapted、2 partial、8 blocked、1 acceptance_failed，**100 不代表本引擎全部通过**。dd-468 两份 XLS 完整读取，dd-484 固定详情恢复四轮成功；dd-375 的嵌入/非正文内容、dd-004 的扫描 PDF 仍 partial。dd-211 仍有实际非空 Token，dd-357 当前 Run 遇到越界登录重定向，均未放宽访问或归档规则。[本轮工件索引](experiments/v1.2-acceptance/results/pr2-remediation-final/remediation-evidence-index.json)、[逐源状态](experiments/v1.2-acceptance/results/pr2-remediation-final/dispositions.json) 和 Plan 第 10 节保留真实来源联合验收的 **995/998、整体 FAIL**，以及每源独立证据；PR 继续 Draft。
 
 长期架构分为三个逻辑平面：
 
@@ -22,7 +24,8 @@ V1.1 删除 Trial、Gold Comparison、Review 和发布门禁。候选 Binding �
 
 - [版本记录](CHANGELOG.md)：V1.1 / 0.1.1 的变更、升级注意事项、验收结果及复现前提。
 - [扩展真实验收工件](experiments/v1.2-acceptance/results/expanded-final/real-evidence-index.json)：111 项处理结果、401 次 Run、8497/8497 验收断言及复跑入口；SAFE 的 9 个含会话标识原文对象仅留本地，公开包明确排除。
-- [本次修复工件](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json)：当前引擎的联合、迁移、Smoke、性能、分页及四个真实来源，保留有效 RED 与验收配置失败。
+- [本轮敏感内容与附件修复工件](experiments/v1.2-acceptance/results/pr2-remediation-final/remediation-evidence-index.json)：精确引擎摘要、联合/M3/Smoke、真实 XLS/DOCX、A/B/C、拒绝边界与历史失败；成功与未复验口径分开。
+- [上一轮修复工件](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json)：该引擎的联合、迁移、Smoke、性能、分页及四个真实来源，保留有效 RED 与验收配置失败。
 - [首轮与 Runtime 历史回归工件](experiments/v1.2-acceptance/results/real-final/real-evidence-index.json)：首轮 10 个样本和当时引擎上的合成端到端回归，保留历史成功及失败证据。
 - [V1.1 Plan](docs/plans/v1.1-runtime.md)：架构、配置/数据合同、增量迁移、失败方式、验收及未交付能力。
 - [ADR-0003](docs/adr/0003-runtime-evaluation-management.md)：正式确立 Runtime、Evaluation、Management 三平面边界。

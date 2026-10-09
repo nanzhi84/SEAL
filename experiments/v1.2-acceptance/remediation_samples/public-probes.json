@@ -1,0 +1,517 @@
+{
+  "artifact_version": 1,
+  "scope": "13 original non-adapted Sources; bounded public access diagnostics only; final status requires live.py business acceptance",
+  "quality_status": "not_evaluated",
+  "explicit_note": "Probe是17:12–17:23UTC的预验收观察快照；pending不表示最终状态，最终见results/pr2-remediation-final/dispositions.json。",
+  "observed_at_utc": {
+    "first": "2026-10-09T17:12:40.404836+00:00",
+    "last": "2026-10-09T17:23:03.031197+00:00"
+  },
+  "protocol": {
+    "cookies": false,
+    "Authorization": false,
+    "environment_proxy": false,
+    "redirects_followed_automatically": 0,
+    "retries": 0,
+    "timeout_seconds": 18,
+    "max_response_bytes": 5242880,
+    "sensitive_values": "never retained or disclosed",
+    "stop_on_refusal_or_challenge": true
+  },
+  "reproduce_command": "uv run --frozen python experiments/v1.2-acceptance/expanded_probe.py --source dd-004 --source dd-016 --source dd-211 --source dd-220 --source dd-262 --source dd-299 --source dd-357 --source dd-370 --source dd-375 --source dd-380 --source dd-410 --source dd-468 --source dd-484 --urls-file experiments/v1.2-acceptance/remediation_samples/public-probe-urls.json --no-redirect --no-retain-body --output artifacts/acceptance/v1.2-remediation-probe-reproduction-NEW",
+  "reproduce_note": "The reproduction reads the same reviewed public URLs with the existing probe policy; no original response bytes or secrets are required. Current source classification may change. Original observed hashes remain immutable evidence; attachment archiving and business assertions are reproduced by the current.json live.py command, not this probe.",
+  "sources": [
+    {
+      "research_id": "dd-004",
+      "class": "B",
+      "name": "深圳商事主体信用监管公示平台",
+      "entry_url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+      "historical_status": "partial",
+      "status": "partial",
+      "reason_category": "file_format_unsupported",
+      "reason_code": "pdf_text_layer_required",
+      "reason": "保持扫描PDF无文本层的既有业务边界；最新首页匿名200，当前扫描PDF能力由本轮原合同再次E2E验证，未引入OCR，不以公告标题代替PDF正文。",
+      "evidence": [
+        {
+          "research_id": "dd-004",
+          "url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+          "observed_at": "2026-10-09T17:12:43.534223+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html; charset=gb2312",
+          "bytes": 32476,
+          "sha256": "62783dc8c6b95ecfa5074aede6b2cb52b6ac109c31932b431dcdddad60281811",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "pending"
+    },
+    {
+      "research_id": "dd-016",
+      "class": "B",
+      "name": "公报案例",
+      "entry_url": "http://gongbao.court.gov.cn/ArticleList.html?serial_no=al",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "network_tls",
+      "reason_code": "public_endpoint_http502",
+      "reason": "最新HTTPS入口单次匿名GET返回502空正文，未取得业务内容；不执行重定向循环或会话绕过。",
+      "evidence": [
+        {
+          "research_id": "dd-016",
+          "url": "https://gongbao.court.gov.cn/ArticleList.html?serial_no=al",
+          "observed_at": "2026-10-09T17:12:40.404836+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 502,
+          "content_type": "text/html",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "not_accepted"
+    },
+    {
+      "research_id": "dd-211",
+      "class": "B",
+      "name": "珠海产权交易中心",
+      "entry_url": "https://www.zhaeec.com/",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "runtime_safety_boundary",
+      "reason_code": "actual_nonempty_token_in_public_html",
+      "reason": "公开项目HTML200；字面空占位字段误判已修正，password动态表达式仍保守拒绝，该原文另含真实非空window Token及加密Key，不能安全归档。保留不可变原文合同，禁止裁剪原文或伪造Locator；单次Runtime安全拒绝负向验收，扫描合同PDF仍需OCR。",
+      "evidence": [
+        {
+          "research_id": "dd-211",
+          "url": "https://www.zhaeec.com/prjs/lease/detail/17231.html",
+          "observed_at": "2026-10-09T17:12:42.161737+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 100033,
+          "sha256": "92042de57dc27271ab69e22150286c725d00be2e901fe5c8714e241f09833f93",
+          "mechanism_signals": [
+            "密码",
+            "password"
+          ],
+          "sensitive_key_types": [
+            "window.Token",
+            "window.DesKey"
+          ],
+          "sensitive_values_disclosed": false
+        }
+      ],
+      "current_e2e_status": "pending"
+    },
+    {
+      "research_id": "dd-220",
+      "class": "B",
+      "name": "常州产权交易所",
+      "entry_url": "http://www.czcq.com.cn/",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "network_tls",
+      "reason_code": "http_timeout_and_tls_hostname_mismatch",
+      "reason": "原固定公开详情HTTP18秒超时；同主机HTTPS详情证书主机名不匹配，未关闭证书验证。",
+      "evidence": [
+        {
+          "research_id": "dd-220",
+          "url": "http://www.czcq.com.cn/czcq/news/info?id=3797&column=18",
+          "observed_at": "2026-10-09T17:12:40.405163+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "error": "TimeoutError",
+          "detail": "timed out"
+        },
+        {
+          "research_id": "dd-220",
+          "role": "https",
+          "url": "https://www.czcq.com.cn/czcq/news/info?id=3797&column=18",
+          "observed_at": "2026-10-09T17:14:41.428422+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "error": "URLError",
+          "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.czcq.com.cn'. (_ssl.c:1010)>"
+        }
+      ],
+      "current_e2e_status": "not_accepted"
+    },
+    {
+      "research_id": "dd-262",
+      "class": "B",
+      "name": "开票信息查询",
+      "entry_url": "https://www.qcc.com/",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "login_challenge",
+      "reason_code": "cookie_challenge_required",
+      "reason": "原公开候选HTTP200但只有acw_sc__v2/document.cookie计算挑战，未运行脚本或填充Cookie，停止请求。",
+      "evidence": [
+        {
+          "research_id": "dd-262",
+          "url": "https://www.qcc.com/post/719452258.html",
+          "observed_at": "2026-10-09T17:12:40.405272+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 23670,
+          "sha256": "52ebb7d945fd73613bd0173f31adf805f89e75d1b378fdcd5409dc461c80010b",
+          "mechanism_signals": [
+            "acw_sc__v2",
+            "document.cookie"
+          ]
+        }
+      ],
+      "current_e2e_status": "not_accepted"
+    },
+    {
+      "research_id": "dd-299",
+      "class": "B",
+      "name": "自然资源确权登记网",
+      "entry_url": "https://www.rerc.com.cn/",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "http_refusal",
+      "reason_code": "detail_http403",
+      "reason": "原公开notice详情单次GET仍HTTP403、146字节，明确拒绝后停止；不以历史入口200当正文可采证据。",
+      "evidence": [
+        {
+          "research_id": "dd-299",
+          "url": "https://www.rerc.com.cn/news/notice/20260707/961.html",
+          "observed_at": "2026-10-09T17:12:40.405342+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 403,
+          "content_type": "text/html",
+          "bytes": 146,
+          "sha256": "32f2fa940d4b4fe19aca1e53a24e5aac29c57b7c5ee78588325b87f1b649c864",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "not_accepted"
+    },
+    {
+      "research_id": "dd-357",
+      "class": "B",
+      "name": "全国排污许可证管理信息平台",
+      "entry_url": "https://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "acceptance_pending",
+      "reason_code": "latest_public_notice_e2e_pending",
+      "reason": "此前CAS失败保留；本轮入口及原固定公告匿名GET均200且无登录跳转，原公告有完整正文；已建立四轮强正向合同，只有最终Collect/Recheck/Replay与原文复算全通过才升级adapted。",
+      "evidence": [
+        {
+          "research_id": "dd-357",
+          "url": "https://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+          "observed_at": "2026-10-09T17:12:41.511970+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 135552,
+          "sha256": "7abda16c55e76224d8bc4fdd7987c95dfec137b458fe78fe36975b2e3c478e5c",
+          "mechanism_signals": []
+        },
+        {
+          "research_id": "dd-357",
+          "role": "detail",
+          "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+          "observed_at": "2026-10-09T17:14:41.427984+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html;charset=UTF-8",
+          "bytes": 11853,
+          "sha256": "c43df37269cd0883adff1af1340a1776d87aa8cd7f542f0d283f9da99b63d449",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "pending"
+    },
+    {
+      "research_id": "dd-370",
+      "class": "B",
+      "name": "中国化学品安全协会",
+      "entry_url": "http://www.chemicalsafety.org.cn/index.php",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "login_challenge",
+      "reason_code": "official_redirect_weixin_captcha",
+      "reason": "原官网详情302到其声明的微信文章；该官方公开目标单次GET再302到wappoc_appmsgcaptcha，未请求验证码端点或执行挑战，停止。",
+      "evidence": [
+        {
+          "research_id": "dd-370",
+          "url": "http://www.chemicalsafety.org.cn/xinwenzixun/shizhengyaowen/detail/6abdceccb8b16",
+          "observed_at": "2026-10-09T17:12:41.570013+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 302,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 442,
+          "sha256": "015c4823e176a2c01a28f0bca5bf9b7fe998cfff2cc01163fb4b108e234eae2d",
+          "redirect_location": "https://mp.weixin.qq.com/s/jyr1EAZqYPLf0tDNv1Y0ZA",
+          "mechanism_signals": []
+        },
+        {
+          "research_id": "dd-370",
+          "role": "official_redirect_target",
+          "url": "https://mp.weixin.qq.com/s/jyr1EAZqYPLf0tDNv1Y0ZA",
+          "observed_at": "2026-10-09T17:23:03.031197+00:00",
+          "method": "GET",
+          "network": "one direct public official redirect target; no proxies/cookies/auth; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 302,
+          "bytes": 2252,
+          "sha256": "db7d2a0967ae6dbd72b5ed2de159992807132908dd6e1440e21a89cfc842046d",
+          "content_type": "text/html; charset=UTF-8",
+          "redirect_location": "https://mp.weixin.qq.com/mp/wappoc_appmsgcaptcha?poc_token=REDACTED&target_url=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2Fjyr1EAZqYPLf0tDNv1Y0ZA",
+          "mechanism_signals": [
+            "wappoc_appmsgcaptcha",
+            "captcha"
+          ]
+        }
+      ],
+      "current_e2e_status": "not_accepted"
+    },
+    {
+      "research_id": "dd-375",
+      "class": "A",
+      "name": "国民经济行业分类",
+      "entry_url": "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+      "historical_status": "partial",
+      "status": "partial",
+      "reason_category": "file_format_unsupported",
+      "reason_code": "docx_unsupported_content",
+      "reason": "两DOCX原文200并不可变归档；新增段落/表格/合并/嵌套主文解析，两个附件均有drawing/pict、header/footer，分类材料另有封面文本框，coverage须显式披露且保持partial。逐附件固定正文与结构合同；Recheck不得提升partial，无业务质量评审。",
+      "evidence": [
+        {
+          "research_id": "dd-375",
+          "url": "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+          "observed_at": "2026-10-09T17:12:43.175143+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 14851,
+          "sha256": "4c1a66401cf941c3ee9d1f02ecccd9b2cdba195afde51c305f6b1641e26b8215",
+          "mechanism_signals": [
+            "国民经济行业分类"
+          ]
+        },
+        {
+          "research_id": "dd-375",
+          "role": "amendment",
+          "url": "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+          "observed_at": "2026-10-09T17:14:41.661731+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "bytes": 23101,
+          "sha256": "59e792fca597e715b2afbc3496eb719702706d68bca943e5c24df2f07220d92a",
+          "mechanism_signals": []
+        },
+        {
+          "research_id": "dd-375",
+          "role": "classification",
+          "url": "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx",
+          "observed_at": "2026-10-09T17:14:41.691741+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "bytes": 411265,
+          "sha256": "139a03fd5b5fa21733a30a3d0b0a111de9c73432bc870b98185888267856f5fe",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "pending"
+    },
+    {
+      "research_id": "dd-380",
+      "class": "B",
+      "name": "高新技术企业认定管理工作网",
+      "entry_url": "http://www.innocom.gov.cn/",
+      "historical_status": "acceptance_failed",
+      "status": "acceptance_failed",
+      "reason_category": "network_tls",
+      "reason_code": "public_http_disconnect_and_tls_eof",
+      "reason": "原固定文章HTTP直接关闭连接，无响应；同URL HTTPS发生TLS EOF，未禁用TLS、重试或制造替代正文。当前没有业务原文，保留历史成功与最终失败，不计当前adapted。",
+      "evidence": [
+        {
+          "research_id": "dd-380",
+          "url": "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml",
+          "observed_at": "2026-10-09T17:12:41.898316+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "error": "RemoteDisconnected",
+          "detail": "Remote end closed connection without response"
+        },
+        {
+          "research_id": "dd-380",
+          "role": "https",
+          "url": "https://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml",
+          "observed_at": "2026-10-09T17:14:41.428334+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "error": "URLError",
+          "detail": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>"
+        }
+      ],
+      "current_e2e_status": "not_accepted"
+    },
+    {
+      "research_id": "dd-410",
+      "class": "B",
+      "name": "国家药品监督管理局药品评审中心",
+      "entry_url": "https://www.cde.org.cn/",
+      "historical_status": "blocked",
+      "status": "blocked",
+      "reason_category": "login_challenge",
+      "reason_code": "detail_http202_javascript_challenge",
+      "reason": "原固定详情本轮单次GET HTTP202挑战页面，未执行脚本或伪装身份，不当作正文200或采集成功。",
+      "evidence": [
+        {
+          "research_id": "dd-410",
+          "url": "https://www.cde.org.cn/main/news/viewInfoCommon/7779bef1b715bc652c1fee2dd2055f08",
+          "observed_at": "2026-10-09T17:12:41.787298+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 202,
+          "content_type": "text/html; charset=utf-8",
+          "bytes": 25652,
+          "sha256": "eae521368b387177a19fec9b7b5848c9c7a280de1823c4e1b015ef35ba64a028",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "not_accepted"
+    },
+    {
+      "research_id": "dd-468",
+      "class": "B",
+      "name": "[教育部]高校名单",
+      "entry_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+      "historical_status": "partial",
+      "status": "partial",
+      "reason_category": "acceptance_pending",
+      "reason_code": "xls_current_e2e_pending",
+      "reason": "两XLS原文200；新增有效工作表、typed单元格、合并区域和可见状态解析。固定逐附件2756/256唯一学校代码、首尾单元格和原档摘要合同，输出URL身份文档而非行序身份实体；仅四轮E2E与字段复算通过才从历史partial升级adapted。",
+      "evidence": [
+        {
+          "research_id": "dd-468",
+          "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+          "observed_at": "2026-10-09T17:12:43.025251+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html",
+          "bytes": 13623,
+          "sha256": "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+          "mechanism_signals": [
+            "全国高等学校名单"
+          ]
+        },
+        {
+          "research_id": "dd-468",
+          "role": "ordinary",
+          "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+          "observed_at": "2026-10-09T17:14:41.509268+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "application/vnd.ms-excel",
+          "bytes": 432128,
+          "sha256": "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac",
+          "mechanism_signals": []
+        },
+        {
+          "research_id": "dd-468",
+          "role": "adult",
+          "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls",
+          "observed_at": "2026-10-09T17:14:41.535120+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "application/vnd.ms-excel",
+          "bytes": 60928,
+          "sha256": "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "pending"
+    },
+    {
+      "research_id": "dd-484",
+      "class": "B",
+      "name": "政府采购合同公示",
+      "entry_url": "http://htgs.ccgp.gov.cn/GS8/contractpublish/search",
+      "historical_status": "acceptance_failed",
+      "status": "acceptance_failed",
+      "reason_category": "acceptance_pending",
+      "reason_code": "latest_public_contract_e2e_pending",
+      "reason": "此前固定合同详情403与失败工件保留；本轮原固定详情匿名200，已复用原业务锚点强正向四轮合同。HTTP200不计adapted，状态仅由最新真实端到端验收决定。",
+      "evidence": [
+        {
+          "research_id": "dd-484",
+          "url": "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0",
+          "observed_at": "2026-10-09T17:12:42.074993+00:00",
+          "method": "GET",
+          "network": "direct public GET; no proxies, cookies or Authorization; redirects disabled; zero retries",
+          "timeout_seconds": 18,
+          "raw_retained": false,
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "bytes": 12467,
+          "sha256": "dce534298d5ad0967e2fe3d556898bb87ee9b0c7a05be8a7fc9d594478f47ed5",
+          "mechanism_signals": []
+        }
+      ],
+      "current_e2e_status": "pending"
+    }
+  ]
+}

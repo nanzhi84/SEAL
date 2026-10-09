@@ -9,8 +9,10 @@ from urllib.parse import parse_qs, urlsplit
 from live_verify import object_bytes, verify_export
 
 
-def verify(root, samples):
+def verify(root, samples, research_id=None):
     contract = json.loads(samples.read_text())
+    if research_id:
+        contract = [row for row in contract if row["research_id"] == research_id]
     if len(contract) != 1:
         raise ValueError("one_source_contract_required")
     sample = contract[0]
@@ -36,7 +38,13 @@ def verify(root, samples):
         manifest["input_samples"][str(samples)],
         hashlib.sha256(samples.read_bytes()).hexdigest(),
     )
-    check("live_harness_pass", manifest["real_source_acceptance"]["status"], "PASS")
+    real = manifest["real_source_acceptance"]
+    if research_id:
+        accepted = [row for row in real["samples"] if row["research_id"] == research_id]
+        check("one_recorded_source", len(accepted), 1)
+        check("source_harness_pass", accepted[0]["status"] if accepted else None, "PASS")
+    else:
+        check("live_harness_pass", real["status"], "PASS")
     baseline = None
     for label in ("first", "second", "recheck", "replay"):
         value = json.loads(root.joinpath(f"{source}-{label}.json").read_text())
@@ -136,6 +144,8 @@ def verify(root, samples):
         "artifact_version": 1,
         "status": "PASS" if all(x["status"] == "PASS" for x in checks) else "FAIL",
         "source_id": source,
+        "recorded_suite_status": real["status"],
+        "verification_scope": "selected_source" if research_id else "whole_suite",
         "directory": str(root),
         "expected_total": total,
         "terminal_page": count,
@@ -152,9 +162,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("directory", type=Path)
     parser.add_argument("--samples", type=Path, required=True)
+    parser.add_argument(
+        "--research-id", help="Verify one recorded source while preserving suite outcome"
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    result = verify(args.directory.resolve(), args.samples)
+    result = verify(args.directory.resolve(), args.samples, args.research_id)
     encoded = json.dumps(result, ensure_ascii=False, indent=2, default=sorted) + "\n"
     if args.output:
         args.output.write_text(encoded)
