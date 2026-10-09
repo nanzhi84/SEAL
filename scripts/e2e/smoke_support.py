@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from pathlib import Path
 from urllib.request import urlopen
 
-PACK = Path("seal-v1.1-runtime-golden-fixtures")
+PACK = Path("experiments/seal-v1.1-runtime-golden-fixtures")
 
 
 def sha(data):

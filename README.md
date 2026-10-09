@@ -137,7 +137,7 @@ M0–M3 仍为累积入口，但场景已改为 V1.1 Runtime 合同，不再包�
 
 重用输出目录会创建时间戳子目录，保留失败与历史工件。manifest、断言 expected/actual、CLI 回执、请求账本、合成原文和 JSON 可独立校验；完整行为复验需重跑 E2E。实际结果见 V1.1 Plan 第 9 节。
 
-独立小样本验收复用同一入口，需要仓库根目录的 `seal-v1.1-runtime-golden-fixtures/` 和本次 M3 工件：
+独立小样本验收复用同一入口，需要仓库内 `experiments/seal-v1.1-runtime-golden-fixtures/` 和本次 M3 工件：
 
 ```bash
 ./scripts/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1 --output artifacts/acceptance/smoke
