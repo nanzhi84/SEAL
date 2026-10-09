@@ -1,0 +1,35 @@
+family: heterogeneous-public-records
+entrypoint: recipe:HeterogeneousSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  properties:
+    mode: {enum: [html, table, json]}
+    iframe_mode: {enum: [html, table]}
+    links: {type: string, minLength: 1}
+    next_page: {type: string, minLength: 1}
+    title: {type: string, minLength: 1}
+    body: {type: string, minLength: 1}
+    date: {type: [string, 'null'], minLength: 1}
+    iframes: {type: string}
+    attachments: {type: string}
+    rows: {type: string, minLength: 1}
+    table_fields:
+      type: object
+      minProperties: 1
+      additionalProperties: {type: string, minLength: 1}
+    key_field: {type: string, minLength: 1}
+    json_pointer: {type: string, pattern: '^(/.*)?$'}
+    detail_url_field: {type: string, minLength: 1}
+    record_type: {type: string, minLength: 1}
+    attachment_record_type: {type: string, minLength: 1}
+    schema_version: {type: string, minLength: 1}
+  allOf:
+    - if:
+        required: [mode]
+        properties: {mode: {const: table}}
+      then: {required: [rows, table_fields, key_field]}
+    - if:
+        required: [iframe_mode]
+        properties: {iframe_mode: {const: table}}
+      then: {required: [rows, table_fields, key_field]}

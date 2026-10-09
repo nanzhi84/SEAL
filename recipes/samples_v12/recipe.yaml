@@ -1,0 +1,12 @@
+family: v12-reviewed-source-samples
+entrypoint: recipe:SampleSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  required: [source]
+  properties:
+    source:
+      type: string
+      enum: [dd-116, dd-468, dd-004, dd-102]
+    max_pages: {type: integer, minimum: 1, maximum: 2, default: 2}
+    max_details: {type: integer, minimum: 1, maximum: 5, default: 2}
