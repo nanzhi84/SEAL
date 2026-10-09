@@ -77,3 +77,98 @@ def replay_inputs(h, source, original, replayed):
     before = {item["snapshot_id"] for item in original["run"]["inputs"]}
     after = {item["snapshot_id"] for item in replayed["run"]["inputs"]}
     h.check(source + "_replay_exact_original_inputs", sorted(after), sorted(before))
+
+
+def document_contracts(h, sample, label, exported):
+    """Assert every declared attachment's business text and retained topology.
+
+    An anchor in a notice or another attachment cannot satisfy this contract.
+    Runtime-independent field recomputation is still required by verify_export.
+    These are fixed public document expectations, not entity row identities.
+    """
+    prefix = sample["source"]["id"] + "_" + label + "_document_"
+    for index, expected in enumerate(sample["expected"].get("document_contracts", [])):
+        tag = prefix + str(index)
+        matches = [
+            record
+            for record in exported["records"]
+            if canonical_url(record["record_key"]) == canonical_url(expected["record_key"])
+        ]
+        h.check(tag + "_exact_record", len(matches), 1)
+        record = matches[0]
+        data = record["data"]
+        for field in ("title", "body"):
+            value = data.get(field)
+            h.check(tag + "_" + field + "_present", isinstance(value, str) and bool(value))
+            for anchor in expected.get(field + "_anchors", []):
+                h.check(tag + "_" + field + "_anchor_" + anchor, anchor in value)
+        h.check(tag + "_body_minimum", len(data["body"]) >= expected["min_body_chars"])
+        primary_ids = {item["primary_snapshot_id"] for item in record["result_evidence"]}
+        primary_hashes = {
+            ref["body_hash"] for ref in record["inputs"] if ref["snapshot_id"] in primary_ids
+        }
+        h.check(tag + "_immutable_raw_digest", primary_hashes, {expected["archive_sha256"]})
+        if "worksheets" in expected:
+            sheets = data.get("worksheets", [])
+            h.check(tag + "_worksheet_count", len(sheets), len(expected["worksheets"]))
+            for sheet, contract in zip(sheets, expected["worksheets"], strict=True):
+                h.check(tag + "_worksheet_name", sheet["name"], contract["name"])
+                h.check(tag + "_effective_rows", len(sheet["rows"]), contract["rows"])
+                h.check(
+                    tag + "_effective_columns",
+                    sorted({len(row) for row in sheet["rows"]}),
+                    [contract["columns"]],
+                )
+                h.check(tag + "_merged_cells", len(sheet["merged_cells"]), contract["merged_cells"])
+                for cell in contract.get("cells", []):
+                    h.check(
+                        tag + "_cell_" + str(cell["row"]) + "_" + str(cell["column"]),
+                        sheet["rows"][cell["row"]][cell["column"]],
+                        cell["value"],
+                    )
+                if "business_codes" in contract:
+                    code_contract = contract["business_codes"]
+                    values = [row[code_contract["column"]] for row in sheet["rows"]]
+                    # The actual source's 10-digit school identifiers are
+                    # verified as business content, never inferred from row order.
+                    codes = [
+                        str(int(value))
+                        if type(value) is float and value.is_integer()
+                        else str(value)
+                        for value in values
+                    ]
+                    codes = [code for code in codes if len(code) == 10 and code.isdecimal()]
+                    h.check(tag + "_school_code_count", len(codes), code_contract["count"])
+                    h.check(tag + "_school_code_unique", len(set(codes)), len(codes))
+        if "blocks" in expected:
+            blocks = data.get("blocks", [])
+            tables = [block for block in blocks if block.get("kind") == "table"]
+            h.check(tag + "_ordered_block_count", len(blocks), expected["blocks"]["count"])
+            h.check(
+                tag + "_table_rows",
+                [len(table["rows"]) for table in tables],
+                expected["blocks"]["table_rows"],
+            )
+            h.check(
+                tag + "_table_columns",
+                [table["columns"] for table in tables],
+                expected["blocks"]["table_columns"],
+            )
+            cells = [cell for table in tables for row in table["rows"] for cell in row["cells"]]
+            for key, actual in (
+                ("merged_cells", sum(cell.get("span", 1) > 1 for cell in cells)),
+                ("vertical_merges", sum("vertical_merge" in cell for cell in cells)),
+            ):
+                h.check(tag + "_" + key, actual, expected["blocks"][key])
+        if "coverage" in expected:
+            coverage = data.get("coverage", {})
+            h.check(
+                tag + "_explicit_unparsed_elements",
+                coverage.get("unparsed_elements"),
+                expected["coverage"]["unparsed_elements"],
+            )
+            h.check(
+                tag + "_explicit_non_body_parts",
+                [part["part"] for part in coverage.get("non_body_parts", [])],
+                expected["coverage"]["non_body_parts"],
+            )

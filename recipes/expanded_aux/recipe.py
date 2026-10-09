@@ -1,18 +1,19 @@
-"""Retain real notice text and unsupported industry-classification DOCX evidence.
+"""Archive notice and ordered industry-classification DOCX documents.
 
-The notice is useful metadata, never a substitute for the attached classification.
-Both original attachments are archived and explicit partial diagnostics preserve
-that business gap. No binary text extraction or fabricated locator is attempted.
+Each attachment has its own immutable input and URL document identity; the notice
+is supplementary discovery evidence. Classification entities are not invented
+from paragraph or table positions. Direct attachment seeds support real Recheck.
 """
 
 import scrapy
 
 from seal.core import SealError
 from seal.helpers import (
-    attachment_record,
+    attachment_items,
     diagnostic,
     follow,
     input_reference,
+    is_attachment_response,
     node_text,
     record_item,
     xpath_locator,
@@ -40,6 +41,9 @@ class ClassificationNotice(scrapy.Spider):
         yield {"type": "diagnostic", "code": "download_failed"}
 
     def parse(self, response):
+        if is_attachment_response(response):
+            yield from self.attachment(response)
+            return
         titles = response.css("h2")
         paragraphs = [node for node in response.css(".TRS_Editor p") if node_text(node)]
         if len(titles) != 1 or not paragraphs:
@@ -80,6 +84,8 @@ class ClassificationNotice(scrapy.Spider):
 
     def attachment(self, response, parent=None):
         try:
-            yield attachment_record(response, parent=parent)
+            yield from attachment_items(
+                response, parent=parent, record_type="industry_classification_document"
+            )
         except SealError as error:
             yield diagnostic(response, error.code)

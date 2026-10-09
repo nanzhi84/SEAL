@@ -9,7 +9,7 @@ from psycopg.rows import dict_row
 RECIPE = """import os
 import scrapy
 from seal.core import SealError
-from seal.helpers import attachment_record, diagnostic, html_record, is_attachment_response, json_records, static_resources
+from seal.helpers import attachment_items, attachment_record, diagnostic, html_record, is_attachment_response, json_records, static_resources
 
 
 class AcceptanceSpider(scrapy.Spider):
@@ -41,7 +41,7 @@ class AcceptanceSpider(scrapy.Spider):
         elif mode == "assets":
             if response.meta["seal_role"] == "detail":
                 if is_attachment_response(response):
-                    yield attachment_record(response)
+                    yield from self.attachment(response)
                 else:
                     yield html_record(response)
             else:
@@ -56,7 +56,10 @@ class AcceptanceSpider(scrapy.Spider):
 
     def attachment(self, response, parent=None):
         try:
-            yield attachment_record(response, parent=parent)
+            if self.params.get("allow_partial_documents"):
+                yield from attachment_items(response, parent=parent)
+            else:
+                yield attachment_record(response, parent=parent)
         except SealError as exc:
             yield diagnostic(response, exc.code)
 """

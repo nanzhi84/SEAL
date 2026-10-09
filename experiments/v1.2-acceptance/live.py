@@ -20,7 +20,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from acceptance import Harness as JointHarness
-from live_contracts import attachment_lineage, replay_inputs, resources, seed_contract
+from live_contracts import (
+    attachment_lineage,
+    document_contracts,
+    replay_inputs,
+    resources,
+    seed_contract,
+)
 from live_verify import verify_export
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -99,7 +105,7 @@ class Harness(JointHarness):
             unverified=[
                 "Whole-site completeness",
                 "Formal Evaluation and business quality approval",
-                "OCR/Excel extraction",
+                "OCR, XLSX and unsupported embedded document content",
                 "Power loss durability",
             ],
         )
@@ -166,6 +172,7 @@ def run(h, sample, binding, label, *, recheck=False, replay=None):
     h.check(prefix + "_evidence_recomputable", verify_export(h.root / "archive", exported), [])
     resources(h, sample, label, inspected)
     attachment_lineage(h, sample, label, inspected, exported)
+    document_contracts(h, sample, label, exported)
     if "record_count" in sample["expected"]:
         h.check(
             prefix + "_exact_business_count",
@@ -228,7 +235,7 @@ def compare(h, source, first, second, label, *, replay=False):
         )
 
 
-def accept(h, sample):
+def accept(h, sample, *, diagnostic_only=False):
     config, expected = sample["source"], sample["expected"]
     source = config["id"]
     path = h.root / (source + ".json")
@@ -250,6 +257,20 @@ def accept(h, sample):
     capture(h, source + "-configuration", sample)
     first, inspect_first, initial = run(h, sample, binding, "first")
     mapping["runs"].append(first["run_id"])
+    if diagnostic_only:
+        # A refused public resource gets one bounded Run, not four repeated
+        # attempts. Its diagnostic evidence never counts as adapted/partial
+        # business acceptance and is not eligible for Recheck or Replay.
+        h.check(source + "_diagnostic_only_not_complete", first["status"] != "complete")
+        h.check(source + "_diagnostic_only_no_business_output", initial["records"], [])
+        mapping.update(
+            status="DIAGNOSTIC_PASS",
+            runtime_status=first["status"],
+            record_count=0,
+            errors=first["report"]["errors"],
+            verification_scope="single_run_diagnostic_only",
+        )
+        return
     text = json.dumps([r["data"] for r in initial["records"]], ensure_ascii=False)
     for anchor in expected.get("anchors", []):
         h.check(source + "_business_anchor_" + anchor, anchor in text)
@@ -331,6 +352,11 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--source", action="append")
     parser.add_argument(
+        "--diagnostic-only",
+        action="store_true",
+        help="One bounded refused-resource Run; never counts as Source adaptation",
+    )
+    parser.add_argument(
         "--samples", type=Path, action="append", help="Explicit frozen Source acceptance contracts"
     )
     args = parser.parse_args()
@@ -376,7 +402,7 @@ def main():
             )
         for sample in samples:
             try:
-                accept(h, sample)
+                accept(h, sample, diagnostic_only=args.diagnostic_only)
             except Exception as exc:
                 errors.append(f"{sample['research_id']}: {type(exc).__name__}: {exc}")
                 if h.samples and h.samples[-1]["research_id"] == sample["research_id"]:
@@ -386,7 +412,11 @@ def main():
         if args.samples:
             h.check(
                 "selected_sample_set_processed",
-                sorted(s["research_id"] for s in h.samples if s["status"] == "PASS"),
+                sorted(
+                    s["research_id"]
+                    for s in h.samples
+                    if s["status"] == ("DIAGNOSTIC_PASS" if args.diagnostic_only else "PASS")
+                ),
                 sorted(s["research_id"] for s in samples),
             )
         elif not args.source:

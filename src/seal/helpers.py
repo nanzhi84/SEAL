@@ -11,6 +11,7 @@ import scrapy
 from pypdf import PdfReader
 from scrapy.http import TextResponse
 
+from .attachments import attachment_projection, docx_coverage, parse_attachment
 from .core import SealError, public_url
 from .record_validation import json_pointer
 
@@ -286,24 +287,66 @@ def json_records(
 def is_attachment_response(response):
     """Identify the supported/static attachment representations for URL Recheck."""
     content_type = response.headers.get("Content-Type", b"").decode("latin1").lower()
-    return any(t in content_type for t in ("application/pdf", "text/plain", "text/csv")) or (
-        urlsplit(response.url).path.lower().endswith((".pdf", ".txt", ".csv", ".xls", ".xlsx"))
+    return any(
+        t in content_type
+        for t in (
+            "application/pdf",
+            "text/plain",
+            "text/csv",
+            "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        )
+    ) or (
+        urlsplit(response.url)
+        .path.lower()
+        .endswith((".pdf", ".txt", ".csv", ".xls", ".xlsx", ".docx"))
     )
 
 
-def attachment_record(
-    response, *, parent=None, record_type="document_attachment", schema_version="record.v1"
+def _attachment_record(
+    response,
+    *,
+    parent=None,
+    record_type="document_attachment",
+    schema_version="record.v1",
+    allow_partial=False,
 ):
-    """Extract text PDF/TXT/CSV; unsupported or damaged files retain their archive.
+    """Extract PDF/TXT/CSV/XLS/DOCX; failed inputs retain their original archive.
 
     The parent is a supplementary provenance input. Business content comes from
     the attachment itself, so a direct-URL Recheck produces identical data even
-    when its parent is not fetched. No OCR or Excel parser is introduced.
+    when its parent is not fetched. Workbook rows locate evidence, never identity.
     """
     content_type = response.headers.get("Content-Type", b"").decode("latin1").lower()
     suffix = urlsplit(response.url).path.lower()
     locators = {}
-    if "application/pdf" in content_type or suffix.endswith(".pdf"):
+    data = {}
+    if suffix.endswith(".xls") or "application/vnd.ms-excel" in content_type:
+        kind, field = "xls", "worksheets"
+    elif suffix.endswith(".docx") or (
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" in content_type
+    ):
+        kind, field = "docx", "blocks"
+    else:
+        kind = None
+    if kind:
+        structure = parse_attachment(kind, response.body)
+        title = attachment_projection(kind, structure, "title")
+        body = attachment_projection(kind, structure, "text")
+        data[field] = structure
+        locators = {
+            "title": {"kind": kind, "selection": "title"},
+            "body": {"kind": kind, "selection": "text"},
+            field: {"kind": kind, "selection": "structure"},
+        }
+        if kind == "docx":
+            coverage = docx_coverage(response.body)
+            if coverage["unparsed_elements"] or coverage["non_body_parts"]:
+                if not allow_partial:
+                    raise SealError("docx_unsupported_content")
+                data["coverage"] = coverage
+                locators["coverage"] = {"kind": kind, "selection": "coverage"}
+    elif "application/pdf" in content_type or suffix.endswith(".pdf"):
         try:
             reader = PdfReader(BytesIO(response.body), strict=True)
             texts = [(page.extract_text() or "").strip() for page in reader.pages]
@@ -354,10 +397,32 @@ def attachment_record(
         response,
         record_type=record_type,
         record_key=url,
-        data={"title": title, "body": body},
+        data={"title": title, "body": body, **data},
         locators=locators,
         key_locator={"kind": "response_url"},
         detail_url=url,
         schema_version=schema_version,
         supplementary_inputs=supplementary,
     )
+
+
+def attachment_record(
+    response, *, parent=None, record_type="document_attachment", schema_version="record.v1"
+):
+    """Return one complete attachment Record, rejecting unsupported DOCX content."""
+    return _attachment_record(
+        response, parent=parent, record_type=record_type, schema_version=schema_version
+    )
+
+
+def attachment_items(response, **kwargs):
+    """Preserve supported DOCX text with explicit partial diagnostics.
+
+    A reviewed Recipe must opt into this iterator for incomplete documents.
+    Images, textboxes and non-body parts remain in immutable raw bytes; the
+    coverage field proves their presence rather than claiming text extraction.
+    """
+    item = _attachment_record(response, allow_partial=True, **kwargs)
+    yield item
+    if "coverage" in item["data"]:
+        yield diagnostic(response, "docx_unsupported_content")

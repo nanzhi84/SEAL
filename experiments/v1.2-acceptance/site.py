@@ -6,6 +6,9 @@ import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlsplit
 
+from attachment_fixtures import docx_bytes, xls_bytes
+from sensitive_fixtures import body_for
+
 
 def rows():
     return [
@@ -34,6 +37,10 @@ class Site:
         self.hold_started = threading.Event()
         self.hold_release = threading.Event()
         self.pdf = pdf_bytes()
+        self.xls = xls_bytes()
+        self.docx = docx_bytes()
+        self.partial_docx = docx_bytes(unsupported=True)
+        self.structured_broken = False
         owner = self
 
         class Handler(BaseHTTPRequestHandler):
@@ -44,7 +51,9 @@ class Site:
                 parsed = urlsplit(self.path)
                 path, query = parsed.path, parse_qs(parsed.query)
                 status, content_type = 200, "text/html; charset=utf-8"
-                if path.startswith("/api"):
+                if path.startswith("/sensitive/"):
+                    body = body_for(path, owner.state)
+                elif path.startswith("/api"):
                     data = copy.deepcopy(rows())
                     if owner.state == "reorder":
                         data.reverse()
@@ -82,6 +91,23 @@ class Site:
                     body = b'<div class="documents"><a href="/denied/one">outside</a><a href="/html/one">inside</a></div>'
                 elif path == "/assets/list":
                     body = b'<h1>Business documents</h1><iframe src="/assets/frame"></iframe><a class="attachment" href="/assets/text.pdf">Published PDF</a><a class="attachment" href="/assets/data.csv">Published CSV</a>'
+                elif path == "/assets/structured-list":
+                    body = b'<a class="attachment" href="/assets/public.xls">Public workbook</a><a class="attachment" href="/assets/public.docx">Public document</a>'
+                elif path == "/assets/public.xls":
+                    body = b"damaged synthetic BIFF" if owner.structured_broken else owner.xls
+                    content_type = "application/vnd.ms-excel"
+                elif path == "/assets/public.docx":
+                    body = b"damaged synthetic OOXML" if owner.structured_broken else owner.docx
+                    content_type = (
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    )
+                elif path == "/assets/partial-list":
+                    body = b'<a class="attachment" href="/assets/partial.docx">Document with unsupported content</a>'
+                elif path == "/assets/partial.docx":
+                    body = owner.partial_docx
+                    content_type = (
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    )
                 elif path == "/assets/bad-list":
                     body = b'<a class="attachment" href="/assets/bad.pdf">Damaged PDF</a><a class="attachment" href="/assets/table.xlsx">Unsupported workbook</a>'
                 elif path == "/assets/frame":

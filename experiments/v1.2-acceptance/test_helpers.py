@@ -8,11 +8,13 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from attachment_fixtures import docx_bytes, xls_bytes
 from scrapy import Request
 from scrapy.http import HtmlResponse, JsonResponse, Response, TextResponse
 
 from seal.core import Objects, SealError
 from seal.helpers import (
+    attachment_items,
     attachment_record,
     follow,
     html_record,
@@ -21,7 +23,7 @@ from seal.helpers import (
     static_resources,
     table_records,
 )
-from seal.record_validation import validate_record
+from seal.record_validation import located_value, validate_record
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -222,7 +224,7 @@ class HelperContracts(unittest.TestCase):
         )
         self.assertEqual(item["data"], attachment_record(csv)["data"])
 
-    def test_pdf_text_locator_and_unsupported_excel_retain_archive(self):
+    def test_pdf_text_locator_and_damaged_attachments_retain_archive(self):
         spec = importlib.util.spec_from_file_location(
             "v11_fixture_site", ROOT / "experiments/v1.1-runtime-acceptance/e2e/site.py"
         )
@@ -243,13 +245,100 @@ class HelperContracts(unittest.TestCase):
             role="attachment",
             kind=Response,
         )
-        with self.assertRaisesRegex(SealError, "unsupported_content_type"):
+        with self.assertRaisesRegex(SealError, "xls_parse_failed"):
             attachment_record(excel)
         snapshot = Objects().json(excel.meta["seal_snapshot_id"])
         self.assertEqual(Objects().get(snapshot["body_hash"]), excel.body)
         broken = self.response(b"broken PDF", url="https://example.test/broken.pdf", kind=Response)
         with self.assertRaisesRegex(SealError, "pdf_parse_failed"):
             attachment_record(broken)
+
+    # Isolated parser failure boundaries are declared before implementation:
+    # malformed/empty files, merged layouts, Unicode/typed cell values, ordered
+    # paragraphs/tables, unsupported embedded content, fabricated field values,
+    # invalid selections, and unstable positional identities.
+    def test_xls_all_sheets_effective_cells_merged_ranges_and_stable_document_key(self):
+        response = self.response(
+            xls_bytes(), url="https://example.test/business/public.xls", kind=Response
+        )
+        item = attachment_record(response)
+        self.verified(item)
+        self.assertEqual(item["record_key"], response.url)
+        self.assertEqual(item["data"]["title"], "全国普通高等学校名单")
+        sheets = item["data"]["worksheets"]
+        self.assertEqual([sheet["name"] for sheet in sheets], ["公开高校", "说明"])
+        self.assertEqual(sheets[0]["merged_cells"], [[0, 1, 0, 4]])
+        self.assertEqual(sheets[0]["rows"][2], ["11001", "示例大学", 42.5, True])
+        self.assertEqual(sheets[0]["rows"][3], ["11002", "海滨学院", 0.0, False])
+        self.assertEqual(sheets[0]["rows"][4][0], "2026-10-10T00:00:00")
+        self.assertEqual((len(sheets[0]["rows"]), len(sheets[0]["rows"][0])), (5, 4))
+        self.assertEqual(sheets[1]["hidden"], 1)
+        self.assertIn("仅使用公开合成测试数据", item["data"]["body"])
+        item["data"]["worksheets"][0]["rows"][2][1] = "unlocated replacement"
+        with self.assertRaisesRegex(SealError, "record_field_locator_mismatch"):
+            validate_record(item)
+
+    def test_docx_paragraph_and_merged_table_order_remains_recomputable(self):
+        response = self.response(
+            docx_bytes(), url="https://example.test/business/classification.docx", kind=Response
+        )
+        item = attachment_record(response)
+        self.verified(item)
+        self.assertEqual(item["record_key"], response.url)
+        self.assertEqual(item["data"]["title"], "行业分类合成公开样本")
+        blocks = item["data"]["blocks"]
+        self.assertEqual(
+            [block.get("kind", "paragraph") for block in blocks],
+            ["paragraph", "table", "paragraph"],
+        )
+        self.assertEqual(blocks[1]["rows"][0]["cells"][0]["span"], 2)
+        self.assertEqual(blocks[-1]["text"], "表格之后的解释文字")
+        self.assertEqual(
+            item["data"]["body"],
+            "行业分类合成公开样本\n门类与代码\nA\t农业\nB\t采矿业\n表格之后的解释文字",
+        )
+
+    def test_unsupported_docx_content_and_damaged_bytes_fail_with_archived_evidence(self):
+        for raw, suffix, code in (
+            (docx_bytes(unsupported=True), ".docx", "docx_unsupported_content"),
+            (docx_bytes(irregular_table=True), ".docx", "docx_parse_failed"),
+            (b"damaged OOXML bytes", ".docx", "docx_parse_failed"),
+            (b"damaged BIFF bytes", ".xls", "xls_parse_failed"),
+            (b"unsupported workbook bytes", ".xlsx", "unsupported_content_type"),
+        ):
+            response = self.response(raw, url="https://example.test/public" + suffix, kind=Response)
+            with self.subTest(code=code):
+                with self.assertRaisesRegex(SealError, code):
+                    attachment_record(response)
+                snapshot = Objects().json(response.meta["seal_snapshot_id"])
+                self.assertEqual(Objects().get(snapshot["body_hash"]), raw)
+
+    def test_partial_docx_emits_verified_available_content_and_explicit_diagnostic(self):
+        response = self.response(
+            docx_bytes(unsupported=True), url="https://example.test/public.docx", kind=Response
+        )
+        item, error = list(attachment_items(response))
+        self.verified(item)
+        self.assertIn("表格之后的解释文字", item["data"]["body"])
+        self.assertEqual(item["data"]["coverage"]["unparsed_elements"], {"altChunk": 1})
+        self.assertEqual(error["code"], "docx_unsupported_content")
+        self.assertEqual(error["snapshot_id"], item["snapshot_id"])
+        item["data"]["coverage"]["unparsed_elements"] = {}
+        with self.assertRaisesRegex(SealError, "record_field_locator_mismatch"):
+            validate_record(item)
+
+    def test_attachment_locator_selection_cannot_supply_unlocated_values(self):
+        for kind, raw in (("xls", xls_bytes()), ("docx", docx_bytes())):
+            response = self.response(raw, url="https://example.test/public." + kind, kind=Response)
+            snapshot = Objects().json(response.meta["seal_snapshot_id"])
+            with self.subTest(kind=kind):
+                for locator in (
+                    {"kind": kind, "selection": "unlocated"},
+                    {"kind": kind, "selection": "title", "literal": "fake"},
+                    {"kind": kind, "selection": "structure", "transform": "date_iso"},
+                ):
+                    with self.assertRaises(SealError):
+                        located_value(snapshot, raw, locator)
 
 
 if __name__ == "__main__":

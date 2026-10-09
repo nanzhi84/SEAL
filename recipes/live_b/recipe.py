@@ -1,8 +1,8 @@
 """Bounded public static resources from live-inspected B Source samples.
 
-The education sample intentionally archives unsupported XLS. Shenzhen's two
-sampled notices have image-only PDF attachments; their public announcement
-metadata remains independently verifiable without inventing PDF text or OCR.
+The education sample retains the original XLS and emits each complete workbook
+as a URL-identified document with ordered sheet/cell evidence. Shenzhen's two
+sampled notices still require OCR; no announcement metadata stands in for PDF text.
 """
 
 import scrapy

@@ -1,0 +1,355 @@
+[
+  {
+    "research_id": "dd-017",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-017",
+      "entry_urls": [
+        "https://www.court.gov.cn/shenpan/gengduo/77.html"
+      ],
+      "allowed_hosts": [
+        "www.court.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/shenpan/gengduo/77.html",
+        "/shenpan/gengduo/77_2.html",
+        "/shenpan/xiangqing/490521.html",
+        "/shenpan/xiangqing/466281.html"
+      ],
+      "host_path_scopes": {
+        "www.court.gov.cn": [
+          "/shenpan/gengduo/77.html",
+          "/shenpan/gengduo/77_2.html",
+          "/shenpan/xiangqing/490521.html",
+          "/shenpan/xiangqing/466281.html"
+        ]
+      },
+      "research_ids": [
+        "dd-017"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-017",
+      "max_pages": 2,
+      "fixed_details": [
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ]
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "指导性案例279号",
+        "裁判要点",
+        "指导性案例259号",
+        "环境污染民事公益诉讼"
+      ],
+      "roles": [
+        "list",
+        "detail"
+      ],
+      "stable_keys": [
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ],
+      "min_pages": 2,
+      "record_count": 2,
+      "allowed_urls": [
+        "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-247",
+    "class": "C",
+    "source": {
+      "id": "v12_live_dd_247",
+      "research_ids": [
+        "dd-247"
+      ],
+      "entry_urls": [
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=&registerAddr=&officeAddr="
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/portal/front/mutualFund/findMutualFundHousePage"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/portal/front/mutualFund/findMutualFundHousePage"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "公募基金管理人公开GET API固定空筛选前两页（pageSize=10），法定机构全称houseName为范围内自然键；只采页面展示五字段，排除lineId序号；最多20家，不代表接口报告165家的全量，更名形成新身份、旧项保持unknown。",
+      "seed_role": "api",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 5,
+        "seconds": 90,
+        "response_bytes": 5242880
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-247",
+      "max_pages": 2
+    },
+    "recipe": "recipes/live_c",
+    "expected": {
+      "min_records": 20,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "国泰基金管理有限公司",
+        "易方达基金管理有限公司",
+        "金鹰基金管理有限公司"
+      ],
+      "roles": [
+        "api"
+      ],
+      "min_pages": 2,
+      "stable_keys": [
+        "国泰基金管理有限公司",
+        "易方达基金管理有限公司"
+      ],
+      "no_detail_url": true,
+      "mechanisms": [
+        "multi_record_json_api",
+        "fixed_blank_filters",
+        "numbered_pagination",
+        "business_natural_key"
+      ],
+      "failure_modes": [
+        "api_envelope_not_success",
+        "empty_or_oversized_list",
+        "missing_or_nonunique_legal_name",
+        "unexpected_query_or_page",
+        "ambiguous_pagination",
+        "source_schema_changed"
+      ],
+      "record_count": 20,
+      "allowed_urls": [
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=&registerAddr=&officeAddr=",
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=2&pageSize=10&houseName=&registerAddr=&officeAddr="
+      ],
+      "archived_urls": [
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=&registerAddr=&officeAddr=",
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=2&pageSize=10&houseName=&registerAddr=&officeAddr="
+      ]
+    }
+  },
+  {
+    "research_id": "dd-050",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-050",
+      "attachment_paths": [
+        "/data/upload/image/20260609/1780974990520465.pdf"
+      ]
+    },
+    "source": {
+      "id": "live_dd_050",
+      "entry_urls": [
+        "http://www.cmac.org.cn/"
+      ],
+      "allowed_hosts": [
+        "www.cmac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/",
+        "/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "host_path_scopes": {
+        "www.cmac.org.cn": [
+          "/",
+          "/data/upload/image/20260609/1780974990520465.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-050"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "同类B补充文本PDF验收：仅首页明确链接的中国海事仲裁委员会仲裁规则-中文版（2021）PDF（2026-06-09链接）及父入口；70个物理页中可提取文本页的按页正文和自身标题locator。仅此静态附件，其他首页栏目与公开PDF均不采集，不代表全文排版或法律时效审核。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中国海事仲裁委员会仲裁规则",
+        "示范仲裁条款",
+        "仲裁裁决是终局的",
+        "一九八八年六月二十一日"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "stable_keys": [
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "allowed_urls": [
+        "http://www.cmac.org.cn/",
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "archived_urls": [
+        "http://www.cmac.org.cn/",
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "record_count": 1
+    }
+  },
+  {
+    "research_id": "dd-250",
+    "class": "C",
+    "recipe": "recipes/amac_full",
+    "params": {
+      "expected_total": 67,
+      "max_pages": 10
+    },
+    "source": {
+      "id": "full_dd_250",
+      "research_ids": [
+        "dd-250"
+      ],
+      "entry_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10"
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "公募基金托管机构固定空筛选完整枚举profile：pageSize=10，冻结官方API total67，对应7页(10*6+7)，全部展示trustName/regAddr原文，显示机构名为本Source自然键，数字id不证明永久语义且不输出。任何页总数、页长、重复自然键或预算不足显式partial；只请求已知7页，页8为空的公开探测证据独立保留。API无快照token，不承诺跨页原子快照；名称变更形成新身份，旧未观察项unknown，不代表主体核验或全站。",
+      "seed_role": "api",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 9,
+        "seconds": 180,
+        "response_bytes": 1048576
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "expected": {
+      "min_records": 67,
+      "record_count": 67,
+      "statuses": [
+        "complete"
+      ],
+      "roles": [
+        "api"
+      ],
+      "min_pages": 7,
+      "no_detail_url": true,
+      "stable_keys": [
+        "中国工商银行股份有限公司",
+        "青岛银行股份有限公司",
+        "汇丰银行（中国）有限公司"
+      ],
+      "anchors": [
+        "中国工商银行股份有限公司",
+        "青岛银行股份有限公司",
+        "汇丰银行（中国）有限公司",
+        "福建",
+        "浙江"
+      ],
+      "expected_fields": [
+        "trustName",
+        "regAddr"
+      ],
+      "allowed_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=3&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=4&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=5&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=6&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=7&pageSize=10"
+      ],
+      "archived_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=3&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=4&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=5&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=6&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=7&pageSize=10"
+      ],
+      "failure_modes": [
+        "pagination_total_changed",
+        "pagination_incomplete",
+        "pagination_limit",
+        "download_failed"
+      ]
+    }
+  }
+]

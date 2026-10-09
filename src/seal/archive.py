@@ -8,7 +8,16 @@ from urllib.parse import urlsplit
 from scrapy.exceptions import IgnoreRequest
 from scrapy.http import HtmlResponse, JsonResponse, Response, TextResponse, XmlResponse
 
-from .core import BODY_SECRET, Objects, SealError, check_address, digest, public_url, safe_url, uid
+from .core import (
+    Objects,
+    SealError,
+    check_address,
+    contains_sensitive_body,
+    digest,
+    public_url,
+    safe_url,
+    uid,
+)
 from .db import connect, fenced, j, locked_run, record_error
 from .discovery import mark_archived, mark_failed, mark_requested
 from .scope import paths_for
@@ -62,7 +71,7 @@ def restore(snapshot_id, request):
 
 
 def archive_response(context, request, response):
-    if BODY_SECRET.search(response.body):
+    if contains_sensitive_body(response.body):
         raise SealError("sensitive_body_rejected")
     if response.flags and "cached" in response.flags:
         raise SealError("cache_provenance_unknown")

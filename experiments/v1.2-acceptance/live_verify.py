@@ -8,8 +8,10 @@ from functools import lru_cache
 from io import BytesIO
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from zipfile import ZipFile
 
-from lxml import html
+import xlrd
+from lxml import etree, html
 from pypdf import PdfReader
 
 
@@ -49,6 +51,220 @@ def pdf_pages(body):
     ]
 
 
+@lru_cache(maxsize=4)
+def workbook(body):
+    from io import StringIO
+
+    book = xlrd.open_workbook(file_contents=body, formatting_info=True, logfile=StringIO())
+    output = []
+    try:
+        for sheet in book.sheets():
+            rows, height, width = [], 0, 0
+            for r in range(sheet.nrows):
+                row = []
+                for c in range(sheet.ncols):
+                    cell = sheet.cell(r, c)
+                    if cell.ctype in (xlrd.XL_CELL_EMPTY, xlrd.XL_CELL_BLANK):
+                        value = None
+                    elif cell.ctype == xlrd.XL_CELL_DATE:
+                        value = xlrd.xldate_as_datetime(cell.value, book.datemode).isoformat()
+                    elif cell.ctype == xlrd.XL_CELL_BOOLEAN:
+                        value = bool(cell.value)
+                    elif cell.ctype in (xlrd.XL_CELL_NUMBER, xlrd.XL_CELL_TEXT):
+                        value = cell.value
+                    else:
+                        raise ValueError("xls_cell_error")
+                    row.append(value)
+                    if value is not None and value != "":
+                        height, width = max(height, r + 1), max(width, c + 1)
+                rows.append(row)
+            for _, rhi, _, chi in sheet.merged_cells:
+                height, width = max(height, rhi), max(width, chi)
+            output.append(
+                {
+                    "name": sheet.name,
+                    "hidden": sheet.visibility,
+                    "rows": [row[:width] for row in rows[:height]],
+                    "merged_cells": [list(bounds) for bounds in sheet.merged_cells],
+                }
+            )
+    finally:
+        book.release_resources()
+    return output
+
+
+WORD = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+
+
+def word_blocks(container):
+    result = []
+    for node in container:
+        if node.tag == WORD + "p":
+            fragments = []
+            for direct in node:
+                runs = (
+                    [direct]
+                    if direct.tag == WORD + "r"
+                    else (direct.findall(WORD + "r") if direct.tag == WORD + "hyperlink" else [])
+                )
+                for run in runs:
+                    for child in run:
+                        tag = child.tag
+                        if tag == WORD + "t":
+                            fragments.append(child.text or "")
+                        elif tag in {WORD + "tab", WORD + "ptab"}:
+                            fragments.append("\t")
+                        elif tag == WORD + "noBreakHyphen":
+                            fragments.append("-")
+                        elif tag == WORD + "cr" or (
+                            tag == WORD + "br"
+                            and child.get(WORD + "type", "textWrapping") == "textWrapping"
+                        ):
+                            fragments.append("\n")
+            text = "".join(fragments)
+            result.append({"text": text})
+        elif node.tag == WORD + "tbl":
+            rows = []
+            for row in node.findall(WORD + "tr"):
+
+                def prop(name, default, row=row):
+                    found = row.find(WORD + "trPr/" + WORD + name)
+                    return int(found.get(WORD + "val", default)) if found is not None else default
+
+                before, after = prop("gridBefore", 0), prop("gridAfter", 0)
+                cells = []
+                for cell in row.findall(WORD + "tc"):
+                    span = cell.find(WORD + "tcPr/" + WORD + "gridSpan")
+                    span = int(span.get(WORD + "val")) if span is not None else 1
+                    merge = cell.find(WORD + "tcPr/" + WORD + "vMerge")
+                    merge = merge.get(WORD + "val", "continue") if merge is not None else None
+                    data = {"blocks": word_blocks(cell)}
+                    if span != 1:
+                        data["span"] = span
+                    if merge is not None:
+                        data["vertical_merge"] = merge
+                    cells.append(data)
+                data = {"cells": cells}
+                if before:
+                    data["before"] = before
+                if after:
+                    data["after"] = after
+                rows.append(data)
+            grid = node.find(WORD + "tblGrid")
+            result.append({"kind": "table", "columns": len(grid), "rows": rows})
+    return result
+
+
+@lru_cache(maxsize=4)
+def word_document(body):
+    with ZipFile(BytesIO(body)) as package:
+        # Separate OOXML traversal does not import Runtime/python-docx resolvers.
+        parser = etree.XMLParser(resolve_entities=False, no_network=True)
+        document = etree.fromstring(package.read("word/document.xml"), parser)
+    return word_blocks(document.find(WORD + "body"))
+
+
+def word_text(blocks):
+    lines = []
+    for block in blocks:
+        if "text" in block:
+            if block["text"].strip():
+                lines.append(block["text"].strip())
+        else:
+            for row in block["rows"]:
+                cells = [word_text(cell["blocks"]) for cell in row["cells"]]
+                if any(cells):
+                    lines.append("\t".join(cells))
+    return "\n".join(lines)
+
+
+def attachment_value(body, locator):
+    selection = locator["selection"]
+    if selection == "coverage":
+        return word_coverage(body)
+    structure = workbook(body) if locator["kind"] == "xls" else word_document(body)
+    if selection == "structure":
+        return structure
+    if locator["kind"] == "xls":
+
+        def cell_text(value):
+            if value is None:
+                return ""
+            return str(value).lower() if type(value) is bool else str(value)
+
+        lines = [
+            "\t".join(map(cell_text, row)).rstrip("\t")
+            for sheet in structure
+            for row in sheet["rows"]
+            if any(cell is not None and cell != "" for cell in row)
+        ]
+        title = next(
+            cell.strip()
+            for sheet in structure
+            for row in sheet["rows"]
+            for cell in row
+            if type(cell) is str and cell.strip()
+        )
+        text = "\n".join(lines)
+    else:
+        text = word_text(structure)
+        title = text.splitlines()[0].strip()
+    if selection == "title":
+        return title
+    if selection == "text":
+        return text
+    raise ValueError("invalid_attachment_locator")
+
+
+def word_coverage(body):
+    names = {
+        "altChunk",
+        "drawing",
+        "pict",
+        "object",
+        "sdt",
+        "ins",
+        "del",
+        "moveFrom",
+        "moveTo",
+        "footnoteReference",
+        "endnoteReference",
+        "customXml",
+        "fldSimple",
+    }
+    math = "{http://schemas.openxmlformats.org/officeDocument/2006/math}"
+    unsupported = {WORD + name for name in names} | {math + "oMath", math + "oMathPara"}
+    counts, parts = {}, []
+    with ZipFile(BytesIO(body)) as package:
+        parser = etree.XMLParser(resolve_entities=False, no_network=True)
+        doc = etree.fromstring(package.read("word/document.xml"), parser)
+        main = doc.find(WORD + "body")
+        for node in main.iter():
+            if node.tag in unsupported:
+                name = node.tag.rsplit("}", 1)[-1]
+                counts[name] = counts.get(name, 0) + 1
+        for node in main:
+            if node.tag not in {WORD + "p", WORD + "tbl", WORD + "sectPr"}:
+                name = node.tag.rsplit("}", 1)[-1]
+                if name not in counts:
+                    counts[name] = 1
+        for path in package.namelist():
+            if (
+                path.startswith("word/")
+                and path.endswith(".xml")
+                and path.split("/")[-1].startswith(("header", "footer", "footnotes", "endnotes"))
+            ):
+                root = etree.fromstring(package.read(path), parser)
+                count = sum(bool(node.text and node.text.strip()) for node in root.iter(WORD + "t"))
+                if count:
+                    parts.append({"part": path, "text_nodes": count})
+    return {
+        "scope": "main_body_paragraphs_tables",
+        "unparsed_elements": counts,
+        "non_body_parts": sorted(parts, key=lambda item: item["part"]),
+    }
+
+
 def located(snapshot, body, locator):
     kind = locator["kind"]
     encoding = snapshot.get("encoding") or "utf-8"
@@ -71,6 +287,8 @@ def located(snapshot, body, locator):
         value = locator.get("separator", "\n").join(
             located(snapshot, body, part) for part in locator["segments"]
         )
+    elif kind in ("xls", "docx"):
+        value = attachment_value(body, locator)
     else:
         raise ValueError("unsupported_locator:" + kind)
     if locator.get("transform") == "key_string":

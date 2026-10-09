@@ -1,0 +1,727 @@
+[
+  {
+    "research_id": "dd-468",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-468",
+      "attachment_paths": [
+        "./W020211027623974108131.xls",
+        "./W020211027623974133601.xls"
+      ]
+    },
+    "source": {
+      "id": "live_dd_468",
+      "entry_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html"
+      ],
+      "allowed_hosts": [
+        "www.moe.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/jyb_xxgk/s5743/s5744/A03/202110/"
+      ],
+      "host_path_scopes": {
+        "www.moe.gov.cn": [
+          "/jyb_xxgk/s5743/s5744/A03/202110/"
+        ]
+      },
+      "research_ids": [
+        "dd-468"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅2021-10-25全国高等学校名单说明及其两份真实XLS：原始bytes归档；全部工作表、有效单元格、合并区域和工作表可见状态结构化保存为URL身份附件文档，覆盖普通2756所和成人256所名单。正文和workbook结构可由原文独立复算；不把表格行序作为学校实体主键，不声明现行名单、全站或主体核验。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 3,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "全国高等学校名单",
+        "截至2021年9月30日",
+        "3012所",
+        "2756所",
+        "1270所",
+        "1486所",
+        "256所"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "errors": [],
+      "stable_keys": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "allowed_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "archived_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "record_count": 3,
+      "min_body_chars": 100,
+      "body_anchors": [
+        "全国普通高等学校名单",
+        "全国成人高等学校名单",
+        "铁门关职业技术学院",
+        "阿克苏教育学院"
+      ],
+      "failure_modes": [
+        "missing_or_truncated_workbook",
+        "merged_cell_loss",
+        "invalid_cell_encoding",
+        "unrecomputable_attachment_field",
+        "unstable_document_identity",
+        "attachment_recheck_not_dispatched",
+        "partial_promoted_as_success",
+        "network_replay"
+      ],
+      "document_contracts": [
+        {
+          "record_key": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+          "body_anchors": [
+            "全国普通高等学校名单",
+            "北京大学",
+            "铁门关职业技术学院"
+          ],
+          "min_body_chars": 110000,
+          "archive_sha256": "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac",
+          "worksheets": [
+            {
+              "name": "sheet1",
+              "rows": 2790,
+              "columns": 7,
+              "merged_cells": 33,
+              "business_codes": {
+                "column": 2,
+                "count": 2756
+              },
+              "cells": [
+                {
+                  "row": 4,
+                  "column": 1,
+                  "value": "北京大学"
+                },
+                {
+                  "row": 2789,
+                  "column": 1,
+                  "value": "铁门关职业技术学院"
+                },
+                {
+                  "row": 2789,
+                  "column": 2,
+                  "value": 4165014660.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "record_key": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls",
+          "body_anchors": [
+            "全国成人高等学校名单",
+            "北京市海淀区职工大学",
+            "阿克苏教育学院"
+          ],
+          "min_body_chars": 8000,
+          "archive_sha256": "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+          "worksheets": [
+            {
+              "name": "sheet1",
+              "rows": 289,
+              "columns": 5,
+              "merged_cells": 32,
+              "business_codes": {
+                "column": 2,
+                "count": 256
+              },
+              "cells": [
+                {
+                  "row": 4,
+                  "column": 1,
+                  "value": "北京市海淀区职工大学"
+                },
+                {
+                  "row": 288,
+                  "column": 1,
+                  "value": "阿克苏教育学院"
+                },
+                {
+                  "row": 288,
+                  "column": 2,
+                  "value": "4265051717"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "research_id": "dd-375",
+    "class": "A",
+    "source": {
+      "id": "v12-expanded-dd-375",
+      "entry_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html"
+      ],
+      "allowed_hosts": [
+        "www.stats.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+        "/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ],
+      "host_path_scopes": {
+        "www.stats.gov.cn": [
+          "/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+          "/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+          "/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+        ]
+      },
+      "research_ids": [
+        "dd-375"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅国民经济行业分类第1号修改单通知及两份官网DOCX。不可变原文、主文段落/表格/合并/嵌套结构与coverage均结构化为附件URL身份的文档Record，所有字段可从归档bytes独立复算。drawing/pict文字和非主文header/footer仍未解析，逐附件显式partial，不用通知或已解析主文冒充完整材料。Recheck不得提升partial为历史成功；不强造分类实体或声称业务质量审核。",
+      "seed_role": "detail",
+      "budget": {
+        "requests": 6,
+        "seconds": 90,
+        "response_bytes": 5242880
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/expanded_aux",
+    "params": {
+      "attachment_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ]
+    },
+    "expected": {
+      "statuses": [
+        "partial"
+      ],
+      "errors": [
+        "docx_unsupported_content"
+      ],
+      "min_records": 3,
+      "record_count": 3,
+      "min_pages": 0,
+      "roles": [
+        "detail",
+        "attachment"
+      ],
+      "allowed_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ],
+      "archived_urls": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ],
+      "stable_keys": [
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/t20190521_1758938.html",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+        "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx"
+      ],
+      "title_anchors": [
+        "关于执行国民经济行业分类第1号修改单的通知"
+      ],
+      "body_anchors": [
+        "GB/T 4754",
+        "国家标准第1号修改单",
+        "药用辅料及包装材料制造",
+        "国民经济行业分类",
+        "农业",
+        "计算机"
+      ],
+      "min_body_chars": 400,
+      "failure_modes": [
+        "missing_docx_attachment",
+        "paragraph_or_table_loss",
+        "unsupported_drawing_text",
+        "merged_or_nested_table_loss",
+        "unrecomputable_docx_field",
+        "unstable_document_identity",
+        "attachment_recheck_not_dispatched",
+        "network_replay"
+      ],
+      "document_contracts": [
+        {
+          "record_key": "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020200612583036030033.DOCX",
+          "body_anchors": [
+            "国家标准第1号修改单",
+            "药用辅料及包装材料制造",
+            "2740",
+            "人民检察院"
+          ],
+          "min_body_chars": 900,
+          "archive_sha256": "59e792fca597e715b2afbc3496eb719702706d68bca943e5c24df2f07220d92a",
+          "blocks": {
+            "count": 11,
+            "table_rows": [
+              10
+            ],
+            "table_columns": [
+              6
+            ],
+            "merged_cells": 1,
+            "vertical_merges": 4
+          },
+          "coverage": {
+            "unparsed_elements": {
+              "drawing": 1,
+              "pict": 1
+            },
+            "non_body_parts": [
+              "word/footer1.xml",
+              "word/footer2.xml"
+            ]
+          }
+        },
+        {
+          "record_key": "https://www.stats.gov.cn/xxgk/tjbz/gjtjbz/201905/P020210608556900301740.docx",
+          "body_anchors": [
+            "农业",
+            "计算机",
+            "国民经济行业分类",
+            "4  编码方法"
+          ],
+          "min_body_chars": 180000,
+          "archive_sha256": "139a03fd5b5fa21733a30a3d0b0a111de9c73432bc870b98185888267856f5fe",
+          "blocks": {
+            "count": 263,
+            "table_rows": [
+              1772,
+              23,
+              1770,
+              1866
+            ],
+            "table_columns": [
+              6,
+              8,
+              5,
+              4
+            ],
+            "merged_cells": 7,
+            "vertical_merges": 4
+          },
+          "coverage": {
+            "unparsed_elements": {
+              "drawing": 14,
+              "pict": 12,
+              "bookmarkStart": 1,
+              "bookmarkEnd": 1
+            },
+            "non_body_parts": [
+              "word/footer2.xml",
+              "word/footer3.xml",
+              "word/header1.xml"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "research_id": "dd-004",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-004",
+      "attachment_paths": [
+        "document/恢复经营主体登记（备案）告知书-深圳市诺亚信高科技集团有限公司.pdf",
+        "document/恢复经营主体登记（备案）决定书-深圳市诺亚信高科技集团有限公司.pdf"
+      ]
+    },
+    "source": {
+      "id": "live_dd_004",
+      "entry_urls": [
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx"
+      ],
+      "allowed_hosts": [
+        "amr.sz.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xyjggs.webui/xyjggs/index.aspx",
+        "/xyjggs.webui/xyjggs/document/"
+      ],
+      "host_path_scopes": {
+        "amr.sz.gov.cn": [
+          "/xyjggs.webui/xyjggs/index.aspx",
+          "/xyjggs.webui/xyjggs/document/"
+        ]
+      },
+      "research_ids": [
+        "dd-004"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅公开首页中深圳市诺亚信高科技集团有限公司的2026-08-17告知书与2026-09-24决定书2条明确公告及各自PDF。公告title/date/attachment_path结构化，以源附件路径作为稳定键；PDF均无文本层，原文归档且显式partial。其他栏目、全量企业核验、验证码和OCR不在范围。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "partial"
+      ],
+      "anchors": [
+        "深圳市诺亚信高科技集团有限公司（告知书）",
+        "深圳市诺亚信高科技集团有限公司（决定书）",
+        "2026-08-17",
+        "2026-09-24"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "errors": [
+        "pdf_text_layer_required"
+      ],
+      "stable_keys": [
+        "document/恢复经营主体登记（备案）告知书-深圳市诺亚信高科技集团有限公司.pdf",
+        "document/恢复经营主体登记（备案）决定书-深圳市诺亚信高科技集团有限公司.pdf"
+      ],
+      "allowed_urls": [
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%91%8A%E7%9F%A5%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%86%B3%E5%AE%9A%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf"
+      ],
+      "archived_urls": [
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%91%8A%E7%9F%A5%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf",
+        "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/%E6%81%A2%E5%A4%8D%E7%BB%8F%E8%90%A5%E4%B8%BB%E4%BD%93%E7%99%BB%E8%AE%B0%EF%BC%88%E5%A4%87%E6%A1%88%EF%BC%89%E5%86%B3%E5%AE%9A%E4%B9%A6-%E6%B7%B1%E5%9C%B3%E5%B8%82%E8%AF%BA%E4%BA%9A%E4%BF%A1%E9%AB%98%E7%A7%91%E6%8A%80%E9%9B%86%E5%9B%A2%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8.pdf"
+      ],
+      "record_count": 2
+    }
+  },
+  {
+    "research_id": "dd-046",
+    "class": "B",
+    "recipe": "recipes/expanded_b1",
+    "params": {
+      "documents": [
+        {
+          "url": "https://www.cietac.org/articles/36498",
+          "title": "title",
+          "body": ".main_content"
+        }
+      ],
+      "routes": [],
+      "attachments": [],
+      "pdf_titles": {}
+    },
+    "source": {
+      "id": "expanded_b1_dd_046",
+      "entry_urls": [
+        "https://www.cietac.org/articles/36498"
+      ],
+      "allowed_hosts": [
+        "www.cietac.org"
+      ],
+      "allowed_path_prefixes": [
+        "/articles/36498"
+      ],
+      "host_path_scopes": {
+        "www.cietac.org": [
+          "/articles/36498"
+        ]
+      },
+      "research_ids": [
+        "dd-046"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "复用既有固定公开文章 https://www.cietac.org/articles/36498 成功路径，当前Runtime重新进行两轮Collect、Recheck和离线Replay、原文摘要及title/body Locator复算。不模拟登录，不把文章路径成功替代首页组织查询或业务质量审核。",
+      "seed_role": "detail",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 16,
+        "seconds": 90,
+        "response_bytes": 6291456
+      },
+      "concurrency": 1,
+      "delay": 0.15,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "【贸仲典型案例解析】医药研发申报失败，技术方是否需要全额返还研发费用？-中国国际经济贸易仲裁委员会",
+        "医药研发自身的特点"
+      ],
+      "roles": [
+        "detail"
+      ],
+      "errors": [],
+      "stable_keys": [
+        "https://www.cietac.org/articles/36498"
+      ],
+      "allowed_urls": [
+        "https://www.cietac.org/articles/36498"
+      ],
+      "archived_urls": [
+        "https://www.cietac.org/articles/36498"
+      ],
+      "min_pages": 0,
+      "title_anchors": [
+        "【贸仲典型案例解析】医药研发申报失败，技术方是否需要全额返还研发费用？-中国国际经济贸易仲裁委员会"
+      ],
+      "body_anchors": [
+        "医药研发自身的特点"
+      ],
+      "min_body_chars": 100
+    }
+  },
+  {
+    "research_id": "dd-357",
+    "class": "B",
+    "recipe": "recipes/expanded_b1",
+    "params": {
+      "documents": [
+        {
+          "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+          "title": ".cjcs_phone_title",
+          "body": ".content_body_box"
+        }
+      ],
+      "routes": [],
+      "attachments": [],
+      "pdf_titles": {}
+    },
+    "source": {
+      "id": "remediation_dd_357",
+      "entry_urls": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "allowed_hosts": [
+        "permit.mee.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/perxxgkinfo/syssb/xkgg/"
+      ],
+      "host_path_scopes": {
+        "permit.mee.gov.cn": [
+          "/perxxgkinfo/syssb/xkgg/"
+        ]
+      },
+      "research_ids": [
+        "dd-357"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅原规定公开公告《关于调整2024年排污许可证年度执行报告报送时间的公告》匿名HTML正文；最新直接GET无CAS重定向后才进行有界四轮验收。采用文章URL文档身份；不模拟CAS、不读取许可证查询或执行报告数据，不扩大到全站或主体核验。",
+      "seed_role": "detail",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 16,
+        "seconds": 90,
+        "response_bytes": 6291456
+      },
+      "concurrency": 1,
+      "delay": 0.15,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "关于调整2024年排污许可证年度执行报告报送时间的公告",
+        "火电行业于2025年1月底前",
+        "其余行业于2025年2月底前"
+      ],
+      "roles": [
+        "detail"
+      ],
+      "errors": [],
+      "stable_keys": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "allowed_urls": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "archived_urls": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "min_pages": 0,
+      "title_anchors": [
+        "关于调整2024年排污许可证年度执行报告报送时间的公告"
+      ],
+      "body_anchors": [
+        "火电行业于2025年1月底前",
+        "其余行业于2025年2月底前"
+      ],
+      "min_body_chars": 250
+    }
+  },
+  {
+    "research_id": "dd-484",
+    "class": "B",
+    "recipe": "recipes/expanded_b2",
+    "source": {
+      "id": "expanded_dd_484",
+      "research_ids": [
+        "dd-484"
+      ],
+      "entry_urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "allowed_hosts": [
+        "htgs.ccgp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f"
+      ],
+      "host_path_scopes": {
+        "htgs.ccgp.gov.cn": [
+          "/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。当前默认列表入口断连；明确仅原已知合同详情，不声称列表发现/验证码筛选可用。",
+      "seed_role": "detail",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 6,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-484",
+      "mode": "html",
+      "urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "title_selector": "h2.tc",
+      "body_selector": ".content_2020",
+      "body_segments": false
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "三明市公安局复印纸直接选定采购合同",
+        "HW-ZJXD-100917",
+        "DD-2026-045510",
+        "三明市公安局采购订单"
+      ],
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "archived_urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "allowed_urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "stable_keys": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "failure_modes": [
+        "http_download_failed",
+        "unexpected_url_scope",
+        "missing_or_ambiguous_title",
+        "missing_business_body",
+        "template_changed",
+        "unrecomputable_field_or_url_identity",
+        "recheck_data_changed",
+        "replay_network_attempt"
+      ],
+      "title_anchors": [
+        "三明市公安局复印纸直接选定采购合同"
+      ],
+      "body_anchors": [
+        "HW-ZJXD-100917",
+        "DD-2026-045510",
+        "三明市公安局采购订单"
+      ],
+      "min_body_chars": 100
+    }
+  }
+]

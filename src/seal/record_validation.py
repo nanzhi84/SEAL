@@ -10,6 +10,7 @@ from typing import Literal
 
 from pydantic import Field
 
+from .attachments import located_attachment, parse_attachment
 from .config import Strict
 from .core import Objects, SealError, canonical, public_url
 
@@ -176,12 +177,20 @@ class _RecordJsonInput:
     def __init__(self, cache):
         self.cache = cache
         self.body_hash = self.value = None
+        self.attachment_key = self.attachment_value = None
 
     def load(self, body_hash, body):
         if self.body_hash != body_hash:
             self.value = self.cache.load(body_hash, body) if self.cache else _decode(body)
             self.body_hash = body_hash
         return self.value
+
+    def attachment(self, kind, body_hash, body):
+        key = kind, body_hash
+        if self.attachment_key != key:
+            self.attachment_value = parse_attachment(kind, body)
+            self.attachment_key = key
+        return self.attachment_value
 
 
 def json_pointer(body, pointer, *, cache=None, body_hash=None):
@@ -219,6 +228,13 @@ def located_value(snapshot, body, locator, cache=None):
         return json_pointer(
             body, locator.get("pointer"), cache=cache, body_hash=snapshot["body_hash"]
         )
+    if locator.get("kind") in ("xls", "docx"):
+        structure = (
+            cache.attachment(locator["kind"], snapshot["body_hash"], body)
+            if isinstance(cache, _RecordJsonInput)
+            else None
+        )
+        return located_attachment(body, locator, structure=structure)
     return text_value(snapshot, body, locator)
 
 
