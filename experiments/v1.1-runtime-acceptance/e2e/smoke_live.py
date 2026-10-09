@@ -100,7 +100,7 @@ def prepare(s, spec):
 def live(s, source_ids=None):
     h = s.h
     package = h.root / "live-recipe"
-    shutil.copytree("scripts/e2e/live_recipe", package)
+    shutil.copytree("experiments/v1.1-runtime-acceptance/e2e/live_recipe", package)
     shutil.copyfile("recipes/generic/recipe.py", package / "generic.py")
     recipe = h.cli("recipe", "pack", package)["recipe_version"]
     old = package / "generic.py"

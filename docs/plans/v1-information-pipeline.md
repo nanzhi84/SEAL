@@ -366,13 +366,13 @@ Procrastinate 对单次手工 M1 可暂不运行，但周期、持久失败恢�
 
 先确定失败模式与独立预期，再实现行为验收路径和功能。只写真实用户路径 E2E，不在实现后补结构性单元测试。以下命令已实现，每次运行创建独立临时 PostgreSQL 集群和合成站点；M2/M3 运行真实 Worker。合成路径的断言结果以对应工件为准，真实来源退出条件单列。
 
-统一入口为 `scripts/acceptance.sh`；后续阶段复用前阶段，不重复创建测试平台。首次准备隔离测试数据，重跑创建新 namespace，不能污染生产。实施后从仓库根目录分别运行：
+统一入口为 `experiments/v1.1-runtime-acceptance/acceptance.sh`；后续阶段复用前阶段，不重复创建测试平台。首次准备隔离测试数据，重跑创建新 namespace，不能污染生产。实施后从仓库根目录分别运行：
 
 ```bash
-./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0
-./scripts/acceptance.sh --stage m1 --output artifacts/acceptance/m1
-./scripts/acceptance.sh --stage m2 --output artifacts/acceptance/m2
-./scripts/acceptance.sh --stage m3 --output artifacts/acceptance/m3
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m0 --output artifacts/acceptance/m0
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m1 --output artifacts/acceptance/m1
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m2 --output artifacts/acceptance/m2
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/m3
 ```
 
 | 阶段/命令参数 | 实施内容 | 必须可运行且可观察的退出条件 |
@@ -408,7 +408,7 @@ M0 先以本地确定站点验证机制，M1 在获得 URL/许可后完成一个
 
 每阶段产出 `manifest.json`、`assertions.json`、报告、CLI 回执、脱敏 Stats/请求账本、合成原文、候选/发布 JSON、Revision/Binding/Activation/撤回历史。Manifest 包含命令、环境锁、代码/配置/输入/预期摘要和未验证项；每条断言有 expected/actual、PASS/FAIL/BLOCKED、证据路径。工件不含真实凭据/个人信息；可重算摘要与业务断言，不要求不同运行 ID/时间戳一致。通过构建、HTTP 200 或一次退出码 0 不替代这些证据。
 
-当前可运行上述端到端入口、`scripts/verify_artifacts.py` 工件校验及文档检查 `seiso check`。端到端工件验证合成路径，文档检查不证明运行行为；真实断电持久性与来源覆盖仍未验证。可视化源稿嵌在 Generated 的 `#am-source`，重生成不另建说明文档。
+当前可运行上述端到端入口、`experiments/v1.1-runtime-acceptance/verify_artifacts.py` 工件校验及文档检查 `seiso check`。端到端工件验证合成路径，文档检查不证明运行行为；真实断电持久性与来源覆盖仍未验证。可视化源稿嵌在 Generated 的 `#am-source`，重生成不另建说明文档。
 
 ## 11. 必须通过真实 PoC 验证的风险
 
@@ -430,6 +430,6 @@ M0 先以本地确定站点验证机制，M1 在获得 URL/许可后完成一个
 - `src/seal/config.py`、`recipes.py`、`governance.py`：配置、不可变包/Binding、Gold 与 Trial/Replay 审核、CAS 启用、暂停/回滚/撤回。
 - `archive.py`、`items.py`、`crawl.py`：原生 Scrapy、归档前置、输入血缘、字段定位、独立 Replay、预算和关闭报告。
 - `runs.py`、`publish.py`、`queue.py`：三层 fencing、发布幂等、期限/三次尝试、同事务 Procrastinate 入队、周期与 stalled 恢复。
-- `schema.sql`：九类业务表；`scripts/acceptance.sh`：M0–M3 累积合成验收；首次失败工件保留，最新通过不抹除历史。
+- `schema.sql`：九类业务表；`experiments/v1.1-runtime-acceptance/acceptance.sh`：M0–M3 累积合成验收；首次失败工件保留，最新通过不抹除历史。
 
 当前实现边界：只开放规范化 URL 身份和 `generic_document.v1`；公开 GET/HEAD，Cookie 关闭；PDF 仅文本层且页面顺序需人工核对。孤儿对象保留供停机核对清理，尚无自动垃圾回收。部署使用固定 checkout 和虚拟环境，旧环境必须保留，不原位更新。真实来源接入、真实断电/整机故障、生产性能/资源规模尚未验收。上述剩余项以本 Plan 持续跟踪，不以合成通过替代。

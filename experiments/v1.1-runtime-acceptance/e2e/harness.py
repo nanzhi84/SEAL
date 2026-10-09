@@ -174,12 +174,12 @@ class Harness:
         manifest = {
             "version": "v1.1",
             "stage": stage,
-            "command": f"./scripts/acceptance.sh --stage {stage} --output <new-directory>",
+            "command": f"./experiments/v1.1-runtime-acceptance/acceptance.sh --stage {stage} --output <new-directory>",
             "python": sys.version,
             "uv_lock": hashlib.sha256(Path("uv.lock").read_bytes()).hexdigest(),
             "code": {
                 str(p): hashlib.sha256(p.read_bytes()).hexdigest()
-                for folder in ("src", "scripts", "recipes")
+                for folder in ("src", "experiments/v1.1-runtime-acceptance", "recipes")
                 for p in Path(folder).rglob("*")
                 if p.is_file() and "__pycache__" not in p.parts
             },

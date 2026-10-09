@@ -752,7 +752,7 @@ JOBDIR 不作为任意崩溃恢复保证。</p>
 <td>只升级 A，不改变 B 的绑定、环境和历史；撤回与回滚独立</td>
 </tr>
 </tbody></table></div>
-<p>验收入口：<code>./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0</code>。
+<p>验收入口：<code>./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m0 --output artifacts/acceptance/m0</code>。
 其余阶段替换阶段名和输出目录；后续阶段包含前阶段，失败工件保留。</p>
 <p>使用隔离测试库、本地测试站点、固定预期与真实 CLI。
 输出 manifest、逐条断言、原文、JSON、版本历史和脱敏日志。
@@ -969,7 +969,7 @@ M3 | 双Source维护路径 | 共享版本，A失效修复并升级，B保持正�
 | M2 | A→A→B→A 四次观察三次修订；崩溃恢复无重复发布 |
 | M3 | 只升级 A，不改变 B 的绑定、环境和历史；撤回与回滚独立 |
 
-验收入口：`./scripts/acceptance.sh --stage m0 --output artifacts/acceptance/m0`。
+验收入口：`./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m0 --output artifacts/acceptance/m0`。
 其余阶段替换阶段名和输出目录；后续阶段包含前阶段，失败工件保留。
 
 使用隔离测试库、本地测试站点、固定预期与真实 CLI。

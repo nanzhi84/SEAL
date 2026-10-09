@@ -10,7 +10,7 @@
 
 ## 环境识别与基线
 
-1. 只读审查 `plans/v1.1-runtime.md`、ADR-0003、数据库迁移、现有 CLI、测试结构、`scripts/acceptance.sh` 和相关配置。识别实际可用的 `seal run`、`seal export`、`source select`、replay 入口、已有测试数据库隔离方式。文档路径以仓库实际位置为准，禁止凭示例猜测 CLI 参数或 Schema。
+1. 只读审查 `plans/v1.1-runtime.md`、ADR-0003、数据库迁移、现有 CLI、测试结构、`experiments/v1.1-runtime-acceptance/acceptance.sh` 和相关配置。识别实际可用的 `seal run`、`seal export`、`source select`、replay 入口、已有测试数据库隔离方式。文档路径以仓库实际位置为准，禁止凭示例猜测 CLI 参数或 Schema。
 2. 先运行仓库已有与 V1.1 相关的最小验收集合作为基线，记录实际结果与耗时，避免重新复制现有 M3 断言。
 3. 使用我提供的 `seal-v1.1-runtime-golden-fixtures` 目录（若放在仓库外，先读取其 `README.md`、`golden_expected.json`、`runtime_cases.json`）。先执行 `python verify_pack.py`。它只校验 fixture 包，不代表 SEAL 通过验收。
 4. 所有有副作用的测试只连接**独立临时 PostgreSQL 数据库/Schema、独立队列、独立归档目录**，不得使用或清空开发和生产数据。fixture HTTP 服务限定 127.0.0.1。

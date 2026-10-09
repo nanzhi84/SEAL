@@ -27,7 +27,7 @@ def main(args):
     # Preserve the actual executable inputs, including an uncommitted worktree.
     from pathlib import Path
 
-    for folder in ("src", "scripts", "recipes"):
+    for folder in ("src", "experiments/v1.1-runtime-acceptance", "recipes"):
         shutil.copytree(
             folder,
             output / "executed-code" / folder,
@@ -42,7 +42,7 @@ def main(args):
         (output / "pack-verification.txt").write_text(p.stdout + p.stderr)
         h.check("pack_verified_before_execution", p.returncode, 0)
         p = subprocess.run(
-            [sys.executable, "scripts/verify_artifacts.py", str(args.baseline)],
+            [sys.executable, "experiments/v1.1-runtime-acceptance/verify_artifacts.py", str(args.baseline)],
             capture_output=True,
             text=True,
         )
@@ -135,7 +135,7 @@ def main(args):
         h.save("smoke", error)
         manifest = json.loads((output / "manifest.json").read_text())
         manifest["command"] = (
-            "./scripts/acceptance.sh --stage smoke --baseline "
+            "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline "
             f"{args.baseline} --output <new-directory>"
             + (" --live" if args.live else "")
             + "".join(f" --live-source {name}" for name in args.live_source or [])

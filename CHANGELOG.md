@@ -52,10 +52,10 @@ Golden 只覆盖当前 Schema 的 title/date/body；update_date/document_no 共 
 
 ```sh
 uv sync --frozen
-./scripts/acceptance.sh --stage m3 --output artifacts/acceptance/v1.1-repeat/m3
-./scripts/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1-repeat/m3 --live --output artifacts/acceptance/v1.1-repeat/smoke
-uv run --frozen python scripts/verify_artifacts.py artifacts/acceptance/v1.1-repeat/m3
-uv run --frozen python scripts/verify_artifacts.py artifacts/acceptance/v1.1-repeat/smoke
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.1-repeat/m3
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1-repeat/m3 --live --output artifacts/acceptance/v1.1-repeat/smoke
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/v1.1-repeat/m3
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/v1.1-repeat/smoke
 ```
 
 C01 额外需要上一轮保留的 `artifacts/acceptance/v1.1-smoke/court-confirmed/` 数据库与归档；新 checkout 缺失时明确记为 UNVERIFIED，不能称为全量通过。省略 `--live` 可关闭外网测试；外网变化如实记录，不作为必须通过的 CI。

@@ -99,7 +99,7 @@ def cache_poc(h):
         subprocess.run(
             [
                 sys.executable,
-                "scripts/e2e/cache_probe.py",
+                "experiments/v1.1-runtime-acceptance/e2e/cache_probe.py",
                 h.site.url + endpoint,
                 mode,
                 str(h.root / ("cache-" + mode)),

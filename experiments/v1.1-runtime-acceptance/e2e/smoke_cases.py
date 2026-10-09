@@ -5,7 +5,7 @@ from pathlib import Path
 
 from .smoke_support import PACK, sha
 
-RECIPE = Path("scripts/e2e/smoke_recipe")
+RECIPE = Path("experiments/v1.1-runtime-acceptance/e2e/smoke_recipe")
 
 
 def semantic(documents):

@@ -127,9 +127,9 @@ RecipeVersion 摘要覆盖包内源码/helper/资源、依赖锁、解释器、�
 额外要求 `initdb`、`pg_ctl` 在 PATH。脚本覆盖外部业务数据库环境变量，创建独立 PostgreSQL 集群、临时原文目录和仅监听 `127.0.0.1` 的合成站点；结束后销毁测试集群。M2/M3 使用真实 Worker；故障注入只作用于隔离测试数据。
 
 ```bash
-./scripts/acceptance.sh --stage m3 --output artifacts/acceptance/v1.1
-uv run --frozen python scripts/verify_artifacts.py ACTUAL_OUTPUT_DIRECTORY
-uvx --from ruff==0.16.10 ruff check src recipes scripts
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.1
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py ACTUAL_OUTPUT_DIRECTORY
+uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.1-runtime-acceptance
 seiso check
 ```
 
@@ -140,10 +140,10 @@ M0–M3 仍为累积入口，但场景已改为 V1.1 Runtime 合同，不再包�
 独立小样本验收复用同一入口，需要仓库内 `experiments/seal-v1.1-runtime-golden-fixtures/` 和本次 M3 工件：
 
 ```bash
-./scripts/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1 --output artifacts/acceptance/smoke
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1 --output artifacts/acceptance/smoke
 # 公开来源仅显式启用；可用 --live-source live_court / live_spp / live_python 缩小范围。
-./scripts/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1 --live --output artifacts/acceptance/smoke-live
-uv run --frozen python scripts/verify_artifacts.py artifacts/acceptance/smoke --recorded-outcomes
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.1 --live --output artifacts/acceptance/smoke-live
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/smoke --recorded-outcomes
 ```
 
 `smoke` 校验 M3 与当前 Runtime 的文件摘要一致，逐例保存 PASS/FAIL/UNVERIFIED；存在失败时非零退出。`--recorded-outcomes` 校验工件完整性和断言状态是否如实记录，同时列出失败断言，并不把失败改成通过。外网不加入必须通过的 CI。固定 Golden 的 `update_date/document_no` 当前无对应输出字段；日期和表格转换修复的独立验收见本地 `artifacts/acceptance/v1.1-runtime-fixes/report.md`。原始 `v1.1-smoke` 工件保持不变。
