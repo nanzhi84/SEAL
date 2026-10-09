@@ -85,7 +85,12 @@ class Harness(LegacyHarness):
         manifest = json.loads(path.read_text())
         manifest.update(
             version="v1.2",
-            command="./experiments/v1.2-acceptance/acceptance.sh --output <new-directory>",
+            command=(
+                "uv run --frozen python experiments/v1.2-acceptance/acceptance.py "
+                "--only public-probe --output <new-directory>"
+                if stage == "public-probe-security"
+                else "./experiments/v1.2-acceptance/acceptance.sh --output <new-directory>"
+            ),
             code={
                 str(p): hashlib.sha256(p.read_bytes()).hexdigest()
                 for folder in ("src", "experiments/v1.2-acceptance", "recipes")
@@ -94,32 +99,51 @@ class Harness(LegacyHarness):
                 and "__pycache__" not in p.parts
                 and not p.is_relative_to(Path("experiments/v1.2-acceptance/results"))
             },
-            scope="Runtime synthetic contracts: isolated PostgreSQL + loopback sources",
+            scope=(
+                "Public probe metadata privacy and refusal-stop contracts: isolated loopback fixtures"
+                if stage == "public-probe-security"
+                else "Runtime synthetic contracts: isolated PostgreSQL + loopback sources"
+            ),
             real_source_acceptance={
                 "status": "NOT_INCLUDED",
                 "reason": "Real A/B/C evidence is validated separately; synthetic PASS does not satisfy T7S",
             },
         )
+        if stage == "public-probe-security":
+            probe = ROOT / "experiments/source-accessibility/probe.py"
+            manifest["code"][str(probe.relative_to(ROOT))] = hashlib.sha256(
+                probe.read_bytes()
+            ).hexdigest()
         path.write_text(json.dumps(manifest, indent=2))
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--only", choices=["public-probe"], help="Run one existing Harness contract group"
+    )
     args = parser.parse_args()
     output = args.output
     if output.exists():
         output = output / datetime.now(timezone.utc).strftime("run-%Y%m%dT%H%M%S%fZ")
     h = Harness(output)
     error = None
+    stage = "public-probe-security" if args.only else "joint-runtime"
     try:
         h.start()
-        run_all(h)
+        if args.only == "public-probe":
+            sys.path.insert(0, str(ROOT / "experiments/source-accessibility"))
+            from public_probe_acceptance import run_public_probe
+
+            run_public_probe(h)
+        else:
+            run_all(h)
     except Exception as exc:
         error = exc
         traceback.print_exc()
     finally:
-        h.save("joint-runtime", error)
+        h.save(stage, error)
         h.close()
     print(output.resolve())
     return 1 if error else 0
