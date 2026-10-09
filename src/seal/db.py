@@ -115,4 +115,4 @@ def migrate():
     if installed is None:
         with app.open():
             app.schema_manager.apply_schema()
-    return {"schema": "v1.1", "queue": "procrastinate"}
+    return {"schema": "v1.2", "queue": "procrastinate"}

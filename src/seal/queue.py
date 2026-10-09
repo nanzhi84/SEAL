@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 import procrastinate
 
-from .db import connect, dsn, j, one
+from .db import connect, dsn, locked_run
 
 app = procrastinate.App(connector=procrastinate.PsycopgConnector(conninfo=dsn()))
 
@@ -36,6 +36,9 @@ def schedule_due():
 
     created = []
     with connect() as c:
+        has_records = bool(
+            c.execute("SELECT to_regclass('seal_record') AS name").fetchone()["name"]
+        )
         sources = c.execute(
             "SELECT * FROM seal_source WHERE binding_id IS NOT NULL AND NOT paused AND (cooldown_until IS NULL OR cooldown_until<=now()) ORDER BY id FOR UPDATE SKIP LOCKED"
         ).fetchall()
@@ -47,10 +50,21 @@ def schedule_due():
                     "recheck",
                     source["config"]["recheck_seconds"],
                     c.execute(
-                        "SELECT 1 FROM seal_document WHERE source_id=%s AND namespace='runtime' AND next_check<=now() LIMIT 1",
+                        "SELECT 1 FROM seal_document d WHERE source_id=%s AND namespace='runtime' "
+                        "AND next_check<=now() AND EXISTS "
+                        "(SELECT 1 FROM seal_result r WHERE r.document_id=d.id) LIMIT 1",
                         (source["id"],),
                     ).fetchone()
-                    is not None,
+                    is not None
+                    or (
+                        has_records
+                        and c.execute(
+                            "SELECT 1 FROM seal_record WHERE source_id=%s AND namespace='runtime' "
+                            "AND latest_result IS NOT NULL AND next_check<=now() LIMIT 1",
+                            (source["id"],),
+                        ).fetchone()
+                        is not None
+                    ),
                 ),
             ):
                 if not due:
@@ -71,9 +85,17 @@ def schedule_due():
                     )
                 else:
                     c.execute(
-                        "UPDATE seal_document SET next_check=now()+(%s * interval '1 second') WHERE source_id=%s AND namespace='runtime'",
+                        "UPDATE seal_document d SET next_check=now()+(%s * interval '1 second') "
+                        "WHERE source_id=%s AND namespace='runtime' AND EXISTS "
+                        "(SELECT 1 FROM seal_result r WHERE r.document_id=d.id)",
                         (interval, source["id"]),
                     )
+                    if has_records:
+                        c.execute(
+                            "UPDATE seal_record SET next_check=now()+(%s * interval '1 second') "
+                            "WHERE source_id=%s AND namespace='runtime' AND latest_result IS NOT NULL",
+                            (interval, source["id"]),
+                        )
                 created.append(run_id)
     return {"run_ids": created}
 
@@ -100,16 +122,15 @@ async def recover_stalled(timestamp=0):
 
         def inspect_limit(run_id=run_id):
             with connect() as c:
-                run = one(c, "SELECT * FROM seal_run WHERE id=%s FOR UPDATE", (run_id,))
+                source, run = locked_run(c, run_id)
                 if run["status"] in ("complete", "partial", "superseded", "failed"):
                     return True  # one final task invocation reports the stored outcome
                 if run["attempt_epoch"] >= run["max_attempts"] or run["deadline"] <= datetime.now(
                     timezone.utc
                 ):
-                    c.execute(
-                        "UPDATE seal_run SET status='failed',completed_at=now(),errors=errors || %s WHERE id=%s",
-                        (j(["attempts_or_deadline_exhausted"]), run_id),
-                    )
+                    from .runs import end_run
+
+                    end_run(c, source, run, "failed", "attempts_or_deadline_exhausted")
                 return True
 
         if await asyncio.to_thread(inspect_limit):

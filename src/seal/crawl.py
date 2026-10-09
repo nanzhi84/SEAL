@@ -12,6 +12,7 @@ from scrapy import signals
 from scrapy.crawler import CrawlerProcess
 
 from .db import connect, j, record_error
+from .discovery import mark_failed
 from .recipes import import_recipe
 from .runs import run_context
 
@@ -39,12 +40,15 @@ def settings_for(context):
         "SEAL_CONTEXT": context,
         "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
         "DOWNLOADER_MIDDLEWARES": middlewares,
-        "SPIDER_MIDDLEWARES": {"seal.archive.InputMiddleware": 100},
+        "SPIDER_MIDDLEWARES": {
+            "seal.archive.InputMiddleware": 100,
+            "seal.discovery.DiscoverySpiderMiddleware": 200,
+        },
         "ITEM_PIPELINES": {"seal.items.ItemPipeline": 100},
-        "EXTENSIONS": {"seal.crawl.Completion": 100},
+        "EXTENSIONS": {"seal.crawl.Completion": 100, "seal.discovery.Discovery": 110},
         "HTTPCACHE_ENABLED": False,
         "COOKIES_ENABLED": False,
-        "HTTPPROXY_ENABLED": False,
+        "HTTPPROXY_ENABLED": True,
         "ROBOTSTXT_OBEY": False,
         "RETRY_ENABLED": not replay,
         "RETRY_TIMES": 2,
@@ -85,6 +89,7 @@ class Completion:
     def spider_error(self, failure, response, spider):
         self.crawler.stats.inc_value("seal/errors")
         record_error(self.context["id"], self.context["attempt_epoch"], "spider_exception")
+        mark_failed(self.context, response.request, "parse_failed")
 
     async def closed(self, spider, reason):
         # Do not serialize exception messages, URLs, request headers or body into Stats.
@@ -112,7 +117,8 @@ class Completion:
             with connect() as c:
                 if stats.get("seal/errors", 0):
                     c.execute(
-                        "UPDATE seal_run SET errors=%s WHERE id=%s AND attempt_epoch=%s AND errors='[]'",
+                        "UPDATE seal_run SET errors=%s WHERE id=%s AND attempt_epoch=%s "
+                        "AND status IN ('running','finishing') AND errors='[]'",
                         (
                             j(["unpersisted_processing_error"]),
                             self.context["id"],

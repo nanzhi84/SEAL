@@ -1,3 +1,4 @@
+import re
 from typing import Literal
 
 import yaml
@@ -46,12 +47,15 @@ class SourceConfig(Strict):
     entry_urls: list[str] = Field(min_length=1, max_length=1000)
     allowed_hosts: list[str] = Field(min_length=1)
     allowed_path_prefixes: list[str] = Field(min_length=1)
+    # When present, paths belong to a particular host, never to the union of hosts.
+    host_path_scopes: dict[str, list[str]] = Field(default_factory=dict)
+    research_ids: list[str] = Field(default_factory=list, max_length=111)
     methods: list[Literal["GET", "HEAD"]] = ["GET", "HEAD"]
-    identity: Literal["canonical_url"] = "canonical_url"
-    output_schema: Literal["generic_document.v1"] = "generic_document.v1"
+    identity: Literal["canonical_url", "business_key"] = "canonical_url"
+    output_schema: Literal["generic_document.v1", "record.v1"] = "generic_document.v1"
     archive_approved: bool
     scope: str = Field(min_length=5, max_length=2000)
-    seed_role: Literal["list", "detail"] = "list"
+    seed_role: Literal["list", "detail", "api", "iframe", "attachment"] = "list"
     poll_seconds: int = Field(default=3600, ge=60)
     recheck_seconds: int = Field(default=86400, ge=60)
     budget: Budget = Budget()
@@ -70,15 +74,28 @@ class SourceConfig(Strict):
     def check_scope(self):
         from urllib.parse import urlsplit
 
+        from .scope import paths_for, valid_prefix
+
         if not self.archive_approved:
             raise SealError("source_archive_approval_required")
-        if any(not p.startswith("/") or ".." in p for p in self.allowed_path_prefixes):
+        if any(not valid_prefix(p) for p in self.allowed_path_prefixes):
             raise SealError("invalid_path_scope")
+        if self.host_path_scopes and (
+            set(self.host_path_scopes) != set(self.allowed_hosts)
+            or any(
+                not paths or any(not valid_prefix(p) for p in paths)
+                for paths in self.host_path_scopes.values()
+            )
+        ):
+            raise SealError("invalid_host_path_scope")
+        if len(set(self.research_ids)) != len(self.research_ids) or any(
+            re.fullmatch(r"dd-[0-9]{3}", identity) is None
+            for identity in self.research_ids
+        ):
+            raise SealError("invalid_research_id")
         for url in self.entry_urls:
             parsed = urlsplit(url)
-            if parsed.hostname not in self.allowed_hosts or not any(
-                parsed.path.startswith(p) for p in self.allowed_path_prefixes
-            ):
+            if not paths_for(self.model_dump(), parsed.hostname, parsed.path):
                 raise SealError("source_out_of_scope")
         return self
 

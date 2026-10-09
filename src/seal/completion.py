@@ -1,7 +1,21 @@
 """Technical completion only: no quality assessment or publication decisions."""
 
+from collections import Counter
+
 from .core import Objects, SealError
 from .db import connect, fenced, j, locked_run, one
+from .manifest import has_table, terminal_report, write_manifest
+
+
+def completion_status(errors, online, epoch, max_attempts):
+    if not errors:
+        return "complete"
+    structural = {"unresolved_document_refs", "unresolved_seed", "incomplete_crawl"}
+    temporary = {"download_failed", "http_5xx", "source_rate_limited"}
+    transient = bool(set(errors) & temporary) and not (set(errors) - structural - temporary)
+    if online and transient and "source_rate_limited" not in errors:
+        return "retryable" if epoch < max_attempts else "failed"
+    return "partial"
 
 
 def finish_run(run_id, epoch=None):
@@ -21,11 +35,19 @@ def finish_run(run_id, epoch=None):
             raise SealError("stale_attempt")
         try:
             fenced(source, run, epoch)
-        except SealError:
+        except SealError as exc:
+            report = terminal_report(c, source, run, "superseded", exc.code)
             c.execute(
-                "UPDATE seal_run SET status='superseded',completed_at=now() WHERE id=%s", (run_id,)
+                "UPDATE seal_run SET status='superseded',report=%s,errors=%s,completed_at=now() WHERE id=%s",
+                (j(report), j(report["errors"]), run_id),
             )
-            return {"run_id": run_id, "status": "superseded"}
+            return {
+                "run_id": run_id,
+                "status": "superseded",
+                "attempt_epoch": epoch,
+                "errors": report["errors"],
+                "report": report,
+            }
         errors = list(run["errors"])
         results = c.execute(
             "SELECT * FROM seal_result WHERE id=ANY(%s) ORDER BY document_id", (run["result_ids"],)
@@ -60,12 +82,17 @@ def finish_run(run_id, epoch=None):
                     errors.append("redirect_incomplete")
         if run["report"].get("finish_reason") != "finished":
             errors.append("incomplete_crawl")
+        input_artifacts = []
         for entry in run["inputs"]:
             try:
                 snapshot = Objects().json(entry["snapshot_id"])
                 Objects().get(snapshot["body_hash"])
+                input_artifacts.append(
+                    dict(entry, body_hash=snapshot["body_hash"], body_size=snapshot["body_size"])
+                )
             except SealError as exc:
                 errors.append(exc.code)
+                input_artifacts.append(dict(entry, availability="unavailable", reason=exc.code))
         outputs = []
         for result in results:
             doc = one(
@@ -87,22 +114,102 @@ def finish_run(run_id, epoch=None):
                     "observation_id": latest["id"],
                 }
             )
+        record_finish = {"outputs": [], "errors": [], "counts": {}}
+        records_available = has_table(c, "seal_record")
+        if records_available:
+            from .records import finish_records
+
+            record_finish = finish_records(c, source, run)
+            errors.extend(record_finish["errors"])
+        discovery = {"contract": 1, "availability": "not_recorded", "unknown_coverage": True}
+        if has_table(c, "seal_discovery"):
+            from .discovery import finish_discovery, summarize_discovery
+
+            finish_discovery(c, run, run["report"].get("finish_reason", "unknown"))
+            discovery = summarize_discovery(c, run)
+            errors.extend(discovery.get("unknown_coverage_reasons", []))
+        unobserved_records = []
+        if records_available:
+            unobserved_records = c.execute(
+                """SELECT r.id AS record_id,r.record_type,r.record_key
+                   FROM seal_record r WHERE r.source_id=%s AND r.namespace=%s
+                     AND r.latest_result IS NOT NULL AND NOT EXISTS (
+                       SELECT 1 FROM seal_record_emission e WHERE e.record_id=r.id
+                         AND e.run_id=%s AND e.attempt_epoch=%s)
+                   ORDER BY r.record_type,r.record_key""",
+                (source["id"], run["namespace"], run_id, epoch),
+            ).fetchall()
         errors = sorted(set(errors))
+        resource_counts = one(
+            c,
+            """SELECT count(*) AS http_attempts,count(snapshot_id) AS archived_observations
+               FROM seal_fetch_observation WHERE run_id=%s AND attempt_epoch=%s""",
+            (run_id, epoch),
+        )
+        resource_counts.update(
+            input_count=len(run["inputs"]),
+            input_roles=dict(Counter(entry["role"] for entry in run["inputs"])),
+        )
+        scope_evidence = {
+            "seed_count": len(run["seeds"]),
+            "resolved_seed_count": sum(
+                (seed["url"], seed["role"]) in used_seeds for seed in run["seeds"]
+            ),
+            "business_population": "unknown",
+            "unknown_coverage": bool(errors)
+            or discovery["unknown_coverage"]
+            or bool(unobserved_records),
+            "unknown_coverage_reasons": sorted(
+                set(errors + (["records_unobserved"] if unobserved_records else []))
+            ),
+            "pagination_inputs": [
+                entry["snapshot_id"] for entry in run["inputs"] if entry["role"] in ("list", "api")
+            ],
+            "attachment_inputs": [
+                entry["snapshot_id"] for entry in run["inputs"] if entry["role"] == "attachment"
+            ],
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unobserved_records": unobserved_records,
+            "unobserved_record_count": len(unobserved_records),
+        }
         report = dict(
             run["report"],
             result_count=len(results),
             outputs=outputs,
+            record_outputs=record_finish["outputs"],
+            record_counts=record_finish["counts"],
+            discovery=discovery,
+            resource_counts=resource_counts,
+            scope_evidence=scope_evidence,
             quality_status="not_evaluated",
             errors=errors,
         )
-        status = "complete"
-        if errors:
-            structural = {"unresolved_document_refs", "unresolved_seed", "incomplete_crawl"}
-            temporary = {"download_failed", "http_5xx", "source_rate_limited"}
-            transient = bool(set(errors) & temporary) and not (set(errors) - structural - temporary)
-            status = "partial"
-            if online and transient and "source_rate_limited" not in errors:
-                status = "retryable" if epoch < run["max_attempts"] else "failed"
+        status = completion_status(errors, online, epoch, run["max_attempts"])
+        binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (run["binding_id"],))
+        try:
+            report["manifest_id"] = write_manifest(
+                source, binding, run, report, status, input_artifacts
+            )
+        except (SealError, OSError, TypeError, ValueError) as exc:
+            errors = sorted(set([*errors, "manifest_archive_failed"]))
+            report.update(
+                errors=errors,
+                manifest_id=None,
+                manifest_error=exc.code
+                if isinstance(exc, SealError)
+                else "manifest_archive_failed",
+            )
+            scope_evidence.update(
+                unknown_coverage=True,
+                unknown_coverage_reasons=sorted(
+                    set(errors + (["records_unobserved"] if unobserved_records else []))
+                ),
+            )
+            status = completion_status(errors, online, epoch, run["max_attempts"])
+        if records_available and status == "complete":
+            from .records import accept_records
+
+            accept_records(c, source, run, record_finish["outputs"])
         c.execute(
             "UPDATE seal_run SET status=%s,report=%s,errors=%s,completed_at=now() WHERE id=%s",
             (status, j(report), j(errors), run_id),

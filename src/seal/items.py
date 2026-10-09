@@ -141,6 +141,10 @@ def validate_candidate(item):
 
 def stage_item(context, item):
     run_id, epoch = context["id"], context["attempt_epoch"]
+    if item.get("type") == "record":
+        from .records import stage_record
+
+        return stage_record(context, item)
     if item.get("type") == "diagnostic":
         allowed = {
             "download_failed",
@@ -155,6 +159,23 @@ def stage_item(context, item):
             "ambiguous_or_missing_field",
             "pdf_text_layer_required",
             "unsupported_content_type",
+            "record_parent_request_rejected",
+            "element_selector_required",
+            "empty_document",
+            "record_key_field_missing",
+            "record_key_missing",
+            "table_row_parse_failed",
+            "invalid_json_pointer",
+            "json_record_list_required",
+            "json_record_object_required",
+            "record_detail_url_invalid",
+            "json_record_parse_failed",
+            "pdf_parse_failed",
+            "pagination_limit",
+            "sample_detail_limit",
+            "attachment_format_unsupported",
+            "record_parse_failed",
+            "attachment_parse_failed",
         }
         code = item.get("code")
         raise SealError(code if code in allowed else "recipe_diagnostic")
@@ -309,6 +330,18 @@ class ItemPipeline:
             except Exception as exc:
                 code = exc.code if isinstance(exc, SealError) else "invalid_candidate"
                 self.crawler.stats.inc_value("seal/errors")
+                if not isinstance(exc, SealError):
+                    # Class names support diagnosis without copying source/body messages.
+                    self.crawler.stats.inc_value("seal/exception_types/" + type(exc).__name__)
+                from .discovery import mark_inputs_failed
+
+                snapshots = [item["snapshot_id"]] if item.get("snapshot_id") else []
+                snapshots.extend(
+                    entry["snapshot_id"]
+                    for entry in item.get("supplementary_inputs", [])
+                    if isinstance(entry, dict) and entry.get("snapshot_id")
+                )
+                await asyncio.to_thread(mark_inputs_failed, self.context, snapshots, code)
                 await asyncio.to_thread(
                     record_error, self.context["id"], self.context["attempt_epoch"], code
                 )

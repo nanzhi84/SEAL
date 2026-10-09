@@ -6,7 +6,7 @@ import subprocess
 import time
 from datetime import datetime, timedelta, timezone
 
-from .core import SealError, uid
+from .core import SealError, public_url, uid
 from .db import connect, j, locked_run, one
 
 
@@ -40,10 +40,31 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
         seeds = [
             {"url": d["url"], "role": "detail"}
             for d in c.execute(
-                "SELECT url FROM seal_document WHERE source_id=%s AND namespace='runtime' ORDER BY identity",
+                "SELECT url FROM seal_document d WHERE source_id=%s AND namespace='runtime' "
+                "AND EXISTS (SELECT 1 FROM seal_result r WHERE r.document_id=d.id) ORDER BY identity",
                 (source["id"],),
             ).fetchall()
         ]
+        if c.execute("SELECT to_regclass('seal_record') AS name").fetchone()["name"]:
+            records = c.execute(
+                "SELECT detail_url,parent_request FROM seal_record WHERE source_id=%s "
+                "AND namespace='runtime' AND latest_result IS NOT NULL ORDER BY record_type,record_key",
+                (source["id"],),
+            ).fetchall()
+            for record in records:
+                if record["detail_url"]:
+                    seeds.append({"url": public_url(record["detail_url"]), "role": "detail"})
+                elif record["parent_request"]:
+                    seeds.append(dict(record["parent_request"]))
+                else:
+                    raise SealError("record_recheck_request_missing")
+            # A frozen API page is a single input, regardless of its Record count.
+            # This is seed preparation only; Scrapy still owns request deduplication.
+            unique = {}
+            for seed in seeds:
+                key = (public_url(seed["url"]), seed.get("method", "GET"))
+                unique.setdefault(key, seed)
+            seeds = list(unique.values())
         if not seeds:
             raise SealError("no_documents_to_recheck")
     if mode == "replay":
@@ -76,6 +97,16 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
     return identity
 
 
+def end_run(connection, source, run, status, reason):
+    from .manifest import terminal_report
+
+    report = terminal_report(connection, source, run, status, reason)
+    connection.execute(
+        "UPDATE seal_run SET status=%s,completed_at=now(),errors=%s,report=%s WHERE id=%s",
+        (status, j(report["errors"]), j(report), run["id"]),
+    )
+
+
 def begin_attempt(run_id):
     with connect() as c:
         source, run = locked_run(c, run_id)
@@ -84,10 +115,7 @@ def begin_attempt(run_id):
         if run["attempt_epoch"] >= run["max_attempts"] or run["deadline"] <= datetime.now(
             timezone.utc
         ):
-            c.execute(
-                "UPDATE seal_run SET status='failed',completed_at=now(),errors=errors || %s WHERE id=%s",
-                (j(["attempts_or_deadline_exhausted"]), run_id),
-            )
+            end_run(c, source, run, "failed", "attempts_or_deadline_exhausted")
             return None
         if run["mode"] not in ("collect", "recheck", "replay"):
             raise SealError("unsupported_run_mode")
@@ -97,16 +125,10 @@ def begin_attempt(run_id):
                 or source["paused"]
                 or source["write_seq"] > run["run_seq"]
             ):
-                c.execute(
-                    "UPDATE seal_run SET status='superseded',completed_at=now() WHERE id=%s",
-                    (run_id,),
-                )
+                end_run(c, source, run, "superseded", "superseded")
                 return None
             if source["cooldown_until"] and source["cooldown_until"] > datetime.now(timezone.utc):
-                c.execute(
-                    "UPDATE seal_run SET status='failed',errors=errors || %s,completed_at=now() WHERE id=%s",
-                    (j(["source_cooling_down"]), run_id),
-                )
+                end_run(c, source, run, "failed", "source_cooling_down")
                 return None
             c.execute(
                 "UPDATE seal_source SET write_seq=%s WHERE id=%s", (run["run_seq"], source["id"])
@@ -213,16 +235,17 @@ def execute_run(run_id):
     if state["status"] == "finishing":
         return finish_run(run_id, epoch)
     with connect() as c:
+        source, run = locked_run(c, run_id)
         exhausted = epoch >= context["max_attempts"] or datetime.now(
             timezone.utc
         ) >= datetime.fromisoformat(context["deadline"])
-        c.execute(
-            "UPDATE seal_run SET status=%s,errors=errors || %s WHERE id=%s AND attempt_epoch=%s AND status='running'",
-            (
-                "failed" if exhausted else "retryable",
-                j(["crawl_cancelled" if cancelled else "child_process_failed"]),
-                run_id,
-                epoch,
-            ),
-        )
+        if run["attempt_epoch"] == epoch and run["status"] == "running":
+            reason = "crawl_cancelled" if cancelled else "child_process_failed"
+            if exhausted:
+                end_run(c, source, run, "failed", reason)
+            else:
+                c.execute(
+                    "UPDATE seal_run SET status='retryable',errors=errors || %s WHERE id=%s",
+                    (j([reason]), run_id),
+                )
     return receipt(run_id)
