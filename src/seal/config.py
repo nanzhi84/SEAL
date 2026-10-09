@@ -89,8 +89,7 @@ class SourceConfig(Strict):
         ):
             raise SealError("invalid_host_path_scope")
         if len(set(self.research_ids)) != len(self.research_ids) or any(
-            re.fullmatch(r"dd-[0-9]{3}", identity) is None
-            for identity in self.research_ids
+            re.fullmatch(r"dd-[0-9]{3}", identity) is None for identity in self.research_ids
         ):
             raise SealError("invalid_research_id")
         for url in self.entry_urls:

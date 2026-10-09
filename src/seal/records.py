@@ -191,7 +191,8 @@ def _stage_resource(c, source, run, entry):
     """Freeze this response's raw URL/revision association in the Run inputs."""
     known = next(
         (
-            value for value in run["inputs"]
+            value
+            for value in run["inputs"]
             if value["snapshot_id"] == entry["snapshot_id"]
             and value["observation_id"] == entry["observation_id"]
         ),
@@ -211,8 +212,7 @@ def _stage_resource(c, source, run, entry):
     ):
         raise SealError("resource_observation_mismatch")
     if run["mode"] != "replay" and (
-        observation["run_id"] != run["id"]
-        or observation["attempt_epoch"] != run["attempt_epoch"]
+        observation["run_id"] != run["id"] or observation["attempt_epoch"] != run["attempt_epoch"]
     ):
         raise SealError("stale_observation")
     url = public_url(snapshot["url"])
@@ -229,7 +229,8 @@ def _stage_resource(c, source, run, entry):
     )
     previous = (
         one(c, "SELECT * FROM seal_revision WHERE id=%s", (document["latest_revision"],))
-        if document["latest_revision"] else None
+        if document["latest_revision"]
+        else None
     )
     revision_id = previous["id"] if previous else None
     if previous is None or previous["body_hash"] != snapshot["body_hash"]:
@@ -251,22 +252,33 @@ def _stage_resource(c, source, run, entry):
                VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT(document_id,observation_id)
                DO NOTHING RETURNING id""",
             (
-                uid(), document["id"], revision_id, snapshot["body_hash"],
-                entry["snapshot_id"], entry["observation_id"],
+                uid(),
+                document["id"],
+                revision_id,
+                snapshot["body_hash"],
+                entry["snapshot_id"],
+                entry["observation_id"],
             ),
         ).fetchone()
-        revision_id = row["id"] if row else one(
-            c, "SELECT id FROM seal_revision WHERE document_id=%s AND observation_id=%s",
-            (document["id"], entry["observation_id"]),
-        )["id"]
+        revision_id = (
+            row["id"]
+            if row
+            else one(
+                c,
+                "SELECT id FROM seal_revision WHERE document_id=%s AND observation_id=%s",
+                (document["id"], entry["observation_id"]),
+            )["id"]
+        )
     c.execute(
         """UPDATE seal_document SET latest_revision=%s,latest_observation=%s,
            next_check=now()+(%s * interval '1 second') WHERE id=%s""",
         (revision_id, entry["observation_id"], source["config"]["recheck_seconds"], document["id"]),
     )
     resource_input = {
-        "document_id": document["id"], "revision_id": revision_id,
-        "snapshot_id": entry["snapshot_id"], "observation_id": entry["observation_id"],
+        "document_id": document["id"],
+        "revision_id": revision_id,
+        "snapshot_id": entry["snapshot_id"],
+        "observation_id": entry["observation_id"],
     }
     if known is not None:
         known["resource_input"] = resource_input
@@ -354,9 +366,21 @@ def stage_record(context, item):
                    (id,record_id,binding_id,processing_key,output_hash,content_hash,inputs,candidate,checks)
                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                 (
-                    result_id, record["id"], run["binding_id"], processing_key, output_hash,
-                    content_hash, j(input_ids), j(output),
-                    j({"input_verified": True, "locators_verified": True, "identity_verified": True}),
+                    result_id,
+                    record["id"],
+                    run["binding_id"],
+                    processing_key,
+                    output_hash,
+                    content_hash,
+                    j(input_ids),
+                    j(output),
+                    j(
+                        {
+                            "input_verified": True,
+                            "locators_verified": True,
+                            "identity_verified": True,
+                        }
+                    ),
                 ),
             )
         c.execute(
@@ -364,8 +388,13 @@ def stage_record(context, item):
                (id,run_id,attempt_epoch,record_id,result_id,observation_id,inputs)
                VALUES(%s,%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING""",
             (
-                uid(), run["id"], run["attempt_epoch"], record["id"], result_id,
-                item["observation_id"], j(lineage),
+                uid(),
+                run["id"],
+                run["attempt_epoch"],
+                record["id"],
+                result_id,
+                item["observation_id"],
+                j(lineage),
             ),
         )
 
@@ -441,11 +470,20 @@ def finish_records(c, source, run):
         global_previous = previous or _baseline(c, run, record_id, False)
         changed = previous is None or previous["content_hash"] != candidate["content_hash"]
         reason = (
-            "unchanged" if not changed else "source_updated" if previous
-            else "reprocessed" if global_previous else "first_seen"
+            "unchanged"
+            if not changed
+            else "source_updated"
+            if previous
+            else "reprocessed"
+            if global_previous
+            else "first_seen"
         )
         version_id = previous["version_id"] if not changed else None
-        if changed and global_previous and global_previous["content_hash"] == candidate["content_hash"]:
+        if (
+            changed
+            and global_previous
+            and global_previous["content_hash"] == candidate["content_hash"]
+        ):
             version_id, reason = global_previous["version_id"], "unchanged"
         if version_id is None:
             version = c.execute(
@@ -461,11 +499,16 @@ def finish_records(c, source, run):
                         content_hash,schema_version,data,change_reason)
                        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                     (
-                        version_id, record_id, run["binding_id"],
+                        version_id,
+                        record_id,
+                        run["binding_id"],
                         previous["version_id"] if previous else None,
-                        run["id"], run["attempt_epoch"], candidate["content_hash"],
+                        run["id"],
+                        run["attempt_epoch"],
+                        candidate["content_hash"],
                         candidate["candidate"]["schema_version"],
-                        j(candidate["candidate"]["data"]), reason,
+                        j(candidate["candidate"]["data"]),
+                        reason,
                     ),
                 )
         lineage = []
@@ -477,9 +520,7 @@ def finish_records(c, source, run):
         input_set_changed = False
         try:
             if previous:
-                before = _raw_state(
-                    {entry["snapshot_id"] for entry in previous["emission_inputs"]}
-                )
+                before = _raw_state({entry["snapshot_id"] for entry in previous["emission_inputs"]})
                 after = _raw_state({entry["snapshot_id"] for entry in lineage})
                 raw_changed = any(before[url] != after[url] for url in before.keys() & after.keys())
                 input_set_changed = before.keys() != after.keys()
@@ -489,28 +530,36 @@ def finish_records(c, source, run):
             input_set_changed = None
         outputs.append(
             {
-                "record_id": record["id"], "record_version_id": version_id,
+                "record_id": record["id"],
+                "record_version_id": version_id,
                 "record_result_id": candidate["id"],
                 "record_result_ids": sorted({row["id"] for row in rows}),
-                "observation_id": candidate["observation_id"], "inputs": lineage,
+                "observation_id": candidate["observation_id"],
+                "inputs": lineage,
                 "resource_inputs": [
-                    entry["resource_input"] for entry in run["inputs"]
-                    if entry.get("resource_input") and any(
+                    entry["resource_input"]
+                    for entry in run["inputs"]
+                    if entry.get("resource_input")
+                    and any(
                         entry["snapshot_id"] == used["snapshot_id"]
                         and entry["observation_id"] == used["observation_id"]
                         for used in lineage
                     )
                 ],
-                "content_change": reason, "raw_changed": raw_changed,
+                "content_change": reason,
+                "raw_changed": raw_changed,
                 "input_set_changed": input_set_changed,
                 "reprocessed": global_previous is not None and previous is None,
             }
         )
     return {
-        "outputs": outputs, "errors": sorted(set(errors)),
+        "outputs": outputs,
+        "errors": sorted(set(errors)),
         "counts": {
-            "emission_count": len(emissions), "record_count": len(outputs),
-            "duplicate_count": duplicates, "conflict_count": conflicts,
+            "emission_count": len(emissions),
+            "record_count": len(outputs),
+            "duplicate_count": duplicates,
+            "conflict_count": conflicts,
             "conflicted_record_ids": sorted(conflicted_record_ids),
         },
     }
@@ -520,16 +569,23 @@ def accept_records(c, source, run, outputs):
     """Advance current pointers in the completion transaction, after every check."""
     fenced(source, run, run["attempt_epoch"])
     for output in outputs:
-        result = one(c, "SELECT * FROM seal_record_result WHERE id=%s", (output["record_result_id"],))
+        result = one(
+            c, "SELECT * FROM seal_record_result WHERE id=%s", (output["record_result_id"],)
+        )
         candidate = result["candidate"]
         c.execute(
             """UPDATE seal_record SET latest_version=%s,latest_result=%s,detail_url=%s,
                parent_request=%s,next_check=now()+(%s * interval '1 second')
                WHERE id=%s AND source_id=%s AND namespace=%s""",
             (
-                output["record_version_id"], result["id"], candidate["detail_url"],
-                j(candidate["frozen_parent_request"]), source["config"]["recheck_seconds"],
-                output["record_id"], source["id"], run["namespace"],
+                output["record_version_id"],
+                result["id"],
+                candidate["detail_url"],
+                j(candidate["frozen_parent_request"]),
+                source["config"]["recheck_seconds"],
+                output["record_id"],
+                source["id"],
+                run["namespace"],
             ),
         )
         if run["mode"] != "replay":

@@ -297,8 +297,12 @@ class ReplayMiddleware(Component):
             await asyncio.to_thread(mark_requested, self.context, request, replayed=True)
             response = await asyncio.to_thread(restore, entry["snapshot_id"], request)
             await asyncio.to_thread(
-                mark_archived, self.context, request, entry["snapshot_id"],
-                entry["observation_id"], response.status
+                mark_archived,
+                self.context,
+                request,
+                entry["snapshot_id"],
+                entry["observation_id"],
+                response.status,
             )
             return response
 
