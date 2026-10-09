@@ -1,0 +1,106 @@
+{
+  "contract": "seal.delivery_evidence.v1",
+  "baseline_commit": "ee398840640e38d63f093ff7b18ca85cc4c59a78",
+  "issue_url": "https://github.com/nanzhi84/SEAL/issues/1",
+  "issue_updated_at": "2026-10-09T10:03:28Z",
+  "delivery_state": "DRAFT_REAL_ACCEPTANCE_BLOCKED",
+  "bundles": [
+    {
+      "path": "synthetic-evidence.tar.gz",
+      "sha256": "5277685b4a538837fee51c25071cbec19a5524a3daabb424d97895cfca5a2024",
+      "bytes": 1497815,
+      "contents": {
+        "joint": "synthetic/joint",
+        "v11-m3": "synthetic/v11-m3",
+        "v11-smoke": "synthetic/v11-smoke",
+        "v11-baseline": "synthetic/v11-baseline"
+      },
+      "description": "Frozen synthetic runtime outputs and content-addressed archive; independently generated original V1.1 compatibility input. No real A/B/C collection is included."
+    }
+  ],
+  "validation": {
+    "joint": {
+      "status": "PASS",
+      "passed": 303,
+      "assertions": 303,
+      "manifest_sha256": "161aa699776d57149ff975be75b7fd47dd957b1eaf1f491e2d02af334ac84ecc",
+      "assertions_sha256": "2f171cf4a6440f7d0ea016a7fd79c99ffb01c8655515e78ddb88b848c3a1885f",
+      "verified_files": 123,
+      "scope": "Runtime synthetic contracts: isolated PostgreSQL + loopback sources",
+      "unverified": [
+        "Real authorized sources and human source completeness review",
+        "Power loss durability"
+      ]
+    },
+    "v11-m3": {
+      "status": "PASS",
+      "passed": 136,
+      "assertions": 136,
+      "manifest_sha256": "4ebfe988104d3f6bce3f172a9dd701391932a78d3eeae316035b319e21617c09",
+      "assertions_sha256": "0d732d137903abcb1c86b368f47fc9c9b5127c7c7e87605b63633200b22d0fa7",
+      "verified_files": 183,
+      "scope": "isolated PostgreSQL + loopback synthetic source",
+      "unverified": [
+        "Real authorized sources and human source completeness review",
+        "Power loss durability"
+      ]
+    },
+    "v11-smoke": {
+      "status": "PASS",
+      "passed": 1191,
+      "assertions": 1191,
+      "manifest_sha256": "a2413e6c32e9326a458352e7f63da248b7a14e92de7a33ba384570ff44b10417",
+      "assertions_sha256": "d484067ea406005be3e0256c3108fce9705fd6e59093cfe712f4e75e926905bd",
+      "verified_files": 228,
+      "scope": "isolated Runtime engineering fixtures; optional bounded public sources",
+      "unverified": [
+        "Business quality/completeness",
+        "Power loss durability",
+        "Production scale",
+        "Untrusted Python isolation"
+      ]
+    }
+  },
+  "unit_tests": {
+    "discovery": {
+      "passed": 14,
+      "status": "PASS"
+    },
+    "helpers": {
+      "passed": 8,
+      "status": "PASS"
+    }
+  },
+  "historical_real_html_checks": {
+    "passed": 28,
+    "status": "PASS",
+    "artifact": "../samples/offline-verification.json",
+    "scope": "Historical bytes only, not fresh Runtime real-source acceptance"
+  },
+  "real_runtime_acceptance": {
+    "status": "BLOCKED",
+    "valid_sources": {
+      "A": 0,
+      "B": 0,
+      "C": 0
+    },
+    "evidence": "../samples/audit.json",
+    "reason": "Inherited proxy Tunnel403 and missing retained business response bodies"
+  },
+  "historical_compatibility_input": {
+    "path": "synthetic/v11-baseline",
+    "provenance": "synthetic/v11-baseline/provenance.json",
+    "kind": "Current-session synthetic output from clean original V1.1 ee39884 checkout; not prior live court data"
+  },
+  "tasks": {
+    "T0": "PARTIAL_REAL_C_RESPONSE_COMPARISON_BLOCKED",
+    "T1": "PASS",
+    "T2": "PASS_SYNTHETIC",
+    "T3": "PASS_SYNTHETIC",
+    "T4": "PASS_SYNTHETIC",
+    "T5": "PASS_SYNTHETIC",
+    "T6": "PASS_SYNTHETIC",
+    "T7S": "BLOCKED",
+    "T8": "PASS_SYNTHETIC_FULL_REAL_ACCEPTANCE_BLOCKED"
+  }
+}

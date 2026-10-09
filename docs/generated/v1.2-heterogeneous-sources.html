@@ -1,0 +1,260 @@
+<!doctype html><html lang="zh"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEAL V1.2 Runtime — Draft</title>
+<style>body{font:16px/1.75 system-ui,sans-serif;color:#163244;background:#edf3f5;
+max-width:1080px;margin:32px auto;padding:0 24px}main{padding:32px;background:white;
+border-radius:12px}h1{font-size:30px}h2{border-top:1px solid #dae5e9;padding-top:28px}
+.status{background:#fff1d5;border-left:5px solid #bd7400;padding:16px 20px;border-radius:5px}
+p,td{overflow-wrap:anywhere}a{color:#14607b}pre{white-space:pre-wrap;background:#eff4f6;padding:20px;border-radius:6px}
+code{font-size:0.88em}.table{overflow-x:auto}table{border-collapse:collapse;width:100%}
+th,td{padding:12px;border:1px solid #d5e1e7;text-align:left;vertical-align:top}th{background:#eff4f6}
+</style><main><aside class="status"><b>Draft · 真实验收阻塞</b><br>
+Runtime 实现与离线测试不能替代 T0 / T7S / T8 的真实原文证据。</aside>
+<p>派生自唯一 <a href="../plans/v1.2-heterogeneous-sources.md">V1.2 Plan</a>；
+<a href="https://github.com/nanzhi84/SEAL/issues/1">Issue #1</a>。</p><h1>V1.2：异构 Source 的 Runtime 基础设施</h1>
+<p>本变更关联 <a href="https://github.com/nanzhi84/SEAL/issues/1">Issue #1</a>，需求快照更新时间 为 2026-10-09 10:03:28 UTC，开发基线为主分支 <code>ee39884</code>。 范围是 T0–T6、T7S、T8；111 个入口的批量推广、Evaluation、Management 和 Agent 不在本次范围。 唯一人工来源台账仍为 <a href="../reference/source-adaptation.md">Source 适配参考第 9 节</a>。</p>
+<p>当前交付为 <strong>Draft</strong>：可执行的 Runtime 扩展和合成验收不能替代 A/B/C 真实样本验收。 本会话对样本域名的继承代理请求返回 Tunnel 403；历史分类工件的业务 JSON、详情和附件 原文并未全部入库。阻塞证据及原文可用性见 <a href="../../experiments/v1.2-acceptance/samples/audit.json">样本审计</a> 和 <a href="../../experiments/v1.2-acceptance/samples/network-diagnostic.json">网络诊断</a>。 不得用旧实验 PASS、入口 HTTP 200、合成样本或历史 HTML 的离线解析宣称 T7S/T8 通过。</p>
+<h2>1. 既有实现审计与迁移选择</h2>
+<p>读取 AGENTS.md、ADR-0001/0002/0003、V1.1 Runtime Plan、Schema/迁移、Recipe、 CLI/Worker/Replay/Export/Inspect 和累计 M3/Smoke。仓库没有 GitHub Actions 配置； 本地工程入口为既有 acceptance.sh、工件校验、Ruff 和 seiso。 Source → 不可变 RecipeVersion/Binding → Run → Scrapy → 归档 → Observation/Revision/Result 已经具备；公共 JSON 取值仍限字符串，文档身份仍是 URL，Recheck 仍以详情 URL 为种子。</p>
+<div class="table"><table><thead><tr><th>路线</th><th>对现有合同的影响</th><th>选择依据</th></tr></thead><tbody>
+<tr><td>扩展 seal_document</td><td>URL 非空、URL 身份、body_hash Revision、Completion 和 Export 都需混入业务身份；API 的 N 条记录不能各占同一个 URL</td><td>必须改变多个历史公共语义，或伪造不存在的 URL；不选</td></tr>
+<tr><td>新增最小 Record 表</td><td>增量增加身份、版本、处理结果和本轮 emission；保留旧 Document/Revision/Result</td><td>实现 URL 原文与业务 Record 分离，旧不可变行不改写；本次选择</td></tr>
+</tbody></table></div>
+<p>真实 dd-247 历史入口 HTML 的脚本可复算地声明 GET API、<code>data.data.dataList</code> 和多行渲染， 没有独立详情 URL；它支持以上兼容性判断，却不能证明 API 的稳定业务键。 T0 要求的<strong>真实 C 响应双路线实验仍阻塞</strong>。选择目前由代码合同及真实入口脚本支持， 不得将这一待完成实证改标通过。取得真实响应后须复核身份字段及迁移结论。</p>
+<p>只新增 <code>0003_records.sql</code>、<code>0004_discovery.sql</code>，不修改 <code>schema.sql</code> 或 <code>0002_runtime.sql</code>，不回填、不改写历史结果。升级前停止旧 Worker；仍须为旧源码重新 pack/create Binding，环境摘要漂移检查保持有效。历史归档合同仍为 1。</p>
+<h2>2. 冻结的 Record 与定位合同</h2>
+<p><code>type=record</code> 包含 <code>record_type</code>、<code>record_key</code>、<code>schema_version</code>、类型化 JSON <code>data</code>、 可空 <code>detail_url</code>、每个 data 字段的 locator、<code>key_locator</code>、主 snapshot/observation、 补充输入，以及无详情时必需的 <code>frozen_parent_request={url,role,method:GET}</code>。 身份为 <code>(source_id, namespace, record_type, record_key)</code>；禁止列表下标或位置哈希作为键。 URL 键必须与实际归档响应及详情 URL 一致；JSON 整数键仅允许显式 <code>key_string</code> 转换。</p>
+<p>一个响应可输出 0..N Record；一 Record 可引用多个输入，同一 snapshot 可被多个 Record 共享。每字段值必须从已归档输入复算，不接纳脱离原文的替代值。 JSON Pointer 保持数字、布尔、null、数组及对象类型，严格区别 false/0 和整数/浮点数， 拒绝非法转义、负数组下标、NaN/Infinity 和过深 JSON；旧字符串 locator 不变。 <code>record.v1</code> 是技术 JSON 合同，<code>schema_version</code> 为来源输出版本标识，不意味着业务准确性审核。</p>
+<p>内容指纹只取 Record 类型、Schema 版本和有效 data；输入、页码、locator 位置、抓取时间 不进入业务指纹。列表重排只改变原文/定位证据，不改变各业务版本。 同一 Binding 的有效基线负责内容变化归因；换 Binding 的不同输出记为 reprocessed， 不能由新结果推断来源更新。原文 bytes hash 与业务内容变化分别记录。</p>
+<p>stage 只写不可变处理结果与 emission；完成事务按键聚合。同键同内容去重并合并所有 输入血缘；同键异内容保留候选，整个键排除有效输出并使本轮 partial。 只有最终 complete 的完成事务推进 Record 当前指针；失败或 partial 不覆盖此前成功视图。 未观察旧 Record 一律 unknown，不自动删除，包括本轮零结果或声明范围不完整的情况。 写入继续遵守 Source → Run → Record 锁顺序及 generation/run_seq/attempt fencing。</p>
+<h2>3. Discovery、分页和资源边界</h2>
+<p>使用 Scrapy <code>request_scheduled</code> 信号在 Scheduler/原生 Dupefilter 之前记录发现，覆盖初始 种子及后续请求，保存实际 RequestFingerprinter 指纹、角色、父 URL/原文/Observation。 原生 <code>request_dropped</code> 标记去重；多个父页面可关联同一指纹，Discovery 不调度任何请求。 分页循环由原生去重终止，Recipe 仍可诊断不明确的分页或模板。</p>
+<p>下载 Guard、归档、callback 和 item 校验关联 requested、archived、parsed、failed、skipped； 越界、预算、截止、下载失败、解析失败与去重分开计数。重试/跳转保留 transport 关系， 不能把已恢复的临时失败误判为未采资源。证据事件按 attempt 有上限；超过上限明确 partial。 发现数、实际网络交换、归档数、解析数、有效 Record 数分别报告，不据此宣称全站覆盖。</p>
+<p>仍只允许冻结 GET/HEAD、无请求体，保留地址、敏感 URL/headers/body、响应大小及预算限制。 <code>host_path_scopes</code> 将每个主机与各自允许路径绑定；跨主机附件必须显式声明该映射， 不能扩大为多个主机共享路径的并集。静态 iframe 只跟进同主机公开 GET 子页。 普通展示资源不采集。业务 PDF/TXT/CSV 可归档及定位；不支持的 Excel/无文本层 PDF 保留归档、错误和未知范围，不引入 OCR 或浏览器。</p>
+<h2>4. Recipe、Recheck、Manifest 与查询</h2>
+<p>共享 helper 为普通 Python：HTML 正文、表格逐行、嵌套 JSON 列表、父来源 Request、 静态 iframe/附件及文本 PDF。不同 HTML 结构由 selector 参数或源级 Python 控制； 不引入 DSL、Registry、新 Frontier、消息队列、爬虫框架或工作流引擎。 既有 generic Recipe 和 Candidate 继续可用。</p>
+<p>在线 Run Mode 只有 collect/recheck；Replay 仍为归档离线模式。 Recheck 选择 Record 的实际详情 URL，或冻结父列表/API 请求；相同父请求仅生成一个种子， 请求内部仍由 Scrapy 原生去重。周期任务的到期查询也包含 Record，Procrastinate 继续 负责持久调度。旧 V1.1 文档 Recheck 路径保留。</p>
+<p>完成报告引用内容寻址、版本化 Manifest Artifact，包含研究 ID、Source、Binding、 RecipeVersion、Run、业务 scope、结果引用和资源统计。研究 ID 来自冻结配置， 不等同于 Source ID，不创建第二份人工状态表。<code>inspect research/source/run/manifest</code> 及 Export 可回查机器事实；Export 保留 documents，增量增加 records。 显式 Run 包括 partial 中有效输出；默认视图只选最近 complete 的成功输出， 已消失或未观察数据不自动抹除。所有出口 <code>quality_status=not_evaluated</code>。</p>
+<h2>5. 样本选择与真实验收边界</h2>
+<p>T1 复用 491 行研究总表、111 个 A/B/C 稳定 ID 以及原有优先级，不回写未完成的适配状态。 优选 A：dd-017/041/116 列表详情、dd-102 iframe；B：dd-468 静态链接、dd-004 附件； C：dd-247 多记录 JSON、dd-009 固定查询，dd-248/250 为同机制 JSON 备选。 每个样本的栏目、分页/参数、可枚举性、原文可用性与替代条件见样本 audit.json。 所有替代仍需同类同机制证据，网络全类阻塞时不能用放宽边界完成数量门槛。</p>
+<p>历史 dd-116、dd-004、dd-468 HTML 可离线审查并编写源级 Recipe，但历史解析结果与新的 在线 Runtime 采集分开记录。C 类 API 真实 bytes 缺失时不能为机构名猜测稳定业务键。</p>
+<h2>6. 联合验收和结果</h2>
+<p>合成测试与真实来源验收分别出具工件；在线外部网站不作为普通 CI 强制依赖。 既有 V1.1 M3/Smoke 验证历史数据、Worker、Replay、归档及三层 fencing；新增联合脚本 验证多 Record、类型定位、独立版本、重复/冲突、父 API Recheck、Discovery、附件、 Manifest 和 CLI/Export/Inspect 的技术状态一致性。</p>
+<div class="table"><table><thead><tr><th>工作包</th><th>当前结果</th><th>证据/未完成项</th></tr></thead><tbody>
+<tr><td>T0</td><td>部分完成，实证阻塞</td><td>接口与兼容迁移已冻结；真实 C 响应双路线比较待原文</td></tr>
+<tr><td>T1</td><td>已完成来源机制审计</td><td>samples/audit.json；不宣称适配成功</td></tr>
+<tr><td>T2</td><td>技术验收通过</td><td>0..N、多输入、类型定位、独立版本、冲突、重排、Recheck 和零网络 Replay</td></tr>
+<tr><td>T3</td><td>技术验收通过</td><td>原生发现、血缘、去重、循环、预算、越界、下载和解析失败</td></tr>
+<tr><td>T4</td><td>技术验收通过</td><td>同主机静态 iframe、PDF/CSV 归档定位；不支持附件明确 partial</td></tr>
+<tr><td>T5</td><td>技术验收通过</td><td>Manifest、统计、unknown、终止原因及 CLI/Worker/Export/Inspect 一致性</td></tr>
+<tr><td>T6</td><td>技术验收通过</td><td>共享普通 Python helper、源级定制、旧 generic Recipe 保持兼容</td></tr>
+<tr><td>T7S</td><td>阻塞</td><td>代理拒绝；缺少每类至少两条有效在线结果及对应输入</td></tr>
+<tr><td>T8</td><td>合成通过，完整验收阻塞</td><td>303/303 联合断言通过；真实两轮、真实 Recheck/Replay 待补</td></tr>
+</tbody></table></div>
+<p>代码完成后独立审查数据一致性、并发、异常、范围、泄漏和测试可靠性；问题先修再交付。 最终 PR 应保留此矩阵和可复现命令，维持 Draft，不关闭 Issue #1。</p>
+<p>验收工件入口为 <a href="../../experiments/v1.2-acceptance/results/evidence-index.json">evidence-index.json</a>。 V1.2 联合 303/303、V1.1 累计 M3 136/136、V1.1 Smoke 1191/1191 均通过； Smoke 包含原版旧库 C01，helper 8/8、Discovery 14/14 和历史 HTML 28/28 通过。 其中的压缩包保存本轮合成归档、Source/Binding/Run/Record/Replay 映射、断言、Manifest 与请求账本；每个 suite 保留原始 SHA256。真实样本的映射仍在 samples/audit.json 中， 未发生采集的 Source/Binding 为 null，Run/Record/Replay 为空，不能用合成 ID 填充。 历史原版数据库由独立、干净的 <code>ee39884</code> checkout 生成，provenance 声明它是本轮合成 兼容输入；<code>court-confirmed</code> 仅是旧 harness 查找目录名，不表示真实法院采集。</p>
+<p>安装仍使用 <code>uv sync --frozen</code>，需要 PostgreSQL 的 initdb/pg_ctl/psql/pg_dump 在 PATH。 测试自行启动隔离 PostgreSQL 和 loopback 服务器，不使用生产 DSN。新建目录运行：</p>
+<pre><code>./experiments/v1.2-acceptance/acceptance.sh --output work/v12-new
+uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-new
+uv run --frozen python experiments/v1.2-acceptance/test_helpers.py
+uv run --frozen python experiments/v1.2-acceptance/test_discovery.py
+uv run --frozen python experiments/v1.2-acceptance/samples/verify.py
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output work/v11-m3-new</code></pre>
+<p>已有交付工件可离线复验，无需启动数据库或访问外站：</p>
+<pre><code>mkdir -p work/v12-evidence
+tar -xzf experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz -C work/v12-evidence
+uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-evidence/synthetic/joint
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-m3
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-smoke</code></pre>
+<p>复跑包含 C01 的 Smoke 前，将解包的 <code>synthetic/v11-baseline</code> 复制到不存在的 <code>artifacts/acceptance/v1.1-smoke/court-confirmed</code>，避免覆盖已有历史输入。随后运行 <code>acceptance.sh --stage smoke --baseline work/v11-m3-new --output work/v11-smoke-new</code>； 该命令位于 experiments/v1.1-runtime-acceptance，不加入 <code>--live</code>。 代码 lint 使用 Ruff；仓库没有单独类型检查器或 GitHub Actions 工作流。 seiso 新 Plan 检查通过，全 docs 检查仍报告 V1.1 文档中 6 个缺失的 ignored 工件链接， 这是开发基线已有的问题，不改写历史文档或伪造历史文件消除它。</p>
+<p>独立 Review 见 <a href="../../experiments/v1.2-acceptance/results/review.json">review.json</a>。 发现并修复了共享损坏归档误缓存、Discovery/Source 锁序死锁、空 API 被当作旧详情 Recheck 种子、附件 Recheck 虚假修订、迟到回调写入和缺定位诊断归因等问题。 回归覆盖这些边界；审查没有把未验证的外站覆盖或断电耐久性记为通过。</p>
+<h2>7. 后续工作与限制</h2>
+<p>取得允许访问的公开样本后，补齐真实 C 路线实验、A/B/C 每类至少两源及各类两轮采集、 真实 iframe/附件、父 API Recheck 和零网络 Replay 工件，再决定是否可转为 Ready。 111 条批量推广另行分批 PR，复用相同 Manifest 并回写唯一人工台账。 暂不实现删除治理、任意用户查询、POST、OCR、动态页面或受限查询； 技术 complete 不表示业务全量覆盖或内容已经审核。</p>
+</main><template id="am-source">---
+kind: plan
+lang: zh
+---
+
+# V1.2：异构 Source 的 Runtime 基础设施
+
+本变更关联 [Issue #1](https://github.com/nanzhi84/SEAL/issues/1)，需求快照更新时间
+为 2026-10-09 10:03:28 UTC，开发基线为主分支 `ee39884`。
+范围是 T0–T6、T7S、T8；111 个入口的批量推广、Evaluation、Management 和 Agent 不在本次范围。
+唯一人工来源台账仍为 [Source 适配参考第 9 节](../reference/source-adaptation.md)。
+
+当前交付为 **Draft**：可执行的 Runtime 扩展和合成验收不能替代 A/B/C 真实样本验收。
+本会话对样本域名的继承代理请求返回 Tunnel 403；历史分类工件的业务 JSON、详情和附件
+原文并未全部入库。阻塞证据及原文可用性见
+[样本审计](../../experiments/v1.2-acceptance/samples/audit.json) 和
+[网络诊断](../../experiments/v1.2-acceptance/samples/network-diagnostic.json)。
+不得用旧实验 PASS、入口 HTTP 200、合成样本或历史 HTML 的离线解析宣称 T7S/T8 通过。
+
+## 1. 既有实现审计与迁移选择
+
+读取 AGENTS.md、ADR-0001/0002/0003、V1.1 Runtime Plan、Schema/迁移、Recipe、
+CLI/Worker/Replay/Export/Inspect 和累计 M3/Smoke。仓库没有 GitHub Actions 配置；
+本地工程入口为既有 acceptance.sh、工件校验、Ruff 和 seiso。
+Source → 不可变 RecipeVersion/Binding → Run → Scrapy → 归档 → Observation/Revision/Result
+已经具备；公共 JSON 取值仍限字符串，文档身份仍是 URL，Recheck 仍以详情 URL 为种子。
+
+| 路线 | 对现有合同的影响 | 选择依据 |
+| --- | --- | --- |
+| 扩展 seal_document | URL 非空、URL 身份、body_hash Revision、Completion 和 Export 都需混入业务身份；API 的 N 条记录不能各占同一个 URL | 必须改变多个历史公共语义，或伪造不存在的 URL；不选 |
+| 新增最小 Record 表 | 增量增加身份、版本、处理结果和本轮 emission；保留旧 Document/Revision/Result | 实现 URL 原文与业务 Record 分离，旧不可变行不改写；本次选择 |
+
+真实 dd-247 历史入口 HTML 的脚本可复算地声明 GET API、`data.data.dataList` 和多行渲染，
+没有独立详情 URL；它支持以上兼容性判断，却不能证明 API 的稳定业务键。
+T0 要求的**真实 C 响应双路线实验仍阻塞**。选择目前由代码合同及真实入口脚本支持，
+不得将这一待完成实证改标通过。取得真实响应后须复核身份字段及迁移结论。
+
+只新增 `0003_records.sql`、`0004_discovery.sql`，不修改 `schema.sql` 或
+`0002_runtime.sql`，不回填、不改写历史结果。升级前停止旧 Worker；仍须为旧源码重新
+pack/create Binding，环境摘要漂移检查保持有效。历史归档合同仍为 1。
+
+## 2. 冻结的 Record 与定位合同
+
+`type=record` 包含 `record_type`、`record_key`、`schema_version`、类型化 JSON `data`、
+可空 `detail_url`、每个 data 字段的 locator、`key_locator`、主 snapshot/observation、
+补充输入，以及无详情时必需的 `frozen_parent_request={url,role,method:GET}`。
+身份为 `(source_id, namespace, record_type, record_key)`；禁止列表下标或位置哈希作为键。
+URL 键必须与实际归档响应及详情 URL 一致；JSON 整数键仅允许显式 `key_string` 转换。
+
+一个响应可输出 0..N Record；一 Record 可引用多个输入，同一 snapshot 可被多个 Record
+共享。每字段值必须从已归档输入复算，不接纳脱离原文的替代值。
+JSON Pointer 保持数字、布尔、null、数组及对象类型，严格区别 false/0 和整数/浮点数，
+拒绝非法转义、负数组下标、NaN/Infinity 和过深 JSON；旧字符串 locator 不变。
+`record.v1` 是技术 JSON 合同，`schema_version` 为来源输出版本标识，不意味着业务准确性审核。
+
+内容指纹只取 Record 类型、Schema 版本和有效 data；输入、页码、locator 位置、抓取时间
+不进入业务指纹。列表重排只改变原文/定位证据，不改变各业务版本。
+同一 Binding 的有效基线负责内容变化归因；换 Binding 的不同输出记为 reprocessed，
+不能由新结果推断来源更新。原文 bytes hash 与业务内容变化分别记录。
+
+stage 只写不可变处理结果与 emission；完成事务按键聚合。同键同内容去重并合并所有
+输入血缘；同键异内容保留候选，整个键排除有效输出并使本轮 partial。
+只有最终 complete 的完成事务推进 Record 当前指针；失败或 partial 不覆盖此前成功视图。
+未观察旧 Record 一律 unknown，不自动删除，包括本轮零结果或声明范围不完整的情况。
+写入继续遵守 Source → Run → Record 锁顺序及 generation/run_seq/attempt fencing。
+
+## 3. Discovery、分页和资源边界
+
+使用 Scrapy `request_scheduled` 信号在 Scheduler/原生 Dupefilter 之前记录发现，覆盖初始
+种子及后续请求，保存实际 RequestFingerprinter 指纹、角色、父 URL/原文/Observation。
+原生 `request_dropped` 标记去重；多个父页面可关联同一指纹，Discovery 不调度任何请求。
+分页循环由原生去重终止，Recipe 仍可诊断不明确的分页或模板。
+
+下载 Guard、归档、callback 和 item 校验关联 requested、archived、parsed、failed、skipped；
+越界、预算、截止、下载失败、解析失败与去重分开计数。重试/跳转保留 transport 关系，
+不能把已恢复的临时失败误判为未采资源。证据事件按 attempt 有上限；超过上限明确 partial。
+发现数、实际网络交换、归档数、解析数、有效 Record 数分别报告，不据此宣称全站覆盖。
+
+仍只允许冻结 GET/HEAD、无请求体，保留地址、敏感 URL/headers/body、响应大小及预算限制。
+`host_path_scopes` 将每个主机与各自允许路径绑定；跨主机附件必须显式声明该映射，
+不能扩大为多个主机共享路径的并集。静态 iframe 只跟进同主机公开 GET 子页。
+普通展示资源不采集。业务 PDF/TXT/CSV 可归档及定位；不支持的 Excel/无文本层 PDF
+保留归档、错误和未知范围，不引入 OCR 或浏览器。
+
+## 4. Recipe、Recheck、Manifest 与查询
+
+共享 helper 为普通 Python：HTML 正文、表格逐行、嵌套 JSON 列表、父来源 Request、
+静态 iframe/附件及文本 PDF。不同 HTML 结构由 selector 参数或源级 Python 控制；
+不引入 DSL、Registry、新 Frontier、消息队列、爬虫框架或工作流引擎。
+既有 generic Recipe 和 Candidate 继续可用。
+
+在线 Run Mode 只有 collect/recheck；Replay 仍为归档离线模式。
+Recheck 选择 Record 的实际详情 URL，或冻结父列表/API 请求；相同父请求仅生成一个种子，
+请求内部仍由 Scrapy 原生去重。周期任务的到期查询也包含 Record，Procrastinate 继续
+负责持久调度。旧 V1.1 文档 Recheck 路径保留。
+
+完成报告引用内容寻址、版本化 Manifest Artifact，包含研究 ID、Source、Binding、
+RecipeVersion、Run、业务 scope、结果引用和资源统计。研究 ID 来自冻结配置，
+不等同于 Source ID，不创建第二份人工状态表。`inspect research/source/run/manifest`
+及 Export 可回查机器事实；Export 保留 documents，增量增加 records。
+显式 Run 包括 partial 中有效输出；默认视图只选最近 complete 的成功输出，
+已消失或未观察数据不自动抹除。所有出口 `quality_status=not_evaluated`。
+
+## 5. 样本选择与真实验收边界
+
+T1 复用 491 行研究总表、111 个 A/B/C 稳定 ID 以及原有优先级，不回写未完成的适配状态。
+优选 A：dd-017/041/116 列表详情、dd-102 iframe；B：dd-468 静态链接、dd-004 附件；
+C：dd-247 多记录 JSON、dd-009 固定查询，dd-248/250 为同机制 JSON 备选。
+每个样本的栏目、分页/参数、可枚举性、原文可用性与替代条件见样本 audit.json。
+所有替代仍需同类同机制证据，网络全类阻塞时不能用放宽边界完成数量门槛。
+
+历史 dd-116、dd-004、dd-468 HTML 可离线审查并编写源级 Recipe，但历史解析结果与新的
+在线 Runtime 采集分开记录。C 类 API 真实 bytes 缺失时不能为机构名猜测稳定业务键。
+
+## 6. 联合验收和结果
+
+合成测试与真实来源验收分别出具工件；在线外部网站不作为普通 CI 强制依赖。
+既有 V1.1 M3/Smoke 验证历史数据、Worker、Replay、归档及三层 fencing；新增联合脚本
+验证多 Record、类型定位、独立版本、重复/冲突、父 API Recheck、Discovery、附件、
+Manifest 和 CLI/Export/Inspect 的技术状态一致性。
+
+| 工作包 | 当前结果 | 证据/未完成项 |
+| --- | --- | --- |
+| T0 | 部分完成，实证阻塞 | 接口与兼容迁移已冻结；真实 C 响应双路线比较待原文 |
+| T1 | 已完成来源机制审计 | samples/audit.json；不宣称适配成功 |
+| T2 | 技术验收通过 | 0..N、多输入、类型定位、独立版本、冲突、重排、Recheck 和零网络 Replay |
+| T3 | 技术验收通过 | 原生发现、血缘、去重、循环、预算、越界、下载和解析失败 |
+| T4 | 技术验收通过 | 同主机静态 iframe、PDF/CSV 归档定位；不支持附件明确 partial |
+| T5 | 技术验收通过 | Manifest、统计、unknown、终止原因及 CLI/Worker/Export/Inspect 一致性 |
+| T6 | 技术验收通过 | 共享普通 Python helper、源级定制、旧 generic Recipe 保持兼容 |
+| T7S | 阻塞 | 代理拒绝；缺少每类至少两条有效在线结果及对应输入 |
+| T8 | 合成通过，完整验收阻塞 | 303/303 联合断言通过；真实两轮、真实 Recheck/Replay 待补 |
+
+代码完成后独立审查数据一致性、并发、异常、范围、泄漏和测试可靠性；问题先修再交付。
+最终 PR 应保留此矩阵和可复现命令，维持 Draft，不关闭 Issue #1。
+
+验收工件入口为 [evidence-index.json](../../experiments/v1.2-acceptance/results/evidence-index.json)。
+V1.2 联合 303/303、V1.1 累计 M3 136/136、V1.1 Smoke 1191/1191 均通过；
+Smoke 包含原版旧库 C01，helper 8/8、Discovery 14/14 和历史 HTML 28/28 通过。
+其中的压缩包保存本轮合成归档、Source/Binding/Run/Record/Replay 映射、断言、Manifest
+与请求账本；每个 suite 保留原始 SHA256。真实样本的映射仍在 samples/audit.json 中，
+未发生采集的 Source/Binding 为 null，Run/Record/Replay 为空，不能用合成 ID 填充。
+历史原版数据库由独立、干净的 `ee39884` checkout 生成，provenance 声明它是本轮合成
+兼容输入；`court-confirmed` 仅是旧 harness 查找目录名，不表示真实法院采集。
+
+安装仍使用 `uv sync --frozen`，需要 PostgreSQL 的 initdb/pg_ctl/psql/pg_dump 在 PATH。
+测试自行启动隔离 PostgreSQL 和 loopback 服务器，不使用生产 DSN。新建目录运行：
+
+```sh
+./experiments/v1.2-acceptance/acceptance.sh --output work/v12-new
+uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-new
+uv run --frozen python experiments/v1.2-acceptance/test_helpers.py
+uv run --frozen python experiments/v1.2-acceptance/test_discovery.py
+uv run --frozen python experiments/v1.2-acceptance/samples/verify.py
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output work/v11-m3-new
+```
+
+已有交付工件可离线复验，无需启动数据库或访问外站：
+
+```sh
+mkdir -p work/v12-evidence
+tar -xzf experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz -C work/v12-evidence
+uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py work/v12-evidence/synthetic/joint
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-m3
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py work/v12-evidence/synthetic/v11-smoke
+```
+
+复跑包含 C01 的 Smoke 前，将解包的 `synthetic/v11-baseline` 复制到不存在的
+`artifacts/acceptance/v1.1-smoke/court-confirmed`，避免覆盖已有历史输入。随后运行
+`acceptance.sh --stage smoke --baseline work/v11-m3-new --output work/v11-smoke-new`；
+该命令位于 experiments/v1.1-runtime-acceptance，不加入 `--live`。
+代码 lint 使用 Ruff；仓库没有单独类型检查器或 GitHub Actions 工作流。
+seiso 新 Plan 检查通过，全 docs 检查仍报告 V1.1 文档中 6 个缺失的 ignored 工件链接，
+这是开发基线已有的问题，不改写历史文档或伪造历史文件消除它。
+
+独立 Review 见 [review.json](../../experiments/v1.2-acceptance/results/review.json)。
+发现并修复了共享损坏归档误缓存、Discovery/Source 锁序死锁、空 API 被当作旧详情
+Recheck 种子、附件 Recheck 虚假修订、迟到回调写入和缺定位诊断归因等问题。
+回归覆盖这些边界；审查没有把未验证的外站覆盖或断电耐久性记为通过。
+
+## 7. 后续工作与限制
+
+取得允许访问的公开样本后，补齐真实 C 路线实验、A/B/C 每类至少两源及各类两轮采集、
+真实 iframe/附件、父 API Recheck 和零网络 Replay 工件，再决定是否可转为 Ready。
+111 条批量推广另行分批 PR，复用相同 Manifest 并回写唯一人工台账。
+暂不实现删除治理、任意用户查询、POST、OCR、动态页面或受限查询；
+技术 complete 不表示业务全量覆盖或内容已经审核。
+</template></html>
