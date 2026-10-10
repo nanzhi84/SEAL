@@ -27,6 +27,30 @@ seeded Recipe 要求 robots 开启，以原生 RobotsTxtMiddleware 的最小扩�
 访问拒绝、暂时失败和不可信政策结果禁止业务下载；预算与地址约束仍适用。
 Replay 只使用冻结输入，不发起新的政策或内容网络请求。
 
+Recheck 以冻结计划为边界，关闭首页、Sitemap、普通链接、iframe 和隐式附件扩展；
+robots 辅助政策请求继续由 Runtime 决定。明确列入计划的附件目标可以解析，
+通用 Recipe 不承诺联动获取说明页面或其他辅助内容。
+
+同一 Crawl 的同一 `(origin, robots Snapshot)` 政策只主动发现一次 Sitemap 声明；
+首次候选的父输入是 robots Snapshot / Observation。gzip Sitemap 解析采用受控
+解压，大小上限为冻结 Source 的 `response_bytes`，原始下载表示先归档且不改写。
+HTTP Content-Encoding 由原生下载器解码时，归档保持现有的应用响应表示合同。
+
+partial Replay 冻结原 attempt 中无 Snapshot 的终态拒绝候选，按请求指纹、角色和
+父 Snapshot 精确匹配，复用原原因并保持 partial。新请求、歧义和缺失归档仍严格失败。
+已成功消费的同指纹或同 transport chain 输入属于归档正证据，即使早期重试失败的
+指纹不同，也不得用负证据掩盖丢失映射。合同存入不可变归档对象，现有 Run report
+和 manifest 保存引用；不新增存储模型，也不修改原 Run 或 Discovery。
+
+`robots_denied` 仅表示成功解析的规则拒绝；政策获取的 HTTP 401/403 使用
+`robots_policy_http_denied`，连接、代理或解析失败使用 `robots_unavailable`。
+后者记录政策事件的终态原因，已有预算或归档拒绝保持其原原因。
+
+所有子请求保留父输入，最终 Content-Type 决定动态附件类型；跨主机附件仍要求显式
+路径范围。原生去重产生一个实际下载，Record 的 supplementary_inputs 保留该次
+下载的父证据，其他引用关系保留在 Discovery。XLSX 识别为附件但不承诺解析，
+保存原文并报告 `unsupported_content_type`。
+
 手动 Collect 复用 Run API、有限重试及持久 PostgreSQL / 内容寻址归档。
 正常队列耗尽仅表示已生成请求完成；预算、深度、query 和政策限制须保留原因。
 不存在网站内容 Ground Truth 时，运行计数不转化为覆盖率。

@@ -34,6 +34,16 @@ Recipe 提供专用 API / 游标规则；不会猜测搜索条件或任意 JSON 
 `inspect run` / 回执区分队列耗尽、预算、政策阻塞及部分完成，计数包括 robots 辅助交换。
 队列耗尽不能证明全站完整，所有结构化结果仍标记 `not_evaluated`。
 
+seeded Recheck 只处理冻结计划内的目标；页面里的新链接、iframe、附件与 Sitemap
+均不扩展，robots 仍作为访问政策辅助输入。直接列入计划的附件目标可以解析。
+partial Collect 的 Replay 重用已归档输入与冻结的历史拒绝证据，保留原拒绝原因；
+新增请求或缺失的已成功归档输入仍报 `replay_miss`，不会联网补齐。
+同一 robots 政策版本的 Sitemap 声明每次 Crawl 只发现一次；gzip Sitemap 受
+Source 的 `response_bytes` 解压大小上限约束。政策规则拒绝、政策 HTTP 401/403
+与政策不可用分别记录 `robots_denied`、`robots_policy_http_denied`、`robots_unavailable`。
+无扩展名附件按最终 Content-Type 确认，保留首次下载的父页面输入；全部引用关系
+保留在 Discovery。XLSX 当前保存原文并明确 `unsupported_content_type`。
+
 设计、增量迁移与实际验收见 [V1.3 Plan](docs/plans/v1.3-seeded-site-collection.md)、
 [唯一可视化](docs/generated/v1.3-seeded-site-collection.html) 和
 [ADR-0004](docs/adr/0004-seeded-collection-native-scrapy.md)。

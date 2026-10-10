@@ -20,6 +20,11 @@ Specific HTML 规则优先，无匹配时由同一 Recipe / Record 合同的 Fal
 继续使用现有 PostgreSQL 与不可变原文归档。新增 `0006_seeded_discovery.sql`；
 已应用迁移不修改，升级需停止旧 Worker、备份、迁移和新 RecipeVersion / Binding。
 
+Review 修复：Recheck 关闭计划外递归；robots Sitemap 按政策版本每 Crawl 发现一次；
+gzip Sitemap 有界解压并保留下载表示。partial Replay 冻结原拒绝证据，未知请求及
+已成功归档但映射缺失的输入仍严格失败。robots 规则拒绝与政策获取失败分别审计；
+动态附件使用最终 Content-Type 并保留父输入，XLSX 明确为未支持解析的格式。
+
 新测试、实际长期留存演示及八个业务 Seed 的探索记录见
 [V1.3 Plan](docs/plans/v1.3-seeded-site-collection.md)。网络政策拒绝与未知适配如实记录，
 无站点 Ground Truth，不依据队列耗尽推断覆盖。历史工件保持原样。
