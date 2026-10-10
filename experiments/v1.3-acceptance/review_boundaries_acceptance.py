@@ -130,19 +130,19 @@ def exercise(h):
         sql(
             h,
             "UPDATE seal_record SET next_check=now()+interval '1 day' "
-            "WHERE source_id='review_boundaries'",
+            "WHERE source_id='review_boundaries' AND namespace='runtime'",
         )
         due_url = h.site.url + document_paths[0]
         sql(
             h,
             "UPDATE seal_record SET next_check=now()-interval '1 hour' "
-            "WHERE source_id='review_boundaries' AND record_key=%s",
+            "WHERE source_id='review_boundaries' AND namespace='runtime' AND record_key=%s",
             (due_url,),
         )
         before_dates = sql(
             h,
             "SELECT record_key,next_check FROM seal_record WHERE source_id='review_boundaries' "
-            "ORDER BY record_key",
+            "AND namespace='runtime' ORDER BY record_key",
         )
         scheduled = h.cli("schedule")
         h.check("one_due_source_run_scheduled", len(scheduled["run_ids"]), 1)
@@ -190,7 +190,7 @@ def exercise(h):
         after_dates = sql(
             h,
             "SELECT record_key,next_check FROM seal_record WHERE source_id='review_boundaries' "
-            "ORDER BY record_key",
+            "AND namespace='runtime' ORDER BY record_key",
         )
         h.check("unplanned_nine_record_dates_unchanged", after_dates[1:], before_dates[1:])
         h.check(
