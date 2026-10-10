@@ -532,7 +532,7 @@ html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 <label class="am-pick">明暗<select data-am="mode"><option value="auto" selected>跟随系统</option><option value="light">亮</option><option value="dark">暗</option></select></label>
 <button class="am-btn" type="button" data-am="copy" data-done="已复制 ✓">复制源稿</button>
 </div>
-<main class="am-doc"><p class="am-md">当前归档合同以第 12 节为准；此前敏感正文拒绝与 iframe 缺口为旧引擎历史记录。</p>
+<main class="am-doc"><p class="am-md">最终验收第 13 节：T0–T6、T7S、T8 全部 PASS。归档合同以第 12 节为准；旧拒绝记录保留为历史证据。</p>
 <header class="am-head"><h1>V1.2：异构 Source 的 Runtime 基础设施</h1><div class="am-head-meta"><span><b>kind</b>plan</span></div><div class="am-intro am-md"><div class="am-md"><p>本变更关联 <a href="https://github.com/nanzhi84/SEAL/issues/1">Issue #1</a>，需求快照更新时间
 为 2026-10-09 10:03:28 UTC，开发基线为主分支 <code>ee39884</code>。
 基础设施范围是 T0–T6、T7S、T8。用户随后授权的 111 个 A/B/C 入口 Recipe 扩展验收见第 8 节；Evaluation、Management 和 Agent 仍未实现。
@@ -1646,6 +1646,33 @@ uv run --frozen python experiments/v1.2-acceptance/archive_report.py artifacts/a
 <p>要求 Python 3.12、锁定的 uv 依赖、PATH 中 PostgreSQL 17+ 的 initdb/pg_ctl 和外部公开 GET 可用；Harness 创建并销毁独立临时 PostgreSQL，复制验收工件后释放临时归档。 复现须使用新目录；已有输出会创建子目录，后续校验参数必须指向实际输出。</p>
 <p>首次 <code>raw-archive-runtime</code> FAIL 原因是本轮格式化期间源码变化触发 environment_drift， 不是有效的稳定引擎回归结论；<code>raw-archive-public-probe</code> FAIL 是删除 Runtime 共享 fixture 后探测测试旧路由失效，已将两个探测 fixture 移回探测测试自有边界。 首次失败原样保留在本地；最终稳定代码重新通过，不合并失败断言为绿色。</p>
 <p>结论范围：真实业务 iframe 缺口本轮补齐。未重新验收其他六个 A/B/C 来源、全部 111 入口、旧 dd-009 正文拒绝来源或完整 Issue #1 交付门槛；业务质量仍 not_evaluated。 PR #2 继续 Draft，不合并、不关闭 Issue。回滚本轮归档代码提交可恢复旧拒绝合同， 但不会删除已归档的私有原文，存储生命周期仍由部署方管理。</p></section>
+<section id="final-acceptance" class="am-md"><h2>13. PR #2 最终验收（2026-10-10）</h2>
+<p>停止功能开发，冻结起点为 <code>52909bd</code>。本轮只修正旧 M3 的敏感正文拒绝断言和 交付样本合同，提交 <code>de6f566</code>；Runtime 和 Recipe 源码未改变。所有验收组的产品源码 与 Recipe Hash 均由最终校验器逐项核对该提交，不混用不匹配引擎的历史通过。</p>
+<p>真实正向合同合并为 <code>delivery_samples/final.json</code>：dd-017/041/102、dd-468/050、 dd-247/250，A3/B2/C2 共七源、117 条首轮 Record。dd-009 按原 <code>live_samples/c.json</code> 另行四轮复验，29 条 Record；其复现合同保存为 <code>delivery_samples/supplemental.json</code>。 旧 <code>restricted.json</code> 敏感正文拒绝合同删除。dd-357 仍是来源越界重定向 BLOCKED， 其拒绝诊断 PASS 不计来源适配成功。</p>
+<h3>13.1 验收矩阵与证据</h3>
+<p>当前联合 Runtime 473/473 和公开探测 33/33 的工件来自第 12 节；本轮源码未变， 最终校验器重新核验其全部原文 Hash、断言与产品源码/Recipe Hash，不以日期或 提交标签代替源码匹配。其余专项和真实来源在本轮实际执行。</p>
+<table><tr><th>验收项</th><th>最终状态</th><th>证据</th></tr><tr><td>联合 Runtime</td><td>PASS，473/473</td><td>raw-archive-runtime-final</td></tr><tr><td>公开探测隐私/拒绝边界</td><td>PASS，33/33</td><td>raw-archive-public-probe-final</td></tr><tr><td>V1.1 M3</td><td>PASS，134/134</td><td>final-frozen-m3</td></tr><tr><td>V1.1 Smoke，含历史升级 Replay</td><td>PASS，1200/1200</td><td>final-frozen-smoke</td></tr><tr><td>分页专项</td><td>PASS，154/154</td><td>final-52909bd-pagination</td></tr><tr><td>重复父请求/到达顺序</td><td>PASS，35/35</td><td>final-52909bd-parents</td></tr><tr><td>Recheck 身份、批次、失败退避与 fencing</td><td>PASS，115/115</td><td>final-52909bd-recheck</td></tr><tr><td>七源四轮真实采集</td><td>PASS，715/715；独立复算468投影</td><td>final-52909bd-real-canonical</td></tr><tr><td>dd-247 空筛选兼容</td><td>PASS，75/75；20 Record</td><td>final-52909bd-blank-query</td></tr><tr><td>dd-009 新合同真实复验</td><td>PASS，75/75；29 Record</td><td>final-52909bd-dd009</td></tr><tr><td>dd-357 越界拒绝诊断</td><td>PASS，22/22；来源 BLOCKED</td><td>final-52909bd-blocked</td></tr><tr><td>dd-250 七页67条独立分页核验</td><td>PASS，489/489</td><td>final-52909bd-amac.json</td></tr><tr><td>T7S 真实来源数量与机制门槛</td><td>PASS，296/296；A3/B2/C2</td><td>final-52909bd-t7s.json</td></tr><tr><td>T8 产品版本、独立核验及交付汇总</td><td>PASS</td><td>final_acceptance.py</td></tr></table>
+<p>完整私有工件位于 <code>artifacts/acceptance/</code>；公开<a href="../../experiments/v1.2-acceptance/results/final-acceptance/report.json">最终报告</a> 仅包含每项状态、断言名称、环境、复现命令、Run/Binding/Recipe ID 和工件 Hash。 原文及 expected/actual 字段值不发布；本地完整工件用于独立字段/locator 复算。</p>
+<h3>13.2 实际命令与环境</h3>
+<p>环境：macOS arm64、Python 3.12.13、PostgreSQL 17.11、frozen uv.lock，独立临时 PG 与 loopback fixture；实站匿名 GET、无账号/Cookie/环境代理、不提交验证码或主体筛选。 输出目录由 <code>umask 077</code> 创建为私有目录；生产 DSN 不进入 Harness。所有首次失败保留。</p>
+<pre class="am-code"><code>umask 077
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/final-frozen-m3
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/final-frozen-m3 --compatibility-baseline artifacts/acceptance/v1.2-review-compatibility-input/regression/original-baseline --output artifacts/acceptance/final-frozen-smoke
+uv run --frozen python experiments/v1.2-acceptance/pagination_acceptance.py --output artifacts/acceptance/final-52909bd-pagination
+uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario parents --output artifacts/acceptance/final-52909bd-parents
+uv run --frozen python experiments/v1.2-acceptance/recheck_acceptance.py --output artifacts/acceptance/final-52909bd-recheck
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples artifacts/acceptance/final-contracts/positive.json --output artifacts/acceptance/final-52909bd-real-canonical
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/delivery_samples/blocked.json --diagnostic-only --output artifacts/acceptance/final-52909bd-blocked
+uv run --frozen python experiments/v1.2-acceptance/live.py --source dd-247 --output artifacts/acceptance/final-52909bd-blank-query
+uv run --frozen python experiments/v1.2-acceptance/live.py --source dd-009 --output artifacts/acceptance/final-52909bd-dd009
+uv run --frozen python experiments/v1.2-acceptance/full_pagination_verify.py artifacts/acceptance/final-52909bd-real-canonical --samples artifacts/acceptance/final-contracts/positive.json --research-id dd-250 --output artifacts/acceptance/final-52909bd-amac.json
+uv run --frozen python experiments/v1.2-acceptance/delivery_verify.py artifacts/acceptance/final-52909bd-real-canonical --output artifacts/acceptance/final-52909bd-t7s.json</code></pre>
+<p>实跑使用的 <code>artifacts/acceptance/final-contracts/positive.json</code> 与仓库中 <code>delivery_samples/final.json</code> bytes/Hash 完全一致。重新采集可直接使用仓库合同； 离线复算现有工件必须传入 Manifest 中实际登记的输入路径。历史兼容输入需要本地 <code>database.sql</code>、<code>archive/</code>、<code>provenance.json</code>；缺少时记 BLOCKED，不用新数据冒充升级输入。 输出路径必须新建，工具不会覆盖已有原始结果。</p>
+<p>最终报告生成器复算每组工件的 Hash 与断言、四轮真实字段、T7S、完整分页及失败记录， 并与冻结产品/Recipe 提交匹配；完整生成命令保存于报告 <code>command</code>。公开报告不替代 本地私有原文，不宣称全量111来源或 Evaluation 的业务质量已通过。</p>
+<h3>13.3 失败与针对性修正</h3>
+<p><code>final-52909bd-m3</code> 首次 FAIL：旧 M0 子场景仍要求敏感正文拒绝；新 Runtime 正确完成 采集，旧断言错误。删除该过时拒绝场景及未使用敏感正文 fixture，保留 URL 凭据、 日志、HTTP、归档故障等原边界。修正后 M3 134/134，原来136的减少来自两项旧拒绝 断言删除，不把失败换成无断言“成功”。进一步冻结测试提交后再次执行 M3/Smoke。</p>
+<p>首个真实批次因同时选择两个重叠样本文件而被主动中止；其两个已通过来源与未完成 批次工件留在 <code>final-52909bd-real</code>，不计完整验收。正式批次采用执行前冻结、ID唯一的 七源合并合同。首次完整分页校验传错了输入路径，出现 KeyError；改为 Manifest 中 实际登记的输入路径后489/489，未修改原始样本或采集结果。</p>
+<p>最终冻结 Smoke 1200/1200；最终报告重新调用独立校验器并复算 T7S/完整分页，T0–T6、T7S、T8 全部 PASS。当前无验收 FAIL 或 BLOCKED；dd-357 作为已知来源 BLOCKED 保留，其负向合同已通过。PR 转 Ready for review，尚未合并；Evaluation 和全量111来源复验不属于本轮完成声明。</p></section>
 </main>
 <footer class="am-colophon">Generated by Answer me with HTML 0.4.9 · 2026-10-10 12:59</footer>
 <textarea id="am-source" hidden readonly aria-hidden="true">---
@@ -1655,7 +1682,7 @@ lang: zh
 
 # V1.2：异构 Source 的 Runtime 基础设施
 
-当前归档合同以第 12 节为准。第 1–11 节的敏感正文拒绝及 iframe 缺口是旧引擎历史记录，
+当前归档合同以第 12 节为准，最终验收以第 13 节为准。第 1–11 节的敏感正文拒绝及 iframe 缺口是旧引擎历史记录，
 不作为新合同要求；历史运行与失败工件不改写。
 
 
@@ -2424,6 +2451,90 @@ fixture 后探测测试旧路由失效，已将两个探测 fixture 移回探测
 入口、旧 dd-009 正文拒绝来源或完整 Issue #1 交付门槛；业务质量仍 not_evaluated。
 PR #2 继续 Draft，不合并、不关闭 Issue。回滚本轮归档代码提交可恢复旧拒绝合同，
 但不会删除已归档的私有原文，存储生命周期仍由部署方管理。
+
+## 13. PR #2 最终验收（2026-10-10）
+
+停止功能开发，冻结起点为 `52909bd`。本轮只修正旧 M3 的敏感正文拒绝断言和
+交付样本合同，提交 `de6f566`；Runtime 和 Recipe 源码未改变。所有验收组的产品源码
+与 Recipe Hash 均由最终校验器逐项核对该提交，不混用不匹配引擎的历史通过。
+
+真实正向合同合并为 `delivery_samples/final.json`：dd-017/041/102、dd-468/050、
+dd-247/250，A3/B2/C2 共七源、117 条首轮 Record。dd-009 按原 `live_samples/c.json`
+另行四轮复验，29 条 Record；其复现合同保存为 `delivery_samples/supplemental.json`。
+旧 `restricted.json` 敏感正文拒绝合同删除。dd-357 仍是来源越界重定向 BLOCKED，
+其拒绝诊断 PASS 不计来源适配成功。
+
+### 13.1 验收矩阵与证据
+
+当前联合 Runtime 473/473 和公开探测 33/33 的工件来自第 12 节；本轮源码未变，
+最终校验器重新核验其全部原文 Hash、断言与产品源码/Recipe Hash，不以日期或
+提交标签代替源码匹配。其余专项和真实来源在本轮实际执行。
+
+| 验收项 | 最终状态 | 证据 |
+| --- | --- | --- |
+| 联合 Runtime | PASS，473/473 | raw-archive-runtime-final |
+| 公开探测隐私/拒绝边界 | PASS，33/33 | raw-archive-public-probe-final |
+| V1.1 M3 | PASS，134/134 | final-frozen-m3 |
+| V1.1 Smoke，含历史升级 Replay | PASS，1200/1200 | final-frozen-smoke |
+| 分页专项 | PASS，154/154 | final-52909bd-pagination |
+| 重复父请求/到达顺序 | PASS，35/35 | final-52909bd-parents |
+| Recheck 身份、批次、失败退避与 fencing | PASS，115/115 | final-52909bd-recheck |
+| 七源四轮真实采集 | PASS，715/715；独立复算468投影 | final-52909bd-real-canonical |
+| dd-247 空筛选兼容 | PASS，75/75；20 Record | final-52909bd-blank-query |
+| dd-009 新合同真实复验 | PASS，75/75；29 Record | final-52909bd-dd009 |
+| dd-357 越界拒绝诊断 | PASS，22/22；来源 BLOCKED | final-52909bd-blocked |
+| dd-250 七页67条独立分页核验 | PASS，489/489 | final-52909bd-amac.json |
+| T7S 真实来源数量与机制门槛 | PASS，296/296；A3/B2/C2 | final-52909bd-t7s.json |
+| T8 产品版本、独立核验及交付汇总 | PASS | final_acceptance.py |
+
+完整私有工件位于 `artifacts/acceptance/`；公开[最终报告](../../experiments/v1.2-acceptance/results/final-acceptance/report.json)
+仅包含每项状态、断言名称、环境、复现命令、Run/Binding/Recipe ID 和工件 Hash。
+原文及 expected/actual 字段值不发布；本地完整工件用于独立字段/locator 复算。
+
+### 13.2 实际命令与环境
+
+环境：macOS arm64、Python 3.12.13、PostgreSQL 17.11、frozen uv.lock，独立临时 PG 与
+loopback fixture；实站匿名 GET、无账号/Cookie/环境代理、不提交验证码或主体筛选。
+输出目录由 `umask 077` 创建为私有目录；生产 DSN 不进入 Harness。所有首次失败保留。
+
+```sh
+umask 077
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/final-frozen-m3
+./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/final-frozen-m3 --compatibility-baseline artifacts/acceptance/v1.2-review-compatibility-input/regression/original-baseline --output artifacts/acceptance/final-frozen-smoke
+uv run --frozen python experiments/v1.2-acceptance/pagination_acceptance.py --output artifacts/acceptance/final-52909bd-pagination
+uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario parents --output artifacts/acceptance/final-52909bd-parents
+uv run --frozen python experiments/v1.2-acceptance/recheck_acceptance.py --output artifacts/acceptance/final-52909bd-recheck
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples artifacts/acceptance/final-contracts/positive.json --output artifacts/acceptance/final-52909bd-real-canonical
+uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/delivery_samples/blocked.json --diagnostic-only --output artifacts/acceptance/final-52909bd-blocked
+uv run --frozen python experiments/v1.2-acceptance/live.py --source dd-247 --output artifacts/acceptance/final-52909bd-blank-query
+uv run --frozen python experiments/v1.2-acceptance/live.py --source dd-009 --output artifacts/acceptance/final-52909bd-dd009
+uv run --frozen python experiments/v1.2-acceptance/full_pagination_verify.py artifacts/acceptance/final-52909bd-real-canonical --samples artifacts/acceptance/final-contracts/positive.json --research-id dd-250 --output artifacts/acceptance/final-52909bd-amac.json
+uv run --frozen python experiments/v1.2-acceptance/delivery_verify.py artifacts/acceptance/final-52909bd-real-canonical --output artifacts/acceptance/final-52909bd-t7s.json
+```
+
+实跑使用的 `artifacts/acceptance/final-contracts/positive.json` 与仓库中
+`delivery_samples/final.json` bytes/Hash 完全一致。重新采集可直接使用仓库合同；
+离线复算现有工件必须传入 Manifest 中实际登记的输入路径。历史兼容输入需要本地
+`database.sql`、`archive/`、`provenance.json`；缺少时记 BLOCKED，不用新数据冒充升级输入。
+输出路径必须新建，工具不会覆盖已有原始结果。
+
+最终报告生成器复算每组工件的 Hash 与断言、四轮真实字段、T7S、完整分页及失败记录，
+并与冻结产品/Recipe 提交匹配；完整生成命令保存于报告 `command`。公开报告不替代
+本地私有原文，不宣称全量111来源或 Evaluation 的业务质量已通过。
+
+### 13.3 失败与针对性修正
+
+`final-52909bd-m3` 首次 FAIL：旧 M0 子场景仍要求敏感正文拒绝；新 Runtime 正确完成
+采集，旧断言错误。删除该过时拒绝场景及未使用敏感正文 fixture，保留 URL 凭据、
+日志、HTTP、归档故障等原边界。修正后 M3 134/134，原来136的减少来自两项旧拒绝
+断言删除，不把失败换成无断言“成功”。进一步冻结测试提交后再次执行 M3/Smoke。
+
+首个真实批次因同时选择两个重叠样本文件而被主动中止；其两个已通过来源与未完成
+批次工件留在 `final-52909bd-real`，不计完整验收。正式批次采用执行前冻结、ID唯一的
+七源合并合同。首次完整分页校验传错了输入路径，出现 KeyError；改为 Manifest 中
+实际登记的输入路径后489/489，未修改原始样本或采集结果。
+
+最终冻结 Smoke 1200/1200；最终报告重新调用独立校验器并复算 T7S/完整分页，T0–T6、T7S、T8 全部 PASS。当前无验收 FAIL 或 BLOCKED；dd-357 作为已知来源 BLOCKED 保留，其负向合同已通过。PR 转 Ready for review，尚未合并；Evaluation 和全量111来源复验不属于本轮完成声明。
 </textarea>
 <script>
 (() => {

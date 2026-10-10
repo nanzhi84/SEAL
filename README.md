@@ -15,13 +15,18 @@ V1.2 增加业务 Record、Discovery、多记录 JSON、静态 iframe 和业务�
 归档故障处理保持原合同。原文必须放在私有目录，运行前设置 `umask 077`，不直接公开。
 实验发布隐私检查独立于 Runtime。
 
-dd-102 在新引擎下重新通过两轮 Collect、Recheck 和零网络 Replay，得到 41 条 Record；
-原文引用及 locator 独立复算通过，补上真实业务 iframe 证据。完整断言、命令和环境见
-[本轮验收报告](experiments/v1.2-acceptance/results/raw-archive/acceptance-report.json) 与
-[V1.2 Plan 第 12 节](docs/plans/v1.2-heterogeneous-sources.md#12-原文归档职责调整2026-10-10)。
-PR #2 保持 Draft；本轮只调整归档合同及复验 dd-102，不将旧引擎 A/B/C 样本、111 项
-台账或整个 Issue #1 自动认定为新引擎通过。Evaluation 与业务质量批准仍未实现。
-旧交付报告和失败工件保留为历史证据。
+PR #2 最终验收已通过 T0–T6、T7S、T8：联合473/473、M3 134/134、Smoke 1200/1200、
+分页154/154、父请求35/35、Recheck115/115、公开探测33/33，以及七个真实来源715/715。
+真实合同覆盖 A3/B2/C2，117条首轮 Record；dd-009 补充复验75/75、29条 Record；
+全量分页489/489、T7S机制门槛296/296通过。dd-102的41条Record补齐真实业务iframe。
+本轮仅删除旧M3正文拒绝断言/fixture及更新验收合同，未新增Runtime功能。
+
+[最终验收报告](experiments/v1.2-acceptance/results/final-acceptance/report.json) 保存每项
+状态、精确产品/Recipe Hash、独立校验、命令与环境；[Plan第13节](docs/plans/v1.2-heterogeneous-sources.md#13-pr-2-最终验收2026-10-10)
+保存矩阵和首次FAIL的针对性修正。完整原文仍只在本地私有工件；公开报告只发布元数据与Hash。
+PR进入Ready for review，尚未合并。dd-357来源仍因越界重定向BLOCKED，其负向诊断22/22通过。
+全部111来源复验和Evaluation业务质量批准未执行；台账100 adapted中8个为本轮当前引擎，
+92个仍为历史成功。旧报告与首次失败均保留。
 
 
 长期架构分为三个逻辑平面：
