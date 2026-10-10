@@ -108,6 +108,21 @@ def exercise(h):
         recheck = h.cli("run", "url_frozen", "--binding", frozen_binding, "--recheck")
         check("url_recheck_status", recheck["status"], "complete")
         check("url_recheck_wire", sorted(x["path"] for x in h.site.ledger[offset:]), sorted(PATHS))
+        # Independent review failure: blank sensitive keys must fail before freezing.
+        for index, query in enumerate(["token=", "token", "to%6ben=", "ok=1&token="]):
+            name = "url_sensitive_" + str(index)
+            config = h.config(name)
+            config["entry_urls"] = [h.site.url + "/url/detail?" + query]
+            path = h.root / (name + "-rejected.json")
+            path.write_text(json.dumps(config))
+            try:
+                rejected = h.cli("source", "apply", path, ok=False)
+            except AssertionError:
+                rejected = h.receipts[-1]["result"]
+            check(name + "_rejected_before_freeze", rejected.get("error"), "sensitive_url_rejected")
+        from url_negotiation import exercise_negotiation
+
+        exercise_negotiation(h, check)
         if failures:
             raise AssertionError(",".join(failures))
     finally:

@@ -19,6 +19,10 @@ class ResourceFingerprinter:
                     "method": request.method,
                     "url": request.url.split("#", 1)[0],
                     "body_sha256": digest(request.body),
+                    "headers": {
+                        key: request.headers.get(key, b"").decode("latin1")
+                        for key in ("Accept", "Accept-Language")
+                    },
                 }
             )
         )

@@ -47,6 +47,25 @@ def _stage_resource(c, source, run, entry):
            AND identity=%s FOR UPDATE""",
         (source["id"], run["namespace"], url),
     )
+    # Compare all representations already staged in this attempt, including A/B/A.
+    # Role and redirect origin do not define a different wire representation.
+    for prior in run["inputs"]:
+        if prior.get("resource_input", {}).get("document_id") != document["id"]:
+            continue
+        previous_snapshot = Objects().json(prior["snapshot_id"])
+        if previous_snapshot["body_hash"] == snapshot["body_hash"]:
+            continue
+        previous_representation = previous_snapshot.get("representation_id")
+        representation = snapshot.get("representation_id")
+        if previous_representation and representation and previous_representation != representation:
+            continue
+        # Old externally persisted snapshots lack representation identity: retain
+        # the conservative same-URL rule rather than guessing negotiation headers.
+        c.execute(
+            "UPDATE seal_run SET errors=errors || %s WHERE id=%s",
+            (j(["unstable_resource_input"]), run["id"]),
+        )
+        break
     previous = (
         one(c, "SELECT * FROM seal_revision WHERE id=%s", (document["latest_revision"],))
         if document["latest_revision"]
@@ -54,18 +73,6 @@ def _stage_resource(c, source, run, entry):
     )
     revision_id = previous["id"] if previous else None
     if previous is None or previous["body_hash"] != snapshot["body_hash"]:
-        if previous:
-            previous_observation = one(
-                c, "SELECT * FROM seal_fetch_observation WHERE id=%s", (previous["observation_id"],)
-            )
-            if (
-                previous_observation["run_id"] == run["id"]
-                and previous_observation["attempt_epoch"] == run["attempt_epoch"]
-            ):
-                c.execute(
-                    "UPDATE seal_run SET errors=errors || %s WHERE id=%s",
-                    (j(["unstable_resource_input"]), run["id"]),
-                )
         row = c.execute(
             """INSERT INTO seal_revision
                (id,document_id,predecessor,body_hash,snapshot_id,observation_id)

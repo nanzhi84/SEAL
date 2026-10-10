@@ -6,7 +6,7 @@ import json
 import os
 import re
 from pathlib import Path
-from urllib.parse import parse_qsl, unquote_plus, urlsplit, urlunsplit
+from urllib.parse import unquote_plus, urlsplit, urlunsplit
 from uuid import uuid4
 
 
@@ -64,7 +64,10 @@ def public_url(url):
     if (
         parts.username
         or parts.password
-        or any(SENSITIVE.search(k) for k, _ in parse_qsl(parts.query))
+        or any(
+            SENSITIVE.search(unquote_plus(segment.partition("=")[0]))
+            for segment in parts.query.split("&")
+        )
     ):
         raise SealError("sensitive_url_rejected")
     return safe_url(url)

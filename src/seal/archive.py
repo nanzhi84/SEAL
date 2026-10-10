@@ -18,7 +18,7 @@ from .core import (
     uid,
 )
 from .db import connect, fenced, j, locked_run, record_error
-from .discovery import mark_archived, mark_failed, mark_requested
+from .discovery import ResourceFingerprinter, mark_archived, mark_failed, mark_requested
 from .scope import paths_for
 
 HEADERS = {
@@ -89,6 +89,7 @@ def archive_response(context, request, response):
         "body_hash": body_hash,
         "body_size": len(response.body),
         "request_url": safe_url(request.url),
+        "representation_id": ResourceFingerprinter().fingerprint(request).hex(),
         "method": request.method,
         "url": safe_url(response.url),
         "status": response.status,
