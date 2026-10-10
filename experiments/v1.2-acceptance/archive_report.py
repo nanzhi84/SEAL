@@ -7,6 +7,7 @@ File hashes bind the public report to local evidence; they do not replace raw-fi
 import argparse
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 
@@ -56,9 +57,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("directory", type=Path, nargs="+")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--engine-commit", required=True)
     args = parser.parse_args()
     groups = [report(path) for path in args.directory]
+    commit = subprocess.check_output(
+        ["git", "rev-parse", "--verify", args.engine_commit + "^{commit}"], text=True
+    ).strip()
+    for group in groups:
+        for name, expected in group["engine_hashes"].items():
+            body = subprocess.check_output(["git", "show", commit + ":" + name])
+            if hashlib.sha256(body).hexdigest() != expected:
+                raise ValueError("engine_commit_does_not_match_evidence")
     result = {
+        "engine_commit": commit,
         "status": "FAIL" if any(group["failed"] for group in groups) else "PASS",
         "scope": "Runtime raw archive; dd-102 bounded iframe; public probe privacy",
         "preconditions": "Python 3.12, uv.lock, PostgreSQL 17+ tools; isolated temporary PG; "

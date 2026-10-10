@@ -10,9 +10,19 @@ V1.2 增加业务 Record、Discovery、多记录 JSON、静态 iframe 和业务�
 
 2026-10-10 已修正 JSON 稳定身份 Recheck、到期记录分批、失败重试日期和重复 JSON 解析；补齐 AMAC 完整 7 页、67 条的来源 Recipe。[上一轮修复验收索引](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json) 和 Plan 第 9 节保留该版本四个真实来源的复验。
 
-最新交付审计基于 `e322340` 功能引擎：修复了敏感响应被拒绝后实际 HTTP 请求数漏计，保留归档安全拒绝。A/B/C 各 2 个当前引擎真实样本完成两轮 Collect、Recheck、零网络 Replay；固定查询由 dd-247 的冻结公开参数替代受限 dd-009。**Issue #1 尚未满足，PR #2 保持 Draft：业务静态 iframe 缺少当前有效真实证据。** dd-102 响应含会话标识，不能以历史结果、页头页尾 iframe 或放宽安全规则替代验收。dd-357 的 302 越界重定向单独作为负向诊断，不计适配成功。
+2026-10-10 按新的归档合同移除 Runtime 正文敏感性扫描（功能引擎 `c886007`）。
+响应按原始 bytes 归档，再解析 Record；URL/日志脱敏、范围、HTTP 错误、重试、Hash 与
+归档故障处理保持原合同。原文必须放在私有目录，运行前设置 `umask 077`，不直接公开。
+实验发布隐私检查独立于 Runtime。
 
-[本轮工件索引](experiments/v1.2-acceptance/results/pr2-delivery-v2/remediation-evidence-index.json)、[交付报告](experiments/v1.2-acceptance/results/pr2-delivery-v2/delivery-report.json) 与 [V1.2 Plan 第 11 节](docs/plans/v1.2-heterogeneous-sources.md#11-issue-1-最终交付审计2026-10-10) 保存矩阵、精确版本、命令和未通过项。历史 995/998 FAIL 与此前原文均保留；111 条批量复验、Evaluation 和业务质量批准不属于本次关闭门槛。
+dd-102 在新引擎下重新通过两轮 Collect、Recheck 和零网络 Replay，得到 41 条 Record；
+原文引用及 locator 独立复算通过，补上真实业务 iframe 证据。完整断言、命令和环境见
+[本轮验收报告](experiments/v1.2-acceptance/results/raw-archive/acceptance-report.json) 与
+[V1.2 Plan 第 12 节](docs/plans/v1.2-heterogeneous-sources.md#12-原文归档职责调整2026-10-10)。
+PR #2 保持 Draft；本轮只调整归档合同及复验 dd-102，不将旧引擎 A/B/C 样本、111 项
+台账或整个 Issue #1 自动认定为新引擎通过。Evaluation 与业务质量批准仍未实现。
+旧交付报告和失败工件保留为历史证据。
+
 
 长期架构分为三个逻辑平面：
 
