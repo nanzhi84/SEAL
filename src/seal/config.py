@@ -55,13 +55,13 @@ class SourceConfig(Strict):
     output_schema: Literal["generic_document.v1", "record.v1"] = "generic_document.v1"
     archive_approved: bool
     scope: str = Field(min_length=5, max_length=2000)
-    seed_role: Literal["list", "detail", "api", "iframe", "attachment"] = "list"
+    seed_role: Literal["list", "detail", "api", "iframe", "attachment", "sitemap"] = "list"
     poll_seconds: int = Field(default=3600, ge=60)
     recheck_seconds: int = Field(default=86400, ge=60)
     budget: Budget = Budget()
     concurrency: int = Field(default=2, ge=1, le=8)
     delay: float = Field(default=0.1, ge=0.0, le=60.0)
-    # Historical external configuration remains readable; Runtime never enables it.
+    # Explicit opt-in keeps historical V1.2 bindings unchanged. Seeded recipes require it.
     robots: bool = False
     user_agent: str = "SEAL/0.1 (+authorized archival crawler)"
 

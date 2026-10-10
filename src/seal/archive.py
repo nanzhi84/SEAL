@@ -19,7 +19,7 @@ from .core import (
 )
 from .db import connect, fenced, j, locked_run, record_error
 from .discovery import ResourceFingerprinter, mark_archived, mark_failed, mark_requested
-from .scope import paths_for
+from .scope import paths_for, robots_policy_request
 
 HEADERS = {
     b"content-type",
@@ -150,7 +150,10 @@ class RequestGuard(Component):
         try:
             url = public_url(request.url)
             parsed = urlsplit(url)
-            if not paths_for(self.config, parsed.hostname, parsed.path):
+            policy = robots_policy_request(self.config, request)
+            if request.meta.get("_seal_robots_policy") and not policy:
+                raise SealError("robots_policy_redirect_rejected")
+            if not policy and not paths_for(self.config, parsed.hostname, parsed.path):
                 raise SealError("request_out_of_scope")
             parent = request.meta.get("seal_parent_url")
             if parent and request.meta.get("seal_role") in {"iframe", "attachment"}:
@@ -186,6 +189,7 @@ class RequestGuard(Component):
             request.meta.setdefault("seal_logical_url", url)
             request.meta.setdefault("seal_request_key", request_key(request))
             request.meta["seal_requested_at"] = datetime.now(timezone.utc).isoformat()
+            request.meta["seal_scope_decision"] = "policy" if policy else "allowed"
             await asyncio.to_thread(mark_requested, self.context, request)
         except SealError as exc:
             await asyncio.to_thread(mark_failed, self.context, request, exc.code)
@@ -349,7 +353,11 @@ class InputMiddleware(Component):
                         request.meta.get("seal_chain_id"),
                     ),
                 )
-        if self.config.get("output_schema") == "record.v1" and response.status == 200:
+        if (
+            self.config.get("output_schema") == "record.v1"
+            and response.status == 200
+            and request.meta.get("seal_role") != "robots"
+        ):
             from .records import stage_record_resource
 
             stage_record_resource(self.context, entry)

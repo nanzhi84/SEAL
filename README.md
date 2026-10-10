@@ -2,6 +2,42 @@
 
 Self-Evolving Agentic Ingestion Loop：面向异构信息源的持续采集、原文归档和结构化提取项目。
 
+## V1.3：Seeded Site Collection
+
+从业务 Seed 扩展同站点入口、Sitemap、栏目、分页、详情和附件，使用现有 Scrapy
+Scheduler 与请求指纹去重。Specific 规则优先，未知 HTML 由同一 Recipe / Record
+合同下的 Fallback 解析；正文结构与字段 Locator 从归档原文复算。
+
+手动采集使用持久 PostgreSQL 与私有内容寻址归档。运行前设置 `umask 077`、
+`SEAL_DATABASE_URL` 和 `SEAL_ARCHIVE`，再应用自己的 Source 范围；
+seeded Source 必须设置 `robots: true` 和 `output_schema: record.v1`。
+主机与路径不能由发现链接自动扩大；跨域附件需要明确的 `host_path_scopes`。
+受管网络需要平台代理时设置 `SEAL_USE_ENV_PROXY=1`，继承环境代理与 CA。
+
+```sh
+uv sync --frozen
+uv run --frozen seal db migrate
+uv run --frozen seal source apply SOURCE_CONFIG.yaml
+uv run --frozen seal recipe pack recipes/seeded
+uv run --frozen seal binding create SOURCE_ID --recipe RECIPE_VERSION --params PARAMS.yaml
+uv run --frozen seal collect SOURCE_ID --binding BINDING_ID
+uv run --frozen seal inspect run RUN_ID
+uv run --frozen seal inspect record RECORD_ID
+uv run --frozen seal inspect snapshot SNAPSHOT_HASH
+uv run --frozen seal export SOURCE_ID --run RUN_ID
+```
+
+最小参数文件可以是 `{}`；默认深度 12、同路径查询变体 40，Source 的总请求与时间预算
+仍是最终限制。可通过 `specific_rules` 配置同一 Recipe 中的匹配模板，或由可信 Python
+Recipe 提供专用 API / 游标规则；不会猜测搜索条件或任意 JSON API 的业务合同。
+旧 `seal run`、Worker、Retry、Replay 和版本行为继续复用。
+`inspect run` / 回执区分队列耗尽、预算、政策阻塞及部分完成，计数包括 robots 辅助交换。
+队列耗尽不能证明全站完整，所有结构化结果仍标记 `not_evaluated`。
+
+设计、增量迁移与实际验收见 [V1.3 Plan](docs/plans/v1.3-seeded-site-collection.md)、
+[唯一可视化](docs/generated/v1.3-seeded-site-collection.html) 和
+[ADR-0004](docs/adr/0004-seeded-collection-native-scrapy.md)。
+
 ## V1.2 当前实现：Runtime
 
 **Scrapy + 可信 Python Recipe + Procrastinate + PostgreSQL + 内容寻址原文归档。** 模块化单体，不新增服务。团队维护的 Recipe 使用普通 Python 和原生 Scrapy；不执行未经审查的 Agent 代码或外部任意 Python。
@@ -155,7 +191,7 @@ CLI / Procrastinate
 
 [示例 Recipe](recipes/generic/recipe.py) 支持分页 HTML、TXT、JSON、文本层 PDF，附件只保存 `not_fetched` 引用。当前身份规则为规范化 URL，输出 Schema 为 `generic_document.v1`。不支持 OCR、浏览器或复杂附件合并。
 
-RecipeVersion 摘要覆盖包内源码/helper/资源、依赖锁、解释器、系统库及 SEAL 引擎/迁移。运行检查环境漂移；升级使用新 checkout/venv，不原位覆盖共享环境。字段 locator 从归档输入重新核对；可选 `transform: date_iso` 做日期规范化，`segments.separator` 连接已定位片段，最终仍严格比较输出。匹配原文或转换正确不证明业务语义正确。Runtime 固定关闭自动 robots 检查，历史 `robots` 配置不再启用辅助请求；业务 URL 的范围、地址和 HTTP 错误检查仍生效。
+RecipeVersion 摘要覆盖包内源码/helper/资源、依赖锁、解释器、系统库及 SEAL 引擎/迁移。运行检查环境漂移；升级使用新 checkout/venv，不原位覆盖共享环境。字段 locator 从归档输入重新核对；可选 `transform: date_iso` 做日期规范化，`segments.separator` 连接已定位片段，最终仍严格比较输出。匹配原文或转换正确不证明业务语义正确。V1.3 对显式 `robots: true` 启用可审计的政策请求，seeded Recipe 要求该配置；旧默认 false 保持兼容。业务 URL 的范围、地址和 HTTP 错误检查仍生效。
 
 在线关闭 HTTP 缓存、Cookie、环境代理；Replay 缺失或多义映射明确失败，不下载补齐。Scrapy/中间件和普通子进程不是恶意 Python 隔离设施。内容哈希用于去重和损坏检测，不是防篡改存证。部署使用最小权限和配套备份，不承诺多租户隔离、分布式高可用或传输层取证；孤儿对象暂保留，清理需停机核对引用。
 

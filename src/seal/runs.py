@@ -10,6 +10,24 @@ from .core import SealError, uid
 from .db import connect, j, locked_run, one
 
 
+def collect_source(source_id, binding_id=None, *, enqueue=False, recheck=False):
+    """Start a persisted Source run through the same lifecycle as the operator CLI."""
+    with connect() as c:
+        source = one(c, "SELECT * FROM seal_source WHERE id=%s FOR UPDATE", (source_id,))
+        binding_id = binding_id or source["binding_id"]
+        if not binding_id:
+            raise SealError("binding_required")
+        binding = one(c, "SELECT source_id FROM seal_binding WHERE id=%s", (binding_id,))
+        if binding["source_id"] != source_id:
+            raise SealError("binding_source_mismatch")
+        run_id = create_run(binding_id, "recheck" if recheck else "collect", c)
+        if enqueue:
+            from .queue import enqueue as enqueue_run
+
+            enqueue_run(c, run_id)
+    return receipt(run_id) if enqueue else execute_run(run_id)
+
+
 def create_run(binding_id, mode, connection=None, replay_from=None, slot=None, due_only=False):
     if mode not in ("collect", "recheck", "replay"):
         raise SealError("unsupported_run_mode")
@@ -150,15 +168,131 @@ def run_context(run_id, epoch):
     }
 
 
+def run_termination(run):
+    """Describe an attempt's stop without interpreting queue exhaustion as coverage."""
+    status = run["status"]
+    terminal = status in {"complete", "partial", "failed", "superseded"}
+    if not terminal and status != "retryable":
+        return {"terminal": False, "termination": None, "terminal_reason": None}
+    report = run.get("report", {})
+    errors = set(run.get("errors", [])) | set(report.get("errors", []))
+    reason = report.get("terminal_reason")
+    budget = sorted(
+        code for code in errors if "budget_exceeded" in code or code == "deadline_exceeded"
+    )
+    if report.get("finish_reason") == "closespider_timeout":
+        budget.append("closespider_timeout")
+    blocked = sorted(
+        errors
+        & {
+            "robots_denied",
+            "robots_unavailable",
+            "source_rate_limited",
+            "access_control_detected",
+        }
+    )
+    if status == "complete":
+        category, reason = "queue_exhausted", reason or "queue_exhausted"
+    elif status == "superseded":
+        category, reason = "superseded", reason or "superseded"
+    elif budget:
+        category, reason = "budget_exhausted", reason or budget[0]
+    elif blocked:
+        category, reason = "blocked", reason or blocked[0]
+    elif status == "retryable":
+        category, reason = "retryable", reason or (sorted(errors)[0] if errors else status)
+    else:
+        category = status
+        finish_reason = report.get("finish_reason")
+        reason = reason or (
+            finish_reason
+            if finish_reason and finish_reason != "finished"
+            else sorted(errors)[0]
+            if errors
+            else status
+        )
+    return {"terminal": terminal, "termination": category, "terminal_reason": reason}
+
+
+def run_summary(connection, run):
+    """Read current-attempt counters; immutable completion reports stay unchanged."""
+    from .discovery import summarize_discovery
+    from .manifest import has_table
+
+    discovery = summarize_discovery(connection, run)
+    observations = connection.execute(
+        """SELECT snapshot_id FROM seal_fetch_observation
+           WHERE run_id=%s AND attempt_epoch=%s AND snapshot_id IS NOT NULL""",
+        (run["id"], run["attempt_epoch"]),
+    ).fetchall()
+    snapshots = {row["snapshot_id"] for row in observations} | {
+        entry["snapshot_id"] for entry in run["inputs"]
+    }
+    records = (
+        connection.execute(
+            """SELECT count(DISTINCT record_id) AS records,count(*) AS emissions
+               FROM seal_record_emission WHERE run_id=%s AND attempt_epoch=%s""",
+            (run["id"], run["attempt_epoch"]),
+        ).fetchone()
+        if has_table(connection, "seal_record_emission")
+        else {"records": None, "emissions": None}
+    )
+    attachments = {entry["snapshot_id"] for entry in run["inputs"] if entry["role"] == "attachment"}
+    if has_table(connection, "seal_discovery"):
+        attachments.update(
+            row["snapshot_id"]
+            for row in connection.execute(
+                """SELECT DISTINCT snapshot_id FROM seal_discovery WHERE run_id=%s
+                   AND attempt_epoch=%s AND role='attachment' AND snapshot_id IS NOT NULL""",
+                (run["id"], run["attempt_epoch"]),
+            ).fetchall()
+        )
+    return {
+        "attempt_epoch": run["attempt_epoch"],
+        "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+        "discovery_instrumented": discovery["instrumented"],
+        "counts": {
+            **{
+                key: discovery[key] if discovery["instrumented"] else None
+                for key in (
+                    "discovered",
+                    "requested",
+                    "archived",
+                    "failed",
+                    "skipped",
+                    "deduplicated",
+                    "pending",
+                )
+            },
+            "snapshots": len(snapshots),
+            "records": records["records"],
+            "record_emissions": records["emissions"],
+            "record_outputs": len(run["report"].get("record_outputs", [])),
+            "attachments": len(attachments),
+            "http_attempts": discovery["http_attempts"],
+            "archived_observations": discovery["archived_observations"],
+        },
+        "http_attempts_basis": discovery["http_attempts_basis"],
+        **run_termination(run),
+    }
+
+
 def receipt(run_id):
     with connect() as c:
         run = one(c, "SELECT * FROM seal_run WHERE id=%s", (run_id,))
+        summary = run_summary(c, run)
     return {
         "run_id": run_id,
+        "source_id": run["source_id"],
+        "binding_id": run["binding_id"],
+        "mode": run["mode"],
         "status": run["status"],
         "attempt_epoch": run["attempt_epoch"],
+        "max_attempts": run["max_attempts"],
+        "deadline": run["deadline"].isoformat(),
         "errors": run["errors"],
         "report": run["report"],
+        "summary": summary,
     }
 
 

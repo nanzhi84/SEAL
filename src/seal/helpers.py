@@ -13,6 +13,8 @@ from scrapy.http import TextResponse
 
 from .attachments import attachment_projection, docx_coverage, parse_attachment
 from .core import SealError, public_url
+from .fallback import fallback_html_record as fallback_html_record
+from .fallback import html_strategy_record as html_strategy_record
 from .record_validation import json_pointer
 
 

@@ -5,6 +5,25 @@ lang: zh
 
 # 版本记录
 
+## V1.3 / 0.1.3 — 2026-10-10
+
+新增基于业务 Seed 的入口扩展、有界递归链接与 Sitemap 发现，复用原生 Scrapy
+Scheduler、去重、既有 Discovery 与 Scope。seeded Recipe 要求 robots 开启；
+政策请求归档、计入预算，失败关闭业务访问。旧 Source 默认 false 保持兼容。
+
+Specific HTML 规则优先，无匹配时由同一 Recipe / Record 合同的 Fallback 提取正文。
+新 HTML Locator 可复算标题、法律段落层级、编号、表格、日期 null、URL 和附件。
+登录、导航、错误及无可靠正文的页面明确拒绝，不生成成功文档。
+
+新增 `seal collect` 与 `runs.collect_source()`、当前 attempt 的运行计数和终止原因、
+`inspect record` / `inspect snapshot`。存储、幂等、业务版本、Replay 和有限恢复
+继续使用现有 PostgreSQL 与不可变原文归档。新增 `0006_seeded_discovery.sql`；
+已应用迁移不修改，升级需停止旧 Worker、备份、迁移和新 RecipeVersion / Binding。
+
+新测试、实际长期留存演示及八个业务 Seed 的探索记录见
+[V1.3 Plan](docs/plans/v1.3-seeded-site-collection.md)。网络政策拒绝与未知适配如实记录，
+无站点 Ground Truth，不依据队列耗尽推断覆盖。历史工件保持原样。
+
 ## V1.1 / 0.1.1 — 2026-10-09
 
 V1.1 交付独立 Runtime。产品版本称为 V1.1，Python 包版本为 `0.1.1`；沿用 Scrapy、可信 Python Recipe、Procrastinate、PostgreSQL 和本地原文归档。

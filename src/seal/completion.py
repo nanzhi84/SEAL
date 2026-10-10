@@ -62,12 +62,24 @@ def finish_run(run_id, epoch=None):
             errors.append("unresolved_seed")
         online = run["mode"] != "replay"
         if online:
+            policy_column = (
+                "EXISTS (SELECT 1 FROM seal_discovery d WHERE d.run_id=o.run_id "
+                "AND d.attempt_epoch=o.attempt_epoch AND d.chain_id=o.chain_id "
+                "AND (d.role='robots' OR d.reason='optional_entry_missing')) AS absent_entry_allowed"
+                if has_table(c, "seal_discovery")
+                else "false AS absent_entry_allowed"
+            )
             exchanges = c.execute(
-                "SELECT DISTINCT ON (chain_id) status,error,final_url FROM seal_fetch_observation WHERE run_id=%s AND attempt_epoch=%s ORDER BY chain_id,requested_at DESC",
+                "SELECT DISTINCT ON (o.chain_id) o.status,o.error,o.final_url,"
+                + policy_column
+                + " FROM seal_fetch_observation o WHERE o.run_id=%s AND o.attempt_epoch=%s "
+                "ORDER BY o.chain_id,o.requested_at DESC",
                 (run_id, epoch),
             ).fetchall()
             for exchange in exchanges:
                 status = exchange["status"]
+                if exchange["absent_entry_allowed"] and status in {404, 410}:
+                    continue
                 if status is None:
                     errors.append("download_failed")
                 elif status == 429:

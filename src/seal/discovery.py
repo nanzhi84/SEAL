@@ -1,12 +1,15 @@
 """Bounded discovery evidence around Scrapy's scheduler; never schedules requests."""
 
 from datetime import date, datetime
+from fnmatch import fnmatchcase
+from urllib.parse import urlsplit
 
 from scrapy import Request, signals
 from scrapy.exceptions import IgnoreRequest
 
 from .core import SealError, digest, safe_url, uid
 from .db import connect, locked_run, record_error
+from .scope import paths_for, robots_policy_request
 
 
 class ResourceFingerprinter:
@@ -52,6 +55,13 @@ SKIP_REASONS = {
     "iframe_out_of_scope",
     "attachment_host_path_required",
     "discovery_budget_exceeded",
+    "discovery_depth_exceeded",
+    "query_variant_budget_exceeded",
+    "request_excluded",
+    "robots_denied",
+    "robots_unavailable",
+    "robots_policy_redirect_rejected",
+    "optional_entry_missing",
 }
 
 
@@ -113,7 +123,8 @@ def mark_parsed(context, request):
             """UPDATE seal_discovery SET state='parsed',parsed_at=now(),reason=NULL
                WHERE id=%s AND run_id=%s AND attempt_epoch=%s
                  AND state NOT IN ('failed','skipped')
-                 AND (response_status IS NULL OR response_status BETWEEN 200 AND 299)
+                 AND (response_status IS NULL OR response_status BETWEEN 200 AND 299
+                      OR (role='robots' AND response_status IN (404,410)))
                  AND EXISTS (SELECT 1 FROM seal_run WHERE id=%s AND attempt_epoch=%s
                              AND status IN ('running','finishing'))""",
             (
@@ -247,7 +258,17 @@ def summarize_discovery(c, run, include_events=False):
         reason = row["reason"]
         if reason:
             outcomes[reason] = outcomes.get(reason, 0) + 1
-        if row["state"] in ("failed", "skipped") and reason != "duplicate_request":
+        expected_scope = row.get("scope_decision") == "rejected" and reason in {
+            "request_out_of_scope",
+            "request_excluded",
+            "iframe_out_of_scope",
+            "attachment_host_path_required",
+        }
+        if (
+            row["state"] in ("failed", "skipped")
+            and reason not in {"duplicate_request", "optional_entry_missing"}
+            and not expected_scope
+        ):
             if not recovered(row):
                 status = row["response_status"]
                 if status == 429:
@@ -304,6 +325,13 @@ class Discovery:
         value.context = crawler.settings["SEAL_CONTEXT"]
         with connect() as c:
             value.enabled = _available(c)
+            value.metadata_enabled = (
+                value.enabled
+                and c.execute(
+                    "SELECT EXISTS (SELECT 1 FROM information_schema.columns "
+                    "WHERE table_name='seal_discovery' AND column_name='discovery_method') AS present"
+                ).fetchone()["present"]
+            )
             value.count = (
                 c.execute(
                     "SELECT count(*) AS n FROM seal_discovery WHERE run_id=%s AND attempt_epoch=%s",
@@ -313,9 +341,40 @@ class Discovery:
                 else 0
             )
         value.limited = False
+        value.query_variants = {}
+        value.known_fingerprints = set()
+        crawler._seal_discovery = value
         crawler.signals.connect(value.scheduled, signal=signals.request_scheduled)
         crawler.signals.connect(value.dropped, signal=signals.request_dropped)
         return value
+
+    def decision(self, request, already_seen=False):
+        """Bound strategies supplied by the frozen recipe, without a URL frontier."""
+        config = self.context.get("config", {})
+        params = self.context.get("seeded_policy", self.context.get("params", {}))
+        parsed = urlsplit(request.url)
+        if config and not robots_policy_request(config, request):
+            if not paths_for(config, parsed.hostname, parsed.path):
+                return "request_out_of_scope", "rejected"
+        if request.meta.get("_seal_robots_policy"):
+            return None, "policy"
+        if any(fnmatchcase(request.url, pattern) for pattern in params.get("exclude_patterns", [])):
+            return "request_excluded", "rejected"
+        if (
+            not already_seen
+            and "max_depth" in params
+            and request.meta.get("seal_depth", 0) > params["max_depth"]
+        ):
+            return "discovery_depth_exceeded", "limited"
+        maximum = params.get("max_query_variants")
+        if maximum is not None and parsed.query:
+            key = request.method, parsed.scheme, parsed.netloc, parsed.path
+            variants = self.query_variants.setdefault(key, set())
+            identity = digest(parsed.query)
+            if identity not in variants and len(variants) >= maximum:
+                return "query_variant_budget_exceeded", "limited"
+            variants.add(identity)
+        return None, "allowed"
 
     def scheduled(self, request, spider=None):
         # This signal runs before Scheduler.enqueue_request / native Dupefilter.
@@ -343,6 +402,14 @@ class Discovery:
             raise IgnoreRequest("discovery_budget_exceeded")
         identity = uid()
         fingerprint = self.crawler.request_fingerprinter.fingerprint(request).hex()
+        rejection, scope_decision = self.decision(
+            request, fingerprint in getattr(self, "known_fingerprints", set())
+        )
+        # Historical recipes leave scope and budget decisions to RequestGuard.
+        strategy = "seeded_policy" in self.context
+        if not strategy and not request.meta.get("_seal_robots_policy"):
+            rejection = None
+        request.meta["seal_scope_decision"] = scope_decision
         parent = request.meta.get("seal_parent_url")
         if not parent and request.headers.get("Referer"):
             parent = request.headers["Referer"].decode("latin1")
@@ -390,6 +457,21 @@ class Discovery:
                     self.context["attempt_epoch"],
                 ),
             )
+            if getattr(self, "metadata_enabled", False):
+                c.execute(
+                    "UPDATE seal_discovery SET discovery_method=%s,depth=%s,scope_decision=%s "
+                    "WHERE id=%s",
+                    (
+                        transport
+                        if transport != "discovery"
+                        else request.meta.get(
+                            "seal_discovery_method", "seed" if not parent else "html"
+                        ),
+                        request.meta.get("seal_depth", 0),
+                        scope_decision,
+                        identity,
+                    ),
+                )
             if transport != "discovery":
                 c.execute(
                     """UPDATE seal_discovery SET continued_by=%s
@@ -407,11 +489,14 @@ class Discovery:
                 )
         request.meta["seal_discovery_id"] = identity
         self.count += 1
-        rejection = request.meta.get("seal_helper_rejection")
+        rejection = request.meta.get("seal_helper_rejection") or rejection
         if rejection:
             _update(self.context, request, "state='skipped',reason=%s", (rejection,))
-            record_error(self.context["id"], self.context["attempt_epoch"], rejection)
+            if scope_decision != "rejected" or not strategy:
+                record_error(self.context["id"], self.context["attempt_epoch"], rejection)
             raise IgnoreRequest(rejection)
+        if hasattr(self, "known_fingerprints"):
+            self.known_fingerprints.add(fingerprint)
 
     def dropped(self, request, spider=None):
         if not self.enabled:
@@ -452,10 +537,12 @@ class DiscoverySpiderMiddleware:
     @staticmethod
     def lineage(response, output):
         if isinstance(output, Request):
-            output.meta["seal_parent_url"] = response.url
-            output.meta["seal_parent_snapshot_id"] = response.meta.get("seal_snapshot_id")
-            output.meta["seal_parent_observation_id"] = response.meta.get("seal_observation_id")
+            if not output.meta.pop("_seal_explicit_policy_parent", False):
+                output.meta["seal_parent_url"] = response.url
+                output.meta["seal_parent_snapshot_id"] = response.meta.get("seal_snapshot_id")
+                output.meta["seal_parent_observation_id"] = response.meta.get("seal_observation_id")
             output.meta["_seal_discovery_from_callback"] = True
+            output.meta.setdefault("seal_depth", response.meta.get("seal_depth", 0) + 1)
         elif isinstance(output, dict) and output.get("type") == "diagnostic":
             # Historical Recipes emitted only type/code. Bind their diagnostics
             # to the callback input before Items records a parsing failure.
