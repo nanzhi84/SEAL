@@ -41,7 +41,10 @@ class DynamicAttachmentTests(unittest.TestCase):
             },
         }
         spider = MODULE.SeededSpider({"discover_sitemaps": False}, context)
-        spider.crawler = SimpleNamespace(stats=Mock())
+        spider.crawler = SimpleNamespace(
+            stats=Mock(),
+            settings={"SEAL_CONTEXT": {**context, "_seal_discovery_metadata": True}},
+        )
         return spider
 
     def parent(self):

@@ -115,7 +115,9 @@ class SeededSpider(scrapy.Spider):
                 # A suffix-free URL can become an attachment only after download.
                 # Preserve its archive without promoting an implicit cross-host
                 # attachment outside the explicit Source resource contract.
-                mark_failed(self.context, response.request, code)
+                # Discovery initializes this Runtime flag after Spider creation;
+                # the immutable recipe context is an earlier independent copy.
+                mark_failed(self.crawler.settings["SEAL_CONTEXT"], response.request, code)
                 yield diagnostic(response, code)
                 return
             try:
