@@ -9,6 +9,7 @@ Recheck must use the same parent search, not a different company-profile schema.
 import re
 
 import scrapy
+from w3lib.url import add_or_replace_parameter
 
 from seal.core import SealError
 from seal.helpers import diagnostic, follow, node_text, record_item, xpath_locator
@@ -30,6 +31,13 @@ class LiveCSpider(scrapy.Spider):
         self.params, self.context = params, context
         self.allowed_domains = context["config"]["allowed_hosts"]
         self.pages = set()
+        # The Binding freezes the public filter; Recheck retains this exact URL.
+        self.amac_urls = {
+            page: add_or_replace_parameter(
+                AMAC.format(page=page), "houseName", params.get("house_name", "")
+            )
+            for page in (1, 2)
+        }
 
     async def start(self):
         for seed in self.context["seeds"]:
@@ -63,10 +71,9 @@ class LiveCSpider(scrapy.Spider):
             )
 
     def parse_amac(self, response):
-        page_match = re.fullmatch(re.escape(AMAC).replace(r"\{page\}", "([12])"), response.url)
-        if page_match is None:
+        page = {url: number for number, url in self.amac_urls.items()}.get(response.url)
+        if page is None:
             raise SealError("unexpected_query_or_page")
-        page = int(page_match[1])
         envelope = json_pointer(response.body, "")
         if envelope.get("code") != 200 or envelope.get("data", {}).get("errcode") != 0:
             raise SealError("api_envelope_not_success")
@@ -101,7 +108,7 @@ class LiveCSpider(scrapy.Spider):
                 key_locator=locators["houseName"].copy(),
             )
         if page < self.params["max_pages"] and page * 10 < total:
-            yield follow(response, AMAC.format(page=page + 1), "api", self.parse, self.failed)
+            yield follow(response, self.amac_urls[page + 1], "api", self.parse, self.failed)
 
     def parse_companies(self, response):
         allowed = {COMPANIES: 1, COMPANIES + "&page=2": 2}

@@ -14,6 +14,34 @@ def resources(h, sample, label, inspected):
         sorted(expected.get("errors", [])),
     )
     events = inspected["discovery"]["events"]
+    if "http_attempts" in expected:
+        h.check(
+            prefix + "_bounded_http_attempts",
+            inspected["discovery"]["http_attempts"],
+            expected["http_attempts"],
+        )
+    if "http_statuses" in expected:
+        h.check(
+            prefix + "_observed_http_statuses",
+            [row["status"] for row in inspected["observations"]],
+            expected["http_statuses"],
+        )
+    if "blocked_redirect" in expected:
+        blocked = [event for event in events if event["url"] == expected["blocked_redirect"]]
+        h.check(prefix + "_blocked_redirect_present", len(blocked), 1)
+        h.check(prefix + "_blocked_redirect_not_requested", blocked[0]["requested_at"], None)
+        h.check(prefix + "_blocked_redirect_reason", blocked[0]["reason"], "request_out_of_scope")
+        redirects = [row for row in inspected["observations"] if row["status"] == 302]
+        h.check(prefix + "_redirect_raw_preserved", len(redirects), 1)
+        snapshot = json.loads(object_bytes(h.root / "archive", redirects[0]["snapshot_id"]))
+        object_bytes(h.root / "archive", snapshot["body_hash"])
+        locations = [
+            value
+            for key, values in snapshot["headers"].items()
+            if key.lower() == "location"
+            for value in values
+        ]
+        h.check(prefix + "_raw_redirect_location", locations, [expected["blocked_redirect"]])
     h.check(prefix + "_no_pending_discoveries", inspected["discovery"]["pending"], 0)
     required = (
         expected.get("archived_urls", [])

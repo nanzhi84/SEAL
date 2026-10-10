@@ -136,7 +136,7 @@ def build(args):
                 add(path, synthetic_group=real.get("status") not in {"PASS", "FAIL"})
         groups.append(group)
 
-    historical = load(HERE / "results/expanded-final/dispositions.json")
+    historical = load(args.history)
     probes = load(args.probes)
     observed = {row["research_id"]: row for row in probes["sources"]}
     rows = []
@@ -196,7 +196,7 @@ def build(args):
                 row["verification_scope"] = "current_engine_failed_or_refused_run"
                 if rid == "dd-357":
                     row.update(
-                        reason_category="Recipe 缺陷 / 登录挑战",
+                        reason_category="来源访问限制 / 安全范围拒绝",
                         reason_code="encoded_seed_redirect_out_of_scope",
                         reason="冻结入口含 %21，与公开探测的 ! 路径不同；本轮重定向到 LicenseRedirect 被边界拒绝，未跟随登录且未复试",
                     )
@@ -236,7 +236,12 @@ def build(args):
         for path in sorted(directory.rglob("*")):
             if path.is_file():
                 add(path)
-    for folder in ("src", "recipes", "experiments/v1.2-acceptance/remediation_samples"):
+    for folder in (
+        "src",
+        "recipes",
+        "experiments/v1.2-acceptance/remediation_samples",
+        "experiments/v1.2-acceptance/delivery_samples",
+    ):
         for path in sorted((ROOT / folder).rglob("*")):
             if path.is_file() and "__pycache__" not in path.parts:
                 add(path)
@@ -261,7 +266,7 @@ def build(args):
         "quality_status": "not_evaluated",
         "synthetic_evidence_exceptions": exceptions,
         "files": {name: sha(body) for name, body in sorted(payload.items())},
-        "historical_evidence": "../expanded-final/dispositions.json; unchanged",
+        "historical_evidence": str(args.history) + "; unchanged",
         "public_probe_scope": "No positive adaptation inference from HTTP status or probes",
         "preserved_development_evidence": [
             {
@@ -346,6 +351,9 @@ if __name__ == "__main__":
     parser.add_argument("--group", action="append", default=[])
     parser.add_argument("--probes", type=Path)
     parser.add_argument("--engine-commit")
+    parser.add_argument(
+        "--history", type=Path, default=HERE / "results/expanded-final/dispositions.json"
+    )
     parser.add_argument("--preserve", type=Path, action="append", default=[])
     parser.add_argument("--baseline", type=Path, action="append", default=[])
     parser.add_argument("--proof", type=Path, action="append", default=[])

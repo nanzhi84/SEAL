@@ -1,0 +1,84 @@
+[
+  {
+    "research_id": "dd-357",
+    "class": "B",
+    "recipe": "recipes/expanded_b1",
+    "params": {
+      "documents": [
+        {
+          "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+          "title": ".cjcs_phone_title",
+          "body": ".content_body_box"
+        }
+      ],
+      "routes": [],
+      "attachments": [],
+      "pdf_titles": {}
+    },
+    "source": {
+      "id": "remediation_dd_357",
+      "entry_urls": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "allowed_hosts": [
+        "permit.mee.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/perxxgkinfo/syssb/xkgg/"
+      ],
+      "host_path_scopes": {
+        "permit.mee.gov.cn": [
+          "/perxxgkinfo/syssb/xkgg/"
+        ]
+      },
+      "research_ids": [
+        "dd-357"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅原规定公开公告《关于调整2024年排污许可证年度执行报告报送时间的公告》匿名HTML正文；最新直接GET无CAS重定向后才进行有界四轮验收。采用文章URL文档身份；不模拟CAS、不读取许可证查询或执行报告数据，不扩大到全站或主体核验。",
+      "seed_role": "detail",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 16,
+        "seconds": 90,
+        "response_bytes": 6291456
+      },
+      "concurrency": 1,
+      "delay": 0.15,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 0,
+      "record_count": 0,
+      "statuses": [
+        "partial"
+      ],
+      "errors": [
+        "download_failed",
+        "redirect_incomplete",
+        "request_out_of_scope",
+        "transport_continued",
+        "unresolved_seed"
+      ],
+      "roles": [],
+      "min_pages": 0,
+      "allowed_urls": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+        "http://permit.mee.gov.cn/perxxgkinfo/outside/LicenseRedirect"
+      ],
+      "archived_urls": [],
+      "http_attempts": 1,
+      "http_statuses": [
+        302
+      ],
+      "blocked_redirect": "http://permit.mee.gov.cn/perxxgkinfo/outside/LicenseRedirect"
+    }
+  }
+]
