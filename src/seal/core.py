@@ -35,7 +35,7 @@ SENSITIVE = re.compile(
     r"token|password|secret|authorization|api[-_]?key|session|signature|credential", re.I
 )
 BODY_KEY = (
-    rb"(?:access[_-]?token|refresh[_-]?token|id[_-]?token|token|api[_-]?key|"
+    rb"(?:(?:(?:access|refresh|id|csrf|xsrf|auth)[_-]?)?token|api[_-]?key|"
     rb"(?:user[_-]?)?password|passwd|pwd|(?:proxy[_-]?)?authorization|"
     rb"(?:client[_-]?)?secret|secret[_-]?key|(?:set[_-]?)?cookie|"
     rb"session(?:[_-]?id|[_-]?token)?|jsessionid|credential(?:s)?)"

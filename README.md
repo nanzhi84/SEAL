@@ -134,6 +134,10 @@ RecipeVersion 摘要覆盖包内源码/helper/资源、依赖锁、解释器、�
 
 在线关闭 HTTP 缓存、Cookie、环境代理；Replay 缺失或多义映射明确失败，不下载补齐。Scrapy/中间件和普通子进程不是恶意 Python 隔离设施。内容哈希用于去重和损坏检测，不是防篡改存证。部署使用最小权限和配套备份，不承诺多租户隔离、分布式高可用或传输层取证；孤儿对象暂保留，清理需停机核对引用。
 
+同键同内容的 Record 保留所有结果和输入证据，代表结果优先选择带已验证父请求的候选，按 `(url, method, role)` 字典序及 `output_hash` 决定；到达时间和随机 ID 不参与选择。该规则在本轮候选集合内确定，后续 Recheck 使用选中的父请求；不保证来源页面永久包含该记录。
+
+原文归档前拒绝非空敏感值，包括 `csrfToken`、`xsrfToken`、`authToken` 及对应 snake_case、kebab-case 和大小写变体，JSON/脚本赋值与 HTML 表单共用字段规则。空占位符和 `csrfTokenHint` 等公开辅助字段仍可归档；这不是任意 JavaScript 或混淆内容的完整安全分析。
+
 ## 可重复端到端验收
 
 额外要求 `initdb`、`pg_ctl` 在 PATH。脚本覆盖外部业务数据库环境变量，创建独立 PostgreSQL 集群、临时原文目录和仅监听 `127.0.0.1` 的合成站点；结束后销毁测试集群。M2/M3 使用真实 Worker；故障注入只作用于隔离测试数据。
@@ -143,6 +147,8 @@ RecipeVersion 摘要覆盖包内源码/helper/资源、依赖锁、解释器、�
 uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py ACTUAL_OUTPUT_DIRECTORY
 uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.1-runtime-acceptance
 seiso check
+uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --output artifacts/acceptance/p1
+uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/p1
 ```
 
 M0–M3 仍为累积入口，但场景已改为 V1.1 Runtime 合同，不再包含业务 Gold Comparison。保留工程独立预期，覆盖原生采集、候选运行、历史迁移/Replay、A→A→B→A、同键异值、版本共享、事务回滚、进程强杀、三层 fencing、有限恢复和敏感信息不落盘。

@@ -3,6 +3,7 @@
 import copy
 import json
 import threading
+import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlsplit
 
@@ -33,6 +34,7 @@ class Site:
 
         self.ledger = []
         self.state = "base"
+        self.delays = {}
         self.hold_next = False
         self.hold_started = threading.Event()
         self.hold_release = threading.Event()
@@ -50,6 +52,7 @@ class Site:
             def do_GET(self):
                 parsed = urlsplit(self.path)
                 path, query = parsed.path, parse_qs(parsed.query)
+                time.sleep(owner.delays.get(path, 0))
                 status, content_type = 200, "text/html; charset=utf-8"
                 if path.startswith("/sensitive/"):
                     body = body_for(path, owner.state)

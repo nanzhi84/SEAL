@@ -242,6 +242,20 @@ def _raw_state(input_ids):
     return state
 
 
+def _representative_key(row):
+    # Prefer a proven parent over legacy missing metadata. Request semantics,
+    # then immutable output bytes break ties; arrival times and UUIDs must not
+    # decide which page future Rechecks fetch. All results/inputs remain retained.
+    parent = row["candidate"]["frozen_parent_request"]
+    return (
+        parent is None,
+        parent["url"] if parent else "",
+        parent["method"] if parent else "",
+        parent["role"] if parent else "",
+        row["output_hash"],
+    )
+
+
 def finish_records(c, source, run):
     """Finalize valid attempt emissions; call accept_records only for a complete Run.
 
@@ -284,7 +298,7 @@ def finish_records(c, source, run):
             continue
         duplicates += len(rows) - 1
         record = one(c, "SELECT * FROM seal_record WHERE id=%s FOR UPDATE", (record_id,))
-        candidate = rows[0]
+        candidate = min(rows, key=_representative_key)
         previous = _baseline(c, run, record_id, True)
         global_previous = previous or _baseline(c, run, record_id, False)
         changed = previous is None or previous["content_hash"] != candidate["content_hash"]
