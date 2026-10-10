@@ -59,6 +59,7 @@ SKIP_REASONS = {
     "query_variant_budget_exceeded",
     "request_excluded",
     "robots_denied",
+    "robots_policy_http_denied",
     "robots_unavailable",
     "robots_policy_redirect_rejected",
     "optional_entry_missing",
@@ -70,16 +71,17 @@ def _available(c):
     return c.execute("SELECT to_regclass('seal_discovery') AS name").fetchone()["name"] is not None
 
 
-def _update(context, request, assignments, params=()):
+def _update(context, request, assignments, params=(), *, preserve_terminal=False):
     identity = request.meta.get("seal_discovery_id")
     if not identity:
         return
     with connect() as c:
         if not _available(c):
             return
+        terminal_guard = " AND state NOT IN ('failed','skipped')" if preserve_terminal else ""
         c.execute(
             f"""UPDATE seal_discovery SET {assignments}
-                WHERE id=%s AND run_id=%s AND attempt_epoch=%s
+                WHERE id=%s AND run_id=%s AND attempt_epoch=%s{terminal_guard}
                   AND EXISTS (SELECT 1 FROM seal_run WHERE id=%s AND attempt_epoch=%s
                               AND status IN ('running','finishing'))""",
             (
@@ -137,7 +139,8 @@ def mark_parsed(context, request):
         )
 
 
-def mark_failed(context, request, code):
+def mark_failed(context, request, code, *, preserve_terminal=False):
+    """Finish a candidate, optionally preserving an earlier authoritative rejection."""
     state = "skipped" if code in SKIP_REASONS else "failed"
     assignments, params = "state=%s,reason=%s", (state, code)
     if context.get("_seal_discovery_metadata"):
@@ -164,7 +167,7 @@ def mark_failed(context, request, code):
             request.meta["seal_scope_decision"] = decision
             assignments += ",scope_decision=%s"
             params += (decision,)
-    _update(context, request, assignments, params)
+    _update(context, request, assignments, params, preserve_terminal=preserve_terminal)
 
 
 def mark_inputs_failed(context, snapshot_ids, code):

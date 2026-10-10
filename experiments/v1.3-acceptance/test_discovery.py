@@ -171,6 +171,107 @@ class SeededDiscoveryTests(unittest.TestCase):
         self.assertTrue(all(isinstance(r, Request) and not r.dont_filter for r in requests))
         requests = asyncio.run(collect(MODULE.SeededSpider({}, self.context(mode="recheck"))))
         self.assertEqual(len(requests), 1)
+        replay = MODULE.SeededSpider({}, self.context(mode="replay", replay_inputs=[]))
+        requests = asyncio.run(collect(replay))
+        self.assertEqual(len(requests), 3)
+        replay_recheck = MODULE.SeededSpider(
+            {}, self.context(mode="replay", recheck_plan={"records": [{"record_id": "due"}]})
+        )
+        requests = asyncio.run(collect(replay_recheck))
+        self.assertEqual(len(requests), 1)
+
+    def response(self, path="/detail", body=b"", policy=None, role="detail"):
+        request = Request(
+            "https://example.org" + path,
+            meta={
+                "seal_role": role,
+                "seal_snapshot_id": "page-snapshot",
+                "seal_observation_id": "page-observation",
+                **({"_seal_robots_sitemaps": policy} if policy else {}),
+            },
+        )
+        return HtmlResponse(
+            request.url,
+            request=request,
+            body=body,
+            encoding="utf8",
+            headers={"Content-Type": "text/html"},
+        )
+
+    def policy(self, snapshot="robots-snapshot", observation="robots-observation", origin=None):
+        origin = origin or "https://example.org"
+        return {
+            "urls": [origin + "/map.xml", origin + "/map.xml", origin + "/second-map.xml"],
+            "url": origin + "/robots.txt",
+            "snapshot_id": snapshot,
+            "observation_id": observation,
+        }
+
+    def test_recheck_parse_and_its_replay_do_not_explore_any_new_resource(self):
+        body = (
+            "<html><h1>Due document</h1><article><p>"
+            + "Public text. " * 30
+            + "</p></article>"
+            + "".join(f'<a href="/other/{i}">Other</a>' for i in range(200))
+            + '<a href="/file.pdf">PDF</a><iframe src="/frame"></iframe>'
+            + '<link rel="sitemap" href="/inline-map.xml"></html>'
+        ).encode()
+        for context in (
+            self.context(mode="recheck"),
+            self.context(mode="replay", recheck_plan={"records": [{"record_id": "due"}]}),
+        ):
+            spider = MODULE.SeededSpider({}, context)
+            spider.crawler = SimpleNamespace(stats=Mock())
+            response = self.response(body=body, policy=self.policy())
+            outputs = list(spider.parse(response))
+            self.assertTrue(
+                any(isinstance(item, dict) and item["type"] == "record" for item in outputs)
+            )
+            self.assertFalse(any(isinstance(item, Request) for item in outputs))
+            self.assertEqual(list(spider.policy_sitemaps(response)), [])
+            sitemap = self.response(
+                body=b"<urlset><url><loc>https://example.org/new</loc></url></urlset>",
+                role="sitemap",
+            )
+            self.assertEqual(list(spider.parse(sitemap)), [])
+
+    def test_robots_sitemap_policy_version_is_discovered_once_with_first_parent(self):
+        spider = MODULE.SeededSpider({}, self.context())
+        first = list(spider.policy_sitemaps(self.response(policy=self.policy())))
+        self.assertEqual(len(first), 2)
+        for candidate in first:
+            self.assertEqual(candidate.meta["seal_parent_url"], "https://example.org/robots.txt")
+            self.assertEqual(candidate.meta["seal_parent_snapshot_id"], "robots-snapshot")
+            self.assertEqual(candidate.meta["seal_parent_observation_id"], "robots-observation")
+            self.assertEqual(
+                candidate.cb_kwargs["parent"],
+                {"snapshot_id": "robots-snapshot", "observation_id": "robots-observation"},
+            )
+        for number in range(200):
+            response = self.response(
+                path=f"/page/{number}", policy=self.policy(observation=f"later-{number}")
+            )
+            self.assertEqual(list(spider.policy_sitemaps(response)), [])
+        self.assertEqual(
+            len(
+                list(spider.policy_sitemaps(self.response(policy=self.policy(snapshot="changed"))))
+            ),
+            2,
+        )
+        self.assertEqual(
+            len(
+                list(
+                    spider.policy_sitemaps(
+                        self.response(policy=self.policy(origin="https://other.org"))
+                    )
+                )
+            ),
+            2,
+        )
+        fresh_crawl = MODULE.SeededSpider({}, self.context())
+        self.assertEqual(
+            len(list(fresh_crawl.policy_sitemaps(self.response(policy=self.policy())))), 2
+        )
 
     def test_robots_and_proxy_settings_keep_legacy_opt_in(self):
         context = self.context()

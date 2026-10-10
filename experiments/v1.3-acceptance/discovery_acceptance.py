@@ -263,7 +263,8 @@ def exercise(h):
                 h.check(name + "_fails_closed", "/seed/final" in fetched, False)
                 h.check(
                     name + "_reason",
-                    ("robots_denied" if status == 403 else "robots_unavailable") in run["errors"],
+                    ("robots_policy_http_denied" if status == 403 else "robots_unavailable")
+                    in run["errors"],
                 )
         policy_status[0], policy_content[0] = (
             200,

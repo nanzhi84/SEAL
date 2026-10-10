@@ -170,7 +170,9 @@ def finish_run(run_id, epoch=None):
                 entry["snapshot_id"] for entry in run["inputs"] if entry["role"] in ("list", "api")
             ],
             "attachment_inputs": [
-                entry["snapshot_id"] for entry in run["inputs"] if entry["role"] == "attachment"
+                entry["snapshot_id"]
+                for entry in run["inputs"]
+                if entry["role"] == "attachment" or entry.get("resource_type") == "attachment"
             ],
             "record_absence_semantics": "unobserved_is_unknown_never_deleted",
             "unobserved_records": unobserved,

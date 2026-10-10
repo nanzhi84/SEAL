@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -43,12 +44,33 @@ def main():
                 str(args.output / "persistence"),
             ],
         ),
+        *[
+            (
+                name,
+                [
+                    f"experiments/v1.3-acceptance/{script}",
+                    "--output",
+                    str(args.output / name),
+                ],
+            )
+            for name, script in (
+                ("review-boundaries", "review_boundaries_acceptance.py"),
+                ("review-replay", "review_replay_acceptance.py"),
+                ("sitemap", "sitemap_acceptance.py"),
+                ("robots-reasons", "robots_reasons_acceptance.py"),
+                ("dynamic-attachment", "dynamic_attachment_acceptance.py"),
+            )
+        ],
     ]
     results = {}
     for name, command in suites:
         with (args.output / (name + ".log")).open("w") as log:
             run = subprocess.run([sys.executable, *command], stdout=log, stderr=log, check=False)
         value = {"exit": run.returncode, "status": "PASS" if run.returncode == 0 else "FAIL"}
+        if name == "unit":
+            count = re.search(r"Ran (\d+) tests in", (args.output / "unit.log").read_text())
+            if count:
+                value["unit_tests"] = int(count.group(1))
         assertions = args.output / name / "assertions.json"
         if assertions.exists():
             checks = json.loads(assertions.read_text())

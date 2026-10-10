@@ -193,6 +193,10 @@ def stage_item(context, item, validation=None):
             "fallback_error_page",
             "invalid_specific_rule",
             "sitemap_parse_failed",
+            "sitemap_decompression_failed",
+            "sitemap_size_exceeded",
+            "sitemap_size_limit_invalid",
+            "attachment_host_path_required",
         }
         code = item.get("code")
         raise SealError(code if code in allowed else "recipe_diagnostic")

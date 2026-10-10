@@ -46,3 +46,19 @@ def robots_policy_request(config, request):
         and not parsed.fragment
         and request.url == request.meta.get("_seal_robots_url")
     )
+
+
+def attachment_response_scope(config, url, parent_url):
+    """Check a resource whose attachment type was only known after download.
+
+    Its discovery role remains unchanged for request identity and Replay. The
+    final attachment representation still needs the explicit cross-host scope.
+    """
+    parsed = urlsplit(url)
+    if not paths_for(config, parsed.hostname, parsed.path):
+        return "request_out_of_scope"
+    if parsed.hostname != urlsplit(parent_url).hostname and parsed.hostname not in config.get(
+        "host_path_scopes", {}
+    ):
+        return "attachment_host_path_required"
+    return None

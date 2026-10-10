@@ -6,8 +6,55 @@ import subprocess
 import time
 from datetime import datetime, timedelta, timezone
 
-from .core import SealError, uid
+from .core import Objects, SealError, uid
 from .db import connect, j, locked_run, one
+
+
+def freeze_replay_origin(connection, original):
+    """Freeze negative inputs without turning Replay into an input whitelist.
+
+    An unchanged callback can rediscover a candidate that the original attempt
+    deliberately refused before any Snapshot existed. Only those exact historical
+    failures may be skipped; an unknown request must still be a Replay miss.
+    """
+    inherited = original["report"].get("replay_origin_id")
+    if inherited:
+        return inherited
+    available = connection.execute("SELECT to_regclass('seal_discovery') AS name").fetchone()[
+        "name"
+    ]
+    candidates = (
+        connection.execute(
+            """SELECT d.fingerprint,d.role,d.parent_snapshot_id,d.reason
+               FROM seal_discovery d WHERE d.run_id=%s AND d.attempt_epoch=%s
+                 AND d.snapshot_id IS NULL AND d.state IN ('failed','skipped')
+                 AND d.reason IS NOT NULL
+                 AND d.reason NOT IN ('duplicate_request','transport_continued',
+                                      'replay_miss','replay_ambiguous')
+                 AND NOT EXISTS (
+                     SELECT 1 FROM seal_discovery archived
+                     WHERE archived.run_id=d.run_id
+                       AND archived.attempt_epoch=d.attempt_epoch
+                       AND archived.fingerprint=d.fingerprint AND archived.role=d.role
+                       AND archived.snapshot_id IS NOT NULL)
+               ORDER BY d.created_at,d.id""",
+            (original["id"], original["attempt_epoch"]),
+        ).fetchall()
+        if available
+        else []
+    )
+    if not candidates:
+        return None
+    reasons = {item["reason"] for item in candidates}
+    value = {
+        "contract": 1,
+        "run_id": original["id"],
+        "attempt_epoch": original["attempt_epoch"],
+        "status": original["status"],
+        "errors": sorted(set(original["errors"]) & reasons),
+        "rejected_candidates": candidates,
+    }
+    return Objects().put_json(value)
 
 
 def collect_source(source_id, binding_id=None, *, enqueue=False, recheck=False):
@@ -54,6 +101,7 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None, d
     config = binding["config"]
     seeds = [{"url": url, "role": config["seed_role"]} for url in config["entry_urls"]]
     replay_inputs = []
+    replay_origin_id = None
     recheck_plan = None
     if mode == "recheck":
         from .recheck import plan_recheck
@@ -63,7 +111,8 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None, d
         original = one(c, "SELECT * FROM seal_run WHERE id=%s", (replay_from,))
         if original["source_id"] != source["id"]:
             raise SealError("cross_source_replay_rejected")
-        if not original["inputs"]:
+        replay_origin_id = freeze_replay_origin(c, original)
+        if not original["inputs"] and not replay_origin_id:
             raise SealError("replay_inputs_missing")
         seeds, replay_inputs = original["seeds"], original["inputs"]
         recheck_plan = original.get("recheck_plan")
@@ -71,8 +120,8 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None, d
     if online:
         c.execute("UPDATE seal_source SET run_seq=%s WHERE id=%s", (seq, source["id"]))
     c.execute(
-        """INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,replay_inputs,slot,recheck_plan)
-        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+        """INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,replay_inputs,slot,recheck_plan,report)
+        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
         (
             identity,
             source["id"],
@@ -86,6 +135,7 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None, d
             j(replay_inputs),
             slot,
             j(recheck_plan) if recheck_plan is not None else None,
+            j({"replay_origin_id": replay_origin_id} if replay_origin_id else {}),
         ),
     )
     return identity
@@ -148,9 +198,14 @@ def begin_attempt(run_id):
                     "results": run["result_ids"],
                 }
             ]
+        report = {"attempts": history}
+        errors = []
+        if run["report"].get("replay_origin_id"):
+            report["replay_origin_id"] = run["report"]["replay_origin_id"]
+            errors = Objects().json(report["replay_origin_id"])["errors"]
         c.execute(
-            "UPDATE seal_run SET attempt_epoch=attempt_epoch+1,status='running',inputs='[]',result_ids='[]',refs='[]',errors='[]',report=%s WHERE id=%s",
-            (j({"attempts": history}), run_id),
+            "UPDATE seal_run SET attempt_epoch=attempt_epoch+1,status='running',inputs='[]',result_ids='[]',refs='[]',errors=%s,report=%s WHERE id=%s",
+            (j(errors), j(report), run_id),
         )
         return run["attempt_epoch"] + 1
 
@@ -159,13 +214,16 @@ def run_context(run_id, epoch):
     with connect() as c:
         run = one(c, "SELECT * FROM seal_run WHERE id=%s AND attempt_epoch=%s", (run_id, epoch))
         binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (run["binding_id"],))
-    return {
+    context = {
         **run,
         "deadline": run["deadline"].isoformat(),
         "config": binding["config"],
         "params": binding["params"],
         "recipe_version": binding["recipe_version"],
     }
+    if run["report"].get("replay_origin_id"):
+        context["replay_origin"] = Objects().json(run["report"]["replay_origin_id"])
+    return context
 
 
 def run_termination(run):
@@ -186,6 +244,7 @@ def run_termination(run):
         errors
         & {
             "robots_denied",
+            "robots_policy_http_denied",
             "robots_unavailable",
             "source_rate_limited",
             "access_control_detected",
@@ -237,7 +296,11 @@ def run_summary(connection, run):
         if has_table(connection, "seal_record_emission")
         else {"records": None, "emissions": None}
     )
-    attachments = {entry["snapshot_id"] for entry in run["inputs"] if entry["role"] == "attachment"}
+    attachments = {
+        entry["snapshot_id"]
+        for entry in run["inputs"]
+        if entry["role"] == "attachment" or entry.get("resource_type") == "attachment"
+    }
     if has_table(connection, "seal_discovery"):
         attachments.update(
             row["snapshot_id"]

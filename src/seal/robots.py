@@ -126,13 +126,29 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
                     await asyncio.to_thread(mark_parsed, self.context, response.request)
                 else:
                     code = (
-                        "robots_denied" if response.status in (401, 403) else "robots_unavailable"
+                        "robots_policy_http_denied"
+                        if response.status in (401, 403)
+                        else "robots_unavailable"
                     )
                     self.reasons[netloc] = code
                     await asyncio.to_thread(mark_failed, self.context, response.request, code)
                     self._unavailable(netloc)
-            except Exception:
+            except Exception as exc:
+                # Parsing or policy-input failures must close the auxiliary event,
+                # not just replace the in-memory parser. Guard/Archive may already
+                # have recorded a precise IgnoreRequest cause (budget, archive,
+                # missing Replay input); retain that evidence atomically. A native
+                # transport's generic download_failed becomes policy unavailable;
+                # the Observation retains the concrete connection/proxy error.
+                await asyncio.to_thread(
+                    mark_failed,
+                    self.context,
+                    policy,
+                    "robots_unavailable",
+                    preserve_terminal=isinstance(exc, IgnoreRequest),
+                )
                 self.reasons[netloc] = "robots_unavailable"
+                self.sitemaps.pop(netloc, None)
                 self._unavailable(netloc)
             self._stats.inc_value("robotstxt/request_count")
         parser = self._parsers[netloc]
