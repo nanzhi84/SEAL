@@ -97,6 +97,7 @@ class SeededSpider(scrapy.Spider):
         if response.status in (404, 410) and response.meta.get("_seal_optional_entry"):
             mark_failed(self.context, response.request, "optional_entry_missing")
             return
+        yield from self.policy_sitemaps(response)
         if is_sitemap_response(response):
             try:
                 for url, role in sitemap_links(response):
@@ -143,6 +144,8 @@ class SeededSpider(scrapy.Spider):
                     return
         for url, role, method in html_links(response):
             yield self.request(url, role, method, parent=response)
+
+    def policy_sitemaps(self, response):
         if self.params.get("discover_sitemaps", True):
             # robots policy was already archived by the native middleware. Emit
             # its declared sitemaps as regular candidates with policy parentage.

@@ -116,10 +116,16 @@ def exercise(h):
             robots=True,
             delay=0.0,
         )
-        binding = h.binding("seeded", recipe, {
-            "exclude_patterns": ["*/private*"],
-            "specific_rules": [{"path_regex": "/seed/final$", "title": "h1", "body": "article", "date": None}],
-        })
+        binding = h.binding(
+            "seeded",
+            recipe,
+            {
+                "exclude_patterns": ["*/private*"],
+                "specific_rules": [
+                    {"path_regex": "/seed/final$", "title": "h1", "body": "article", "date": None}
+                ],
+            },
+        )
         receipt = h.cli("collect", "seeded", "--binding", binding, ok=False)
         inspection = h.cli("inspect", "run", receipt["run_id"])
         export = h.cli("export", "seeded", "--run", receipt["run_id"])
@@ -164,16 +170,26 @@ def exercise(h):
             all(r["data"].get("url") != h.site.url + "/robots.txt" for r in export["records"]),
         )
         h.check("effective_defaults_frozen", receipt["report"]["seeded_policy"]["max_depth"], 12)
-        h.check("specific_rule_used", receipt["report"]["stats"].get("seal/specific_documents", 0) >= 1)
-        h.check("fallback_used_for_unknown_templates", receipt["report"]["stats"].get("seal/fallback_documents", 0) >= 1)
+        h.check(
+            "specific_rule_used", receipt["report"]["stats"].get("seal/specific_documents", 0) >= 1
+        )
+        h.check(
+            "fallback_used_for_unknown_templates",
+            receipt["report"]["stats"].get("seal/fallback_documents", 0) >= 1,
+        )
         before = len(h.site.ledger)
         replay = h.cli("replay", receipt["run_id"], ok=False)
         replay_export = h.cli("export", "seeded", "--run", replay["run_id"])
         h.check("replay_zero_http_including_robots", len(h.site.ledger), before)
         h.check(
             "replay_structured_output_deterministic",
-            sorted((r["data"] for r in replay_export["records"]), key=lambda d: json.dumps(d, sort_keys=True)),
-            sorted((r["data"] for r in export["records"]), key=lambda d: json.dumps(d, sort_keys=True)),
+            sorted(
+                (r["data"] for r in replay_export["records"]),
+                key=lambda d: json.dumps(d, sort_keys=True),
+            ),
+            sorted(
+                (r["data"] for r in export["records"]), key=lambda d: json.dumps(d, sort_keys=True)
+            ),
         )
         # Query enumeration and depth are independent conservative truncations.
         for name, params, reason in (
@@ -243,19 +259,44 @@ def exercise(h):
                     name + "_reason",
                     ("robots_denied" if status == 403 else "robots_unavailable") in run["errors"],
                 )
-        policy_status[0], policy_content[0] = 200, '<html><form>Sign in to verify access</form></html>'
-        h.config("policy_challenge", entries=[h.site.url + "/seed/final"], output_schema="record.v1", robots=True, delay=0.0)
-        frozen = h.binding("policy_challenge", recipe, {"expand_homepage": False, "discover_sitemaps": False})
+        policy_status[0], policy_content[0] = (
+            200,
+            "<html><form>Sign in to verify access</form></html>",
+        )
+        h.config(
+            "policy_challenge",
+            entries=[h.site.url + "/seed/final"],
+            output_schema="record.v1",
+            robots=True,
+            delay=0.0,
+        )
+        frozen = h.binding(
+            "policy_challenge", recipe, {"expand_homepage": False, "discover_sitemaps": False}
+        )
         before = len(h.site.ledger)
         run = h.cli("collect", "policy_challenge", "--binding", frozen, ok=False)
-        h.check("policy_200_html_challenge_fails_closed", "/seed/final" in [row["path"] for row in h.site.ledger[before:]], False)
+        h.check(
+            "policy_200_html_challenge_fails_closed",
+            "/seed/final" in [row["path"] for row in h.site.ledger[before:]],
+            False,
+        )
         h.check("policy_200_html_challenge_reason", "robots_unavailable" in run["errors"])
         policy_status[0], policy_content[0] = 404, None
-        h.config("optional_probe", entries=[h.site.url + "/seed/final"], output_schema="record.v1", robots=True, delay=0.0)
+        h.config(
+            "optional_probe",
+            entries=[h.site.url + "/seed/final"],
+            output_schema="record.v1",
+            robots=True,
+            delay=0.0,
+        )
         frozen = h.binding("optional_probe", recipe)
         run = h.cli("collect", "optional_probe", "--binding", frozen)
         h.check("optional_home_and_sitemap_missing_complete", run["status"], "complete")
-        h.check("optional_missing_entries_auditable", run["report"]["discovery"]["outcomes"].get("optional_entry_missing"), 2)
+        h.check(
+            "optional_missing_entries_auditable",
+            run["report"]["discovery"]["outcomes"].get("optional_entry_missing"),
+            2,
+        )
         before = len(h.site.ledger)
         replay = h.cli("replay", run["run_id"])
         h.check("optional_entry_replay_complete", replay["status"], "complete")
