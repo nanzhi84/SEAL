@@ -139,7 +139,32 @@ def mark_parsed(context, request):
 
 def mark_failed(context, request, code):
     state = "skipped" if code in SKIP_REASONS else "failed"
-    _update(context, request, "state=%s,reason=%s", (state, code))
+    assignments, params = "state=%s,reason=%s", (state, code)
+    if context.get("_seal_discovery_metadata"):
+        rejected = {
+            "request_out_of_scope",
+            "request_excluded",
+            "request_method_rejected",
+            "request_sensitive_or_conditional_header",
+            "sensitive_url_rejected",
+            "non_public_address",
+            "iframe_out_of_scope",
+            "attachment_host_path_required",
+            "robots_policy_redirect_rejected",
+        }
+        limited = {
+            "request_budget_exceeded",
+            "deadline_exceeded",
+            "discovery_depth_exceeded",
+            "query_variant_budget_exceeded",
+            "discovery_budget_exceeded",
+        }
+        if code in rejected or code in limited:
+            decision = "rejected" if code in rejected else "limited"
+            request.meta["seal_scope_decision"] = decision
+            assignments += ",scope_decision=%s"
+            params += (decision,)
+    _update(context, request, assignments, params)
 
 
 def mark_inputs_failed(context, snapshot_ids, code):
@@ -332,6 +357,7 @@ class Discovery:
                     "WHERE table_name='seal_discovery' AND column_name='discovery_method') AS present"
                 ).fetchone()["present"]
             )
+            value.context["_seal_discovery_metadata"] = value.metadata_enabled
             value.count = (
                 c.execute(
                     "SELECT count(*) AS n FROM seal_discovery WHERE run_id=%s AND attempt_epoch=%s",
@@ -491,7 +517,10 @@ class Discovery:
         self.count += 1
         rejection = request.meta.get("seal_helper_rejection") or rejection
         if rejection:
-            _update(self.context, request, "state='skipped',reason=%s", (rejection,))
+            if getattr(self, "metadata_enabled", False):
+                mark_failed(self.context, request, rejection)
+            else:
+                _update(self.context, request, "state='skipped',reason=%s", (rejection,))
             if scope_decision != "rejected" or not strategy:
                 record_error(self.context["id"], self.context["attempt_epoch"], rejection)
             raise IgnoreRequest(rejection)

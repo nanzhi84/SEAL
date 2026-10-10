@@ -241,16 +241,22 @@ def runtime(s, recipe, golden_runs, baseline):
             "all_fault_assertions_pass",
             all(a["status"] == "PASS" and a["actual"] == a["expected"] for a in selected),
         )
-    with s.case("X01", "No automatic robots; explicit business HTTP errors remain failures"):
+    with s.case(
+        "X01", "Opt-in robots policy is archived; explicit business HTTP errors remain failures"
+    ):
         binding = s.bind("robots_missing", ["/notice/simple"], recipe, robots=True)
         run, data = s.execute("robots_missing", binding)
         h.check(
-            "no_automatic_robots_observation",
-            not any(
+            "opt_in_robots_policy_observation_archived",
+            any(
                 o["url"].endswith("/robots.txt") and o["status"] == 404 for o in run["observations"]
             ),
         )
         h.check("robots_missing_document_complete", run["run"]["status"], "complete")
+        h.check(
+            "absent_robots_policy_not_business_error", "http_error" in run["run"]["errors"], False
+        )
+        h.check("absent_robots_policy_never_document", len(data["documents"]), 1)
         s.lineage("robots_missing", run, data)
         binding = s.bind("business_missing", ["/not-found"], recipe)
         missing, data = s.execute("business_missing", binding)

@@ -32,7 +32,7 @@ def policy_origin(url):
 
 def is_policy_document(body):
     """Obvious challenge documents cannot grant public crawl permission."""
-    content = body.lstrip()
+    content = body.removeprefix(b"\xef\xbb\xbf").lstrip()
     return content.startswith((b"{", b"[")) or (
         content.startswith(b"<")
         and re.search(rb"<(?:!doctype|html|head|body|form|script)\b", content, re.I) is not None
@@ -61,6 +61,22 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
             await asyncio.to_thread(mark_failed, self.context, request, code)
             await self.inputs.fail(code)
             raise IgnoreRequest(code) from None
+
+    async def process_response(self, request, response, spider=None):
+        if (
+            self.context["mode"] == "replay"
+            and not request.meta.get("_seal_robots_policy")
+            and policy_origin(response.url) != policy_origin(request.url)
+        ):
+            # Replay keeps the original logical key but restores a final redirected
+            # representation. Enforce that archived final origin's own policy,
+            # including its sitemap declarations, without changing resource identity.
+            final_request = request.replace(url=response.url, meta=dict(request.meta))
+            await self.process_request(final_request)
+            request.meta["_seal_robots_sitemaps"] = final_request.meta.get(
+                "_seal_robots_sitemaps", {}
+            )
+        return response
 
     async def robot_parser(self, request):
         parsed = urlsplit(request.url)

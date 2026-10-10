@@ -55,6 +55,23 @@ def main():
             value.update(assertions=len(checks), failed=sum(c["status"] != "PASS" for c in checks))
             if value["failed"]:
                 value["status"] = "FAIL"
+            verification = subprocess.run(
+                [
+                    sys.executable,
+                    "experiments/v1.2-acceptance/verify_artifacts.py",
+                    str(args.output / name),
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            value["offline_verification_exit"] = verification.returncode
+            try:
+                value["offline_verification"] = json.loads(verification.stdout)
+            except ValueError:
+                value["offline_verification"] = {"reason": "missing_or_invalid_evidence"}
+            if verification.returncode:
+                value["status"] = "FAIL"
         results[name] = value
     summary = {
         "status": "PASS" if all(v["status"] == "PASS" for v in results.values()) else "FAIL",

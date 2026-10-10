@@ -4,16 +4,19 @@ import asyncio
 import importlib.util
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from types import SimpleNamespace
+from unittest.mock import AsyncMock, Mock, patch
 
 from scrapy import Request
+from scrapy.exceptions import IgnoreRequest
 from scrapy.http import HtmlResponse
 
+from seal import discovery, robots
 from seal.core import SealError
 from seal.crawl import settings_for
 from seal.discovery import Discovery, DiscoverySpiderMiddleware, ResourceFingerprinter
-from seal.scope import robots_policy_request
 from seal.robots import ArchivedRobotsMiddleware, is_policy_document
+from seal.scope import robots_policy_request
 from seal.seeded import html_links, sitemap_links
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -205,6 +208,7 @@ class SeededDiscoveryTests(unittest.TestCase):
             b"<!doctype html><form>Sign in</form>",
             b"<html>Challenge</html>",
             b'{"login":true}',
+            b"\xef\xbb\xbf<html><form>Captcha</form></html>",
         ):
             self.assertTrue(is_policy_document(body))
         for body in (
@@ -213,6 +217,88 @@ class SeededDiscoveryTests(unittest.TestCase):
             b"# An HTML comment\nUser-agent: *",
         ):
             self.assertFalse(is_policy_document(body))
+
+    def replay_robots(self, final_allowed=True):
+        class Policy:
+            def __init__(self, allowed):
+                self.permission = allowed
+
+            def allowed(self, url, user_agent):
+                return self.permission
+
+        middleware = ArchivedRobotsMiddleware.__new__(ArchivedRobotsMiddleware)
+        middleware.context = self.context(mode="replay")
+        middleware._parsers = {
+            "http://example.org": Policy(True),
+            "https://example.org": Policy(final_allowed),
+        }
+        middleware._robotstxt_useragent = middleware._default_useragent = "SEAL"
+        middleware._stats = Mock()
+        middleware.crawler = SimpleNamespace(spider=None)
+        middleware.reasons = {}
+        middleware.sitemaps = {
+            "http://example.org": {"urls": ["http://example.org/http-map.xml"]},
+            "https://example.org": {"urls": ["https://example.org/https-map.xml"]},
+        }
+        middleware.inputs = SimpleNamespace(fail=AsyncMock())
+        return middleware
+
+    def test_replay_redirect_rechecks_final_origin_policy_without_changing_identity(self):
+        middleware = self.replay_robots()
+        request = Request("http://example.org/entry", meta={"seal_discovery_id": "original"})
+        fingerprint = ResourceFingerprinter().fingerprint(request)
+        asyncio.run(middleware.process_request(request))
+        response = HtmlResponse("https://example.org/entry", request=request)
+        self.assertIs(asyncio.run(middleware.process_response(request, response)), response)
+        self.assertEqual(
+            request.meta["_seal_robots_sitemaps"]["urls"], ["https://example.org/https-map.xml"]
+        )
+        self.assertEqual(request.url, "http://example.org/entry")
+        self.assertIs(response.request, request)
+        self.assertEqual(ResourceFingerprinter().fingerprint(request), fingerprint)
+
+    def test_replay_redirect_final_origin_denial_fails_original_discovery(self):
+        middleware = self.replay_robots(final_allowed=False)
+        request = Request("http://example.org/entry", meta={"seal_discovery_id": "original"})
+        response = HtmlResponse("https://example.org/entry", request=request)
+        with patch.object(robots, "mark_failed") as failed:
+            with self.assertRaisesRegex(IgnoreRequest, "robots_denied"):
+                asyncio.run(middleware.process_response(request, response))
+            self.assertEqual(failed.call_args.args[1].meta["seal_discovery_id"], "original")
+            self.assertEqual(failed.call_args.args[2], "robots_denied")
+        middleware.inputs.fail.assert_awaited_once_with("robots_denied")
+
+    def test_replay_missing_final_policy_fails_closed_without_live_fallback(self):
+        middleware = self.replay_robots()
+        del middleware._parsers["https://example.org"]
+        middleware.crawler = SimpleNamespace(
+            spider=None,
+            _seal_discovery=SimpleNamespace(scheduled=Mock()),
+            engine=SimpleNamespace(
+                download_async=AsyncMock(side_effect=IgnoreRequest("replay_miss"))
+            ),
+        )
+        request = Request("http://example.org/entry", meta={"seal_discovery_id": "original"})
+        response = HtmlResponse("https://example.org/entry", request=request)
+        with patch.object(robots, "mark_failed") as failed:
+            with self.assertRaisesRegex(IgnoreRequest, "robots_unavailable"):
+                asyncio.run(middleware.process_response(request, response))
+            self.assertEqual(failed.call_args.args[2], "robots_unavailable")
+        policy = middleware.crawler.engine.download_async.call_args.args[0]
+        self.assertEqual(policy.url, "https://example.org/robots.txt")
+        self.assertTrue(policy.meta["_seal_robots_policy"])
+        middleware.inputs.fail.assert_awaited_once_with("robots_unavailable")
+
+    def test_late_guard_decision_updates_metadata_only_when_migration_exists(self):
+        request = Request("https://example.org/frame", meta={"seal_discovery_id": "event"})
+        with patch.object(discovery, "_update") as update:
+            discovery.mark_failed(
+                {"_seal_discovery_metadata": True}, request, "iframe_out_of_scope"
+            )
+            self.assertIn("scope_decision=%s", update.call_args.args[2])
+            self.assertEqual(update.call_args.args[3][-1], "rejected")
+            discovery.mark_failed({}, request, "iframe_out_of_scope")
+            self.assertNotIn("scope_decision", update.call_args.args[2])
 
 
 if __name__ == "__main__":
