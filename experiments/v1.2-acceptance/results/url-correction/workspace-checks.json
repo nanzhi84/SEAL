@@ -1,0 +1,85 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "command": [
+        "uvx",
+        "--from",
+        "ruff==0.16.10",
+        "ruff",
+        "check",
+        "src",
+        "recipes",
+        "experiments/v1.1-runtime-acceptance",
+        "experiments/v1.2-acceptance",
+        "experiments/archive_privacy.py",
+        "experiments/source-accessibility/probe.py",
+        "experiments/due-diligence/inventory.py"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": [
+        "uvx",
+        "--from",
+        "ruff==0.16.10",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "recipes",
+        "experiments/v1.1-runtime-acceptance",
+        "experiments/v1.2-acceptance"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "95 files already formatted\n"
+    },
+    {
+      "command": [
+        "seiso",
+        "check"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "No diagnostics.\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "name": "Generated matches Plan",
+      "status": "PASS"
+    },
+    {
+      "name": "B2/B1 historical audit reproduction matches published evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Current product source equals every accepted frozen artifact",
+      "status": "PASS"
+    },
+    {
+      "name": "Published metadata omits raw body fields and expected/actual response values",
+      "status": "PASS"
+    }
+  ],
+  "input_hashes": {
+    "docs/plans/v1.2-heterogeneous-sources.md": "5a4d62da63b932ce3e6a210aeb0aeae4a5b4986a2ed63a4733b7378e33d144bd",
+    "docs/generated/v1.2-heterogeneous-sources.html": "9321c4504f7709eb9da8da796f4785052418e888ca4336054b85c521cf4db32b",
+    "docs/reference/source-adaptation.md": "00305e213262c47d396a88c5ba1f919c6c845cac54e1077b0930f8fe65e9cbbd",
+    "README.md": "28aa7769f51886fa425b8692449d5bf6cf07a5f95b6681a4924def350ee54feb",
+    "experiments/v1.2-acceptance/results/url-correction/report.json": "738498f7b5d24992f65409afdb30e33e80a90ec1fe7f76c2fe788757746d8f58",
+    "experiments/v1.2-acceptance/results/url-correction/url-audit.json": "242950ea98e0023abc04defe98a065e84764772b79d99092966618547a70acad"
+  },
+  "engine_commit": "658835a423ebb762745c039f2169a8b41df5000f"
+}

@@ -6,6 +6,7 @@ resources merged by scheduler fingerprints, archive identity changed, replay HTT
 
 import argparse
 import html
+import json
 import sys
 import traceback
 from pathlib import Path
@@ -127,6 +128,16 @@ def main():
         traceback.print_exc()
     finally:
         h.save("url-semantics", error)
+        path = args.output / "manifest.json"
+        manifest = json.loads(path.read_text())
+        manifest["command"] = (
+            "uv run --frozen python experiments/v1.2-acceptance/url_acceptance.py "
+            "--output <new-private-directory>"
+        )
+        manifest["scope"] = (
+            "CLI + isolated PG + HTTP: URL discovery, frozen seeds, identity, Recheck, Replay"
+        )
+        path.write_text(json.dumps(manifest, indent=2) + "\n")
         h.close()
     return int(error is not None)
 

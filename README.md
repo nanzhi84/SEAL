@@ -15,18 +15,23 @@ V1.2 增加业务 Record、Discovery、多记录 JSON、静态 iframe 和业务�
 归档故障处理保持原合同。原文必须放在私有目录，运行前设置 `umask 077`，不直接公开。
 实验发布隐私检查独立于 Runtime。
 
-PR #2 最终验收已通过 T0–T6、T7S、T8：联合473/473、M3 134/134、Smoke 1200/1200、
-分页154/154、父请求35/35、Recheck115/115、公开探测33/33，以及七个真实来源715/715。
-真实合同覆盖 A3/B2/C2，117条首轮 Record；dd-009 补充复验75/75、29条 Record；
-全量分页489/489、T7S机制门槛296/296通过。dd-102的41条Record补齐真实业务iframe。
-本轮仅删除旧M3正文拒绝断言/fixture及更新验收合同，未新增Runtime功能。
+PR #2 URL修正后的最终验收在冻结引擎 `658835a` 上执行：联合473/473、M3 134/134、
+Smoke1200/1200、分页154/154、父请求35/35、Recheck115/115、公开探测33/33。
+八个真实来源786/786（A3/B3/C2，118条首轮Record），dd-009补充75/75（29条Record），
+全量分页489/489、T7S 323/323；dd-102真实iframe产生41条Record。
 
-[最终验收报告](experiments/v1.2-acceptance/results/final-acceptance/report.json) 保存每项
-状态、精确产品/Recipe Hash、独立校验、命令与环境；[Plan第13节](docs/plans/v1.2-heterogeneous-sources.md#13-pr-2-最终验收2026-10-10)
-保存矩阵和首次FAIL的针对性修正。完整原文仍只在本地私有工件；公开报告只发布元数据与Hash。
-PR进入Ready for review，尚未合并。dd-357来源仍因越界重定向BLOCKED，其负向诊断22/22通过。
-全部111来源复验和Evaluation业务质量批准未执行；台账100 adapted中8个为本轮当前引擎，
-92个仍为历史成功。旧报告与首次失败均保留。
+已定位dd-357错误发生在历史B2探测的 `quote(parts.path,safe='/%:@')`，将 `!` 改为
+`%21` 后进入冻结合同。正确URL已通过两轮Collect、Recheck、零网络Replay，1条公告Record；
+错误URL的302越界拒绝另存为22/22负向合同。现行URL处理保留原路径、查询串与转义写法，
+并按实际请求URL去重；URL专项11/11覆盖发现、冻结、HTTP、身份、Recheck与Replay。
+
+[当前最终报告](experiments/v1.2-acceptance/results/url-correction/report.json)、
+[根因审计](experiments/v1.2-acceptance/results/url-correction/url-audit.json)及
+[Plan第14节](docs/plans/v1.2-heterogeneous-sources.md#14-dd-357-url-语义修正2026-10-10)
+保存精确源码Hash、状态、命令、环境和真实证据；原文仅在本地私有目录。
+[旧报告](experiments/v1.2-acceptance/results/final-acceptance/report.json)保留为历史快照。
+PR为Ready for review，尚未合并。台账101 adapted中9个在本轮引擎复验，92个历史成功未复验；
+另有2 partial、7 blocked、1 acceptance_failed。全111来源复验及Evaluation批准未执行。
 
 
 长期架构分为三个逻辑平面：

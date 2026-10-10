@@ -1,0 +1,1156 @@
+{
+  "cause": "B2 probe quoted path with a safe set excluding literal !; freeze consumed requested_url. Discovery retained ! and Runtime path serialization retained !.",
+  "historical_tool_timestamp": "2026-10-09T14:38:18.936Z",
+  "historical_code": "parts=urlsplit(url);url=urlunsplit((parts.scheme,parts.netloc,quote(parts.path,safe='/%:@'),quote(parts.query,safe='=&%;+,:@/'),''))",
+  "freeze_code": "item['url']=safe_url(v.get('requested_url',v.get('url')))",
+  "historical_frozen_commit": "8ac05fe",
+  "checked_pairs": 68,
+  "changed_pairs": [
+    {
+      "research_id": "dd-357",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": true,
+      "probe_matches_reproduction": true,
+      "input_sha256": "3cbcea2e1e69e8caeab83a624afc56d6ad19a1f84ae2e4c9bde70f0ac49282a9",
+      "requested_sha256": "b5a103bdd21f544cacac9302e689ddd11152517043c3f9a0fc7a30d1ba01fbfb"
+    },
+    {
+      "research_id": "dd-357",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": true,
+      "probe_matches_reproduction": true,
+      "input_sha256": "9f91f11322097ee07b450bfa08a6550cfe6b095e43113f067ea8623d5ad11447",
+      "requested_sha256": "e71a0f761e8fc9676cc14e6be05ba2f4231e6de670168e2b4ba23c19a0ca6931"
+    }
+  ],
+  "checks": [
+    {
+      "research_id": "dd-299",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "62be6d84934edb14ed3a6fd7def94a2437fe7d98b1439af44c0500359196d363",
+      "requested_sha256": "62be6d84934edb14ed3a6fd7def94a2437fe7d98b1439af44c0500359196d363"
+    },
+    {
+      "research_id": "dd-299",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "9257cad88671732ba79961bbe0100e69c47dd3bc906c12e61faabc828d067faa",
+      "requested_sha256": "9257cad88671732ba79961bbe0100e69c47dd3bc906c12e61faabc828d067faa"
+    },
+    {
+      "research_id": "dd-318",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "4dc833079ddd458aa1f8449bbd2fdd068736e82ec4b041b0686002dfbad44fd4",
+      "requested_sha256": "4dc833079ddd458aa1f8449bbd2fdd068736e82ec4b041b0686002dfbad44fd4"
+    },
+    {
+      "research_id": "dd-318",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "05d156eaa15275e273659886dafaa829d0701811ffa35145fd459753abb912c9",
+      "requested_sha256": "05d156eaa15275e273659886dafaa829d0701811ffa35145fd459753abb912c9"
+    },
+    {
+      "research_id": "dd-322",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "420cb6eb13645920dd59433cc91fb6cb46244aa0b9c4b204665674ac8f6daa4b",
+      "requested_sha256": "420cb6eb13645920dd59433cc91fb6cb46244aa0b9c4b204665674ac8f6daa4b"
+    },
+    {
+      "research_id": "dd-322",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "b354fa3ac9b1b24fe2b887d10e263488836bf8326c3f5972a98a755e14b2b662",
+      "requested_sha256": "b354fa3ac9b1b24fe2b887d10e263488836bf8326c3f5972a98a755e14b2b662"
+    },
+    {
+      "research_id": "dd-328",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "f1b29f7370e3d0d9b2e939c26f1d49a9dfaf888df5608ee7c5c680f3c54744c5",
+      "requested_sha256": "f1b29f7370e3d0d9b2e939c26f1d49a9dfaf888df5608ee7c5c680f3c54744c5"
+    },
+    {
+      "research_id": "dd-328",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "4d667d4b5c5fcc08c84bea62694b12971c3db9bbd8a038190d52a0bf66cbac3c",
+      "requested_sha256": "4d667d4b5c5fcc08c84bea62694b12971c3db9bbd8a038190d52a0bf66cbac3c"
+    },
+    {
+      "research_id": "dd-331",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "47004bdfdfcaebc75efa17a5d6ceaba18516ab9d7f4d42c589993f7b580fc2d2",
+      "requested_sha256": "47004bdfdfcaebc75efa17a5d6ceaba18516ab9d7f4d42c589993f7b580fc2d2"
+    },
+    {
+      "research_id": "dd-331",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "364b7ab3c4d53cd899c40206864124720ba1c111397477712be5e37e0be4ff68",
+      "requested_sha256": "364b7ab3c4d53cd899c40206864124720ba1c111397477712be5e37e0be4ff68"
+    },
+    {
+      "research_id": "dd-332",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "7cc11dfd2bf4731309967cfebf15bed417770c944f254c818942b55e19b09c73",
+      "requested_sha256": "7cc11dfd2bf4731309967cfebf15bed417770c944f254c818942b55e19b09c73"
+    },
+    {
+      "research_id": "dd-332",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "4c08b13034814f29f26255a65459ccfa8d45e248c7ad88718d69bb421768c88f",
+      "requested_sha256": "4c08b13034814f29f26255a65459ccfa8d45e248c7ad88718d69bb421768c88f"
+    },
+    {
+      "research_id": "dd-333",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "0f8706e150e7c994136ab37e126fb41efde49abebf9693448b339a51c42b4419",
+      "requested_sha256": "0f8706e150e7c994136ab37e126fb41efde49abebf9693448b339a51c42b4419"
+    },
+    {
+      "research_id": "dd-333",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "e3e95cf8fdeb7f9c7df97e5ca2edddb5e80584407a5d97207244cebe341062be",
+      "requested_sha256": "e3e95cf8fdeb7f9c7df97e5ca2edddb5e80584407a5d97207244cebe341062be"
+    },
+    {
+      "research_id": "dd-338",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "398183ad17c6b3b9d7a724e3b287d85ac89641d3f399d3cc134af8dbebfe559e",
+      "requested_sha256": "398183ad17c6b3b9d7a724e3b287d85ac89641d3f399d3cc134af8dbebfe559e"
+    },
+    {
+      "research_id": "dd-338",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "296c1a4b97137f1992c29d79b31303daf55b6c8adab155247a0db11b8492d367",
+      "requested_sha256": "296c1a4b97137f1992c29d79b31303daf55b6c8adab155247a0db11b8492d367"
+    },
+    {
+      "research_id": "dd-339",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "074f07d8539cd0281d5753b1da8c240072d196f273ed96e3488b5cb32439252a",
+      "requested_sha256": "074f07d8539cd0281d5753b1da8c240072d196f273ed96e3488b5cb32439252a"
+    },
+    {
+      "research_id": "dd-339",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "996ed41cbcba32fe39f01f6e63d68e5d9fbe95d399eeb98d3a120d90c1037d10",
+      "requested_sha256": "996ed41cbcba32fe39f01f6e63d68e5d9fbe95d399eeb98d3a120d90c1037d10"
+    },
+    {
+      "research_id": "dd-340",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "83968c7c7647b4bfb1988c006fa4327c5a860895227a836547e139c7a9450f84",
+      "requested_sha256": "83968c7c7647b4bfb1988c006fa4327c5a860895227a836547e139c7a9450f84"
+    },
+    {
+      "research_id": "dd-340",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "bec7ca16b4232d9ae175830e965014242bfbb302fcdd4517f8f9966d8aecc127",
+      "requested_sha256": "bec7ca16b4232d9ae175830e965014242bfbb302fcdd4517f8f9966d8aecc127"
+    },
+    {
+      "research_id": "dd-341",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "1547909a8d6f873942ab60be9f2f455104be9ddd862e33fc3f936b33148bae40",
+      "requested_sha256": "1547909a8d6f873942ab60be9f2f455104be9ddd862e33fc3f936b33148bae40"
+    },
+    {
+      "research_id": "dd-341",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "b9185fd6b740cabb23745062c726c161846852b5d1d073d94f320ad2df6efe0e",
+      "requested_sha256": "b9185fd6b740cabb23745062c726c161846852b5d1d073d94f320ad2df6efe0e"
+    },
+    {
+      "research_id": "dd-345",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "f8abe8fa7610a8013a1189fd55114031b01be26ab8a5025598c5a2b4cbbcba5a",
+      "requested_sha256": "f8abe8fa7610a8013a1189fd55114031b01be26ab8a5025598c5a2b4cbbcba5a"
+    },
+    {
+      "research_id": "dd-345",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "16149d74edbbab599a884e54e6945671825dfc5582a36daeaf83958bf62f5386",
+      "requested_sha256": "16149d74edbbab599a884e54e6945671825dfc5582a36daeaf83958bf62f5386"
+    },
+    {
+      "research_id": "dd-346",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "8408d672c2939893661f8e88a3c95236d0daa088b34350679fc5f9f87b3f1009",
+      "requested_sha256": "8408d672c2939893661f8e88a3c95236d0daa088b34350679fc5f9f87b3f1009"
+    },
+    {
+      "research_id": "dd-346",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "150a1dfbc31b924a49428e4effc5d18145fff021f67a723a1f4aaeec44806600",
+      "requested_sha256": "150a1dfbc31b924a49428e4effc5d18145fff021f67a723a1f4aaeec44806600"
+    },
+    {
+      "research_id": "dd-350",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "7c9a8df15733d599637871f3fcb6ff1d3912e6e16d887bf3f91f639ebf29cc42",
+      "requested_sha256": "7c9a8df15733d599637871f3fcb6ff1d3912e6e16d887bf3f91f639ebf29cc42"
+    },
+    {
+      "research_id": "dd-350",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "053e8c94dc8fbe3a7d89dde64f9f40a83969b201e924d872b6a235eeb5ffb458",
+      "requested_sha256": "053e8c94dc8fbe3a7d89dde64f9f40a83969b201e924d872b6a235eeb5ffb458"
+    },
+    {
+      "research_id": "dd-352",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "8992dfa2327a9315a640a6da3bcbaa71e9e4a9acd926eb811b92812ff372703e",
+      "requested_sha256": "8992dfa2327a9315a640a6da3bcbaa71e9e4a9acd926eb811b92812ff372703e"
+    },
+    {
+      "research_id": "dd-352",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "5e73875fa6735e0062b3708583ccc8bb3caf52b494375e73e71696f35f0ec78d",
+      "requested_sha256": "5e73875fa6735e0062b3708583ccc8bb3caf52b494375e73e71696f35f0ec78d"
+    },
+    {
+      "research_id": "dd-357",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": true,
+      "probe_matches_reproduction": true,
+      "input_sha256": "3cbcea2e1e69e8caeab83a624afc56d6ad19a1f84ae2e4c9bde70f0ac49282a9",
+      "requested_sha256": "b5a103bdd21f544cacac9302e689ddd11152517043c3f9a0fc7a30d1ba01fbfb"
+    },
+    {
+      "research_id": "dd-357",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": true,
+      "probe_matches_reproduction": true,
+      "input_sha256": "9f91f11322097ee07b450bfa08a6550cfe6b095e43113f067ea8623d5ad11447",
+      "requested_sha256": "e71a0f761e8fc9676cc14e6be05ba2f4231e6de670168e2b4ba23c19a0ca6931"
+    },
+    {
+      "research_id": "dd-369",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "a312062a143f4aed594435b0cd50d1b6e660170d4b97d1fadcf36e6d969ecf54",
+      "requested_sha256": "a312062a143f4aed594435b0cd50d1b6e660170d4b97d1fadcf36e6d969ecf54"
+    },
+    {
+      "research_id": "dd-369",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "b499cf167613abbb5cf1bfa0d9fa32e3409954a62ae5f66b47ba98752d9beeb4",
+      "requested_sha256": "b499cf167613abbb5cf1bfa0d9fa32e3409954a62ae5f66b47ba98752d9beeb4"
+    },
+    {
+      "research_id": "dd-370",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "3f37361a0a1ffe385e9c8325fb16307c0110bb84e7de78d8b1fd6da5e23ad94c",
+      "requested_sha256": "3f37361a0a1ffe385e9c8325fb16307c0110bb84e7de78d8b1fd6da5e23ad94c"
+    },
+    {
+      "research_id": "dd-370",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "71ebb17349af2c30c3f63b9288a8ce2249ba6960fd4c6dc652915b36da5aca73",
+      "requested_sha256": "71ebb17349af2c30c3f63b9288a8ce2249ba6960fd4c6dc652915b36da5aca73"
+    },
+    {
+      "research_id": "dd-372",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "e61f5fbe3986dc55b6c876ed15f3fa8ae41e39cc04663bdbd04580f8479163c2",
+      "requested_sha256": "e61f5fbe3986dc55b6c876ed15f3fa8ae41e39cc04663bdbd04580f8479163c2"
+    },
+    {
+      "research_id": "dd-372",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "601ac229ed0df771ac859b8b4c99bc326ba66d93feb8ec0a91620b47523fe662",
+      "requested_sha256": "601ac229ed0df771ac859b8b4c99bc326ba66d93feb8ec0a91620b47523fe662"
+    },
+    {
+      "research_id": "dd-374",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "a4c7745d394c6c9acd0199a1d01f11a3b7042b6a356a3c321f1c3bdeef3e1bba",
+      "requested_sha256": "a4c7745d394c6c9acd0199a1d01f11a3b7042b6a356a3c321f1c3bdeef3e1bba"
+    },
+    {
+      "research_id": "dd-374",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "cc92c454427c1b1f1106e42eeb04cd3edcf011ff177a6758cb8863e463d28f54",
+      "requested_sha256": "cc92c454427c1b1f1106e42eeb04cd3edcf011ff177a6758cb8863e463d28f54"
+    },
+    {
+      "research_id": "dd-380",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "c65a78652ce782fe9dd6bace45aab05186d59bad84e32c6b9b82e5eb3005e9e6",
+      "requested_sha256": "c65a78652ce782fe9dd6bace45aab05186d59bad84e32c6b9b82e5eb3005e9e6"
+    },
+    {
+      "research_id": "dd-380",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "cbd2e5f748ab2262802ee805cc693b05afc680fed65aba2de14b2377ce0a2644",
+      "requested_sha256": "cbd2e5f748ab2262802ee805cc693b05afc680fed65aba2de14b2377ce0a2644"
+    },
+    {
+      "research_id": "dd-389",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "7d4782e6aae37f6da69ab2b8b8371c3143fade54e286bec045b40fe83aeeab23",
+      "requested_sha256": "7d4782e6aae37f6da69ab2b8b8371c3143fade54e286bec045b40fe83aeeab23"
+    },
+    {
+      "research_id": "dd-389",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "bd301a46fae2069cdcf0409a48f4dc29cb14327a2c68fd94e3f6431e14387030",
+      "requested_sha256": "bd301a46fae2069cdcf0409a48f4dc29cb14327a2c68fd94e3f6431e14387030"
+    },
+    {
+      "research_id": "dd-410",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "076bfedd54657263e533f3387b7873dc12f25fea1d1043ba71343eec15f7f57e",
+      "requested_sha256": "076bfedd54657263e533f3387b7873dc12f25fea1d1043ba71343eec15f7f57e"
+    },
+    {
+      "research_id": "dd-410",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "86cdb7e60b41e9adb29f61c6d3ae077331a7086c7f92262900f3d30bec2b353d",
+      "requested_sha256": "86cdb7e60b41e9adb29f61c6d3ae077331a7086c7f92262900f3d30bec2b353d"
+    },
+    {
+      "research_id": "dd-445",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "e9d7274a9e448378bbaaa800d9641e16778d601065958b4a78c51bb93a998a77",
+      "requested_sha256": "e9d7274a9e448378bbaaa800d9641e16778d601065958b4a78c51bb93a998a77"
+    },
+    {
+      "research_id": "dd-445",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "8699f093fb95865860fb1cf690e0daa7f6d74e48b9ca04d5431de7fe540a2453",
+      "requested_sha256": "8699f093fb95865860fb1cf690e0daa7f6d74e48b9ca04d5431de7fe540a2453"
+    },
+    {
+      "research_id": "dd-448",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "e0f88382099ecd88603d31b94e1b2fb8e710826e4996d0f50f29bf952ac04b2b",
+      "requested_sha256": "e0f88382099ecd88603d31b94e1b2fb8e710826e4996d0f50f29bf952ac04b2b"
+    },
+    {
+      "research_id": "dd-448",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "e4b27d632b5f60f69bde90c9a7529994c75d07c28140569e5760f0cddcc4373c",
+      "requested_sha256": "e4b27d632b5f60f69bde90c9a7529994c75d07c28140569e5760f0cddcc4373c"
+    },
+    {
+      "research_id": "dd-449",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "cb23bb1cef7b1bae7625d7faa55c34cb29f0268f2f233c50a3d72f8655afa693",
+      "requested_sha256": "cb23bb1cef7b1bae7625d7faa55c34cb29f0268f2f233c50a3d72f8655afa693"
+    },
+    {
+      "research_id": "dd-449",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "53efad9138065463e7d1743475ba4d74d6ccfce46685d83fab5bb91eea4d5893",
+      "requested_sha256": "53efad9138065463e7d1743475ba4d74d6ccfce46685d83fab5bb91eea4d5893"
+    },
+    {
+      "research_id": "dd-450",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "c74400ddc9882062b56598ffd3b1da4c39931fb818aa2bf00630d3eca07f6f0d",
+      "requested_sha256": "c74400ddc9882062b56598ffd3b1da4c39931fb818aa2bf00630d3eca07f6f0d"
+    },
+    {
+      "research_id": "dd-450",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "2e2458b7bcbda14d575504e88de808f67135171e5c36d7e0d0fd8c2866566786",
+      "requested_sha256": "2e2458b7bcbda14d575504e88de808f67135171e5c36d7e0d0fd8c2866566786"
+    },
+    {
+      "research_id": "dd-455",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "ca69b6b90e5a51502d4d54e9a8d66754e5be58c28cd0b8af0fd7518868af7937",
+      "requested_sha256": "ca69b6b90e5a51502d4d54e9a8d66754e5be58c28cd0b8af0fd7518868af7937"
+    },
+    {
+      "research_id": "dd-455",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "0cd9e93cfaa94ad6ad75fc9c5b6519468ba520f0639acbf65cc2122cb36e1c32",
+      "requested_sha256": "0cd9e93cfaa94ad6ad75fc9c5b6519468ba520f0639acbf65cc2122cb36e1c32"
+    },
+    {
+      "research_id": "dd-466",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "eca2384aca122c35c623aee5cb040f4922137012c74b2f4b73fcea67b3314fe8",
+      "requested_sha256": "eca2384aca122c35c623aee5cb040f4922137012c74b2f4b73fcea67b3314fe8"
+    },
+    {
+      "research_id": "dd-466",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "aac6209a4e103c094b9f1d65ea57ff2f81e7a34b4f2356fdba267c65d99e4fa6",
+      "requested_sha256": "aac6209a4e103c094b9f1d65ea57ff2f81e7a34b4f2356fdba267c65d99e4fa6"
+    },
+    {
+      "research_id": "dd-474",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "92ec29877831775f7fa8037b5a34d7c562a64562eec9af68ddce0703b013e895",
+      "requested_sha256": "92ec29877831775f7fa8037b5a34d7c562a64562eec9af68ddce0703b013e895"
+    },
+    {
+      "research_id": "dd-474",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "441600f5b74bf818b6f81ff584ff5c4e4ab90e860846d5a4f9fd7b7c834e2566",
+      "requested_sha256": "441600f5b74bf818b6f81ff584ff5c4e4ab90e860846d5a4f9fd7b7c834e2566"
+    },
+    {
+      "research_id": "dd-479",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "b4735dfdc37d0358602d544f8b35563a8bc5e927090fe969706097174e7645fb",
+      "requested_sha256": "b4735dfdc37d0358602d544f8b35563a8bc5e927090fe969706097174e7645fb"
+    },
+    {
+      "research_id": "dd-479",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "65bd77078d8ddb744e05dce5cc3847f6b4527e33a08d5131a9e805f7bfc23615",
+      "requested_sha256": "65bd77078d8ddb744e05dce5cc3847f6b4527e33a08d5131a9e805f7bfc23615"
+    },
+    {
+      "research_id": "dd-481",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "3ba5b11990204e90ee431975caa9a0f9cb3da82f38fa9568b83d46be37638604",
+      "requested_sha256": "3ba5b11990204e90ee431975caa9a0f9cb3da82f38fa9568b83d46be37638604"
+    },
+    {
+      "research_id": "dd-481",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "b2af415508d4c80672e368294aba5d8abee492accc7bce69101126457d6bd2fd",
+      "requested_sha256": "b2af415508d4c80672e368294aba5d8abee492accc7bce69101126457d6bd2fd"
+    },
+    {
+      "research_id": "dd-484",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "bfd653fc4061717d0bd714135b5786010643d1bafe78896ba8b37c751f034610",
+      "requested_sha256": "bfd653fc4061717d0bd714135b5786010643d1bafe78896ba8b37c751f034610"
+    },
+    {
+      "research_id": "dd-484",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "daea7131faf40960d63ba30c69d904ff5d15005c32e0a93bc526755278be8a3a",
+      "requested_sha256": "daea7131faf40960d63ba30c69d904ff5d15005c32e0a93bc526755278be8a3a"
+    },
+    {
+      "research_id": "dd-485",
+      "role": "entry",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "5b24a5a35fe9b1df09e4839b5b070cc2e520017da2bf30b3c482b7e45ed7192e",
+      "requested_sha256": "5b24a5a35fe9b1df09e4839b5b070cc2e520017da2bf30b3c482b7e45ed7192e"
+    },
+    {
+      "research_id": "dd-485",
+      "role": "candidate",
+      "ascii_input": true,
+      "changed_by_historical_quote": false,
+      "probe_matches_reproduction": true,
+      "input_sha256": "d24ff29647ba9ec7a8d5d7aa3523b3471e7fa4e19cba96adf7332846581121ee",
+      "requested_sha256": "d24ff29647ba9ec7a8d5d7aa3523b3471e7fa4e19cba96adf7332846581121ee"
+    }
+  ],
+  "input_files": {
+    "work/expanded-c-b2/assigned-b2.json": "ca38c233efc80bb35a2fae08e699eb21f0675ddc636e96e9ce1ec003f77f8cb4",
+    "work/expanded-c-b2/probes.json": "a790e7f33481ff5c5cfc5e8f4ca068de5177feb0744a1aa3717939e592dd35bb",
+    "work/expanded-c-b2/freeze_contracts.py": "2485657d0bf00c792a45cb8605e8f4a89d853f68e6434bd0d1e79982851e1575",
+    "artifacts/diagnostics/dd357-live/historical-probe-command.txt": "40c2840115d2f147daaa0cc1f9ab96b2fffa24bacf4442ffcb452e7ddb1e3a93",
+    "work/expanded-b1/assigned.json": "92938deec39142344c7e4ab9d1ad41be8948c82e0aef4cdd016ef3ddb061b74b",
+    "work/expanded-b1/probes.json": "6a15a8cd50f01c20094d32efaa681da11ee2a6e77d1395638b2d672e964fb8ee",
+    "work/expanded-b1/probe.py": "11e2839ec7b7fec4122b0a30f5453ce4f850d6e3340799ea767d46bcf0d70358"
+  },
+  "limits": "B2 entry/candidate comparisons only; does not claim every historical discovery was unchanged. Historical B1 whole-URL quote has the same class of risk. Active inventory/probe/core/verifier no longer rebuild query; Scrapy fingerprint uses serialized URL. Privacy removal remains intentional and not resource equivalence.",
+  "resource_contract": "Preserve ASCII path/query including reserved chars, percent-escape spelling, duplicate/order/blank query segments; no global percent decoding or query sorting. Unicode/space encoding uses existing Scrapy/w3lib serialization.",
+  "pre_fix_failure": {
+    "private_directory": "artifacts/acceptance/url-semantics-red-v2",
+    "reason": "9 distinct URLs produced only 5 detail HTTP requests and partial run; assertions preserve observed failures.",
+    "manifest_sha256": "93dddcb69e4cc8163b9f569c08a5002507473a7ed3b6a4f6db371cdaf7ad0d8a",
+    "meaningful_failed_assertion": "url_wire_spelling_and_exact_duplicate_dedup",
+    "script_limits": "Early script status expectation/export selection were corrected before final frozen rerun; only actual HTTP ledger establishes the pre-fix 5-versus-9 resource failure."
+  },
+  "b1_audit": {
+    "checked_pairs": 70,
+    "changed_pairs": [],
+    "checks": [
+      {
+        "research_id": "dd-016",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-016",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-033",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-033",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-045",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-045",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-046",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-046",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-051",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-051",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-054",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-054",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-059",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-059",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-060",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-060",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-061",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-061",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-062",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-062",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-066",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-066",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-077",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-077",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-079",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-079",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-084",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-084",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-085",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-085",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-088",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-088",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-097",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-097",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-106",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-106",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-133",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-133",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-160",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-160",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-188",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-188",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-197",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-197",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-201",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-201",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-206",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-206",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-208",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-208",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-211",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-211",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-215",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-215",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-220",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-220",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-225",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-225",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-227",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-227",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-229",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-229",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-231",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-231",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-237",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-237",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-238",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-238",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-262",
+        "role": "entry",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      },
+      {
+        "research_id": "dd-262",
+        "role": "candidate",
+        "ascii_input": true,
+        "changed_by_historical_quote": false
+      }
+    ]
+  },
+  "matched_request_diagnostics": [
+    {
+      "label": "literal_bang",
+      "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+      "requested_at": "2026-10-10T06:36:49Z",
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)",
+      "cookies_sent": false,
+      "automatic_redirects": false,
+      "status": 200,
+      "location": null,
+      "bytes": 11853,
+      "sha256": "c43df37269cd0883adff1af1340a1776d87aa8cd7f542f0d283f9da99b63d449",
+      "business_body_chars": 278,
+      "expected_announcement_present": true,
+      "login_form_present": false
+    },
+    {
+      "label": "encoded_bang",
+      "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+      "requested_at": "2026-10-10T06:36:49Z",
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)",
+      "cookies_sent": false,
+      "automatic_redirects": false,
+      "status": 302,
+      "location": "http://permit.mee.gov.cn/perxxgkinfo/outside/LicenseRedirect",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "redirect_http",
+      "url": "http://permit.mee.gov.cn/perxxgkinfo/outside/LicenseRedirect",
+      "requested_at": "2026-10-10T06:36:50Z",
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)",
+      "cookies_sent": false,
+      "automatic_redirects": false,
+      "status": 301,
+      "location": "https://permit.mee.gov.cn/perxxgkinfo/outside/LicenseRedirect",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "redirect_https",
+      "url": "https://permit.mee.gov.cn/perxxgkinfo/outside/LicenseRedirect",
+      "requested_at": "2026-10-10T06:36:50Z",
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)",
+      "cookies_sent": false,
+      "automatic_redirects": false,
+      "status": 302,
+      "location": "http://permit.mee.gov.cn/cas/login?service=http%3A%2F%2Fpermit.mee.gov.cn%2Fperxxgkinfo%2Foutside%2FLicenseRedirect",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "original_entry",
+      "url": "https://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+      "requested_at": "2026-10-10T06:36:50Z",
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)",
+      "cookies_sent": false,
+      "automatic_redirects": false,
+      "status": 200,
+      "location": null,
+      "bytes": 136403,
+      "sha256": "8dd81e882e3090437805732b1526366b0d9a0231f03ec8bfd9be308ab5d73da3",
+      "business_body_chars": 0,
+      "expected_announcement_present": true,
+      "login_form_present": false
+    }
+  ],
+  "audit_command": "uv run --frozen python experiments/v1.2-acceptance/url_audit.py --research-root work",
+  "audit_preconditions": "Original ignored work/expanded-c-b2 and work/expanded-b1 input files, bound by hashes; output contains no response bytes or URL values."
+}
