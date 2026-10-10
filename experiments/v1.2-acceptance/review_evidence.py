@@ -148,7 +148,11 @@ def outcomes(root, relative, category, expected_count, engine):
         if real.get("status") != "NOT_INCLUDED" and real:
             demand(real.get("status") == "PASS", "real_source_suite_failed")
             demand(
-                all(row["research_id"] != "dd-102" for row in real.get("samples", [])),
+                all(
+                    row["research_id"] != "dd-102"
+                    or (row["status"] == "DIAGNOSTIC_PASS" and row["record_count"] == 0)
+                    for row in real.get("samples", [])
+                ),
                 "private_source_included",
             )
     elif category != "performance_red":

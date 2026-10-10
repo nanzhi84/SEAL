@@ -10,7 +10,9 @@ V1.2 增加业务 Record、Discovery、多记录 JSON、静态 iframe 和业务�
 
 2026-10-10 已修正 JSON 稳定身份 Recheck、到期记录分批、失败重试日期和重复 JSON 解析；补齐 AMAC 完整 7 页、67 条的来源 Recipe。[上一轮修复验收索引](experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json) 和 Plan 第 9 节保留该版本四个真实来源的复验。
 
-本轮修正敏感字段 null/空值误判，新增锁定版本的 XLS/DOCX 解析与可复算 Locator。当前引擎 `a64a8d2` 完成 7 个来源的限定业务合同，另确认 2 个 partial；其余 93 个 adapted 来源仍是历史成功、当前未复验。111 项的最新已知状态合计为 100 adapted、2 partial、8 blocked、1 acceptance_failed，**100 不代表本引擎全部通过**。dd-468 两份 XLS 完整读取，dd-484 固定详情恢复四轮成功；dd-375 的嵌入/非正文内容、dd-004 的扫描 PDF 仍 partial。dd-211 仍有实际非空 Token，dd-357 当前 Run 遇到越界登录重定向，均未放宽访问或归档规则。[本轮工件索引](experiments/v1.2-acceptance/results/pr2-remediation-final/remediation-evidence-index.json)、[逐源状态](experiments/v1.2-acceptance/results/pr2-remediation-final/dispositions.json) 和 Plan 第 10 节保留真实来源联合验收的 **995/998、整体 FAIL**，以及每源独立证据；PR 继续 Draft。
+最新交付审计基于 `e322340` 功能引擎：修复了敏感响应被拒绝后实际 HTTP 请求数漏计，保留归档安全拒绝。A/B/C 各 2 个当前引擎真实样本完成两轮 Collect、Recheck、零网络 Replay；固定查询由 dd-247 的冻结公开参数替代受限 dd-009。**Issue #1 尚未满足，PR #2 保持 Draft：业务静态 iframe 缺少当前有效真实证据。** dd-102 响应含会话标识，不能以历史结果、页头页尾 iframe 或放宽安全规则替代验收。dd-357 的 302 越界重定向单独作为负向诊断，不计适配成功。
+
+[本轮工件索引](experiments/v1.2-acceptance/results/pr2-delivery-v2/remediation-evidence-index.json)、[交付报告](experiments/v1.2-acceptance/results/pr2-delivery-v2/delivery-report.json) 与 [V1.2 Plan 第 11 节](docs/plans/v1.2-heterogeneous-sources.md#11-issue-1-最终交付审计2026-10-10) 保存矩阵、精确版本、命令和未通过项。历史 995/998 FAIL 与此前原文均保留；111 条批量复验、Evaluation 和业务质量批准不属于本次关闭门槛。
 
 长期架构分为三个逻辑平面：
 
