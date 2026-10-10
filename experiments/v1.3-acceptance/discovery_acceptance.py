@@ -74,6 +74,12 @@ def exercise(h):
                 + h.site.url
                 + "/seed/child.xml</loc></sitemap></sitemapindex>"
             )
+        elif path == "/seed/iframe":
+            body = (
+                '<html><iframe src="'
+                + h.site.url.replace("127.0.0.1", "localhost")
+                + '/seed/final"></iframe></html>'
+            )
         elif path == "/seed/child.xml":
             content_type = "application/xml"
             body = (
@@ -301,6 +307,24 @@ def exercise(h):
         replay = h.cli("replay", run["run_id"])
         h.check("optional_entry_replay_complete", replay["status"], "complete")
         h.check("optional_entry_replay_zero_http", len(h.site.ledger), before)
+        h.config(
+            "iframe_scope",
+            entries=[h.site.url + "/seed/iframe"],
+            output_schema="record.v1",
+            robots=True,
+            delay=0.0,
+            allowed_hosts=["127.0.0.1", "localhost"],
+            allowed_path_prefixes=["/seed"],
+            host_path_scopes={"127.0.0.1": ["/seed"], "localhost": ["/seed"]},
+        )
+        frozen = h.binding(
+            "iframe_scope", recipe, {"expand_homepage": False, "discover_sitemaps": False}
+        )
+        run = h.cli("collect", "iframe_scope", "--binding", frozen, ok=False)
+        events = h.cli("inspect", "run", run["run_id"])["discovery"]["events"]
+        event = next(e for e in events if e["reason"] == "iframe_out_of_scope")
+        h.check("late_guard_iframe_decision_persisted", event["scope_decision"], "rejected")
+        h.check("cross_host_iframe_not_archived", event["snapshot_id"], None)
     finally:
         handler.do_GET = original
 
