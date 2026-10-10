@@ -308,6 +308,15 @@ def verify_export(archive, exported):
     errors = []
     for record in exported["records"]:
         try:
+            normalized = json.dumps(
+                {key: record[key] for key in ("record_type", "schema_version", "data")},
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+                allow_nan=False,
+            ).encode()
+            if hashlib.sha256(normalized).hexdigest() != record["content_hash"]:
+                raise ValueError("record_content_hash_mismatch")
             snapshots = {}
             for ref in record["inputs"]:
                 snapshot = json.loads(object_bytes(archive, ref["snapshot_id"]))

@@ -136,12 +136,9 @@ def finish_run(run_id, epoch=None):
 
             unobserved = unobserved_records(c, source, run)
         errors = sorted(set(errors))
-        resource_counts = one(
-            c,
-            """SELECT count(*) AS http_attempts,count(snapshot_id) AS archived_observations
-               FROM seal_fetch_observation WHERE run_id=%s AND attempt_epoch=%s""",
-            (run_id, epoch),
-        )
+        from .discovery import network_counts
+
+        resource_counts = network_counts(c, run)
         resource_counts.update(
             input_count=len(run["inputs"]),
             input_roles=dict(Counter(entry["role"] for entry in run["inputs"])),

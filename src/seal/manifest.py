@@ -118,13 +118,9 @@ def terminal_report(connection, source, run, status, reason):
         )
         counts.update(observed)
         counts.setdefault("record_count", len(report.get("record_outputs", [])))
-    fetch_counts = one(
-        connection,
-        """SELECT count(*) AS http_attempts,
-             count(snapshot_id) AS archived_observations
-           FROM seal_fetch_observation WHERE run_id=%s AND attempt_epoch=%s""",
-        (run["id"], run["attempt_epoch"]),
-    )
+    from .discovery import network_counts
+
+    fetch_counts = network_counts(connection, run)
     fetch_counts.update(
         input_count=len(run["inputs"]),
         input_roles=dict(Counter(entry["role"] for entry in run["inputs"])),

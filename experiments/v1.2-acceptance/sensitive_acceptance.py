@@ -50,11 +50,24 @@ def sensitive_responses(h, version):
     baseline = h.export("sensitivebaseline")
     h.site.state = "sensitive"
     try:
+        before = len(h.site.ledger)
         rejected, observed, data = run(
             h, "sensitivebaseline", binding, ok=False, capture="sensitive-changed-response"
         )
         h.check("sensitive_body_error_traced", "sensitive_body_rejected" in rejected["errors"])
         h.check("sensitive_changed_no_observation", observed["observations"], [])
+        h.check(
+            "sensitive_rejected_response_still_counts_network_attempt",
+            [
+                rejected["report"]["stats"].get("downloader/request_count", 0),
+                rejected["report"]["discovery"]["http_attempts"],
+                rejected["report"]["resource_counts"]["http_attempts"],
+                observed["discovery"]["http_attempts"],
+                observed["manifest"]["resource_counts"]["http_attempts"],
+                len(h.site.ledger) - before,
+            ],
+            [1, 1, 1, 1, 1, 1],
+        )
         h.check("sensitive_changed_no_record", data["records"], [])
         preserved = h.export("sensitivebaseline")
 

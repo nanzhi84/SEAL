@@ -127,7 +127,7 @@ def build(args):
                     "sample_status": sample["status"],
                     "run_id": value["receipt"].get("run_id"),
                     "runtime_status": value["receipt"].get("status"),
-                    "errors": inspection.get("errors", []),
+                    "errors": inspection.get("run", {}).get("report", {}).get("errors", []),
                     "discovery": inspection.get("discovery", {}),
                     "evidence_file": str(path.relative_to(ROOT)),
                 }
@@ -194,6 +194,22 @@ def build(args):
             if rid in diagnoses:
                 row["current_engine_diagnostic"] = diagnoses[rid]
                 row["verification_scope"] = "current_engine_failed_or_refused_run"
+                row["historical_evidence"] = old
+                codes = diagnoses[rid]["errors"]
+                row.update(
+                    status="blocked"
+                    if set(codes)
+                    & {
+                        "sensitive_body_rejected",
+                        "request_out_of_scope",
+                        "http_error",
+                        "download_failed",
+                    }
+                    else "acceptance_failed",
+                    reason_category="来源访问限制 / 安全范围拒绝",
+                    reason_code=",".join(codes),
+                    reason="当前实际 Run 未形成有效业务输出；保留拒绝诊断，历史成功不作为当前验收证据",
+                )
                 if rid == "dd-357":
                     row.update(
                         reason_category="来源访问限制 / 安全范围拒绝",

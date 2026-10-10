@@ -153,11 +153,37 @@ def finish_discovery(c, run, reason):
     )
 
 
+def network_counts(c, run):
+    """Keep network attempts distinct from responses admitted to the archive."""
+    counts = c.execute(
+        """SELECT count(*) AS http_attempts,
+                  count(snapshot_id) AS archived_observations
+           FROM seal_fetch_observation WHERE run_id=%s AND attempt_epoch=%s
+             AND origin='network'""",
+        (run["id"], run["attempt_epoch"]),
+    ).fetchone()
+    # Sensitive bodies are rejected before an Observation is persisted. Native
+    # downloader stats still count that exchange, without retaining its bytes.
+    stats = run.get("report", {}).get("stats")
+    counts["http_attempts_basis"] = "observations_lower_bound"
+    if run.get("mode") == "replay":
+        counts.update(
+            http_attempts=0, archived_observations=0, http_attempts_basis="offline_replay"
+        )
+    elif stats is not None:
+        counts.update(
+            http_attempts=stats.get("downloader/request_count", 0),
+            http_attempts_basis="scrapy_downloader",
+        )
+    return counts
+
+
 def summarize_discovery(c, run, include_events=False):
     """Count discovery lifecycle separately from persisted HTTP observations.
 
     ``requested`` means a request passed Guard (or was restored by Replay), while
-    ``http_attempts`` counts the actual network Fetch Observations in this attempt.
+    ``http_attempts`` uses native downloader stats, including refused bodies;
+    without completed stats, persisted observations are only a lower bound.
     ``parsed`` requires the final successful state, including valid zero-Record
     callbacks. ``callback_completed`` also counts callbacks whose later item
     validation failed, so a callback return cannot imply a valid structured result.
@@ -218,15 +244,7 @@ def summarize_discovery(c, run, include_events=False):
             unknown.add("unresolved_discovery")
     if "discovery_budget_exceeded" in run.get("errors", []):
         unknown.add("discovery_budget_exceeded")
-    observations = {"http_attempts": 0, "archived_observations": 0}
-    if run.get("mode") != "replay":
-        observations = c.execute(
-            """SELECT count(*) AS http_attempts,
-                      count(*) FILTER (WHERE snapshot_id IS NOT NULL) AS archived_observations
-               FROM seal_fetch_observation WHERE run_id=%s AND attempt_epoch=%s
-                 AND origin='network'""",
-            (run["id"], run["attempt_epoch"]),
-        ).fetchone()
+    observations = network_counts(c, run)
     summary = {
         "contract": 1,
         "instrumented": instrumented,
