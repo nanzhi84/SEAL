@@ -1,0 +1,103 @@
+{
+  "scope": "PR #2: V1.2 Runtime infrastructure and representative A/B/C frozen-scope live acceptance only",
+  "excluded": [
+    "Evaluation/business quality approval",
+    "all 111 sources accepted",
+    "whole-site or subject verification"
+  ],
+  "independent_reviewer": "separate read-only agent /root/independent_review",
+  "initial_review_sha": "9a14f8dfc88948416fd134041a7061bd4a4a43e2",
+  "reviewed_fix_sha": "78cbda72d9b94968e2a41d8a2d4cd97f1eb3194b",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P2",
+      "file": "src/seal/core.py",
+      "scenario": "blank/bare/encoded sensitive query keys accepted then rewritten before execution",
+      "status": "CLOSED",
+      "fix": "Reject matching query keys before Source freezing, independent of value"
+    },
+    {
+      "id": "R2",
+      "priority": "P2",
+      "file": "src/seal/discovery.py",
+      "scenario": "Accept/Accept-Language variants incorrectly deduplicated",
+      "status": "CLOSED",
+      "fix": "Include negotiation headers in request identity and preserve snapshot actual representation identity; keep same-representation instability rejection"
+    }
+  ],
+  "checks": {
+    "URL": "PASS",
+    "deduplication": "PASS",
+    "Recheck": "PASS: frozen plan, parent proof, budget groups, completion dates and failure backoff unchanged",
+    "job_idempotency": "PASS: source/run lock order, generation/write_seq/attempt fencing, atomic enqueue, slot/result/version idempotency",
+    "migrations": "PASS: schema.sql/0002 unchanged, additive checksum-registered 0003-0005; no migrations modified by review fixes",
+    "CI": "PASS: pinned actions/toolchain, read-only permissions, fixed isolated synthetic CLI suites, metadata-only upload"
+  },
+  "reviewer_independent_verification": {
+    "files": 64,
+    "assertions": 29,
+    "passed": 29,
+    "engine_hash_matches_reviewed_sha": true
+  },
+  "new_blocking_findings": [],
+  "failed_reproduction_evidence": [
+    {
+      "directory": "artifacts/acceptance/pr2-review-url-red",
+      "manifest_sha256": "8f2c4a0e1bc0c8a9ac845091ad2a684afb50fa4b150b5ae95bfdf7a838f4632f",
+      "meaningful_failures": [
+        {
+          "name": "url_sensitive_0_rejected_before_freeze",
+          "status": "FAIL"
+        },
+        {
+          "name": "url_sensitive_1_rejected_before_freeze",
+          "status": "FAIL"
+        },
+        {
+          "name": "url_sensitive_2_rejected_before_freeze",
+          "status": "FAIL"
+        },
+        {
+          "name": "url_sensitive_3_rejected_before_freeze",
+          "status": "FAIL"
+        },
+        {
+          "name": "negotiation_four_http_representations",
+          "status": "FAIL"
+        },
+        {
+          "name": "negotiation_four_records",
+          "status": "FAIL"
+        },
+        {
+          "name": "negotiation_replay_four_records",
+          "status": "FAIL"
+        },
+        {
+          "name": "suite_completed",
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "directory": "artifacts/acceptance/pr2-review-representation-red-v2",
+      "manifest_sha256": "bf62938324d7cda5ba694dfba1a67d282362e4ea844db99e2f3e79b59c3827b8",
+      "meaningful_failures": [
+        {
+          "name": "negotiation_collect_complete",
+          "status": "FAIL"
+        },
+        {
+          "name": "suite_completed",
+          "status": "FAIL"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Reviewer did not repeat full live acceptance",
+    "No generic Recheck headers API added: existing frozen Recipe parameters reconstruct negotiation",
+    "Remote exact-head three-check success still required before merge"
+  ]
+}

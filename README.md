@@ -15,23 +15,26 @@ V1.2 增加业务 Record、Discovery、多记录 JSON、静态 iframe 和业务�
 归档故障处理保持原合同。原文必须放在私有目录，运行前设置 `umask 077`，不直接公开。
 实验发布隐私检查独立于 Runtime。
 
-PR #2 URL修正后的最终验收在冻结引擎 `658835a` 上执行：联合473/473、M3 134/134、
-Smoke1200/1200、分页154/154、父请求35/35、Recheck115/115、公开探测33/33。
-八个真实来源786/786（A3/B3/C2，118条首轮Record），dd-009补充75/75（29条Record），
-全量分页489/489、T7S 323/323；dd-102真实iframe产生41条Record。
+PR #2 仅交付 V1.2 Runtime 基础设施及 A/B/C 代表性来源的真实验收。独立 Review
+覆盖 URL、请求去重、Recheck、任务幂等性与数据库迁移；发现的两项 P2 已修复并复审关闭：
+空/裸敏感查询键在冻结前拒绝，Accept/Accept-Language 协商表示分别请求、归档和解析。
+同表示正文变化仍拒绝，包括不同 role、不同重定向入口与 A/B/A 交错请求。
 
-已定位dd-357错误发生在历史B2探测的 `quote(parts.path,safe='/%:@')`，将 `!` 改为
-`%21` 后进入冻结合同。正确URL已通过两轮Collect、Recheck、零网络Replay，1条公告Record；
-错误URL的302越界拒绝另存为22/22负向合同。现行URL处理保留原路径、查询串与转义写法，
-并按实际请求URL去重；URL专项11/11覆盖发现、冻结、HTTP、身份、Recheck与Replay。
+最终冻结引擎 `78cbda7`：联合473/473、公开探测33/33、M3 134/134、Smoke1200/1200、
+分页154/154、父请求35/35、Recheck115/115、URL29/29、空查询75/75、错误URL负向22/22。
+八个真实来源786/786（A3/B3/C2，118条首轮Record），dd-009补充75/75（29条Record）；
+完整分页489/489、T7S323/323。总计3943/3943，T0–T6、T7S、T8全部PASS。
+dd-102真实iframe产生41条Record；dd-357正确 `!` URL产生1条，错误 `%21` 记录单独保留。
 
-[当前最终报告](experiments/v1.2-acceptance/results/url-correction/report.json)、
-[根因审计](experiments/v1.2-acceptance/results/url-correction/url-audit.json)及
-[Plan第14节](docs/plans/v1.2-heterogeneous-sources.md#14-dd-357-url-语义修正2026-10-10)
-保存精确源码Hash、状态、命令、环境和真实证据；原文仅在本地私有目录。
-[旧报告](experiments/v1.2-acceptance/results/final-acceptance/report.json)保留为历史快照。
-PR为Ready for review，尚未合并。台账101 adapted中9个在本轮引擎复验，92个历史成功未复验；
-另有2 partial、7 blocked、1 acceptance_failed。全111来源复验及Evaluation批准未执行。
+[最终验收报告](experiments/v1.2-acceptance/results/pr2-merge/report.json)、
+[独立 Review](experiments/v1.2-acceptance/results/pr2-merge/independent-review.json)与
+[Plan第15节](docs/plans/v1.2-heterogeneous-sources.md#15-独立审查轻量ci与合并交付2026-10-10)
+保存源码Hash、状态、命令及证据；原文仅在私有目录。
+[URL根因审计](experiments/v1.2-acceptance/results/url-correction/url-audit.json)及旧报告保留为历史。
+[GitHub Actions](.github/workflows/ci.yml)固定执行Ruff、core（506项）、offline（278项），
+只运行隔离CLI/HTTP/PG端到端回归并上传脱敏元数据。精确PR head三项检查通过后合并。
+台账101 adapted中9个在本轮引擎复验，92个历史成功未复验；另有2 partial、7 blocked、
+1 acceptance_failed。完整111来源、全站/主体核验及Evaluation批准不属于本次交付。
 
 
 长期架构分为三个逻辑平面：
