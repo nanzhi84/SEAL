@@ -542,7 +542,7 @@
     "params": {
       "documents": [
         {
-          "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+          "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
           "title": ".cjcs_phone_title",
           "body": ".content_body_box"
         }
@@ -552,9 +552,9 @@
       "pdf_titles": {}
     },
     "source": {
-      "id": "remediation_dd_357",
+      "id": "delivery_dd_357",
       "entry_urls": [
-        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
       ],
       "allowed_hosts": [
         "permit.mee.gov.cn"
@@ -576,7 +576,7 @@
       "identity": "canonical_url",
       "output_schema": "record.v1",
       "archive_approved": true,
-      "scope": "仅原规定公开公告《关于调整2024年排污许可证年度执行报告报送时间的公告》匿名HTML正文；最新直接GET无CAS重定向后才进行有界四轮验收。采用文章URL文档身份；不模拟CAS、不读取许可证查询或执行报告数据，不扩大到全站或主体核验。",
+      "scope": "诊断原公开公告单篇正文；允许主机与路径完全沿用原冻结范围，仅将入口路径%21还原为字面量!，不跟随CAS登录或扩大许可证业务范围。",
       "seed_role": "detail",
       "poll_seconds": 3600,
       "recheck_seconds": 86400,
@@ -597,32 +597,18 @@
         "complete"
       ],
       "anchors": [
-        "关于调整2024年排污许可证年度执行报告报送时间的公告",
-        "火电行业于2025年1月底前",
-        "其余行业于2025年2月底前"
+        "关于调整2024年排污许可证年度执行报告报送时间的公告"
       ],
       "roles": [
         "detail"
       ],
-      "errors": [],
       "stable_keys": [
-        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
       ],
       "allowed_urls": [
-        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
       ],
-      "archived_urls": [
-        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg%21getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
-      ],
-      "min_pages": 0,
-      "title_anchors": [
-        "关于调整2024年排污许可证年度执行报告报送时间的公告"
-      ],
-      "body_anchors": [
-        "火电行业于2025年1月底前",
-        "其余行业于2025年2月底前"
-      ],
-      "min_body_chars": 250
+      "min_pages": 0
     }
   },
   {

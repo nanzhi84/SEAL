@@ -38,6 +38,7 @@ def settings_for(context):
         )
     return {
         "SEAL_CONTEXT": context,
+        "REQUEST_FINGERPRINTER_CLASS": "seal.discovery.ResourceFingerprinter",
         "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
         "DOWNLOADER_MIDDLEWARES": middlewares,
         "SPIDER_MIDDLEWARES": {

@@ -5,8 +5,24 @@ from datetime import date, datetime
 from scrapy import Request, signals
 from scrapy.exceptions import IgnoreRequest
 
-from .core import SealError, safe_url, uid
+from .core import SealError, digest, safe_url, uid
 from .db import connect, locked_run, record_error
+
+
+class ResourceFingerprinter:
+    """Deduplicate identical wire resources without decoding or sorting queries."""
+
+    def fingerprint(self, request):
+        return bytes.fromhex(
+            digest(
+                {
+                    "method": request.method,
+                    "url": request.url.split("#", 1)[0],
+                    "body_sha256": digest(request.body),
+                }
+            )
+        )
+
 
 # Bounds metadata even when a recipe emits an unbounded stream of duplicate URLs.
 EVENT_LIMIT = 100_000

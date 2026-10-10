@@ -13,11 +13,12 @@ import urllib.request
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import quote, unquote, urljoin, urlsplit
+from urllib.parse import unquote, urljoin, urlsplit
 
 from parsel import Selector
 from protego import Protego
 from scrapy.http import HtmlResponse
+from w3lib.url import safe_url_string
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from experiments.archive_privacy import BODY_SECRET, contains_sensitive_body  # noqa: E402
@@ -115,7 +116,7 @@ class Probe:
                     opener = urllib.request.build_opener(
                         urllib.request.ProxyHandler({}), NoRedirect()
                     )
-                    wire_url = quote(url, safe=":/?&=%#@+;,!$()*[]~")
+                    wire_url = safe_url_string(url)
                     req = urllib.request.Request(
                         wire_url, headers={"User-Agent": UA, "Connection": "close"}
                     )

@@ -6,7 +6,7 @@ import json
 import os
 import re
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, unquote_plus, urlsplit, urlunsplit
 from uuid import uuid4
 
 
@@ -46,12 +46,13 @@ def safe_url(url):
         port = parts.port
         if port and (parts.scheme, port) not in (("http", 80), ("https", 443)):
             host += ":" + str(port)
-        # Preserve non-sensitive query order; sorting could change source semantics.
-        query = urlencode(
-            [
-                (k, "REDACTED" if SENSITIVE.search(k) else v)
-                for k, v in parse_qsl(parts.query, keep_blank_values=True)
-            ]
+        # Resource identity is the serialized query, not decoded name/value pairs.
+        # Redact only sensitive values for diagnostics; public_url rejects these URLs.
+        query = "&".join(
+            segment.partition("=")[0] + "=REDACTED"
+            if SENSITIVE.search(unquote_plus(segment.partition("=")[0]))
+            else segment
+            for segment in parts.query.split("&")
         )
         return urlunsplit((parts.scheme, host, parts.path or "/", query, ""))
     except ValueError:

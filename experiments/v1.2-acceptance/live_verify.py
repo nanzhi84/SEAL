@@ -7,7 +7,7 @@ from datetime import date
 from functools import lru_cache
 from io import BytesIO
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import urlsplit, urlunsplit
 from zipfile import ZipFile
 
 import xlrd
@@ -36,7 +36,7 @@ def canonical_url(value):
             parts.scheme,
             parts.netloc,
             parts.path or "/",
-            urlencode(parse_qsl(parts.query, keep_blank_values=True)),
+            parts.query,
             "",
         )
     )

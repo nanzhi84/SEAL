@@ -26,7 +26,8 @@ REQUIRED = {
     "parents",
     "recheck",
     "real",
-    "blocked",
+    "url-negative",
+    "url-semantics",
     "blank-query",
     "dd009",
 }
@@ -142,7 +143,6 @@ def main():
                 for name in ("real", "dd009")
                 for row in groups[name]["samples"]
             },
-            "dd-357": "BLOCKED: public redirect leaves approved scope; refusal diagnostic PASS",
         },
         "privacy": "Private raw archives are not published; only metadata, hashes and checks",
         "quality_status": "not_evaluated",
