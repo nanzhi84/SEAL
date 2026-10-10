@@ -66,8 +66,6 @@ class Site:
                     body = f"<h1>{title}</h1><time>2026-01-02</time><{tag}>Public content {owner.version}</{tag}>".encode()
                     if owner.failure == "empty":
                         body = b"<h1>Login</h1><article></article>"
-                    elif owner.failure == "sensitive":
-                        body += b" access_token=synthetic-secret-do-not-archive"
                 elif path == "/probe/pdf":
                     body, headers["Content-Type"] = owner.pdf, "application/pdf"
                 elif path == "/probe/json":

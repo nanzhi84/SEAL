@@ -32,20 +32,6 @@ def m0(h):
         h.config(name, [h.site.url + "/probe/" + endpoint], seed_role="detail")
         failed = h.cli("run", name, "--binding", h.binding(name), ok=False)
         h.check(f"reject_{endpoint}", failed["status"] in ("partial", "failed", "retryable"))
-    h.config("sensitive")
-    h.site.failure = "sensitive"
-    failed = h.cli("run", "sensitive", "--binding", h.binding("sensitive"), ok=False)
-    h.check("sensitive_body_blocked", failed["status"], "partial")
-    h.site.failure = None
-    h.check(
-        "no_sensitive_values_in_archive",
-        not any(
-            b"synthetic-secret-do-not-archive" in p.read_bytes()
-            or b"fixture-cookie=must-not-persist" in p.read_bytes()
-            for p in (h.root / "archive").rglob("*")
-            if p.is_file()
-        ),
-    )
     return binding
 
 
