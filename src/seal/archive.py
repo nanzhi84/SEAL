@@ -12,7 +12,6 @@ from .core import (
     Objects,
     SealError,
     check_address,
-    contains_sensitive_body,
     digest,
     public_url,
     safe_url,
@@ -71,8 +70,6 @@ def restore(snapshot_id, request):
 
 
 def archive_response(context, request, response):
-    if contains_sensitive_body(response.body):
-        raise SealError("sensitive_body_rejected")
     if response.flags and "cached" in response.flags:
         raise SealError("cache_provenance_unknown")
     if response.headers.get(b"Content-Encoding"):

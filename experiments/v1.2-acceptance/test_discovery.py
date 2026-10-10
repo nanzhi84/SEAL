@@ -251,7 +251,6 @@ class DiscoveryTests(unittest.TestCase):
         for reason in (
             "replay_miss",
             "replay_ambiguous",
-            "sensitive_body_rejected",
             "archive_failed",
         ):
             summary = discovery.summarize_discovery(

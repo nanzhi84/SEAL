@@ -8,7 +8,6 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlsplit
 
 from attachment_fixtures import docx_bytes, xls_bytes
-from sensitive_fixtures import body_for
 
 
 def rows():
@@ -54,9 +53,7 @@ class Site:
                 path, query = parsed.path, parse_qs(parsed.query)
                 time.sleep(owner.delays.get(path, 0))
                 status, content_type = 200, "text/html; charset=utf-8"
-                if path.startswith("/sensitive/"):
-                    body = body_for(path, owner.state)
-                elif path.startswith("/api"):
+                if path.startswith("/api"):
                     data = copy.deepcopy(rows())
                     if owner.state == "reorder":
                         data.reverse()

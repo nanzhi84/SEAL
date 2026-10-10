@@ -19,7 +19,8 @@ from parsel import Selector
 from protego import Protego
 from scrapy.http import HtmlResponse
 
-from seal.core import BODY_SECRET, contains_sensitive_body
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from experiments.archive_privacy import BODY_SECRET, contains_sensitive_body  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "experiments/due-diligence"))

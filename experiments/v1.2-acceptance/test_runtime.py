@@ -438,9 +438,6 @@ print(json.dumps(execute_run(%r)))
 
 def run_all(h):
     version = recipe(h)
-    from sensitive_acceptance import sensitive_responses
-
-    sensitive_responses(h, version)
     from runtime_attachment import structured_attachments
 
     structured_attachments(h, version)

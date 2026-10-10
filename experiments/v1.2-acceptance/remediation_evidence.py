@@ -40,7 +40,8 @@ def build(args):
         }
     demand(engine == committed, "engine_commit_does_not_match_tested_source")
     groups, payload, current, diagnoses, exceptions = [], {}, {}, {}, []
-    from seal.core import contains_sensitive_body
+    sys.path.insert(0, str(ROOT))
+    from experiments.archive_privacy import contains_sensitive_body
 
     synthetic = {}
     for path in args.synthetic_fixture:
@@ -63,8 +64,8 @@ def build(args):
         demand(path.is_file() and not path.is_symlink(), "invalid_evidence_file")
         name = str(path.relative_to(ROOT))
         body = path.read_bytes()
-        # Rejected responses never enter the archive. Fail closed if a stored
-        # raw object nevertheless contains credentials or a session marker.
+        # Private archives may contain session markers. Publication remains a
+        # separate boundary and fails closed for raw objects containing them.
         if "/archive/objects/" in name:
             if contains_sensitive_body(body):
                 digest = sha(body)

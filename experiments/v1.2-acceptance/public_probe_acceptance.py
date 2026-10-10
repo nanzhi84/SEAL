@@ -46,6 +46,12 @@ def run_public_probe(h):
         b"for this metadata-only boundary fixture.</article></html>"
     )
     routes = {
+        "/probe/authorization": (200, None, b"Authorization: Bearer synthetic-private-value\r\n"),
+        "/probe/placeholders": (
+            200,
+            None,
+            b'<html><h1>Public notice</h1><script>password:null; token:"";</script><input type="password" value=""></html>',
+        ),
         "/probe/sensitive-html": (200, None, html),
         "/probe/login-redirect": (302, "/cas/login?poc_token=synthetic-private-value", b""),
         "/probe/captcha-redirect": (
@@ -77,9 +83,9 @@ def run_public_probe(h):
     summaries = []
     try:
         for label, path in (
-            ("sensitive-header-body", "/sensitive/authorization"),
+            ("sensitive-header-body", "/probe/authorization"),
             ("sensitive-html-body", "/probe/sensitive-html"),
-            ("safe-public-placeholders", "/sensitive/baseline"),
+            ("safe-public-placeholders", "/probe/placeholders"),
         ):
             output = h.root / label
             output.mkdir()

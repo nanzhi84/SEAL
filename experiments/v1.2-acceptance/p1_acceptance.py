@@ -1,10 +1,4 @@
-"""Real CLI regressions: credential aliases and duplicate-parent arrival permutations.
-
-Failure boundaries: populated aliases must never reach CAS/observations/Records;
-empty aliases and similarly named public fields remain archivable. Identical
-Records from different pages must keep both evidences and choose the same usable
-parent across reversed arrivals, repeated collect, Recheck and offline Replay.
-"""
+"""Real CLI duplicate-parent arrival permutations and stable archived lineage."""
 
 import argparse
 import json
@@ -13,7 +7,6 @@ from pathlib import Path
 
 from acceptance import Harness
 from runtime_support import by_key, recipe, record_source, run, sql
-from sensitive_acceptance import sensitive_responses
 
 
 def parents(h, version):
@@ -91,7 +84,7 @@ def parents(h, version):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--scenario", choices=["sensitive", "parents", "all"], default="all")
+    parser.add_argument("--scenario", choices=["parents", "all"], default="all")
     args = parser.parse_args()
     h, error = Harness(args.output), None
     try:
@@ -99,8 +92,6 @@ def main():
         version = recipe(h)
         if args.scenario in ("all", "parents"):
             parents(h, version)
-        if args.scenario in ("all", "sensitive"):
-            sensitive_responses(h, version)
     except Exception as exc:
         error = exc
         traceback.print_exc()
