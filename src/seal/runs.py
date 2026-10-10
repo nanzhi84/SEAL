@@ -33,10 +33,13 @@ def freeze_replay_origin(connection, original):
                                       'replay_miss','replay_ambiguous')
                  AND NOT EXISTS (
                      SELECT 1 FROM seal_discovery archived
+                     JOIN seal_fetch_observation observed ON observed.id=archived.observation_id
                      WHERE archived.run_id=d.run_id
                        AND archived.attempt_epoch=d.attempt_epoch
-                       AND archived.fingerprint=d.fingerprint AND archived.role=d.role
-                       AND archived.snapshot_id IS NOT NULL)
+                       AND archived.role=d.role AND archived.snapshot_id IS NOT NULL
+                       AND observed.final_url IS NOT NULL
+                       AND (archived.fingerprint=d.fingerprint
+                            OR (d.chain_id IS NOT NULL AND archived.chain_id=d.chain_id)))
                ORDER BY d.created_at,d.id""",
             (original["id"], original["attempt_epoch"]),
         ).fetchall()

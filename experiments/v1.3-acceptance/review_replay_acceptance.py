@@ -4,6 +4,7 @@ import argparse
 import html
 import json
 import shutil
+import socket
 import sys
 import traceback
 from pathlib import Path
@@ -12,13 +13,16 @@ from urllib.parse import parse_qs, urlsplit
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "experiments/v1.2-acceptance"))
 from acceptance import Harness  # noqa: E402
+from runtime_support import sql  # noqa: E402
 
 
 def run_all(h):
     handler = h.site.server.RequestHandlerClass
     original = handler.do_GET
+    recovery_attempts = 0
 
     def get(request):
+        nonlocal recovery_attempts
         parsed = urlsplit(request.path)
         content_type = "text/html; charset=utf-8"
         if parsed.path == "/robots.txt":
@@ -33,10 +37,26 @@ def run_all(h):
             body = document(request.path)
         elif parsed.path.startswith("/depth/"):
             number = int(parsed.path.rsplit("/", 1)[-1])
-            body = document(request.path) + f'<a href="/depth/{number + 1}">Next</a>'
+            body = document(request.path).replace(
+                "</html>", f'<a href="/depth/{number + 1}">Next</a></html>'
+            )
         elif parsed.path == "/query":
             number = int(parse_qs(parsed.query).get("n", ["0"])[0])
-            body = document(request.path) + f'<a href="/query?n={number + 1}">Next</a>'
+            body = document(request.path).replace(
+                "</html>", f'<a href="/query?n={number + 1}">Next</a></html>'
+            )
+        elif parsed.path == "/recover/list":
+            body = '<html><nav><a href="/recover/detail">Public document</a></nav></html>'
+        elif parsed.path == "/recover/detail":
+            recovery_attempts += 1
+            if recovery_attempts == 1:
+                h.site.ledger.append(
+                    {"method": "GET", "path": request.path, "error": "fixture_connection_closed"}
+                )
+                request.connection.shutdown(socket.SHUT_RDWR)
+                request.connection.close()
+                return
+            body = document(request.path)
         else:
             return original(request)
         encoded = body.encode()
@@ -107,6 +127,28 @@ def run_all(h):
                 "export": export,
                 "reason": reason,
             }
+
+        h.config(
+            "replay_recovered",
+            entries=[h.site.url + "/recover/list"],
+            output_schema="record.v1",
+            robots=True,
+            delay=0.0,
+            concurrency=1,
+        )
+        recovery_binding = h.binding(
+            "replay_recovered", version, {"expand_homepage": False, "discover_sitemaps": False}
+        )
+        recovered = h.cli("collect", "replay_recovered", "--binding", recovery_binding)
+        recovered_inspection = h.cli("inspect", "run", recovered["run_id"])
+        h.check("native_retry_recovered_original_complete", recovered["status"], "complete")
+        h.check(
+            "native_retry_original_failure_evidence",
+            any(
+                e["reason"] == "download_failed"
+                for e in recovered_inspection["discovery"]["events"]
+            ),
+        )
 
         # Replay works with the origin shut down, including auxiliary policies.
         h.site.close()
@@ -186,7 +228,46 @@ def run_all(h):
         h.check("new_recipe_candidate_remains_strict_miss", "replay_miss" in altered["errors"])
         h.check("new_recipe_candidate_no_network", len(h.site.ledger), network_count)
         h.check("new_recipe_keeps_original_partial_reason", case["reason"] in altered["errors"])
-        h.capture("partial-replay", {"cases": collected, "new_recipe": altered})
+
+        # A failed native transport retry subsequently produced a Snapshot. It
+        # cannot become a negative input that hides a missing archived mapping.
+        # This fault injection touches only this suite's disposable synthetic DB.
+        inputs = recovered_inspection["run"]["inputs"]
+        without_detail = [item for item in inputs if not item["url"].endswith("/recover/detail")]
+        sql(
+            h,
+            "UPDATE seal_run SET inputs=%s::jsonb WHERE id=%s",
+            (json.dumps(without_detail), recovered["run_id"]),
+        )
+        try:
+            missing = h.cli("replay", recovered["run_id"], ok=False)
+            h.check(
+                "recovered_transport_cannot_hide_missing_mapping",
+                "replay_miss" in missing["errors"],
+            )
+            h.check(
+                "recovered_transport_missing_mapping_no_network", len(h.site.ledger), network_count
+            )
+            h.check(
+                "recovered_transport_not_frozen_as_negative_input",
+                missing["report"].get("replay_origin_id"),
+                None,
+            )
+        finally:
+            sql(
+                h,
+                "UPDATE seal_run SET inputs=%s::jsonb WHERE id=%s",
+                (json.dumps(inputs), recovered["run_id"]),
+            )
+        h.capture(
+            "partial-replay",
+            {
+                "cases": collected,
+                "new_recipe": altered,
+                "recovered": recovered_inspection,
+                "missing_recovered_input": missing,
+            },
+        )
     finally:
         handler.do_GET = original
 

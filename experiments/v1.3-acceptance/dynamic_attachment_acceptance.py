@@ -11,7 +11,9 @@ import hashlib
 import importlib.util
 import json
 import sys
+import threading
 import traceback
+from http.server import ThreadingHTTPServer
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -38,6 +40,13 @@ def body_object(h, snapshot):
 def exercise(h):
     handler = h.site.server.RequestHandlerClass
     original = handler.do_GET
+    # The production address guard always rejects the hostname localhost. Its
+    # isolated-acceptance opt-in permits literal loopback IPs, so use a second
+    # actual server instead of relaxing that guard for a fixture hostname.
+    cross_server = ThreadingHTTPServer(("127.0.0.2", 0), handler)
+    cross_url = "http://127.0.0.2:" + str(cross_server.server_address[1])
+    cross_thread = threading.Thread(target=cross_server.serve_forever, daemon=True)
+    cross_thread.start()
 
     def get(request):
         path = request.path
@@ -69,7 +78,7 @@ def exercise(h):
                 "<html>"
                 + PARENT_BODY
                 + '<a href="'
-                + h.site.url.replace("127.0.0.1", "localhost")
+                + cross_url
                 + '/dynamic/download?id=pdf">Cross-host report</a></html>'
             ).encode()
         elif path == "/dynamic/download?id=pdf":
@@ -80,7 +89,9 @@ def exercise(h):
             content_type, body = XLSX_MIME, XLSX_BYTES
         else:
             return original(request)
-        h.site.ledger.append({"method": "GET", "path": path, "status": 200})
+        h.site.ledger.append(
+            {"method": "GET", "path": path, "status": 200, "host": request.headers["Host"]}
+        )
         request.send_response(200)
         request.send_header("Content-Type", content_type)
         request.send_header("Content-Length", str(len(body)))
@@ -110,10 +121,31 @@ def exercise(h):
         parent_event = next(
             e for e in events if e["url"] == h.site.url + "/dynamic/notice" and e["snapshot_id"]
         )
-        parent_input = {
+        notice_input = {
             "snapshot_id": parent_event["snapshot_id"],
             "observation_id": parent_event["observation_id"],
         }
+        # Scrapy owns download order. A shared URL keeps the parent of its
+        # actually accepted request, which can originate on either notice.
+        accepted = {
+            kind: next(
+                event
+                for event in events
+                if event["url"] == h.site.url + "/dynamic/download?id=" + kind
+                and event["snapshot_id"]
+            )
+            for kind in ("pdf", "txt")
+        }
+        parent_inputs = {
+            kind: {
+                "snapshot_id": event["parent_snapshot_id"],
+                "observation_id": event["parent_observation_id"],
+            }
+            for kind, event in accepted.items()
+        }
+        h.check(
+            "text_download_parent_is_its_only_referring_notice", parent_inputs["txt"], notice_input
+        )
         h.check("dynamic_collect_complete", run["status"], "complete")
         h.check(
             "dynamic_final_type_counted_as_attachment", run["summary"]["counts"]["attachments"], 2
@@ -124,6 +156,7 @@ def exercise(h):
         ):
             url = h.site.url + "/dynamic/download?id=" + identifier
             record = records[url]
+            parent_input = parent_inputs[identifier]
             h.check(
                 identifier + "_classified_from_content_type",
                 record["record_type"],
@@ -164,6 +197,11 @@ def exercise(h):
         pdf_events = [e for e in events if e["url"] == h.site.url + "/dynamic/download?id=pdf"]
         h.check("two_parent_references_remain_in_discovery", len(pdf_events), 2)
         h.check(
+            "both_referring_notice_urls_remain_in_discovery",
+            {e["parent_url"] for e in pdf_events},
+            {h.site.url + "/dynamic/notice", h.site.url + "/dynamic/also"},
+        )
+        h.check(
             "all_duplicate_parent_references_have_snapshot_evidence",
             all(e["parent_snapshot_id"] and e["parent_observation_id"] for e in pdf_events),
         )
@@ -174,8 +212,13 @@ def exercise(h):
         )
         h.check(
             "record_uses_first_accepted_parent",
-            next(e for e in pdf_events if e["snapshot_id"])["parent_snapshot_id"],
-            parent_input["snapshot_id"],
+            [
+                {key: entry[key] for key in parent_inputs["pdf"]}
+                for entry in records[h.site.url + "/dynamic/download?id=pdf"]["inputs"]
+                if entry["snapshot_id"]
+                != records[h.site.url + "/dynamic/download?id=pdf"]["primary_snapshot_id"]
+            ],
+            [parent_inputs["pdf"]],
         )
         before = len(h.site.ledger)
         replay = h.cli("replay", run["run_id"])
@@ -196,7 +239,7 @@ def exercise(h):
             )
             h.check(
                 identifier + "_replay_preserves_original_parent_snapshot",
-                parent_input["snapshot_id"] in replay_records[url]["snapshot_ids"],
+                parent_inputs[identifier]["snapshot_id"] in replay_records[url]["snapshot_ids"],
             )
 
         h.config(
@@ -279,7 +322,7 @@ def exercise(h):
         for scoped in (False, True):
             name = "dynamic_cross_scoped" if scoped else "dynamic_cross_denied"
             extra = (
-                {"host_path_scopes": {"127.0.0.1": ["/dynamic"], "localhost": ["/dynamic"]}}
+                {"host_path_scopes": {"127.0.0.1": ["/dynamic"], "127.0.0.2": ["/dynamic"]}}
                 if scoped
                 else {}
             )
@@ -289,7 +332,7 @@ def exercise(h):
                 output_schema="record.v1",
                 robots=True,
                 delay=0.0,
-                allowed_hosts=["127.0.0.1", "localhost"],
+                allowed_hosts=["127.0.0.1", "127.0.0.2"],
                 allowed_path_prefixes=["/dynamic"],
                 **extra,
             )
@@ -330,6 +373,9 @@ def exercise(h):
             )
     finally:
         handler.do_GET = original
+        cross_server.shutdown()
+        cross_server.server_close()
+        cross_thread.join(timeout=5)
 
 
 def main():
