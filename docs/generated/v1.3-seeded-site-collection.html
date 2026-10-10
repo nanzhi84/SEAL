@@ -25,7 +25,8 @@
 </tbody></table></section>
 <section><h2>操作与验证</h2><p><code>seal collect SOURCE --binding BINDING</code><br><code>seal inspect run RUN_ID</code><br><code>seal inspect record RECORD_ID</code><br><code>seal inspect snapshot SNAPSHOT_HASH</code></p>
 <p>单元测试与模拟 HTTP / PostgreSQL 测试验证确定性工程合同；八个真实 Source 仅用于观察实际能力与阻塞。长期演示库和原文保留，另外执行跨进程及数据库重启后的查询。</p>
-<p>实际测试结果和证据见 <a href="../plans/v1.3-seeded-site-collection.md#4-测试与真实来源实验">Plan 验证记录</a>。</p></section>
+<p>统一测试：879 项运行断言 + 36 项单元测试通过，1,408 个工件文件复核通过。留存演示：3 次 Collect，1 个 Record、2 个版本，零网络 Replay；数据库重启后新进程查询成功。</p>
+<p>八个真实 Seed 均已执行，但被当前出站代理政策阻塞：0 Record，2 个代理拒绝 Snapshot；未取得上游正文。实际命令、完整 Smoke 的状态和证据见 <a href="../plans/v1.3-seeded-site-collection.md#4-测试与真实来源实验">Plan 验证记录</a>。</p></section>
 <section class="limits"><h2>明确的未知边界</h2><p>队列耗尽表示已生成请求处理完成，不能推断全站完整。没有独立 Ground Truth，不设置真实网站 Record 数量标准。搜索空间、浏览器交互、无可靠解析格式及网络政策阻塞保留具体原因。输出仍为 <code>not_evaluated</code>，Evaluation 与发布治理留待后续版本。</p></section>
 <footer>依据：Issue #4 · 基线 main 8241b44 · <a href="../adr/0004-seeded-collection-native-scrapy.md">ADR-0004</a> · 2026-10-10</footer>
 </body></html>
