@@ -1,0 +1,1181 @@
+{
+  "experiment": "SEAL V1.3 final exploratory Source Collect",
+  "implementation_git_head": "7906d9b59c21b700f17507578b188449053b59db",
+  "started_at": "2026-10-10T10:55:53.059879+00:00",
+  "completed_at": "2026-10-10T10:56:34.821729+00:00",
+  "client_timezone": "Asia/Singapore",
+  "business_map": "experiments/due-diligence/inputs/source-map.md",
+  "business_map_sha256": "f0259f31e31a530fe692d715482f986197c39c418c8f5715370f1599ddd4f448",
+  "network_policy": {
+    "observed_at": "2026-10-10T10:37:20+00:00",
+    "observed_at_local": "2026-10-10T18:37:20+08:00",
+    "http_mode": "restricted",
+    "enforcement_state": "enforced",
+    "observations_current": true,
+    "source_hosts_needed": [
+      "www.court.gov.cn",
+      "www.spp.gov.cn",
+      "www.amac.org.cn",
+      "www.moe.gov.cn",
+      "www.safe.gov.cn",
+      "permit.mee.gov.cn",
+      "find-and-update.company-information.service.gov.uk"
+    ],
+    "source_hosts_in_policy": {
+      "www.court.gov.cn": false,
+      "www.spp.gov.cn": false,
+      "www.amac.org.cn": false,
+      "www.moe.gov.cn": false,
+      "www.safe.gov.cn": false,
+      "permit.mee.gov.cn": false,
+      "find-and-update.company-information.service.gov.uk": false
+    },
+    "network_transport": "inherited HTTP_PROXY/HTTPS_PROXY; TLS verification enabled",
+    "probe_is_collect": false,
+    "upstream_site_availability": "not established",
+    "upstream_template_adaptation": "not established",
+    "probe_records": 0,
+    "probe_snapshots": 0,
+    "historical_evidence_reused": false
+  },
+  "network_probe": [
+    {
+      "source": "dd-017",
+      "seed": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+      "at": "2026-10-10T10:37:20.562870+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "error": "URLError",
+      "reason": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "source": "dd-041",
+      "seed": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+      "at": "2026-10-10T10:37:20.566672+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "error": "URLError",
+      "reason": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "source": "dd-250",
+      "seed": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+      "at": "2026-10-10T10:37:20.574919+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "error": "URLError",
+      "reason": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "source": "dd-468",
+      "seed": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+      "at": "2026-10-10T10:37:20.580799+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "status": 403,
+      "error": "HTTPError",
+      "body_prefix": "Domain forbidden"
+    },
+    {
+      "source": "dd-102",
+      "seed": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+      "at": "2026-10-10T10:37:20.602307+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "error": "URLError",
+      "reason": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "source": "dd-247",
+      "seed": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+      "at": "2026-10-10T10:37:20.609156+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "error": "URLError",
+      "reason": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    },
+    {
+      "source": "dd-357",
+      "seed": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+      "at": "2026-10-10T10:37:20.614001+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "status": 403,
+      "error": "HTTPError",
+      "body_prefix": "Domain forbidden"
+    },
+    {
+      "source": "dd-009",
+      "seed": "https://find-and-update.company-information.service.gov.uk/",
+      "at": "2026-10-10T10:37:20.616567+00:00",
+      "transport": "inherited proxy; TLS verified; no cookies/credentials; no direct retry",
+      "error": "URLError",
+      "reason": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+    }
+  ],
+  "network_transport": "inherited proxy; SEAL_USE_ENV_PROXY=1; TLS verification retained",
+  "required_source_hosts": [
+    "find-and-update.company-information.service.gov.uk",
+    "permit.mee.gov.cn",
+    "www.amac.org.cn",
+    "www.court.gov.cn",
+    "www.moe.gov.cn",
+    "www.safe.gov.cn",
+    "www.spp.gov.cn"
+  ],
+  "storage": "retained local PostgreSQL and immutable archive; retained after subprocess exit; managed-workspace lifetime, not a production service",
+  "retention_verified_at": "2026-10-10T10:57:07.843498+00:00",
+  "final_attempt": {
+    "source_rows": 8,
+    "runs": 8,
+    "discovery_events": 32,
+    "discovery_events_with_parent_url": 24,
+    "network_observations": 8,
+    "source_records": 0,
+    "archived_response_snapshots": 2
+  },
+  "cumulative_live_source_evidence": {
+    "runs": 16,
+    "sources": 8,
+    "bindings": 16,
+    "discovery_events": 64,
+    "scope": "all attempts for these 8 live Source IDs, excluding local fixture Sources"
+  },
+  "archived_response_snapshots": [
+    {
+      "snapshot_id": "cc8df8dc4964e7b32b4e8988f70bb1319056b43b06ad069d5905eff64d1f8db6",
+      "body_hash": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+      "body_size": 16,
+      "status": 403,
+      "url": "http://permit.mee.gov.cn/robots.txt",
+      "verified_body": "Domain forbidden",
+      "provenance": "executor proxy denial, not an upstream site page"
+    },
+    {
+      "snapshot_id": "5b417e521ac7171da22e128f30f3510d943098aba03d683c52d856cbd556df9b",
+      "body_hash": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+      "body_size": 16,
+      "status": 403,
+      "url": "http://www.moe.gov.cn/robots.txt",
+      "verified_body": "Domain forbidden",
+      "provenance": "executor proxy denial, not an upstream site page"
+    }
+  ],
+  "immutable_snapshot_ids_reused_from_initial_attempt": true,
+  "upstream_site_content_fetched": false,
+  "outcome": "All 8 final Collect Runs are partial/blocked. Exact business Seeds and recursive expansion candidates were audited; no current upstream site content or business Records were fetched.",
+  "limits": [
+    "Site totals and undiscovered URLs are unknown.",
+    "Queue exhaustion does not imply source completeness.",
+    "Homepage searches were not replaced by invented fixed queries.",
+    "Real HTML, JSON/API, iframe, XLS and unknown-template behavior remain unverified in this executor.",
+    "Local PostgreSQL/archive survive Collect and test completion but depend on the managed environment lifecycle."
+  ],
+  "sources": [
+    {
+      "research_id": "dd-017",
+      "source_id": "v13-live-dd-017",
+      "seed": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+      "allowed_hosts": [
+        "www.court.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "www.court.gov.cn": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "ea7c709b91c6e53453b3f3e47bff180f7b12473ff3806897d9542bed3491c948",
+      "run_id": "cbb8675d-11be-4842-8297-d9cb46d24680",
+      "created_at": "2026-10-10 10:55:55.422332+00:00",
+      "completed_at": "2026-10-10 10:55:56.886816+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_unavailable",
+      "counts": {
+        "discovered": 4,
+        "requested": 4,
+        "archived": 0,
+        "failed": 1,
+        "skipped": 3,
+        "deduplicated": 0,
+        "pending": 0,
+        "snapshots": 0,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 0
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "download_failed",
+        "robots_unavailable",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "https://www.court.gov.cn/robots.txt",
+          "status": null,
+          "snapshot_id": null,
+          "body_hash": null,
+          "error": "TunnelError",
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.court.gov.cn/",
+          "role": "list",
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.court.gov.cn/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.court.gov.cn/robots.txt",
+          "role": "robots",
+          "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "failed",
+          "reason": "download_failed",
+          "snapshot_id": null
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    },
+    {
+      "research_id": "dd-041",
+      "source_id": "v13-live-dd-041",
+      "seed": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+      "allowed_hosts": [
+        "www.spp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "www.spp.gov.cn": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "30c3fd6905551add2a609d0a5410fd65e8057a6a94bbfd477d5d73febab8ca7f",
+      "run_id": "858df6bf-f196-4447-8a76-1d82eb2fe11a",
+      "created_at": "2026-10-10 10:56:00.029879+00:00",
+      "completed_at": "2026-10-10 10:56:01.464488+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_unavailable",
+      "counts": {
+        "discovered": 4,
+        "requested": 4,
+        "archived": 0,
+        "failed": 1,
+        "skipped": 3,
+        "deduplicated": 0,
+        "pending": 0,
+        "snapshots": 0,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 0
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "download_failed",
+        "robots_unavailable",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "https://www.spp.gov.cn/robots.txt",
+          "status": null,
+          "snapshot_id": null,
+          "body_hash": null,
+          "error": "TunnelError",
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.spp.gov.cn/",
+          "role": "list",
+          "parent_url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.spp.gov.cn/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.spp.gov.cn/robots.txt",
+          "role": "robots",
+          "parent_url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "failed",
+          "reason": "download_failed",
+          "snapshot_id": null
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    },
+    {
+      "research_id": "dd-250",
+      "source_id": "v13-live-dd-250",
+      "seed": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "1a35e5d7ddbbfa2af72176de922e278129b48f9e9d0607638c2ed3828259dbdd",
+      "run_id": "38ee5119-3f49-4db6-b10a-ca8108efda3f",
+      "created_at": "2026-10-10 10:56:04.762548+00:00",
+      "completed_at": "2026-10-10 10:56:06.612012+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_unavailable",
+      "counts": {
+        "discovered": 4,
+        "requested": 4,
+        "archived": 0,
+        "failed": 1,
+        "skipped": 3,
+        "deduplicated": 0,
+        "pending": 0,
+        "snapshots": 0,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 0
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "download_failed",
+        "robots_unavailable",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "https://www.amac.org.cn/robots.txt",
+          "status": null,
+          "snapshot_id": null,
+          "body_hash": null,
+          "error": "TunnelError",
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.amac.org.cn/",
+          "role": "list",
+          "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.amac.org.cn/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.amac.org.cn/robots.txt",
+          "role": "robots",
+          "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "failed",
+          "reason": "download_failed",
+          "snapshot_id": null
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    },
+    {
+      "research_id": "dd-468",
+      "source_id": "v13-live-dd-468",
+      "seed": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+      "allowed_hosts": [
+        "www.moe.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "www.moe.gov.cn": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "0891c3bb3f35adb545a1dcc52a55937d4ac9bf3d6296c15a29812d6af41bc607",
+      "run_id": "8f40d455-9c14-497d-bc31-15673300fba9",
+      "created_at": "2026-10-10 10:56:09.893164+00:00",
+      "completed_at": "2026-10-10 10:56:11.563104+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_denied",
+      "counts": {
+        "discovered": 4,
+        "requested": 4,
+        "archived": 1,
+        "failed": 0,
+        "skipped": 4,
+        "deduplicated": 0,
+        "pending": 0,
+        "snapshots": 1,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 1
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "http_error",
+        "robots_denied",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "http://www.moe.gov.cn/robots.txt",
+          "status": 403,
+          "snapshot_id": "5b417e521ac7171da22e128f30f3510d943098aba03d683c52d856cbd556df9b",
+          "body_hash": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+          "error": null,
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": null
+        },
+        {
+          "url": "http://www.moe.gov.cn/",
+          "role": "list",
+          "parent_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": null
+        },
+        {
+          "url": "http://www.moe.gov.cn/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": null
+        },
+        {
+          "url": "http://www.moe.gov.cn/robots.txt",
+          "role": "robots",
+          "parent_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": "5b417e521ac7171da22e128f30f3510d943098aba03d683c52d856cbd556df9b"
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    },
+    {
+      "research_id": "dd-102",
+      "source_id": "v13-live-dd-102",
+      "seed": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+      "allowed_hosts": [
+        "www.safe.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "www.safe.gov.cn": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "f0f276c74f4c6c86fcfd7478f5297893544f5250e0240c131ea61a62d187e12f",
+      "run_id": "1034650d-95ef-48cd-bc5f-462fbeba1cd0",
+      "created_at": "2026-10-10 10:56:16.236806+00:00",
+      "completed_at": "2026-10-10 10:56:18.193142+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_unavailable",
+      "counts": {
+        "discovered": 4,
+        "requested": 4,
+        "archived": 0,
+        "failed": 1,
+        "skipped": 3,
+        "deduplicated": 0,
+        "pending": 0,
+        "snapshots": 0,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 0
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "download_failed",
+        "robots_unavailable",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "https://www.safe.gov.cn/robots.txt",
+          "status": null,
+          "snapshot_id": null,
+          "body_hash": null,
+          "error": "TunnelError",
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.safe.gov.cn/",
+          "role": "list",
+          "parent_url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.safe.gov.cn/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.safe.gov.cn/robots.txt",
+          "role": "robots",
+          "parent_url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "failed",
+          "reason": "download_failed",
+          "snapshot_id": null
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    },
+    {
+      "research_id": "dd-247",
+      "source_id": "v13-live-dd-247",
+      "seed": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "d960ac93b68ca1f52a051c649d3c2a285c955a4d809e0abc04f25f6375439408",
+      "run_id": "bb35fc74-d440-4d4d-9e86-650bf0a9a009",
+      "created_at": "2026-10-10 10:56:22.490805+00:00",
+      "completed_at": "2026-10-10 10:56:23.934985+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_unavailable",
+      "counts": {
+        "discovered": 4,
+        "requested": 4,
+        "archived": 0,
+        "failed": 1,
+        "skipped": 3,
+        "deduplicated": 0,
+        "pending": 0,
+        "snapshots": 0,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 0
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "download_failed",
+        "robots_unavailable",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "https://www.amac.org.cn/robots.txt",
+          "status": null,
+          "snapshot_id": null,
+          "body_hash": null,
+          "error": "TunnelError",
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.amac.org.cn/",
+          "role": "list",
+          "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.amac.org.cn/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://www.amac.org.cn/robots.txt",
+          "role": "robots",
+          "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "failed",
+          "reason": "download_failed",
+          "snapshot_id": null
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    },
+    {
+      "research_id": "dd-357",
+      "source_id": "v13-live-dd-357",
+      "seed": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+      "allowed_hosts": [
+        "permit.mee.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "permit.mee.gov.cn": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "c034ec12def4e6a18f3807d7d95d347cc8c440b7750ccd38319738d2f08321bb",
+      "run_id": "4e649b40-8977-4214-bf95-7677f1964d56",
+      "created_at": "2026-10-10 10:56:27.116447+00:00",
+      "completed_at": "2026-10-10 10:56:28.551573+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_denied",
+      "counts": {
+        "discovered": 4,
+        "requested": 4,
+        "archived": 1,
+        "failed": 0,
+        "skipped": 4,
+        "deduplicated": 0,
+        "pending": 0,
+        "snapshots": 1,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 1
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "http_error",
+        "robots_denied",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "http://permit.mee.gov.cn/robots.txt",
+          "status": 403,
+          "snapshot_id": "cc8df8dc4964e7b32b4e8988f70bb1319056b43b06ad069d5905eff64d1f8db6",
+          "body_hash": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+          "error": null,
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": null
+        },
+        {
+          "url": "http://permit.mee.gov.cn/",
+          "role": "list",
+          "parent_url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": null
+        },
+        {
+          "url": "http://permit.mee.gov.cn/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": null
+        },
+        {
+          "url": "http://permit.mee.gov.cn/robots.txt",
+          "role": "robots",
+          "parent_url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "skipped",
+          "reason": "robots_denied",
+          "snapshot_id": "cc8df8dc4964e7b32b4e8988f70bb1319056b43b06ad069d5905eff64d1f8db6"
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    },
+    {
+      "research_id": "dd-009",
+      "source_id": "v13-live-dd-009",
+      "seed": "https://find-and-update.company-information.service.gov.uk/",
+      "allowed_hosts": [
+        "find-and-update.company-information.service.gov.uk"
+      ],
+      "allowed_path_prefixes": [
+        "/"
+      ],
+      "host_path_scopes": {
+        "find-and-update.company-information.service.gov.uk": [
+          "/"
+        ]
+      },
+      "robots": true,
+      "budget": {
+        "requests": 30,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.0,
+      "params": {
+        "max_depth": 12,
+        "max_query_variants": 40,
+        "expand_homepage": true,
+        "discover_sitemaps": true,
+        "exclude_patterns": [],
+        "specific_rules": []
+      },
+      "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+      "binding_id": "d9b17ff3d4ee2c26fbda5a1f7203d9765c09fe7136d1c772c07364494ab6b63e",
+      "run_id": "aa5b8ef8-d004-4344-a99d-6d71b2ca2729",
+      "created_at": "2026-10-10 10:56:32.073985+00:00",
+      "completed_at": "2026-10-10 10:56:33.509702+00:00",
+      "status": "partial",
+      "termination": "blocked",
+      "terminal_reason": "robots_unavailable",
+      "counts": {
+        "discovered": 4,
+        "requested": 3,
+        "archived": 0,
+        "failed": 1,
+        "skipped": 3,
+        "deduplicated": 1,
+        "pending": 0,
+        "snapshots": 0,
+        "records": 0,
+        "record_emissions": 0,
+        "record_outputs": 0,
+        "attachments": 0,
+        "http_attempts": 1,
+        "archived_observations": 0
+      },
+      "counts_basis": "current_attempt; records are emitted identities; attachments are snapshots",
+      "http_attempts_basis": "scrapy_downloader",
+      "errors": [
+        "download_failed",
+        "robots_unavailable",
+        "unresolved_seed"
+      ],
+      "network_observations": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/robots.txt",
+          "status": null,
+          "snapshot_id": null,
+          "body_hash": null,
+          "error": "TunnelError",
+          "eligible": false
+        }
+      ],
+      "discovery_events": [
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/",
+          "role": "list",
+          "parent_url": null,
+          "discovery_method": "seed",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/",
+          "role": "list",
+          "parent_url": "https://find-and-update.company-information.service.gov.uk/",
+          "discovery_method": "homepage",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "duplicate_request",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/sitemap.xml",
+          "role": "sitemap",
+          "parent_url": "https://find-and-update.company-information.service.gov.uk/",
+          "discovery_method": "sitemap_probe",
+          "scope_decision": "allowed",
+          "state": "skipped",
+          "reason": "robots_unavailable",
+          "snapshot_id": null
+        },
+        {
+          "url": "https://find-and-update.company-information.service.gov.uk/robots.txt",
+          "role": "robots",
+          "parent_url": "https://find-and-update.company-information.service.gov.uk/",
+          "discovery_method": "robots",
+          "scope_decision": "policy",
+          "state": "failed",
+          "reason": "download_failed",
+          "snapshot_id": null
+        }
+      ],
+      "structured_records": 0,
+      "limitations": "Current upstream responses unavailable through the enforced executor policy. Live template/API adaptation and the finite extent of the website or search space remain unknown."
+    }
+  ],
+  "local_evidence_directory": "artifacts/acceptance/v1.3-live-final-20261010",
+  "local_evidence_sha256": {
+    "commands.json": "efe57b35728adaa0abe2e36ccaa36710a1b9aea4b39c0e6d8047b3824f215438",
+    "dd-009/binding.json": "1966824f482346fd29bfb12be86c4332c925f4d2c33bad5ad256cc85aa1956d8",
+    "dd-009/collect.json": "de34e78ae88318bb64ba41c5d3209c1a3c0d7f91170b81a1251117e3b8665f02",
+    "dd-009/export.json": "d9766d7251a2563da5247112bf3b5653a7eadb206a99bd9c1d49b0a1070cf7db",
+    "dd-009/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-009/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-009/retained-source.json": "bb71cc3bf480525315888fcac0972897787a6aec27c62e682004437b2de79cbe",
+    "dd-009/run.json": "1a31c135b50f0e9413775c4ed26ba09c08a2f870a15c78608c01926cd1eab134",
+    "dd-009/source.json": "f5b3680e6111133c1d8298ff34c532ca758228365e329a7d472f94dc0327ba9b",
+    "dd-017/binding.json": "f6ee4609576015789dfc3c66d048092bf075b95ee540c33d57439086c8b0dbcc",
+    "dd-017/collect.json": "e9a4ef31546dbc597e1f2b5602cbbbd752fad650d0e534abaf4ecb3c75b04c35",
+    "dd-017/export.json": "ca8251baf40fdc8cf3bd0e2b56a9c5de55730b6fd2b7c610ddd65fa71ad23977",
+    "dd-017/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-017/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-017/retained-source.json": "85bdbe5760c92d452e73d173c2e8ebbf7e7d839b8b81bf3b851ffbd68fa37998",
+    "dd-017/run.json": "05b592121aa2e8c9de2956425fa8941bf563bbb7a0f5424be4345fe6cdbda516",
+    "dd-017/source.json": "2f3b1a28b8358683c71dae172507e48476224bb330f0578eb266024c34408409",
+    "dd-041/binding.json": "4bb57a16c998e7497d3171cef53783f4ac9e9612b4c985717d4b416d0b5d5708",
+    "dd-041/collect.json": "f092619e38bdbbae20d5fd93aff5bdd0caf32aa9b61fd8ae93829c885819f3df",
+    "dd-041/export.json": "e6fe436d521752199c062ca479bf5a4a0a6a2d6220d0555c7f890cd31cf6f0c9",
+    "dd-041/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-041/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-041/retained-source.json": "66f43a177d004459f303a043b43af0953aa8d277b787409a653cac36c4c06223",
+    "dd-041/run.json": "faf230ce8b8335e10a1e7d2bfafc373b1b00df836b82dc4b9519117c7dcc05e9",
+    "dd-041/source.json": "c7a8ddd69f9a2470275c045e600bda24bf18100a661563d4ce11d18b0621e7be",
+    "dd-102/binding.json": "8cebaf4229bbf245e4c9028b72e7a9622840132c7e10f788540e8dfbdc199ef2",
+    "dd-102/collect.json": "582778f215fd11ba36542ed4784e888c22622b2b0cb8b25c2386010bd672edb1",
+    "dd-102/export.json": "47bfd984efe3cc68c710aa266bce4b655ff4d63f6df37694a2584a3eec84fade",
+    "dd-102/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-102/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-102/retained-source.json": "70dffc2f6a8e1316f663b34e5d5ba00b426a1aa5ec5d5c98db50ca721036041a",
+    "dd-102/run.json": "3f98d8806ee50c0eeea7cec84c9d22fed26fa4d4e1d6547b79f06d3eeb80fce3",
+    "dd-102/source.json": "24de95d9f13d7316c0c38c668f2d1a799f0b1aead8e7d5b96b409bdbb5d9e4e9",
+    "dd-247/binding.json": "02a5bfb6c081b870d9dc0a0bedaec64db74d475510a1f6565d9954df7414167b",
+    "dd-247/collect.json": "d7de5a82ce2516403a0ed324c1e6e49badbad7e1f45b3c3130f8cff368ff1b59",
+    "dd-247/export.json": "1fad19424cf9e544e2b2bc0f079e4744be2252515260f2c5e17a47224d9b63f9",
+    "dd-247/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-247/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-247/retained-source.json": "a8e28d88a2e7202ac320aa723abb6c18daddb8aea59af03d933345a3ba30da14",
+    "dd-247/run.json": "a663b0d7578f0e2b10ea1c17e162e2c4a8589022df56bcce9acc7a0d41481778",
+    "dd-247/source.json": "2316c153ed18bed8389b986427d26b6d1d1f5fb440e4c1799e3175c6f34c2414",
+    "dd-250/binding.json": "554667fd5f326b552712b9d9b47ca880203a4e08ff1b0f65f5e0c441a9565515",
+    "dd-250/collect.json": "059388bbe773365c453a2f3f50a80a03c4c633f4f712c92664f75157e98d4391",
+    "dd-250/export.json": "e385820c2c403e088dd1df2914f432f8a7558fea70d6863cd89c98fad2fccef9",
+    "dd-250/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-250/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-250/retained-source.json": "6f11ed9656846522b379c330262a89304292fec9b5def2b8c4decee4c121be19",
+    "dd-250/run.json": "159ff4d8cbb358fe6776cae61b67b4c96cbf54e6f5e305f72bd41a7091aa4f8b",
+    "dd-250/source.json": "041b0c91df4904179a1ebed7033c1bec2bb4f55b1fa25ecc4c704872f6cdc7b2",
+    "dd-357/binding.json": "2f703a9208738071d37561868efd34b07b58db1cd407f73ef78d6238415c3040",
+    "dd-357/collect.json": "6e517f966e57c9ba0e2202469528acfd30b1b00a3c005a700af55733866267b4",
+    "dd-357/export.json": "f3cb7bd788e796cfc09bf338c1d35ab1f013fc6d9ca59cdd16f111fafa8d35f8",
+    "dd-357/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-357/retained-snapshots.json": "9372a4ed3b4cfee300a59b60d51af4a86e553db8e874369b6e52ebae03209e01",
+    "dd-357/retained-source.json": "db8c8a6677facc4b6bcf4ff0292a9779c3a179f479fc8f9bac03e1344a3d937e",
+    "dd-357/run.json": "6546451e81c6a8cb0b074a6f15893f4b328e59b62abcdc0b63aa53c4f5ca118a",
+    "dd-357/source.json": "6c2121e33683e417177fa3273bcb6e7b81292cef1605cce8ced8b586806d5565",
+    "dd-468/binding.json": "1520f4c29f796613903b9713d11e95a14822499b86cbdf70048bbd0f9fb273b9",
+    "dd-468/collect.json": "e872e59894a5615c3d88c5ab58556d78e6026519bc6390827e5281658e9edc4d",
+    "dd-468/export.json": "b8b564faafdce9431292a97169774a29ce64400a62646f042d7478bd32e25f5c",
+    "dd-468/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-468/retained-snapshots.json": "2b772a033927471d7f21b9ea071439ef5677dd95cc72e7b3d84bd784fdd3f954",
+    "dd-468/retained-source.json": "19464272374bfbc2de4ad33c1a6f2a120c4b60354a3bcf15aa15effc89e5de9c",
+    "dd-468/run.json": "1fbeb11cd48e0aec88864e1f58167be2945d55f298bd25863754d0417f5baded",
+    "dd-468/source.json": "20de5d21ff060138d9277f5336377c501013c4bbc47431e7ce151be59c45683f",
+    "manifest.json": "83c4f4ea0228f667fa021aa87eb99e5ed9149faeb1a15d8d21fd3353e25c2669",
+    "report.md": "0d981e2abbe456638acc207061981eec15b55d7d9772e36860deabd9d038447c",
+    "retention-verification.json": "99bef374fabef5753fb56190a8b1a16b6dd3fd6d372e638748e4914ef884deb5"
+  },
+  "network_evidence_sha256": {
+    "network-boundary.json": "6548392c7595589352a6c648f16315f76d82e3b34fe8ae80b81a9a463d431552",
+    "network-probes.json": "90b0c541fca04308dc6d94d749f2e40599d09d2a236edccf9b60f9ae8ce5cdc6",
+    "report.md": "fc4b9b557e99cff0cf62e762cfba82222fbdc080fec34bfd436bd2293eec6c11"
+  }
+}

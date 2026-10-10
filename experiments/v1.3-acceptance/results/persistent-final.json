@@ -1,0 +1,209 @@
+{
+  "experiment": "SEAL V1.3 retained manual Collect demonstration",
+  "summary": {
+    "status": "PASS",
+    "source": "v13-retained-demo",
+    "binding_id": "244d5f3174264a62cb29215fcb5a953dd872ed653d02da3424fb530424e07e8f",
+    "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+    "run_ids": [
+      "84b4ce78-236e-49bc-b234-d46a2e59cf47",
+      "7884386b-a28c-4f12-96ab-842003d25a2a",
+      "d83239b8-3f67-4922-b80f-c7e292870bf0"
+    ],
+    "replay_run_id": "73a371fe-468e-4ae5-b68c-7760d4f5c9ee",
+    "record_id": "ac6ca497-961c-4d2e-96e3-6e5a738ace65",
+    "snapshot_id": "4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+    "record_count": 1,
+    "version_count": 2,
+    "replay_network_requests": 0,
+    "archive": "/workspace/work/v13-persistent/archive",
+    "database_retained": true,
+    "scope": "Controlled HTTP fixture; actual retained PostgreSQL and archive, no external adaptation claim"
+  },
+  "engine_binding": {
+    "status": "PASS",
+    "git_head": "8d8756a76e70808488e01c02ccda01c36ef5b226",
+    "recipe_version": "fc33ff6227f2916d50f0fb6259349a5b272c88f1497f240324295cb4909e6fc6",
+    "recipe_engine_matches_current_engine": true,
+    "engine_digest": "0a9cf82e3580a892e498adcca2a3c2b95209bbb7e20ebc6699c4536b7af2b662",
+    "environment_digest": "117f691cc8a6481d04dfe57f3388bf77e5859983da2760f63c4f420890bed785",
+    "uv_lock_sha256": "c488b7583f58cbc4c2f7fea4586ca194dd821c82976bee50e3ec3236be4cd945",
+    "historical_demo_evidence_preserved": true
+  },
+  "independent_verification": {
+    "status": "PASS",
+    "checked_at": "2026-10-10T10:56:27.046037+00:00",
+    "passed": 27,
+    "failed": 0,
+    "checks": [
+      {
+        "name": "fresh_query_after_fixture_server_closed",
+        "status": "PASS"
+      },
+      {
+        "name": "version_predecessor",
+        "status": "PASS"
+      },
+      {
+        "name": "current_version_pointer",
+        "status": "PASS"
+      },
+      {
+        "name": "first_version_revision_A",
+        "status": "PASS"
+      },
+      {
+        "name": "updated_version_revision_B",
+        "status": "PASS"
+      },
+      {
+        "name": "updated_version_change_reason",
+        "status": "PASS"
+      },
+      {
+        "name": "archive_sha256_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "archive_sha256_1d1f11d0597d42970a373544b67c3b8ecd755de2a99d37916e33106ecf24ac77",
+        "status": "PASS"
+      },
+      {
+        "name": "snapshot_size_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_title_locator_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_body_locator_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_publication_meta_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "semantic_url_bang_retained_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "response_url_locator_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_record_content_hash_9ea9935830cf82f6ca6e40a92eba07e3dc3d9417290a9c13d662eb6b7b42eb40",
+        "status": "PASS"
+      },
+      {
+        "name": "archive_sha256_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "archive_sha256_3ece4cba79920bd786322106851ec8965da258f2eed56e8a9d54ddc5daab94b4",
+        "status": "PASS"
+      },
+      {
+        "name": "snapshot_size_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_title_locator_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_body_locator_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_publication_meta_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "semantic_url_bang_retained_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "response_url_locator_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "independent_record_content_hash_4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+        "status": "PASS"
+      },
+      {
+        "name": "replay_status",
+        "status": "PASS"
+      },
+      {
+        "name": "replay_no_network_observations",
+        "status": "PASS"
+      },
+      {
+        "name": "replay_http_attempts",
+        "status": "PASS"
+      }
+    ]
+  },
+  "restart_verification": {
+    "status": "PASS",
+    "checked_at": "2026-10-10T11:02:31.309994+00:00",
+    "postgresql_version": "17.11",
+    "operation": "pg_ctl fast restart followed by fresh seal CLI processes",
+    "record_id": "ac6ca497-961c-4d2e-96e3-6e5a738ace65",
+    "version_count": 2,
+    "snapshot_id": "4ac4790c3d34a547bc32a7845cc3165ce1a3ba1b8d74c19aa977c537ebd5614e",
+    "snapshot_body_hash": "3ece4cba79920bd786322106851ec8965da258f2eed56e8a9d54ddc5daab94b4",
+    "snapshot_body_size": 611,
+    "archive_availability": "available",
+    "record_inspection_sha256": "0d43a5cdcfa19372cbdcf55c34da00429c6b2a483efafb4d60c026f7705d8c4b",
+    "snapshot_inspection_sha256": "ec0935e31a9c6a6fac6a4b635e381aac04958bfa76ec8d04b5fd3250c6f665c8",
+    "database_and_archive_retained": true
+  },
+  "source": {
+    "id": "v13-retained-demo",
+    "entry_urls": [
+      "http://127.0.0.1:38295/"
+    ],
+    "allowed_hosts": [
+      "127.0.0.1"
+    ],
+    "allowed_path_prefixes": [
+      "/"
+    ],
+    "identity": "business_key",
+    "output_schema": "record.v1",
+    "archive_approved": true,
+    "scope": "Controlled public loopback fixture; retained engineering demonstration",
+    "robots": true,
+    "delay": 0.0,
+    "concurrency": 1,
+    "budget": {
+      "requests": 20,
+      "seconds": 30,
+      "response_bytes": 100000
+    }
+  },
+  "params": {
+    "discover_sitemaps": false
+  },
+  "local_evidence_directory": "artifacts/acceptance/v1.3-persistent-final-20261010",
+  "local_evidence_sha256": {
+    "artifacts/acceptance/v1.3-persistent-final-20261010/engine-binding-check.json": "67b8601bd52409e27a3de5dd619782ad7e3bc6e8ee3ec1c7123955ddf48a5934",
+    "artifacts/acceptance/v1.3-persistent-final-20261010/independent-checks.json": "45ae0eaa2867537af41b9722616d55a89aa3948b0d150119936cf80beca878cf",
+    "artifacts/acceptance/v1.3-persistent-final-20261010/params.json": "d090e46f909ac16b88f00e7962f839b48b8e686d470c35ea44b64cf5bc861b80",
+    "artifacts/acceptance/v1.3-persistent-final-20261010/receipts.json": "e6cd19ee12a83052c7e468f537219958e528f16ae192308f5e5033a71cd344c9",
+    "artifacts/acceptance/v1.3-persistent-final-20261010/requests.json": "78d62f4ef98a521a09e266f8ec45a0958ebf225e9ac6d1646ff07fde0ba1f1ed",
+    "artifacts/acceptance/v1.3-persistent-final-20261010/restart-verification.json": "1619f6d8ec92887e726f58e4018332fd5a81e6372a0da68b568dffa1fac4b44b",
+    "artifacts/acceptance/v1.3-persistent-final-20261010/source.json": "a89c99b4605d5b365472f8d40366c0f0095e44351edbd3143172f2edff2480c0",
+    "artifacts/acceptance/v1.3-persistent-final-20261010/summary.json": "66c70f1071189b35394bb2b1cbbfb479e2cfcc9a97b816e4210c0696e486f938"
+  },
+  "reproduce": "Set operator-provided SEAL_DATABASE_URL and SEAL_ARCHIVE, then run uv run --frozen python experiments/v1.3-acceptance/persistent_demo.py --output PRIVATE_NEW_DIRECTORY. The script never initializes or destroys either store.",
+  "limits": [
+    "The Source is a controlled HTTP fixture, not a public website.",
+    "Data was queried after the fixture server stopped and again after PostgreSQL restarted.",
+    "PostgreSQL and immutable archive are retained in this managed workspace; production deployment, backup and workspace survival are not established.",
+    "Full receipts and raw archive remain private; published metadata contains no DSN or body content."
+  ]
+}

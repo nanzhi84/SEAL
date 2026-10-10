@@ -13,6 +13,8 @@ from scrapy.http import TextResponse
 
 from .attachments import attachment_projection, docx_coverage, parse_attachment
 from .core import SealError, public_url
+from .fallback import fallback_html_record as fallback_html_record
+from .fallback import html_strategy_record as html_strategy_record
 from .record_validation import json_pointer
 
 
@@ -285,7 +287,11 @@ def json_records(
 
 
 def is_attachment_response(response):
-    """Identify the supported/static attachment representations for URL Recheck."""
+    """Identify attachment representations; recognition does not promise parsing.
+
+    XLSX is identified so dynamic download URLs receive the same explicit
+    unsupported-content diagnostic as a .xlsx URL. Only legacy XLS is parsed.
+    """
     content_type = response.headers.get("Content-Type", b"").decode("latin1").lower()
     return any(
         t in content_type
@@ -294,6 +300,7 @@ def is_attachment_response(response):
             "text/plain",
             "text/csv",
             "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         )
     ) or (

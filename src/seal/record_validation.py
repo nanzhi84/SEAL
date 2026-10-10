@@ -224,6 +224,10 @@ def located_value(snapshot, body, locator, cache=None):
     # The old text locator keeps its historical string/strip semantics.
     from .items import text_value
 
+    if locator.get("kind") in {"html_blocks", "html_links", "html_date", "response_url"}:
+        from .fallback import html_locator_value
+
+        return html_locator_value(snapshot, body, locator)
     if locator.get("kind") == "json" and "transform" not in locator:
         return json_pointer(
             body, locator.get("pointer"), cache=cache, body_hash=snapshot["body_hash"]

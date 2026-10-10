@@ -19,7 +19,7 @@ from .core import (
 )
 from .db import connect, fenced, j, locked_run, record_error
 from .discovery import ResourceFingerprinter, mark_archived, mark_failed, mark_requested
-from .scope import paths_for
+from .scope import paths_for, robots_policy_request
 
 HEADERS = {
     b"content-type",
@@ -150,7 +150,10 @@ class RequestGuard(Component):
         try:
             url = public_url(request.url)
             parsed = urlsplit(url)
-            if not paths_for(self.config, parsed.hostname, parsed.path):
+            policy = robots_policy_request(self.config, request)
+            if request.meta.get("_seal_robots_policy") and not policy:
+                raise SealError("robots_policy_redirect_rejected")
+            if not policy and not paths_for(self.config, parsed.hostname, parsed.path):
                 raise SealError("request_out_of_scope")
             parent = request.meta.get("seal_parent_url")
             if parent and request.meta.get("seal_role") in {"iframe", "attachment"}:
@@ -186,6 +189,7 @@ class RequestGuard(Component):
             request.meta.setdefault("seal_logical_url", url)
             request.meta.setdefault("seal_request_key", request_key(request))
             request.meta["seal_requested_at"] = datetime.now(timezone.utc).isoformat()
+            request.meta["seal_scope_decision"] = "policy" if policy else "allowed"
             await asyncio.to_thread(mark_requested, self.context, request)
         except SealError as exc:
             await asyncio.to_thread(mark_failed, self.context, request, exc.code)
@@ -286,12 +290,34 @@ class ResponseArchiveMiddleware(Component):
 
 
 class ReplayMiddleware(Component):
+    def original_rejection(self, request):
+        if not hasattr(self, "_original_rejections"):
+            self._original_rejections = {}
+            for item in self.context.get("replay_origin", {}).get("rejected_candidates", []):
+                signature = (item["fingerprint"], item["role"], item["parent_snapshot_id"])
+                self._original_rejections.setdefault(signature, set()).add(item["reason"])
+        signature = (
+            ResourceFingerprinter().fingerprint(request).hex(),
+            request.meta.get("seal_role", "aux"),
+            request.meta.get("seal_parent_snapshot_id"),
+        )
+        reasons = self._original_rejections.get(signature, set())
+        # Conflicting negative evidence is not permission to suppress a strict
+        # input mismatch. This lookup never substitutes a URL input whitelist.
+        return next(iter(reasons)) if len(reasons) == 1 else None
+
     async def process_request(self, request):
         matches = [
             item for item in self.context["replay_inputs"] if item["key"] == request_key(request)
         ]
         unique = {item["snapshot_id"] for item in matches}
         if len(unique) != 1:
+            if not unique:
+                code = self.original_rejection(request)
+                if code:
+                    await asyncio.to_thread(mark_failed, self.context, request, code)
+                    await self.fail(code)
+                    raise IgnoreRequest(code)
             code = "replay_miss" if not unique else "replay_ambiguous"
             await asyncio.to_thread(mark_failed, self.context, request, code)
             await self.fail(code)
@@ -330,6 +356,13 @@ class InputMiddleware(Component):
             ),
             "used_at": datetime.now(timezone.utc).isoformat(),
         }
+        if entry["role"] != "robots":
+            from .helpers import is_attachment_response
+
+            if is_attachment_response(response):
+                # The representation confirms dynamic downloads without changing
+                # the original request's role, key, or Discovery parentage.
+                entry["resource_type"] = "attachment"
         # Only tiny manifest/SQL work here; body I/O has already completed in Archive.
         with connect() as c:
             accepted = c.execute(
@@ -349,7 +382,11 @@ class InputMiddleware(Component):
                         request.meta.get("seal_chain_id"),
                     ),
                 )
-        if self.config.get("output_schema") == "record.v1" and response.status == 200:
+        if (
+            self.config.get("output_schema") == "record.v1"
+            and response.status == 200
+            and request.meta.get("seal_role") != "robots"
+        ):
             from .records import stage_record_resource
 
             stage_record_resource(self.context, entry)

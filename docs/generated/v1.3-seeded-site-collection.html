@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEAL V1.3 · Seeded Site Collection</title>
+<style>
+:root{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;color:#243241;background:#f3f5f3}body{max-width:1080px;margin:auto;padding:40px 24px}h1{font-size:clamp(30px,5vw,48px);letter-spacing:-1px;margin-bottom:12px}h2{font-size:23px;margin-top:32px}p{line-height:1.8}.muted{color:#62716d}.badge{display:inline-block;background:#deebe2;color:#215540;padding:7px 12px;border-radius:4px}section{background:#fff;border:1px solid #d8e0da;border-radius:8px;padding:24px;margin-top:20px}.flow{display:flex;align-items:stretch;gap:12px;flex-wrap:wrap}.node{padding:16px;background:#eff4f0;border-left:3px solid #3a7458;flex:1;min-width:140px}.arrow{align-self:center;color:#3a7458;font-size:25px}table{border-collapse:collapse;width:100%;line-height:1.7}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #e1e6e2;padding:12px}code{font-family:ui-monospace,monospace;font-size:13px}a{color:#245e45}.limits{background:#fff7e7;border-color:#ead6ad}footer{font-size:13px;color:#617167;margin-top:28px}
+</style>
+</head>
+<body>
+<span class="badge">Runtime · 既有模型上的最小增量</span>
+<h1>SEAL V1.3<br>Seeded Site Collection</h1>
+<p class="muted">从业务入口发现公开内容，按 Recipe 解析，保存可追溯的运行、原文与 Record。<br>本页派生自 <a href="../plans/v1.3-seeded-site-collection.md">唯一 Plan</a>，不构成独立配置合同。</p>
+<section><h2>一条采集路径</h2><div class="flow">
+<div class="node"><b>Source / Binding</b><p>业务 Seed<br>冻结 Scope、预算、Recipe</p></div><span class="arrow">→</span>
+<div class="node"><b>Scrapy</b><p>根入口与 Sitemap<br>原生 Scheduler / 去重</p></div><span class="arrow">→</span>
+<div class="node"><b>归档与解析</b><p>robots / Scope 限制<br>Specific 优先，Fallback 兜底</p></div><span class="arrow">→</span>
+<div class="node"><b>持久化与查询</b><p>PostgreSQL / 原文归档<br>版本、Locator、Run 证据</p></div>
+</div><p>Discovery 记录每个候选的父输入、发现方式、深度、去重和 Scope 决策；不创建另一套队列。</p></section>
+<section><h2>复用与新增</h2><table><thead><tr><th>能力</th><th>既有基础</th><th>V1.3 增量</th></tr></thead><tbody>
+<tr><td>发现</td><td>Scheduler、请求指纹、Discovery Ledger</td><td>入口扩展、递归、Sitemap、query / 深度上限</td></tr>
+<tr><td>解析</td><td>同一 Recipe Schema、Record、字段校验</td><td>HTML 兜底、结构 Locator、明确拒绝无效内容</td></tr>
+<tr><td>存储</td><td>不可变 Snapshot、Record 版本、失败恢复</td><td>手动 Collect、实时计数、单项历史查询</td></tr>
+<tr><td>访问</td><td>主机 / 路径 / 地址 / 预算 guard</td><td>seeded 遵守 robots；政策失败关闭业务访问</td></tr>
+</tbody></table></section>
+<section><h2>Review 后的冻结边界与证据</h2><table><thead><tr><th>机制</th><th>实际合同</th></tr></thead><tbody>
+<tr><td>Recheck</td><td>仅调度冻结目标和 Runtime robots 政策；不扩展 Sitemap、页面链接、iframe 或隐式附件。直接列入计划的附件可解析。</td></tr>
+<tr><td>partial Replay</td><td>复算归档输入；精确匹配原拒绝证据，保留预算等原因和 partial 状态。未知请求或丢失的成功输入仍严格失败，零网络补齐。</td></tr>
+<tr><td>Sitemap</td><td>同一 robots 政策版本每 Crawl 主动发现一次，保留政策父输入；gzip 受冻结 Source 的解压大小上限约束，下载表示先归档。</td></tr>
+<tr><td>政策与附件审计</td><td>区分规则拒绝、政策 HTTP 拒绝和政策不可用。动态附件按 Content-Type 确认并保留父证据；XLSX 保存原文并明确 unsupported。</td></tr>
+</tbody></table></section>
+<section><h2>操作与验证</h2><p><code>seal collect SOURCE --binding BINDING</code><br><code>seal inspect run RUN_ID</code><br><code>seal inspect record RECORD_ID</code><br><code>seal inspect snapshot SNAPSHOT_HASH</code></p>
+<p>单元测试与模拟 HTTP / PostgreSQL 测试验证确定性工程合同；八个真实 Source 仅用于观察实际能力与阻塞。长期演示库和原文保留，另外执行跨进程及数据库重启后的查询。</p>
+<p>当前 Review 冻结版本：1,233 项统一检查、1,181 项 Smoke 断言通过，1,635 + 255 个工件文件复核通过；历史 C01 保持 UNVERIFIED。回归覆盖冻结目标、重复政策声明、有界 gzip、partial Replay 和动态附件父输入，摘要见 Plan。本轮留存演示：3 次 Collect，1 个 Record、2 个版本，零网络 Replay；数据库重启后新进程查询成功。</p>
+<p>八个真实 Seed 均已执行，但被当前出站代理政策阻塞：0 Record，2 个代理拒绝 Snapshot；未取得上游正文。实际命令、完整 Smoke 的状态和证据见 <a href="../plans/v1.3-seeded-site-collection.md#4-测试与真实来源实验">Plan 验证记录</a>。</p></section>
+<section class="limits"><h2>明确的未知边界</h2><p>队列耗尽表示已生成请求处理完成，不能推断全站完整。没有独立 Ground Truth，不设置真实网站 Record 数量标准。搜索空间、浏览器交互、无可靠解析格式及网络政策阻塞保留具体原因。输出仍为 <code>not_evaluated</code>，Evaluation 与发布治理留待后续版本。</p></section>
+<footer>依据：Issue #4 · 基线 main 8241b44 · <a href="../adr/0004-seeded-collection-native-scrapy.md">ADR-0004</a> · 2026-10-10</footer>
+</body></html>
