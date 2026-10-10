@@ -1,0 +1,230 @@
+{
+  "artifact_version": 1,
+  "purpose": "Bounded public resources research, not Runtime acceptance; raw bodies remain local work files, never included here.",
+  "observed_at_utc": "2026-10-09T12:19:52.359342+00:00",
+  "preimplementation_failure_contract": [
+    "network or redirect outside Source scope",
+    "missing or ambiguous title/body/date HTML nodes",
+    "missing frozen detail link on its inspected list page",
+    "missing or ambiguous static pagination declaration",
+    "iframe returning an empty shell instead of business rows",
+    "missing business decision number or inconsistent same-key records",
+    "download errors, unsupported body or evidence locator mismatch remain failed/partial"
+  ],
+  "probes": [
+    {
+      "label": "court",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+      "http_status": 200,
+      "bytes": 16582,
+      "sha256": "d97b5016586f90d814cb460dae816c6dd2dc5993dca12ebc17cc68368335fcff",
+      "headers_retained": false
+    },
+    {
+      "label": "court_p2",
+      "url": "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+      "http_status": 200,
+      "bytes": 16892,
+      "sha256": "756b8544db2730c76225b636e27bcf7c03325e96f7113d992c20e33ee04095ab",
+      "headers_retained": false
+    },
+    {
+      "label": "court_detail",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+      "http_status": 200,
+      "bytes": 19558,
+      "sha256": "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+      "headers_retained": false
+    },
+    {
+      "label": "court_detail2",
+      "url": "https://www.court.gov.cn/shenpan/xiangqing/466281.html",
+      "http_status": 200,
+      "bytes": 19101,
+      "sha256": "fb8ab8415725bbded8b935f7b36bf98d8ec0d7ea3f02a5af75c4381326354a7e",
+      "headers_retained": false
+    },
+    {
+      "label": "spp",
+      "url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+      "http_status": 200,
+      "bytes": 32388,
+      "sha256": "490a432ac9ad4949677b23c7afd2635d7c305d80d4f04b1619ae4b7aedc64458",
+      "headers_retained": false
+    },
+    {
+      "label": "spp_p2",
+      "url": "https://www.spp.gov.cn/spp/jczdal/index_2.shtml",
+      "http_status": 200,
+      "bytes": 32347,
+      "sha256": "161b01598988dd446daa4df8771f17d9b8a1a1b92c348cfe8d7eff0c8a822fe3",
+      "headers_retained": false
+    },
+    {
+      "label": "spp_detail",
+      "url": "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+      "http_status": 200,
+      "bytes": 102650,
+      "sha256": "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+      "headers_retained": false
+    },
+    {
+      "label": "spp_detail2",
+      "url": "https://www.spp.gov.cn/spp/jczdal/202202/t20220214_544449.shtml",
+      "http_status": 200,
+      "bytes": 73292,
+      "sha256": "e9c71bb3485fc2d1c4406a8772c476f98b67607821694fc06b8e060e41d84859",
+      "headers_retained": false
+    },
+    {
+      "label": "spp_pagejs",
+      "url": "https://www.spp.gov.cn/spp/xhtml/js/page.js",
+      "http_status": 200,
+      "bytes": 6769,
+      "sha256": "3000ac0f099be65bfdc95b04f13b3e9b891d0f9353defbac254117c102767c3d",
+      "headers_retained": false
+    },
+    {
+      "label": "haikou",
+      "url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/",
+      "http_status": 200,
+      "bytes": 28407,
+      "sha256": "6a4cea775dbeb7d5f17fd2b8e47d310eefb828e6e29d6523710589b74aa389e8",
+      "headers_retained": false
+    },
+    {
+      "label": "haikou_p2",
+      "url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/index_1.shtml",
+      "http_status": 200,
+      "bytes": 28332,
+      "sha256": "9d3ac4ec2d405b3048dc83f5d2f02a64d74487ee78f22a14fd9e846439e256b0",
+      "headers_retained": false
+    },
+    {
+      "label": "haikou_detail",
+      "url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+      "http_status": 200,
+      "bytes": 20674,
+      "sha256": "a06f99002c1afffee0d3e7c2248222edb0d59eb70eb2666b2d7545ec4b03ac97",
+      "headers_retained": false
+    },
+    {
+      "label": "haikou_detail2",
+      "url": "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202608/t1542271.shtml",
+      "http_status": 200,
+      "bytes": 21187,
+      "sha256": "9a2ce2ea72f1807cebba2a0a4fcc619b2d58b078161f7ebf231187b7191c7dfc",
+      "headers_retained": false
+    },
+    {
+      "label": "safe",
+      "url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+      "http_status": 200,
+      "bytes": 13801,
+      "sha256": "2df85a5c09895934fdd34b1f3fe183bd9ade1685de4ef6b1ec13a07ed8bb7e48",
+      "headers_retained": false
+    },
+    {
+      "label": "safe_iframe",
+      "url": "https://www.safe.gov.cn/www/illegal?siteid=beijing",
+      "http_status": 200,
+      "bytes": 17845,
+      "sha256": "cb3a72573cca17e11c112d408edc285237a7615c5cceb0f0495816e7b089d406",
+      "headers_retained": false
+    },
+    {
+      "label": "safe_p2",
+      "url": "https://www.safe.gov.cn/www/illegal/index?page=2&siteid=beijing",
+      "http_status": 200,
+      "bytes": 17820,
+      "sha256": "4a7d6a5ba7c2e99c5d027f016148de05d7a8aaba9690505838acb92b0a0adfaf",
+      "headers_retained": false
+    },
+    {
+      "label": "safe_detail",
+      "url": "https://www.safe.gov.cn/www/illegal/listQuery?saffno=036b8dec2d9a445fa2a609d58084663d",
+      "http_status": 200,
+      "bytes": 14381,
+      "sha256": "a512f56074ff325a3428d8a919d22b31085cdc57102aae30e4d27638d5cafa6e",
+      "headers_retained": false
+    }
+  ],
+  "blockers": [],
+  "sources": [
+    {
+      "research_id": "dd-017",
+      "sample_scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "independent_business_anchors": [
+        "指导性案例279号",
+        "裁判要点",
+        "指导性案例259号",
+        "环境污染民事公益诉讼"
+      ],
+      "runtime_acceptance": "PENDING_ROOT_CLI_RUNS"
+    },
+    {
+      "research_id": "dd-041",
+      "sample_scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "independent_business_anchors": [
+        "第六十三批指导性案例",
+        "检例第257号",
+        "第三十三批指导性案例",
+        "2022-02-14"
+      ],
+      "runtime_acceptance": "PENDING_ROOT_CLI_RUNS"
+    },
+    {
+      "research_id": "dd-116",
+      "sample_scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "independent_business_anchors": [
+        "海市监列严〔2026〕007003号",
+        "海南数资跃动投资有限公司",
+        "海市监保罚告〔2026〕126号",
+        "吊销营业执照"
+      ],
+      "runtime_acceptance": "PENDING_ROOT_CLI_RUNS"
+    },
+    {
+      "research_id": "dd-102",
+      "sample_scope": "限定北京市分局无筛选公开处罚前 2 个 iframe 页（各20行）及已观察到的建设银行详情；不提交统一社会信用代码查询、不保留 Cookie、不代表全部历史覆盖。",
+      "independent_business_anchors": [
+        "中国建设银行股份有限公司",
+        "京汇罚〔2026〕29号",
+        "京汇罚〔2026〕9号",
+        "1577.06",
+        "2026-09-23"
+      ],
+      "runtime_acceptance": "PENDING_ROOT_CLI_RUNS"
+    }
+  ],
+  "safe_anonymous_session_observation": {
+    "cookie_header_sent": false,
+    "authenticated": false,
+    "submitted_form": false,
+    "anonymous_marker_length": 32,
+    "marker_changed_between_cookie_free_requests": true,
+    "set_cookie_response_present": true,
+    "session_url_followed": false,
+    "marker_value_retained_in_this_artifact": false,
+    "limitation": "Public read-only pages were accessible without authentication; no assertion about authorization power of anonymous server sessions."
+  },
+  "pagination_resources": [
+    {
+      "source": "dd-017",
+      "basis": "explicit 下一页 HTML anchor /shenpan/gengduo/77_2.html"
+    },
+    {
+      "source": "dd-041",
+      "basis": "createPageHTML(page_div,3,1,index,shtml,62) plus actual public page.js implementation maps next to index_2.shtml",
+      "script_sha256": "3000ac0f099be65bfdc95b04f13b3e9b891d0f9353defbac254117c102767c3d"
+    },
+    {
+      "source": "dd-116",
+      "basis": "Inline createPageHTML(50,0,index,shtml) implementation maps next to index_1.shtml"
+    },
+    {
+      "source": "dd-102",
+      "basis": "Archived inline go() implementation declares /www/illegal/index?page=(current+1)&siteid=beijing; DOM #page=1 #total=3 and actual second page has 20 rows"
+    }
+  ]
+}

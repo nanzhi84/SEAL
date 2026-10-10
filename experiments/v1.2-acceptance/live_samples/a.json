@@ -1,0 +1,330 @@
+[
+  {
+    "research_id": "dd-017",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-017",
+      "entry_urls": [
+        "https://www.court.gov.cn/shenpan/gengduo/77.html"
+      ],
+      "allowed_hosts": [
+        "www.court.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/shenpan/gengduo/77.html",
+        "/shenpan/gengduo/77_2.html",
+        "/shenpan/xiangqing/490521.html",
+        "/shenpan/xiangqing/466281.html"
+      ],
+      "host_path_scopes": {
+        "www.court.gov.cn": [
+          "/shenpan/gengduo/77.html",
+          "/shenpan/gengduo/77_2.html",
+          "/shenpan/xiangqing/490521.html",
+          "/shenpan/xiangqing/466281.html"
+        ]
+      },
+      "research_ids": [
+        "dd-017"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-017",
+      "max_pages": 2,
+      "fixed_details": [
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ]
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "指导性案例279号",
+        "裁判要点",
+        "指导性案例259号",
+        "环境污染民事公益诉讼"
+      ],
+      "roles": [
+        "list",
+        "detail"
+      ],
+      "stable_keys": [
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ],
+      "min_pages": 2,
+      "record_count": 2,
+      "allowed_urls": [
+        "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-041",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-041",
+      "entry_urls": [
+        "https://www.spp.gov.cn/spp/jczdal/index.shtml"
+      ],
+      "allowed_hosts": [
+        "www.spp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/spp/jczdal/index.shtml",
+        "/spp/jczdal/index_2.shtml",
+        "/spp/jczdal/202608/t20260805_733868.shtml",
+        "/spp/jczdal/202202/t20220214_544449.shtml"
+      ],
+      "host_path_scopes": {
+        "www.spp.gov.cn": [
+          "/spp/jczdal/index.shtml",
+          "/spp/jczdal/index_2.shtml",
+          "/spp/jczdal/202608/t20260805_733868.shtml",
+          "/spp/jczdal/202202/t20220214_544449.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-041"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-041",
+      "max_pages": 2,
+      "fixed_details": [
+        "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202202/t20220214_544449.shtml"
+      ]
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "第六十三批指导性案例",
+        "检例第257号",
+        "第三十三批指导性案例",
+        "2022-02-14"
+      ],
+      "roles": [
+        "list",
+        "detail"
+      ],
+      "stable_keys": [
+        "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202202/t20220214_544449.shtml"
+      ],
+      "min_pages": 2,
+      "record_count": 2,
+      "allowed_urls": [
+        "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/index_2.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202202/t20220214_544449.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-116",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-116",
+      "entry_urls": [
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/"
+      ],
+      "allowed_hosts": [
+        "amr.haikou.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/xxgk/spgsxx/xzcfangsxx/",
+        "/xxgk/spgsxx/xzcfangsxx/index_1.shtml",
+        "/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+        "/xxgk/spgsxx/xzcfangsxx/202608/t1542271.shtml"
+      ],
+      "host_path_scopes": {
+        "amr.haikou.gov.cn": [
+          "/xxgk/spgsxx/xzcfangsxx/",
+          "/xxgk/spgsxx/xzcfangsxx/index_1.shtml",
+          "/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+          "/xxgk/spgsxx/xzcfangsxx/202608/t1542271.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-116"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-116",
+      "max_pages": 2,
+      "fixed_details": [
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202608/t1542271.shtml"
+      ]
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "海市监列严〔2026〕007003号",
+        "海南数资跃动投资有限公司",
+        "海市监保罚告〔2026〕126号",
+        "吊销营业执照"
+      ],
+      "roles": [
+        "list",
+        "detail"
+      ],
+      "stable_keys": [
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202608/t1542271.shtml"
+      ],
+      "min_pages": 2,
+      "record_count": 2,
+      "allowed_urls": [
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/",
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/index_1.shtml",
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202610/t1548476.shtml",
+        "http://amr.haikou.gov.cn/xxgk/spgsxx/xzcfangsxx/202608/t1542271.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-102",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-102",
+      "entry_urls": [
+        "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html"
+      ],
+      "allowed_hosts": [
+        "www.safe.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/beijing/xzcfxxgs/index.html",
+        "/www/illegal/index",
+        "/www/illegal/listQuery",
+        "/www/illegal"
+      ],
+      "host_path_scopes": {
+        "www.safe.gov.cn": [
+          "/beijing/xzcfxxgs/index.html",
+          "/www/illegal/index",
+          "/www/illegal/listQuery",
+          "/www/illegal"
+        ]
+      },
+      "research_ids": [
+        "dd-102"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定北京市分局无筛选公开处罚前 2 个 iframe 页（各20行）及已观察到的建设银行详情；不提交统一社会信用代码查询、不保留 Cookie、不代表全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-102",
+      "max_pages": 2,
+      "fixed_details": [
+        "https://www.safe.gov.cn/www/illegal/listQuery?saffno=036b8dec2d9a445fa2a609d58084663d"
+      ]
+    },
+    "expected": {
+      "min_records": 41,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中国建设银行股份有限公司",
+        "京汇罚〔2026〕29号",
+        "京汇罚〔2026〕9号",
+        "1577.06",
+        "2026-09-23"
+      ],
+      "roles": [
+        "list",
+        "iframe",
+        "detail"
+      ],
+      "stable_keys": [
+        "京汇罚〔2026〕29号",
+        "京汇罚〔2026〕9号"
+      ],
+      "record_count": 41,
+      "allowed_urls": [
+        "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "https://www.safe.gov.cn/www/illegal?siteid=beijing",
+        "https://www.safe.gov.cn/www/illegal/index?page=2&siteid=beijing",
+        "https://www.safe.gov.cn/www/illegal/listQuery?saffno=036b8dec2d9a445fa2a609d58084663d"
+      ]
+    }
+  }
+]

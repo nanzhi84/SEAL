@@ -1,0 +1,1094 @@
+{
+  "infrastructure_status": "FAIL",
+  "ready_for_review": false,
+  "engine_commit": "e32234010320826799e6d34e1432cd16366cb785",
+  "quality_status": "not_evaluated",
+  "remaining_blocker": "T7S static business iframe lacks current successful real evidence. dd-102 rejected before archival; no same-class business replacement proven.",
+  "work_packages": {
+    "T0": "PASS",
+    "T1": "PASS",
+    "T2": "PASS",
+    "T3": "PASS",
+    "T4": "PARTIAL: actual business iframe missing",
+    "T5": "PASS",
+    "T6": "PASS",
+    "T7S": "FAIL",
+    "T8": "FAIL: depends on T7S"
+  },
+  "samples": [
+    {
+      "research_id": "dd-017",
+      "class": "A",
+      "source_id": "v12-live-dd-017",
+      "binding_id": "c11d1ba990829660416601e1d7aefc1e0ee2aeb144dbe5a348f2be6b436b11dd",
+      "recipe_version": "0a002b807d953a8a941ecbb79b177ffbbd840ce232c90e9dd0b80c0ae5422c06",
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "runs": [
+        "8441202a-e4ff-41a2-8429-4998fb5e74bd",
+        "338baf64-a6d3-4fce-b677-1da2bfdb3740",
+        "8cac8c81-091c-4716-b328-4b966e5c24f4",
+        "c2cfc119-c462-411b-a5a0-0da1033827bb"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 2,
+      "record_ids": [
+        "0e8dd99f-80b5-401d-a523-97340d07501f",
+        "fd047cd8-bf75-469b-a705-3fffb2c97a23"
+      ],
+      "errors": [],
+      "rounds": {
+        "first": {
+          "run_id": "8441202a-e4ff-41a2-8429-4998fb5e74bd",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 4,
+          "raw_hashes": [
+            "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+            "fb8ab8415725bbded8b935f7b36bf98d8ec0d7ea3f02a5af75c4381326354a7e"
+          ],
+          "artifact": "v12-live-dd-017-first.json"
+        },
+        "second": {
+          "run_id": "338baf64-a6d3-4fce-b677-1da2bfdb3740",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 4,
+          "raw_hashes": [
+            "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+            "fb8ab8415725bbded8b935f7b36bf98d8ec0d7ea3f02a5af75c4381326354a7e"
+          ],
+          "artifact": "v12-live-dd-017-second.json"
+        },
+        "recheck": {
+          "run_id": "8cac8c81-091c-4716-b328-4b966e5c24f4",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 2,
+          "raw_hashes": [
+            "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+            "fb8ab8415725bbded8b935f7b36bf98d8ec0d7ea3f02a5af75c4381326354a7e"
+          ],
+          "artifact": "v12-live-dd-017-recheck.json"
+        },
+        "replay": {
+          "run_id": "c2cfc119-c462-411b-a5a0-0da1033827bb",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 0,
+          "raw_hashes": [
+            "9561ff2c7826f3c39b7f56226d99a2b0f4e4907068526d112c61f497be39c55c",
+            "fb8ab8415725bbded8b935f7b36bf98d8ec0d7ea3f02a5af75c4381326354a7e"
+          ],
+          "artifact": "v12-live-dd-017-replay.json"
+        }
+      }
+    },
+    {
+      "research_id": "dd-041",
+      "class": "A",
+      "source_id": "v12-live-dd-041",
+      "binding_id": "aef3f3feb735a5c945bfbe0b8412b6fc3d632a202ac4ffd1112f2feb179a7af2",
+      "recipe_version": "0a002b807d953a8a941ecbb79b177ffbbd840ce232c90e9dd0b80c0ae5422c06",
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "runs": [
+        "65573fbe-2872-45db-b283-948352473838",
+        "96eb6c0a-42e1-4312-80c3-ed57008ea13e",
+        "27d18e59-b329-4943-a998-f609815cf275",
+        "3c3f818d-a572-44dd-a36a-74af776c5a94"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 2,
+      "record_ids": [
+        "32753ba8-44e7-4e07-894f-b18ccf468fcf",
+        "9c731b98-8d01-4d87-8667-f8a3fe859f98"
+      ],
+      "errors": [],
+      "rounds": {
+        "first": {
+          "run_id": "65573fbe-2872-45db-b283-948352473838",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 4,
+          "raw_hashes": [
+            "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+            "e9c71bb3485fc2d1c4406a8772c476f98b67607821694fc06b8e060e41d84859"
+          ],
+          "artifact": "v12-live-dd-041-first.json"
+        },
+        "second": {
+          "run_id": "96eb6c0a-42e1-4312-80c3-ed57008ea13e",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 4,
+          "raw_hashes": [
+            "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+            "e9c71bb3485fc2d1c4406a8772c476f98b67607821694fc06b8e060e41d84859"
+          ],
+          "artifact": "v12-live-dd-041-second.json"
+        },
+        "recheck": {
+          "run_id": "27d18e59-b329-4943-a998-f609815cf275",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 2,
+          "raw_hashes": [
+            "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+            "e9c71bb3485fc2d1c4406a8772c476f98b67607821694fc06b8e060e41d84859"
+          ],
+          "artifact": "v12-live-dd-041-recheck.json"
+        },
+        "replay": {
+          "run_id": "3c3f818d-a572-44dd-a36a-74af776c5a94",
+          "status": "complete",
+          "records": 2,
+          "http_attempts": 0,
+          "raw_hashes": [
+            "62848b6a4215bace30b54a9b094cb241d43125a40a01a7d60e3237be72aa9cae",
+            "e9c71bb3485fc2d1c4406a8772c476f98b67607821694fc06b8e060e41d84859"
+          ],
+          "artifact": "v12-live-dd-041-replay.json"
+        }
+      }
+    },
+    {
+      "research_id": "dd-468",
+      "class": "B",
+      "source_id": "live_dd_468",
+      "binding_id": "8475cab0219d1335a0a98fd3f98af28c7e40ab1078fb972c47ebcf798c4d94a4",
+      "recipe_version": "18e33d637f1a5e73ecdd83268f7f532829252f2f77004527ef64c165989285bb",
+      "scope": "仅2021-10-25全国高等学校名单说明及其两份真实XLS：原始bytes归档；全部工作表、有效单元格、合并区域和工作表可见状态结构化保存为URL身份附件文档，覆盖普通2756所和成人256所名单。正文和workbook结构可由原文独立复算；不把表格行序作为学校实体主键，不声明现行名单、全站或主体核验。",
+      "runs": [
+        "278348e2-ba81-4c50-9e5f-73f02cc53241",
+        "3d76d07f-a1e3-419a-ae0f-bfdfd66dc10f",
+        "bcd3dea8-cff6-452d-87ae-5699f8605f3b",
+        "e4cd938d-cc6e-4455-b2f7-d9c5222d475c"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 3,
+      "record_ids": [
+        "b77cdbc3-0c58-4efa-b22d-e36f867dbb12",
+        "917ab5bc-4a49-4290-863f-80d3f00cd7ba",
+        "8935f14e-61df-4174-aad2-94d5bdc35aac"
+      ],
+      "errors": [],
+      "rounds": {
+        "first": {
+          "run_id": "278348e2-ba81-4c50-9e5f-73f02cc53241",
+          "status": "complete",
+          "records": 3,
+          "http_attempts": 3,
+          "raw_hashes": [
+            "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+            "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+            "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac"
+          ],
+          "artifact": "live_dd_468-first.json"
+        },
+        "second": {
+          "run_id": "3d76d07f-a1e3-419a-ae0f-bfdfd66dc10f",
+          "status": "complete",
+          "records": 3,
+          "http_attempts": 3,
+          "raw_hashes": [
+            "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+            "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+            "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac"
+          ],
+          "artifact": "live_dd_468-second.json"
+        },
+        "recheck": {
+          "run_id": "bcd3dea8-cff6-452d-87ae-5699f8605f3b",
+          "status": "complete",
+          "records": 3,
+          "http_attempts": 3,
+          "raw_hashes": [
+            "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+            "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+            "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac"
+          ],
+          "artifact": "live_dd_468-recheck.json"
+        },
+        "replay": {
+          "run_id": "e4cd938d-cc6e-4455-b2f7-d9c5222d475c",
+          "status": "complete",
+          "records": 3,
+          "http_attempts": 0,
+          "raw_hashes": [
+            "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+            "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+            "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac"
+          ],
+          "artifact": "live_dd_468-replay.json"
+        }
+      }
+    },
+    {
+      "research_id": "dd-050",
+      "class": "B",
+      "source_id": "live_dd_050",
+      "binding_id": "116d04796733d2fbe53131273979a882f5740f410f7d6b10873d33198f7262ce",
+      "recipe_version": "18e33d637f1a5e73ecdd83268f7f532829252f2f77004527ef64c165989285bb",
+      "scope": "同类B补充文本PDF验收：仅首页明确链接的中国海事仲裁委员会仲裁规则-中文版（2021）PDF（2026-06-09链接）及父入口；70个物理页中可提取文本页的按页正文和自身标题locator。仅此静态附件，其他首页栏目与公开PDF均不采集，不代表全文排版或法律时效审核。",
+      "runs": [
+        "7a7a05dd-2548-4146-87b1-bbf013e9eb6b",
+        "4aa1b91a-8bb9-4e74-8deb-18471112295f",
+        "5c848ea5-e739-4d4b-bc4d-4572881ac0cd",
+        "182acb7d-9b7d-4000-a60c-af08305b2352"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 1,
+      "record_ids": [
+        "efec0a35-9369-4e4e-b076-7b6ac02e881f"
+      ],
+      "errors": [],
+      "rounds": {
+        "first": {
+          "run_id": "7a7a05dd-2548-4146-87b1-bbf013e9eb6b",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 2,
+          "raw_hashes": [
+            "10ef9450e9d4d82b07d750e9bd5ec7ac1d61ca8da21c3cf7f48c45eeaac4ea67",
+            "2eb24d334a102a9630edd2f5345d99c0a06446d7484099c4c3522b4fa0fd71de"
+          ],
+          "artifact": "live_dd_050-first.json"
+        },
+        "second": {
+          "run_id": "4aa1b91a-8bb9-4e74-8deb-18471112295f",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 2,
+          "raw_hashes": [
+            "10ef9450e9d4d82b07d750e9bd5ec7ac1d61ca8da21c3cf7f48c45eeaac4ea67",
+            "2eb24d334a102a9630edd2f5345d99c0a06446d7484099c4c3522b4fa0fd71de"
+          ],
+          "artifact": "live_dd_050-second.json"
+        },
+        "recheck": {
+          "run_id": "5c848ea5-e739-4d4b-bc4d-4572881ac0cd",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 1,
+          "raw_hashes": [
+            "10ef9450e9d4d82b07d750e9bd5ec7ac1d61ca8da21c3cf7f48c45eeaac4ea67"
+          ],
+          "artifact": "live_dd_050-recheck.json"
+        },
+        "replay": {
+          "run_id": "182acb7d-9b7d-4000-a60c-af08305b2352",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 0,
+          "raw_hashes": [
+            "10ef9450e9d4d82b07d750e9bd5ec7ac1d61ca8da21c3cf7f48c45eeaac4ea67",
+            "2eb24d334a102a9630edd2f5345d99c0a06446d7484099c4c3522b4fa0fd71de"
+          ],
+          "artifact": "live_dd_050-replay.json"
+        }
+      }
+    },
+    {
+      "research_id": "dd-247",
+      "class": "C",
+      "source_id": "delivery_dd_247_fixed_query",
+      "binding_id": "a78e006c0f9939392e6fec413140fc224f26f0c003b742c0df4f58ed5a419a04",
+      "recipe_version": "36d28779394da6f3459afbf59beb72b9f8486f86b0805ca027fc78c3699e172a",
+      "scope": "公募基金管理人公开固定查询 houseName=易方达，pageNo=1、pageSize=10，其余筛选为空；只接受官方响应中的易方达基金管理有限公司，按原文机构名自然键，保留五个展示字段；不是任意用户查询、主体精确核验或全量名录。替换 dd-009 的固定公开参数查询机制；dd-250 独立承担多页 JSON 全量 profile。",
+      "runs": [
+        "016ee8db-db92-4d80-a896-4d5675020f61",
+        "0ee97722-e58d-4bc2-89e1-49bcd00a3d45",
+        "40b7abcb-556e-4ea7-b6e0-25687f2c74ea",
+        "53fc629e-14ba-4d12-8df2-7295d5e6d6ef"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 1,
+      "record_ids": [
+        "8d6f47eb-70b2-45ec-83f5-755f785ceb3d"
+      ],
+      "errors": [],
+      "rounds": {
+        "first": {
+          "run_id": "016ee8db-db92-4d80-a896-4d5675020f61",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 1,
+          "raw_hashes": [
+            "9f279bbb842b7fd6aa3300e49437a1b75c235008bdc82fd431fb1afe5eec8361"
+          ],
+          "artifact": "delivery_dd_247_fixed_query-first.json"
+        },
+        "second": {
+          "run_id": "0ee97722-e58d-4bc2-89e1-49bcd00a3d45",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 1,
+          "raw_hashes": [
+            "9f279bbb842b7fd6aa3300e49437a1b75c235008bdc82fd431fb1afe5eec8361"
+          ],
+          "artifact": "delivery_dd_247_fixed_query-second.json"
+        },
+        "recheck": {
+          "run_id": "40b7abcb-556e-4ea7-b6e0-25687f2c74ea",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 1,
+          "raw_hashes": [
+            "9f279bbb842b7fd6aa3300e49437a1b75c235008bdc82fd431fb1afe5eec8361"
+          ],
+          "artifact": "delivery_dd_247_fixed_query-recheck.json"
+        },
+        "replay": {
+          "run_id": "53fc629e-14ba-4d12-8df2-7295d5e6d6ef",
+          "status": "complete",
+          "records": 1,
+          "http_attempts": 0,
+          "raw_hashes": [
+            "9f279bbb842b7fd6aa3300e49437a1b75c235008bdc82fd431fb1afe5eec8361"
+          ],
+          "artifact": "delivery_dd_247_fixed_query-replay.json"
+        }
+      }
+    },
+    {
+      "research_id": "dd-250",
+      "class": "C",
+      "source_id": "full_dd_250",
+      "binding_id": "43ce873e12fc2697e3a7151aa9a073260bf8b7ef00f17012974d2a35c9b20767",
+      "recipe_version": "54d4cd2bf866eb478b720c853d1b780a84041537a67110e2528907170a799cbe",
+      "scope": "公募基金托管机构固定空筛选完整枚举profile：pageSize=10，冻结官方API total67，对应7页(10*6+7)，全部展示trustName/regAddr原文，显示机构名为本Source自然键，数字id不证明永久语义且不输出。任何页总数、页长、重复自然键或预算不足显式partial；只请求已知7页，页8为空的公开探测证据独立保留。API无快照token，不承诺跨页原子快照；名称变更形成新身份，旧未观察项unknown，不代表主体核验或全站。",
+      "runs": [
+        "5d0b30cf-c1e9-44ab-a95b-4815fd31f8ed",
+        "d752508b-9fa7-4398-957b-ec2fd0d3dc7f",
+        "37bdd11e-874f-4b77-8a0c-cf735804c9eb",
+        "7f473be7-c7a5-41a3-9380-a9aca2432ea2"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 67,
+      "record_ids": [
+        "7adaf5eb-a931-44d6-b6a1-5f8e0912db28",
+        "a28c3a31-dc92-4c0a-a307-2edc66c0bc98",
+        "0f67d1e3-b9c8-44dd-a9e4-6378e9743ef0",
+        "f6f08ef7-b161-45ec-8414-9d661b97172e",
+        "116c246b-7618-4d17-902b-316d15762971",
+        "1cfe61bd-389e-4690-bbbd-749801f54ede",
+        "7622147e-249d-4962-b0a9-4f2adc1fc6c2",
+        "bcef77c2-1b68-4bfd-85cb-b023a994ee14",
+        "96576ef1-a9a3-4750-95b4-02d18cbbca40",
+        "be1db2d7-524a-43e9-a6e2-bf3ac513e982",
+        "93eff81a-193f-49df-b2d8-4ce25bd0c1a1",
+        "ca26ef85-8be2-44f1-bce6-ba8a8d2038f0",
+        "d43739a0-09fe-4a76-9876-046e4e27760c",
+        "97c777ee-7219-4cf0-a77e-9adad0a7e740",
+        "2940015e-8137-4268-8de0-b3c355556929",
+        "6f9901d7-1586-440e-be03-e8fc8629cf05",
+        "7e6279b3-3e41-4ae3-9f3c-de8e2c3df72d",
+        "bb7b6c3b-917e-4b29-b00f-03c0a15977ea",
+        "c4d68c47-080e-4a1e-b5fb-10a4078adeec",
+        "9f15c56a-8313-4fbf-ba79-633ae743388a",
+        "3b5b4cb6-d985-4784-80b6-c646ce2a90de",
+        "3c29b730-da5b-401f-993f-bd830d84d514",
+        "00c6e6d3-7f13-4e2c-830c-f201865dc41d",
+        "683d30a3-d047-4132-ad9b-c56406ce8842",
+        "7b70d4c3-adf3-4348-b58f-aa4f05140e50",
+        "ad0cf5d2-1bf3-45b3-a1d5-2c7b85bc967d",
+        "bdfc3144-ad4e-4e30-887b-02c93d2acbdc",
+        "3755f2fb-117b-4713-a480-6e642dd7a753",
+        "38c75c1f-602b-4c85-a964-04d7fdafb1f3",
+        "a314fd66-6893-41ed-8282-e6806efad8c7",
+        "c40b087c-db37-486a-9048-92806ed8c87a",
+        "180e98df-7c8d-403c-9a7d-20b6a4e2906a",
+        "c4276db2-18fa-4dcd-9aa6-5c97fcf09ce1",
+        "75e64d85-c60f-4486-b814-e30e9aee0f57",
+        "8009e694-aa36-42c1-8e68-8c1784f50d72",
+        "194b14f3-a801-47a5-9d4d-e09d1d789372",
+        "4856ddd5-0540-4759-827f-5d5697853748",
+        "d9390f2c-cceb-4059-8aea-6311a09be6e0",
+        "df4abf63-bf48-4760-a714-41b57913451f",
+        "fa1589f6-a4b2-4746-a5f6-4e7551a988df",
+        "38aa5137-8a78-413f-a02a-7e4c4458c0a6",
+        "a233e8c9-ce60-4091-980c-3d85060b66ca",
+        "d524152b-1f51-47e8-9b08-5fd00f3a6547",
+        "822176fa-68e2-43b5-ac0b-5cfdc3d300f7",
+        "bdc657d4-baa0-4a1c-a6f3-c2db4114ecc1",
+        "f3bc57a9-a3b2-49b0-8cc9-d7515008bebb",
+        "5dc9d184-958b-4ffe-ae19-3e8efac0f03a",
+        "ff45f573-7366-4bf9-851d-39f5d866b0b9",
+        "1f608e36-cd00-4b3a-96b8-2469aba398eb",
+        "0ad9d730-dfe8-4d09-855e-21f958505fd8",
+        "12259d2d-62e2-4d0c-8503-62234d15a440",
+        "458c2d87-533f-4402-84d0-d0931d68a44c",
+        "74aa049d-255d-413a-b3ef-006a4b56423f",
+        "5dd7be03-5c97-4a0a-84ef-caf66378370b",
+        "b1e94904-847d-469f-a7f3-bce61e878bfe",
+        "7793cbb9-e3c9-449e-b6c8-8ecf6ce0e9e8",
+        "0cfeadd8-ca2c-4bda-84c0-516a051757f1",
+        "771e4317-649e-4e65-bd66-b65b63bcc76d",
+        "99de0f2d-4f52-4f5c-848a-9a869ec2ac04",
+        "bdfa9991-c239-4a93-b044-b02c019428fa",
+        "939ebd15-d5b6-426b-962b-d9f4357bdc89",
+        "5367c4ae-276d-4dff-904b-26425cfe7121",
+        "446f1c2e-b71c-42f5-b05f-f007a952ee0c",
+        "19344630-dbba-4e07-89f9-0e7f2ea57e3d",
+        "e71ae07a-30aa-4f6b-a68c-73bff2454d96",
+        "07a0d004-7b25-447e-8d92-425547ae0b6b",
+        "1d2180a8-8c7b-4ed8-928e-fa75ea163c4d"
+      ],
+      "errors": [],
+      "rounds": {
+        "first": {
+          "run_id": "5d0b30cf-c1e9-44ab-a95b-4815fd31f8ed",
+          "status": "complete",
+          "records": 67,
+          "http_attempts": 7,
+          "raw_hashes": [
+            "248fe76194452a544f0f95df38b2104d3e61fc6dca0ab60faf6da910b455cc13",
+            "4b5aa97184909b7272d71213aaa5193fb713810485fd5cba9489bb0d913e065b",
+            "70c83c9181060045133dc4c7a20dd7a0fbb3ea1553c0fcae0ad91b497bf4724d",
+            "73e5e9fb3dafab8118826e47fc589051c4ef2ba0f05915234e27837b4ddb7ef7",
+            "752eaaf1c28f81b693510b719caaec5c8a500b0448d1d8565d8c99380685d8df",
+            "bf6b62bbe4efa934f0556e07903979d0b15c5a0a38429d3995893cfda5a23ae0",
+            "f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879"
+          ],
+          "artifact": "full_dd_250-first.json"
+        },
+        "second": {
+          "run_id": "d752508b-9fa7-4398-957b-ec2fd0d3dc7f",
+          "status": "complete",
+          "records": 67,
+          "http_attempts": 7,
+          "raw_hashes": [
+            "248fe76194452a544f0f95df38b2104d3e61fc6dca0ab60faf6da910b455cc13",
+            "4b5aa97184909b7272d71213aaa5193fb713810485fd5cba9489bb0d913e065b",
+            "70c83c9181060045133dc4c7a20dd7a0fbb3ea1553c0fcae0ad91b497bf4724d",
+            "73e5e9fb3dafab8118826e47fc589051c4ef2ba0f05915234e27837b4ddb7ef7",
+            "752eaaf1c28f81b693510b719caaec5c8a500b0448d1d8565d8c99380685d8df",
+            "bf6b62bbe4efa934f0556e07903979d0b15c5a0a38429d3995893cfda5a23ae0",
+            "f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879"
+          ],
+          "artifact": "full_dd_250-second.json"
+        },
+        "recheck": {
+          "run_id": "37bdd11e-874f-4b77-8a0c-cf735804c9eb",
+          "status": "complete",
+          "records": 67,
+          "http_attempts": 7,
+          "raw_hashes": [
+            "248fe76194452a544f0f95df38b2104d3e61fc6dca0ab60faf6da910b455cc13",
+            "4b5aa97184909b7272d71213aaa5193fb713810485fd5cba9489bb0d913e065b",
+            "70c83c9181060045133dc4c7a20dd7a0fbb3ea1553c0fcae0ad91b497bf4724d",
+            "73e5e9fb3dafab8118826e47fc589051c4ef2ba0f05915234e27837b4ddb7ef7",
+            "752eaaf1c28f81b693510b719caaec5c8a500b0448d1d8565d8c99380685d8df",
+            "bf6b62bbe4efa934f0556e07903979d0b15c5a0a38429d3995893cfda5a23ae0",
+            "f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879"
+          ],
+          "artifact": "full_dd_250-recheck.json"
+        },
+        "replay": {
+          "run_id": "7f473be7-c7a5-41a3-9380-a9aca2432ea2",
+          "status": "complete",
+          "records": 67,
+          "http_attempts": 0,
+          "raw_hashes": [
+            "248fe76194452a544f0f95df38b2104d3e61fc6dca0ab60faf6da910b455cc13",
+            "4b5aa97184909b7272d71213aaa5193fb713810485fd5cba9489bb0d913e065b",
+            "70c83c9181060045133dc4c7a20dd7a0fbb3ea1553c0fcae0ad91b497bf4724d",
+            "73e5e9fb3dafab8118826e47fc589051c4ef2ba0f05915234e27837b4ddb7ef7",
+            "752eaaf1c28f81b693510b719caaec5c8a500b0448d1d8565d8c99380685d8df",
+            "bf6b62bbe4efa934f0556e07903979d0b15c5a0a38429d3995893cfda5a23ae0",
+            "f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879"
+          ],
+          "artifact": "full_dd_250-replay.json"
+        }
+      }
+    }
+  ],
+  "mechanisms": {
+    "html_list_detail": [
+      {
+        "source": "dd-017",
+        "run_id": "8441202a-e4ff-41a2-8429-4998fb5e74bd",
+        "artifact": "v12-live-dd-017-first.json"
+      },
+      {
+        "source": "dd-041",
+        "run_id": "65573fbe-2872-45db-b283-948352473838",
+        "artifact": "v12-live-dd-041-first.json"
+      }
+    ],
+    "pagination": [
+      {
+        "source": "dd-017",
+        "run_id": "8441202a-e4ff-41a2-8429-4998fb5e74bd",
+        "artifact": "v12-live-dd-017-first.json"
+      },
+      {
+        "source": "dd-041",
+        "run_id": "65573fbe-2872-45db-b283-948352473838",
+        "artifact": "v12-live-dd-041-first.json"
+      },
+      {
+        "source": "dd-250",
+        "run_id": "5d0b30cf-c1e9-44ab-a95b-4815fd31f8ed",
+        "artifact": "full_dd_250-first.json"
+      }
+    ],
+    "business_attachment": [
+      {
+        "source": "dd-468",
+        "run_id": "278348e2-ba81-4c50-9e5f-73f02cc53241",
+        "artifact": "live_dd_468-first.json"
+      },
+      {
+        "source": "dd-050",
+        "run_id": "7a7a05dd-2548-4146-87b1-bbf013e9eb6b",
+        "artifact": "live_dd_050-first.json"
+      }
+    ],
+    "native_deduplication": [
+      {
+        "source": "dd-468",
+        "run_id": "bcd3dea8-cff6-452d-87ae-5699f8605f3b",
+        "status": "complete",
+        "records": 3,
+        "http_attempts": 3,
+        "raw_hashes": [
+          "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+          "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+          "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac"
+        ],
+        "artifact": "live_dd_468-recheck.json"
+      },
+      {
+        "source": "dd-250",
+        "run_id": "37bdd11e-874f-4b77-8a0c-cf735804c9eb",
+        "status": "complete",
+        "records": 67,
+        "http_attempts": 7,
+        "raw_hashes": [
+          "248fe76194452a544f0f95df38b2104d3e61fc6dca0ab60faf6da910b455cc13",
+          "4b5aa97184909b7272d71213aaa5193fb713810485fd5cba9489bb0d913e065b",
+          "70c83c9181060045133dc4c7a20dd7a0fbb3ea1553c0fcae0ad91b497bf4724d",
+          "73e5e9fb3dafab8118826e47fc589051c4ef2ba0f05915234e27837b4ddb7ef7",
+          "752eaaf1c28f81b693510b719caaec5c8a500b0448d1d8565d8c99380685d8df",
+          "bf6b62bbe4efa934f0556e07903979d0b15c5a0a38429d3995893cfda5a23ae0",
+          "f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879"
+        ],
+        "artifact": "full_dd_250-recheck.json"
+      }
+    ],
+    "fixed_public_query": [
+      {
+        "source": "dd-247",
+        "run_id": "016ee8db-db92-4d80-a896-4d5675020f61",
+        "artifact": "delivery_dd_247_fixed_query-first.json"
+      }
+    ],
+    "multi_record_json_no_detail": [
+      {
+        "source": "dd-250",
+        "run_id": "5d0b30cf-c1e9-44ab-a95b-4815fd31f8ed",
+        "artifact": "full_dd_250-first.json"
+      }
+    ]
+  },
+  "mechanism_gate": {
+    "passed": 253,
+    "total": 254,
+    "failures": [
+      {
+        "name": "T7S:static_business_iframe",
+        "actual": false,
+        "expected": true,
+        "status": "FAIL"
+      }
+    ]
+  },
+  "source_summary": {
+    "combined_last_known_statuses": {
+      "acceptance_failed": 1,
+      "adapted": 98,
+      "blocked": 10,
+      "partial": 2
+    },
+    "current_engine_diagnostic_sources": [
+      "dd-009",
+      "dd-102",
+      "dd-357"
+    ],
+    "current_engine_statuses": {
+      "adapted": 6
+    },
+    "historical_adapted_not_revalidated": 92,
+    "total": 111
+  },
+  "suites": [
+    {
+      "cases": [],
+      "category": "positive_current_engine",
+      "command": "./experiments/v1.2-acceptance/acceptance.sh --output <new-directory>",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 693,
+        "total": 693
+      },
+      "manifest_files": 655,
+      "manifest_sha256": "ecec0f161da3c5b1300c3235852e85bc43f6700c57d98ef05372087a1d37d28a",
+      "path": "artifacts/acceptance/pr2-delivery-v2-joint",
+      "recipes": {
+        "accepted_recipe_versions": [
+          "8708d326e78dba9cdadaf782a48b7042cd3b702b36fb0ce85f2af3e58a462bfb",
+          "9730af7b935a147278d0b29dd7cf4d4a6cf029761523ea32e0ee224255baf947",
+          "e32c121128859a1398caebb125944dec0329a1955d1a1429d785947eb5f79cb2"
+        ],
+        "bundled_recipe_versions": [
+          "8708d326e78dba9cdadaf782a48b7042cd3b702b36fb0ce85f2af3e58a462bfb",
+          "9730af7b935a147278d0b29dd7cf4d4a6cf029761523ea32e0ee224255baf947",
+          "e32c121128859a1398caebb125944dec0329a1955d1a1429d785947eb5f79cb2"
+        ],
+        "historical_recipe_versions": [],
+        "materialized_files_verified": 6
+      },
+      "recorded_git_head": null
+    },
+    {
+      "cases": [],
+      "category": "positive_current_engine",
+      "command": "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output <new-directory>",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 136,
+        "total": 136
+      },
+      "manifest_files": 183,
+      "manifest_sha256": "3265729db47f509c3477c858b875a140239ac4c53a2f503814203a0e3b13b7c1",
+      "path": "artifacts/acceptance/pr2-delivery-v2-m3",
+      "recipes": {
+        "accepted_recipe_versions": [],
+        "bundled_recipe_versions": [
+          "67f5b099abbcc5d917b8465f94ca0b4b4a41e4f0a143c0fba3549318aceca701",
+          "c79633850e6c6f77b7dd8d8e2395d5040dbc9be10d940d6a7fe114b226b7d9bd",
+          "cbf07719c473029ddf780e1388efc0cbaff3cd79c294c389670522aeef22c427",
+          "e32c121128859a1398caebb125944dec0329a1955d1a1429d785947eb5f79cb2"
+        ],
+        "historical_recipe_versions": [],
+        "materialized_files_verified": 9
+      },
+      "recorded_git_head": null
+    },
+    {
+      "cases": [
+        {
+          "elapsed_seconds": 1.838,
+          "id": "G01",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.793,
+          "id": "G02",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.84,
+          "id": "G03",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.822,
+          "id": "G04",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.802,
+          "id": "G05",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.784,
+          "id": "G06",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.849,
+          "id": "G07",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.801,
+          "id": "G08",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 3.004,
+          "id": "C01",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.412,
+          "id": "N01",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.328,
+          "id": "N02",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.109,
+          "id": "N03",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.092,
+          "id": "N04",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.092,
+          "id": "N05",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.104,
+          "id": "N06",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.062,
+          "id": "N07",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 4.829,
+          "id": "N08",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 5.062,
+          "id": "N09",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 2.654,
+          "id": "N10",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.246,
+          "id": "N11",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 2.063,
+          "id": "R01",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 4.886,
+          "id": "R02",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 2.442,
+          "id": "R03",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.724,
+          "id": "R04",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.466,
+          "id": "R05",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.737,
+          "id": "R06",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.238,
+          "id": "R07",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.281,
+          "id": "R08",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 1.922,
+          "id": "R09",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 13.793,
+          "id": "R11",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 0.0,
+          "id": "R12",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 4.182,
+          "id": "X01",
+          "status": "PASS"
+        },
+        {
+          "elapsed_seconds": 22.93,
+          "id": "R10",
+          "status": "PASS"
+        }
+      ],
+      "category": "positive_current_engine",
+      "command": "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/pr2-delivery-v2-m3 --output <new-directory> --compatibility-baseline artifacts/acceptance/v1.2-review-compatibility-input/regression/original-baseline",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 1200,
+        "total": 1200
+      },
+      "manifest_files": 250,
+      "manifest_sha256": "e7540d07dc494158ab85322c5ef7486f3267fc530e9393483dff52b436dfdc9c",
+      "path": "artifacts/acceptance/pr2-delivery-v2-smoke",
+      "recipes": {
+        "accepted_recipe_versions": [],
+        "bundled_recipe_versions": [
+          "0de6bd6433a2ae6be11b1f4d52ed26218f635fb10921c255dc5ae68199f800e7",
+          "3467e809d761afffacfe4470751847949090cd2861f1a4c761330d5653c98792",
+          "c620bf7eba7e7e175a879e2428980928de7eec8448f96a08ea1dd2cc0686be9c",
+          "e32c121128859a1398caebb125944dec0329a1955d1a1429d785947eb5f79cb2",
+          "f887d7133bf19c4d16814dee4c9ce9b7e320b08a6559522424747595e30e9dd7"
+        ],
+        "historical_recipe_versions": [],
+        "materialized_files_verified": 10
+      },
+      "recorded_git_head": null
+    },
+    {
+      "cases": [],
+      "category": "positive_current_engine",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/pagination_acceptance.py --output artifacts/acceptance/pr2-delivery-v2-pagination",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 154,
+        "total": 154
+      },
+      "manifest_files": 78,
+      "manifest_sha256": "f978c32dfc7edb18c5f7498102c4baca2bc46e9ab499182392087a069d1fcc02",
+      "path": "artifacts/acceptance/pr2-delivery-v2-pagination",
+      "recipes": {
+        "accepted_recipe_versions": [
+          "37da561889a0038b4957570781d07a340b037c510377ad4bf3ae139b9e05fc6e",
+          "54d4cd2bf866eb478b720c853d1b780a84041537a67110e2528907170a799cbe"
+        ],
+        "bundled_recipe_versions": [
+          "37da561889a0038b4957570781d07a340b037c510377ad4bf3ae139b9e05fc6e",
+          "54d4cd2bf866eb478b720c853d1b780a84041537a67110e2528907170a799cbe"
+        ],
+        "historical_recipe_versions": [],
+        "materialized_files_verified": 4
+      },
+      "recorded_git_head": null
+    },
+    {
+      "cases": [],
+      "category": "positive_current_engine",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario parents --output <new-directory>",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 35,
+        "total": 35
+      },
+      "manifest_files": 19,
+      "manifest_sha256": "d850c37ab287bdf85284e59cae530017a64129b39c4c03b65346eec83faa20bc",
+      "path": "artifacts/acceptance/pr2-delivery-v2-parents",
+      "recipes": {
+        "accepted_recipe_versions": [
+          "8708d326e78dba9cdadaf782a48b7042cd3b702b36fb0ce85f2af3e58a462bfb"
+        ],
+        "bundled_recipe_versions": [
+          "8708d326e78dba9cdadaf782a48b7042cd3b702b36fb0ce85f2af3e58a462bfb"
+        ],
+        "historical_recipe_versions": [],
+        "materialized_files_verified": 2
+      },
+      "recorded_git_head": null
+    },
+    {
+      "cases": [],
+      "category": "positive_current_engine",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/acceptance.py --only public-probe --output <new-directory>",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 33,
+        "total": 33
+      },
+      "manifest_files": 4,
+      "manifest_sha256": "391b0ff5afd8dee571335d332c384c184dc1476ca4003377bd7573165edfdcb8",
+      "path": "artifacts/acceptance/pr2-delivery-v2-public-probe",
+      "recorded_git_head": null
+    },
+    {
+      "cases": [],
+      "category": "positive_current_engine",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/delivery_samples/positive.json --output artifacts/acceptance/pr2-delivery-v2-real",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 640,
+        "total": 640
+      },
+      "manifest_files": 112,
+      "manifest_sha256": "ebc3b0eff58a69f2018c56e683c841bbdae506a36e8bc80da990eb25d29951c0",
+      "path": "artifacts/acceptance/pr2-delivery-v2-real",
+      "recipes": {
+        "accepted_recipe_versions": [
+          "0a002b807d953a8a941ecbb79b177ffbbd840ce232c90e9dd0b80c0ae5422c06",
+          "18e33d637f1a5e73ecdd83268f7f532829252f2f77004527ef64c165989285bb",
+          "36d28779394da6f3459afbf59beb72b9f8486f86b0805ca027fc78c3699e172a",
+          "54d4cd2bf866eb478b720c853d1b780a84041537a67110e2528907170a799cbe"
+        ],
+        "bundled_recipe_versions": [
+          "0a002b807d953a8a941ecbb79b177ffbbd840ce232c90e9dd0b80c0ae5422c06",
+          "18e33d637f1a5e73ecdd83268f7f532829252f2f77004527ef64c165989285bb",
+          "36d28779394da6f3459afbf59beb72b9f8486f86b0805ca027fc78c3699e172a",
+          "54d4cd2bf866eb478b720c853d1b780a84041537a67110e2528907170a799cbe"
+        ],
+        "historical_recipe_versions": [],
+        "materialized_files_verified": 8
+      },
+      "recorded_git_head": "e32234010320826799e6d34e1432cd16366cb785"
+    },
+    {
+      "cases": [],
+      "category": "positive_current_engine",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/delivery_samples/blocked.json --samples experiments/v1.2-acceptance/delivery_samples/restricted.json --diagnostic-only --output artifacts/acceptance/pr2-delivery-v2-blocked",
+      "current_engine": true,
+      "failed_assertions": [],
+      "failed_cases": [],
+      "functional_status": "PASS",
+      "live_assertions": {
+        "failed": 0,
+        "passed": 52,
+        "total": 52
+      },
+      "manifest_files": 25,
+      "manifest_sha256": "7891caa2746baffa63c85241b8859da1544c6b864a4fd1d98308b9b4e1d40d61",
+      "path": "artifacts/acceptance/pr2-delivery-v2-blocked",
+      "recipes": {
+        "accepted_recipe_versions": [],
+        "bundled_recipe_versions": [
+          "0a002b807d953a8a941ecbb79b177ffbbd840ce232c90e9dd0b80c0ae5422c06",
+          "36d28779394da6f3459afbf59beb72b9f8486f86b0805ca027fc78c3699e172a",
+          "5d0023ba00d927898ebf64be5bf866935248c203f63f072f2436d85d2de423d9"
+        ],
+        "historical_recipe_versions": [],
+        "materialized_files_verified": 6
+      },
+      "recorded_git_head": "e32234010320826799e6d34e1432cd16366cb785"
+    },
+    {
+      "cases": [],
+      "category": "behavior_red",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario sensitive --output <new-directory>",
+      "current_engine": false,
+      "failed_assertions": [
+        "sensitive_rejected_response_still_counts_network_attempt",
+        "suite_completed"
+      ],
+      "failed_cases": [],
+      "functional_status": "FAIL",
+      "live_assertions": {
+        "failed": 2,
+        "passed": 23,
+        "total": 25
+      },
+      "manifest_files": 14,
+      "manifest_sha256": "c20e91e3d5946c4dc973bf16d0f16a2d6d322776a39a78b30043bc40fdd2d93c",
+      "path": "artifacts/acceptance/pr2-delivery-network-count-red-20261010",
+      "recorded_git_head": null
+    }
+  ],
+  "public_archive": {
+    "bytes": 12102400,
+    "path": "remediation-evidence.tar.gz",
+    "sha256": "e0ee5de40ac413341dbfa6097b03d8d12e23d86722e4126a93413f5f6579dcee"
+  },
+  "environment": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python": "3.12.13",
+    "postgresql": "pg_ctl (PostgreSQL) 17.11 (Homebrew)",
+    "uv_lock_sha256": "069ece308c3dcb2936f43e7bd3f74dcd203d70f24850380a69d60ca7e5bb04a2",
+    "data": "Disposable loopback PostgreSQL, synthetic fixture inputs; public anonymous bounded GET for real sources. No external DSN or credentials."
+  },
+  "extra_checks": {
+    "real_raw_projection": {
+      "files": 112,
+      "record_projections": 304,
+      "assertions": 640,
+      "failed_assertions": [],
+      "mode": "require_pass",
+      "recorded_suite_status": "PASS",
+      "errors": [],
+      "local_only_sources": []
+    },
+    "full_pagination": {
+      "passed": 489,
+      "total": 489,
+      "artifact": "artifacts/acceptance/pr2-delivery-v2-amac.json"
+    },
+    "blank_query_regression": {
+      "files": 20,
+      "record_projections": 80,
+      "assertions": 75,
+      "failed_assertions": [],
+      "mode": "require_pass",
+      "recorded_suite_status": "PASS",
+      "errors": [],
+      "local_only_sources": []
+    }
+  },
+  "limitations": [
+    "All quality_status values remain not_evaluated.",
+    "Historical failed suites and raw archives were not changed.",
+    "92 currently adapted entries retain historical evidence only; 111-source revalidation is not required.",
+    "Package verification with recorded_outcomes checks preservation of RED; it never upgrades real acceptance.",
+    "Package records functional commit; after final evidence/document commit, all suites are repeated on that exact head in fresh local directories and summarized in PR #2."
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "artifact_version": 1,
+  "review_status": "PENDING_MASTER_PACKAGE",
+  "json_cache": {
+    "directory": "artifacts/acceptance/v1.2-json-pointer-final",
+    "manifest_sha256": "5f630897bb223903ba2c0996ca5e206dd5d1980f10b92d3520fce318d96cae4d",
+    "assertions": 36043,
+    "files": 21,
+    "current_engine": true,
+    "baseline": {
+      "directory": "artifacts/acceptance/v1.2-json-pointer-baseline",
+      "manifest_sha256": "5f9c7e545ce91bb0b7b49fcf6432a33cc44de8f1da5e950a3b77f87a57b9342e",
+      "assertions": 24024,
+      "files": 16,
+      "current_engine": false
+    },
+    "measured_ratios": [
+      {
+        "operation": "run",
+        "before_cpu_seconds": 14.67,
+        "after_cpu_seconds": 2.2,
+        "cpu_ratio": 0.1499659168370825,
+        "rss_ratio": 0.9930576516752189
+      },
+      {
+        "operation": "replay",
+        "before_cpu_seconds": 14.940000000000001,
+        "after_cpu_seconds": 1.96,
+        "cpu_ratio": 0.13119143239625167,
+        "rss_ratio": 0.9748212157330155
+      }
+    ],
+    "records": 3000,
+    "native_fields": 30000,
+    "limits": [
+      "One measured invocation per comparable path; no production throughput claim",
+      "Final engine includes P1 fixes; this compares full CLI behavior, not a pure isolated cache experiment",
+      "64 MiB bounds retained decoded trees, not all temporary validation or downloader memory",
+      "LRU eviction loop reviewed statically; cumulative multi-input eviction is not an additional E2E claim"
+    ]
+  },
+  "cache_boundaries": {
+    "directory": "artifacts/acceptance/v1.2-json-pointer-boundaries-complete",
+    "manifest_sha256": "88594dbd61f1251bbbe5833ed25092b79c2f8f978c66d0dfb13bead6751d2561",
+    "assertions": 91,
+    "files": 26,
+    "current_engine": true,
+    "records": 4,
+    "native_fields": 40,
+    "peak_rss_bytes": 440565760,
+    "failed_fixture_scope_preserved": "artifacts/acceptance/v1.2-json-pointer-boundaries-final"
+  },
+  "full_pagination": {
+    "directory": "artifacts/acceptance/v1.2-amac-full-final",
+    "manifest_sha256": "cd0905c65993cea6923c0802f7be4dd94ae93d9a44a02a0750c657aee4f99785",
+    "assertions": 77,
+    "files": 29,
+    "current_engine": true,
+    "synthetic": {
+      "directory": "artifacts/acceptance/v1.2-pagination-final",
+      "manifest_sha256": "b488468e4673d18c85ebfe39292af4b386feddb34dec385cff01dc46dc5a9ae5",
+      "assertions": 154,
+      "files": 78,
+      "current_engine": true
+    },
+    "rounds": [
+      {
+        "round": "first",
+        "records": 67,
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "http_attempts": 7
+      },
+      {
+        "round": "second",
+        "records": 67,
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "http_attempts": 7
+      },
+      {
+        "round": "recheck",
+        "records": 67,
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "http_attempts": 7
+      },
+      {
+        "round": "replay",
+        "records": 67,
+        "pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "http_attempts": 0
+      }
+    ],
+    "source_id": "full_dd_250",
+    "recipe_version": "404ad1d4ac682b8942a1d1e82c7c60116e73c5ff294b5cc6c34b2a37b5eb0b23",
+    "limits": [
+      "No upstream snapshot token; atomic cross-page snapshot is unproven",
+      "Source identity is displayed trustName; a rename creates a new identity",
+      "No page8 HTTP in the four acceptance runs; a prior public empty-page probe is separate"
+    ]
+  },
+  "root_regressions": {
+    "joint": {
+      "directory": "artifacts/acceptance/v1.2-review-joint-final",
+      "manifest_sha256": "e7b25914b27c1adebc9de6f508120f85d3614ab0af92576ef5ded314515ceb55",
+      "assertions": 419,
+      "files": 575,
+      "current_engine": true
+    },
+    "migration": {
+      "directory": "artifacts/acceptance/v1.2-review-m3-final-v2",
+      "manifest_sha256": "771408e1d64682a616f258e76c299e4da66b342f1a019216abd821caae3b66aa",
+      "assertions": 136,
+      "files": 183,
+      "current_engine": true,
+      "old_tables": 7,
+      "pre_upgrade_values_unchanged": true
+    },
+    "real_abc": {
+      "directory": "artifacts/acceptance/v1.2-review-real-abc-final",
+      "manifest_sha256": "001bd602860fbb9086f2aa8b4f228a96d172699c9be199e4a0ecb877de3d6e7a",
+      "assertions": 232,
+      "files": 56,
+      "current_engine": true
+    },
+    "smoke": {
+      "directory": "artifacts/acceptance/v1.2-review-smoke-final-v2",
+      "manifest_sha256": "9eb27758946b801e6a81bb30af0abc171b898df69063cc8752ec08a2099ff109",
+      "assertions": 1200,
+      "files": 249,
+      "current_engine": true,
+      "cases": 33,
+      "historical_old_tables": 8,
+      "old_fields_unchanged": true
+    },
+    "proxy": {
+      "directory": "artifacts/acceptance/v1.2-review-proxy-final",
+      "manifest_sha256": "5f43f1ae95936f4f0828955c9700e0186694f5822c66b2b350da6e41bc23281a",
+      "assertions": 13,
+      "files": 13,
+      "current_engine": true
+    },
+    "failed_evidence_preserved": [
+      "v1.2-review-m3-final",
+      "v1.2-review-smoke-final"
+    ]
+  },
+  "code_review": {
+    "status": "PASS",
+    "findings": [],
+    "raw_integrity": "validate_record reads and SHA-verifies each snapshot/body before cache access; cache hit cannot replace Objects.get",
+    "native_semantics": "Strict decoder rejects nonfinite/duplicate object keys; typed recursive equality and strict RFC6901 indices/escapes remain",
+    "lifetime": "Per ItemPipeline locked LRU; actual decoded tree sizes; oversized local-only validation reuse; close clears all retained trees"
+  },
+  "master_package": {
+    "status": "PENDING",
+    "reason": "Root M3/Smoke/final package not yet delivered"
+  },
+  "checks": 276167,
+  "errors": [],
+  "reproduce": "uv run --frozen python experiments/v1.2-acceptance/review_fixes_verify.py"
+}

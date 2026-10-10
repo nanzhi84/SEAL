@@ -1,0 +1,249 @@
+{
+  "artifact_version": "1",
+  "status": "PASS",
+  "scope": "P1 native JSON Pointer validation performance and bounded Crawl cache",
+  "artifacts": [
+    {
+      "phase": "baseline",
+      "path": "artifacts/acceptance/v1.2-json-pointer-baseline",
+      "manifest_sha256": "5f9c7e545ce91bb0b7b49fcf6432a33cc44de8f1da5e950a3b77f87a57b9342e",
+      "status": "PASS",
+      "live_assertions": 24024,
+      "live_passed": 24024,
+      "files": 16
+    },
+    {
+      "phase": "performance_final",
+      "path": "artifacts/acceptance/v1.2-json-pointer-final",
+      "manifest_sha256": "5f630897bb223903ba2c0996ca5e206dd5d1980f10b92d3520fce318d96cae4d",
+      "status": "PASS",
+      "live_assertions": 36043,
+      "live_passed": 36043,
+      "files": 21
+    },
+    {
+      "phase": "boundaries_final",
+      "path": "artifacts/acceptance/v1.2-json-pointer-boundaries-complete",
+      "manifest_sha256": "88594dbd61f1251bbbe5833ed25092b79c2f8f978c66d0dfb13bead6751d2561",
+      "status": "PASS",
+      "live_assertions": 91,
+      "live_passed": 91,
+      "files": 26
+    }
+  ],
+  "preserved_failures": [
+    {
+      "path": "artifacts/acceptance/v1.2-json-pointer-boundaries-final",
+      "reason": "source_out_of_scope for test-only stem prefix; explicit two paths fixed, Runtime scope guard untouched"
+    },
+    {
+      "path": "experiments/v1.2-acceptance/results/json-pointer-baseline-performance-red.json",
+      "reason": "Measured existing CPU exceeds frozen 35 percent reduction targets; archived business data/typed locator proofs pass"
+    }
+  ],
+  "comparison": [
+    {
+      "kind": "run",
+      "cpu_before_seconds": 14.67,
+      "cpu_after_seconds": 2.2,
+      "cpu_reduction_percent": 85.0,
+      "wall_before_seconds": 15.936213,
+      "wall_after_seconds": 3.293655,
+      "peak_rss_before_bytes": 108560384,
+      "peak_rss_after_bytes": 107806720,
+      "cpu_target_max_seconds": 9.5355,
+      "performance_status_before": "RED",
+      "performance_status_after": "GREEN"
+    },
+    {
+      "kind": "replay",
+      "cpu_before_seconds": 14.940000000000001,
+      "cpu_after_seconds": 1.96,
+      "cpu_reduction_percent": 86.88,
+      "wall_before_seconds": 16.225579,
+      "wall_after_seconds": 3.032618,
+      "peak_rss_before_bytes": 109969408,
+      "peak_rss_after_bytes": 107200512,
+      "cpu_target_max_seconds": 9.711,
+      "performance_status_before": "RED",
+      "performance_status_after": "GREEN"
+    }
+  ],
+  "performance_dataset": {
+    "records": 1000,
+    "fields_per_record": 10,
+    "original_bytes": 252764,
+    "original_sha256": "f929011181b873e04eb3dac67d14d67f6a7c7429a4277cd88c4f88c7dd64db3c"
+  },
+  "boundary_fixture_bytes": {
+    "/api/oversized": {
+      "bytes": 16889202,
+      "sha256": "09239c4e3af6d817def01a71c6a9a13005f7181099412f0d5a3f5fa51ef9003b"
+    },
+    "/api/nohash-first": {
+      "bytes": 273,
+      "sha256": "867b5e36525961982179f9bc28fe3458278ec7b3c7188a79cf198eee6bea52c9"
+    },
+    "/api/nohash-second": {
+      "bytes": 272,
+      "sha256": "61469f07df008b9720c48713b6c0aa453b443167e37eac6f2b80d379d20691ad"
+    }
+  },
+  "independent_reports": {
+    "json-pointer-baseline-verification.json": {
+      "artifact": "/Users/yoryon/SEAL/artifacts/acceptance/v1.2-json-pointer-baseline",
+      "manifest_sha256": "5f9c7e545ce91bb0b7b49fcf6432a33cc44de8f1da5e950a3b77f87a57b9342e",
+      "files": 16,
+      "records": 2000,
+      "typed_fields": 20000,
+      "assertions": 30042,
+      "errors": [],
+      "passed": 30042,
+      "current_engine_verified": false,
+      "status": "PASS"
+    },
+    "json-pointer-final-verification.json": {
+      "artifact": "/Users/yoryon/SEAL/artifacts/acceptance/v1.2-json-pointer-final",
+      "manifest_sha256": "5f630897bb223903ba2c0996ca5e206dd5d1980f10b92d3520fce318d96cae4d",
+      "files": 21,
+      "records": 3000,
+      "typed_fields": 30000,
+      "assertions": 46091,
+      "errors": [],
+      "passed": 46091,
+      "current_engine_verified": true,
+      "status": "PASS"
+    },
+    "json-pointer-boundaries-verification.json": {
+      "artifact": "/Users/yoryon/SEAL/artifacts/acceptance/v1.2-json-pointer-boundaries-complete",
+      "manifest_sha256": "88594dbd61f1251bbbe5833ed25092b79c2f8f978c66d0dfb13bead6751d2561",
+      "files": 26,
+      "records": 4,
+      "typed_fields": 40,
+      "native_tree_min_bytes": 73128280,
+      "diagnostics": {
+        "oversized": {
+          "seal/record_json_hits": 0,
+          "seal/record_json_parses": 1,
+          "seal/record_json_evictions": 0,
+          "seal/record_json_peak_bytes": 0,
+          "seal/record_json_peak_entries": 0,
+          "seal/record_json_retained_bytes": 0,
+          "seal/record_json_retained_entries": 0
+        },
+        "oversized-replay": {
+          "seal/record_json_hits": 0,
+          "seal/record_json_parses": 1,
+          "seal/record_json_evictions": 0,
+          "seal/record_json_peak_bytes": 0,
+          "seal/record_json_peak_entries": 0,
+          "seal/record_json_retained_bytes": 0,
+          "seal/record_json_retained_entries": 0
+        },
+        "nohash-two-inputs": {
+          "seal/record_json_hits": 0,
+          "seal/record_json_parses": 2,
+          "seal/record_json_evictions": 0,
+          "seal/record_json_peak_bytes": 4572,
+          "seal/record_json_peak_entries": 2,
+          "seal/record_json_retained_bytes": 0,
+          "seal/record_json_retained_entries": 0
+        }
+      },
+      "assertions": 157,
+      "passed": 157,
+      "errors": [],
+      "current_engine_verified": true,
+      "status": "PASS"
+    }
+  },
+  "engine": {
+    "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+    "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+    "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+    "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+    "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+    "src/seal/completion.py": "ce2f44d6d5a9ce3ecdd980dfd0aa1c9b239fd894f2d2317f0d1a8e0e3b72178f",
+    "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+    "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+    "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+    "src/seal/records.py": "439fafb01f7b930a3574f74e603e36e7dfa1f68b350ff0f421a4db2d464e6485",
+    "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+    "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+    "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+    "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+    "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+    "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+    "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+    "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+    "src/seal/record_validation.py": "f0ff617a3a9df2db8fdb176835a044d6d1940f2070e9794308704b7981a9a698",
+    "src/seal/runs.py": "cf06ccf522f62bbd729d0311026c585c2f3c5989d4fb42a2041a3a5fcd2f2261",
+    "src/seal/helpers.py": "13e9686439b4b58a5790bbc001719401fc0eb2dc73a61d1a0a4f1fcde70c1d1f",
+    "src/seal/items.py": "d438f87091393a7d7c903ba4f34abea00f4e24402ee67adb1898bd3caffe656d",
+    "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+    "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+    "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+    "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+    "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+  },
+  "same_current_engine_across_final_suites": true,
+  "commands": [
+    [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "experiments/v1.2-acceptance/json_pointer_performance.py",
+      "--output",
+      "<new-directory>",
+      "--baseline",
+      "artifacts/acceptance/v1.2-json-pointer-baseline/summary.json"
+    ],
+    [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "experiments/v1.2-acceptance/json_pointer_boundaries.py",
+      "--output",
+      "<new-directory>"
+    ],
+    [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "experiments/v1.2-acceptance/json_pointer_verify.py",
+      "artifacts/acceptance/v1.2-json-pointer-final",
+      "--baseline",
+      "artifacts/acceptance/v1.2-json-pointer-baseline/summary.json",
+      "--current-code"
+    ],
+    [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "experiments/v1.2-acceptance/json_pointer_boundaries_verify.py",
+      "artifacts/acceptance/v1.2-json-pointer-boundaries-complete",
+      "--current-code"
+    ]
+  ],
+  "environment": {
+    "python": "3.12.13 (main, Jun 11 2026, 03:55:21) [Clang 22.1.3 ]",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "database": "isolated loopback PostgreSQL",
+    "concurrency": 4
+  },
+  "verification_tools": {
+    "json_pointer_verify.py": "7a00cfbc9025e2f5884da0d643bbe0b6570fa847685d26aa7440b0c03c2f696f",
+    "json_pointer_boundaries_verify.py": "02b1a7e8b3b7550b2b690f2d1c2f68b6a81744c9bf65166b86b80d2c9468a619"
+  },
+  "limits": [
+    "Synthetic public loopback API workload, not a claim about latency of live remote websites",
+    "CPU and peak RSS measure the real CLI/Scrapy subprocess tree; PostgreSQL and fixture-server processes are separately isolated",
+    "64 MiB limits retained decoded trees; transient oversized parsing is bounded by explicit response budgets and measured separately",
+    "Invalid typed/pointer/archive-integrity scenarios remain the existing Joint E2E responsibility"
+  ]
+}

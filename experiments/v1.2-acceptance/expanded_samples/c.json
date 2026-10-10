@@ -1,0 +1,167 @@
+[
+  {
+    "research_id": "dd-248",
+    "class": "C",
+    "source": {
+      "id": "expanded_dd_248",
+      "research_ids": [
+        "dd-248"
+      ],
+      "entry_urls": [
+        "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=10&orgName=&regAddr=&orgType=&startTime=&endTime="
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "AMAC公开名录固定空筛选前两页pageSize=10最多20行；官方显示机构名称orgName为本Source范围内自然键；仅展示字段orgName,regAddr,orgType,checkTime；不使用未确认永久语义的id，不代表全量或主体完整核验，机构更名形成新自然身份、旧项保持unknown。",
+      "seed_role": "api",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 5,
+        "seconds": 90,
+        "response_bytes": 5242880
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-248",
+      "max_pages": 2
+    },
+    "recipe": "recipes/expanded_c",
+    "expected": {
+      "min_records": 20,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中国建设银行",
+        "中国民生银行",
+        "上海银行",
+        "北京市西城区金融大街25号",
+        "全国性商业银行",
+        "2001-07"
+      ],
+      "roles": [
+        "api"
+      ],
+      "min_pages": 2,
+      "stable_keys": [
+        "中国建设银行",
+        "中国民生银行"
+      ],
+      "no_detail_url": true,
+      "failure_modes": [
+        "unexpected_fixed_query_or_page",
+        "api_envelope_not_success",
+        "missing_or_nonunique_institution_name",
+        "empty_or_oversized_list",
+        "source_schema_changed"
+      ],
+      "expected_fields": [
+        "orgName",
+        "regAddr",
+        "orgType",
+        "checkTime"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-250",
+    "class": "C",
+    "source": {
+      "id": "expanded_dd_250",
+      "research_ids": [
+        "dd-250"
+      ],
+      "entry_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10"
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "AMAC公开名录固定空筛选前两页pageSize=10最多20行；官方显示机构名称trustName为本Source范围内自然键；仅展示字段trustName,regAddr；不使用未确认永久语义的id，不代表全量或主体完整核验，机构更名形成新自然身份、旧项保持unknown。",
+      "seed_role": "api",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 5,
+        "seconds": 90,
+        "response_bytes": 5242880
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-250",
+      "max_pages": 2
+    },
+    "recipe": "recipes/expanded_c",
+    "expected": {
+      "min_records": 20,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中国工商银行股份有限公司",
+        "兴业银行股份有限公司",
+        "浙商银行股份有限公司",
+        "福建",
+        "浙江"
+      ],
+      "roles": [
+        "api"
+      ],
+      "min_pages": 2,
+      "stable_keys": [
+        "中国工商银行股份有限公司",
+        "兴业银行股份有限公司"
+      ],
+      "no_detail_url": true,
+      "failure_modes": [
+        "unexpected_fixed_query_or_page",
+        "api_envelope_not_success",
+        "missing_or_nonunique_institution_name",
+        "empty_or_oversized_list",
+        "source_schema_changed"
+      ],
+      "expected_fields": [
+        "trustName",
+        "regAddr"
+      ]
+    }
+  }
+]

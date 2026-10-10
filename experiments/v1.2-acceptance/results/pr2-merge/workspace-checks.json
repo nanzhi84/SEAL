@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "command": [
+        "uvx",
+        "--from",
+        "ruff==0.16.10",
+        "ruff",
+        "check",
+        "src",
+        "recipes",
+        "experiments/v1.1-runtime-acceptance",
+        "experiments/v1.2-acceptance",
+        "experiments/archive_privacy.py",
+        "experiments/source-accessibility/probe.py",
+        "experiments/due-diligence/inventory.py"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": [
+        "uvx",
+        "--from",
+        "ruff==0.16.10",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "recipes",
+        "experiments/v1.1-runtime-acceptance",
+        "experiments/v1.2-acceptance"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "97 files already formatted\n"
+    },
+    {
+      "command": [
+        "seiso",
+        "check"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "No diagnostics.\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "name": "Generated matches Plan",
+      "status": "PASS"
+    },
+    {
+      "name": "Current product source equals every accepted frozen artifact",
+      "status": "PASS"
+    },
+    {
+      "name": "Published metadata omits raw bodies and expected/actual values",
+      "status": "PASS"
+    }
+  ],
+  "input_hashes": {
+    "README.md": "8cf1467653c2794e994e1a5b992aa2f9b171c14f3bfa82cb95ccd66d74a3b556",
+    "docs/plans/v1.2-heterogeneous-sources.md": "a23e95b63a0756c5ec1ad84961f07c56296107207909cc7f7de8ae5a8429f8ca",
+    "docs/generated/v1.2-heterogeneous-sources.html": "955ec8c2b10655dbfd978cdfd6922cd0124226dda485a42aac348ac799b1cc7a",
+    "docs/reference/source-adaptation.md": "8856428c1b4652c5dfbd16af0936f9e41fa65655e079262f9c07f6ddca0abd17",
+    ".github/workflows/ci.yml": "bab42ef60d7a41fd0f91f3ded18fb2abfbe69f8b2f0234799b6fd3ea0f0cc61a",
+    "experiments/v1.2-acceptance/results/pr2-merge/report.json": "0e8a879b790fdc1d70591fe6842a65ddc9b649666ed293c21741ce386e149087",
+    "experiments/v1.2-acceptance/results/pr2-merge/independent-review.json": "2acb33cc7be0e2316538386c867341011bf9a30724175c06cb14e8271afbbf67"
+  },
+  "engine_commit": "78cbda72d9b94968e2a41d8a2d4cd97f1eb3194b"
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "research_id": "dd-211",
+    "class": "B",
+    "recipe": "recipes/expanded_b1",
+    "params": {
+      "documents": [
+        {
+          "url": "https://www.zhaeec.com/prjs/lease/detail/17231.html",
+          "title": "p.title",
+          "body": ".default_detail_box"
+        }
+      ],
+      "routes": [],
+      "attachments": [],
+      "pdf_titles": {}
+    },
+    "source": {
+      "id": "remediation_dd_211",
+      "entry_urls": [
+        "https://www.zhaeec.com/prjs/lease/detail/17231.html"
+      ],
+      "allowed_hosts": [
+        "www.zhaeec.com"
+      ],
+      "allowed_path_prefixes": [
+        "/prjs/lease/detail/17231.html"
+      ],
+      "host_path_scopes": {
+        "www.zhaeec.com": [
+          "/prjs/lease/detail/17231.html"
+        ]
+      },
+      "research_ids": [
+        "dd-211"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "单次真实公开项目HTML安全拒绝诊断：页面包含未填充password动态变量，同时仍有真实非空window Token与加密Key，禁止归档原文或生成业务Record。不得裁剪原文、重复公网拒绝请求、绕Token策略、采扫描合同代替项目正文或计入adapted。",
+      "seed_role": "detail",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 1,
+        "seconds": 30,
+        "response_bytes": 1048576
+      },
+      "concurrency": 1,
+      "delay": 0,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 0,
+      "record_count": 0,
+      "statuses": [
+        "partial"
+      ],
+      "errors": [
+        "download_failed",
+        "sensitive_body_rejected",
+        "unresolved_seed"
+      ],
+      "roles": [],
+      "min_pages": 0,
+      "allowed_urls": [
+        "https://www.zhaeec.com/prjs/lease/detail/17231.html"
+      ],
+      "archived_urls": [],
+      "failure_modes": [
+        "actual_nonempty_token_archived",
+        "secret_value_in_error_or_artifact",
+        "business_record_emitted",
+        "second_public_attempt_after_rejection"
+      ]
+    }
+  }
+]

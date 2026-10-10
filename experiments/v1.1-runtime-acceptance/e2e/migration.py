@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 import psycopg
+from psycopg import sql
 from psycopg.types.json import Jsonb
 
 
@@ -16,7 +17,7 @@ def fresh_install(h):
         c.execute("CREATE DATABASE fresh_install")
     try:
         h.env["SEAL_DATABASE_URL"] = original.rsplit("/", 1)[0] + "/fresh_install"
-        h.check("empty_database_install", h.cli("db", "migrate")["schema"], "v1.1")
+        h.check("empty_database_install", h.cli("db", "migrate")["schema"], "v1.2")
         h.cli("db", "migrate")
         h.config("fresh")
         run = h.cli("run", "fresh", "--binding", h.binding("fresh"))
@@ -150,6 +151,8 @@ def upgrade_history(h):
                 ),
             )
 
+    historical_columns = {}
+
     def preserved():
         with psycopg.connect(h.env["SEAL_DATABASE_URL"]) as c:
             values = {}
@@ -163,8 +166,25 @@ def upgrade_history(h):
                 "run",
             ):
                 where = " WHERE id='legacy-run'" if table == "run" else " WHERE id LIKE 'legacy-%'"
+                if table not in historical_columns:
+                    # Freeze the pre-upgrade contract, including every old column.
+                    # New nullable migration metadata changes SELECT * row shape,
+                    # but must never change any historical value.
+                    historical_columns[table] = [
+                        row[0]
+                        for row in c.execute(
+                            "SELECT column_name FROM information_schema.columns "
+                            "WHERE table_schema='public' AND table_name=%s "
+                            "ORDER BY ordinal_position",
+                            ("seal_" + table,),
+                        )
+                    ]
                 values[table] = c.execute(
-                    f"SELECT to_jsonb(t) FROM seal_{table} t{where} ORDER BY id"
+                    sql.SQL("SELECT to_jsonb(t) FROM (SELECT {} FROM {}{} ORDER BY id) t").format(
+                        sql.SQL(",").join(map(sql.Identifier, historical_columns[table])),
+                        sql.Identifier("seal_" + table),
+                        sql.SQL(where),
+                    )
                 ).fetchall()
             return values
 
@@ -189,7 +209,7 @@ with connect() as c:
     )
     before = preserved()
     migrated = h.cli("db", "migrate")
-    h.check("incremental_migration_v11", migrated["schema"], "v1.1")
+    h.check("incremental_migration_v11", migrated["schema"], "v1.2")
     h.check("v1_immutable_history_unchanged", preserved(), before)
     state = h.cli("inspect", "source", "legacy")
     h.check("v1_default_paused_for_upgrade", state["source"]["paused"], True)

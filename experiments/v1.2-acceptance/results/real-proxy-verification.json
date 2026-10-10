@@ -1,0 +1,140 @@
+{
+  "artifact_version": 1,
+  "generated_at": "2026-10-09T12:41:27.144740+00:00",
+  "scope": "Actual CLI/Scrapy/isolated PostgreSQL proxy behavior regression; synthetic business data, no public-site substitute",
+  "expected_contract": "Environment proxies must not alter online Source transport; complete ten records and offline Replay with origin stopped",
+  "failure_modes_declared_before_source_fix": [
+    "failed environment proxy receives source transport",
+    "source not contacted and business records missing",
+    "archive missing and Replay unable to reproduce original data or attempts network"
+  ],
+  "environment": {
+    "python": "3.12.13 (main, Jun 11 2026, 03:55:21) [Clang 22.1.3 ]",
+    "postgresql": "pg_ctl (PostgreSQL) 17.11 (Homebrew)",
+    "database": "fresh isolated loopback PostgreSQL per phase",
+    "source": "fresh owned loopback /api per phase; deterministic ten-record JSON oracle",
+    "budget_seconds": 10
+  },
+  "proxy_input": {
+    "endpoint": "http://127.0.0.1:1",
+    "keys": [
+      "HTTP_PROXY",
+      "HTTPS_PROXY",
+      "ALL_PROXY",
+      "http_proxy",
+      "https_proxy",
+      "all_proxy"
+    ],
+    "NO_PROXY": "",
+    "no_proxy": "",
+    "credentials": "none; no original environment/proxy values saved"
+  },
+  "same_script_for_both_phases": true,
+  "engine_code_changes_between_phases": [
+    "src/seal/crawl.py"
+  ],
+  "matrix": [
+    {
+      "phase": "RED",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/proxy_behavior.py --output artifacts/acceptance/v1.2-environment-proxy-red",
+      "artifact": "artifacts/acceptance/v1.2-environment-proxy-red",
+      "manifest_sha256": "132dbea05e7de3dfa6c2bb302647ecbcf57d7613a16a4bf3a1fec3145dfccb4c",
+      "script_sha256": "88d1f39f2089a8ab1ec75e461947b08d7f10b4e07b5f6502918a2b34fbc5b35d",
+      "source_code_sha256": "51f4cdc3277f089bca71613b4c68e1fd1e334e31269887238785378129df97aa",
+      "uv_lock_sha256": "4c43ab56765c1aad189625a0b69a55156c5d2f871af72e5a95200517962645e0",
+      "artifact_integrity": {
+        "files": 10,
+        "errors": []
+      },
+      "behavior_assertions": {
+        "total": 13,
+        "passed": 3,
+        "failed": [
+          "collect_complete_with_broken_environment_proxy",
+          "collect_ten_business_records",
+          "collect_independent_business_oracle",
+          "source_received_direct_GET",
+          "replay_complete_with_origin_stopped",
+          "replay_ten_original_business_records",
+          "replay_independent_business_oracle",
+          "replay_zero_network_observations",
+          "replay_zero_http_attempts",
+          "replay_raw_evidence_recomputable"
+        ]
+      },
+      "suite_assertions_total": 14,
+      "collect": {
+        "status": "retryable",
+        "record_count": 0,
+        "errors": [
+          "download_failed",
+          "unresolved_seed"
+        ],
+        "network_observations": 3,
+        "observation_errors": [
+          "DownloadConnectionRefusedError",
+          "DownloadConnectionRefusedError",
+          "DownloadConnectionRefusedError"
+        ]
+      },
+      "replay": {
+        "status": "replay_inputs_missing",
+        "record_count": 0,
+        "http_attempts": null,
+        "network_observations": null,
+        "downloader_requests": null
+      },
+      "source_request_ledger": [],
+      "origin_stopped_before_replay": true
+    },
+    {
+      "phase": "GREEN",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/proxy_behavior.py --output artifacts/acceptance/v1.2-environment-proxy-green",
+      "artifact": "artifacts/acceptance/v1.2-environment-proxy-green",
+      "manifest_sha256": "7ecde8dd9f71e409d27cae67f1808b370d4493fc25078149f05ceef5ffadbb45",
+      "script_sha256": "88d1f39f2089a8ab1ec75e461947b08d7f10b4e07b5f6502918a2b34fbc5b35d",
+      "source_code_sha256": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+      "uv_lock_sha256": "4c43ab56765c1aad189625a0b69a55156c5d2f871af72e5a95200517962645e0",
+      "artifact_integrity": {
+        "files": 13,
+        "errors": []
+      },
+      "behavior_assertions": {
+        "total": 13,
+        "passed": 13,
+        "failed": []
+      },
+      "suite_assertions_total": 13,
+      "collect": {
+        "status": "complete",
+        "record_count": 10,
+        "errors": [],
+        "network_observations": 1,
+        "observation_errors": []
+      },
+      "replay": {
+        "status": "complete",
+        "record_count": 10,
+        "http_attempts": 0,
+        "network_observations": 0,
+        "downloader_requests": 0
+      },
+      "source_request_ledger": [
+        {
+          "method": "GET",
+          "path": "/api",
+          "status": 200
+        }
+      ],
+      "origin_stopped_before_replay": true
+    }
+  ],
+  "green_independent_verification": {
+    "command": "uv run --frozen python experiments/v1.2-acceptance/live_verify.py artifacts/acceptance/v1.2-environment-proxy-green",
+    "files": 13,
+    "record_projections": 20,
+    "assertions": 13,
+    "errors": []
+  },
+  "conclusion": "PASS: real regression fails before environment-proxy restoration and passes after restoration; original RED artifact retained unchanged"
+}

@@ -3,6 +3,7 @@
 import hashlib
 import ipaddress
 import json
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,7 +17,8 @@ from protego import Protego
 from scrapy import signals
 from scrapy.exceptions import IgnoreRequest
 
-from seal.core import BODY_SECRET
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from experiments.archive_privacy import BODY_SECRET  # noqa: E402
 
 UA = "SEAL-SourceExperiment/1.0 (bounded public-source feasibility)"
 

@@ -1,0 +1,135 @@
+{
+  "contract": "seal.independent_runtime_review.v1",
+  "baseline_commit": "ee398840640e38d63f093ff7b18ca85cc4c59a78",
+  "reviewer_role": "Independent Runtime reviewer and synthetic acceptance author; no Runtime implementation ownership",
+  "status": "RUNTIME_REVIEW_PASSED_REAL_SOURCE_ACCEPTANCE_BLOCKED",
+  "scope": [
+    "Record identity, typed locators, deduplication, conflict isolation and source versus processing attribution",
+    "Historical migrations, immutable data, legacy Document export and Replay compatibility",
+    "Source/Run/attempt lock order, completion transactions and obsolete callback fencing",
+    "Native Scrapy discovery fingerprints, duplicate ancestry, request budgets and parse failure attribution",
+    "Parent API and detail URL Recheck, periodic Procrastinate scheduling and resource-only responses",
+    "Static iframe and attachment boundaries, archival integrity and stable attachment content",
+    "Manifest availability, Inspect/Export/CLI/Worker status consistency and unassessed quality",
+    "Bounded subprocesses, archive/database failure windows and deterministic offline test evidence"
+  ],
+  "historical_protection": {
+    "status": "PASS",
+    "check": "git diff --exit-code origin/main -- src/seal/schema.sql src/seal/migrations/0002_runtime.sql docs/adr/0001-recipe-driven-fixed-pipeline.md docs/adr/0002-python-recipes-minimal-v1.md docs/adr/0003-runtime-evaluation-management.md docs/plans/v1.1-runtime.md docs/generated/v1.1-runtime.html",
+    "result": "No changes to these historical files"
+  },
+  "resolved_findings": [
+    {
+      "id": "R01",
+      "severity": "high",
+      "problem": "A corrupt body shared by multiple Records was cached before validation; only the first Record became unavailable and later Records could be exported.",
+      "resolution": "Populate the snapshot cache only after validating the body bytes.",
+      "files": ["src/seal/export.py"],
+      "evidence": ["experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz#synthetic/joint", "corrupt_record_evidence_not_exported", "corrupt_record_evidence_explicit"]
+    },
+    {
+      "id": "R02",
+      "severity": "high",
+      "problem": "Discovery foreign-key locking acquired Run before Source and deadlocked against concurrent Source-to-Run item writers; a 100-link response lost discoveries.",
+      "resolution": "Lock Source then Run before inserting scheduler discovery evidence, and reject obsolete attempts before insertion.",
+      "files": ["src/seal/discovery.py"],
+      "evidence": ["experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz#synthetic/joint", "discovery_survives_request_budget", "budget_limits_network_requests", "experiments/v1.2-acceptance/test_discovery.py"]
+    },
+    {
+      "id": "R03",
+      "severity": "high",
+      "problem": "Raw-resource Document rows for APIs could become legacy detail seeds or trigger empty-record Recheck, either misrouting the parent API or aborting the scheduler transaction.",
+      "resolution": "Legacy Recheck seeds and due cursors require an existing legacy seal_result; business Records separately provide frozen parent or detail requests.",
+      "files": ["src/seal/runs.py", "src/seal/queue.py"],
+      "evidence": ["parent_recheck_one_http_request", "parent_recheck_preserves_query_and_role", "record_due_scheduler_queues_once", "record_due_worker_one_parent_request"]
+    },
+    {
+      "id": "R04",
+      "severity": "medium",
+      "problem": "Replacing attachment content title with parent anchor text caused direct attachment Recheck to invent a business revision when the parent was absent.",
+      "resolution": "Keep attachment title located in attachment bytes; retain parent input evidence separately and dispatch detail Recheck by actual representation.",
+      "files": ["src/seal/helpers.py", "recipes/heterogeneous/recipe.py"],
+      "evidence": ["attachment_recheck_three_details_only", "attachment_recheck_content_versions_stable", "experiments/v1.2-acceptance/test_helpers.py"]
+    },
+    {
+      "id": "R05",
+      "severity": "high",
+      "problem": "Late callbacks could append frozen Run inputs or terminal errors; obsolete HTTP 429 observations could change current Source cooldown.",
+      "resolution": "Input and close writes require an active attempt status; cooldown uses the same Source-to-Run lock order and full fencing as business writes.",
+      "files": ["src/seal/archive.py", "src/seal/crawl.py"],
+      "evidence": ["late_callback_cannot_mutate_frozen_inputs", "late_close_cannot_mutate_terminal_errors", "late_close_cannot_mutate_terminal_report", "old_cooldown_cannot_mutate_source"]
+    },
+    {
+      "id": "R06",
+      "severity": "medium",
+      "problem": "Legacy Recipes emitted bare parse diagnostics without input IDs, leaving the originating Discovery event marked parsed despite an explicit extraction error.",
+      "resolution": "The spider output middleware attaches the current archived response IDs to missing diagnostic references while preserving explicit references and diagnostic codes.",
+      "files": ["src/seal/discovery.py"],
+      "evidence": ["legacy_bare_diagnostic_keeps_original_error", "legacy_bare_diagnostic_discovery_attributed", "malformed_row_diagnostic_attributed", "unparseable_attachment_discovery_attributed"]
+    }
+  ],
+  "reviewed_invariants": [
+    "Current Record pointers advance only in a complete fenced completion transaction; conflicting keys retain immutable candidates and are excluded from accepted outputs.",
+    "The same input and Binding cannot silently produce different normalized Record data in a later Run.",
+    "List reordering changes HTTP evidence without creating business versions; one changed Record independently revises.",
+    "A changed Binding is processing attribution, not proof of source content change.",
+    "Unobserved Records stay unknown and are never inferred deleted.",
+    "Discovery records actual native Scrapy fingerprints and ancestry before scheduler deduplication; it does not schedule requests independently.",
+    "Runtime manifests are immutable content-addressed artifacts attached to existing Runs, not a second operational state ledger.",
+    "All outputs retain quality_status=not_evaluated; no Evaluation, Management governance or Agent execution was introduced."
+  ],
+  "unresolved_implementation_findings": [],
+  "mandatory_acceptance_blockers": [
+    {
+      "tasks": ["T0", "T7S", "T8"],
+      "status": "BLOCKED",
+      "reason": "Actual C API response bytes are missing from retained research and current permitted sample requests fail at proxy CONNECT 403. The real-response migration experiment and at least two valid structured real Sources per A/B/C class cannot be verified.",
+      "consequence": "Keep the Pull Request Draft; do not declare V1.2 jointly accepted or count synthetic dd-000 records as real-source evidence."
+    }
+  ],
+  "validation": {
+    "joint_runtime": {
+      "status": "PASS",
+      "assertions": 303,
+      "verified_files": 123,
+      "artifact_bundle": "experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz",
+      "bundle_directory": "synthetic/joint",
+      "executed_output": "artifacts/acceptance/v1.2-joint-release",
+      "command": "./experiments/v1.2-acceptance/acceptance.sh --output <new-directory>"
+    },
+    "historical_m3": {
+      "status": "PASS",
+      "assertions": 136,
+      "verified_files": 183,
+      "executed_output": "work/v1.2/m3-formatted",
+      "artifact_bundle": "experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz",
+      "bundle_directory": "synthetic/v11-m3",
+      "command": "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output <new-directory>"
+    },
+    "historical_smoke": {
+      "status": "PASS",
+      "assertions": 1191,
+      "verified_files": 228,
+      "executed_output": "work/v1.2/smoke-formatted",
+      "artifact_bundle": "experiments/v1.2-acceptance/results/synthetic-evidence.tar.gz",
+      "bundle_directory": "synthetic/v11-smoke",
+      "command": "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline <M3-directory> --output <new-directory>",
+      "historical_compatibility": {
+        "case": "C01",
+        "status": "PASS",
+        "baseline_commit": "ee398840640e38d63f093ff7b18ca85cc4c59a78",
+        "baseline_bundle_directory": "synthetic/v11-baseline",
+        "result": "Read the provenance-backed V1.1 database using the V1.2 package, replay original archived input and preserve historical immutable data. This is synthetic historical compatibility evidence, not real-source acceptance."
+      }
+    },
+    "lint": "Ruff passed for src, recipes and experiments/v1.2-acceptance after the final delivery run; git diff --check clean",
+    "artifact_integrity": "Final joint, M3 and offline Smoke artifact verification passed with no failures",
+    "helper_unit_tests": {"status": "PASS", "tests": 8},
+    "discovery_unit_tests": {"status": "PASS", "tests": 14}
+  },
+  "limits": [
+    "Synthetic fixtures verify Runtime behavior and failure boundaries, not source completeness or business accuracy.",
+    "DNS rebinding, malicious Recipe sandboxing, production scale and power-loss durability remain outside the established Runtime test guarantees.",
+    "The 111-source rollout is a subsequent milestone; candidate sample adapters remain unaccepted until real business inputs and two-round results are available."
+  ]
+}

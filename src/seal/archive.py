@@ -1,16 +1,25 @@
 """Store decoded application responses before native redirects and retries."""
 
 import asyncio
-import posixpath
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
-from urllib.parse import unquote, urlsplit
+from urllib.parse import urlsplit
 
 from scrapy.exceptions import IgnoreRequest
 from scrapy.http import HtmlResponse, JsonResponse, Response, TextResponse, XmlResponse
 
-from .core import BODY_SECRET, Objects, SealError, check_address, digest, public_url, safe_url, uid
-from .db import connect, j, record_error
+from .core import (
+    Objects,
+    SealError,
+    check_address,
+    digest,
+    public_url,
+    safe_url,
+    uid,
+)
+from .db import connect, fenced, j, locked_run, record_error
+from .discovery import ResourceFingerprinter, mark_archived, mark_failed, mark_requested
+from .scope import paths_for
 
 HEADERS = {
     b"content-type",
@@ -61,8 +70,6 @@ def restore(snapshot_id, request):
 
 
 def archive_response(context, request, response):
-    if BODY_SECRET.search(response.body):
-        raise SealError("sensitive_body_rejected")
     if response.flags and "cached" in response.flags:
         raise SealError("cache_provenance_unknown")
     if response.headers.get(b"Content-Encoding"):
@@ -82,6 +89,7 @@ def archive_response(context, request, response):
         "body_hash": body_hash,
         "body_size": len(response.body),
         "request_url": safe_url(request.url),
+        "representation_id": ResourceFingerprinter().fingerprint(request).hex(),
         "method": request.method,
         "url": safe_url(response.url),
         "status": response.status,
@@ -142,12 +150,16 @@ class RequestGuard(Component):
         try:
             url = public_url(request.url)
             parsed = urlsplit(url)
-            path = posixpath.normpath(unquote(parsed.path))
-            if parsed.hostname not in self.config["allowed_hosts"] or not any(
-                path.startswith(p.rstrip("/") + "/") or path == p.rstrip("/")
-                for p in self.config["allowed_path_prefixes"]
-            ):
+            if not paths_for(self.config, parsed.hostname, parsed.path):
                 raise SealError("request_out_of_scope")
+            parent = request.meta.get("seal_parent_url")
+            if parent and request.meta.get("seal_role") in {"iframe", "attachment"}:
+                parent_host = urlsplit(public_url(parent)).hostname
+                if parsed.hostname != parent_host:
+                    if request.meta["seal_role"] == "iframe":
+                        raise SealError("iframe_out_of_scope")
+                    if parsed.hostname not in self.config.get("host_path_scopes", {}):
+                        raise SealError("attachment_host_path_required")
             check_address(parsed.hostname)
             if request.method not in self.config["methods"] or request.body:
                 raise SealError("request_method_rejected")
@@ -174,7 +186,9 @@ class RequestGuard(Component):
             request.meta.setdefault("seal_logical_url", url)
             request.meta.setdefault("seal_request_key", request_key(request))
             request.meta["seal_requested_at"] = datetime.now(timezone.utc).isoformat()
+            await asyncio.to_thread(mark_requested, self.context, request)
         except SealError as exc:
+            await asyncio.to_thread(mark_failed, self.context, request, exc.code)
             await self.fail(exc.code)
             raise IgnoreRequest(exc.code) from None
 
@@ -193,6 +207,9 @@ class ResponseArchiveMiddleware(Component):
                 )
             request.meta["seal_snapshot_id"] = snapshot
             request.meta["seal_observation_id"] = observation
+            await asyncio.to_thread(
+                mark_archived, self.context, request, snapshot, observation, response.status
+            )
             if response.status == 429:
                 until = datetime.now(timezone.utc) + timedelta(hours=1)
                 raw = response.headers.get("Retry-After", b"").decode("ascii", "ignore")
@@ -215,12 +232,18 @@ class ResponseArchiveMiddleware(Component):
             return response
         except Exception as exc:
             code = exc.code if isinstance(exc, SealError) else "archive_failed"
+            await asyncio.to_thread(mark_failed, self.context, request, code)
             await self.fail(code)
             raise IgnoreRequest(code) from None
 
     def cooldown(self, until):
         if self.context["mode"] != "replay":
             with connect() as c:
+                source, run = locked_run(c, self.context["id"])
+                try:
+                    fenced(source, run, self.context["attempt_epoch"])
+                except SealError:
+                    return  # Late observations cannot change current Source controls.
                 c.execute(
                     "UPDATE seal_source SET cooldown_until=%s WHERE id=%s",
                     (until, self.context["source_id"]),
@@ -237,6 +260,7 @@ class ResponseArchiveMiddleware(Component):
             return None
         async with self.io:
             await asyncio.to_thread(self.network_error, request, type(exception).__name__)
+            await asyncio.to_thread(mark_failed, self.context, request, "download_failed")
         return None
 
     def network_error(self, request, code):
@@ -269,6 +293,7 @@ class ReplayMiddleware(Component):
         unique = {item["snapshot_id"] for item in matches}
         if len(unique) != 1:
             code = "replay_miss" if not unique else "replay_ambiguous"
+            await asyncio.to_thread(mark_failed, self.context, request, code)
             await self.fail(code)
             raise IgnoreRequest(code)
         entry = matches[0]
@@ -276,7 +301,17 @@ class ReplayMiddleware(Component):
         request.meta["seal_observation_id"] = entry["observation_id"]
         request.meta["seal_original_fetched_at"] = entry["fetched_at"]
         async with self.io:
-            return await asyncio.to_thread(restore, entry["snapshot_id"], request)
+            await asyncio.to_thread(mark_requested, self.context, request, replayed=True)
+            response = await asyncio.to_thread(restore, entry["snapshot_id"], request)
+            await asyncio.to_thread(
+                mark_archived,
+                self.context,
+                request,
+                entry["snapshot_id"],
+                entry["observation_id"],
+                response.status,
+            )
+            return response
 
 
 class InputMiddleware(Component):
@@ -297,10 +332,13 @@ class InputMiddleware(Component):
         }
         # Only tiny manifest/SQL work here; body I/O has already completed in Archive.
         with connect() as c:
-            c.execute(
-                "UPDATE seal_run SET inputs=inputs || %s WHERE id=%s AND attempt_epoch=%s",
+            accepted = c.execute(
+                "UPDATE seal_run SET inputs=inputs || %s WHERE id=%s AND attempt_epoch=%s "
+                "AND status IN ('running','finishing') RETURNING id",
                 (j([entry]), self.context["id"], self.context["attempt_epoch"]),
-            )
+            ).fetchone()
+            if accepted is None:
+                raise SealError("inactive_attempt")
             if self.context["mode"] != "replay":
                 c.execute(
                     "UPDATE seal_fetch_observation SET final_url=%s WHERE run_id=%s AND attempt_epoch=%s AND chain_id=%s",
@@ -311,3 +349,7 @@ class InputMiddleware(Component):
                         request.meta.get("seal_chain_id"),
                     ),
                 )
+        if self.config.get("output_schema") == "record.v1" and response.status == 200:
+            from .records import stage_record_resource
+
+            stage_record_resource(self.context, entry)

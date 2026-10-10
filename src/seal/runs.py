@@ -10,12 +10,12 @@ from .core import SealError, uid
 from .db import connect, j, locked_run, one
 
 
-def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
+def create_run(binding_id, mode, connection=None, replay_from=None, slot=None, due_only=False):
     if mode not in ("collect", "recheck", "replay"):
         raise SealError("unsupported_run_mode")
     if connection is None:
         with connect() as c:
-            return create_run(binding_id, mode, c, replay_from, slot)
+            return create_run(binding_id, mode, c, replay_from, slot, due_only)
     c = connection
     binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (binding_id,))
     source = one(c, "SELECT * FROM seal_source WHERE id=%s FOR UPDATE", (binding["source_id"],))
@@ -36,16 +36,11 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
     config = binding["config"]
     seeds = [{"url": url, "role": config["seed_role"]} for url in config["entry_urls"]]
     replay_inputs = []
+    recheck_plan = None
     if mode == "recheck":
-        seeds = [
-            {"url": d["url"], "role": "detail"}
-            for d in c.execute(
-                "SELECT url FROM seal_document WHERE source_id=%s AND namespace='runtime' ORDER BY identity",
-                (source["id"],),
-            ).fetchall()
-        ]
-        if not seeds:
-            raise SealError("no_documents_to_recheck")
+        from .recheck import plan_recheck
+
+        seeds, recheck_plan = plan_recheck(c, source, config, due_only)
     if mode == "replay":
         original = one(c, "SELECT * FROM seal_run WHERE id=%s", (replay_from,))
         if original["source_id"] != source["id"]:
@@ -53,12 +48,13 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
         if not original["inputs"]:
             raise SealError("replay_inputs_missing")
         seeds, replay_inputs = original["seeds"], original["inputs"]
+        recheck_plan = original.get("recheck_plan")
     seq = source["run_seq"] + 1 if online else 0
     if online:
         c.execute("UPDATE seal_source SET run_seq=%s WHERE id=%s", (seq, source["id"]))
     c.execute(
-        """INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,replay_inputs,slot)
-        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+        """INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,replay_inputs,slot,recheck_plan)
+        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
         (
             identity,
             source["id"],
@@ -71,9 +67,30 @@ def create_run(binding_id, mode, connection=None, replay_from=None, slot=None):
             j(seeds),
             j(replay_inputs),
             slot,
+            j(recheck_plan) if recheck_plan is not None else None,
         ),
     )
     return identity
+
+
+def end_run(connection, source, run, status, reason):
+    from .manifest import terminal_report
+    from .recheck import failed_dates, scope_details, unobserved_records
+
+    unobserved = unobserved_records(connection, source, run)
+    scope = dict(
+        run["report"].get("scope_evidence", {}),
+        **scope_details(run),
+        unobserved_records=unobserved,
+        unobserved_record_count=len(unobserved),
+    )
+    run = dict(run, report=dict(run["report"], scope_evidence=scope))
+    report = terminal_report(connection, source, run, status, reason)
+    failed_dates(connection, source, run, status)
+    connection.execute(
+        "UPDATE seal_run SET status=%s,completed_at=now(),errors=%s,report=%s WHERE id=%s",
+        (status, j(report["errors"]), j(report), run["id"]),
+    )
 
 
 def begin_attempt(run_id):
@@ -84,10 +101,7 @@ def begin_attempt(run_id):
         if run["attempt_epoch"] >= run["max_attempts"] or run["deadline"] <= datetime.now(
             timezone.utc
         ):
-            c.execute(
-                "UPDATE seal_run SET status='failed',completed_at=now(),errors=errors || %s WHERE id=%s",
-                (j(["attempts_or_deadline_exhausted"]), run_id),
-            )
+            end_run(c, source, run, "failed", "attempts_or_deadline_exhausted")
             return None
         if run["mode"] not in ("collect", "recheck", "replay"):
             raise SealError("unsupported_run_mode")
@@ -97,16 +111,10 @@ def begin_attempt(run_id):
                 or source["paused"]
                 or source["write_seq"] > run["run_seq"]
             ):
-                c.execute(
-                    "UPDATE seal_run SET status='superseded',completed_at=now() WHERE id=%s",
-                    (run_id,),
-                )
+                end_run(c, source, run, "superseded", "superseded")
                 return None
             if source["cooldown_until"] and source["cooldown_until"] > datetime.now(timezone.utc):
-                c.execute(
-                    "UPDATE seal_run SET status='failed',errors=errors || %s,completed_at=now() WHERE id=%s",
-                    (j(["source_cooling_down"]), run_id),
-                )
+                end_run(c, source, run, "failed", "source_cooling_down")
                 return None
             c.execute(
                 "UPDATE seal_source SET write_seq=%s WHERE id=%s", (run["run_seq"], source["id"])
@@ -213,16 +221,17 @@ def execute_run(run_id):
     if state["status"] == "finishing":
         return finish_run(run_id, epoch)
     with connect() as c:
+        source, run = locked_run(c, run_id)
         exhausted = epoch >= context["max_attempts"] or datetime.now(
             timezone.utc
         ) >= datetime.fromisoformat(context["deadline"])
-        c.execute(
-            "UPDATE seal_run SET status=%s,errors=errors || %s WHERE id=%s AND attempt_epoch=%s AND status='running'",
-            (
-                "failed" if exhausted else "retryable",
-                j(["crawl_cancelled" if cancelled else "child_process_failed"]),
-                run_id,
-                epoch,
-            ),
-        )
+        if run["attempt_epoch"] == epoch and run["status"] == "running":
+            reason = "crawl_cancelled" if cancelled else "child_process_failed"
+            if exhausted:
+                end_run(c, source, run, "failed", reason)
+            else:
+                c.execute(
+                    "UPDATE seal_run SET status='retryable',errors=errors || %s WHERE id=%s",
+                    (j([reason]), run_id),
+                )
     return receipt(run_id)

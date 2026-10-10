@@ -1,0 +1,73 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "command": [
+        "uvx",
+        "--from",
+        "ruff==0.16.10",
+        "ruff",
+        "check",
+        "src",
+        "recipes",
+        "experiments/v1.1-runtime-acceptance",
+        "experiments/v1.2-acceptance",
+        "experiments/archive_privacy.py",
+        "experiments/source-accessibility/probe.py"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": [
+        "uvx",
+        "--from",
+        "ruff==0.16.10",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "recipes",
+        "experiments/v1.1-runtime-acceptance",
+        "experiments/v1.2-acceptance"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "93 files already formatted\n"
+    },
+    {
+      "command": [
+        "seiso",
+        "check"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": "No diagnostics.\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "status": "PASS",
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "name": "Generated matches Plan",
+      "status": "PASS"
+    },
+    {
+      "name": "Public report excludes sensitive body values",
+      "status": "PASS"
+    }
+  ],
+  "input_hashes": {
+    "docs/plans/v1.2-heterogeneous-sources.md": "3dde4c255fa3b613d32d82c41ba4b58f89716a3d7dd886ba0b52eb77aca57a92",
+    "docs/generated/v1.2-heterogeneous-sources.html": "bad06a8301f66faa28150c49560e252361c506fa16e5eb84244ce349c67e9b57",
+    "experiments/v1.2-acceptance/results/final-acceptance/report.json": "60fde2de71f155b928817e16316a514905bf4f9195ee610300497b651f5759d5"
+  },
+  "runtime_unchanged_since": "52909bd"
+}

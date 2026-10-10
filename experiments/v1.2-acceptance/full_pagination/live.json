@@ -1,0 +1,102 @@
+[
+  {
+    "research_id": "dd-250",
+    "class": "C",
+    "recipe": "recipes/amac_full",
+    "params": {
+      "expected_total": 67,
+      "max_pages": 10
+    },
+    "source": {
+      "id": "full_dd_250",
+      "research_ids": [
+        "dd-250"
+      ],
+      "entry_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10"
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "公募基金托管机构固定空筛选完整枚举profile：pageSize=10，冻结官方API total67，对应7页(10*6+7)，全部展示trustName/regAddr原文，显示机构名为本Source自然键，数字id不证明永久语义且不输出。任何页总数、页长、重复自然键或预算不足显式partial；只请求已知7页，页8为空的公开探测证据独立保留。API无快照token，不承诺跨页原子快照；名称变更形成新身份，旧未观察项unknown，不代表主体核验或全站。",
+      "seed_role": "api",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 9,
+        "seconds": 180,
+        "response_bytes": 1048576
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "expected": {
+      "min_records": 67,
+      "record_count": 67,
+      "statuses": [
+        "complete"
+      ],
+      "roles": [
+        "api"
+      ],
+      "min_pages": 7,
+      "no_detail_url": true,
+      "stable_keys": [
+        "中国工商银行股份有限公司",
+        "青岛银行股份有限公司",
+        "汇丰银行（中国）有限公司"
+      ],
+      "anchors": [
+        "中国工商银行股份有限公司",
+        "青岛银行股份有限公司",
+        "汇丰银行（中国）有限公司",
+        "福建",
+        "浙江"
+      ],
+      "expected_fields": [
+        "trustName",
+        "regAddr"
+      ],
+      "allowed_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=3&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=4&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=5&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=6&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=7&pageSize=10"
+      ],
+      "archived_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=3&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=4&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=5&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=6&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=7&pageSize=10"
+      ],
+      "failure_modes": [
+        "pagination_total_changed",
+        "pagination_incomplete",
+        "pagination_limit",
+        "download_failed"
+      ]
+    }
+  }
+]

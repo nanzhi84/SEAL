@@ -42,7 +42,11 @@ def main(args):
         (output / "pack-verification.txt").write_text(p.stdout + p.stderr)
         h.check("pack_verified_before_execution", p.returncode, 0)
         p = subprocess.run(
-            [sys.executable, "experiments/v1.1-runtime-acceptance/verify_artifacts.py", str(args.baseline)],
+            [
+                sys.executable,
+                "experiments/v1.1-runtime-acceptance/verify_artifacts.py",
+                str(args.baseline),
+            ],
             capture_output=True,
             text=True,
         )
@@ -71,7 +75,7 @@ def main(args):
             network_boundaries,
         )
 
-        historical(s)
+        historical(s, args.compatibility_baseline)
         negative_and_status(s, recipe)
         network_boundaries(s, recipe)
         calendar_rejection(s, recipe)
@@ -137,10 +141,18 @@ def main(args):
         manifest["command"] = (
             "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline "
             f"{args.baseline} --output <new-directory>"
+            + (
+                f" --compatibility-baseline {args.compatibility_baseline}"
+                if args.compatibility_baseline
+                else ""
+            )
             + (" --live" if args.live else "")
             + "".join(f" --live-source {name}" for name in args.live_source or [])
         )
         manifest["baseline"] = str(args.baseline)
+        manifest["compatibility_baseline"] = str(
+            args.compatibility_baseline or Path("artifacts/acceptance/v1.1-smoke/court-confirmed")
+        )
         manifest["scope"] = "isolated Runtime engineering fixtures; optional bounded public sources"
         manifest["unverified"] = [
             "Business quality/completeness",

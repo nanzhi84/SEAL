@@ -1,0 +1,91 @@
+{
+  "artifact_version": 1,
+  "retired_test": "test_helpers.py::test_recipe_json_empty_response_is_valid_zero_output",
+  "replaced_by": [
+    "test_c_pagination.py::generic:json_scope_missing_0",
+    "test_c_pagination.py::generic:json_single_page_0"
+  ],
+  "reason": "Original in-process parser/pack unit omitted JSON scope; real CLI/HTTP/PG E2E now verifies explicit single-page empty result complete, no fake Records, plus undeclared empty response partial. Only this fully replaced method removed; no other unit test changed.",
+  "replacement_e2e": "artifacts/acceptance/v1.2-pagination-final",
+  "replacement_engine_status": "final frozen engine PASS; 154/154 complete E2E assertions",
+  "replacement_assertions": [
+    {
+      "name": "json_scope_missing_0_receipt_inspect_status",
+      "expected": "partial",
+      "actual": "partial",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_scope_missing_0_receipt_export_status",
+      "expected": "partial",
+      "actual": "partial",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_scope_missing_0_quality_not_evaluated",
+      "expected": "not_evaluated",
+      "actual": "not_evaluated",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_scope_missing_0_partial",
+      "expected": "partial",
+      "actual": "partial",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_scope_missing_0_explicit_diagnostic",
+      "expected": true,
+      "actual": true,
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_scope_missing_0_no_claimed_full",
+      "expected": [],
+      "actual": [],
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_single_page_0_receipt_inspect_status",
+      "expected": "complete",
+      "actual": "complete",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_single_page_0_receipt_export_status",
+      "expected": "complete",
+      "actual": "complete",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_single_page_0_quality_not_evaluated",
+      "expected": "not_evaluated",
+      "actual": "not_evaluated",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_scope_missing_0_declared_single_complete",
+      "expected": "complete",
+      "actual": "complete",
+      "status": "PASS",
+      "evidence": "receipts.json"
+    },
+    {
+      "name": "json_scope_missing_0_declared_page_count",
+      "expected": 0,
+      "actual": 0,
+      "status": "PASS",
+      "evidence": "receipts.json"
+    }
+  ],
+  "implementation_stage_replacement_e2e": "artifacts/acceptance/v1.2-pagination-green"
+}

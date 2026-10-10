@@ -139,8 +139,12 @@ def validate_candidate(item):
     return output, snapshot
 
 
-def stage_item(context, item):
+def stage_item(context, item, validation=None):
     run_id, epoch = context["id"], context["attempt_epoch"]
+    if item.get("type") == "record":
+        from .records import stage_record
+
+        return stage_record(context, item, validation)
     if item.get("type") == "diagnostic":
         allowed = {
             "download_failed",
@@ -155,6 +159,35 @@ def stage_item(context, item):
             "ambiguous_or_missing_field",
             "pdf_text_layer_required",
             "unsupported_content_type",
+            "xls_parse_failed",
+            "xls_cell_error",
+            "xls_invalid_date",
+            "xls_nonfinite_number",
+            "xls_cell_budget_exceeded",
+            "docx_parse_failed",
+            "docx_unsupported_content",
+            "docx_structure_too_deep",
+            "docx_expansion_budget_exceeded",
+            "record_parent_request_rejected",
+            "element_selector_required",
+            "empty_document",
+            "record_key_field_missing",
+            "record_key_missing",
+            "table_row_parse_failed",
+            "invalid_json_pointer",
+            "json_record_list_required",
+            "json_record_object_required",
+            "record_detail_url_invalid",
+            "json_record_parse_failed",
+            "pdf_parse_failed",
+            "pagination_limit",
+            "pagination_contract_missing",
+            "pagination_total_changed",
+            "pagination_incomplete",
+            "sample_detail_limit",
+            "attachment_format_unsupported",
+            "record_parse_failed",
+            "attachment_parse_failed",
         }
         code = item.get("code")
         raise SealError(code if code in allowed else "recipe_diagnostic")
@@ -248,8 +281,8 @@ def stage_item(context, item):
                     (doc["id"], observation_key),
                 )["id"]
         c.execute(
-            "UPDATE seal_document SET latest_revision=%s,latest_observation=%s,next_check=now()+(%s * interval '1 second') WHERE id=%s",
-            (revision, item["observation_id"], source["config"]["recheck_seconds"], doc["id"]),
+            "UPDATE seal_document SET latest_revision=%s,latest_observation=%s WHERE id=%s",
+            (revision, item["observation_id"], doc["id"]),
         )
         if run["mode"] != "replay":
             c.execute(
@@ -294,21 +327,41 @@ def stage_item(context, item):
 class ItemPipeline:
     @classmethod
     def from_crawler(cls, crawler):
+        from .record_validation import JsonInputCache
+
         value = cls()
         value.context = crawler.settings["SEAL_CONTEXT"]
         value.crawler = crawler
         value.io = asyncio.Semaphore(value.context["config"]["concurrency"])
+        value.validation = JsonInputCache()
         return value
+
+    def close_spider(self):
+        self.validation.close()
+        for name, value in self.validation.stats().items():
+            self.crawler.stats.set_value("seal/record_json_" + name, value)
 
     async def process_item(self, item):
         from scrapy.exceptions import DropItem
 
         async with self.io:
             try:
-                await asyncio.to_thread(stage_item, self.context, dict(item))
+                await asyncio.to_thread(stage_item, self.context, dict(item), self.validation)
             except Exception as exc:
                 code = exc.code if isinstance(exc, SealError) else "invalid_candidate"
                 self.crawler.stats.inc_value("seal/errors")
+                if not isinstance(exc, SealError):
+                    # Class names support diagnosis without copying source/body messages.
+                    self.crawler.stats.inc_value("seal/exception_types/" + type(exc).__name__)
+                from .discovery import mark_inputs_failed
+
+                snapshots = [item["snapshot_id"]] if item.get("snapshot_id") else []
+                snapshots.extend(
+                    entry["snapshot_id"]
+                    for entry in item.get("supplementary_inputs", [])
+                    if isinstance(entry, dict) and entry.get("snapshot_id")
+                )
+                await asyncio.to_thread(mark_inputs_failed, self.context, snapshots, code)
                 await asyncio.to_thread(
                     record_error, self.context["id"], self.context["attempt_epoch"], code
                 )

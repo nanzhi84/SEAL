@@ -1,0 +1,26 @@
+{
+  "artifact_version": 1,
+  "design": "Source-specific ordinary Python AMAC trustee API full enumeration; no generic pagination DSL",
+  "identity": "Source-rendered trustName natural key; omit unproven numeric id; rename creates new identity and old unobserved stays unknown",
+  "termination": "Each response code=200,data.errcode=0; frozen native integer total; exact expected page lengths; all pages 1..ceil(total/10), unique natural keys equal total; stop at reported terminal, no speculative next-page HTTP",
+  "non_atomic_limit": "API exposes no snapshot token; consistency of total/key count plus two rounds does not prove an atomic backend snapshot",
+  "failure_contracts": [
+    {"case": "single_page_truncation", "expected": "old generic JSON emits first10 complete, full contract expects25 and fails RED"},
+    {"case": "collect_entry_wrong_page", "expected": "only one Source entry pageNo=1&pageSize=10 is valid; wrong page2 otherwise falsely completes15/25; reject configured contract on first archived response, partial,pagination_incomplete,zero Records,no follow"},
+    {"case": "total_changed_page2", "expected": "partial,pagination_total_changed; preserve first10 evidence, fetch2 pages"},
+    {"case": "early_empty", "expected": "partial,pagination_incomplete; preserve first10, fetch2 pages"},
+    {"case": "short_tail", "expected": "partial,pagination_incomplete; preserve first20, fetch3 pages"},
+    {"case": "duplicate_natural_key", "expected": "partial,pagination_incomplete; reject page2, preserve first10"},
+    {"case": "max_pages_exceeded", "expected": "partial,pagination_limit; first response only, no out-of-limit discovery or prefix business output"},
+    {"case": "request_budget_insufficient", "expected": "partial,pagination_limit; first response only, no next discovery"},
+    {"case": "total_not_native_integer", "expected": "partial,pagination_incomplete; no business output"},
+    {"case": "api_envelope_failed", "expected": "partial,pagination_incomplete; no business output"},
+    {"case": "empty_population", "expected": "complete,zero records,one archived GET"},
+    {"case": "exact_page_multiple", "expected": "complete20 records,2 pages,no empty page3 HTTP"},
+    {"case": "reorder", "expected": "same25 identities/data/versions,changed raw page evidence"},
+    {"case": "parent_recheck", "expected": "3 frozen API seeds; native scheduler suppresses chain duplicates; exactly3 actual GETs"},
+    {"case": "replay", "expected": "zero HTTP; original3 archived inputs; original25 values"},
+    {"case": "json_scope_missing", "expected": "partial,pagination_contract_missing on both empty and nonempty generic JSON"},
+    {"case": "json_scope_single_page_empty", "expected": "complete,zero records,1 GET; explicitly no full enumeration claim"}
+  ]
+}

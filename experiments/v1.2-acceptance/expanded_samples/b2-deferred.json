@@ -1,0 +1,198 @@
+[
+  {
+    "research_id": "dd-380",
+    "class": "B",
+    "recipe": "recipes/expanded_b2",
+    "source": {
+      "id": "expanded_dd_380",
+      "research_ids": [
+        "dd-380"
+      ],
+      "entry_urls": [
+        "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+      ],
+      "allowed_hosts": [
+        "www.innocom.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+      ],
+      "host_path_scopes": {
+        "www.innocom.gov.cn": [
+          "/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。",
+      "seed_role": "detail",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 6,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-380",
+      "mode": "html",
+      "urls": [
+        "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+      ],
+      "title_selector": "h2",
+      "body_selector": "#detailContent",
+      "body_segments": false
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "科技部火炬中心印发《关于开展高新技术企业认定管理工作检查的通知》",
+        "国科火字〔2021〕133号",
+        "全国36个高新技术企业认定管理机构"
+      ],
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "archived_urls": [
+        "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+      ],
+      "allowed_urls": [
+        "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+      ],
+      "stable_keys": [
+        "http://www.innocom.gov.cn/gqrdw/c101331/202109/a77dbf7e4c6a487e88102bdaf42a659a.shtml"
+      ],
+      "failure_modes": [
+        "http_download_failed",
+        "unexpected_url_scope",
+        "missing_or_ambiguous_title",
+        "missing_business_body",
+        "template_changed",
+        "unrecomputable_field_or_url_identity",
+        "recheck_data_changed",
+        "replay_network_attempt"
+      ],
+      "title_anchors": [
+        "科技部火炬中心印发《关于开展高新技术企业认定管理工作检查的通知》"
+      ],
+      "body_anchors": [
+        "国科火字〔2021〕133号",
+        "全国36个高新技术企业认定管理机构"
+      ],
+      "min_body_chars": 100
+    }
+  },
+  {
+    "research_id": "dd-484",
+    "class": "B",
+    "recipe": "recipes/expanded_b2",
+    "source": {
+      "id": "expanded_dd_484",
+      "research_ids": [
+        "dd-484"
+      ],
+      "entry_urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "allowed_hosts": [
+        "htgs.ccgp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f"
+      ],
+      "host_path_scopes": {
+        "htgs.ccgp.gov.cn": [
+          "/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅经真实GET确认的一份公开政策/新闻/公告正文，固定URL http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0；title与body原文locator、URL文档身份；不代表原主体核验、全站枚举、附件全文或法律时效。当前默认列表入口断连；明确仅原已知合同详情，不声称列表发现/验证码筛选可用。",
+      "seed_role": "detail",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 6,
+        "seconds": 90,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-484",
+      "mode": "html",
+      "urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "title_selector": "h2.tc",
+      "body_selector": ".content_2020",
+      "body_segments": false
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "三明市公安局复印纸直接选定采购合同",
+        "HW-ZJXD-100917",
+        "DD-2026-045510",
+        "三明市公安局采购订单"
+      ],
+      "roles": [
+        "detail"
+      ],
+      "min_pages": 0,
+      "archived_urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "allowed_urls": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "stable_keys": [
+        "http://htgs.ccgp.gov.cn/GS8/contractpublish/detail/2836278a-7a1c-42be-8966-56f2026cbb5f?contractSign=0"
+      ],
+      "failure_modes": [
+        "http_download_failed",
+        "unexpected_url_scope",
+        "missing_or_ambiguous_title",
+        "missing_business_body",
+        "template_changed",
+        "unrecomputable_field_or_url_identity",
+        "recheck_data_changed",
+        "replay_network_attempt"
+      ],
+      "title_anchors": [
+        "三明市公安局复印纸直接选定采购合同"
+      ],
+      "body_anchors": [
+        "HW-ZJXD-100917",
+        "DD-2026-045510",
+        "三明市公安局采购订单"
+      ],
+      "min_body_chars": 100
+    }
+  }
+]

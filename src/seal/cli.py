@@ -48,8 +48,9 @@ def parser():
     retry.add_argument("run")
     retry.add_argument("--enqueue", action="store_true")
     inspect = commands.add_parser("inspect")
-    inspect.add_argument("kind", choices=["source", "binding", "run"])
+    inspect.add_argument("kind", choices=["source", "binding", "run", "manifest", "research"])
     inspect.add_argument("identity")
+    inspect.add_argument("--output", type=Path)
     export = commands.add_parser("export")
     export.add_argument("source")
     export.add_argument("--output", type=Path)
@@ -118,7 +119,10 @@ def dispatch(args):
     if args.command == "finish":
         return finish_run(args.run)
     if args.command == "inspect":
-        return inspect_record(args.kind, args.identity)
+        result = inspect_record(args.kind, args.identity)
+        if args.output:
+            write_json(args.output, result)
+        return result
     if args.command == "export":
         result = export_source(args.source, args.run)
         if args.output:

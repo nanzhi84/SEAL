@@ -1,0 +1,81 @@
+{
+  "research_id": "dd-247",
+  "experiment": "real_public_api_bytes_actual_postgresql_identity_constraints",
+  "scope": "Compatibility route experiment only; real Runtime acceptance is separate.",
+  "inputs": {
+    "dd-247-page1": {
+      "path": "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-page1.json",
+      "sha256": "249511bb0e884e9a8eb8c8a82f99fc0658352da8d05d8c0664933c9e0380668a",
+      "total": 165
+    },
+    "dd-247-page2": {
+      "path": "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-page2.json",
+      "sha256": "e2b4ec570ccd0d0f8883aa07baad516bd3083a2521ce6a6fe1cd89548d26ea7d",
+      "total": 165
+    },
+    "dd-247-filter": {
+      "path": "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-filter.json",
+      "sha256": "9f279bbb842b7fd6aa3300e49437a1b75c235008bdc82fd431fb1afe5eec8361",
+      "total": 1
+    },
+    "dd-247-pagesize20": {
+      "path": "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-pagesize20.json",
+      "sha256": "d0e7d564054cb61c1671f2ba5b628d7f1f488731a31b63fcc6afd9e37e56be20",
+      "total": 165
+    }
+  },
+  "schema": {
+    "legacy": {
+      "path": "src/seal/schema.sql",
+      "sha256": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99"
+    },
+    "record": {
+      "path": "src/seal/migrations/0003_records.sql",
+      "sha256": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+    }
+  },
+  "legacy_document": {
+    "attempted_business_rows": 10,
+    "stored_url_identities": 1,
+    "null_url_rejected": true,
+    "consequence": "Ten API rows share one actual archived URL. Legacy URL identity collapses them; null URL violates schema. Distinct invented URLs violate the Candidate archived-response URL contract."
+  },
+  "record": {
+    "attempted_business_rows": 10,
+    "stored_business_identities": 10,
+    "detail_url": null,
+    "frozen_parent_request": {
+      "url": "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=&registerAddr=&officeAddr=",
+      "role": "api",
+      "method": "GET"
+    },
+    "key_field": "houseName",
+    "unique_keys_across_two_pages": 20,
+    "source_total_reported": 165
+  },
+  "identity_evidence": {
+    "natural_key": "Exact source-rendered legal institution name houseName",
+    "cross_query_anchor": "易方达基金管理有限公司",
+    "position_before": "pageNo=2&pageSize=10, array index 0",
+    "position_after": "pageNo=1&pageSize=10&houseName=易方达, array index 0",
+    "page_size_crosscheck": "pageSize=20 returns the same 20 legal names and displayed fields",
+    "lineId_excluded": "Observed unchanged but official permanent ID semantics unverified; never used as record key or business data.",
+    "limitation": "Renaming creates a new natural identity and the previous identity remains unknown; permanent registry-ID continuity is not claimed."
+  },
+  "assertions": {
+    "passed": 9,
+    "failed": 0,
+    "checks": [
+      "page1_success_envelope",
+      "page2_success_envelope",
+      "filter_success_envelope",
+      "pagesize20_success_envelope",
+      "two_page_counts",
+      "legal_names_unique",
+      "fixed_name_filter_same_business_row",
+      "page_size_same_business_fields",
+      "legacy_collapses_record_preserves_and_null_url_rejected"
+    ]
+  },
+  "persistent_rows_written": 0
+}

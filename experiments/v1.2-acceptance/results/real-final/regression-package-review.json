@@ -1,0 +1,223 @@
+{
+  "artifact_version": 1,
+  "status": "PASS",
+  "verified_at": "2026-10-09T12:50:45.844723+00:00",
+  "current_src_files": 25,
+  "index_runtime_hash_mismatches": [],
+  "suites": [
+    {
+      "suite": "joint",
+      "manifest_sha256": "6232178be1bc3c4ff21c11c5561fa2be4a7bd26549297c747bbefe77452cf517",
+      "expected_manifest_sha256": "6232178be1bc3c4ff21c11c5561fa2be4a7bd26549297c747bbefe77452cf517",
+      "manifest_hash_matches_index": true,
+      "src_files": 25,
+      "matches_all_current_src_files": true,
+      "source_hash_mismatches": [],
+      "artifact_files": 123,
+      "assertions": 303,
+      "passed": 303,
+      "matches_index_assertion_count": true
+    },
+    {
+      "suite": "v11-m3",
+      "manifest_sha256": "78745ebd25bc7d454734b6b35877aa7ad52a0ce707dc26599ec132499513a36f",
+      "expected_manifest_sha256": "78745ebd25bc7d454734b6b35877aa7ad52a0ce707dc26599ec132499513a36f",
+      "manifest_hash_matches_index": true,
+      "src_files": 25,
+      "matches_all_current_src_files": true,
+      "source_hash_mismatches": [],
+      "artifact_files": 183,
+      "assertions": 136,
+      "passed": 136,
+      "matches_index_assertion_count": true
+    },
+    {
+      "suite": "v11-smoke-original",
+      "manifest_sha256": "8927d665fb45cf93f1486e01837de011ce73f01b0763d2c1809f53b78d0ff5fc",
+      "expected_manifest_sha256": "8927d665fb45cf93f1486e01837de011ce73f01b0763d2c1809f53b78d0ff5fc",
+      "manifest_hash_matches_index": true,
+      "src_files": 25,
+      "matches_all_current_src_files": true,
+      "source_hash_mismatches": [],
+      "artifact_files": 234,
+      "assertions": 1197,
+      "passed": 1197,
+      "matches_index_assertion_count": true
+    },
+    {
+      "suite": "proxy-green",
+      "manifest_sha256": "7ecde8dd9f71e409d27cae67f1808b370d4493fc25078149f05ceef5ffadbb45",
+      "expected_manifest_sha256": "7ecde8dd9f71e409d27cae67f1808b370d4493fc25078149f05ceef5ffadbb45",
+      "manifest_hash_matches_index": true,
+      "src_files": 25,
+      "matches_all_current_src_files": true,
+      "source_hash_mismatches": [],
+      "artifact_files": 13,
+      "assertions": 13,
+      "passed": 13,
+      "matches_index_assertion_count": true
+    }
+  ],
+  "proxy_red_expected_historical_src_mismatch": [
+    "src/seal/crawl.py"
+  ],
+  "compatibility_negative": {
+    "cases": 4,
+    "truthful_recorded_assertions": 12,
+    "expected_failures_observed": 4,
+    "issues": [],
+    "crawl_hash_matches_current": true
+  },
+  "baseline_provenance_keys": [
+    "artifact_version",
+    "kind",
+    "origin_commit",
+    "tracked_worktree_clean",
+    "origin_main_at_start",
+    "worktree",
+    "network_scope",
+    "commands",
+    "source_code_sha256",
+    "uv_lock_sha256",
+    "environment",
+    "limitations",
+    "tool_versions",
+    "created_at",
+    "copied_from",
+    "compatibility_input_path",
+    "generated_now_not_prior_live_court",
+    "old_engine_tracked_worktree_clean_after_suites",
+    "copied_files_sha256",
+    "original_smoke_code_sha256",
+    "original_m3_manifest_sha256",
+    "original_smoke_manifest_sha256",
+    "original_smoke_assertions_sha256",
+    "independent_suites",
+    "old_schema_checks"
+  ],
+  "package": {
+    "path": "experiments/v1.2-acceptance/results/real-final/real-regression-evidence.tar.gz",
+    "bytes": 1652185,
+    "sha256": "15be17b1d0cec77542dd56f2b5f086cf21bf4810398664633b19420db3a66c3f",
+    "matches_index_sha_and_size": true,
+    "extracted_new_directory": "/private/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/seal-regression-package-review-eygnzpue/regression",
+    "archive_members": 1058,
+    "safe_extraction": "Each member remains under resolved fresh destination; only regular files/directories; tarfile data filter"
+  },
+  "offline_commands": [
+    {
+      "suite": "joint",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py /private/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/seal-regression-package-review-eygnzpue/regression/joint",
+      "exit_code": 0,
+      "output": {
+        "verified_files": 123,
+        "assertions": 303,
+        "failures": [],
+        "failed_assertions": [],
+        "mode": "require_pass",
+        "scope": "Runtime synthetic contracts: isolated PostgreSQL + loopback sources",
+        "unverified": [
+          "Real authorized sources and human source completeness review",
+          "Power loss durability"
+        ]
+      }
+    },
+    {
+      "suite": "v11-m3",
+      "command": "uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py /private/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/seal-regression-package-review-eygnzpue/regression/v11-m3",
+      "exit_code": 0,
+      "output": {
+        "verified_files": 183,
+        "assertions": 136,
+        "failures": [],
+        "failed_assertions": [],
+        "mode": "require_pass",
+        "scope": "isolated PostgreSQL + loopback synthetic source",
+        "unverified": [
+          "Real authorized sources and human source completeness review",
+          "Power loss durability"
+        ]
+      }
+    },
+    {
+      "suite": "v11-smoke-original",
+      "command": "uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py /private/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/seal-regression-package-review-eygnzpue/regression/v11-smoke-original",
+      "exit_code": 0,
+      "output": {
+        "verified_files": 234,
+        "assertions": 1197,
+        "failures": [],
+        "failed_assertions": [],
+        "mode": "require_pass",
+        "scope": "isolated Runtime engineering fixtures; optional bounded public sources",
+        "unverified": [
+          "Business quality/completeness",
+          "Power loss durability",
+          "Production scale",
+          "Untrusted Python isolation"
+        ]
+      }
+    },
+    {
+      "suite": "proxy-green",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/live_verify.py /private/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/seal-regression-package-review-eygnzpue/regression/proxy-green",
+      "exit_code": 0,
+      "output": {
+        "files": 13,
+        "record_projections": 20,
+        "assertions": 13,
+        "errors": [],
+        "local_only_sources": []
+      }
+    },
+    {
+      "suite": "proxy-red",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/verify_artifacts.py /private/var/folders/d_/8w6ff22d7gn6r0vr84g21d5r0000gn/T/seal-regression-package-review-eygnzpue/regression/proxy-red --recorded-outcomes",
+      "exit_code": 0,
+      "output": {
+        "verified_files": 10,
+        "assertions": 14,
+        "failures": [],
+        "failed_assertions": [
+          "collect_complete_with_broken_environment_proxy",
+          "collect_ten_business_records",
+          "collect_independent_business_oracle",
+          "source_received_direct_GET",
+          "replay_complete_with_origin_stopped",
+          "replay_ten_original_business_records",
+          "replay_independent_business_oracle",
+          "replay_zero_network_observations",
+          "replay_zero_http_attempts",
+          "replay_raw_evidence_recomputable",
+          "suite_completed"
+        ],
+        "mode": "recorded_outcomes",
+        "scope": "Real seal CLI + Scrapy + isolated PostgreSQL; deterministic loopback Source and refused local proxy",
+        "unverified": [
+          "Real authorized sources and human source completeness review",
+          "Power loss durability"
+        ]
+      }
+    }
+  ],
+  "totals": {
+    "final_pass_assertions": 1649,
+    "final_verified_manifest_files": 553,
+    "final_suites": 4,
+    "proxy_green_independently_recomputed_record_projections": 20,
+    "expected_red_recorded_assertions": 14,
+    "expected_red_verified_files": 10,
+    "compatibility_negative_expected_cases": 4,
+    "compatibility_negative_truthful_recorded_assertions": 12
+  },
+  "limits": [
+    "This review executes offline verifiers against independently unpacked evidence; it does not rerun online CLI/Worker/PostgreSQL acceptance or public-source collection.",
+    "Joint, V1.1 M3 and smoke offline verifiers confirm frozen file hashes and truthful stored PASS assertions; they do not independently reexecute the runtime business paths.",
+    "Proxy-green additionally recomputes 20 exported business record projections from archived JSON and verifies all 13 behavior assertions.",
+    "Proxy-red deliberately preserves 11 recorded failed assertions (10 behavioral plus suite_completed) and its older crawl.py hash; it is excluded from final PASS totals.",
+    "Original-baseline is historical compatibility input rather than a final current-runtime suite; four negative-case outcomes were cross-checked offline, not rerun against PostgreSQL.",
+    "This package review does not establish production scale, business completeness, power-loss durability or source updates."
+  ],
+  "old_artifacts_modified": false,
+  "src_modified": false
+}

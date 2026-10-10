@@ -1,0 +1,441 @@
+{
+  "artifact_version": 1,
+  "scope": "Machine-generated bounded real Source evidence; not a second human adaptation ledger",
+  "base_head": "f9714855e6586254e99cb0b5f55ee143aa1dd871",
+  "environment": {
+    "python": "3.12.13 (main, Jun 11 2026, 03:55:21) [Clang 22.1.3 ]",
+    "postgresql": "pg_ctl (PostgreSQL) 17.11 (Homebrew)",
+    "network": "direct public GET; no cookies/auth/environment proxy"
+  },
+  "full_local_evidence": "/Users/yoryon/SEAL/artifacts/acceptance/v1.2-source-final",
+  "full_local_verify": "uv run --frozen python experiments/v1.2-acceptance/live_verify.py /Users/yoryon/SEAL/artifacts/acceptance/v1.2-source-final",
+  "online_rerun": "uv run --frozen python experiments/v1.2-acceptance/live.py --output <new-directory>",
+  "public_offline_verify": "tar -xzf real-evidence.tar.gz -C <new-directory>; uv run --frozen python experiments/v1.2-acceptance/live_verify.py <new-directory>/real --public",
+  "assertions": {
+    "passed": 739,
+    "total": 739
+  },
+  "T7S": {
+    "status": "PASS",
+    "complete_sources_by_class": {
+      "A": 4,
+      "B": 2,
+      "C": 2
+    },
+    "partial_original_sources": [
+      "dd-468",
+      "dd-004"
+    ]
+  },
+  "samples": [
+    {
+      "research_id": "dd-017",
+      "class": "A",
+      "source_id": "v12-live-dd-017",
+      "binding_id": "850809391a16b45276ab58da8c67b75be204502187661a713f07fd7f91895cc0",
+      "recipe_version": "e3d9d4b98dc00692f740309a702891fced7e8e063205e11f80481fb84c47e64d",
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "runs": [
+        "e13d549e-ded7-4651-ba66-990bb6c40525",
+        "8618d5b4-183b-4f77-9395-beb7f9697c91",
+        "839629d8-6e78-4dd6-b1cd-09ab6e842687",
+        "82522da9-e515-4e6a-9873-f67f4525aecf"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 2,
+      "record_ids": [
+        "13594495-2c5e-4fbe-b4fc-61fb84ea4f86",
+        "72563954-7728-472f-8a60-c15c021f0fe0"
+      ],
+      "errors": []
+    },
+    {
+      "research_id": "dd-041",
+      "class": "A",
+      "source_id": "v12-live-dd-041",
+      "binding_id": "98c51ce9b5e69d30f1f58fd4a204e12df425807ebdc272f81ef43199ba53e263",
+      "recipe_version": "e3d9d4b98dc00692f740309a702891fced7e8e063205e11f80481fb84c47e64d",
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "runs": [
+        "ff7ff7d5-65c9-4697-911d-5914bf710431",
+        "00561e8b-79bf-4b33-b7f0-1b806de8f13e",
+        "68ef5966-e726-4da0-8756-c03affa56e4e",
+        "4129cb88-09bb-41d3-bcdd-635822608614"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 2,
+      "record_ids": [
+        "2389224a-37a9-45a1-95a1-67c10ad719be",
+        "beec1deb-ce3a-4e75-afa0-7b166b150fec"
+      ],
+      "errors": []
+    },
+    {
+      "research_id": "dd-116",
+      "class": "A",
+      "source_id": "v12-live-dd-116",
+      "binding_id": "03931cef72ef5038bcb8af0766ed41216e4d2ffd9167a5ce552c2a7dd2778017",
+      "recipe_version": "e3d9d4b98dc00692f740309a702891fced7e8e063205e11f80481fb84c47e64d",
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "runs": [
+        "3a3f71a0-73a2-4d62-85b5-e8be9454780c",
+        "a558cb18-a1cd-47ad-abc5-ff824e0e1e01",
+        "876d7943-6273-4b13-8284-3a392a3a1cdf",
+        "26168ad8-a167-4dc2-b2c0-1e324a38a803"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 2,
+      "record_ids": [
+        "72d8ca7f-4eaf-428d-b832-9e27a8ae6e1a",
+        "2ea1f366-909e-4712-a82b-74c46209e34f"
+      ],
+      "errors": []
+    },
+    {
+      "research_id": "dd-102",
+      "class": "A",
+      "source_id": "v12-live-dd-102",
+      "binding_id": "3b950d8c85459cc857f5e25ca9433e90494a263183d39742bc5f9750c3b0af2a",
+      "recipe_version": "e3d9d4b98dc00692f740309a702891fced7e8e063205e11f80481fb84c47e64d",
+      "scope": "限定北京市分局无筛选公开处罚前 2 个 iframe 页（各20行）及已观察到的建设银行详情；不提交统一社会信用代码查询、不保留 Cookie、不代表全部历史覆盖。",
+      "runs": [
+        "5660bc41-032f-4a1d-ba15-a17def186ee4",
+        "f103c437-ea99-4b16-97c9-6dcb123e965f",
+        "46aefea6-a2dc-4c1e-a996-2da174c1ae35",
+        "04cc0fae-499b-47e6-a7af-74dcd9040ebc"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 41,
+      "record_ids": [
+        "3baef32c-e66c-4e9b-98fb-d909859c620c",
+        "c6f9c569-619c-4118-83e5-8799247c27d1",
+        "835dd412-7929-4855-aa96-14d8d4ba0b6f",
+        "6d4998f6-9b8e-4607-bb49-3fe9969f83a1",
+        "41e87a52-5c3b-41e7-9e1b-6eb8523e5706",
+        "7c0adc6f-cb96-4b61-81d2-5d05b1366b1a",
+        "e5c8debf-62a3-4c69-83e5-6734a463022a",
+        "be03397a-7c9e-451c-8727-68e107e5060c",
+        "8bf6cb8a-402f-4c5f-96db-e2ef628a58d1",
+        "68f8f60c-0519-480b-b028-bd0a653860fb",
+        "0bf8a26a-7bf2-4a43-9c31-ef9d4f9b0796",
+        "1964eecf-d26e-4818-86f4-3f723dd2c00e",
+        "a3f73573-b187-4377-954c-09ca12d3cd7c",
+        "7d387463-96cc-41df-a2ae-2266f57dfb82",
+        "8fd12889-bdc9-419a-9b17-041635ac1ad7",
+        "5fd26c32-9df8-493a-99b8-f532ebcdd05f",
+        "3cc3b096-1598-407c-97f3-e7cc22fac9f8",
+        "d439afdf-0057-4f03-ac5c-736b9aa7ad8c",
+        "86895105-5285-4ee6-b32c-1b9cadeeb8e6",
+        "86134b63-c949-42e3-ba65-9a55b72de3d0",
+        "e1e8f7de-414d-43b8-8039-5bbbed76667e",
+        "bf72a451-74b2-46bb-906a-abce07b88b12",
+        "45194069-8a6e-477a-b643-90ba53d74db6",
+        "88c62a66-d4bc-46f5-8bc9-5fac7fad619a",
+        "cab2338e-1324-4d08-b695-92b4fde1bb1f",
+        "63bfddd2-adf3-4b30-a646-b6417297b5a2",
+        "14f262c9-73af-478e-a46d-42e6106d596c",
+        "e2562085-5099-4aed-9bb7-e073dd4a19c6",
+        "c7a5b290-9e1f-401c-b311-bb19861bcb10",
+        "6a38e869-3a9b-4ae8-983c-f9e653bce4a8",
+        "62d3d118-f4dd-448a-8288-3779e687e5b3",
+        "9c281b32-f838-4efc-8d9d-a2731e53a971",
+        "c390d335-2393-4156-b2f5-f03f8dca0f5c",
+        "5552c114-eed5-4226-a87a-c5c510caf0d3",
+        "5d4f9b94-d601-4211-9424-bbf93dd30281",
+        "e68d94e6-9015-4991-9c2e-9e6ea6b8a881",
+        "c0add69d-2aa4-4859-a5f4-14651e97864f",
+        "4e569db8-7e25-49e7-bea4-85b4260ebb80",
+        "5e606581-4c47-4399-8b69-dc23ede88010",
+        "c88ffc77-b89b-442c-ab03-99076536ae50",
+        "39138a00-e433-4ff2-944c-80001f43a3c4"
+      ],
+      "errors": []
+    },
+    {
+      "research_id": "dd-468",
+      "class": "B",
+      "source_id": "live_dd_468",
+      "binding_id": "ba2cb9beb1fa6b2e6ec3e7b3038bb771ddff176010acac5a18ccd1240a5da81e",
+      "recipe_version": "797732d4f8fe704664c70fdd68f0cc5898769e3beb60620be776f81269242db3",
+      "scope": "仅2021-10-25全国高等学校名单HTML及其声明的2份XLS附件；公开GET和原文归档。结构化验收HTML的全国3012所、普通2756所、本科1270所、专科1486所、成人256所说明；XLS尚不解析，显式partial，不代表逐校表格或现行名单。",
+      "runs": [
+        "dee8ad07-58c8-462e-8d69-b59e1dbe842d",
+        "28237b37-4a90-44d5-98a1-d6ffd2b2bc37",
+        "a62b2c8c-a506-4d45-b6e6-f0f42cd1bbed"
+      ],
+      "status": "PASS",
+      "recheck": "not_promoted: expected partial",
+      "runtime_status": "partial",
+      "record_count": 1,
+      "record_ids": [
+        "779f1702-577f-4822-853b-f8a50529ad06"
+      ],
+      "errors": [
+        "unsupported_content_type"
+      ]
+    },
+    {
+      "research_id": "dd-004",
+      "class": "B",
+      "source_id": "live_dd_004",
+      "binding_id": "62189f5dec0d606f6dce4123ebd05ec1e3a64eb792c6be81ce05f4c0246773bb",
+      "recipe_version": "797732d4f8fe704664c70fdd68f0cc5898769e3beb60620be776f81269242db3",
+      "scope": "仅公开首页中深圳市诺亚信高科技集团有限公司的2026-08-17告知书与2026-09-24决定书2条明确公告及各自PDF。公告title/date/attachment_path结构化，以源附件路径作为稳定键；PDF均无文本层，原文归档且显式partial。其他栏目、全量企业核验、验证码和OCR不在范围。",
+      "runs": [
+        "1805f1ec-a17a-49b1-a16a-9c7272759a16",
+        "f25cdf74-5c71-407c-9de0-dfd8ea2f10f4",
+        "180bdc90-fad9-42ad-9852-ea6518719739"
+      ],
+      "status": "PASS",
+      "recheck": "not_promoted: expected partial",
+      "runtime_status": "partial",
+      "record_count": 2,
+      "record_ids": [
+        "51c23829-c105-4132-80fd-ba9235e2fbe4",
+        "37391c81-29c0-493d-9c88-ebc5b51c2537"
+      ],
+      "errors": [
+        "pdf_text_layer_required"
+      ]
+    },
+    {
+      "research_id": "dd-050",
+      "class": "B",
+      "source_id": "live_dd_050",
+      "binding_id": "1e062ebdd8fe918a13e9448d2feaab14a17bef3ba8480f0b8d7eb149ff3506fb",
+      "recipe_version": "797732d4f8fe704664c70fdd68f0cc5898769e3beb60620be776f81269242db3",
+      "scope": "同类B补充文本PDF验收：仅首页明确链接的中国海事仲裁委员会仲裁规则-中文版（2021）PDF（2026-06-09链接）及父入口；70个物理页中可提取文本页的按页正文和自身标题locator。仅此静态附件，其他首页栏目与公开PDF均不采集，不代表全文排版或法律时效审核。",
+      "runs": [
+        "0fada5c4-94c3-4718-9090-49c1f09568ac",
+        "9aed7af1-02af-4ad1-8fb5-3dacb1b7aae2",
+        "b25b916a-f765-40e2-b916-aa05d64e1a03",
+        "4ea60b45-64b0-4094-af04-d177a170cde5"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 1,
+      "record_ids": [
+        "fbaddd58-92ff-4b41-b1a8-3380e4b2c538"
+      ],
+      "errors": []
+    },
+    {
+      "research_id": "dd-151",
+      "class": "B",
+      "source_id": "live_dd_151",
+      "binding_id": "bedcadb5ba3bcc9aeeb2025e795051e292dac6bac5435f6aab2552fc9f1ba2ff",
+      "recipe_version": "797732d4f8fe704664c70fdd68f0cc5898769e3beb60620be776f81269242db3",
+      "scope": "同类B静态附件补充：原台账英国Intellectual Property Office的2026-2027 Corporate Plan新闻公开链接到此publication；仅该publication可见PDF链接及其官方assets.publishing.service.gov.uk附件。严格限定每个host各自唯一path，公开GET归档；20页文本、业务标题及正文PDF页定位验收。附件明示Open Government Licence/Crown copyright 2026；不采集IPO全部入口、不判定法律时效。",
+      "runs": [
+        "2f2def60-0d5b-405c-a710-3b5b93739910",
+        "ba03b58e-b3e7-469c-80bc-72faf6b97a45",
+        "1655bcb3-ba1a-4b90-bea6-842bcc9a055a",
+        "9f58be05-4d8e-4d86-ab0d-084ff555ad9f"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 1,
+      "record_ids": [
+        "e7917a3f-97bf-4673-ac61-e06ed1c0b98f"
+      ],
+      "errors": []
+    },
+    {
+      "research_id": "dd-247",
+      "class": "C",
+      "source_id": "v12_live_dd_247",
+      "binding_id": "eaa4d9f193c041470be0fea9a5f952ae315f2b2daf30cc380754c4a46e1ad0bd",
+      "recipe_version": "7f8d36d3ecd84f24de6d400d81f071f368d48ce20852ffbe5f96389c3c2eab39",
+      "scope": "公募基金管理人公开GET API固定空筛选前两页（pageSize=10），法定机构全称houseName为范围内自然键；只采页面展示五字段，排除lineId序号；最多20家，不代表接口报告165家的全量，更名形成新身份、旧项保持unknown。",
+      "runs": [
+        "df995220-00a8-46b1-a17b-d6d0dde53145",
+        "e08f20d0-63c4-4af5-ac11-be95b06b0b83",
+        "da74d0ee-0090-4808-bf47-3f03d652fa0d",
+        "b6832566-1bd4-4c2b-893a-6ed29f866fdf"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 20,
+      "record_ids": [
+        "e1401a9f-0cc3-447c-a991-e83ae4cd916f",
+        "058e9c80-1103-4bf5-9e27-073da80b4d06",
+        "49f9bdf3-962d-4dd2-8679-f3ed8cc2e649",
+        "a87c054a-e6f2-4b45-8823-ac41e96e33f9",
+        "288f8780-b919-4467-a63d-13af558ff3fa",
+        "3a284db3-f09a-4ae0-aaad-00875ac10c93",
+        "ed266205-462d-4848-a8f9-1e4e04bc3c50",
+        "2d097022-e414-4f4f-853d-0f54d8314b59",
+        "c5e797fb-bf97-4e7a-a52e-c9d05dd43941",
+        "486d9450-c854-4d80-8eb0-4e9d036ed4c0",
+        "42bb53d9-2682-405f-9b81-d774b2472334",
+        "653eed11-59d0-4591-a3d0-a5796abde3b2",
+        "b40b84e1-a5ff-4b7b-9235-665be13fdde1",
+        "ddd7a1d5-4f00-498b-9136-ee56baba65be",
+        "98bf4c3c-3c03-4336-892d-0a201b037606",
+        "1f910dcc-55f1-42ad-823a-7dfa9c6b658d",
+        "60e99606-2384-4e93-a4ee-4ef71ef15430",
+        "e138a157-f7ab-4bd4-92ce-e626f7f97e5c",
+        "e7d6f7c7-4f93-4198-90b8-b27acea7ea76",
+        "bf5e8c34-6c36-4c9a-ab1a-aac88d870abd"
+      ],
+      "errors": []
+    },
+    {
+      "research_id": "dd-009",
+      "class": "C",
+      "source_id": "v12_live_dd_009",
+      "binding_id": "c2a96406abc72ac871550a8c3c6a1a4f8da71d22f2762fcb505c5a9e17bdac07",
+      "recipe_version": "7f8d36d3ecd84f24de6d400d81f071f368d48ce20852ffbe5f96389c3c2eab39",
+      "scope": "Companies House公开q=TESCO固定搜索前两页；只采company结果，公开公司编号为键，排除officer结果。记录是搜索投影，以冻结搜索父请求Recheck，不含公司profile、不声明主体精确匹配或全量企业覆盖。",
+      "runs": [
+        "a6f77099-6f70-44ce-bd33-87f5c4019d9d",
+        "83b09fb4-9ba5-49e8-b5ad-2512def4d827",
+        "42850e9e-6771-4492-9652-98fc5e07e551",
+        "5b83cdad-3d07-48c3-b771-4c268901fd3a"
+      ],
+      "status": "PASS",
+      "runtime_status": "complete",
+      "record_count": 29,
+      "record_ids": [
+        "12d07016-2e25-43e0-abe5-2786ef3e0f45",
+        "df37db84-93ee-4e7f-a6b7-8382253e8c16",
+        "68a27865-9c56-4397-8273-370d90dafac7",
+        "41891f54-f78e-44ad-a886-2b811a70ef76",
+        "1853328a-f4da-4a5c-b049-e2b599a4d217",
+        "8a384a2a-f27a-4a3a-9642-d12705c8f140",
+        "ededa5c2-cb54-4dfe-90c3-127a63e3e36f",
+        "3a213bb5-4964-485b-9bd6-047e7d53309a",
+        "c0bbe40b-b870-4ff7-b134-de791732577c",
+        "ecf0e438-eb6b-4380-9cdb-c0fc19524f6f",
+        "2e6c6c57-7aa2-4dcb-ad16-b7a20a06ec30",
+        "e080ba14-471c-44e2-8300-cd7339ee17fc",
+        "24afa014-d5c1-4336-b2b3-391b05d2e732",
+        "7de0d70d-ea1e-474e-a6f1-9b09829f9b9d",
+        "f87d3542-ccd5-4ba3-8b7d-a10ea41e858e",
+        "627a8034-0a8b-44db-acaf-58b1feaf02b3",
+        "706a2afb-56fb-4bd5-a1fd-dc5133835082",
+        "5256e2f4-e958-4d9c-854c-9777e3f856b5",
+        "27ce280a-bd70-43b5-b2aa-921c5377fc21",
+        "4240e13f-6bc2-43fe-b8f3-e3c293e11bfd",
+        "4aa09ed0-e172-4bd3-8142-f1b909d14b50",
+        "aae1e494-f1c4-4080-bcaa-e76ed54dddd6",
+        "95f5b18d-96ef-4153-840e-5b7002c70282",
+        "5bcae502-8bfb-43ed-9cd0-d25e1dd5045c",
+        "b5c03f8d-9b22-4e5e-9b51-c5bc110e97cc",
+        "7f18bdcf-9f7c-47e9-97a9-d70dbac1e6f0",
+        "7d16a9a5-90fe-4287-8acf-c8450c9b3a79",
+        "a9ac0e17-54df-4182-a76a-49d006acbebf",
+        "731d993a-3431-49bc-baa9-3b0dd11e71c4"
+      ],
+      "errors": []
+    }
+  ],
+  "quality_status": "not_evaluated",
+  "public_archive": {
+    "path": "real-evidence.tar.gz",
+    "bytes": 18961725,
+    "sha256": "985adb19dee1f37f039f079a53afcff68c8ce0eee21ec8c02e7a0e3c15934d78"
+  },
+  "disclosure": {
+    "withheld_raw_objects": 9,
+    "local_only_source_ids": [
+      "v12-live-dd-102"
+    ],
+    "reason": "Potential anonymous session credentials remain local; no bytes were redacted or falsely hashed",
+    "public_scope_limitation": "SAFE full field evidence cannot be independently recomputed from this public package"
+  },
+  "T8": {
+    "status": "PASS",
+    "real_sources": "10 Sources: two collects; 8 complete Source rechecks; all original raw Replay; exact scope, keys, complete attachments and independent fields checked",
+    "real_source_updates_observed": 0,
+    "scope_note": "No public website update was manufactured. Reordering, single-record changes, conflicts and unknown absence are independently checked in the isolated joint suite."
+  },
+  "regression_archive": {
+    "path": "real-regression-evidence.tar.gz",
+    "bytes": 1652185,
+    "sha256": "15be17b1d0cec77542dd56f2b5f086cf21bf4810398664633b19420db3a66c3f",
+    "suites": {
+      "joint": {
+        "assertions": 303,
+        "passed": 303,
+        "command": "./experiments/v1.2-acceptance/acceptance.sh --output <new-directory>",
+        "manifest_sha256": "6232178be1bc3c4ff21c11c5561fa2be4a7bd26549297c747bbefe77452cf517",
+        "matches_final_runtime": true
+      },
+      "v11-m3": {
+        "assertions": 136,
+        "passed": 136,
+        "command": "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output <new-directory>",
+        "manifest_sha256": "78745ebd25bc7d454734b6b35877aa7ad52a0ce707dc26599ec132499513a36f",
+        "matches_final_runtime": true
+      },
+      "v11-smoke-original": {
+        "assertions": 1197,
+        "passed": 1197,
+        "command": "./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.2-final-m3 --output <new-directory> --compatibility-baseline artifacts/acceptance/v1.2-original-baseline",
+        "manifest_sha256": "8927d665fb45cf93f1486e01837de011ce73f01b0763d2c1809f53b78d0ff5fc",
+        "matches_final_runtime": true
+      },
+      "proxy-green": {
+        "assertions": 13,
+        "passed": 13,
+        "command": "uv run --frozen python experiments/v1.2-acceptance/proxy_behavior.py --output <new-directory>",
+        "manifest_sha256": "7ecde8dd9f71e409d27cae67f1808b370d4493fc25078149f05ceef5ffadbb45",
+        "matches_final_runtime": true
+      }
+    },
+    "compatibility_negative": {
+      "passed": 4,
+      "total": 4,
+      "evidence": "regression/compatibility-negative/behavior-results.json"
+    },
+    "proxy_red": {
+      "scope": "Expected RED before restoring V1.1 environment proxy boundary; failures are preserved, not included in final PASS assertion totals",
+      "evidence": "regression/proxy-red/assertions.json"
+    }
+  },
+  "tested_runtime_files": {
+    "src/seal/queue.py": "825cf5ae0f5c82764917ab4359a4d277dbe82ff4fbbcc3688ee0a0e10dcce585",
+    "src/seal/crawl.py": "b95d301d3db067c52a21d8d44eab03e67479f439ed24475d0c9ecc900647dd58",
+    "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+    "src/seal/db.py": "126ad454fc6593901dbb2766011d35ae0d2c1f6c9440cd5a3048adb9d8007501",
+    "src/seal/config.py": "2db5495208baf4419ded49ab36fb65584b3a36844326b078427e0c8b89ca7ade",
+    "src/seal/completion.py": "03d66301748fdc5b5ca0366177fd479cb5ceacdb1bdeb4c24877d81cb24896fd",
+    "src/seal/manifest.py": "c43585e1e6634157959876209c34c3dbd8506d5a92886586c0a0384aaa8699cc",
+    "src/seal/discovery.py": "1944b6cac4b81df4088b96da9cb9e6b3b988e84ec7f88920154e2861c69be727",
+    "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+    "src/seal/records.py": "ab261fe7bca7a325b51295a1ffd61669683c16ae403c1872afa9291a9e3e2b38",
+    "src/seal/__init__.py": "f387c46938db282420d44d96bb9237808d065fc8080b83bbce1a5102a31ee660",
+    "src/seal/core.py": "cc8dd443804100c43d00b97f303edfcdaed6cea9992e35cc0cb063b7300d755a",
+    "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+    "src/seal/inspect.py": "1e5c9a11a35b223be7e76fb3715ffe837f852bcd4fa919cd7519f7ec5d94eb58",
+    "src/seal/cli.py": "33eb8079e857e66076860398813d5bbb2840900e2dac79e60347ea3ee5aa3e3a",
+    "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+    "src/seal/archive.py": "12e8f7c66a3207ae1e131a6f796e6332625ef3ae39dfc3eb1bfd2209521e26e2",
+    "src/seal/runs.py": "0b17de817cee0fc8eca1b27fb9a274e0e97334ed40e85267ff08611168088ed1",
+    "src/seal/helpers.py": "70be34beb27ad241910fced638cf546609035ac2d668a416f2507c4d92e254ff",
+    "src/seal/items.py": "bbd92f8b80135869d892a3139d93f277cda781c83a1b4d5ab828655f8d59ef0a",
+    "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "src/seal/scope.py": "4514528addd7992d21e654ffe8599e4305381e035ef06ef4484148a12c39c2b8",
+    "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+    "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+    "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139"
+  },
+  "matches_final_runtime": true,
+  "independent_reviews": [
+    {
+      "path": "review.json",
+      "sha256": "405a06f558168a2d15d12ff70bb3d0e929abed493b801677a90ca86922cbdd7c",
+      "status": "PASS"
+    },
+    {
+      "path": "regression-package-review.json",
+      "sha256": "a9b3f0aa05d8a29c64d91e9fbe38fdea0b0f06b3d47cc8ef085ce22c227aeaf7",
+      "status": "PASS"
+    }
+  ]
+}

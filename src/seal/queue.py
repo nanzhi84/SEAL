@@ -5,7 +5,8 @@ from datetime import datetime, timezone
 
 import procrastinate
 
-from .db import connect, dsn, j, one
+from .core import SealError
+from .db import connect, dsn, locked_run, one
 
 app = procrastinate.App(connector=procrastinate.PsycopgConnector(conninfo=dsn()))
 
@@ -32,25 +33,23 @@ def enqueue(c, run_id):
 
 
 def schedule_due():
+    from .recheck import has_due
     from .runs import create_run
 
-    created = []
+    created, rejections = [], []
     with connect() as c:
         sources = c.execute(
             "SELECT * FROM seal_source WHERE binding_id IS NOT NULL AND NOT paused AND (cooldown_until IS NULL OR cooldown_until<=now()) ORDER BY id FOR UPDATE SKIP LOCKED"
         ).fetchall()
         for source in sources:
             now = datetime.now(timezone.utc)
+            binding = one(c, "SELECT config FROM seal_binding WHERE id=%s", (source["binding_id"],))
             for mode, interval, due in (
                 ("collect", source["config"]["poll_seconds"], source["next_poll"] <= now),
                 (
                     "recheck",
                     source["config"]["recheck_seconds"],
-                    c.execute(
-                        "SELECT 1 FROM seal_document WHERE source_id=%s AND namespace='runtime' AND next_check<=now() LIMIT 1",
-                        (source["id"],),
-                    ).fetchone()
-                    is not None,
+                    has_due(c, source["id"], binding["config"]["output_schema"]),
                 ),
             ):
                 if not due:
@@ -61,21 +60,30 @@ def schedule_due():
                 ).fetchone()
                 if pending:
                     continue
-                slot = f"{source['id']}:{source['generation']}:{mode}:{int(now.timestamp()) // interval}"
-                run_id = create_run(source["binding_id"], mode, c, slot=slot)
-                enqueue(c, run_id)
+                # Active-run deduplication plus the Source lock serializes due batches.
+                # A terminal batch must not occupy the whole interval's slot: its
+                # remaining due targets may need another batch immediately.
+                suffix = (
+                    source["run_seq"] + 1 if mode == "recheck" else int(now.timestamp()) // interval
+                )
+                slot = f"{source['id']}:{source['generation']}:{mode}:{suffix}"
+                try:
+                    with c.transaction():
+                        run_id = create_run(
+                            source["binding_id"], mode, c, slot=slot, due_only=mode == "recheck"
+                        )
+                        enqueue(c, run_id)
+                except SealError as exc:
+                    rejections.append({"source_id": source["id"], "mode": mode, "reason": exc.code})
+                    continue
                 if mode == "collect":
                     c.execute(
                         "UPDATE seal_source SET next_poll=now()+(%s * interval '1 second') WHERE id=%s",
                         (interval, source["id"]),
                     )
-                else:
-                    c.execute(
-                        "UPDATE seal_document SET next_check=now()+(%s * interval '1 second') WHERE source_id=%s AND namespace='runtime'",
-                        (interval, source["id"]),
-                    )
                 created.append(run_id)
-    return {"run_ids": created}
+                source = one(c, "SELECT * FROM seal_source WHERE id=%s", (source["id"],))
+    return {"run_ids": created, "recheck_rejections": rejections}
 
 
 @app.periodic(cron="* * * * *")
@@ -100,16 +108,15 @@ async def recover_stalled(timestamp=0):
 
         def inspect_limit(run_id=run_id):
             with connect() as c:
-                run = one(c, "SELECT * FROM seal_run WHERE id=%s FOR UPDATE", (run_id,))
+                source, run = locked_run(c, run_id)
                 if run["status"] in ("complete", "partial", "superseded", "failed"):
                     return True  # one final task invocation reports the stored outcome
                 if run["attempt_epoch"] >= run["max_attempts"] or run["deadline"] <= datetime.now(
                     timezone.utc
                 ):
-                    c.execute(
-                        "UPDATE seal_run SET status='failed',completed_at=now(),errors=errors || %s WHERE id=%s",
-                        (j(["attempts_or_deadline_exhausted"]), run_id),
-                    )
+                    from .runs import end_run
+
+                    end_run(c, source, run, "failed", "attempts_or_deadline_exhausted")
                 return True
 
         if await asyncio.to_thread(inspect_limit):

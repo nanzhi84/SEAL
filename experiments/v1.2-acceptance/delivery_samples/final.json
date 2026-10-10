@@ -1,0 +1,774 @@
+[
+  {
+    "research_id": "dd-017",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-017",
+      "entry_urls": [
+        "https://www.court.gov.cn/shenpan/gengduo/77.html"
+      ],
+      "allowed_hosts": [
+        "www.court.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/shenpan/gengduo/77.html",
+        "/shenpan/gengduo/77_2.html",
+        "/shenpan/xiangqing/490521.html",
+        "/shenpan/xiangqing/466281.html"
+      ],
+      "host_path_scopes": {
+        "www.court.gov.cn": [
+          "/shenpan/gengduo/77.html",
+          "/shenpan/gengduo/77_2.html",
+          "/shenpan/xiangqing/490521.html",
+          "/shenpan/xiangqing/466281.html"
+        ]
+      },
+      "research_ids": [
+        "dd-017"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-017",
+      "max_pages": 2,
+      "fixed_details": [
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ]
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "指导性案例279号",
+        "裁判要点",
+        "指导性案例259号",
+        "环境污染民事公益诉讼"
+      ],
+      "roles": [
+        "list",
+        "detail"
+      ],
+      "stable_keys": [
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ],
+      "min_pages": 2,
+      "record_count": 2,
+      "allowed_urls": [
+        "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "https://www.court.gov.cn/shenpan/gengduo/77_2.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/490521.html",
+        "https://www.court.gov.cn/shenpan/xiangqing/466281.html"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-041",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-041",
+      "entry_urls": [
+        "https://www.spp.gov.cn/spp/jczdal/index.shtml"
+      ],
+      "allowed_hosts": [
+        "www.spp.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/spp/jczdal/index.shtml",
+        "/spp/jczdal/index_2.shtml",
+        "/spp/jczdal/202608/t20260805_733868.shtml",
+        "/spp/jczdal/202202/t20220214_544449.shtml"
+      ],
+      "host_path_scopes": {
+        "www.spp.gov.cn": [
+          "/spp/jczdal/index.shtml",
+          "/spp/jczdal/index_2.shtml",
+          "/spp/jczdal/202608/t20260805_733868.shtml",
+          "/spp/jczdal/202202/t20220214_544449.shtml"
+        ]
+      },
+      "research_ids": [
+        "dd-041"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定该业务栏目首 2 个静态列表页，并仅采集冻结的每页 1 个指定详情 URL；通过实际列表链接发现详情，不代表全量或全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-041",
+      "max_pages": 2,
+      "fixed_details": [
+        "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202202/t20220214_544449.shtml"
+      ]
+    },
+    "expected": {
+      "min_records": 2,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "第六十三批指导性案例",
+        "检例第257号",
+        "第三十三批指导性案例",
+        "2022-02-14"
+      ],
+      "roles": [
+        "list",
+        "detail"
+      ],
+      "stable_keys": [
+        "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202202/t20220214_544449.shtml"
+      ],
+      "min_pages": 2,
+      "record_count": 2,
+      "allowed_urls": [
+        "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/index_2.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202608/t20260805_733868.shtml",
+        "https://www.spp.gov.cn/spp/jczdal/202202/t20220214_544449.shtml"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-468",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-468",
+      "attachment_paths": [
+        "./W020211027623974108131.xls",
+        "./W020211027623974133601.xls"
+      ]
+    },
+    "source": {
+      "id": "live_dd_468",
+      "entry_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html"
+      ],
+      "allowed_hosts": [
+        "www.moe.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/jyb_xxgk/s5743/s5744/A03/202110/"
+      ],
+      "host_path_scopes": {
+        "www.moe.gov.cn": [
+          "/jyb_xxgk/s5743/s5744/A03/202110/"
+        ]
+      },
+      "research_ids": [
+        "dd-468"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "仅2021-10-25全国高等学校名单说明及其两份真实XLS：原始bytes归档；全部工作表、有效单元格、合并区域和工作表可见状态结构化保存为URL身份附件文档，覆盖普通2756所和成人256所名单。正文和workbook结构可由原文独立复算；不把表格行序作为学校实体主键，不声明现行名单、全站或主体核验。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 3,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "全国高等学校名单",
+        "截至2021年9月30日",
+        "3012所",
+        "2756所",
+        "1270所",
+        "1486所",
+        "256所"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "errors": [],
+      "stable_keys": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "allowed_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "archived_urls": [
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+        "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls"
+      ],
+      "record_count": 3,
+      "min_body_chars": 100,
+      "body_anchors": [
+        "全国普通高等学校名单",
+        "全国成人高等学校名单",
+        "铁门关职业技术学院",
+        "阿克苏教育学院"
+      ],
+      "failure_modes": [
+        "missing_or_truncated_workbook",
+        "merged_cell_loss",
+        "invalid_cell_encoding",
+        "unrecomputable_attachment_field",
+        "unstable_document_identity",
+        "attachment_recheck_not_dispatched",
+        "partial_promoted_as_success",
+        "network_replay"
+      ],
+      "document_contracts": [
+        {
+          "record_key": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+          "body_anchors": [
+            "全国普通高等学校名单",
+            "北京大学",
+            "铁门关职业技术学院"
+          ],
+          "min_body_chars": 110000,
+          "archive_sha256": "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac",
+          "worksheets": [
+            {
+              "name": "sheet1",
+              "rows": 2790,
+              "columns": 7,
+              "merged_cells": 33,
+              "business_codes": {
+                "column": 2,
+                "count": 2756
+              },
+              "cells": [
+                {
+                  "row": 4,
+                  "column": 1,
+                  "value": "北京大学"
+                },
+                {
+                  "row": 2789,
+                  "column": 1,
+                  "value": "铁门关职业技术学院"
+                },
+                {
+                  "row": 2789,
+                  "column": 2,
+                  "value": 4165014660.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "record_key": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls",
+          "body_anchors": [
+            "全国成人高等学校名单",
+            "北京市海淀区职工大学",
+            "阿克苏教育学院"
+          ],
+          "min_body_chars": 8000,
+          "archive_sha256": "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+          "worksheets": [
+            {
+              "name": "sheet1",
+              "rows": 289,
+              "columns": 5,
+              "merged_cells": 32,
+              "business_codes": {
+                "column": 2,
+                "count": 256
+              },
+              "cells": [
+                {
+                  "row": 4,
+                  "column": 1,
+                  "value": "北京市海淀区职工大学"
+                },
+                {
+                  "row": 288,
+                  "column": 1,
+                  "value": "阿克苏教育学院"
+                },
+                {
+                  "row": 288,
+                  "column": 2,
+                  "value": "4265051717"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "research_id": "dd-050",
+    "class": "B",
+    "recipe": "recipes/live_b",
+    "params": {
+      "source": "dd-050",
+      "attachment_paths": [
+        "/data/upload/image/20260609/1780974990520465.pdf"
+      ]
+    },
+    "source": {
+      "id": "live_dd_050",
+      "entry_urls": [
+        "http://www.cmac.org.cn/"
+      ],
+      "allowed_hosts": [
+        "www.cmac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/",
+        "/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "host_path_scopes": {
+        "www.cmac.org.cn": [
+          "/",
+          "/data/upload/image/20260609/1780974990520465.pdf"
+        ]
+      },
+      "research_ids": [
+        "dd-050"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "同类B补充文本PDF验收：仅首页明确链接的中国海事仲裁委员会仲裁规则-中文版（2021）PDF（2026-06-09链接）及父入口；70个物理页中可提取文本页的按页正文和自身标题locator。仅此静态附件，其他首页栏目与公开PDF均不采集，不代表全文排版或法律时效审核。",
+      "seed_role": "list",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 8,
+        "seconds": 120,
+        "response_bytes": 10485760
+      },
+      "concurrency": 1,
+      "delay": 0.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中国海事仲裁委员会仲裁规则",
+        "示范仲裁条款",
+        "仲裁裁决是终局的",
+        "一九八八年六月二十一日"
+      ],
+      "roles": [
+        "list",
+        "attachment"
+      ],
+      "stable_keys": [
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "allowed_urls": [
+        "http://www.cmac.org.cn/",
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "archived_urls": [
+        "http://www.cmac.org.cn/",
+        "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf"
+      ],
+      "record_count": 1
+    }
+  },
+  {
+    "research_id": "dd-247",
+    "class": "C",
+    "source": {
+      "id": "delivery_dd_247_fixed_query",
+      "research_ids": [
+        "dd-247"
+      ],
+      "entry_urls": [
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=%E6%98%93%E6%96%B9%E8%BE%BE&registerAddr=&officeAddr="
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/portal/front/mutualFund/findMutualFundHousePage"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/portal/front/mutualFund/findMutualFundHousePage"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "公募基金管理人公开固定查询 houseName=易方达，pageNo=1、pageSize=10，其余筛选为空；只接受官方响应中的易方达基金管理有限公司，按原文机构名自然键，保留五个展示字段；不是任意用户查询、主体精确核验或全量名录。替换 dd-009 的固定公开参数查询机制；dd-250 独立承担多页 JSON 全量 profile。",
+      "seed_role": "api",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 5,
+        "seconds": 90,
+        "response_bytes": 5242880
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-247",
+      "max_pages": 2,
+      "house_name": "易方达"
+    },
+    "recipe": "recipes/live_c",
+    "expected": {
+      "min_records": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "易方达基金管理有限公司"
+      ],
+      "roles": [
+        "api"
+      ],
+      "min_pages": 1,
+      "stable_keys": [
+        "易方达基金管理有限公司"
+      ],
+      "no_detail_url": true,
+      "mechanisms": [
+        "fixed_public_query",
+        "multi_record_json_api",
+        "business_natural_key"
+      ],
+      "failure_modes": [
+        "api_envelope_not_success",
+        "empty_or_oversized_list",
+        "missing_or_nonunique_legal_name",
+        "unexpected_query_or_page",
+        "ambiguous_pagination",
+        "source_schema_changed"
+      ],
+      "record_count": 1,
+      "allowed_urls": [
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=%E6%98%93%E6%96%B9%E8%BE%BE&registerAddr=&officeAddr="
+      ],
+      "archived_urls": [
+        "https://www.amac.org.cn/portal/front/mutualFund/findMutualFundHousePage?pageNo=1&pageSize=10&houseName=%E6%98%93%E6%96%B9%E8%BE%BE&registerAddr=&officeAddr="
+      ]
+    }
+  },
+  {
+    "research_id": "dd-250",
+    "class": "C",
+    "recipe": "recipes/amac_full",
+    "params": {
+      "expected_total": 67,
+      "max_pages": 10
+    },
+    "source": {
+      "id": "full_dd_250",
+      "research_ids": [
+        "dd-250"
+      ],
+      "entry_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10"
+      ],
+      "allowed_hosts": [
+        "www.amac.org.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+      ],
+      "host_path_scopes": {
+        "www.amac.org.cn": [
+          "/portal/front/financial/fundTrustee/findFundTrusteesPage"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "公募基金托管机构固定空筛选完整枚举profile：pageSize=10，冻结官方API total67，对应7页(10*6+7)，全部展示trustName/regAddr原文，显示机构名为本Source自然键，数字id不证明永久语义且不输出。任何页总数、页长、重复自然键或预算不足显式partial；只请求已知7页，页8为空的公开探测证据独立保留。API无快照token，不承诺跨页原子快照；名称变更形成新身份，旧未观察项unknown，不代表主体核验或全站。",
+      "seed_role": "api",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 9,
+        "seconds": 180,
+        "response_bytes": 1048576
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "expected": {
+      "min_records": 67,
+      "record_count": 67,
+      "statuses": [
+        "complete"
+      ],
+      "roles": [
+        "api"
+      ],
+      "min_pages": 7,
+      "no_detail_url": true,
+      "stable_keys": [
+        "中国工商银行股份有限公司",
+        "青岛银行股份有限公司",
+        "汇丰银行（中国）有限公司"
+      ],
+      "anchors": [
+        "中国工商银行股份有限公司",
+        "青岛银行股份有限公司",
+        "汇丰银行（中国）有限公司",
+        "福建",
+        "浙江"
+      ],
+      "expected_fields": [
+        "trustName",
+        "regAddr"
+      ],
+      "allowed_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=3&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=4&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=5&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=6&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=7&pageSize=10"
+      ],
+      "archived_urls": [
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=3&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=4&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=5&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=6&pageSize=10",
+        "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=7&pageSize=10"
+      ],
+      "failure_modes": [
+        "pagination_total_changed",
+        "pagination_incomplete",
+        "pagination_limit",
+        "download_failed"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-102",
+    "class": "A",
+    "source": {
+      "id": "v12-live-dd-102",
+      "entry_urls": [
+        "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html"
+      ],
+      "allowed_hosts": [
+        "www.safe.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/beijing/xzcfxxgs/index.html",
+        "/www/illegal/index",
+        "/www/illegal/listQuery",
+        "/www/illegal"
+      ],
+      "host_path_scopes": {
+        "www.safe.gov.cn": [
+          "/beijing/xzcfxxgs/index.html",
+          "/www/illegal/index",
+          "/www/illegal/listQuery",
+          "/www/illegal"
+        ]
+      },
+      "research_ids": [
+        "dd-102"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "限定北京市分局无筛选公开处罚前 2 个 iframe 页（各20行）及已观察到的建设银行详情；不提交统一社会信用代码查询、不保留 Cookie、不代表全部历史覆盖。",
+      "seed_role": "list",
+      "budget": {
+        "requests": 10,
+        "seconds": 120,
+        "response_bytes": 2000000
+      },
+      "concurrency": 1,
+      "delay": 0.3
+    },
+    "recipe": "recipes/live_a",
+    "params": {
+      "source": "dd-102",
+      "max_pages": 2,
+      "fixed_details": [
+        "https://www.safe.gov.cn/www/illegal/listQuery?saffno=036b8dec2d9a445fa2a609d58084663d"
+      ]
+    },
+    "expected": {
+      "min_records": 41,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "中国建设银行股份有限公司",
+        "京汇罚〔2026〕29号",
+        "京汇罚〔2026〕9号",
+        "1577.06",
+        "2026-09-23"
+      ],
+      "roles": [
+        "list",
+        "iframe",
+        "detail"
+      ],
+      "stable_keys": [
+        "京汇罚〔2026〕29号",
+        "京汇罚〔2026〕9号"
+      ],
+      "record_count": 41,
+      "allowed_urls": [
+        "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "https://www.safe.gov.cn/www/illegal?siteid=beijing",
+        "https://www.safe.gov.cn/www/illegal/index?page=2&siteid=beijing",
+        "https://www.safe.gov.cn/www/illegal/listQuery?saffno=036b8dec2d9a445fa2a609d58084663d"
+      ]
+    }
+  },
+  {
+    "research_id": "dd-357",
+    "class": "B",
+    "recipe": "recipes/expanded_b1",
+    "params": {
+      "documents": [
+        {
+          "url": "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ",
+          "title": ".cjcs_phone_title",
+          "body": ".content_body_box"
+        }
+      ],
+      "routes": [],
+      "attachments": [],
+      "pdf_titles": {}
+    },
+    "source": {
+      "id": "delivery_dd_357",
+      "entry_urls": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "allowed_hosts": [
+        "permit.mee.gov.cn"
+      ],
+      "allowed_path_prefixes": [
+        "/perxxgkinfo/syssb/xkgg/"
+      ],
+      "host_path_scopes": {
+        "permit.mee.gov.cn": [
+          "/perxxgkinfo/syssb/xkgg/"
+        ]
+      },
+      "research_ids": [
+        "dd-357"
+      ],
+      "methods": [
+        "GET"
+      ],
+      "identity": "canonical_url",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "诊断原公开公告单篇正文；允许主机与路径完全沿用原冻结范围，仅将入口路径%21还原为字面量!，不跟随CAS登录或扩大许可证业务范围。",
+      "seed_role": "detail",
+      "poll_seconds": 3600,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 16,
+        "seconds": 90,
+        "response_bytes": 6291456
+      },
+      "concurrency": 1,
+      "delay": 0.15,
+      "robots": false,
+      "user_agent": "SEAL/0.1 (+authorized archival crawler)"
+    },
+    "expected": {
+      "min_records": 1,
+      "record_count": 1,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "关于调整2024年排污许可证年度执行报告报送时间的公告"
+      ],
+      "roles": [
+        "detail"
+      ],
+      "stable_keys": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "allowed_urls": [
+        "https://permit.mee.gov.cn/perxxgkinfo/syssb/xkgg/xkgg!getNewsDetail.action?pkid=a4bb5667-385b-42a4-9f46-4d2d92b3ca86&type=ZYTZ"
+      ],
+      "min_pages": 0
+    }
+  }
+]

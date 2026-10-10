@@ -1,0 +1,93 @@
+[
+  {
+    "research_id": "dd-009",
+    "class": "C",
+    "source": {
+      "id": "v12_live_dd_009",
+      "research_ids": [
+        "dd-009"
+      ],
+      "entry_urls": [
+        "https://find-and-update.company-information.service.gov.uk/search?q=TESCO"
+      ],
+      "allowed_hosts": [
+        "find-and-update.company-information.service.gov.uk"
+      ],
+      "allowed_path_prefixes": [
+        "/search"
+      ],
+      "host_path_scopes": {
+        "find-and-update.company-information.service.gov.uk": [
+          "/search"
+        ]
+      },
+      "methods": [
+        "GET"
+      ],
+      "identity": "business_key",
+      "output_schema": "record.v1",
+      "archive_approved": true,
+      "scope": "Companies House公开q=TESCO固定搜索前两页；只采company结果，公开公司编号为键，排除officer结果。记录是搜索投影，以冻结搜索父请求Recheck，不含公司profile、不声明主体精确匹配或全量企业覆盖。",
+      "seed_role": "list",
+      "poll_seconds": 86400,
+      "recheck_seconds": 86400,
+      "budget": {
+        "requests": 5,
+        "seconds": 90,
+        "response_bytes": 5242880
+      },
+      "concurrency": 1,
+      "delay": 1.5,
+      "robots": false,
+      "user_agent": "SEAL/0.1.2 (+bounded public engineering archive)"
+    },
+    "params": {
+      "source": "dd-009",
+      "max_pages": 2
+    },
+    "recipe": "recipes/live_c",
+    "expected": {
+      "min_records": 29,
+      "statuses": [
+        "complete"
+      ],
+      "anchors": [
+        "TESCO PLC",
+        "00445790",
+        "TESCO ATRATO (1LP) LIMITED",
+        "06969529"
+      ],
+      "roles": [
+        "list"
+      ],
+      "min_pages": 2,
+      "stable_keys": [
+        "00445790",
+        "06969529"
+      ],
+      "no_detail_url": true,
+      "mechanisms": [
+        "fixed_public_query",
+        "html_result_list",
+        "numbered_pagination",
+        "company_number_key"
+      ],
+      "failure_modes": [
+        "search_template_changed",
+        "company_link_or_number_missing",
+        "duplicate_company_number",
+        "unexpected_query_or_page",
+        "ambiguous_pagination"
+      ],
+      "record_count": 29,
+      "allowed_urls": [
+        "https://find-and-update.company-information.service.gov.uk/search?q=TESCO",
+        "https://find-and-update.company-information.service.gov.uk/search?q=TESCO&page=2"
+      ],
+      "archived_urls": [
+        "https://find-and-update.company-information.service.gov.uk/search?q=TESCO",
+        "https://find-and-update.company-information.service.gov.uk/search?q=TESCO&page=2"
+      ]
+    }
+  }
+]

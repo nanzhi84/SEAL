@@ -4,7 +4,7 @@ import hashlib
 import json
 import re
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import unquote_plus, urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 MAP = ROOT / "experiments" / "due-diligence" / "inputs" / "source-map.md"
@@ -15,19 +15,19 @@ TRACKING = re.compile(r"^(?:utm_|qhclickid|saasdianping|addrid)", re.I)
 def clean_url(url, fragment=False):
     p = urlsplit(url)
     path = re.sub(r";jsessionid=[^/?;#]*", "", p.path, flags=re.I)
-    pairs = [
-        (k, v)
-        for k, v in parse_qsl(p.query, keep_blank_values=True)
-        if not SENSITIVE.search(k) and not TRACKING.search(k)
-    ]
+    # Privacy removal is deliberate; retained segments keep their resource spelling.
+    query = "&".join(
+        segment
+        for segment in p.query.split("&")
+        if not SENSITIVE.search(unquote_plus(segment.partition("=")[0]))
+        and not TRACKING.search(unquote_plus(segment.partition("=")[0]))
+    )
     host = p.hostname.lower() if p.hostname else ""
     if ":" in host:
         host = "[" + host + "]"
     if p.port:
         host += ":" + str(p.port)
-    return urlunsplit(
-        (p.scheme.lower(), host, path or "/", urlencode(pairs), p.fragment if fragment else "")
-    )
+    return urlunsplit((p.scheme.lower(), host, path or "/", query, p.fragment if fragment else ""))
 
 
 def inventory():

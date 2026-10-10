@@ -1,0 +1,303 @@
+{
+  "artifact_version": 1,
+  "failure_modes_before_implementation": [
+    "download failure retains explicit diagnostics",
+    "expected static link missing or changed produces list_template_changed",
+    "HTML ambiguous title/body or announcement field fails closed",
+    "unsupported Excel archives source bytes and remains partial",
+    "image-only PDF archives source bytes and remains pdf_text_layer_required partial",
+    "text PDF publishes only independently revalidated text locators",
+    "scoped business sampling omits unrelated channels without falsely rejected discoveries",
+    "IPO PDF is 13,195,226 bytes: immutable Source permits 20 MiB; no hidden truncation of its response; GOV.UK visible attachment only avoids thumbnail duplicate"
+  ],
+  "probes": [
+    {
+      "research_id": "dd-468",
+      "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+      "status": 200,
+      "bytes": 13623,
+      "sha256": "587adcc5eaa9620d1760a52193386277040de14dfa175ab4d5d1276ecd94d8a2",
+      "encoding": "utf-8",
+      "observed_at": "2026-10-09T12:20:35.708709+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance"
+    },
+    {
+      "research_id": "dd-468",
+      "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974108131.xls",
+      "status": 200,
+      "bytes": 432128,
+      "sha256": "a68353c7845dccb8ab548b3e93bb766018ea1fd44fcaac64f601d0aa723397ac",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:20:35.709050+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "magic": "d0cf11e0a1b11ae1",
+      "capability_blocker": "unsupported_content_type"
+    },
+    {
+      "research_id": "dd-468",
+      "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/W020211027623974133601.xls",
+      "status": 200,
+      "bytes": 60928,
+      "sha256": "a2a28490db0c5ce414694a21beb459c33a780e6bad60ac6149f4089dca7671a4",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:20:35.709110+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "magic": "d0cf11e0a1b11ae1",
+      "capability_blocker": "unsupported_content_type"
+    },
+    {
+      "research_id": "dd-004",
+      "url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/index.aspx",
+      "status": 200,
+      "bytes": 32484,
+      "sha256": "d7c920b87cab1dcd6adbd9f7362e299daa4ee09d7125df1035357f0206953325",
+      "encoding": "gb18030",
+      "observed_at": "2026-10-09T12:20:35.709148+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance"
+    },
+    {
+      "research_id": "dd-004",
+      "url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/决定书（黄欣）.pdf",
+      "status": 200,
+      "bytes": 1700143,
+      "sha256": "b0ef283d06754cf3aba1cb50298e8ca585e6413c3c20b330b2cf16d95d26d9e7",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:20:35.709890+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "pages": 3,
+      "page_text_chars": [
+        0,
+        0,
+        0
+      ],
+      "text_layer": false
+    },
+    {
+      "research_id": "dd-004",
+      "url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/决定书（陈炜）.pdf",
+      "status": 200,
+      "bytes": 1397858,
+      "sha256": "00b61cc255eb0e141d68c54b2c9654878e9a9bf0fd5459c70e4e33970f134284",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:20:35.711381+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "pages": 3,
+      "page_text_chars": [
+        0,
+        0,
+        0
+      ],
+      "text_layer": false
+    },
+    {
+      "research_id": "dd-004",
+      "url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/恢复经营主体登记（备案）告知书-深圳市诺亚信高科技集团有限公司.pdf",
+      "status": 200,
+      "bytes": 480865,
+      "sha256": "e631889e3e1ac59f06634d127446f978ab395d7d266b9371e6bf32584749e07c",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:20:35.712282+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "pages": 2,
+      "page_text_chars": [
+        0,
+        0
+      ],
+      "text_layer": false
+    },
+    {
+      "research_id": "dd-004",
+      "url": "https://amr.sz.gov.cn/xyjggs.webui/xyjggs/document/恢复经营主体登记（备案）决定书-深圳市诺亚信高科技集团有限公司.pdf",
+      "status": 200,
+      "bytes": 506691,
+      "sha256": "62e87ce66fe83b82719d232924a87c0793f02355febbacf651868d6c181a91d4",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:20:35.712903+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "pages": 2,
+      "page_text_chars": [
+        0,
+        0
+      ],
+      "text_layer": false
+    },
+    {
+      "research_id": "dd-050",
+      "url": "http://www.cmac.org.cn/",
+      "status": 200,
+      "bytes": 46257,
+      "sha256": "2eb24d334a102a9630edd2f5345d99c0a06446d7484099c4c3522b4fa0fd71de",
+      "encoding": "utf-8",
+      "observed_at": "2026-10-09T12:20:35.713526+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance"
+    },
+    {
+      "research_id": "dd-050",
+      "url": "http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf",
+      "status": 200,
+      "bytes": 1807056,
+      "sha256": "10ef9450e9d4d82b07d750e9bd5ec7ac1d61ca8da21c3cf7f48c45eeaac4ea67",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:20:35.714156+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "pages": 70,
+      "page_text_chars": [
+        0,
+        0,
+        162,
+        0,
+        109,
+        16,
+        362,
+        473,
+        465,
+        463,
+        500,
+        556,
+        601,
+        566,
+        579,
+        118,
+        392,
+        571,
+        563,
+        601,
+        582,
+        611,
+        567,
+        568,
+        566,
+        641,
+        548,
+        650,
+        579,
+        626,
+        555,
+        530,
+        551,
+        517,
+        506,
+        590,
+        617,
+        559,
+        560,
+        621,
+        153,
+        568,
+        537,
+        435,
+        43,
+        533,
+        554,
+        515,
+        485,
+        570,
+        454,
+        459,
+        865,
+        196,
+        971,
+        552,
+        658,
+        615,
+        1064,
+        660,
+        266,
+        463,
+        610,
+        588,
+        597,
+        427,
+        476,
+        614,
+        198,
+        226
+      ],
+      "text_layer": true
+    },
+    {
+      "research_id": "dd-151",
+      "url": "https://www.gov.uk/government/news/intellectual-property-office-publishes-corporate-plan-2026-to-2027",
+      "status": 200,
+      "bytes": 72509,
+      "sha256": "30de3e58bab7fc81f5cc336b8c057aca84816953e7a796f0a05020b446f5e213",
+      "encoding": "utf-8",
+      "observed_at": "2026-10-09T12:23:46.936758+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance"
+    },
+    {
+      "research_id": "dd-151",
+      "url": "https://www.gov.uk/government/publications/intellectual-property-office-corporate-plan-2026-to-2027",
+      "status": 200,
+      "bytes": 74573,
+      "sha256": "4c38b830b0747e058ecc596cb3b67a193b3a8d17321be38f53c8b748f3696ac4",
+      "encoding": "utf-8",
+      "observed_at": "2026-10-09T12:23:46.936965+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance"
+    },
+    {
+      "research_id": "dd-151",
+      "url": "https://assets.publishing.service.gov.uk/media/69fb5beccd2e0e8b5b20b1f3/IPO-Corporate-Plan_2026-27.pdf",
+      "status": 200,
+      "bytes": 13195226,
+      "sha256": "306c239cf17a427aabf8a85f69db03366f7089a7b5c935ac7f1c17e4348765c1",
+      "encoding": null,
+      "observed_at": "2026-10-09T12:23:46.942280+00:00",
+      "evidence_kind": "independent_preimplementation_public_GET_probe_not_Runtime_acceptance",
+      "pages": 20,
+      "page_text_chars": [
+        99,
+        0,
+        1011,
+        3771,
+        37,
+        2767,
+        37,
+        1907,
+        1837,
+        3290,
+        38,
+        3030,
+        2631,
+        3105,
+        3748,
+        2600,
+        2649,
+        1714,
+        0,
+        260
+      ],
+      "text_layer": true,
+      "required_response_byte_budget": 20971520
+    }
+  ],
+  "original_sample_blockers": {
+    "dd-468": [
+      "unsupported_content_type (actual XLS OLE downloads; no row parser in V1.2)"
+    ],
+    "dd-004": [
+      "pdf_text_layer_required (all four public PDF attachments have zero text chars on every page)"
+    ]
+  },
+  "substitution": [
+    {
+      "research_id": "dd-050",
+      "class": "B",
+      "mechanism": "explicit static business PDF linked from HTML entry",
+      "basis": "sole frozen classification CSV class B and observed current homepage link",
+      "reason": "supplement text-layer PDF locator/replay acceptance while retaining dd004/dd468 partial evidence"
+    },
+    {
+      "research_id": "dd-151",
+      "class": "B",
+      "mechanism": "explicit static business PDF linked from public publication HTML across explicitly scoped official hosts",
+      "basis": "sole frozen classification CSV class B; actual news links publication, actual publication links PDF",
+      "reason": "second supported B sample and actual cross-host attachment locator/replay acceptance while preserving original unsupported inputs"
+    }
+  ],
+  "limitations": [
+    "Probe bodies are temporary diagnostics; actual Runtime captures remain required evidence",
+    "No OCR, browser, login, captcha bypass, or full-source completeness claim",
+    "CMAC 2021 rules PDF is a historical public document; current legal effect is not evaluated"
+  ]
+}

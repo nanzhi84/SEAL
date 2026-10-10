@@ -1,0 +1,184 @@
+{
+  "stage": "real_four_round_acceptance_passed",
+  "outcomes": [
+    {
+      "research_id": "dd-248",
+      "class": "C",
+      "status": "ready",
+      "reason": "真实公开API两页各10行；两轮collect、父API Recheck、零网络Replay及字段与自然键独立复算均PASS。",
+      "scope": "AMAC公开名录固定空筛选前两页pageSize=10最多20行；官方显示机构名称orgName为本Source范围内自然键；仅展示字段orgName,regAddr,orgType,checkTime；不使用未确认永久语义的id，不代表全量或主体完整核验，机构更名形成新自然身份、旧项保持unknown。",
+      "key": [
+        "中国建设银行",
+        "中国民生银行"
+      ],
+      "next_step": "已完成规定固定空筛选20行工程范围；全量分页、更名连续身份与主体核验需单独定义范围。",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "evidence": [
+        {
+          "research_id": "dd-248",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:36.075197+00:00",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjxsjggs/",
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 327772,
+          "sha256": "f0d3156b348cd88ed7ce9d4f374d412e4bcdef48442a125591abf32c85377da0",
+          "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjxsjggs/"
+        },
+        {
+          "research_id": "dd-248",
+          "role": "page1",
+          "observed_at": "2026-10-09T14:38:36.095067+00:00",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=10&orgName=&regAddr=&orgType=&startTime=&endTime=",
+          "content_type": "application/json;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 1650,
+          "sha256": "695e173646eca6fa52c0fe22db0353b543ca6ffc6731155b85b29ab3d20c01e9",
+          "url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=10&orgName=&regAddr=&orgType=&startTime=&endTime="
+        },
+        {
+          "research_id": "dd-248",
+          "role": "page2",
+          "observed_at": "2026-10-09T14:38:36.301019+00:00",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=2&pageSize=10&orgName=&regAddr=&orgType=&startTime=&endTime=",
+          "content_type": "application/json;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 1634,
+          "sha256": "3f624fc0d796453b777ec556e9d4dc00b26bf44f22cba33acb18d30fcc191a6f",
+          "url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=2&pageSize=10&orgName=&regAddr=&orgType=&startTime=&endTime="
+        },
+        {
+          "research_id": "dd-248",
+          "role": "filter",
+          "url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=10&orgName=%E4%B8%AD%E5%9B%BD%E6%B0%91%E7%94%9F%E9%93%B6%E8%A1%8C&regAddr=&orgType=&startTime=&endTime=",
+          "observed_at": "2026-10-09T14:58:38.781643+00:00",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=10&orgName=%E4%B8%AD%E5%9B%BD%E6%B0%91%E7%94%9F%E9%93%B6%E8%A1%8C&regAddr=&orgType=&startTime=&endTime=",
+          "content_type": "application/json;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 309,
+          "sha256": "f2d8a7cbd08b54263e9832226e45cfdcf8ecf743e0867f2121eaf3aa8f36c622"
+        },
+        {
+          "research_id": "dd-248",
+          "role": "size20",
+          "url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=20&orgName=&regAddr=&orgType=&startTime=&endTime=",
+          "observed_at": "2026-10-09T14:58:39.061176+00:00",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/portal/front/infopublic/fsAgencyAnno/findFsAgencyAnnos?pageNo=1&pageSize=20&orgName=&regAddr=&orgType=&startTime=&endTime=",
+          "content_type": "application/json;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 3125,
+          "sha256": "5ce5819651b468b34b34eb429c8fbede44abebb75600583bfbb5b775fc8fb24c"
+        }
+      ],
+      "key_evidence": {
+        "name_key": "displayed orgName",
+        "two_page_names_unique": true,
+        "combined_page_matches_pageSize20_names": true,
+        "numeric_id_identity_claim": false,
+        "permanent_identity_claim": false,
+        "rename_boundary": "new natural identity, previous unobserved record unknown",
+        "filtered_name_matches_unfiltered_position_11": true
+      }
+    },
+    {
+      "research_id": "dd-250",
+      "class": "C",
+      "status": "ready",
+      "reason": "真实公开API两页各10行；两轮collect、父API Recheck、零网络Replay及字段与自然键独立复算均PASS。",
+      "scope": "AMAC公开名录固定空筛选前两页pageSize=10最多20行；官方显示机构名称trustName为本Source范围内自然键；仅展示字段trustName,regAddr；不使用未确认永久语义的id，不代表全量或主体完整核验，机构更名形成新自然身份、旧项保持unknown。",
+      "key": [
+        "中国工商银行股份有限公司",
+        "兴业银行股份有限公司"
+      ],
+      "next_step": "已完成规定固定空筛选20行工程范围；全量分页、更名连续身份与主体核验需单独定义范围。",
+      "reason_code": "real_four_round_business_evidence_verified",
+      "evidence": [
+        {
+          "research_id": "dd-250",
+          "role": "entry",
+          "observed_at": "2026-10-09T14:38:36.856900+00:00",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+          "content_type": "text/html",
+          "encoding": null,
+          "bytes": 319087,
+          "sha256": "5bd3a97b589e21ad7ee492dbeaf635b1baf2f2685d184674967f20c8abedd222",
+          "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/"
+        },
+        {
+          "research_id": "dd-250",
+          "role": "page1",
+          "observed_at": "2026-10-09T14:38:36.895885+00:00",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10",
+          "content_type": "application/json;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 949,
+          "sha256": "f900a79c74d515e14a7eb1a2f7b76d367bbfdb41e0da37d04105c5a9a6eea879",
+          "url": "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10"
+        },
+        {
+          "research_id": "dd-250",
+          "role": "page2",
+          "observed_at": "2026-10-09T14:38:36.957397+00:00",
+          "method": "GET",
+          "network": "public GET, no cookies/auth/environment proxy, zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10",
+          "content_type": "application/json;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 943,
+          "sha256": "752eaaf1c28f81b693510b719caaec5c8a500b0448d1d8565d8c99380685d8df",
+          "url": "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=2&pageSize=10"
+        },
+        {
+          "research_id": "dd-250",
+          "role": "size20",
+          "url": "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=20",
+          "observed_at": "2026-10-09T14:58:39.448286+00:00",
+          "method": "GET",
+          "network": "public GET,no cookies/auth/environment proxy,zero retries",
+          "status": 200,
+          "final_url": "https://www.amac.org.cn/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=20",
+          "content_type": "application/json;charset=UTF-8",
+          "encoding": "utf-8",
+          "bytes": 1733,
+          "sha256": "574e9c17e99aa91a00ba1818d02dc18d29939ce05657e3d6ca62fc0c793c89c8"
+        }
+      ],
+      "key_evidence": {
+        "name_key": "displayed trustName",
+        "two_page_names_unique": true,
+        "combined_page_matches_pageSize20_names": true,
+        "numeric_id_identity_claim": false,
+        "permanent_identity_claim": false,
+        "rename_boundary": "new natural identity, previous unobserved record unknown"
+      }
+    }
+  ],
+  "artifact_version": 1,
+  "assigned_ids": [
+    "dd-248",
+    "dd-250"
+  ],
+  "acceptance_artifact": "artifacts/acceptance/v1.2-expanded-c-final/manifest.json"
+}

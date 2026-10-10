@@ -1,0 +1,65 @@
+{
+  "contract": "seal.local_checks.v1",
+  "ruff_check": {
+    "status": "PASS",
+    "command": "ruff check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance"
+  },
+  "ruff_format": {
+    "status": "PASS",
+    "formatted_files": 32,
+    "command": "ruff format --check src recipes experiments/v1.2-acceptance"
+  },
+  "compileall": {
+    "status": "PASS",
+    "command": "python3 -m compileall -q src recipes experiments/v1.2-acceptance"
+  },
+  "git_diff_check": {
+    "status": "PASS"
+  },
+  "historical_files_unchanged": {
+    "status": "PASS",
+    "baseline": "ee398840640e38d63f093ff7b18ca85cc4c59a78",
+    "scope": [
+      "schema.sql",
+      "0002_runtime.sql",
+      "ADRs",
+      "V1.1 Plan",
+      "V1.1 Generated"
+    ]
+  },
+  "seiso_new_plan": {
+    "status": "PASS",
+    "diagnostics": 0
+  },
+  "seiso_docs_experiments": {
+    "status": "BASELINE_DIAGNOSTICS",
+    "diagnostics": 6,
+    "reason": "Existing V1.1 Plan links to ignored artifacts absent in a fresh checkout; historical documentation was preserved"
+  },
+  "type_checker": {
+    "status": "NOT_CONFIGURED"
+  },
+  "github_actions": {
+    "status": "NOT_CONFIGURED"
+  },
+  "delivered_bundle_offline_integrity": {
+    "status": "PASS",
+    "joint": {
+      "files": 123,
+      "assertions": 303
+    },
+    "v11_m3": {
+      "files": 183,
+      "assertions": 136
+    },
+    "v11_smoke": {
+      "files": 228,
+      "assertions": 1191
+    },
+    "scope": "Archive extracted from the exact committed candidate tar.gz; no database or network"
+  },
+  "review": {
+    "status": "PASS_RUNTIME_REAL_ACCEPTANCE_BLOCKED",
+    "artifact": "review.json"
+  }
+}

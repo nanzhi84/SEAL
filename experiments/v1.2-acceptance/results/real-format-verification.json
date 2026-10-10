@@ -1,0 +1,51 @@
+{
+  "operation": "Ruff format after acceptance completion",
+  "scope": "Five C Recipe/route experiment and compatibility-harness Python files; original tested RecipeVersion packs and evidence hashes remain preserved.",
+  "command": "uvx ruff format experiments/v1.1-runtime-acceptance/acceptance.py experiments/v1.1-runtime-acceptance/e2e/smoke.py experiments/v1.1-runtime-acceptance/e2e/smoke_compatibility.py experiments/v1.2-acceptance/live_samples/c_route_experiment.py recipes/live_c/recipe.py",
+  "comparison": "ast.dump(ast.parse(bytes), include_attributes=False), exact string equality before and after formatting",
+  "files": [
+    {
+      "path": "experiments/v1.1-runtime-acceptance/acceptance.py",
+      "before_sha256": "0f11b8b065d2439bf7132541bd14f15aae141c920b259c9f68d2759a7754f3da",
+      "after_sha256": "7ebaea50e4bd2b014206b60e8f89df70597b0cb639303a7a4e91e4f85e6897b1",
+      "before_ast_sha256": "c272039bee10dbc193f30ad91f471f184009024b8334de21c143bb3edb60dd44",
+      "after_ast_sha256": "c272039bee10dbc193f30ad91f471f184009024b8334de21c143bb3edb60dd44",
+      "ast_identical": true
+    },
+    {
+      "path": "experiments/v1.1-runtime-acceptance/e2e/smoke.py",
+      "before_sha256": "f9aaaec63da41d425487f3f8d5be29883b816305b88002845c3c999f0f5ee469",
+      "after_sha256": "ae09f3aac4831ea075e3476e952a66eb82188d8a7881911072fcb30d4c7769d2",
+      "before_ast_sha256": "0a68d0cfc23b9e3e48e16ab9559f3c88710d28691d07e31cc4412313b1ce712d",
+      "after_ast_sha256": "0a68d0cfc23b9e3e48e16ab9559f3c88710d28691d07e31cc4412313b1ce712d",
+      "ast_identical": true
+    },
+    {
+      "path": "experiments/v1.1-runtime-acceptance/e2e/smoke_compatibility.py",
+      "before_sha256": "d7a52b8dd1931815352a05b919b37782583c0efb5bcc831116e83fdf62e4eae1",
+      "after_sha256": "c4c813d2d311a50d38e0539491d1c051d266425061288a0b8aab3bf9d4271709",
+      "before_ast_sha256": "357559394493e774e68d781fa5df013a67a17fe814b6c8cf9a4bc7eae50b7bd9",
+      "after_ast_sha256": "357559394493e774e68d781fa5df013a67a17fe814b6c8cf9a4bc7eae50b7bd9",
+      "ast_identical": true
+    },
+    {
+      "path": "experiments/v1.2-acceptance/live_samples/c_route_experiment.py",
+      "before_sha256": "9678159077a4d20dec0f5885dfd354aea9e9fffc25861cc4fd81dd5b3cf06ddb",
+      "after_sha256": "deb1f5d27f5dfa8727d0c52303345776ce4db6b09573fd314eb6f13f7ba0f109",
+      "before_ast_sha256": "ebe920a6a16a89eabc14a87091b44b0cb0e8945803a23fb96de842245050764f",
+      "after_ast_sha256": "ebe920a6a16a89eabc14a87091b44b0cb0e8945803a23fb96de842245050764f",
+      "ast_identical": true
+    },
+    {
+      "path": "recipes/live_c/recipe.py",
+      "before_sha256": "07523d075461a01e89ca7bfd87a6a42c573d28f7adc100c72ced2bc5734d0b93",
+      "after_sha256": "f018a6b950fa710ae1803b71d8c0bfd5ef5a3ed38066b70d549dea22b266738a",
+      "before_ast_sha256": "43ccb12034cf5bd981224cf6d3c5447c58bf8276d811e1bf13e7e4bb8917f75d",
+      "after_ast_sha256": "43ccb12034cf5bd981224cf6d3c5447c58bf8276d811e1bf13e7e4bb8917f75d",
+      "ast_identical": true
+    }
+  ],
+  "passed": 5,
+  "failed": 0,
+  "original_acceptance_artifacts_rewritten": false
+}

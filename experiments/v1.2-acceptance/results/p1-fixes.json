@@ -1,0 +1,82 @@
+{
+  "scope": "Synthetic CLI/HTTP/PostgreSQL acceptance only; no production source audit or historical leak claim",
+  "baseline_commit": "a946f11c764e1ae299889d43cf29bc0a07dc46a6",
+  "environment": "Python 3.12 via uv --frozen; PostgreSQL tools on PATH; disposable loopback database and HTTP fixtures; no external DSN or real credentials",
+  "verification": "uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py <artifact_directory> (add --recorded-outcomes for expected/harness failures)",
+  "runs": [
+    {
+      "directory": "artifacts/acceptance/p1-parents-red",
+      "status": "expected_failure_before_fix",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario parents --output <new-directory>",
+      "passed": 7,
+      "total": 9,
+      "failed_assertions": [
+        "stable_usable_parent_b",
+        "suite_completed"
+      ],
+      "manifest_sha256": "f817edbab7d2d2debfbffd9e005f4bde491982075f00dec255a02132dedc663e"
+    },
+    {
+      "directory": "artifacts/acceptance/p1-sensitive-red",
+      "status": "expected_failure_before_fix",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario sensitive --output <new-directory>",
+      "passed": 69,
+      "total": 71,
+      "failed_assertions": [
+        "sensitive_aliasjson0_diagnostic",
+        "suite_completed"
+      ],
+      "manifest_sha256": "4db25841928aa00507db1d50e151caefb39ad5ba343c220fd852477ccd4c0d5a"
+    },
+    {
+      "directory": "artifacts/acceptance/p1-green",
+      "status": "harness_failure_query_included_replay_namespace_corrected_in_final",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario all --output <new-directory>",
+      "passed": 24,
+      "total": 26,
+      "failed_assertions": [
+        "stable_usable_parent_a",
+        "suite_completed"
+      ],
+      "manifest_sha256": "3e3a3b0f16683c49dd189ee7b6fe08538b1374bdf8aaf908dde6a0e9cc6ed639"
+    },
+    {
+      "directory": "artifacts/acceptance/p1-final",
+      "status": "pass",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/p1_acceptance.py --scenario all --output <new-directory>",
+      "passed": 254,
+      "total": 254,
+      "failed_assertions": [],
+      "manifest_sha256": "9b6f411ecdd711117cafd8f02d03d25f47c3c25f597d533b9d7f2e008c6ceb62"
+    },
+    {
+      "directory": "artifacts/acceptance/p1-joint",
+      "status": "pass",
+      "command": "./experiments/v1.2-acceptance/acceptance.sh --output <new-directory>",
+      "passed": 692,
+      "total": 692,
+      "failed_assertions": [],
+      "manifest_sha256": "bdc0eddb7b7b54ee0829afcfd321b7edf4f21d2e0eea382bf3484dbbc879de44"
+    },
+    {
+      "directory": "artifacts/acceptance/p1-recheck",
+      "status": "pass",
+      "command": "uv run --frozen python experiments/v1.2-acceptance/recheck_acceptance.py --scenario all --output <new-directory>",
+      "passed": 115,
+      "total": 115,
+      "failed_assertions": [],
+      "manifest_sha256": "5edb62408cc54ece32c99c3ce8b4428a1154dcb8456c5b2b8eb364016857b9c0"
+    }
+  ],
+  "source_sha256": {
+    "src/seal/core.py": "6cff0075fc6156df2915f7ea5061a8af5457d3c8c361f24c6e40a94b820c5884",
+    "src/seal/records.py": "1949eaaa175235f422ee71cb607dac5b0c180b02a3a248791bf94253c134c536",
+    "experiments/v1.2-acceptance/p1_acceptance.py": "ed664ed1bc8de6cb2eb87853c75de88452c817242db910d6e85560e12d3a8bd5",
+    "experiments/v1.2-acceptance/sensitive_fixtures.py": "bd07c3036517d476d190130c1c7fd7b3441049fe5d6e1ae86e7a3ec72b7a5120",
+    "experiments/v1.2-acceptance/site.py": "cf09d7f382c618ae0db3f3bd6e526ed113def7909af1c38e7ddb4f1792cdee94"
+  },
+  "limitations": [
+    "Full evidence directories are local ignored artifacts; rerun commands to regenerate them.",
+    "Representative choice is deterministic within the current candidate set; no guarantee that a source page permanently contains the record."
+  ]
+}
