@@ -72,6 +72,15 @@ def transform(value, rule):
 
 
 def record(root, value):
+    payload = {key: value[key] for key in ("record_type", "schema_version", "data")}
+    if "data_schema_id" in value:
+        payload["data_schema_id"] = value["data_schema_id"]
+    identity = hashlib.sha256(
+        json.dumps(
+            payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
+        ).encode()
+    ).hexdigest()
+    assert identity == value["content_hash"], "schema_semantic_content_hash_mismatch"
     bundle = object_json(root, value["recipe_version"])
     manifest = bundle["manifest"]
     if "extraction_schema" not in manifest:
@@ -131,7 +140,7 @@ def record(root, value):
     return checks
 
 
-def verify(root):
+def verify(root, vietnam_only=False):
     root = Path(root)
     checks, records, replays = 0, 0, 0
     for path in sorted(root.glob("*.json")):
@@ -147,23 +156,26 @@ def verify(root):
             assert report.get("stats", {}).get("downloader/request_count", 0) == 0, "replay_network"
             assert report["discovery"]["http_attempts"] == 0, "replay_http_attempts"
             replays += 1
-    assert records >= 12 and replays >= 2, "required_scenarios_missing"
-    mapped = json.loads((root / "mapped.json").read_text())["export"]["records"][0]
-    assert mapped["data"] == {
-        "subject_areas": None,
-        "issuing_authority": "Thủ tướng Chính phủ",
-        "issued_year": 2026,
-        "local": "kept",
-    }
-    native = json.loads((root / "different.json").read_text())["export"]["records"][0]
-    assert native["data"] == {
-        "agency": "Thủ tướng Chính phủ",
-        "tags": ["policy", "science"],
-        "available": False,
-    }
-    for label in ("missing_key", "wrong_type", "missing_locator", "wrong_schema_id"):
-        rejected = json.loads((root / (label + ".json")).read_text())["export"]
-        assert rejected["records"] == [] and rejected["run"]["errors"], "invalid_record_admitted"
+    if not vietnam_only:
+        assert records >= 12 and replays >= 2, "required_scenarios_missing"
+        mapped = json.loads((root / "mapped.json").read_text())["export"]["records"][0]
+        assert mapped["data"] == {
+            "subject_areas": None,
+            "issuing_authority": "Thủ tướng Chính phủ",
+            "issued_year": 2026,
+            "local": "kept",
+        }
+        native = json.loads((root / "different.json").read_text())["export"]["records"][0]
+        assert native["data"] == {
+            "agency": "Thủ tướng Chính phủ",
+            "tags": ["policy", "science"],
+            "available": False,
+        }
+        for label in ("missing_key", "wrong_type", "missing_locator", "wrong_schema_id"):
+            rejected = json.loads((root / (label + ".json")).read_text())["export"]
+            assert rejected["records"] == [] and rejected["run"]["errors"], (
+                "invalid_record_admitted"
+            )
     # Explicit source-visible business expectations, independent from receipt/Schema PASS.
     for label, authority, areas in (
         ("vietnam-48", "Thủ tướng Chính phủ", None),
@@ -176,6 +188,26 @@ def verify(root):
             "subject_areas": areas,
         }
         assert row["field_evidence"]["issued_year"]["supporting_locators"]
+    if vietnam_only:
+        assert records >= 7 and replays >= 2, "live_vietnam_scenarios_missing"
+        live = json.loads((root / "vietnam-live.json").read_text())["export"]
+        expected = {
+            "48/2026/QĐ-TTg": {
+                "issuing_authority": "Thủ tướng Chính phủ",
+                "issued_year": 2026,
+                "subject_areas": None,
+            },
+            "335/2026/NĐ-CP": {
+                "issuing_authority": "Chính phủ",
+                "issued_year": 2026,
+                "subject_areas": ["Chính sách xã hội"],
+            },
+        }
+        assert {row["record_key"]: row["data"] for row in live["records"]} == expected
+        for row in live["records"]:
+            assert any(
+                object_json(root, identity)["method"] == "POST" for identity in row["snapshot_ids"]
+            )
     return {
         "status": "PASS",
         "records": records,
@@ -188,9 +220,10 @@ def verify(root):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("output", type=Path)
+    parser.add_argument("--only-vietnam", action="store_true")
     args = parser.parse_args()
     try:
-        result = verify(args.output)
+        result = verify(args.output, args.only_vietnam)
     except Exception as exc:
         print(json.dumps({"status": "FAIL", "reason": type(exc).__name__, "detail": str(exc)}))
         return 1

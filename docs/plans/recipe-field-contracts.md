@@ -36,6 +36,8 @@ Recipe manifest 保持 family/entrypoint/params_schema，允许以下增量：
 
 Schema、mapping、Python 函数与参数都在现有 recipe_version 内容摘要中，Binding 引用此版本；
 不增加第二份合同或重复摘要。提取/映射/入库数据皆先检查严格 JSON，限制尺寸与嵌套。
+新字段合同的 data_schema_id 参与 Record content_hash，Schema 语义 ID 变化即生成新版本；
+旧无此字段的 Record 继续原 hash 算法，不改历史版本或 SQL。
 
 ## 职责、数据流与兼容
 

@@ -195,6 +195,25 @@ def exercise(h):
             h.check(label + "_stable_error", error in output["run"]["errors"])
 
         invalid_configs(h, config)
+        # A schema-only semantic revision must not reuse a version bound to the old Schema.
+        semantics = copy.deepcopy(config)
+        semantics["extraction_schema"]["$id"] = "urn:seal:schema:a:semantics:v2"
+        semantics_version = pack(h, semantics, "schema-only-update")
+        semantics_binding = h.binding("mapped", semantics_version)
+        semantics_run = h.cli("collect", "mapped", "--binding", semantics_binding)
+        semantics_export = h.cli("export", "mapped", "--run", semantics_run["run_id"])
+        h.capture("schema-only-update", {"receipt": semantics_run, "export": semantics_export})
+        h.check("schema_only_data_unchanged", semantics_export["records"][0]["data"], expected)
+        h.check(
+            "schema_only_new_record_version",
+            semantics_export["records"][0]["record_version_id"] != record["record_version_id"],
+        )
+        h.check(
+            "schema_only_old_export_id",
+            h.cli("export", "mapped", "--run", run["run_id"])["records"][0]["data_schema_id"],
+            record["data_schema_id"],
+        )
+
         # Freeze all schema/mapping/function inputs; editing the local package cannot mutate old Binding.
         newer = copy.deepcopy(config)
         newer["field_mapping"]["Cơ quan ban hành:"] = "agency_v2"
@@ -279,14 +298,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--live-vietnam", action="store_true")
+    parser.add_argument("--only-vietnam", action="store_true")
     args = parser.parse_args()
     h, error = Harness(args.output), None
     try:
         h.start()
-        exercise(h)
-        from forms_acceptance import exercise_forms
+        if not args.only_vietnam:
+            exercise(h)
+            from forms_acceptance import exercise_forms
 
-        exercise_forms(h)
+            exercise_forms(h)
         from vietnam_acceptance import exercise_vietnam
 
         exercise_vietnam(h, live=args.live_vietnam)
@@ -299,8 +320,13 @@ def main():
         value = json.loads(path.read_text())
         value.update(
             command="uv run --frozen python experiments/field-contracts/acceptance.py --output <new-directory>"
-            + (" --live-vietnam" if args.live_vietnam else ""),
-            scope="isolated PostgreSQL and two synthetic sources; archived Vietnam public detail"
+            + (" --live-vietnam" if args.live_vietnam else "")
+            + (" --only-vietnam" if args.only_vietnam else ""),
+            scope=(
+                "isolated PostgreSQL; archived Vietnam public detail"
+                if args.only_vietnam
+                else "isolated PostgreSQL and two synthetic sources; archived Vietnam public detail"
+            )
             + (" and live Vietnam GET/field probe" if args.live_vietnam else ""),
         )
         path.write_text(json.dumps(value, ensure_ascii=False, indent=2))
