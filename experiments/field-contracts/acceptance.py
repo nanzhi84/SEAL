@@ -22,6 +22,7 @@ MAPPING = {
 
 def exercise(h):
     bodies = {
+        "reserved": {"$ref": "public reference label", "$schema": None},
         "a": {
             "Cơ quan ban hành:": "Thủ tướng Chính phủ",
             "Năm ban hành:": 2026,
@@ -126,6 +127,24 @@ def exercise(h):
             "multivalue_not_truncated", aligned["records"][0]["data"]["tags"], ["policy", "science"]
         )
 
+        reserved = {
+            "family": "reserved-keys",
+            "entrypoint": "recipe:FieldsSpider",
+            "params_schema": {"type": "object"},
+            "extraction_schema": schema(
+                "reserved:v1",
+                {"$ref": {"$ref": "#/$defs/text"}, "$schema": {"type": ["string", "null"]}},
+            ),
+        }
+        reserved["extraction_schema"]["$defs"] = {"text": {"type": ["string", "null"]}}
+        rv = pack(h, reserved, "reserved-schema")
+        _, reserved_result = collect(h, "reserved", source(h, "reserved", rv, "reserved"))
+        h.check(
+            "json_schema_keywords_are_valid_business_keys",
+            reserved_result["records"][0]["data"],
+            bodies["reserved"],
+        )
+
         parser = {"Năm ban hành:": {"entrypoint": "recipe:year", "params": {"format": "%d-%m-%Y"}}}
         rules = {
             "Cơ quan ban hành:": {"entrypoint": "recipe:prefix", "params": {"prefix": "AUTH:"}}
@@ -227,6 +246,7 @@ def invalid_configs(h, valid):
         ("unknown_dialect", {"$schema": "https://example.invalid/schema"}),
         ("invalid_schema", {"type": "nonsense"}),
         ("remote_reference", {"$ref": "https://example.invalid/schema"}),
+        ("missing_local_reference", {"$ref": "#/$defs/absent"}),
     ):
         value = copy.deepcopy(valid)
         value["extraction_schema"].update(changed)
