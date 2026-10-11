@@ -147,6 +147,13 @@ def finish_run(run_id, epoch=None):
 
             record_finish = finish_records(c, source, run)
             errors.extend(record_finish["errors"])
+        content_outputs = []
+        if one(c, "SELECT config FROM seal_binding WHERE id=%s", (run["binding_id"],))[
+            "config"
+        ].get("document_ir"):
+            from .content_documents import run_outputs
+
+            content_outputs = run_outputs(c, run)
         discovery = {"contract": 1, "availability": "not_recorded", "unknown_coverage": True}
         if has_table(c, "seal_discovery"):
             from .discovery import finish_discovery
@@ -199,6 +206,7 @@ def finish_run(run_id, epoch=None):
             result_count=len(results),
             outputs=outputs,
             record_outputs=record_finish["outputs"],
+            content_outputs=content_outputs,
             record_counts=record_finish["counts"],
             discovery=discovery,
             resource_counts=resource_counts,
@@ -231,6 +239,10 @@ def finish_run(run_id, epoch=None):
             from .records import accept_records
 
             accept_records(c, source, run, record_finish["outputs"])
+        if content_outputs and status == "complete" and online:
+            from .content_documents import accept_outputs
+
+            accept_outputs(c, content_outputs)
         if status == "complete":
             complete_dates(c, source, run, record_finish["outputs"], outputs)
         else:

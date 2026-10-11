@@ -168,6 +168,11 @@ def stage_record(context, item, validation=None):
             raise SealError("record_parent_request_mismatch")
         for entry in lineage:
             _stage_resource(c, source, run, entry)
+        document_version_ids = []
+        if context["config"].get("document_ir"):
+            from .content_documents import input_versions
+
+            document_version_ids = input_versions(c, run, lineage)
         c.execute(
             """INSERT INTO seal_record(id,source_id,namespace,record_type,record_key)
                VALUES(%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING""",
@@ -196,8 +201,8 @@ def stage_record(context, item, validation=None):
         if result is None:
             c.execute(
                 """INSERT INTO seal_record_result
-                   (id,record_id,binding_id,processing_key,output_hash,content_hash,inputs,candidate,checks)
-                   VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                   (id,record_id,binding_id,processing_key,output_hash,content_hash,inputs,candidate,checks,document_version_ids)
+                   VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                 (
                     result_id,
                     record["id"],
@@ -214,6 +219,7 @@ def stage_record(context, item, validation=None):
                             "identity_verified": True,
                         }
                     ),
+                    j(document_version_ids),
                 ),
             )
         c.execute(

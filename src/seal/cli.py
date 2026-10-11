@@ -48,7 +48,17 @@ def parser():
     retry.add_argument("--enqueue", action="store_true")
     inspect = commands.add_parser("inspect")
     inspect.add_argument(
-        "kind", choices=["source", "binding", "run", "manifest", "research", "record", "snapshot"]
+        "kind",
+        choices=[
+            "source",
+            "binding",
+            "run",
+            "manifest",
+            "research",
+            "record",
+            "snapshot",
+            "content-document",
+        ],
     )
     inspect.add_argument("identity")
     inspect.add_argument("--output", type=Path)

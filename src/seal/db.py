@@ -117,4 +117,8 @@ def migrate():
         with app.open():
             app.schema_manager.apply_schema()
     # Keep the existing schema receipt label for older operator integrations.
-    return {"schema": "v1.2", "extensions": ["seeded_discovery"], "queue": "procrastinate"}
+    return {
+        "schema": "v1.2",
+        "extensions": ["seeded_discovery", "content_documents"],
+        "queue": "procrastinate",
+    }

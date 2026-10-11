@@ -120,6 +120,7 @@ class SourceConfig(Strict):
     public_html_forms: list[PublicHtmlFormRule] = Field(default_factory=list, max_length=5)
     identity: Literal["canonical_url", "business_key"] = "canonical_url"
     output_schema: Literal["generic_document.v1", "record.v1"] = "generic_document.v1"
+    document_ir: bool = False
     archive_approved: bool
     scope: str = Field(min_length=5, max_length=2000)
     seed_role: Literal["list", "detail", "api", "iframe", "attachment", "sitemap"] = "list"

@@ -87,6 +87,9 @@ def export_source(source_id, run_id=None):
                 }
             )
         records, unavailable_records = export_records(c, source, run_id, latest_run)
+        from .content_documents import export_content
+
+        content_documents, unavailable_content_documents = export_content(c, source, run_id)
     return {
         "source_id": source_id,
         "generation": source["generation"],
@@ -94,6 +97,8 @@ def export_source(source_id, run_id=None):
         "quality_status": "not_evaluated",
         "documents": documents,
         "records": records,
+        "content_documents": content_documents,
+        "unavailable_content_documents": unavailable_content_documents,
         "latest_run": latest_run,
         "run": (
             {
@@ -224,6 +229,7 @@ def export_records(connection, source, run_id, latest_run):
                         ),
                         "primary_snapshot_id": item["candidate"].get("primary_snapshot_id"),
                         "locators": item["candidate"]["locators"],
+                        "document_version_ids": item["document_version_ids"],
                         "key_locator": item["candidate"]["key_locator"],
                         **{
                             key: item["candidate"][key]
@@ -250,6 +256,7 @@ def export_records(connection, source, run_id, latest_run):
                 "record_version_id": frozen["record_version_id"],
                 "record_result_id": row["id"],
                 "record_result_ids": frozen.get("record_result_ids", [row["id"]]),
+                "document_version_ids": row["document_version_ids"],
                 "observation_id": frozen["observation_id"],
                 "inputs": raw_refs,
                 "resource_inputs": frozen.get("resource_inputs", []),

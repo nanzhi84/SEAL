@@ -47,6 +47,34 @@ def inspect_record(kind, identity):
     if kind == "manifest":
         return {"manifest_id": identity, "manifest": read_manifest(identity)}
     with connect() as c:
+        if kind == "content-document":
+            from .content_documents import export_content
+
+            document = one(c, "SELECT * FROM seal_content_document WHERE id=%s", (identity,))
+            versions = c.execute(
+                "SELECT * FROM seal_content_version WHERE document_id=%s ORDER BY created_at,id",
+                (identity,),
+            ).fetchall()
+            refs = c.execute(
+                """SELECT r.*, target.latest_version AS target_latest_version
+                   FROM seal_content_ref r JOIN seal_content_document target
+                   ON target.id=r.target_document_id
+                   WHERE r.version_id=ANY(%s) ORDER BY r.version_id,r.ordinal""",
+                ([version["id"] for version in versions],),
+            ).fetchall()
+            return {
+                "document": document,
+                "versions": versions,
+                "refs": refs,
+                "current": next(
+                    (
+                        item
+                        for item in export_content(c, {"id": document["source_id"]})[0]
+                        if item["document_id"] == identity
+                    ),
+                    None,
+                ),
+            }
         if kind == "record":
             record = one(c, "SELECT * FROM seal_record WHERE id=%s", (identity,))
             return {

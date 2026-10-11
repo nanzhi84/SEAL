@@ -404,3 +404,16 @@ class InputMiddleware(Component):
             from .records import stage_record_resource
 
             stage_record_resource(self.context, entry)
+        if (
+            self.config.get("document_ir")
+            and response.status == 200
+            and entry["role"] not in {"robots", "sitemap"}
+        ):
+            from .content_documents import stage_content
+
+            try:
+                stage_content(self.context, response, entry)
+            except SealError as exc:
+                # Parsing is independent of link discovery. Keep the archived
+                # response and allow the Recipe callback to schedule children.
+                record_error(self.context["id"], self.context["attempt_epoch"], exc.code)

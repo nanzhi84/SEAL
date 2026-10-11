@@ -66,6 +66,7 @@ def write_manifest(source, binding, run, report, status, input_artifacts):
             "inputs": input_artifacts,
             "documents": report["outputs"],
             "records": report["record_outputs"],
+            "content_documents": report.get("content_outputs", []),
         },
     }
     if report.get("replay_origin_id"):
@@ -143,6 +144,7 @@ def terminal_report(connection, source, run, status, reason):
     report.update(
         outputs=report.get("outputs", []),
         record_outputs=report.get("record_outputs", []),
+        content_outputs=report.get("content_outputs", []),
         record_counts=counts,
         discovery=discovery,
         resource_counts=fetch_counts,
