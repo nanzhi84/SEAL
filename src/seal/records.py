@@ -184,9 +184,10 @@ def stage_record(context, item, validation=None):
             {"record": record["id"], "binding": run["binding_id"], "inputs": input_ids}
         )
         output_hash = digest(output)
-        content_hash = digest(
-            {key: output[key] for key in ("record_type", "schema_version", "data")}
-        )
+        content = {key: output[key] for key in ("record_type", "schema_version", "data")}
+        if "data_schema_id" in output:
+            content["data_schema_id"] = output["data_schema_id"]
+        content_hash = digest(content)
         result = c.execute(
             "SELECT id FROM seal_record_result WHERE processing_key=%s AND output_hash=%s",
             (processing_key, output_hash),

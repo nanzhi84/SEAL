@@ -36,22 +36,6 @@ def schema_validator(schema):
     identity = schema.get("$id")
     if not isinstance(identity, str) or not urlsplit(identity).scheme:
         raise SealError("field_schema_identity_required")
-    pending, references = [schema], []
-    while pending:
-        node = pending.pop()
-        if isinstance(node, dict):
-            for name in ("$ref", "$dynamicRef", "$recursiveRef"):
-                if name in node and (
-                    not isinstance(node[name], str) or not node[name].startswith("#")
-                ):
-                    raise SealError("field_remote_schema_rejected")
-                if name in node:
-                    references.append(node[name])
-            if "$schema" in node and node["$schema"] != schema["$schema"]:
-                raise SealError("field_schema_dialect_rejected")
-            pending.extend(node.values())
-        elif isinstance(node, list):
-            pending.extend(node)
     cls = DIALECTS[schema["$schema"]]
     try:
         cls.check_schema(schema)
@@ -64,14 +48,28 @@ def schema_validator(schema):
             raise SealError("field_schema_closed_object_required")
         if any(not key.strip() for key in schema["properties"]):
             raise SealError("field_schema_key_rejected")
-        registry = Registry(retrieve=_no_retrieve).with_resource(
-            identity, Resource.from_contents(schema)
-        )
-        for reference in references:
-            try:
-                registry.resolver(identity).lookup(reference)
-            except Unresolvable:
-                raise SealError("field_schema_reference_invalid") from None
+        resource = Resource.from_contents(schema)
+        registry = Registry(retrieve=_no_retrieve).with_resource(identity, resource).crawl()
+        pending = [(resource, registry.resolver(identity))]
+        while pending:
+            current, resolver = pending.pop()
+            node = current.contents
+            if not isinstance(node, dict):
+                continue
+            if "$schema" in node and node["$schema"] != schema["$schema"]:
+                raise SealError("field_schema_dialect_rejected")
+            for name in ("$ref", "$dynamicRef", "$recursiveRef"):
+                if name not in node:
+                    continue
+                if not isinstance(node[name], str) or not node[name].startswith("#"):
+                    raise SealError("field_remote_schema_rejected")
+                try:
+                    resolver.lookup(node[name])
+                except Unresolvable:
+                    raise SealError("field_schema_reference_invalid") from None
+            pending.extend(
+                (child, resolver.in_subresource(child)) for child in current.subresources()
+            )
         return cls(schema, registry=registry)
     except jsonschema.SchemaError:
         raise SealError("field_schema_invalid") from None

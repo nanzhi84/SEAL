@@ -313,6 +313,8 @@ def validate_record(item, cache=None, contract=None, functions=None):
             raise SealError("field_schema_version_mismatch")
         located_fields = {key for key, child in value.data.items() if child is not None}
     else:
+        if value.data_schema_id is not None:
+            raise SealError("field_contract_required")
         located_fields = set(value.data)
     if set(value.locators) != located_fields:
         raise SealError("record_locator_fields_mismatch")

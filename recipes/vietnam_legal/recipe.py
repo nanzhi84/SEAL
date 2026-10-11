@@ -21,6 +21,16 @@ def subject_list(value):
     return [value] if value.strip() else None
 
 
+def document_links(docid):
+    return (
+        "//a[contains(concat(@href,'&'),'?docid="
+        + docid
+        + "&') or contains(concat(@href,'&'),'&docid="
+        + docid
+        + "&')]"
+    )
+
+
 class VietnamLegalSpider(scrapy.Spider):
     name = "vietnam_legal_metadata"
 
@@ -125,7 +135,7 @@ class VietnamLegalSpider(scrapy.Spider):
             docid = match.group(1) if match else None
             supplementary, supporting = [], {}
             for page in self.memberships:
-                if docid is None or not page.xpath("//a[contains(@href,'docid=" + docid + "')]"):
+                if docid is None or not page.xpath(document_links(docid)):
                     continue
                 ref = input_reference(page)
                 supplementary.append(
@@ -139,7 +149,11 @@ class VietnamLegalSpider(scrapy.Spider):
                     elif year is not None:
                         supporting.setdefault(KEYS[2], []).append(
                             {
-                                **xpath_locator(year_node[0]),
+                                "kind": "xpath",
+                                "path": xpath_locator(year_node[0])["path"]
+                                + "[ancestor::form"
+                                + document_links(docid)
+                                + "]",
                                 "snapshot_id": ref["snapshot_id"],
                                 "value": found,
                             }
@@ -158,12 +172,14 @@ class VietnamLegalSpider(scrapy.Spider):
                         category_locators.append(
                             {
                                 "kind": "xpath",
-                                "path": "//select[contains(@id,'drdDocCategory')]/option[@selected and @value!='0'][ancestor::form//a[contains(@href,'docid="
-                                + docid
-                                + "')]]",
+                                "path": "//select[contains(@id,'drdDocCategory')]/option[@selected and @value!='0'][ancestor::form"
+                                + document_links(docid)
+                                + "]",
                                 "snapshot_id": ref["snapshot_id"],
                             }
                         )
+            if year is None:
+                supporting.pop(KEYS[2], None)
             if subjects is None and category_values:
                 subjects = category_values
                 subject_locator = {"kind": "values", "locators": category_locators}
