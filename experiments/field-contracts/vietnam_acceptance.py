@@ -133,11 +133,21 @@ def check_detail(h, record, authority, subjects):
         h.check("vietnam_independent_" + key, expected, record["data"][key])
     if subjects is None:
         h.check("vietnam_null_without_evidence", "subject_areas" in record["field_evidence"], False)
+    import re
+    from urllib.parse import parse_qs, urlsplit
+
+    match = re.search(r"(?:[?&]docid=|/detail/)([0-9]+)", record["detail_url"])
+    docid = match.group(1)
     year_proofs = record["field_evidence"]["issued_year"].get("supporting_locators", [])
     h.check("vietnam_year_membership_retained", len(year_proofs) > 0)
     for proof in year_proofs:
         snapshot = json.loads(object_bytes(h, proof["snapshot_id"]))
         doc = html.fromstring(object_bytes(h, snapshot["body_hash"]).decode("utf-8"))
+        members = {
+            parse_qs(urlsplit(href).query).get("docid", [None])[0]
+            for href in doc.xpath("//a/@href")
+        }
+        h.check("vietnam_year_exact_docid_membership", docid in members)
         h.check(
             "vietnam_year_membership_value",
             [" ".join(node.itertext()).strip() for node in doc.xpath(proof["path"])],
