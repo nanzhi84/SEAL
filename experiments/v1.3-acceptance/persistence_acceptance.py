@@ -33,7 +33,7 @@ def run_all(h):
     h.check("manual_collect_uses_default_binding", first["binding_id"], binding)
     h.check("manual_collect_fresh_query_summary", inspected["summary"], first["summary"])
     h.check(
-        "manual_collect_terminal_reason", first["summary"]["terminal_reason"], "queue_exhausted"
+        "manual_collect_terminal", first["summary"]["terminal"], True
     )
     h.check("manual_collect_record_count", first["summary"]["counts"]["records"], 10)
     h.check("manual_collect_snapshot_count", first["summary"]["counts"]["snapshots"], 1)
@@ -137,7 +137,7 @@ def run_all(h):
     baseline_pointer = record["record"]["latest_version"]
     h.site.state = "conflict"
     conflict = h.cli("collect", "persistent", ok=False)
-    h.check("conflicting_collect_partial", conflict["status"], "partial")
+    h.check("conflicting_collect_partial", conflict["status"], "failed")
     h.check(
         "partial_collect_preserves_current_version",
         h.cli("inspect", "record", record_id)["record"]["latest_version"],

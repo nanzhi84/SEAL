@@ -161,7 +161,7 @@ def duplicates_conflicts_and_types(h, version):
     conflict, inspected, exported = run(
         h, "conflict", conflict_binding, ok=False, capture="conflict"
     )
-    h.check("same_key_different_value_partial", conflict["status"], "partial")
+    h.check("same_key_different_value_partial", conflict["status"], "failed")
     h.check("conflict_diagnostic_explicit", "record_identity_conflict" in conflict["errors"])
     h.check("all_conflict_values_excluded", "entity-0" not in by_key(exported))
     h.check("conflict_keeps_all_immutable_emissions", len(inspected["record_emissions"]), 11)
@@ -297,7 +297,7 @@ def discovery_and_html(h):
         target = h.binding(name, recipe=generic)
         before = len(h.site.ledger)
         failed, inspected, _ = run(h, name, target, ok=False, capture="discovery-" + name)
-        h.check(name + "_partial", failed["status"], "partial")
+        h.check(name + "_partial", failed["status"], "failed")
         h.check(name + "_explicit_reason", reason in failed["errors"])
         if name == "budget":
             h.check("discovery_survives_request_budget", inspected["discovery"]["discovered"], 101)
@@ -358,7 +358,7 @@ def assets_and_manifest(h, version):
     failed, inspected_bad, data = run(
         h, "badassets", bad, ok=False, capture="unsupported-resources"
     )
-    h.check("unparseable_attachments_partial", failed["status"], "partial")
+    h.check("unparseable_attachments_partial", failed["status"], "failed")
     h.check("unparseable_attachments_no_fabricated_record", data["records"], [])
     h.check("unparseable_attachment_bytes_archived", len(inspected_bad["observations"]), 3)
     h.check("unparseable_attachment_discovery_attributed", inspected_bad["discovery"]["failed"], 2)
@@ -382,7 +382,7 @@ def failures_and_manifest_fencing(h, version):
         h, "parsefailure", version, paths=["/html/parse-failed"], params={"mode": "parse_failure"}
     )
     failed, inspected, _ = run(h, "parsefailure", parse, ok=False, capture="parse-failure")
-    h.check("parse_error_causes_partial", failed["status"], "partial")
+    h.check("parse_error_causes_partial", failed["status"], "failed")
     h.check("parse_error_discovery_attributed", inspected["discovery"]["failed"], 1)
     h.check("parse_error_raw_preserved", len(inspected["observations"]), 1)
     h.config(
@@ -417,7 +417,7 @@ print(json.dumps(execute_run(%r)))
         check=True,
     )
     failed = json.loads(result.stdout)
-    h.check("manifest_write_failure_partial", failed["status"], "partial")
+    h.check("manifest_write_failure_partial", failed["status"], "failed")
     h.check("manifest_write_failure_diagnostic", "manifest_archive_failed" in failed["errors"])
     h.check(
         "manifest_failure_no_current_pointer",

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Run 统一失败终态</title>
+<style>body{max-width:960px;margin:48px auto;padding:0 24px;font:16px/1.8 system-ui;color:#20252c;background:#f8fafb}h1,h2{line-height:1.3}section{background:white;padding:24px;border:1px solid #dde3e8;border-radius:12px;margin:20px 0}code{background:#edf1f5;padding:2px 6px}li{margin:8px 0}.flow{display:flex;flex-wrap:wrap;gap:12px}.flow span{padding:10px 16px;border:1px solid #ccd5df;border-radius:8px}.ok{color:#15663c}.fail{color:#b02c31}</style>
+<h1>Run 统一失败终态</h1><p>派生自 <a href="../plans/run-failed-terminal.md">Plan</a> · <a href="https://github.com/nanzhi84/SEAL/issues/7">Issue #7</a></p>
+<section><h2>状态只描述执行</h2><div class="flow"><span>pending</span><span>running</span><span>finishing</span><span class="ok">complete</span><span class="fail">failed</span><span>retryable → running</span></div><p>具体原因读取 <code>errors</code> 错误码数组。无重复 termination / terminal_reason；Scrapy finish_reason 保留原始执行上下文。complete 不代表全量覆盖或业务质量通过。</p></section>
+<section><h2>一次失败的边界</h2><ul><li>临时故障在次数与总期限内 retryable；耗尽后 failed。</li><li>generation / run_seq / attempt_epoch 继续隔离旧写入。</li><li>只有 complete 推进成功基线；failed 有效产物可显式 export --run。</li><li>默认成功视图保留历史成功结果；每条导出验证归档可读性与输入血缘。</li></ul></section>
+<section><h2>历史迁移</h2><p>0007 将 partial / superseded 改为 failed，历史 terminal_reason 并入 errors，数据库禁止旧终态。归档字节不改：历史 Manifest 可能保留旧词汇。新代码查询当前状态；历史 Manifest 留存当时事实。旧 Recipe 重新 pack，不绕过 environment_drift。</p></section>
+<section><h2>真实 CLI 验收</h2><p>复用隔离 PostgreSQL、loopback、私有 Archive 的 M3 / Record / Persistence 路径，覆盖解析、恢复、重试耗尽、期限、旧写入、成功视图与显式导出。命令、前提与工件合同见 Plan；最终结果待执行填入。</p></section></html>

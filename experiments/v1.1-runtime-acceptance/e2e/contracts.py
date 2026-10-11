@@ -81,20 +81,60 @@ def runtime_contracts(h):
     from .faults import sql
 
     h.config(
-        "partial",
+        "failed",
+        entries=[h.site.url + "/partial/one"],
+        seed_role="detail",
+    )
+    binding = h.binding("failed")
+    h.select("failed", binding, 0)
+    h.cli("run", "failed")
+    baseline = h.export("failed")["documents"]
+    h.site.version = "B"
+    h.config(
+        "failed",
         entries=[h.site.url + "/partial/one", h.site.url + "/probe/badpdf"],
         seed_role="detail",
     )
-    binding = h.binding("partial")
-    failed = h.cli("run", "partial", "--binding", binding, ok=False)
-    h.check("partial_has_technical_error", failed["status"], "partial")
-    data = h.cli("export", "partial", "--run", failed["run_id"])
+    binding = h.binding("failed")
+    failed = h.cli("run", "failed", "--binding", binding, ok=False)
+    h.check("partial_has_technical_error", failed["status"], "failed")
+    h.check("failed_errors_not_empty", bool(failed["errors"]))
+    h.check("failed_errors_in_report", failed["report"]["errors"], failed["errors"])
+    h.check(
+        "failed_no_duplicate_classification",
+        not (
+            {"termination", "terminal_reason"}
+            & (failed["summary"].keys() | failed["report"].keys())
+        ),
+    )
+    data = h.cli("export", "failed", "--run", failed["run_id"])
     h.check("partial_valid_json_retained", len(data["documents"]), 1)
+    h.check("failed_valid_result_is_new_content", data["documents"][0]["body"], "Public content B")
     h.check("partial_not_quality_evaluated", data["quality_status"], "not_evaluated")
     h.check(
         "partial_raw_preserved", len(h.cli("inspect", "run", failed["run_id"])["observations"]) >= 2
     )
-    h.check("partial_not_in_success_view", len(h.export("partial")["documents"]), 0)
+    h.check(
+        "failed_preserves_success_view",
+        [d["result_id"] for d in h.export("failed")["documents"]],
+        [d["result_id"] for d in baseline],
+    )
+    entry = data["documents"][0]
+    key = entry["body_hash"]
+    blob = h.root / "archive" / "objects" / key[:2] / key[2:]
+    original = blob.read_bytes()
+    blob.write_bytes(b"synthetic failure evidence corruption")
+    try:
+        broken = h.cli("export", "failed", "--run", failed["run_id"])
+        h.check("failed_export_corrupt_item_rejected", broken["documents"], [])
+        h.check(
+            "failed_export_corruption_diagnostic",
+            broken["unavailable"][0]["reason"],
+            "archive_corrupt",
+        )
+    finally:
+        blob.write_bytes(original)
+        h.site.version = "A"
     h.cli("export", "a", "--run", failed["run_id"], ok=False)
     h.check("cross_source_export_rejected", True)
 

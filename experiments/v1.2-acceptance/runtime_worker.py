@@ -120,7 +120,7 @@ print(json.dumps({"late_callbacks_executed":True}))
         h.site.hold_release.set()
         stdout, stderr = process.communicate(timeout=30)
         old = json.loads(stdout)
-        h.check("obsolete_record_run_superseded", old["status"], "superseded")
+        h.check("obsolete_record_run_superseded", old["status"], "failed")
         h.check(
             "obsolete_callback_cannot_overwrite",
             by_key(h.export("fence"))["entity-3"]["data"]["count"],

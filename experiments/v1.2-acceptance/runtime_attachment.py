@@ -113,7 +113,7 @@ def structured_attachments(h, version):
         )
     finally:
         h.site.structured_broken = False
-    h.check("damaged_structured_run_partial", failed["status"], "partial")
+    h.check("damaged_structured_run_partial", failed["status"], "failed")
     h.check(
         "damaged_structured_errors_explicit",
         {"xls_parse_failed", "docx_parse_failed"}.issubset(set(failed["errors"])),
@@ -139,7 +139,7 @@ def structured_attachments(h, version):
     failed, observed, retained = run(
         h, "partialdocument", partial, ok=False, capture="structured-attachments-partial"
     )
-    h.check("docx_unsupported_object_partial", failed["status"], "partial")
+    h.check("docx_unsupported_object_partial", failed["status"], "failed")
     h.check("docx_unsupported_object_diagnostic", "docx_unsupported_content" in failed["errors"])
     h.check("docx_partial_supported_body_retained", len(retained["records"]), 1)
     h.check(
