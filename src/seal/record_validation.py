@@ -399,7 +399,13 @@ def validate_record(item, cache=None, contract=None, functions=None):
     if key_target[0]["body_hash"] not in groups:
         _located_key(value, key_target, _RecordJsonInput(cache))
     output = value.model_dump(
-        exclude={"type", "snapshot_id", "observation_id", "supplementary_inputs"}
+        exclude={
+            "type",
+            "snapshot_id",
+            "observation_id",
+            "supplementary_inputs",
+            "supporting_locators",
+        }
     )
     # Locators without an explicit snapshot refer to this immutable main input.
     output["primary_snapshot_id"] = value.snapshot_id
