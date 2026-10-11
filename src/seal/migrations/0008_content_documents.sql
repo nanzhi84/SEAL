@@ -20,6 +20,8 @@ CREATE TABLE seal_content_version (
  observation_id text NOT NULL REFERENCES seal_fetch_observation,
  body_hash text NOT NULL,
  parser_version text NOT NULL,
+ source_format text NOT NULL,
+ mime_type text NOT NULL,
  processing_key text NOT NULL UNIQUE,
  content_hash text NOT NULL,
  tree jsonb NOT NULL,

@@ -30,6 +30,8 @@ def verify(root):
     checked, refs = 0, 0
     for filename in (
         "collection",
+        "base",
+        "pages",
         "formats",
         "repeat",
         "rule-change",

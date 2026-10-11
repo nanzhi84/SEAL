@@ -4,6 +4,7 @@ import json
 from io import BytesIO
 
 from openpyxl import Workbook
+from PIL import Image
 
 
 def install(h):
@@ -16,10 +17,12 @@ def install(h):
     workbook.create_sheet("Second").append(["B", 2])
     stream = BytesIO()
     workbook.save(stream)
+    picture = BytesIO()
+    Image.new("RGB", (1, 1), "white").save(picture, format="PNG")
     fixtures = {
         "/ir/index": (
             "text/html",
-            b'<html><body><h1>Resources</h1><a href="/ir/article">Article</a><a href="/ir/data.csv">CSV</a><a href="/ir/data.json">JSON</a><a href="/ir/note.txt">Text</a><a href="/ir/picture.png">Image</a><a href="/ir/bad.pdf">Bad PDF</a></body></html>',
+            b'<html><body><h1>Resources</h1><a href="/ir/article">Article</a><a href="/ir/data.csv">CSV</a><a href="/ir/data.json">JSON</a><a href="/ir/note.txt">Text</a><a href="/ir/picture.png">Image</a><a href="/ir/bad.png">Bad image</a><a href="/ir/bad.webp">Wrong format</a><a href="/ir/bad.pdf">Bad PDF</a></body></html>',
         ),
         "/ir/article": (
             "text/html",
@@ -28,12 +31,9 @@ def install(h):
         "/ir/data.csv": ("text/csv", b"name,value\nA,1\nB,\n"),
         "/ir/data.json": ("application/json", b'[1,null,{"ok":true}]'),
         "/ir/note.txt": ("text/plain", b"A public note\nsecond line"),
-        "/ir/picture.png": (
-            "image/png",
-            bytes.fromhex(
-                "89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000b49444154789c636000020000050001a5f645400000000049454e44ae426082"
-            ),
-        ),
+        "/ir/picture.png": ("image/png", picture.getvalue()),
+        "/ir/bad.png": ("image/png", picture.getvalue()[:24]),
+        "/ir/bad.webp": ("image/webp", b"RIFF\x08\x00\x00\x00WAVEfmt "),
         "/ir/bad.pdf": ("application/pdf", b"damaged synthetic PDF"),
         "/ir/pdf": ("application/pdf", h.site.pdf),
         "/ir/docx": (
@@ -71,6 +71,13 @@ def install(h):
             "text/html",
             b'<html><body><nav><a href="/ir/note.txt">Only link</a></nav></body></html>',
         ),
+        "/ir/base": (
+            "text/html",
+            b'<html><head><base href="/ir/assets/"></head><body><article><p>Base example</p><img src="picture.png"><a href="data.csv">Attachment</a></article></body></html>',
+        ),
+        "/ir/assets/data.csv": ("text/csv", b"name,value\nBase,1\n"),
+        "/ir/error": ("text/html", b"<html><h1>Access denied</h1></html>"),
+        "/ir/empty": ("text/html", b"<html><body></body></html>"),
     }
     h.fixtures = fixtures
 

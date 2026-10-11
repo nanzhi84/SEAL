@@ -185,9 +185,14 @@ def stage_record(context, item, validation=None):
             (source["id"], run["namespace"], output["record_type"], output["record_key"]),
         )
         input_ids = sorted({entry["snapshot_id"] for entry in lineage})
-        processing_key = digest(
-            {"record": record["id"], "binding": run["binding_id"], "inputs": input_ids}
-        )
+        processing_identity = {
+            "record": record["id"],
+            "binding": run["binding_id"],
+            "inputs": input_ids,
+        }
+        if context["config"].get("document_ir"):
+            processing_identity["document_versions"] = document_version_ids
+        processing_key = digest(processing_identity)
         output_hash = digest(output)
         content = {key: output[key] for key in ("record_type", "schema_version", "data")}
         if "data_schema_id" in output:

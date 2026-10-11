@@ -3,15 +3,18 @@
 import csv
 import json
 import math
+import warnings
 from io import BytesIO, StringIO
 from urllib.parse import urljoin, urlsplit
 from zipfile import ZipFile
 
 from lxml import html
+from PIL import Image
 from pypdf import PdfReader
 
 from .attachments import MAX_CELLS, docx_structure, docx_text, xls_structure
 from .core import SealError, public_url
+from .fallback import _check_page
 from .scope import paths_for
 
 PARSER_VERSION = "document-ir.v1"
@@ -85,23 +88,23 @@ def _xlsx(body):
 
 def _docx(body):
     blocks = docx_structure(body)
-    children, paragraphs = [], []
+    children, paragraphs, article_index = [], [], None
     for block in blocks:
         if "text" in block:
             if block["text"].strip():
+                if article_index is None:
+                    article_index = len(children)
+                    children.append(None)
                 paragraphs.append(block["text"].strip())
         else:
-            if paragraphs:
-                children.append({"type": "article", "text": "\n".join(paragraphs)})
-                paragraphs = []
             rows = [[docx_text(cell["blocks"]) for cell in row["cells"]] for row in block["rows"]]
             children.append(_table(None, rows))
-    if paragraphs:
-        children.append({"type": "article", "text": "\n".join(paragraphs)})
+    if article_index is not None:
+        children[article_index] = {"type": "article", "text": "\n".join(paragraphs)}
     return children
 
 
-def _html(body, url, config, selector=None):
+def _html(body, base_url, config, selector=None):
     try:
         decoded = _decode(body)
         root = html.fromstring(decoded)
@@ -130,38 +133,38 @@ def _html(body, url, config, selector=None):
     text = " ".join(" ".join(scope.itertext()).split())
     if text:
         children.append({"type": "article", "text": text})
-    for table in scope.xpath(".//table"):
-        rows = [
-            [" ".join(cell.itertext()).strip() for cell in tr.xpath("./th|./td")]
-            for tr in table.xpath(".//tr")
-        ]
-        if rows:
-            caption = " ".join(table.xpath("./caption//text()")).strip() or None
-            children.append(_table(caption, rows))
-    for image in scope.xpath(".//img[@src]"):
-        try:
-            target = public_url(urljoin(url, image.get("src")))
-        except SealError:
-            continue
-        children.append({"type": "image", "url": target, "caption": image.get("alt") or None})
     seen = set()
-    for anchor in scope.xpath(".//a[@href]"):
-        target = urljoin(url, anchor.get("href"))
-        try:
-            target = public_url(target)
-        except SealError:
-            continue
-        parsed = urlsplit(target)
-        if not paths_for(config, parsed.hostname, parsed.path) or target in seen:
-            continue
-        seen.add(target)
-        children.append(
-            {
-                "type": "document_ref",
-                "url": target,
-                "name": " ".join(anchor.itertext()).strip() or None,
-            }
-        )
+    for node in scope.iterdescendants():
+        if node.tag == "table":
+            rows = [
+                [" ".join(cell.itertext()).strip() for cell in tr.xpath("./th|./td")]
+                for tr in node.xpath(".//tr")
+            ]
+            if rows:
+                caption = " ".join(node.xpath("./caption//text()")).strip() or None
+                children.append(_table(caption, rows))
+        elif node.tag == "img" and node.get("src"):
+            try:
+                target = public_url(urljoin(base_url, node.get("src")))
+            except SealError:
+                continue
+            children.append({"type": "image", "url": target, "caption": node.get("alt") or None})
+        elif node.tag == "a" and node.get("href"):
+            try:
+                target = public_url(urljoin(base_url, node.get("href")))
+            except SealError:
+                continue
+            parsed = urlsplit(target)
+            if not paths_for(config, parsed.hostname, parsed.path) or target in seen:
+                continue
+            seen.add(target)
+            children.append(
+                {
+                    "type": "document_ref",
+                    "url": target,
+                    "name": " ".join(node.itertext()).strip() or None,
+                }
+            )
     return children
 
 
@@ -199,7 +202,13 @@ def parse_document(response, config, snapshot_id, body_hash):
     kind, mime = _kind(response)
     body = response.body
     if kind == "html":
-        children = _html(body, response.url, config, response.meta.get("seal_document_content_css"))
+        _check_page(response)
+        children = _html(
+            body,
+            response.urljoin(""),
+            config,
+            response.meta.get("seal_document_content_css"),
+        )
     elif kind == "pdf":
         try:
             reader = PdfReader(BytesIO(body), strict=True)
@@ -226,15 +235,44 @@ def parse_document(response, config, snapshot_id, body_hash):
             value = json.loads(
                 _decode(body), parse_constant=lambda _: (_ for _ in ()).throw(ValueError())
             )
-        except ValueError:
+        except (ValueError, RecursionError):
             raise SealError("json_parse_failed") from None
         children = [{"type": "json", "value": value}]
     elif kind == "txt":
         children = [{"type": "article", "text": _decode(body)}]
     else:
-        signatures = (b"\x89PNG\r\n\x1a\n", b"\xff\xd8\xff", b"GIF87a", b"GIF89a", b"RIFF")
-        if not body.startswith(signatures):
-            raise SealError("image_parse_failed")
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("error", Image.DecompressionBombWarning)
+                with Image.open(BytesIO(body)) as image:
+                    image_format = image.format
+                    if image.width * image.height > 100_000_000:
+                        raise ValueError
+                    image.verify()
+        except Exception:
+            raise SealError("image_parse_failed") from None
+        actual_mime = {
+            "PNG": "image/png",
+            "JPEG": "image/jpeg",
+            "GIF": "image/gif",
+            "WEBP": "image/webp",
+        }.get(image_format)
+        suffix = urlsplit(response.url).path.lower().rsplit(".", 1)[-1]
+        suffix_mime = {
+            "png": "image/png",
+            "jpg": "image/jpeg",
+            "jpeg": "image/jpeg",
+            "gif": "image/gif",
+            "webp": "image/webp",
+        }.get(suffix)
+        if (
+            actual_mime is None
+            or mime in IMAGE_MIMES
+            and mime != actual_mime
+            or (suffix_mime is not None and suffix_mime != actual_mime)
+        ):
+            raise SealError("image_format_mismatch")
+        mime = actual_mime
         children = [
             {
                 "type": "image",
@@ -244,6 +282,6 @@ def parse_document(response, config, snapshot_id, body_hash):
                 "caption": None,
             }
         ]
-    if not children:
+    if not children and kind != "html":
         raise SealError("empty_document")
     return {"type": "document", "children": children}, kind, mime

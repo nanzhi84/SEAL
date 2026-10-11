@@ -24,7 +24,7 @@ def _validate(tree, config, url):
     if set(tree) != {"type", "children"} or tree["type"] != "document":
         raise SealError("invalid_content_document")
     children = tree["children"]
-    if not isinstance(children, list) or not 0 < len(children) <= 10000:
+    if not isinstance(children, list) or len(children) > 10000:
         raise SealError("invalid_content_children")
     for child in children:
         if not isinstance(child, dict):
@@ -160,8 +160,8 @@ def stage_content(context, response, entry):
             c.execute(
                 """INSERT INTO seal_content_version
                    (id,document_id,binding_id,run_id,attempt_epoch,snapshot_id,observation_id,
-                    body_hash,parser_version,processing_key,content_hash,tree)
-                   VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                   body_hash,parser_version,source_format,mime_type,processing_key,content_hash,tree)
+                   VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                 (
                     version_id,
                     identity,
@@ -172,6 +172,8 @@ def stage_content(context, response, entry):
                     entry["observation_id"],
                     snapshot["body_hash"],
                     PARSER_VERSION,
+                    kind,
+                    mime,
                     processing_key,
                     content_hash,
                     j(tree),
@@ -302,6 +304,8 @@ def export_content(connection, source, run_id=None):
                 "observation_id": row["actual_observation_id"],
                 "body_hash": row["body_hash"],
                 "parser_version": row["parser_version"],
+                "source_format": row["source_format"],
+                "mime_type": row["mime_type"],
                 "binding_id": row["binding_id"],
                 "content_hash": row["content_hash"],
                 "stale": row["latest_version"] != row["id"],

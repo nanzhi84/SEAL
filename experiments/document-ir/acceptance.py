@@ -50,7 +50,7 @@ class DocumentSpider(scrapy.Spider):
             yield scrapy.Request(seed["url"], callback=self.parse, meta=meta)
 
     def parse(self, response):
-        if response.url.endswith("/index"):
+        if response.url.endswith(("/index", "/base")):
             for link in response.css("a[href]"):
                 yield follow(response, link.attrib["href"], "attachment", self.parse)
         elif self.params.get("extract") and response.url.endswith("/article"):
@@ -96,12 +96,19 @@ def exercise(h):
         "article_links_saved", any(c["type"] == "document_ref" for c in docs["article"]["children"])
     )
     h.check("image_is_image", docs["picture.png"]["children"][0]["type"], "image")
+    h.check("corrupt_image_has_no_success", "bad.png" not in docs)
+    h.check("mislabeled_image_has_no_success", "bad.webp" not in docs)
     h.check(
         "html_has_table_and_image",
         {c["type"] for c in docs["article"]["children"]},
         {"article", "table", "image", "document_ref"},
     )
     h.check("bad_pdf_no_success", "bad.pdf" not in docs)
+    h.check(
+        "source_format_retained",
+        (docs["picture.png"]["source_format"], docs["picture.png"]["mime_type"]),
+        ("image", "image/png"),
+    )
     pending = next(ref for ref in docs["index"]["refs"] if ref["url"].endswith("/ir/bad.pdf"))
     h.check(
         "failed_target_has_fk_but_is_pending",
@@ -127,6 +134,60 @@ def exercise(h):
         bool(docs["data.csv"]["snapshot_id"] and docs["data.csv"]["parser_version"]),
     )
     h.capture("document", h.cli("inspect", "content-document", docs["article"]["document_id"]))
+    discovery_events = h.cli("inspect", "run", run["run_id"])["discovery"]["events"]
+    h.check(
+        "parse_failure_attributed_to_snapshot",
+        any(
+            event["reason"] == "image_parse_failed" and event["snapshot_id"]
+            for event in discovery_events
+        ),
+    )
+
+    h.config(
+        "ir_base",
+        entries=[h.site.url + "/ir/base"],
+        output_schema="record.v1",
+        document_ir=True,
+        delay=0.0,
+        concurrency=1,
+    )
+    base_binding = h.binding("ir_base", version, {})
+    base_run = h.cli("collect", "ir_base", "--binding", base_binding)
+    base_export = h.cli("export", "ir_base", "--run", base_run["run_id"])
+    base_page = next(
+        row for row in base_export["content_documents"] if row["url"].endswith("/base")
+    )
+    h.check(
+        "base_href_ref_matches_download",
+        base_page["refs"][0]["url"],
+        h.site.url + "/ir/assets/data.csv",
+    )
+    h.check("base_href_ref_resolved", base_page["refs"][0]["resolved"])
+    h.check(
+        "base_href_image_resolved",
+        next(c["url"] for c in base_page["children"] if c["type"] == "image"),
+        h.site.url + "/ir/assets/picture.png",
+    )
+    h.capture("base", {"receipt": base_run, "export": base_export})
+
+    h.config(
+        "ir_pages",
+        entries=[h.site.url + "/ir/error", h.site.url + "/ir/empty"],
+        output_schema="record.v1",
+        document_ir=True,
+        delay=0.0,
+        concurrency=1,
+    )
+    pages_binding = h.binding("ir_pages", version, {})
+    pages_run = h.cli("collect", "ir_pages", "--binding", pages_binding, ok=False)
+    pages_export = h.cli("export", "ir_pages", "--run", pages_run["run_id"])
+    h.check("error_page_rejected", "fallback_error_page" in pages_run["errors"])
+    h.check(
+        "empty_html_is_valid_document",
+        [(Path(row["url"]).name, row["children"]) for row in pages_export["content_documents"]],
+        [("empty", [])],
+    )
+    h.capture("pages", {"receipt": pages_run, "export": pages_export})
     try:
         sql(
             h,
@@ -207,7 +268,9 @@ def exercise(h):
     formats = {Path(row["url"]).name: row for row in formats_export["content_documents"]}
     h.check("pdf_is_article", formats["pdf"]["children"][0]["type"], "article")
     h.check(
-        "docx_contains_article", any(c["type"] == "article" for c in formats["docx"]["children"])
+        "docx_has_single_article",
+        [c["type"] for c in formats["docx"]["children"]].count("article"),
+        1,
     )
     h.check("xls_is_table", all(c["type"] == "table" for c in formats["xls"]["children"]))
     h.check(

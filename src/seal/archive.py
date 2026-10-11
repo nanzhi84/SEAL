@@ -416,4 +416,7 @@ class InputMiddleware(Component):
             except SealError as exc:
                 # Parsing is independent of link discovery. Keep the archived
                 # response and allow the Recipe callback to schedule children.
+                from .discovery import mark_inputs_failed
+
+                mark_inputs_failed(self.context, [entry["snapshot_id"]], exc.code)
                 record_error(self.context["id"], self.context["attempt_epoch"], exc.code)
