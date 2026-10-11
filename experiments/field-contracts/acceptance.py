@@ -262,6 +262,9 @@ def invalid_configs(h, valid):
     for label, changed in (
         ("unknown_dialect", {"$schema": "https://example.invalid/schema"}),
         ("invalid_schema", {"type": "nonsense"}),
+        ("schema_id_space", {"$id": "urn:sample:bad value"}),
+        ("schema_id_newline", {"$id": "urn:sample:bad\nvalue"}),
+        ("schema_id_trailing_newline", {"$id": "urn:sample:bad\n"}),
         ("remote_reference", {"$ref": "https://example.invalid/schema"}),
         ("missing_local_reference", {"$ref": "#/$defs/absent"}),
     ):
@@ -305,6 +308,8 @@ def invalid_configs(h, valid):
             "unsupported_date_parameter",
         }:
             h.check(label + "_cause", receipt["error"], "field_rule_parameters_invalid")
+        elif label.startswith("schema_id_"):
+            h.check(label + "_cause", receipt["error"], "field_schema_identity_invalid")
         h.capture("config-" + label, receipt)
         h.check(label + "_no_http", len(h.site.ledger), before)
 

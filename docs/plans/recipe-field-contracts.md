@@ -22,6 +22,8 @@ Recipe manifest 保持 family/entrypoint/params_schema，允许以下增量：
 - extraction_schema：必须有独立 `$id` 与显式 `$schema`，闭合 object 的 properties 定义本任务的 key。
   声明的 key 必须全部输出，默认用类型联合允许 null。required 只表示 key 存在；任务可通过类型禁止
   少数字段为 null。支持 2020-12 / 2019-09；远程引用与未知 dialect 拒绝，不联网取 Schema。
+  `$id` 必须是完整合法 URI；包括中间或尾部空格、换行的 URN 都在 pack 明确拒绝。
+  复用 JSON Schema 官方支持的 URI format checker 与最小成熟格式依赖，不自行解析 URI。
 - data_schema：可选；无改名与转换时复用 extraction_schema。纯改名的简单闭合合同可派生
   properties/required，并以源 `$id` 加 `:mapped` 作为派生 ID；复杂约束及语义转换必须显式声明。
 - field_mapping：源 key → 目标 key，未映射 key 保留。未知源、空目标、重复目标以及保留 key

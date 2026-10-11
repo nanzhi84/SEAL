@@ -160,6 +160,11 @@ def verify(root, vietnam_only=False):
             assert report["discovery"]["http_attempts"] == 0, "replay_http_attempts"
             replays += 1
     if not vietnam_only:
+        for label in ("schema_id_space", "schema_id_newline", "schema_id_trailing_newline"):
+            rejected = json.loads((root / ("config-" + label + ".json")).read_text())
+            assert rejected["error"] == "field_schema_identity_invalid", (
+                "invalid_schema_uri_admitted"
+            )
         for label in (
             "missing_parameter_schema",
             "wrong_prefix_parameter_type",
