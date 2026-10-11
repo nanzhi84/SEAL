@@ -265,6 +265,8 @@ def invalid_configs(h, valid):
         ("schema_id_space", {"$id": "urn:sample:bad value"}),
         ("schema_id_newline", {"$id": "urn:sample:bad\nvalue"}),
         ("schema_id_trailing_newline", {"$id": "urn:sample:bad\n"}),
+        ("schema_id_bad_percent", {"$id": "urn:sample:bad%XZ"}),
+        ("schema_id_relative", {"$id": "/schemas/legal/v1"}),
         ("remote_reference", {"$ref": "https://example.invalid/schema"}),
         ("missing_local_reference", {"$ref": "#/$defs/absent"}),
     ):
@@ -312,6 +314,11 @@ def invalid_configs(h, valid):
             h.check(label + "_cause", receipt["error"], "field_schema_identity_invalid")
         h.capture("config-" + label, receipt)
         h.check(label + "_no_http", len(h.site.ledger), before)
+    absolute = copy.deepcopy(valid)
+    absolute["extraction_schema"]["$id"] = "https://example.invalid/schemas/legal/v1"
+    before = len(h.site.ledger)
+    h.check("https_schema_id_accepted", bool(pack(h, absolute, "https-schema-id")))
+    h.check("https_schema_id_no_http", len(h.site.ledger), before)
 
 
 def archive(h, key):
