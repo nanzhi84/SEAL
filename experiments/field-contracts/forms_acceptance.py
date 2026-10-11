@@ -35,7 +35,7 @@ class PublicFormSpider(scrapy.Spider):
 def exercise_forms(h):
     handler = h.site.server.RequestHandlerClass
     original_get = handler.do_GET
-    original_post = handler.do_POST
+    original_post = getattr(handler, "do_POST", None)
     state = "public-render-state-" + "x" * 20000
     form = (
         '<form id="form1" method="post" action="/form-result"><input type="hidden" name="state" value="'
@@ -58,7 +58,10 @@ def exercise_forms(h):
 
     def post(request):
         if request.path != "/form-result":
-            return original_post(request)
+            if original_post:
+                return original_post(request)
+            request.send_error(405)
+            return
         body = request.rfile.read(int(request.headers["Content-Length"]))
         fields = parse_qs(body.decode(), keep_blank_values=True)
         h.site.ledger.append(
@@ -166,4 +169,8 @@ def exercise_forms(h):
             h.check(attack + "_reported_failure", bool(exported["run"]["errors"]))
             h.capture(name, {"receipt": rejected, "export": exported})
     finally:
-        handler.do_GET, handler.do_POST = original_get, original_post
+        handler.do_GET = original_get
+        if original_post:
+            handler.do_POST = original_post
+        else:
+            del handler.do_POST
