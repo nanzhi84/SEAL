@@ -3,6 +3,7 @@
 import json
 from io import BytesIO
 
+from docx import Document as WordDocument
 from openpyxl import Workbook
 from PIL import Image
 
@@ -47,6 +48,15 @@ def install(h):
     workbook.create_sheet("Second").append(["B", 2])
     stream = BytesIO()
     workbook.save(stream)
+    formula_book = Workbook()
+    formula_book.active.append([1, "=A1+1"])
+    formula = BytesIO()
+    formula_book.save(formula)
+    word = WordDocument()
+    word.add_paragraph("Body paragraph")
+    word.sections[0].header.paragraphs[0].text = "Synthetic header"
+    header_docx = BytesIO()
+    word.save(header_docx)
     picture = BytesIO()
     Image.new("RGB", (1, 1), "white").save(picture, format="PNG")
     fixtures = {
@@ -112,6 +122,17 @@ def install(h):
                 "gbk"
             ),
         ),
+        "/ir/ragged.csv": ("text/csv", b",".join([b"x"] * 1001) + b"\n" + b",\n" * 499),
+        "/ir/header.docx": (
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            header_docx.getvalue(),
+        ),
+        "/ir/formula.xlsx": (
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            formula.getvalue(),
+        ),
+        "/ir/overflow.json": ("application/json", b"1e400"),
+        "/ir/nul.json": ("application/json", b'"\\u0000"'),
         "/ir/base": (
             "text/html",
             b'<html><head><base href="/ir/assets/"></head><body><article><p>Base example</p><img src="picture.png"><a href="data.csv">Attachment</a></article></body></html>',

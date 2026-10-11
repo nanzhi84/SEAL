@@ -4,7 +4,7 @@ Self-Evolving Agentic Ingestion Loop：面向异构信息源的持续采集、�
 
 ## 统一文档表示（Issue #10）
 
-新 Source 可设置 `document_ir: true`。获准归档的 200 GET 与授权公开 POST 响应在 Recipe 回调前解析并保存为统一文档表示；旧 Source 默认关闭，旧 `seal_document` 业务结果保持原合同。支持 HTML、文本型 PDF、DOCX、XLS/XLSX、CSV、UTF-8 TXT、合法 JSON 值，以及完整性校验的 PNG/JPEG/GIF/WebP 图片引用。五种内容节点为 `article`、`image`、`table`、`json`、`document_ref`；空 HTML 可以没有内容节点。HTML 站点选择器可由可信 Recipe 的请求 meta `seal_document_content_css` 指定，链接按页面 `<base href>` 解析。
+新 Source 可设置 `document_ir: true`。获准归档的 200 GET 与授权公开 POST 响应在 Recipe 输出进入 Pipeline 前解析并保存为统一文档表示；旧 Source 默认关闭，旧 `seal_document` 业务结果保持原合同。支持 HTML、文本型 PDF、DOCX、XLS/XLSX、CSV、UTF-8 TXT、合法 JSON 值，以及完整性校验的 PNG/JPEG/GIF/WebP 图片引用。XLSX 公式保留表达式，DOCX 未表示的内容明确拒绝。五种内容节点为 `article`、`image`、`table`、`json`、`document_ref`；空 HTML 可以没有内容节点。HTML 站点选择器可由可信 Recipe 的请求 meta `seal_document_content_css` 指定，链接按页面 `<base href>` 解析。
 
 `seal inspect content-document DOCUMENT_ID` 查询身份、版本与引用；`seal export SOURCE_ID --run RUN_ID` 的 `content_documents` 返回文档 JSON 和证据。未采集或解析失败的引用目标保留外键身份，但明确未解析。文档保存无需业务 Record；启用业务提取的 Recipe 所产 Record 关联实际文档版本。损坏或不支持的响应保留原文并使运行报告记录解析错误；扫描 PDF 不宣称 OCR。重复 Collect、规则变化和零网络 Replay 的合成验收见 [Plan](docs/plans/unified-document-ir.md) 与 [可视化](docs/generated/unified-document-ir.html)。
 

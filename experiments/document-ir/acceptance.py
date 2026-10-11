@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 import psycopg
+from edge_cases import exercise_edges
 from fixtures import RECIPE, install
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -439,6 +440,7 @@ def exercise(h):
     replay = h.cli("replay", business["run_id"])
     h.check("replay_zero_network", len(h.site.ledger), before)
     h.check("replay_success", replay["status"], "complete")
+    exercise_edges(h, version)
 
 
 def main():

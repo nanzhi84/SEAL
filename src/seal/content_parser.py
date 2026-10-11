@@ -4,6 +4,7 @@ import csv
 import json
 import math
 import warnings
+from decimal import Decimal
 from io import BytesIO, StringIO
 from urllib.parse import urljoin, urlsplit
 from zipfile import ZipFile
@@ -13,7 +14,7 @@ from PIL import Image
 from pypdf import PdfReader
 from scrapy.http import HtmlResponse
 
-from .attachments import MAX_CELLS, docx_structure, docx_text, xls_structure
+from .attachments import MAX_CELLS, docx_coverage, docx_structure, docx_text, xls_structure
 from .core import SealError, public_url
 from .fallback import _check_page
 from .scope import paths_for
@@ -29,6 +30,27 @@ def _decode(body):
         return body.decode("utf-8-sig")
     except UnicodeError:
         raise SealError("document_text_encoding_unsupported") from None
+
+
+def _json_float(token):
+    number = float(token)
+    if not math.isfinite(number) or number == 0.0 and Decimal(token) != 0:
+        raise SealError("json_storage_unsupported")
+    return number
+
+
+def _json_storage_safe(value):
+    pending = [value]
+    while pending:
+        current = pending.pop()
+        if isinstance(current, str):
+            if "\x00" in current or any(0xD800 <= ord(char) <= 0xDFFF for char in current):
+                raise SealError("json_storage_unsupported")
+        elif isinstance(current, dict):
+            pending.extend(current.keys())
+            pending.extend(current.values())
+        elif isinstance(current, list):
+            pending.extend(current)
 
 
 def _scalar(value):
@@ -47,9 +69,9 @@ def _scalar(value):
 
 
 def _table(name, rows):
-    if sum(len(row) for row in rows) > MAX_CELLS:
-        raise SealError("document_table_too_large")
     width = max((len(row) for row in rows), default=0)
+    if width * len(rows) > MAX_CELLS:
+        raise SealError("document_table_too_large")
     return {
         "type": "table",
         "name": name,
@@ -66,7 +88,7 @@ def _xlsx(body):
             entries = package.infolist()
             if len(entries) > 2000 or sum(entry.file_size for entry in entries) > 64 * 1024 * 1024:
                 raise SealError("xlsx_expansion_budget_exceeded")
-        book = load_workbook(BytesIO(body), read_only=True, data_only=True)
+        book = load_workbook(BytesIO(body), read_only=True, data_only=False)
         result = []
         total = 0
         for sheet in book:
@@ -88,6 +110,9 @@ def _xlsx(body):
 
 
 def _docx(body):
+    coverage = docx_coverage(body)
+    if coverage["unparsed_elements"] or coverage["non_body_parts"]:
+        raise SealError("docx_unsupported_content")
     blocks = docx_structure(body)
     children, paragraphs, article_index = [], [], None
     for block in blocks:
@@ -272,10 +297,13 @@ def parse_document(response, config, snapshot_id, body_hash):
     elif kind == "json":
         try:
             value = json.loads(
-                _decode(body), parse_constant=lambda _: (_ for _ in ()).throw(ValueError())
+                _decode(body),
+                parse_float=_json_float,
+                parse_constant=lambda _: (_ for _ in ()).throw(ValueError()),
             )
         except (ValueError, RecursionError):
             raise SealError("json_parse_failed") from None
+        _json_storage_safe(value)
         children = [{"type": "json", "value": value}]
     elif kind == "txt":
         children = [{"type": "article", "text": _decode(body)}]

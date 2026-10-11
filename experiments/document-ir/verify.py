@@ -43,6 +43,7 @@ def verify(root):
         "bad-selector",
         "sitemap",
         "nav-list",
+        "edges",
     ):
         case = json.loads((root / f"{filename}.json").read_text())
         documents = case["export"]["content_documents"]

@@ -409,14 +409,23 @@ class InputMiddleware(Component):
             and response.status == 200
             and entry["role"] not in {"robots", "sitemap"}
         ):
+            request.meta["seal_content_entry"] = entry
+
+    async def process_spider_output(self, response, result):
+        entry = response.meta.pop("seal_content_entry", None)
+        if entry:
             from .content_documents import stage_content
+            from .discovery import mark_inputs_failed
 
             try:
-                stage_content(self.context, response, entry)
+                async with self.io:
+                    await asyncio.to_thread(stage_content, self.context, response, entry)
             except SealError as exc:
-                # Parsing is independent of link discovery. Keep the archived
-                # response and allow the Recipe callback to schedule children.
-                from .discovery import mark_inputs_failed
-
-                mark_inputs_failed(self.context, [entry["snapshot_id"]], exc.code)
-                record_error(self.context["id"], self.context["attempt_epoch"], exc.code)
+                # Finish parsing before yielding Recipe outputs. Link discovery
+                # continues, while Record items can only see saved documents.
+                await asyncio.to_thread(
+                    mark_inputs_failed, self.context, [entry["snapshot_id"]], exc.code
+                )
+                await self.fail(exc.code)
+        async for output in result:
+            yield output
