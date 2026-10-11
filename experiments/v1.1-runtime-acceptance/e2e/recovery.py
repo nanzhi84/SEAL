@@ -130,6 +130,10 @@ except RuntimeError:
         (2, 3, "failed"),
     )
     h.check("retry_exhaustion_error", "attempts_exhausted" in third["errors"])
+    h.check(
+        "retry_exhaustion_coverage_errors",
+        "attempts_exhausted" in third["report"]["scope_evidence"]["unknown_coverage_reasons"],
+    )
     h.cli("retry", first["run_id"], ok=False)
     h.check(
         "manual_retry_does_not_reset_limit",

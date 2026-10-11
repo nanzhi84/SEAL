@@ -139,6 +139,41 @@ def runtime_contracts(h):
     h.cli("export", "a", "--run", failed["run_id"], ok=False)
     h.check("cross_source_export_rejected", True)
 
+    slow = h.root / "time-budget-recipe"
+    shutil.copytree("recipes/generic", slow)
+    file = slow / "recipe.py"
+    file.write_text(
+        file.read_text()
+        .replace("import json", "import json\nimport asyncio")
+        .replace(
+            "    def parse_detail(self, response):",
+            "    async def parse_detail(self, response):\n        await asyncio.sleep(3)",
+        )
+    )
+    h.config(
+        "timebudget",
+        entries=[h.site.url + "/timebudget/one"],
+        seed_role="detail",
+        delay=0.0,
+        budget={"requests": 5, "seconds": 1, "response_bytes": 100000},
+    )
+    version = h.cli("recipe", "pack", slow)["recipe_version"]
+    timed = h.cli(
+        "run", "timebudget", "--binding", h.binding("timebudget", recipe=version), ok=False
+    )
+    h.check("crawl_time_budget_failed", timed["status"], "failed")
+    h.check("crawl_time_budget_machine_error", "crawl_time_budget_exceeded" in timed["errors"])
+    h.check(
+        "crawl_time_budget_native_context", timed["report"]["finish_reason"], "closespider_timeout"
+    )
+    h.check("crawl_time_budget_not_retryable", timed["attempt_epoch"], 1)
+    h.check(
+        "crawl_time_budget_valid_output_exported",
+        len(h.cli("export", "timebudget", "--run", timed["run_id"])["documents"]),
+        1,
+    )
+    h.check("crawl_time_budget_not_success_baseline", h.export("timebudget")["documents"], [])
+
     h.config("zero", entries=[h.site.url + "/zero/one"], seed_role="detail")
     folder = h.root / "zero-recipe"
     shutil.copytree("recipes/generic", folder)

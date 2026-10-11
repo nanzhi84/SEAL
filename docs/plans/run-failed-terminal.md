@@ -60,6 +60,7 @@ pack、创建新 Binding；不绕过防漂移。代码回滚不能配合旧写�
 | 临时 503 恢复 | 单请求原生重试恢复与逻辑 Run 重试恢复都 complete；旧 attempt errors 留在历史 |
 | 重试耗尽 | 三次 attempt 后 failed，错误含 http_5xx 与 attempts_exhausted；第四次不能重置 |
 | 期限耗尽 | 未开始或 retryable 的过期 Run failed，deadline_exceeded，无新下载 |
+| 单次采集时间预算耗尽、慢回调仍完成 | failed、crawl_time_budget_exceeded 可机读；原生 finish_reason 保留；有效结果可显式导出 |
 | 新 run / generation 取代、旧 attempt 晚到 | failed 与具体 errors；旧写入不能覆盖新成功值 |
 | 历史迁移 | 旧终态收敛、历史 reason 成为 errors，重复字段删除，归档原 Hash 不变 |
 | 失败归档损坏 | 显式导出拒绝损坏条目并返回 unavailable；失败不保证有可用结果 |
