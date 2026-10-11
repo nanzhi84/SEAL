@@ -16,6 +16,7 @@ from lxml import etree
 from .config import load_file
 from .core import Objects, SealError, atomic_write, digest
 from .db import connect, j, one
+from .fields import CONTRACT_KEYS, field_contract
 
 
 def environment():
@@ -49,7 +50,11 @@ def environment():
 def pack_recipe(path):
     root = Path(path).resolve()
     manifest = load_file(root / "recipe.yaml")
-    if not isinstance(manifest, dict) or set(manifest) != {"family", "entrypoint", "params_schema"}:
+    if (
+        not isinstance(manifest, dict)
+        or not {"family", "entrypoint", "params_schema"} <= set(manifest)
+        or set(manifest) - {"family", "entrypoint", "params_schema"} - CONTRACT_KEYS
+    ):
         raise SealError("invalid_recipe_manifest")
     if not re.fullmatch(r"[a-zA-Z_][\w.]*:[A-Za-z_]\w*", manifest["entrypoint"]):
         raise SealError("invalid_recipe_entrypoint")
@@ -82,6 +87,7 @@ def pack_recipe(path):
         files[file.relative_to(root).as_posix()] = base64.b64encode(data).decode()
     if manifest["entrypoint"].split(":")[0].replace(".", "/") + ".py" not in files:
         raise SealError("recipe_entrypoint_missing")
+    field_contract(manifest, files)
     env = environment()
     bundle = {"manifest": manifest, "files": files, "environment": env}
     version = Objects().put_json(bundle)
@@ -149,3 +155,16 @@ def create_binding(source_id, version, params):
             (fingerprint, source_id, version, j(config), j(params), fingerprint),
         )
     return {"binding_id": fingerprint, "fingerprint": fingerprint}
+
+
+def load_field_contract(version):
+    """Import only reviewed package functions after import_recipe materializes its bundle."""
+    bundle = load_bundle(version)
+    contract = field_contract(bundle["manifest"], bundle["files"])
+    functions = {}
+    if contract:
+        for group in ("field_parsers", "field_transforms"):
+            for rule in contract[group].values():
+                module, name = rule["entrypoint"].split(":")
+                functions[rule["entrypoint"]] = getattr(importlib.import_module(module), name)
+    return contract, functions

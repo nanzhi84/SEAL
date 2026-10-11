@@ -17,7 +17,7 @@ def schema(identity, properties):
     }
 
 
-RECIPE = '''import scrapy
+RECIPE = """import scrapy
 from seal.helpers import record_item
 from seal.core import SealError
 from datetime import datetime
@@ -66,7 +66,7 @@ class FieldsSpider(scrapy.Spider):
         if "field_contract" in self.context:
             item["data_schema_id"] = self.params.get("schema_id", self.context["field_contract"]["data_schema"]["$id"])
         yield item
-'''
+"""
 
 
 def manifest(identity="a", mapping=None, transforms=None, parsers=None):
@@ -89,7 +89,10 @@ def manifest(identity="a", mapping=None, transforms=None, parsers=None):
         value["field_transforms"] = transforms
         value["data_schema"] = schema(
             identity + ":internal:v1",
-            {mapping.get(key, key) if mapping else key: copy.deepcopy(kind) for key, kind in properties.items()},
+            {
+                mapping.get(key, key) if mapping else key: copy.deepcopy(kind)
+                for key, kind in properties.items()
+            },
         )
     if parsers:
         value["field_parsers"] = parsers
@@ -105,12 +108,22 @@ def pack(h, manifest, name="bundle"):
 
 
 def source(h, name, version, path="a", params=None):
-    h.config(name, entries=[h.site.url + "/fields/" + path], identity="business_key", output_schema="record.v1", seed_role="api", delay=0.0)
+    h.config(
+        name,
+        entries=[h.site.url + "/fields/" + path],
+        identity="business_key",
+        output_schema="record.v1",
+        seed_role="api",
+        delay=0.0,
+    )
     return h.binding(name, version, params)
 
 
 def collect(h, name, binding, ok=True):
     run = h.cli("collect", name, "--binding", binding, ok=ok)
     exported = h.cli("export", name, "--run", run["run_id"])
-    h.capture(name, {"receipt": run, "inspect": h.cli("inspect", "run", run["run_id"]), "export": exported})
+    h.capture(
+        name,
+        {"receipt": run, "inspect": h.cli("inspect", "run", run["run_id"]), "export": exported},
+    )
     return run, exported

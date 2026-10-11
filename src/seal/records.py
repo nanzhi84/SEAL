@@ -127,7 +127,9 @@ def stage_record_resource(context, entry):
 
 
 def stage_record(context, item, validation=None):
-    output, lineage = validate_record(item, validation)
+    output, lineage = validate_record(
+        item, validation, context.get("field_contract"), context.get("_field_functions", {})
+    )
     with connect() as c:
         source, run = locked_run(c, context["id"])
         fenced(source, run, context["attempt_epoch"])

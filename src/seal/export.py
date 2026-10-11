@@ -225,6 +225,16 @@ def export_records(connection, source, run_id, latest_run):
                         "primary_snapshot_id": item["candidate"].get("primary_snapshot_id"),
                         "locators": item["candidate"]["locators"],
                         "key_locator": item["candidate"]["key_locator"],
+                        **{
+                            key: item["candidate"][key]
+                            for key in (
+                                "field_evidence",
+                                "extracted_data",
+                                "extraction_schema_id",
+                                "data_schema_id",
+                            )
+                            if key in item["candidate"]
+                        },
                     }
                 )
         except SealError as exc:

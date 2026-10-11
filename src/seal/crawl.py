@@ -13,7 +13,7 @@ from scrapy.crawler import CrawlerProcess
 
 from .db import connect, j, record_error
 from .discovery import mark_failed
-from .recipes import import_recipe
+from .recipes import import_recipe, load_field_contract
 from .runs import run_context
 
 
@@ -171,6 +171,10 @@ def main():
     try:
         context = run_context(run_id, epoch)
         recipe = import_recipe(context["recipe_version"])
+        contract, functions = load_field_contract(context["recipe_version"])
+        if contract:
+            context["field_contract"] = contract
+            context["_field_functions"] = functions
         if getattr(recipe, "seeded_collection", False):
             if not context["config"].get("robots"):
                 from .core import SealError

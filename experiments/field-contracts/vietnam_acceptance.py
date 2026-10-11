@@ -146,8 +146,9 @@ def check_detail(h, record, authority, subjects):
 
 
 def form_rule(url, parent_url=None):
-    from scrapy.http import FormRequest, HtmlResponse
     from urllib.parse import parse_qsl
+
+    from scrapy.http import FormRequest, HtmlResponse
 
     fixture = (FIXTURES / "vietnam-year-2026.html").read_bytes()
     response = HtmlResponse(url=url, body=fixture, encoding="utf-8")
