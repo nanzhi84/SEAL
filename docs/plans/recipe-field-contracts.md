@@ -26,12 +26,15 @@ Recipe manifest 保持 family/entrypoint/params_schema，允许以下增量：
   properties/required，并以源 `$id` 加 `:mapped` 作为派生 ID；复杂约束及语义转换必须显式声明。
 - field_mapping：源 key → 目标 key，未映射 key 保留。未知源、空目标、重复目标以及保留 key
   碰撞在 pack 拒绝。两份显式 Schema 的 key 与映射结果必须一致。
-- field_transforms：源 key → `{entrypoint: module:function, params: {...}}`，仅可信冻结 bundle
-  内的函数；参数显式冻结。函数定义/签名不合法是配置错误，pack 拒绝。字段解析异常仅允许
+- field_transforms：源 key → `{entrypoint: module:function, params: {...}, params_schema: {...}}`，
+  仅可信冻结 bundle 内的函数；有参数时必须显式声明参数 JSON Schema（同样显式 dialect、
+  URI `$id`、闭合 object），并在 pack/bind 前验证严格 JSON、key、类型与约束。无参数规则
+  不需额外 Schema。函数定义/签名不合法、prefix/日期格式等参数类型错误是配置错误，pack 拒绝。
+  规则 Schema 应与可信函数的参数语义一致；不推断注解或把函数配置异常当成值失败。字段解析异常仅允许
   ValueError/TypeError/OverflowError 转成 null，其他异常沿用 Run 错误；非 null 错误类型拒绝。
 - Record 增加可选 data_schema_id，与有效入库合同 `$id` 精确相等；外层 schema_version 继续使用
   现有 record.v1 等外层标识，避免把业务 Schema 的 URN 与外层类型混为一谈。
-- 非 null 取值 Locator 可声明 `parser: {entrypoint, params}`；Runtime 从归档读取原值，再执行冻结
+- 非 null 取值 Locator 可声明 `parser: {entrypoint, params, params_schema}`；Runtime 从归档读取原值，再执行冻结
   Python 函数并严格比较 JSON 值。用于日期→年份等可复算推导，不实现 DSL。
 
 Schema、mapping、Python 函数与参数都在现有 recipe_version 内容摘要中，Binding 引用此版本；
@@ -73,8 +76,9 @@ key 省略、data_schema_id 不匹配、非 null 类型错误、缺少非 null L
 
 可重跑：`uv sync --frozen`，Python 3.12 / PostgreSQL 17+ 的 initdb/pg_ctl 在 PATH；
 `uv run --frozen python experiments/field-contracts/acceptance.py --output artifacts/fields`。
-实时越南：同命令增加 `--live-vietnam`，只访问授权公开页面，领域筛选独立探针只记录非敏感
-状态/公开标签/docid/正文摘要，不保留隐藏表单参数到回执或日志。完整 raw 输入仍由 Archive 保留。
+实时越南：同命令增加 `--live-vietnam`，只访问授权公开页面，通过真实 Runtime 公开表单 POST
+获取年份/领域归属。回执只记录非敏感状态/公开标签/docid/正文摘要，不保留隐藏表单参数。
+完整 raw 输入仍由 Archive 保留。
 工件包括命令、环境/代码摘要、CLI 回执、expected/actual、提取 JSON、data、export、Locator、
 独立复算、零网络账本。CI 只发布摘要，不发布真实站 raw/body；全站覆盖、PDF发现/OCR/LLM/UI
 均不在本次范围，Schema 通过不表示字段准确、语义或覆盖完整。
@@ -109,3 +113,7 @@ body hash，不复制隐藏状态。实际 category 6 / 2026 → doc219249 → C
 
 先提交 `forms_acceptance.py` 的 CLI RED，再实现 guard。E2E 验证原 guard 拒绝 20KB状态，
 opt-in 后完整输入得到业务 Record；8个边界全部拒绝且服务器未收到POST；Replay零网络。
+
+Scrapy 2.19 对 FormRequest 发出弃用提示，当前有意复用其原生默认成功控件解析，以保证 Recipe
+与 guard 重建算法一致。迁移条件是 Scrapy 移除该 API 或本项目统一采用官方继任库；届时同时
+替换两处并重跑公开表单完整 E2E，不维护两套解析规则。

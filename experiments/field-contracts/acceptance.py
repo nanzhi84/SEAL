@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "experiments/v1.2-acceptance"))
 from acceptance import Harness  # noqa: E402
-from support import RECIPE, collect, manifest, pack, schema, source  # noqa: E402
+from support import RECIPE, collect, manifest, pack, rule, schema, source  # noqa: E402
 
 MAPPING = {
     "Cơ quan ban hành:": "issuing_authority",
@@ -145,10 +145,9 @@ def exercise(h):
             bodies["reserved"],
         )
 
-        parser = {"Năm ban hành:": {"entrypoint": "recipe:year", "params": {"format": "%d-%m-%Y"}}}
-        rules = {
-            "Cơ quan ban hành:": {"entrypoint": "recipe:prefix", "params": {"prefix": "AUTH:"}}
-        }
+        invalid_configs(h, config)
+        parser = {"Năm ban hành:": rule("year", {"format": "%d-%m-%Y"})}
+        rules = {"Cơ quan ban hành:": rule("prefix", {"prefix": "AUTH:"})}
         pv = pack(h, manifest(mapping=MAPPING, transforms=rules, parsers=parser), "parsed")
         _, parsed = collect(h, "parsed", source(h, "parsed", pv, "parse"))
         pr = parsed["records"][0]
@@ -194,7 +193,6 @@ def exercise(h):
             h.check(label + "_no_records", output["records"], [])
             h.check(label + "_stable_error", error in output["run"]["errors"])
 
-        invalid_configs(h, config)
         # A schema-only semantic revision must not reuse a version bound to the old Schema.
         semantics = copy.deepcopy(config)
         semantics["extraction_schema"]["$id"] = "urn:seal:schema:a:semantics:v2"
@@ -270,12 +268,15 @@ def invalid_configs(h, valid):
         value = copy.deepcopy(valid)
         value["extraction_schema"].update(changed)
         variants.append((label, value))
-    for label, rule in (
+    for label, invalid_rule in (
+        ("missing_parameter_schema", {"entrypoint": "recipe:prefix", "params": {"prefix": 123}}),
+        ("wrong_prefix_parameter_type", rule("prefix", {"prefix": 123})),
+        ("wrong_date_parameter_type", rule("year", {"format": 123})),
         ("missing_callable", {"entrypoint": "recipe:missing"}),
         ("invalid_parameters", {"entrypoint": "recipe:year", "params": {"unexpected": 1}}),
     ):
         value = copy.deepcopy(valid)
-        value["field_transforms"] = {"local": rule}
+        value["field_transforms"] = {"local": invalid_rule}
         variants.append((label, value))
     for label, value in variants:
         root = h.root / label
@@ -285,6 +286,7 @@ def invalid_configs(h, valid):
         before = len(h.site.ledger)
         receipt = h.cli("recipe", "pack", root, ok=False)
         h.check(label + "_rejected", receipt.get("error", "").startswith("field_"))
+        h.capture("config-" + label, receipt)
         h.check(label + "_no_http", len(h.site.ledger), before)
 
 
@@ -327,7 +329,7 @@ def main():
                 if args.only_vietnam
                 else "isolated PostgreSQL and two synthetic sources; archived Vietnam public detail"
             )
-            + (" and live Vietnam GET/field probe" if args.live_vietnam else ""),
+            + (" and live Vietnam GET/controlled public form POST" if args.live_vietnam else ""),
         )
         path.write_text(json.dumps(value, ensure_ascii=False, indent=2))
         summary = {

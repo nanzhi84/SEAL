@@ -17,6 +17,16 @@ def schema(identity, properties):
     }
 
 
+def rule(entrypoint, params=None):
+    value = {"entrypoint": "recipe:" + entrypoint}
+    if params:
+        value["params"] = params
+        value["params_schema"] = schema(
+            entrypoint + ":params:v1", {key: {"type": "string"} for key in params}
+        )
+    return value
+
+
 RECIPE = """import scrapy
 from seal.helpers import record_item
 from seal.core import SealError
