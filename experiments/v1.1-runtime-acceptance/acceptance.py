@@ -55,6 +55,7 @@ def main():
             scenarios.m3(h, binding, run)
             contracts.configuration_and_determinism(h)
             contracts.runtime_contracts(h)
+            contracts.historical_bundle_compatibility(h)
             contracts.stopped_source_replay(h)
     except Exception as exc:
         error = exc

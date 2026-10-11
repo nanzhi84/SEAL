@@ -3,6 +3,7 @@
 import hashlib
 import json
 import shutil
+import sys
 
 
 def configuration_and_determinism(h):
@@ -178,3 +179,64 @@ def stopped_source_replay(h):
     replay = h.cli("replay", run)
     h.check("stopped_source_replay_succeeds", replay["status"], "complete")
     h.check("stopped_source_replay_zero_network", len(h.site.ledger), before)
+
+
+def historical_bundle_compatibility(h):
+    """Freeze a synthetic prior engine fingerprint; never relax environment checks."""
+    from .faults import sql
+
+    h.config("compatibility")
+    binding = h.binding("compatibility")
+    original = h.cli("run", "compatibility", "--binding", binding)
+    original_data = h.cli("export", "compatibility", "--run", original["run_id"])
+    version = h.cli("inspect", "binding", binding)["recipe_version"]
+    objects = h.root / "archive" / "objects"
+    bundle = json.loads((objects / version[:2] / version[2:]).read_bytes())
+    bundle["environment"]["engine"]["runs.py"] = "synthetic-prior-runtime-fingerprint"
+    raw = json.dumps(bundle, sort_keys=True, separators=(",", ":")).encode()
+    prior = hashlib.sha256(raw).hexdigest()
+    target = objects / prior[:2] / prior[2:]
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(raw)
+    sql(
+        h,
+        "INSERT INTO seal_recipe_version(id,manifest) VALUES(%s,%s::jsonb)",
+        (
+            prior,
+            json.dumps(
+                {
+                    "object": prior,
+                    "environment": bundle["environment"],
+                    "python": sys.executable,
+                    "family": bundle["manifest"]["family"],
+                }
+            ),
+        ),
+    )
+    sql(
+        h,
+        "INSERT INTO seal_binding(id,source_id,recipe_version,config,params,fingerprint) SELECT 'prior-binding',source_id,%s,config,params,'prior-binding' FROM seal_binding WHERE id=%s",
+        (prior, binding),
+    )
+    before = len(h.site.ledger)
+    rejected = h.cli("replay", original["run_id"], "--binding", "prior-binding", ok=False)
+    h.check("old_binding_rejected_by_current_runtime", rejected["status"], "failed")
+    h.check("old_binding_environment_error", "environment_drift" in rejected["errors"])
+    h.check("old_binding_no_network", len(h.site.ledger), before)
+    h.check("old_archive_bytes_unchanged", target.read_bytes(), raw)
+    h.check(
+        "old_results_readable_after_rejected_replay",
+        len(h.cli("export", "compatibility", "--run", original["run_id"])["documents"]),
+        len(original_data["documents"]),
+    )
+    refreshed = h.binding("compatibility")
+    replay = h.cli("replay", original["run_id"], "--binding", refreshed)
+    replay_data = h.cli("export", "compatibility", "--run", replay["run_id"])
+    h.check("repacked_binding_replay_complete", replay["status"], "complete")
+    h.check("repacked_binding_replay_no_network", len(h.site.ledger), before)
+    for field in ("title", "body", "snapshot_ids", "locators"):
+        h.check(
+            "repacked_replay_preserves_" + field,
+            [d.get(field) for d in replay_data["documents"]],
+            [d.get(field) for d in original_data["documents"]],
+        )
