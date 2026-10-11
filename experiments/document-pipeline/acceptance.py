@@ -290,6 +290,7 @@ def exercise(h):
         )
         failures(h, version, fixtures)
         business(h)
+        cross_resource_business(h)
         sample_recipe(h, fixtures)
         legacy(h)
     finally:
@@ -360,7 +361,14 @@ def failures(h, version, fixtures):
     h.check(
         "failed_refs_replay_has_no_http_attempts", replay["summary"]["counts"]["http_attempts"], 0
     )
-    h.capture("failed-refs-replay", replay)
+    replayed = h.cli("export", "refs", "--documents", "--run", replay["run_id"])
+    replay_refs = by_url(replayed)[parent["url"]]["references"]
+    h.check(
+        "failed_refs_replay_preserves_target_states",
+        {ref["url"].rsplit("/", 1)[-1]: ref["state"] for ref in replay_refs},
+        states,
+    )
+    h.capture("failed-refs-replay", {"receipt": replay, "export": replayed})
 
 
 def business(h):
@@ -393,7 +401,7 @@ def business(h):
     )[0]["candidate"]
     h.check(
         "business_locator_proves_saved_value",
-        candidate["locators"]["year"],
+        candidate["locators"]["issued_year"],
         {
             "kind": "document",
             "version_id": versions[0]["document_version_id"],
@@ -455,6 +463,60 @@ def business(h):
         "nested_document_locator_requires_linked_version",
         "record_document_locator_unlinked" in rejected["report"]["errors"],
     )
+
+
+def cross_resource_business(h):
+    version = pack(h, "cross-resource-recipe", business=True)
+    binding = source(
+        h,
+        "cross_resource_business",
+        version,
+        ["/documents/data.json"],
+        {"extract_business": True, "cross_resource": True},
+    )
+    run, documents, _ = collect(h, "cross_resource_business", binding)
+    exported = h.cli("export", "cross_resource_business", "--run", run["run_id"])
+    record = exported["records"][0]
+    h.check("cross_resource_business_complete", run["status"], "complete")
+    h.check("cross_resource_business_uses_secondary_value", record["data"]["issued_year"], "2027")
+    versions = record["document_versions"]
+    h.check("cross_resource_business_links_both_saved_versions", len(versions), 2)
+    h.check(
+        "cross_resource_business_retains_both_raw_snapshots",
+        set(record["snapshot_ids"]),
+        {ref["snapshot_id"] for ref in versions},
+    )
+    saved = by_url(documents)
+    related = saved[h.site.url + "/documents/related.json"]
+    h.check(
+        "cross_resource_business_secondary_version_is_real",
+        related["document_version_id"] in {ref["document_version_id"] for ref in versions},
+    )
+    evidence = record["field_evidence"]["issued_year"]
+    h.check(
+        "cross_resource_business_field_uses_secondary_raw_input",
+        evidence["snapshot_id"],
+        related["snapshot_id"],
+    )
+    snapshot = json.loads(archived(h, related["snapshot_id"]))
+    body = json.loads(archived(h, snapshot["body_hash"]))
+    h.check("cross_resource_business_raw_value_recomputed", evidence["raw_value"], body["year"])
+    h.capture("cross-resource-business-record", {"documents": documents, "export": exported})
+    before = len(h.site.ledger)
+    replay = h.cli("replay", run["run_id"])
+    replayed = h.cli("export", "cross_resource_business", "--run", replay["run_id"])
+    h.check("cross_resource_business_replay_zero_network", len(h.site.ledger), before)
+    h.check(
+        "cross_resource_business_replay_preserves_values",
+        replayed["records"][0]["data"],
+        record["data"],
+    )
+    h.check(
+        "cross_resource_business_replay_links_both_versions",
+        len(replayed["records"][0]["document_versions"]),
+        2,
+    )
+    h.capture("cross-resource-business-replay", {"receipt": replay, "export": replayed})
 
 
 def legacy(h):
@@ -558,7 +620,10 @@ def sample_recipe(h, fixtures):
         h.check(
             "missing_business_field_marks_known_record_unobserved",
             notice["record_id"]
-            in inspected["run"]["report"]["scope_evidence"]["unobserved_records"],
+            in {
+                entry["record_id"]
+                for entry in inspected["run"]["report"]["scope_evidence"]["unobserved_records"]
+            },
         )
         h.check(
             "unobserved_business_record_is_retained",
@@ -606,10 +671,16 @@ def main():
         h.save("document-pipeline", error)
         path = h.output / "manifest.json"
         value = json.loads(path.read_text())
+        collection = {
+            str(script.relative_to(ROOT)): hashlib.sha256(script.read_bytes()).hexdigest()
+            for script in sorted(Path(__file__).parent.glob("*.py"))
+        }
+        value["code"].update(collection)
         value.update(
             version="document.v1",
             command="uv run --frozen python experiments/document-pipeline/acceptance.py --output <new-directory>",
             scope="isolated PostgreSQL and synthetic loopback resources; all formats and zero-network Replay",
+            collection_sha256=collection,
         )
         path.write_text(json.dumps(value, indent=2) + "\n")
         summary = {

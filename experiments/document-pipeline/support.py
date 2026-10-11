@@ -5,10 +5,10 @@ import json
 RECIPE = """import scrapy
 from seal.core import SealError
 from seal.documents import inspect_document_version
-from seal.helpers import diagnostic, document_item, link_requests, record_item, save_document
+from seal.helpers import diagnostic, document_item, follow, link_requests, record_item, save_document
 
 
-def year_text(value, params):
+def year_text(value):
     return str(value)
 
 
@@ -38,6 +38,10 @@ class DocumentsAcceptanceSpider(scrapy.Spider):
         try:
             if self.params.get("extract_business"):
                 saved = save_document(response, self.context, options=options)
+                if self.params.get("cross_resource"):
+                    yield follow(response, "/documents/related.json", "detail", self.related,
+                        self.failed, cb_kwargs={"primary_response": response, "primary_document": saved})
+                    return
                 document = inspect_document_version(saved["document_version_id"])
                 value = document["children"][0]["value"]
                 record = record_item(response, record_type="document_business",
@@ -71,6 +75,22 @@ class DocumentsAcceptanceSpider(scrapy.Spider):
                 yield item
         except SealError as exc:
             yield diagnostic(response, exc.code)
+
+    def related(self, response, primary_response, primary_document):
+        related = save_document(response, self.context)
+        document = inspect_document_version(related["document_version_id"])
+        value = document["children"][0]["value"]
+        record = record_item(primary_response, record_type="cross_document_business",
+            record_key=primary_response.url, detail_url=primary_response.url,
+            schema_version="record.v1", data={"year": value["year"], "authority": None},
+            locators={"year": {"kind": "document", "version_id": related["document_version_id"],
+                "pointer": "/children/0/value/year", "snapshot_id": related["snapshot_id"]}},
+            key_locator={"kind": "response_url"},
+            supplementary_inputs=[{"snapshot_id": related["snapshot_id"],
+                "observation_id": related["observation_id"]}],
+            document_versions=[primary_document, related])
+        record["data_schema_id"] = self.context["field_contract"]["data_schema"]["$id"]
+        yield record
 """
 
 
@@ -97,8 +117,6 @@ def manifest(*, business=False):
             field_transforms={
                 "year": {
                     "entrypoint": "recipe:year_text",
-                    "params": {},
-                    "params_schema": {"type": "object", "additionalProperties": False},
                 }
             },
             data_schema={

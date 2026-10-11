@@ -37,6 +37,11 @@ uv run --frozen seal inspect document-version DOCUMENT_VERSION_ID
 实际格式、失败和复现合同见 [Plan](docs/plans/unified-document-pipeline.md) 与
 [可视化](docs/generated/unified-document-pipeline.html)。
 
+冻结产品代码的五套本地回归通过 1711/1711 断言及 84/84 测试；文档独立 oracle 核对
+九种格式、15 份文档和 7 次零网络 Replay。复跑使用
+`uv run --frozen python experiments/document-pipeline/ci.py --output work/ci-documents-new`，
+精确环境与证据摘要见 Plan；合并仍以 PR 最终 head 六项远程检查全部通过为门槛。
+
 ## V1.3：Seeded Site Collection
 
 从业务 Seed 扩展同站点入口、Sitemap、栏目、分页、详情和附件，使用现有 Scrapy

@@ -86,7 +86,8 @@ not_fetched，具体请求失败从 Run Discovery 查看。历史仅归档的 ra
 错误 Source、URL 与外键组合拒绝，共享目标只存一份。
 
 `inspect document` 查询身份、当前版本和引用状态，`inspect document-version` 查询精确
-不可变解析版本。`export SOURCE_ID --documents --run RUN_ID` 导出该次 Run 已保存文档，
+不可变解析版本。`export SOURCE_ID --documents --run RUN_ID` 导出该次 Run 报告中每个身份
+选定的文档 output；全部已保存版本与 emissions 可通过 inspect 查看。
 `export SOURCE_ID --documents` 使用最近成功在线视图。只有 `complete` 在线 Run 推进
 当前指针；失败 Run 保留已经归档和保存的工件，可按 Run 查看，不覆盖既有成功视图。
 Replay 不推进在线指针。默认业务导出的旧 `documents` / `records` 字段不改名；增量提供
@@ -213,6 +214,53 @@ uv run --frozen seal export SOURCE_ID --documents --run RUN_ID --output document
 uvx --from seiso==0.3.0 seiso check README.md CHANGELOG.md docs/reference/source-adaptation.md docs/plans/unified-document-pipeline.md
 ```
 
-新路径验收的实际结果和独立复算在实现冻结后记录；本 Plan 不将目标清单当作已通过证明。
-外网样本、全站覆盖、生产规模、OCR、复杂表格质量及业务 Evaluation 不属于
-隔离合成验收的结论。
+各次运行的 `summary.json` 及 `artifacts/ci-public/*.json` 保存实际断言计数、退出码、
+独立 oracle 与代码/环境摘要；文档 CI 的原始输入、文档 JSON、关系与回执保存在输出目录
+的 `acceptance/`。独立 verifier 不使用 assertions 的 PASS 作为值正确性的 oracle，
+从归档 bytes、固定 fixture 值、内容摘要、外键和 Replay 账本核对结果。
+
+## 9. 已执行验证与合并门槛（2026-10-11）
+
+产品代码冻结为 `788c80112636e6991de9b336970967dd6b327f3c`，四套旧路径回归的
+44 个源码与锁文件摘要与此受测代码一致；后续验收/文档提交不改产品实现。
+
+| 集合 | 实际结果 | 复跑入口 |
+| --- | --- | --- |
+| core CLI/PG/Worker | PASS，509/509 断言 | v1.2-acceptance/ci.py --group core |
+| offline 迁移、URL、Recheck | PASS，329/329 断言 | v1.2-acceptance/ci.py --group offline |
+| seeded 发现、持久化、边界、Replay | PASS，421/421 断言及 75/75 测试 | v1.3-acceptance/ci.py |
+| #6 字段、映射、Schema 与证据 | PASS，175/175 断言 | field-contracts/ci.py |
+| 新统一解析器边界 | PASS，9/9 测试 | document-pipeline/ci.py 中 parser suite |
+| 统一文档 CLI/HTTP/PG 与独立 oracle | PASS，277/277 断言、原文独立复算通过 | document-pipeline/ci.py |
+
+最终本地合计 1711/1711 断言与 84/84 测试，全部通过；其中旧路径 1434 断言和 75 测试，
+文档路径 277 断言和 9 解析器测试，各计一次。完整 documents CI 验证九种格式、15 个资源、
+五节点、解析规则变更、共享/未下载/失败引用、同业务值但文档版本变化、嵌套 Locator
+关联拒绝、Recheck、跨资源全部输入关联以及实际 `recipes/documents` 入口。
+
+独立 oracle 验证 163 个工件、6 个验收脚本摘要、9 种格式、15 份文档、21 个节点、
+8 个原文值、2 个实际外键、
+2 个跨资源输入及 7 次零网络 Replay，不读取 assertions 的 PASS 作为值正确性的依据。
+该轮私有工件位于 `work/document-ci-final/`，`summary.json` 的 SHA-256 为
+`75250317194044028e460ee2d97a406fcd65766e5dc72dced85882348f6715d6`；
+摘要包含源码 Hash，原文和数据库工件不入 Git。专项实验已纳入完整 CI，不重复累计。
+
+完整复跑使用第 8 节前提，每次选择新目录：
+
+```sh
+uv run --frozen python experiments/v1.2-acceptance/ci.py --group core --output work/ci-core-new
+uv run --frozen python experiments/v1.2-acceptance/ci.py --group offline --output work/ci-offline-new
+uv run --frozen python experiments/v1.3-acceptance/ci.py --output work/ci-seeded-new
+uv run --frozen python experiments/field-contracts/ci.py --output work/ci-fields-new
+uv run --frozen python experiments/document-pipeline/ci.py --output work/ci-documents-new
+```
+
+seiso 与 Generated 本地链接校验通过；Ruff 检查与格式检查属于 lint 门槛。
+独立审查覆盖迁移、真实外键、
+不可变版本、输入归属、失败指针、Replay 隔离及 Record 关联。
+[PR #12](https://github.com/nanzhi84/SEAL/pull/12) 的合并门槛为精确最终 head 的 lint、core、
+offline、seeded、fields、documents 六项远程检查全部成功；合并后核对 merge SHA 与 main。
+未通过的早期验收工件保持原样，最终结论使用相同冻结产品代码和新目录的结果。
+外网样本、全站覆盖、生产规模、OCR、复杂表格质量及业务 Evaluation 不属于隔离合成
+验收的结论，[Source 适配参考第 9 节台账](../reference/source-adaptation.md#9-source-适配与审计总表)
+不因本次技术验收自动扩展。

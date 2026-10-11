@@ -29,6 +29,13 @@ def object_json(root, key):
 
 def verify(root):
     manifest = json.loads((root / "manifest.json").read_text())
+    collection = manifest.get("collection_sha256", {})
+    repository = Path(__file__).resolve().parents[2]
+    for path, expected in collection.items():
+        assert manifest["code"][path] == expected, "collection_manifest_digest_mismatch"
+        assert hashlib.sha256((repository / path).read_bytes()).hexdigest() == expected, (
+            "collection_code_drift"
+        )
     for path, expected in manifest["files"].items():
         assert hashlib.sha256((root / path).read_bytes()).hexdigest() == expected, (
             "artifact_digest_mismatch"
@@ -99,6 +106,23 @@ def verify(root):
     assert record["document_versions"][0]["snapshot_id"] == evidence["snapshot_id"], (
         "record_document_input_mismatch"
     )
+    cross = json.loads((root / "cross-resource-business-record.json").read_text())
+    record = cross["export"]["records"][0]
+    refs = record["document_versions"]
+    assert len(refs) == 2 and len({ref["snapshot_id"] for ref in refs}) == 2, (
+        "cross_resource_inputs_missing"
+    )
+    assert {ref["snapshot_id"] for ref in refs} == set(record["snapshot_ids"]), (
+        "cross_resource_raw_lineage_mismatch"
+    )
+    evidence = record["field_evidence"]["issued_year"]
+    secondary = object_json(root, evidence["snapshot_id"])
+    assert (
+        json.loads(object_bytes(root, secondary["body_hash"]))["year"]
+        == evidence["raw_value"]
+        == 2027
+    ), "cross_resource_field_mismatch"
+    assert record["data"]["issued_year"] == "2027", "cross_resource_transform_mismatch"
     replays = 0
     for path in sorted(root.glob("*replay.json")):
         value = json.loads(path.read_text())
@@ -110,11 +134,13 @@ def verify(root):
     return {
         "status": "PASS",
         "files": len(manifest["files"]),
+        "collection_code_files": len(collection),
         "formats": len(formats),
         "documents": len(documents),
         "nodes": nodes,
         "raw_value_checks": raw_values,
         "foreign_keys": relations,
+        "cross_resource_inputs": len(refs),
         "replays": replays,
     }
 

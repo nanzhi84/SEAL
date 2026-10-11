@@ -137,6 +137,10 @@ def resources(pdf, docx, xls):
             json.dumps(JSON_VALUE).encode(),
         ),
         "/documents/array.json": ("application/json", b'[1,{"kind":"public"},null]'),
+        "/documents/related.json": (
+            "application/json",
+            b'{"year":2027,"authority":"A second archived resource"}',
+        ),
         "/documents/scalar.json": ("application/json", b'"Public scalar"'),
         "/documents/null.json": ("application/json", b"null"),
         "/documents/image.png": ("image/png", PNG),

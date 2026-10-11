@@ -70,6 +70,10 @@ def main():
         "suites": results,
         "git_head": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         "scope": "Isolated PostgreSQL, synthetic loopback resources, all nine formats, offline Replay; live sites excluded",
+        "collection_sha256": {
+            str(path): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in sorted(Path("experiments/document-pipeline").glob("*.py"))
+        },
         "engine_sha256": {
             str(path): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in sorted(Path("src/seal").rglob("*"))
