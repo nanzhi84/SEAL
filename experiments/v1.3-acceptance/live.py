@@ -130,8 +130,8 @@ def summarize(run, exported):
     observations = run.get("observations", [])
     return {
         "status": run.get("run", {}).get("status"),
-        "termination": summary.get("termination"),
-        "termination_reason": summary.get("terminal_reason", report.get("terminal_reason")),
+        "terminal": summary.get("terminal"),
+        "finish_reason": report.get("finish_reason"),
         "errors": run.get("run", {}).get("errors", []),
         "counts": summary.get("counts", report.get("resource_counts", {})),
         "discovery": {k: v for k, v in discovery.items() if k != "events"},
@@ -175,7 +175,7 @@ def report(output, manifest):
                         value.get("status", source.get("driver_error", "not executed")),
                         value.get("snapshots", "unknown"),
                         value.get("records_exported", "unknown"),
-                        value.get("termination_reason", "unknown"),
+                        value.get("errors", []),
                     ],
                 )
             )

@@ -91,9 +91,7 @@ def exercise(h):
             inspection = h.cli("inspect", "run", receipt["run_id"])
             exported = h.cli("export", source, "--run", receipt["run_id"])
             fetched = [row["path"] for row in h.site.ledger[before:]]
-            h.check(
-                label + "_collect_status", receipt["status"], "failed" if error else "complete"
-            )
+            h.check(label + "_collect_status", receipt["status"], "failed" if error else "complete")
             h.check(
                 label + "_document_requests", fetched.count("/document!public"), 0 if error else 1
             )

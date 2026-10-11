@@ -217,7 +217,7 @@ def failed_dates(c, source, run, status):
     if (
         run["mode"] != "recheck"
         or plan is None
-        or status not in ("partial", "failed")
+        or status != "failed"
         or source["generation"] != run["generation"]
         or source["paused"]
         or source["write_seq"] > run["run_seq"]

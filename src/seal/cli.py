@@ -4,7 +4,6 @@ import argparse
 import asyncio
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 from .config import load_file
@@ -95,18 +94,23 @@ def dispatch(args):
             source, run = locked_run(c, args.run)
             if run["status"] not in ("retryable", "running", "finishing"):
                 raise SealError("run_not_retryable")
-            if run["attempt_epoch"] >= run["max_attempts"] or run["deadline"] <= datetime.now(
-                timezone.utc
-            ):
-                raise SealError("attempts_or_deadline_exhausted")
+            from .run_state import exhaustion_error
+
+            limit = exhaustion_error(run)
+            if limit:
+                runs.end_run(c, source, run, "failed", limit)
+                # Commit the terminal outcome before returning its nonzero receipt.
+                exhausted = True
+            else:
+                exhausted = False
             decision(c, source["id"], "control", {"action": "retry", "run_id": run["id"]})
-            if args.enqueue:
+            if args.enqueue and not exhausted:
                 if run["job_id"]:
                     raise SealError("use_stalled_recovery_for_existing_job")
                 from .queue import enqueue
 
                 enqueue(c, args.run)
-        return runs.receipt(args.run) if args.enqueue else runs.execute_run(args.run)
+        return runs.receipt(args.run) if args.enqueue or exhausted else runs.execute_run(args.run)
     if args.command == "finish":
         return finish_run(args.run)
     if args.command == "inspect":
@@ -150,7 +154,7 @@ def main():
     try:
         result = dispatch(args)
         print(json.dumps(result, ensure_ascii=False, default=str))
-        return 1 if result.get("status") in ("partial", "failed", "superseded", "retryable") else 0
+        return 1 if result.get("status") in ("failed", "retryable") else 0
     except SealError as exc:
         print(json.dumps({"error": exc.code}))
         return 2

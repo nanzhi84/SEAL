@@ -5,26 +5,41 @@ from collections import Counter
 from .core import Objects, SealError
 from .db import connect, fenced, j, locked_run, one
 from .manifest import has_table, terminal_report, write_manifest
+from .run_state import TERMINAL_STATES, exhaustion_error
 
 
-def completion_status(errors, online, epoch, max_attempts):
+def completion_status(errors, run):
+    limit = exhaustion_error(run)
+    if limit == "deadline_exceeded" and limit not in errors:
+        errors.append(limit)
+        errors.sort()
     if not errors:
         return "complete"
     structural = {"unresolved_document_refs", "unresolved_seed", "incomplete_crawl"}
-    temporary = {"download_failed", "http_5xx", "source_rate_limited"}
+    temporary = {
+        "download_failed",
+        "http_5xx",
+        "source_rate_limited",
+        "child_process_failed",
+        "crawl_timeout",
+    }
     transient = bool(set(errors) & temporary) and not (set(errors) - structural - temporary)
-    if online and transient and "source_rate_limited" not in errors:
-        return "retryable" if epoch < max_attempts else "failed"
-    return "partial"
+    if run["mode"] != "replay" and transient and "source_rate_limited" not in errors:
+        if not limit:
+            return "retryable"
+        if limit not in errors:
+            errors.append(limit)
+            errors.sort()
+    return "failed"
 
 
 def finish_run(run_id, epoch=None):
-    from .runs import receipt
+    from .runs import receipt, run_receipt
 
     with connect() as c:
         source, run = locked_run(c, run_id)
         epoch = run["attempt_epoch"] if epoch is None else epoch
-        if run["status"] in ("complete", "partial", "failed", "superseded"):
+        if run["status"] in TERMINAL_STATES:
             return receipt(run_id)
         if run["mode"] not in ("collect", "recheck", "replay"):
             raise SealError("unsupported_run_mode")
@@ -36,18 +51,14 @@ def finish_run(run_id, epoch=None):
         try:
             fenced(source, run, epoch)
         except SealError as exc:
-            report = terminal_report(c, source, run, "superseded", exc.code)
+            report = terminal_report(c, source, run, "failed", exc.code)
             c.execute(
-                "UPDATE seal_run SET status='superseded',report=%s,errors=%s,completed_at=now() WHERE id=%s",
+                "UPDATE seal_run SET status='failed',report=%s,errors=%s,completed_at=now() WHERE id=%s",
                 (j(report), j(report["errors"]), run_id),
             )
-            return {
-                "run_id": run_id,
-                "status": "superseded",
-                "attempt_epoch": epoch,
-                "errors": report["errors"],
-                "report": report,
-            }
+            return run_receipt(
+                c, dict(run, status="failed", errors=report["errors"], report=report)
+            )
         errors = list(run["errors"])
         results = c.execute(
             "SELECT * FROM seal_result WHERE id=ANY(%s) ORDER BY document_id", (run["result_ids"],)
@@ -135,7 +146,8 @@ def finish_run(run_id, epoch=None):
             errors.extend(record_finish["errors"])
         discovery = {"contract": 1, "availability": "not_recorded", "unknown_coverage": True}
         if has_table(c, "seal_discovery"):
-            from .discovery import finish_discovery, summarize_discovery
+            from .discovery import finish_discovery
+            from .discovery_report import summarize_discovery
 
             finish_discovery(c, run, run["report"].get("finish_reason", "unknown"))
             discovery = summarize_discovery(c, run)
@@ -148,7 +160,7 @@ def finish_run(run_id, epoch=None):
 
             unobserved = unobserved_records(c, source, run)
         errors = sorted(set(errors))
-        from .discovery import network_counts
+        from .discovery_report import network_counts
 
         resource_counts = network_counts(c, run)
         resource_counts.update(
@@ -190,7 +202,7 @@ def finish_run(run_id, epoch=None):
             quality_status="not_evaluated",
             errors=errors,
         )
-        status = completion_status(errors, online, epoch, run["max_attempts"])
+        status = completion_status(errors, run)
         binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (run["binding_id"],))
         try:
             report["manifest_id"] = write_manifest(
@@ -211,7 +223,7 @@ def finish_run(run_id, epoch=None):
                     set(errors + (["records_unobserved"] if unobserved else []))
                 ),
             )
-            status = completion_status(errors, online, epoch, run["max_attempts"])
+            status = completion_status(errors, run)
         if records_available and status == "complete":
             from .records import accept_records
 
