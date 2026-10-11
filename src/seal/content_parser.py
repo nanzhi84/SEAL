@@ -124,11 +124,13 @@ def _html(body, base_url, config, selector=None):
         scope = selected[0]
     else:
         scope = next(iter(root.xpath("//article|//main|//*[@role='main']|//body")), root)
-        if not " ".join(scope.itertext()).strip() and not scope.xpath(".//a[@href]"):
-            # A list/navigation page may consist entirely of links in <nav>.
-            # Keep it representable even when the ordinary body cleanup removed it.
+        if scope.tag == "body" and not scope.xpath(".//a[@href]"):
+            # A list page may keep its links in <nav>, with or without a
+            # heading outside it. The Recipe can follow those links too.
             original = html.fromstring(decoded)
-            scope = next(iter(original.xpath("//body")), original)
+            original_body = next(iter(original.xpath("//body")), original)
+            if original_body.xpath(".//nav//a[@href]"):
+                scope = original_body
     children = []
     text = " ".join(" ".join(scope.itertext()).split())
     if text:

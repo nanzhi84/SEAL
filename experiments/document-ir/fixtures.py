@@ -69,7 +69,7 @@ def install(h):
         ),
         "/ir/nav-list": (
             "text/html",
-            b'<html><body><nav><a href="/ir/note.txt">Only link</a></nav></body></html>',
+            b'<html><body><h1>Resources</h1><nav><a href="/ir/note.txt">Only link</a></nav></body></html>',
         ),
         "/ir/base": (
             "text/html",
