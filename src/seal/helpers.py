@@ -32,13 +32,18 @@ def diagnostic(response, code):
 
 def frozen_request(response):
     """Keep the actual frozen GET/query, never invent a detail URL for a row."""
-    if response.request.method != "GET" or response.request.body:
+    if response.request.method not in {"GET", "POST"}:
         raise SealError("record_parent_request_rejected")
-    return {
+    parent = {
         "url": public_url(response.meta.get("seal_logical_url", response.request.url)),
         "role": response.meta.get("seal_role", "list"),
-        "method": "GET",
+        "method": response.request.method,
     }
+    if response.request.method == "POST":
+        parent["body"] = response.request.body.decode("ascii")
+    elif response.request.body:
+        raise SealError("record_parent_request_rejected")
+    return parent
 
 
 def follow(response, url, role, callback, errback=None, *, cb_kwargs=None, rejection=None):

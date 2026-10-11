@@ -59,6 +59,8 @@ def main():
                 ("sitemap", "sitemap_acceptance.py"),
                 ("robots-reasons", "robots_reasons_acceptance.py"),
                 ("dynamic-attachment", "dynamic_attachment_acceptance.py"),
+                ("business-robots", "business_robots_acceptance.py"),
+                ("business-public-post", "business_post_acceptance.py"),
             )
         ],
     ]

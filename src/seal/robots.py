@@ -16,6 +16,7 @@ from scrapy.utils.defer import maybe_deferred_to_future
 from twisted.internet.defer import Deferred
 
 from .archive import InputMiddleware
+from .core import digest, public_url
 from .discovery import mark_failed, mark_parsed
 from .seeded import robots_sitemaps
 
@@ -108,10 +109,74 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
                 self.crawler._seal_discovery.scheduled(policy)
                 response = await self.crawler.engine.download_async(policy)
                 await asyncio.to_thread(self.inputs.process_spider_input, response)
+                visited = {policy.url}
+                for hop in range(6):
+                    if response.status not in {301, 302, 303, 307, 308}:
+                        break
+                    location = response.headers.get("Location")
+                    if hop == 5 or not location:
+                        raise IgnoreRequest("robots_policy_redirect_rejected")
+                    target = public_url(response.urljoin(location.decode("latin1")))
+                    parsed_target = urlsplit(target)
+                    config = self.context.get("config", {})
+                    if (
+                        target in visited
+                        or parsed_target.hostname != parsed.hostname
+                        or parsed_target.path
+                        not in ["/robots.txt", *config.get("robots_redirect_paths", [])]
+                        or parsed_target.query
+                        or parsed_target.fragment
+                        or (
+                            urlsplit(response.url).scheme == "https"
+                            and parsed_target.scheme != "https"
+                        )
+                    ):
+                        raise IgnoreRequest("robots_policy_redirect_rejected")
+                    visited.add(target)
+                    await asyncio.to_thread(mark_parsed, self.context, policy)
+                    meta = {
+                        key: policy.meta[key]
+                        for key in (
+                            "dont_obey_robotstxt",
+                            "dont_redirect",
+                            "dont_retry",
+                            "_seal_robots_policy",
+                            "seal_role",
+                            "seal_discovery_method",
+                            "seal_depth",
+                        )
+                    }
+                    meta.update(
+                        _seal_robots_url=target,
+                        seal_parent_url=response.url,
+                        seal_parent_snapshot_id=response.meta["seal_snapshot_id"],
+                        seal_parent_observation_id=response.meta["seal_observation_id"],
+                        seal_observation_id=response.meta["seal_observation_id"],
+                        seal_chain_id=policy.meta.get("seal_chain_id"),
+                        seal_discovery_id=policy.meta.get("seal_discovery_id"),
+                        redirect_times=hop + 1,
+                    )
+                    policy = Request(
+                        target, priority=self.DOWNLOAD_PRIORITY, callback=NO_CALLBACK, meta=meta
+                    )
+                    self.crawler._seal_discovery.scheduled(policy)
+                    response = await self.crawler.engine.download_async(policy)
+                    await asyncio.to_thread(self.inputs.process_spider_input, response)
+                absent = (
+                    any(
+                        rule["url"] == response.url and rule["body_sha256"] == digest(response.body)
+                        for rule in self.context.get("config", {}).get(
+                            "robots_absent_responses", []
+                        )
+                    )
+                    and re.search(rb"(?im)^\s*(?:user-agent|allow|disallow)\s*:", response.body)
+                    is None
+                )
                 if (
-                    200 <= response.status < 300 and not is_policy_document(response.body)
+                    200 <= response.status < 300
+                    and (not is_policy_document(response.body) or absent)
                 ) or response.status in (404, 410):
-                    if 200 <= response.status < 300:
+                    if 200 <= response.status < 300 and not absent:
                         self.sitemaps[netloc] = {
                             "urls": list(robots_sitemaps(response)),
                             "url": response.url,
@@ -119,7 +184,9 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
                             "observation_id": response.meta["seal_observation_id"],
                         }
                     await self._parse_robots(
-                        response.replace(body=b"") if response.status in (404, 410) else response,
+                        response.replace(body=b"")
+                        if response.status in (404, 410) or absent
+                        else response,
                         netloc,
                         request,
                     )

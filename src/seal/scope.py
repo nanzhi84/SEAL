@@ -32,7 +32,7 @@ def robots_policy_request(config, request):
     """A narrowly identified policy fetch is allowed outside business paths.
 
     This does not exempt policy HTTP from addresses, redirects, method, headers,
-    budget or deadlines. Redirecting robots.txt to another path loses the exception.
+    budget or deadlines. Other paths need explicit frozen policy-redirect approval.
     """
     parsed = urlsplit(request.url)
     return bool(
@@ -41,7 +41,7 @@ def robots_policy_request(config, request):
         and request.meta.get("seal_role") == "robots"
         and parsed.scheme in {"http", "https"}
         and parsed.hostname in config["allowed_hosts"]
-        and parsed.path == "/robots.txt"
+        and parsed.path in ["/robots.txt", *config.get("robots_redirect_paths", [])]
         and not parsed.query
         and not parsed.fragment
         and request.url == request.meta.get("_seal_robots_url")

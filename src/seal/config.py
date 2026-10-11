@@ -4,7 +4,7 @@ from typing import Literal
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from .core import SealError, public_url
+from .core import SENSITIVE, SealError, public_url
 
 
 class UniqueLoader(yaml.SafeLoader):
@@ -42,6 +42,32 @@ class Budget(Strict):
     response_bytes: int = Field(default=10485760, ge=1024, le=52428800)
 
 
+class AbsentRobotsResponse(Strict):
+    """Explicitly reviewed missing policy, never a wildcard permission."""
+
+    url: str
+    body_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+
+    @field_validator("url")
+    @classmethod
+    def public(cls, value):
+        return public_url(value)
+
+
+class PublicPostRule(Strict):
+    url: str
+    fields: dict[str, Literal["page", "region", "query_id", "empty", "management", "date"]] = Field(
+        min_length=1, max_length=20
+    )
+
+    @model_validator(mode="after")
+    def public_query(self):
+        self.url = public_url(self.url)
+        if any(SENSITIVE.search(name) for name in self.fields):
+            raise SealError("public_form_sensitive_field_rejected")
+        return self
+
+
 class SourceConfig(Strict):
     id: str = Field(pattern=r"^[a-zA-Z0-9_-]{1,64}$")
     entry_urls: list[str] = Field(min_length=1, max_length=1000)
@@ -50,7 +76,8 @@ class SourceConfig(Strict):
     # When present, paths belong to a particular host, never to the union of hosts.
     host_path_scopes: dict[str, list[str]] = Field(default_factory=dict)
     research_ids: list[str] = Field(default_factory=list, max_length=111)
-    methods: list[Literal["GET", "HEAD"]] = ["GET", "HEAD"]
+    methods: list[Literal["GET", "HEAD", "POST"]] = ["GET", "HEAD"]
+    public_post_rules: list[PublicPostRule] = Field(default_factory=list, max_length=5)
     identity: Literal["canonical_url", "business_key"] = "canonical_url"
     output_schema: Literal["generic_document.v1", "record.v1"] = "generic_document.v1"
     archive_approved: bool
@@ -63,6 +90,8 @@ class SourceConfig(Strict):
     delay: float = Field(default=0.1, ge=0.0, le=60.0)
     # Explicit opt-in keeps historical V1.2 bindings unchanged. Seeded recipes require it.
     robots: bool = False
+    robots_redirect_paths: list[str] = Field(default_factory=list, max_length=5)
+    robots_absent_responses: list[AbsentRobotsResponse] = Field(default_factory=list, max_length=5)
     user_agent: str = "SEAL/0.1 (+authorized archival crawler)"
 
     @field_validator("entry_urls")
@@ -80,6 +109,17 @@ class SourceConfig(Strict):
             raise SealError("source_archive_approval_required")
         if any(not valid_prefix(p) for p in self.allowed_path_prefixes):
             raise SealError("invalid_path_scope")
+        if any(not valid_prefix(p) for p in self.robots_redirect_paths):
+            raise SealError("invalid_robots_redirect_path")
+        for missing in self.robots_absent_responses:
+            parsed = urlsplit(missing.url)
+            if (
+                not self.robots
+                or parsed.hostname not in self.allowed_hosts
+                or parsed.query
+                or parsed.path not in ["/robots.txt", *self.robots_redirect_paths]
+            ):
+                raise SealError("invalid_robots_absent_response")
         if self.host_path_scopes and (
             set(self.host_path_scopes) != set(self.allowed_hosts)
             or any(
@@ -96,6 +136,16 @@ class SourceConfig(Strict):
             parsed = urlsplit(url)
             if not paths_for(self.model_dump(), parsed.hostname, parsed.path):
                 raise SealError("source_out_of_scope")
+        for rule in self.public_post_rules:
+            parsed = urlsplit(rule.url)
+            if (
+                "POST" not in self.methods
+                or parsed.query
+                or not paths_for(self.model_dump(), parsed.hostname, parsed.path)
+            ):
+                raise SealError("public_form_out_of_scope")
+        if len({rule.url for rule in self.public_post_rules}) != len(self.public_post_rules):
+            raise SealError("duplicate_public_form_rule")
         return self
 
     def execution(self):

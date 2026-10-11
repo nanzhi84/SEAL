@@ -19,6 +19,7 @@ from .core import (
 )
 from .db import connect, fenced, j, locked_run, record_error
 from .discovery import ResourceFingerprinter, mark_archived, mark_failed, mark_requested
+from .public_forms import check_public_form
 from .scope import paths_for, robots_policy_request
 
 HEADERS = {
@@ -164,7 +165,13 @@ class RequestGuard(Component):
                     if parsed.hostname not in self.config.get("host_path_scopes", {}):
                         raise SealError("attachment_host_path_required")
             check_address(parsed.hostname)
-            if request.method not in self.config["methods"] or request.body:
+            if request.method not in self.config["methods"]:
+                raise SealError("request_method_rejected")
+            if request.method == "POST":
+                check_public_form(
+                    self.config, url, request.body, request.headers.get("Content-Type", b"")
+                )
+            elif request.body:
                 raise SealError("request_method_rejected")
             if any(
                 request.headers.get(k)
@@ -356,6 +363,8 @@ class InputMiddleware(Component):
             ),
             "used_at": datetime.now(timezone.utc).isoformat(),
         }
+        if request.method == "POST":
+            entry["request_body_sha256"] = digest(request.body)
         if entry["role"] != "robots":
             from .helpers import is_attachment_response
 

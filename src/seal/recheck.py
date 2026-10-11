@@ -5,7 +5,7 @@ proven parent even if it also exposes a navigational detail URL. Failed/missing
 targets retain their due date; separate bounded retry dates prevent starvation.
 """
 
-from .core import Objects, SealError, public_url
+from .core import Objects, SealError, digest, public_url
 from .record_validation import ParentRequest
 
 
@@ -101,7 +101,7 @@ def plan_recheck(c, source, config, due_only=False):
             if kind == "record"
             else {"url": public_url(target["url"]), "role": "detail", "method": "GET"}
         )
-        key = (request["url"], request["method"])
+        key = (request["url"], request["method"], digest(request.get("body", "").encode("ascii")))
         if key not in groups and len(groups) >= request_budget:
             if due_only:
                 continue
