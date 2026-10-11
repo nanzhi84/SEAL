@@ -24,6 +24,8 @@ Recipe manifest 保持 family/entrypoint/params_schema，允许以下增量：
   少数字段为 null。支持 2020-12 / 2019-09；远程引用与未知 dialect 拒绝，不联网取 Schema。
   `$id` 必须是完整合法 URI；包括中间或尾部空格、换行的 URN 都在 pack 明确拒绝。
   复用 JSON Schema 官方支持的 URI format checker 与最小成熟格式依赖，不自行解析 URI。
+  依赖固定 rfc3986-validator 0.1.1；原生检查返回 Match，要求其覆盖完整输入，补上库中 `$`
+  锚点误收末尾换行的边界。仅用于 Schema 身份，不启用全部 format extras 或修改普通 URL。
 - data_schema：可选；无改名与转换时复用 extraction_schema。纯改名的简单闭合合同可派生
   properties/required，并以源 `$id` 加 `:mapped` 作为派生 ID；复杂约束及语义转换必须显式声明。
 - field_mapping：源 key → 目标 key，未映射 key 保留。未知源、空目标、重复目标以及保留 key

@@ -5,11 +5,11 @@ import base64
 import inspect
 import re
 from copy import deepcopy
-from urllib.parse import urlsplit
 
 import jsonschema
 from referencing import Registry, Resource
 from referencing.exceptions import Unresolvable
+from rfc3986_validator import validate_rfc3986
 
 from .core import SealError
 
@@ -34,8 +34,13 @@ def schema_validator(schema):
     if not isinstance(schema, dict) or schema.get("$schema") not in DIALECTS:
         raise SealError("field_schema_dialect_rejected")
     identity = schema.get("$id")
-    if not isinstance(identity, str) or not urlsplit(identity).scheme:
+    if not isinstance(identity, str) or not identity:
         raise SealError("field_schema_identity_required")
+    # The JSON Schema-supported URI checker uses regex.match with a `$` anchor.
+    # Require the entire original value, including any terminal newline; never trim IDs.
+    match = validate_rfc3986(identity, rule="URI")
+    if match is None or match.end() != len(identity):
+        raise SealError("field_schema_identity_invalid")
     cls = DIALECTS[schema["$schema"]]
     try:
         cls.check_schema(schema)
