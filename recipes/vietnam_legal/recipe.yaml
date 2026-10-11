@@ -37,5 +37,15 @@ field_mapping:
   'Cơ quan ban hành:': issuing_authority
   'Năm ban hành:': issued_year
 field_parsers:
-  'Năm ban hành:': {entrypoint: 'recipe:issued_year', params: {format: '%d-%m-%Y'}}
+  'Năm ban hành:':
+    entrypoint: recipe:issued_year
+    params: {format: '%d-%m-%Y'}
+    params_schema:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      $id: urn:seal:schema:vietnam-issued-year-params:v1
+      type: object
+      additionalProperties: false
+      required: [format]
+      properties:
+        format: {type: string, enum: ['%d-%m-%Y']}
   'Lĩnh vực:': {entrypoint: 'recipe:subject_list'}

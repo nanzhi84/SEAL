@@ -109,7 +109,7 @@ def _signature(node):
 def check_rule(rule, files):
     if (
         not isinstance(rule, dict)
-        or set(rule) - {"entrypoint", "params"}
+        or set(rule) - {"entrypoint", "params", "params_schema"}
         or not isinstance(rule.get("entrypoint"), str)
         or not re.fullmatch(r"[a-zA-Z_][\w.]*:[A-Za-z_]\w*", rule["entrypoint"])
         or not isinstance(rule.get("params", {}), dict)
@@ -133,7 +133,16 @@ def check_rule(rule, files):
     # Configuration parameters obey the same strict JSON boundary as Record data.
     from .record_validation import json_value
 
-    json_value(rule.get("params", {}))
+    params = rule.get("params", {})
+    json_value(params)
+    parameter_schema = rule.get("params_schema")
+    if params and parameter_schema is None:
+        raise SealError("field_rule_parameter_schema_required")
+    if parameter_schema is not None:
+        try:
+            schema_validator(parameter_schema).validate(params)
+        except jsonschema.ValidationError:
+            raise SealError("field_rule_parameters_invalid") from None
 
 
 def field_contract(manifest, files):
