@@ -6,6 +6,36 @@ from io import BytesIO
 from openpyxl import Workbook
 from PIL import Image
 
+RECIPE = """import scrapy
+from seal.helpers import follow, html_record
+
+class DocumentSpider(scrapy.Spider):
+    name = "document_ir_acceptance"
+
+    def __init__(self, params, context, **kwargs):
+        super().__init__(**kwargs)
+        self.params, self.context = params, context
+
+    async def start(self):
+        for seed in self.context["seeds"]:
+            if self.params.get("post_pages"):
+                for page in self.params["post_pages"]:
+                    yield scrapy.FormRequest(seed["url"], formdata={"page": str(page)},
+                                             callback=self.parse, meta={"seal_role": seed["role"]})
+                continue
+            meta = {"seal_role": seed["role"]}
+            if self.params.get("selector"):
+                meta["seal_document_content_css"] = self.params["selector"]
+            yield scrapy.Request(seed["url"], callback=self.parse, meta=meta)
+
+    def parse(self, response):
+        if response.url.endswith(("/index", "/base")):
+            for link in response.css("a[href]"):
+                yield follow(response, link.attrib["href"], "attachment", self.parse)
+        elif self.params.get("extract") and response.url.endswith("/article"):
+            yield html_record(response)
+"""
+
 
 def install(h):
     handler = h.site.server.RequestHandlerClass
@@ -69,7 +99,7 @@ def install(h):
         ),
         "/ir/nav-list": (
             "text/html",
-            b'<html><body><h1>Resources</h1><nav><a href="/ir/note.txt">Only link</a></nav></body></html>',
+            b'<html><body><h1>Resources</h1><nav><a href="/ir/note.txt">Only link</a></nav><script>hiddenScript</script><style>hiddenStyle</style><footer><a href="/ir/data.csv">hiddenFooter</a></footer><form><a href="/ir/bad.pdf">hiddenForm</a></form><noscript>hiddenNoScript</noscript></body></html>',
         ),
         "/ir/base": (
             "text/html",
@@ -77,6 +107,7 @@ def install(h):
         ),
         "/ir/assets/data.csv": ("text/csv", b"name,value\nBase,1\n"),
         "/ir/error": ("text/html", b"<html><h1>Access denied</h1></html>"),
+        "/ir/denied.csv": ("text/html", b"<html><h1>Access denied</h1></html>"),
         "/ir/empty": ("text/html", b"<html><body></body></html>"),
     }
     h.fixtures = fixtures

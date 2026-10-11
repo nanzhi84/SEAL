@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 import psycopg
-from fixtures import install
+from fixtures import RECIPE, install
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "experiments/v1.2-acceptance"))
@@ -26,36 +26,6 @@ FIELD_SPEC = importlib.util.spec_from_file_location(
 )
 FIELDS = importlib.util.module_from_spec(FIELD_SPEC)
 FIELD_SPEC.loader.exec_module(FIELDS)
-
-RECIPE = """import scrapy
-from seal.helpers import follow, html_record
-
-class DocumentSpider(scrapy.Spider):
-    name = "document_ir_acceptance"
-
-    def __init__(self, params, context, **kwargs):
-        super().__init__(**kwargs)
-        self.params, self.context = params, context
-
-    async def start(self):
-        for seed in self.context["seeds"]:
-            if self.params.get("post_pages"):
-                for page in self.params["post_pages"]:
-                    yield scrapy.FormRequest(seed["url"], formdata={"page": str(page)},
-                                             callback=self.parse, meta={"seal_role": seed["role"]})
-                continue
-            meta = {"seal_role": seed["role"]}
-            if self.params.get("selector"):
-                meta["seal_document_content_css"] = self.params["selector"]
-            yield scrapy.Request(seed["url"], callback=self.parse, meta=meta)
-
-    def parse(self, response):
-        if response.url.endswith(("/index", "/base")):
-            for link in response.css("a[href]"):
-                yield follow(response, link.attrib["href"], "attachment", self.parse)
-        elif self.params.get("extract") and response.url.endswith("/article"):
-            yield html_record(response)
-"""
 
 
 def exercise(h):
@@ -172,7 +142,7 @@ def exercise(h):
 
     h.config(
         "ir_pages",
-        entries=[h.site.url + "/ir/error", h.site.url + "/ir/empty"],
+        entries=[h.site.url + "/ir/" + name for name in ("error", "empty", "denied.csv")],
         output_schema="record.v1",
         document_ir=True,
         delay=0.0,
@@ -230,11 +200,24 @@ def exercise(h):
     nav_binding = h.binding("ir_nav", version, {})
     nav_run = h.cli("collect", "ir_nav", "--binding", nav_binding)
     nav_export = h.cli("export", "ir_nav", "--run", nav_run["run_id"])
-    h.check("navigation_only_list_is_document", len(nav_export["content_documents"]), 1)
+    nav_docs = nav_export["content_documents"]
     h.check(
-        "navigation_only_list_keeps_link",
-        nav_export["content_documents"][0]["refs"][0]["url"],
-        h.site.url + "/ir/note.txt",
+        "navigation_list_keeps_only_content_link",
+        [ref["url"] for ref in nav_docs[0]["refs"]],
+        [h.site.url + "/ir/note.txt"],
+    )
+    h.check(
+        "navigation_list_excludes_chrome_text",
+        all(
+            word not in nav_docs[0]["children"][0]["text"]
+            for word in (
+                "hiddenScript",
+                "hiddenStyle",
+                "hiddenFooter",
+                "hiddenForm",
+                "hiddenNoScript",
+            )
+        ),
     )
     h.capture("nav-list", {"receipt": nav_run, "export": nav_export})
 

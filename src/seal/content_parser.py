@@ -128,6 +128,8 @@ def _html(body, base_url, config, selector=None):
             # A list page may keep its links in <nav>, with or without a
             # heading outside it. The Recipe can follow those links too.
             original = html.fromstring(decoded)
+            for node in original.xpath("//script|//style|//footer|//form|//noscript"):
+                node.drop_tree()
             original_body = next(iter(original.xpath("//body")), original)
             if original_body.xpath(".//nav//a[@href]"):
                 scope = original_body
@@ -173,6 +175,12 @@ def _html(body, base_url, config, selector=None):
 def _kind(response):
     mime = response.headers.get("Content-Type", b"").decode("latin1").split(";", 1)[0].lower()
     suffix = urlsplit(response.url).path.lower()
+    if (
+        mime.startswith("text/html")
+        or suffix.endswith((".html", ".htm"))
+        or response.body.lstrip().lower().startswith((b"<html", b"<!doctype html"))
+    ):
+        return "html", mime
     if mime in IMAGE_MIMES or suffix.endswith((".png", ".jpg", ".jpeg", ".gif", ".webp")):
         return "image", mime
     if mime == "application/pdf" or suffix.endswith(".pdf"):
@@ -187,12 +195,6 @@ def _kind(response):
         return "csv", mime
     if mime in {"application/json", "text/json"} or suffix.endswith(".json"):
         return "json", mime
-    if (
-        mime.startswith("text/html")
-        or suffix.endswith((".html", ".htm"))
-        or response.body.lstrip().lower().startswith((b"<html", b"<!doctype html"))
-    ):
-        return "html", mime
     if mime == "text/plain" or suffix.endswith(".txt"):
         return "txt", mime
     raise SealError("document_format_unsupported")
