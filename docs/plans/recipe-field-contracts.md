@@ -85,3 +85,25 @@ key 省略、data_schema_id 不匹配、非 null 类型错误、缺少非 null L
 - [越南政府文件系统](https://vanban.chinhphu.vn/)：实测详情机关/日期，领域筛选是公开 ASP.NET
   表单提交，2026-10-11 分类 6 + 年份 2026 + 文号 48/2026/QĐ-TTg 没有返回 docid；该范围
   不足以证明所有领域，当前领域 null。
+
+## 越南公开表单的最小受控补充
+
+首轮仅使用详情 GET 与镜像归属列表不能完成真实领域 fallback，因此增加 Source 明确 opt-in
+`public_html_forms`，不改变现有 `public_post_rules` 或一般 POST 权限。实测官方表单 40 个
+成功控件，body 114184 bytes，VIEWSTATE 92568 / EVENTVALIDATION 12992 bytes；删掉状态后
+虽然 HTTP 200，但分类重新为 0，不能据此认定筛选成功。
+
+规则精确冻结 `url`、`parent_url`、`form_xpath`、`fields` 成功控件全集、`select_fields`、
+真实 `submit: {name,value}` 与 `max_body_bytes: 131072`。Source/guard 只接受本 Run/epoch
+已归档父页，从父 HTML 以同一个 Scrapy FormRequest 重建默认成功控件。hidden/text/checkbox
+默认值逐值保真；只有声明 select 可以使用父页真实 options 中的值，认证 Cookie、额外字段、
+伪造父证据、改变隐藏状态、改变 action、未知 option 和超界 body 必须在请求前拒绝。
+
+职责位于 Source config / `html_forms.py` / RequestGuard，Recipe 只对显式指定类别与年份发起
+有界公开筛选，随后以 selected option 与 docid 归属为字段证据，不枚举全类别或新增表单 DSL。
+首次公开父页、POST筛选页、详情页同属现有 Archive/Observation/Replay；回执只保存请求
+body hash，不复制隐藏状态。实际 category 6 / 2026 → doc219249 → Chính sách xã hội 的
+非 null 领域必须通过真实 CLI路径验收；doc219914缺少可靠归属时保持null。
+
+先提交 `forms_acceptance.py` 的 CLI RED，再实现 guard。E2E 验证原 guard 拒绝 20KB状态，
+opt-in 后完整输入得到业务 Record；8个边界全部拒绝且服务器未收到POST；Replay零网络。
