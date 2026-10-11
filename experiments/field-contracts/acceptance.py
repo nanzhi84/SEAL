@@ -278,6 +278,13 @@ def invalid_configs(h, valid):
     ):
         value = copy.deepcopy(valid)
         value["field_transforms"] = {"local": invalid_rule}
+        value["data_schema"] = copy.deepcopy(value["extraction_schema"])
+        value["data_schema"]["$id"] += ":internal"
+        value["data_schema"]["properties"] = {
+            value["field_mapping"].get(key, key): kind
+            for key, kind in value["data_schema"]["properties"].items()
+        }
+        value["data_schema"]["required"] = list(value["data_schema"]["properties"])
         variants.append((label, value))
     for label, value in variants:
         root = h.root / label
