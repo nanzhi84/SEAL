@@ -350,13 +350,24 @@ def execute_run(run_id):
                 cancelled = True
                 break
             with connect() as c:
-                source, current = locked_run(c, run_id)
+                source = one(c, "SELECT * FROM seal_source WHERE id=%s", (context["source_id"],))
+                current = one(c, "SELECT * FROM seal_run WHERE id=%s", (run_id,))
                 if current["attempt_epoch"] != epoch or current["status"] in TERMINAL_STATES:
                     cancelled = True
                     break
                 code = eligibility_error(source, current)
                 if code or current["deadline"] <= datetime.now(timezone.utc):
-                    end_run(c, source, current, "failed", code or "deadline_exceeded")
+                    # Only stopping takes write locks; polling must not contend
+                    # with a valid completion transaction or its fault recovery.
+                    source, current = locked_run(c, run_id)
+                    code = eligibility_error(source, current)
+                    expired = current["deadline"] <= datetime.now(timezone.utc)
+                    if (
+                        current["attempt_epoch"] == epoch
+                        and current["status"] not in TERMINAL_STATES
+                        and (code or expired)
+                    ):
+                        end_run(c, source, current, "failed", code or "deadline_exceeded")
                     cancelled = True
                     break
             time.sleep(0.2)
