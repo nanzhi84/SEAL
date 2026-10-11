@@ -57,6 +57,9 @@ def located(root, snapshot_id, locator):
 def transform(value, rule):
     name = rule["entrypoint"].split(":")[1]
     params = rule.get("params", {})
+    if params:
+        parameter_schema = rule["params_schema"]
+        jsonschema.validators.validator_for(parameter_schema)(parameter_schema).validate(params)
     try:
         if name in ("year", "issued_year"):
             return datetime.strptime(value, params["format"]).year
@@ -157,6 +160,18 @@ def verify(root, vietnam_only=False):
             assert report["discovery"]["http_attempts"] == 0, "replay_http_attempts"
             replays += 1
     if not vietnam_only:
+        for label in (
+            "missing_parameter_schema",
+            "wrong_prefix_parameter_type",
+            "wrong_date_parameter_type",
+            "unsupported_date_parameter",
+        ):
+            rejected = json.loads((root / ("config-" + label + ".json")).read_text())
+            assert rejected["error"] == (
+                "field_rule_parameter_schema_required"
+                if label == "missing_parameter_schema"
+                else "field_rule_parameters_invalid"
+            ), "invalid_parameter_configuration_admitted"
         assert records >= 12 and replays >= 2, "required_scenarios_missing"
         mapped = json.loads((root / "mapped.json").read_text())["export"]["records"][0]
         assert mapped["data"] == {

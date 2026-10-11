@@ -277,7 +277,10 @@ def invalid_configs(h, valid):
         ("invalid_parameters", {"entrypoint": "recipe:year", "params": {"unexpected": 1}}),
     ):
         value = copy.deepcopy(valid)
-        value["field_transforms"] = {"local": invalid_rule}
+        if label in {"wrong_date_parameter_type", "unsupported_date_parameter"}:
+            value["field_parsers"] = {"Năm ban hành:": invalid_rule}
+        else:
+            value["field_transforms"] = {"local": invalid_rule}
         value["data_schema"] = copy.deepcopy(value["extraction_schema"])
         value["data_schema"]["$id"] += ":internal"
         value["data_schema"]["properties"] = {
@@ -294,6 +297,14 @@ def invalid_configs(h, valid):
         before = len(h.site.ledger)
         receipt = h.cli("recipe", "pack", root, ok=False)
         h.check(label + "_rejected", receipt.get("error", "").startswith("field_"))
+        if label == "missing_parameter_schema":
+            h.check(label + "_cause", receipt["error"], "field_rule_parameter_schema_required")
+        elif label in {
+            "wrong_prefix_parameter_type",
+            "wrong_date_parameter_type",
+            "unsupported_date_parameter",
+        }:
+            h.check(label + "_cause", receipt["error"], "field_rule_parameters_invalid")
         h.capture("config-" + label, receipt)
         h.check(label + "_no_http", len(h.site.ledger), before)
 
