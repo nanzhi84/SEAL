@@ -68,6 +68,45 @@ class PublicPostRule(Strict):
         return self
 
 
+class FormSubmit(Strict):
+    name: str = Field(min_length=1, max_length=256)
+    value: str = Field(max_length=1024)
+
+
+class PublicHtmlFormRule(Strict):
+    """Explicit public form: archived defaults, declared select overrides, fixed submit."""
+
+    url: str
+    parent_url: str
+    form_xpath: str = Field(min_length=1, max_length=512)
+    fields: list[str] = Field(min_length=1, max_length=100)
+    select_fields: list[str] = Field(default_factory=list, max_length=20)
+    submit: FormSubmit
+    max_body_bytes: int = Field(default=131072, ge=1024, le=131072)
+
+    @model_validator(mode="after")
+    def public_form(self):
+        from lxml import etree
+
+        self.url, self.parent_url = public_url(self.url), public_url(self.parent_url)
+        if (
+            len(set(self.fields)) != len(self.fields)
+            or len(set(self.select_fields)) != len(self.select_fields)
+            or not set(self.select_fields) <= set(self.fields)
+            or self.submit.name not in self.fields
+            or self.submit.name in self.select_fields
+            or any(not name.strip() or len(name) > 256 for name in self.fields)
+        ):
+            raise SealError("public_html_form_fields_invalid")
+        if any(SENSITIVE.search(name) for name in self.fields):
+            raise SealError("public_form_sensitive_field_rejected")
+        try:
+            etree.XPath(self.form_xpath)
+        except etree.XPathError:
+            raise SealError("public_html_form_xpath_invalid") from None
+        return self
+
+
 class SourceConfig(Strict):
     id: str = Field(pattern=r"^[a-zA-Z0-9_-]{1,64}$")
     entry_urls: list[str] = Field(min_length=1, max_length=1000)
@@ -78,6 +117,7 @@ class SourceConfig(Strict):
     research_ids: list[str] = Field(default_factory=list, max_length=111)
     methods: list[Literal["GET", "HEAD", "POST"]] = ["GET", "HEAD"]
     public_post_rules: list[PublicPostRule] = Field(default_factory=list, max_length=5)
+    public_html_forms: list[PublicHtmlFormRule] = Field(default_factory=list, max_length=5)
     identity: Literal["canonical_url", "business_key"] = "canonical_url"
     output_schema: Literal["generic_document.v1", "record.v1"] = "generic_document.v1"
     archive_approved: bool
@@ -145,6 +185,16 @@ class SourceConfig(Strict):
             ):
                 raise SealError("public_form_out_of_scope")
         if len({rule.url for rule in self.public_post_rules}) != len(self.public_post_rules):
+            raise SealError("duplicate_public_form_rule")
+        for rule in self.public_html_forms:
+            for url in (rule.url, rule.parent_url):
+                parsed = urlsplit(url)
+                if "POST" not in self.methods or not paths_for(
+                    self.model_dump(), parsed.hostname, parsed.path
+                ):
+                    raise SealError("public_form_out_of_scope")
+        form_urls = [rule.url for rule in (*self.public_post_rules, *self.public_html_forms)]
+        if len(form_urls) != len(set(form_urls)):
             raise SealError("duplicate_public_form_rule")
         return self
 
