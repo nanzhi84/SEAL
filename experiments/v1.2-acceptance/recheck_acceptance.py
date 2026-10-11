@@ -341,7 +341,7 @@ def failure(h, version):
     h.start_worker()
     h.wait_worker()
     failed = h.cli("inspect", "run", first["id"])["run"]
-    h.check("failed_due_run_visible", failed["status"] in ("failed", "partial"))
+    h.check("failed_due_run_visible", failed["status"] in ("failed", "failed"))
     h.check("failed_due_run_reports_http_error", "http_5xx" in failed["errors"])
     h.check("failed_does_not_postpone_any_record", dates(h, name), before)
     retries = sql(
@@ -431,7 +431,7 @@ def failure(h, version):
     h.check(
         "stale_generation_cannot_complete",
         h.cli("inspect", "run", stale["id"])["run"]["status"],
-        "superseded",
+        "failed",
     )
     h.check("stale_generation_preserves_dates", dates(h, name), before)
     h.check(

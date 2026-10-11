@@ -3,6 +3,7 @@
 import hashlib
 import json
 import shutil
+import sys
 
 
 def configuration_and_determinism(h):
@@ -81,22 +82,97 @@ def runtime_contracts(h):
     from .faults import sql
 
     h.config(
-        "partial",
+        "failed",
+        entries=[h.site.url + "/partial/one"],
+        seed_role="detail",
+    )
+    binding = h.binding("failed")
+    h.select("failed", binding, 0)
+    h.cli("run", "failed")
+    baseline = h.export("failed")["documents"]
+    h.site.version = "B"
+    h.config(
+        "failed",
         entries=[h.site.url + "/partial/one", h.site.url + "/probe/badpdf"],
         seed_role="detail",
     )
-    binding = h.binding("partial")
-    failed = h.cli("run", "partial", "--binding", binding, ok=False)
-    h.check("partial_has_technical_error", failed["status"], "partial")
-    data = h.cli("export", "partial", "--run", failed["run_id"])
+    binding = h.binding("failed")
+    failed = h.cli("run", "failed", "--binding", binding, ok=False)
+    h.check("partial_has_technical_error", failed["status"], "failed")
+    h.check("failed_errors_not_empty", bool(failed["errors"]))
+    h.check("failed_errors_in_report", failed["report"]["errors"], failed["errors"])
+    h.check(
+        "failed_no_duplicate_classification",
+        not (
+            {"termination", "terminal_reason"}
+            & (failed["summary"].keys() | failed["report"].keys())
+        ),
+    )
+    data = h.cli("export", "failed", "--run", failed["run_id"])
     h.check("partial_valid_json_retained", len(data["documents"]), 1)
+    h.check("failed_valid_result_is_new_content", data["documents"][0]["body"], "Public content B")
     h.check("partial_not_quality_evaluated", data["quality_status"], "not_evaluated")
     h.check(
         "partial_raw_preserved", len(h.cli("inspect", "run", failed["run_id"])["observations"]) >= 2
     )
-    h.check("partial_not_in_success_view", len(h.export("partial")["documents"]), 0)
+    h.check(
+        "failed_preserves_success_view",
+        [d["result_id"] for d in h.export("failed")["documents"]],
+        [d["result_id"] for d in baseline],
+    )
+    entry = data["documents"][0]
+    key = entry["body_hash"]
+    blob = h.root / "archive" / "objects" / key[:2] / key[2:]
+    original = blob.read_bytes()
+    blob.write_bytes(b"synthetic failure evidence corruption")
+    try:
+        broken = h.cli("export", "failed", "--run", failed["run_id"])
+        h.check("failed_export_corrupt_item_rejected", broken["documents"], [])
+        h.check(
+            "failed_export_corruption_diagnostic",
+            broken["unavailable"][0]["reason"],
+            "archive_corrupt",
+        )
+    finally:
+        blob.write_bytes(original)
+        h.site.version = "A"
     h.cli("export", "a", "--run", failed["run_id"], ok=False)
     h.check("cross_source_export_rejected", True)
+
+    slow = h.root / "time-budget-recipe"
+    shutil.copytree("recipes/generic", slow)
+    file = slow / "recipe.py"
+    file.write_text(
+        file.read_text()
+        .replace("import json", "import json\nimport asyncio")
+        .replace(
+            "    def parse_detail(self, response):",
+            "    async def parse_detail(self, response):\n        await asyncio.sleep(3)",
+        )
+    )
+    h.config(
+        "timebudget",
+        entries=[h.site.url + "/timebudget/one"],
+        seed_role="detail",
+        delay=0.0,
+        budget={"requests": 5, "seconds": 1, "response_bytes": 100000},
+    )
+    version = h.cli("recipe", "pack", slow)["recipe_version"]
+    timed = h.cli(
+        "run", "timebudget", "--binding", h.binding("timebudget", recipe=version), ok=False
+    )
+    h.check("crawl_time_budget_failed", timed["status"], "failed")
+    h.check("crawl_time_budget_machine_error", "crawl_time_budget_exceeded" in timed["errors"])
+    h.check(
+        "crawl_time_budget_native_context", timed["report"]["finish_reason"], "closespider_timeout"
+    )
+    h.check("crawl_time_budget_not_retryable", timed["attempt_epoch"], 1)
+    h.check(
+        "crawl_time_budget_valid_output_exported",
+        len(h.cli("export", "timebudget", "--run", timed["run_id"])["documents"]),
+        1,
+    )
+    h.check("crawl_time_budget_not_success_baseline", h.export("timebudget")["documents"], [])
 
     h.config("zero", entries=[h.site.url + "/zero/one"], seed_role="detail")
     folder = h.root / "zero-recipe"
@@ -138,3 +214,64 @@ def stopped_source_replay(h):
     replay = h.cli("replay", run)
     h.check("stopped_source_replay_succeeds", replay["status"], "complete")
     h.check("stopped_source_replay_zero_network", len(h.site.ledger), before)
+
+
+def historical_bundle_compatibility(h):
+    """Freeze a synthetic prior engine fingerprint; never relax environment checks."""
+    from .faults import sql
+
+    h.config("compatibility")
+    binding = h.binding("compatibility")
+    original = h.cli("run", "compatibility", "--binding", binding)
+    original_data = h.cli("export", "compatibility", "--run", original["run_id"])
+    version = h.cli("inspect", "binding", binding)["recipe_version"]
+    objects = h.root / "archive" / "objects"
+    bundle = json.loads((objects / version[:2] / version[2:]).read_bytes())
+    bundle["environment"]["engine"]["runs.py"] = "synthetic-prior-runtime-fingerprint"
+    raw = json.dumps(bundle, sort_keys=True, separators=(",", ":")).encode()
+    prior = hashlib.sha256(raw).hexdigest()
+    target = objects / prior[:2] / prior[2:]
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(raw)
+    sql(
+        h,
+        "INSERT INTO seal_recipe_version(id,manifest) VALUES(%s,%s::jsonb)",
+        (
+            prior,
+            json.dumps(
+                {
+                    "object": prior,
+                    "environment": bundle["environment"],
+                    "python": sys.executable,
+                    "family": bundle["manifest"]["family"],
+                }
+            ),
+        ),
+    )
+    sql(
+        h,
+        "INSERT INTO seal_binding(id,source_id,recipe_version,config,params,fingerprint) SELECT 'prior-binding',source_id,%s,config,params,'prior-binding' FROM seal_binding WHERE id=%s",
+        (prior, binding),
+    )
+    before = len(h.site.ledger)
+    rejected = h.cli("replay", original["run_id"], "--binding", "prior-binding", ok=False)
+    h.check("old_binding_rejected_by_current_runtime", rejected["status"], "failed")
+    h.check("old_binding_environment_error", "environment_drift" in rejected["errors"])
+    h.check("old_binding_no_network", len(h.site.ledger), before)
+    h.check("old_archive_bytes_unchanged", target.read_bytes(), raw)
+    h.check(
+        "old_results_readable_after_rejected_replay",
+        len(h.cli("export", "compatibility", "--run", original["run_id"])["documents"]),
+        len(original_data["documents"]),
+    )
+    refreshed = h.binding("compatibility")
+    replay = h.cli("replay", original["run_id"], "--binding", refreshed)
+    replay_data = h.cli("export", "compatibility", "--run", replay["run_id"])
+    h.check("repacked_binding_replay_complete", replay["status"], "complete")
+    h.check("repacked_binding_replay_no_network", len(h.site.ledger), before)
+    for field in ("title", "body", "snapshot_ids", "locators"):
+        h.check(
+            "repacked_replay_preserves_" + field,
+            [d.get(field) for d in replay_data["documents"]],
+            [d.get(field) for d in original_data["documents"]],
+        )

@@ -86,6 +86,7 @@ def upgrade_history(h):
             "fetched_at": "2026-01-01T00:00:00+00:00",
         }
     ]
+    historical_manifest = obj({"contract": "seal.run_manifest.v1", "run_status": "partial"})
     with psycopg.connect(h.env["SEAL_DATABASE_URL"]) as c:
         c.execute(Path("src/seal/schema.sql").read_text())
         c.execute(
@@ -104,6 +105,8 @@ def upgrade_history(h):
             ("legacy-run", "trial", "complete"),
             ("legacy-pending", "trial", "pending"),
             ("legacy-production", "production", "pending"),
+            ("legacy-partial", "trial", "partial"),
+            ("legacy-superseded", "trial", "superseded"),
         ):
             c.execute(
                 "INSERT INTO seal_run(id,source_id,binding_id,mode,namespace,generation,run_seq,deadline,seeds,inputs,status,result_ids) VALUES(%s,'legacy','legacy-binding',%s,%s,0,0,now()+interval '1 hour',%s,%s,%s,%s)",
@@ -117,6 +120,18 @@ def upgrade_history(h):
                     Jsonb(["legacy-result"] if status == "complete" else []),
                 ),
             )
+        c.execute(
+            "UPDATE seal_run SET errors='[\"parse_failed\"]',report=%s WHERE id='legacy-partial'",
+            (
+                Jsonb(
+                    {
+                        "manifest_id": historical_manifest,
+                        "errors": ["parse_failed"],
+                        "terminal_reason": "deadline_exceeded",
+                    }
+                ),
+            ),
+        )
         c.execute(
             "INSERT INTO seal_fetch_observation(id,source_id,run_id,attempt_epoch,request_id,request_key,method,url,status,snapshot_id,body_hash,requested_at,fetched_at) VALUES('legacy-observation','legacy','legacy-run',1,'legacy-request',%s,'GET',%s,200,%s,%s,now(),now())",
             (request_key, url, snapshot, body_hash),
@@ -219,6 +234,28 @@ with connect() as c:
         ("legacy-document", "legacy-revision"),
     )
     h.check("v1_trial_inspectable", h.cli("inspect", "run", "legacy-run")["run"]["mode"], "trial")
+    for identity, expected in (
+        ("legacy-partial", ["deadline_exceeded", "parse_failed"]),
+        ("legacy-superseded", ["superseded"]),
+    ):
+        migrated_run = h.cli("inspect", "run", identity)["run"]
+        h.check(identity + "_unified_failed", migrated_run["status"], "failed")
+        h.check(identity + "_machine_errors", migrated_run["errors"], expected)
+        h.check(identity + "_report_errors", migrated_run["report"]["errors"], expected)
+        h.check(identity + "_no_duplicate_reason", "terminal_reason" not in migrated_run["report"])
+    preserved_manifest = h.cli("inspect", "manifest", historical_manifest)["manifest"]
+    h.check(
+        "historical_manifest_original_status_preserved", preserved_manifest["run_status"], "partial"
+    )
+    h.check(
+        "historical_manifest_hash_preserved",
+        hashlib.sha256(
+            (
+                h.root / "archive" / "objects" / historical_manifest[:2] / historical_manifest[2:]
+            ).read_bytes()
+        ).hexdigest(),
+        historical_manifest,
+    )
     h.cli("retry", "legacy-run", ok=False)
     for identity in ("legacy-pending", "legacy-production"):
         h.check(identity + "_stopped", h.cli("inspect", "run", identity)["run"]["status"], "failed")

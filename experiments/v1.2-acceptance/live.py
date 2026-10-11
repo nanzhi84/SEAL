@@ -136,7 +136,13 @@ def run(h, sample, binding, label, *, recheck=False, replay=None):
     evidence = {"receipt": receipt, "inspect": inspected, "export": exported}
     capture(h, f"{source}-{label}", evidence)
     prefix = source + "_" + label
-    h.check(prefix + "_status", receipt["status"] in sample["expected"]["statuses"])
+    # Frozen sample contracts retain their historical labels. New Run receipts
+    # use the migrated vocabulary without rewriting any historical evidence.
+    expected_statuses = {
+        "failed" if status in {"partial", "superseded"} else status
+        for status in sample["expected"]["statuses"]
+    }
+    h.check(prefix + "_status", receipt["status"] in expected_statuses)
     h.check(
         prefix + "_status_consistent",
         [inspected["run"]["status"], exported["run"]["status"]],

@@ -217,7 +217,7 @@ def exercise(h):
                 name, recipe, {**params, "expand_homepage": False, "discover_sitemaps": False}
             )
             run = h.cli("collect", name, "--binding", frozen, ok=False)
-            h.check(name + "_is_partial", run["status"], "partial")
+            h.check(name + "_is_partial", run["status"], "failed")
             h.check(name + "_has_explicit_reason", reason in run["errors"])
         h.config(
             "http_bound",
@@ -238,7 +238,7 @@ def exercise(h):
             },
         )
         run = h.cli("collect", "http_bound", "--binding", frozen, ok=False)
-        h.check("http_budget_is_partial", run["status"], "partial")
+        h.check("http_budget_is_partial", run["status"], "failed")
         h.check("http_budget_counts_policy", run["summary"]["counts"]["http_attempts"] <= 4)
         h.check("http_budget_explicit_reason", "request_budget_exceeded" in run["errors"])
         for status in (404, 403, 503):

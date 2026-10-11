@@ -181,7 +181,7 @@ def exercise(h):
             paths = [row["path"] for row in h.site.ledger[before:]]
             h.check(source + "_business_not_downloaded", "/document" in paths, False)
             h.check(source + "_policy_fetch_once", paths.count("/robots.txt"), 1)
-            h.check(source + "_blocked", receipt["summary"]["termination"], "blocked")
+            h.check(source + "_blocked", receipt["status"], "failed")
             h.check(source + "_run_reason", reason in receipt["errors"])
             events = inspection["discovery"]["events"]
             business = next(e for e in events if e["role"] != "robots")

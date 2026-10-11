@@ -123,10 +123,16 @@ except RuntimeError:
     second = h.cli("retry", first["run_id"], ok=False)
     third = h.cli("retry", first["run_id"], ok=False)
     h.check("transient_failure_retryable", first["status"], "retryable")
+    h.check("transient_error_machine_readable", "http_5xx" in first["errors"])
     h.check(
         "logical_run_has_three_attempt_limit",
         (second["attempt_epoch"], third["attempt_epoch"], third["status"]),
         (2, 3, "failed"),
+    )
+    h.check("retry_exhaustion_error", "attempts_exhausted" in third["errors"])
+    h.check(
+        "retry_exhaustion_coverage_errors",
+        "attempts_exhausted" in third["report"]["scope_evidence"]["unknown_coverage_reasons"],
     )
     h.cli("retry", first["run_id"], ok=False)
     h.check(
@@ -135,3 +141,46 @@ except RuntimeError:
         3,
     )
     h.site.failure = None
+
+    h.config("temporary")
+    binding = h.binding("temporary")
+    h.select("temporary", binding, 0)
+    h.site.failure = "page"
+    first = h.cli("run", "temporary", ok=False)
+    h.site.failure = None
+    recovered = h.cli("retry", first["run_id"])
+    h.check(
+        "logical_retry_recovers", (recovered["status"], recovered["attempt_epoch"]), ("complete", 2)
+    )
+    h.check(
+        "recovered_attempt_errors_retained",
+        "http_5xx" in recovered["report"]["attempts"][0]["errors"],
+    )
+
+    for state in ("pending", "retryable"):
+        name = "deadline_" + state
+        h.config(name)
+        binding = h.binding(name)
+        h.select(name, binding, 0)
+        if state == "pending":
+            pending = h.cli("run", name, "--enqueue")
+        else:
+            h.site.failure = "page"
+            pending = h.cli("run", name, ok=False)
+            h.site.failure = None
+        sql(
+            h,
+            "UPDATE seal_run SET deadline=now()-interval '1 second' WHERE id=%s",
+            (pending["run_id"],),
+        )
+        before = len(h.site.ledger)
+        if state == "pending":
+            h.start_worker()
+            h.wait_worker()
+        else:
+            expired = h.cli("retry", pending["run_id"], ok=False)
+            h.check("expired_retry_receipt_failed", expired["status"], "failed")
+        final = h.cli("inspect", "run", pending["run_id"])["run"]
+        h.check(name + "_failed", final["status"], "failed")
+        h.check(name + "_specific_error", "deadline_exceeded" in final["errors"])
+        h.check(name + "_no_download", len(h.site.ledger), before)

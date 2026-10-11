@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 
 from .core import Objects, SealError, uid
 from .db import connect, j, locked_run, one
+from .run_state import TERMINAL_STATES, eligibility_error, exhaustion_error
 
 
 def freeze_replay_origin(connection, original):
@@ -167,22 +168,18 @@ def end_run(connection, source, run, status, reason):
 def begin_attempt(run_id):
     with connect() as c:
         source, run = locked_run(c, run_id)
-        if run["status"] in ("complete", "superseded", "partial", "failed"):
+        if run["status"] in TERMINAL_STATES:
             return None
-        if run["attempt_epoch"] >= run["max_attempts"] or run["deadline"] <= datetime.now(
-            timezone.utc
-        ):
-            end_run(c, source, run, "failed", "attempts_or_deadline_exhausted")
+        limit = exhaustion_error(run)
+        if limit:
+            end_run(c, source, run, "failed", limit)
             return None
         if run["mode"] not in ("collect", "recheck", "replay"):
             raise SealError("unsupported_run_mode")
         if run["mode"] != "replay":
-            if (
-                source["generation"] != run["generation"]
-                or source["paused"]
-                or source["write_seq"] > run["run_seq"]
-            ):
-                end_run(c, source, run, "superseded", "superseded")
+            code = eligibility_error(source, run)
+            if code:
+                end_run(c, source, run, "failed", code)
                 return None
             if source["cooldown_until"] and source["cooldown_until"] > datetime.now(timezone.utc):
                 end_run(c, source, run, "failed", "source_cooling_down")
@@ -229,56 +226,9 @@ def run_context(run_id, epoch):
     return context
 
 
-def run_termination(run):
-    """Describe an attempt's stop without interpreting queue exhaustion as coverage."""
-    status = run["status"]
-    terminal = status in {"complete", "partial", "failed", "superseded"}
-    if not terminal and status != "retryable":
-        return {"terminal": False, "termination": None, "terminal_reason": None}
-    report = run.get("report", {})
-    errors = set(run.get("errors", [])) | set(report.get("errors", []))
-    reason = report.get("terminal_reason")
-    budget = sorted(
-        code for code in errors if "budget_exceeded" in code or code == "deadline_exceeded"
-    )
-    if report.get("finish_reason") == "closespider_timeout":
-        budget.append("closespider_timeout")
-    blocked = sorted(
-        errors
-        & {
-            "robots_denied",
-            "robots_policy_http_denied",
-            "robots_unavailable",
-            "source_rate_limited",
-            "access_control_detected",
-        }
-    )
-    if status == "complete":
-        category, reason = "queue_exhausted", reason or "queue_exhausted"
-    elif status == "superseded":
-        category, reason = "superseded", reason or "superseded"
-    elif budget:
-        category, reason = "budget_exhausted", reason or budget[0]
-    elif blocked:
-        category, reason = "blocked", reason or blocked[0]
-    elif status == "retryable":
-        category, reason = "retryable", reason or (sorted(errors)[0] if errors else status)
-    else:
-        category = status
-        finish_reason = report.get("finish_reason")
-        reason = reason or (
-            finish_reason
-            if finish_reason and finish_reason != "finished"
-            else sorted(errors)[0]
-            if errors
-            else status
-        )
-    return {"terminal": terminal, "termination": category, "terminal_reason": reason}
-
-
 def run_summary(connection, run):
     """Read current-attempt counters; immutable completion reports stay unchanged."""
-    from .discovery import summarize_discovery
+    from .discovery_report import summarize_discovery
     from .manifest import has_table
 
     discovery = summarize_discovery(connection, run)
@@ -339,16 +289,20 @@ def run_summary(connection, run):
             "archived_observations": discovery["archived_observations"],
         },
         "http_attempts_basis": discovery["http_attempts_basis"],
-        **run_termination(run),
+        "terminal": run["status"] in TERMINAL_STATES,
     }
 
 
 def receipt(run_id):
     with connect() as c:
         run = one(c, "SELECT * FROM seal_run WHERE id=%s", (run_id,))
-        summary = run_summary(c, run)
+        return run_receipt(c, run)
+
+
+def run_receipt(connection, run):
+    """Build the same CLI shape from stored or transaction-local terminal state."""
     return {
-        "run_id": run_id,
+        "run_id": run["id"],
         "source_id": run["source_id"],
         "binding_id": run["binding_id"],
         "mode": run["mode"],
@@ -358,12 +312,12 @@ def receipt(run_id):
         "deadline": run["deadline"].isoformat(),
         "errors": run["errors"],
         "report": run["report"],
-        "summary": summary,
+        "summary": run_summary(connection, run),
     }
 
 
 def execute_run(run_id):
-    from .completion import finish_run
+    from .completion import completion_status, finish_run
 
     state = receipt(run_id)
     if state["status"] == "finishing":
@@ -396,16 +350,26 @@ def execute_run(run_id):
                 cancelled = True
                 break
             with connect() as c:
-                source = one(
-                    c,
-                    "SELECT generation,paused FROM seal_source WHERE id=%s",
-                    (context["source_id"],),
-                )
-            if context["mode"] != "replay" and (
-                source["generation"] != context["generation"] or source["paused"]
-            ):
-                cancelled = True
-                break
+                source = one(c, "SELECT * FROM seal_source WHERE id=%s", (context["source_id"],))
+                current = one(c, "SELECT * FROM seal_run WHERE id=%s", (run_id,))
+                if current["attempt_epoch"] != epoch or current["status"] in TERMINAL_STATES:
+                    cancelled = True
+                    break
+                code = eligibility_error(source, current)
+                if code or current["deadline"] <= datetime.now(timezone.utc):
+                    # Only stopping takes write locks; polling must not contend
+                    # with a valid completion transaction or its fault recovery.
+                    source, current = locked_run(c, run_id)
+                    code = eligibility_error(source, current)
+                    expired = current["deadline"] <= datetime.now(timezone.utc)
+                    if (
+                        current["attempt_epoch"] == epoch
+                        and current["status"] not in TERMINAL_STATES
+                        and (code or expired)
+                    ):
+                        end_run(c, source, current, "failed", code or "deadline_exceeded")
+                    cancelled = True
+                    break
             time.sleep(0.2)
     finally:
         if process.poll() is None:
@@ -416,22 +380,28 @@ def execute_run(run_id):
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait()
     state = receipt(run_id)
-    if state["status"] in ("complete", "partial", "failed", "superseded"):
+    if state["status"] in TERMINAL_STATES:
         return state
     if state["status"] == "finishing":
+        if state["attempt_epoch"] != epoch:
+            return state
         return finish_run(run_id, epoch)
     with connect() as c:
         source, run = locked_run(c, run_id)
-        exhausted = epoch >= context["max_attempts"] or datetime.now(
-            timezone.utc
-        ) >= datetime.fromisoformat(context["deadline"])
         if run["attempt_epoch"] == epoch and run["status"] == "running":
-            reason = "crawl_cancelled" if cancelled else "child_process_failed"
-            if exhausted:
+            reason = eligibility_error(source, run) or exhaustion_error(run)
+            if reason:
                 end_run(c, source, run, "failed", reason)
             else:
-                c.execute(
-                    "UPDATE seal_run SET status='retryable',errors=errors || %s WHERE id=%s",
-                    (j([reason]), run_id),
-                )
+                code = "crawl_timeout" if cancelled else "child_process_failed"
+                errors = sorted(set([*run["errors"], code]))
+                status = completion_status(errors, run)
+                run = dict(run, errors=errors)
+                if status == "failed":
+                    end_run(c, source, run, status, None)
+                else:
+                    c.execute(
+                        "UPDATE seal_run SET status=%s,errors=%s WHERE id=%s",
+                        (status, j(errors), run_id),
+                    )
     return receipt(run_id)

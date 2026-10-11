@@ -106,7 +106,7 @@ def exercise(h):
                 permitted,
             )
             h.check(scenario + "_record_count", len(exported["records"]), int(permitted))
-            h.check(scenario + "_status", run["status"], "complete" if permitted else "partial")
+            h.check(scenario + "_status", run["status"], "complete" if permitted else "failed")
             h.capture(scenario, {"run": run, "inspect": inspected, "export": exported})
             if scenario in {"missing", "redirect"}:
                 before_replay = len(h.site.ledger)

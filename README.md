@@ -36,7 +36,7 @@ Recipe 提供专用 API / 游标规则；不会猜测搜索条件或任意 JSON 
 
 seeded Recheck 只处理冻结计划内的目标；页面里的新链接、iframe、附件与 Sitemap
 均不扩展，robots 仍作为访问政策辅助输入。直接列入计划的附件目标可以解析。
-partial Collect 的 Replay 重用已归档输入与冻结的历史拒绝证据，保留原拒绝原因；
+失败 Collect 的 Replay 重用已归档输入与冻结的历史拒绝证据，保留原拒绝原因；
 新增请求或缺失的已成功归档输入仍报 `replay_miss`，不会联网补齐。
 同一 robots 政策版本的 Sitemap 声明每次 Crawl 只发现一次；gzip Sitemap 受
 Source 的 `response_bytes` 解压大小上限约束。政策规则拒绝、政策 HTTP 401/403
@@ -147,7 +147,7 @@ uv run --frozen seal inspect run RUN_ID
 uv run --frozen seal export public_notices --run RUN_ID --output run-results.json
 ```
 
-原文先落盘、提交 Observation 后才交给 Spider；Pipeline 验证 Schema、输入归属与 locator，再保存 Revision 和 ProcessingResult。整个 Crawl 结束后保存技术报告，不生成发布事件。partial 的有效结果也可按 Run 导出；归档损坏条目进入 `unavailable`。原文、Source URL、Binding、RecipeVersion、Run、Revision、Observation 和 Result 均可追溯。
+原文先落盘、提交 Observation 后才交给 Spider；Pipeline 验证 Schema、输入归属与 locator，再保存 Revision 和 ProcessingResult。整个 Crawl 结束后保存技术报告，不生成发布事件。failed 的有效结果也可按 Run 导出；归档损坏条目进入 `unavailable`。原文、Source URL、Binding、RecipeVersion、Run、Revision、Observation 和 Result 均可追溯。
 
 同一个 RecipeVersion 可被多个 Source 的 Binding 复用。修改参数/执行配置需创建新 Binding，不影响旧 Binding 或在途任务。跨 Source 使用 Binding 会拒绝。
 
@@ -184,7 +184,17 @@ uv run --frozen seal source select public_notices --binding BINDING_ID --expect-
 
 选择版本或暂停递增 generation；CAS 冲突非零退出。候选与默认 Binding 共用 Source 的 run_seq/write_seq、attempt epoch 和 generation fencing，旧进程不得覆盖新状态。暂停与冷却对所有在线 Binding 生效，Replay 不推进在线状态。
 
-每个逻辑 Run 最多三次 attempts，总 deadline 不重置。网络暂时性故障可有限 retry；解析/Schema 错误返回 partial，修复后直接发起新 Run，不需要重新审核。`finish` 仅重入已结束采集的技术提交事务，完成提交后崩溃不重复下载。
+每个逻辑 Run 最多三次 attempts，总 deadline 不重置。网络暂时性故障可有限 retry；解析/Schema 错误返回 failed，修复后直接发起新 Run，不需要重新审核。`finish` 仅重入已结束采集的技术提交事务，完成提交后崩溃不重复下载。
+
+Run 终态统一为 `complete` / `failed`；进度状态为 `pending` / `running` / `finishing` / `retryable`。
+具体失败读取 `errors` 错误码数组；summary 仅保留 terminal 与进度计数，不再输出重复
+`termination` / `terminal_reason`。旧 `partial` / `superseded` 由增量迁移 `0007` 收敛，
+历史报告的 terminal_reason 合并至 errors；历史 Manifest 和原文字节保持不变，可能
+保留旧词汇。升级前停止 Worker 并备份数据库，运行 `seal db migrate`；旧 Bundle 因
+环境摘要变化会拒绝执行，重新 pack 相同源码并创建新 Binding 后可零网络 Replay
+旧输入。当前状态、迁移和复现验收见 [Plan](docs/plans/run-failed-terminal.md) 与
+[可视化](docs/generated/run-failed-terminal.html)。
+
 
 ## 模块、版本与安全边界
 
