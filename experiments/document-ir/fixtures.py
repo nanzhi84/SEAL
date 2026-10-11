@@ -57,6 +57,12 @@ def install(h):
     word.sections[0].header.paragraphs[0].text = "Synthetic header"
     header_docx = BytesIO()
     word.save(header_docx)
+    interleaved = WordDocument()
+    interleaved.add_paragraph("Introduction")
+    interleaved.add_table(rows=1, cols=1).cell(0, 0).text = "Table value"
+    interleaved.add_paragraph("Conclusion")
+    interleaved_docx = BytesIO()
+    interleaved.save(interleaved_docx)
     picture = BytesIO()
     Image.new("RGB", (1, 1), "white").save(picture, format="PNG")
     fixtures = {
@@ -127,12 +133,17 @@ def install(h):
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             header_docx.getvalue(),
         ),
+        "/ir/interleaved.docx": (
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            interleaved_docx.getvalue(),
+        ),
         "/ir/formula.xlsx": (
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             formula.getvalue(),
         ),
         "/ir/overflow.json": ("application/json", b"1e400"),
         "/ir/nul.json": ("application/json", b'"\\u0000"'),
+        "/ir/precision.json": ("application/json", b"0.123456789012345678901234567890"),
         "/ir/base": (
             "text/html",
             b'<html><head><base href="/ir/assets/"></head><body><article><p>Base example</p><img src="picture.png"><a href="data.csv">Attachment</a></article></body></html>',

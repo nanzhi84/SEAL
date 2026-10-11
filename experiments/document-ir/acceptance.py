@@ -266,11 +266,6 @@ def exercise(h):
     h.check(
         "html_meta_charset_decoded", formats["gbk"]["children"][0]["text"], "公开文档 中文正文。"
     )
-    h.check(
-        "docx_has_single_article",
-        [c["type"] for c in formats["docx"]["children"]].count("article"),
-        1,
-    )
     h.check("xls_is_table", all(c["type"] == "table" for c in formats["xls"]["children"]))
     h.check(
         "xlsx_two_named_sheets",

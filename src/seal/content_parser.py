@@ -34,7 +34,7 @@ def _decode(body):
 
 def _json_float(token):
     number = float(token)
-    if not math.isfinite(number) or number == 0.0 and Decimal(token) != 0:
+    if not math.isfinite(number) or Decimal(str(number)) != Decimal(token):
         raise SealError("json_storage_unsupported")
     return number
 
@@ -114,19 +114,19 @@ def _docx(body):
     if coverage["unparsed_elements"] or coverage["non_body_parts"]:
         raise SealError("docx_unsupported_content")
     blocks = docx_structure(body)
-    children, paragraphs, article_index = [], [], None
+    children, paragraphs = [], []
     for block in blocks:
         if "text" in block:
             if block["text"].strip():
-                if article_index is None:
-                    article_index = len(children)
-                    children.append(None)
                 paragraphs.append(block["text"].strip())
         else:
+            if paragraphs:
+                children.append({"type": "article", "text": "\n".join(paragraphs)})
+                paragraphs = []
             rows = [[docx_text(cell["blocks"]) for cell in row["cells"]] for row in block["rows"]]
             children.append(_table(None, rows))
-    if article_index is not None:
-        children[article_index] = {"type": "article", "text": "\n".join(paragraphs)}
+    if paragraphs:
+        children.append({"type": "article", "text": "\n".join(paragraphs)})
     return children
 
 
