@@ -174,7 +174,7 @@ def runtime(s, recipe, golden_runs, baseline):
         with s.case(identity, cases[identity]["name"]):
             binding = s.bind(identity.lower(), [path], recipe)
             run, data = s.execute(identity.lower(), binding)
-            h.check("negative_is_partial:" + identity, run["run"]["status"], "partial")
+            h.check("negative_is_partial:" + identity, run["run"]["status"], "failed")
             h.check(
                 "negative_diagnostic:" + identity,
                 "ambiguous_or_missing_field" in run["run"]["errors"],

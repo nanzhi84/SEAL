@@ -9,6 +9,7 @@ from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 
 from .core import SealError, digest, uid
+from .run_state import eligibility_error
 
 j = Jsonb
 
@@ -62,17 +63,17 @@ def locked_run(connection, run_id):
 
 
 def fenced(source, run, epoch):
-    if run["attempt_epoch"] != epoch or run["deadline"] <= datetime.now(timezone.utc):
+    if run["attempt_epoch"] != epoch:
         raise SealError("stale_attempt")
+    if run["deadline"] <= datetime.now(timezone.utc):
+        raise SealError("deadline_exceeded")
     if run["status"] not in ("running", "finishing"):
         raise SealError("inactive_attempt")
-    if run["mode"] in ("collect", "recheck"):
-        if (
-            source["generation"] != run["generation"]
-            or source["write_seq"] != run["run_seq"]
-            or source["paused"]
-        ):
-            raise SealError("superseded")
+    code = eligibility_error(source, run)
+    if code:
+        raise SealError(code)
+    if run["mode"] != "replay" and source["write_seq"] != run["run_seq"]:
+        raise SealError("run_not_started")
 
 
 def record_error(run_id, epoch, code):

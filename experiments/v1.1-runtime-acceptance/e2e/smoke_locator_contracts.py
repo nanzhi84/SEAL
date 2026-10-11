@@ -25,7 +25,7 @@ def negative_and_status(s, recipe):
             first = None
             for queue in (False, True):
                 run, data = s.execute(source, binding, queue=queue)
-                h.check(fault + "_partial", run["run"]["status"], "partial")
+                h.check(fault + "_partial", run["run"]["status"], "failed")
                 h.check(fault + "_diagnostic", error in run["run"]["errors"])
                 h.check(
                     fault + "_valid_result_only",
@@ -48,7 +48,7 @@ def negative_and_status(s, recipe):
                 replay_run = h.cli("inspect", "run", replay["run_id"])
                 replay_export = h.cli("export", source, "--run", replay["run_id"])
                 h.check(fault + "_replay_error", error in replay["errors"])
-                h.check(fault + "_replay_partial", replay["status"], "partial")
+                h.check(fault + "_replay_partial", replay["status"], "failed")
                 h.check(fault + "_replay_no_observations", replay_run["observations"], [])
                 h.check(
                     fault + "_replay_keeps_valid_result",

@@ -7,6 +7,7 @@ import procrastinate
 
 from .core import SealError
 from .db import connect, dsn, locked_run, one
+from .run_state import TERMINAL_STATES, exhaustion_error
 
 app = procrastinate.App(connector=procrastinate.PsycopgConnector(conninfo=dsn()))
 
@@ -109,14 +110,13 @@ async def recover_stalled(timestamp=0):
         def inspect_limit(run_id=run_id):
             with connect() as c:
                 source, run = locked_run(c, run_id)
-                if run["status"] in ("complete", "partial", "superseded", "failed"):
+                if run["status"] in TERMINAL_STATES:
                     return True  # one final task invocation reports the stored outcome
-                if run["attempt_epoch"] >= run["max_attempts"] or run["deadline"] <= datetime.now(
-                    timezone.utc
-                ):
+                limit = exhaustion_error(run)
+                if limit:
                     from .runs import end_run
 
-                    end_run(c, source, run, "failed", "attempts_or_deadline_exhausted")
+                    end_run(c, source, run, "failed", limit)
                 return True
 
         if await asyncio.to_thread(inspect_limit):

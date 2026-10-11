@@ -105,7 +105,7 @@ def exercise_negotiation(h, check):
                 receipt = h.receipts[-1]["result"]
             export = h.cli("export", name, "--run", receipt["run_id"])
             if mode != "stable":
-                check(name + "_partial", receipt["status"], "partial")
+                check(name + "_partial", receipt["status"], "failed")
                 check(
                     name + "_same_representation_body_change_detected",
                     "unstable_resource_input" in receipt["errors"],

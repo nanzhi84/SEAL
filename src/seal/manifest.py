@@ -106,7 +106,8 @@ def terminal_report(connection, source, run, status, reason):
         "unknown_coverage_reasons": ["discovery_not_recorded"],
     }
     if has_table(connection, "seal_discovery"):
-        from .discovery import finish_discovery, summarize_discovery
+        from .discovery import finish_discovery
+        from .discovery_report import summarize_discovery
 
         finish_discovery(connection, run, reason)
         discovery = summarize_discovery(connection, run)
@@ -120,7 +121,7 @@ def terminal_report(connection, source, run, status, reason):
         )
         counts.update(observed)
         counts.setdefault("record_count", len(report.get("record_outputs", [])))
-    from .discovery import network_counts
+    from .discovery_report import network_counts
 
     fetch_counts = network_counts(connection, run)
     fetch_counts.update(
@@ -140,7 +141,6 @@ def terminal_report(connection, source, run, status, reason):
         record_absence_semantics="unobserved_is_unknown_never_deleted",
     )
     report.update(
-        terminal_reason=reason,
         outputs=report.get("outputs", []),
         record_outputs=report.get("record_outputs", []),
         record_counts=counts,

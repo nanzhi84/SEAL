@@ -110,7 +110,7 @@ def run_all(h):
             receipt = h.cli("collect", source, "--binding", binding, ok=False)
             inspection = h.cli("inspect", "run", receipt["run_id"])
             export = h.cli("export", source, "--run", receipt["run_id"])
-            h.check(name + "_collect_is_partial", receipt["status"], "partial")
+            h.check(name + "_collect_is_partial", receipt["status"], "failed")
             h.check(name + "_collect_has_original_reason", reason in receipt["errors"])
             h.check(name + "_collect_has_no_replay_miss", "replay_miss" in receipt["errors"], False)
             if name == "request":
@@ -158,7 +158,7 @@ def run_all(h):
             replay = h.cli("replay", original_id, ok=False)
             inspection = h.cli("inspect", "run", replay["run_id"])
             export = h.cli("export", case["source"], "--run", replay["run_id"])
-            h.check(name + "_replay_is_partial", replay["status"], "partial")
+            h.check(name + "_replay_is_partial", replay["status"], "failed")
             h.check(name + "_replay_keeps_original_reason", case["reason"] in replay["errors"])
             h.check(name + "_replay_has_no_miss", "replay_miss" in replay["errors"], False)
             h.check(name + "_replay_no_network", len(h.site.ledger), network_count)
@@ -194,7 +194,7 @@ def run_all(h):
                     15,
                 )
             again = h.cli("replay", replay["run_id"], ok=False)
-            h.check(name + "_replay_chain_partial", again["status"], "partial")
+            h.check(name + "_replay_chain_partial", again["status"], "failed")
             h.check(name + "_replay_chain_keeps_original_reason", case["reason"] in again["errors"])
             h.check(name + "_replay_chain_no_miss", "replay_miss" in again["errors"], False)
             h.check(

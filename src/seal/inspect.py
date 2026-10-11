@@ -37,7 +37,7 @@ def run_evidence(connection, run):
             (run["id"],),
         ).fetchall()
     if has_table(connection, "seal_discovery"):
-        from .discovery import summarize_discovery
+        from .discovery_report import summarize_discovery
 
         value["discovery"] = summarize_discovery(connection, run, include_events=True)
     return value

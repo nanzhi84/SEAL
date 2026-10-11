@@ -197,7 +197,11 @@ def concurrency_and_recovery(h):
     h.check(
         "old_run_cannot_reclaim_write_seq",
         h.cli("inspect", "run", old["run_id"])["run"]["status"],
-        "superseded",
+        "failed",
+    )
+    h.check(
+        "old_queued_run_error",
+        "run_superseded" in h.cli("inspect", "run", old["run_id"])["run"]["errors"],
     )
     history = h.cli("inspect", "source", "fence")
     h.check("recovered_identical_content_no_extra_revision", len(history["revisions"]), 2)
@@ -252,6 +256,17 @@ def delayed_fencing(h):
                     "result": json.loads(stdout),
                 }
             )
+            if kind != "attempt":
+                stopped = json.loads(stdout)
+                h.check("late_old_" + kind + "_failed", stopped["status"], "failed")
+                code = "source_generation_changed" if kind == "generation" else "run_superseded"
+                h.check("late_old_" + kind + "_error", code in stopped["errors"])
+            else:
+                h.check(
+                    "late_old_attempt_cannot_end_new_attempt",
+                    json.loads(stdout)["status"],
+                    "complete",
+                )
             h.check(
                 "late_old_" + kind + "_does_not_overwrite",
                 h.export(name)["documents"][0]["body"],

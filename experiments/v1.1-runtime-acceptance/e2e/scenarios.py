@@ -31,7 +31,7 @@ def m0(h):
         name = "bad_" + endpoint
         h.config(name, [h.site.url + "/probe/" + endpoint], seed_role="detail")
         failed = h.cli("run", name, "--binding", h.binding(name), ok=False)
-        h.check(f"reject_{endpoint}", failed["status"] in ("partial", "failed", "retryable"))
+        h.check(f"reject_{endpoint}", failed["status"] in ("failed", "retryable"))
     return binding
 
 
@@ -130,7 +130,7 @@ def m2(h, binding, previous_run):
     h.check(
         "old_generation_cannot_commit",
         h.cli("inspect", "run", old["run_id"])["run"]["status"],
-        "superseded",
+        "failed",
     )
     h.select("a", binding, 2)
     historical = h.cli("export", "a", "--run", previous_run)
