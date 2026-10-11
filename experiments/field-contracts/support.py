@@ -21,9 +21,10 @@ def rule(entrypoint, params=None):
     value = {"entrypoint": "recipe:" + entrypoint}
     if params:
         value["params"] = params
-        value["params_schema"] = schema(
-            entrypoint + ":params:v1", {key: {"type": "string"} for key in params}
-        )
+        properties = {key: {"type": "string"} for key in params}
+        if entrypoint == "year" and "format" in properties:
+            properties["format"]["enum"] = ["%d-%m-%Y"]
+        value["params_schema"] = schema(entrypoint + ":params:v1", properties)
     return value
 
 

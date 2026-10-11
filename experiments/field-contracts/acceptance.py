@@ -272,6 +272,7 @@ def invalid_configs(h, valid):
         ("missing_parameter_schema", {"entrypoint": "recipe:prefix", "params": {"prefix": 123}}),
         ("wrong_prefix_parameter_type", rule("prefix", {"prefix": 123})),
         ("wrong_date_parameter_type", rule("year", {"format": 123})),
+        ("unsupported_date_parameter", rule("year", {"format": "%Q"})),
         ("missing_callable", {"entrypoint": "recipe:missing"}),
         ("invalid_parameters", {"entrypoint": "recipe:year", "params": {"unexpected": 1}}),
     ):
