@@ -1,0 +1,51 @@
+family: vietnam-official-legal-metadata
+entrypoint: recipe:VietnamLegalSpider
+params_schema:
+  type: object
+  additionalProperties: false
+  properties:
+    search:
+      type: object
+      additionalProperties: false
+      required: [url, year, category_ids]
+      properties:
+        url: {type: string, format: uri}
+        year: {type: integer, minimum: 1000, maximum: 9999}
+        category_ids:
+          type: array
+          minItems: 1
+          maxItems: 10
+          uniqueItems: true
+          items: {type: string, pattern: '^[0-9]{1,8}$'}
+    membership_urls:
+      type: array
+      maxItems: 10
+      uniqueItems: true
+      items: {type: string, format: uri}
+extraction_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  $id: urn:seal:schema:vietnam-legal-extraction:v1
+  type: object
+  additionalProperties: false
+  required: ['Lĩnh vực:', 'Cơ quan ban hành:', 'Năm ban hành:']
+  properties:
+    'Lĩnh vực:': {type: [array, 'null'], items: {type: string}}
+    'Cơ quan ban hành:': {type: [string, 'null']}
+    'Năm ban hành:': {type: [integer, 'null'], minimum: 1000, maximum: 9999}
+field_mapping:
+  'Lĩnh vực:': subject_areas
+  'Cơ quan ban hành:': issuing_authority
+  'Năm ban hành:': issued_year
+field_parsers:
+  'Năm ban hành:':
+    entrypoint: recipe:issued_year
+    params: {format: '%d-%m-%Y'}
+    params_schema:
+      $schema: https://json-schema.org/draft/2020-12/schema
+      $id: urn:seal:schema:vietnam-issued-year-params:v1
+      type: object
+      additionalProperties: false
+      required: [format]
+      properties:
+        format: {type: string, enum: ['%d-%m-%Y']}
+  'Lĩnh vực:': {entrypoint: 'recipe:subject_list'}

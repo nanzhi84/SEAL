@@ -35,6 +35,9 @@ class RecordCandidate(Strict):
     record_type: str = Field(min_length=1, max_length=128, pattern=r"^[a-zA-Z0-9_.-]+$")
     record_key: str = Field(min_length=1, max_length=2048)
     schema_version: str = Field(min_length=1, max_length=128, pattern=r"^[a-zA-Z0-9_.-]+$")
+    data_schema_id: str | None = Field(
+        default=None, max_length=512, exclude_if=lambda value: value is None
+    )
     data: dict = Field(min_length=1, max_length=1000)
     snapshot_id: str
     observation_id: str
@@ -42,6 +45,7 @@ class RecordCandidate(Strict):
     key_locator: dict
     detail_url: str | None = None
     frozen_parent_request: ParentRequest | None = None
+    supporting_locators: dict = Field(default_factory=dict, exclude_if=lambda value: not value)
     supplementary_inputs: list[dict] = Field(default_factory=list, max_length=1000)
 
 
@@ -274,12 +278,45 @@ def _located_key(value, target, cache):
         raise SealError("record_key_locator_mismatch")
 
 
-def validate_record(item, cache=None):
+def _field_value(inputs, snapshot_id, locator, cache):
+    if locator.get("kind") != "values":
+        return located_value(*inputs[snapshot_id], locator, cache)
+    parts = locator.get("locators")
+    if (
+        set(locator) != {"kind", "locators"}
+        or not isinstance(parts, list)
+        or not 1 <= len(parts) <= 100
+    ):
+        raise SealError("field_values_locator_invalid")
+    values = []
+    for part in parts:
+        if not isinstance(part, dict) or part.get("kind") == "values" or "parser" in part:
+            raise SealError("field_values_locator_invalid")
+        target_id = part.get("snapshot_id", snapshot_id)
+        target = inputs.get(target_id)
+        if target is None:
+            raise SealError("record_field_locator_mismatch")
+        values.append(located_value(*target, part, cache))
+    return values
+
+
+def validate_record(item, cache=None, contract=None, functions=None):
     value = RecordCandidate.model_validate(item)
     json_value(value.data)
     if len(canonical(value.data)) > 2000000:
         raise SealError("record_data_too_large")
-    if set(value.locators) != set(value.data):
+    if contract:
+        from .fields import validate_data
+
+        validate_data(value.data, contract["extraction_schema"], "extraction")
+        if value.data_schema_id != contract["data_schema"]["$id"]:
+            raise SealError("field_schema_version_mismatch")
+        located_fields = {key for key, child in value.data.items() if child is not None}
+    else:
+        if value.data_schema_id is not None:
+            raise SealError("field_contract_required")
+        located_fields = set(value.data)
+    if set(value.locators) != located_fields:
         raise SealError("record_locator_fields_mismatch")
     objects = Objects()
     snapshot = objects.json(value.snapshot_id)
@@ -296,30 +333,79 @@ def validate_record(item, cache=None):
         inputs[entry["snapshot_id"]] = (other, objects.get(other["body_hash"]))
         if entry not in lineage:
             lineage.append(entry)
-    groups = {}
+    groups, evidence = {}, {}
     for field, expected in value.data.items():
+        if field not in located_fields:
+            continue
         locator = value.locators[field]
         if not isinstance(locator, dict):
             raise SealError("invalid_record_locator")
         target = inputs.get(locator.get("snapshot_id", value.snapshot_id))
         if target is None:
             raise SealError("record_field_locator_mismatch")
-        groups.setdefault(target[0]["body_hash"], []).append((target, locator, expected))
+        groups.setdefault(target[0]["body_hash"], []).append((field, target, locator, expected))
+    if value.supporting_locators and (
+        contract is None or not set(value.supporting_locators) <= located_fields
+    ):
+        raise SealError("field_supporting_locator_rejected")
+    for _field, proofs in value.supporting_locators.items():
+        if not isinstance(proofs, list) or not proofs or len(proofs) > 100:
+            raise SealError("field_supporting_locator_rejected")
+        for proof in proofs:
+            if not isinstance(proof, dict) or "value" not in proof or "parser" in proof:
+                raise SealError("field_supporting_locator_rejected")
+            locator = {key: child for key, child in proof.items() if key != "value"}
+            target = inputs.get(locator.get("snapshot_id", value.snapshot_id))
+            if target is None or not typed_equal(located_value(*target, locator), proof["value"]):
+                raise SealError("field_supporting_locator_mismatch")
     key_locator = value.key_locator
     key_target = inputs.get(key_locator.get("snapshot_id", value.snapshot_id))
     if key_target is None:
         raise SealError("record_key_locator_mismatch")
     for body_hash, checks in groups.items():
         local = _RecordJsonInput(cache)
-        for target, locator, expected in checks:
-            if not typed_equal(located_value(*target, locator, local), expected):
+        for field, _target, locator, expected in checks:
+            parser = locator.get("parser")
+            if (parser is not None and contract is None) or (
+                contract is not None and parser != contract["field_parsers"].get(field)
+            ):
+                raise SealError("field_parser_rule_mismatch")
+            raw_locator = {key: child for key, child in locator.items() if key != "parser"}
+            raw = _field_value(
+                inputs, locator.get("snapshot_id", value.snapshot_id), raw_locator, local
+            )
+            actual = raw
+            if parser:
+                from .fields import apply_rule
+
+                actual = apply_rule(raw, parser, functions)
+            if not typed_equal(actual, expected):
                 raise SealError("record_field_locator_mismatch")
+            if contract:
+                evidence[field] = {
+                    "snapshot_id": locator.get("snapshot_id", value.snapshot_id),
+                    "locator": raw_locator,
+                    "raw_value": raw,
+                    "extracted_value": expected,
+                    **({"parser": parser} if parser else {}),
+                    **(
+                        {"supporting_locators": value.supporting_locators[field]}
+                        if field in value.supporting_locators
+                        else {}
+                    ),
+                }
         if key_target[0]["body_hash"] == body_hash:
             _located_key(value, key_target, local)
     if key_target[0]["body_hash"] not in groups:
         _located_key(value, key_target, _RecordJsonInput(cache))
     output = value.model_dump(
-        exclude={"type", "snapshot_id", "observation_id", "supplementary_inputs"}
+        exclude={
+            "type",
+            "snapshot_id",
+            "observation_id",
+            "supplementary_inputs",
+            "supporting_locators",
+        }
     )
     # Locators without an explicit snapshot refer to this immutable main input.
     output["primary_snapshot_id"] = value.snapshot_id
@@ -329,4 +415,8 @@ def validate_record(item, cache=None):
         output["frozen_parent_request"]["url"] = public_url(value.frozen_parent_request.url)
     elif value.detail_url is None:
         raise SealError("record_parent_request_required")
+    if contract:
+        from .fields import map_fields
+
+        output = map_fields(output, contract, evidence, functions)
     return output, lineage

@@ -168,9 +168,14 @@ class RequestGuard(Component):
             if request.method not in self.config["methods"]:
                 raise SealError("request_method_rejected")
             if request.method == "POST":
-                check_public_form(
-                    self.config, url, request.body, request.headers.get("Content-Type", b"")
-                )
+                if any(rule["url"] == url for rule in self.config.get("public_html_forms", [])):
+                    from .html_forms import check_html_form
+
+                    await asyncio.to_thread(check_html_form, self.config, self.context, request)
+                else:
+                    check_public_form(
+                        self.config, url, request.body, request.headers.get("Content-Type", b"")
+                    )
             elif request.body:
                 raise SealError("request_method_rejected")
             if any(
