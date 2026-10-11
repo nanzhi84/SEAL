@@ -103,8 +103,11 @@ def finish_run(run_id, epoch=None):
                     errors.append("unexpected_304")
                 elif 300 <= status < 400 and exchange["final_url"] is None:
                     errors.append("redirect_incomplete")
-        if run["report"].get("finish_reason") != "finished":
+        finish_reason = run["report"].get("finish_reason")
+        if finish_reason != "finished":
             errors.append("incomplete_crawl")
+        if finish_reason == "closespider_timeout":
+            errors.append("crawl_time_budget_exceeded")
         input_artifacts = []
         for entry in run["inputs"]:
             try:
@@ -160,6 +163,7 @@ def finish_run(run_id, epoch=None):
 
             unobserved = unobserved_records(c, source, run)
         errors = sorted(set(errors))
+        status = completion_status(errors, run)
         from .discovery_report import network_counts
 
         resource_counts = network_counts(c, run)
@@ -202,7 +206,6 @@ def finish_run(run_id, epoch=None):
             quality_status="not_evaluated",
             errors=errors,
         )
-        status = completion_status(errors, run)
         binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (run["binding_id"],))
         try:
             report["manifest_id"] = write_manifest(
@@ -210,6 +213,7 @@ def finish_run(run_id, epoch=None):
             )
         except (SealError, OSError, TypeError, ValueError) as exc:
             errors = sorted(set([*errors, "manifest_archive_failed"]))
+            status = completion_status(errors, run)
             report.update(
                 errors=errors,
                 manifest_id=None,
@@ -223,7 +227,6 @@ def finish_run(run_id, epoch=None):
                     set(errors + (["records_unobserved"] if unobserved else []))
                 ),
             )
-            status = completion_status(errors, run)
         if records_available and status == "complete":
             from .records import accept_records
 

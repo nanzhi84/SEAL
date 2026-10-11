@@ -100,17 +100,14 @@ def dispatch(args):
             if limit:
                 runs.end_run(c, source, run, "failed", limit)
                 # Commit the terminal outcome before returning its nonzero receipt.
-                exhausted = True
-            else:
-                exhausted = False
             decision(c, source["id"], "control", {"action": "retry", "run_id": run["id"]})
-            if args.enqueue and not exhausted:
+            if args.enqueue and not limit:
                 if run["job_id"]:
                     raise SealError("use_stalled_recovery_for_existing_job")
                 from .queue import enqueue
 
                 enqueue(c, args.run)
-        return runs.receipt(args.run) if args.enqueue or exhausted else runs.execute_run(args.run)
+        return runs.receipt(args.run) if args.enqueue or limit else runs.execute_run(args.run)
     if args.command == "finish":
         return finish_run(args.run)
     if args.command == "inspect":
