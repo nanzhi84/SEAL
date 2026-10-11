@@ -21,7 +21,9 @@ class PublicFormSpider(scrapy.Spider):
         if attack == "extra": data["unexpected"] = "value"
         if attack == "size": data["state"] = "x" * 140000
         meta = {"seal_role":"api", "seal_parent_url":response.url, "seal_parent_snapshot_id":response.meta["seal_snapshot_id"], "seal_parent_observation_id":response.meta["seal_observation_id"]}
-        if attack == "parent": meta.pop("seal_parent_snapshot_id")
+        if attack == "parent":
+            meta.pop("seal_parent_snapshot_id")
+            meta["_seal_explicit_policy_parent"] = True
         request = scrapy.FormRequest.from_response(response, formxpath="//form[@id='form1']", formdata=data, clickdata={"name":"search"}, callback=self.parse, meta=meta)
         if attack == "cookie": request.headers["Cookie"] = "session=forbidden"
         if attack == "action": request = request.replace(url=response.urljoin("/unapproved"))
