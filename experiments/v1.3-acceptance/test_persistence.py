@@ -1,4 +1,4 @@
-"""Offline read-only and termination contracts; PostgreSQL exercises run separately."""
+"""Offline snapshot query contracts; PostgreSQL exercises run separately."""
 
 import tempfile
 import unittest
