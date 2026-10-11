@@ -117,3 +117,26 @@ opt-in 后完整输入得到业务 Record；8个边界全部拒绝且服务器�
 Scrapy 2.19 对 FormRequest 发出弃用提示，当前有意复用其原生默认成功控件解析，以保证 Recipe
 与 guard 重建算法一致。迁移条件是 Scrapy 移除该 API 或本项目统一采用官方继任库；届时同时
 替换两处并重跑公开表单完整 E2E，不维护两套解析规则。
+
+## 已执行验收与复跑入口
+
+实现代码 `a85bfce` 的冻结环境完成字段 CI 158/158；独立 verifier 不读取 assertions.json，
+从 Archive SHA256、原始 JSON/HTML、冻结 Schema 与规则复算 16 个导出 Record、35 个字段
+证据，并确认 3 次 Replay 无 Runtime 网络请求。它还独立检查无效参数合同的明确拒绝回执。
+配置误收 RED 位于 `artifacts/fields-config-red2`：非法 prefix=123 在实现前错误 pack 成功；
+前置行为提交与后续实现提交保留在 Git 历史。
+
+实时命令增加 `--live-vietnam --only-vietnam`，2026-10-11 执行 86/86；真实 Run complete，
+errors=[]，3 GET + 2 POST，共 5 个归档输入。335/2026/NĐ-CP 的机关为 Chính phủ、年份
+为2026、领域为 `["Chính sách xã hội"]`；48/2026/QĐ-TTg 的机关为 Thủ tướng Chính phủ、
+年份为2026、领域为null。年份同时保留详情日期推导与筛选列表精确docid归属；领域有值时
+保留 selected option 与精确docid归属，null不外推为不存在。独立复算 7 个导出 Record、
+24 个字段证据及 2 次零网络 Replay 通过，仍不声明全站或全部领域覆盖。
+
+完整复跑：`uv run --frozen python experiments/field-contracts/ci.py --output artifacts/ci-fields`；
+实时复跑：`uv run --frozen python experiments/field-contracts/acceptance.py --output artifacts/fields-live --live-vietnam --only-vietnam`，
+随后 `uv run --frozen python experiments/field-contracts/verify.py artifacts/fields-live --only-vietnam`。
+每次使用新工件目录，隔离 PostgreSQL 数据与 Archive，执行期间不编辑 engine。实际 head、
+环境、代码摘要与 expected/actual 保存在各目录 manifest/receipts/assertions 与独立复算摘要。
+CI `fields` suite 仅上传 `artifacts/ci-public/fields.json` 元数据；最终 PR head 的完整 CI 仍需
+全部 core/offline/seeded/fields 通过。本地 Ruff、构建与本 Plan 的 seiso 检查已通过。
