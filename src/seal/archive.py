@@ -397,7 +397,7 @@ class InputMiddleware(Component):
                     ),
                 )
         if (
-            self.config.get("output_schema") == "record.v1"
+            self.config.get("output_schema") in {"record.v1", "document.v1"}
             and response.status == 200
             and request.meta.get("seal_role") != "robots"
         ):

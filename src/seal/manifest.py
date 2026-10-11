@@ -60,11 +60,13 @@ def write_manifest(source, binding, run, report, status, input_artifacts):
         "coverage": report["scope_evidence"],
         "discovery": report["discovery"],
         "record_counts": report.get("record_counts", {}),
+        "document_counts": report.get("document_counts", {}),
         "resource_counts": report.get("resource_counts", {}),
         "result_count": report.get("result_count", len(report["outputs"])),
         "artifacts": {
             "inputs": input_artifacts,
             "documents": report["outputs"],
+            "document_versions": report.get("document_outputs", []),
             "records": report["record_outputs"],
         },
     }
@@ -112,6 +114,31 @@ def terminal_report(connection, source, run, status, reason):
         finish_discovery(connection, run, reason)
         discovery = summarize_discovery(connection, run)
     counts = dict(report.get("record_counts", {}))
+    if has_table(connection, "seal_document_version"):
+        # Terminal fencing cannot call the success finisher; preserve staged
+        # immutable evidence directly without advancing current pointers.
+        rows = connection.execute(
+            """SELECT document_id,document_version_id,snapshot_id,observation_id
+               FROM seal_document_emission WHERE run_id=%s AND attempt_epoch=%s
+               ORDER BY created_at,id""",
+            (run["id"], run["attempt_epoch"]),
+        ).fetchall()
+        report["document_outputs"] = [
+            dict(
+                row,
+                inputs=[
+                    {
+                        "snapshot_id": row["snapshot_id"],
+                        "observation_id": row["observation_id"],
+                    }
+                ],
+            )
+            for row in rows
+        ]
+        report["document_counts"] = {
+            "document_count": len({row["document_id"] for row in rows}),
+            "emission_count": len(rows),
+        }
     if has_table(connection, "seal_record"):
         observed = one(
             connection,

@@ -141,12 +141,39 @@ def validate_candidate(item):
 
 def stage_item(context, item, validation=None):
     run_id, epoch = context["id"], context["attempt_epoch"]
+    if item.get("type") == "parsed_document":
+        from .documents import stage_document
+
+        return stage_document(context, item)
     if item.get("type") == "record":
         from .records import stage_record
 
         return stage_record(context, item, validation)
     if item.get("type") == "diagnostic":
         allowed = {
+            "invalid_document_parse_options",
+            "document_schema_required",
+            "document_parse_failed",
+            "document_decode_failed",
+            "document_cell_budget_exceeded",
+            "document_content_budget_exceeded",
+            "document_input_budget_exceeded",
+            "document_expansion_budget_exceeded",
+            "document_http_status_rejected",
+            "document_body_hash_mismatch",
+            "html_table_overlap",
+            "html_parse_failed",
+            "pdf_encrypted",
+            "pdf_image_structure_too_deep",
+            "docx_image_relationship_missing",
+            "xlsx_expansion_budget_exceeded",
+            "xlsx_parse_failed",
+            "xlsx_nonfinite_number",
+            "xlsx_cell_type_unsupported",
+            "xlsx_cell_error",
+            "csv_parse_failed",
+            "json_parse_failed",
+            "image_parse_failed",
             "download_failed",
             "http_5xx",
             "http_error",

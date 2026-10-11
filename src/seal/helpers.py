@@ -13,6 +13,7 @@ from scrapy.http import TextResponse
 
 from .attachments import attachment_projection, docx_coverage, parse_attachment
 from .core import SealError, public_url
+from .documents import document_item as document_item
 from .fallback import fallback_html_record as fallback_html_record
 from .fallback import html_strategy_record as html_strategy_record
 from .record_validation import json_pointer
@@ -28,6 +29,18 @@ def input_reference(response):
 def diagnostic(response, code):
     """Attribute parse failures to archived inputs, including per-row failures."""
     return {"type": "diagnostic", "code": code, **input_reference(response)}
+
+
+def save_document(response, context, options=None):
+    """Validate and save a parsed document before extracting business fields.
+
+    The returned immutable document/version/input reference may be passed to
+    ``record_item(document_versions=[reference])``. Failure raises ``SealError``
+    before a recipe can emit a business Record referring to an unsaved result.
+    """
+    from .documents import stage_document
+
+    return stage_document(context, document_item(response, options))
 
 
 def frozen_request(response):
@@ -146,8 +159,9 @@ def record_item(
     detail_url=None,
     schema_version="record.v1",
     supplementary_inputs=None,
+    document_versions=None,
 ):
-    return {
+    item = {
         "type": "record",
         "record_type": record_type,
         "record_key": record_key,
@@ -162,6 +176,9 @@ def record_item(
         else None,
         "supplementary_inputs": supplementary_inputs or [],
     }
+    if document_versions:
+        item["document_versions"] = document_versions
+    return item
 
 
 def html_record(

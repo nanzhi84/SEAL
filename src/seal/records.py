@@ -118,7 +118,7 @@ def stage_record_resource(context, entry):
     InputMiddleware calls this after saving its input. Historical generic-document
     bindings continue to use their unchanged Candidate path.
     """
-    if context["config"].get("output_schema") != "record.v1":
+    if context["config"].get("output_schema") not in {"record.v1", "document.v1"}:
         return None
     with connect() as c:
         source, run = locked_run(c, context["id"])
@@ -154,6 +154,16 @@ def stage_record(context, item, validation=None):
             ):
                 raise SealError("stale_observation")
         parent = output["frozen_parent_request"]
+        from .document_evidence import validate_document_inputs
+
+        validate_document_inputs(
+            c,
+            source,
+            run,
+            output,
+            lineage,
+            required=context["config"].get("output_schema") == "document.v1",
+        )
         if parent and not any(
             known["snapshot_id"] in {entry["snapshot_id"] for entry in lineage}
             and public_url(known["logical_url"]) == parent["url"]
@@ -180,13 +190,26 @@ def stage_record(context, item, validation=None):
             (source["id"], run["namespace"], output["record_type"], output["record_key"]),
         )
         input_ids = sorted({entry["snapshot_id"] for entry in lineage})
-        processing_key = digest(
-            {"record": record["id"], "binding": run["binding_id"], "inputs": input_ids}
+        processing_inputs = {
+            "record": record["id"],
+            "binding": run["binding_id"],
+            "inputs": input_ids,
+        }
+        document_versions = sorted(
+            {
+                (ref["document_id"], ref["document_version_id"])
+                for ref in output.get("document_versions", [])
+            }
         )
+        if document_versions:
+            processing_inputs["document_versions"] = document_versions
+        processing_key = digest(processing_inputs)
         output_hash = digest(output)
         content = {key: output[key] for key in ("record_type", "schema_version", "data")}
         if "data_schema_id" in output:
             content["data_schema_id"] = output["data_schema_id"]
+        if document_versions:
+            content["document_versions"] = document_versions
         content_hash = digest(content)
         result = c.execute(
             "SELECT id FROM seal_record_result WHERE processing_key=%s AND output_hash=%s",
@@ -383,6 +406,11 @@ def finish_records(c, source, run):
                 "record_result_ids": sorted({row["id"] for row in rows}),
                 "observation_id": candidate["observation_id"],
                 "inputs": lineage,
+                **(
+                    {"document_versions": candidate["candidate"]["document_versions"]}
+                    if candidate["candidate"].get("document_versions")
+                    else {}
+                ),
                 "resource_inputs": [
                     entry["resource_input"]
                     for entry in run["inputs"]

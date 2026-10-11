@@ -48,7 +48,18 @@ def parser():
     retry.add_argument("--enqueue", action="store_true")
     inspect = commands.add_parser("inspect")
     inspect.add_argument(
-        "kind", choices=["source", "binding", "run", "manifest", "research", "record", "snapshot"]
+        "kind",
+        choices=[
+            "source",
+            "binding",
+            "run",
+            "manifest",
+            "research",
+            "record",
+            "snapshot",
+            "document",
+            "document-version",
+        ],
     )
     inspect.add_argument("identity")
     inspect.add_argument("--output", type=Path)
@@ -56,6 +67,7 @@ def parser():
     export.add_argument("source")
     export.add_argument("--output", type=Path)
     export.add_argument("--run")
+    export.add_argument("--documents", action="store_true")
     pause = commands.add_parser("pause")
     pause.add_argument("source")
     pause.add_argument("--reason", required=True)
@@ -116,7 +128,12 @@ def dispatch(args):
             write_json(args.output, result)
         return result
     if args.command == "export":
-        result = export_source(args.source, args.run)
+        if args.documents:
+            from .documents import export_documents
+
+            result = export_documents(args.source, args.run)
+        else:
+            result = export_source(args.source, args.run)
         if args.output:
             write_json(args.output, result)
         return result
