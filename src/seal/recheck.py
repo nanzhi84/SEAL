@@ -76,6 +76,14 @@ def plan_recheck(c, source, config, due_only=False):
         if config["output_schema"] == "generic_document.v1"
         else []
     )
+    if config["output_schema"] == "document.v1":
+        documents = c.execute(
+            "SELECT id,url,next_check FROM seal_document WHERE source_id=%s "
+            "AND namespace='runtime' AND latest_document_version IS NOT NULL "
+            + due
+            + " ORDER BY next_check,identity",
+            (source["id"],),
+        ).fetchall()
     records = (
         c.execute(
             "SELECT r.*,jsonb_build_object('key_locator',rr.candidate->'key_locator',"
@@ -86,7 +94,7 @@ def plan_recheck(c, source, config, due_only=False):
             + " ORDER BY next_check,record_type,record_key",
             (source["id"],),
         ).fetchall()
-        if config["output_schema"] == "record.v1"
+        if config["output_schema"] in {"record.v1", "document.v1"}
         else []
     )
     targets = [(d["next_check"], "document", d["id"], d) for d in documents] + [
@@ -190,7 +198,7 @@ def _backoff(c, table, identities, source, run):
         )
 
 
-def complete_dates(c, source, run, record_outputs, document_outputs):
+def complete_dates(c, source, run, record_outputs, document_outputs, parsed_outputs=()):
     """Only successful observations of planned targets count as completed checks."""
     records = {item["record_id"] for item in record_outputs}
     documents = {
@@ -200,6 +208,7 @@ def complete_dates(c, source, run, record_outputs, document_outputs):
             ([item["result_id"] for item in document_outputs],),
         ).fetchall()
     }
+    documents.update(item["document_id"] for item in parsed_outputs)
     plan = run.get("recheck_plan") if run["mode"] == "recheck" else None
     if plan is not None:
         planned_records = {item["record_id"] for item in plan["records"]}
@@ -233,6 +242,8 @@ def has_due(c, source_id, output_schema):
         if output_schema == "record.v1"
         else ("seal_document", "EXISTS (SELECT 1 FROM seal_result r WHERE r.document_id=t.id)")
     )
+    if output_schema == "document.v1":
+        table, predicate = "seal_document", "latest_document_version IS NOT NULL"
     return (
         c.execute(
             f"SELECT 1 FROM {table} t WHERE source_id=%s AND namespace='runtime' "

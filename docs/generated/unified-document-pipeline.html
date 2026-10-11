@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>统一文档中间表示与采集解析流水线</title>
+<style>
+:root{color-scheme:light;font:16px/1.75 system-ui,sans-serif;color:#17222f;background:#f3f5f8}body{max-width:1040px;margin:48px auto;padding:0 24px 48px;overflow-wrap:anywhere}h1{font-size:32px;line-height:1.3}h2{font-size:21px;line-height:1.4}a{color:#205ba4}code{font-size:13px;overflow-wrap:anywhere}.flow,.nodes{display:flex;gap:12px;flex-wrap:wrap}.flow span,.nodes span{padding:12px 16px;border:1px solid #ced9e7;background:#fff;border-radius:8px}.flow span:after{content:" →";color:#697e97}.flow span:last-child:after{content:""}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px;margin-top:24px}article{background:#fff;border:1px solid #dce3ec;border-radius:10px;padding:22px}article h2{margin-top:0}.wide{margin-top:20px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;border-bottom:1px solid #e0e5ec;padding:10px;vertical-align:top}.status{color:#684922}pre{white-space:pre-wrap;font-size:13px;padding:16px;background:#f4f6f9;border-radius:6px}.tree{font-family:monospace;line-height:1.8}@media(max-width:600px){body{margin-top:24px;padding:0 16px 32px}h1{font-size:26px}article{padding:16px}table{font-size:13px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>统一文档中间表示与采集解析流水线</h1>
+<p><a href="../plans/unified-document-pipeline.md">唯一 Plan</a> · <a href="https://github.com/nanzhi84/SEAL/issues/10">Issue #10</a> · 衔接 <a href="../plans/recipe-field-contracts.md">#6 字段合同</a></p>
+<p>所有 URL 资源保存为同一种文档表示。Source 选择 <code>document.v1</code>，使用 <a href="../../recipes/documents/recipe.py">文档 Recipe</a>；原文先归档，文档保存成功后才进入可选业务提取。旧 Record / generic 路径保持兼容。</p>
+<div class="flow"><span>Source / Binding</span><span>Scrapy 下载</span><span>原文归档</span><span>Recipe：发现 + 解析</span><span>文档保存</span><span>可选 #6 / Record</span></div>
+<article class="wide"><h2>五种内容节点，一个模型</h2><div class="nodes"><span>article：整篇纯文本</span><span>image：资源引用</span><span>table：二维标量</span><span>json：完整值</span><span>document_ref：目标外键</span></div><p>不拆段落、表格行/格或 JSON 字段；没有 group/data。根下内容有序，附件目标仍是同一种文档。共享引用不复制目标。</p><pre class="tree">文档 A
++ article：整篇正文
++ image：图片引用
++ table：名单
++ document_ref ──────────→ 文档 B
+                          + table：工作表一
+                          + table：工作表二</pre></article>
+<div class="grid">
+<article><h2>身份与实际版本</h2><p>沿用 Source / namespace / URL 的 seal_document 身份与原文 Revision。新增不可变解析版本和 Run emission，保留 Snapshot、Observation、Binding、RecipeVersion 及解析代码/依赖/options。</p><p>同原文、不同解析规则仍可区分。Record 的 document_versions 保留所有实际输入；document Locator 从原文重建文档并复算，再执行 #6 映射与规范化。</p></article>
+<article><h2>引用不等于成功下载</h2><p>保存引用前创建或核对同 Source / namespace 的目标身份。查询时区分 not_fetched、parse_failed、parsed，标记 state_scope: query_time。parsed 可指有效 staged 版本，不能据此推断目标 Run 已 complete。URL 与外键不对应、跨 Source 伪造引用拒绝。</p><p>独立 inspect/export 显示这些差别。只在 complete 在线 Run 推进当前视图；失败保留原文与已保存工件，Replay 不推进在线状态。</p></article>
+<article><h2>确定性解析</h2><p><code>parse_document(snapshot, body, *, options=None)</code> 返回 format/children，不联网。options 仅 body_css、title_css、format、csv_delimiter；保存层从冻结输入复算，Schema 合法不足以接受伪造内容。</p><p>HTML 图片只存 URL；DOCX/PDF 内嵌图片指向原容器 hash 与成员。全文 article 只有一个，正文清理/布局简化允许信息损失，原文保留。输入/ZIP 展开上限 64 MiB，表格共 500,000 格。</p></article>
+<article><h2>失败与历史兼容</h2><p>下载、归档、解析、结构/引用与业务 Schema 失败进入既有 Run errors。已成功保存文档可按失败 Run 查询，不能覆盖旧成功指针。</p><p>0008 新增版本、emission、引用及当前版本外键，历史 Record / generic 导出与 hash 保留。升级重 pack、建 Binding，旧归档可零网络重处理；旧 document Locator 在 parser digest 变化时明确拒绝，精确旧执行需要配套旧环境与 DB。</p></article>
+</div>
+<article class="wide"><h2>首版实际解析范围</h2><table><thead><tr><th>格式</th><th>统一内容</th><th>边界</th></tr></thead><tbody><tr><td>HTML 正文 / 列表</td><td>article / image / table / document_ref</td><td>Recipe 内容选择；不执行 JS；列表保存与发现分别执行</td></tr><tr><td>PDF</td><td>文本 article / 可取得的图片引用</td><td>pypdf；必须有文本层，无 OCR 或可靠表格识别</td></tr><tr><td>DOCX</td><td>article / 普通 table / 图片引用</td><td>python-docx；合并覆盖格 null，嵌套表文本展平，页眉/页脚/注释追加正文</td></tr><tr><td>XLS / XLSX</td><td>每工作表一个同级 table</td><td>xlrd / openpyxl；XLSX 保留公式字符串，不计算</td></tr><tr><td>CSV / TXT</td><td>真实二维 table / 整篇 article</td><td>默认逗号，不齐行补 null；严格冻结编码</td></tr><tr><td>JSON</td><td>完整 json 值</td><td>对象、数组、标量、null；重复 key/非有限数拒绝；不推断业务字段</td></tr><tr><td>图片</td><td>关联原图 hash 的 image</td><td>栅格校验 / SVG 根校验，SVG 不执行；无 OCR 正文</td></tr></tbody></table></article>
+<article class="wide"><h2>隔离验收与独立读取</h2><p>Python 3.12.13 / uv.lock / PostgreSQL 17，临时 PG、loopback HTTP 与新私有 Archive。覆盖全部声明格式、五节点、共享/失败/未下载引用、可选业务提取、无效合同、重复 Collect、规则更新、Recheck 与零网络 Replay。</p><pre>uv sync --frozen
+uv run --frozen python experiments/document-pipeline/ci.py --output work/ci-documents-new
+uv run --frozen seal inspect document DOCUMENT_ID
+uv run --frozen seal inspect document-version DOCUMENT_VERSION_ID
+uv run --frozen seal export SOURCE_ID --documents --run RUN_ID --output documents.json
+uvx --from seiso==0.3.0 seiso check README.md CHANGELOG.md docs/reference/source-adaptation.md docs/plans/unified-document-pipeline.md</pre><p class="status">技术通过不代表业务准确、全站完整或 Evaluation 批准；工件中的原文只留私有目录，CI 只发布脱敏元数据。</p></article>
+<article class="wide"><h2>已执行验证与合并门槛 · 2026-10-11</h2><p>产品代码冻结于 788c80112636e6991de9b336970967dd6b327f3c。core 509、offline 329、seeded 421、fields 175、documents 277，共 1711/1711 断言通过；seeded 75/75 与解析器 9/9，共 84/84 测试通过。四套旧路径回归的 44 个源码与锁文件摘要与受测代码一致。</p><p>完整文档 CI 覆盖九格式、15 资源、规则变更、共享/失败/未下载引用、同业务值下文档版本变化、嵌套 Locator、Recheck、跨资源输入和实际 Recipe。独立 oracle 核对 163 工件、6 验收脚本摘要、9 格式、15 文档、21 节点、8 原文值、2 外键、2 跨资源输入及 7 次零网络 Replay，不用 assertions PASS 作值正确性的依据。专项实验纳入完整 CI，不重复计数。</p><p><code>work/document-ci-final/summary.json</code> 的 SHA-256：<code>75250317194044028e460ee2d97a406fcd65766e5dc72dced85882348f6715d6</code>。原文工件私有；精确复跑命令与环境见 Plan。</p><p>独立审查覆盖迁移、外键、不可变版本、输入、失败指针、Replay 隔离与 Record 关联。<a href="https://github.com/nanzhi84/SEAL/pull/12">PR #12</a> 只有精确最终 head 的 lint / core / offline / seeded / fields / documents 六项远程检查全部成功才合并，并核对 merge SHA 与 main。早期失败工件保留，实站台账与业务覆盖不自动扩展。</p></article>
+</body>
+</html>

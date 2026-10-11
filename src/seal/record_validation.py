@@ -47,6 +47,9 @@ class RecordCandidate(Strict):
     frozen_parent_request: ParentRequest | None = None
     supporting_locators: dict = Field(default_factory=dict, exclude_if=lambda value: not value)
     supplementary_inputs: list[dict] = Field(default_factory=list, max_length=1000)
+    document_versions: list[dict] = Field(
+        default_factory=list, max_length=1000, exclude_if=lambda value: not value
+    )
 
 
 def json_value(value, depth=0):
@@ -236,6 +239,11 @@ def json_pointer(body, pointer, *, cache=None, body_hash=None):
 def located_value(snapshot, body, locator, cache=None):
     # The old text locator keeps its historical string/strip semantics.
     from .items import text_value
+
+    if locator.get("kind") == "document":
+        from .document_evidence import located_document_value
+
+        return located_document_value(snapshot, body, locator)
 
     if locator.get("kind") in {"html_blocks", "html_links", "html_date", "response_url"}:
         from .fallback import html_locator_value

@@ -60,6 +60,7 @@ def finish_run(run_id, epoch=None):
                 c, dict(run, status="failed", errors=report["errors"], report=report)
             )
         errors = list(run["errors"])
+        binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (run["binding_id"],))
         results = c.execute(
             "SELECT * FROM seal_result WHERE id=ANY(%s) ORDER BY document_id", (run["result_ids"],)
         ).fetchall()
@@ -141,6 +142,27 @@ def finish_run(run_id, epoch=None):
                 }
             )
         record_finish = {"outputs": [], "errors": [], "counts": {}}
+        document_finish = {"outputs": [], "errors": [], "counts": {}}
+        if has_table(c, "seal_document_version"):
+            from .documents import finish_documents
+
+            document_finish = finish_documents(c, source, run)
+            errors.extend(document_finish["errors"])
+            if binding["config"].get("output_schema") == "document.v1":
+                saved = {
+                    (entry["snapshot_id"], entry["observation_id"])
+                    for output in document_finish["outputs"]
+                    for entry in output["inputs"]
+                }
+                for entry in run["inputs"]:
+                    if entry["role"] in {"robots", "sitemap"}:
+                        continue
+                    snapshot = Objects().json(entry["snapshot_id"])
+                    if (
+                        snapshot["status"] == 200
+                        and (entry["snapshot_id"], entry["observation_id"]) not in saved
+                    ):
+                        errors.append("document_parse_missing")
         records_available = has_table(c, "seal_record")
         if records_available:
             from .records import finish_records
@@ -198,6 +220,8 @@ def finish_run(run_id, epoch=None):
             run["report"],
             result_count=len(results),
             outputs=outputs,
+            document_outputs=document_finish["outputs"],
+            document_counts=document_finish["counts"],
             record_outputs=record_finish["outputs"],
             record_counts=record_finish["counts"],
             discovery=discovery,
@@ -232,7 +256,18 @@ def finish_run(run_id, epoch=None):
 
             accept_records(c, source, run, record_finish["outputs"])
         if status == "complete":
-            complete_dates(c, source, run, record_finish["outputs"], outputs)
+            if has_table(c, "seal_document_version"):
+                from .documents import accept_documents
+
+                accept_documents(c, source, run, document_finish["outputs"])
+            complete_dates(
+                c,
+                source,
+                run,
+                record_finish["outputs"],
+                outputs,
+                document_finish["outputs"],
+            )
         else:
             failed_dates(c, source, run, status)
         c.execute(

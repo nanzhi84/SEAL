@@ -78,7 +78,20 @@ F 类包括明确禁止路径；本轮 478 个入口中 20 个规范化入口因
 
 ## 5. 逐源适配时检查的行为边界
 
-沿用 `generic_document.v1` 的标题、正文、日期、附件引用和原文定位；来源 URL、Run、Binding、RecipeVersion、Observation、Revision 等继续由 Runtime 追溯。首版不急于扩展为通用尽调实体 Schema。
+历史 `generic_document.v1` 与 `record.v1` 适配保留标题、正文、日期、附件引用和原文定位。
+新增统一内容入口时，Source 选择 `output_schema: document.v1` 并使用可信文档 Recipe：
+HTML 列表/详情及各格式资源先归档，再保存同类型文档；article/image/table/json/document_ref
+承载内容，业务字段提取为可选后续步骤，继续由 #6 的任务 Schema 管理。
+来源 URL、Run、Binding、RecipeVersion、Observation、原文 Revision、解析规则与实际文档版本
+均可追溯；不扩展全局尽调实体 Schema。具体合同见
+[统一文档 Plan](../plans/unified-document-pipeline.md) 与
+[唯一可视化](../generated/unified-document-pipeline.html)。
+
+文档出口使用 `seal export SOURCE_ID --documents --run RUN_ID`，引用目标状态为查询时的
+`not_fetched` / `parse_failed` / `parsed`；不能以引用存在或 parsed 推断采集范围、目标 Run
+成功及业务完整性。CSV 保存实际二维、XLSX 每工作表一张表；PDF 仅文本层和可取得的图片引用，
+不做 OCR/可靠表格识别。损坏/未支持输入保留原文与失败诊断，失败 Run 不覆盖旧成功视图。
+本次隔离合成验收不改写第 9 节实站台账，也不代表既有实站已全部迁移到新合同。
 
 - Source 按栏目划分，不以整个域名作为无限采集范围；分页只允许已确认 URL 规则及有限上限。
 - 标题、正文必须来自同一业务详情；缺失日期保留未知，不拿抓取日期冒充发布日期。发布时间与更新时间分别评估，当前缺乏字段时不要伪造。

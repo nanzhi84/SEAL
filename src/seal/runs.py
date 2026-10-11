@@ -284,6 +284,7 @@ def run_summary(connection, run):
             "records": records["records"],
             "record_emissions": records["emissions"],
             "record_outputs": len(run["report"].get("record_outputs", [])),
+            "document_outputs": len(run["report"].get("document_outputs", [])),
             "attachments": len(attachments),
             "http_attempts": discovery["http_attempts"],
             "archived_observations": discovery["archived_observations"],

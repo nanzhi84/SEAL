@@ -36,6 +36,17 @@ def run_evidence(connection, run):
             "SELECT * FROM seal_record_emission WHERE run_id=%s ORDER BY created_at,id",
             (run["id"],),
         ).fetchall()
+    if has_table(connection, "seal_document_version"):
+        value["document_versions"] = connection.execute(
+            """SELECT DISTINCT v.* FROM seal_document_version v
+               JOIN seal_document_emission e ON e.document_version_id=v.id
+               WHERE e.run_id=%s ORDER BY v.created_at,v.id""",
+            (run["id"],),
+        ).fetchall()
+        value["document_emissions"] = connection.execute(
+            "SELECT * FROM seal_document_emission WHERE run_id=%s ORDER BY created_at,id",
+            (run["id"],),
+        ).fetchall()
     if has_table(connection, "seal_discovery"):
         from .discovery_report import summarize_discovery
 
@@ -44,6 +55,12 @@ def run_evidence(connection, run):
 
 
 def inspect_record(kind, identity):
+    if kind in {"document", "document-version"}:
+        from .documents import inspect_document, inspect_document_version
+
+        return (
+            inspect_document(identity) if kind == "document" else inspect_document_version(identity)
+        )
     if kind == "manifest":
         return {"manifest_id": identity, "manifest": read_manifest(identity)}
     with connect() as c:
@@ -146,6 +163,12 @@ def inspect_record(kind, identity):
                 ).fetchall()
                 value["record_versions"] = c.execute(
                     "SELECT v.* FROM seal_record_version v JOIN seal_record r ON r.id=v.record_id WHERE r.source_id=%s ORDER BY v.created_at,v.id",
+                    (identity,),
+                ).fetchall()
+            if has_table(c, "seal_document_version"):
+                value["document_versions"] = c.execute(
+                    """SELECT v.* FROM seal_document_version v JOIN seal_document d
+                       ON d.id=v.document_id WHERE d.source_id=%s ORDER BY v.created_at,v.id""",
                     (identity,),
                 ).fetchall()
             return value

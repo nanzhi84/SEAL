@@ -5,6 +5,26 @@ lang: zh
 
 # 版本记录
 
+## 统一文档流水线（Issue #10）— 2026-10-11
+
+新增 Source `document.v1` 与 `recipes/documents`：响应先归档，再解析、校验和保存统一文档，
+可独立查询/导出；业务提取为可选后续步骤，继续使用 #6 字段合同。统一文档只包含整篇
+article、image 引用、二维 table、完整 json 值和 document_ref 外键五种内容节点。
+复用 HTML、文本 PDF、XLS、DOCX、TXT、JSON，补齐真实 CSV 二维与 openpyxl XLSX；
+图片关联原文容器/成员。PDF 不包含 OCR 或可靠表格识别，XLSX 公式不计算。
+
+新增 `0008_unified_documents.sql`，沿用既有资源身份和原文 Revision，保存不可变解析版本、
+实际 Run emission 与共享目标外键。`inspect document` / `inspect document-version` 和
+`export --documents` 提供独立出口；引用查询区分未下载、解析失败和已解析。只有 complete
+在线 Run 推进当前表示指针，失败保留原文和有效工件。Record 保存全部实际文档版本，
+document Locator 从归档及冻结解析规则复算。旧 record/generic hash、对象和出口保持兼容。
+
+升级前停止 Worker 并备份数据库/Archive，迁移后重新 pack Recipe 和建立 Binding。
+解析代码/依赖变化后旧 document Locator 明确拒绝版本漂移；新 Binding 可零网络重解析
+旧原文，精确旧版本仍使用配套旧环境。完整合同及验收入口见
+[Plan](docs/plans/unified-document-pipeline.md) 和
+[唯一可视化](docs/generated/unified-document-pipeline.html)。
+
 ## V1.3 / 0.1.3 — 2026-10-10
 
 新增基于业务 Seed 的入口扩展、有界递归链接与 Sitemap 发现，复用原生 Scrapy

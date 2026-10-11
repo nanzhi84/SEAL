@@ -87,6 +87,9 @@ def export_source(source_id, run_id=None):
                 }
             )
         records, unavailable_records = export_records(c, source, run_id, latest_run)
+        from .documents import export_document_rows
+
+        parsed_documents, unavailable_documents = export_document_rows(c, source, run_id)
     return {
         "source_id": source_id,
         "generation": source["generation"],
@@ -94,6 +97,7 @@ def export_source(source_id, run_id=None):
         "quality_status": "not_evaluated",
         "documents": documents,
         "records": records,
+        "parsed_documents": parsed_documents,
         "latest_run": latest_run,
         "run": (
             {
@@ -108,6 +112,7 @@ def export_source(source_id, run_id=None):
         ),
         "unavailable": unavailable,
         "unavailable_records": unavailable_records,
+        "unavailable_documents": unavailable_documents,
     }
 
 

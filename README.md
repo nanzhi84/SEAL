@@ -2,6 +2,46 @@
 
 Self-Evolving Agentic Ingestion Loop：面向异构信息源的持续采集、原文归档和结构化提取项目。
 
+## 统一文档采集与解析
+
+Source 设置 `output_schema: document.v1`，使用 [文档 Recipe](recipes/documents/recipe.py)，
+将 HTML 详情/列表、文本 PDF、DOCX、XLS/XLSX、CSV、TXT、JSON 和图片保存为同一种
+可独立查询的文档。内容只有 article、image、table、json、document_ref 五种节点；正文
+保持整篇，工作表为并列表格，JSON 保留对象/数组/标量/null。附件通过外键关联同类型文档，
+共享引用不复制内容。
+
+运行前设置私有 `SEAL_ARCHIVE`、`SEAL_DATABASE_URL` 与 `umask 077`，应用显式主机/路径、
+robots 和预算的 Source。文档 Recipe 要求 `robots: true`；最小参数文件为 `{}`。
+站点选择器放在 `options.body_css` / `options.title_css`，可选格式和 CSV 分隔符也在 options
+冻结。默认只保存文档；`extract_business: true` 先保存文档，再对 HTML 详情提取 title/body，
+继续执行 #6 字段映射、规范化和 Schema。可信自定义 Recipe 可从文档提取其他业务字段。
+
+```sh
+uv sync --frozen
+uv run --frozen seal db migrate
+uv run --frozen seal source apply SOURCE_CONFIG.yaml
+uv run --frozen seal recipe pack recipes/documents
+uv run --frozen seal binding create SOURCE_ID --recipe RECIPE_VERSION --params PARAMS.yaml
+uv run --frozen seal collect SOURCE_ID --binding BINDING_ID
+uv run --frozen seal export SOURCE_ID --documents --run RUN_ID --output documents.json
+uv run --frozen seal inspect document DOCUMENT_ID
+uv run --frozen seal inspect document-version DOCUMENT_VERSION_ID
+```
+
+统一文档保留实际 Snapshot、Observation、原文 Revision、解析规则及运行输入；Record
+保留使用的全部文档版本。引用查询区分 `not_fetched`、`parse_failed`、`parsed`，标记为
+查询时状态；引用存在不表示目标已成功采集。失败 Run 保留原文与有效文档，只有 complete
+在线 Run 推进当前视图。PDF 首版要求文本层，无 OCR 或可靠表格识别；XLSX 公式保留字符串，
+不计算。旧 `record.v1` / `generic_document.v1` Recipe、原文与导出保持兼容；新迁移为
+`0008_unified_documents.sql`，升级需停止 Worker、备份、迁移并创建新 RecipeVersion/Binding。
+实际格式、失败和复现合同见 [Plan](docs/plans/unified-document-pipeline.md) 与
+[可视化](docs/generated/unified-document-pipeline.html)。
+
+冻结产品代码的五套本地回归通过 1711/1711 断言及 84/84 测试；文档独立 oracle 核对
+九种格式、15 份文档和 7 次零网络 Replay。复跑使用
+`uv run --frozen python experiments/document-pipeline/ci.py --output work/ci-documents-new`，
+精确环境与证据摘要见 Plan；合并仍以 PR 最终 head 六项远程检查全部通过为门槛。
+
 ## V1.3：Seeded Site Collection
 
 从业务 Seed 扩展同站点入口、Sitemap、栏目、分页、详情和附件，使用现有 Scrapy
@@ -42,7 +82,8 @@ seeded Recheck 只处理冻结计划内的目标；页面里的新链接、ifram
 Source 的 `response_bytes` 解压大小上限约束。政策规则拒绝、政策 HTTP 401/403
 与政策不可用分别记录 `robots_denied`、`robots_policy_http_denied`、`robots_unavailable`。
 无扩展名附件按最终 Content-Type 确认，保留首次下载的父页面输入；全部引用关系
-保留在 Discovery。XLSX 当前保存原文并明确 `unsupported_content_type`。
+保留在 Discovery。旧 seeded Record 路径对 XLSX 保留原文并明确 `unsupported_content_type`；
+新的 `document.v1` 路径支持 XLSX 工作表解析。
 
 设计、增量迁移与实际验收见 [V1.3 Plan](docs/plans/v1.3-seeded-site-collection.md)、
 [唯一可视化](docs/generated/v1.3-seeded-site-collection.html) 和
