@@ -1,0 +1,87 @@
+---
+kind: plan
+lang: zh
+---
+
+# Recipe 提取、字段映射与任务 Schema
+
+依据 [Issue #6](https://github.com/nanzhi84/SEAL/issues/6)，基线 main `fb5733a`。
+唯一派生物：[Generated](../generated/recipe-field-contracts.html)。
+
+## 目标与边界
+
+网站原文 → 可信 Python Recipe 提取 → 可选显式改名/规范化 → 当前任务 Schema → Record。
+Runtime 不含业务 key、选择器或全局字段全集；网络、Archive、Locator、Binding、Record
+及 Replay 使用现有链路。无字段配置的 Recipe 保留原行为；无 mapping 的任务复用提取
+Schema。字段缺失、解析失败或值不唯一输出 null；不新增字段状态、原因、错误码或缺失表。
+
+## 数据和配置合同
+
+Recipe manifest 保持 family/entrypoint/params_schema，允许以下增量：
+
+- extraction_schema：必须有独立 `$id` 与显式 `$schema`，闭合 object 的 properties 定义本任务的 key。
+  声明的 key 必须全部输出，默认用类型联合允许 null。required 只表示 key 存在；任务可通过类型禁止
+  少数字段为 null。支持 2020-12 / 2019-09；远程引用与未知 dialect 拒绝，不联网取 Schema。
+- data_schema：可选；无改名与转换时复用 extraction_schema。纯改名的简单闭合合同可派生
+  properties/required，并以源 `$id` 加 `:mapped` 作为派生 ID；复杂约束及语义转换必须显式声明。
+- field_mapping：源 key → 目标 key，未映射 key 保留。未知源、空目标、重复目标以及保留 key
+  碰撞在 pack 拒绝。两份显式 Schema 的 key 与映射结果必须一致。
+- field_transforms：源 key → `{entrypoint: module:function, params: {...}}`，仅可信冻结 bundle
+  内的函数；参数显式冻结。函数定义/签名不合法是配置错误，pack 拒绝。字段解析异常仅允许
+  ValueError/TypeError/OverflowError 转成 null，其他异常沿用 Run 错误；非 null 错误类型拒绝。
+- Record 增加可选 data_schema_id，与有效入库合同 `$id` 精确相等；外层 schema_version 继续使用
+  现有 record.v1 等外层标识，避免把业务 Schema 的 URN 与外层类型混为一谈。
+- 非 null 取值 Locator 可声明 `parser: {entrypoint, params}`；Runtime 从归档读取原值，再执行冻结
+  Python 函数并严格比较 JSON 值。用于日期→年份等可复算推导，不实现 DSL。
+
+Schema、mapping、Python 函数与参数都在现有 recipe_version 内容摘要中，Binding 引用此版本；
+不增加第二份合同或重复摘要。提取/映射/入库数据皆先检查严格 JSON，限制尺寸与嵌套。
+
+## 职责、数据流与兼容
+
+`fields.py` 负责合同与配置校验、显式改名和规范化；`recipes.py` pack 校验并在 Crawl 加载冻结
+函数；`record_validation.py` 检查提取 JSON/Schema 和非 null 原文证据，再执行 mapping、转换及
+内部 Schema 校验；`records.py` 继续现有不可变候选/版本持久化。源值、源 Locator、原文值、
+目标 key 与转换规则写入现有 candidate 的 field_evidence；天然 null 无字段旁路证据。
+规范化失败后的 null 保留此前非 null 提取值与证据。export 沿现有 candidate/result_evidence
+输出内部 data 和证据；普通旧导出不更名，无 SQL 迁移。
+
+历史 Record 和 export 可读，旧不可变对象不修改。同 Runtime 内重新 pack Schema/Recipe/mapping
+后，旧 Binding Replay 应复现原值、Locator 和零网络。升级 Runtime 后旧 bundle 的严格
+`environment_drift` 防线仍拒绝；重 pack 同源码并创建新 Binding 可对旧 Run.inputs 零网络重处理。
+精确旧版本需旧 checkout/venv 与升级前 DB 副本；旧 worker 不连接新 DB，不增加兼容绕过层。
+
+## 失败方式和边界（实现前）
+
+pack 拒绝无效 Schema、dialect、远程引用、未知 callable/参数和所有 mapping 碰撞；运行拒绝
+key 省略、data_schema_id 不匹配、非 null 类型错误、缺少非 null Locator、定位值不符及不可复算
+转换。不会把配置错误吞为 null。天然 null、可靠解析失败、规范化失败与多值正常入库；数组
+完整保留。无整页或网络失败不生成假成功 Record。无 Schema 的历史 Recipe 继续原 Locator 合同。
+
+## 实施与验收
+
+1. 提交本 Plan、Generated 和 CLI/PG/HTTP 外部行为 E2E，先执行 RED。
+2. 实现字段边界与越南可信 Recipe，复用 Record/Archive/Replay，无新状态表。
+3. E2E 使用隔离 loopback 两个不同提取来源，共享语义显式映射与无 mapping 的差异化任务；
+   验证 null、多值、纯重命名、类型、key、碰撞、规范化和独立原文复算。
+4. 越南 48/2026/QĐ-TTg 公开详情真实样本保留三个精确 key（含空格/冒号），机关、日期→年份
+   从 raw HTML 独立复算。领域优先详情明确值，无证据保存 null；真实领域检索以公开表单试查，
+   不从标题猜测，不以首屏缺少某文档认定全领域缺失。
+5. 更新合同后旧 Binding Replay、旧无配置 Recipe 导出不变；运行项目 Ruff/构建及现有相关 E2E。
+
+可重跑：`uv sync --frozen`，Python 3.12 / PostgreSQL 17+ 的 initdb/pg_ctl 在 PATH；
+`uv run --frozen python experiments/field-contracts/acceptance.py --output artifacts/fields`。
+实时越南：同命令增加 `--live-vietnam`，只访问授权公开页面，领域筛选独立探针只记录非敏感
+状态/公开标签/docid/正文摘要，不保留隐藏表单参数到回执或日志。完整 raw 输入仍由 Archive 保留。
+工件包括命令、环境/代码摘要、CLI 回执、expected/actual、提取 JSON、data、export、Locator、
+独立复算、零网络账本。CI 只发布摘要，不发布真实站 raw/body；全站覆盖、PDF发现/OCR/LLM/UI
+均不在本次范围，Schema 通过不表示字段准确、语义或覆盖完整。
+
+## 一手参考
+
+- [JSON Schema 对象与 required](https://json-schema.org/understanding-json-schema/reference/object)：
+  required 与 null 分别由 key 和类型约束表达，核对日期 2026-10-11。
+- [Dialect 声明](https://json-schema.org/understanding-json-schema/reference/schema)：显式 `$schema`。
+- [越南政府文件系统](https://vanban.chinhphu.vn/)：实测详情机关/日期，领域筛选是公开 ASP.NET
+  表单提交，2026-10-11 分类 6 + 年份 2026 + 文号 48/2026/QĐ-TTg 没有返回 docid；该范围
+  不足以证明所有领域，当前领域 null。
