@@ -1,5 +1,6 @@
 """Validated, immutable document projections linked to archived Runtime inputs."""
 
+import math
 from urllib.parse import urlsplit
 
 from .content_parser import PARSER_VERSION, parse_document
@@ -18,6 +19,29 @@ def _document_id(source_id, namespace, url, method="GET", request_body_sha256=""
             "request_body_sha256": request_body_sha256,
         }
     )
+
+
+def _storage_safe(tree):
+    pending = [tree]
+    while pending:
+        value = pending.pop()
+        if isinstance(value, str):
+            if "\x00" in value or any(0xD800 <= ord(char) <= 0xDFFF for char in value):
+                raise SealError("content_storage_unsupported")
+        elif type(value) is int:
+            try:
+                if len(str(abs(value))) > 131072:
+                    raise SealError("content_storage_unsupported")
+            except ValueError:
+                raise SealError("content_storage_unsupported") from None
+        elif type(value) is float:
+            if not math.isfinite(value):
+                raise SealError("content_storage_unsupported")
+        elif isinstance(value, dict):
+            pending.extend(value.keys())
+            pending.extend(value.values())
+        elif isinstance(value, list):
+            pending.extend(value)
 
 
 def _validate(tree, config, url):
@@ -73,6 +97,7 @@ def _validate(tree, config, url):
         else:
             raise SealError("invalid_content_node")
     public_url(url)
+    _storage_safe(tree)
 
 
 def stage_content(context, response, entry):

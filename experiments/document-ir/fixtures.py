@@ -129,6 +129,8 @@ def install(h):
             ),
         ),
         "/ir/ragged.csv": ("text/csv", b",".join([b"x"] * 1001) + b"\n" + b",\n" * 499),
+        "/ir/many.csv": ("text/csv", b"x\n" * 600_000),
+        "/ir/nul.txt": ("text/plain", b"safe\x00unsafe"),
         "/ir/header.docx": (
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             header_docx.getvalue(),

@@ -6,6 +6,8 @@ from pathlib import Path
 def exercise_edges(h, version):
     names = (
         "ragged.csv",
+        "many.csv",
+        "nul.txt",
         "header.docx",
         "interleaved.docx",
         "formula.xlsx",
@@ -19,6 +21,7 @@ def exercise_edges(h, version):
         output_schema="record.v1",
         document_ir=True,
         seed_role="attachment",
+        budget={"requests": 40, "seconds": 25, "response_bytes": 2_000_000},
         delay=0.0,
         concurrency=2,
     )
@@ -26,7 +29,19 @@ def exercise_edges(h, version):
     receipt = h.cli("collect", "ir_edges", "--binding", binding, ok=False)
     exported = h.cli("export", "ir_edges", "--run", receipt["run_id"])
     docs = {Path(row["url"]).name: row for row in exported["content_documents"]}
-    h.check("ragged_table_rejected_before_padding", "document_table_too_large" in receipt["errors"])
+    events = h.cli("inspect", "run", receipt["run_id"])["discovery"]["events"]
+
+    def rejected(name, code):
+        return any(
+            event["url"].endswith("/" + name) and event["reason"] == code and event["snapshot_id"]
+            for event in events
+        )
+
+    h.check(
+        "ragged_table_rejected_before_padding", rejected("ragged.csv", "document_table_too_large")
+    )
+    h.check("many_csv_rows_rejected", rejected("many.csv", "document_table_too_large"))
+    h.check("nul_article_rejected_before_db", rejected("nul.txt", "content_storage_unsupported"))
     h.check("unsupported_docx_content_rejected", "docx_unsupported_content" in receipt["errors"])
     h.check(
         "jsonb_unsupported_values_rejected",
@@ -52,14 +67,7 @@ def exercise_edges(h, version):
         ],
         ["Introduction", "Conclusion"],
     )
-    events = h.cli("inspect", "run", receipt["run_id"])["discovery"]["events"]
     h.check(
-        "precision_rejected_with_snapshot",
-        any(
-            event["url"].endswith("/precision.json")
-            and event["reason"] == "json_storage_unsupported"
-            and event["snapshot_id"]
-            for event in events
-        ),
+        "precision_rejected_with_snapshot", rejected("precision.json", "json_storage_unsupported")
     )
     h.capture("edges", {"receipt": receipt, "export": exported})

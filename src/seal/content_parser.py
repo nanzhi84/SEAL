@@ -290,7 +290,12 @@ def parse_document(response, config, snapshot_id, body_hash):
         children = _xlsx(body)
     elif kind == "csv":
         try:
-            rows = list(csv.reader(StringIO(_decode(body), newline=""), strict=True))
+            rows, width = [], 0
+            for row in csv.reader(StringIO(_decode(body), newline=""), strict=True):
+                width = max(width, len(row))
+                if max(1, width) * (len(rows) + 1) > MAX_CELLS:
+                    raise SealError("document_table_too_large")
+                rows.append(row)
         except csv.Error:
             raise SealError("csv_parse_failed") from None
         children = [_table(None, rows)]
