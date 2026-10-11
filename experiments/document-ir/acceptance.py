@@ -191,7 +191,7 @@ def exercise(h):
 
     h.config(
         "ir_nav",
-        entries=[h.site.url + "/ir/nav-list"],
+        entries=[h.site.url + "/ir/" + name for name in ("nav-list", "nav-prose")],
         output_schema="record.v1",
         document_ir=True,
         delay=0.0,
@@ -200,16 +200,16 @@ def exercise(h):
     nav_binding = h.binding("ir_nav", version, {})
     nav_run = h.cli("collect", "ir_nav", "--binding", nav_binding)
     nav_export = h.cli("export", "ir_nav", "--run", nav_run["run_id"])
-    nav_docs = nav_export["content_documents"]
+    nav_docs = {Path(row["url"]).name: row for row in nav_export["content_documents"]}
     h.check(
         "navigation_list_keeps_only_content_link",
-        [ref["url"] for ref in nav_docs[0]["refs"]],
+        [ref["url"] for ref in nav_docs["nav-list"]["refs"]],
         [h.site.url + "/ir/note.txt"],
     )
     h.check(
         "navigation_list_excludes_chrome_text",
         all(
-            word not in nav_docs[0]["children"][0]["text"]
+            word not in nav_docs["nav-list"]["children"][0]["text"]
             for word in (
                 "hiddenScript",
                 "hiddenStyle",
@@ -219,6 +219,7 @@ def exercise(h):
             )
         ),
     )
+    h.check("body_prose_excludes_menu_refs", nav_docs["nav-prose"]["refs"], [])
     h.capture("nav-list", {"receipt": nav_run, "export": nav_export})
 
     invalid = h.config(
@@ -237,7 +238,17 @@ def exercise(h):
         "ir_formats",
         entries=[
             h.site.url + "/ir/" + suffix
-            for suffix in ("pdf", "docx", "xls", "xlsx", "null", "scalar", "object")
+            for suffix in (
+                "pdf",
+                "pdf.html",
+                "docx",
+                "xls",
+                "xlsx",
+                "null",
+                "scalar",
+                "object",
+                "gbk",
+            )
         ],
         output_schema="record.v1",
         document_ir=True,
@@ -250,6 +261,10 @@ def exercise(h):
     formats_export = h.cli("export", "ir_formats", "--run", formats_run["run_id"])
     formats = {Path(row["url"]).name: row for row in formats_export["content_documents"]}
     h.check("pdf_is_article", formats["pdf"]["children"][0]["type"], "article")
+    h.check("pdf_mime_overrides_html_suffix", formats["pdf.html"]["source_format"], "pdf")
+    h.check(
+        "html_meta_charset_decoded", formats["gbk"]["children"][0]["text"], "公开文档 中文正文。"
+    )
     h.check(
         "docx_has_single_article",
         [c["type"] for c in formats["docx"]["children"]].count("article"),

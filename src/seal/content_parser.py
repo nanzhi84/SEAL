@@ -11,6 +11,7 @@ from zipfile import ZipFile
 from lxml import html
 from PIL import Image
 from pypdf import PdfReader
+from scrapy.http import HtmlResponse
 
 from .attachments import MAX_CELLS, docx_structure, docx_text, xls_structure
 from .core import SealError, public_url
@@ -104,9 +105,20 @@ def _docx(body):
     return children
 
 
-def _html(body, base_url, config, selector=None):
+def _navigation_only(scope):
+    if scope.text and scope.text.strip():
+        return False
+    headings = {f"h{level}" for level in range(1, 7)}
+    for child in scope:
+        if child.tag not in headings and " ".join(child.itertext()).strip():
+            return False
+        if child.tail and child.tail.strip():
+            return False
+    return True
+
+
+def _html(decoded, base_url, config, selector=None):
     try:
-        decoded = _decode(body)
         root = html.fromstring(decoded)
     except Exception:
         raise SealError("html_parse_failed") from None
@@ -124,7 +136,7 @@ def _html(body, base_url, config, selector=None):
         scope = selected[0]
     else:
         scope = next(iter(root.xpath("//article|//main|//*[@role='main']|//body")), root)
-        if scope.tag == "body" and not scope.xpath(".//a[@href]"):
+        if scope.tag == "body" and not scope.xpath(".//a[@href]") and _navigation_only(scope):
             # A list page may keep its links in <nav>, with or without a
             # heading outside it. The Recipe can follow those links too.
             original = html.fromstring(decoded)
@@ -175,28 +187,44 @@ def _html(body, base_url, config, selector=None):
 def _kind(response):
     mime = response.headers.get("Content-Type", b"").decode("latin1").split(";", 1)[0].lower()
     suffix = urlsplit(response.url).path.lower()
-    if (
-        mime.startswith("text/html")
-        or suffix.endswith((".html", ".htm"))
-        or response.body.lstrip().lower().startswith((b"<html", b"<!doctype html"))
+    if mime.startswith("text/html") or response.body.lstrip().lower().startswith(
+        (b"<html", b"<!doctype html")
     ):
         return "html", mime
-    if mime in IMAGE_MIMES or suffix.endswith((".png", ".jpg", ".jpeg", ".gif", ".webp")):
+    if mime in IMAGE_MIMES:
         return "image", mime
-    if mime == "application/pdf" or suffix.endswith(".pdf"):
+    if mime == "application/pdf":
         return "pdf", mime
-    if mime == XLSX_MIME or suffix.endswith(".xlsx"):
+    if mime == XLSX_MIME:
         return "xlsx", mime
-    if mime == DOCX_MIME or suffix.endswith(".docx"):
+    if mime == DOCX_MIME:
         return "docx", mime
-    if mime == "application/vnd.ms-excel" or suffix.endswith(".xls"):
+    if mime == "application/vnd.ms-excel":
         return "xls", mime
-    if mime in {"text/csv", "application/csv"} or suffix.endswith(".csv"):
+    if mime in {"text/csv", "application/csv"}:
         return "csv", mime
-    if mime in {"application/json", "text/json"} or suffix.endswith(".json"):
+    if mime in {"application/json", "text/json"}:
         return "json", mime
-    if mime == "text/plain" or suffix.endswith(".txt"):
+    if mime == "text/plain":
         return "txt", mime
+    if suffix.endswith((".html", ".htm")):
+        return "html", mime
+    for extension, kind in (
+        (".png", "image"),
+        (".jpg", "image"),
+        (".jpeg", "image"),
+        (".gif", "image"),
+        (".webp", "image"),
+        (".pdf", "pdf"),
+        (".xlsx", "xlsx"),
+        (".docx", "docx"),
+        (".xls", "xls"),
+        (".csv", "csv"),
+        (".json", "json"),
+        (".txt", "txt"),
+    ):
+        if suffix.endswith(extension):
+            return kind, mime
     raise SealError("document_format_unsupported")
 
 
@@ -206,10 +234,17 @@ def parse_document(response, config, snapshot_id, body_hash):
     kind, mime = _kind(response)
     body = response.body
     if kind == "html":
-        _check_page(response)
+        page = HtmlResponse(
+            url=response.url,
+            status=response.status,
+            headers=response.headers,
+            body=body,
+            request=response.request,
+        )
+        _check_page(page)
         children = _html(
-            body,
-            response.urljoin(""),
+            page.text,
+            page.urljoin(""),
             config,
             response.meta.get("seal_document_content_css"),
         )

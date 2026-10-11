@@ -2,6 +2,6 @@
 <style>body{font:16px/1.6 system-ui;max-width:960px;margin:3rem auto;padding:0 1rem;color:#17222d}h1{font-size:2rem}.flow{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}.flow span{background:#edf3f7;border:1px solid #afc7d7;border-radius:.5rem;padding:.7rem}section{border-left:4px solid #467ea3;padding-left:1rem;margin:2rem 0}code{background:#eef2f5;padding:.15rem .3rem}</style>
 <h1>Issue #10：统一文档表示</h1><p>由 <a href="../plans/unified-document-ir.md">Plan</a> 派生的流程示意。</p>
 <div class="flow"><span>Source / Binding</span> → <span>Scrapy 下载</span> → <span>原文归档</span> → <span>五节点解析</span> → <span>校验与文档版本</span> → <span>可选业务提取</span> → <span>Record</span></div>
-<section><h2>同一种表示节点</h2><p><code>article</code> · <code>image</code> · <code>table</code> · <code>json</code> · <code>document_ref</code>。空 HTML 可没有子节点。引用遵循页面 base URL 并指向同类型目标身份；未成功解析时明确为 pending。身份由 Source、namespace、URL、方法及 POST 请求体摘要确定。</p></section>
+<section><h2>同一种表示节点</h2><p><code>article</code> · <code>image</code> · <code>table</code> · <code>json</code> · <code>document_ref</code>。空 HTML 可没有子节点。格式优先按响应 MIME 判定，HTML 按声明字符集解码；引用遵循页面 base URL 并指向同类型目标身份，未成功解析时明确为 pending。身份由 Source、namespace、URL、方法及 POST 请求体摘要确定。</p></section>
 <section><h2>证据链</h2><p>文档版本 → Snapshot / Observation → 原文 hash → Archive；业务 Record 另关联实际文档版本和原有字段 Locator。</p></section>
 <section><h2>验收</h2><p>隔离 loopback 与 PostgreSQL，使用 CLI 验证真实采集、保存、查询、导出、业务衔接和零网络 Replay。</p></section></html>

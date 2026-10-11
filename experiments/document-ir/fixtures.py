@@ -66,6 +66,7 @@ def install(h):
         "/ir/bad.webp": ("image/webp", b"RIFF\x08\x00\x00\x00WAVEfmt "),
         "/ir/bad.pdf": ("application/pdf", b"damaged synthetic PDF"),
         "/ir/pdf": ("application/pdf", h.site.pdf),
+        "/ir/pdf.html": ("application/pdf", h.site.pdf),
         "/ir/docx": (
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             h.site.docx,
@@ -100,6 +101,16 @@ def install(h):
         "/ir/nav-list": (
             "text/html",
             b'<html><body><h1>Resources</h1><nav><a href="/ir/note.txt">Only link</a></nav><script>hiddenScript</script><style>hiddenStyle</style><footer><a href="/ir/data.csv">hiddenFooter</a></footer><form><a href="/ir/bad.pdf">hiddenForm</a></form><noscript>hiddenNoScript</noscript></body></html>',
+        ),
+        "/ir/nav-prose": (
+            "text/html",
+            b'<html><body><h1>Story</h1><p>Substantive prose.</p><nav><a href="/ir/note.txt">Menu</a></nav></body></html>',
+        ),
+        "/ir/gbk": (
+            "text/html",
+            '<html><head><meta charset="gbk"></head><body><h1>公开文档</h1><p>中文正文。</p></body></html>'.encode(
+                "gbk"
+            ),
         ),
         "/ir/base": (
             "text/html",
