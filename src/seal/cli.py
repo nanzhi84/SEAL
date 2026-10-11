@@ -35,7 +35,7 @@ def parser():
     replay = commands.add_parser("replay")
     replay.add_argument("run")
     replay.add_argument("--binding")
-    run = commands.add_parser("run")
+    run = commands.add_parser("run", aliases=["collect"])
     run.add_argument("source")
     run.add_argument("--binding")
     run.add_argument("--enqueue", action="store_true")
@@ -48,7 +48,9 @@ def parser():
     retry.add_argument("run")
     retry.add_argument("--enqueue", action="store_true")
     inspect = commands.add_parser("inspect")
-    inspect.add_argument("kind", choices=["source", "binding", "run", "manifest", "research"])
+    inspect.add_argument(
+        "kind", choices=["source", "binding", "run", "manifest", "research", "record", "snapshot"]
+    )
     inspect.add_argument("identity")
     inspect.add_argument("--output", type=Path)
     export = commands.add_parser("export")
@@ -84,21 +86,10 @@ def dispatch(args):
         return runs.execute_run(
             runs.create_run(args.binding or run["binding_id"], "replay", replay_from=args.run)
         )
-    if args.command == "run":
-        with connect() as c:
-            source = one(c, "SELECT * FROM seal_source WHERE id=%s FOR UPDATE", (args.source,))
-            binding_id = args.binding or source["binding_id"]
-            if not binding_id:
-                raise SealError("binding_required")
-            binding = one(c, "SELECT source_id FROM seal_binding WHERE id=%s", (binding_id,))
-            if binding["source_id"] != args.source:
-                raise SealError("binding_source_mismatch")
-            run_id = runs.create_run(binding_id, "recheck" if args.recheck else "collect", c)
-            if args.enqueue:
-                from .queue import enqueue
-
-                enqueue(c, run_id)
-        return runs.receipt(run_id) if args.enqueue else runs.execute_run(run_id)
+    if args.command in {"run", "collect"}:
+        return runs.collect_source(
+            args.source, args.binding, enqueue=args.enqueue, recheck=args.recheck
+        )
     if args.command == "retry":
         with connect() as c:
             source, run = locked_run(c, args.run)

@@ -23,9 +23,9 @@ jobs:
         with:
           version: '0.11.23'
       - name: Lint
-        run: uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance experiments/archive_privacy.py experiments/source-accessibility/probe.py experiments/due-diligence/inventory.py
+        run: uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance experiments/v1.3-acceptance experiments/archive_privacy.py experiments/source-accessibility/probe.py experiments/due-diligence/inventory.py
       - name: Format
-        run: uvx --from ruff==0.16.10 ruff format --check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance
+        run: uvx --from ruff==0.16.10 ruff format --check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance experiments/v1.3-acceptance
   runtime:
     name: Runtime (${{ matrix.group }})
     runs-on: ubuntu-24.04
@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [core, offline]
+        group: [core, offline, seeded]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -56,7 +56,11 @@ jobs:
       - name: Run fixed acceptance collection
         run: |
           umask 077
-          uv run --frozen python experiments/v1.2-acceptance/ci.py --group '${{ matrix.group }}' --output 'artifacts/ci-${{ matrix.group }}'
+          if [ '${{ matrix.group }}' = seeded ]; then
+            uv run --frozen python experiments/v1.3-acceptance/ci.py --output artifacts/ci-seeded
+          else
+            uv run --frozen python experiments/v1.2-acceptance/ci.py --group '${{ matrix.group }}' --output 'artifacts/ci-${{ matrix.group }}'
+          fi
       - name: Publish metadata only
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

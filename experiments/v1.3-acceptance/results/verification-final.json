@@ -1,0 +1,422 @@
+{
+  "status": "PASS",
+  "cwd": "/workspace/SEAL",
+  "git_head_at_start": "8d8756a76e70808488e01c02ccda01c36ef5b226",
+  "git_head_at_finish": "8d8756a76e70808488e01c02ccda01c36ef5b226",
+  "engine_freeze_head": "7906d9b59c21b700f17507578b188449053b59db",
+  "time_basis": "UTC batch timestamp before parallel command launch; per-group metadata last-write timestamp at completion",
+  "groups": {
+    "core": {
+      "status": "PASS",
+      "git_head": "8d8756a76e70808488e01c02ccda01c36ef5b226",
+      "started_at_utc": "2026-10-10T10:57:07.617374+00:00",
+      "metadata_written_at_utc": "2026-10-10T11:01:19.485324+00:00",
+      "elapsed_to_metadata_seconds": 251.868,
+      "suites": {
+        "joint": {
+          "status": "PASS",
+          "runtime_assertions": 474,
+          "failed_assertions": 0,
+          "verified_files": 599,
+          "verification_failures": []
+        },
+        "public-probe": {
+          "status": "PASS",
+          "runtime_assertions": 33,
+          "failed_assertions": 0,
+          "verified_files": 4,
+          "verification_failures": []
+        }
+      },
+      "metadata_path": "/workspace/SEAL/artifacts/ci-public/core.json",
+      "command": "source /workspace/work/pg-tools.env && env -u SEAL_DATABASE_URL -u SEAL_ARCHIVE UV_CACHE_DIR=/workspace/work/uv-cache UV_PYTHON_DOWNLOADS=never uv run --frozen python experiments/v1.2-acceptance/ci.py --group core --output /workspace/work/verification/final2-core > /workspace/work/verification/final2-core.log 2>&1"
+    },
+    "offline": {
+      "status": "PASS",
+      "git_head": "8d8756a76e70808488e01c02ccda01c36ef5b226",
+      "started_at_utc": "2026-10-10T10:57:07.617374+00:00",
+      "metadata_written_at_utc": "2026-10-10T11:02:46.763714+00:00",
+      "elapsed_to_metadata_seconds": 339.146,
+      "suites": {
+        "m3": {
+          "status": "PASS",
+          "runtime_assertions": 134,
+          "failed_assertions": 0,
+          "verified_files": 178,
+          "verification_failures": []
+        },
+        "url": {
+          "status": "PASS",
+          "runtime_assertions": 29,
+          "failed_assertions": 0,
+          "verified_files": 64,
+          "verification_failures": []
+        },
+        "recheck": {
+          "status": "PASS",
+          "runtime_assertions": 115,
+          "failed_assertions": 0,
+          "verified_files": 458,
+          "verification_failures": []
+        }
+      },
+      "metadata_path": "/workspace/SEAL/artifacts/ci-public/offline.json",
+      "command": "source /workspace/work/pg-tools.env && env -u SEAL_DATABASE_URL -u SEAL_ARCHIVE UV_CACHE_DIR=/workspace/work/uv-cache UV_PYTHON_DOWNLOADS=never uv run --frozen python experiments/v1.2-acceptance/ci.py --group offline --output /workspace/work/verification/final2-offline > /workspace/work/verification/final2-offline.log 2>&1"
+    },
+    "seeded": {
+      "status": "PASS",
+      "git_head": "8d8756a76e70808488e01c02ccda01c36ef5b226",
+      "started_at_utc": "2026-10-10T10:57:07.617374+00:00",
+      "metadata_written_at_utc": "2026-10-10T10:58:30.787425+00:00",
+      "elapsed_to_metadata_seconds": 83.17,
+      "suites": {
+        "unit": {
+          "status": "PASS",
+          "runtime_assertions": 0,
+          "failed_assertions": 0,
+          "unit_tests": 36
+        },
+        "discovery": {
+          "status": "PASS",
+          "runtime_assertions": 42,
+          "failed_assertions": 0,
+          "verified_files": 70,
+          "verification_failures": []
+        },
+        "persistence": {
+          "status": "PASS",
+          "runtime_assertions": 52,
+          "failed_assertions": 0,
+          "verified_files": 35,
+          "verification_failures": []
+        }
+      },
+      "metadata_path": "/workspace/work/verification/final2-seeded/summary.json",
+      "command": "source /workspace/work/pg-tools.env && env -u SEAL_DATABASE_URL -u SEAL_ARCHIVE UV_CACHE_DIR=/workspace/work/uv-cache UV_PYTHON_DOWNLOADS=never uv run --frozen python experiments/v1.3-acceptance/ci.py --output /workspace/work/verification/final2-seeded > /workspace/work/verification/final2-seeded.log 2>&1"
+    }
+  },
+  "runtime_assertions": 879,
+  "unit_tests": 36,
+  "failed_assertions": 0,
+  "verified_files": 1408,
+  "unchanged_since_start": {
+    "engine": true,
+    "recipes": true,
+    "v13_scripts": true,
+    "uv_lock": true
+  },
+  "engine_manifest_sha256": "c98eb5fe6f309d5cb19da8e01e9d5d5311eec8f1bce0160921c0a0136ba4c50a",
+  "engine_sha256": {
+    "src/seal/__init__.py": "f1fba40cc0f21790c9570d15d1dbf7b20579fac3d145034bc37abd2b71dd482c",
+    "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "src/seal/archive.py": "e9cb75a8fc8bb386c4ad03c52cd57478f19928e76799f875c801901203179177",
+    "src/seal/attachments.py": "7c3850f7232a46529a3968a6aa644c381b0e0f28939938e5ce84a73127a93fac",
+    "src/seal/cli.py": "5b4e1c6292d0d0d2918b3a0706f23b311af63e86a033b9083732458cce7b4abe",
+    "src/seal/completion.py": "6ba9d0d4646a5dec433526c4b35a552d1d589d85d788423dcca6be4b0cc17600",
+    "src/seal/config.py": "3d329dc3f1b8f34a33c711276c8a6419240f19f2174ef803e82c90d13d4ce464",
+    "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+    "src/seal/core.py": "fc4d5d9cfba018c8dadda24e175ff616da5ea43eee77b5a5f7e209981d26a4e8",
+    "src/seal/crawl.py": "de44da1e5c1490186b3e483f65e2bc40c6508b1846d7ef10011c473834c21783",
+    "src/seal/db.py": "04e20eac8ab498af21127255effc18eebc23ccfbbdad87365ecdbf409df364fb",
+    "src/seal/discovery.py": "febd915496196aa4bfd82781fe90327a6260ac8f6fb65b5f4b8e6ab7fffb7c34",
+    "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+    "src/seal/fallback.py": "6e2f3dc2399f8a1c6ee17e33a6fdcd88570ae37a37e54a6cd3fc006a6122fbaa",
+    "src/seal/helpers.py": "6e139a61a54d4e3e81b8c35a6b32a8d511536860a8f1cf7c8d736e52d0fbbf83",
+    "src/seal/inspect.py": "8e4960ccf8c94fc7e5a2b90b6de60801b20f09e79eb6f819dc15782c64e15b2d",
+    "src/seal/items.py": "14bd90de6ed8d3cfb6f449e9c18951d21db091853be197489b98d2e29aa08d97",
+    "src/seal/manifest.py": "6ea70541b562689fabecde87aabf6170db7580ad4482967ba35b5fe3b0c3d476",
+    "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+    "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139",
+    "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+    "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+    "src/seal/migrations/0006_seeded_discovery.sql": "9ea9dd53642e7fd9436026f18463508fa692931c70a877780ff9b95c06f86870",
+    "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+    "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+    "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+    "src/seal/record_validation.py": "59540cfe7febd196937e94864927b6e9a6d2afe39483773f5aafe6bed2117668",
+    "src/seal/records.py": "72415758fff0cf697ed95e10e40f8a5a6a1dab9c0c877d64c4c09b125deb638c",
+    "src/seal/robots.py": "3e5c33d98ae8ba5fb52423dda67e5e18e9026e2229a629aa6e9f4c110c3e8266",
+    "src/seal/runs.py": "b335495b270d24310549d1f17980e13dcdc55caa86318756c11757913a206328",
+    "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+    "src/seal/scope.py": "298b49cd912934bab665cdddf76967f0d8bde233af4266b8bb9bf72f6c4d95f2",
+    "src/seal/seeded.py": "e60f545a2e011a18b812ff235f9a202880e6fc65b1d75a2d255c7e4e8f432300"
+  },
+  "recipe_manifest_sha256": "ecae665ef7d76f132533273c2fde1bab426c225c643cb1d03a73080f4a819876",
+  "uv_lock_sha256": "c488b7583f58cbc4c2f7fea4586ca194dd821c82976bee50e3ec3236be4cd945",
+  "core_additional_assertion_vs_main": "applied_migration_digest_0006_seeded_discovery.sql",
+  "scope": "Synthetic CLI / isolated PostgreSQL / loopback sources / offline Replay. Existing main baseline and source-edit prechecks excluded; persistent demonstration database untouched.",
+  "total_test_cases_and_assertions": 915,
+  "main_baseline": [
+    {
+      "status": "PASS",
+      "group": "core",
+      "git_head": "8241b441f7075660aaf50ae472fd177561dffa46",
+      "groups": {
+        "joint": {
+          "status": "PASS",
+          "passed": 473,
+          "failed": 0,
+          "verified_files": 599
+        },
+        "public-probe": {
+          "status": "PASS",
+          "passed": 33,
+          "failed": 0,
+          "verified_files": 4
+        }
+      },
+      "command": "source /workspace/work/pg-tools.env && UV_CACHE_DIR=/workspace/work/uv-cache UV_PYTHON_DOWNLOADS=never uv run --frozen python experiments/v1.2-acceptance/ci.py --group core --output /workspace/work/verification/baseline-core"
+    },
+    {
+      "status": "PASS",
+      "group": "offline",
+      "git_head": "8241b441f7075660aaf50ae472fd177561dffa46",
+      "groups": {
+        "m3": {
+          "status": "PASS",
+          "passed": 134,
+          "failed": 0,
+          "verified_files": 178
+        },
+        "url": {
+          "status": "PASS",
+          "passed": 29,
+          "failed": 0,
+          "verified_files": 64
+        },
+        "recheck": {
+          "status": "PASS",
+          "passed": 115,
+          "failed": 0,
+          "verified_files": 458
+        }
+      },
+      "command": "source /workspace/work/pg-tools.env && UV_CACHE_DIR=/workspace/work/uv-cache UV_PYTHON_DOWNLOADS=never uv run --frozen python experiments/v1.2-acceptance/ci.py --group offline --output /workspace/work/verification/baseline-offline"
+    }
+  ],
+  "ruff": {
+    "status": "PASS",
+    "lint_command": "uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance experiments/v1.3-acceptance experiments/archive_privacy.py experiments/source-accessibility/probe.py experiments/due-diligence/inventory.py",
+    "format_command": "uvx --from ruff==0.16.10 ruff format --check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance experiments/v1.3-acceptance",
+    "formatted_files": 110
+  },
+  "documentation": {
+    "new_plan_and_adr_seiso": "PASS",
+    "generated_html": "Linked visual derivative; seiso skips non-Markdown files",
+    "repository_seiso": "6 pre-existing LNK001 references to ignored local V1.1 historical artifacts absent in this checkout",
+    "historical_documents_and_evidence": "Not changed to hide missing artifacts"
+  },
+  "prechecks": {
+    "counted_as_final_success": false,
+    "reason": "Earlier prechecks were invalidated by concurrent engine edits and environment_drift; final2 began only after engine/recipes were frozen. Prior artifacts were retained."
+  },
+  "independent_review": {
+    "source_review": "All reported P1/P2 issues closed before freeze; unit contracts independently rerun",
+    "live_evidence_checks": 368,
+    "live_evidence_status": "PASS",
+    "persistent_evidence_checks": 49,
+    "persistent_evidence_status": "PASS",
+    "credential_scan": "No DSN/URI credentials/private-key/password-token assignment found in public live metadata",
+    "cross_origin_robots_replay": "Mock tests for allowed, denied and missing final-origin policy; no real TLS fixture claim"
+  },
+  "related_evidence": {
+    "experiments/v1.3-acceptance/results/live-final.json": "767f50407066f24ee2d74c1826b92c20220a01e7bef0f02e634c2a95e6c8e8f6",
+    "experiments/v1.3-acceptance/results/live-final.md": "645bbf896941ee44add4a9e5f56eb931471d9b3de8e0903e9e30c26035797012",
+    "experiments/v1.3-acceptance/results/persistent-final.json": "0e138f930b57e48a956e95a0763661ae19bad630e982f05c20c750dde4a08379"
+  },
+  "protected_history": {
+    "base_main": "8241b441f7075660aaf50ae472fd177561dffa46",
+    "schema_and_migrations_0002_through_0005_unchanged": true,
+    "historical_results_unchanged": true,
+    "pr2_issue3_not_edited": true
+  },
+  "smoke": {
+    "execution_exit": 0,
+    "command": "uv run --frozen python experiments/v1.1-runtime-acceptance/acceptance.py --stage smoke --baseline /workspace/work/verification/final2-offline/m3 --output /workspace/work/verification/final-smoke",
+    "elapsed_seconds": 315.222,
+    "passed_assertions": 1181,
+    "failed_assertions": 0,
+    "cases": [
+      {
+        "id": "G01",
+        "status": "PASS",
+        "elapsed_seconds": 4.0
+      },
+      {
+        "id": "G02",
+        "status": "PASS",
+        "elapsed_seconds": 4.093
+      },
+      {
+        "id": "G03",
+        "status": "PASS",
+        "elapsed_seconds": 3.802
+      },
+      {
+        "id": "G04",
+        "status": "PASS",
+        "elapsed_seconds": 3.826
+      },
+      {
+        "id": "G05",
+        "status": "PASS",
+        "elapsed_seconds": 4.447
+      },
+      {
+        "id": "G06",
+        "status": "PASS",
+        "elapsed_seconds": 3.662
+      },
+      {
+        "id": "G07",
+        "status": "PASS",
+        "elapsed_seconds": 4.266
+      },
+      {
+        "id": "G08",
+        "status": "PASS",
+        "elapsed_seconds": 4.24
+      },
+      {
+        "id": "C01",
+        "status": "UNVERIFIED",
+        "elapsed_seconds": 0.0
+      },
+      {
+        "id": "N01",
+        "status": "PASS",
+        "elapsed_seconds": 12.618
+      },
+      {
+        "id": "N02",
+        "status": "PASS",
+        "elapsed_seconds": 12.453
+      },
+      {
+        "id": "N03",
+        "status": "PASS",
+        "elapsed_seconds": 13.271
+      },
+      {
+        "id": "N04",
+        "status": "PASS",
+        "elapsed_seconds": 13.0
+      },
+      {
+        "id": "N05",
+        "status": "PASS",
+        "elapsed_seconds": 11.541
+      },
+      {
+        "id": "N06",
+        "status": "PASS",
+        "elapsed_seconds": 11.715
+      },
+      {
+        "id": "N07",
+        "status": "PASS",
+        "elapsed_seconds": 12.095
+      },
+      {
+        "id": "N08",
+        "status": "PASS",
+        "elapsed_seconds": 12.24
+      },
+      {
+        "id": "N09",
+        "status": "PASS",
+        "elapsed_seconds": 13.096
+      },
+      {
+        "id": "N10",
+        "status": "PASS",
+        "elapsed_seconds": 6.689
+      },
+      {
+        "id": "N11",
+        "status": "PASS",
+        "elapsed_seconds": 3.035
+      },
+      {
+        "id": "R01",
+        "status": "PASS",
+        "elapsed_seconds": 4.937
+      },
+      {
+        "id": "R02",
+        "status": "PASS",
+        "elapsed_seconds": 10.95
+      },
+      {
+        "id": "R03",
+        "status": "PASS",
+        "elapsed_seconds": 6.238
+      },
+      {
+        "id": "R04",
+        "status": "PASS",
+        "elapsed_seconds": 3.618
+      },
+      {
+        "id": "R05",
+        "status": "PASS",
+        "elapsed_seconds": 3.808
+      },
+      {
+        "id": "R06",
+        "status": "PASS",
+        "elapsed_seconds": 3.806
+      },
+      {
+        "id": "R07",
+        "status": "PASS",
+        "elapsed_seconds": 3.017
+      },
+      {
+        "id": "R08",
+        "status": "PASS",
+        "elapsed_seconds": 3.104
+      },
+      {
+        "id": "R09",
+        "status": "PASS",
+        "elapsed_seconds": 4.578
+      },
+      {
+        "id": "R11",
+        "status": "PASS",
+        "elapsed_seconds": 30.934
+      },
+      {
+        "id": "R12",
+        "status": "PASS",
+        "elapsed_seconds": 0.001
+      },
+      {
+        "id": "X01",
+        "status": "PASS",
+        "elapsed_seconds": 10.102
+      },
+      {
+        "id": "R10",
+        "status": "PASS",
+        "elapsed_seconds": 59.542
+      }
+    ],
+    "passed_cases": 32,
+    "unverified_cases": 1,
+    "unverified_reason": "Previous acceptance database unavailable; generate the prior baseline first",
+    "not_applicable_golden_fields": 16,
+    "not_applicable_reason": "update_date/document_no are absent from the historical generic Schema; not counted as passed fields",
+    "verified_files": 255,
+    "verification_failures": [],
+    "verification_command": "uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py /workspace/work/verification/final-smoke",
+    "local_evidence_sha256": {
+      "/workspace/work/verification/final-smoke/manifest.json": "02e60dd5f3b520a30d57e805c366d807b410547534fe4479d6c7c9d552d3a638",
+      "/workspace/work/verification/final-smoke/assertions.json": "db6c330788d115986b1817b32800b6efab711d0cb77bf62a6434719909dc7044",
+      "/workspace/work/verification/final-smoke/cases.json": "56ef013db417807299ef046690df320a7e417cefc17e3133fa3070846c8e4066",
+      "/workspace/work/verification/final-smoke/summary.json": "8a7ce2b9c4197232ae35e7f8e34761bbaea1b722b239155473aaf7b0c0bb052a",
+      "/workspace/work/verification/final-smoke-verification.json": "f50b74b8fbdc308d888219cbd338f42af85f7b77852267fd40140d63e20b034b"
+    }
+  }
+}

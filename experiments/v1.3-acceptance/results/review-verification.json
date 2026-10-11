@@ -1,0 +1,687 @@
+{
+  "status": "PASS",
+  "client_timezone": "Asia/Singapore",
+  "source_freeze_commit": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+  "started_at_local": "2026-10-10T21:08:22.187696+08:00",
+  "finished_at_local": "2026-10-10T21:19:02.534804+08:00",
+  "git_head_at_start": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+  "git_head_at_finish": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+  "counts": {
+    "core": {
+      "joint": {
+        "passed": 474,
+        "failed": 0,
+        "verified_files": 599
+      },
+      "public-probe": {
+        "passed": 33,
+        "failed": 0,
+        "verified_files": 4
+      }
+    },
+    "offline": {
+      "m3": {
+        "passed": 134,
+        "failed": 0,
+        "verified_files": 178
+      },
+      "url": {
+        "passed": 29,
+        "failed": 0,
+        "verified_files": 64
+      },
+      "recheck": {
+        "passed": 115,
+        "failed": 0,
+        "verified_files": 458
+      }
+    },
+    "seeded": {
+      "unit": {
+        "status": "PASS",
+        "passed": 78,
+        "failed": 0
+      },
+      "discovery": {
+        "status": "PASS",
+        "passed": 42,
+        "failed": 0,
+        "verified_files": 71
+      },
+      "persistence": {
+        "status": "PASS",
+        "passed": 52,
+        "failed": 0,
+        "verified_files": 35
+      },
+      "review-boundaries": {
+        "status": "PASS",
+        "passed": 25,
+        "failed": 0,
+        "verified_files": 58
+      },
+      "review-replay": {
+        "status": "PASS",
+        "passed": 80,
+        "failed": 0,
+        "verified_files": 59
+      },
+      "sitemap": {
+        "status": "PASS",
+        "passed": 49,
+        "failed": 0,
+        "verified_files": 34
+      },
+      "robots-reasons": {
+        "status": "PASS",
+        "passed": 70,
+        "failed": 0,
+        "verified_files": 34
+      },
+      "dynamic-attachment": {
+        "status": "PASS",
+        "passed": 52,
+        "failed": 0,
+        "verified_files": 41
+      }
+    }
+  },
+  "runtime_assertions": 1155,
+  "unit_tests": 78,
+  "total_test_cases_and_assertions": 1233,
+  "failed_assertions_and_tests": 0,
+  "verified_files": 1635,
+  "commands": {
+    "core": "source /workspace/work/pg-tools.env; unset SEAL_DATABASE_URL SEAL_ARCHIVE; UV_CACHE_DIR=/workspace/work/uv-cache uv run --frozen python experiments/v1.2-acceptance/ci.py --group core --output /workspace/work/v13-review/final3-core",
+    "offline": "source /workspace/work/pg-tools.env; unset SEAL_DATABASE_URL SEAL_ARCHIVE; UV_CACHE_DIR=/workspace/work/uv-cache uv run --frozen python experiments/v1.2-acceptance/ci.py --group offline --output /workspace/work/v13-review/final3-offline",
+    "seeded": "source /workspace/work/pg-tools.env; unset SEAL_DATABASE_URL SEAL_ARCHIVE; UV_CACHE_DIR=/workspace/work/uv-cache uv run --frozen python experiments/v1.3-acceptance/ci.py --output /workspace/work/v13-review/final3-seeded",
+    "dynamic_focused": "source /workspace/work/pg-tools.env; unset SEAL_DATABASE_URL SEAL_ARCHIVE; UV_CACHE_DIR=/workspace/work/uv-cache uv run --frozen python experiments/v1.3-acceptance/dynamic_attachment_acceptance.py --output /workspace/work/v13-review/final3-dynamic-focused"
+  },
+  "frozen_source_recipe_lock_changes": [],
+  "manifest_engine_hash_mismatches": [],
+  "per_manifest_frozen_source_recipe_verification": [
+    {
+      "suite": "/workspace/work/v13-review/final3-core/joint",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-core/public-probe",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-offline/m3",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-offline/recheck",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-offline/url",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-seeded/discovery",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-seeded/dynamic-attachment",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-seeded/persistence",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-seeded/review-boundaries",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-seeded/review-replay",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-seeded/robots-reasons",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "suite": "/workspace/work/v13-review/final3-seeded/sitemap",
+      "checked_source_recipe_files": 46,
+      "uv_lock_matches": true,
+      "mismatches": [],
+      "status": "PASS"
+    }
+  ],
+  "engine_sha256": {
+    "src/seal/__init__.py": "f1fba40cc0f21790c9570d15d1dbf7b20579fac3d145034bc37abd2b71dd482c",
+    "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "src/seal/archive.py": "75451d682c55aec62e2a03aed1239f313f57de35b5916c189536e3c675c95a8e",
+    "src/seal/attachments.py": "7c3850f7232a46529a3968a6aa644c381b0e0f28939938e5ce84a73127a93fac",
+    "src/seal/cli.py": "5b4e1c6292d0d0d2918b3a0706f23b311af63e86a033b9083732458cce7b4abe",
+    "src/seal/completion.py": "2753eaa1134140be38992480d74de63fe048946273bdd85f4ea40c3c90cc209c",
+    "src/seal/config.py": "3d329dc3f1b8f34a33c711276c8a6419240f19f2174ef803e82c90d13d4ce464",
+    "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+    "src/seal/core.py": "fc4d5d9cfba018c8dadda24e175ff616da5ea43eee77b5a5f7e209981d26a4e8",
+    "src/seal/crawl.py": "de44da1e5c1490186b3e483f65e2bc40c6508b1846d7ef10011c473834c21783",
+    "src/seal/db.py": "04e20eac8ab498af21127255effc18eebc23ccfbbdad87365ecdbf409df364fb",
+    "src/seal/discovery.py": "894a8427b76e6892383ebc3ef5f1af5234343568f202aa70aae8fbeb5179d5c6",
+    "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+    "src/seal/fallback.py": "6e2f3dc2399f8a1c6ee17e33a6fdcd88570ae37a37e54a6cd3fc006a6122fbaa",
+    "src/seal/helpers.py": "20f44e0330dc4b8fc35cc91b9ffb1066ff70a7c8f14a1365df3ed4798b1bdd9e",
+    "src/seal/inspect.py": "8e4960ccf8c94fc7e5a2b90b6de60801b20f09e79eb6f819dc15782c64e15b2d",
+    "src/seal/items.py": "f88d51d9b1926042be3ac4bee5107aee5f4254dd1951b9ba4b37fdc6535226cc",
+    "src/seal/manifest.py": "42137d0c36b92e0ce99b8e492da2ea1f195dfef0aa5259cb08f3f926c57cca7b",
+    "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+    "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139",
+    "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+    "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+    "src/seal/migrations/0006_seeded_discovery.sql": "9ea9dd53642e7fd9436026f18463508fa692931c70a877780ff9b95c06f86870",
+    "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+    "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+    "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+    "src/seal/record_validation.py": "59540cfe7febd196937e94864927b6e9a6d2afe39483773f5aafe6bed2117668",
+    "src/seal/records.py": "72415758fff0cf697ed95e10e40f8a5a6a1dab9c0c877d64c4c09b125deb638c",
+    "src/seal/robots.py": "d3f19561bfa87fe207910a34cc8a2de2d17db28805ed09cd7dcb7bc55e617dad",
+    "src/seal/runs.py": "ebabca08ce00a158c9a838b577338d1a6019392087c1f8320f4e4746ec3ddce2",
+    "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+    "src/seal/scope.py": "3a2d989b9ea9b8f537e67a2ab09d76353c781b1867906e00b606254f4425c908",
+    "src/seal/seeded.py": "656d082c5bdadfff10ebc03539cd1c82d8911632a9a0a3d763ac851a8395db5e"
+  },
+  "recipe_sha256": {
+    "recipes/amac_full/recipe.py": "01df766a3737f0bc6f8c965f26f6af812552aaf12629b34f2ae961d2497781f5",
+    "recipes/expanded_a/expanded_a.py": "36c5457ca657a4e0cb3bc272a266f14e414ad00725f97095e02cd54f023e5c77",
+    "recipes/expanded_aux/recipe.py": "83c212b611747373f9ec3f64385f0fd5308f335ae7b4f9994eaeea4d7336a851",
+    "recipes/expanded_b1/recipe.py": "ec9aa27504a9876057e69633605b4c4bbdf5187578ff3944eb151d8dce5b99be",
+    "recipes/expanded_b2/recipe.py": "f28996e0309143684dfa219105fd8c63cb2909dda2a1225b7a438b5210c646f9",
+    "recipes/expanded_c/recipe.py": "e881b4ff93ff72e0f96078899a00aba3a08fb1db07d54235779078d9e0fc30c5",
+    "recipes/generic/recipe.py": "c81eaa655bceeb96e0199406a8886b55dc7a527e6e31bfa484c685a1eee3b474",
+    "recipes/heterogeneous/recipe.py": "e27e7017fc025c03a46fc04295037f86f11715d3677574d8f238b54ed446ef2c",
+    "recipes/live_a/live_a.py": "974ea8336f4f637c4316df224ac73745575cdba30873c81c389401894f3cd31f",
+    "recipes/live_b/recipe.py": "6005445d873b9a341a1fbb030b4dd7d6a5887fc58b79652302120eb12e8d7283",
+    "recipes/live_c/recipe.py": "b6aef4132782f59416540f94aadb9d73e838a063068318feb71db1d279f6a182",
+    "recipes/samples_v12/recipe.py": "dcd6acb6191a0feb1e88701853e8b0a5e9583d125070bbbcaabc081152f7541c",
+    "recipes/seeded/recipe.py": "a94b0c487386012763ad5d65b52f7fa15e88bb87dfaa6219f56225a200832708"
+  },
+  "test_sha256": {
+    "experiments/v1.1-runtime-acceptance/acceptance.py": "7ebaea50e4bd2b014206b60e8f89df70597b0cb639303a7a4e91e4f85e6897b1",
+    "experiments/v1.1-runtime-acceptance/e2e/__init__.py": "e1dfc4e2accbf5607e709efbeb99b36e8fee586effc98e09a3a08b2bdae365b4",
+    "experiments/v1.1-runtime-acceptance/e2e/cache_probe.py": "6eef853358041ab8b05946706255c9fe646c49b835e082f5502307162c5ba163",
+    "experiments/v1.1-runtime-acceptance/e2e/contracts.py": "4e1ff18ea4c54d259fea8fdc7af24ddcb51dcdd02f581e7bd0bd21868b0e1a59",
+    "experiments/v1.1-runtime-acceptance/e2e/faults.py": "a506b813034cd55df2487444721973b671006a82070fa5f920a271c6033d235a",
+    "experiments/v1.1-runtime-acceptance/e2e/harness.py": "0edbbe2f4fcc03dfe8d5d8928e535267c307e96c7866a3f9a3f438e689c6ce9d",
+    "experiments/v1.1-runtime-acceptance/e2e/live_recipe/recipe.py": "365fbc57d0f9b16ff60ffff58630afda9699537bda948923961a42fc008f8dc0",
+    "experiments/v1.1-runtime-acceptance/e2e/migration.py": "71e9b660034687a4a14a88635bb88ac9d400dc6f61f557d0b9cfa11a4ac5221d",
+    "experiments/v1.1-runtime-acceptance/e2e/recovery.py": "320b5d14f1121c008d286caa559b75fedcf13de3491cfa366ab6d940e3446375",
+    "experiments/v1.1-runtime-acceptance/e2e/scenarios.py": "8e555a82457607cbff5e6af67e1d1179222632a3b76e77781aee19421bef2338",
+    "experiments/v1.1-runtime-acceptance/e2e/site.py": "d39f49df29028ca96d8e7a02469f2f1b6807c3dc8a70c1a61e5e34c3f8c0b711",
+    "experiments/v1.1-runtime-acceptance/e2e/smoke.py": "ae09f3aac4831ea075e3476e952a66eb82188d8a7881911072fcb30d4c7769d2",
+    "experiments/v1.1-runtime-acceptance/e2e/smoke_cases.py": "036d057f6fb9bde6eb5f608577ac1020523d216a1fd68c17c3d33d005bb8c61f",
+    "experiments/v1.1-runtime-acceptance/e2e/smoke_compatibility.py": "030d2afa8074bc7372394e1055ccca585cb705595c698083a884c9ef5fec40ea",
+    "experiments/v1.1-runtime-acceptance/e2e/smoke_live.py": "8f0f869532277204919ca1a99bfd997bae89a787ced85b8cb8c6a40750dbb8a8",
+    "experiments/v1.1-runtime-acceptance/e2e/smoke_locator_contracts.py": "90ea3d7110a604674f1f649b1d5bd381dbc1ddcb6c8d9ccb3607c165be2eedb8",
+    "experiments/v1.1-runtime-acceptance/e2e/smoke_recipe/recipe.py": "9a048a5c6e3f5d9a6307171a4cd65f2a412d81abe86b813e0be28c5341c5df84",
+    "experiments/v1.1-runtime-acceptance/e2e/smoke_support.py": "ccb5bd2df1364b9511d427e2945dc9561d6f4c570802fa0c7f7368e53e8f4f08",
+    "experiments/v1.1-runtime-acceptance/verify_artifacts.py": "59166a0adea59de9c6274c17d5ff8c63890becf6729d0f37c79eaec3e39f08bb",
+    "experiments/v1.2-acceptance/acceptance.py": "a579fc66f53bcf85c9ac1357884c1256a58e61b6056f281a2ba23cc0c5e357b2",
+    "experiments/v1.2-acceptance/archive_report.py": "04fb1d9716875b41ced567a7eb771cda434f9549d5f34caa05a5dcb444c3294e",
+    "experiments/v1.2-acceptance/attachment_fixtures.py": "4eb972919d5cafc187f6377c29f85395ac411f50a1750dbf9918a3032ed3de59",
+    "experiments/v1.2-acceptance/ci.py": "65001ebfae887f7d315ddebec0497aa7e98165b4349c60076826dfba7147164f",
+    "experiments/v1.2-acceptance/delivery_samples/final.json": "0e757159e4a2dee332657436e2a649a2b2a759d5f629a9e52423aa52df97d48d",
+    "experiments/v1.2-acceptance/delivery_samples/positive.json": "0f1b7ff1191a9de65e0df46589aab232ad915ded15473409c0983b2029bc5b24",
+    "experiments/v1.2-acceptance/delivery_samples/supplemental.json": "dc3f7e26fd1fd13efd72655492aa85e0ffb73554ab2d53108144929e326fb089",
+    "experiments/v1.2-acceptance/delivery_samples/url-negative.json": "cbdeae114c947c5a8afd98790149d26d3b3f55c08277c5bd067002777beb40fb",
+    "experiments/v1.2-acceptance/delivery_verify.py": "0e9a49ad8235061a60db630c44f6d35e6c79074978898da3a7dd58fc857f39fa",
+    "experiments/v1.2-acceptance/expanded_probe.py": "cbb576fe4a0bbadd8285fccc1b3fb5d020a8b1f8050556e81ae512e98a6f65f8",
+    "experiments/v1.2-acceptance/expanded_samples/a-outcomes.json": "accb331e49ff700c93e4cf0c25f5b43df725498c6685ba28bdfc5f047a2b1293",
+    "experiments/v1.2-acceptance/expanded_samples/a-review.json": "0eaf09a9871582210b12cda85d0a87c77db556f2ab402f51edced12163e3233d",
+    "experiments/v1.2-acceptance/expanded_samples/a.json": "7f428ad4465eccd815a4be242f1e9d95d9044ea427d6859ef6b79b76a725b535",
+    "experiments/v1.2-acceptance/expanded_samples/aux.json": "1b7c6fc324acf14eb6f1efe9474a1c8039bb07c4f43b6a4a75c12c5462ba1b15",
+    "experiments/v1.2-acceptance/expanded_samples/b1-outcomes.json": "56fb33dd95406c044f1633c17abab0ebf1e017993782073e2f122fc9db043c40",
+    "experiments/v1.2-acceptance/expanded_samples/b1.json": "fbfd87a2b8cd18759ed2d595a3407c4223b80a70ac543772a0a898f5eb0bd2d5",
+    "experiments/v1.2-acceptance/expanded_samples/b2-deferred.json": "0b54938a8e7aa68793afd2271e5510ed74eb20db309a298bd5516d3316829653",
+    "experiments/v1.2-acceptance/expanded_samples/b2-outcomes.json": "c1b8f55cc4eb82d2fda2761e618dc07e059982d33dff377208467ef1eac81488",
+    "experiments/v1.2-acceptance/expanded_samples/b2.json": "cc50b9a51c987a6a1ace70720622a29347547aa3d04e5b673fd13cfc73f5d870",
+    "experiments/v1.2-acceptance/expanded_samples/c-outcomes.json": "3928dbb10d55857f69f6df10a92775f1fc8597ab0909e85222f1fbd500a05b97",
+    "experiments/v1.2-acceptance/expanded_samples/c.json": "b88f43df677f94a981942046fcfee31abf707c420e941ef154084aa568de515a",
+    "experiments/v1.2-acceptance/expansion_report.py": "fdc02a8bb2fff505e24e537ad9079dea2b8306735fdc3a03ce59a6f839d01d9a",
+    "experiments/v1.2-acceptance/final_acceptance.py": "23a4a7477d5577a7c756e64fea44d61bd1ab1db0de487a7afb2554dbc6fa40ea",
+    "experiments/v1.2-acceptance/full_pagination/contracts.json": "cf2e8ff10ac024225ae14b0a1abc4b01fa387c9c959d8c3a61d169ae801918d3",
+    "experiments/v1.2-acceptance/full_pagination/live.json": "c274d4f6c137aa842375a336aa3a4cda67603386794f2dc659c89cd1ed261cc4",
+    "experiments/v1.2-acceptance/full_pagination/probes.json": "847172add3cc7458c1712f7741c4dd85b840f3d959363f388f4a26e7c6682859",
+    "experiments/v1.2-acceptance/full_pagination/retired-test-mapping.json": "e96df9aaef4539ec749eb26968f42ff1511546f429e0c3dde3af199d37c98fe3",
+    "experiments/v1.2-acceptance/full_pagination_verify.py": "34a409ff1a3eb75238d931a916f408139d6c48a261c3c2c47347a70365901c8a",
+    "experiments/v1.2-acceptance/json_pointer_boundaries.py": "ca8f3fc030a7d90b1baeec90a8880abd783ecbef9a8da10e747fd03655b6ab0f",
+    "experiments/v1.2-acceptance/json_pointer_boundaries_verify.py": "02b1a7e8b3b7550b2b690f2d1c2f68b6a81744c9bf65166b86b80d2c9468a619",
+    "experiments/v1.2-acceptance/json_pointer_performance.py": "7561f7517cd9f86b01c7b87855ad03475cde00334214f1f35f7899da633214b2",
+    "experiments/v1.2-acceptance/json_pointer_verify.py": "7a00cfbc9025e2f5884da0d643bbe0b6570fa847685d26aa7440b0c03c2f696f",
+    "experiments/v1.2-acceptance/live.py": "df9ba640d882dea3bd5495d12d30e1cded4112363aaa336709c0f94b26db4b3a",
+    "experiments/v1.2-acceptance/live_contracts.py": "9dfff35f11ea1020cc6891c18e77ccfd960ed700a18595b7b91fadf805ac696a",
+    "experiments/v1.2-acceptance/live_samples/a-probes.json": "e4da6bc4cd393e635c76aaf9f485e67aaf540eb038e0d51eaa60e0ed0b352ee6",
+    "experiments/v1.2-acceptance/live_samples/a.json": "827a650a3127d6226cdc960066595a1cd6ea71f0b3c2bbbe41c7797ed64917a1",
+    "experiments/v1.2-acceptance/live_samples/b-probes.json": "dc4c679ed3fa149f1c406a5053ec3e5ce5c6ebdbf0d12ba1b6c57a18bbdd70e6",
+    "experiments/v1.2-acceptance/live_samples/b.json": "7b304b877bf2bfb50b25dd119d768266ea7606e33453957e00fc39bb278d0569",
+    "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-filter.json": "9f279bbb842b7fd6aa3300e49437a1b75c235008bdc82fd431fb1afe5eec8361",
+    "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-page1.json": "249511bb0e884e9a8eb8c8a82f99fc0658352da8d05d8c0664933c9e0380668a",
+    "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-page2.json": "e2b4ec570ccd0d0f8883aa07baad516bd3083a2521ce6a6fe1cd89548d26ea7d",
+    "experiments/v1.2-acceptance/live_samples/c-evidence/dd-247-pagesize20.json": "d0e7d564054cb61c1671f2ba5b628d7f1f488731a31b63fcc6afd9e37e56be20",
+    "experiments/v1.2-acceptance/live_samples/c-probes.json": "2523aa85e3f1dc18b0b5163450d4cdbb1c8c1038062f3cb102c9af8b6f9d9e49",
+    "experiments/v1.2-acceptance/live_samples/c-review.json": "69199af8ce960a1360283e6b045aa863eeda7028d1f443e30d458e6a60d31f3e",
+    "experiments/v1.2-acceptance/live_samples/c-route-experiment.json": "8505a208afa84ef90ef21f92bb7d47c60f9895a605a3b4dd04b7c0d30d631398",
+    "experiments/v1.2-acceptance/live_samples/c.json": "8bb044fc393934137011cd08ddd2a2d43f57016f45a483c5a8a00674c0af2dad",
+    "experiments/v1.2-acceptance/live_samples/c_route_experiment.py": "deb1f5d27f5dfa8727d0c52303345776ce4db6b09573fd314eb6f13f7ba0f109",
+    "experiments/v1.2-acceptance/live_verify.py": "391d60634210b335ab383a0cc515de16f69d3ed408528dea86b40c4466481bbe",
+    "experiments/v1.2-acceptance/p1_acceptance.py": "7f2c6ff2514cf34f2e3c59991fbe7e688ba7a01bbaae1a21f7929ef1a78d4367",
+    "experiments/v1.2-acceptance/pagination_acceptance.py": "159701ba953c1b81e7106f9a3b5d6e7509a20ec3f66660993a2b24bd12b31b44",
+    "experiments/v1.2-acceptance/pagination_fixture.py": "042e869ec1ef199d57080d8cca2066efb8f06f4724d1a0285d734fbb1532673f",
+    "experiments/v1.2-acceptance/proxy_behavior.py": "88d1f39f2089a8ab1ec75e461947b08d7f10b4e07b5f6502918a2b34fbc5b35d",
+    "experiments/v1.2-acceptance/public_evidence.py": "3e47b508eb518d44b6fd45d96a4824a3c648172c31a1dd6b93a4cb926c868954",
+    "experiments/v1.2-acceptance/public_probe_acceptance.py": "fa394d75bc6334489755c88ccc4c6c2b9155563101e7228f630c7c3c25699fb3",
+    "experiments/v1.2-acceptance/recheck_acceptance.py": "4e065b1838c824ddfc976f57938b733c6b1381284c4d901c79afe9136cdd97d5",
+    "experiments/v1.2-acceptance/recheck_site.py": "690b5a65dfb9a3e966b5beff3275d35336c9cffbf7d17e8f0312b0dfc47b6745",
+    "experiments/v1.2-acceptance/remediation_evidence.py": "5d6c089fce8378f1b9e4a443a594259a35792501e1625b17fbeb1f6f38722857",
+    "experiments/v1.2-acceptance/remediation_samples/current.json": "e76f7d169b6f0949e376020a9fc28226c75db5d13d674d8370ad2f08bf9b5936",
+    "experiments/v1.2-acceptance/remediation_samples/negative.json": "bb7882a3888240d122dfe689b383f9c8d7a33432a766e017171c1037abab3b50",
+    "experiments/v1.2-acceptance/remediation_samples/public-probe-urls.json": "70b5f0c0ec31cd3117b786bc3cbb8a485a3ab5f6ad77553b2c888283fec93da3",
+    "experiments/v1.2-acceptance/remediation_samples/public-probes.json": "6902ed9e75f483b44d953a91ec5a3e3aaa04addd33719c6c4d742ab09cea929c",
+    "experiments/v1.2-acceptance/remediation_samples/representative.json": "19c9d611d5f1fd2dd1b8cdd36610bc96a24acdd7034c6a035a808168fc747919",
+    "experiments/v1.2-acceptance/review_evidence.py": "0bf41233896d2b3d2a5dc1293d157e2e5d07944aca36a6841fafef16fa32c58c",
+    "experiments/v1.2-acceptance/review_fixes_verify.py": "ea23c6439a51d753e6958a2777807a1c20142b76de4941c599f40bda812ee803",
+    "experiments/v1.2-acceptance/runtime_attachment.py": "7df0c1d4f60e9be487db99feb85157d2df3d774acd3f4212a4d27a37baee7d83",
+    "experiments/v1.2-acceptance/runtime_support.py": "de475b7c103910e261b60afd7e8f6f11e00f8448a714886e0b325fb4862de7fc",
+    "experiments/v1.2-acceptance/runtime_worker.py": "28164aa579e96d9d387d011eea74e9ba7dbfd43196d393f5d647acb0c44b38a6",
+    "experiments/v1.2-acceptance/samples/audit.json": "1bb6238c8d943711929d5fcf593b7f968d2b03d0447c7e53d61715ad545020cf",
+    "experiments/v1.2-acceptance/samples/audit.py": "b2eefcf8ad8be22a658ca921dbe43faee68430fcbd0438590f987986b4fed397",
+    "experiments/v1.2-acceptance/samples/authorization.json": "bb0978c62eadadc86cbd3334e664fa716e78e2715aab6285c552ff22eb0d7725",
+    "experiments/v1.2-acceptance/samples/dd-004-params.json": "5350a6bc51db675f66b31aa05cf07cda9b38b3b9375c3e3cd99e40c15dd18b60",
+    "experiments/v1.2-acceptance/samples/dd-004-source.json": "0dec4e4c2b7ae01c4453676c3f05880784522aee60edc3305e6c2c9ea004ef2a",
+    "experiments/v1.2-acceptance/samples/dd-102-params.json": "c38c6b9e18d1e1d893ffa9cdef43bca5a6f3474f7453e482bb725c090f22b6af",
+    "experiments/v1.2-acceptance/samples/dd-102-source.json": "c33eab11210bffeac79e0e23685019443f48b192f24b2b767de7361386f98b28",
+    "experiments/v1.2-acceptance/samples/dd-116-params.json": "0d47f867abfb89ec6d067001b1a6e579077aca0c57072dfe035b1251b1653564",
+    "experiments/v1.2-acceptance/samples/dd-116-source.json": "9e4fac5569e769c46240af8f01337d0eb82f9ecdd013b2ee54ec5f2601026a99",
+    "experiments/v1.2-acceptance/samples/dd-468-params.json": "95ec9c8f8fdecdd0097c0fc3e2e75a469ade1295b5ce87ea8dccf4cf6be88bf4",
+    "experiments/v1.2-acceptance/samples/dd-468-source.json": "c416209942f58e823f8e9643baedbcb1cbfbf5991e7c22bfa3a85d3284c381e7",
+    "experiments/v1.2-acceptance/samples/network-diagnostic.json": "148da5bdf26f56875b817aaa7a0bd9010d02d0976517394e4ac819687b1220a2",
+    "experiments/v1.2-acceptance/samples/offline-projections.json": "73d8eb36d2311ed0b1165b996808b1d415c68608f5e5b7e222d7cc52e0401345",
+    "experiments/v1.2-acceptance/samples/offline-verification.json": "2b72327773aa1daa86d70108bd727a9970decd70e7277f8d387f5e2ce0077344",
+    "experiments/v1.2-acceptance/samples/verify.py": "c459dfcf1405fbe8049ddcbcde806909de5f520ab1fd00ed22dc648a8a3df9a3",
+    "experiments/v1.2-acceptance/site.py": "311f5e90f130e5693dd0d175341c6358a5d4cbb594deaf609e5402b99b867b6f",
+    "experiments/v1.2-acceptance/test_c_pagination.py": "22231fb87c847e0269cd5fb77ea8193dc21551f72154f5aee3aeaa550dde11c1",
+    "experiments/v1.2-acceptance/test_discovery.py": "6ed7c8357fb94f5d67df67789486ef054b85fd65862f24498741cf6d5f5198ce",
+    "experiments/v1.2-acceptance/test_helpers.py": "2e91ba6dd1276eaea3961e3c335676699b2cd4602278eef70916822d565f429f",
+    "experiments/v1.2-acceptance/test_runtime.py": "51d5ffb1c180a0dd28eae851c05464ab8af7eca43b132ccf41cde1381cb6728d",
+    "experiments/v1.2-acceptance/url_acceptance.py": "616f76497612561c5b7189216ae76a63e38c9d939b231783859e41aa3a02fd57",
+    "experiments/v1.2-acceptance/url_audit.py": "9896e6e406e9411ba2ed02903d30a2fb56729190b1b7b858487ab4988d6d14e8",
+    "experiments/v1.2-acceptance/url_negotiation.py": "afae446c57b1dbf7ed6ff02de6e086f3a65b07799b82f1a3df0b9d097888bc84",
+    "experiments/v1.2-acceptance/verify_artifacts.py": "fb591d755f0eab40fde2de3ac84df0fe465b8775c4e6c9f09693a1f4bbe56af5",
+    "experiments/v1.3-acceptance/ci.py": "144b83dcb2d71164a8d8681b1e51cd9f6974783b662b81d750c839e8d49018cb",
+    "experiments/v1.3-acceptance/discovery_acceptance.py": "de8b4217a4649c7fc3269ffce7c816548a7143bd0c023da217c3e2811b17a522",
+    "experiments/v1.3-acceptance/dynamic_attachment_acceptance.py": "d128d867bbbec8de8b0a0b498f2b54d596240e037182d9d38c9fc8d85b116d48",
+    "experiments/v1.3-acceptance/live.py": "07e6e89e4400ddccd9ae9f1ed34fcb3f022d313b4fc659aa0c555af9f7e4f5cb",
+    "experiments/v1.3-acceptance/persistence_acceptance.py": "43bc4ccc22a0d7669ffd1f08b780fe1975a8185230290ee3e8a30d1c4af070d8",
+    "experiments/v1.3-acceptance/persistent_demo.py": "3b5115030e364d3aec5dee101595ab2b61c5cdd75d06ab009dac1bc1add4fdf9",
+    "experiments/v1.3-acceptance/review_boundaries_acceptance.py": "cdd84253db0e8fccb8ac1186ee16b768cfebec858c9e925773f791a77ca0d4e1",
+    "experiments/v1.3-acceptance/review_replay_acceptance.py": "58acb0ac9e20e94cc68a9206ea9cb154ee006f6a38b168364e0ca6173f32c98f",
+    "experiments/v1.3-acceptance/robots_reasons_acceptance.py": "061971b5117cfd84dfb81a7f0f4dcfb370c33d9826ce80bf94d64fe72ef8770f",
+    "experiments/v1.3-acceptance/sitemap_acceptance.py": "460de933373a0d8a966d413600438d15cd882dff56f7ba5e709065dc352764f7",
+    "experiments/v1.3-acceptance/test_discovery.py": "a0a598283b904fa5ce350f282dc2a3aba74351f5fe8381e1caefe1a0cf5501fe",
+    "experiments/v1.3-acceptance/test_dynamic_attachment.py": "bbebd90940c31eea4a626bb13e4fe8844c887c591ccd30c09e418fc57e1abf62",
+    "experiments/v1.3-acceptance/test_fallback.py": "506ed4635dee633180ca3f05e43a3c50b9bfe628452e1dc3c756f5f33817b911",
+    "experiments/v1.3-acceptance/test_partial_replay.py": "0cc602289d5939904a6c98b74a030775f653253cdd1c1cba2c8e71d286ca3602",
+    "experiments/v1.3-acceptance/test_persistence.py": "03425b06779e47f951301387930f204d51778393fbf60dafeabb0137778f5946",
+    "experiments/v1.3-acceptance/test_robots_reasons.py": "305cd4059f1f245c03cf39692f6730645b0343f7cf19d374e2e7a971eaa53f6a",
+    "experiments/v1.3-acceptance/test_sitemap_compression.py": "eb087ee24058e3b84150cbd23971c865769b13fffd1f3f718be5a94a8c6d56d2"
+  },
+  "uv_lock_sha256": "c488b7583f58cbc4c2f7fea4586ca194dd821c82976bee50e3ec3236be4cd945",
+  "lint": {
+    "status": "PASS",
+    "ruff_check": {
+      "status": "PASS",
+      "command": "UV_CACHE_DIR=/workspace/work/uv-cache uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance experiments/v1.3-acceptance experiments/archive_privacy.py experiments/source-accessibility/probe.py experiments/due-diligence/inventory.py"
+    },
+    "ruff_format": {
+      "status": "PASS",
+      "command": "UV_CACHE_DIR=/workspace/work/uv-cache uvx --from ruff==0.16.10 ruff format --check src recipes experiments/v1.1-runtime-acceptance experiments/v1.2-acceptance experiments/v1.3-acceptance"
+    },
+    "git_diff_check": "PASS",
+    "formatted_files": 120,
+    "head": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9"
+  },
+  "smoke": {
+    "status": "PASS",
+    "started_at_utc": "2026-10-10T13:15:14.950000+00:00",
+    "pid": 139271,
+    "engine_freeze_commit": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+    "command": "source /workspace/work/pg-tools.env; unset SEAL_DATABASE_URL SEAL_ARCHIVE; uv run --frozen python experiments/v1.1-runtime-acceptance/acceptance.py --stage smoke --baseline /workspace/work/v13-review/final3-offline/m3 --output /workspace/work/v13-review/final3-smoke",
+    "output": "/workspace/work/v13-review/final3-smoke",
+    "baseline_verification": {
+      "verified_files": 178,
+      "assertions": 134,
+      "failures": 0
+    },
+    "scope": "Controlled loopback, actual isolated PostgreSQL and offline Replay; C01 historical database missing and excluded from PASS cases; external sites not included",
+    "exit": 0,
+    "finished_at_utc": "2026-10-10T13:22:36.809135+00:00",
+    "assertions": 1181,
+    "passed_assertions": 1181,
+    "failed_assertions": [],
+    "case_counts": {
+      "PASS": 32,
+      "FAIL": 0,
+      "UNVERIFIED": 1
+    },
+    "unverified_cases": [
+      {
+        "id": "C01",
+        "name": "Previous Recipe/Binding/Result format and historical input compatibility",
+        "status": "UNVERIFIED",
+        "reason": "Previous acceptance database unavailable; generate the prior baseline first"
+      }
+    ],
+    "source_hashes_match_manifest": true,
+    "engine_recipe_lock_diff_from_freeze": [],
+    "artifact_hashes": {
+      "assertions.json": "625acdd62a3095fa33037b22d3d89cec284d4452ac054f016cba9d74b1cfa4b9",
+      "cases.json": "cecf09a1b97a798db49d0aee3c9f9021b680bc307337d5516e04d7a948fccccd",
+      "manifest.json": "8a308d42969277423c0b8c35399c44a3ed71c44de680e428a405713e0bc61b17",
+      "summary.json": "cfa513091eabc07bd89d5e704d19bdcdc0fb984e8ec3617d7132c01380ef268a"
+    },
+    "offline_artifact_verification": {
+      "verified_files": 255,
+      "failed": 0,
+      "command": "uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py /workspace/work/v13-review/final3-smoke --recorded-outcomes"
+    },
+    "not_applicable_golden_fields": 16
+  },
+  "historical_point_in_time_review": {
+    "evidence": "independent-review.json",
+    "sha256": "ffb9f151c381301dd4f4b0c573103e5d07a46de4f13f473858ac0bf86c978f8e",
+    "reviewed_engine": "3455761",
+    "review_head": "ba5148df47e97661e6433c7702f56d71c269d1af",
+    "scope": "Independent baseline risk reproductions and then-current contracts; predates recovered-retry and late attachment Scope fixes; not final-source approval"
+  },
+  "pre_fix_evidence": {
+    "counted_as_final_pass": false,
+    "initial_prechecks": {
+      "status": "PRE_FIX_NOT_FINAL",
+      "started_at": "2026-10-10T12:44:58.749377+00:00",
+      "finished_observed_at": "2026-10-10T12:53:14.402715+00:00",
+      "head_at_start": "ba5148df47e97661e6433c7702f56d71c269d1af",
+      "head_at_observed_finish": "ba5148df47e97661e6433c7702f56d71c269d1af",
+      "known_failures": [
+        {
+          "suite": "dynamic-attachment",
+          "reason": "Fixture localhost is rejected by production public-address guard; corrected fixture uses controlled loopback literal 127.0.0.2",
+          "source_bug": false
+        },
+        {
+          "suite": "review-replay supplement",
+          "reason": "Same successful retry chain can have different Scheduler fingerprint after native DefaultHeaders; frozen rejected predicate requires successful chain exclusion",
+          "source_bug": true
+        }
+      ],
+      "supplemental_replay": {
+        "status": "FAIL",
+        "assertions": 79,
+        "failed": 2,
+        "reason": "Recovered-retry chain failed request can hide a manually removed successful archive mapping",
+        "directory": "/workspace/work/v13-review/final-replay-supplement"
+      },
+      "excluded_from_final_pass_counts": true
+    },
+    "second_freeze": {
+      "status": "INVALIDATED_DUE_LATE_SCOPE_RECIPE_BUG",
+      "excluded_from_final_pass_counts": true,
+      "started_at": "2026-10-10T12:59:08.340833+00:00",
+      "finished_observed_at": "2026-10-10T13:07:25.356575+00:00",
+      "head_at_start": "92f0275d9e0bcabfed9bce74bdb8745e6010d2a6",
+      "head_at_finish": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+      "source_bug": {
+        "suite": "dynamic-attachment",
+        "assertion": "dynamic_cross_denied_ledger_scope_rejection_retained",
+        "expected": "rejected",
+        "actual": "allowed",
+        "reason": "Recipe has deepcopy context missing post-init Discovery metadata flag; late attachment rejection must use crawler runtime context"
+      },
+      "changed_paths_since_start": [
+        "experiments/v1.3-acceptance/test_dynamic_attachment.py",
+        "recipes/seeded/recipe.py"
+      ]
+    },
+    "invalidated_smoke": [
+      {
+        "status": "INVALIDATED",
+        "reason": "Root stopped pre-fix smoke after a supplemental Replay recovery regression exposed a Runtime bug; rerun against final2 M3 after engine refreeze.",
+        "stopped_at": "2026-10-10T12:52:59.480776+00:00",
+        "exit": 130,
+        "evidence": "/workspace/work/v13-review/final-smoke",
+        "final_acceptance": false,
+        "partial_cases": [
+          {
+            "id": "G01",
+            "status": "PASS"
+          },
+          {
+            "id": "G02",
+            "status": "PASS"
+          },
+          {
+            "id": "G03",
+            "status": "PASS"
+          },
+          {
+            "id": "G04",
+            "status": "PASS"
+          },
+          {
+            "id": "G05",
+            "status": "PASS"
+          },
+          {
+            "id": "G06",
+            "status": "PASS"
+          },
+          {
+            "id": "G07",
+            "status": "PASS"
+          },
+          {
+            "id": "G08",
+            "status": "PASS"
+          },
+          {
+            "id": "C01",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N01",
+            "status": "PASS"
+          },
+          {
+            "id": "N02",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R01",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R02",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R03",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R04",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R05",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R06",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R07",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R08",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R09",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R10",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R11",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "R12",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N03",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N04",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N05",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N06",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N07",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N08",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N09",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N10",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "N11",
+            "status": "UNVERIFIED"
+          },
+          {
+            "id": "X01",
+            "status": "UNVERIFIED"
+          }
+        ]
+      },
+      {
+        "status": "INVALIDATED",
+        "started_at_utc": "2026-10-10T13:05:06.700000+00:00",
+        "pid": 112723,
+        "engine_freeze_commit": "92f0275d9e0bcabfed9bce74bdb8745e6010d2a6",
+        "command": "source /workspace/work/pg-tools.env; unset SEAL_DATABASE_URL SEAL_ARCHIVE; uv run --frozen python experiments/v1.1-runtime-acceptance/acceptance.py --stage smoke --baseline /workspace/work/v13-review/final2-offline/m3 --output /workspace/work/v13-review/final2-smoke",
+        "output": "/workspace/work/v13-review/final2-smoke",
+        "baseline_verification": {
+          "verified_files": 177,
+          "assertions": 134,
+          "failures": 0
+        },
+        "scope": "Controlled loopback, real isolated PostgreSQL, archived Replay; external sources excluded",
+        "stopped_at_utc": "2026-10-10T13:06:57.448472+00:00",
+        "exit": 130,
+        "final_acceptance": false,
+        "reason": "Root stopped Smoke after final2 real-PG dynamic attachment test exposed a Recipe runtime-context metadata bug: late scope rejection remained allowed in Ledger. Await final3 refreeze."
+      }
+    ],
+    "final_focused_dynamic_pass": {
+      "assertions": 52,
+      "verified_files": 41,
+      "repeated_in_final_ci": true,
+      "counted_twice": false
+    }
+  },
+  "related_evidence": {
+    "live": "review-live.json",
+    "persistent": "review-persistent.json"
+  },
+  "documentation": {
+    "changed_markdown_seiso": "PASS",
+    "global_preexisting_missing_local_links": 6,
+    "global_log_sha256": "09d93eda7fa818cc24f720361a4c3d540fe35bbf8d33130b8216881ae07a016c"
+  },
+  "protected_history": {
+    "initial_v13_public_results_unchanged": true,
+    "v12_public_results_unchanged": true,
+    "schema_and_applied_migrations_unchanged": true,
+    "pr2_and_issue3_not_edited": true
+  },
+  "privacy": {
+    "database_url_recorded": false,
+    "raw_bodies_published": false
+  },
+  "scope": "Controlled HTTP/PostgreSQL, real CLI, hash-verified immutable archive and offline Replay; public-site coverage is not inferred",
+  "limitations": [
+    "Smoke historical C01 lacks its original database/archive and remains UNVERIFIED",
+    "Golden update_date/document_no: 16 unsupported old-schema fields remain NOT_APPLICABLE",
+    "Final-origin HTTP-to-HTTPS Replay robots behavior has independent mock coverage but no real TLS fixture",
+    "Public-site adaptation blocked by environment outbound policy",
+    "Production operation, backup recovery, power-loss durability and scale are unverified"
+  ],
+  "metadata_sha256": {
+    "final3-start.json": "ddcb242f9b25e5507ac1fbcec6ea27c3942d6cf0e75d25849dd8315c429319b0",
+    "final3-summary.json": "43b5c06f660762a166dd6efee4b4a9cc50c3b6cf4d5f557945cd2af8fa7130f1",
+    "final3-lint.json": "b627401b8d8d92dd53dc6f200ab7f454df68cf54951981a869b6eff6a8ee47f5",
+    "final3-smoke-execution.json": "d4a9fdfdb15aba1bffb5add1d463dcf895e910020b4b152ea2373b55bdef5f74",
+    "final2-invalidated-summary.json": "7a1312859f342c8f9192c3f5f1cf9f7b0446baef87b3ebf14f5f2a6fcc9a51fb",
+    "pre-fix-summary.json": "3d5601ca835366f1e7609b7fe578a991cdb5cf0e8c8e3dc8017243b2ee935a93"
+  }
+}

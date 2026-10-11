@@ -1,0 +1,384 @@
+{
+  "experiment": "SEAL V1.3 review final: retained manual Collect demonstration",
+  "status": "PASS",
+  "client_timezone": "Asia/Singapore",
+  "frozen_source_commit": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+  "summary": {
+    "status": "PASS",
+    "source": "v13-retained-demo",
+    "binding_id": "a586b3d59cd954e57ea9a12ddb1726b02288479b0717ec436b5ac8303ddee884",
+    "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+    "run_ids": [
+      "7462daec-23f1-4ad1-ac9c-afcbf8b60b23",
+      "1db38e64-5210-46eb-b344-6b1d996b140c",
+      "509c8626-8801-440b-9f22-e2e465756f5d"
+    ],
+    "replay_run_id": "bc660da9-443f-410f-b77f-87efb6c92889",
+    "record_id": "78e4faba-f003-4554-bd3e-5c2771e46f16",
+    "snapshot_id": "4d4fdbf44a96eb5d79a1eb3514d1aeb0086f550e19eee8923fb84085c1fd4283",
+    "record_count": 1,
+    "version_count": 2,
+    "replay_network_requests": 0,
+    "archive": "/workspace/work/v13-persistent/archive",
+    "database_retained": true,
+    "scope": "Controlled HTTP fixture; actual retained PostgreSQL and archive, no external adaptation claim"
+  },
+  "source": {
+    "id": "v13-retained-demo",
+    "entry_urls": [
+      "http://127.0.0.1:44385/"
+    ],
+    "allowed_hosts": [
+      "127.0.0.1"
+    ],
+    "allowed_path_prefixes": [
+      "/"
+    ],
+    "identity": "business_key",
+    "output_schema": "record.v1",
+    "archive_approved": true,
+    "scope": "Controlled public loopback fixture; retained engineering demonstration",
+    "robots": true,
+    "delay": 0.0,
+    "concurrency": 1,
+    "budget": {
+      "requests": 20,
+      "seconds": 30,
+      "response_bytes": 100000
+    }
+  },
+  "params": {
+    "discover_sitemaps": false
+  },
+  "source_hashes": {
+    "pyproject.toml": "ee9f54846e21263730cf66f12b0fe0083d1bfbc7f9e5b92f67d98c562ca1419f",
+    "recipes/amac_full/recipe.py": "01df766a3737f0bc6f8c965f26f6af812552aaf12629b34f2ae961d2497781f5",
+    "recipes/expanded_a/expanded_a.py": "36c5457ca657a4e0cb3bc272a266f14e414ad00725f97095e02cd54f023e5c77",
+    "recipes/expanded_aux/recipe.py": "83c212b611747373f9ec3f64385f0fd5308f335ae7b4f9994eaeea4d7336a851",
+    "recipes/expanded_b1/recipe.py": "ec9aa27504a9876057e69633605b4c4bbdf5187578ff3944eb151d8dce5b99be",
+    "recipes/expanded_b2/recipe.py": "f28996e0309143684dfa219105fd8c63cb2909dda2a1225b7a438b5210c646f9",
+    "recipes/expanded_c/recipe.py": "e881b4ff93ff72e0f96078899a00aba3a08fb1db07d54235779078d9e0fc30c5",
+    "recipes/generic/recipe.py": "c81eaa655bceeb96e0199406a8886b55dc7a527e6e31bfa484c685a1eee3b474",
+    "recipes/heterogeneous/recipe.py": "e27e7017fc025c03a46fc04295037f86f11715d3677574d8f238b54ed446ef2c",
+    "recipes/live_a/live_a.py": "974ea8336f4f637c4316df224ac73745575cdba30873c81c389401894f3cd31f",
+    "recipes/live_b/recipe.py": "6005445d873b9a341a1fbb030b4dd7d6a5887fc58b79652302120eb12e8d7283",
+    "recipes/live_c/recipe.py": "b6aef4132782f59416540f94aadb9d73e838a063068318feb71db1d279f6a182",
+    "recipes/samples_v12/recipe.py": "dcd6acb6191a0feb1e88701853e8b0a5e9583d125070bbbcaabc081152f7541c",
+    "recipes/seeded/recipe.py": "a94b0c487386012763ad5d65b52f7fa15e88bb87dfaa6219f56225a200832708",
+    "src/seal/__init__.py": "f1fba40cc0f21790c9570d15d1dbf7b20579fac3d145034bc37abd2b71dd482c",
+    "src/seal/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "src/seal/archive.py": "75451d682c55aec62e2a03aed1239f313f57de35b5916c189536e3c675c95a8e",
+    "src/seal/attachments.py": "7c3850f7232a46529a3968a6aa644c381b0e0f28939938e5ce84a73127a93fac",
+    "src/seal/cli.py": "5b4e1c6292d0d0d2918b3a0706f23b311af63e86a033b9083732458cce7b4abe",
+    "src/seal/completion.py": "2753eaa1134140be38992480d74de63fe048946273bdd85f4ea40c3c90cc209c",
+    "src/seal/config.py": "3d329dc3f1b8f34a33c711276c8a6419240f19f2174ef803e82c90d13d4ce464",
+    "src/seal/configuration.py": "d40c8041a699872e19fcd52ba8f2efae042b9d3a2cb8524ac85eefba9d34e605",
+    "src/seal/core.py": "fc4d5d9cfba018c8dadda24e175ff616da5ea43eee77b5a5f7e209981d26a4e8",
+    "src/seal/crawl.py": "de44da1e5c1490186b3e483f65e2bc40c6508b1846d7ef10011c473834c21783",
+    "src/seal/db.py": "04e20eac8ab498af21127255effc18eebc23ccfbbdad87365ecdbf409df364fb",
+    "src/seal/discovery.py": "894a8427b76e6892383ebc3ef5f1af5234343568f202aa70aae8fbeb5179d5c6",
+    "src/seal/export.py": "56b5d7133078a946a5d3d02ad16379144dd3986e17727306cf8e048c16a9db66",
+    "src/seal/fallback.py": "6e2f3dc2399f8a1c6ee17e33a6fdcd88570ae37a37e54a6cd3fc006a6122fbaa",
+    "src/seal/helpers.py": "20f44e0330dc4b8fc35cc91b9ffb1066ff70a7c8f14a1365df3ed4798b1bdd9e",
+    "src/seal/inspect.py": "8e4960ccf8c94fc7e5a2b90b6de60801b20f09e79eb6f819dc15782c64e15b2d",
+    "src/seal/items.py": "f88d51d9b1926042be3ac4bee5107aee5f4254dd1951b9ba4b37fdc6535226cc",
+    "src/seal/manifest.py": "42137d0c36b92e0ce99b8e492da2ea1f195dfef0aa5259cb08f3f926c57cca7b",
+    "src/seal/migrations/0002_runtime.sql": "b813aa7a00e50e94ee6ccbc50dacc8cd66cbfd49a03993c7a76dc19940ce157c",
+    "src/seal/migrations/0003_records.sql": "ce4d893471ca54a37b80189fe71565d638bad94cc3a153abcca2784ddd08b139",
+    "src/seal/migrations/0004_discovery.sql": "26981a18caae6ad0bcb651e779fdeb3e4ebedea6c8282ab964da5544a1b338ad",
+    "src/seal/migrations/0005_recheck_plan.sql": "c9bb983cf96be286c60e998f55986ebecbe594cf1d66fa5b7d90486569cda2be",
+    "src/seal/migrations/0006_seeded_discovery.sql": "9ea9dd53642e7fd9436026f18463508fa692931c70a877780ff9b95c06f86870",
+    "src/seal/queue.py": "531c30460828f8d5d42f469248d5d97229e6a984061297a6b0b5dbec84a625f3",
+    "src/seal/recheck.py": "a014e3a0df2b63ca2abf3ff45ee6e1ab3fb63f60fab045db0dc033a4198dc922",
+    "src/seal/recipes.py": "c389d6c34af51359ce4f72eb597aa83f9649197db9d93c6234793db58ae6297c",
+    "src/seal/record_validation.py": "59540cfe7febd196937e94864927b6e9a6d2afe39483773f5aafe6bed2117668",
+    "src/seal/records.py": "72415758fff0cf697ed95e10e40f8a5a6a1dab9c0c877d64c4c09b125deb638c",
+    "src/seal/robots.py": "d3f19561bfa87fe207910a34cc8a2de2d17db28805ed09cd7dcb7bc55e617dad",
+    "src/seal/runs.py": "ebabca08ce00a158c9a838b577338d1a6019392087c1f8320f4e4746ec3ddce2",
+    "src/seal/schema.sql": "252ae7dd09078ca6116c8c21114fbf939ef31c058d8a06259f77ee881e4a6d99",
+    "src/seal/scope.py": "3a2d989b9ea9b8f537e67a2ab09d76353c781b1867906e00b606254f4425c908",
+    "src/seal/seeded.py": "656d082c5bdadfff10ebc03539cd1c82d8911632a9a0a3d763ac851a8395db5e",
+    "uv.lock": "c488b7583f58cbc4c2f7fea4586ca194dd821c82976bee50e3ec3236be4cd945"
+  },
+  "independent_verification": {
+    "status": "PASS",
+    "checked_at_local": "2026-10-10T21:09:53.669053+08:00",
+    "scope": "Read-only retained PostgreSQL and archive verification after fixture shutdown and PostgreSQL restart",
+    "assertions": 35,
+    "checks": [
+      {
+        "name": "fresh_record_query_after_server_stop_and_database_restart",
+        "status": "PASS",
+        "actual": "78e4faba-f003-4554-bd3e-5c2771e46f16",
+        "expected": "78e4faba-f003-4554-bd3e-5c2771e46f16"
+      },
+      {
+        "name": "two_business_versions",
+        "status": "PASS",
+        "actual": 2,
+        "expected": 2
+      },
+      {
+        "name": "version_predecessor",
+        "status": "PASS",
+        "actual": "1fc33fa6-6824-4722-bb15-b03204970876",
+        "expected": "1fc33fa6-6824-4722-bb15-b03204970876"
+      },
+      {
+        "name": "current_version_pointer",
+        "status": "PASS",
+        "actual": "a73b76bb-c4c2-43b9-aa28-86d7cd5f8ccd",
+        "expected": "a73b76bb-c4c2-43b9-aa28-86d7cd5f8ccd"
+      },
+      {
+        "name": "first_seen_reason",
+        "status": "PASS",
+        "actual": "first_seen",
+        "expected": "first_seen"
+      },
+      {
+        "name": "source_update_reason",
+        "status": "PASS",
+        "actual": "source_updated",
+        "expected": "source_updated"
+      },
+      {
+        "name": "first_version_run",
+        "status": "PASS",
+        "actual": "7462daec-23f1-4ad1-ac9c-afcbf8b60b23",
+        "expected": "7462daec-23f1-4ad1-ac9c-afcbf8b60b23"
+      },
+      {
+        "name": "updated_version_run",
+        "status": "PASS",
+        "actual": "509c8626-8801-440b-9f22-e2e465756f5d",
+        "expected": "509c8626-8801-440b-9f22-e2e465756f5d"
+      },
+      {
+        "name": "first_content_revision_A",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "updated_content_revision_B",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "repeated_collect_added_no_version",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "version_0_snapshot_object_hash",
+        "status": "PASS",
+        "actual": "47be2e5dda24b4bf143bf427d8fbdeedede827a67c56aa7fa66691c05174098e",
+        "expected": "47be2e5dda24b4bf143bf427d8fbdeedede827a67c56aa7fa66691c05174098e"
+      },
+      {
+        "name": "version_0_archive_body_hash",
+        "status": "PASS",
+        "actual": "1d1f11d0597d42970a373544b67c3b8ecd755de2a99d37916e33106ecf24ac77",
+        "expected": "1d1f11d0597d42970a373544b67c3b8ecd755de2a99d37916e33106ecf24ac77"
+      },
+      {
+        "name": "version_0_archive_body_size",
+        "status": "PASS",
+        "actual": 611,
+        "expected": 611
+      },
+      {
+        "name": "version_0_title_from_archive",
+        "status": "PASS",
+        "actual": "Controlled legal notice",
+        "expected": "Controlled legal notice"
+      },
+      {
+        "name": "version_0_date_from_archive",
+        "status": "PASS",
+        "actual": "2026-10-10",
+        "expected": "2026-10-10"
+      },
+      {
+        "name": "version_0_revision_from_archive",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "version_0_response_url",
+        "status": "PASS",
+        "actual": "http://127.0.0.1:44385/notice!public.html",
+        "expected": "http://127.0.0.1:44385/notice!public.html"
+      },
+      {
+        "name": "version_0_semantic_bang_preserved",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "version_0_record_content_hash",
+        "status": "PASS",
+        "actual": "c5fb683a2748d83b018283bfa8e7a0ed2c34c8140ca6ebdd321e63d8c388bb80",
+        "expected": "c5fb683a2748d83b018283bfa8e7a0ed2c34c8140ca6ebdd321e63d8c388bb80"
+      },
+      {
+        "name": "version_0_table_archived",
+        "status": "PASS",
+        "actual": [
+          "1",
+          "公开记录"
+        ],
+        "expected": [
+          "1",
+          "公开记录"
+        ]
+      },
+      {
+        "name": "version_1_snapshot_object_hash",
+        "status": "PASS",
+        "actual": "4d4fdbf44a96eb5d79a1eb3514d1aeb0086f550e19eee8923fb84085c1fd4283",
+        "expected": "4d4fdbf44a96eb5d79a1eb3514d1aeb0086f550e19eee8923fb84085c1fd4283"
+      },
+      {
+        "name": "version_1_archive_body_hash",
+        "status": "PASS",
+        "actual": "3ece4cba79920bd786322106851ec8965da258f2eed56e8a9d54ddc5daab94b4",
+        "expected": "3ece4cba79920bd786322106851ec8965da258f2eed56e8a9d54ddc5daab94b4"
+      },
+      {
+        "name": "version_1_archive_body_size",
+        "status": "PASS",
+        "actual": 611,
+        "expected": 611
+      },
+      {
+        "name": "version_1_title_from_archive",
+        "status": "PASS",
+        "actual": "Controlled legal notice",
+        "expected": "Controlled legal notice"
+      },
+      {
+        "name": "version_1_date_from_archive",
+        "status": "PASS",
+        "actual": "2026-10-10",
+        "expected": "2026-10-10"
+      },
+      {
+        "name": "version_1_revision_from_archive",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "version_1_response_url",
+        "status": "PASS",
+        "actual": "http://127.0.0.1:44385/notice!public.html",
+        "expected": "http://127.0.0.1:44385/notice!public.html"
+      },
+      {
+        "name": "version_1_semantic_bang_preserved",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "version_1_record_content_hash",
+        "status": "PASS",
+        "actual": "da390958b7eda87be6fd4125cdb63cacd7bedaf629277fa86ef0bb750484c244",
+        "expected": "da390958b7eda87be6fd4125cdb63cacd7bedaf629277fa86ef0bb750484c244"
+      },
+      {
+        "name": "version_1_table_archived",
+        "status": "PASS",
+        "actual": [
+          "1",
+          "公开记录"
+        ],
+        "expected": [
+          "1",
+          "公开记录"
+        ]
+      },
+      {
+        "name": "three_collect_runs_complete",
+        "status": "PASS",
+        "actual": true,
+        "expected": true
+      },
+      {
+        "name": "replay_complete",
+        "status": "PASS",
+        "actual": "complete",
+        "expected": "complete"
+      },
+      {
+        "name": "replay_no_new_fetch_observations",
+        "status": "PASS",
+        "actual": 0,
+        "expected": 0
+      },
+      {
+        "name": "recipe_bound_to_final_engine",
+        "status": "PASS",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5"
+      }
+    ],
+    "snapshots": [
+      {
+        "snapshot_id": "47be2e5dda24b4bf143bf427d8fbdeedede827a67c56aa7fa66691c05174098e",
+        "body_hash": "1d1f11d0597d42970a373544b67c3b8ecd755de2a99d37916e33106ecf24ac77",
+        "body_size": 611
+      },
+      {
+        "snapshot_id": "4d4fdbf44a96eb5d79a1eb3514d1aeb0086f550e19eee8923fb84085c1fd4283",
+        "body_hash": "3ece4cba79920bd786322106851ec8965da258f2eed56e8a9d54ddc5daab94b4",
+        "body_size": 611
+      }
+    ],
+    "raw_content_published": false
+  },
+  "restart_verification": {
+    "status": "PASS",
+    "completed_at_local": "2026-10-10T21:10:24.654834+08:00",
+    "cluster": "retained workspace PostgreSQL 17",
+    "record_command": [
+      "seal",
+      "inspect",
+      "record",
+      "78e4faba-f003-4554-bd3e-5c2771e46f16"
+    ],
+    "snapshot_command": [
+      "seal",
+      "inspect",
+      "snapshot",
+      "4d4fdbf44a96eb5d79a1eb3514d1aeb0086f550e19eee8923fb84085c1fd4283"
+    ],
+    "database_url_recorded": false,
+    "separate_cli_processes": true
+  },
+  "local_evidence_sha256": {
+    "params.json": "d090e46f909ac16b88f00e7962f839b48b8e686d470c35ea44b64cf5bc861b80",
+    "receipts.json": "250a5ebec1b2dd6cf38784b6ae3e90efd20b715910d5bf4eb2e5347fb4ce4a53",
+    "requests.json": "78d62f4ef98a521a09e266f8ec45a0958ebf225e9ac6d1646ff07fde0ba1f1ed",
+    "source.json": "c85e79edcc0ee6614dec4d7fedfd81c401e188ff522e4a49f7a0caf1b91034b9",
+    "summary.json": "0e7a01e7e4fd4ad98fad9cd58b877d0d8fac348c20779b2e9a4d13f96d5952fe"
+  },
+  "restart_evidence_sha256": {
+    "final3-record-after-restart.json": "29e7d33506ba445e59449ef3eef2b1267475c2dba20632fe8c8847e37b8defb5",
+    "final3-snapshot-after-restart.json": "0367c4ad8b9d66e4bee7bcda428862be64529970074a11f9e6c1f63b4498fe20",
+    "final3-pg-restart.log": "8db95e2a0ec84c72c6d7118a29a204a2513b26251c88fbc2e2f5eb0bd8fbbd6a"
+  },
+  "historical_evidence_preserved": true,
+  "database_url_recorded": false,
+  "raw_bodies_published": false,
+  "limitations": [
+    "Controlled HTTP fixture proves engineering behavior, not external site adaptation",
+    "Database and private archive persist in this managed workspace; production lifecycle, backup recovery and power-loss durability were not verified"
+  ]
+}

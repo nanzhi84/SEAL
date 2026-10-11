@@ -1,0 +1,5081 @@
+{
+  "experiment": "SEAL V1.3 review final: eight original business Seeds",
+  "status": "OBSERVED_BLOCKED_NOT_ADAPTATION_PASS",
+  "client_timezone": "Asia/Singapore",
+  "frozen_source_commit": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+  "completed_at_local": "2026-10-10T21:09:09.412484+08:00",
+  "manifest": {
+    "started_at": "2026-10-10T13:07:58.254905+00:00",
+    "client_timezone": "Asia/Singapore",
+    "started_at_local": "2026-10-10T21:07:58.255053+08:00",
+    "mode": "retained_pg_collect",
+    "git_head": "7b44235ae40ddeb4c192ea86d0c8885363dfb6c9",
+    "git_status_at_start": [
+      " M CHANGELOG.md",
+      " M README.md",
+      " M docs/adr/0004-seeded-collection-native-scrapy.md",
+      " M docs/generated/v1.3-seeded-site-collection.html",
+      " M docs/plans/v1.3-seeded-site-collection.md",
+      "?? experiments/v1.3-acceptance/results/independent-review.json",
+      "?? experiments/v1.3-acceptance/results/review-live.json",
+      "?? experiments/v1.3-acceptance/results/review-live.md",
+      "?? experiments/v1.3-acceptance/results/review-persistent.json"
+    ],
+    "business_map": "experiments/due-diligence/inputs/source-map.md",
+    "business_map_sha256": "f0259f31e31a530fe692d715482f986197c39c418c8f5715370f1599ddd4f448",
+    "archive_root": "/workspace/work/v13-persistent/archive",
+    "database_url_recorded": false,
+    "database_lifecycle": "externally provisioned; never cleaned by this driver",
+    "network": "inherited proxy; SEAL_USE_ENV_PROXY=1; TLS verification retained",
+    "allowed_hosts_needed": [
+      "find-and-update.company-information.service.gov.uk",
+      "permit.mee.gov.cn",
+      "www.amac.org.cn",
+      "www.court.gov.cn",
+      "www.moe.gov.cn",
+      "www.safe.gov.cn",
+      "www.spp.gov.cn"
+    ],
+    "sources": [
+      {
+        "research_id": "dd-017",
+        "source_id": "v13-live-dd-017",
+        "seed": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "mechanism_to_observe": "HTML list, pagination, detail and previously unknown templates",
+        "scope": {
+          "id": "v13-live-dd-017",
+          "research_ids": [
+            "dd-017"
+          ],
+          "entry_urls": [
+            "https://www.court.gov.cn/shenpan/gengduo/77.html"
+          ],
+          "allowed_hosts": [
+            "www.court.gov.cn"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "www.court.gov.cn": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "25b69c853312022af6bcdc883f917c3ec0898a242899516967316c2a5e6bb117",
+        "run_id": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_unavailable",
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "pending": 0,
+            "snapshots": 0,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 0
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "unique_fingerprints": 4,
+            "http_attempts": 1,
+            "archived_observations": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ],
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 0,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      },
+      {
+        "research_id": "dd-041",
+        "source_id": "v13-live-dd-041",
+        "seed": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+        "mechanism_to_observe": "long legal HTML; document versus individual-case granularity",
+        "scope": {
+          "id": "v13-live-dd-041",
+          "research_ids": [
+            "dd-041"
+          ],
+          "entry_urls": [
+            "https://www.spp.gov.cn/spp/jczdal/index.shtml"
+          ],
+          "allowed_hosts": [
+            "www.spp.gov.cn"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "www.spp.gov.cn": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "5a90e4b4eeb89bd1c6ed9b79b82c677562db8cdf7b6ca9111cf6994f9f23ea43",
+        "run_id": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_unavailable",
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "pending": 0,
+            "snapshots": 0,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 0
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "unique_fingerprints": 4,
+            "http_attempts": 1,
+            "archived_observations": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ],
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 0,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      },
+      {
+        "research_id": "dd-250",
+        "source_id": "v13-live-dd-250",
+        "seed": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+        "mechanism_to_observe": "business HTML entry and discoverable JSON pagination",
+        "scope": {
+          "id": "v13-live-dd-250",
+          "research_ids": [
+            "dd-250"
+          ],
+          "entry_urls": [
+            "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/"
+          ],
+          "allowed_hosts": [
+            "www.amac.org.cn"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "www.amac.org.cn": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "fbba433afcbe80a8e791b15ed966c015891a2056e6bcfcdcb9a59430b7066c60",
+        "run_id": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_unavailable",
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "pending": 0,
+            "snapshots": 0,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 0
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "unique_fingerprints": 4,
+            "http_attempts": 1,
+            "archived_observations": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ],
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 0,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      },
+      {
+        "research_id": "dd-468",
+        "source_id": "v13-live-dd-468",
+        "seed": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "mechanism_to_observe": "business notice, XLS links, bytes and field lineage",
+        "scope": {
+          "id": "v13-live-dd-468",
+          "research_ids": [
+            "dd-468"
+          ],
+          "entry_urls": [
+            "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html"
+          ],
+          "allowed_hosts": [
+            "www.moe.gov.cn"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "www.moe.gov.cn": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "2e031b1e74af10bd432d669db9e8e7f7cf1fe96d060529f135bee082be832e3a",
+        "run_id": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_policy_http_denied",
+          "errors": [
+            "http_error",
+            "robots_policy_http_denied",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 4,
+            "archived": 1,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "pending": 0,
+            "snapshots": 1,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 1
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 4,
+            "archived": 1,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "unique_fingerprints": 4,
+            "http_attempts": 1,
+            "archived_observations": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied"
+            ],
+            "outcomes": {
+              "robots_policy_http_denied": 4
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 1,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      },
+      {
+        "research_id": "dd-102",
+        "source_id": "v13-live-dd-102",
+        "seed": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "mechanism_to_observe": "business entry to iframe table and details",
+        "scope": {
+          "id": "v13-live-dd-102",
+          "research_ids": [
+            "dd-102"
+          ],
+          "entry_urls": [
+            "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html"
+          ],
+          "allowed_hosts": [
+            "www.safe.gov.cn"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "www.safe.gov.cn": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "978aff01735553dfe309b19b9b944625d3116e14e23dfab2b238ef05fc5d286e",
+        "run_id": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_unavailable",
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "pending": 0,
+            "snapshots": 0,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 0
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "unique_fingerprints": 4,
+            "http_attempts": 1,
+            "archived_observations": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ],
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 0,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      },
+      {
+        "research_id": "dd-247",
+        "source_id": "v13-live-dd-247",
+        "seed": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+        "mechanism_to_observe": "business HTML entry, JSON API and unenumerable filters",
+        "scope": {
+          "id": "v13-live-dd-247",
+          "research_ids": [
+            "dd-247"
+          ],
+          "entry_urls": [
+            "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/"
+          ],
+          "allowed_hosts": [
+            "www.amac.org.cn"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "www.amac.org.cn": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "9f44c9d9c57ac594022bec1f021b46a9830e15f3a88a462fc23c81a6014ba4f1",
+        "run_id": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_unavailable",
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "pending": 0,
+            "snapshots": 0,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 0
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 4,
+            "archived": 0,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "unique_fingerprints": 4,
+            "http_attempts": 1,
+            "archived_observations": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ],
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 0,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      },
+      {
+        "research_id": "dd-357",
+        "source_id": "v13-live-dd-357",
+        "seed": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+        "mechanism_to_observe": "literal ! in the business entry and discovered URL identities",
+        "scope": {
+          "id": "v13-live-dd-357",
+          "research_ids": [
+            "dd-357"
+          ],
+          "entry_urls": [
+            "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action"
+          ],
+          "allowed_hosts": [
+            "permit.mee.gov.cn"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "permit.mee.gov.cn": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "653ba8a893408500c72b7e7425ebf1a63d51ead69d3dd45d11d1723cb6da3b5c",
+        "run_id": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_policy_http_denied",
+          "errors": [
+            "http_error",
+            "robots_policy_http_denied",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 4,
+            "archived": 1,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "pending": 0,
+            "snapshots": 1,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 1
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 4,
+            "archived": 1,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 0,
+            "unique_fingerprints": 4,
+            "http_attempts": 1,
+            "archived_observations": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied"
+            ],
+            "outcomes": {
+              "robots_policy_http_denied": 4
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 1,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      },
+      {
+        "research_id": "dd-009",
+        "source_id": "v13-live-dd-009",
+        "seed": "https://find-and-update.company-information.service.gov.uk/",
+        "mechanism_to_observe": "homepage, public links and unenumerable search space",
+        "scope": {
+          "id": "v13-live-dd-009",
+          "research_ids": [
+            "dd-009"
+          ],
+          "entry_urls": [
+            "https://find-and-update.company-information.service.gov.uk/"
+          ],
+          "allowed_hosts": [
+            "find-and-update.company-information.service.gov.uk"
+          ],
+          "allowed_path_prefixes": [
+            "/"
+          ],
+          "host_path_scopes": {
+            "find-and-update.company-information.service.gov.uk": [
+              "/"
+            ]
+          },
+          "methods": [
+            "GET",
+            "HEAD"
+          ],
+          "identity": "business_key",
+          "output_schema": "record.v1",
+          "archive_approved": true,
+          "scope": "Original business-map seed; discover public pages on the exact seed host, including navigation, pagination, details and attachments, subject to robots, Runtime access rules, depth/query limits and the stated request/time/byte budget. No historical two-page limit, fixed detail allowlist or invented search query. Associated hosts and cross-host attachments require a separately reviewed scope.",
+          "seed_role": "list",
+          "budget": {
+            "requests": 30,
+            "seconds": 90,
+            "response_bytes": 10485760
+          },
+          "concurrency": 1,
+          "delay": 1.0,
+          "robots": true,
+          "user_agent": "SEAL/1.3 (+public seeded Source experiment)"
+        },
+        "params": {
+          "max_depth": 12,
+          "max_query_variants": 40,
+          "expand_homepage": true,
+          "discover_sitemaps": true,
+          "exclude_patterns": [],
+          "specific_rules": []
+        },
+        "recipe_version": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "binding_id": "2ef2bebcda33af483e0b94d3dbf5d74536c1934011839a0d6160d5fad6ae751d",
+        "run_id": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "observation": {
+          "status": "partial",
+          "termination": "blocked",
+          "termination_reason": "robots_unavailable",
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "counts": {
+            "discovered": 4,
+            "requested": 3,
+            "archived": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 1,
+            "pending": 0,
+            "snapshots": 0,
+            "records": 0,
+            "record_emissions": 0,
+            "record_outputs": 0,
+            "attachments": 0,
+            "http_attempts": 1,
+            "archived_observations": 0
+          },
+          "discovery": {
+            "contract": 1,
+            "instrumented": true,
+            "discovered": 4,
+            "requested": 3,
+            "archived": 0,
+            "parsed": 0,
+            "callback_completed": 0,
+            "failed": 0,
+            "skipped": 4,
+            "deduplicated": 1,
+            "unique_fingerprints": 3,
+            "http_attempts": 1,
+            "archived_observations": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "replayed": 0,
+            "pending": 0,
+            "unknown_coverage": true,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ],
+            "outcomes": {
+              "robots_unavailable": 3,
+              "duplicate_request": 1
+            },
+            "event_limit": 100000
+          },
+          "observations": 1,
+          "snapshots": 0,
+          "records_exported": 0,
+          "documents_exported": 0,
+          "unknown": "Actual site totals and undiscovered pages are unknown. Queue exhaustion is only an execution result. API, search and JavaScript behavior not present in archived responses remains unverified. Records are recipe-defined projections."
+        }
+      }
+    ],
+    "completed_at": "2026-10-10T13:09:09.412484+00:00"
+  },
+  "aggregate": {
+    "runs": 8,
+    "partial_blocked": 8,
+    "discovery_events": 32,
+    "events_with_parent_url": 24,
+    "http_attempts": 8,
+    "record_emissions": 0,
+    "record_exports": 0,
+    "business_page_snapshots": 0,
+    "policy_snapshot_references": 2,
+    "policy_reasons": {
+      "robots_unavailable": 6,
+      "robots_policy_http_denied": 2
+    },
+    "upstream_rule_denials_established": 0
+  },
+  "discovery_by_source": {
+    "dd-017": [
+      {
+        "id": "de1285de-9f25-4cb0-b59e-3c0049d54b67",
+        "run_id": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-017",
+        "url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "9eb81b6b0cfca6b633202d2722e3ebed3ee6836b2ede9bd15522875048c967c0",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "14a6faab-4444-476a-9352-bdb80c7a2c34",
+        "chain_id": "db52eb2c-4cb0-460a-8d71-5733fe50941f",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:02.016802+00:00",
+        "requested_at": "2026-10-10T13:08:02.026746+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "67b34d78-419b-4e3e-bee2-e6a4383cd503",
+        "run_id": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-017",
+        "url": "https://www.court.gov.cn/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "7a6b90dffb68719cf469c6f760462c7ac4b3cc452c6459d7ae8d2524768d44e6",
+        "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "1ce2677f-9189-41f4-94b4-a6e3822bcff2",
+        "chain_id": "a47bac05-8a6f-463d-9d0d-fcb16119cdf6",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:02.029060+00:00",
+        "requested_at": "2026-10-10T13:08:02.141118+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "c935076a-c6c9-407a-8f0c-20b298092df0",
+        "run_id": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-017",
+        "url": "https://www.court.gov.cn/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "0f2748a00bab83b1b1e9644767a7ff814ae3e946991eb10b5d3c6b0e46c9d470",
+        "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "d4a76586-90e8-4245-b3ad-b3ce49ec50a9",
+        "chain_id": "d36693f5-bcfe-4d11-9adf-cab1dd44f1d2",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:02.039367+00:00",
+        "requested_at": "2026-10-10T13:08:02.173753+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "6e6e06db-cdd8-457c-b690-09177079801b",
+        "run_id": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-017",
+        "url": "https://www.court.gov.cn/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "60cbb794867210a9fe92174b107448c7fc2e268d0ee6e7824b159c536c8210ae",
+        "parent_url": "https://www.court.gov.cn/shenpan/gengduo/77.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "30cd875a-11dc-424a-a4e4-092865782987",
+        "chain_id": "4a387742-1246-4383-abe5-1444911a13c6",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:02.049232+00:00",
+        "requested_at": "2026-10-10T13:08:02.058488+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ],
+    "dd-041": [
+      {
+        "id": "e0874484-e69c-4f5f-a1be-03e7e97a5cbd",
+        "run_id": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-041",
+        "url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "e1bc152e6a18ab513a16cd91fca5eb9385767669f2e3875bab084d9d4968674b",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "d5c6b837-70a2-4d1f-bd2e-9414f23e1ad9",
+        "chain_id": "4b1ffabb-095e-44a8-9de4-8b3c2827b573",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:10.358855+00:00",
+        "requested_at": "2026-10-10T13:08:10.377914+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "1a162542-db2f-4cd7-9e91-e122fd54dc5d",
+        "run_id": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-041",
+        "url": "https://www.spp.gov.cn/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "ddc484f1e4792f053402753e7fc5443abb756ace2183d41fd353326770ad004b",
+        "parent_url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "bc4c2f5d-73c0-4419-b72d-334ffdc1b039",
+        "chain_id": "05e2bf29-6505-4f86-aae3-f164f8701cb1",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:10.377451+00:00",
+        "requested_at": "2026-10-10T13:08:10.476468+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "7ef40545-a975-4949-88ee-1543ffc4a435",
+        "run_id": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-041",
+        "url": "https://www.spp.gov.cn/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "671a7952a0d5f25ae7355f1a848b82eaea3cd4c977ae50b59470f75b1ff8060d",
+        "parent_url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "5b0d640d-f0ab-44ab-a4a9-809b4f33c337",
+        "chain_id": "eaa2e529-c8f9-487d-ad1f-f5f06c50d28e",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:10.390662+00:00",
+        "requested_at": "2026-10-10T13:08:10.517934+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "396392c4-d354-43c0-8aa7-c30cc9011c5e",
+        "run_id": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-041",
+        "url": "https://www.spp.gov.cn/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "b7c5b0fe101354a0d3f44f836890df4c37a3e4125e14c54c0db13fef05f6e166",
+        "parent_url": "https://www.spp.gov.cn/spp/jczdal/index.shtml",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "83b0f782-6d4f-4343-a75f-22ab54e9315c",
+        "chain_id": "5a316034-3bd0-41cc-8c08-84bc41b2517f",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:10.406318+00:00",
+        "requested_at": "2026-10-10T13:08:10.420297+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ],
+    "dd-250": [
+      {
+        "id": "639d29dd-6bb6-4c7c-97bc-c0d93266a11b",
+        "run_id": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-250",
+        "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "a30f9c718832f67c99a0f934544c3b6f8e13ba8c896b502685f5c904fab80cc2",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "b49357e6-d2a9-4355-815e-fba72c64e7ca",
+        "chain_id": "81180259-d02b-4f7f-9bbd-1c96c0c2b314",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:16.584358+00:00",
+        "requested_at": "2026-10-10T13:08:16.601421+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "becba307-4abd-49cc-92fe-d0e81aa95ffe",
+        "run_id": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-250",
+        "url": "https://www.amac.org.cn/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "4b1aaf380c7646865484efd5c4423fc9e736d497af85b6023b49d6f62aada28d",
+        "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "14365742-7689-4405-8f1e-9c1bdf866b56",
+        "chain_id": "97f93096-0bf8-4322-bb84-fd7432f52d7d",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:16.601576+00:00",
+        "requested_at": "2026-10-10T13:08:16.688847+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "2a73827f-0fdc-4f6f-9bf3-cf47b2c8bd35",
+        "run_id": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-250",
+        "url": "https://www.amac.org.cn/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "05fed242d5f31c15238c8bf65e46b47bb3405410bbe369601f290a6b99516132",
+        "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "0d5f9a0c-07e4-47dc-86e5-fe923d6459d6",
+        "chain_id": "eb38d061-b7a7-4d94-9350-ee70b750144f",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:16.611038+00:00",
+        "requested_at": "2026-10-10T13:08:16.719633+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "2540fdc4-46f9-4dc1-9b74-5846b32fa310",
+        "run_id": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-250",
+        "url": "https://www.amac.org.cn/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "9a00dd59c87818c8399a60da1c1908124e40bd00567fc12fef1e1041f5245ade",
+        "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "fd54586a-1bab-4fe9-b1e1-8b76cacba61d",
+        "chain_id": "bf43fe08-5514-4815-92ae-48ec2723ef41",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:16.619307+00:00",
+        "requested_at": "2026-10-10T13:08:16.630259+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ],
+    "dd-468": [
+      {
+        "id": "457cab83-6b49-4cc9-88d1-f950bde7c074",
+        "run_id": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-468",
+        "url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "fd79fc0f2c903eb0830e98d21d424a5df23f3eacb3f3569105b8cbcec9c1a9f5",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "71b02801-16ab-4684-96c7-8107ecc3ec74",
+        "chain_id": "33547eae-df48-43a2-94e5-9b669841fc8c",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:23.810657+00:00",
+        "requested_at": "2026-10-10T13:08:23.829432+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "f417dc8d-cdcf-4405-9e67-7017d2d9ad1d",
+        "run_id": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-468",
+        "url": "http://www.moe.gov.cn/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "b5433cbb0418b4e67fe66c4d605f530c52505ef62fbbc221394d8e609dc92eba",
+        "parent_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "dc460d9b-296e-44b0-bcc2-00f91ce7505e",
+        "chain_id": "0088ad4a-b5c5-4163-a335-bd7a4629c197",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:23.836522+00:00",
+        "requested_at": "2026-10-10T13:08:23.930512+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "ca7b02ee-3e4e-41cd-9c57-76b0a8fbeb43",
+        "run_id": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-468",
+        "url": "http://www.moe.gov.cn/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "1eb0f54203dc037c47f4b36734ca4c5887e6749fdac698e77f8d3bd2b891b091",
+        "parent_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "7189ff5a-e61e-4ed0-8f30-129cd2dbcae4",
+        "chain_id": "e15ecaf0-870b-4569-a8cf-652db92e855b",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:23.843983+00:00",
+        "requested_at": "2026-10-10T13:08:23.955303+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "704b44ea-4c64-4a26-b048-073a2e45a61e",
+        "run_id": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-468",
+        "url": "http://www.moe.gov.cn/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "56637c80fba3e4322cf5e209a701186f48fda8dd5fc0836bd278413aac6e5e8d",
+        "parent_url": "http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "12577aa3-c626-489e-9f9b-54c5e25aa5ac",
+        "chain_id": "0d03993c-cdc5-4ec8-9a91-ece049f9e9e7",
+        "snapshot_id": "5b417e521ac7171da22e128f30f3510d943098aba03d683c52d856cbd556df9b",
+        "observation_id": "12577aa3-c626-489e-9f9b-54c5e25aa5ac",
+        "response_status": 403,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:23.855907+00:00",
+        "requested_at": "2026-10-10T13:08:23.863426+00:00",
+        "archived_at": "2026-10-10T13:08:23.901141+00:00",
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ],
+    "dd-102": [
+      {
+        "id": "344c748c-062f-4a83-9146-ed2118c0132d",
+        "run_id": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-102",
+        "url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "53dceb7f896fbaa74b0a31a1d6cbc3d126a00579f8762ee05c7345b0b6b87ad8",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "6cef5a5e-13f7-4bdc-92d8-6cc222599cc1",
+        "chain_id": "4f26db61-808c-4bea-9319-7268977a83ca",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:33.420754+00:00",
+        "requested_at": "2026-10-10T13:08:33.508579+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "cffac0f5-f3a6-49a9-9089-0e2309535390",
+        "run_id": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-102",
+        "url": "https://www.safe.gov.cn/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "6608e8c137e86777dc3d4a7727bcf7d131d0895b009a4a6fe476aeb5015de497",
+        "parent_url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "586c3725-441f-4782-8720-4b61fb33b05c",
+        "chain_id": "f689a2dc-c0c7-4874-bc07-e8dee945a5f3",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:33.465022+00:00",
+        "requested_at": "2026-10-10T13:08:33.798672+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "c39bffa3-4612-4f54-a5bc-a64236d84b8f",
+        "run_id": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-102",
+        "url": "https://www.safe.gov.cn/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "8420c7b0c29f31509ee0875ff04cec9f676aa887b0124836a0ac49296b4ce46b",
+        "parent_url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "a34c25d8-6837-4f3e-82c4-10e11f6485aa",
+        "chain_id": "9017786d-b964-498b-83f6-e6c5427f55df",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:33.494722+00:00",
+        "requested_at": "2026-10-10T13:08:33.845439+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "0b920d3d-2e57-48a3-b429-3fac4d88c9bf",
+        "run_id": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-102",
+        "url": "https://www.safe.gov.cn/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "543d85885e78d218b837c79763301a8e164baa1a77a4f0e65bc4d8c7a5322f8c",
+        "parent_url": "https://www.safe.gov.cn/beijing/xzcfxxgs/index.html",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "d0eec7a9-ee4f-44c6-a735-941085aba8f7",
+        "chain_id": "7a54491e-1639-4874-b8c4-c31e5553d7d7",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:33.637293+00:00",
+        "requested_at": "2026-10-10T13:08:33.692211+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ],
+    "dd-247": [
+      {
+        "id": "b6746cc9-0d1c-441e-9e3b-786b6aff70fe",
+        "run_id": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-247",
+        "url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "595cae8ec049a41125771cce02adff0ed823b9fbc784b916b587a723ed7361f6",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "ebac967f-c38c-496b-a73b-817669eeee02",
+        "chain_id": "15d9f0c1-c876-4e1f-a905-f4974134914e",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:43.336595+00:00",
+        "requested_at": "2026-10-10T13:08:43.407133+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "980b943a-9e45-4dbf-a462-de953f42ac40",
+        "run_id": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-247",
+        "url": "https://www.amac.org.cn/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "4b1aaf380c7646865484efd5c4423fc9e736d497af85b6023b49d6f62aada28d",
+        "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "be6e8d20-195b-456a-a9eb-3f2ad3539d7e",
+        "chain_id": "48a91943-5bc4-44da-95b4-cd4489f7b055",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:43.377708+00:00",
+        "requested_at": "2026-10-10T13:08:43.561636+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "bd7b25bd-c9fd-46f8-9430-b2bbd8698da5",
+        "run_id": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-247",
+        "url": "https://www.amac.org.cn/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "05fed242d5f31c15238c8bf65e46b47bb3405410bbe369601f290a6b99516132",
+        "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "6fd94f39-1a54-468e-b441-24e7c2fe6260",
+        "chain_id": "ba0614ea-45c8-4b59-8587-e81b975ed5cf",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:43.386823+00:00",
+        "requested_at": "2026-10-10T13:08:43.621758+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "39730f7a-7ec6-4882-90f0-e33be8d3e785",
+        "run_id": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-247",
+        "url": "https://www.amac.org.cn/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "9a00dd59c87818c8399a60da1c1908124e40bd00567fc12fef1e1041f5245ade",
+        "parent_url": "https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/gmjjglrml/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "15ba1dc7-072b-46ec-9eef-c50fba3ba1d0",
+        "chain_id": "6223692e-3c93-464b-8bf3-1388ff938c3a",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:43.437131+00:00",
+        "requested_at": "2026-10-10T13:08:43.461742+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ],
+    "dd-357": [
+      {
+        "id": "178bf0b1-1da4-4abc-8467-d6ff535cf0a6",
+        "run_id": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-357",
+        "url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "181034e32c7d59c1358ceb6d440a7fa46d3d7e1f40f24dbfa24feedd2d22e50c",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "559453cf-cb87-40ea-9200-38774ae78874",
+        "chain_id": "0bdc86c1-1695-4322-b1e4-2d16f1ee20f8",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:52.406212+00:00",
+        "requested_at": "2026-10-10T13:08:52.422538+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "5e31cc04-0eae-4528-8f79-e72481f71816",
+        "run_id": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-357",
+        "url": "http://permit.mee.gov.cn/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "2d5bc4e3d29aac8d166d798e7d16df78e5c00dff43aeabf33ea1095081cdd2ab",
+        "parent_url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "9d30a6e5-57ca-4ef4-8cce-a041e6f1660f",
+        "chain_id": "695ae8c3-6827-47d2-8796-d94765edc436",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:52.422521+00:00",
+        "requested_at": "2026-10-10T13:08:52.570910+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "6ab36748-f912-49fc-b157-43fd5e2bd88a",
+        "run_id": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-357",
+        "url": "http://permit.mee.gov.cn/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "4381561931ee73475bd5f6481b49a04610a648343c4ea3e90a94ca520ea773a8",
+        "parent_url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "18928b6e-e656-4aa7-b7cc-35a333ede466",
+        "chain_id": "16fba187-3f88-49f8-a2b2-22c972eeab64",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:52.438524+00:00",
+        "requested_at": "2026-10-10T13:08:52.594963+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "01f61b6e-8ca6-4f82-bbc1-317ca3330d8d",
+        "run_id": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-357",
+        "url": "http://permit.mee.gov.cn/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "72cf5de5856e2cf83e731150224003f0617589076dfdeceacc3e6316f498d28f",
+        "parent_url": "http://permit.mee.gov.cn/permitExt/defaults/default-index!getInformation.action",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_policy_http_denied",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "4daa6520-791a-46b0-88b3-69a74b539015",
+        "chain_id": "fa068857-62dd-426b-b3af-79d018565f81",
+        "snapshot_id": "cc8df8dc4964e7b32b4e8988f70bb1319056b43b06ad069d5905eff64d1f8db6",
+        "observation_id": "4daa6520-791a-46b0-88b3-69a74b539015",
+        "response_status": 403,
+        "replayed": false,
+        "created_at": "2026-10-10T13:08:52.456722+00:00",
+        "requested_at": "2026-10-10T13:08:52.483737+00:00",
+        "archived_at": "2026-10-10T13:08:52.538630+00:00",
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ],
+    "dd-009": [
+      {
+        "id": "17da1367-c43b-4bb5-8b57-f5c1b50d9394",
+        "run_id": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-009",
+        "url": "https://find-and-update.company-information.service.gov.uk/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "cac37481919b0bec24f64bceab6c169eda42d92c9e2f0f02f9b411f45e704ecd",
+        "parent_url": null,
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "0c9b69b8-c8e4-4f9e-b114-e5dc395d1fc9",
+        "chain_id": "f0ea2bcf-6511-4311-9f71-86db8ed84b39",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:09:02.443944+00:00",
+        "requested_at": "2026-10-10T13:09:02.463545+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "seed",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "28386059-f4ca-482c-8021-e1f6c7bb7637",
+        "run_id": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-009",
+        "url": "https://find-and-update.company-information.service.gov.uk/",
+        "method": "GET",
+        "role": "list",
+        "fingerprint": "cac37481919b0bec24f64bceab6c169eda42d92c9e2f0f02f9b411f45e704ecd",
+        "parent_url": "https://find-and-update.company-information.service.gov.uk/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "duplicate_request",
+        "duplicate_of": "17da1367-c43b-4bb5-8b57-f5c1b50d9394",
+        "continued_by": null,
+        "request_id": null,
+        "chain_id": null,
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:09:02.459644+00:00",
+        "requested_at": null,
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "homepage",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "4d3787ab-8622-4dd2-907f-550242f2b756",
+        "run_id": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-009",
+        "url": "https://find-and-update.company-information.service.gov.uk/sitemap.xml",
+        "method": "GET",
+        "role": "sitemap",
+        "fingerprint": "7a5942f5dbd18326544ff34cd8dc2885ce26f271eb9bc8ac803ca2c421583a46",
+        "parent_url": "https://find-and-update.company-information.service.gov.uk/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "24a24838-8e85-49a2-9173-998ed5e35d54",
+        "chain_id": "3859d095-7cdc-418d-8bd0-66bc4b2088db",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:09:02.608195+00:00",
+        "requested_at": "2026-10-10T13:09:02.970336+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "sitemap_probe",
+        "depth": 0,
+        "scope_decision": "allowed"
+      },
+      {
+        "id": "954de4bd-cbb7-4e9c-ba21-827ae7170571",
+        "run_id": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "attempt_epoch": 1,
+        "source_id": "v13-live-dd-009",
+        "url": "https://find-and-update.company-information.service.gov.uk/robots.txt",
+        "method": "GET",
+        "role": "robots",
+        "fingerprint": "9b0c28229b498e26e15ab97ff5890ea740e356f9427c8b33488f6a955cef5de0",
+        "parent_url": "https://find-and-update.company-information.service.gov.uk/",
+        "parent_snapshot_id": null,
+        "parent_observation_id": null,
+        "parent_discovery_id": null,
+        "transport": "discovery",
+        "dont_filter": false,
+        "state": "skipped",
+        "reason": "robots_unavailable",
+        "duplicate_of": null,
+        "continued_by": null,
+        "request_id": "f82b2d93-5909-4847-be71-baa7e36ae375",
+        "chain_id": "39f47ef2-1d33-4060-b714-8a24db5f4111",
+        "snapshot_id": null,
+        "observation_id": null,
+        "response_status": null,
+        "replayed": false,
+        "created_at": "2026-10-10T13:09:02.705653+00:00",
+        "requested_at": "2026-10-10T13:09:02.727930+00:00",
+        "archived_at": null,
+        "parsed_at": null,
+        "discovery_method": "robots",
+        "depth": 0,
+        "scope_decision": "policy"
+      }
+    ]
+  },
+  "independent_verification": {
+    "status": "PASS",
+    "checked_at": "2026-10-10T13:09:50.235201+00:00",
+    "scope": "Read-only retained PostgreSQL rows and immutable archive objects; no network requests by this independent verification",
+    "assertions": 157,
+    "live_round": "v1.3-review-final3-live-20261010",
+    "records": 0,
+    "business_page_snapshots": 0,
+    "sources": [
+      {
+        "research_id": "dd-017",
+        "run_id": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "status": "partial",
+        "policy_discovery_id": "6e6e06db-cdd8-457c-b690-09177079801b",
+        "policy_reason": "robots_unavailable",
+        "http_error": "TunnelError",
+        "http_status": null,
+        "snapshot_id": null,
+        "body_hash": null,
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": null,
+        "body_kind": "no_response_body",
+        "snapshot_bytes_verified": null,
+        "native_duplicate_candidates": 0
+      },
+      {
+        "research_id": "dd-041",
+        "run_id": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "status": "partial",
+        "policy_discovery_id": "396392c4-d354-43c0-8aa7-c30cc9011c5e",
+        "policy_reason": "robots_unavailable",
+        "http_error": "TunnelError",
+        "http_status": null,
+        "snapshot_id": null,
+        "body_hash": null,
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": null,
+        "body_kind": "no_response_body",
+        "snapshot_bytes_verified": null,
+        "native_duplicate_candidates": 0
+      },
+      {
+        "research_id": "dd-250",
+        "run_id": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "status": "partial",
+        "policy_discovery_id": "2540fdc4-46f9-4dc1-9b74-5846b32fa310",
+        "policy_reason": "robots_unavailable",
+        "http_error": "TunnelError",
+        "http_status": null,
+        "snapshot_id": null,
+        "body_hash": null,
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": null,
+        "body_kind": "no_response_body",
+        "snapshot_bytes_verified": null,
+        "native_duplicate_candidates": 0
+      },
+      {
+        "research_id": "dd-468",
+        "run_id": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "status": "partial",
+        "policy_discovery_id": "704b44ea-4c64-4a26-b048-073a2e45a61e",
+        "policy_reason": "robots_policy_http_denied",
+        "http_error": null,
+        "http_status": 403,
+        "snapshot_id": "5b417e521ac7171da22e128f30f3510d943098aba03d683c52d856cbd556df9b",
+        "body_hash": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": 16,
+        "body_kind": "proxy_domain_rejection",
+        "snapshot_bytes_verified": true,
+        "native_duplicate_candidates": 0
+      },
+      {
+        "research_id": "dd-102",
+        "run_id": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "status": "partial",
+        "policy_discovery_id": "0b920d3d-2e57-48a3-b429-3fac4d88c9bf",
+        "policy_reason": "robots_unavailable",
+        "http_error": "TunnelError",
+        "http_status": null,
+        "snapshot_id": null,
+        "body_hash": null,
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": null,
+        "body_kind": "no_response_body",
+        "snapshot_bytes_verified": null,
+        "native_duplicate_candidates": 0
+      },
+      {
+        "research_id": "dd-247",
+        "run_id": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "status": "partial",
+        "policy_discovery_id": "39730f7a-7ec6-4882-90f0-e33be8d3e785",
+        "policy_reason": "robots_unavailable",
+        "http_error": "TunnelError",
+        "http_status": null,
+        "snapshot_id": null,
+        "body_hash": null,
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": null,
+        "body_kind": "no_response_body",
+        "snapshot_bytes_verified": null,
+        "native_duplicate_candidates": 0
+      },
+      {
+        "research_id": "dd-357",
+        "run_id": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "status": "partial",
+        "policy_discovery_id": "01f61b6e-8ca6-4f82-bbc1-317ca3330d8d",
+        "policy_reason": "robots_policy_http_denied",
+        "http_error": null,
+        "http_status": 403,
+        "snapshot_id": "cc8df8dc4964e7b32b4e8988f70bb1319056b43b06ad069d5905eff64d1f8db6",
+        "body_hash": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": 16,
+        "body_kind": "proxy_domain_rejection",
+        "snapshot_bytes_verified": true,
+        "native_duplicate_candidates": 0
+      },
+      {
+        "research_id": "dd-009",
+        "run_id": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "status": "partial",
+        "policy_discovery_id": "954de4bd-cbb7-4e9c-ba21-827ae7170571",
+        "policy_reason": "robots_unavailable",
+        "http_error": "TunnelError",
+        "http_status": null,
+        "snapshot_id": null,
+        "body_hash": null,
+        "record_emissions": 0,
+        "business_page_snapshots": 0,
+        "body_size": null,
+        "body_kind": "no_response_body",
+        "snapshot_bytes_verified": null,
+        "native_duplicate_candidates": 1
+      }
+    ],
+    "checks": [
+      {
+        "name": "dd-017_db_run_exists_and_matches",
+        "actual": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "expected": "0d171dd8-7679-4e01-b52d-9513339c24a7",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 245,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "4e338a4a32c67fd1cf86d9faa2da7410529a79de194e3f98d75214cc4fcf2148",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 245,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "4e338a4a32c67fd1cf86d9faa2da7410529a79de194e3f98d75214cc4fcf2148",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_transport_policy_unavailable",
+        "actual": "robots_unavailable",
+        "expected": "robots_unavailable",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_proxy_transport_error_retained",
+        "actual": "TunnelError",
+        "expected": "TunnelError",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_no_response_status",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_no_snapshot",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-017_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_db_run_exists_and_matches",
+        "actual": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "expected": "9222ee97-33c8-42b7-81ac-85fea960d503",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 243,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "75cba37e6c7ab2756c6c3f9db21ddad071cf3689f2fbc622028449693db73120",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 243,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "75cba37e6c7ab2756c6c3f9db21ddad071cf3689f2fbc622028449693db73120",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_transport_policy_unavailable",
+        "actual": "robots_unavailable",
+        "expected": "robots_unavailable",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_proxy_transport_error_retained",
+        "actual": "TunnelError",
+        "expected": "TunnelError",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_no_response_status",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_no_snapshot",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-041_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_db_run_exists_and_matches",
+        "actual": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "expected": "35df8c85-080f-40e9-9e2c-059e3702ddf1",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 244,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "f484a5400975c07cc09420e144a584766e3aa2a3f73279acb4631c28dd0c3a96",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 244,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "f484a5400975c07cc09420e144a584766e3aa2a3f73279acb4631c28dd0c3a96",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_transport_policy_unavailable",
+        "actual": "robots_unavailable",
+        "expected": "robots_unavailable",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_proxy_transport_error_retained",
+        "actual": "TunnelError",
+        "expected": "TunnelError",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_no_response_status",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_no_snapshot",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-250_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_db_run_exists_and_matches",
+        "actual": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "expected": "69c838a9-7e24-420f-81ea-0e6669822fca",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "response_received_count": 1,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 243,
+            "downloader/request_count": 1,
+            "downloader/response_bytes": 140,
+            "downloader/response_count": 1,
+            "downloader/exception_count": 3,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/response_status_count/403": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3
+          },
+          "errors": [
+            "http_error",
+            "robots_policy_http_denied",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 1,
+            "contract": 1,
+            "outcomes": {
+              "robots_policy_http_denied": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 1,
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied"
+            ]
+          },
+          "manifest_id": "3cfec10c8bcb1e02652dcf8bacdc9f152da620d1897369121059168f6921bc18",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 1,
+            "input_roles": {
+              "robots": 1
+            },
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 1
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "response_received_count": 1,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 243,
+            "downloader/request_count": 1,
+            "downloader/response_bytes": 140,
+            "downloader/response_count": 1,
+            "downloader/exception_count": 3,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/response_status_count/403": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3
+          },
+          "errors": [
+            "http_error",
+            "robots_policy_http_denied",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 1,
+            "contract": 1,
+            "outcomes": {
+              "robots_policy_http_denied": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 1,
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied"
+            ]
+          },
+          "manifest_id": "3cfec10c8bcb1e02652dcf8bacdc9f152da620d1897369121059168f6921bc18",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 1,
+            "input_roles": {
+              "robots": 1
+            },
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 1
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_http_policy_fetch_denial",
+        "actual": "robots_policy_http_denied",
+        "expected": "robots_policy_http_denied",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_proxy_http_status",
+        "actual": 403,
+        "expected": 403,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_retained_body_hash",
+        "actual": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "expected": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_retained_body_size",
+        "actual": 16,
+        "expected": 16,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_observation_body_hash",
+        "actual": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "expected": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_proxy_not_origin_robots_representation",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_proxy_snapshot_size",
+        "actual": 16,
+        "expected": 16,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_policy_archive_evidence",
+        "actual": "5b417e521ac7171da22e128f30f3510d943098aba03d683c52d856cbd556df9b",
+        "expected": "5b417e521ac7171da22e128f30f3510d943098aba03d683c52d856cbd556df9b",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_policy_observation_evidence",
+        "actual": "12577aa3-c626-489e-9f9b-54c5e25aa5ac",
+        "expected": "12577aa3-c626-489e-9f9b-54c5e25aa5ac",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-468_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_db_run_exists_and_matches",
+        "actual": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "expected": "f2f9c587-4331-45bb-8fda-4056e010f32f",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 244,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "53e18af22aaf1b3e5db169f8a3276bdaa5c4729c0f4dcbfb6a73cdc4efa6c684",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 244,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "53e18af22aaf1b3e5db169f8a3276bdaa5c4729c0f4dcbfb6a73cdc4efa6c684",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_transport_policy_unavailable",
+        "actual": "robots_unavailable",
+        "expected": "robots_unavailable",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_proxy_transport_error_retained",
+        "actual": "TunnelError",
+        "expected": "TunnelError",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_no_response_status",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_no_snapshot",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-102_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_db_run_exists_and_matches",
+        "actual": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "expected": "4467b170-ee10-4699-b272-12feb6a10d4f",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 244,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "4775c3909d31d69cd909b8d7d74fbc061f41e1bfeb63f72b45d0251e35a77e42",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 244,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 4,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "robots_unavailable": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "4775c3909d31d69cd909b8d7d74fbc061f41e1bfeb63f72b45d0251e35a77e42",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_transport_policy_unavailable",
+        "actual": "robots_unavailable",
+        "expected": "robots_unavailable",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_proxy_transport_error_retained",
+        "actual": "TunnelError",
+        "expected": "TunnelError",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_no_response_status",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_no_snapshot",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-247_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_db_run_exists_and_matches",
+        "actual": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "expected": "35d79bad-f52c-463e-b291-92b2aba2e14e",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "response_received_count": 1,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 246,
+            "downloader/request_count": 1,
+            "downloader/response_bytes": 140,
+            "downloader/response_count": 1,
+            "downloader/exception_count": 3,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/response_status_count/403": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3
+          },
+          "errors": [
+            "http_error",
+            "robots_policy_http_denied",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 1,
+            "contract": 1,
+            "outcomes": {
+              "robots_policy_http_denied": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 1,
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied"
+            ]
+          },
+          "manifest_id": "9cdb633d34eb6f36e3eb36c56948544c1ebbcf1b2ee4259afc54594312d5bae7",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 1,
+            "input_roles": {
+              "robots": 1
+            },
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 1
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 3,
+            "robotstxt/forbidden": 3,
+            "seal/record_json_hits": 0,
+            "response_received_count": 1,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 246,
+            "downloader/request_count": 1,
+            "downloader/response_bytes": 140,
+            "downloader/response_count": 1,
+            "downloader/exception_count": 3,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/response_status_count/403": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 3
+          },
+          "errors": [
+            "http_error",
+            "robots_policy_http_denied",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 1,
+            "contract": 1,
+            "outcomes": {
+              "robots_policy_http_denied": 4
+            },
+            "replayed": 0,
+            "requested": 4,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 0,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 4,
+            "archived_observations": 1,
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied"
+            ]
+          },
+          "manifest_id": "9cdb633d34eb6f36e3eb36c56948544c1ebbcf1b2ee4259afc54594312d5bae7",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "http_error",
+              "robots_policy_http_denied",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 1,
+            "input_roles": {
+              "robots": 1
+            },
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 1
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_http_policy_fetch_denial",
+        "actual": "robots_policy_http_denied",
+        "expected": "robots_policy_http_denied",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_proxy_http_status",
+        "actual": 403,
+        "expected": 403,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_retained_body_hash",
+        "actual": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "expected": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_retained_body_size",
+        "actual": 16,
+        "expected": 16,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_observation_body_hash",
+        "actual": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "expected": "301ab39b129a9f65a8f8d7bfee350718cd0268497182e59c7ce9c036adf0a213",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_proxy_not_origin_robots_representation",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_proxy_snapshot_size",
+        "actual": 16,
+        "expected": 16,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_policy_archive_evidence",
+        "actual": "cc8df8dc4964e7b32b4e8988f70bb1319056b43b06ad069d5905eff64d1f8db6",
+        "expected": "cc8df8dc4964e7b32b4e8988f70bb1319056b43b06ad069d5905eff64d1f8db6",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_policy_observation_evidence",
+        "actual": "4daa6520-791a-46b0-88b3-69a74b539015",
+        "expected": "4daa6520-791a-46b0-88b3-69a74b539015",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-357_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_db_run_exists_and_matches",
+        "actual": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "expected": "c6c1399c-1623-4565-bcd2-929427b554bd",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_partial_status",
+        "actual": "partial",
+        "expected": "partial",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_frozen_report_unchanged",
+        "actual": {
+          "stats": {
+            "seal/errors": 2,
+            "dupefilter/filtered": 1,
+            "robotstxt/forbidden": 2,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 279,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 3,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 2,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "duplicate_request": 1,
+              "robots_unavailable": 3
+            },
+            "replayed": 0,
+            "requested": 3,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 1,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 3,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "ff34babb9aeddd96ae68128bfc454233a755f2c4dd07cabac086782519d94ee4",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "expected": {
+          "stats": {
+            "seal/errors": 2,
+            "dupefilter/filtered": 1,
+            "robotstxt/forbidden": 2,
+            "seal/record_json_hits": 0,
+            "robotstxt/request_count": 1,
+            "seal/record_json_parses": 0,
+            "downloader/request_bytes": 279,
+            "downloader/request_count": 1,
+            "downloader/exception_count": 3,
+            "seal/record_json_evictions": 0,
+            "seal/record_json_peak_bytes": 0,
+            "seal/record_json_peak_entries": 0,
+            "seal/record_json_retained_bytes": 0,
+            "seal/record_json_retained_entries": 0,
+            "downloader/request_method_count/GET": 1,
+            "downloader/exception_type_count/scrapy.exceptions.IgnoreRequest": 2,
+            "downloader/exception_type_count/scrapy.core.downloader.handlers.http11.TunnelError": 1
+          },
+          "errors": [
+            "download_failed",
+            "robots_unavailable",
+            "unresolved_seed"
+          ],
+          "outputs": [],
+          "attempts": [],
+          "discovery": {
+            "failed": 0,
+            "parsed": 0,
+            "pending": 0,
+            "skipped": 4,
+            "archived": 0,
+            "contract": 1,
+            "outcomes": {
+              "duplicate_request": 1,
+              "robots_unavailable": 3
+            },
+            "replayed": 0,
+            "requested": 3,
+            "discovered": 4,
+            "event_limit": 100000,
+            "deduplicated": 1,
+            "instrumented": true,
+            "http_attempts": 1,
+            "unknown_coverage": true,
+            "callback_completed": 0,
+            "http_attempts_basis": "scrapy_downloader",
+            "unique_fingerprints": 3,
+            "archived_observations": 0,
+            "unknown_coverage_reasons": [
+              "robots_unavailable"
+            ]
+          },
+          "manifest_id": "ff34babb9aeddd96ae68128bfc454233a755f2c4dd07cabac086782519d94ee4",
+          "result_count": 0,
+          "finish_reason": "finished",
+          "record_counts": {
+            "record_count": 0,
+            "conflict_count": 0,
+            "emission_count": 0,
+            "duplicate_count": 0,
+            "conflicted_record_ids": []
+          },
+          "seeded_policy": {
+            "max_depth": 12,
+            "exclude_patterns": [],
+            "max_query_variants": 40
+          },
+          "quality_status": "not_evaluated",
+          "record_outputs": [],
+          "scope_evidence": {
+            "seed_count": 1,
+            "recheck_plan": null,
+            "unknown_coverage": true,
+            "attachment_inputs": [],
+            "pagination_inputs": [],
+            "absence_population": "known_records_in_run_namespace",
+            "unobserved_records": [],
+            "business_population": "unknown",
+            "resolved_seed_count": 0,
+            "unobserved_record_count": 0,
+            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
+            "unknown_coverage_reasons": [
+              "download_failed",
+              "robots_unavailable",
+              "unresolved_seed"
+            ]
+          },
+          "resource_counts": {
+            "input_count": 0,
+            "input_roles": {},
+            "http_attempts": 1,
+            "http_attempts_basis": "scrapy_downloader",
+            "archived_observations": 0
+          },
+          "effective_downloader_order": [
+            "seal.archive.RequestGuard",
+            "seal.robots.ArchivedRobotsMiddleware",
+            "scrapy.downloadermiddlewares.offsite.OffsiteMiddleware",
+            "scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware",
+            "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware",
+            "scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware",
+            "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware",
+            "scrapy.downloadermiddlewares.retry.RetryMiddleware",
+            "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware",
+            "scrapy.downloadermiddlewares.redirect.RedirectMiddleware",
+            "seal.archive.ResponseArchiveMiddleware",
+            "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware",
+            "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware",
+            "scrapy.downloadermiddlewares.stats.DownloaderStats"
+          ],
+          "request_budget_overshoot_upper_bound": 1
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_frozen_recipe_version",
+        "actual": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "expected": "f1290a404937328cadce36b933ab356dd23d62dfe1cf3cd1a6122ef9a70a4fe5",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_four_terminal_discoveries",
+        "actual": 4,
+        "expected": 4,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_all_terminal",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_zero_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_zero_exported_records",
+        "actual": 0,
+        "expected": 0,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_one_http_exchange",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_only_policy_observed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_no_source_business_page_body",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_one_policy_event",
+        "actual": 1,
+        "expected": 1,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_no_claim_of_parsed_rule_denial",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_transport_policy_unavailable",
+        "actual": "robots_unavailable",
+        "expected": "robots_unavailable",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_proxy_transport_error_retained",
+        "actual": "TunnelError",
+        "expected": "TunnelError",
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_no_response_status",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_no_snapshot",
+        "actual": null,
+        "expected": null,
+        "status": "PASS"
+      },
+      {
+        "name": "dd-009_business_requests_fail_closed",
+        "actual": true,
+        "expected": true,
+        "status": "PASS"
+      },
+      {
+        "name": "eight_sources_verified",
+        "actual": 8,
+        "expected": 8,
+        "status": "PASS"
+      },
+      {
+        "name": "two_proxy_response_snapshots",
+        "actual": 2,
+        "expected": 2,
+        "status": "PASS"
+      },
+      {
+        "name": "six_unavailable_policy_fetches",
+        "actual": 6,
+        "expected": 6,
+        "status": "PASS"
+      }
+    ],
+    "evidence_sha256": {
+      "commands.json": "a977470e9f6bc7574f716d52a9bc21193534b315d475bd802e3eb3cf09c2f279",
+      "dd-009/binding.json": "5ecabc78fee8b7c0bda23b5af63e1898c8470d50615413aaa837e5fc26160569",
+      "dd-009/collect.json": "90426583dc0cb8214acd248f4afd7829f4bf8e24de59f75a3b4067324fa359c5",
+      "dd-009/export.json": "91a5b7ce8da5d7990a6a32d9ca1a5e2648b44ca78959beeb1f1c890771d360cf",
+      "dd-009/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-009/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "dd-009/retained-source.json": "7fd0c3c39a06a497f195bcd2b45a685bfc8d524f0add91e3e9b5ce645891b074",
+      "dd-009/run.json": "a1502faf9746c7798cd83d05110f1f9b1758f8097492b8fdac48ec17de0f0f3b",
+      "dd-009/source.json": "f5b3680e6111133c1d8298ff34c532ca758228365e329a7d472f94dc0327ba9b",
+      "dd-017/binding.json": "99beea903b77a7ebf4ea0adc45017d14338ef69fda73455e7025c1a0beb3e37c",
+      "dd-017/collect.json": "c59dac7f249baca2cd6d2a25a9d63ba2b385bc67d4e1fcd222b7aef0c77a3470",
+      "dd-017/export.json": "454428ca7551960b72bdd2c49d1025e929351b78949163588343e282912e7a67",
+      "dd-017/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-017/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "dd-017/retained-source.json": "26014fc47b30748893f6bffd5b90fa3288f490baba8736a926c6427506020a41",
+      "dd-017/run.json": "f38ab87f6ed48afce2d7614a33632f7b813b9b60e41f00a23bbb5cb03398e8c5",
+      "dd-017/source.json": "2f3b1a28b8358683c71dae172507e48476224bb330f0578eb266024c34408409",
+      "dd-041/binding.json": "39a883a10268d683a6d272393f395b4c1f013c16d115eb6542aebc10667222ed",
+      "dd-041/collect.json": "bc998539e7a827fdb1cc678ff2b94041ea66e8ca070cdd8696b7f279ab7d4290",
+      "dd-041/export.json": "7567910084203e9d3463aad169225bd5046bb827d40037000559529d07efeb4b",
+      "dd-041/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-041/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "dd-041/retained-source.json": "bdcb19dc19338df66a0a18f1479118e809f1355f44cd78d1b646d3cee5ecc1f1",
+      "dd-041/run.json": "290e38ff152fdd4236aedb8c9e24160f6d39354f962f8a32652b9cebc4511489",
+      "dd-041/source.json": "c7a8ddd69f9a2470275c045e600bda24bf18100a661563d4ce11d18b0621e7be",
+      "dd-102/binding.json": "be1c4817917c8006c3c50be18ae021e39dd424849f1e13a0cca0ba7b94df52f7",
+      "dd-102/collect.json": "2579313aac52faed27c3709fa327f6cfea2143846238792aa63dac769bf33390",
+      "dd-102/export.json": "23a0bf89199117fbd7453a36c6bde1b8f15d742687bec039663d0f8c12cb9d47",
+      "dd-102/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-102/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "dd-102/retained-source.json": "d65b8324ab342b73dada0d5c2dae7ff8c1a18e03eeb4bb15df23d2d5c81820c6",
+      "dd-102/run.json": "12d7d51a70ed583aece71c3b9cf053749c5c7a526027575094d0278e6cc495c0",
+      "dd-102/source.json": "24de95d9f13d7316c0c38c668f2d1a799f0b1aead8e7d5b96b409bdbb5d9e4e9",
+      "dd-247/binding.json": "8e9dbdf7a5076f8f9319beae06953ab4832b4e3828476efa672f7588ea03e234",
+      "dd-247/collect.json": "273b0a2ff49d22bcbe3ea6e79001ede6f2748d649daaa3bdd49102b34b7f4e53",
+      "dd-247/export.json": "d76830e303db3644375b94e44a84d0f931ef951ab56a15ab4f31ffeab342d385",
+      "dd-247/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-247/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "dd-247/retained-source.json": "024f7e4a740e93dafd4435b084dfdddebe55ad9ad56d382d6c1b75f746162966",
+      "dd-247/run.json": "2e882bd6320b42976bbf134bb2244c405bc89cee91c73b0cf07574794287daca",
+      "dd-247/source.json": "2316c153ed18bed8389b986427d26b6d1d1f5fb440e4c1799e3175c6f34c2414",
+      "dd-250/binding.json": "c1ccd507c8b49312f9be1006b7abfab7f798e5266529002f2683089cc361dd70",
+      "dd-250/collect.json": "0ab7c22408d08915dd5452e55e9582bb7eb5416d266b3f80d3ffbcf01699f202",
+      "dd-250/export.json": "cdd57439caa944e31594fd332eeebada892b66afd9b6a205d7257571253b3100",
+      "dd-250/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-250/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "dd-250/retained-source.json": "696c3e2db85bf0110fa98e7abb6a902322fcf01936f2428bcf0bffa8afd6ede8",
+      "dd-250/run.json": "60d5c87e795d1a5216f2e19b33fd5b14f24bca7e6c342c5c721fe36a78728a9a",
+      "dd-250/source.json": "041b0c91df4904179a1ebed7033c1bec2bb4f55b1fa25ecc4c704872f6cdc7b2",
+      "dd-357/binding.json": "729ee5ec890d55a04301c122438d9d525b0362bea3e4f2a47d73be9e3f21ce70",
+      "dd-357/collect.json": "baa88017dec341c57f5a3cbc8b9248d5542958a9a3eaf3267d49adf86fed903b",
+      "dd-357/export.json": "c7fea080fb84784ff286689cddad34d25d0644942a3390969b440078628e4d7e",
+      "dd-357/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-357/retained-snapshots.json": "612d3a023b0293928d2676f92242128b28ccac943739fe6b3667dc6aa8f4c192",
+      "dd-357/retained-source.json": "067428a1ef8e2b3fb4934cc4117d99bd44c03857771af6d63a9e15e457a43227",
+      "dd-357/run.json": "993a4c8b18f07b3d3d9a04659950a56bed5466d2205e6bd241f387b02114cba6",
+      "dd-357/source.json": "6c2121e33683e417177fa3273bcb6e7b81292cef1605cce8ced8b586806d5565",
+      "dd-468/binding.json": "7b45980e3d14016bc5a639610643cd8449e7d7787897a5cf6b6b7d68f750b624",
+      "dd-468/collect.json": "56ed5d4cc9bca7b7ba491b392fc265eccff9e1cedb860fb68ecdb3c953157b31",
+      "dd-468/export.json": "1138ab6bfcc1397578e5daec6ede3e27234660145d5e18b64059a24c6beef571",
+      "dd-468/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+      "dd-468/retained-snapshots.json": "d6793389de6a7653632c37b3364d752c060c38c70b68066a93ed2a6315fff7fc",
+      "dd-468/retained-source.json": "ebcca32ed7a7927748b5a1cb4ddad9ab30d3b04b864332c3df6064c7c0a5a1ee",
+      "dd-468/run.json": "1f1ae7da8b4d3da08f47adbb3cb74ebc8500a5245649f0e5cbe6b26dd65f6fb4",
+      "dd-468/source.json": "20de5d21ff060138d9277f5336377c501013c4bbc47431e7ce151be59c45683f",
+      "manifest.json": "f7a9500c9f537e7e0d4c5d82201c00360dad6965741cd3de9b07049b7afc88b2",
+      "report.md": "268558cacf9be64badf14bddf2a883a38dca078c462b833ced0b46c19d4c97bd"
+    }
+  },
+  "local_evidence_sha256": {
+    "commands.json": "a977470e9f6bc7574f716d52a9bc21193534b315d475bd802e3eb3cf09c2f279",
+    "dd-009/binding.json": "5ecabc78fee8b7c0bda23b5af63e1898c8470d50615413aaa837e5fc26160569",
+    "dd-009/collect.json": "90426583dc0cb8214acd248f4afd7829f4bf8e24de59f75a3b4067324fa359c5",
+    "dd-009/export.json": "91a5b7ce8da5d7990a6a32d9ca1a5e2648b44ca78959beeb1f1c890771d360cf",
+    "dd-009/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-009/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-009/retained-source.json": "7fd0c3c39a06a497f195bcd2b45a685bfc8d524f0add91e3e9b5ce645891b074",
+    "dd-009/run.json": "a1502faf9746c7798cd83d05110f1f9b1758f8097492b8fdac48ec17de0f0f3b",
+    "dd-009/source.json": "f5b3680e6111133c1d8298ff34c532ca758228365e329a7d472f94dc0327ba9b",
+    "dd-017/binding.json": "99beea903b77a7ebf4ea0adc45017d14338ef69fda73455e7025c1a0beb3e37c",
+    "dd-017/collect.json": "c59dac7f249baca2cd6d2a25a9d63ba2b385bc67d4e1fcd222b7aef0c77a3470",
+    "dd-017/export.json": "454428ca7551960b72bdd2c49d1025e929351b78949163588343e282912e7a67",
+    "dd-017/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-017/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-017/retained-source.json": "26014fc47b30748893f6bffd5b90fa3288f490baba8736a926c6427506020a41",
+    "dd-017/run.json": "f38ab87f6ed48afce2d7614a33632f7b813b9b60e41f00a23bbb5cb03398e8c5",
+    "dd-017/source.json": "2f3b1a28b8358683c71dae172507e48476224bb330f0578eb266024c34408409",
+    "dd-041/binding.json": "39a883a10268d683a6d272393f395b4c1f013c16d115eb6542aebc10667222ed",
+    "dd-041/collect.json": "bc998539e7a827fdb1cc678ff2b94041ea66e8ca070cdd8696b7f279ab7d4290",
+    "dd-041/export.json": "7567910084203e9d3463aad169225bd5046bb827d40037000559529d07efeb4b",
+    "dd-041/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-041/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-041/retained-source.json": "bdcb19dc19338df66a0a18f1479118e809f1355f44cd78d1b646d3cee5ecc1f1",
+    "dd-041/run.json": "290e38ff152fdd4236aedb8c9e24160f6d39354f962f8a32652b9cebc4511489",
+    "dd-041/source.json": "c7a8ddd69f9a2470275c045e600bda24bf18100a661563d4ce11d18b0621e7be",
+    "dd-102/binding.json": "be1c4817917c8006c3c50be18ae021e39dd424849f1e13a0cca0ba7b94df52f7",
+    "dd-102/collect.json": "2579313aac52faed27c3709fa327f6cfea2143846238792aa63dac769bf33390",
+    "dd-102/export.json": "23a0bf89199117fbd7453a36c6bde1b8f15d742687bec039663d0f8c12cb9d47",
+    "dd-102/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-102/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-102/retained-source.json": "d65b8324ab342b73dada0d5c2dae7ff8c1a18e03eeb4bb15df23d2d5c81820c6",
+    "dd-102/run.json": "12d7d51a70ed583aece71c3b9cf053749c5c7a526027575094d0278e6cc495c0",
+    "dd-102/source.json": "24de95d9f13d7316c0c38c668f2d1a799f0b1aead8e7d5b96b409bdbb5d9e4e9",
+    "dd-247/binding.json": "8e9dbdf7a5076f8f9319beae06953ab4832b4e3828476efa672f7588ea03e234",
+    "dd-247/collect.json": "273b0a2ff49d22bcbe3ea6e79001ede6f2748d649daaa3bdd49102b34b7f4e53",
+    "dd-247/export.json": "d76830e303db3644375b94e44a84d0f931ef951ab56a15ab4f31ffeab342d385",
+    "dd-247/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-247/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-247/retained-source.json": "024f7e4a740e93dafd4435b084dfdddebe55ad9ad56d382d6c1b75f746162966",
+    "dd-247/run.json": "2e882bd6320b42976bbf134bb2244c405bc89cee91c73b0cf07574794287daca",
+    "dd-247/source.json": "2316c153ed18bed8389b986427d26b6d1d1f5fb440e4c1799e3175c6f34c2414",
+    "dd-250/binding.json": "c1ccd507c8b49312f9be1006b7abfab7f798e5266529002f2683089cc361dd70",
+    "dd-250/collect.json": "0ab7c22408d08915dd5452e55e9582bb7eb5416d266b3f80d3ffbcf01699f202",
+    "dd-250/export.json": "cdd57439caa944e31594fd332eeebada892b66afd9b6a205d7257571253b3100",
+    "dd-250/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-250/retained-snapshots.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "dd-250/retained-source.json": "696c3e2db85bf0110fa98e7abb6a902322fcf01936f2428bcf0bffa8afd6ede8",
+    "dd-250/run.json": "60d5c87e795d1a5216f2e19b33fd5b14f24bca7e6c342c5c721fe36a78728a9a",
+    "dd-250/source.json": "041b0c91df4904179a1ebed7033c1bec2bb4f55b1fa25ecc4c704872f6cdc7b2",
+    "dd-357/binding.json": "729ee5ec890d55a04301c122438d9d525b0362bea3e4f2a47d73be9e3f21ce70",
+    "dd-357/collect.json": "baa88017dec341c57f5a3cbc8b9248d5542958a9a3eaf3267d49adf86fed903b",
+    "dd-357/export.json": "c7fea080fb84784ff286689cddad34d25d0644942a3390969b440078628e4d7e",
+    "dd-357/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-357/retained-snapshots.json": "612d3a023b0293928d2676f92242128b28ccac943739fe6b3667dc6aa8f4c192",
+    "dd-357/retained-source.json": "067428a1ef8e2b3fb4934cc4117d99bd44c03857771af6d63a9e15e457a43227",
+    "dd-357/run.json": "993a4c8b18f07b3d3d9a04659950a56bed5466d2205e6bd241f387b02114cba6",
+    "dd-357/source.json": "6c2121e33683e417177fa3273bcb6e7b81292cef1605cce8ced8b586806d5565",
+    "dd-468/binding.json": "7b45980e3d14016bc5a639610643cd8449e7d7787897a5cf6b6b7d68f750b624",
+    "dd-468/collect.json": "56ed5d4cc9bca7b7ba491b392fc265eccff9e1cedb860fb68ecdb3c953157b31",
+    "dd-468/export.json": "1138ab6bfcc1397578e5daec6ede3e27234660145d5e18b64059a24c6beef571",
+    "dd-468/params.json": "d733ffc7e091078e38144b2854502adde4b18208d02799461ba09a00533b631f",
+    "dd-468/retained-snapshots.json": "d6793389de6a7653632c37b3364d752c060c38c70b68066a93ed2a6315fff7fc",
+    "dd-468/retained-source.json": "ebcca32ed7a7927748b5a1cb4ddad9ab30d3b04b864332c3df6064c7c0a5a1ee",
+    "dd-468/run.json": "1f1ae7da8b4d3da08f47adbb3cb74ebc8500a5245649f0e5cbe6b26dd65f6fb4",
+    "dd-468/source.json": "20de5d21ff060138d9277f5336377c501013c4bbc47431e7ce151be59c45683f",
+    "manifest.json": "f7a9500c9f537e7e0d4c5d82201c00360dad6965741cd3de9b07049b7afc88b2",
+    "report.md": "268558cacf9be64badf14bddf2a883a38dca078c462b833ced0b46c19d4c97bd"
+  },
+  "privacy": {
+    "database_url_recorded": false,
+    "raw_bodies_published": false,
+    "private_archive_retained": true
+  },
+  "historical_evidence": {
+    "preserved": true,
+    "initial_round": "live-final.json",
+    "previous_review_round": "artifacts/acceptance/v1.3-review-live-20261010"
+  },
+  "limitations": [
+    "No upstream business page body obtained under the environment outbound policy",
+    "Proxy denials do not establish the origin robots rules",
+    "Public pagination, API, XLS, iframe, search and unknown-template adaptation remain unverified",
+    "Queue exhaustion and execution counts do not prove source completeness"
+  ]
+}

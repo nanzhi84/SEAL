@@ -68,6 +68,8 @@ def write_manifest(source, binding, run, report, status, input_artifacts):
             "records": report["record_outputs"],
         },
     }
+    if report.get("replay_origin_id"):
+        manifest["replay_origin_id"] = report["replay_origin_id"]
     identity = Objects().put_json(manifest)
     # Report must never claim an artifact that cannot be read back.
     read_manifest(identity)

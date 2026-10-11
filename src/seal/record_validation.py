@@ -8,7 +8,7 @@ from collections import OrderedDict
 from threading import RLock
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from .attachments import located_attachment, parse_attachment
 from .config import Strict
@@ -18,7 +18,16 @@ from .core import Objects, SealError, canonical, public_url
 class ParentRequest(Strict):
     url: str
     role: str = Field(min_length=1, max_length=64, pattern=r"^[a-zA-Z0-9_-]+$")
-    method: Literal["GET"] = "GET"
+    method: Literal["GET", "POST"] = "GET"
+    body: str = Field(default="", max_length=16384, exclude_if=lambda value: not value)
+
+    @model_validator(mode="after")
+    def request_body(self):
+        if (self.method == "GET" and self.body) or (self.method == "POST" and not self.body):
+            raise SealError("record_parent_request_rejected")
+        if not self.body.isascii():
+            raise SealError("record_parent_request_rejected")
+        return self
 
 
 class RecordCandidate(Strict):
@@ -224,6 +233,10 @@ def located_value(snapshot, body, locator, cache=None):
     # The old text locator keeps its historical string/strip semantics.
     from .items import text_value
 
+    if locator.get("kind") in {"html_blocks", "html_links", "html_date", "response_url"}:
+        from .fallback import html_locator_value
+
+        return html_locator_value(snapshot, body, locator)
     if locator.get("kind") == "json" and "transform" not in locator:
         return json_pointer(
             body, locator.get("pointer"), cache=cache, body_hash=snapshot["body_hash"]
@@ -270,7 +283,7 @@ def validate_record(item, cache=None):
         raise SealError("record_locator_fields_mismatch")
     objects = Objects()
     snapshot = objects.json(value.snapshot_id)
-    if snapshot["method"] != "GET" or snapshot["status"] != 200:
+    if snapshot["method"] not in {"GET", "POST"} or snapshot["status"] != 200:
         raise SealError("invalid_record_response")
     inputs = {value.snapshot_id: (snapshot, objects.get(snapshot["body_hash"]))}
     lineage = [{"snapshot_id": value.snapshot_id, "observation_id": value.observation_id}]
@@ -278,7 +291,7 @@ def validate_record(item, cache=None):
         if set(entry) != {"snapshot_id", "observation_id"}:
             raise SealError("invalid_supplementary_input")
         other = objects.json(entry["snapshot_id"])
-        if other["method"] != "GET" or other["status"] != 200:
+        if other["method"] not in {"GET", "POST"} or other["status"] != 200:
             raise SealError("invalid_supplementary_response")
         inputs[entry["snapshot_id"]] = (other, objects.get(other["body_hash"]))
         if entry not in lineage:

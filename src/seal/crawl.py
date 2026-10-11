@@ -22,6 +22,8 @@ def settings_for(context):
     replay = context["mode"] == "replay"
     middlewares = {
         "seal.archive.RequestGuard": None if replay else 40,
+        "scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware": None,
+        "seal.robots.ArchivedRobotsMiddleware": 25 if replay else 45,
         "seal.archive.ReplayMiddleware": 30 if replay else None,
         "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware": None
         if replay
@@ -49,8 +51,8 @@ def settings_for(context):
         "EXTENSIONS": {"seal.crawl.Completion": 100, "seal.discovery.Discovery": 110},
         "HTTPCACHE_ENABLED": False,
         "COOKIES_ENABLED": False,
-        "HTTPPROXY_ENABLED": False,
-        "ROBOTSTXT_OBEY": False,
+        "HTTPPROXY_ENABLED": os.environ.get("SEAL_USE_ENV_PROXY") == "1",
+        "ROBOTSTXT_OBEY": config.get("robots", False),
         "RETRY_ENABLED": not replay,
         "RETRY_TIMES": 2,
         "RETRY_HTTP_CODES": [500, 502, 503, 504, 522, 524, 408],
@@ -107,6 +109,7 @@ class Completion:
                 "retry",
                 "dupefilter",
                 "seal",
+                "robotstxt",
             }
         }
         classes = [
@@ -137,6 +140,11 @@ class Completion:
                                 "request_budget_overshoot_upper_bound": self.context["config"][
                                     "concurrency"
                                 ],
+                                **(
+                                    {"seeded_policy": self.context["seeded_policy"]}
+                                    if "seeded_policy" in self.context
+                                    else {}
+                                ),
                             }
                         ),
                         self.context["id"],
@@ -163,6 +171,19 @@ def main():
     try:
         context = run_context(run_id, epoch)
         recipe = import_recipe(context["recipe_version"])
+        if getattr(recipe, "seeded_collection", False):
+            if not context["config"].get("robots"):
+                from .core import SealError
+
+                raise SealError("seeded_robots_required")
+            context["seeded_policy"] = {
+                **recipe.discovery_defaults,
+                **{
+                    key: value
+                    for key, value in context["params"].items()
+                    if key in recipe.discovery_defaults
+                },
+            }
         # Recipe settings cannot silently replace archival or replay behavior.
         if recipe.custom_settings:
             raise ValueError("recipe_settings_not_supported")

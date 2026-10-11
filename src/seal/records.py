@@ -21,7 +21,7 @@ def _stage_resource(c, source, run, entry):
     if known and known.get("resource_input"):
         return known["resource_input"]
     snapshot = Objects().json(entry["snapshot_id"])
-    if snapshot["method"] != "GET" or snapshot["status"] != 200:
+    if snapshot["method"] not in {"GET", "POST"} or snapshot["status"] != 200:
         return None
     observation = one(
         c, "SELECT * FROM seal_fetch_observation WHERE id=%s", (entry["observation_id"],)
@@ -157,6 +157,10 @@ def stage_record(context, item, validation=None):
             and public_url(known["logical_url"]) == parent["url"]
             and known["role"] == parent["role"]
             and known["method"] == parent["method"]
+            and (
+                parent["method"] != "POST"
+                or known.get("request_body_sha256") == digest(parent["body"].encode("ascii"))
+            )
             for known in run["inputs"]
         ):
             raise SealError("record_parent_request_mismatch")

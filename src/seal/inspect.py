@@ -1,13 +1,16 @@
 """Read Runtime evidence and immutable manifest mappings without changing state."""
 
-from .core import SealError
+from .core import Objects, SealError
 from .db import connect, one
 from .manifest import has_table, manifest_reference, read_manifest
 
 
 def run_evidence(connection, run):
+    from .runs import run_summary
+
     value = {
         "run": run,
+        "summary": run_summary(connection, run),
         "observations": connection.execute(
             "SELECT * FROM seal_fetch_observation WHERE run_id=%s ORDER BY archived_at",
             (run["id"],),
@@ -44,6 +47,53 @@ def inspect_record(kind, identity):
     if kind == "manifest":
         return {"manifest_id": identity, "manifest": read_manifest(identity)}
     with connect() as c:
+        if kind == "record":
+            record = one(c, "SELECT * FROM seal_record WHERE id=%s", (identity,))
+            return {
+                "record": record,
+                "versions": c.execute(
+                    "SELECT * FROM seal_record_version WHERE record_id=%s ORDER BY created_at,id",
+                    (identity,),
+                ).fetchall(),
+                "results": c.execute(
+                    "SELECT * FROM seal_record_result WHERE record_id=%s ORDER BY created_at,id",
+                    (identity,),
+                ).fetchall(),
+                "emissions": c.execute(
+                    "SELECT * FROM seal_record_emission WHERE record_id=%s ORDER BY created_at,id",
+                    (identity,),
+                ).fetchall(),
+            }
+        if kind == "snapshot":
+            try:
+                snapshot = Objects().json(identity)
+            except (TypeError, ValueError):
+                raise SealError("snapshot_corrupt") from None
+            if (
+                not isinstance(snapshot, dict)
+                or snapshot.get("contract") != 1
+                or not {"body_hash", "body_size", "method", "url", "status"} <= snapshot.keys()
+                or not isinstance(snapshot["body_hash"], str)
+                or type(snapshot["body_size"]) is not int
+                or snapshot["body_size"] < 0
+            ):
+                raise SealError("unsupported_snapshot_contract")
+            archive = {"availability": "available"}
+            try:
+                body = Objects().get(snapshot["body_hash"])
+                if len(body) != snapshot["body_size"]:
+                    raise SealError("snapshot_body_size_mismatch")
+            except SealError as exc:
+                archive = {"availability": "unavailable", "reason": exc.code}
+            return {
+                "snapshot_id": identity,
+                "snapshot": snapshot,
+                "archive": archive,
+                "observations": c.execute(
+                    "SELECT * FROM seal_fetch_observation WHERE snapshot_id=%s ORDER BY requested_at,id",
+                    (identity,),
+                ).fetchall(),
+            }
         if kind == "binding":
             return one(c, "SELECT * FROM seal_binding WHERE id=%s", (identity,))
         if kind == "run":
