@@ -1,10 +1,10 @@
-"""Technical completion only: no quality assessment or publication decisions."""
-
-from collections import Counter
+"""Completion commits document pointers; technical success never proves coverage."""
 
 from .core import Objects, SealError
-from .db import connect, fenced, j, locked_run, one
-from .manifest import has_table, terminal_report, write_manifest
+from .db import connect, fenced, j, locked_run
+from .documents import accept_documents, finish_documents
+from .manifest import terminal_report
+from .recheck import complete_dates, failed_dates
 from .run_state import TERMINAL_STATES, exhaustion_error
 
 
@@ -12,24 +12,14 @@ def completion_status(errors, run):
     limit = exhaustion_error(run)
     if limit == "deadline_exceeded" and limit not in errors:
         errors.append(limit)
-        errors.sort()
     if not errors:
         return "complete"
-    structural = {"unresolved_document_refs", "unresolved_seed", "incomplete_crawl"}
-    temporary = {
-        "download_failed",
-        "http_5xx",
-        "source_rate_limited",
-        "child_process_failed",
-        "crawl_timeout",
-    }
-    transient = bool(set(errors) & temporary) and not (set(errors) - structural - temporary)
-    if run["mode"] != "replay" and transient and "source_rate_limited" not in errors:
-        if not limit:
-            return "retryable"
-        if limit not in errors:
-            errors.append(limit)
-            errors.sort()
+    structural = {"unresolved_seed", "incomplete_crawl", "document_parse_missing"}
+    temporary = {"download_failed", "http_5xx", "child_process_failed", "crawl_timeout"}
+    if set(errors) & temporary and not (set(errors) - structural - temporary) and not limit:
+        return "retryable"
+    if limit and limit not in errors:
+        errors.append(limit)
     return "failed"
 
 
@@ -40,238 +30,85 @@ def finish_run(run_id, epoch=None):
         source, run = locked_run(c, run_id)
         epoch = run["attempt_epoch"] if epoch is None else epoch
         if run["status"] in TERMINAL_STATES:
-            return receipt(run_id)
-        if run["mode"] not in ("collect", "recheck", "replay"):
+            return run_receipt(c, run)
+        if run["mode"] not in ("collect", "recheck"):
             raise SealError("unsupported_run_mode")
-        if run["status"] != "finishing":
-            raise SealError("crawl_not_completed")
-        # A late finisher for an old attempt must not terminate a newer attempt.
         if epoch != run["attempt_epoch"]:
             raise SealError("stale_attempt")
+        if run["status"] != "finishing":
+            raise SealError("crawl_not_completed")
         try:
             fenced(source, run, epoch)
         except SealError as exc:
             report = terminal_report(c, source, run, "failed", exc.code)
             c.execute(
-                "UPDATE seal_run SET status='failed',report=%s,errors=%s,completed_at=now() WHERE id=%s",
+                "UPDATE seal.run SET status='failed',report=%s,errors=%s,completed_at=now() WHERE id=%s",
                 (j(report), j(report["errors"]), run_id),
             )
             return run_receipt(
                 c, dict(run, status="failed", errors=report["errors"], report=report)
             )
-        errors = list(run["errors"])
-        binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (run["binding_id"],))
-        results = c.execute(
-            "SELECT * FROM seal_result WHERE id=ANY(%s) ORDER BY document_id", (run["result_ids"],)
+        errors = set(run["errors"])
+        used = {(entry["logical_url"], entry["role"]) for entry in run["inputs"]}
+        if not all((s["url"], s["role"]) in used for s in run["seeds"]):
+            errors.add("unresolved_seed")
+        exchanges = c.execute(
+            """SELECT DISTINCT ON(o.chain_id) o.status,o.error,o.final_url,
+            EXISTS(SELECT 1 FROM seal.discovery d WHERE d.run_id=o.run_id AND d.attempt_epoch=o.attempt_epoch
+              AND d.chain_id=o.chain_id AND (d.role='robots' OR d.reason='optional_entry_missing')) AS absent_allowed
+            FROM seal.fetch_observation o WHERE o.run_id=%s AND o.attempt_epoch=%s
+            ORDER BY o.chain_id,o.requested_at DESC""",
+            (run_id, epoch),
         ).fetchall()
-        if len(results) != len(run["result_ids"]):
-            errors.append("result_reference_missing")
-        urls = {r["candidate"]["url"] for r in results}
-        if not set(run["refs"]) <= urls:
-            errors.append("unresolved_document_refs")
-        used_seeds = {(i["logical_url"], i["role"]) for i in run["inputs"]}
-        if not all((s["url"], s["role"]) in used_seeds for s in run["seeds"]):
-            errors.append("unresolved_seed")
-        online = run["mode"] != "replay"
-        if online:
-            policy_column = (
-                "EXISTS (SELECT 1 FROM seal_discovery d WHERE d.run_id=o.run_id "
-                "AND d.attempt_epoch=o.attempt_epoch AND d.chain_id=o.chain_id "
-                "AND (d.role='robots' OR d.reason='optional_entry_missing')) AS absent_entry_allowed"
-                if has_table(c, "seal_discovery")
-                else "false AS absent_entry_allowed"
-            )
-            exchanges = c.execute(
-                "SELECT DISTINCT ON (o.chain_id) o.status,o.error,o.final_url,"
-                + policy_column
-                + " FROM seal_fetch_observation o WHERE o.run_id=%s AND o.attempt_epoch=%s "
-                "ORDER BY o.chain_id,o.requested_at DESC",
-                (run_id, epoch),
-            ).fetchall()
-            for exchange in exchanges:
-                status = exchange["status"]
-                if exchange["absent_entry_allowed"] and status in {404, 410}:
-                    continue
-                if status is None:
-                    errors.append("download_failed")
-                elif status == 429:
-                    errors.append("source_rate_limited")
-                elif status >= 500:
-                    errors.append("http_5xx")
-                elif status >= 400:
-                    errors.append("http_error")
-                elif status == 304:
-                    errors.append("unexpected_304")
-                elif 300 <= status < 400 and exchange["final_url"] is None:
-                    errors.append("redirect_incomplete")
+        for exchange in exchanges:
+            status = exchange["status"]
+            if exchange["absent_allowed"] and status in {404, 410}:
+                continue
+            if status is None:
+                errors.add("download_failed")
+            elif status == 429:
+                errors.add("source_rate_limited")
+            elif status >= 500:
+                errors.add("http_5xx")
+            elif status >= 400:
+                errors.add("http_error")
+            elif status == 304:
+                errors.add("unexpected_304")
+            elif 300 <= status < 400 and exchange["final_url"] is None:
+                errors.add("redirect_incomplete")
         finish_reason = run["report"].get("finish_reason")
         if finish_reason != "finished":
-            errors.append("incomplete_crawl")
+            errors.add("incomplete_crawl")
         if finish_reason == "closespider_timeout":
-            errors.append("crawl_time_budget_exceeded")
-        input_artifacts = []
+            errors.add("crawl_time_budget_exceeded")
         for entry in run["inputs"]:
             try:
-                snapshot = Objects().json(entry["snapshot_id"])
-                Objects().get(snapshot["body_hash"])
-                input_artifacts.append(
-                    dict(entry, body_hash=snapshot["body_hash"], body_size=snapshot["body_size"])
-                )
+                body = Objects().json(entry["snapshot_id"])
+                Objects().get(body["body_hash"])
             except SealError as exc:
-                errors.append(exc.code)
-                input_artifacts.append(dict(entry, availability="unavailable", reason=exc.code))
-        outputs = []
-        for result in results:
-            doc = one(
-                c, "SELECT * FROM seal_document WHERE id=%s FOR UPDATE", (result["document_id"],)
-            )
-            latest = one(
-                c, "SELECT * FROM seal_fetch_observation WHERE id=%s", (doc["latest_observation"],)
-            )
-            if latest["snapshot_id"] not in result["inputs"]:
-                errors.append("stale_result_input")
-                continue
-            if online and (latest["run_id"] != run_id or latest["attempt_epoch"] != epoch):
-                errors.append("stale_result_observation")
-                continue
-            outputs.append(
-                {
-                    "result_id": result["id"],
-                    "revision_id": doc["latest_revision"],
-                    "observation_id": latest["id"],
-                }
-            )
-        record_finish = {"outputs": [], "errors": [], "counts": {}}
-        document_finish = {"outputs": [], "errors": [], "counts": {}}
-        if has_table(c, "seal_document_version"):
-            from .documents import finish_documents
-
-            document_finish = finish_documents(c, source, run)
-            errors.extend(document_finish["errors"])
-            if binding["config"].get("output_schema") == "document.v1":
-                saved = {
-                    (entry["snapshot_id"], entry["observation_id"])
-                    for output in document_finish["outputs"]
-                    for entry in output["inputs"]
-                }
-                for entry in run["inputs"]:
-                    if entry["role"] in {"robots", "sitemap"}:
-                        continue
-                    snapshot = Objects().json(entry["snapshot_id"])
-                    if (
-                        snapshot["status"] == 200
-                        and (entry["snapshot_id"], entry["observation_id"]) not in saved
-                    ):
-                        errors.append("document_parse_missing")
-        records_available = has_table(c, "seal_record")
-        if records_available:
-            from .records import finish_records
-
-            record_finish = finish_records(c, source, run)
-            errors.extend(record_finish["errors"])
-        discovery = {"contract": 1, "availability": "not_recorded", "unknown_coverage": True}
-        if has_table(c, "seal_discovery"):
-            from .discovery import finish_discovery
-            from .discovery_report import summarize_discovery
-
-            finish_discovery(c, run, run["report"].get("finish_reason", "unknown"))
-            discovery = summarize_discovery(c, run)
-            errors.extend(discovery.get("unknown_coverage_reasons", []))
-        from .recheck import complete_dates, failed_dates, scope_details
-
-        unobserved = []
-        if records_available:
-            from .recheck import unobserved_records
-
-            unobserved = unobserved_records(c, source, run)
-        errors = sorted(set(errors))
+                errors.add(exc.code)
+        documents = finish_documents(c, source, run)
+        errors.update(documents["errors"])
+        missing = c.execute(
+            """SELECT count(*) AS n FROM seal.fetch_observation o WHERE o.run_id=%s AND o.attempt_epoch=%s
+            AND o.is_content AND o.processing_stage<>'parse_failed' AND NOT EXISTS (
+             SELECT 1 FROM seal.document_emission e WHERE e.run_id=o.run_id AND e.attempt_epoch=o.attempt_epoch AND e.observation_id=o.id)""",
+            (run_id, epoch),
+        ).fetchone()["n"]
+        if missing:
+            errors.add("document_parse_missing")
+        run["errors"] = sorted(errors)
+        status = completion_status(run["errors"], run)
+        report = terminal_report(c, source, run, status, None)
+        errors = report["errors"]
         status = completion_status(errors, run)
-        from .discovery_report import network_counts
-
-        resource_counts = network_counts(c, run)
-        resource_counts.update(
-            input_count=len(run["inputs"]),
-            input_roles=dict(Counter(entry["role"] for entry in run["inputs"])),
-        )
-        scope_evidence = {
-            **scope_details(run),
-            "seed_count": len(run["seeds"]),
-            "resolved_seed_count": sum(
-                (seed["url"], seed["role"]) in used_seeds for seed in run["seeds"]
-            ),
-            "business_population": "unknown",
-            "unknown_coverage": bool(errors) or discovery["unknown_coverage"] or bool(unobserved),
-            "unknown_coverage_reasons": sorted(
-                set(errors + (["records_unobserved"] if unobserved else []))
-            ),
-            "pagination_inputs": [
-                entry["snapshot_id"] for entry in run["inputs"] if entry["role"] in ("list", "api")
-            ],
-            "attachment_inputs": [
-                entry["snapshot_id"]
-                for entry in run["inputs"]
-                if entry["role"] == "attachment" or entry.get("resource_type") == "attachment"
-            ],
-            "record_absence_semantics": "unobserved_is_unknown_never_deleted",
-            "unobserved_records": unobserved,
-            "unobserved_record_count": len(unobserved),
-        }
-        report = dict(
-            run["report"],
-            result_count=len(results),
-            outputs=outputs,
-            document_outputs=document_finish["outputs"],
-            document_counts=document_finish["counts"],
-            record_outputs=record_finish["outputs"],
-            record_counts=record_finish["counts"],
-            discovery=discovery,
-            resource_counts=resource_counts,
-            scope_evidence=scope_evidence,
-            quality_status="not_evaluated",
-            errors=errors,
-        )
-        binding = one(c, "SELECT * FROM seal_binding WHERE id=%s", (run["binding_id"],))
-        try:
-            report["manifest_id"] = write_manifest(
-                source, binding, run, report, status, input_artifacts
-            )
-        except (SealError, OSError, TypeError, ValueError) as exc:
-            errors = sorted(set([*errors, "manifest_archive_failed"]))
-            status = completion_status(errors, run)
-            report.update(
-                errors=errors,
-                manifest_id=None,
-                manifest_error=exc.code
-                if isinstance(exc, SealError)
-                else "manifest_archive_failed",
-            )
-            scope_evidence.update(
-                unknown_coverage=True,
-                unknown_coverage_reasons=sorted(
-                    set(errors + (["records_unobserved"] if unobserved else []))
-                ),
-            )
-        if records_available and status == "complete":
-            from .records import accept_records
-
-            accept_records(c, source, run, record_finish["outputs"])
         if status == "complete":
-            if has_table(c, "seal_document_version"):
-                from .documents import accept_documents
-
-                accept_documents(c, source, run, document_finish["outputs"])
-            complete_dates(
-                c,
-                source,
-                run,
-                record_finish["outputs"],
-                outputs,
-                document_finish["outputs"],
-            )
+            accept_documents(c, source, run, documents["outputs"])
+            complete_dates(c, source, run, documents["outputs"])
         else:
             failed_dates(c, source, run, status)
         c.execute(
-            "UPDATE seal_run SET status=%s,report=%s,errors=%s,completed_at=now() WHERE id=%s",
+            "UPDATE seal.run SET status=%s,report=%s,errors=%s,completed_at=now() WHERE id=%s",
             (status, j(report), j(errors), run_id),
         )
     return receipt(run_id)

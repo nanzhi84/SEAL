@@ -4,8 +4,25 @@ params_schema:
   type: object
   additionalProperties: false
   properties:
-    links: {type: string, minLength: 1}
-    next_page: {type: string, minLength: 1}
-    title: {type: string, minLength: 1}
-    body: {type: string, minLength: 1}
-    date: {type: string, minLength: 1}
+    links:
+      type: string
+      minLength: 1
+    next_page:
+      type: string
+      minLength: 1
+    options:
+      type: object
+      additionalProperties: false
+      properties:
+        body_css:
+          type: string
+          minLength: 1
+        title_css:
+          type: string
+          minLength: 1
+        format:
+          type: string
+          minLength: 1
+        csv_delimiter:
+          type: string
+          minLength: 1

@@ -13,38 +13,26 @@ from scrapy.crawler import CrawlerProcess
 
 from .db import connect, j, record_error
 from .discovery import mark_failed
-from .recipes import import_recipe, load_field_contract
+from .recipes import import_recipe
 from .runs import run_context
 
 
 def settings_for(context):
     config = context["config"]
-    replay = context["mode"] == "replay"
     middlewares = {
-        "seal.archive.RequestGuard": None if replay else 40,
+        "seal.archive.RequestGuard": 40,
         "scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware": None,
-        "seal.robots.ArchivedRobotsMiddleware": 25 if replay else 45,
-        "seal.archive.ReplayMiddleware": 30 if replay else None,
-        "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware": None
-        if replay
-        else 610,
+        "seal.robots.ArchivedRobotsMiddleware": 45,
         "seal.archive.ResponseArchiveMiddleware": 605,
+        "scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware": 610,
+        "seal.inputs.InputMiddleware": 575,
     }
-    if replay:
-        middlewares.update(
-            {
-                "scrapy.downloadermiddlewares.redirect.RedirectMiddleware": None,
-                "scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware": None,
-                "scrapy.downloadermiddlewares.retry.RetryMiddleware": None,
-            }
-        )
     return {
         "SEAL_CONTEXT": context,
         "REQUEST_FINGERPRINTER_CLASS": "seal.discovery.ResourceFingerprinter",
         "TWISTED_REACTOR": "twisted.internet.asyncioreactor.AsyncioSelectorReactor",
         "DOWNLOADER_MIDDLEWARES": middlewares,
         "SPIDER_MIDDLEWARES": {
-            "seal.archive.InputMiddleware": 100,
             "seal.discovery.DiscoverySpiderMiddleware": 200,
         },
         "ITEM_PIPELINES": {"seal.items.ItemPipeline": 100},
@@ -53,14 +41,14 @@ def settings_for(context):
         "COOKIES_ENABLED": False,
         "HTTPPROXY_ENABLED": os.environ.get("SEAL_USE_ENV_PROXY") == "1",
         "ROBOTSTXT_OBEY": config.get("robots", False),
-        "RETRY_ENABLED": not replay,
+        "RETRY_ENABLED": True,
         "RETRY_TIMES": 2,
         "RETRY_HTTP_CODES": [500, 502, 503, 504, 522, 524, 408],
         "CONCURRENT_REQUESTS": config["concurrency"],
         "CONCURRENT_REQUESTS_PER_DOMAIN": config["concurrency"],
         "CONCURRENT_ITEMS": config["concurrency"],
         "DOWNLOAD_DELAY": config["delay"],
-        "AUTOTHROTTLE_ENABLED": not replay,
+        "AUTOTHROTTLE_ENABLED": True,
         "AUTOTHROTTLE_START_DELAY": config["delay"],
         "AUTOTHROTTLE_MAX_DELAY": 5.0,
         "RANDOMIZE_DOWNLOAD_DELAY": False,
@@ -121,7 +109,7 @@ class Completion:
             with connect() as c:
                 if stats.get("seal/errors", 0):
                     c.execute(
-                        "UPDATE seal_run SET errors=%s WHERE id=%s AND attempt_epoch=%s "
+                        "UPDATE seal.run SET errors=%s WHERE id=%s AND attempt_epoch=%s "
                         "AND status IN ('running','finishing') AND errors='[]'",
                         (
                             j(["unpersisted_processing_error"]),
@@ -130,7 +118,7 @@ class Completion:
                         ),
                     )
                 c.execute(
-                    "UPDATE seal_run SET status='finishing',report=report || %s WHERE id=%s AND attempt_epoch=%s AND status='running'",
+                    "UPDATE seal.run SET status='finishing',report=report || %s WHERE id=%s AND attempt_epoch=%s AND status='running'",
                     (
                         j(
                             {
@@ -171,10 +159,6 @@ def main():
     try:
         context = run_context(run_id, epoch)
         recipe = import_recipe(context["recipe_version"])
-        contract, functions = load_field_contract(context["recipe_version"])
-        if contract:
-            context["field_contract"] = contract
-            context["_field_functions"] = functions
         if getattr(recipe, "seeded_collection", False):
             if not context["config"].get("robots"):
                 from .core import SealError
@@ -188,7 +172,7 @@ def main():
                     if key in recipe.discovery_defaults
                 },
             }
-        # Recipe settings cannot silently replace archival or replay behavior.
+        # Recipe settings cannot silently replace archival behavior.
         if recipe.custom_settings:
             raise ValueError("recipe_settings_not_supported")
         process = CrawlerProcess(settings_for(context))
@@ -211,7 +195,7 @@ def main():
         if isinstance(exc, SealError):
             with connect() as c:
                 c.execute(
-                    "UPDATE seal_run SET status='finishing',report=report || %s WHERE id=%s AND attempt_epoch=%s AND status='running'",
+                    "UPDATE seal.run SET status='finishing',report=report || %s WHERE id=%s AND attempt_epoch=%s AND status='running'",
                     (j({"finish_reason": "recipe_setup_failed"}), run_id, epoch),
                 )
         return 1

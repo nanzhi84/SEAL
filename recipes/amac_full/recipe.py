@@ -2,9 +2,9 @@
 
 This is a source-specific Python pagination contract, not a generic URL DSL.
 Every page must agree with the frozen native total, exact page length and
-Source-scoped displayed-name uniqueness. No speculative empty page is fetched.
+exact set of page numbers. No speculative empty page is fetched.
 The API has no snapshot token: this does not promise an atomic backend snapshot
-or rename continuity. Missing old records retain Runtime's unknown semantics.
+or rename continuity. Unobserved old documents retain Runtime's unknown semantics.
 """
 
 import re
@@ -12,8 +12,7 @@ import re
 import scrapy
 
 from seal.core import SealError
-from seal.helpers import diagnostic, follow, record_item
-from seal.record_validation import json_pointer
+from seal.helpers import diagnostic, follow
 
 API_PATH = "/portal/front/financial/fundTrustee/findFundTrusteesPage"
 PAGE_SIZE = 10
@@ -27,7 +26,7 @@ class AmacFullSpider(scrapy.Spider):
         self.params, self.context = params, context
         self.allowed_domains = context["config"]["allowed_hosts"]
         self.base = context["config"]["entry_urls"][0].split("?", 1)[0]
-        self.pages, self.names = set(), set()
+        self.pages = set()
 
     async def start(self):
         for seed in self.context["seeds"]:
@@ -61,7 +60,7 @@ class AmacFullSpider(scrapy.Spider):
         if not self.base.endswith(API_PATH) or matched is None:
             raise SealError("pagination_incomplete")
         page = int(matched[1])
-        envelope = json_pointer(response.body, "")
+        envelope = response.json()
         if (
             type(envelope.get("code")) is not int
             or envelope["code"] != 200
@@ -80,43 +79,16 @@ class AmacFullSpider(scrapy.Spider):
             self.params["max_pages"], self.context["config"]["budget"]["requests"]
         ):
             # Reject the full profile from its actual envelope before emitting
-            # prefix records or creating an out-of-budget next discovery.
+            # prefix content or creating an out-of-budget next discovery.
             raise SealError("pagination_limit")
         expected_rows = min(PAGE_SIZE, max(total - (page - 1) * PAGE_SIZE, 0))
         if not 1 <= page <= required_pages or page in self.pages or len(rows) != expected_rows:
             raise SealError("pagination_incomplete")
-        names = []
-        for row in rows:
-            if (
-                not isinstance(row, dict)
-                or type(row.get("trustName")) is not str
-                or not row["trustName"].strip()
-                or type(row.get("regAddr")) is not str
-            ):
-                raise SealError("pagination_incomplete")
-            names.append(row["trustName"])
-        if len(set(names)) != len(names) or set(names) & self.names:
-            raise SealError("pagination_incomplete")
         self.pages.add(page)
-        self.names.update(names)
-        if len(self.pages) == required_pages and (
-            self.pages != set(range(1, required_pages + 1)) or len(self.names) != total
-        ):
+        if self.context["mode"] == "recheck":
+            return
+        if len(self.pages) == required_pages and self.pages != set(range(1, required_pages + 1)):
             raise SealError("pagination_incomplete")
-        for index, row in enumerate(rows):
-            data = {field: row[field] for field in ("trustName", "regAddr")}
-            locators = {
-                field: {"kind": "json", "pointer": f"/data/data/dataList/{index}/{field}"}
-                for field in data
-            }
-            yield record_item(
-                response,
-                record_type="mutual_fund_trustee",
-                record_key=row["trustName"],
-                data=data,
-                locators=locators,
-                key_locator=locators["trustName"].copy(),
-            )
         if page < required_pages:
             # Native scheduler/fingerprint deduplication remains authoritative
             # when Recheck also has each frozen API page as a seed.

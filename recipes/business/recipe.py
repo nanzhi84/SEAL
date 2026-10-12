@@ -1,4 +1,4 @@
-"""Reviewed business channels; Runtime owns network, policy, persistence and Replay."""
+"""Reviewed business channels; Runtime owns network, policy, parsing and persistence."""
 
 import scrapy
 from amac import Amac
@@ -20,7 +20,7 @@ class BusinessSpider(scrapy.Spider):
         super().__init__(**kwargs)
         self.params, self.context = params, context
         self.expansion_enabled = (
-            context["mode"] != "recheck" and context.get("recheck_plan") is None
+            context["mode"] != "recheck" or "POST" in context["config"]["methods"]
         )
         self.allowed_domains = context["config"]["allowed_hosts"]
         handlers = {
@@ -77,3 +77,8 @@ class BusinessSpider(scrapy.Spider):
             yield diagnostic(
                 response, exc.code if isinstance(exc, SealError) else "business_template_changed"
             )
+
+    def parse_options(self, response):
+        if hasattr(self.handler, "parse_options"):
+            return self.handler.parse_options(response)
+        return {}

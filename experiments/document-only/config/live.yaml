@@ -1,0 +1,30 @@
+# 有界公网样本，不声明全站完整；归档工件只在私有 work/ 中。
+sources:
+  - id: live-amac
+    entry_urls: [https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/]
+    allowed_hosts: [www.amac.org.cn]
+    allowed_path_prefixes: [/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs, /portal/front/financial/fundTrustee]
+    archive_approved: true
+    scope: Public trustee directory pages displayed by this entry, bounded by budget; site population unknown
+    robots: true
+    budget: {requests: 40, seconds: 60, response_bytes: 10485760}
+    recipe: {path: ../../../recipes/business, params: {source: dd-250}}
+  - id: live-education
+    entry_urls: [http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/A03/202110/t20211025_574874.html]
+    allowed_hosts: [www.moe.gov.cn]
+    allowed_path_prefixes: [/jyb_xxgk/s5743/s5744/A03/202110]
+    archive_approved: true
+    scope: Single public national college notice and displayed XLS attachments, not current college population
+    robots: true
+    budget: {requests: 12, seconds: 60, response_bytes: 20971520}
+    recipe: {path: ../../../recipes/business, params: {source: dd-468}}
+  - id: live-pdf
+    entry_urls: [https://www.nppa.gov.cn/bsfw/cyjghcpcx/202112/P020211208753495011054.pdf]
+    allowed_hosts: [www.nppa.gov.cn]
+    allowed_path_prefixes: [/bsfw/cyjghcpcx/202112]
+    archive_approved: true
+    scope: Single publicly linked PDF notice, text layer only, no OCR and no site coverage claim
+    seed_role: attachment
+    robots: true
+    budget: {requests: 6, seconds: 35, response_bytes: 20971520}
+    recipe: {path: ../../../recipes/generic, params: {}}

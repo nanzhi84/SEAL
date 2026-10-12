@@ -1,4 +1,4 @@
-"""Archive and parse public resources before optional HTML business extraction."""
+"""Discover public resources; Runtime independently parses every content response."""
 
 import scrapy
 from scrapy.http import TextResponse
@@ -7,13 +7,8 @@ from seal.core import SealError
 from seal.discovery import mark_failed
 from seal.helpers import (
     diagnostic,
-    document_item,
     follow,
-    html_record,
-    is_attachment_response,
-    save_document,
 )
-from seal.scope import attachment_response_scope
 from seal.seeded import html_links, is_sitemap_response, origin_url, sitemap_links
 
 
@@ -26,13 +21,10 @@ class DocumentsSpider(scrapy.Spider):
         super().__init__(**kwargs)
         if not context["config"].get("robots"):
             raise SealError("seeded_robots_required")
-        if context["config"].get("output_schema") != "document.v1":
-            raise SealError("document_schema_required")
         self.params, self.context = params, context
-        self.options = params.get("options", {})
         self.allowed_domains = context["config"]["allowed_hosts"]
         self.expansion_enabled = (
-            context["mode"] != "recheck" and context.get("recheck_plan") is None
+            context["mode"] != "recheck" or "POST" in context["config"]["methods"]
         )
         self._discovered_policy_sitemaps = set()
 
@@ -92,38 +84,10 @@ class DocumentsSpider(scrapy.Spider):
                 except SealError as exc:
                     yield diagnostic(response, exc.code)
             return
-        if is_attachment_response(response):
-            code = attachment_response_scope(
-                self.context["config"],
-                response.url,
-                response.meta.get("seal_parent_url", response.url),
-            )
-            if code:
-                mark_failed(self.crawler.settings["SEAL_CONTEXT"], response.request, code)
-                yield diagnostic(response, code)
-                return
         html = isinstance(response, TextResponse) and (
             b"html" in response.headers.get("Content-Type", b"").lower()
             or response.body.lstrip().lower().startswith((b"<!doctype html", b"<html"))
         )
-        try:
-            if self.params.get("extract_business", False) and html:
-                reference = save_document(response, self.context, self.options)
-                # Navigation pages still become documents. Business extraction is
-                # limited to pages with the explicitly selected detail fields.
-                title = self.options.get("title_css", "h1")
-                body = self.options.get("body_css", "article")
-                if len(response.css(title)) == len(response.css(body)) == 1:
-                    record = html_record(response, title=title, body=body, date=None)
-                    record["data_schema_id"] = self.context["field_contract"]["data_schema"]["$id"]
-                    record["document_versions"] = [reference]
-                    yield record
-            else:
-                yield document_item(response, self.options)
-        except (SealError, ValueError, KeyError, TypeError) as exc:
-            yield diagnostic(
-                response, exc.code if isinstance(exc, SealError) else "document_parse_failed"
-            )
         # Link discovery does not depend on a successful content selection or
         # business projection. Scrapy and Runtime retain scope and deduplication.
         if html and self.expansion_enabled:

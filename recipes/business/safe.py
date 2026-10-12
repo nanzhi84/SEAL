@@ -3,7 +3,6 @@
 from w3lib.url import add_or_replace_parameter
 
 from seal.core import SealError
-from seal.helpers import html_record, table_records
 
 
 class Safe:
@@ -12,6 +11,8 @@ class Safe:
         self.pages, self.keys, self.total_pages = set(), set(), None
 
     def parse(self, response, parent=None):
+        if response.meta.get("seal_role") == "detail":
+            return
         if "/beijing/xzcfxxgs/" in response.url:
             frames = response.css('iframe[src*="/www/illegal?siteid=beijing"]')
             if len(frames) != 1:
@@ -19,13 +20,6 @@ class Safe:
             yield self.spider.next(response, frames[0].attrib["src"], "iframe")
             return
         if "/www/illegal/listQuery" in response.url:
-            yield html_record(
-                response,
-                title=".cfxx_jg > .red_tx",
-                body=".cfxx_jg table",
-                date=None,
-                record_type="foreign_exchange_penalty_detail",
-            )
             return
         current, total = response.css("#page::text").get(), response.css("#total::text").get()
         if not current or not total or not current.isdigit() or not total.isdigit():
@@ -40,21 +34,10 @@ class Safe:
         rows = response.css(".cfxx_jg table tr:has(td)")
         if not rows:
             raise SealError("business_list_template_changed")
-        keys = [row.css("td:nth-child(4)").xpath("string(.)").get().strip() for row in rows]
+        keys = [n.attrib["href"] for n in response.css(".cfxx_jg table td a[href]")]
         if len(set(keys)) != len(keys) or set(keys) & self.keys:
-            raise SealError("duplicate_business_key")
+            raise SealError("duplicate_detail_url")
         self.keys.update(keys)
-        yield from table_records(
-            response,
-            rows=".cfxx_jg table tr:has(td)",
-            fields={
-                "name": "td:nth-child(2)",
-                "date": "td:nth-child(3)",
-                "decision_number": "td:nth-child(4)",
-            },
-            key_field="decision_number",
-            record_type="foreign_exchange_penalty_row",
-        )
         if not self.spider.expansion_enabled:
             return
         links = response.css(".cfxx_jg table td a[href]")

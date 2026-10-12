@@ -15,9 +15,10 @@ from scrapy.http.request import NO_CALLBACK
 from scrapy.utils.defer import maybe_deferred_to_future
 from twisted.internet.defer import Deferred
 
-from .archive import InputMiddleware
+from .archive import Component
 from .core import digest, public_url
 from .discovery import mark_failed, mark_parsed
+from .inputs import register_input
 from .seeded import robots_sitemaps
 
 
@@ -46,7 +47,7 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
         self.context = crawler.settings["SEAL_CONTEXT"]
         self.reasons = {}
         self.sitemaps = {}
-        self.inputs = InputMiddleware.from_crawler(crawler)
+        self.inputs = Component.from_crawler(crawler)
 
     async def process_request(self, request, spider=None):
         # Only Runtime's precisely identified policy request may bypass policy.
@@ -62,22 +63,6 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
             await asyncio.to_thread(mark_failed, self.context, request, code)
             await self.inputs.fail(code)
             raise IgnoreRequest(code) from None
-
-    async def process_response(self, request, response, spider=None):
-        if (
-            self.context["mode"] == "replay"
-            and not request.meta.get("_seal_robots_policy")
-            and policy_origin(response.url) != policy_origin(request.url)
-        ):
-            # Replay keeps the original logical key but restores a final redirected
-            # representation. Enforce that archived final origin's own policy,
-            # including its sitemap declarations, without changing resource identity.
-            final_request = request.replace(url=response.url, meta=dict(request.meta))
-            await self.process_request(final_request)
-            request.meta["_seal_robots_sitemaps"] = final_request.meta.get(
-                "_seal_robots_sitemaps", {}
-            )
-        return response
 
     async def robot_parser(self, request):
         parsed = urlsplit(request.url)
@@ -108,7 +93,7 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
                 # exchange to the same Discovery ledger explicitly.
                 self.crawler._seal_discovery.scheduled(policy)
                 response = await self.crawler.engine.download_async(policy)
-                await asyncio.to_thread(self.inputs.process_spider_input, response)
+                await asyncio.to_thread(register_input, self.context, response)
                 visited = {policy.url}
                 for hop in range(6):
                     if response.status not in {301, 302, 303, 307, 308}:
@@ -161,7 +146,7 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
                     )
                     self.crawler._seal_discovery.scheduled(policy)
                     response = await self.crawler.engine.download_async(policy)
-                    await asyncio.to_thread(self.inputs.process_spider_input, response)
+                    await asyncio.to_thread(register_input, self.context, response)
                 absent = (
                     any(
                         rule["url"] == response.url and rule["body_sha256"] == digest(response.body)
@@ -204,7 +189,7 @@ class ArchivedRobotsMiddleware(RobotsTxtMiddleware):
                 # Parsing or policy-input failures must close the auxiliary event,
                 # not just replace the in-memory parser. Guard/Archive may already
                 # have recorded a precise IgnoreRequest cause (budget, archive,
-                # missing Replay input); retain that evidence atomically. A native
+                # missing archived input); retain that evidence atomically. A native
                 # transport's generic download_failed becomes policy unavailable;
                 # the Observation retains the concrete connection/proxy error.
                 await asyncio.to_thread(

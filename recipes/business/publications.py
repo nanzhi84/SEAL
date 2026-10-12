@@ -4,8 +4,6 @@ import re
 
 from seal.core import SealError
 from seal.helpers import (
-    attachment_record,
-    html_record,
     input_reference,
     is_attachment_response,
     node_text,
@@ -19,32 +17,8 @@ class Publications:
 
     def parse(self, response, parent=None):
         if is_attachment_response(response):
-            yield attachment_record(response, parent=parent, record_type="guiding_case_attachment")
             return
         if response.meta.get("seal_role") == "detail":
-            if self.source == "dd-017":
-                yield html_record(
-                    response,
-                    title=".detail > .title",
-                    body=".detail .txt_txt",
-                    date=".detail_mes .message li:nth-child(2)",
-                    record_type="court_guiding_case",
-                )
-            else:
-                title = (
-                    ".detail_tit"
-                    if response.css(".detail_tit")
-                    else "#fontzoom > h2:first-of-type, #fontzoom > .Custom_UnionStyle > h2:first-of-type"
-                )
-                yield html_record(
-                    response,
-                    title=title,
-                    body="#fontzoom",
-                    date=".detail_extend1"
-                    if response.css(".detail_extend1")
-                    else "#fontzoom > div.time:first-of-type, #fontzoom > .Custom_UnionStyle > div.time:first-of-type",
-                    record_type="procuratorate_guiding_cases",
-                )
             if self.spider.expansion_enabled:
                 body_links = response.css(
                     ".detail .txt_txt a[href]" if self.source == "dd-017" else "#fontzoom a[href]"
@@ -108,7 +82,7 @@ class Publications:
             if len(declarations) != 1:
                 raise SealError("pagination_contract_missing")
             count, current, total = map(int, declarations[0])
-            self.spider.crawler.stats.set_value("seal/business_expected_records", total)
+            self.spider.crawler.stats.set_value("seal/business_expected_links", total)
             if current < count:
                 next_url = f"index_{current + 1}.shtml"
             elif len(self.details) != total:
@@ -121,3 +95,10 @@ class Publications:
             yield self.spider.next(response, next_url, "list")
         elif len(self.pages) != count:
             raise SealError("pagination_incomplete")
+
+    def parse_options(self, response):
+        if response.meta.get("seal_role") != "detail" or is_attachment_response(response):
+            return {}
+        if self.source == "dd-017":
+            return {"title_css": ".detail > .title", "body_css": ".detail .txt_txt"}
+        return {"body_css": "#fontzoom"}

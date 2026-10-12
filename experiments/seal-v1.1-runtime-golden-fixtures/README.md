@@ -1,3 +1,5 @@
+> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
+
 # SEAL V1.1 Runtime Golden Fixtures
 
 用途：工程回归与执行契约的小样本验证。它**不属于 Evaluation 模块，不产生质量评分或发布批准**。

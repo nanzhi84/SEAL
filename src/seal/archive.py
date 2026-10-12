@@ -17,7 +17,7 @@ from .core import (
     safe_url,
     uid,
 )
-from .db import connect, fenced, j, locked_run, record_error
+from .db import connect, fenced, locked_run, record_error
 from .discovery import ResourceFingerprinter, mark_archived, mark_failed, mark_requested
 from .public_forms import check_public_form
 from .scope import paths_for, robots_policy_request
@@ -49,24 +49,6 @@ def request_key(request):
                 for k in ("Accept", "Accept-Language")
             },
         }
-    )
-
-
-def restore(snapshot_id, request):
-    objects = Objects()
-    snapshot = objects.json(snapshot_id)
-    body = objects.get(snapshot["body_hash"])
-    cls = TYPES.get(snapshot["response_type"])
-    if cls is None:
-        raise SealError("unsupported_response_type")
-    kwargs = {"encoding": snapshot["encoding"]} if issubclass(cls, TextResponse) else {}
-    return cls(
-        url=snapshot["url"],
-        status=snapshot["status"],
-        headers=snapshot["headers"],
-        body=body,
-        request=request,
-        **kwargs,
     )
 
 
@@ -102,9 +84,9 @@ def archive_response(context, request, response):
     observation = request.meta["seal_request_id"]
     with connect() as c:
         c.execute(
-            """INSERT INTO seal_fetch_observation
-          (id,source_id,run_id,attempt_epoch,request_id,request_key,method,url,status,snapshot_id,body_hash,requested_at,fetched_at,parent_id,chain_id)
-          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(request_id) DO NOTHING""",
+            """INSERT INTO seal.fetch_observation
+          (id,source_id,run_id,attempt_epoch,request_id,request_key,method,url,status,snapshot_id,body_hash,requested_at,fetched_at,parent_id,chain_id,processing_stage)
+          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(request_id) DO NOTHING""",
             (
                 observation,
                 context["source_id"],
@@ -121,6 +103,11 @@ def archive_response(context, request, response):
                 request.meta["seal_received_at"],
                 request.meta.get("seal_parent_id"),
                 request.meta["seal_chain_id"],
+                "redirect"
+                if 300 <= response.status < 400
+                else "http_error"
+                if response.status != 200
+                else "archived",
             ),
         )
     return snapshot_id, observation
@@ -211,10 +198,6 @@ class RequestGuard(Component):
 
 class ResponseArchiveMiddleware(Component):
     async def process_response(self, request, response):
-        if self.context["mode"] == "replay":
-            async with self.io:
-                await asyncio.to_thread(Objects().get, request.meta["seal_snapshot_id"])
-            return response
         request.meta["seal_received_at"] = datetime.now(timezone.utc).isoformat()
         try:
             async with self.io:
@@ -253,25 +236,18 @@ class ResponseArchiveMiddleware(Component):
             raise IgnoreRequest(code) from None
 
     def cooldown(self, until):
-        if self.context["mode"] != "replay":
-            with connect() as c:
-                source, run = locked_run(c, self.context["id"])
-                try:
-                    fenced(source, run, self.context["attempt_epoch"])
-                except SealError:
-                    return  # Late observations cannot change current Source controls.
-                c.execute(
-                    "UPDATE seal_source SET cooldown_until=%s WHERE id=%s",
-                    (until, self.context["source_id"]),
-                )
+        with connect() as c:
+            source, run = locked_run(c, self.context["id"])
+            try:
+                fenced(source, run, self.context["attempt_epoch"])
+            except SealError:
+                return
+            c.execute(
+                "UPDATE seal.source SET cooldown_until=%s WHERE id=%s",
+                (until, self.context["source_id"]),
+            )
 
     async def process_exception(self, request, exception):
-        if self.context["mode"] == "replay":
-            if not isinstance(exception, IgnoreRequest):
-                await self.fail(
-                    exception.code if isinstance(exception, SealError) else "replay_restore_failed"
-                )
-            return None
         if isinstance(exception, IgnoreRequest):
             return None
         async with self.io:
@@ -283,8 +259,8 @@ class ResponseArchiveMiddleware(Component):
         observation = request.meta.get("seal_request_id", uid())
         with connect() as c:
             c.execute(
-                """INSERT INTO seal_fetch_observation(id,source_id,run_id,attempt_epoch,request_id,request_key,method,url,requested_at,error,chain_id)
-              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING""",
+                """INSERT INTO seal.fetch_observation(id,source_id,run_id,attempt_epoch,request_id,request_key,method,url,requested_at,error,chain_id,processing_stage,processing_error)
+              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'fetch_failed',%s) ON CONFLICT DO NOTHING""",
                 (
                     observation,
                     self.context["source_id"],
@@ -297,110 +273,6 @@ class ResponseArchiveMiddleware(Component):
                     request.meta.get("seal_requested_at", datetime.now(timezone.utc)),
                     code,
                     request.meta.get("seal_chain_id"),
+                    code,
                 ),
             )
-
-
-class ReplayMiddleware(Component):
-    def original_rejection(self, request):
-        if not hasattr(self, "_original_rejections"):
-            self._original_rejections = {}
-            for item in self.context.get("replay_origin", {}).get("rejected_candidates", []):
-                signature = (item["fingerprint"], item["role"], item["parent_snapshot_id"])
-                self._original_rejections.setdefault(signature, set()).add(item["reason"])
-        signature = (
-            ResourceFingerprinter().fingerprint(request).hex(),
-            request.meta.get("seal_role", "aux"),
-            request.meta.get("seal_parent_snapshot_id"),
-        )
-        reasons = self._original_rejections.get(signature, set())
-        # Conflicting negative evidence is not permission to suppress a strict
-        # input mismatch. This lookup never substitutes a URL input whitelist.
-        return next(iter(reasons)) if len(reasons) == 1 else None
-
-    async def process_request(self, request):
-        matches = [
-            item for item in self.context["replay_inputs"] if item["key"] == request_key(request)
-        ]
-        unique = {item["snapshot_id"] for item in matches}
-        if len(unique) != 1:
-            if not unique:
-                code = self.original_rejection(request)
-                if code:
-                    await asyncio.to_thread(mark_failed, self.context, request, code)
-                    await self.fail(code)
-                    raise IgnoreRequest(code)
-            code = "replay_miss" if not unique else "replay_ambiguous"
-            await asyncio.to_thread(mark_failed, self.context, request, code)
-            await self.fail(code)
-            raise IgnoreRequest(code)
-        entry = matches[0]
-        request.meta["seal_snapshot_id"] = entry["snapshot_id"]
-        request.meta["seal_observation_id"] = entry["observation_id"]
-        request.meta["seal_original_fetched_at"] = entry["fetched_at"]
-        async with self.io:
-            await asyncio.to_thread(mark_requested, self.context, request, replayed=True)
-            response = await asyncio.to_thread(restore, entry["snapshot_id"], request)
-            await asyncio.to_thread(
-                mark_archived,
-                self.context,
-                request,
-                entry["snapshot_id"],
-                entry["observation_id"],
-                response.status,
-            )
-            return response
-
-
-class InputMiddleware(Component):
-    def process_spider_input(self, response):
-        request = response.request
-        entry = {
-            "key": request_key(request),
-            "snapshot_id": request.meta["seal_snapshot_id"],
-            "observation_id": request.meta["seal_observation_id"],
-            "role": request.meta.get("seal_role", "aux"),
-            "url": safe_url(response.url),
-            "method": request.method,
-            "logical_url": safe_url(request.meta.get("seal_logical_url", request.url)),
-            "fetched_at": request.meta.get(
-                "seal_original_fetched_at", request.meta.get("seal_received_at")
-            ),
-            "used_at": datetime.now(timezone.utc).isoformat(),
-        }
-        if request.method == "POST":
-            entry["request_body_sha256"] = digest(request.body)
-        if entry["role"] != "robots":
-            from .helpers import is_attachment_response
-
-            if is_attachment_response(response):
-                # The representation confirms dynamic downloads without changing
-                # the original request's role, key, or Discovery parentage.
-                entry["resource_type"] = "attachment"
-        # Only tiny manifest/SQL work here; body I/O has already completed in Archive.
-        with connect() as c:
-            accepted = c.execute(
-                "UPDATE seal_run SET inputs=inputs || %s WHERE id=%s AND attempt_epoch=%s "
-                "AND status IN ('running','finishing') RETURNING id",
-                (j([entry]), self.context["id"], self.context["attempt_epoch"]),
-            ).fetchone()
-            if accepted is None:
-                raise SealError("inactive_attempt")
-            if self.context["mode"] != "replay":
-                c.execute(
-                    "UPDATE seal_fetch_observation SET final_url=%s WHERE run_id=%s AND attempt_epoch=%s AND chain_id=%s",
-                    (
-                        entry["url"],
-                        self.context["id"],
-                        self.context["attempt_epoch"],
-                        request.meta.get("seal_chain_id"),
-                    ),
-                )
-        if (
-            self.config.get("output_schema") in {"record.v1", "document.v1"}
-            and response.status == 200
-            and request.meta.get("seal_role") != "robots"
-        ):
-            from .records import stage_record_resource
-
-            stage_record_resource(self.context, entry)

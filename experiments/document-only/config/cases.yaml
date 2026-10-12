@@ -1,0 +1,11 @@
+# 固定合成来源；路径与参数冻结后由真实 CLI 执行。
+cases:
+  - [generic, generic, /adapter/list, {}, 4]
+  - [heterogeneous, heterogeneous, /adapter/list, {}, 6]
+  - [court, business, /shenpan/gengduo/77.html, {source: dd-017}, 5]
+  - [prosecutor, business, /spp/jczdal/index.shtml, {source: dd-041}, 4]
+  - [trustee, business, /amac/trustee, {source: dd-250}, 3]
+  - [mutual, business, /amac/mutual, {source: dd-247}, 3]
+  - [education, business, /education/notice, {source: dd-468}, 2]
+  - [safe, business, /beijing/xzcfxxgs/index.html, {source: dd-102}, 5]
+  - [amac-full, amac_full, "/portal/front/financial/fundTrustee/findFundTrusteesPage?pageNo=1&pageSize=10", {expected_total: 11, max_pages: 2}, 2]

@@ -3,6 +3,8 @@ kind: plan
 lang: zh
 ---
 
+> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](unified-document-pipeline.md)。历史结果不代表本次验收。
+
 # Run 统一失败终态
 
 依据 [Issue #7](https://github.com/nanzhi84/SEAL/issues/7)，基线为 main

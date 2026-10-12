@@ -1,3 +1,5 @@
+> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
+
 # SEAL V1.1 Runtime 小样本验收执行 Prompt
 
 你是正在 SEAL 仓库内工作的资深 Python 测试与架构工程师。请直接开展**针对已实现 V1.1 Runtime 的小样本验收**，必要时编写轻量回归测试并修复经复现的缺陷。不要只输出计划。

@@ -526,7 +526,7 @@ html[data-theme="paper"] .am-md p { margin-bottom: 12px; }
 html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 </style>
 </head>
-<body>
+<body><aside style="padding:16px;background:#fff3cd;color:#473900">历史设计可视化；旧命令和 Record/Replay 仅对应当时版本。<a href="../plans/unified-document-pipeline.md">当前 Document-only 合同</a>。</aside>
 <aside style="padding:16px;margin:16px;border:1px solid #dde3e8;background:#f8fafb">2026-10-11 状态合同已更新：Run 失败终态统一 failed，具体错误读取 errors。下文历史验收及不可变 Manifest 的旧词汇保持当时记录；当前合同见 <a href="../plans/run-failed-terminal.md">统一失败终态 Plan</a> 与 <a href="run-failed-terminal.html">可视化</a>。</aside>
 
 <div class="am-toolbar">
@@ -583,7 +583,7 @@ Source → 不可变 RecipeVersion/Binding → Run → Scrapy → 归档 → Obs
 在隔离 PostgreSQL 中复制实际历史 Document 与 Record 约束：同一响应 10 行
 沿用 URL 身份只留下 1 行，NULL URL 被拒；独立 Record 保留 10 行。
 实验原文、哈希、检查与完整命令见
-<a href="../../experiments/v1.2-acceptance/live_samples/c_route_experiment.py">双路线脚本</a> 和
+<a href="https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/live_samples/c_route_experiment.py">双路线脚本</a> 和
 <a href="../../experiments/v1.2-acceptance/live_samples/c-route-experiment.json">实验回执</a>。
 由真实业务 bytes 与旧表约束共同支持既有 Record 迁移选择，不修改历史行。</p>
 <p>首轮新增 <code>0003_records.sql</code>、<code>0004_discovery.sql</code>；第 9 节修复增量新增
@@ -784,7 +784,7 @@ Replay 校验原始输入集合、业务值与 SEAL Downloader 的零 HTTP 交�
 恢复 HTTPPROXY_ENABLED=False，保持 V1.1 禁环境代理的边界。
 先用故障本地环境代理复现 retryable、零 Record、没有到达源站；修复后沿真实 CLI
 验证 10 个独立业务值、归档，以及源站关闭后的零网络 Replay。
-<a href="../../experiments/v1.2-acceptance/proxy_behavior.py">代理行为脚本</a> 保留红绿工件映射。</p>
+<a href="https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/proxy_behavior.py">代理行为脚本</a> 保留红绿工件映射。</p>
 <p><a href="../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json">最终工件索引</a>
 给出实际断言数量、来源/版本/Run/Record、归档摘要、回归包及本地/公开复算边界。
 既有云端合成 303/303、M3 136/136、Smoke 1191/1191 是历史记录；本地最终结果以该索引为准。
@@ -1760,7 +1760,7 @@ T0 已补真实 C 双路线实验：公募基金管理人 API 两页各 10 条�
 在隔离 PostgreSQL 中复制实际历史 Document 与 Record 约束：同一响应 10 行
 沿用 URL 身份只留下 1 行，NULL URL 被拒；独立 Record 保留 10 行。
 实验原文、哈希、检查与完整命令见
-[双路线脚本](../../experiments/v1.2-acceptance/live_samples/c_route_experiment.py) 和
+[双路线脚本](https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/live_samples/c_route_experiment.py) 和
 [实验回执](../../experiments/v1.2-acceptance/live_samples/c-route-experiment.json)。
 由真实业务 bytes 与旧表约束共同支持既有 Record 迁移选择，不修改历史行。
 
@@ -1897,7 +1897,7 @@ Replay 校验原始输入集合、业务值与 SEAL Downloader 的零 HTTP 交�
 恢复 HTTPPROXY_ENABLED=False，保持 V1.1 禁环境代理的边界。
 先用故障本地环境代理复现 retryable、零 Record、没有到达源站；修复后沿真实 CLI
 验证 10 个独立业务值、归档，以及源站关闭后的零网络 Replay。
-[代理行为脚本](../../experiments/v1.2-acceptance/proxy_behavior.py) 保留红绿工件映射。
+[代理行为脚本](https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/proxy_behavior.py) 保留红绿工件映射。
 
 [最终工件索引](../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json)
 给出实际断言数量、来源/版本/Run/Record、归档摘要、回归包及本地/公开复算边界。

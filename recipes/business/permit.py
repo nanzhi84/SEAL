@@ -5,7 +5,6 @@ import re
 import scrapy
 
 from seal.core import SealError
-from seal.helpers import html_record, node_text, record_item, table_records, xpath_locator
 
 LIST = "/perxxgkinfo/syssb/xkgg/xkgg!licenseInformation.action"
 REGIONS = "/perxxgkinfo/syssb/xkgg/xkgg!getRegions.action"
@@ -85,13 +84,6 @@ class Permit:
         if "xkgk=getxxgkContent" in response.url:
             if not response.css(".tab0") or not response.css("#apply_table"):
                 raise SealError("business_detail_missing")
-            yield html_record(
-                response,
-                title="head title",
-                body="body",
-                date=None,
-                record_type="environmental_permit_detail",
-            )
             return
         if REGIONS in response.url:
             payload = response.json()
@@ -113,16 +105,6 @@ class Permit:
                 self.pending[0:0] = [
                     {"province": parent_code, "city": c, "management": ""} for c in codes
                 ]
-            for index, row in enumerate(rows):
-                locators = {k: {"kind": "json", "pointer": f"/regions/{index}/{k}"} for k in row}
-                yield record_item(
-                    response,
-                    record_type="environmental_permit_region",
-                    record_key=row["regioncode"],
-                    data=row,
-                    locators=locators,
-                    key_locator=locators["regioncode"],
-                )
             if self.spider.expansion_enabled and self.stage != "regions":
                 yield self.fresh(response, self.pending.pop(0))
             return
@@ -193,22 +175,7 @@ class Permit:
             elif page != pages:
                 yield self.form(response, region, pages, phase="tail")
             else:
-                if rows:
-                    key_node = rows[-1].css("td")[2]
-                    locator = {
-                        "kind": "text",
-                        "start": total_match.start(1),
-                        "end": total_match.end(1),
-                    }
-                    yield record_item(
-                        response,
-                        record_type="environmental_permit_partition",
-                        record_key=node_text(key_node),
-                        data={"pages": str(pages)},
-                        locators={"pages": locator},
-                        key_locator=xpath_locator(key_node),
-                    )
-                else:
+                if not rows:
                     raise SealError("public_partition_empty_unproven")
                 yield from self.complete_partition(response, region, pages, len(rows))
             return
@@ -226,32 +193,10 @@ class Permit:
         if page in self.pages:
             raise SealError("pagination_loop")
         self.pages.add(page)
-        keys = [node_text(r.css("td")[2]) for r in rows]
+        keys = [n.attrib["href"] for n in response.css(".tabtd td a[href]")]
         if len(set(keys)) != len(keys) or set(keys) & self.keys:
-            raise SealError("duplicate_business_key")
+            raise SealError("duplicate_detail_url")
         self.keys.update(keys)
-        yield from table_records(
-            response,
-            rows=".tabtd tr:not(.tbhead)",
-            fields={
-                name: f"td:nth-child({i})"
-                for i, name in enumerate(
-                    [
-                        "province",
-                        "city",
-                        "license_number",
-                        "company_name",
-                        "industry",
-                        "validity",
-                        "issue_date",
-                        "management",
-                    ],
-                    1,
-                )
-            },
-            key_field="license_number",
-            record_type="environmental_permit_row",
-        )
         if not self.spider.expansion_enabled:
             return
         links = response.css(".tabtd tr:not(.tbhead) td a[href]")
@@ -260,7 +205,7 @@ class Permit:
         for link in links:
             yield self.spider.next(response, link.attrib["href"], "detail")
         self.spider.crawler.stats.set_value("seal/permit_segment_pages", sorted(self.pages))
-        self.spider.crawler.stats.set_value("seal/permit_segment_keys", len(self.keys))
+        self.spider.crawler.stats.set_value("seal/permit_segment_detail_urls", len(self.keys))
         if page < last:
             yield self.form(response, region, page + 1)
         elif sorted(self.pages) != list(range(first, last + 1)):
