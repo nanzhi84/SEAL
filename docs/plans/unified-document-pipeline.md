@@ -132,8 +132,8 @@ seiso check
 | 公网有界样本 | AMAC trustee、教育部单篇通知与其 XLS；Collect → Recheck | 分别 8 / 3 个 Document、完整 JSON envelope 和 XLS 原文通过核验。新闻出版署单篇 PDF 的 robots 不可用，FAILED；全站覆盖一律 UNKNOWN |
 
 本机环境为 Python 3.12.13 / PostgreSQL 17.11，uv.lock 和代码摘要在各工件 summary.json。
-固定样本工件位于 `experiments/document-only/artifacts/final-local/`；公网工件位于
-`experiments/document-only/artifacts/final-live/`，原文和备份留在对应 work/。verification.json
+固定样本工件位于 `experiments/document-only/artifacts/final-reviewed/`；公网工件位于
+`experiments/document-only/artifacts/reviewed-live/`，原文和备份留在对应 work/。verification.json
 保存独立 Oracle 的数量、方法、备份/验证代码摘要和范围。CI 对精确 PR head 重跑固定验收，
 上传无凭据合成样本的元数据；[Checks](https://github.com/nanzhi84/SEAL/pull/14/checks) 为合并前结果依据。
 

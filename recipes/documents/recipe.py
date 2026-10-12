@@ -8,9 +8,7 @@ from seal.discovery import mark_failed
 from seal.helpers import (
     diagnostic,
     follow,
-    is_attachment_response,
 )
-from seal.scope import attachment_response_scope
 from seal.seeded import html_links, is_sitemap_response, origin_url, sitemap_links
 
 
@@ -86,16 +84,6 @@ class DocumentsSpider(scrapy.Spider):
                 except SealError as exc:
                     yield diagnostic(response, exc.code)
             return
-        if is_attachment_response(response):
-            code = attachment_response_scope(
-                self.context["config"],
-                response.url,
-                response.meta.get("seal_parent_url", response.url),
-            )
-            if code:
-                mark_failed(self.crawler.settings["SEAL_CONTEXT"], response.request, code)
-                yield diagnostic(response, code)
-                return
         html = isinstance(response, TextResponse) and (
             b"html" in response.headers.get("Content-Type", b"").lower()
             or response.body.lstrip().lower().startswith((b"<!doctype html", b"<html"))

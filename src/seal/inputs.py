@@ -16,8 +16,10 @@ from .seeded import is_sitemap_response
 
 def register_input(context, response):
     request = response.request
-    control = request.meta.get("seal_role") in {"robots", "sitemap"} or is_sitemap_response(
-        response
+    control = (
+        request.method == "HEAD"
+        or request.meta.get("seal_role") in {"robots", "sitemap"}
+        or is_sitemap_response(response)
     )
     content = not control and response.status == 200 and request.method in {"GET", "POST"}
     entry = {
@@ -114,6 +116,21 @@ class InputMiddleware(Component):
                 await asyncio.to_thread(process_content, self.context, response, options)
             except Exception as exc:
                 code = exc.code if isinstance(exc, SealError) else "input_registration_failed"
+
+                def diagnose():
+                    with connect() as c:
+                        c.execute(
+                            "UPDATE seal.fetch_observation SET processing_stage='input_failed',processing_error=%s WHERE id=%s AND run_id=%s AND attempt_epoch=%s",
+                            (
+                                code,
+                                response.meta["seal_observation_id"],
+                                self.context["id"],
+                                self.context["attempt_epoch"],
+                            ),
+                        )
+                    mark_inputs_failed(self.context, [response.meta["seal_snapshot_id"]], code)
+
+                await asyncio.to_thread(diagnose)
                 await asyncio.to_thread(
                     record_error, self.context["id"], self.context["attempt_epoch"], code
                 )
