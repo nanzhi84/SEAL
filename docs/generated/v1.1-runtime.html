@@ -712,7 +712,7 @@ Golden 8/8、Runtime 12/12、反向/边界 11/11 通过；三个真实来源各 
 <li>完成事务重入不重复下载，同键异值明确报错。</li>
 </ul>
 <p>运行：<code>./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.1-runtime-fixes/m3</code></p>
-<p>证据：<a href="../../artifacts/acceptance/v1.1-runtime-fixes/report.md">验收报告</a>、<a href="../../artifacts/acceptance/v1.1-runtime-fixes/smoke/assertions.json">断言</a>、<a href="../../artifacts/acceptance/v1.1-runtime-fixes/smoke/manifest.json">Manifest</a>。</p>
+<p>历史证据缺失：原 artifacts/acceptance/v1.1-runtime-fixes/ 下的报告、断言与 Manifest 当前不可读取。图中结果为历史记录，本次未重新验收。<a href="../plans/v1.1-runtime.md">Plan 中的缺失说明与复现入口</a>。</p>
 </div></div>
 </section>
 <section class="am-panel am-span-wide" id="panel-H" style="grid-column: span 2">
@@ -849,7 +849,7 @@ Golden 8/8、Runtime 12/12、反向/边界 11/11 通过；三个真实来源各 
 
 运行：`./experiments/v1.1-runtime-acceptance/acceptance.sh --stage m3 --output artifacts/acceptance/v1.1-runtime-fixes/m3`
 
-证据：[验收报告](../../artifacts/acceptance/v1.1-runtime-fixes/report.md)、[断言](../../artifacts/acceptance/v1.1-runtime-fixes/smoke/assertions.json)、[Manifest](../../artifacts/acceptance/v1.1-runtime-fixes/smoke/manifest.json)。
+历史证据缺失：原 `artifacts/acceptance/v1.1-runtime-fixes/` 下的报告、断言与 Manifest 当前不可读取。图中结果为历史记录，本次未重新验收。见 [Plan 中的缺失说明与复现入口](../plans/v1.1-runtime.md)。
 
 ## H 未来工作与边界
 Evaluation 将按 Binding 关联来源 URL、原文、JSON 和执行版本。未来采用分层随机与风险导向抽样，人工核对真实结果。固定 Gold 通过率不能代替总体质量结论。

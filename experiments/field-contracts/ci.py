@@ -40,7 +40,7 @@ def main():
             if p.is_file() and p.suffix in (".py", ".sql")
         },
     }
-    public = Path("artifacts/ci-public")
+    public = args.output.parent / "ci-public"
     public.mkdir(parents=True, exist_ok=True)
     (public / "fields.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary))

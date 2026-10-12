@@ -57,19 +57,19 @@ jobs:
         run: |
           umask 077
           if [ '${{ matrix.group }}' = seeded ]; then
-            uv run --frozen python experiments/v1.3-acceptance/ci.py --output artifacts/ci-seeded
+            uv run --frozen python experiments/v1.3-acceptance/ci.py --output experiments/v1.3-acceptance/artifacts/ci-seeded
           elif [ '${{ matrix.group }}' = fields ]; then
-            uv run --frozen python experiments/field-contracts/ci.py --output artifacts/ci-fields
+            uv run --frozen python experiments/field-contracts/ci.py --output experiments/field-contracts/artifacts/ci-fields
           elif [ '${{ matrix.group }}' = documents ]; then
-            uv run --frozen python experiments/document-pipeline/ci.py --output artifacts/ci-documents
+            uv run --frozen python experiments/document-pipeline/ci.py --output experiments/document-pipeline/artifacts/ci-documents
           else
-            uv run --frozen python experiments/v1.2-acceptance/ci.py --group '${{ matrix.group }}' --output 'artifacts/ci-${{ matrix.group }}'
+            uv run --frozen python experiments/v1.2-acceptance/ci.py --group '${{ matrix.group }}' --output 'experiments/v1.2-acceptance/artifacts/ci-${{ matrix.group }}'
           fi
       - name: Publish metadata only
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: acceptance-${{ matrix.group }}
-          path: artifacts/ci-public/${{ matrix.group }}.json
+          path: experiments/*/artifacts/ci-public/${{ matrix.group }}.json
           if-no-files-found: warn
           retention-days: 7

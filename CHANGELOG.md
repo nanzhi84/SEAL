@@ -49,6 +49,25 @@ gzip Sitemap 有界解压并保留下载表示。partial Replay 冻结原拒绝�
 [V1.3 Plan](docs/plans/v1.3-seeded-site-collection.md)。网络政策拒绝与未知适配如实记录，
 无站点 Ground Truth，不依据队列耗尽推断覆盖。历史工件保持原样。
 
+## V1.2 / 0.1.2 — 2026-10-10
+
+### 业务 Record 与异构来源扩展
+
+- 增加业务 Record 模型、Discovery、多记录 JSON 提取、静态 iframe 处理与业务附件关联。
+- 支持针对政企与公开平台的异构入口解析，为特定来源提供专用 API / 游标规则与结构化字段抽取。
+- 归档合同调整：按新归档规范移除 Runtime 正文敏感性扫描，网络响应按原始 bytes 完整归档，URL/日志脱敏；归档前拒绝非空凭据字段（如 csrfToken/authToken）。归档目录要求私有权限（`umask 077`）。
+
+### 任务与调度增强
+
+- 新增增量迁移 `0003_records.sql`、`0004_discovery.sql`、`0005_recheck_plan.sql`，支持 Record、Discovery 与复查计划/退避元数据。
+- 修复 JSON 稳定身份 Recheck、到期记录自动分批、失败重试日期以及重复 JSON 解析问题。
+- 架构确立模块化单体：Scrapy + 可信 Python Recipe + Procrastinate + PostgreSQL + CAS 内容寻址归档。
+
+### 升级与设计文档
+
+- 升级需停止 Worker、备份数据库与归档，执行 `seal db migrate` 后重新 pack Recipe 并创建 Binding。
+- 详细设计与验收参见 [V1.2 Plan](docs/plans/v1.2-heterogeneous-sources.md) 与 [唯一可视化](docs/generated/v1.2-heterogeneous-sources.html)。
+
 ## V1.1 / 0.1.1 — 2026-10-09
 
 V1.1 交付独立 Runtime。产品版本称为 V1.1，Python 包版本为 `0.1.1`；沿用 Scrapy、可信 Python Recipe、Procrastinate、PostgreSQL 和本地原文归档。
@@ -71,7 +90,7 @@ V1.1 交付独立 Runtime。产品版本称为 V1.1，Python 包版本为 `0.1.1
 
 运行 `seal db migrate` 应用 `0002_runtime.sql`；迁移前停止所有写入并备份数据库和归档。保留原 `schema.sql` 与历史 Run、Binding、Result、审核 payload、Revision 和原文；旧未完成任务终止，旧 Source 暂停。
 
-升级后重新 `recipe pack`、`binding create`，再执行 Run/Replay 和默认版本选择。旧 Recipe 源码与归档可以复用，但旧引擎的 Binding 不绕过环境摘要校验。回退需要恢复配套备份。**旧发布 JSON 消费者必须适配新的运行数据出口，不能继续将其视为审核通过的数据。** 详细步骤见 [README](README.md#安装与升级) 和 [V1.1 Plan](docs/plans/v1.1-runtime.md)。
+升级后重新 `recipe pack`、`binding create`，再执行 Run/Replay 和默认版本选择。旧 Recipe 源码与归档可以复用，但旧引擎的 Binding 不绕过环境摘要校验。回退需要恢复配套备份。**旧发布 JSON 消费者必须适配新的运行数据出口，不能继续将其视为审核通过的数据。** 详细步骤见 [README](README.md) 和 [V1.1 Plan](docs/plans/v1.1-runtime.md)。
 
 ### 实际验证
 

@@ -1,0 +1,46 @@
+{
+  "id": "court_demo",
+  "entry_urls": [
+    "https://www.court.gov.cn/shenpan/gengduo/77.html"
+  ],
+  "allowed_hosts": [
+    "www.court.gov.cn"
+  ],
+  "allowed_path_prefixes": [
+    "/shenpan/gengduo/77.html",
+    "/shenpan/gengduo/77_2.html",
+    "/shenpan/gengduo/77_3.html",
+    "/shenpan/gengduo/77_4.html",
+    "/shenpan/gengduo/77_5.html",
+    "/shenpan/gengduo/77_6.html",
+    "/shenpan/gengduo/77_7.html",
+    "/shenpan/gengduo/77_8.html",
+    "/shenpan/gengduo/77_9.html",
+    "/shenpan/gengduo/77_10.html",
+    "/shenpan/xiangqing/"
+  ],
+  "methods": [
+    "GET",
+    "HEAD"
+  ],
+  "identity": "business_key",
+  "output_schema": "record.v1",
+  "archive_approved": true,
+  "scope": "Only first 10 guiding-case list pages and their linked details. No attachments, no whole-site coverage or semantic quality approval.",
+  "seed_role": "list",
+  "budget": {
+    "requests": 600,
+    "seconds": 1800,
+    "response_bytes": 20971520
+  },
+  "concurrency": 2,
+  "delay": 0.2,
+  "robots": true,
+  "robots_absent_responses": [
+    {
+      "url": "https://www.court.gov.cn/robots.txt",
+      "body_sha256": "ee40e4c1bdab81e044b67f18e71d1bd613354b5f2b3d631020c907cffc4adbcb"
+    }
+  ],
+  "user_agent": "SEAL/1.3 (+bounded public collection demonstration)"
+}

@@ -53,7 +53,7 @@ def main():
             status = "FAIL"
             groups[label] = {"status": status, "reason": "missing_or_invalid_acceptance_evidence"}
         failed |= status != "PASS"
-    public = Path("artifacts/ci-public")
+    public = args.output.parent / "ci-public"
     public.mkdir(parents=True, exist_ok=True)
     result = {
         "status": "FAIL" if failed else "PASS",

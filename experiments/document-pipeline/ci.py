@@ -81,7 +81,7 @@ def main():
         },
     }
     (args.output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-    public = Path("artifacts/ci-public")
+    public = args.output.parent / "ci-public"
     public.mkdir(parents=True, exist_ok=True)
     (public / "documents.json").write_text(json.dumps(summary, indent=2) + "\n")
     print(json.dumps(summary))
