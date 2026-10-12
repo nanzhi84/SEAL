@@ -65,7 +65,9 @@ Recheck 展示 Unchanged/Updated，当前 URL 去除认证与敏感参数并截�
 
 ## 显式数据库迁移与回滚
 
-历史 schema.sql 与 0002–0008 原样保留。新增 Migration 删除 public.seal_record、
+所有迁移 SQL 统一放在 src/seal/migrations/；先执行 schema.sql，再执行编号迁移。
+schema.sql 的内容、历史登记名称与摘要不变，已有数据库不会因目录移动重放它。
+历史 schema.sql 与 0002–0008 内容原样保留。新增 Migration 删除 public.seal_record、
 seal_record_result、seal_record_version、seal_record_emission 及旧 generic seal_result。
 只使用明确 DROP，不用 CASCADE；未知外部依赖必须使迁移失败。清理专属列及输出选择配置，
 将保留自建表、索引、约束、触发器、函数及序列迁入 seal 并去 seal_ 前缀。自建 SQL 显式

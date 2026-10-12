@@ -179,9 +179,9 @@ def initialize(*, backup=None, acknowledge=False):
             c.execute(
                 "CREATE TABLE IF NOT EXISTS public.seal_migration(name text PRIMARY KEY,checksum text NOT NULL,applied_at timestamptz NOT NULL DEFAULT now())"
             )
-        root = Path(__file__).parent
+        root = Path(__file__).parent / "migrations"
         applied = []
-        for path in [root / "schema.sql", *sorted((root / "migrations").glob("*.sql"))]:
+        for path in [root / "schema.sql", *sorted(root.glob("[0-9]*.sql"))]:
             checksum = digest(path.read_bytes())
             previous = c.execute(
                 sql.SQL("SELECT checksum FROM {} WHERE name=%s").format(
