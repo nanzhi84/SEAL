@@ -1,5 +1,7 @@
 > 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
 
+固定测试、评分、回放与专属 benchmark 支撑代码已退役。下文命令仅记录历史操作，源码可从 [9afc72e](https://github.com/nanzhi84/SEAL/tree/9afc72ea28a22e988244b1cea7c7d238f7ccf067/experiments/scraper-benchmark) 追溯；原文、日志、冻结源码及报告保持原样。新的验收遵循 [根目录规则](../../AGENTS.md)，由独立子 agent 现场执行。
+
 # SEAL 采集框架实验
 
 所有内容只属于 `experiments/scraper-benchmark/`，不自动发布到 SEAL 生产环境。
@@ -8,7 +10,7 @@
 
 **用户根据报告决定继续使用 Scrapy，后续以 Scrapy 为主采集框架。** 决定记录在 `selection_decision.json`，并已同步报告和可视化。实验数据及局限不变；本次未修改生产代码、依赖或既有设计文档。
 
-## 当前实验结果
+## 2026-10-08 历史实验结果
 
 本轮已按用户确认的新口径完成真实配对：**最多 80 次客户端 HTTP/API 请求、30 credits、仅免费额度；云端内部源站子请求记 UNKNOWN**。
 
@@ -50,7 +52,7 @@
 7. 离线评分不联网；凭据不进入日志、文件、命令参数或工件。
 8. 预算在发送前预留，中断不重置；重放不重新抓取。
 
-## 离线复现当前验收
+## 历史验收命令（入口已退役）
 
 前提：已有隔离 `.venv`，保留整个本轮目录、`oracle.json` 以及对应 Recipe 版本。本轮环境为 Python 3.14.6 / macOS arm64；版本记录及锁文件已有，不需重新安装依赖。
 

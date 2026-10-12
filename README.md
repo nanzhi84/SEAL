@@ -50,4 +50,4 @@ COPY (SELECT id, content FROM seal.document_version) TO STDOUT;
 
 0.2.0 为破坏性升级：移除 Record、字段提取/Locator、Replay、Inspect/Export 和旧 CLI。旧库运行 `seal init` 会先返回对象/行数清单；停止所有数据库客户端、确认备份与目标后，显式执行 `seal init --backup /private/before.dump --acknowledge-data-loss`。迁移删除 Record 历史数据，保留 Document、Run 与 Archive；回滚依赖完整备份恢复。不要将认证凭据放入配置、URL、代码或工件。
 
-详细合同与可复跑端到端验收见 [Document-only Plan](docs/plans/unified-document-pipeline.md) 和 [Generated](docs/generated/unified-document-pipeline.html)。发布与迁移历史见 [CHANGELOG](CHANGELOG.md)。
+详细合同与验收范围见 [Document-only Plan](docs/plans/unified-document-pipeline.md) 和 [Generated](docs/generated/unified-document-pipeline.html)。独立子 agent 按真实用户路径验收，规则见 [AGENTS](AGENTS.md)；CI 只做静态检查。发布与迁移历史见 [CHANGELOG](CHANGELOG.md)。

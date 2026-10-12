@@ -23,44 +23,6 @@ jobs:
         with:
           version: '0.11.23'
       - name: Lint
-        run: uvx --from ruff==0.16.10 ruff check src recipes experiments/document-only
+        run: uvx --from ruff==0.16.10 ruff check src recipes
       - name: Format
-        run: uvx --from ruff==0.16.10 ruff format --check src recipes experiments/document-only
-  runtime:
-    name: Document-only E2E
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: false
-      - uses: astral-sh/setup-uv@6b9c6063abd6010835644d4c2e1bef4cf5cd0fca # v6.0.1
-        with:
-          version: '0.11.23'
-          enable-cache: true
-      - name: Install PostgreSQL 17 tools
-        run: |
-          sudo install -d /usr/share/postgresql-common/pgdg
-          sudo curl --fail --silent --show-error -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          printf '%s\n' 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main' | sudo tee /etc/apt/sources.list.d/seal-pgdg.list
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends postgresql-17
-          echo /usr/lib/postgresql/17/bin >> "$GITHUB_PATH"
-      - name: Install frozen dependencies
-        run: uv sync --frozen
-      - name: Run fixed acceptance collection
-        run: |
-          umask 077
-          uv run --frozen python experiments/document-only/acceptance.py --name ci
-          uv run --frozen python experiments/document-only/verify.py experiments/document-only/artifacts/ci
-      - name: Publish metadata only
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: document-only-acceptance
-          path: |
-            experiments/document-only/artifacts/ci/*.json
-            experiments/document-only/artifacts/ci/config/*.yaml
-          if-no-files-found: warn
-          retention-days: 7
+        run: uvx --from ruff==0.16.10 ruff format --check src recipes
