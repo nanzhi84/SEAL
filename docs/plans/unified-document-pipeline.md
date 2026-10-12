@@ -86,7 +86,10 @@ Version，指定 Run 通过 seal.document_emission 联查 Observation/Snapshot/b
 使用 PostgreSQL COPY / \\copy 导出查询结果。数据库导出不等于打包 Archive，原始 bytes
 根据对象摘要从 Archive 读取。无便利查询 API、DSL 或 Document Bundle。
 
-## 实施前失败方式与端到端断言
+## 真实路径验收范围
+
+验收由主 agent 开独立子 agent，按本次变更影响选择以下路径，独立核对现场结果。
+不维护固定测试套件、合成来源或固定断言程序；规则见 [根目录 AGENTS](../../AGENTS.md)。
 
 1. 四命令 help、无旧入口；新库未 init、旧库未升级时禁止 collect/worker 隐式迁移。
 2. 九种格式与五节点、列表/分页/共享附件、重复 URL、重定向、重试均从真实 CLI 入库。
@@ -97,31 +100,31 @@ Version，指定 Run 通过 seal.document_emission 联查 Observation/Snapshot/b
 7. 独立 pg_catalog 核验 Schema / 索引 / 函数 / 约束 / 行数 / 外键 / 第三方队列不回归。
 8. SQL/COPY、Archive bytes/hash、Version/Emission 血缘独立核验；TTY 进度与 SQL 计数一致，
    非 TTY 无 ANSI、stdout 单份 JSON、窄终端/异常/中断不污染状态。
-9. Business、异构、越南法律表单与通用来源用固定样本核验发现、文档与原文；公网小样本
-   单独标记范围，合成样本不代表真实全站。
+9. Business、异构、越南法律表单与通用来源按实际公开页面核验发现、文档与原文；小样本
+   单独标记范围，不代表真实全站。受阻来源如实记录失败与 UNKNOWN。
 
-验收入口为 experiments/document-only/acceptance.py，使用独立 PostgreSQL 17、loopback 合成
-HTTP 与专用 Archive。实际配置在 config/，原文/数据库在 work/<run>/，命令回执、冻结配置、
-SQL/COPY、对象清单、环境/代码摘要、断言与未覆盖项在 artifacts/<run>/；工件不含凭据。
-历史工件保持原样，旧功能专属可执行脚本与测试删除，文档明确历史边界。
+子 agent 使用隔离 PostgreSQL 17 与专用 Archive，直接执行 seal CLI、SQL/COPY 并读取原文。
+公开来源配置在 experiments/document-only/config/live.yaml，按现场范围拆成单个 Source YAML；
+原文/数据库在 work/<run>/，命令回执、冻结配置、SQL/COPY、对象清单、环境/版本、结果与
+未覆盖项在 artifacts/<run>/，不含凭据。临时操作以可复制的命令回执保存，不新增测试程序。
+主 agent 核对证据后才判定交付；CI 只做静态检查。
 
 ```sh
 umask 077
 uv sync --frozen
-uv run --frozen python experiments/document-only/acceptance.py --name acceptance-new
-uv run --frozen python experiments/document-only/verify.py experiments/document-only/artifacts/acceptance-new
-uvx --from ruff==0.16.10 ruff check src recipes experiments/document-only
-uvx --from ruff==0.16.10 ruff format --check src recipes experiments/document-only
+uvx --from ruff==0.16.10 ruff check src recipes
+uvx --from ruff==0.16.10 ruff format --check src recipes
 seiso check
 ```
 
-本次验证结果以最终验收工件和精确 PR head 的 CI 为准，不复用 #10 的历史 PASS。
+每次业务验收以对应子 agent 的现场命令、原文和数据库结果为准，不复用旧版本的 PASS。
 
-## 本次实现与验收结果
+## PR #14 历史实现与验收结果
 
 [PR #14](https://github.com/nanzhi84/SEAL/pull/14) 收敛了统一入口，删除旧输出及专属测试；
 手写运行代码和本次验收脚本均小于 500 行。历史 schema.sql / 0002–0008 无改动，
-历史原文、冻结配置和结果不重写。当前验收只调用四命令与 PostgreSQL，未执行生产迁移。
+历史原文、冻结配置和结果不重写。该轮验收只调用四命令与 PostgreSQL，未执行生产迁移。
+以下结果是合并时的历史证据。其固定测试及验证脚本现已删除，不作为当前验收入口。
 
 | 节点 | 输入与实际命令 | 实际结果、输出及下游用途 |
 | --- | --- | --- |
@@ -134,14 +137,10 @@ seiso check
 本机环境为 Python 3.12.13 / PostgreSQL 17.11，uv.lock 和代码摘要在各工件 summary.json。
 固定样本工件位于 `experiments/document-only/artifacts/final-reviewed/`；公网工件位于
 `experiments/document-only/artifacts/reviewed-live/`，原文和备份留在对应 work/。verification.json
-保存独立 Oracle 的数量、方法、备份/验证代码摘要和范围。CI 对精确 PR head 重跑固定验收，
-上传无凭据合成样本的元数据；[Checks](https://github.com/nanzhi84/SEAL/pull/14/checks) 为合并前结果依据。
+保存独立 Oracle 的数量、方法、备份/验证代码摘要和范围。该轮 CI 对精确 PR head 重跑固定验收，
+上传无凭据合成样本的元数据；[历史 Checks](https://github.com/nanzhi84/SEAL/pull/14/checks) 为合并前结果依据。
 
-公网运行配置在 config/live.yaml；可使用以下命令独立复跑，来源变化可能造成新失败，不自动
-降低 robots 或网络范围约束。验收仅证明列出的有界来源与合同，未验证生产升级、全站覆盖、
-掉电耐久性、真实站点长期变化或所有分区的全国许可证数据。
-
-```sh
-uv run --frozen python experiments/document-only/live.py --name live-new
-uv run --frozen python experiments/document-only/verify.py experiments/document-only/artifacts/live-new
-```
+历史执行源码可从 [9afc72e 对应实验](https://github.com/nanzhi84/SEAL/tree/9afc72ea28a22e988244b1cea7c7d238f7ccf067/experiments/document-only)
+追溯；工件内旧命令只表示当时执行环境。后续由独立子 agent 使用当前四命令验收，来源变化
+可能造成新失败，不自动降低 robots 或网络范围约束。历史验收仅证明列出的有界来源与合同，
+未验证生产升级、全站覆盖、掉电耐久性、真实站点长期变化或所有分区的全国许可证数据。

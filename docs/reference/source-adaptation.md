@@ -142,11 +142,8 @@ M0 已足以构成第一版演示闭环；M1 用于证明可复用，不应变�
 环境使用项目 Python 3.12 与 `uv.lock`，`urllib` 发请求，Scrapy/Parsel 解析，pypdf 检查文本层；不需要数据库或账户。在线结果可能改变，输出目录须是新的。
 
 ```bash
-# 重建冻结探测分类和离线验收；不会覆盖人工台账或 HTML
+# 重建冻结探测分类；不会覆盖人工台账或 HTML
 uv run --frozen python experiments/source-accessibility/report.py
-uv run --frozen python experiments/source-accessibility/verify.py
-uv run --frozen python experiments/source-accessibility/verify_reference.py --output artifacts/source-reference-new.json
-uv run --frozen python experiments/due-diligence/verify.py --output artifacts/source-adaptation-prior-verification.json
 
 # 全地图新一轮公开入口探测；不会改本轮历史工件
 uv run --frozen python experiments/source-accessibility/probe.py --output artifacts/source-accessibility-new
@@ -154,6 +151,9 @@ uv run --frozen python experiments/source-accessibility/probe.py --output artifa
 uv run --frozen python experiments/source-accessibility/followup.py --output artifacts/source-accessibility-extra-new
 seiso check
 ```
+
+固定离线断言入口已删除；上述 PASS 是历史结果。新的验收由独立子 agent 按
+[根目录规则](../../AGENTS.md) 现场核对来源、请求账本、原文与分类，不机械复用历史预期。
 
 `report.py` 默认复现 2026-10-09 冻结研究，包含当日人工覆盖规则；新在线样本需重新核对业务事实后再更新分类，不能机械沿用当日“10 条”等事实。原始地图已归档到 experiments/due-diligence/inputs/source-map.md，字节与 ID 不变。历史 manifest 内的旧路径只表示当时位置。旧 golden 与在途 Runtime 修改不受本次整理影响。
 
