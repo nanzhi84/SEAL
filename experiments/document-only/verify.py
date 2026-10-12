@@ -91,7 +91,15 @@ def verify(output):
                 if version["source_format"] == "xls":
                     import xlrd
 
-                    header = xlrd.open_workbook(file_contents=body).sheet_by_index(0).row_values(0)
+                    sheet = xlrd.open_workbook(file_contents=body).sheet_by_index(0)
+                    # Empty spreadsheet cells are null in the Document contract;
+                    # a present empty text cell remains an empty string.
+                    header = [
+                        None
+                        if cell.ctype in (xlrd.XL_CELL_EMPTY, xlrd.XL_CELL_BLANK)
+                        else cell.value
+                        for cell in sheet.row(0)
+                    ]
                     table = next(n for n in version["content"]["children"] if n["type"] == "table")
                     h.check("live_xls_original_header", table["rows"][0], header)
         for emission in emissions:
@@ -159,6 +167,7 @@ def verify(output):
             "dump_sha256": sha((work / "final.dump").read_bytes()),
             "scope": summary["scope"],
             "source_outcomes": summary.get("source_outcomes", []),
+            "verifier_sha256": sha(__import__("pathlib").Path(__file__).read_bytes()),
         }
         (output / "verification.json").write_text(json.dumps(report, indent=2) + "\n")
         return report

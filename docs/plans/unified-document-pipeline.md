@@ -26,7 +26,7 @@ Archive 先保存已接收的解压后应用 bytes。重定向、HTTP 错误和 
 
 Parser 使用已有 HTML、文本 PDF、DOCX、XLS/XLSX、CSV、TXT、JSON、图片解析器，不强迫
 所有格式使用同一种算法。可信 Adapter 可定义 parse_options(response)，只允许 body_css、
-title_css、format、csv_delimiter；默认使用 params.options。内容根为 {format, children}，
+title_css、format、csv_delimiter；默认使用 params.options。XLS/XLSX 空单元格以 null 保存，保留二维布局；CSV 空字段保持空字符串。内容根为 {format, children}，
 仅允许 article、image、table、json、document_ref。最多一个 article，table 为二维 JSON
 标量，JSON 保留完整 envelope 与标量/null；附件引用以实际 document 外键关联。
 文档结构、Source / Run / epoch / Snapshot / Observation 归属与 hash 必须验证；不复算
@@ -42,7 +42,7 @@ Document 的 GET 身份为 Source / namespace / URL；POST 身份加入语义 re
 Recheck 在线获取变化。GET 使用已保存实际请求角色和 URL；POST 来源重新从配置种子获取
 新表单/Token 并遍历声明范围，不重发历史 nonce。冻结目标保存在 Run.recheck_plan。未变化
 复用 Version，变化产生新版本；未知/未观察不表示删除。attempt fencing、generation、run_seq、
-超时、预算、有限重试、幂等、Source 状态和崩溃自动恢复继续保留。
+超时、预算、有限重试、幂等、Source 状态和崩溃自动恢复继续保留。显式 Recheck 检查当前保存目标；next_check/recheck_retry_at 保留为 SQL 调度元数据，外部 Cron 决定触发时间。
 
 ## 四命令 CLI 与配置
 
@@ -116,3 +116,32 @@ seiso check
 ```
 
 本次验证结果以最终验收工件和精确 PR head 的 CI 为准，不复用 #10 的历史 PASS。
+
+## 本次实现与验收结果
+
+[PR #14](https://github.com/nanzhi84/SEAL/pull/14) 收敛了统一入口，删除旧输出及专属测试；
+手写运行代码和本次验收脚本均小于 500 行。历史 schema.sql / 0002–0008 无改动，
+历史原文、冻结配置和结果不重写。当前验收只调用四命令与 PostgreSQL，未执行生产迁移。
+
+| 节点 | 输入与实际命令 | 实际结果、输出及下游用途 |
+| --- | --- | --- |
+| Collect / Parser | 九格式、五节点、所有保留 Adapter 的固定合成 HTTP；真实 collect YAML | 467 项 E2E 断言 PASS，SQL 保存文档与失败诊断；覆盖分页、API、iframe、POST nonce、压缩响应，后续用于 Recheck 和查询 |
+| Run / Worker / TTY | --enqueue、worker --once、真实 PTY、Ctrl+C、SIGKILL 与真实心跳等待 | 版本复用、变化、不可变绑定、generation/epoch、截止时间、前台与 Worker 恢复、面板及 stdout JSON PASS |
+| Migration / Backup | 含真实 CLI Document 与合成旧 Record 的隔离旧库；init 对象清单、备份和确认 | 未知依赖使迁移原子失败；重试升级移除 Record，保留 Document/Run/历史 mode 与第三方队列；备份实际恢复 PASS |
+| 独立 Oracle | pg_restore final.dump，再用独立 SQL、Archive 与 canonical content hash 核验 | 1492 项断言 PASS；281 个 Observation、88 个 Version、232 个 Emission 的保存证据通过；无需 Runtime Parser 或 Replay |
+| 公网有界样本 | AMAC trustee、教育部单篇通知与其 XLS；Collect → Recheck | 分别 8 / 3 个 Document、完整 JSON envelope 和 XLS 原文通过核验。新闻出版署单篇 PDF 的 robots 不可用，FAILED；全站覆盖一律 UNKNOWN |
+
+本机环境为 Python 3.12.13 / PostgreSQL 17.11，uv.lock 和代码摘要在各工件 summary.json。
+固定样本工件位于 `experiments/document-only/artifacts/final-local/`；公网工件位于
+`experiments/document-only/artifacts/final-live/`，原文和备份留在对应 work/。verification.json
+保存独立 Oracle 的数量、方法、备份/验证代码摘要和范围。CI 对精确 PR head 重跑固定验收，
+上传无凭据合成样本的元数据；[Checks](https://github.com/nanzhi84/SEAL/pull/14/checks) 为合并前结果依据。
+
+公网运行配置在 config/live.yaml；可使用以下命令独立复跑，来源变化可能造成新失败，不自动
+降低 robots 或网络范围约束。验收仅证明列出的有界来源与合同，未验证生产升级、全站覆盖、
+掉电耐久性、真实站点长期变化或所有分区的全国许可证数据。
+
+```sh
+uv run --frozen python experiments/document-only/live.py --name live-new
+uv run --frozen python experiments/document-only/verify.py experiments/document-only/artifacts/live-new
+```
