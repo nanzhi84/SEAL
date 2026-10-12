@@ -118,14 +118,9 @@ class SourceConfig(Strict):
     methods: list[Literal["GET", "HEAD", "POST"]] = ["GET", "HEAD"]
     public_post_rules: list[PublicPostRule] = Field(default_factory=list, max_length=5)
     public_html_forms: list[PublicHtmlFormRule] = Field(default_factory=list, max_length=5)
-    identity: Literal["canonical_url", "business_key"] = "canonical_url"
-    output_schema: Literal["generic_document.v1", "record.v1", "document.v1"] = (
-        "generic_document.v1"
-    )
     archive_approved: bool
     scope: str = Field(min_length=5, max_length=2000)
     seed_role: Literal["list", "detail", "api", "iframe", "attachment", "sitemap"] = "list"
-    poll_seconds: int = Field(default=3600, ge=60)
     recheck_seconds: int = Field(default=86400, ge=60)
     budget: Budget = Budget()
     concurrency: int = Field(default=2, ge=1, le=8)
@@ -201,4 +196,13 @@ class SourceConfig(Strict):
         return self
 
     def execution(self):
-        return self.model_dump(exclude={"poll_seconds", "recheck_seconds"})
+        return self.model_dump(exclude={"recipe"})
+
+
+class RecipeReference(Strict):
+    path: str = Field(min_length=1)
+    params: dict = Field(default_factory=dict)
+
+
+class CollectionConfig(SourceConfig):
+    recipe: RecipeReference

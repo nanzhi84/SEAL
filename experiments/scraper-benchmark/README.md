@@ -1,3 +1,5 @@
+> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
+
 # SEAL 采集框架实验
 
 所有内容只属于 `experiments/scraper-benchmark/`，不自动发布到 SEAL 生产环境。

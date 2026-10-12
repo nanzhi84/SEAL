@@ -1,3 +1,5 @@
+> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
+
 # 尽职调查核验入口地图
 
 > 来源：威科先行·法律信息库《尽职调查网站汇总地图》（2026.01.31 发布），经结构化提取。

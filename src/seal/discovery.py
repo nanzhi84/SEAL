@@ -53,23 +53,16 @@ SKIP_REASONS = {
 }
 
 
-def _available(c):
-    # Pre-upgrade V1/V1.1 databases remain usable by old compatibility harnesses.
-    return c.execute("SELECT to_regclass('seal_discovery') AS name").fetchone()["name"] is not None
-
-
 def _update(context, request, assignments, params=(), *, preserve_terminal=False):
     identity = request.meta.get("seal_discovery_id")
     if not identity:
         return
     with connect() as c:
-        if not _available(c):
-            return
         terminal_guard = " AND state NOT IN ('failed','skipped')" if preserve_terminal else ""
         c.execute(
-            f"""UPDATE seal_discovery SET {assignments}
+            f"""UPDATE seal.discovery SET {assignments}
                 WHERE id=%s AND run_id=%s AND attempt_epoch=%s{terminal_guard}
-                  AND EXISTS (SELECT 1 FROM seal_run WHERE id=%s AND attempt_epoch=%s
+                  AND EXISTS (SELECT 1 FROM seal.run WHERE id=%s AND attempt_epoch=%s
                               AND status IN ('running','finishing'))""",
             (
                 *params,
@@ -82,12 +75,12 @@ def _update(context, request, assignments, params=(), *, preserve_terminal=False
         )
 
 
-def mark_requested(context, request, replayed=False):
+def mark_requested(context, request):
     _update(
         context,
         request,
-        "state='requested',requested_at=now(),request_id=%s,chain_id=%s,replayed=%s",
-        (request.meta.get("seal_request_id"), request.meta.get("seal_chain_id"), replayed),
+        "state='requested',requested_at=now(),request_id=%s,chain_id=%s",
+        (request.meta.get("seal_request_id"), request.meta.get("seal_chain_id")),
     )
 
 
@@ -101,20 +94,18 @@ def mark_archived(context, request, snapshot_id, observation_id, status=None):
 
 
 def mark_parsed(context, request):
-    # Completing a callback successfully is meaningful even when it yields zero Records.
+    # Completing a callback successfully is meaningful even when it yields zero Documents.
     identity = request.meta.get("seal_discovery_id")
     if not identity:
         return
     with connect() as c:
-        if not _available(c):
-            return
         c.execute(
-            """UPDATE seal_discovery SET state='parsed',parsed_at=now(),reason=NULL
+            """UPDATE seal.discovery SET state='parsed',parsed_at=now(),reason=NULL
                WHERE id=%s AND run_id=%s AND attempt_epoch=%s
                  AND state NOT IN ('failed','skipped')
                  AND (response_status IS NULL OR response_status BETWEEN 200 AND 299
                       OR (role='robots' AND response_status IN (404,410)))
-                 AND EXISTS (SELECT 1 FROM seal_run WHERE id=%s AND attempt_epoch=%s
+                 AND EXISTS (SELECT 1 FROM seal.run WHERE id=%s AND attempt_epoch=%s
                              AND status IN ('running','finishing'))""",
             (
                 identity,
@@ -162,12 +153,10 @@ def mark_inputs_failed(context, snapshot_ids, code):
     if not snapshot_ids:
         return
     with connect() as c:
-        if not _available(c):
-            return
         c.execute(
-            """UPDATE seal_discovery SET state='failed',reason=%s
+            """UPDATE seal.discovery SET state='failed',reason=%s
                WHERE run_id=%s AND attempt_epoch=%s AND snapshot_id=ANY(%s)
-                 AND EXISTS (SELECT 1 FROM seal_run WHERE id=%s AND attempt_epoch=%s
+                 AND EXISTS (SELECT 1 FROM seal.run WHERE id=%s AND attempt_epoch=%s
                              AND status IN ('running','finishing'))""",
             (
                 code,
@@ -182,10 +171,8 @@ def mark_inputs_failed(context, snapshot_ids, code):
 
 def finish_discovery(c, run, reason):
     """Give every captured event a terminal explanation after a crawl closes."""
-    if not _available(c):
-        return
     c.execute(
-        """UPDATE seal_discovery SET state=CASE
+        """UPDATE seal.discovery SET state=CASE
                WHEN continued_by IS NOT NULL THEN 'skipped'
                WHEN response_status >= 400 THEN 'failed'
                ELSE 'skipped' END,reason=CASE
@@ -206,23 +193,11 @@ class Discovery:
         value.crawler = crawler
         value.context = crawler.settings["SEAL_CONTEXT"]
         with connect() as c:
-            value.enabled = _available(c)
-            value.metadata_enabled = (
-                value.enabled
-                and c.execute(
-                    "SELECT EXISTS (SELECT 1 FROM information_schema.columns "
-                    "WHERE table_name='seal_discovery' AND column_name='discovery_method') AS present"
-                ).fetchone()["present"]
-            )
-            value.context["_seal_discovery_metadata"] = value.metadata_enabled
-            value.count = (
-                c.execute(
-                    "SELECT count(*) AS n FROM seal_discovery WHERE run_id=%s AND attempt_epoch=%s",
-                    (value.context["id"], value.context["attempt_epoch"]),
-                ).fetchone()["n"]
-                if value.enabled
-                else 0
-            )
+            value.count = c.execute(
+                "SELECT count(*) AS n FROM seal.discovery WHERE run_id=%s AND attempt_epoch=%s",
+                (value.context["id"], value.context["attempt_epoch"]),
+            ).fetchone()["n"]
+        value.context["_seal_discovery_metadata"] = True
         value.limited = False
         value.query_variants = {}
         value.known_fingerprints = set()
@@ -263,8 +238,6 @@ class Discovery:
         # This signal runs before Scheduler.enqueue_request / native Dupefilter.
         # Copies used by retry/redirect must get a fresh event rather than overwriting
         # the discovery that led to their original exchange.
-        if not self.enabled:
-            return
         previous = request.meta.pop("seal_discovery_id", None)
         callback_output = request.meta.pop("_seal_discovery_from_callback", False)
         transport = "discovery"
@@ -315,12 +288,12 @@ class Discovery:
             ):
                 raise IgnoreRequest("stale_attempt")
             c.execute(
-                """INSERT INTO seal_discovery
+                """INSERT INTO seal.discovery
                    (id,run_id,attempt_epoch,source_id,url,method,role,fingerprint,
                     parent_url,parent_snapshot_id,parent_observation_id,
                     parent_discovery_id,transport,dont_filter)
                    SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s
-                   FROM seal_run WHERE id=%s AND attempt_epoch=%s AND status='running'""",
+                   FROM seal.run WHERE id=%s AND attempt_epoch=%s AND status='running'""",
                 (
                     identity,
                     self.context["id"],
@@ -340,26 +313,25 @@ class Discovery:
                     self.context["attempt_epoch"],
                 ),
             )
-            if getattr(self, "metadata_enabled", False):
-                c.execute(
-                    "UPDATE seal_discovery SET discovery_method=%s,depth=%s,scope_decision=%s "
-                    "WHERE id=%s",
-                    (
-                        transport
-                        if transport != "discovery"
-                        else request.meta.get(
-                            "seal_discovery_method", "seed" if not parent else "html"
-                        ),
-                        request.meta.get("seal_depth", 0),
-                        scope_decision,
-                        identity,
+            c.execute(
+                "UPDATE seal.discovery SET discovery_method=%s,depth=%s,scope_decision=%s "
+                "WHERE id=%s",
+                (
+                    transport
+                    if transport != "discovery"
+                    else request.meta.get(
+                        "seal_discovery_method", "seed" if not parent else "html"
                     ),
-                )
+                    request.meta.get("seal_depth", 0),
+                    scope_decision,
+                    identity,
+                ),
+            )
             if transport != "discovery":
                 c.execute(
-                    """UPDATE seal_discovery SET continued_by=%s
+                    """UPDATE seal.discovery SET continued_by=%s
                        WHERE id=%s AND run_id=%s AND attempt_epoch=%s
-                         AND EXISTS (SELECT 1 FROM seal_run WHERE id=%s AND attempt_epoch=%s
+                         AND EXISTS (SELECT 1 FROM seal.run WHERE id=%s AND attempt_epoch=%s
                                      AND status IN ('running','finishing'))""",
                     (
                         identity,
@@ -374,10 +346,7 @@ class Discovery:
         self.count += 1
         rejection = request.meta.get("seal_helper_rejection") or rejection
         if rejection:
-            if getattr(self, "metadata_enabled", False):
-                mark_failed(self.context, request, rejection)
-            else:
-                _update(self.context, request, "state='skipped',reason=%s", (rejection,))
+            mark_failed(self.context, request, rejection)
             if scope_decision != "rejected" or not strategy:
                 record_error(self.context["id"], self.context["attempt_epoch"], rejection)
             raise IgnoreRequest(rejection)
@@ -385,23 +354,21 @@ class Discovery:
             self.known_fingerprints.add(fingerprint)
 
     def dropped(self, request, spider=None):
-        if not self.enabled:
-            return
         identity = request.meta.get("seal_discovery_id")
         if not identity:
             return
         with connect() as c:
             c.execute(
-                """UPDATE seal_discovery SET state='skipped',reason='duplicate_request',
-                   duplicate_of=(SELECT other.id FROM seal_discovery other
-                     WHERE other.run_id=seal_discovery.run_id
-                       AND other.attempt_epoch=seal_discovery.attempt_epoch
-                       AND other.fingerprint=seal_discovery.fingerprint
-                       AND other.id<>seal_discovery.id
+                """UPDATE seal.discovery SET state='skipped',reason='duplicate_request',
+                   duplicate_of=(SELECT other.id FROM seal.discovery other
+                     WHERE other.run_id=seal.discovery.run_id
+                       AND other.attempt_epoch=seal.discovery.attempt_epoch
+                       AND other.fingerprint=seal.discovery.fingerprint
+                       AND other.id<>seal.discovery.id
                        AND other.reason IS DISTINCT FROM 'duplicate_request'
                      ORDER BY other.created_at,other.id LIMIT 1)
                    WHERE id=%s AND run_id=%s AND attempt_epoch=%s
-                     AND EXISTS (SELECT 1 FROM seal_run WHERE id=%s AND attempt_epoch=%s
+                     AND EXISTS (SELECT 1 FROM seal.run WHERE id=%s AND attempt_epoch=%s
                                  AND status IN ('running','finishing'))""",
                 (
                     identity,

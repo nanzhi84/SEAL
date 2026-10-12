@@ -14,8 +14,6 @@ def exhaustion_error(run):
 
 
 def eligibility_error(source, run):
-    if run["mode"] == "replay":
-        return None
     if source["generation"] != run["generation"]:
         return "source_generation_changed"
     if source["paused"]:

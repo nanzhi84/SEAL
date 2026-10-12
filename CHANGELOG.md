@@ -5,6 +5,24 @@ lang: zh
 
 # 版本记录
 
+## 0.2.0 / Document-only（Issue #13）— 2026-10-12
+
+所有成功内容响应统一进入 Archive → 格式 Parser → Document；来源发现与解析解耦。
+Business、异构、越南法律和通用适配器保留网络发现/分页/公开表单，删除业务 Record 生成、
+字段映射/Schema、细粒度 Locator。保留九格式、五节点、文档身份/版本/Emission 与原文血缘。
+移除 Replay、Inspect/Export 与旧 CLI，改为 init、collect/recheck source.yaml、worker；
+YAML 自动注册不可变绑定，--enqueue 可异步提交，周期采集交给外部 Cron。在线 Recheck、
+有限重试、generation/attempt 防护和自动恢复保留。前台新增 stderr TTY rich.Live 只读面板。
+
+新增 0009_document_only.sql，历史迁移不修改。Record/result 专属表实际 DROP；其余自建表、
+索引、约束、函数与触发器迁入 seal 并去 seal_ 前缀，第三方 public.procrastinate_* 保持原样。
+已有库必须停所有客户端、检查 init 清单并使用 --backup PATH --acknowledge-data-loss；
+未知依赖会原子阻止升级。Record 历史有意删除，DROP 回滚依赖备份恢复；Document/Run/Archive
+保留。外部 SQL 需改用 seal.<table>，不提供旧名兼容视图。结构化查询与导出仅用 SQL/COPY。
+
+当前设计、验收范围与命令见 [Plan](docs/plans/unified-document-pipeline.md)。以下为历史版本记录，
+其旧命令、Record/Replay 和验证结果不适用于 0.2.0。
+
 ## 统一文档流水线（Issue #10）— 2026-10-11
 
 新增 Source `document.v1` 与 `recipes/documents`：响应先归档，再解析、校验和保存统一文档，

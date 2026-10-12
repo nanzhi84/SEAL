@@ -1,7 +1,7 @@
 """The original national college notice and all its displayed XLS workbooks."""
 
 from seal.core import SealError
-from seal.helpers import attachment_record, html_record, input_reference, is_attachment_response
+from seal.helpers import input_reference, is_attachment_response
 
 
 class Education:
@@ -10,17 +10,7 @@ class Education:
 
     def parse(self, response, parent=None):
         if is_attachment_response(response):
-            yield attachment_record(
-                response, parent=parent, record_type="education_college_workbook"
-            )
             return
-        yield html_record(
-            response,
-            title="h1",
-            body=".TRS_Editor",
-            date=None,
-            record_type="education_college_notice",
-        )
         if not self.spider.expansion_enabled:
             return
         links = response.css(".TRS_Editor a[href]")
@@ -34,3 +24,10 @@ class Education:
         self.spider.crawler.stats.set_value("seal/business_expected_workbooks", len(files))
         for url in sorted(files):
             yield self.spider.next(response, url, "attachment", parent=input_reference(response))
+
+    def parse_options(self, response):
+        return (
+            {}
+            if is_attachment_response(response)
+            else {"title_css": "h1", "body_css": ".TRS_Editor"}
+        )

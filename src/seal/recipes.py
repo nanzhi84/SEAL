@@ -16,7 +16,6 @@ from lxml import etree
 from .config import load_file
 from .core import Objects, SealError, atomic_write, digest
 from .db import connect, j, one
-from .fields import CONTRACT_KEYS, field_contract
 
 
 def environment():
@@ -43,7 +42,7 @@ def environment():
         "lock_hash": digest(lock.read_bytes()),
         "engine": engine,
         "archive_contract": 1,
-        "validation_contract": 2,
+        "document_contract": 1,
     }
 
 
@@ -53,7 +52,7 @@ def pack_recipe(path):
     if (
         not isinstance(manifest, dict)
         or not {"family", "entrypoint", "params_schema"} <= set(manifest)
-        or set(manifest) - {"family", "entrypoint", "params_schema"} - CONTRACT_KEYS
+        or set(manifest) - {"family", "entrypoint", "params_schema"}
     ):
         raise SealError("invalid_recipe_manifest")
     if not re.fullmatch(r"[a-zA-Z_][\w.]*:[A-Za-z_]\w*", manifest["entrypoint"]):
@@ -87,13 +86,12 @@ def pack_recipe(path):
         files[file.relative_to(root).as_posix()] = base64.b64encode(data).decode()
     if manifest["entrypoint"].split(":")[0].replace(".", "/") + ".py" not in files:
         raise SealError("recipe_entrypoint_missing")
-    field_contract(manifest, files)
     env = environment()
     bundle = {"manifest": manifest, "files": files, "environment": env}
     version = Objects().put_json(bundle)
     with connect() as c:
         c.execute(
-            "INSERT INTO seal_recipe_version(id,manifest) VALUES (%s,%s) ON CONFLICT DO NOTHING",
+            "INSERT INTO seal.recipe_version(id,manifest) VALUES (%s,%s) ON CONFLICT DO NOTHING",
             (
                 version,
                 j(
@@ -111,15 +109,15 @@ def pack_recipe(path):
 
 def load_bundle(version):
     with connect() as c:
-        row = one(c, "SELECT * FROM seal_recipe_version WHERE id=%s", (version,))
+        row = one(c, "SELECT * FROM seal.recipe_version WHERE id=%s", (version,))
     bundle = Objects().json(row["manifest"]["object"])
-    if bundle["environment"] != environment():
-        raise SealError("environment_drift")
     return bundle
 
 
 def import_recipe(version):
     bundle = load_bundle(version)
+    if bundle["environment"] != environment():
+        raise SealError("environment_drift")
     root = Objects().root / "packages" / version
     for relative, encoded in bundle["files"].items():
         path = root / relative
@@ -134,37 +132,3 @@ def import_recipe(version):
     sys.path.insert(0, str(root))
     module, name = bundle["manifest"]["entrypoint"].split(":")
     return getattr(importlib.import_module(module), name)
-
-
-def create_binding(source_id, version, params):
-    bundle = load_bundle(version)
-    try:
-        jsonschema.validate(params, bundle["manifest"]["params_schema"])
-    except jsonschema.ValidationError:
-        raise SealError("invalid_recipe_params") from None
-    from .config import SourceConfig
-
-    with connect() as c:
-        source = one(c, "SELECT * FROM seal_source WHERE id=%s FOR UPDATE", (source_id,))
-        config = SourceConfig.model_validate(source["config"]).execution()
-        fingerprint = digest(
-            {"config": config, "params": params, "recipe_version": version, "contract": 2}
-        )
-        c.execute(
-            "INSERT INTO seal_binding(id,source_id,recipe_version,config,params,fingerprint) VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING",
-            (fingerprint, source_id, version, j(config), j(params), fingerprint),
-        )
-    return {"binding_id": fingerprint, "fingerprint": fingerprint}
-
-
-def load_field_contract(version):
-    """Import only reviewed package functions after import_recipe materializes its bundle."""
-    bundle = load_bundle(version)
-    contract = field_contract(bundle["manifest"], bundle["files"])
-    functions = {}
-    if contract:
-        for group in ("field_parsers", "field_transforms"):
-            for rule in contract[group].values():
-                module, name = rule["entrypoint"].split(":")
-                functions[rule["entrypoint"]] = getattr(importlib.import_module(module), name)
-    return contract, functions

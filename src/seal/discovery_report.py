@@ -2,7 +2,6 @@
 
 from datetime import date, datetime
 
-from .manifest import has_table
 from .run_state import TERMINAL_STATES
 
 # Bounds metadata even when a recipe emits an unbounded stream of duplicate URLs.
@@ -25,19 +24,14 @@ def network_counts(c, run):
     counts = c.execute(
         """SELECT count(*) AS http_attempts,
                   count(snapshot_id) AS archived_observations
-           FROM seal_fetch_observation WHERE run_id=%s AND attempt_epoch=%s
+           FROM seal.fetch_observation WHERE run_id=%s AND attempt_epoch=%s
              AND origin='network'""",
         (run["id"], run["attempt_epoch"]),
     ).fetchone()
-    # Sensitive bodies are rejected before an Observation is persisted. Native
-    # downloader stats still count that exchange, without retaining its bytes.
+    # Native downloader stats also include exchanges rejected before archival.
     stats = run.get("report", {}).get("stats")
     counts["http_attempts_basis"] = "observations_lower_bound"
-    if run.get("mode") == "replay":
-        counts.update(
-            http_attempts=0, archived_observations=0, http_attempts_basis="offline_replay"
-        )
-    elif stats is not None:
+    if stats is not None:
         counts.update(
             http_attempts=stats.get("downloader/request_count", 0),
             http_attempts_basis="scrapy_downloader",
@@ -48,28 +42,22 @@ def network_counts(c, run):
 def summarize_discovery(c, run, include_events=False):
     """Count discovery lifecycle separately from persisted HTTP observations.
 
-    ``requested`` means a request passed Guard (or was restored by Replay), while
+    ``requested`` means a request passed Guard, while
     ``http_attempts`` uses native downloader stats, including refused bodies;
     without completed stats, persisted observations are only a lower bound.
-    ``parsed`` requires the final successful state, including valid zero-Record
+    ``parsed`` requires the final successful state, including valid zero-content
     callbacks. ``callback_completed`` also counts callbacks whose later item
     validation failed, so a callback return cannot imply a valid structured result.
     """
-    available = has_table(c, "seal_discovery")
-    rows = (
-        c.execute(
-            "SELECT * FROM seal_discovery WHERE run_id=%s AND attempt_epoch=%s ORDER BY created_at,id",
-            (run["id"], run["attempt_epoch"]),
-        ).fetchall()
-        if available
-        else []
-    )
+    rows = c.execute(
+        "SELECT * FROM seal.discovery WHERE run_id=%s AND attempt_epoch=%s ORDER BY created_at,id",
+        (run["id"], run["attempt_epoch"]),
+    ).fetchall()
     outcomes = {}
     unknown = set()
-    instrumented = available
+    instrumented = True
     if (
-        available
-        and not rows
+        not rows
         and run.get("status") in TERMINAL_STATES
         and not run.get("report", {}).get("discovery", {}).get("instrumented")
     ):
@@ -135,7 +123,6 @@ def summarize_discovery(c, run, include_events=False):
         "deduplicated": sum(row["reason"] == "duplicate_request" for row in rows),
         "unique_fingerprints": len({row["fingerprint"] for row in rows}),
         **observations,
-        "replayed": sum(row["replayed"] for row in rows),
         "pending": sum(row["state"] in ("discovered", "requested", "archived") for row in rows),
         "unknown_coverage": bool(unknown),
         "unknown_coverage_reasons": sorted(unknown),

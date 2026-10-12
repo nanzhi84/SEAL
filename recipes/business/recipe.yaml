@@ -3,23 +3,37 @@ entrypoint: recipe:BusinessSpider
 params_schema:
   type: object
   additionalProperties: false
-  required: [source]
+  required:
+  - source
   properties:
     source:
       type: string
-      enum: [dd-017, dd-041, dd-250, dd-247, dd-468, dd-102, dd-357]
+      enum:
+      - dd-017
+      - dd-041
+      - dd-250
+      - dd-247
+      - dd-468
+      - dd-102
+      - dd-357
     permit_stage:
       type: string
-      enum: [regions, plan, collect]
+      enum:
+      - regions
+      - plan
+      - collect
     province:
       type: string
-      pattern: '^[0-9]{12}$'
+      pattern: ^[0-9]{12}$
     city:
       type: string
-      pattern: '^(?:[0-9]{12})?$'
+      pattern: ^(?:[0-9]{12})?$
     management:
       type: string
-      enum: ['', '0', '1']
+      enum:
+      - ''
+      - '0'
+      - '1'
     first_page:
       type: integer
       minimum: 1

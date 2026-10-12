@@ -35,7 +35,7 @@ def _parent(context, request, rule):
         raise SealError("public_html_form_parent_required")
     with connect() as connection:
         accepted = connection.execute(
-            """SELECT o.id FROM seal_fetch_observation o JOIN seal_run r ON r.id=o.run_id
+            """SELECT o.id FROM seal.fetch_observation o JOIN seal.run r ON r.id=o.run_id
                WHERE o.id=%s AND o.run_id=%s AND o.attempt_epoch=%s AND o.source_id=%s
                  AND o.snapshot_id=%s AND o.status=200 AND r.attempt_epoch=%s
                  AND r.status='running' AND EXISTS (

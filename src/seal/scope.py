@@ -51,7 +51,7 @@ def robots_policy_request(config, request):
 def attachment_response_scope(config, url, parent_url):
     """Check a resource whose attachment type was only known after download.
 
-    Its discovery role remains unchanged for request identity and Replay. The
+    Its discovery role remains unchanged for request identity. The
     final attachment representation still needs the explicit cross-host scope.
     """
     parsed = urlsplit(url)

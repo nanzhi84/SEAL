@@ -1,3 +1,5 @@
+> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
+
 # SEAL 采集框架：同网址配对实测报告
 
 > **已完成一轮真实的相同 URL 采集，不再用 Scrapy 网站抓取对比 Firecrawl 合成上传。**
