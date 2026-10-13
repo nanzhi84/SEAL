@@ -105,6 +105,7 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
             self._session = aiohttp.ClientSession(
                 response_class=Response,
                 trace_configs=[trace],
+                headers={"User-Agent": self.config["user_agent"]},
                 connector=aiohttp.TCPConnector(
                     limit=self.config["concurrency"], resolver=Resolver()
                 ),

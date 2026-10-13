@@ -89,6 +89,10 @@ Version 后切换模式报 input_mode_change_requires_new_source，禁止混合�
 配置还支持 page_timeout_ms、word_count_threshold、css_selector、wait_until；
 blocked_patterns 可补充来源阻拦检测。无自动登录、凭据刷新或验证码求解。
 
+robots 使用 Protego 的最长匹配规则，较具体 Allow 不因前面的宽 Disallow 被误拒绝；同一
+Source 的政策与业务请求均发送配置 user_agent。403 政策仍拒绝业务请求；SDK 错误分类
+只读取诊断前缀，不能将后附源码上下文中的其他错误码当作真实失败原因。
+
 SDK 0.9.4 会将有正文的短 HTML 判为 minimal_text 阻拦页；仅对该尺寸启发式且有
 p/h/main 正文结构的页面，以 SDK fallback 回调复用同次捕获的 HTML，不新增请求。
 SDK clone 会丢失此回调，薄 RunConfig 仅修复该字段传递；升级至修复版本后可删除。
@@ -137,6 +141,21 @@ media 等），artifacts 将 pdf/screenshot/mhtml 二进制外置为 CAS；downl
 也以 CAS 哈希替换临时路径。seal.archive.deserialize_result 可在新进程重建 CrawlResult
 与长期本地路径；这是编码封装，不是自定义内容 AST。链接只保留 SDK URL 引用，不建立
 document_reference 外键，也不承诺目标已获取或绑定历史版本。
+
+每次 SDK 交付都保存同一存储封装，包括失败与 unchanged 的本轮结果。Run.report.crawl_results
+以 Observation ID 映射结果 CAS 哈希，与 Observation 同事务提交；重复交付保持首次关联。
+policy 请求不产生 SDK CrawlResult，因此不加入映射。Version 仍只保存有效解析内容；失败
+诊断不能进入内容增量。SDK 异常结果可能没有 status_code 或 html，真实响应状态和获取到的
+原文以 Observation 与其 archive_ref 为准，不伪造 SDK 字段。不需要新增数据库迁移。
+二进制外置后使用 Pydantic JSON 编码，PDF metadata 中的 datetime 保留为 ISO 日期字符串，
+不因 Python 原生值无法写入 JSON 而中断采集。
+
+2026-10-13 按 playgroud 旧业务范围进行公网有界复现：法院前10页及200详情、海仲栏目
+及6PDF（424页）原文核对通过；公募17个原生JSON分页的165行和教育部2XLS原文已获取，
+语义解析仍 unsupported，不能把入口HTML成功视作目录或工作表验收通过。操作脚本从
+本轮归档推导显式种子，max_depth=0；不声明框架自动接替旧来源专用发现。476份本轮SDK
+结果可跨进程重建；独立原文/SQL/SDK核验5009项，2项失败恰为JSON/XLS语义缺口。日常
+运行及证据在根目录 work/、artifacts/，旧历史原文和配置不重写。
 
 ## 发现、复查、取消与恢复
 

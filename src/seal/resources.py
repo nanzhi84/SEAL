@@ -19,11 +19,24 @@ def resource(c, frontier_id, url, role="content"):
     )
 
 
-def persist(run_id, epoch, url, capture, crawl_result, outcome, error=None, role="content"):
+def persist(
+    run_id,
+    epoch,
+    url,
+    capture,
+    crawl_result,
+    outcome,
+    error=None,
+    role="content",
+    *,
+    result_ref=None,
+):
     """One run/URL delivery commits once, even after checkpoint replay or worker takeover."""
     body_hash = capture.get("body_hash")
     if body_hash:
         Objects().get(body_hash)  # Verify durable bytes before writing references.
+    if result_ref:
+        Objects().get(result_ref)
     with connect() as c:
         source, run = locked_run(c, run_id)
         fenced(source, run, epoch)
@@ -104,6 +117,14 @@ def persist(run_id, epoch, url, capture, crawl_result, outcome, error=None, role
           next_check=now()+(%s * interval '1 second') WHERE id=%s""",
             (outcome, interval, r["id"]),
         )
+        if result_ref:
+            # Commit the diagnostic with its Observation. Replayed delivery keeps both
+            # original input and original result, even if the remote response changes.
+            c.execute(
+                """UPDATE seal.run SET report=jsonb_set(report,'{crawl_results}',
+              COALESCE(report->'crawl_results','{}'::jsonb) || %s,true) WHERE id=%s""",
+                (j({oid: result_ref}), run_id),
+            )
         if error:
             c.execute("UPDATE seal.run SET errors=errors || %s WHERE id=%s", (j([error]), run_id))
         return oid

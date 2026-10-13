@@ -3,7 +3,11 @@
 import base64
 from pathlib import Path
 
+from pydantic import TypeAdapter
+
 from .core import SENSITIVE, Objects, SealError
+
+json_envelope = TypeAdapter(dict)
 
 
 def serialize_result(result):
@@ -33,7 +37,11 @@ def serialize_result(result):
             artifacts[field] = objects.put(body)
             data[field] = None
     # The envelope carries storage encoding only; result keys retain SDK semantics.
-    return {"result": data, "artifacts": artifacts, "download_encoding": "sha256-cas"}
+    # SDK PDF metadata may contain datetimes. After externalizing binary fields,
+    # use Pydantic's JSON encoding instead of requiring Python-native values.
+    return json_envelope.dump_python(
+        {"result": data, "artifacts": artifacts, "download_encoding": "sha256-cas"}, mode="json"
+    )
 
 
 def deserialize_result(envelope):
