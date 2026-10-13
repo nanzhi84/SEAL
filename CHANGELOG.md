@@ -5,6 +5,30 @@ lang: zh
 
 # 版本记录
 
+## 0.3.0 / Crawl4AI 资源时间线（Issue #17）— 2026-10-13
+
+Crawl4AI[pdf] 0.9.4 全线替换 Scrapy。保留 init、collect/recheck source.yaml、worker
+及 --backup、--acknowledge-data-loss、--enqueue、--no-progress、--once；去除 Recipe
+包/Binding 执行、自定义 Document AST、Revision/Emission/reference 新写入和旧glue。
+Source YAML 改为 crawl4ai 配置，旧 recipe YAML 明确拒绝；JSON receipt.v3 用 config_hash
+替换 binding_id，统计资源与观测。旧专用 POST/表单、Office/OCR/JSON/图片解析首版未接替。
+
+Source:Frontier=1:1，资源按 frontier_id+URL 独立；响应获取阶段归档（HTTP 正文 bytes 或
+明确 rendered_dom），Version 原生保存 CrawlResult。只比较当前成功版本的正文：相同不增
+版本，A→B→A 连续版本，失败/阻拦不推进。CrawlResult 的下载与二进制工件存 CAS，不依赖
+临时路径。旧 Run 的全轮原子文档发布改为各资源有效响应独立事务提交。
+
+Source session lock、generation/epoch 和父子进程保护恢复；SDK checkpoint 补齐当前层
+未交付窗口，以run/URL提交幂等。新轮重访入口，recheck 对到期已知 URL 批量复查。
+下游使用 seal.current_resource_version、seal.version 和按 cursor 排序的 seal.version_delta。
+
+新增0010_resource_timeline.sql，历史schema.sql/0002–0009字节和登记身份不变。
+旧来源和历史内容表、归档继续可读；旧AST不伪造转换为CrawlResult，不双写。待执行旧任务
+终止，需迁移 YAML 后新建 Run。0.2库升级停客户端并使用 init --backup PATH；更旧public
+库经过历史0009仍需 --acknowledge-data-loss。回滚依赖旧代码、数据库与Archive备份恢复；
+生产迁移另行授权。独立完整端到端427项PASS（0FAIL），覆盖合成HTTP/PDF/DOM、原文与版本、真实
+取消/前台及Worker崩溃、旧任务栅栏、旧库备份实际恢复。公网适配与生产升级未验证。
+
 ## 迁移文件整理 — 2026-10-12
 
 将 schema.sql 移入 src/seal/migrations/，保持其内容、历史迁移登记名称和摘要不变。初始化仍先执行 schema.sql，再按编号执行后续迁移；已有库不重放已登记的迁移，无数据库结构变更。

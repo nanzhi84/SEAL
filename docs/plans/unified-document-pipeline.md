@@ -3,123 +3,226 @@ kind: plan
 lang: zh
 ---
 
-# Document-only 采集解析流水线
+# Crawl4AI 来源采集与 URL 版本时间线
 
-依据 [Issue #13](https://github.com/nanzhi84/SEAL/issues/13)，替代 #10 的可选文档路径。
-唯一派生物：[Generated](../generated/unified-document-pipeline.html)。
+状态：Issue #17 已实施并通过有界独立业务验收。唯一派生物：[Generated](../generated/unified-document-pipeline.html)。
+本计划替代 Document-only 目标；文末 PR #14 仅为历史证据。生产迁移未执行。
 
-## 目标与数据流
+## 目标、领域边界与产物流向
 
-Source YAML → 不可变 Recipe / Binding → Run → Scrapy 发现与下载 → Archive bytes /
-Snapshot / Observation → 通用格式 Parser → Document / Revision / Version / Emission → SQL。
-Recipe 只负责合法网络交互、链接发现、分页、表单与解析配置。所有内容响应由 Runtime
-统一解析，解析失败不阻断来源发现。唯一内容产物是 Document，未来消费者另立模块。
-删除 Record、业务字段映射及 Schema、细粒度 Locator、Replay、Inspect、Export 和内部周期调度。
-原始 JSON 作为 json 节点保存，不进行业务 JSON Extraction。无 OCR 和业务质量评估。
+SEAL 负责来源配置、周期触发、运行恢复、响应归档与资源时间线；Crawl4AI 0.9.4
+负责每轮请求调度、递归遍历、获取与通用解析。下游直接消费 CrawlResult，不转成自定义
+Document AST，不新写 Document/Revision/Emission/document_reference。外部周期调度
+仍通过四命令触发；不提供替代 Crawl4AI CLI 入口，不引入另一套内部 URL Scheduler。
 
-## 模块与合同
-
-Archive 先保存已接收的解压后应用 bytes。重定向、HTTP 错误和 robots/sitemap 为控制或失败
-响应，保留原文与观察证据但不生成文档。成功 GET/POST 内容响应必经统一解析；空内容、
-不支持格式、扫描 PDF、损坏文件与解析异常保存 processing_stage / processing_error。
-内容解析、来源回调分别运行；来源回调不能自行提交内容项。
-
-Parser 使用已有 HTML、文本 PDF、DOCX、XLS/XLSX、CSV、TXT、JSON、图片解析器，不强迫
-所有格式使用同一种算法。可信 Adapter 可定义 parse_options(response)，只允许 body_css、
-title_css、format、csv_delimiter；默认使用 params.options。XLS/XLSX 空单元格以 null 保存，保留二维布局；CSV 空字段保持空字符串。内容根为 {format, children}，
-仅允许 article、image、table、json、document_ref。最多一个 article，table 为二维 JSON
-标量，JSON 保留完整 envelope 与标量/null；附件引用以实际 document 外键关联。
-文档结构、Source / Run / epoch / Snapshot / Observation 归属与 hash 必须验证；不复算
-字段证据，不验证业务字段准确性。失败不生成成功 Version，不覆盖成功当前指针。
-
-Document 的 GET 身份为 Source / namespace / URL；POST 身份加入语义 request body 摘要（仅排除声明的 query nonce 与 ASP.NET 隐藏状态，实际 body 摘要仍归档），
-避免同 URL 不同页互相覆盖。Raw Revision 按 bytes 变化生成。Document Version 的处理键
-包含身份、body hash、绑定、解析代码/依赖摘要、options 和影响解释的 Content-Type/encoding；
-同输入与规则复用版本，Emission 独立保存本次 Run/attempt 的观察证据。不同 Run 不共享
-可变执行状态。成功 Run 原子推进 latest_document_version；失败 Run 的 staged 版本仍可用 SQL
-读取。引用仅保存身份关系，SQL 使用者自行联查当前或历史目标。
-
-Recheck 在线获取变化。GET 使用已保存实际请求角色和 URL；POST 来源重新从配置种子获取
-新表单/Token 并遍历声明范围，不重发历史 nonce。冻结目标保存在 Run.recheck_plan。未变化
-复用 Version，变化产生新版本；未知/未观察不表示删除。attempt fencing、generation、run_seq、
-超时、预算、有限重试、幂等、Source 状态和崩溃自动恢复继续保留。显式 Recheck 检查当前保存目标；next_check/recheck_retry_at 保留为 SQL 调度元数据，外部 Cron 决定触发时间。
-
-## 四命令 CLI 与配置
-
-仅保留 init、collect、recheck、worker。collect/recheck 接收一个 YAML，包含现有 Source
-范围、entry_urls、预算与 recipe: {path, params}；相对路径以该 YAML 所在目录解析。
-自动注册/更新 Source、打包或复用 Recipe、创建/复用 Binding、创建 Run。选择配置与创建
-Run 在同一 Source 锁事务完成，配置变化增加 generation，不能静默覆盖运行中配置。
-删除 output_schema、business_key 身份与 poll_seconds。外部 Cron 调用相同命令。
-
-collect/recheck 默认前台并自动有限重试，--enqueue 只返回 pending Run ID；worker 消费
-Procrastinate 持久任务并自动恢复中断任务。stdout 为单份 JSON，失败退出 1，参数/操作错误
-退出 2；Ctrl+C 返回 interrupted 回执与退出 130，并终止子进程。无隐式 Schema Migration。
-
-TTY 前台使用 rich.Live 在 stderr 显示只读 ProgressSnapshot；非 TTY、--no-progress、入队
-不显示。按单调时钟计时，刷新最多 4Hz，数据库采样最多 1Hz。Discovered 为去重内容 URL，
-Fetched 为已归档内容响应数，Documents 为本 Run 文档身份数，Failed 为最终失败 URL 数，
-Pending/Active 为实际请求状态数。重试/重定向尝试不作为 URL 分母，附件属于内容；控制
-URL 不计。Known URL progress 仅对当前发现集合展示，递归扩展可回退，不表示全站覆盖。
-Recheck 展示 Unchanged/Updated，当前 URL 去除认证与敏感参数并截断。面板异常不影响执行。
-
-## 显式数据库迁移与回滚
-
-所有迁移 SQL 统一放在 src/seal/migrations/；先执行 schema.sql，再执行编号迁移。
-schema.sql 的内容、历史登记名称与摘要不变，已有数据库不会因目录移动重放它。
-历史 schema.sql 与 0002–0008 内容原样保留。新增 Migration 删除 public.seal_record、
-seal_record_result、seal_record_version、seal_record_emission 及旧 generic seal_result。
-只使用明确 DROP，不用 CASCADE；未知外部依赖必须使迁移失败。清理专属列及输出选择配置，
-将保留自建表、索引、约束、触发器、函数及序列迁入 seal 并去 seal_ 前缀。自建 SQL 显式
-使用 seal.<table>；Procrastinate 原名/原 Schema 不动。迁移记录最终为 seal.migration。
-历史 Run、Document、Revision、Version、Emission、Observation 与 Archive 保留；旧执行
-mode 作为历史只读数据保留，Runtime 只接受 collect/recheck，不重新执行历史路径。
-
-seal init 首次安装执行完整迁移；已有库先返回目标标识、将删除对象/行数与全部依赖清单，
-要求显式 --backup PATH --acknowledge-data-loss。CLI 生成 pg_dump 备份并核验成功后才执行。
-升级前停所有 Worker；生产需另行确认目标、备份和停机窗口，本次仅操作隔离测试库。
-DROP 无无损逆向迁移，回滚依赖备份恢复。已迁移 init 幂等；collect/recheck/worker 仅检查
-当前迁移版本，未初始化或旧 Schema 明确拒绝。Archive 不被清理。
-
-## SQL 访问
-
-seal.document.latest_document_version → seal.document_version.content(JSONB)；历史直接查询
-Version，指定 Run 通过 seal.document_emission 联查 Observation/Snapshot/body hash。
-使用 PostgreSQL COPY / \\copy 导出查询结果。数据库导出不等于打包 Archive，原始 bytes
-根据对象摘要从 Archive 读取。无便利查询 API、DSL 或 Document Bundle。
-
-## 真实路径验收范围
-
-验收由主 agent 开独立子 agent，按本次变更影响选择以下路径，独立核对现场结果。
-不维护固定测试套件、合成来源或固定断言程序；规则见 [根目录 AGENTS](../../AGENTS.md)。
-
-1. 四命令 help、无旧入口；新库未 init、旧库未升级时禁止 collect/worker 隐式迁移。
-2. 九种格式与五节点、列表/分页/共享附件、重复 URL、重定向、重试均从真实 CLI 入库。
-3. 扫描 PDF、损坏文件、空内容、未知格式、解析失败保留原文与可查询阶段/原因，继续发现。
-4. 重复 Collect、Recheck unchanged/updated、配置变化绑定不可变；失败不推进成功指针。
-5. 真实 --enqueue / worker、Ctrl+C / 崩溃 / 有限重试 / 过期 / generation 与并发覆盖防护。
-6. 旧库插入 Record 与 Document 历史，备份、对象清单、迁移及备份恢复；外部依赖阻止误删。
-7. 独立 pg_catalog 核验 Schema / 索引 / 函数 / 约束 / 行数 / 外键 / 第三方队列不回归。
-8. SQL/COPY、Archive bytes/hash、Version/Emission 血缘独立核验；TTY 进度与 SQL 计数一致，
-   非 TTY 无 ANSI、stdout 单份 JSON、窄终端/异常/中断不污染状态。
-9. Business、异构、越南法律表单与通用来源按实际公开页面核验发现、文档与原文；小样本
-   单独标记范围，不代表真实全站。受阻来源如实记录失败与 UNKNOWN。
-
-子 agent 使用隔离 PostgreSQL 17 与专用 Archive，直接执行 seal CLI、SQL/COPY 并读取原文。
-公开来源配置在 experiments/document-only/config/live.yaml，按现场范围拆成单个 Source YAML；
-原文/数据库在 work/<run>/，命令回执、冻结配置、SQL/COPY、对象清单、环境/版本、结果与
-未覆盖项在 artifacts/<run>/，不含凭据。临时操作以可复制的命令回执保存，不新增测试程序。
-主 agent 核对证据后才判定交付；CI 只做静态检查。
-
-```sh
-umask 077
-uv sync --frozen
-uvx --from ruff==0.16.10 ruff check src recipes
-uvx --from ruff==0.16.10 ruff format --check src recipes
-seiso check
+```mermaid
+flowchart TD
+ S[Source 来源入口与冻结配置] --> F[Frontier 长期来源状态]
+ F --> R[Resource 来源内URL]
+ CLI[SEAL CLI / Worker] --> C[Crawl4AI 本轮获取与遍历]
+ F --> C
+ C -->|SDK checkpoint| F
+ C --> O[Observation 正文归档与处理结果]
+ R --> O
+ O -->|响应变化且目标有效且解析成功| V[Version 原生CrawlResult]
+ R --> V
+ V --> D[下游 当前版本 / timeline / cursor增量]
 ```
 
-每次业务验收以对应子 agent 的现场命令、原文和数据库结果为准，不复用旧版本的 PASS。
+Source:Frontier 为 1:1，Frontier:Resource、Resource:Observation、Resource:Version
+均为 1:N。同 URL 在不同 Source 独立；唯一资源身份为 frontier_id + URL，保留查询参数
+及其顺序，移除 fragment。重定向实际 URL 记在 Observation，不静默合并资源。
+Source 使用地图 dd-xxx；UUID、cursor、内容哈希保留各自语义。地图不是采集许可。
+
+## 模块职责与依赖方向
+
+| 模块 | 实际职责 |
+| --- | --- |
+| cli / configuration / config | 四命令与严格 YAML；冻结 Source 配置及 config_hash |
+| runs / queue / run_state | Source 会话锁、Run epoch/generation、子进程、取消、有限恢复 |
+| crawl | 装配 SDK、消费 streaming CrawlResult、保存 framework checkpoint |
+| sdk / robots / scope | 薄 HTTP/DOM 获取适配、范围与 robots 边界、SDK HTML/PDF scraper |
+| resources | 来源内资源身份、事务 Observation/Version 提交与去重 |
+| archive / core | CrawlResult 存储编码、文件/bytes CAS 与原子落盘 |
+| completion / manifest / progress | Run 终态、无敏感内容的 JSON 统计、stderr TTY 面板 |
+| db / migration | PostgreSQL 基础与追加迁移、清单、备份校验 |
+
+依赖方向为 CLI→配置/生命周期→SDK与资源提交→数据库/CAS；core、scope 和 run_state
+不依赖上层。Scrapy、Recipe 打包、Binding 执行和旧五节点 AST 模块及其共用 recipes/
+已删除，不存在 shim 或双写。历史实验、原文与迁移保持原样；实验旧源码不代表当前能力。
+
+## Source 配置与兼容边界
+
+[最小模板](../../examples/source.yaml) 是当前配置入口。旧 YAML 含 recipe 时明确报
+legacy_recipe_config_requires_migration；不静默忽略原有分页、表单、字段或输出合同。
+CLI 命令/选项保持，YAML 与 JSON receipt 是有版本的不兼容变更。
+
+```yaml
+id: dd-017
+entry_urls: [https://example.org/]
+allowed_hosts: [example.org]
+allowed_path_prefixes: [/]
+archive_approved: true
+scope: Authorized bounded collection after source review
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+budget: {requests: 100, seconds: 120, response_bytes: 10485760}
+crawl4ai: {mode: http, max_depth: 3, page_timeout_ms: 30000, word_count_threshold: 1}
+```
+
+入口可以多个；host_path_scopes 可按 host 缩小路径。robots 默认 true；缺失政策404/410
+被明确记为缺失，其余政策错误拒绝业务请求；业务与政策请求均计预算。robots:false 只能
+在来源审查与授权后使用。HTTP 重定向逐跳检查范围，DNS 解析地址拒绝非公网地址；
+隔离验收显式设置 SEAL_ALLOW_LOOPBACK=1。浏览器子请求与重定向通过 Chromium Fetch Request 阶段逐跳检查 host/path、robots 和
+请求预算；被拒绝记录错误，不宣称整页所有 CSS/JS/图片/API 均被归档。浏览器 URL 检查
+不构成操作系统网络沙箱，部署仍需网络出口约束防 DNS 重绑定。
+
+首版仅固定公开 GET 上下文，不带用户浏览器状态或隐式登录；旧 POST/ASP.NET 表单、
+来源专用分页规则尚未迁入。旧配置不能作为当前兼容入口。合法会话、可信来源 hook、
+Office/OCR 等未来扩展需独立实证，不恢复 Recipe 包/Binding。
+
+crawl4ai.mode 可选 http 或 rendered_dom。http 归档 aiohttp 获取阶段 Content-Encoding
+解码后的正文 bytes，先于字符解码与 SDK 解析；不是从 result.html 反编码伪造 HTTP。
+rendered_dom 归档 SDK 获取阶段渲染 HTML 的 UTF-8 bytes，并显式标记模式。已有成功
+Version 后切换模式报 input_mode_change_requires_new_source，禁止混合比较。
+配置还支持 page_timeout_ms、word_count_threshold、css_selector、wait_until；
+blocked_patterns 可补充来源阻拦检测。无自动登录、凭据刷新或验证码求解。
+
+SDK 0.9.4 会将有正文的短 HTML 判为 minimal_text 阻拦页；仅对该尺寸启发式且有
+p/h/main 正文结构的页面，以 SDK fallback 回调复用同次捕获的 HTML，不新增请求。
+SDK clone 会丢失此回调，薄 RunConfig 仅修复该字段传递；升级至修复版本后可删除。
+密码/挑战标记仍拒绝。CrawlResult 响应头中的Cookie/授权敏感值脱敏。
+
+## 资源、观察与版本合同
+
+| 对象 | 公开字段与约束 |
+| --- | --- |
+| source | id、config、generation、run_seq、write_seq、paused、cooldown_until；沿用旧来源身份 |
+| frontier | id、source_id UNIQUE、run_id、checkpoint；长期来源状态，非框架原生服务 |
+| resource | id、frontier_id、url、role、current_version_id、last_checked_at、last_outcome、next_check |
+| observation | id、resource_id、run_id、attempt_epoch、delivery_key、url、actual_url、status、body_hash、archive_ref、input_mode、outcome、error、version_id、observed_at |
+| version | id、resource_id、sequence、observation_id、body_hash、input_mode、crawl_result、framework_version、parser_config、cursor、created_at |
+
+正文归档后校验 CAS 再提交引用；archive_ref=body_hash，路径为
+$SEAL_ARCHIVE/objects/<哈希前2位>/<剩余62位>。Observation 与 Version 不可变，
+复合 FK 约束资源、版本、原始观测、body_hash 与模式归属。一次 run/URL 仅提交一次；
+checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Observation。
+
+| 输入情况 | 结果 |
+| --- | --- |
+| 首次有效内容且解析成功 | Observation + V1，推进资源指针 |
+| 等于当前成功版本的响应 | 新 Observation，outcome=unchanged，关联旧版本 |
+| 响应变化且解析成功 | 新 Observation + 连续 Version，推进指针 |
+| 响应变化但解析失败或不支持 | 保存原文及失败 Observation，不推进；下次新 Run 重试 |
+| 网络错误、403/429、登录/挑战页 | 保存失败/blocked，存在正文则归档，不生成内容版本 |
+| 仅更新解析配置或框架 | 正文相同则仍关联旧版本，不追加内容增量 |
+
+比较基准始终是当前成功 Version 的正文。A→B→A 为 V1→V2→V3，CAS 可复用 A。
+版本时间是发现变化时间；不推定网站修改时间。有效资源逐个事务提交，即便本轮其他 URL
+失败也保留已提交结果；Run.complete 仅表示本轮有界处理无错误，whole-site 始终 UNKNOWN。
+阻拦检测组合 SDK 结果与密码输入、验证码标记、登录/挑战标题和配置规则；无证据时不宣称
+任意站点挑战均可识别，人工业务质量保持 not_evaluated。
+
+## CrawlResult 与格式边界
+
+冻结 crawl4ai[pdf]==0.9.4 与 uv.lock。HTML/TXT 使用 SDK LXML scraper；HTTP PDF
+使用同次归档文件的临时副本交给 SDK PDFContentScrapingStrategy，避免再次网络下载
+不同输入或清理 CAS 原件。无 OCR；无文本层 PDF 不创建成功内容版本。DOCX/XLS/XLSX/
+CSV/JSON/图片首版尚无语义解析保证，标记 unsupported/parse_failed 并保留获取原文，
+不能沿用九格式 Document 的历史支持声明。动态 DOM 模式以 HTML 为目标。
+
+Version.crawl_result 是存储封装：result 为 SDK model_dump（包括完整 Markdown、links、
+media 等），artifacts 将 pdf/screenshot/mhtml 二进制外置为 CAS；downloaded_files
+也以 CAS 哈希替换临时路径。seal.archive.deserialize_result 可在新进程重建 CrawlResult
+与长期本地路径；这是编码封装，不是自定义内容 AST。链接只保留 SDK URL 引用，不建立
+document_reference 外键，也不承诺目标已获取或绑定历史版本。
+
+## 发现、复查、取消与恢复
+
+collect 每轮从入口重新建立 visited；recheck 冻结 next_check 到期的已知 content Resource，
+即便已从导航消失也复查。无到期资源返回空结果；超过复查预算明确拒绝，避免默默裁剪。
+一个 Source 始终只有一个 Frontier，上一轮记录不作为新轮永久排除集合。
+
+运行获取 Source 的 PostgreSQL session advisory lock，同时持有 Run 锁；不同 Source
+允许独立执行。子进程只负责 SDK；父进程监控拥有者连接、generation、epoch、暂停和预算。
+前台 Ctrl+C 保存 retryable 状态与 checkpoint、退出130；Worker 通过显式任务取消信号停止
+执行中的子进程并保留恢复状态，也输出单JSON/130。父进程崩溃后子进程组自动终止，
+Worker 按任务心跳和有限 attempt 恢复，默认超过30秒无心跳后回收；
+worker --once 只消费当前就绪任务，不会在仍有效心跳窗口内抢占 doing 任务。SIGSTOP 期间锁仍有效，不能超时夺取一个仍持锁
+执行者。数据库会话丢失后父进程终止子进程；接管后的旧 epoch 不得写入。
+
+SDK 0.9.4 BFS 流式 checkpoint 只保存 next_level，会遗漏当前层尚未 yield 的 URL。
+SEAL 将 visited 中尚未持久交付的 URL 和获取阶段 inflight 补回 SDK pending；已提交但尚未
+保存发现状态的输入允许重复获取来重新发现链接，提交依 run/URL 幂等。checkpoint 与资源
+事务不是原子提交，不声称 exactly-once 网络请求；budget 覆盖恢复重复请求。
+
+请求次数在获取阶段有界，含错误、robots、redirect 与浏览器子请求；SDK max_pages 流式
+边界会在 yield 前截掉最后一个成功结果，首版不使用该边界，实际网络预算负责上限。
+有限预算、深度和范围仅界定可发现覆盖；孤立页、表单分页、鉴权阻拦均可能遗漏。
+
+## CLI、环境、下游与迁移
+
+```text
+seal init [--backup PATH] [--acknowledge-data-loss]
+seal collect source.yaml [--enqueue] [--no-progress]
+seal recheck source.yaml [--enqueue] [--no-progress]
+seal worker [--once]
+```
+
+Python3.12；uv sync 安装依赖；DOM 模式另运行 uv run python -m patchright install chromium。
+SEAL_DATABASE_URL 通过环境传入，SEAL_ARCHIVE 指向独立持久目录。CLI stdout 仅一份
+seal.receipt.v3 JSON，stderr TTY显示资源进度；失败退出1，参数/配置失败退出2，中断130。
+receipt 的 binding_id 移除，新增 config_hash，报告资源/Observation/Version统计；旧回执
+和冻结配置保留历史语义，SQL 下游不可假定旧 Document 输出列仍代表当前写入。
+
+```sql
+-- 当前资源版本；按 Source/URL 使用参数化 SQL
+SELECT * FROM seal.current_resource_version WHERE source_id=$1 AND url=$2;
+-- 一个资源完整 timeline
+SELECT * FROM seal.version WHERE resource_id=$1 ORDER BY sequence;
+-- 失败 Observation 不进入增量；cursor分配至提交受全局事务锁保护
+SELECT * FROM seal.version_delta WHERE cursor>$1 ORDER BY cursor LIMIT 100;
+```
+
+0010_resource_timeline.sql 为追加迁移，schema.sql 与0002–0009登记名称/字节不修改。
+保留旧 source/run 与 Document/Revision/Emission/Binding/Recipe/Discovery 表、FK、SQL
+名称、原文和历史记录，不双写、不提供内部兼容 shim，不把旧 AST 伪造为 CrawlResult。
+已有 Source 建立 Frontier，旧待运行任务明确失败，需改用新 YAML 重新触发。
+新库初始化仍按历史 ledger 顺序建库后追加0010。
+
+升级停 Worker 和所有数据库客户端；已有0.2库必须 seal init --backup <私有备份路径>，
+pg_dump / pg_restore --list 校验成功后升级。更旧public.seal_*库会经过历史0009删除Record，
+另需 --acknowledge-data-loss；本次不扩大该历史兼容承诺。外部旧SQL继续读历史表，
+新SQL消费新视图。备份数据库与 Archive；回滚用匹配0.2代码和备份恢复到隔离库并核验后
+切换连接，不能让旧 Worker 写新增版本库。生产升级、切流和恢复另行授权。
+
+## 独立业务验收与证据
+
+完全 fresh 子 agent 仅依据 Issue #17 业务目标在根目录 tests/ 编写真实 CLI/HTTP/PDF/
+PostgreSQL 验收，临时数据 work/、工件 artifacts/。不在实现后补写单元测试；CI仅 Ruff
+静态检查。应覆盖同URL来源隔离、变化/不变/A→B→A、解析失败后相同bytes重试、错误响应/
+挑战页、正文hash/CAS、跨进程CrawlResult、递归新轮/孤立资源、Worker、TTY/Ctrl+C、
+崩溃恢复与幂等、旧执行者栅栏、旧库备份恢复、模式/格式边界。实际命令、环境、冻结版本、
+数据前提、断言和证据须可重复生成，不包含凭据；本次最终完整端到端运行 `uv run --no-sync python tests/issue17_e2e.py`：427 PASS / 0 FAIL / 0 UNVERIFIED。
+工件目录 `artifacts/issue17-20261013-175357-a77b7/` 的 summary.json、assertions.json、
+commands.json、oracle.json、各次JSON/TTY回执、fixture请求时序、数据库导出、CAS hashes、
+跨进程读取回执与实际备份恢复记录构成证据。失败调试工件原样保留，不代替最终结果。
+
+环境：Python3.12、uv.lock、Crawl4AI0.9.4、Chromium153、独立Docker PostgreSQL17、
+loopback合成HTTP/TXT/PDF/JavaScript来源；不使用生产数据库、用户浏览器状态或凭据。
+复跑先 `uv sync --frozen` 与 `uv run python -m patchright install chromium`，需要Docker、
+pg_dump/pg_restore；脚本每轮新建 work/artifacts 和独立库，Worker崩溃恢复真实等待31秒。
+迁移fixture默认固定旧提交04a50e59170dd592b4756ae9c048bd21a87f79b6，可用 --legacy-ref
+显式选择其他兼容旧前提；不是用未来HEAD伪装旧环境。固定旧ref的迁移补验另通过22项，工件 `artifacts/issue17-20261013-175737-0b33f/`；
+实际不带data-loss确认升级成功，pg_restore及旧字段/原文核对通过。公网真实站点适配、Office/OCR/专用
+表单、全站覆盖与生产升级未验证或未支持，427项通过不扩展这些边界。
+
+官方依据：[Deep Crawling](https://docs.crawl4ai.com/core/deep-crawling/)、
+[Hooks/Auth](https://docs.crawl4ai.com/advanced/hooks-auth/)、
+[CrawlResult](https://docs.crawl4ai.com/api/crawl-result/)、
+[PDF](https://docs.crawl4ai.com/advanced/pdf-parsing/)。本次适配依冻结版本源码与真实样本，
+文档名称不作为覆盖或保真证明。Issue #16 的旧Document-only血缘问题不扩展到新内容模型。
 
 ## PR #14 历史实现与验收结果
 

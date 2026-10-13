@@ -1,108 +1,127 @@
-"""Document-level raw resource identities and revisions, shared by all parsers."""
+"""Source-local URL identity and immutable, transactional response timelines."""
+
+from importlib.metadata import version
 
 from .core import Objects, SealError, public_url, uid
-from .db import j, one
+from .db import connect, fenced, j, locked_run, one
 
 
-def _stage_resource(c, source, run, entry):
-    """Freeze this response's raw URL/revision association in the Run inputs."""
-    known = next(
-        (
-            value
-            for value in run["inputs"]
-            if value["snapshot_id"] == entry["snapshot_id"]
-            and value["observation_id"] == entry["observation_id"]
-        ),
-        None,
-    )
-    if known and known.get("resource_input"):
-        return known["resource_input"]
-    snapshot = Objects().json(entry["snapshot_id"])
-    if snapshot["method"] not in {"GET", "POST"} or snapshot["status"] != 200:
-        return None
-    observation = one(
-        c, "SELECT * FROM seal.fetch_observation WHERE id=%s", (entry["observation_id"],)
-    )
-    if (
-        observation["source_id"] != source["id"]
-        or observation["snapshot_id"] != entry["snapshot_id"]
-    ):
-        raise SealError("resource_observation_mismatch")
-    if observation["run_id"] != run["id"] or observation["attempt_epoch"] != run["attempt_epoch"]:
-        raise SealError("stale_observation")
-    url = public_url(snapshot["url"])
-    identity = url if snapshot["method"] == "GET" else url + "#post:" + known["request_identity"]
+def resource(c, frontier_id, url, role="content"):
+    url = public_url(url)
     c.execute(
-        """INSERT INTO seal.document(id,source_id,namespace,identity,url)
-           VALUES(%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING""",
-        (uid(), source["id"], run["namespace"], identity, url),
+        "INSERT INTO seal.resource(id,frontier_id,url,role) VALUES(%s,%s,%s,%s) ON CONFLICT(frontier_id,url) DO NOTHING",
+        (uid(), frontier_id, url, role),
     )
-    document = one(
+    return one(
         c,
-        """SELECT * FROM seal.document WHERE source_id=%s AND namespace=%s
-           AND identity=%s FOR UPDATE""",
-        (source["id"], run["namespace"], identity),
+        "SELECT * FROM seal.resource WHERE frontier_id=%s AND url=%s FOR UPDATE",
+        (frontier_id, url),
     )
-    # Compare all representations already staged in this attempt, including A/B/A.
-    # Role and redirect origin do not define a different wire representation.
-    for prior in run["inputs"]:
-        if prior.get("resource_input", {}).get("document_id") != document["id"]:
-            continue
-        previous_snapshot = Objects().json(prior["snapshot_id"])
-        if previous_snapshot["body_hash"] == snapshot["body_hash"]:
-            continue
-        previous_representation = previous_snapshot.get("representation_id")
-        representation = snapshot.get("representation_id")
-        if previous_representation and representation and previous_representation != representation:
-            continue
-        # Old externally persisted snapshots lack representation identity: retain
-        # the conservative same-URL rule rather than guessing negotiation headers.
-        c.execute(
-            "UPDATE seal.run SET errors=errors || %s WHERE id=%s",
-            (j(["unstable_resource_input"]), run["id"]),
-        )
-        break
-    previous = (
-        one(c, "SELECT * FROM seal.revision WHERE id=%s", (document["latest_revision"],))
-        if document["latest_revision"]
-        else None
-    )
-    revision_id = previous["id"] if previous else None
-    if previous is None or previous["body_hash"] != snapshot["body_hash"]:
-        row = c.execute(
-            """INSERT INTO seal.revision
-               (id,document_id,predecessor,body_hash,snapshot_id,observation_id)
-               VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT(document_id,observation_id)
-               DO NOTHING RETURNING id""",
-            (
-                uid(),
-                document["id"],
-                revision_id,
-                snapshot["body_hash"],
-                entry["snapshot_id"],
-                entry["observation_id"],
-            ),
+
+
+def persist(run_id, epoch, url, capture, crawl_result, outcome, error=None, role="content"):
+    """One run/URL delivery commits once, even after checkpoint replay or worker takeover."""
+    body_hash = capture.get("body_hash")
+    if body_hash:
+        Objects().get(body_hash)  # Verify durable bytes before writing references.
+    with connect() as c:
+        source, run = locked_run(c, run_id)
+        fenced(source, run, epoch)
+        frontier = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s", (source["id"],))
+        r = resource(c, frontier["id"], url, role)
+        key = run_id + ":" + r["id"]
+        existing = c.execute(
+            "SELECT id FROM seal.observation WHERE delivery_key=%s", (key,)
         ).fetchone()
-        revision_id = (
-            row["id"]
-            if row
-            else one(
-                c,
-                "SELECT id FROM seal.revision WHERE document_id=%s AND observation_id=%s",
-                (document["id"], entry["observation_id"]),
-            )["id"]
+        if existing:
+            return existing["id"]
+        input_mode = capture.get("input_mode", run["config"]["crawl4ai"]["mode"])
+        current = c.execute(
+            "SELECT * FROM seal.version WHERE id=%s", (r["current_version_id"],)
+        ).fetchone()
+        version_id = None
+        new = False
+        if outcome == "parsed":
+            if not body_hash or not crawl_result:
+                raise SealError("parsed_response_evidence_required")
+            if current and current["input_mode"] != input_mode:
+                raise SealError("input_mode_change_requires_new_source")
+            new = current is None or current["body_hash"] != body_hash
+            version_id = uid() if new else current["id"]
+            if not new:
+                outcome = "unchanged"
+        oid = uid()
+        c.execute(
+            """INSERT INTO seal.observation(id,resource_id,run_id,attempt_epoch,delivery_key,
+          url,actual_url,status,body_hash,archive_ref,input_mode,outcome,error,version_id)
+          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+            (
+                oid,
+                r["id"],
+                run_id,
+                epoch,
+                key,
+                r["url"],
+                capture.get("actual_url"),
+                capture.get("status"),
+                body_hash,
+                body_hash,
+                input_mode,
+                outcome,
+                error,
+                version_id,
+            ),
         )
-    c.execute(
-        "UPDATE seal.document SET latest_revision=%s,latest_observation=%s WHERE id=%s",
-        (revision_id, entry["observation_id"], document["id"]),
-    )
-    resource_input = {
-        "document_id": document["id"],
-        "revision_id": revision_id,
-        "snapshot_id": entry["snapshot_id"],
-        "observation_id": entry["observation_id"],
-    }
-    if known is not None:
-        known["resource_input"] = resource_input
-        c.execute("UPDATE seal.run SET inputs=%s WHERE id=%s", (j(run["inputs"]), run["id"]))
-    return resource_input
+        if new:
+            # Serialize cursor allocation through COMMIT. A downstream cursor can never skip
+            # an earlier uncommitted version from a different Source.
+            c.execute("SELECT pg_advisory_xact_lock(72032102)")
+            c.execute(
+                """INSERT INTO seal.version(id,resource_id,sequence,observation_id,body_hash,
+              input_mode,crawl_result,framework_version,parser_config) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                (
+                    version_id,
+                    r["id"],
+                    current["sequence"] + 1 if current else 1,
+                    oid,
+                    body_hash,
+                    input_mode,
+                    j(crawl_result),
+                    version("crawl4ai"),
+                    j(run["config"]["crawl4ai"]),
+                ),
+            )
+            c.execute(
+                "UPDATE seal.resource SET current_version_id=%s WHERE id=%s", (version_id, r["id"])
+            )
+        interval = (
+            run["config"]["recheck_seconds"]
+            if version_id
+            else min(60, run["config"]["recheck_seconds"])
+        )
+        c.execute(
+            """UPDATE seal.resource SET last_checked_at=now(),last_outcome=%s,
+          next_check=now()+(%s * interval '1 second') WHERE id=%s""",
+            (outcome, interval, r["id"]),
+        )
+        if error:
+            c.execute("UPDATE seal.run SET errors=errors || %s WHERE id=%s", (j([error]), run_id))
+        return oid
+
+
+def save_checkpoint(run_id, epoch, checkpoint):
+    with connect() as c:
+        source, run = locked_run(c, run_id)
+        fenced(source, run, epoch)
+        c.execute(
+            "UPDATE seal.frontier SET checkpoint=%s,updated_at=now() WHERE source_id=%s AND run_id=%s",
+            (j(checkpoint), source["id"], run_id),
+        )
+
+
+def delivered(run_id):
+    with connect() as c:
+        return {
+            r["url"]
+            for r in c.execute("SELECT url FROM seal.observation WHERE run_id=%s", (run_id,))
+        }

@@ -23,6 +23,6 @@ jobs:
         with:
           version: '0.11.23'
       - name: Lint
-        run: uvx --from ruff==0.16.10 ruff check src recipes
+        run: uvx --from ruff==0.16.10 ruff check src
       - name: Format
-        run: uvx --from ruff==0.16.10 ruff format --check src recipes
+        run: uvx --from ruff==0.16.10 ruff format --check src

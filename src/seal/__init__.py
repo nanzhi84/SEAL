@@ -1,3 +1,3 @@
-"""SEAL Runtime: trusted recipes, archived inputs, traceable execution."""
+"""Crawl4AI source collection, response archives and resource timelines."""
 
-__version__ = "0.1.3"
+__version__ = "0.3.0"

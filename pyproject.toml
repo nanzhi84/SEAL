@@ -1,20 +1,15 @@
 [project]
 name = "seal"
-version = "0.2.0"
-description = "Trusted recipe Runtime with archived inputs and traceable execution"
+version = "0.3.0"
+description = "Crawl4AI source collection, response archives and URL resource timelines"
 requires-python = "==3.12.*"
 dependencies = [
-    "jsonschema>=4,<5",
+    "crawl4ai[pdf]==0.9.4",
+    "aiohttp>=3.13,<4",
     "procrastinate>=3,<4",
     "psycopg[binary,pool]>=3.2,<4",
     "pydantic>=2,<3",
-    "pypdf>=6,<7",
-    "openpyxl>=3.1,<4",
-    "pillow>=11,<13",
     "pyyaml>=6,<7",
-    "scrapy>=2.19,<3",
-    "xlrd==2.0.2",
-    "python-docx==1.2.0",
     "rich>=14,<15",
 ]
 
