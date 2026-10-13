@@ -1,6 +1,5 @@
-"""Serialize CrawlResult without an AST; binary outputs and downloads use durable CAS."""
+"""Complete SDK results; only original downloaded files are externalized to CAS."""
 
-import base64
 from pathlib import Path
 
 from pydantic import TypeAdapter
@@ -11,8 +10,10 @@ from .objects import Objects
 json_envelope = TypeAdapter(dict)
 
 
-def serialize_result(result):
+def serialize_result(result, *, attachment_refs=()):
     data = result.model_dump(mode="python")
+    if any(data.get(field) is not None for field in ("pdf", "screenshot", "mhtml")):
+        raise SealError("page_artifact_generation_disabled")
     objects = Objects()
     if data.get("response_headers"):
         data["response_headers"] = {
@@ -27,36 +28,41 @@ def serialize_result(result):
             raise SealError("download_archive_failed") from None
         downloads.append(key)
     data["downloaded_files"] = downloads or None
-    artifacts = {}
-    for field in ("pdf", "screenshot", "mhtml"):
-        value = data.get(field)
-        if value is not None:
-            if field == "screenshot":
-                body = base64.b64decode(value, validate=True)
-            else:
-                body = value if isinstance(value, bytes) else value.encode()
-            artifacts[field] = objects.put(body)
-            data[field] = None
     # The envelope carries storage encoding only; result keys retain SDK semantics.
-    # SDK PDF metadata may contain datetimes. After externalizing binary fields,
+    # SDK PDF metadata may contain datetimes. After externalizing downloads,
     # use Pydantic's JSON encoding instead of requiring Python-native values.
     return json_envelope.dump_python(
-        {"result": data, "artifacts": artifacts, "download_encoding": "sha256-cas"}, mode="json"
+        {
+            "result": data,
+            "download_encoding": "sha256-cas",
+            "attachment_refs": sorted(set(attachment_refs) | set(downloads)),
+        },
+        mode="json",
     )
+
+
+def verify_result(objects, ref):
+    envelope = objects.json(ref)
+    if (
+        not isinstance(envelope, dict)
+        or not isinstance(envelope.get("result"), dict)
+        or envelope.get("download_encoding") != "sha256-cas"
+    ):
+        raise SealError("crawl_result_invalid")
+    for key in envelope["result"].get("downloaded_files") or []:
+        objects.get(key)
+    for key in envelope.get("attachment_refs", []):
+        objects.get(key)
+    return envelope
 
 
 def deserialize_result(envelope, *, download_directory=None):
     from crawl4ai import CrawlResult
 
     objects = Objects()
+    for key in envelope.get("attachment_refs", []):
+        objects.get(key)
     data = dict(envelope["result"])
-    for field, key in envelope.get("artifacts", {}).items():
-        body = objects.get(key)
-        data[field] = (
-            body
-            if field == "pdf"
-            else (base64.b64encode(body).decode() if field == "screenshot" else body.decode())
-        )
     data["downloaded_files"] = [
         str(objects.materialize(key, download_directory))
         for key in data.get("downloaded_files") or []

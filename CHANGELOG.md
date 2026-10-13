@@ -5,6 +5,26 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / 最小 MinIO 归档合同（Issue #20）— 2026-10-14
+
+新写入仅为完整 CrawlResult JSON 和原始 PDF/下载附件。停止独立 HTML/TXT/DOM、网页
+截图/导出PDF/MHTML与运行manifest归档；显式关闭页面产物生成，运行统计、错误和配置
+留PostgreSQL，CLI报告不含manifest_id。文本原始HTTP字节无法再从独立对象精确恢复，
+body_hash改为输入指纹；只有完整原始附件有archive_ref，不以重编码HTML冒充原始bytes。
+
+解析使用同次临时输入，PDF不再读正文对象或重新下载；并发同名附件使用独立临时文件。
+每次SDK实际返回的成功/失败/unchanged结果绑定本次Observation；Version保留原始结果。
+结果与全部附件读回验证后才提交引用。中断前已取得附件引用保留于checkpoint，不造结果；
+新Run替换检查点前校验并将未交付证据保存回原Run.report，过滤已交付资源，不跨Run混附件。
+无返回结果的失败Observation允许result_ref为空；attachment_refs持久保留已取得的完整附件列表。变化比较、A→B→A、复查与交付幂等保留。
+
+追加0012_minimal_archive，只支持空旧内容库升级，不进行历史内容兼容、回填、对象迁移或
+双写；删除旧result_migration和archive_import路径，已登记SQL checksum不变。升级沿用
+停客户端和init --backup流程，回滚使用备份与旧代码。本地既有服务和生产未执行升级。
+Fresh独立业务验收126 PASS / 0 FAIL，同源结果完整性和manifest工件复算7 PASS / 0 FAIL；
+另真实CLI recheck并发同名长Unicode附件补验25 PASS / 0 FAIL，原件/结果/版本分别对应。
+独立审核修复后无剩余阻塞。命令、前提、证据与未验证项见唯一Plan/Generated。
+
 ## 未发布 / CrawlResult 单一归档与结果指针 — 2026-10-13
 
 完整 CrawlResult JSON 仅保存在 MinIO；Observation.result_ref 保存本次交付，Version.result_ref

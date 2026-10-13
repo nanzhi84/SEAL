@@ -1,6 +1,6 @@
 # SEAL
 
-SEAL 以 Crawl4AI 采集来源、归档响应正文并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，响应变化且目标有效、解析成功时追加不可变 Version，完整原文、解析结果与附件保存于私有 MinIO，PostgreSQL 保存来源、运行、资源版本和对象引用；下游通过 result_ref 读取并重建 CrawlResult。
+SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
 当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 四个 CLI 入口。旧 Recipe YAML 需显式迁移，格式范围、备份升级与验收合同见[当前 Plan](docs/plans/unified-document-pipeline.md)。
 
@@ -12,7 +12,7 @@ cli.py: main() → dispatch(args)
 ├── [CHECK] 非 init 命令先校验 S3 桶与当前数据库 schema
 ├── seal init → migration.py: initialize()
 │   ├── [CHECK] S3 桶可用后再查数据库对象清单、历史升级前停止客户端与校验备份
-│   ├── [DB/IO] schema.sql → 已登记0002–0009 → 追加0010/0011；先验证归档再迁移引用，历史文件不重写
+│   ├── [DB] schema.sql → 已登记0002–0011 → 追加0012；仅接受空旧内容库升级，不回填旧结果
 │   └── [DB] Procrastinate schema；对象桶由部署初始化，minio/ 仅服务管理
 ├── seal worker [--once] → queue.py: worker()
 │   ├── recover_stalled() / recover_unqueued() → 任务心跳恢复与补入队
@@ -42,9 +42,9 @@ runs.py: execute_run()
 │   │   ├── SDK AsyncWebCrawler；collect: BFSDeepCrawlStrategy / recheck: arun_many
 │   │   ├── sdk.py: HttpAdapter / BrowserAdapter
 │   │   │   ├── [CHECK] scope、robots、重定向/子请求、次数/时间/字节预算
-│   │   │   ├── [IO] HTTP Response.read()捕获bytes / Browser获取阶段DOM → S3 CAS（完整 SHA256 平铺键）
-│   │   │   └── InputScraper → SDK HTML/TXT或 S3 同次归档PDF在 work/ 的临时副本解析
-│   │   ├── [LOOP] streaming CrawlResult → outcome() → archive.py: serialize_result()
+│   │   │   ├── [IO] HTTP bytes / Browser DOM → 内容指纹与临时输入；原始附件 → S3 CAS + checkpoint引用
+│   │   │   └── InputScraper → SDK HTML/TXT或同次PDF bytes在 work/ 的临时副本解析；不再请求另一份输入
+│   │   ├── [LOOP] streaming CrawlResult → outcome() → archive.py: serialize_result() → 结果JSON CAS
 │   │   │   └── resources.py: persist() → 进入阶段 [3]
 │   │   ├── State.checkpoint_changed() → 补当前层未交付URL → SDK pending持久化
 │   │   └── [STATE] status=finishing；watch_parent()父亡终止子进程组
@@ -54,17 +54,18 @@ runs.py: execute_run()
 ├── [RETRY] 进程失败retryable，有界attempt恢复；Worker按30秒心跳窗口回收，旧epoch不能提交
 └── completion.py: finish_run() → manifest.py: terminal_report()
     ├── [STATE] complete / failed；资源已各自独立提交
-    ├── [IO] CAS运行manifest，覆盖/质量始终有界
+    ├── [DB] 运行统计/错误/配置留关系库；覆盖/质量始终有界，无manifest对象
     └── cli.py: main() → stdout单份JSON（collect/recheck为receipt.v3）；退出0/1/2，中断退出130
 
 [3] RESPONSE & VERSION COMMIT
 resources.py: persist()
-├── [IO/CHECK] 原文CAS可读取、SHA256复算；S3 写入并验证后才引用
+├── [IO/CHECK] 结果JSON与全部原始附件可读取、SHA256复算；验证后才引用
 ├── [DB] Source → Run → Resource锁；fenced()检查代际/epoch/状态
 ├── [CHECK] frontier_id+URL唯一资源；run+resource交付幂等
-├── [DB] 不可变Observation：状态/模式/正文哈希/归档引用/result_ref/实际URL
+├── [DB] 不可变Observation：状态/模式/输入指纹/可空附件引用/result_ref/实际URL
 ├── [DB/IO] Observation.result_ref → 本次成功/失败SDK结果CAS；同事务关联
-├── [BRANCH] 失败、登录或挑战 → 保留原文；不生成内容版本
+├── [BRANCH] 失败、登录或挑战 → 保留实际SDK结果和已取得附件；不生成内容版本
+├── [BRANCH] 返回结果前中断/异常 → checkpoint或失败Observation，result_ref可空，不伪造结果
 ├── [BRANCH] 解析成功且正文等于当前成功版本 → Observation关联旧Version
 └── [BRANCH] 响应变化且解析成功
     ├── [DB] 全局事务锁保护稳定增量cursor；连续Version+result_ref（与原始Observation一致）
@@ -116,7 +117,9 @@ erDiagram
   text resource_id FK
   text run_id FK
   text delivery_key UK
-  text body_hash "CAS SHA256"
+  text body_hash "输入SHA256，文本不能当对象读取"
+  text archive_ref "原始附件SHA256，可空"
+  text_array attachment_refs "已取得原始文件引用，无结果时仍可查询"
   text result_ref "本次SDK结果SHA256，可空"
   text input_mode "http或rendered_dom"
   text outcome

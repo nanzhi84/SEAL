@@ -2,6 +2,7 @@
 
 from importlib.metadata import version
 
+from .archive import verify_result
 from .core import SealError, public_url, uid
 from .db import connect, fenced, j, locked_run, one
 from .objects import Objects
@@ -33,10 +34,15 @@ def persist(
 ):
     """One run/URL delivery commits once, even after checkpoint replay or worker takeover."""
     body_hash = capture.get("body_hash")
-    if body_hash:
-        Objects().get(body_hash)  # Verify durable bytes before writing references.
+    archive_ref = capture.get("archive_ref")
+    files = set(capture.get("attachment_refs", []))
+    if archive_ref:
+        files.add(archive_ref)
     if result_ref:
-        Objects().get(result_ref)
+        envelope = verify_result(Objects(), result_ref)
+        files.update(envelope.get("attachment_refs", []))
+    for ref in files:
+        Objects().get(ref)  # Original attachments, never a textual input fingerprint.
     with connect() as c:
         source, run = locked_run(c, run_id)
         fenced(source, run, epoch)
@@ -66,8 +72,8 @@ def persist(
         oid = uid()
         c.execute(
             """INSERT INTO seal.observation(id,resource_id,run_id,attempt_epoch,delivery_key,
-          url,actual_url,status,body_hash,archive_ref,result_ref,input_mode,outcome,error,version_id)
-          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+          url,actual_url,status,body_hash,archive_ref,result_ref,input_mode,outcome,error,version_id,attachment_refs)
+          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
             (
                 oid,
                 r["id"],
@@ -78,12 +84,13 @@ def persist(
                 capture.get("actual_url"),
                 capture.get("status"),
                 body_hash,
-                body_hash,
+                archive_ref,
                 result_ref,
                 input_mode,
                 outcome,
                 error,
                 version_id,
+                sorted(files),
             ),
         )
         if new:

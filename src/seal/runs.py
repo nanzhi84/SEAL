@@ -74,6 +74,19 @@ def begin_attempt(run_id):
         c.execute("UPDATE seal.source SET write_seq=%s WHERE id=%s", (run["run_seq"], source["id"]))
         f = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s FOR UPDATE", (source["id"],))
         if f["run_id"] != run_id:
+            if f["run_id"]:
+                from .manifest import pending_inputs
+
+                # A new collect is a new Run, not a resume. Before replacing the
+                # Source checkpoint, retain the previous Run's unreturned input
+                # evidence (including verified file references) in its own report.
+                pending = pending_inputs(
+                    c, f["run_id"], f["checkpoint"].get("acquired", {}), verify=True
+                )
+                c.execute(
+                    "UPDATE seal.run SET report=(report-'undelivered_inputs') || %s WHERE id=%s",
+                    (j({"undelivered_inputs": pending} if pending else {}), f["run_id"]),
+                )
             c.execute(
                 "UPDATE seal.frontier SET run_id=%s,checkpoint='{}',updated_at=now() WHERE id=%s",
                 (run_id, f["id"]),
