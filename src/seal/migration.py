@@ -10,7 +10,7 @@ from psycopg.conninfo import conninfo_to_dict
 from .core import Objects, SealError, digest
 from .db import connect, dsn
 
-CURRENT = "0009_document_only.sql"
+CURRENT = "0010_resource_timeline.sql"
 DELETED = {
     "seal_record",
     "seal_record_result",
@@ -154,6 +154,18 @@ def initialize(*, backup=None, acknowledge=False):
             c.execute("SELECT to_regclass('public.seal_source') AS name").fetchone()["name"]
             is not None
         )
+        timeline_upgrade = (
+            not old
+            and c.execute("SELECT to_regclass('seal.source') AS name").fetchone()["name"]
+            is not None
+            and not c.execute("SELECT 1 FROM seal.migration WHERE name=%s", (CURRENT,)).fetchone()
+        )
+        if timeline_upgrade and not backup:
+            return {
+                "status": "upgrade_confirmation_required",
+                "inventory": before,
+                "error": "backup_required_for_timeline_upgrade",
+            }
         if old and not (backup and acknowledge):
             return {
                 "status": "upgrade_confirmation_required",
@@ -163,9 +175,9 @@ def initialize(*, backup=None, acknowledge=False):
         active = c.execute(
             "SELECT count(*) AS n FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid() AND backend_type='client backend'"
         ).fetchone()["n"]
-        if old and active:
+        if (old or timeline_upgrade) and active:
             raise SealError("stop_database_clients_before_upgrade")
-    saved = backup_database(backup) if old else None
+    saved = backup_database(backup) if (old or timeline_upgrade) else None
     from .queue import app
 
     with connect() as c:
@@ -194,7 +206,7 @@ def initialize(*, backup=None, acknowledge=False):
                     raise SealError("applied_migration_changed")
                 continue
             c.execute(path.read_text())
-            if path.name == CURRENT:
+            if path.name == "0009_document_only.sql":
                 ledger = "seal.migration"
             c.execute(
                 sql.SQL("INSERT INTO {}(name,checksum) VALUES(%s,%s)").format(
@@ -221,7 +233,7 @@ def initialize(*, backup=None, acknowledge=False):
     Objects().root.mkdir(parents=True, exist_ok=True)
     return {
         "status": "initialized",
-        "schema": "document-only",
+        "schema": "resource-timeline",
         "applied": applied,
         "backup": saved,
         "before": before,

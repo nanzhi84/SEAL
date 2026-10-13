@@ -1,63 +1,51 @@
-"""A Source file atomically selects an immutable Binding and creates its Run."""
+"""Freeze a Source configuration and create its operational Run in one transaction."""
 
-from pathlib import Path
-
-import jsonschema
-
-from .config import CollectionConfig, load_file
-from .core import SealError, digest
+from .config import load_file
+from .core import SealError, digest, uid
 from .db import connect, decision, j, one
-from .recipes import load_bundle, pack_recipe
 
 
 def prepare_run(path, mode, *, enqueue=False):
     from .runs import create_run
 
-    path = Path(path).resolve()
-    config = CollectionConfig.model_validate(load_file(path))
-    recipe_path = (path.parent / config.recipe.path).resolve()
-    version = pack_recipe(recipe_path)["recipe_version"]
-    bundle = load_bundle(version)
-    params = config.recipe.params
-    try:
-        jsonschema.validate(params, bundle["manifest"]["params_schema"])
-    except jsonschema.ValidationError:
-        raise SealError("invalid_recipe_params") from None
-    data = config.model_dump(exclude={"recipe"})
-    execution = config.execution()
-    fingerprint = digest(
-        {"config": execution, "params": params, "recipe_version": version, "contract": 3}
-    )
+    config = load_file(path).model_dump()
+    fingerprint = digest(config)
     with connect() as c:
         c.execute(
             "INSERT INTO seal.source(id,config) VALUES(%s,%s) ON CONFLICT DO NOTHING",
-            (config.id, j(data)),
+            (config["id"], j(config)),
         )
-        source = one(c, "SELECT * FROM seal.source WHERE id=%s FOR UPDATE", (config.id,))
-        c.execute(
-            "INSERT INTO seal.binding(id,source_id,recipe_version,config,params,fingerprint) VALUES(%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING",
-            (fingerprint, config.id, version, j(execution), j(params), fingerprint),
-        )
-        if source["binding_id"] != fingerprint:
+        source = one(c, "SELECT * FROM seal.source WHERE id=%s FOR UPDATE", (config["id"],))
+        frontier = c.execute(
+            "SELECT id FROM seal.frontier WHERE source_id=%s", (config["id"],)
+        ).fetchone()
+        if source["config"] != config:
+            # A new parsing configuration must not change the input mode of an existing timeline.
+            if (
+                frontier
+                and c.execute(
+                    "SELECT 1 FROM seal.version v JOIN seal.resource r ON r.id=v.resource_id WHERE r.frontier_id=%s AND v.input_mode<>%s LIMIT 1",
+                    (frontier["id"], config["crawl4ai"]["mode"]),
+                ).fetchone()
+            ):
+                raise SealError("input_mode_change_requires_new_source")
             c.execute(
-                "UPDATE seal.source SET binding_id=%s,config=%s,generation=generation+1 WHERE id=%s",
-                (fingerprint, j(data), config.id),
+                "UPDATE seal.source SET config=%s,generation=generation+1 WHERE id=%s",
+                (j(config), config["id"]),
             )
             decision(
                 c,
-                config.id,
+                config["id"],
                 "control",
-                {
-                    "action": "select_configuration",
-                    "binding_id": fingerprint,
-                    "generation": source["generation"] + 1,
-                },
+                {"action": "select_configuration", "config_hash": fingerprint},
             )
-        elif source["config"] != data:
-            c.execute("UPDATE seal.source SET config=%s WHERE id=%s", (j(data), config.id))
-        run_id = create_run(fingerprint, mode, c)
+        if not frontier:
+            c.execute(
+                "INSERT INTO seal.frontier(id,source_id) VALUES(%s,%s)", (uid(), config["id"])
+            )
+        identity = create_run(config["id"], mode, c)
         if enqueue:
             from .queue import enqueue as submit
 
-            submit(c, run_id)
-    return run_id
+            submit(c, identity)
+    return identity

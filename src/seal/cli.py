@@ -39,8 +39,7 @@ def dispatch(args):
     if args.command == "worker":
         from .queue import worker
 
-        worker(args.once)
-        return {"worker": "stopped"}
+        return worker(args.once)
     from .configuration import prepare_run
     from .progress import ProgressPanel
     from .runs import execute_run, receipt
@@ -76,6 +75,9 @@ def main():
         if result.get("error"):
             return 2
         return 1 if result.get("status") in {"failed", "retryable"} else 0
+    except KeyboardInterrupt:
+        print(json.dumps({"error": "interrupted"}))
+        return 130
     except SealError as exc:
         print(json.dumps({"error": exc.code}))
         return 2

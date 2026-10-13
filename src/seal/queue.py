@@ -1,6 +1,8 @@
 """Procrastinate alone owns persistent job scheduling, locking and recovery."""
 
 import asyncio
+import signal
+import threading
 
 import procrastinate
 
@@ -12,15 +14,15 @@ producer = procrastinate.App(connector=procrastinate.SyncPsycopgConnector(connin
 
 
 @app.task(
+    pass_context=True,
     name="seal.crawl",
     queue="seal",
-    lock="seal:runtime",
     retry=procrastinate.RetryStrategy(max_attempts=3, wait=5),
 )
-def crawl_job(run_id):
+def crawl_job(context, run_id):
     from .runs import execute_run
 
-    result = execute_run(run_id)
+    result = execute_run(run_id, cancel_event=context.additional_context.get("cancel_event"))
     if result["status"] == "retryable":
         raise RuntimeError("retryable_crawl_failure")
 
@@ -81,16 +83,36 @@ def recover_unqueued():
 
 
 def worker(once=False):
-    async def recover_on_start():
+    from procrastinate.worker import Worker
+
+    cancelled = threading.Event()
+
+    async def consume():
         async with app.open_async():
             await recover_stalled()
+            consumer = Worker(
+                app=app,
+                queues=["seal", "seal-control"],
+                concurrency=2,
+                wait=not once,
+                install_signal_handlers=False,
+                update_heartbeat_interval=10,
+                stalled_worker_timeout=30,
+                additional_context={"cancel_event": cancelled},
+            )
+            loop = asyncio.get_running_loop()
 
-    asyncio.run(recover_on_start())
-    with app.open():
-        app.run_worker(
-            queues=["seal", "seal-control"],
-            concurrency=1,
-            wait=not once,
-            update_heartbeat_interval=10,
-            stalled_worker_timeout=30,
-        )
+            def stop():
+                cancelled.set()
+                consumer.stop()
+
+            for sig in (signal.SIGINT, signal.SIGTERM):
+                loop.add_signal_handler(sig, stop)
+            try:
+                await consumer.run()
+            finally:
+                for sig in (signal.SIGINT, signal.SIGTERM):
+                    loop.remove_signal_handler(sig)
+
+    asyncio.run(consume())
+    return {"worker": "stopped", **({"error": "interrupted"} if cancelled.is_set() else {})}

@@ -1,14 +1,18 @@
-id: public-documents
-recipe:
-  path: ../recipes/documents
-  params: {}
+id: dd-017 # 替换为来源地图中对应入口的稳定 ID
 entry_urls: [https://example.org/]
 allowed_hosts: [example.org]
 allowed_path_prefixes: [/]
-archive_approved: false # 检查公开范围与归档许可后改为 true
-scope: Authorized bounded public document collection
+archive_approved: false # 核对范围与原文归档许可后改为 true
+scope: Authorized bounded public resource collection
 robots: true
+recheck_seconds: 86400
+concurrency: 2
 budget:
   requests: 100
   seconds: 120
   response_bytes: 10485760
+crawl4ai:
+  mode: http # 原始 HTTP 正文；动态页面使用 rendered_dom，时间线禁止跨模式比较
+  max_depth: 3
+  page_timeout_ms: 30000
+  word_count_threshold: 1

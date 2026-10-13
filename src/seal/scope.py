@@ -1,7 +1,9 @@
-"""One host/path boundary shared by configuration and the downloader guard."""
+"""Shared URL boundary for SDK traversal, HTTP redirects and browser subrequests."""
 
 import posixpath
 from urllib.parse import unquote, urlsplit
+
+from .core import SealError, check_address, public_url
 
 
 def valid_prefix(path):
@@ -22,43 +24,16 @@ def paths_for(config, host, path):
     scopes = config.get("host_path_scopes", {})
     prefixes = scopes.get(host, []) if scopes else config["allowed_path_prefixes"]
     path = posixpath.normpath(unquote(path))
-    return any(
-        path == prefix.rstrip("/") or path.startswith(prefix.rstrip("/") + "/")
-        for prefix in prefixes
-    )
+    return any(path == p.rstrip("/") or path.startswith(p.rstrip("/") + "/") for p in prefixes)
 
 
-def robots_policy_request(config, request):
-    """A narrowly identified policy fetch is allowed outside business paths.
-
-    This does not exempt policy HTTP from addresses, redirects, method, headers,
-    budget or deadlines. Other paths need explicit frozen policy-redirect approval.
-    """
-    parsed = urlsplit(request.url)
-    return bool(
-        config.get("robots")
-        and request.meta.get("_seal_robots_policy")
-        and request.meta.get("seal_role") == "robots"
-        and parsed.scheme in {"http", "https"}
-        and parsed.hostname in config["allowed_hosts"]
-        and parsed.path in ["/robots.txt", *config.get("robots_redirect_paths", [])]
-        and not parsed.query
-        and not parsed.fragment
-        and request.url == request.meta.get("_seal_robots_url")
-    )
-
-
-def attachment_response_scope(config, url, parent_url):
-    """Check a resource whose attachment type was only known after download.
-
-    Its discovery role remains unchanged for request identity. The
-    final attachment representation still needs the explicit cross-host scope.
-    """
+def guard(config, url, *, policy=False):
+    url = public_url(url)
     parsed = urlsplit(url)
-    if not paths_for(config, parsed.hostname, parsed.path):
-        return "request_out_of_scope"
-    if parsed.hostname != urlsplit(parent_url).hostname and parsed.hostname not in config.get(
-        "host_path_scopes", {}
+    check_address(parsed.hostname)
+    allowed_policy = policy and parsed.path == "/robots.txt" and not parsed.query
+    if parsed.hostname not in config["allowed_hosts"] or not (
+        allowed_policy or paths_for(config, parsed.hostname, parsed.path)
     ):
-        return "attachment_host_path_required"
-    return None
+        raise SealError("request_out_of_scope")
+    return url

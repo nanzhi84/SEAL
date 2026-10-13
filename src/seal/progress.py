@@ -24,50 +24,35 @@ class ProgressSnapshot:
 
 
 def snapshot(c, run):
-    # A URL is handled only when all currently discovered representations and
-    # transports have terminal outcomes. Discovered includes duplicate candidates
-    # only once. Recovered retries and intermediate redirects are not failures.
     counts = c.execute(
-        """WITH urls AS (
-        SELECT url,bool_and(state IN ('parsed','failed','skipped')) AS handled,
-          bool_or(state='failed' AND continued_by IS NULL) AS failed
-        FROM seal.discovery WHERE run_id=%s AND attempt_epoch=%s AND role NOT IN ('robots','sitemap')
-        GROUP BY url)
-        SELECT count(*) AS discovered,count(*) FILTER(WHERE handled) AS processed,
-          count(*) FILTER(WHERE failed) AS failed FROM urls""",
-        (run["id"], run["attempt_epoch"]),
+        """SELECT count(*) FILTER(WHERE r.role='content') AS fetched,
+      count(*) FILTER(WHERE r.role='content') AS processed,
+      count(*) FILTER(WHERE r.role='content' AND o.version_id IS NOT NULL) AS resources,
+      count(*) FILTER(WHERE r.role='content' AND o.version_id IS NULL) AS failed,
+      count(*) FILTER(WHERE o.outcome='unchanged') AS unchanged,
+      count(*) FILTER(WHERE o.outcome='parsed') AS updated
+      FROM seal.observation o JOIN seal.resource r ON r.id=o.resource_id WHERE o.run_id=%s""",
+        (run["id"],),
     ).fetchone()
-    states = c.execute(
-        """SELECT count(*) FILTER(WHERE state='discovered') AS pending,
-        count(*) FILTER(WHERE state IN ('requested','archived')) AS active
-        FROM seal.discovery WHERE run_id=%s AND attempt_epoch=%s""",
-        (run["id"], run["attempt_epoch"]),
+    frontier = c.execute(
+        "SELECT checkpoint FROM seal.frontier WHERE source_id=%s AND run_id=%s",
+        (run["source_id"], run["id"]),
     ).fetchone()
-    fetched = c.execute(
-        "SELECT count(*) AS fetched FROM seal.fetch_observation WHERE run_id=%s AND attempt_epoch=%s AND is_content",
-        (run["id"], run["attempt_epoch"]),
-    ).fetchone()
-    docs = c.execute(
-        """SELECT count(DISTINCT document_id) AS documents,
-        count(DISTINCT document_id) FILTER(WHERE change_kind='unchanged') AS unchanged,
-        count(DISTINCT document_id) FILTER(WHERE change_kind='updated') AS updated
-        FROM seal.document_emission WHERE run_id=%s AND attempt_epoch=%s""",
-        (run["id"], run["attempt_epoch"]),
-    ).fetchone()
-    current = c.execute(
-        """SELECT url FROM seal.discovery WHERE run_id=%s AND attempt_epoch=%s
-        AND state IN ('requested','archived') ORDER BY requested_at DESC NULLS LAST LIMIT 1""",
-        (run["id"], run["attempt_epoch"]),
-    ).fetchone()
-    url = safe_url(current["url"])[:160] if current else None
+    pending = frontier["checkpoint"].get("inflight", []) if frontier else []
+    counts.update(
+        discovered=counts["fetched"] + len(pending),
+        pending=len(pending),
+        active=len(pending),
+        resources=counts["resources"],
+    )
     return ProgressSnapshot(
         run["id"],
         run["source_id"],
         run["mode"],
         run["status"],
         run["created_at"].isoformat(),
-        {**counts, **states, **fetched, **docs},
-        url,
+        counts,
+        safe_url(pending[-1])[:160] if pending else None,
     )
 
 
@@ -119,7 +104,7 @@ class ProgressPanel:
         table.add_row(
             Text(f"Discovered {counts['discovered']:,}"),
             Text(f"Fetched {counts['fetched']:,}"),
-            Text(f"Documents {counts['documents']:,}"),
+            Text(f"Resources {counts['resources']:,}"),
         )
         table.add_row(
             Text(f"Failed {counts['failed']:,}"),
