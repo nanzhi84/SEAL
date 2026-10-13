@@ -274,7 +274,7 @@ class Acceptance:
             run = self.lab.sql("SELECT id,status,attempt_epoch,job_id,deadline FROM seal.run WHERE id=%s", (run_id,))[0]
             queue = self.lab.sql("SELECT id,status,attempts,scheduled_at,worker_id,clock_timestamp() AS observed_at,"
                                  " greatest(0,extract(epoch FROM scheduled_at-clock_timestamp())) AS wait_seconds, "
-                                 " status=\'todo\' AND (scheduled_at IS NULL OR scheduled_at<=clock_timestamp()) AS ready_now "
+                                 " status='todo' AND (scheduled_at IS NULL OR scheduled_at<=clock_timestamp()) AS ready_now "
                                  "FROM procrastinate_jobs WHERE id=%s", (run["job_id"],))
             events = self.lab.sql("SELECT id,job_id,type,at FROM procrastinate_events WHERE job_id=%s ORDER BY id", (run["job_id"],))
             observations.append({"run": run, "queue": queue, "events": events})
