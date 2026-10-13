@@ -538,7 +538,7 @@ html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 <header class="am-head"><h1>V1.2：异构 Source 的 Runtime 基础设施</h1><div class="am-head-meta"><span><b>kind</b>plan</span></div><div class="am-intro am-md"><div class="am-md"><p>本变更关联 <a href="https://github.com/nanzhi84/SEAL/issues/1">Issue #1</a>，需求快照更新时间
 为 2026-10-09 10:03:28 UTC，开发基线为主分支 <code>ee39884</code>。
 基础设施范围是 T0–T6、T7S、T8。用户随后授权的 111 个 A/B/C 入口 Recipe 扩展验收见第 8 节；Evaluation、Management 和 Agent 仍未实现。
-唯一人工来源台账仍为 <a href="../reference/source-adaptation.md">Source 适配参考第 9 节</a>。</p>
+活动来源入口与历史采集分类统一维护于 <a href="../reference/尽职调查核验入口地图.md">尽职调查核验入口地图</a>。原适配台账已归档退出维护；本 Plan 中的实现、验收与历史状态仍以各节引用的冻结工件为依据，不以地图分类替代。</p>
 <p>2026-10-09 在本地环境补齐真实公开来源验收。原云端 Tunnel 403 与缺失业务 bytes
 是历史阻塞快照，保留原工件，不再作为本地来源可用性的结论。
 首轮使用真实 CLI、Scrapy、独立 PostgreSQL 与内容寻址原文，完成 A 4、B 2、C 2
@@ -814,7 +814,7 @@ tar -xzf experiments/v1.2-acceptance/results/real-final/real-regression-evidence
 ./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.2-repeat-m3 --compatibility-baseline artifacts/acceptance/v1.2-regression-replay/regression/original-baseline --output artifacts/acceptance/v1.2-repeat-smoke
 uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/v1.2-repeat-smoke
 uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.2-acceptance experiments/v1.1-runtime-acceptance
-seiso check docs/plans/v1.2-heterogeneous-sources.md docs/reference/source-adaptation.md README.md</code></pre>
+seiso check docs/plans/v1.2-heterogeneous-sources.md docs/reference/尽职调查核验入口地图.md README.md</code></pre>
 <div class="am-md"><p>全 docs 检查中，V1.1 Plan 的 6 个既有 ignored 工件链接可能在缺历史工件的 checkout 报缺失。
 这不由伪造历史文件消除；新文档的相关链接须单独通过检查。</p>
 </div></div>
@@ -1729,7 +1729,7 @@ lang: zh
 本变更关联 [Issue #1](https://github.com/nanzhi84/SEAL/issues/1)，需求快照更新时间
 为 2026-10-09 10:03:28 UTC，开发基线为主分支 `ee39884`。
 基础设施范围是 T0–T6、T7S、T8。用户随后授权的 111 个 A/B/C 入口 Recipe 扩展验收见第 8 节；Evaluation、Management 和 Agent 仍未实现。
-唯一人工来源台账仍为 [Source 适配参考第 9 节](../reference/source-adaptation.md)。
+活动来源入口与历史采集分类统一维护于 [尽职调查核验入口地图](../reference/尽职调查核验入口地图.md)。原适配台账已归档退出维护；本 Plan 中的实现、验收与历史状态仍以各节引用的冻结工件为依据，不以地图分类替代。
 
 2026-10-09 在本地环境补齐真实公开来源验收。原云端 Tunnel 403 与缺失业务 bytes
 是历史阻塞快照，保留原工件，不再作为本地来源可用性的结论。
@@ -1936,7 +1936,7 @@ tar -xzf experiments/v1.2-acceptance/results/real-final/real-regression-evidence
 ./experiments/v1.1-runtime-acceptance/acceptance.sh --stage smoke --baseline artifacts/acceptance/v1.2-repeat-m3 --compatibility-baseline artifacts/acceptance/v1.2-regression-replay/regression/original-baseline --output artifacts/acceptance/v1.2-repeat-smoke
 uv run --frozen python experiments/v1.1-runtime-acceptance/verify_artifacts.py artifacts/acceptance/v1.2-repeat-smoke
 uvx --from ruff==0.16.10 ruff check src recipes experiments/v1.2-acceptance experiments/v1.1-runtime-acceptance
-seiso check docs/plans/v1.2-heterogeneous-sources.md docs/reference/source-adaptation.md README.md
+seiso check docs/plans/v1.2-heterogeneous-sources.md docs/reference/尽职调查核验入口地图.md README.md
 ```
 
 全 docs 检查中，V1.1 Plan 的 6 个既有 ignored 工件链接可能在缺历史工件的 checkout 报缺失。
