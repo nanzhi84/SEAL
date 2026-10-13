@@ -1,0 +1,24 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-050
+id: dd-050
+entry_urls:
+- https://www.cmac.org.cn/index.php?catid=20
+allowed_hosts:
+- www.cmac.org.cn
+allowed_path_prefixes:
+- /index.php
+- /data/upload/image/
+archive_approved: true
+scope: 仲裁规则栏目直链文本 PDF；路径过滤不能区分 index.php 栏目参数，不承诺严格栏目隔离。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 100
+  seconds: 1800
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 1
+  page_timeout_ms: 60000
+  word_count_threshold: 1

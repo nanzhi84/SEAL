@@ -1,15 +1,19 @@
 id: dd-050
 recipe:
   path: ../../../recipes/generic
-  params: {}
-entry_urls: [http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf]
+  params:
+    links: '.n2_list2 > li > p > a[href$=".pdf"]'
+    next_page: '.n2_list2 a[rel="next"][href]'
+entry_urls: ['https://www.cmac.org.cn/index.php?catid=20']
 allowed_hosts: [www.cmac.org.cn]
-allowed_path_prefixes: [/data/upload/image/20260609]
+allowed_path_prefixes: [/index.php, /data/upload/image/]
 archive_approved: true
-scope: 中国海事仲裁委员会公开规则文本 PDF，不使用 OCR，不声明站点覆盖
-seed_role: attachment
+scope: 中国海事仲裁委员会仲裁规则栏目及本页公开链接的规则 PDF，不使用 OCR，不扩展其他栏目，不声明全站覆盖
+seed_role: list
 robots: true
 budget:
-  requests: 6
-  seconds: 120
-  response_bytes: 20971520
+  requests: 20
+  seconds: 300
+  response_bytes: 52428800
+concurrency: 2
+delay: 0.5

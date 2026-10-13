@@ -1,0 +1,23 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-183
+id: dd-183
+entry_urls:
+- http://yss.mof.gov.cn/zhuantilanmu/dfzgl/
+allowed_hosts:
+- yss.mof.gov.cn
+allowed_path_prefixes:
+- /zhuantilanmu/dfzgl/
+archive_approved: true
+scope: 财政部地方债管理专题及同路径政策详情；范围外附件不获取。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 500
+  seconds: 1200
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 10
+  page_timeout_ms: 60000
+  word_count_threshold: 1

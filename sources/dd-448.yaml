@@ -1,0 +1,23 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-448
+id: dd-448
+entry_urls:
+- https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/
+allowed_hosts:
+- www.chinafilm.gov.cn
+allowed_path_prefixes:
+- /xxgk/gsxx/dybalx/
+archive_approved: true
+scope: 电影备案立项公示栏目及同路径通知表格；跨路径逐影片详情与查询结果不保证覆盖。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 500
+  seconds: 1200
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 10
+  page_timeout_ms: 60000
+  word_count_threshold: 1

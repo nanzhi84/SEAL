@@ -1,6 +1,8 @@
 > 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
 
-固定测试、评分、回放与专属 benchmark 支撑代码已退役。下文命令仅记录历史操作，源码可从 [9afc72e](https://github.com/nanzhi84/SEAL/tree/9afc72ea28a22e988244b1cea7c7d238f7ccf067/experiments/scraper-benchmark) 追溯；原文、日志、冻结源码及报告保持原样。新的验收遵循 [根目录规则](../../AGENTS.md)，由独立子 agent 现场执行。
+> 2026-10-13 清理记录：本页对应的旧版本原文和验收产物已按用户要求删除；以下数字、命令和结论保留为历史说明，本地工件已不能用于复算。
+
+固定测试、评分、回放与专属 benchmark 支撑代码已退役。下文命令仅记录历史操作，源码可从 [9afc72e](https://github.com/nanzhi84/SEAL/tree/9afc72ea28a22e988244b1cea7c7d238f7ccf067/experiments/scraper-benchmark) 追溯；原文、日志与冻结运行工件现已按用户要求删除，选型报告保留为历史说明。新的验收遵循 [根目录规则](../../AGENTS.md)，由独立子 agent 现场执行。
 
 # SEAL 采集框架实验
 
@@ -21,7 +23,7 @@
 - Firecrawl 父页返回内容已有子页内容，但原 iframe 标签丢失；依赖源 DOM 结构的 Recipe 不可无条件移植。
 - 云端缓存年龄未提供，不能把返回内容评分当作严格新鲜度/速度排名。法律正文和 PDF 本轮未形成配对，**没有总体赢家**。
 
-报告：[`BENCHMARK_REPORT.md`](BENCHMARK_REPORT.md)；可视化：[`results/benchmark-overview.html`](results/benchmark-overview.html)。
+报告：[`BENCHMARK_REPORT.md`](BENCHMARK_REPORT.md)；可视化：`results/benchmark-overview.html`（旧版本产物已删除）。
 
 本轮目录：`results/paired-live-20261008T095127Z/`。`results/current_paired_campaign.json` 指向当前工件，不含密钥。
 

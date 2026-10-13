@@ -1,0 +1,24 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-061
+# 首版入口探索配置；不自动登录、执行查询表单或解析 Office/JSON。
+id: dd-061
+entry_urls:
+- http://ac.nanjing.gov.cn/
+allowed_hosts:
+- ac.nanjing.gov.cn
+allowed_path_prefixes:
+- /
+archive_approved: true
+scope: 南京仲裁委员会地图登记入口首版：仅沿同主机公开链接发现 HTML 与文本 PDF；首页可能混合新闻、指引和业务公告，不提交表单，不承诺全站覆盖。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 300
+  seconds: 900
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 3
+  page_timeout_ms: 60000
+  word_count_threshold: 1

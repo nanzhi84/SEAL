@@ -1,5 +1,7 @@
 > 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../../docs/plans/unified-document-pipeline.md)。历史结果不代表本次验收。
 
+> 2026-10-13 清理记录：本页对应的旧版本原文和验收产物已按用户要求删除；以下数字、命令和结论保留为历史说明，本地工件已不能用于复算。
+
 # SEAL 采集框架：同网址配对实测报告
 
 > **已完成一轮真实的相同 URL 采集，不再用 Scrapy 网站抓取对比 Firecrawl 合成上传。**
@@ -14,7 +16,7 @@
 
 ## 1. 证据、环境和判定范围
 
-主工件目录：[`results/paired-live-20261008T095127Z/`](results/paired-live-20261008T095127Z/)。
+主工件目录：`results/paired-live-20261008T095127Z/`（旧版本产物已删除）。
 
 - `protocol.json`：执行前冻结的完整同 URL/功能清单；未随评分修改。
 - `ledger.json`：真实 HTTP/API 请求前预留、响应状态、计时、费用预留；SDK 自动重试为 0。
@@ -202,7 +204,7 @@ node ~/.pi/agent/skills/answer-me-with-html/scripts/am.mjs render \
 
 现场命令为 `paired_live.py --campaign paired-live-20261008T095127Z`；中断后仅使用一次受限的 `--resume-policy-interruption`，沿用原账本。两版代码已留档。当前在线门禁已关闭，禁止重新生成 ID 来重置这次授权；未来联网需新的明确范围/预算与新目录。
 
-`results/artifact_manifest.json` 覆盖新旧证据，可以按 README 的命令核对 SHA-256。可视化为 [`results/benchmark-overview.html`](results/benchmark-overview.html)。
+`results/artifact_manifest.json` 覆盖新旧证据，可以按 README 的命令核对 SHA-256。可视化为 `results/benchmark-overview.html`（旧版本产物已删除）。
 
 ## 8. 保留的历史与剩余缺口
 

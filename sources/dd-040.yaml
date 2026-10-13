@@ -1,0 +1,23 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-040
+id: dd-040
+entry_urls:
+- https://www.spp.gov.cn/spp/gjgb/index.shtml
+allowed_hosts:
+- www.spp.gov.cn
+allowed_path_prefixes:
+- /spp/gjgb/
+archive_approved: true
+scope: 最高检公报栏目及同路径公开链接；详情及附件覆盖待验收。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 500
+  seconds: 1200
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 10
+  page_timeout_ms: 60000
+  word_count_threshold: 1

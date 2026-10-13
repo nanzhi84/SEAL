@@ -1,0 +1,23 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-041
+id: dd-041
+entry_urls:
+- https://www.spp.gov.cn/spp/jczdal/index.shtml
+allowed_hosts:
+- www.spp.gov.cn
+allowed_path_prefixes:
+- /spp/jczdal/
+archive_approved: true
+scope: 最高检指导性案例栏目及同路径可发现详情；不承诺脚本分页及范围外附件覆盖。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 300
+  seconds: 900
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 10
+  page_timeout_ms: 60000
+  word_count_threshold: 1

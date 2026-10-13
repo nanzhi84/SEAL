@@ -1,0 +1,25 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-102
+id: dd-102
+entry_urls:
+- https://www.safe.gov.cn/beijing/xzcfxxgs/index.html
+- https://www.safe.gov.cn/www/illegal?siteid=beijing
+allowed_hosts:
+- www.safe.gov.cn
+allowed_path_prefixes:
+- /beijing/xzcfxxgs/
+- /www/illegal
+archive_approved: true
+scope: 北京行政处罚入口及其公开 iframe 列表与详情；补充 iframe 入口，不提交表单，不承诺脚本分页全量。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 200
+  seconds: 600
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 3
+  page_timeout_ms: 60000
+  word_count_threshold: 1

@@ -1,0 +1,23 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-176
+id: dd-176
+entry_urls:
+- http://www.csrc.gov.cn/csrc/c100095/common_list.shtml
+allowed_hosts:
+- www.csrc.gov.cn
+allowed_path_prefixes:
+- /csrc/c100095/
+archive_approved: true
+scope: 地图登记的发行批复栏目及同路径详情；实际样本包含公开发行注册批复，不限于定向发行。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 500
+  seconds: 1200
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 10
+  page_timeout_ms: 60000
+  word_count_threshold: 1

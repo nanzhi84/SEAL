@@ -543,9 +543,9 @@ html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 是历史阻塞快照，保留原工件，不再作为本地来源可用性的结论。
 首轮使用真实 CLI、Scrapy、独立 PostgreSQL 与内容寻址原文，完成 A 4、B 2、C 2
 个完整来源；另保留 B 两个原样本的真实 partial 和附件不支持证据。
-机器映射与可重复命令见 <a href="../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json">真实工件索引</a>。
+机器映射与可重复命令见 真实工件索引（旧版本产物已删除）。
 随后扩展处理全部 111 个研究入口：98 complete、3 partial、8 blocked、2 acceptance_failed。
-最终映射与复跑命令见 <a href="../../experiments/v1.2-acceptance/results/expanded-final/real-evidence-index.json">扩展工件索引</a>。
+最终映射与复跑命令见 扩展工件索引（旧版本产物已删除）。
 技术通过只针对明确样本范围，不授予内容质量审核。</p>
 </div></div></header>
 <div class="am-doc-layout">
@@ -584,7 +584,7 @@ Source → 不可变 RecipeVersion/Binding → Run → Scrapy → 归档 → Obs
 沿用 URL 身份只留下 1 行，NULL URL 被拒；独立 Record 保留 10 行。
 实验原文、哈希、检查与完整命令见
 <a href="https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/live_samples/c_route_experiment.py">双路线脚本</a> 和
-<a href="../../experiments/v1.2-acceptance/live_samples/c-route-experiment.json">实验回执</a>。
+实验回执（旧版本产物已删除）。
 由真实业务 bytes 与旧表约束共同支持既有 Record 迁移选择，不修改历史行。</p>
 <p>首轮新增 <code>0003_records.sql</code>、<code>0004_discovery.sql</code>；第 9 节修复增量新增
 <code>0005_recheck_plan.sql</code>。不修改 <code>schema.sql</code> 或
@@ -720,9 +720,9 @@ RecipeVersion、Run、业务 scope、结果引用和资源统计。研究 ID 来
 静态业务附件来源 dd-050、dd-151，满足至少两条完整 B 来源及真实文本 PDF 定位。
 原样本的 partial 不计入这个完整来源数量，不把公告投影冒充扫描件或逐校内容。
 所有样本均声明有限栏目、页数、字段与附件，不承诺源站全量或原地图的主体核验业务。</p>
-<p><a href="../../experiments/v1.2-acceptance/live_samples/a.json">Source 与预期合同</a>、
-<a href="../../experiments/v1.2-acceptance/live_samples/b.json">B 配置</a>、
-<a href="../../experiments/v1.2-acceptance/live_samples/c.json">C 配置</a> 固定字段锚点、精确条数、URL 和原文要求。
+<p>Source 与预期合同（旧版本产物已删除）、
+B 配置（旧版本产物已删除）、
+C 配置（旧版本产物已删除） 固定字段锚点、精确条数、URL 和原文要求。
 三个源级普通 Python Recipe 分别承载 HTML、静态资源与固定查询差异，继续复用共享 helper。
 未引入浏览器、OCR、Excel 解析依赖或第二套 Frontier。</p>
 <p>SAFE 网站在公开未认证 HTML 中写入随机匿名 JSESSIONID。
@@ -785,7 +785,7 @@ Replay 校验原始输入集合、业务值与 SEAL Downloader 的零 HTTP 交�
 先用故障本地环境代理复现 retryable、零 Record、没有到达源站；修复后沿真实 CLI
 验证 10 个独立业务值、归档，以及源站关闭后的零网络 Replay。
 <a href="https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/proxy_behavior.py">代理行为脚本</a> 保留红绿工件映射。</p>
-<p><a href="../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json">最终工件索引</a>
+<p>最终工件索引（旧版本产物已删除）
 给出实际断言数量、来源/版本/Run/Record、归档摘要、回归包及本地/公开复算边界。
 既有云端合成 303/303、M3 136/136、Smoke 1191/1191 是历史记录；本地最终结果以该索引为准。
 仓库没有 GitHub Actions 或单独静态类型检查器，不报告远端 CI 通过。</p>
@@ -907,8 +907,8 @@ collect、Recheck、零网络 Replay；3 个 partial 执行两轮 collect 与 Re
 提升为可推进当前指针的 complete。最终有效验收合计 401 个实际 Run、首轮 232 个 Record（228 个
 来自 complete 范围、4 个来自 partial 范围）、8497/8497 保存断言。独立原文复算
 覆盖 924 次 Record 投影；公开包显式排除 SAFE 后复算 760 次。独立审查
-<a href="../../experiments/v1.2-acceptance/results/expanded-final/review.json">1555/1555 项通过</a>；失败历史另存，未加入通过断言总数。每源的 Source、
-Binding、RecipeVersion、Run、范围与原文摘要见 <a href="../../experiments/v1.2-acceptance/results/expanded-final/dispositions.json">机器事实</a>，
+1555/1555 项通过（旧版本产物已删除）；失败历史另存，未加入通过断言总数。每源的 Source、
+Binding、RecipeVersion、Run、范围与原文摘要见 机器事实（旧版本产物已删除），
 人工状态与下一步仅维护在 Source 适配参考第 9 节。</p>
 <p>新增 Recipe 共五组，复用既有 helper 与 Runtime，不新增浏览器、OCR 或动态执行。
 A 支持真实 HTML 正文及公开文本 PDF；B 将源站链接发现、重定向、正文片段及公开表格
@@ -1002,7 +1002,7 @@ dd-247（C，前两页 20 家）；每个均两轮 Collect、Recheck、零 HTTP 
 独立完整分页核验 488/488。先前 98 个通过来源仅有其中这四个在本次引擎上复跑；
 其余 94 个保留第 8 节历史版本、时间和范围，不能由当前专项结果推断全部已重新验收。</p>
 <p>当前验收表与统一公开原文包见
-<a href="../../experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json">修复工件索引</a>。
+修复工件索引（旧版本产物已删除）。
 各工件保存精确 28 个引擎文件摘要、冻结 RecipeVersion/Binding、输入 bytes、断言、请求
 账本、运行命令和独立核验；有效行为/性能 RED 与验收配置/流程失败分别列出，旧失败不覆盖。</p>
 <div class="am-table-wrap"><table>
@@ -1134,8 +1134,8 @@ DOCX 只保存 Word 缓存的可见文本，不执行字段指令；图片、文
 <h3>当前结果与剩余边界</h3>
 <p>功能引擎 Commit 为 <code>a64a8d258eb6376cc1ff20973b384a079610d0eb</code>。本轮工件逐个核对
 <code>src</code> 摘要与该 Commit 的 Git bytes；保存 RecipeVersion、Binding、Run、输入摘要和
-复跑命令。<a href="../../experiments/v1.2-acceptance/results/pr2-remediation-final/remediation-evidence-index.json">本轮索引</a>
-与<a href="../../experiments/v1.2-acceptance/results/pr2-remediation-final/dispositions.json">逐源状态</a>
+复跑命令。本轮索引（旧版本产物已删除）
+与逐源状态（旧版本产物已删除）
 使用新目录，不覆盖第 8、9 节的历史包。</p>
 <div class="am-table-wrap"><table>
 <thead>
@@ -1414,9 +1414,9 @@ Run 仅有 Observation 下限，明确 <code>http_attempts_basis</code>，不得
 <p>功能 Commit 为 <code>e32234010320826799e6d34e1432cd16366cb785</code>；报告、文档和包装后还需
 在最终 Git HEAD 复跑同一全套，最终 SHA 与结果记录在 PR #2 正文。两个阶段使用新目录，
 不覆盖工件；公开包中源代码 bytes、Recipe 环境摘要与该功能 Commit 一致。
-<a href="../../experiments/v1.2-acceptance/results/pr2-delivery-v2/remediation-evidence-index.json">统一索引</a>、
-<a href="../../experiments/v1.2-acceptance/results/pr2-delivery-v2/delivery-report.json">交付报告</a> 和
-<a href="../../experiments/v1.2-acceptance/results/pr2-delivery-v2/dispositions.json">来源机器状态</a>
+统一索引（旧版本产物已删除）、
+交付报告（旧版本产物已删除） 和
+来源机器状态（旧版本产物已删除）
 保存完整 64 位 RecipeVersion/Binding、四轮 Run、全部原文 Hash、逐断言与执行环境。
 公开包包括原始 Snapshot/bytes，字段、Locator、业务 content_hash 独立复算；未复制含会话的
 历史 dd-102 原文。本轮失败及修复前 RED 原样封装，不把离线 recorded_outcomes 当成成功。</p>
@@ -1635,7 +1635,7 @@ git diff --check</code></pre>
 <p>实施：删除 Runtime 扫描及其拒绝测试；实验发布/探测使用独立隐私工具，避免悬空 导入。复用 dd-102 冻结合同和联合 Runtime E2E。失败条件：iframe 未归档、原文 Hash 不符、业务字段/定位器不符、不是 41 条 Record、重采/Recheck 身份不稳定、Replay 产生网络请求或归档故障被吞掉。验收工件只发布断言、版本、命令与 Hash，原文留在 ignored 私有目录。结果待本轮真实运行补充。</p>
 <h3>12.1 本轮验收结果与复现</h3>
 <p>功能引擎为 <code>c886007</code>，报告生成器核对每组工件的全部 <code>src/</code> Hash 与该提交逐项一致。 联合 Runtime E2E 473/473、公开探测隐私 E2E 33/33、dd-102 真实 E2E 75/75，通过工件 Hash 校验；dd-102 独立校验器复算 164 个 Record 投影（四次运行各 41 条）。两次 Collect、Recheck 和零网络 Replay 均 complete，真实父入口、iframe、分页及详情 形成完整引用链。原文未裁剪或脱敏；私有工件文件和目录均无 group/other 权限。</p>
-<p><a href="../../experiments/v1.2-acceptance/results/raw-archive/acceptance-report.json">公开验收报告</a> 只含断言名称/状态、环境、命令、不可变 ID 和工件 Hash，不含响应原文、字段值或凭据。 数据前提沿用 <code>live_samples/a.json</code> 的 dd-102 冻结合同：前两页每页 20 行及已声明的 建设银行详情，不提交筛选，不注入认证、Cookie 或环境代理，不使用生产数据库。</p>
+<p>公开验收报告（旧版本产物已删除） 只含断言名称/状态、环境、命令、不可变 ID 和工件 Hash，不含响应原文、字段值或凭据。 数据前提沿用 <code>live_samples/a.json</code> 的 dd-102 冻结合同：前两页每页 20 行及已声明的 建设银行详情，不提交筛选，不注入认证、Cookie 或环境代理，不使用生产数据库。</p>
 <pre class="am-code"><code>uv sync --frozen
 umask 077
 ./experiments/v1.2-acceptance/acceptance.sh --output artifacts/acceptance/raw-archive-runtime-final
@@ -1654,7 +1654,7 @@ uv run --frozen python experiments/v1.2-acceptance/archive_report.py artifacts/a
 <h3>13.1 验收矩阵与证据</h3>
 <p>当前联合 Runtime 473/473 和公开探测 33/33 的工件来自第 12 节；本轮源码未变， 最终校验器重新核验其全部原文 Hash、断言与产品源码/Recipe Hash，不以日期或 提交标签代替源码匹配。其余专项和真实来源在本轮实际执行。</p>
 <table><tr><th>验收项</th><th>最终状态</th><th>证据</th></tr><tr><td>联合 Runtime</td><td>PASS，473/473</td><td>raw-archive-runtime-final</td></tr><tr><td>公开探测隐私/拒绝边界</td><td>PASS，33/33</td><td>raw-archive-public-probe-final</td></tr><tr><td>V1.1 M3</td><td>PASS，134/134</td><td>final-frozen-m3</td></tr><tr><td>V1.1 Smoke，含历史升级 Replay</td><td>PASS，1200/1200</td><td>final-frozen-smoke</td></tr><tr><td>分页专项</td><td>PASS，154/154</td><td>final-52909bd-pagination</td></tr><tr><td>重复父请求/到达顺序</td><td>PASS，35/35</td><td>final-52909bd-parents</td></tr><tr><td>Recheck 身份、批次、失败退避与 fencing</td><td>PASS，115/115</td><td>final-52909bd-recheck</td></tr><tr><td>七源四轮真实采集</td><td>PASS，715/715；独立复算468投影</td><td>final-52909bd-real-canonical</td></tr><tr><td>dd-247 空筛选兼容</td><td>PASS，75/75；20 Record</td><td>final-52909bd-blank-query</td></tr><tr><td>dd-009 新合同真实复验</td><td>PASS，75/75；29 Record</td><td>final-52909bd-dd009</td></tr><tr><td>dd-357 越界拒绝诊断</td><td>PASS，22/22；来源 BLOCKED</td><td>final-52909bd-blocked</td></tr><tr><td>dd-250 七页67条独立分页核验</td><td>PASS，489/489</td><td>final-52909bd-amac.json</td></tr><tr><td>T7S 真实来源数量与机制门槛</td><td>PASS，296/296；A3/B2/C2</td><td>final-52909bd-t7s.json</td></tr><tr><td>T8 产品版本、独立核验及交付汇总</td><td>PASS</td><td>final_acceptance.py</td></tr></table>
-<p>完整私有工件位于 <code>artifacts/acceptance/</code>；公开<a href="../../experiments/v1.2-acceptance/results/final-acceptance/report.json">最终报告</a> 仅包含每项状态、断言名称、环境、复现命令、Run/Binding/Recipe ID 和工件 Hash。 原文及 expected/actual 字段值不发布；本地完整工件用于独立字段/locator 复算。</p>
+<p>完整私有工件位于 <code>artifacts/acceptance/</code>；公开最终报告（旧版本产物已删除） 仅包含每项状态、断言名称、环境、复现命令、Run/Binding/Recipe ID 和工件 Hash。 原文及 expected/actual 字段值不发布；本地完整工件用于独立字段/locator 复算。</p>
 <h3>13.2 实际命令与环境</h3>
 <p>环境：macOS arm64、Python 3.12.13、PostgreSQL 17.11、frozen uv.lock，独立临时 PG 与 loopback fixture；实站匿名 GET、无账号/Cookie/环境代理、不提交验证码或主体筛选。 输出目录由 <code>umask 077</code> 创建为私有目录；生产 DSN 不进入 Harness。所有首次失败保留。</p>
 <pre class="am-code"><code>umask 077
@@ -1675,7 +1675,7 @@ uv run --frozen python experiments/v1.2-acceptance/delivery_verify.py artifacts/
 <p><code>final-52909bd-m3</code> 首次 FAIL：旧 M0 子场景仍要求敏感正文拒绝；新 Runtime 正确完成 采集，旧断言错误。删除该过时拒绝场景及未使用敏感正文 fixture，保留 URL 凭据、 日志、HTTP、归档故障等原边界。修正后 M3 134/134，原来136的减少来自两项旧拒绝 断言删除，不把失败换成无断言“成功”。进一步冻结测试提交后再次执行 M3/Smoke。</p>
 <p>首个真实批次因同时选择两个重叠样本文件而被主动中止；其两个已通过来源与未完成 批次工件留在 <code>final-52909bd-real</code>，不计完整验收。正式批次采用执行前冻结、ID唯一的 七源合并合同。首次完整分页校验传错了输入路径，出现 KeyError；改为 Manifest 中 实际登记的输入路径后489/489，未修改原始样本或采集结果。</p>
 <p>最终冻结 Smoke 1200/1200；最终报告重新调用独立校验器并复算 T7S/完整分页，T0–T6、T7S、T8 全部 PASS。当前无验收 FAIL 或 BLOCKED；dd-357 作为已知来源 BLOCKED 保留，其负向合同已通过。PR 转 Ready for review，尚未合并；Evaluation 和全量111来源复验不属于本轮完成声明。</p></section>
-<section id="url-correction" class="am-md"><h2>14. dd-357 URL 语义修正（2026-10-10）</h2><p>目标：修正原公告入口，将真实成功证据纳入 PR，并保留错误 URL 的历史失败。 根因链已由原始分配、探测命令、探测输出及冻结脚本确认：原始 <code>!</code> 在 B2 探测时被 <code>quote(parts.path, safe=&#x27;/%:@&#x27;)</code> 编为 <code>%21</code>，改写后的 requested_url 被冻结为受阻合同。 Runtime/Scrapy 保留路径 <code>!</code>，范围比较的 unquote 不改写网络 URL。公开公告可匿名采集， LicenseRedirect/CAS 路径不扩入允许范围。</p><p>规范化合同：HTTP 的 path/query 中已合法的 ASCII 字符、已有百分号编码、查询参数 顺序/重复项/空项须保留；不得把表单解析结果重新 urlencode 后当原始资源 URL。 fragment 不发送给服务器，hostname 大小写和默认端口属于现有明确合同。敏感 URL 仍拒绝；日志脱敏只替换敏感值。Unicode/空格的必要传输编码使用 Scrapy 既有 w3lib 编码器，不自行维护更窄的 safe 白名单。范围检查与身份/网络地址分开。</p><p>实现前失败条件：<code>!</code> 与 <code>%21</code> 被合并、<code>+</code> 与 <code>%20</code> 被互换、重复参数或参数顺序改变、 编码斜杠被解码、空参数被删除、HTML发现/Source冻结/实际请求/归档/重检地址不一致、 Recheck改变资源身份或Replay发网络请求、凭据保护失效。先执行真实CLI/PG/HTTP E2E 得到RED，再修正已证实的查询串处理。检查默认Scrapy去重是否把有区别的URL合并。</p><p>正向交付使用 <code>!</code>；错误 <code>%21</code> 留为明确命名的URL负向回归和历史工件，不再标记整项 dd-357来源BLOCKED。本轮源码变化后重新执行完整回归和T7S/T8，不复用旧引擎PASS。</p><h3>14.1 根因、修复边界与历史记录</h3><p>历史 B2 探测命令时间为 <code>2026-10-09T14:38:18.936Z</code>；发现的 <code>assigned-b2.json</code> 保留 <code>!</code>，探测执行 <code>quote(parts.path,safe=&#x27;/%:@&#x27;)</code> 改为 <code>%21</code>，并写成 <code>requested_url</code>。冻结脚本第58行直接采用此字段， 因此错误发生于**探测的请求序列化阶段**，再传播到冻结合同；不是当前 Scrapy 把正确路径改错。68对B2入口/详情比较，只有dd-357两条变化；70对B1输入未变化， 但其旧全URL quote同样有风险。历史工作脚本不作为现行采集入口；不改写历史失败工件。 完整输入Hash、代码片段、配对结果和同UA无Cookie HTTP诊断见 <a href="../../experiments/v1.2-acceptance/results/url-correction/url-audit.json">URL审计</a>。</p><p>现行 probe 采用已有w3lib安全序列化；inventory保留未删除的原查询片段； Runtime public_url/safe_url保留原合法ASCII路径与查询串，诊断仅替换敏感值； 独立原文验证器也保留查询串。Scrapy默认查询规范化fingerprint在真实HTTP回归中 把9个资源压成5个，已改成method、实际serialized URL和body摘要身份， 完全相同请求仍去重。范围检查中的路径解码仅用于安全比较，不改变发出的资源URL。 既有冻结Binding和历史Record不批量重写；修正Source后创建新Binding。带有过去被重建 查询串的旧身份不得自动视为新URI相同资源，迁移/重采需按具体来源验证。 禁止用全局unquote修复入口，禁止重排query或假设 <code>+</code> 和 <code>%20</code> 等价。 既有会话/追踪参数隐私删除是明确的有损研究处理，不能声称和原URI资源相同。</p><p>正确 <code>!</code> URL 已冻结于final.json和remediation current，旧 <code>%21</code> 被独立命名为 <code>delivery_samples/url-negative.json</code> 的错误URL负向合同。正确URL返回HTTP200并产生1条 公开公告Record；错误URL返回302至outside/LicenseRedirect，原范围拒绝行为继续通过。 无须扩大允许路径或访问CAS。人工台账更新为101 adapted／2 partial／7 blocked／ 1 acceptance_failed；新引擎当前复验9个adapted，其余92个历史成功未复验。</p><h3>14.2 当前引擎最终验收</h3><p>引擎冻结为 <code>658835a423ebb762745c039f2169a8b41df5000f</code>，原文归档保持私有， 前提为uv.lock固定Python3.12、PostgreSQL17工具、本地隔离PG和loopback、 实站公开GET，无Cookie、账号或环境代理；历史兼容回放需原私有基线。 下面各套件使用独立新目录，报告记录实际命令、环境、Run/Binding/Recipe和对象Hash。</p><table><thead><tr><th>项目</th><th>结果</th><th>私有工件目录（artifacts/acceptance/）</th></tr></thead><tbody><tr><td>URL发现／冻结／HTTP／身份／Recheck／Replay</td><td>PASS 11/11</td><td>url-final-semantics-v2</td></tr><tr><td>联合Runtime</td><td>PASS 473/473</td><td>url-final-joint</td></tr><tr><td>公开探测隐私与拒绝边界</td><td>PASS 33/33</td><td>url-final-public-probe</td></tr><tr><td>M3</td><td>PASS 134/134</td><td>url-final-m3</td></tr><tr><td>Smoke含历史升级Replay</td><td>PASS 1200/1200</td><td>url-final-smoke</td></tr><tr><td>分页</td><td>PASS 154/154</td><td>url-final-pagination</td></tr><tr><td>父请求与到达顺序</td><td>PASS 35/35</td><td>url-final-parents</td></tr><tr><td>Recheck身份、批次、退避、fencing</td><td>PASS 115/115</td><td>url-final-recheck</td></tr><tr><td>八个真实来源四轮</td><td>PASS 786/786，118首轮Record</td><td>url-final-real</td></tr><tr><td>dd-247空筛选兼容</td><td>PASS 75/75</td><td>url-final-blank-query</td></tr><tr><td>dd-009补充复验</td><td>PASS 75/75，29首轮Record</td><td>url-final-dd009</td></tr><tr><td>错误%21 URL拒绝诊断</td><td>PASS 22/22，非来源BLOCKED</td><td>url-final-negative</td></tr><tr><td>dd-250全七页67条</td><td>PASS 489/489</td><td>url-final-pagination-proof.json</td></tr><tr><td>T7S A3/B3/C2机制门槛</td><td>PASS 323/323</td><td>url-final-t7s.json</td></tr></tbody></table><p>URL专项修复前的真实HTTP失败保留在url-semantics-red-v2；9个不同URI只取得5个详情， 旧query重建和默认去重错误均有实际请求账本。先列失败方式、建E2E，再改产品代码。 未完成的早期试跑和验收脚本配置错误不计当前PASS；原记录保留，最终冻结复跑独立验证。 当前<a href="../../experiments/v1.2-acceptance/results/url-correction/report.json">验收报告</a> 取代第13节作为PR当前交付证据；旧报告仍保留，不冒充当前引擎。</p><pre><code>umask 077
+<section id="url-correction" class="am-md"><h2>14. dd-357 URL 语义修正（2026-10-10）</h2><p>目标：修正原公告入口，将真实成功证据纳入 PR，并保留错误 URL 的历史失败。 根因链已由原始分配、探测命令、探测输出及冻结脚本确认：原始 <code>!</code> 在 B2 探测时被 <code>quote(parts.path, safe=&#x27;/%:@&#x27;)</code> 编为 <code>%21</code>，改写后的 requested_url 被冻结为受阻合同。 Runtime/Scrapy 保留路径 <code>!</code>，范围比较的 unquote 不改写网络 URL。公开公告可匿名采集， LicenseRedirect/CAS 路径不扩入允许范围。</p><p>规范化合同：HTTP 的 path/query 中已合法的 ASCII 字符、已有百分号编码、查询参数 顺序/重复项/空项须保留；不得把表单解析结果重新 urlencode 后当原始资源 URL。 fragment 不发送给服务器，hostname 大小写和默认端口属于现有明确合同。敏感 URL 仍拒绝；日志脱敏只替换敏感值。Unicode/空格的必要传输编码使用 Scrapy 既有 w3lib 编码器，不自行维护更窄的 safe 白名单。范围检查与身份/网络地址分开。</p><p>实现前失败条件：<code>!</code> 与 <code>%21</code> 被合并、<code>+</code> 与 <code>%20</code> 被互换、重复参数或参数顺序改变、 编码斜杠被解码、空参数被删除、HTML发现/Source冻结/实际请求/归档/重检地址不一致、 Recheck改变资源身份或Replay发网络请求、凭据保护失效。先执行真实CLI/PG/HTTP E2E 得到RED，再修正已证实的查询串处理。检查默认Scrapy去重是否把有区别的URL合并。</p><p>正向交付使用 <code>!</code>；错误 <code>%21</code> 留为明确命名的URL负向回归和历史工件，不再标记整项 dd-357来源BLOCKED。本轮源码变化后重新执行完整回归和T7S/T8，不复用旧引擎PASS。</p><h3>14.1 根因、修复边界与历史记录</h3><p>历史 B2 探测命令时间为 <code>2026-10-09T14:38:18.936Z</code>；发现的 <code>assigned-b2.json</code> 保留 <code>!</code>，探测执行 <code>quote(parts.path,safe=&#x27;/%:@&#x27;)</code> 改为 <code>%21</code>，并写成 <code>requested_url</code>。冻结脚本第58行直接采用此字段， 因此错误发生于**探测的请求序列化阶段**，再传播到冻结合同；不是当前 Scrapy 把正确路径改错。68对B2入口/详情比较，只有dd-357两条变化；70对B1输入未变化， 但其旧全URL quote同样有风险。历史工作脚本不作为现行采集入口；不改写历史失败工件。 完整输入Hash、代码片段、配对结果和同UA无Cookie HTTP诊断见 URL审计（旧版本产物已删除）。</p><p>现行 probe 采用已有w3lib安全序列化；inventory保留未删除的原查询片段； Runtime public_url/safe_url保留原合法ASCII路径与查询串，诊断仅替换敏感值； 独立原文验证器也保留查询串。Scrapy默认查询规范化fingerprint在真实HTTP回归中 把9个资源压成5个，已改成method、实际serialized URL和body摘要身份， 完全相同请求仍去重。范围检查中的路径解码仅用于安全比较，不改变发出的资源URL。 既有冻结Binding和历史Record不批量重写；修正Source后创建新Binding。带有过去被重建 查询串的旧身份不得自动视为新URI相同资源，迁移/重采需按具体来源验证。 禁止用全局unquote修复入口，禁止重排query或假设 <code>+</code> 和 <code>%20</code> 等价。 既有会话/追踪参数隐私删除是明确的有损研究处理，不能声称和原URI资源相同。</p><p>正确 <code>!</code> URL 已冻结于final.json和remediation current，旧 <code>%21</code> 被独立命名为 <code>delivery_samples/url-negative.json</code> 的错误URL负向合同。正确URL返回HTTP200并产生1条 公开公告Record；错误URL返回302至outside/LicenseRedirect，原范围拒绝行为继续通过。 无须扩大允许路径或访问CAS。人工台账更新为101 adapted／2 partial／7 blocked／ 1 acceptance_failed；新引擎当前复验9个adapted，其余92个历史成功未复验。</p><h3>14.2 当前引擎最终验收</h3><p>引擎冻结为 <code>658835a423ebb762745c039f2169a8b41df5000f</code>，原文归档保持私有， 前提为uv.lock固定Python3.12、PostgreSQL17工具、本地隔离PG和loopback、 实站公开GET，无Cookie、账号或环境代理；历史兼容回放需原私有基线。 下面各套件使用独立新目录，报告记录实际命令、环境、Run/Binding/Recipe和对象Hash。</p><table><thead><tr><th>项目</th><th>结果</th><th>私有工件目录（artifacts/acceptance/）</th></tr></thead><tbody><tr><td>URL发现／冻结／HTTP／身份／Recheck／Replay</td><td>PASS 11/11</td><td>url-final-semantics-v2</td></tr><tr><td>联合Runtime</td><td>PASS 473/473</td><td>url-final-joint</td></tr><tr><td>公开探测隐私与拒绝边界</td><td>PASS 33/33</td><td>url-final-public-probe</td></tr><tr><td>M3</td><td>PASS 134/134</td><td>url-final-m3</td></tr><tr><td>Smoke含历史升级Replay</td><td>PASS 1200/1200</td><td>url-final-smoke</td></tr><tr><td>分页</td><td>PASS 154/154</td><td>url-final-pagination</td></tr><tr><td>父请求与到达顺序</td><td>PASS 35/35</td><td>url-final-parents</td></tr><tr><td>Recheck身份、批次、退避、fencing</td><td>PASS 115/115</td><td>url-final-recheck</td></tr><tr><td>八个真实来源四轮</td><td>PASS 786/786，118首轮Record</td><td>url-final-real</td></tr><tr><td>dd-247空筛选兼容</td><td>PASS 75/75</td><td>url-final-blank-query</td></tr><tr><td>dd-009补充复验</td><td>PASS 75/75，29首轮Record</td><td>url-final-dd009</td></tr><tr><td>错误%21 URL拒绝诊断</td><td>PASS 22/22，非来源BLOCKED</td><td>url-final-negative</td></tr><tr><td>dd-250全七页67条</td><td>PASS 489/489</td><td>url-final-pagination-proof.json</td></tr><tr><td>T7S A3/B3/C2机制门槛</td><td>PASS 323/323</td><td>url-final-t7s.json</td></tr></tbody></table><p>URL专项修复前的真实HTTP失败保留在url-semantics-red-v2；9个不同URI只取得5个详情， 旧query重建和默认去重错误均有实际请求账本。先列失败方式、建E2E，再改产品代码。 未完成的早期试跑和验收脚本配置错误不计当前PASS；原记录保留，最终冻结复跑独立验证。 当前验收报告（旧版本产物已删除） 取代第13节作为PR当前交付证据；旧报告仍保留，不冒充当前引擎。</p><pre><code>umask 077
 uv run --frozen python experiments/v1.2-acceptance/url_acceptance.py --output &lt;new-private-directory&gt;
 uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/delivery_samples/final.json --output &lt;new-private-directory&gt;
 uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments/v1.2-acceptance/delivery_samples/url-negative.json --diagnostic-only --output &lt;new-private-directory&gt;</code></pre><p>完整套件和最终独立复算命令保存在当前报告的command字段；已冻结工件复算不依赖站点。 不声称全111来源复验、Evaluation批准、生产规模或断电持久性通过。</p><p>最终独立复算：T0–T6、T7S、T8全部PASS，当前3925/3925断言通过，无未解决验收FAIL或BLOCKED。</p></section>
@@ -1686,8 +1686,8 @@ uv run --frozen python experiments/v1.2-acceptance/live.py --samples experiments
 
 冻结引擎 `78cbda72d9b94968e2a41d8a2d4cd97f1eb3194b`，独立复审两项P2均CLOSED，
 无新增合并阻断；Recheck、任务幂等性、迁移无确认缺陷。第13、14节为历史快照，
-本节及[最终报告](../../experiments/v1.2-acceptance/results/pr2-merge/report.json)为最新交付证据。
-[独立审查工件](../../experiments/v1.2-acceptance/results/pr2-merge/independent-review.json)
+本节及最终报告（旧版本产物已删除）为最新交付证据。
+独立审查工件（旧版本产物已删除）
 保留审查SHA、失败复现、修复及复审结果；早期失败不覆盖。
 
 | 验收项 | 结果 |
@@ -1735,9 +1735,9 @@ lang: zh
 是历史阻塞快照，保留原工件，不再作为本地来源可用性的结论。
 首轮使用真实 CLI、Scrapy、独立 PostgreSQL 与内容寻址原文，完成 A 4、B 2、C 2
 个完整来源；另保留 B 两个原样本的真实 partial 和附件不支持证据。
-机器映射与可重复命令见 [真实工件索引](../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json)。
+机器映射与可重复命令见 真实工件索引（旧版本产物已删除）。
 随后扩展处理全部 111 个研究入口：98 complete、3 partial、8 blocked、2 acceptance_failed。
-最终映射与复跑命令见 [扩展工件索引](../../experiments/v1.2-acceptance/results/expanded-final/real-evidence-index.json)。
+最终映射与复跑命令见 扩展工件索引（旧版本产物已删除）。
 技术通过只针对明确样本范围，不授予内容质量审核。
 
 ## 1. 既有实现审计与迁移选择
@@ -1761,7 +1761,7 @@ T0 已补真实 C 双路线实验：公募基金管理人 API 两页各 10 条�
 沿用 URL 身份只留下 1 行，NULL URL 被拒；独立 Record 保留 10 行。
 实验原文、哈希、检查与完整命令见
 [双路线脚本](https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/live_samples/c_route_experiment.py) 和
-[实验回执](../../experiments/v1.2-acceptance/live_samples/c-route-experiment.json)。
+实验回执（旧版本产物已删除）。
 由真实业务 bytes 与旧表约束共同支持既有 Record 迁移选择，不修改历史行。
 
 首轮新增 `0003_records.sql`、`0004_discovery.sql`；第 9 节修复增量新增
@@ -1857,9 +1857,9 @@ B 原样本未强行添加 OCR/Excel。按 Issue 的同类、同机制规则，�
 原样本的 partial 不计入这个完整来源数量，不把公告投影冒充扫描件或逐校内容。
 所有样本均声明有限栏目、页数、字段与附件，不承诺源站全量或原地图的主体核验业务。
 
-[Source 与预期合同](../../experiments/v1.2-acceptance/live_samples/a.json)、
-[B 配置](../../experiments/v1.2-acceptance/live_samples/b.json)、
-[C 配置](../../experiments/v1.2-acceptance/live_samples/c.json) 固定字段锚点、精确条数、URL 和原文要求。
+Source 与预期合同（旧版本产物已删除）、
+B 配置（旧版本产物已删除）、
+C 配置（旧版本产物已删除） 固定字段锚点、精确条数、URL 和原文要求。
 三个源级普通 Python Recipe 分别承载 HTML、静态资源与固定查询差异，继续复用共享 helper。
 未引入浏览器、OCR、Excel 解析依赖或第二套 Frontier。
 
@@ -1899,7 +1899,7 @@ Replay 校验原始输入集合、业务值与 SEAL Downloader 的零 HTTP 交�
 验证 10 个独立业务值、归档，以及源站关闭后的零网络 Replay。
 [代理行为脚本](https://github.com/nanzhi84/SEAL/blob/68a95c96153aa946daf014ffa1c39bfade01c148/experiments/v1.2-acceptance/proxy_behavior.py) 保留红绿工件映射。
 
-[最终工件索引](../../experiments/v1.2-acceptance/results/real-final/real-evidence-index.json)
+最终工件索引（旧版本产物已删除）
 给出实际断言数量、来源/版本/Run/Record、归档摘要、回归包及本地/公开复算边界。
 既有云端合成 303/303、M3 136/136、Smoke 1191/1191 是历史记录；本地最终结果以该索引为准。
 仓库没有 GitHub Actions 或单独静态类型检查器，不报告远端 CI 通过。
@@ -2001,8 +2001,8 @@ collect、Recheck、零网络 Replay；3 个 partial 执行两轮 collect 与 Re
 提升为可推进当前指针的 complete。最终有效验收合计 401 个实际 Run、首轮 232 个 Record（228 个
 来自 complete 范围、4 个来自 partial 范围）、8497/8497 保存断言。独立原文复算
 覆盖 924 次 Record 投影；公开包显式排除 SAFE 后复算 760 次。独立审查
-[1555/1555 项通过](../../experiments/v1.2-acceptance/results/expanded-final/review.json)；失败历史另存，未加入通过断言总数。每源的 Source、
-Binding、RecipeVersion、Run、范围与原文摘要见 [机器事实](../../experiments/v1.2-acceptance/results/expanded-final/dispositions.json)，
+1555/1555 项通过（旧版本产物已删除）；失败历史另存，未加入通过断言总数。每源的 Source、
+Binding、RecipeVersion、Run、范围与原文摘要见 机器事实（旧版本产物已删除），
 人工状态与下一步仅维护在 Source 适配参考第 9 节。
 
 新增 Recipe 共五组，复用既有 helper 与 Runtime，不新增浏览器、OCR 或动态执行。
@@ -2111,7 +2111,7 @@ dd-247（C，前两页 20 家）；每个均两轮 Collect、Recheck、零 HTTP 
 其余 94 个保留第 8 节历史版本、时间和范围，不能由当前专项结果推断全部已重新验收。
 
 当前验收表与统一公开原文包见
-[修复工件索引](../../experiments/v1.2-acceptance/results/review-fixes-final/review-evidence-index.json)。
+修复工件索引（旧版本产物已删除）。
 各工件保存精确 28 个引擎文件摘要、冻结 RecipeVersion/Binding、输入 bytes、断言、请求
 账本、运行命令和独立核验；有效行为/性能 RED 与验收配置/流程失败分别列出，旧失败不覆盖。
 
@@ -2210,8 +2210,8 @@ DOCX 只保存 Word 缓存的可见文本，不执行字段指令；图片、文
 
 功能引擎 Commit 为 `a64a8d258eb6376cc1ff20973b384a079610d0eb`。本轮工件逐个核对
 `src` 摘要与该 Commit 的 Git bytes；保存 RecipeVersion、Binding、Run、输入摘要和
-复跑命令。[本轮索引](../../experiments/v1.2-acceptance/results/pr2-remediation-final/remediation-evidence-index.json)
-与[逐源状态](../../experiments/v1.2-acceptance/results/pr2-remediation-final/dispositions.json)
+复跑命令。本轮索引（旧版本产物已删除）
+与逐源状态（旧版本产物已删除）
 使用新目录，不覆盖第 8、9 节的历史包。
 
 | 原未完全适配来源 | 最新状态 | 本轮证据与剩余原因 |
@@ -2347,9 +2347,9 @@ Run 仅有 Observation 下限，明确 `http_attempts_basis`，不得声称完�
 功能 Commit 为 `e32234010320826799e6d34e1432cd16366cb785`；报告、文档和包装后还需
 在最终 Git HEAD 复跑同一全套，最终 SHA 与结果记录在 PR #2 正文。两个阶段使用新目录，
 不覆盖工件；公开包中源代码 bytes、Recipe 环境摘要与该功能 Commit 一致。
-[统一索引](../../experiments/v1.2-acceptance/results/pr2-delivery-v2/remediation-evidence-index.json)、
-[交付报告](../../experiments/v1.2-acceptance/results/pr2-delivery-v2/delivery-report.json) 和
-[来源机器状态](../../experiments/v1.2-acceptance/results/pr2-delivery-v2/dispositions.json)
+统一索引（旧版本产物已删除）、
+交付报告（旧版本产物已删除） 和
+来源机器状态（旧版本产物已删除）
 保存完整 64 位 RecipeVersion/Binding、四轮 Run、全部原文 Hash、逐断言与执行环境。
 公开包包括原始 Snapshot/bytes，字段、Locator、业务 content_hash 独立复算；未复制含会话的
 历史 dd-102 原文。本轮失败及修复前 RED 原样封装，不把离线 recorded_outcomes 当成成功。
@@ -2461,7 +2461,7 @@ Hash 校验；dd-102 独立校验器复算 164 个 Record 投影（四次运行�
 Collect、Recheck 和零网络 Replay 均 complete，真实父入口、iframe、分页及详情
 形成完整引用链。原文未裁剪或脱敏；私有工件文件和目录均无 group/other 权限。
 
-[公开验收报告](../../experiments/v1.2-acceptance/results/raw-archive/acceptance-report.json)
+公开验收报告（旧版本产物已删除）
 只含断言名称/状态、环境、命令、不可变 ID 和工件 Hash，不含响应原文、字段值或凭据。
 数据前提沿用 `live_samples/a.json` 的 dd-102 冻结合同：前两页每页 20 行及已声明的
 建设银行详情，不提交筛选，不注入认证、Cookie 或环境代理，不使用生产数据库。
@@ -2527,7 +2527,7 @@ dd-247/250，A3/B2/C2 共七源、117 条首轮 Record。dd-009 按原 `live_sam
 | T7S 真实来源数量与机制门槛 | PASS，296/296；A3/B2/C2 | final-52909bd-t7s.json |
 | T8 产品版本、独立核验及交付汇总 | PASS | final_acceptance.py |
 
-完整私有工件位于 `artifacts/acceptance/`；公开[最终报告](../../experiments/v1.2-acceptance/results/final-acceptance/report.json)
+完整私有工件位于 `artifacts/acceptance/`；公开最终报告（旧版本产物已删除）
 仅包含每项状态、断言名称、环境、复现命令、Run/Binding/Recipe ID 和工件 Hash。
 原文及 expected/actual 字段值不发布；本地完整工件用于独立字段/locator 复算。
 
@@ -2608,7 +2608,7 @@ dd-357来源BLOCKED。本轮源码变化后重新执行完整回归和T7S/T8，�
 把正确路径改错。68对B2入口/详情比较，只有dd-357两条变化；70对B1输入未变化，
 但其旧全URL quote同样有风险。历史工作脚本不作为现行采集入口；不改写历史失败工件。
 完整输入Hash、代码片段、配对结果和同UA无Cookie HTTP诊断见
-[URL审计](../../experiments/v1.2-acceptance/results/url-correction/url-audit.json)。
+URL审计（旧版本产物已删除）。
 
 现行 probe 采用已有w3lib安全序列化；inventory保留未删除的原查询片段；
 Runtime public_url/safe_url保留原合法ASCII路径与查询串，诊断仅替换敏感值；
@@ -2653,7 +2653,7 @@ Runtime public_url/safe_url保留原合法ASCII路径与查询串，诊断仅替
 URL专项修复前的真实HTTP失败保留在url-semantics-red-v2；9个不同URI只取得5个详情，
 旧query重建和默认去重错误均有实际请求账本。先列失败方式、建E2E，再改产品代码。
 未完成的早期试跑和验收脚本配置错误不计当前PASS；原记录保留，最终冻结复跑独立验证。
-当前[验收报告](../../experiments/v1.2-acceptance/results/url-correction/report.json)
+当前验收报告（旧版本产物已删除）
 取代第13节作为PR当前交付证据；旧报告仍保留，不冒充当前引擎。
 
 ```sh
@@ -2695,8 +2695,8 @@ Recheck继续由冻结Recipe参数重建协商头，本轮不增加通用headers
 
 冻结引擎 `78cbda72d9b94968e2a41d8a2d4cd97f1eb3194b`，独立复审两项P2均CLOSED，
 无新增合并阻断；Recheck、任务幂等性、迁移无确认缺陷。第13、14节为历史快照，
-本节及[最终报告](../../experiments/v1.2-acceptance/results/pr2-merge/report.json)为最新交付证据。
-[独立审查工件](../../experiments/v1.2-acceptance/results/pr2-merge/independent-review.json)
+本节及最终报告（旧版本产物已删除）为最新交付证据。
+独立审查工件（旧版本产物已删除）
 保留审查SHA、失败复现、修复及复审结果；早期失败不覆盖。
 
 | 验收项 | 结果 |

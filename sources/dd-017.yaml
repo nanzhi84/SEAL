@@ -1,0 +1,24 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-017
+id: dd-017
+entry_urls:
+- https://www.court.gov.cn/shenpan/gengduo/77.html
+allowed_hosts:
+- www.court.gov.cn
+allowed_path_prefixes:
+- /shenpan/gengduo/
+- /shenpan/xiangqing/
+archive_approved: true
+scope: 指导案例栏目及可发现详情；路径也允许其他审判列表，不承诺全站覆盖。
+robots: true
+recheck_seconds: 86400
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 1000
+  seconds: 1800
+  response_bytes: 52428800
+crawl4ai:
+  mode: http
+  max_depth: 20
+  page_timeout_ms: 60000
+  word_count_threshold: 1
