@@ -1,0 +1,21 @@
+id: court-guiding-cases
+recipe:
+  path: ../../../recipes/business
+  params:
+    source: dd-017
+    last_page: 10
+entry_urls: [https://www.court.gov.cn/shenpan/gengduo/77.html]
+allowed_hosts: [www.court.gov.cn]
+allowed_path_prefixes: [/shenpan/gengduo/, /shenpan/xiangqing/]
+archive_approved: true
+scope: 最高人民法院指导案例栏目公开列表与详情，有界采集前 10 页
+robots: true
+robots_absent_responses:
+  - url: https://www.court.gov.cn/robots.txt
+    body_sha256: ee40e4c1bdab81e044b67f18e71d1bd613354b5f2b3d631020c907cffc4adbcb
+budget:
+  requests: 400
+  seconds: 1800
+  response_bytes: 52428800
+concurrency: 2
+delay: 0.5

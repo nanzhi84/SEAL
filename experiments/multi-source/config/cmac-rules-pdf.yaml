@@ -1,0 +1,15 @@
+id: cmac-rules-pdf
+recipe:
+  path: ../../../recipes/generic
+  params: {}
+entry_urls: [http://www.cmac.org.cn/data/upload/image/20260609/1780974990520465.pdf]
+allowed_hosts: [www.cmac.org.cn]
+allowed_path_prefixes: [/data/upload/image/20260609]
+archive_approved: true
+scope: 中国海事仲裁委员会公开规则文本 PDF，不使用 OCR，不声明站点覆盖
+seed_role: attachment
+robots: true
+budget:
+  requests: 6
+  seconds: 120
+  response_bytes: 20971520

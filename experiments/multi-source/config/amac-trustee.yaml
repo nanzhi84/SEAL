@@ -1,0 +1,15 @@
+id: amac-trustee
+recipe:
+  path: ../../../recipes/business
+  params:
+    source: dd-250
+entry_urls: [https://www.amac.org.cn/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs/]
+allowed_hosts: [www.amac.org.cn]
+allowed_path_prefixes: [/fwdt/wyc/jgcprycx/jgcx/jjtgrjjgs, /portal/front/financial/fundTrustee]
+archive_approved: true
+scope: 基金托管机构公开目录，枚举入口页声明的原生分页 API，页数以源站 total 为准
+robots: true
+budget:
+  requests: 60
+  seconds: 300
+  response_bytes: 52428800

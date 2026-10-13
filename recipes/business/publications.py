@@ -14,6 +14,7 @@ class Publications:
     def __init__(self, spider):
         self.spider, self.source = spider, spider.params["source"]
         self.pages, self.details, self.page_count = set(), set(), None
+        self.expected_pages = None
 
     def parse(self, response, parent=None):
         if is_attachment_response(response):
@@ -67,13 +68,16 @@ class Publications:
             if not tail_match:
                 raise SealError("pagination_contract_missing")
             count = int(tail_match[1] or "1")
+            # last_page bounds the crawl below the source tail page.
+            last = min(self.spider.params.get("last_page") or count, count)
             next_links = [
                 a.attrib["href"] for a in response.css(".page a") if node_text(a) == "下一页"
             ]
-            if current < count:
+            if current < last:
                 if len(next_links) != 1 or not next_links[0].endswith(f"/77_{current + 1}.html"):
                     raise SealError("pagination_contract_missing")
                 next_url = next_links[0]
+            self.expected_pages = last
         else:
             declarations = re.findall(
                 r"createPageHTML\('page_div',\s*(\d+),\s*(\d+),\s*'index',\s*'shtml',\s*(\d+)\)",
@@ -93,7 +97,9 @@ class Publications:
         self.spider.crawler.stats.set_value("seal/business_expected_pages", count)
         if next_url:
             yield self.spider.next(response, next_url, "list")
-        elif len(self.pages) != count:
+        elif self.source == "dd-017" and len(self.pages) != self.expected_pages:
+            raise SealError("pagination_incomplete")
+        elif self.source != "dd-017" and len(self.pages) != count:
             raise SealError("pagination_incomplete")
 
     def parse_options(self, response):
