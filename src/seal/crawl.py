@@ -37,6 +37,7 @@ class State:
         self.config = context["config"]
         self.checkpoint = context["checkpoint"] or {}
         self.checkpoint.setdefault("inflight", [])
+        self.checkpoint.setdefault("acquired", {})
         self.count = self.checkpoint.get("requests", 0)
         self.started = time.monotonic()
         self.cancelled = False
@@ -47,6 +48,21 @@ class State:
 
     def add_error(self, code):
         record_error(self.run_id, self.epoch, code)
+
+    def acquired(self, url, capture):
+        # Keep durable file references through process death without checkpointing
+        # temporary bytes, HTML or response headers (which can contain credentials).
+        previous = self.checkpoint["acquired"].get(url, {})
+        files = set(previous.get("attachment_refs", []))
+        if capture.get("archive_ref"):
+            Objects().get(capture["archive_ref"])
+            files.add(capture["archive_ref"])
+        self.checkpoint["acquired"][url] = {
+            key: capture.get(key)
+            for key in ("body_hash", "archive_ref", "status", "actual_url", "input_mode", "error")
+        }
+        self.checkpoint["acquired"][url]["attachment_refs"] = sorted(files)
+        self.save()
 
     def mark_inflight(self, url):
         if url not in self.checkpoint["inflight"]:
@@ -124,7 +140,7 @@ def outcome(result, capture, config):
     )
     if mime not in ("text/html", "application/xhtml+xml", "text/plain", "application/pdf"):
         return "parse_failed", "unsupported_content_type"
-    text = result.html or Objects().get(capture["body_hash"]).decode("utf-8", errors="replace")
+    text = result.html or capture.get("body", b"").decode("utf-8", errors="replace")
     # SDK anti-bot detection is supplemented by narrow authentication/challenge evidence.
     blockers = (
         r'<input\b[^>]*type=["\']?password',
@@ -175,6 +191,9 @@ async def run(context):
             max_range=0,
             semaphore_count=cfg["concurrency"],
             max_retries=0,
+            screenshot=False,
+            pdf=False,
+            capture_mhtml=False,
         )
         async with AsyncWebCrawler(
             crawler_strategy=adapter,
@@ -186,17 +205,25 @@ async def run(context):
                 async for result in iterator:
                     capture = adapter.captures.get(result.url, {})
                     kind, error = outcome(result, capture, cfg)
-                    data = serialize_result(result)
+                    acquired = state.checkpoint["acquired"].get(result.url, {})
+                    data = serialize_result(
+                        result, attachment_refs=acquired.get("attachment_refs", [])
+                    )
                     result_ref = Objects().put_json(data)
                     persist(
                         state.run_id,
                         state.epoch,
                         result.url,
-                        capture,
+                        dict(
+                            capture or acquired, attachment_refs=acquired.get("attachment_refs", [])
+                        ),
                         kind,
                         error,
                         result_ref=result_ref,
                     )
+                    adapter.captures.pop(result.url, None)
+                    state.checkpoint["acquired"].pop(result.url, None)
+                    state.save()
 
             try:
                 if context["mode"] == "recheck":
@@ -235,12 +262,27 @@ async def run(context):
                             "root_index": index + 1,
                             "requests": state.count,
                             "inflight": [],
+                            "acquired": state.checkpoint["acquired"],
                         }
                         state.save()
             except SealError as exc:
                 state.add_error(exc.code)
             except Exception as exc:
                 state.add_error("sdk_execution_failed:" + type(exc).__name__)
+            if not state.cancelled:
+                # An iterator-level exception can prevent an SDK result being returned.
+                # Record real captured evidence only; never synthesize a CrawlResult.
+                done = delivered(state.run_id)
+                for url, capture in state.checkpoint["acquired"].items():
+                    if url not in done:
+                        persist(
+                            state.run_id,
+                            state.epoch,
+                            url,
+                            capture,
+                            "network_failed",
+                            "sdk_result_unavailable",
+                        )
             with connect() as c:
                 c.execute(
                     "UPDATE seal.run SET status='finishing',report=report || %s WHERE id=%s AND attempt_epoch=%s AND status='running'",

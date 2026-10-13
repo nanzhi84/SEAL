@@ -5,12 +5,59 @@ lang: zh
 
 # Crawl4AI 来源采集与 URL 版本时间线
 
-状态：Issue #17 已实施并通过有界独立业务验收。唯一派生物：[Generated](../generated/unified-document-pipeline.html)。
-本计划替代 Document-only 目标；文末 PR #14 仅为历史证据。生产迁移未执行。
+状态：Issue #17 已实施；Issue #20 正在落实简化归档合同，独立验收尚未完成。唯一派生物：[Generated](../generated/unified-document-pipeline.html)。
+本计划替代 Document-only 目标；历史验收不代表本次存储合同。生产迁移未执行。
+
+## Issue #20：本次存储合同与验收边界
+
+业务目标是按来源入口组织完整 CrawlResult，MinIO 新写入仅包含结果 JSON 与原始下载附件。
+输入 → SDK 获取阶段暂存同次输入 → SDK 解析并返回真实 CrawlResult → 结果/附件写入和读取校验
+→ PostgreSQL Observation/Version 引用 → 下游按 Source/资源 URL 读取结果。
+
+HTTP 在字符解码前计算 body_hash；rendered_dom 对获取阶段 DOM UTF-8 计算 body_hash。
+两者是内容比较指纹，文本不单独归档，不能再用 Objects.get(body_hash) 读取文本原文，
+也不能从重新编码 HTML 声称精确恢复原始 HTTP bytes。临时输入只留在内存或 SEAL_WORK_DIR，
+PDF 从同次已捕获 bytes 的临时副本解析，不再获取第二份输入。网页 screenshot/pdf/mhtml
+生成显式关闭；来源原始 PDF 属于附件，和网页导出 PDF 是不同合同。
+
+Observation.result_ref 引用本轮完整 SDK 结果，成功、失败、unchanged 使用同一种结果编码；
+Version.result_ref 与其原始 Observation 的指针相同。结果 JSON 为 result.model_dump 的
+完整字段，响应头脱敏，downloaded_files 的路径替换为平铺 SHA-256 对象键列表；每个文件
+可分别物化恢复。结果封装 attachment_refs 为原始文件 SHA-256 列表，包含同 Run/URL
+此前 attempt 已取得但未交付的文件；不改 SDK result 的内容。Observation.attachment_refs
+保存同一附件列表，SDK 未返回时也能留下可查询引用；仅为存储编码，不增加资源关联模型。
+不再编码页面二进制 artifacts 字段，不兼容旧封装。HTTP 原始 PDF、
+非 HTML/TXT 等附件或 Content-Disposition: attachment 的完整本体单独归档；SDK 解析失败
+并丢失下载路径时仍由 Observation.archive_ref 引用原件。普通 HTML/TXT、DOM、policy
+无独立 archive_ref。附件尚未完整获取时不将截断内容标成原始文件。
+
+body_hash 与 archive_ref 不再等空，archive_ref 有值时必须等于同次输入的 body_hash。
+先读回校验结果和所有附件再提交引用。失败与 unsupported 不生成成功 Version；正文相同
+但本轮结果变化时 Observation 保存本轮结果、Version 保留原始结果；A→B→A 仍追加三版。
+单 Run/资源交付幂等，跨 Run 新观察。完整结果不双写关系库；Run 的状态、统计、错误及
+冻结配置留 PostgreSQL，不再写 manifest 对象或在 CLI 返回 manifest_id。
+
+SDK 未返回结果前的中断/异常不造 CrawlResult。有已捕获输入时可形成 result_ref 为空的
+失败 Observation，保留已取得的完整附件引用；未形成输入交付则由 Run/checkpoint 记录。
+附件捕获信息进入 checkpoint，进程崩溃后不会静默丢失已取得的对象引用；恢复允许重取输入，
+仍按本轮资源提交幂等。policy 只记录检查证据而不伪造结果或归档政策正文。
+
+追加 0012_minimal_archive.sql，保留已应用 SQL checksum；只允许旧内容为空的数据库升级，
+不回填旧内容、重建旧结果、迁移旧对象或保持旧 timeline。删除旧结果回填和文件 CAS 导入
+内部路径。旧 SQL 仅用于新库按 ledger 初始化；0011 不再调用历史内容迁移。现有空库通过
+seal init --backup PATH 升级，新库和重复初始化沿用项目流程；不对本地已有服务执行升级。
+
+实施分为临时输入/附件获取、结果与事务引用、空库 schema 升级、CLI/文档收敛；验收由
+完全 fresh 子 agent 在 tests/ 独立实现，使用隔离 PostgreSQL/MinIO、work/ 与 artifacts/。
+先列明文本误归档、失败推进、附件不同输入、指纹读取误用、返回前造结果、恢复重复提交、
+不完整附件、对象缺失/损坏与升级部分提交等失败方式，再验证真实 CLI 全链路。覆盖 Issue
+全部六项业务要求，产出复跑命令、环境数据前提、断言、SQL/对象/跨进程重建证据与源码哈希。
+本次不扩展 Office/OCR、HTTP API、HTML/PDF 关联或浏览器下载交互；rendered_dom 沿用
+不接受浏览器下载的配置，附件走既有 HTTP 资源路径。全站完整性始终 UNKNOWN。
 
 ## 目标、领域边界与产物流向
 
-SEAL 负责来源配置、周期触发、运行恢复、响应归档与资源时间线；Crawl4AI 0.9.4
+SEAL 负责来源配置、周期触发、运行恢复、结果/附件归档与资源时间线；Crawl4AI 0.9.4
 负责每轮请求调度、递归遍历、获取与通用解析。下游直接消费 CrawlResult，不转成自定义
 Document AST，不新写 Document/Revision/Emission/document_reference。外部周期调度
 仍通过四命令触发；不提供替代 Crawl4AI CLI 入口，不引入另一套内部 URL Scheduler。
@@ -22,7 +69,7 @@ flowchart TD
  CLI[SEAL CLI / Worker] --> C[Crawl4AI 本轮获取与遍历]
  F --> C
  C -->|SDK checkpoint| F
- C --> O[Observation 正文归档与处理结果]
+ C --> O[Observation 本轮结果与附件引用]
  R --> O
  O -->|响应变化且目标有效且解析成功| V[Version 原生CrawlResult]
  R --> V
@@ -82,9 +129,9 @@ crawl4ai: {mode: http, max_depth: 3, page_timeout_ms: 30000, word_count_threshol
 来源专用分页规则尚未迁入。旧配置不能作为当前兼容入口。合法会话、可信来源 hook、
 Office/OCR 等未来扩展需独立实证，不恢复 Recipe 包/Binding。
 
-crawl4ai.mode 可选 http 或 rendered_dom。http 归档 aiohttp 获取阶段 Content-Encoding
-解码后的正文 bytes，先于字符解码与 SDK 解析；不是从 result.html 反编码伪造 HTTP。
-rendered_dom 归档 SDK 获取阶段渲染 HTML 的 UTF-8 bytes，并显式标记模式。已有成功
+crawl4ai.mode 可选 http 或 rendered_dom。http 对 aiohttp 获取阶段 Content-Encoding
+解码后的正文 bytes 计算指纹，先于字符解码与 SDK 解析；文本不作为独立对象持久化。
+rendered_dom 对 SDK 获取阶段渲染 HTML 的 UTF-8 bytes 计算指纹并显式标记模式。已有成功
 Version 后切换模式报 input_mode_change_requires_new_source，禁止混合比较。
 配置还支持 page_timeout_ms、word_count_threshold、css_selector、wait_until；
 blocked_patterns 可补充来源阻拦检测。无自动登录、凭据刷新或验证码求解。
@@ -105,11 +152,12 @@ SDK clone 会丢失此回调，薄 RunConfig 仅修复该字段传递；升级�
 | source | id、config、generation、run_seq、write_seq、paused、cooldown_until；沿用旧来源身份 |
 | frontier | id、source_id UNIQUE、run_id、checkpoint；长期来源状态，非框架原生服务 |
 | resource | id、frontier_id、url、role、current_version_id、last_checked_at、last_outcome、next_check |
-| observation | id、resource_id、run_id、attempt_epoch、delivery_key、url、actual_url、status、body_hash、archive_ref、result_ref、input_mode、outcome、error、version_id、observed_at |
+| observation | id、resource_id、run_id、attempt_epoch、delivery_key、url、actual_url、status、body_hash、archive_ref、attachment_refs、result_ref、input_mode、outcome、error、version_id、observed_at |
 | version | id、resource_id、sequence、observation_id、body_hash、input_mode、result_ref、framework_version、parser_config、cursor、created_at |
 
-正文通过 S3 API 归档后校验 CAS 再提交关系引用；archive_ref=body_hash，对象键为
-完整 64 位 SHA-256，平铺于配置的私有 bucket，无来源子目录。Source 与对象关系由数据库维护，
+结果与完整附件通过 S3 API 归档后校验 CAS 再提交关系引用；只有附件有 archive_ref，
+此时 archive_ref=body_hash。对象键为完整 64 位 SHA-256，平铺于配置的私有 bucket。
+文本 body_hash 是输入指纹，不能当对象读取。Source 与对象关系由数据库维护，
 相同内容可跨来源复用对象；MinIO 内部磁盘布局不属于应用接口。Observation 与 Version 不可变，
 复合 FK 约束资源、版本、原始观测、body_hash 与模式归属。一次 run/URL 仅提交一次；
 checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Observation。
@@ -119,8 +167,8 @@ checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Obs
 | 首次有效内容且解析成功 | Observation + V1，推进资源指针 |
 | 解析成功且响应等于当前成功版本 | 新 Observation，outcome=unchanged，关联旧版本 |
 | 响应变化且解析成功 | 新 Observation + 连续 Version，推进指针 |
-| 响应变化但解析失败或不支持 | 保存原文及失败 Observation，不推进；下次新 Run 重试 |
-| 网络错误、403/429、登录/挑战页 | 保存失败/blocked，存在正文则归档，不生成内容版本 |
+| 响应变化但解析失败或不支持 | 保存实际返回结果及已有附件，失败 Observation 不推进；下次新 Run 重试 |
+| 网络错误、403/429、登录/挑战页 | 保存失败/blocked 结果，不生成内容版本；SDK 未返回时 result_ref 可空 |
 | 仅更新解析配置或框架 | 正文相同则仍关联旧版本，不追加内容增量 |
 
 比较基准始终是当前成功 Version 的正文。A→B→A 为 V1→V2→V3，CAS 可复用 A。
@@ -132,14 +180,14 @@ checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Obs
 ## CrawlResult 与格式边界
 
 冻结 crawl4ai[pdf]==0.9.4 与 uv.lock。HTML/TXT 使用 SDK LXML scraper；HTTP PDF
-使用同次归档文件的临时副本交给 SDK PDFContentScrapingStrategy，避免再次网络下载
-不同输入或清理 CAS 原件。无 OCR；无文本层 PDF 不创建成功内容版本。DOCX/XLS/XLSX/
-CSV/JSON/图片首版尚无语义解析保证，标记 unsupported/parse_failed 并保留获取原文，
+使用同次捕获 bytes 的临时副本交给 SDK PDFContentScrapingStrategy，避免再次网络下载
+不同输入。无 OCR；无文本层 PDF 不创建成功内容版本。DOCX/XLS/XLSX/
+CSV/JSON/图片首版尚无语义解析保证，标记 unsupported/parse_failed 并保留完整下载本体，
 不能沿用九格式 Document 的历史支持声明。动态 DOM 模式以 HTML 为目标。
 
 完整 CrawlResult 仅保存 MinIO JSON 对象：result 为 SDK model_dump（包括完整 Markdown、links、
-media 等），artifacts 将 pdf/screenshot/mhtml 二进制外置为 CAS；downloaded_files
-也以 CAS 哈希替换临时路径。Observation.result_ref 直接引用本次结果对象，Version.result_ref
+media 等），downloaded_files 以 CAS 哈希列表替换临时路径。网页 pdf/screenshot/mhtml
+禁止生成，不写 artifacts 外置对象。Observation.result_ref 直接引用本次结果对象，Version.result_ref
 引用产生版本的 Observation 的同一对象，复合外键保证原始观察与版本的结果引用一致。
 下游先查询 Version.result_ref，再读取对象并重建 SDK 结果：
 
@@ -155,9 +203,14 @@ result = deserialize_result(Objects().json(version_row["result_ref"]))
 
 每次 SDK 交付均保存本轮结果，包括失败与 unchanged。正文不变但结果变化时，新的 Observation
 引用本次结果，Version 保留首次结果；结果字节完全相同则 CAS 复用。policy 请求不产生
-SDK CrawlResult，result_ref 可空；旧历史没有留存结果的观察也保持空，不补造诊断。
-失败不进入内容增量。SDK 异常结果可能没有 status_code 或 html，真实响应状态与原文以
-Observation 和 archive_ref 为准。Run.report 不再维护 crawl_results 映射。
+SDK CrawlResult，result_ref 可空。SDK 未返回结果时不伪造诊断，已取得附件由检查点或
+失败 Observation 保留引用。失败不进入内容增量。SDK 异常结果可能没有 status_code 或 html，
+真实获取状态以 Observation 为准；附件可从 archive_ref 取得，文本原始字节不再持久化。
+Run.report 不维护 crawl_results 映射，也不含 manifest_id。
+
+## 历史 0011 合同与结果指针验收
+
+以下为 Issue #20 之前的合同和验收记录，不作为当前升级、归档或复跑入口。
 
 0011_result_references 为追加迁移：升级前停止数据库客户端并执行
 `uv run --frozen seal init --backup work/result-refs-before.dump`；备份路径须尚不存在。
@@ -177,7 +230,7 @@ Observation 和 archive_ref 为准。Run.report 不再维护 crawl_results 映�
 结果可跨进程重建；独立原文/SQL/SDK核验5009项，2项失败恰为JSON/XLS语义缺口。日常
 运行及证据在根目录 work/、artifacts/，旧历史原文和配置不重写。
 
-## 结果指针独立验收
+### 历史结果指针独立验收
 
 业务验收由 fresh 子 agent 独立编写 `tests/result_refs_e2e.py`，先明确引用串联、unchanged
 误推进、失败推进、历史映射冲突、对象缺失/损坏、迁移部分提交与历史字段漂移等失败方式。
@@ -246,7 +299,7 @@ docker compose --env-file .env.local down
 ```
 
 构建 Dockerfile 与限定桶 policy 集中内嵌于 compose.yaml，不另建 tools/infra 目录；
-辅助运行命令位于 src/seal/local_storage.py 与 src/seal/archive_import.py。
+辅助运行命令位于 src/seal/local_storage.py。
 
 启动脚本不初始化/迁移数据库，不覆盖已存在的 `.env.local`，不删除数据。Compose 仅监听
 127.0.0.1，默认 S3/Console/PostgreSQL 端口为19000/19001/15432。MinIO 使用官方
@@ -264,10 +317,7 @@ RELEASE.2025-10-15T17-29-55Z 源码构建，版本包含当时安全修复；应
 | SEAL_WORK_DIR | 本地临时工作目录，默认 work/seal，不存持久原文 |
 
 删除 SEAL_ARCHIVE 与文件 CAS 内部实现，不保留本地回退或双写。旧变量存在时明确报错。
-已有文件 CAS 如需继续使用，先保持原目录及对应数据库备份，配置目标 S3 后显式运行
-`uv run --frozen python -m seal.archive_import OLD_ARCHIVE_DIRECTORY`；逐对象校验原生键、
-上传并下载复算，不改数据库 hash/引用，不删除旧文件。导入失败可重跑，完整核对通过后
-才能切换关联旧库的客户端。对象搬迁不改变 hash；结果指针变更另按0011追加迁移。
+旧文件 CAS 导入和结果回填路径已删除。本次没有旧内容兼容或旧对象迁移入口。
 
 条件 PUT（If-None-Match: *）避免覆盖同键对象；重复/并发已存在时 GET 复算，损坏对象
 明确失败而不修复覆盖。S3 connect/read timeout 为3/10秒，SDK至多2次尝试；不吞错或无限
@@ -295,19 +345,14 @@ SELECT * FROM seal.version WHERE resource_id=$1 ORDER BY sequence;
 SELECT * FROM seal.version_delta WHERE cursor>$1 ORDER BY cursor LIMIT 100;
 ```
 
-0010_resource_timeline.sql 为追加迁移，schema.sql 与0002–0009登记名称/字节不修改。
-保留旧 source/run 与 Document/Revision/Emission/Binding/Recipe/Discovery 表、FK、SQL
-名称、原文和历史记录，不双写、不提供内部兼容 shim，不把旧 AST 伪造为 CrawlResult。
-已有 Source 建立 Frontier，旧待运行任务明确失败，需改用新 YAML 重新触发。
-新库初始化按历史 ledger 顺序建库后追加0010与0011。
+新库初始化按历史 ledger 顺序建库至0012，已登记 SQL 的名称/字节不修改。当前升级仅接受
+内容表为空的旧库；非空返回 archive_contract_upgrade_requires_empty_content，不迁移内容。
+空库升级须停 Worker 与所有数据库客户端并使用 seal init --backup <私有备份路径>，
+pg_dump / pg_restore --list 校验成功后在事务内应用追加 schema。回滚须停客户端并恢复
+升级前数据库备份、使用配套旧代码，不支持逆向 SQL 自动降级。既有本地和生产服务不在
+本 PR 的升级操作范围。旧 YAML 仍需改为当前配置；不提供 AST 或旧存储兼容层。
 
-升级停 Worker 和所有数据库客户端；已有0.2库必须 seal init --backup <私有备份路径>，
-pg_dump / pg_restore --list 校验成功后升级。更旧public.seal_*库会经过历史0009删除Record，
-另需 --acknowledge-data-loss；本次不扩大该历史兼容承诺。外部旧SQL继续读历史表，
-新SQL消费新视图。备份数据库与 Archive；回滚用匹配0.2代码和备份恢复到隔离库并核验后
-切换连接，不能让旧 Worker 写新增版本库。生产升级、切流和恢复另行授权。
-
-## 本次 S3 对象存储验收
+## 历史 S3 对象存储验收（Issue #20 之前）
 
 完全 fresh 子 agent 在 tests/ 独立编写并使用真实 loopback HTML/PDF、隔离 PostgreSQL 与
 MinIO 执行。所有 CLI 与对象 API 使用限定桶 List/Get/Put 账号；管理账号仅用于独立环境

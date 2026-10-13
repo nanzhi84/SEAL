@@ -1,8 +1,5 @@
 """Bounded run evidence: a handled queue never establishes site completeness."""
 
-from .db import one
-from .objects import Objects
-
 
 def terminal_report(c, source, run, status, reason):
     from .progress import snapshot
@@ -19,17 +16,4 @@ def terminal_report(c, source, run, status, reason):
         },
         quality_status="not_evaluated",
     )
-    config_hash = one(c, "SELECT config_hash FROM seal.run WHERE id=%s", (run["id"],))[
-        "config_hash"
-    ]
-    manifest = {
-        "contract": "seal.run_manifest.v3",
-        "source_id": source["id"],
-        "run_id": run["id"],
-        "config_hash": config_hash,
-        "mode": run["mode"],
-        "status": status,
-        "report": report,
-    }
-    report["manifest_id"] = Objects().put_json(manifest)
     return report

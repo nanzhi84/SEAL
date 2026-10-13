@@ -11,7 +11,7 @@ from .core import SealError, digest
 from .db import connect, dsn
 from .objects import Objects
 
-CURRENT = "0011_result_references.sql"
+CURRENT = "0012_minimal_archive.sql"
 DELETED = {
     "seal_record",
     "seal_record_result",
@@ -162,6 +162,28 @@ def initialize(*, backup=None, acknowledge=False):
             is not None
             and not c.execute("SELECT 1 FROM seal.migration WHERE name=%s", (CURRENT,)).fetchone()
         )
+        if old or timeline_upgrade:
+            content_tables = {
+                "observation",
+                "fetch_observation",
+                "version",
+                "snapshot",
+                "revision",
+                "document",
+                "document_revision",
+                "document_version",
+                "document_emission",
+                "record",
+                "record_version",
+                "record_result",
+                "record_emission",
+                "result",
+            }
+            if any(
+                obj.get("rows", 0) and obj["name"].removeprefix("seal_") in content_tables
+                for obj in before["objects"]
+            ):
+                raise SealError("archive_contract_upgrade_requires_empty_content")
         if timeline_upgrade and not backup:
             return {
                 "status": "upgrade_confirmation_required",
@@ -184,6 +206,18 @@ def initialize(*, backup=None, acknowledge=False):
 
     with connect() as c:
         c.execute("SELECT pg_advisory_xact_lock(72032101)")
+        if old or timeline_upgrade:
+            # Recheck under table locks after the backup. A writer racing the
+            # initial inventory must not sneak historical content into this upgrade.
+            for obj in before["objects"]:
+                if (
+                    obj["kind"] in ("r", "p")
+                    and obj["name"].removeprefix("seal_") in content_tables
+                ):
+                    table = sql.Identifier(obj["schema"], obj["name"])
+                    c.execute(sql.SQL("LOCK TABLE {} IN ACCESS EXCLUSIVE MODE").format(table))
+                    if c.execute(sql.SQL("SELECT 1 FROM {} LIMIT 1").format(table)).fetchone():
+                        raise SealError("archive_contract_upgrade_requires_empty_content")
         ledger = (
             "seal.migration"
             if c.execute("SELECT to_regclass('seal.migration') AS name").fetchone()["name"]
@@ -208,9 +242,11 @@ def initialize(*, backup=None, acknowledge=False):
                     raise SealError("applied_migration_changed")
                 continue
             if path.name == "0011_result_references.sql":
-                from .result_migration import prepare_references
-
-                prepare_references(c)
+                # Historical SQL remains immutable in the ledger. Only empty content
+                # is supported; this is schema bootstrap, never a result backfill.
+                c.execute(
+                    "CREATE TEMP TABLE result_refs (observation_id text PRIMARY KEY, ref text NOT NULL) ON COMMIT DROP"
+                )
             c.execute(path.read_text())
             if path.name == "0009_document_only.sql":
                 ledger = "seal.migration"

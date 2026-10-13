@@ -14,7 +14,7 @@ from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling.filters import URLFilter
 from crawl4ai.processors.pdf import PDFContentScrapingStrategy
 
-from .core import SealError, check_address
+from .core import SealError, check_address, digest
 from .objects import Objects, work_directory
 from .resources import persist
 from .robots import Robots
@@ -99,6 +99,15 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
             max_connections=self.config["concurrency"],
         )
 
+    def _extract_filename(self, disposition, url, content_type):
+        # Concurrent resources can have the same server-suggested name. Keep the
+        # SDK's local download files separate until the result externalizes them.
+        name = super()._extract_filename(disposition, url, content_type)
+        suffix = Path(name).suffix
+        # Bound encoded bytes on Linux as well as characters on macOS.
+        suffix = suffix if re.fullmatch(r"\.[a-zA-Z0-9]{1,12}", suffix) else ""
+        return digest(url.encode()) + suffix
+
     async def start(self):
         if self._session is None:
             trace = aiohttp.TraceConfig()
@@ -124,8 +133,16 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
         self.state.request(target, policy=policy)
 
     def capture(self, url, body, status, actual_url, headers, *, error=None, policy=False):
+        lowered = {k.lower(): v for k, v in headers.items()}
+        mime = lowered.get("content-type", "text/html").split(";")[0].strip().lower()
+        attachment = not policy and (
+            mime not in ("text/html", "application/xhtml+xml", "text/plain")
+            or "attachment" in lowered.get("content-disposition", "").lower()
+        )
         info = {
-            "body_hash": Objects().put(body),
+            "body_hash": digest(body),
+            "archive_ref": Objects().put(body) if attachment and not error else None,
+            "body": body,
             "status": status,
             "actual_url": actual_url,
             "headers": headers,
@@ -135,6 +152,9 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
         self.captures[url] = info
         if policy:
             persist(self.state.run_id, self.state.epoch, url, info, "policy", role="policy")
+            self.captures.pop(url, None)
+        else:
+            self.state.acquired(url, info)
 
     async def fetch_policy(self, url):
         self.state.request(url, policy=True)
@@ -155,6 +175,10 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
             response = await super().crawl(url, config=config, **kwargs)
             if url in self.captures:
                 self.captures[url]["html"] = response.html
+                if not self.captures[url]["archive_ref"]:
+                    # SDK treats even inline TXT/XHTML as downloads; they belong only
+                    # in the complete result under the new textual storage contract.
+                    response.downloaded_files = None
             return response
         finally:
             request_context.reset(token)
@@ -176,9 +200,8 @@ class InputScraper(LXMLWebScrapingStrategy):
         if mime == "application/pdf":
             with tempfile.TemporaryDirectory(prefix="seal-pdf-", dir=work_directory()) as folder:
                 path = Path(folder) / "input.pdf"
-                path.write_bytes(Objects().get(capture["body_hash"]))
-                # Calling the SDK on a local immutable copy prevents its remote downloader
-                # from fetching different bytes and prevents it deleting the CAS original.
+                path.write_bytes(capture["body"])
+                # The captured bytes are the exact same acquisition; never refetch.
                 scraper = PDFContentScrapingStrategy(
                     extract_images=False,
                     max_pdf_bytes=self.adapter.config["budget"]["response_bytes"],
@@ -246,13 +269,15 @@ class BrowserAdapter(AsyncPlaywrightCrawlerStrategy):
         if len(body) > self.config["budget"]["response_bytes"]:
             raise SealError("response_byte_budget_exceeded")
         self.captures[url] = {
-            "body_hash": Objects().put(body),
+            "body_hash": digest(body),
+            "body": body,
             "status": response.status_code,
             "actual_url": response.redirected_url or url,
             "headers": response.response_headers,
             "input_mode": "rendered_dom",
             "html": response.html,
         }
+        self.state.acquired(url, self.captures[url])
         return response
 
     async def close(self):
