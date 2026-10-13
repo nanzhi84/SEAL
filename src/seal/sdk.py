@@ -14,7 +14,8 @@ from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling.filters import URLFilter
 from crawl4ai.processors.pdf import PDFContentScrapingStrategy
 
-from .core import Objects, SealError, check_address
+from .core import SealError, check_address
+from .objects import Objects, work_directory
 from .resources import persist
 from .robots import Robots
 from .scope import guard
@@ -133,7 +134,7 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
         }
         self.captures[url] = info
         if policy:
-            persist(self.state.run_id, self.state.epoch, url, info, None, "policy", role="policy")
+            persist(self.state.run_id, self.state.epoch, url, info, "policy", role="policy")
 
     async def fetch_policy(self, url):
         self.state.request(url, policy=True)
@@ -173,11 +174,9 @@ class InputScraper(LXMLWebScrapingStrategy):
         if capture.get("error"):
             raise SealError(capture["error"])
         if mime == "application/pdf":
-            import shutil
-
-            with tempfile.TemporaryDirectory(prefix="seal-pdf-") as folder:
+            with tempfile.TemporaryDirectory(prefix="seal-pdf-", dir=work_directory()) as folder:
                 path = Path(folder) / "input.pdf"
-                shutil.copyfile(Objects().path(capture["body_hash"]), path)
+                path.write_bytes(Objects().get(capture["body_hash"]))
                 # Calling the SDK on a local immutable copy prevents its remote downloader
                 # from fetching different bytes and prevents it deleting the CAS original.
                 scraper = PDFContentScrapingStrategy(

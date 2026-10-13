@@ -15,8 +15,9 @@ from crawl4ai.deep_crawling import BFSDeepCrawlStrategy
 from crawl4ai.deep_crawling.filters import FilterChain
 
 from .archive import serialize_result
-from .core import Objects, SealError
+from .core import SealError
 from .db import connect, j, record_error
+from .objects import Objects, work_directory
 from .resources import delivered, persist, save_checkpoint
 from .runs import run_context
 from .sdk import (
@@ -152,7 +153,7 @@ async def run(context):
     for sig in (signal.SIGTERM, signal.SIGINT):
         loop.add_signal_handler(sig, setattr, state, "cancelled", True)
     cfg = state.config
-    with tempfile.TemporaryDirectory(prefix="seal-download-", dir=Objects().root) as folder:
+    with tempfile.TemporaryDirectory(prefix="seal-download-", dir=work_directory()) as folder:
         adapter = (HttpAdapter if cfg["crawl4ai"]["mode"] == "http" else BrowserAdapter)(
             state, Path(folder)
         )
@@ -178,7 +179,7 @@ async def run(context):
         async with AsyncWebCrawler(
             crawler_strategy=adapter,
             config=BrowserConfig(verbose=False),
-            base_directory=str(Objects().root / "sdk"),
+            base_directory=folder,
         ) as crawler:
 
             async def consume(iterator):
@@ -192,7 +193,6 @@ async def run(context):
                         state.epoch,
                         result.url,
                         capture,
-                        data if kind == "parsed" else None,
                         kind,
                         error,
                         result_ref=result_ref,

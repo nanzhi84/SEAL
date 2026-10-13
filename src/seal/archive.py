@@ -5,7 +5,8 @@ from pathlib import Path
 
 from pydantic import TypeAdapter
 
-from .core import SENSITIVE, Objects, SealError
+from .core import SENSITIVE, SealError
+from .objects import Objects
 
 json_envelope = TypeAdapter(dict)
 
@@ -44,7 +45,7 @@ def serialize_result(result):
     )
 
 
-def deserialize_result(envelope):
+def deserialize_result(envelope, *, download_directory=None):
     from crawl4ai import CrawlResult
 
     objects = Objects()
@@ -57,8 +58,7 @@ def deserialize_result(envelope):
             else (base64.b64encode(body).decode() if field == "screenshot" else body.decode())
         )
     data["downloaded_files"] = [
-        str(objects.path(key)) for key in data.get("downloaded_files") or []
+        str(objects.materialize(key, download_directory))
+        for key in data.get("downloaded_files") or []
     ] or None
-    for name in data["downloaded_files"] or []:
-        objects.get(Path(name).parent.name + Path(name).name)
     return CrawlResult(**data)

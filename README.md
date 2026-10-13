@@ -1,6 +1,6 @@
 # SEAL
 
-SEAL 以 Crawl4AI 采集来源、归档响应正文并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，响应变化且目标有效、解析成功时追加不可变 Version，下游直接消费 CrawlResult。
+SEAL 以 Crawl4AI 采集来源、归档响应正文并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，响应变化且目标有效、解析成功时追加不可变 Version，完整原文、解析结果与附件保存于私有 MinIO，PostgreSQL 保存来源、运行、资源版本和对象引用；下游通过 result_ref 读取并重建 CrawlResult。
 
 当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 四个 CLI 入口。旧 Recipe YAML 需显式迁移，格式范围、备份升级与验收合同见[当前 Plan](docs/plans/unified-document-pipeline.md)。
 
@@ -9,10 +9,11 @@ SEAL 以 Crawl4AI 采集来源、归档响应正文并维护 URL 资源版本库
 ```text
 [0] ENTRY & DISPATCH
 cli.py: main() → dispatch(args)
+├── [CHECK] 非 init 命令先校验 S3 桶与当前数据库 schema
 ├── seal init → migration.py: initialize()
-│   ├── [CHECK] 对象清单、历史升级前停止客户端与校验备份
-│   ├── [DB] schema.sql → 已登记0002–0009 → 追加0010；历史文件不重写
-│   └── [DB/IO] Procrastinate schema 与 CAS 目录
+│   ├── [CHECK] S3 桶可用后再查数据库对象清单、历史升级前停止客户端与校验备份
+│   ├── [DB/IO] schema.sql → 已登记0002–0009 → 追加0010/0011；先验证归档再迁移引用，历史文件不重写
+│   └── [DB] Procrastinate schema；对象桶由部署初始化，minio/ 仅服务管理
 ├── seal worker [--once] → queue.py: worker()
 │   ├── recover_stalled() / recover_unqueued() → 任务心跳恢复与补入队
 │   └── [ASYNC] Procrastinate → crawl_job() → 进入阶段 [2]
@@ -35,14 +36,14 @@ runs.py: execute_run()
 ├── [LOOP] _execute_attempt() → begin_attempt()
 │   ├── [CHECK] 冻结config_hash、generation、write_seq、deadline、max_attempts
 │   ├── [DB] epoch递增、status=running；同Run保留checkpoint，新Run重建visited
-│   └── [SPAWN] 独立进程组 python -m seal.crawl；输出不泄露到CLI
+│   └── [SPAWN] 独立进程组 python -m seal.crawl；SDK缓存/log隔离到 work 的 run/epoch目录；输出不泄露到CLI
 ├── [PARALLEL]
 │   ├── CHILD: crawl.py: run()
 │   │   ├── SDK AsyncWebCrawler；collect: BFSDeepCrawlStrategy / recheck: arun_many
 │   │   ├── sdk.py: HttpAdapter / BrowserAdapter
 │   │   │   ├── [CHECK] scope、robots、重定向/子请求、次数/时间/字节预算
-│   │   │   ├── [IO] HTTP Response.read()捕获bytes / Browser获取阶段DOM → CAS
-│   │   │   └── InputScraper → SDK HTML/TXT或同次归档PDF临时副本解析
+│   │   │   ├── [IO] HTTP Response.read()捕获bytes / Browser获取阶段DOM → S3 CAS（完整 SHA256 平铺键）
+│   │   │   └── InputScraper → SDK HTML/TXT或 S3 同次归档PDF在 work/ 的临时副本解析
 │   │   ├── [LOOP] streaming CrawlResult → outcome() → archive.py: serialize_result()
 │   │   │   └── resources.py: persist() → 进入阶段 [3]
 │   │   ├── State.checkpoint_changed() → 补当前层未交付URL → SDK pending持久化
@@ -58,17 +59,17 @@ runs.py: execute_run()
 
 [3] RESPONSE & VERSION COMMIT
 resources.py: persist()
-├── [IO/CHECK] 原文CAS可读取、SHA256复算；落盘后才引用
+├── [IO/CHECK] 原文CAS可读取、SHA256复算；S3 写入并验证后才引用
 ├── [DB] Source → Run → Resource锁；fenced()检查代际/epoch/状态
 ├── [CHECK] frontier_id+URL唯一资源；run+resource交付幂等
-├── [DB] 不可变Observation：状态/模式/正文哈希/归档引用/实际URL
-├── [DB/IO] Run.report.crawl_results：Observation → 本次成功/失败SDK结果CAS；同事务关联
+├── [DB] 不可变Observation：状态/模式/正文哈希/归档引用/result_ref/实际URL
+├── [DB/IO] Observation.result_ref → 本次成功/失败SDK结果CAS；同事务关联
 ├── [BRANCH] 失败、登录或挑战 → 保留原文；不生成内容版本
 ├── [BRANCH] 解析成功且正文等于当前成功版本 → Observation关联旧Version
 └── [BRANCH] 响应变化且解析成功
-    ├── [DB] 全局事务锁保护稳定增量cursor；连续Version+原生CrawlResult
+    ├── [DB] 全局事务锁保护稳定增量cursor；连续Version+result_ref（与原始Observation一致）
     ├── [DB] 复合FK保护Resource/Observation/Version归属；推进current_version_id
-    └── [DB] next_check → recheck；current_resource_version / version_delta → 下游SQL
+    └── [DB] next_check → recheck；current_resource_version / version_delta → 下游SQL取result_ref → MinIO读取CrawlResult
 ```
 
 ## 数据模型 ER 图
@@ -116,6 +117,7 @@ erDiagram
   text run_id FK
   text delivery_key UK
   text body_hash "CAS SHA256"
+  text result_ref "本次SDK结果SHA256，可空"
   text input_mode "http或rendered_dom"
   text outcome
   text version_id FK
@@ -126,7 +128,7 @@ erDiagram
   int sequence "来源URL内连续"
   text observation_id FK
   bigint cursor UK "稳定内容增量"
-  jsonb crawl_result "SDK结果与CAS编码封装"
+  text result_ref "MinIO完整SDK结果SHA256"
   text framework_version
   jsonb parser_config
  }

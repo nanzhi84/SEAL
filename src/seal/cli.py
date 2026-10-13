@@ -35,6 +35,9 @@ def dispatch(args):
 
     if args.command == "init":
         return initialize(backup=args.backup, acknowledge=args.acknowledge_data_loss)
+    from .objects import Objects
+
+    Objects().check()
     require_current()
     if args.command == "worker":
         from .queue import worker

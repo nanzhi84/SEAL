@@ -94,7 +94,7 @@ def atomic_write(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_name(path.name + "." + uid() + ".tmp")
     try:
-        with temp.open("xb") as file:
+        with os.fdopen(os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), "wb") as file:
             file.write(data)
             file.flush()
             os.fsync(file.fileno())
@@ -106,37 +106,3 @@ def atomic_write(path, data):
             os.close(descriptor)
     finally:
         temp.unlink(missing_ok=True)
-
-
-class Objects:
-    def __init__(self):
-        self.root = Path(os.environ.get("SEAL_ARCHIVE", ".seal")).resolve()
-
-    def path(self, key):
-        if not re.fullmatch(r"[0-9a-f]{64}", key):
-            raise SealError("invalid_object_key")
-        return self.root / "objects" / key[:2] / key[2:]
-
-    def put(self, body):
-        key = digest(body)
-        path = self.path(key)
-        if path.exists():
-            self.get(key)
-        else:
-            atomic_write(path, body)
-        return key
-
-    def get(self, key):
-        try:
-            body = self.path(key).read_bytes()
-        except OSError:
-            raise SealError("archive_unreadable") from None
-        if digest(body) != key:
-            raise SealError("archive_corrupt")
-        return body
-
-    def put_json(self, value):
-        return self.put(canonical(value))
-
-    def json(self, key):
-        return json.loads(self.get(key))

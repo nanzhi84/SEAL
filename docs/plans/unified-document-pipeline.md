@@ -43,7 +43,7 @@ Source 使用地图 dd-xxx；UUID、cursor、内容哈希保留各自语义。�
 | crawl | 装配 SDK、消费 streaming CrawlResult、保存 framework checkpoint |
 | sdk / robots / scope | 薄 HTTP/DOM 获取适配、范围与 robots 边界、SDK HTML/PDF scraper |
 | resources | 来源内资源身份、事务 Observation/Version 提交与去重 |
-| archive / core | CrawlResult 存储编码、文件/bytes CAS 与原子落盘 |
+| archive / objects / core | CrawlResult 存储编码、S3 bytes CAS、哈希校验与临时文件物化 |
 | completion / manifest / progress | Run 终态、无敏感内容的 JSON 统计、stderr TTY 面板 |
 | db / migration | PostgreSQL 基础与追加迁移、清单、备份校验 |
 
@@ -105,11 +105,12 @@ SDK clone 会丢失此回调，薄 RunConfig 仅修复该字段传递；升级�
 | source | id、config、generation、run_seq、write_seq、paused、cooldown_until；沿用旧来源身份 |
 | frontier | id、source_id UNIQUE、run_id、checkpoint；长期来源状态，非框架原生服务 |
 | resource | id、frontier_id、url、role、current_version_id、last_checked_at、last_outcome、next_check |
-| observation | id、resource_id、run_id、attempt_epoch、delivery_key、url、actual_url、status、body_hash、archive_ref、input_mode、outcome、error、version_id、observed_at |
-| version | id、resource_id、sequence、observation_id、body_hash、input_mode、crawl_result、framework_version、parser_config、cursor、created_at |
+| observation | id、resource_id、run_id、attempt_epoch、delivery_key、url、actual_url、status、body_hash、archive_ref、result_ref、input_mode、outcome、error、version_id、observed_at |
+| version | id、resource_id、sequence、observation_id、body_hash、input_mode、result_ref、framework_version、parser_config、cursor、created_at |
 
-正文归档后校验 CAS 再提交引用；archive_ref=body_hash，路径为
-$SEAL_ARCHIVE/objects/<哈希前2位>/<剩余62位>。Observation 与 Version 不可变，
+正文通过 S3 API 归档后校验 CAS 再提交关系引用；archive_ref=body_hash，对象键为
+完整 64 位 SHA-256，平铺于配置的私有 bucket，无来源子目录。Source 与对象关系由数据库维护，
+相同内容可跨来源复用对象；MinIO 内部磁盘布局不属于应用接口。Observation 与 Version 不可变，
 复合 FK 约束资源、版本、原始观测、body_hash 与模式归属。一次 run/URL 仅提交一次；
 checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Observation。
 
@@ -136,17 +137,36 @@ checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Obs
 CSV/JSON/图片首版尚无语义解析保证，标记 unsupported/parse_failed 并保留获取原文，
 不能沿用九格式 Document 的历史支持声明。动态 DOM 模式以 HTML 为目标。
 
-Version.crawl_result 是存储封装：result 为 SDK model_dump（包括完整 Markdown、links、
+完整 CrawlResult 仅保存 MinIO JSON 对象：result 为 SDK model_dump（包括完整 Markdown、links、
 media 等），artifacts 将 pdf/screenshot/mhtml 二进制外置为 CAS；downloaded_files
-也以 CAS 哈希替换临时路径。seal.archive.deserialize_result 可在新进程重建 CrawlResult
-与长期本地路径；这是编码封装，不是自定义内容 AST。链接只保留 SDK URL 引用，不建立
-document_reference 外键，也不承诺目标已获取或绑定历史版本。
+也以 CAS 哈希替换临时路径。Observation.result_ref 直接引用本次结果对象，Version.result_ref
+引用产生版本的 Observation 的同一对象，复合外键保证原始观察与版本的结果引用一致。
+下游先查询 Version.result_ref，再读取对象并重建 SDK 结果：
 
-每次 SDK 交付都保存同一存储封装，包括失败与 unchanged 的本轮结果。Run.report.crawl_results
-以 Observation ID 映射结果 CAS 哈希，与 Observation 同事务提交；重复交付保持首次关联。
-policy 请求不产生 SDK CrawlResult，因此不加入映射。Version 仍只保存有效解析内容；失败
-诊断不能进入内容增量。SDK 异常结果可能没有 status_code 或 html，真实响应状态和获取到的
-原文以 Observation 与其 archive_ref 为准，不伪造 SDK 字段。不需要新增数据库迁移。
+```python
+from seal.objects import Objects
+from seal.archive import deserialize_result
+
+result = deserialize_result(Objects().json(version_row["result_ref"]))
+```
+
+下载副本放入可丢弃的 work/；这是编码封装，不是自定义内容 AST。链接只保留 SDK URL 引用，
+不建立 document_reference 外键，也不承诺目标已获取或绑定历史版本。
+
+每次 SDK 交付均保存本轮结果，包括失败与 unchanged。正文不变但结果变化时，新的 Observation
+引用本次结果，Version 保留首次结果；结果字节完全相同则 CAS 复用。policy 请求不产生
+SDK CrawlResult，result_ref 可空；旧历史没有留存结果的观察也保持空，不补造诊断。
+失败不进入内容增量。SDK 异常结果可能没有 status_code 或 html，真实响应状态与原文以
+Observation 和 archive_ref 为准。Run.report 不再维护 crawl_results 映射。
+
+0011_result_references 为追加迁移：升级前停止数据库客户端并执行
+`uv run --frozen seal init --backup work/result-refs-before.dump`；备份路径须尚不存在。
+先将旧 Version JSON 写入 MinIO，验证结果和关联二进制对象；旧 Run 映射引用也须可读、哈希正确。
+成功后在同一数据库事务内回填指针、添加约束、删除 version.crawl_result 与 Run 映射，重建两个
+下游视图。ID、时间、sequence、cursor 和旧 MinIO manifest 保持原样。失败则数据库事务回滚，
+可在修复对象后重试；已上传但未引用的对象可能残留，不自动删除。历史版本结果与旧观察引用冲突
+时拒绝迁移。下游 SQL 必须改为查询 result_ref 并读取 MinIO，旧 JSONB 字段不保留兼容层。
+回滚须停客户端、恢复升级前数据库备份并使用旧程序；对象桶须保留配套归档，不支持逆向 SQL 自动降级。
 二进制外置后使用 Pydantic JSON 编码，PDF metadata 中的 datetime 保留为 ISO 日期字符串，
 不因 Python 原生值无法写入 JSON 而中断采集。
 
@@ -156,6 +176,25 @@ policy 请求不产生 SDK CrawlResult，因此不加入映射。Version 仍只�
 本轮归档推导显式种子，max_depth=0；不声明框架自动接替旧来源专用发现。476份本轮SDK
 结果可跨进程重建；独立原文/SQL/SDK核验5009项，2项失败恰为JSON/XLS语义缺口。日常
 运行及证据在根目录 work/、artifacts/，旧历史原文和配置不重写。
+
+## 结果指针独立验收
+
+业务验收由 fresh 子 agent 独立编写 `tests/result_refs_e2e.py`，先明确引用串联、unchanged
+误推进、失败推进、历史映射冲突、对象缺失/损坏、迁移部分提交与历史字段漂移等失败方式。
+复跑：`uv run --no-sync python tests/result_refs_e2e.py`。前提为项目已安装冻结依赖、Docker
+可用且本地有 seal-minio:RELEASE.2025-10-15T17-29-55Z / postgres:17-alpine 镜像，以及
+pg_dump/pg_restore。测试使用隔离服务、work 挂载和 loopback 合成来源，随机凭据不进入工件。
+
+覆盖实际 CLI collect/recheck → SQL 指针 → MinIO JSON → 新进程 SDK 重建，正文未变而
+结果变化、失败不推进、完整 Markdown/HTML 与附件字节恢复。迁移夹具来自
+实际 CLI 采集的数据，并恢复为0010列与ledger合同；不是运行历史checkout的兼容证据。
+验证缺失、损坏和映射冲突的原子回滚，实际 pg_restore 恢复备份并对比旧数据；升级保留
+ID/时间/sequence/cursor，manifest 字节不变，重复init不改数据与对象。
+最终59 PASS / 0 FAIL，工件 `artifacts/s3-storage-20261013-234757-db3f2/`：summary、assertions、
+commands、environment（源码/测试/迁移哈希）、升级前后SQL、对象哈希清单与重建结果。
+2026-10-14 本地空库已备份并升级至0011，桶内也无对象；无既有引用可逐条核验。本地升级回执与验证记录在
+`artifacts/local-result-refs-upgrade-20261014/`，备份为 `work/local-result-refs-before-20261014.dump`。公网来源、浏览器DOM与真实附件生成路径不在本次范围；附件恢复使用
+独立构造的存储封装。policy空结果及历史附件缺失导致迁移回滚尚未覆盖。
 
 ## 发现、复查、取消与恢复
 
@@ -190,7 +229,58 @@ seal worker [--once]
 ```
 
 Python3.12；uv sync 安装依赖；DOM 模式另运行 uv run python -m patchright install chromium。
-SEAL_DATABASE_URL 通过环境传入，SEAL_ARCHIVE 指向独立持久目录。CLI stdout 每次仅一份
+本地使用 MinIO 对象存储与独立 PostgreSQL。根目录 `minio/` 挂载到 MinIO `/data`，仅由
+服务管理；来源配置为 `sources/dd-xxx.yaml`。`work/postgres/` 为这套本地测试数据库数据，
+`work/seal/` 为下载/PDF/SDK 临时文件。`work/` 与 `artifacts/` 始终是中间产物；本地测试
+可重置，但需一起重置对应数据库与桶，以免遗留悬空引用。继续复查/保留历史时须配对备份。
+自动验收使用另外的隔离服务与 work/artifacts 目录，不碰根 minio 数据或已有数据库。
+
+```text
+uv run --frozen python -m seal.local_storage
+set -a; source .env.local; set +a
+uv run --frozen seal init
+uv run --frozen seal collect sources/dd-017.yaml
+uv run --frozen seal recheck sources/dd-017.yaml
+# 暂停服务但保留本地测试数据
+docker compose --env-file .env.local down
+```
+
+构建 Dockerfile 与限定桶 policy 集中内嵌于 compose.yaml，不另建 tools/infra 目录；
+辅助运行命令位于 src/seal/local_storage.py 与 src/seal/archive_import.py。
+
+启动脚本不初始化/迁移数据库，不覆盖已存在的 `.env.local`，不删除数据。Compose 仅监听
+127.0.0.1，默认 S3/Console/PostgreSQL 端口为19000/19001/15432。MinIO 使用官方
+RELEASE.2025-10-15T17-29-55Z 源码构建，版本包含当时安全修复；应用账号仅获 seal-archive
+桶 ListBucket 与 GetObject/PutObject 权限，无删除、建桶或管理权限，管理凭据仅供服务初始化。
+[官方 release](https://github.com/minio/minio/releases/tag/RELEASE.2025-10-15T17-29-55Z)。
+
+| 环境变量 | 合同 |
+| --- | --- |
+| SEAL_DATABASE_URL | 关系数据库连接，保持现有语义 |
+| SEAL_S3_ENDPOINT | 对象 API endpoint，http/https，无账号、路径、查询或片段 |
+| SEAL_S3_BUCKET | 预先建好的私有桶；init 不自动创建部署桶 |
+| SEAL_S3_ACCESS_KEY / SEAL_S3_SECRET_KEY | 显式限定桶凭据，不从 AWS 凭据链隐式选账号 |
+| SEAL_S3_REGION | 默认 us-east-1；S3 v4 签名与 path-style 寻址 |
+| SEAL_WORK_DIR | 本地临时工作目录，默认 work/seal，不存持久原文 |
+
+删除 SEAL_ARCHIVE 与文件 CAS 内部实现，不保留本地回退或双写。旧变量存在时明确报错。
+已有文件 CAS 如需继续使用，先保持原目录及对应数据库备份，配置目标 S3 后显式运行
+`uv run --frozen python -m seal.archive_import OLD_ARCHIVE_DIRECTORY`；逐对象校验原生键、
+上传并下载复算，不改数据库 hash/引用，不删除旧文件。导入失败可重跑，完整核对通过后
+才能切换关联旧库的客户端。对象搬迁不改变 hash；结果指针变更另按0011追加迁移。
+
+条件 PUT（If-None-Match: *）避免覆盖同键对象；重复/并发已存在时 GET 复算，损坏对象
+明确失败而不修复覆盖。S3 connect/read timeout 为3/10秒，SDK至多2次尝试；不吞错或无限
+重试，不把 ETag 当作 SHA-256。响应流必关闭；本地物化经校验与原子写入，文件权限600。
+SDK 子进程在导入前设置独立 run/epoch 的 CRAWL4_AI_BASE_DIRECTORY，SDK 数据库/log 也
+进入 work/，不将其当作业务关系数据库。init 及 collect/recheck/worker 先检查桶可用；
+init 前置检查失败不改数据库，队列表按连接实际 search_path 查找并在回执返回实际 schema，
+账号名与 seal schema 同名时重复 init 也不重复建表。跨系统不做伪
+事务：先归档验证再提交 DB 引用，数据库失败可能留下无引用对象，但不得反向留下未归档的
+成功版本；不自动垃圾回收。运行中服务失效会明确失败或保留待恢复状态，不宣称完成。
+本轮仅验证 MinIO 的 S3 合同；阿里云 OSS 的认证及兼容性尚未验收，不宣称可直接切换。
+
+SEAL_DATABASE_URL 与 SEAL_S3_* 通过环境传入。CLI stdout 每次仅一份
 JSON；collect/recheck 使用 seal.receipt.v3，init 返回初始化与迁移清单，worker 返回停止/取消
 回执。前台采集的 stderr TTY 显示资源进度；业务失败退出1，参数/配置失败退出2，中断130。
 receipt 的 binding_id 移除，新增 config_hash，报告资源/Observation/Version统计；旧回执
@@ -209,7 +299,7 @@ SELECT * FROM seal.version_delta WHERE cursor>$1 ORDER BY cursor LIMIT 100;
 保留旧 source/run 与 Document/Revision/Emission/Binding/Recipe/Discovery 表、FK、SQL
 名称、原文和历史记录，不双写、不提供内部兼容 shim，不把旧 AST 伪造为 CrawlResult。
 已有 Source 建立 Frontier，旧待运行任务明确失败，需改用新 YAML 重新触发。
-新库初始化仍按历史 ledger 顺序建库后追加0010。
+新库初始化按历史 ledger 顺序建库后追加0010与0011。
 
 升级停 Worker 和所有数据库客户端；已有0.2库必须 seal init --backup <私有备份路径>，
 pg_dump / pg_restore --list 校验成功后升级。更旧public.seal_*库会经过历史0009删除Record，
@@ -217,7 +307,54 @@ pg_dump / pg_restore --list 校验成功后升级。更旧public.seal_*库会经
 新SQL消费新视图。备份数据库与 Archive；回滚用匹配0.2代码和备份恢复到隔离库并核验后
 切换连接，不能让旧 Worker 写新增版本库。生产升级、切流和恢复另行授权。
 
-## 独立业务验收与证据
+## 本次 S3 对象存储验收
+
+完全 fresh 子 agent 在 tests/ 独立编写并使用真实 loopback HTML/PDF、隔离 PostgreSQL 与
+MinIO 执行。所有 CLI 与对象 API 使用限定桶 List/Get/Put 账号；管理账号仅用于独立环境
+初始化、损坏/缺失注入及证据读取。固定镜像前提由 seal.local_storage 的源码构建满足；
+自动验收另挂载 work/<run>/minio，不碰根 minio 数据和已有数据库。
+
+```text
+uv sync --frozen
+uv run --no-sync python tests/s3_storage_e2e.py
+uv run --no-sync python tests/s3_storage_restart_dom_e2e.py
+uv run --no-sync python tests/s3_storage_named_owner_e2e.py
+```
+
+最终源码上的基础72项通过（0 FAIL）：collect/recheck/worker → SQL 关系 → S3 实际
+原文/hash、结果跨进程重建；变化与不变；并发/重复条件写入；缺失/损坏/鉴权/不可达明确失败，
+init 错误不写库；旧CAS导入保原生键与原文件且可重跑；下载本地副本删除后可重新从S3恢复。
+限定账号删除、其他桶访问与用户管理被拒绝。额外以真实 rendered_dom 和 MinIO 重启验证
+实际DOM字节/新进程重建及配对SQL关系；命名账号seal验证重复init与队列实际schema。
+
+最终三组端到端结果（本轮源码哈希在每组开始/结束一致）：
+
+| 运行 | 断言 | 工件 |
+| --- | --- | --- |
+| S3 全链路与故障边界 | 72 PASS / 0 FAIL | `artifacts/s3-storage-20261013-230545-25c63/` |
+| seal 同名账号重复初始化与 worker | 14 PASS / 0 FAIL | `artifacts/s3-storage-20261013-230550-3ed0e/` |
+| 真实 rendered_dom 与 MinIO 重启恢复 | 18 PASS / 0 FAIL | `artifacts/s3-storage-20261013-230551-fa945/` |
+
+各组共享部分权限断言，数量不是独立业务场景数。命名账号用例先复现第二次 init 的
+ConnectorException/DuplicateObject，再修复并复跑；本次不新增 SQL 迁移。实际 SDK 缓存
+文件位于 work 内的独立 run/epoch 路径，见 sdk-work-files.json；本轮未产生独立 SDK
+日志文件，不宣称日志落盘已获实证，命令 stderr 保留。全 SDK 系统调用级磁盘审计未执行。
+根本地服务建立并初始化到新数据库，重复 init 的 applied 为空；操作回执在
+`artifacts/minio-local-setup/receipt.json`，这是启动证据，不代替以上独立业务验收。
+
+工件保存环境、固定镜像、源码哈希、各次命令回执、对象清单/hash、SQL结果与断言，均在
+artifacts/<运行名>/，敏感凭据不入工件。范围不扩展到公网来源、真实浏览器下载/截图生成、
+既有生产迁移或阿里云OSS；不把历史427项当作本次回归证据。
+
+目录收敛后，主 agent 复用独立 agent 编写的 S3 端到端脚本验证新模块入口，
+72 PASS / 0 FAIL，工件 `artifacts/s3-storage-20261013-232555-fb288/`；本地启动命令重跑成功。
+原三组验收工件保持原样，本次未修改归档或版本业务行为。
+
+## 历史 Crawl4AI 初次替换验收与证据
+
+以下为文件 CAS 阶段的历史结果与运行前提，旧脚本不作为当前 S3 验收入口；当前运行命令
+见上一节。历史数字与工件保持原样。
+
 
 完全 fresh 子 agent 仅依据 Issue #17 业务目标在根目录 tests/ 编写真实 CLI/HTTP/PDF/
 PostgreSQL 验收，临时数据 work/、工件 artifacts/。不在实现后补写单元测试；CI仅 Ruff
@@ -259,6 +396,9 @@ pg_dump/pg_restore；脚本每轮新建 work/artifacts 和独立库，Worker崩�
 
 ## PR #14 历史实现与验收结果
 
+2026-10-13 已按用户明确要求删除该旧链路的本地原文、导出、冻结配置及验收工件。
+以下数量为当时的记录，不能从当前工作区复算；当前 Crawl4AI 复现产物完整保留。
+
 [PR #14](https://github.com/nanzhi84/SEAL/pull/14) 收敛了统一入口，删除旧输出及专属测试；
 手写运行代码和本次验收脚本均小于 500 行。历史 schema.sql / 0002–0008 无改动，
 历史原文、冻结配置和结果不重写。该轮验收只调用四命令与 PostgreSQL，未执行生产迁移。
@@ -272,10 +412,11 @@ pg_dump/pg_restore；脚本每轮新建 work/artifacts 和独立库，Worker崩�
 | 独立 Oracle | pg_restore final.dump，再用独立 SQL、Archive 与 canonical content hash 核验 | 1492 项断言 PASS；281 个 Observation、88 个 Version、232 个 Emission 的保存证据通过；无需 Runtime Parser 或 Replay |
 | 公网有界样本 | AMAC trustee、教育部单篇通知与其 XLS；Collect → Recheck | 分别 8 / 3 个 Document、完整 JSON envelope 和 XLS 原文通过核验。新闻出版署单篇 PDF 的 robots 不可用，FAILED；全站覆盖一律 UNKNOWN |
 
-本机环境为 Python 3.12.13 / PostgreSQL 17.11，uv.lock 和代码摘要在各工件 summary.json。
-固定样本工件位于 `experiments/document-only/artifacts/final-reviewed/`；公网工件位于
-`experiments/document-only/artifacts/reviewed-live/`，原文和备份留在对应 work/。verification.json
-保存独立 Oracle 的数量、方法、备份/验证代码摘要和范围。该轮 CI 对精确 PR head 重跑固定验收，
+当时本机环境为 Python 3.12.13 / PostgreSQL 17.11，uv.lock 和代码摘要记录于各工件 summary.json。
+原固定样本工件路径为 `experiments/document-only/artifacts/final-reviewed/`；原公网路径为
+`experiments/document-only/artifacts/reviewed-live/`，这些工件及对应 work/ 中的原文、备份现已删除。
+当时的 verification.json 记录独立 Oracle 的数量、方法、备份/验证代码摘要和范围。
+该轮 CI 对精确 PR head 重跑固定验收，
 上传无凭据合成样本的元数据；[历史 Checks](https://github.com/nanzhi84/SEAL/pull/14/checks) 为合并前结果依据。
 
 历史执行源码可从 [9afc72e 对应实验](https://github.com/nanzhi84/SEAL/tree/9afc72ea28a22e988244b1cea7c7d238f7ccf067/experiments/document-only)

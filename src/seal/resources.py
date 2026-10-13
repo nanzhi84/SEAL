@@ -2,8 +2,9 @@
 
 from importlib.metadata import version
 
-from .core import Objects, SealError, public_url, uid
+from .core import SealError, public_url, uid
 from .db import connect, fenced, j, locked_run, one
+from .objects import Objects
 
 
 def resource(c, frontier_id, url, role="content"):
@@ -24,7 +25,6 @@ def persist(
     epoch,
     url,
     capture,
-    crawl_result,
     outcome,
     error=None,
     role="content",
@@ -55,7 +55,7 @@ def persist(
         version_id = None
         new = False
         if outcome == "parsed":
-            if not body_hash or not crawl_result:
+            if not body_hash or not result_ref:
                 raise SealError("parsed_response_evidence_required")
             if current and current["input_mode"] != input_mode:
                 raise SealError("input_mode_change_requires_new_source")
@@ -66,8 +66,8 @@ def persist(
         oid = uid()
         c.execute(
             """INSERT INTO seal.observation(id,resource_id,run_id,attempt_epoch,delivery_key,
-          url,actual_url,status,body_hash,archive_ref,input_mode,outcome,error,version_id)
-          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+          url,actual_url,status,body_hash,archive_ref,result_ref,input_mode,outcome,error,version_id)
+          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
             (
                 oid,
                 r["id"],
@@ -79,6 +79,7 @@ def persist(
                 capture.get("status"),
                 body_hash,
                 body_hash,
+                result_ref,
                 input_mode,
                 outcome,
                 error,
@@ -91,7 +92,7 @@ def persist(
             c.execute("SELECT pg_advisory_xact_lock(72032102)")
             c.execute(
                 """INSERT INTO seal.version(id,resource_id,sequence,observation_id,body_hash,
-              input_mode,crawl_result,framework_version,parser_config) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+              input_mode,result_ref,framework_version,parser_config) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                 (
                     version_id,
                     r["id"],
@@ -99,7 +100,7 @@ def persist(
                     oid,
                     body_hash,
                     input_mode,
-                    j(crawl_result),
+                    result_ref,
                     version("crawl4ai"),
                     j(run["config"]["crawl4ai"]),
                 ),
@@ -117,14 +118,6 @@ def persist(
           next_check=now()+(%s * interval '1 second') WHERE id=%s""",
             (outcome, interval, r["id"]),
         )
-        if result_ref:
-            # Commit the diagnostic with its Observation. Replayed delivery keeps both
-            # original input and original result, even if the remote response changes.
-            c.execute(
-                """UPDATE seal.run SET report=jsonb_set(report,'{crawl_results}',
-              COALESCE(report->'crawl_results','{}'::jsonb) || %s,true) WHERE id=%s""",
-                (j({oid: result_ref}), run_id),
-            )
         if error:
             c.execute("UPDATE seal.run SET errors=errors || %s WHERE id=%s", (j([error]), run_id))
         return oid

@@ -17,9 +17,19 @@ __pycache__/
 artifacts/
 work/
 .seal/
+# MinIO 服务内部数据，不由 SEAL 直接读写、不入库
+/minio/**
+!/minio/.gitkeep
 *.egg-info/
 .ruff_cache/
 
 # 每个实验项目自己的私有工作数据与生成工件
 experiments/**/work/
 experiments/**/artifacts/
+
+# 用户指定的演示归档与验收工件
+playgroud/**/work/
+playgroud/**/artifacts/
+
+# Python 安装包，仅在需要打包交付时生成
+/dist/

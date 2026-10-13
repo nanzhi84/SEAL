@@ -1,7 +1,7 @@
 """Bounded run evidence: a handled queue never establishes site completeness."""
 
-from .core import Objects
 from .db import one
+from .objects import Objects
 
 
 def terminal_report(c, source, run, status, reason):

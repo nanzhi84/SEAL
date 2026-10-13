@@ -133,16 +133,22 @@ def stop_process(process):
 
 def _execute_attempt(run_id, owner, progress, cancel_event=None):
     from .completion import finish_run
+    from .objects import work_directory
 
     epoch = begin_attempt(run_id)
     if epoch is None:
         return receipt(run_id)
     context = run_context(run_id, epoch)
+    # SDK database/log paths are captured at import time. Give the child its own
+    # work directory before loading crawl4ai, rather than its home-directory cache.
+    sdk_work = work_directory() / "sdk" / run_id / str(epoch)
+    sdk_work.mkdir(parents=True, exist_ok=True, mode=0o700)
     process = subprocess.Popen(
         [sys.executable, "-m", "seal.crawl", run_id, str(epoch), str(os.getpid())],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         start_new_session=True,
+        env={**os.environ, "CRAWL4_AI_BASE_DIRECTORY": str(sdk_work)},
     )
     start = time.monotonic()
     reason = None

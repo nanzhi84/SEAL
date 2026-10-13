@@ -7,10 +7,11 @@ from pathlib import Path
 from psycopg import pq, sql
 from psycopg.conninfo import conninfo_to_dict
 
-from .core import Objects, SealError, digest
+from .core import SealError, digest
 from .db import connect, dsn
+from .objects import Objects
 
-CURRENT = "0010_resource_timeline.sql"
+CURRENT = "0011_result_references.sql"
 DELETED = {
     "seal_record",
     "seal_record_result",
@@ -148,6 +149,7 @@ def backup_database(path):
 
 
 def initialize(*, backup=None, acknowledge=False):
+    Objects().check()
     with connect() as c:
         before = inventory(c)
         old = (
@@ -205,6 +207,10 @@ def initialize(*, backup=None, acknowledge=False):
                 if previous["checksum"] != checksum:
                     raise SealError("applied_migration_changed")
                 continue
+            if path.name == "0011_result_references.sql":
+                from .result_migration import prepare_references
+
+                prepare_references(c)
             c.execute(path.read_text())
             if path.name == "0009_document_only.sql":
                 ledger = "seal.migration"
@@ -215,9 +221,7 @@ def initialize(*, backup=None, acknowledge=False):
                 (path.name, checksum),
             )
             applied.append(path.name)
-        installed = c.execute("SELECT to_regclass('public.procrastinate_jobs') AS name").fetchone()[
-            "name"
-        ]
+        installed = c.execute("SELECT to_regclass('procrastinate_jobs') AS name").fetchone()["name"]
         leftovers = c.execute("""SELECT name FROM (
             SELECT c.relname AS name FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
             WHERE n.nspname='public' AND c.relname LIKE 'seal\\_%'
@@ -230,7 +234,9 @@ def initialize(*, backup=None, acknowledge=False):
             app.schema_manager.apply_schema()
     with connect() as c:
         after = inventory(c)
-    Objects().root.mkdir(parents=True, exist_ok=True)
+        queue = c.execute("""SELECT n.nspname || '.' || r.relname AS name
+          FROM pg_class r JOIN pg_namespace n ON n.oid=r.relnamespace
+          WHERE r.oid=to_regclass('procrastinate_jobs')""").fetchone()["name"]
     return {
         "status": "initialized",
         "schema": "resource-timeline",
@@ -238,5 +244,5 @@ def initialize(*, backup=None, acknowledge=False):
         "backup": saved,
         "before": before,
         "after": after,
-        "queue": "public.procrastinate_jobs",
+        "queue": queue,
     }

@@ -5,6 +5,49 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / CrawlResult 单一归档与结果指针 — 2026-10-13
+
+完整 CrawlResult JSON 仅保存在 MinIO；Observation.result_ref 保存本次交付，Version.result_ref
+保存产生版本时同一对象。复合外键约束版本与原始观察结果一致；unchanged 观察仍保留本次结果，
+失败不推进版本，policy 无结果可空。移除 version.crawl_result 全量 JSONB 与 Run.report.crawl_results。
+下游须由 SQL 取得 result_ref 再读取对象；不保留旧内部字段兼容层。
+
+追加 0011_result_references，不改已应用迁移。已有数据库升级必须停止客户端并提供校验备份；
+旧 Version JSON 写入并校验 MinIO，验证旧映射和附件后，事务内替换字段与重建视图。
+保留身份、时间、序列、cursor，旧运行 manifest 不重写，缺失历史诊断不补造。
+对象缺失、损坏或引用冲突时数据库迁移回滚，修复后可重试；可能残留未引用对象，不自动清理。
+回滚需恢复升级前数据库并使用旧程序，保留配套对象归档。2026-10-14 已备份并升级现有本地数据库至0011；本地库与桶均为空，无既有引用可逐条核验。
+独立隔离验收59 PASS / 0 FAIL，覆盖实际CLI、结果重建、旧库升级与故障回滚、实际备份还原；
+工件与复跑命令见唯一Plan/Generated。0010为实际数据构造夹具，未执行历史checkout；
+policy空结果与历史附件缺失回滚未验证。
+
+## 未发布 / MinIO 本地对象存储 — 2026-10-13
+
+原文、附件、二进制及运行结果归档改为通过 S3 API 保存；完整 SHA-256 为平铺对象键，
+来源与资源版本关系仍在 PostgreSQL。条件写入避免覆盖，读取复算哈希，失败不创建成功版本。
+移除内部文件 CAS 与 SEAL_ARCHIVE；新增 SEAL_S3_*，不做回退或双写。旧文件须显式运行
+`seal.archive_import` 校验导入目标桶后再切换关联数据库；hash 与数据库 schema 不变，
+SQL 迁移 ledger 不改。回滚前应恢复配套环境配置与数据库/对象备份，不能将 MinIO 内部目录
+当作旧文件 CAS 使用。
+
+移除空 local-data 目录，根 minio/ 为 MinIO 管理数据，work/ 为临时文件及本地测试数据库，
+artifacts/ 为验收证据。新增 compose.yaml 与 seal.local_storage，服务仅监听 loopback，
+凭据自动生成且不入库，应用账号限定桶读写无管理/删除权限。测试重置须同时重置对应数据库
+和对象桶；不自动删除已有归档、数据库或历史工件。SDK 子进程缓存/log 另按 run/epoch
+隔离到 work。修复本地 seal 账号的重复 init：按实际 search_path 查询队列表并返回实际
+schema，不再固定 public，不迁移或移动既有队列表。OSS 实际部署兼容性未验证。
+
+本轮独立隔离验收：S3 全链路72 PASS、同名账号重复初始化与worker14 PASS、真实DOM与
+MinIO重启恢复18 PASS，均0 FAIL；部分权限断言复用。各组记录开始/结束一致的源码哈希。
+原文、附件、SDK结果与SQL引用经过实际读取核验；既有生产数据未迁移。唯一Plan/Generated
+保留复跑命令、工件路径和未验证范围，CI只执行src静态检查。
+
+## 本地旧版产物清理 — 2026-10-13
+
+按用户明确要求删除旧 Scrapy/Recipe/Document 链路的原文、导出、配置快照和历史验收数据，
+清理旧隔离验收数据库及旧迁移夹具副本。历史章节中的数字保留为当时记录，已删除的本地
+证据不能再用于复算。本轮 Crawl4AI 的 CrawlResult、原文和验收工件保留，数据哈希不变。
+
 ## 未发布 / CrawlResult 诊断留存 — 2026-10-13
 
 所有本轮 SDK 成功、失败及 unchanged 的 CrawlResult 均归档至 CAS；Run.report.crawl_results
