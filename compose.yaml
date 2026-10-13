@@ -8,7 +8,7 @@ services:
         # Official source release, including the October 2025 security fix.
         FROM golang:1.26-bookworm AS build
         RUN CGO_ENABLED=0 go install github.com/minio/minio@RELEASE.2025-10-15T17-29-55Z
-        
+
         FROM minio/minio@sha256:14cea493d9a34af32f524e538b8346cf79f3321eff8e708c1e2960462bd8936e
         COPY --from=build /go/bin/minio /usr/bin/minio
     command: server /data --console-address :9001
