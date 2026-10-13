@@ -112,7 +112,7 @@ checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Obs
 | 输入情况 | 结果 |
 | --- | --- |
 | 首次有效内容且解析成功 | Observation + V1，推进资源指针 |
-| 等于当前成功版本的响应 | 新 Observation，outcome=unchanged，关联旧版本 |
+| 解析成功且响应等于当前成功版本 | 新 Observation，outcome=unchanged，关联旧版本 |
 | 响应变化且解析成功 | 新 Observation + 连续 Version，推进指针 |
 | 响应变化但解析失败或不支持 | 保存原文及失败 Observation，不推进；下次新 Run 重试 |
 | 网络错误、403/429、登录/挑战页 | 保存失败/blocked，存在正文则归档，不生成内容版本 |
@@ -171,8 +171,9 @@ seal worker [--once]
 ```
 
 Python3.12；uv sync 安装依赖；DOM 模式另运行 uv run python -m patchright install chromium。
-SEAL_DATABASE_URL 通过环境传入，SEAL_ARCHIVE 指向独立持久目录。CLI stdout 仅一份
-seal.receipt.v3 JSON，stderr TTY显示资源进度；失败退出1，参数/配置失败退出2，中断130。
+SEAL_DATABASE_URL 通过环境传入，SEAL_ARCHIVE 指向独立持久目录。CLI stdout 每次仅一份
+JSON；collect/recheck 使用 seal.receipt.v3，init 返回初始化与迁移清单，worker 返回停止/取消
+回执。前台采集的 stderr TTY 显示资源进度；业务失败退出1，参数/配置失败退出2，中断130。
 receipt 的 binding_id 移除，新增 config_hash，报告资源/Observation/Version统计；旧回执
 和冻结配置保留历史语义，SQL 下游不可假定旧 Document 输出列仍代表当前写入。
 
@@ -205,6 +206,19 @@ PostgreSQL 验收，临时数据 work/、工件 artifacts/。不在实现后补�
 挑战页、正文hash/CAS、跨进程CrawlResult、递归新轮/孤立资源、Worker、TTY/Ctrl+C、
 崩溃恢复与幂等、旧执行者栅栏、旧库备份恢复、模式/格式边界。实际命令、环境、冻结版本、
 数据前提、断言和证据须可重复生成，不包含凭据；本次最终完整端到端运行 `uv run --no-sync python tests/issue17_e2e.py`：427 PASS / 0 FAIL / 0 UNVERIFIED。
+
+验收执行分工：
+
+| 检查 | 执行者 | 结果与含义 |
+| --- | --- | --- |
+| 完整真实用户路径 E2E | 完全 fresh 的独立子 agent；未阅读或修改实现源码 | 427 PASS / 0 FAIL / 0 UNVERIFIED，限于下述隔离样本 |
+| 固定旧版本迁移补验 | 同一独立验收子 agent | 22 PASS，实际备份还原与原文/旧字段核对 |
+| 项目 Ruff、seiso、打包和 diff | 主 agent 自验 | 静态与包装检查通过，不替代业务验收 |
+| CI Ruff | GitHub Actions | 对 PR 精确 head 执行静态检查，不运行业务验收 |
+
+上述业务证据对应运行代码提交 `62776cb`；后续纯文档同步不改运行代码，也不视为重新执行
+业务验收。主 agent 根据验收失败修复实现，由独立验收子 agent 再执行真实路径。
+
 工件目录 `artifacts/issue17-20261013-175357-a77b7/` 的 summary.json、assertions.json、
 commands.json、oracle.json、各次JSON/TTY回执、fixture请求时序、数据库导出、CAS hashes、
 跨进程读取回执与实际备份恢复记录构成证据。失败调试工件原样保留，不代替最终结果。

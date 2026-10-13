@@ -3,7 +3,7 @@ kind: plan
 lang: zh
 ---
 
-> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](unified-document-pipeline.md)。历史结果不代表本次验收。
+> 历史设计或验收材料：Scrapy/Recipe、Document AST 及 Record/Replay 合同仅对应当时版本。当前合同见 [Crawl4AI 资源时间线 Plan](unified-document-pipeline.md)。历史结果不代表本次验收。
 
 # SEAL V1：可信 Python Recipe 与 Scrapy 原生采集
 

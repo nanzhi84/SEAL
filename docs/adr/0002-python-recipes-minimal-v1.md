@@ -3,12 +3,12 @@ kind: adr
 lang: zh
 ---
 
-> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../plans/unified-document-pipeline.md)。历史结果不代表本次验收。
+> 历史设计或验收材料：Scrapy/Recipe、Document AST 及 Record/Replay 合同仅对应当时版本。当前合同见 [Crawl4AI 资源时间线 Plan](../plans/unified-document-pipeline.md)。历史结果不代表本次验收。
 
 # ADR-0002：可信 Python Recipe、Scrapy 原生执行与轻量 V1
 
 - 日期：2026-10-08
-- 状态：已实施为 V1 第一版；合成验收与真实来源剩余条件见 Plan 第 12 节
+- 状态：历史 V1 已实施；Recipe/Scrapy 执行决策已被 [Crawl4AI 资源时间线 Plan](../plans/unified-document-pipeline.md) 取代
 - 取代：[ADR-0001](0001-recipe-driven-fixed-pipeline.md) 的声明式 Recipe、算子执行器和自研任务队列；同时替换本 ADR 前版的沙箱/可信 Fetcher 推荐
 - 规范合同：[V1 Plan](../plans/v1-information-pipeline.md)；派生概览：[Generated](../generated/v1-overview.html)
 

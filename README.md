@@ -2,6 +2,8 @@
 
 SEAL 以 Crawl4AI 采集来源、归档响应正文并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，响应变化且目标有效、解析成功时追加不可变 Version，下游直接消费 CrawlResult。
 
+当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 四个 CLI 入口。旧 Recipe YAML 需显式迁移，格式范围、备份升级与验收合同见[当前 Plan](docs/plans/unified-document-pipeline.md)。
+
 ## 全链路执行图
 
 ```text
@@ -31,7 +33,7 @@ configuration.py: prepare_run()
 runs.py: execute_run()
 ├── [DB] Run 与 Source session advisory lock；同 Frontier 单执行者
 ├── [LOOP] _execute_attempt() → begin_attempt()
-│   ├── [CHECK] generation、write_seq、deadline、max_attempts
+│   ├── [CHECK] 冻结config_hash、generation、write_seq、deadline、max_attempts
 │   ├── [DB] epoch递增、status=running；同Run保留checkpoint，新Run重建visited
 │   └── [SPAWN] 独立进程组 python -m seal.crawl；输出不泄露到CLI
 ├── [PARALLEL]
@@ -45,13 +47,14 @@ runs.py: execute_run()
 │   │   │   └── resources.py: persist() → 进入阶段 [3]
 │   │   ├── State.checkpoint_changed() → 补当前层未交付URL → SDK pending持久化
 │   │   └── [STATE] status=finishing；watch_parent()父亡终止子进程组
-│   └── PARENT: 检查owner连接、generation/epoch/暂停/预算；stderr TTY只读进度
+│   └── PARENT: 无写锁轮询owner连接、generation/epoch/暂停/预算；stderr TTY只读进度
 ├── [CLEANUP] stop_process() → SIGTERM / 有界等待 / SIGKILL
-├── [RETRY] 进程失败retryable，有界attempt恢复；旧epoch不能提交
+├── [CANCEL] 前台Ctrl+C / Worker显式cancel_event → 子进程停止、checkpoint保留、Run=retryable
+├── [RETRY] 进程失败retryable，有界attempt恢复；Worker按30秒心跳窗口回收，旧epoch不能提交
 └── completion.py: finish_run() → manifest.py: terminal_report()
     ├── [STATE] complete / failed；资源已各自独立提交
     ├── [IO] CAS运行manifest，覆盖/质量始终有界
-    └── cli.py: main() → stdout单份receipt.v3 JSON；退出0/1/2，Ctrl+C保留恢复状态退出130
+    └── cli.py: main() → stdout单份JSON（collect/recheck为receipt.v3）；退出0/1/2，中断退出130
 
 [3] RESPONSE & VERSION COMMIT
 resources.py: persist()
@@ -60,7 +63,7 @@ resources.py: persist()
 ├── [CHECK] frontier_id+URL唯一资源；run+resource交付幂等
 ├── [DB] 不可变Observation：状态/模式/正文哈希/归档引用/实际URL
 ├── [BRANCH] 失败、登录或挑战 → 保留原文；不生成内容版本
-├── [BRANCH] 等于当前成功版本正文 → Observation关联旧Version
+├── [BRANCH] 解析成功且正文等于当前成功版本 → Observation关联旧Version
 └── [BRANCH] 响应变化且解析成功
     ├── [DB] 全局事务锁保护稳定增量cursor；连续Version+原生CrawlResult
     ├── [DB] 复合FK保护Resource/Observation/Version归属；推进current_version_id

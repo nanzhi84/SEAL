@@ -3,12 +3,12 @@ kind: adr
 lang: zh
 ---
 
-> 历史设计或验收材料：命令与 Record/Replay 合同仅对应当时版本。当前合同见 [Document-only Plan](../plans/unified-document-pipeline.md)。历史结果不代表本次验收。
+> 历史设计或验收材料：Scrapy/Recipe、Document AST 及 Record/Replay 合同仅对应当时版本。当前合同见 [Crawl4AI 资源时间线 Plan](../plans/unified-document-pipeline.md)。历史结果不代表本次验收。
 
 # ADR-0004：Seeded Collection 复用原生 Scrapy 与既有 Recipe
 
 - 日期：2026-10-10
-- 状态：接受
+- 状态：历史 V1.3 曾接受；原生 Scrapy 发现决策已被 [Crawl4AI 资源时间线 Plan](../plans/unified-document-pipeline.md) 取代
 - 合同：[V1.3 Plan](../plans/v1.3-seeded-site-collection.md)
 
 ## 背景

@@ -29,6 +29,10 @@ Source session lock、generation/epoch 和父子进程保护恢复；SDK checkpo
 生产迁移另行授权。独立完整端到端427项PASS（0FAIL），覆盖合成HTTP/PDF/DOM、原文与版本、真实
 取消/前台及Worker崩溃、旧任务栅栏、旧库备份实际恢复。公网适配与生产升级未验证。
 
+文档同步：README 的执行图与 ER 图、唯一 Plan/Generated、AGENTS 目录规则及历史设计
+导航均指向当前 Crawl4AI 合同。业务验收由独立子 agent 完成；项目静态/打包由主 agent
+自验，CI由 GitHub Actions 执行。固定旧提交迁移补验另22项PASS，旧版本证据保留当时语义。
+
 ## 迁移文件整理 — 2026-10-12
 
 将 schema.sql 移入 src/seal/migrations/，保持其内容、历史迁移登记名称和摘要不变。初始化仍先执行 schema.sql，再按编号执行后续迁移；已有库不重放已登记的迁移，无数据库结构变更。
