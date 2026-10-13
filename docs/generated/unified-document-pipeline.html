@@ -4,7 +4,7 @@
 body{font:17px/1.75 system-ui;background:#f3f6fa;color:#183044;max-width:1140px;margin:32px auto;padding:24px}h1{font-size:34px;line-height:1.3}h2{font-size:23px}section{background:#fff;padding:24px;margin:20px 0;border-radius:16px}a{color:#146da0}.badge{color:#9c4815;background:#fff0dd;padding:8px 14px;border-radius:8px}.flow{display:flex;align-items:center;flex-wrap:wrap;gap:10px}.node{background:#e4eff8;border:1px solid #b7d0e5;border-radius:10px;padding:14px}.arrow{font-size:24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.box{background:#f3f7fa;padding:16px;border-radius:10px}table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #dce5ec;padding:10px}code{background:#edf2f6;padding:2px 5px}svg{width:100%;height:auto}svg text{font-family:system-ui;fill:#183044}ul{padding-left:24px}
 </style></head><body>
 <h1>SEAL · Crawl4AI 与 URL 版本时间线</h1>
-<p class="badge">Issue #20 · 最小 MinIO 归档合同 · 独立业务验收进行中 · 未操作既有本地或生产服务</p>
+<p class="badge">Issue #20 · 最小 MinIO 归档合同 · 126项业务 + 25项并发补验 + 7项工件复算全部PASS · 未迁移既有服务</p>
 <p>Crawl4AI 0.9.4 负责本轮获取、递归发现与解析；SEAL 维护来源内的资源观察和成功版本。下游直接消费完整 CrawlResult。</p>
 <section><h2>输入 → 处理 → 输出 → 下游</h2>
 <div class="flow"><div class="node">Source<br>入口 URL / 范围 / 预算</div><span class="arrow">→</span><div class="node">获取与临时输入<br>HTTP bytes 或渲染 DOM<br>计算 body_hash</div><span class="arrow">→</span><div class="node">SDK 同次输入解析<br>返回真实 CrawlResult</div><span class="arrow">→</span><div class="node">MinIO<br>完整结果 JSON<br>原始下载附件</div><span class="arrow">→</span><div class="node">PostgreSQL<br>Observation / Version<br>运行状态与对象引用</div><span class="arrow">→</span><div class="node">下游<br>按 Source / URL 查询<br>读取并重建 CrawlResult</div></div>
@@ -18,7 +18,7 @@ body{font:17px/1.75 system-ui;background:#f3f6fa;color:#183044;max-width:1140px;
 <p>私有桶、S3 API、完整 SHA-256 平铺键、条件写入及读回哈希校验保留。先验证结果和所有附件，再提交数据库引用；故障可留下无引用对象，但不能提交不可读引用。</p></section>
 <section><h2>来源内独立时间线</h2><svg viewBox="0 0 1040 370" role="img" aria-labelledby="model-title"><title id="model-title">一个 Source 对应一个 Frontier，Frontier 包含多个 Resource，每个 Resource 有多个 Observation 和 Version；Observation 可关联 Version。</title><defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#527c97"/></marker></defs>
 <g fill="#e4eff8" stroke="#b7d0e5"><rect x="10" y="135" width="170" height="90" rx="12"/><rect x="255" y="135" width="190" height="90" rx="12"/><rect x="520" y="135" width="190" height="90" rx="12"/><rect x="800" y="25" width="225" height="100" rx="12"/><rect x="800" y="235" width="225" height="105" rx="12"/></g>
-<g text-anchor="middle" font-size="18"><text x="95" y="173">Source</text><text x="95" y="199" font-size="14">来源链接与配置</text><text x="350" y="173">Frontier</text><text x="350" y="199" font-size="14">长期逻辑状态 / checkpoint</text><text x="615" y="173">Resource</text><text x="615" y="199" font-size="14">URL / 当前版本 / 检查状态</text><text x="912" y="62">Observation</text><text x="912" y="88" font-size="14">本轮结果 / 附件引用 / 输入指纹</text><text x="912" y="274">Version</text><text x="912" y="300" font-size="14">不可变 CrawlResult / 版本序号</text></g>
+<g text-anchor="middle" font-size="18"><text x="95" y="173">Source</text><text x="95" y="199" font-size="14">来源链接与配置</text><text x="350" y="173">Frontier</text><text x="350" y="199" font-size="14">长期逻辑状态 / checkpoint</text><text x="615" y="173">Resource</text><text x="615" y="199" font-size="14">URL / 当前版本 / 检查状态</text><text x="912" y="62">Observation</text><text x="912" y="88" font-size="14">结果引用 / 附件 / 指纹</text><text x="912" y="274">Version</text><text x="912" y="300" font-size="14">不可变 CrawlResult / 版本序号</text></g>
 <g fill="none" stroke="#527c97" stroke-width="2" marker-end="url(#a)"><path d="M180 180H255"/><path d="M445 180H520"/><path d="M710 170L755 75H800"/><path d="M710 190L755 287H800"/><path d="M912 125V235"/></g><g font-size="14"><text x="196" y="165">1 : 1</text><text x="464" y="165">1 : N</text><text x="738" y="55">1 : N</text><text x="738" y="320">1 : N</text><text x="922" y="165">变化 + 解析成功</text><text x="922" y="189">生成；未变则关联</text></g></svg>
 <p>Source:Frontier 为 1:1；同 URL 在不同 Source 独立。HTML 与 PDF 为并列 Resource，不新增关联模型。链接仅保留 SDK URL 引用，不承诺目标已获取。</p>
 <table><thead><tr><th>实际情况</th><th>Observation</th><th>Version</th></tr></thead><tbody>
@@ -26,13 +26,13 @@ body{font:17px/1.75 system-ui;background:#f3f6fa;color:#183044;max-width:1140px;
 <tr><td>输入相同，本次结果变化</td><td>保存本次 result_ref</td><td>保留原始结果，不追加版本</td></tr>
 <tr><td>输入变化且成功</td><td>保存本次结果</td><td>追加连续版本并推进当前指针</td></tr>
 <tr><td>失败 / unsupported / blocked</td><td>保存真实返回的失败结果和已取得附件</td><td>不推进当前成功版本</td></tr>
-<tr><td>SDK 返回结果前中断或异常</td><td>不造结果；检查点保留已取得附件；失败观察的 attachment_refs 持久保留全部已取得文件，result_ref 可空</td><td>不生成版本</td></tr>
+<tr><td>SDK 返回结果前中断或异常</td><td>不造结果；检查点或原 Run.report 保留未交付文件；若形成失败观察，attachment_refs 持久保留全部已取得文件，result_ref 可空</td><td>不生成版本</td></tr>
 <tr><td>policy 请求</td><td>记录检查证据，无 CrawlResult、无独立政策正文对象</td><td>不生成版本</td></tr></tbody></table>
 <p>只比较当前成功 Version 的输入指纹与模式。A → B → A 仍为 V1 → V2 → V3；JSON 相同可复用对象。时间是发现变化时间，不推定网站修改时间。</p></section>
 <section><h2>同次输入、发现与故障恢复</h2><div class="grid">
 <div class="box"><b>同次解析</b><p>HTTP 在字符解码前计算指纹；PDF 的同次 bytes 暂存到 work，交给 SDK PDF scraper，不再次请求。unsupported 附件仍归档完整文件。</p></div>
 <div class="box"><b>发现与复查</b><p>collect 每轮重访入口并重建 visited；recheck 按到期已知资源复查，即便已从导航消失。robots/范围/网络预算保持。</p></div>
-<div class="box"><b>取消与恢复</b><p>Source 会话锁、epoch/generation 保护提交。checkpoint 补 SDK 未交付 URL 和已取得附件引用；Ctrl+C 退出130，恢复同 Run 按资源交付幂等。</p></div></div>
+<div class="box"><b>取消与恢复</b><p>Source 会话锁、epoch/generation 保护提交。checkpoint 补 SDK 未交付 URL 和已取得附件引用；Ctrl+C 退出130；worker 接管同 Run 按资源交付幂等。再次 collect 是新 Run，替换检查点前先验证原件并保存旧 Run.report.undelivered_inputs，不混入新结果。</p></div></div>
 <p>浏览器仍为独立 headless Chromium，无用户登录状态；rendered_dom 不独立归档。未扩展浏览器下载触发交互，原始附件使用现有 HTTP 资源路径。无 Office/OCR 或新增 HTTP API；whole-site 始终 UNKNOWN。</p></section>
 <section><h2>四命令与消费合同</h2><p><code>seal init [--backup PATH]</code> · <code>seal collect source.yaml</code> · <code>seal recheck source.yaml</code> · <code>seal worker --once</code>。stdout 单份 JSON；collect/recheck 保持 receipt.v3。来源配置使用地图 dd-xxx。</p>
 <p>下游查询 <code>seal.current_resource_version</code>、<code>seal.version</code> 或按 cursor 排序的 <code>seal.version_delta</code>，再用 <code>Objects().json(result_ref)</code> 与 <code>deserialize_result</code> 重建。观察列表从 Observation.result_ref 读取本轮结果；原始附件从 archive_ref、Observation.attachment_refs 或结果封装 attachment_refs / downloaded_files 取得。</p>
@@ -40,5 +40,5 @@ body{font:17px/1.75 system-ui;background:#f3f6fa;color:#183044;max-width:1140px;
 <section><h2>空库 schema 升级</h2><p>新增 <code>0012_minimal_archive.sql</code>，允许文本 body_hash 非空而 archive_ref 为空；附件引用必须对应同次输入指纹。已登记 SQL checksum 不变。新库沿 ledger 初始化至0012；空旧内容库停客户端后执行 <code>seal init --backup PATH</code>，重复初始化不重复迁移。</p>
 <p>没有旧内容兼容要求，不回填结果、不迁移旧对象或保留旧 timeline。非空旧内容库明确拒绝升级；旧 result_migration 与 archive_import 内部路径已删除。回滚须恢复升级前备份并使用配套旧代码。本 PR 不操作已有本地和生产服务。</p></section>
 <section><h2>本次独立验收与审核</h2><p>完全 fresh 子 agent 在 tests/ 独立编写真实 CLI → 隔离 PostgreSQL/MinIO → 跨进程重建的 E2E，先列失败方式，核对实际对象与 SQL 引用。验收要求包括 HTML/unchanged/失败、同次 PDF、unsupported 附件、无返回结果边界、policy、恢复幂等、A→B→A、空库初始化升级及对象缺失损坏。</p>
-<p>最终复跑命令、断言及证据将在通过后填写。历史 Issue #17、S3 存储和0011结果指针验收仅为当时合同；不能用于证明本次归档简化。<a href="../plans/unified-document-pipeline.md">唯一 Plan：完整合同、命令、证据与历史记录</a>。</p></section>
+<p>复跑 <code>uv run --no-sync python tests/issue20_e2e.py</code>：126 PASS / 0 FAIL；同源工件复算 <code>tests/issue20_supplement.py artifacts/issue20-20261014-014931-f5a73d</code>：7 PASS / 0 FAIL。实际29份结果含全部SDK字段、原字节与对象键一致，CLI回执和Run行无manifest_id/ref/hash。工件包含完整SQL、对象分类/哈希、跨进程读取、同Run恢复/新Run交接、多附件及故障证据，源码开始/结束一致；fresh审核未发现剩余阻塞。另独立公开CLI recheck并发补验25 PASS / 0 FAIL：请求开始时差0.000237秒，各延迟3秒，相同长Unicode建议名的两个PDF分别匹配原件、SDK下载、Markdown、Observation、V2及当前指针。复跑 <code>tests/issue20_concurrency.py --prior artifacts/issue20-20261014-014931-f5a73d</code>；工件 <code>artifacts/issue20-20261014-015729-0b7b01/</code>，与原验收同源码。历史 Issue #17、S3 存储和0011结果指针验收仅为当时合同；不能用于证明本次归档简化。<a href="../plans/unified-document-pipeline.md">唯一 Plan：完整合同、命令、证据与历史记录</a>。</p></section>
 </body></html>

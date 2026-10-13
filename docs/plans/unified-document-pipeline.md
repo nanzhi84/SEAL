@@ -5,7 +5,7 @@ lang: zh
 
 # Crawl4AI 来源采集与 URL 版本时间线
 
-状态：Issue #17 已实施；Issue #20 正在落实简化归档合同，独立验收尚未完成。唯一派生物：[Generated](../generated/unified-document-pipeline.html)。
+状态：Issue #17 已实施；Issue #20 已实施并通过独立业务验收。唯一派生物：[Generated](../generated/unified-document-pipeline.html)。
 本计划替代 Document-only 目标；历史验收不代表本次存储合同。生产迁移未执行。
 
 ## Issue #20：本次存储合同与验收边界
@@ -41,6 +41,10 @@ SDK 未返回结果前的中断/异常不造 CrawlResult。有已捕获输入时
 失败 Observation，保留已取得的完整附件引用；未形成输入交付则由 Run/checkpoint 记录。
 附件捕获信息进入 checkpoint，进程崩溃后不会静默丢失已取得的对象引用；恢复允许重取输入，
 仍按本轮资源提交幂等。policy 只记录检查证据而不伪造结果或归档政策正文。
+再次 collect 创建新 Run；恢复同一 Run 由 worker 接管。新 Run 替换 Frontier 检查点前，
+旧 Run 未交付的输入与文件引用保存到旧 Run.report.undelivered_inputs；结束运行也保留
+尚未交付证据。该字段只记录指纹、状态和原始文件引用，不存完整结果或临时正文，不把
+旧 Run 文件混入新 Run 的 SDK 结果。未形成资源交付时可从原 Run 追溯文件。
 
 追加 0012_minimal_archive.sql，保留已应用 SQL checksum；只允许旧内容为空的数据库升级，
 不回填旧内容、重建旧结果、迁移旧对象或保持旧 timeline。删除旧结果回填和文件 CAS 导入
@@ -54,6 +58,47 @@ seal init --backup PATH 升级，新库和重复初始化沿用项目流程；�
 全部六项业务要求，产出复跑命令、环境数据前提、断言、SQL/对象/跨进程重建证据与源码哈希。
 本次不扩展 Office/OCR、HTTP API、HTML/PDF 关联或浏览器下载交互；rendered_dom 沿用
 不接受浏览器下载的配置，附件走既有 HTTP 资源路径。全站完整性始终 UNKNOWN。
+
+## Issue #20 本次独立验收结果
+
+完全 fresh 验收代理使用真实 CLI、独立 PostgreSQL/MinIO 和合成 loopback 来源完成
+126 PASS / 0 FAIL；验收开始、结束、审核时的源码字节一致。覆盖 HTML/unchanged/失败、
+同次 PDF 仅一次请求、unsupported 原件、DOM、A→B→A、已知资源复查、同 Run Worker
+恢复与幂等、多 attempt 文件保留、无 SDK 返回、对象缺失/损坏/服务中断，以及空旧 schema
+升级、新空库和重复初始化。新 Run 检查点交接覆盖原件缺失/损坏时拒绝切换、修复后将
+证据保留于旧 Run.report，不混入新结果，并过滤已交付资源。
+
+另对真实 E2E 导出的原字节工件复算 7 PASS / 0 FAIL：29份 CrawlResult 对象包含 SDK
+全部29字段，原字节与 CAS 键一致；CLI 回执与全部 Run 行不含 manifest_id/ref/hash。
+补充核验记录与原 E2E 的源码/测试字节一致，不以 SDK 重建补默认字段证明存储完整性。
+
+```sh
+uv sync --frozen
+uv run --no-sync python tests/issue20_e2e.py
+uv run --no-sync python tests/issue20_supplement.py artifacts/issue20-20261014-014931-f5a73d
+uv run --no-sync python tests/issue20_concurrency.py --prior artifacts/issue20-20261014-014931-f5a73d
+```
+
+前提：Python3.12 冻结依赖、Docker、已安装 Chromium、pg_dump/pg_restore；预先存在
+postgres:17-alpine、seal-minio:RELEASE.2025-10-15T17-29-55Z，以及测试固定摘要的 minio/mc
+镜像。空旧库由基准3215759176db9240bdb0bf0b0fa6a12512c801fc的真实CLI初始化，Git须
+有该提交。脚本自己启动隔离服务、创建随机凭据并清理自身容器；不读取现有SEAL环境、
+不清理根minio或既有数据库。所有来源和附件为合成授权输入，无敏感信息进入工件。
+
+主工件：artifacts/issue20-20261014-014931-f5a73d/，包含summary/assertions、commands、
+environment（源码和测试SHA）、SQL、真实S3结果原字节、对象分类与哈希、跨进程重建，
+同Run恢复/新Run交接/无结果/多附件和故障证据。独立审核与修复记录在
+artifacts/issue20-review/；首轮错误测试前提的仲裁在artifacts/issue20-arbitration/，
+它是离线证据判断，不计入业务PASS。审核发现的附件引用、Linux长文件名和空库门禁已修复。
+
+上述126项中的多入口collect先后获取只证明资源原件不串线；独立追加公开CLI recheck
+真实并发补验25 PASS / 0 FAIL，工件artifacts/issue20-20261014-015729-0b7b01/。两个请求
+开始时差0.000237秒、服务各延迟3秒，证明实际重叠；相同RFC5987长Unicode建议名下，
+两个PDF的原件、SDK下载文件、Markdown、Observation、V2及当前指针各自对应正确，
+新进程逐字节验证。补验及原126项源码相同，原测试未改；名称解码为844 UTF-8 bytes，
+实际临时路径使用摘要和短后缀。公网来源、全站完整性、
+生产升级、OSS、Office/OCR和浏览器下载交互未验证；既有本地服务未升级。主代理Ruff、
+seiso、打包通过，旧SQL checksum不变；CI仅做静态检查。
 
 ## 目标、领域边界与产物流向
 
