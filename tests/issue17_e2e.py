@@ -264,6 +264,41 @@ class Acceptance:
         old_hash = hashlib.sha256(old_body).hexdigest()
         self.lab.check("stale response cannot create successful Version", all(hashes[str(v["observation_id"])] != old_hash for v in self.versions("/slow")))
 
+    def recover_worker_target(self, run_id, *, timeout=45):
+        """公开 --once 只消费当前就绪任务；按目标 Run 有界等待正常延期。"""
+        observations = []
+        started_at = time.monotonic()
+        deadline = started_at + timeout
+
+        def observe():
+            run = self.lab.sql("SELECT id,status,attempt_epoch,job_id,deadline FROM seal.run WHERE id=%s", (run_id,))[0]
+            queue = self.lab.sql("SELECT id,status,attempts,scheduled_at,worker_id,clock_timestamp() AS observed_at,"
+                                 " greatest(0,extract(epoch FROM scheduled_at-clock_timestamp())) AS wait_seconds, "
+                                 " status='todo' AND (scheduled_at IS NULL OR scheduled_at<=clock_timestamp()) AS ready_now "
+                                 "FROM procrastinate_jobs WHERE id=%s", (run["job_id"],))
+            events = self.lab.sql("SELECT id,job_id,type,at FROM procrastinate_events WHERE job_id=%s ORDER BY id", (run["job_id"],))
+            observations.append({"run": run, "queue": queue, "events": events})
+            json_write(self.lab.artifacts / "worker-cancel-recovery-attempts.json", observations)
+            return run, queue
+
+        run, queue = observe()
+        original_epoch = run["attempt_epoch"]
+        while run["status"] not in ("complete", "failed") and time.monotonic() < deadline:
+            delay = float(queue[0]["wait_seconds"] or 0) if queue else 0
+            if delay > 0:
+                time.sleep(min(delay + 0.2, max(0, deadline - time.monotonic())))
+            if time.monotonic() >= deadline:
+                break
+            self.lab.command("worker", "--once")
+            run, queue = observe()
+            if run["status"] not in ("complete", "failed"):
+                time.sleep(min(0.2, max(0, deadline - time.monotonic())))
+        elapsed = time.monotonic() - started_at
+        self.lab.check("cancelled Worker recovery completes exact queued Run within bound",
+                       run["status"] == "complete" and run["attempt_epoch"] > original_epoch and elapsed <= timeout,
+                       run_id=run_id, status=run["status"], attempt_epoch=run["attempt_epoch"],
+                       timeout_seconds=timeout, elapsed_seconds=elapsed)
+
     def worker_process_contracts(self):
         initial_slow = len(self.versions("/slow"))
         initial_added = len(self.versions("/added"))
@@ -319,7 +354,7 @@ class Acceptance:
             "recovery_attempt_at": time.time(), "actual_wait_seconds": time.time() - cancelled_at,
             "database_heartbeat_mutated": False,
         })
-        self.lab.command("worker", "--once")
+        self.recover_worker_target(queued_receipt["run_id"])
         self.count(accepted_versions + 1, path="/slow", label="active continuous Worker Ctrl+C checkpoint recovery")
 
     def persistency(self):

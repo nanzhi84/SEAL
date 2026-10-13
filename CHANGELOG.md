@@ -5,6 +5,23 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / CrawlResult 诊断留存 — 2026-10-13
+
+所有本轮 SDK 成功、失败及 unchanged 的 CrawlResult 均归档至 CAS；Run.report.crawl_results
+按 Observation ID 引用诊断，与观察同事务关联，重试保留首次交付。原文仍由 Observation 引用，
+失败结果仍不推进 Version；policy 观察无 SDK 结果。无数据库迁移，既有 Run 不补造缺失诊断。
+README 执行图与唯一 Plan/Generated 同步说明诊断出口及 SDK 异常字段可能缺失的边界。
+robots 改用 Protego 的最长 Allow/Disallow 匹配，修复海仲 /data/upload/ 被宽 /data/ 误拒绝；
+政策请求与业务请求使用相同 Source 身份。错误分类排除 SDK 源码上下文，避免 403 政策
+不可用被误记为 robots_denied。政策拒绝仍不获取业务内容，JSON/XLS 解析能力未扩展。
+SDK PDF 元数据日期经 Pydantic JSON 编码保留为 ISO 字符串，修复实际 PDF 的 datetime
+导致原文下载后整轮中断；二进制仍先外置 CAS。
+四个 playground 范围复现保存476份本轮SDK结果、238个资源；法院正文与海仲6PDF通过
+独立原文核验。公募17JSON页、教育部2XLS已保存原文但未语义解析，不生成内容Version。
+独立核验5009项中的2项能力缺口明确保留；诊断、robots与日期PDF真实CLI行为128项通过。
+完整运行态端到端回归431项通过。Worker中断恢复验收纠正单次 --once 等待未来重试的
+时序假设，保留精确版本断言并冻结有界重试/队列证据；独立仲裁最小积压场景44项通过。
+
 ## 0.3.0 / Crawl4AI 资源时间线（Issue #17）— 2026-10-13
 
 Crawl4AI[pdf] 0.9.4 全线替换 Scrapy。保留 init、collect/recheck source.yaml、worker

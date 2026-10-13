@@ -2,7 +2,8 @@
 
 import asyncio
 from urllib.parse import urlsplit, urlunsplit
-from urllib.robotparser import RobotFileParser
+
+from protego import Protego
 
 from .core import SealError
 
@@ -22,13 +23,12 @@ class Robots:
             if origin not in self.cache:
                 status, body = await fetch(origin + "/robots.txt")
                 if status in (404, 410):
-                    policy = RobotFileParser()
-                    policy.parse([])
+                    policy = Protego.parse("")
                 elif status == 200:
-                    policy = RobotFileParser()
-                    policy.parse(body.decode("utf-8", errors="replace").splitlines())
+                    # Longest matching Allow/Disallow wins, independent of line order.
+                    policy = Protego.parse(body.decode("utf-8", errors="replace"))
                 else:
                     raise SealError("robots_unavailable")
                 self.cache[origin] = policy
-        if not self.cache[origin].can_fetch(self.config["user_agent"], url):
+        if not self.cache[origin].can_fetch(url, self.config["user_agent"]):
             raise SealError("robots_denied")

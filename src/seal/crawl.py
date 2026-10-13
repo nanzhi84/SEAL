@@ -99,7 +99,9 @@ def outcome(result, capture, config):
     if capture.get("error"):
         return "parse_failed", capture["error"]
     if not capture.get("body_hash"):
-        message = result.error_message or ""
+        # SDK errors append source-code context, which can name other error codes.
+        # Only the diagnostic prefix describes the actual exception.
+        message = (result.error_message or "").split("\nCode context:", 1)[0]
         for code in (
             "robots_denied",
             "request_budget_exceeded",
@@ -183,8 +185,18 @@ async def run(context):
                 async for result in iterator:
                     capture = adapter.captures.get(result.url, {})
                     kind, error = outcome(result, capture, cfg)
-                    data = serialize_result(result) if kind == "parsed" else None
-                    persist(state.run_id, state.epoch, result.url, capture, data, kind, error)
+                    data = serialize_result(result)
+                    result_ref = Objects().put_json(data)
+                    persist(
+                        state.run_id,
+                        state.epoch,
+                        result.url,
+                        capture,
+                        data if kind == "parsed" else None,
+                        kind,
+                        error,
+                        result_ref=result_ref,
+                    )
 
             try:
                 if context["mode"] == "recheck":

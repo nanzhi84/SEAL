@@ -62,6 +62,7 @@ resources.py: persist()
 ├── [DB] Source → Run → Resource锁；fenced()检查代际/epoch/状态
 ├── [CHECK] frontier_id+URL唯一资源；run+resource交付幂等
 ├── [DB] 不可变Observation：状态/模式/正文哈希/归档引用/实际URL
+├── [DB/IO] Run.report.crawl_results：Observation → 本次成功/失败SDK结果CAS；同事务关联
 ├── [BRANCH] 失败、登录或挑战 → 保留原文；不生成内容版本
 ├── [BRANCH] 解析成功且正文等于当前成功版本 → Observation关联旧Version
 └── [BRANCH] 响应变化且解析成功
