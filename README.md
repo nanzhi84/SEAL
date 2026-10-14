@@ -2,7 +2,7 @@
 
 SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
-当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 操作采集，serve 提供来源发现、按来源入口查询成功内容和下载附件的只读 API。旧 Recipe YAML 需显式迁移，采集合同见[当前 Plan](docs/plans/unified-document-pipeline.md)，接口与运行配置见[结果服务 Plan](docs/plans/results-api.md)。
+当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 操作采集，serve 提供来源发现、按来源入口查询成功内容和下载附件的只读 API。
 
 ## 全链路执行图
 
@@ -184,9 +184,7 @@ seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
   [
     {
       "id": "dd-017",
-      "entry_urls": [
-        "https://www.court.gov.cn/shenpan/gengduo/77.html"
-      ]
+      "entry_urls": ["https://www.court.gov.cn/shenpan/gengduo/77.html"]
     }
   ]
   ```
@@ -235,15 +233,15 @@ seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
 
 错误响应统一为 JSON 对象：`{"error": "<error_code>"}`。
 
-| HTTP 状态码 | 错误代码 (`error`) | 触发场景 |
-| --- | --- | --- |
-| 400 | `invalid_parameters` / `invalid_cursor` | 参数缺失、格式非法、包含多余参数、超界或游标篡改/过期 |
-| 401 | `unauthenticated` | 未提供 Bearer Token 或 Token 无效（附带 `WWW-Authenticate: Bearer`） |
-| 403 | `source_forbidden` | 调用方无权访问该来源 |
-| 404 | `source_not_found` / `attachment_not_found` / `not_found` | 来源未登记、附件令牌失效或路由不存在 |
-| 409 | `source_ambiguous` | 入口 URL 匹配到多个来源 |
-| 500 | `archive_corrupt` / `archive_invalid` / `archive_missing` / `archive_too_large` / `internal_error` | 归档对象损坏、字段不合法、对象缺失或超出大小限制 |
-| 503 | `database_unavailable` / `object_storage_unavailable` / `request_timeout` / `server_busy` | 数据库/S3 不可用、请求超时或并发工作线程已满 |
+| HTTP 状态码 | 错误代码 (`error`)                                                                                 | 触发场景                                                             |
+| ----------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| 400         | `invalid_parameters` / `invalid_cursor`                                                            | 参数缺失、格式非法、包含多余参数、超界或游标篡改/过期                |
+| 401         | `unauthenticated`                                                                                  | 未提供 Bearer Token 或 Token 无效（附带 `WWW-Authenticate: Bearer`） |
+| 403         | `source_forbidden`                                                                                 | 调用方无权访问该来源                                                 |
+| 404         | `source_not_found` / `attachment_not_found` / `not_found`                                          | 来源未登记、附件令牌失效或路由不存在                                 |
+| 409         | `source_ambiguous`                                                                                 | 入口 URL 匹配到多个来源                                              |
+| 500         | `archive_corrupt` / `archive_invalid` / `archive_missing` / `archive_too_large` / `internal_error` | 归档对象损坏、字段不合法、对象缺失或超出大小限制                     |
+| 503         | `database_unavailable` / `object_storage_unavailable` / `request_timeout` / `server_busy`          | 数据库/S3 不可用、请求超时或并发工作线程已满                         |
 
 ### 4. 调用示例
 
