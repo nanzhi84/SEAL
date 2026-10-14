@@ -2,7 +2,7 @@
 
 SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
-当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 操作采集，snapshot create / inspect / publish 控制全局人工发布；serve 从已发布 Snapshot 提供来源发现、成功内容和原始附件。
+当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 `init`、`collect`、`recheck`、`worker` 操作采集，`snapshot create / inspect / publish` 控制全局人工发布；`serve` 从已发布 Snapshot 提供来源发现、成功内容和原始附件。来源配置采用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，接口、配置与全链路使用示例见[全局 Snapshot 合同](docs/plans/global-snapshots.md)。
 
 ## 全链路执行图
 
@@ -13,7 +13,7 @@ cli.py: main() → dispatch(args)
 ├── [CHECK] 采集命令校验 S3 桶与当前 schema；snapshot 命令校验 schema
 ├── seal init → migration.py: initialize()
 │   ├── [CHECK] S3 桶可用后再查数据库对象清单、历史升级前停止客户端与校验备份
-│   ├── [DB] schema.sql → 已登记0002–0011 → 追加0012/0013；旧归档升级仅接受空内容，0012→0013保留全部内容
+│   ├── [DB] migrations/schema.sql → 顺序执行未登记的0002–0013，校验已登记摘要；旧归档升级仅接受空内容，0012→0013保留全部内容
 │   └── [DB] Procrastinate schema；对象桶由部署初始化；新/升级发布指针为空
 ├── seal snapshot create / list / inspect / publish → snapshots.py → 进入阶段 [4]
 ├── seal worker [--once] → queue.py: worker()
@@ -29,7 +29,8 @@ configuration.py: prepare_run()
 ├── runs.py: create_run()
 │   ├── [CHECK] 暂停/冷却；collect 使用入口，recheck.py: plan_recheck() 冻结到期资源
 │   └── [DB] Source run_seq → Run 不可变配置快照、seeds、deadline
-└── [BRANCH] --enqueue → queue.py: enqueue() 事务内入队 → pending JSON
+└── [CHECK] 执行方式
+    ├── --enqueue → queue.py: enqueue() 事务内入队 → pending JSON
     └── foreground → progress.py: ProgressPanel → 进入阶段 [2]
 
 [2] EXECUTE
@@ -37,13 +38,15 @@ runs.py: execute_run()
 ├── [DB] Run 与 Source session advisory lock；同 Frontier 单执行者
 ├── [LOOP] _execute_attempt() → begin_attempt()
 │   ├── [CHECK] 冻结config_hash、generation、write_seq、deadline、max_attempts
-│   ├── [DB] epoch递增、status=running；同Run保留checkpoint，新Run重建visited
+│   ├── [CHECK/DB] 同Run保留checkpoint；新Run替换前校验未交付附件，将证据留原Run.report；重建visited
+│   ├── [DB] epoch递增、status=running
 │   └── [SPAWN] 独立进程组 python -m seal.crawl；SDK缓存/log隔离到 work 的 run/epoch目录；输出不泄露到CLI
 ├── [PARALLEL]
 │   ├── CHILD: crawl.py: run()
 │   │   ├── SDK AsyncWebCrawler；collect: BFSDeepCrawlStrategy / recheck: arun_many
 │   │   ├── sdk.py: HttpAdapter / BrowserAdapter
 │   │   │   ├── [CHECK] scope、robots、重定向/子请求、次数/时间/字节预算
+│   │   │   │   └── robots_redirect_urls仅许可robots政策获取的精确跳转，不扩大内容范围
 │   │   │   ├── [IO] HTTP bytes / Browser DOM → 内容指纹与临时输入；原始附件 → S3 CAS + checkpoint引用
 │   │   │   └── InputScraper → SDK HTML/TXT或同次PDF bytes在 work/ 的临时副本解析；不再请求另一份输入
 │   │   ├── [LOOP] streaming CrawlResult → outcome() → archive.py: serialize_result() → 结果JSON CAS
@@ -52,7 +55,7 @@ runs.py: execute_run()
 │   │   └── [STATE] status=finishing；watch_parent()父亡终止子进程组
 │   └── PARENT: 无写锁轮询owner连接、generation/epoch/暂停/预算；stderr TTY只读进度
 ├── [CLEANUP] stop_process() → SIGTERM / 有界等待 / SIGKILL
-├── [CANCEL] 前台Ctrl+C / Worker显式cancel_event → 子进程停止、checkpoint保留、Run=retryable
+├── [ERROR] 前台Ctrl+C / Worker显式cancel_event → 子进程停止、checkpoint保留、Run=retryable
 ├── [RETRY] 进程失败retryable，有界attempt恢复；Worker按30秒心跳窗口回收，旧epoch不能提交
 └── completion.py: finish_run() → manifest.py: terminal_report()
     ├── [STATE] complete / failed；资源已各自独立提交
@@ -66,10 +69,10 @@ resources.py: persist()
 ├── [CHECK] frontier_id+URL唯一资源；run+resource交付幂等
 ├── [DB] 不可变Observation：状态/模式/输入指纹/可空附件引用/result_ref/实际URL
 ├── [DB/IO] Observation.result_ref → 本次成功/失败SDK结果CAS；同事务关联
-├── [BRANCH] 失败、登录或挑战 → 保留实际SDK结果和已取得附件；不生成内容版本
-├── [BRANCH] 返回结果前中断/异常 → checkpoint或失败Observation，result_ref可空，不伪造结果
-├── [BRANCH] 解析成功且正文等于当前成功版本 → Observation关联旧Version
-└── [BRANCH] 响应变化且解析成功
+├── [CHECK] 失败、登录或挑战 → 保留实际SDK结果和已取得附件；不生成内容版本
+├── [CHECK] 返回结果前中断/异常 → checkpoint或失败Observation，result_ref可空，不伪造结果
+├── [CHECK] 解析成功且输入body_hash等于当前成功版本 → Observation关联旧Version
+└── [CHECK] 首次解析成功或输入body_hash变化且解析成功
     ├── [DB] 全局事务锁保护稳定增量cursor；连续Version+result_ref（与原始Observation一致）
     ├── [DB] 复合FK保护Resource/Observation/Version归属；推进current_version_id
     └── [DB] next_check → recheck；current_resource_version / version_delta → 下游SQL取result_ref → MinIO读取CrawlResult
@@ -195,6 +198,8 @@ erDiagram
   int sequence "来源URL内连续"
   text observation_id FK
   bigint cursor UK "稳定内容增量"
+  text body_hash "版本输入SHA256"
+  text input_mode "http或rendered_dom"
   text result_ref "MinIO完整SDK结果SHA256"
   text framework_version
   jsonb parser_config
