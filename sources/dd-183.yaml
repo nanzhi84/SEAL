@@ -9,6 +9,9 @@ allowed_path_prefixes:
 archive_approved: true
 scope: 财政部地方债管理专题及同路径政策详情；范围外附件不获取。
 robots: true
+# Exact robots redirect targets only; business URL scope stays separate.
+robots_redirect_urls:
+- http://www.mof.gov.cn/404.htm
 recheck_seconds: 86400
 concurrency: 2
 delay: 0.5

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEAL · 只读结果接口</title>
+<style>
+:root{color-scheme:light;--ink:#143246;--muted:#55707c;--line:#d6e2e7;--blue:#116c8c;--paper:#f6f9fa}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,-apple-system,sans-serif}main{max-width:1160px;margin:auto;padding:52px 28px}h1{font-size:clamp(30px,5vw,48px);line-height:1.15;margin:12px 0 20px}h2{font-size:24px;margin:42px 0 16px}h3{margin:0 0 8px;font-size:18px}p{margin:8px 0 16px}a{color:var(--blue)}.eyebrow{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}.lead{font-size:19px;max-width:870px}.muted{color:var(--muted)}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.node{background:white;border:1px solid var(--line);border-top:4px solid var(--blue);padding:19px 16px;border-radius:8px}.number{color:var(--blue);font-size:13px;margin-bottom:9px}.node p{font-size:14px;margin:6px 0}.output{padding:24px;border-left:4px solid #218370;background:#eaf6f1;border-radius:4px;margin:18px 0}code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.86em;overflow-wrap:anywhere}pre{background:#173444;color:#f1f9fc;padding:20px;border-radius:8px;overflow:auto;font-size:14px;line-height:1.6}.columns{display:grid;grid-template-columns:1fr 1fr;gap:28px}table{border-collapse:collapse;width:100%;background:white;border:1px solid var(--line)}th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{color:var(--blue);background:#edf4f7}details{border-bottom:1px solid var(--line);padding:14px 0}summary{cursor:pointer;font-weight:600}.timeline{display:grid;grid-template-columns:1fr 1fr;gap:14px}.moment{padding:22px;background:white;border:1px solid var(--line);border-radius:8px}.badge{font-size:12px;color:#126b59;background:#d8eee6;padding:4px 8px;border-radius:4px}footer{margin-top:48px;border-top:1px solid var(--line);padding-top:18px;font-size:13px;color:var(--muted)}@media(max-width:850px){.flow{grid-template-columns:1fr 1fr}.columns,.timeline{grid-template-columns:1fr}}@media(max-width:500px){main{padding:30px 18px}.flow{grid-template-columns:1fr}td,th{padding:10px}}
+</style>
+<main>
+<div class="eyebrow">SEAL / Issue #22 / 只读结果服务</div>
+<h1>从来源入口，取得当前成功内容</h1>
+<p class="lead">调用方提交登记的入口 URL，得到该来源已成功采集的页面与深度资源。内容来自现有 PostgreSQL 版本和 MinIO 归档，查询不触发采集。</p>
+<p class="muted">合同与状态以 <a href="../plans/results-api.md">唯一 Plan</a> 为准 · <a href="https://github.com/nanzhi84/SEAL/issues/22">Issue #22</a> · <span class="badge">独立验收 161 PASS / 0 FAIL</span></p>
+<h2>一条只读链路</h2>
+<div class="flow">
+<div class="node"><div class="number">01 · 输入</div><h3>HTTP 请求</h3><p>Bearer API Key<br>登记入口 source_url<br>limit / cursor</p><p class="muted">参数与认证先于读取</p></div>
+<div class="node"><div class="number">02 · 授权</div><h3>唯一来源</h3><p>Key 摘要 → 调用方<br>入口 → Source<br>调用方 → 许可来源</p><p class="muted">查询与附件共用权限</p></div>
+<div class="node"><div class="number">03 · 查询</div><h3>成功版本</h3><p>Source → Frontier<br>Resource.current_version_id<br>Version.result_ref</p><p class="muted">从未成功的资源排除</p></div>
+<div class="node"><div class="number">04 · 归档</div><h3>S3 原始对象</h3><p>结果 JSON + 已下载附件<br>Objects 校验 SHA-256<br>固定大小与超时</p><p class="muted">整页失败，不跳过坏对象</p></div>
+<div class="node"><div class="number">05 · 输出</div><h3>公开内容</h3><p>固定字段白名单<br>数组 + Link 下一页<br>加密 ID → 附件原始字节</p><p class="muted">内部字段不透传</p></div>
+</div>
+<div class="output"><strong>下游直接消费正文、链接、媒体、表格和下载地址。</strong><br>最近复查失败仍保留已有成功版本；“当前成功”不保证网站当前可访问。正文沿用原始 raw_markdown，导航和页脚可能仍在其中。</div>
+<h2>调用合同</h2>
+<pre>GET /results?source_url=&lt;登记入口 URL&gt;&amp;limit=20
+Authorization: Bearer &lt;API_KEY&gt;
+
+200 application/json
+[{ "url": "…", "markdown": "…", "metadata": {…},
+   "links": {…}, "media": {…}, "tables": [], "attachments": [] }]
+
+Link: &lt;绝对下一页地址&gt;; rel="next"
+
+GET /attachments/&lt;不透明附件 ID&gt;
+Authorization: Bearer &lt;API_KEY&gt;</pre>
+<table><thead><tr><th>公开字段</th><th>白名单 / 类型</th></tr></thead><tbody>
+<tr><td>url / markdown</td><td>Resource URL / 原始 raw_markdown 字符串；无正文时为空字符串</td></tr>
+<tr><td>metadata</td><td>title、author、description、keywords：字符串或 null</td></tr>
+<tr><td>links</td><td>internal / external 数组；各项 href、text、title：字符串或 null</td></tr>
+<tr><td>media</td><td>images / videos / audios 数组；src、alt、desc、type、format：字符串或 null；width：非负整数或 null</td></tr>
+<tr><td>tables</td><td>headers：字符串数组；rows：字符串二维数组；caption、summary：字符串或 null</td></tr>
+<tr><td>attachments</td><td>仅外层 attachment_refs；url 为服务地址；现有归档无可靠名称和 MIME，name / media_type 为 null</td></tr>
+</tbody></table>
+<p class="muted">空集合为 []；未知字段移除，白名单类型不合法则整页报 archive_invalid。媒体数字字符串宽度显式转换为整数。网页中的未下载文件链接仅存在于正文或链接。</p>
+<h2>跨页期间，内容如何更新</h2>
+<div class="timeline">
+<div class="moment"><span class="badge">首次查询 · 固定水位</span><h3>第一页确定成功版本快照</h3><p>同一只读可重复读事务取得当前成功 Version 与来源最大 cursor。Resource.id 按 C 字节序排序，limit 默认20、范围1–100。</p><p>游标认证加密，绑定来源、调用方、水位和位置，有效期1小时，翻页不刷新期限。</p></div>
+<div class="moment"><span class="badge">后续页面 · 同一快照</span><h3>更新与新增在下次查询显示</h3><p>水位之前每个 Resource 的最后成功 Version 构成快照。采集过程产生新版本或新资源，不改变正在遍历的结果。</p><p>最后一页无 Link。重新从第一页查询即可看到更新。外部删除历史数据不在快照保证范围。</p></div>
+</div>
+<div class="columns">
+<section><h2>附件原始字节</h2><p>Fernet 认证加密 ID 绑定来源、版本和附件位置，有效期24小时。下载重新验证当前来源许可、SQL归属、结果信封和对象哈希；旧版本附件仍可按令牌下载。</p><p>固定 <code>application/octet-stream</code> 和通用安全文件名；不推断类型、不物化磁盘副本。服务使用配置的公开基址，忽略 Host 和转发头。</p></section>
+<section><h2>有界资源</h2><p>默认4个工作线程，上限8；每次顺序读取对象，等候槽位1秒。HTTP默认30秒，上限60秒；取消后的实际线程仍占用槽位。同期限到达时按阶段返回 server_busy 或 request_timeout。</p><p>结果对象16 MiB、附件50 MiB、页64 MiB；超限明确报错。数据库连接5秒/语句15秒；S3连接3秒/读取10秒/最多2次，按块读取并关闭 Body。</p></section>
+</div>
+<h2>状态与错误</h2>
+<table><thead><tr><th>HTTP</th><th>业务含义 / 稳定代码</th></tr></thead><tbody>
+<tr><td>200</td><td>数组，可为空；附件为原始字节</td></tr>
+<tr><td>400 / 401 / 403</td><td>invalid_parameters / invalid_cursor；unauthenticated；source_forbidden</td></tr>
+<tr><td>404 / 405 / 409</td><td>source_not_found / attachment_not_found / not_found；method_not_allowed；source_ambiguous</td></tr>
+<tr><td>500</td><td>archive_corrupt / archive_invalid / archive_missing / archive_too_large / internal_error</td></tr>
+<tr><td>503</td><td>database_unavailable / object_storage_unavailable / request_timeout / server_busy</td></tr>
+</tbody></table>
+<h2>运行与验收</h2>
+<pre>uv sync --frozen
+uv run --no-sync seal serve --config &lt;私有 JSON 文件&gt; --host 127.0.0.1 --port 8080</pre>
+<details><summary>部署前提与授权配置</summary><p>复用 SEAL_DATABASE_URL 与 SEAL_S3_*。私有配置包含 public_base_url、token_key、调用方 Key SHA-256 与明确的 sources 列表；密钥与配置不入库。部署使用只读 DB 与限定桶 S3 Get/List 权限，反向代理提供 HTTPS。配置轮换/撤权后重启，替换 token_key 会使旧令牌失效。</p></details>
+<details open><summary>独立验收与证据 · 161 PASS / 0 FAIL</summary><p id="acceptance-status">2026-10-14：完全 fresh 子 agent 通过隔离 PostgreSQL/MinIO 和105个真实HTTP请求，验证原生SDK媒体/表格、版本、跨页更新、附件、权限、故障、只读无副作用及日志脱敏。使用只读DB与S3 Get/List账号，最终代码与测试哈希无漂移，临时容器已清理。</p><pre>uv sync --frozen
+uv run --no-sync python tests/issue22_e2e.py</pre><p><a href="../../artifacts/issue22-20261014-113746-46619/independent-acceptance-audit.json">最终独立审计</a> · <a href="../../artifacts/issue22-20261014-113746-46619/assertions.json">断言证据</a> · <a href="../../artifacts/issue22-20261014-113746-46619/http.json">HTTP回执</a></p><p>已在无旧环境和临时目录的全新checkout独立安装冻结依赖，按同一命令复跑全部通过；稳定测试输入自行生成工件，不依赖历史artifacts。</p><p>复跑前提：Python3.12、Docker与指定PostgreSQL/MinIO/mc镜像，详见唯一Plan。生产部署、HTTPS、外站可用性和生产负载未验证；游标过期额外真实跨越剩余6秒，不曾等待整小时或全天。此前失败工件保留。</p></details>
+<footer>无新增数据库迁移或结果副本。停止服务并还原新增代码/配置即可回滚。所有响应 no-store；日志只记录固定路由、状态与错误类别。</footer>
+</main>
+</html>

@@ -9,6 +9,10 @@ allowed_path_prefixes:
 archive_approved: true
 scope: 地图登记的发行批复栏目及同路径详情；实际样本包含公开发行注册批复，不限于定向发行。
 robots: true
+# Exact robots redirect targets only; business URL scope stays separate.
+robots_redirect_urls:
+- http://www.csrc.gov.cn/
+- https://www.csrc.gov.cn/
 recheck_seconds: 86400
 concurrency: 2
 delay: 0.5

@@ -1,7 +1,8 @@
-"""Four operator commands with one JSON receipt and optional stderr progress."""
+"""Operator commands and a read-only result server."""
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -19,6 +20,10 @@ def parser():
     init = commands.add_parser("init", help="Explicitly initialize or upgrade storage")
     init.add_argument("--backup", type=Path)
     init.add_argument("--acknowledge-data-loss", action="store_true")
+    serve = commands.add_parser("serve", help="Serve existing successful content and attachments")
+    serve.add_argument("--config", type=Path, default=os.environ.get("SEAL_API_CONFIG"))
+    serve.add_argument("--host", default="127.0.0.1")
+    serve.add_argument("--port", type=int, default=8080)
     for mode in ("collect", "recheck"):
         command = commands.add_parser(mode, help="Online " + mode + " from a Source YAML")
         command.add_argument("source", type=Path)
@@ -31,6 +36,10 @@ def parser():
 
 
 def dispatch(args):
+    if args.command == "serve":
+        from .api import serve
+
+        return serve(args.config, args.host, args.port)
     from .migration import initialize, require_current
 
     if args.command == "init":

@@ -9,6 +9,9 @@ allowed_path_prefixes:
 archive_approved: true
 scope: 最高检公报栏目及同路径公开链接；详情及附件覆盖待验收。
 robots: true
+# Exact robots redirect targets only; business URL scope stays separate.
+robots_redirect_urls:
+- https://www.spp.gov.cn/
 recheck_seconds: 86400
 concurrency: 2
 delay: 0.5

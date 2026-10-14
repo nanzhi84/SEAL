@@ -9,6 +9,9 @@ allowed_path_prefixes:
 archive_approved: true
 scope: 电影公映许可证公示栏目及同路径表格详情；范围外附件不获取。
 robots: true
+# Exact robots redirect targets only; business URL scope stays separate.
+robots_redirect_urls:
+- https://www.chinafilm.gov.cn/404.html
 recheck_seconds: 86400
 concurrency: 2
 delay: 0.5

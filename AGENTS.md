@@ -1,6 +1,7 @@
 # SEAL Agent Rules
 
 文档使用 seiso 管理；调整或移动文件后同步修复链接，运行 `seiso check`。
+在没有授权的情况下，不得擅自修改这个文件。
 
 ## 验收
 
@@ -40,5 +41,5 @@
 ## 文档内容
 
 - 演示采用总分结构：先画链路与产物流向，再按节点说明输入、命令、实际结果、输出及下游用途；区分历史与本次验收，明确范围和未验证项。
-- `README.md` 保持简洁：开头介绍 SEAL 定位与简洁功能，主体仅包含遵循 [Canonical Execution Map 规范](docs/reference/canonical-execution-map.md) 的全链路执行图与数据模型 ER 图两张图，其他内容不堆放；不记录更新日志或具体 PR 验收细节。
+- `README.md` 保持简洁：开头介绍 SEAL 定位与简洁功能，主体仅包含遵循 [Canonical Execution Map 规范](docs/reference/canonical-execution-map.md) 的全链路执行图与数据模型 ER 图两张图，不记录更新日志或具体 PR 验收细节。
 - `CHANGELOG.md` 集中记录版本发布、能力演进、数据库迁移与升级兼容性说明。

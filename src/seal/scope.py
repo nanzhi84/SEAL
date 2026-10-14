@@ -31,6 +31,10 @@ def guard(config, url, *, policy=False):
     url = public_url(url)
     parsed = urlsplit(url)
     check_address(parsed.hostname)
+    # A robots redirect is separate from permission to collect business content.
+    # Operators approve exact destinations, including their query strings.
+    if policy and url in config.get("robots_redirect_urls", []):
+        return url
     allowed_policy = policy and parsed.path == "/robots.txt" and not parsed.query
     if parsed.hostname not in config["allowed_hosts"] or not (
         allowed_policy or paths_for(config, parsed.hostname, parsed.path)

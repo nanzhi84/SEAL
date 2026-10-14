@@ -1,0 +1,34 @@
+{
+  "contract": "docs/plans/results-api.md; live Issue #22",
+  "implementation_read": false,
+  "failure_modes": [
+    "HTTP exposes raw SDK diagnostics, hashes, IDs, credentials, HTML or mutable configuration",
+    "Media/table SDK values lose content or numeric image widths are rejected",
+    "Entry-only listing excludes successfully discovered deep resources",
+    "Unchanged or failed latest observation replaces the successful immutable Version",
+    "Never-successful/discovered/policy resources become visible results",
+    "Source entry lookup performs network access, ignores normalization, or combines same-host entries",
+    "Unknown/empty/ambiguous source and invalid parameters collapse to success or wrong status",
+    "Pagination truncates, duplicates, skips or changes historical content during commits",
+    "Snapshot cursor leaks internals, refreshes lifetime, accepts other caller/source or tampering",
+    "Authorization occurs after SQL/S3 access or allows anonymous/wildcard/cross-source access",
+    "Attachments use webpage links rather than external archived attachment_refs",
+    "Attachment token can be tampered, reused for wrong source/version or outlive contract",
+    "Attachment bytes/headers/base URL are unsafe or old valid attachment disappears after new Version",
+    "Missing/hash-corrupt/invalid JSON/envelope/whitelist types silently skip rows",
+    "Unavailable SQL/S3, slow body, saturation or oversized objects/pages hang or allocate unbounded work",
+    "Serve initializes/writes DB, object storage, crawler state or materializes archive copies",
+    "Errors or command receipts leak keys, token IDs, connection secrets, paths or stack traces"
+  ],
+  "boundary_inputs": [
+    "Empty arrays/null scalar/missing markdown; SDK image numeric width; nonempty table/video/audio",
+    "limit default/1/100; 0/101/negative/fraction/string; duplicate/unknown/missing parameters",
+    "Two same-host distinct entries; source-only empty and duplicate registered entry",
+    "More than100 current versions; updates/new first success before and after page2",
+    "Caller with all sources, caller with subset, alternate caller with same source",
+    "Signed but expired authentic tokens; malformed/tampered/cross-purpose tokens",
+    "Existing object removed, corrupted at same SHA key, valid SHA JSON with invalid typed fields",
+    "Small configured result/attachment/page limits; slow full S3 response and workers=1 saturation"
+  ],
+  "isolation": "Fresh loopback-only containers, random credentials, synthetic registered sources; root minio never inspected"
+}

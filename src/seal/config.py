@@ -67,6 +67,7 @@ class SourceConfig(Strict):
     archive_approved: bool
     scope: str = Field(min_length=5, max_length=2000)
     robots: bool = True
+    robots_redirect_urls: list[str] = Field(default_factory=list, max_length=20)
     user_agent: str = Field(default="SEAL/0.3 (+authorized archival crawler)", max_length=256)
     recheck_seconds: int = Field(default=86400, ge=0, le=31536000)
     concurrency: int = Field(default=2, ge=1, le=8)
@@ -79,6 +80,14 @@ class SourceConfig(Strict):
     @classmethod
     def urls(cls, values):
         return list(dict.fromkeys(public_url(url) for url in values))
+
+    @field_validator("robots_redirect_urls")
+    @classmethod
+    def policy_urls(cls, values):
+        urls = list(dict.fromkeys(public_url(url) for url in values))
+        for url in urls:
+            check_address(urlsplit(url).hostname)
+        return urls
 
     @model_validator(mode="after")
     def boundaries(self):

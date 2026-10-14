@@ -4,6 +4,7 @@ import atexit
 import json
 import os
 import re
+import time
 from functools import cache
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -106,16 +107,37 @@ class Objects:
             raise SealError("archive_write_failed") from None
         return key
 
-    def get(self, key):
+    def get(self, key, *, max_bytes=None, deadline=None):
         self.key(key)
+        if deadline is not None and time.monotonic() >= deadline:
+            raise SealError("archive_read_timeout")
         try:
             response = self.client.get_object(Bucket=self.bucket, Key=key)
             stream = response["Body"]
             try:
-                body = stream.read()
+                if max_bytes is None:
+                    body = stream.read()
+                else:
+                    if response.get("ContentLength", 0) > max_bytes:
+                        raise SealError("archive_too_large")
+                    data = bytearray()
+                    while True:
+                        if deadline is not None and time.monotonic() >= deadline:
+                            raise SealError("archive_read_timeout")
+                        chunk = stream.read(min(1048576, max_bytes - len(data) + 1))
+                        if not chunk:
+                            break
+                        data.extend(chunk)
+                        if len(data) > max_bytes:
+                            raise SealError("archive_too_large")
+                    body = bytes(data)
             finally:
                 stream.close()
-        except (BotoCoreError, ClientError, OSError):
+        except ClientError as exc:
+            if max_bytes is not None and exc.response.get("Error", {}).get("Code") == "NoSuchKey":
+                raise SealError("archive_missing") from None
+            raise SealError("archive_unreadable") from None
+        except (BotoCoreError, OSError):
             raise SealError("archive_unreadable") from None
         if digest(body) != key:
             raise SealError("archive_corrupt")

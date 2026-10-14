@@ -2,14 +2,15 @@
 
 SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
-当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 四个 CLI 入口。旧 Recipe YAML 需显式迁移，格式范围、备份升级与验收合同见[当前 Plan](docs/plans/unified-document-pipeline.md)。
+当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 操作采集，serve 提供按来源入口查询成功内容和下载附件的只读 API。旧 Recipe YAML 需显式迁移，采集合同见[当前 Plan](docs/plans/unified-document-pipeline.md)，接口与运行配置见[结果服务 Plan](docs/plans/results-api.md)。
 
 ## 全链路执行图
 
 ```text
 [0] ENTRY & DISPATCH
 cli.py: main() → dispatch(args)
-├── [CHECK] 非 init 命令先校验 S3 桶与当前数据库 schema
+├── seal serve → api.py: serve() → 私有配置、S3桶与当前schema校验 → 进入阶段 [4]
+├── [CHECK] 非 init/serve 采集命令先校验 S3 桶与当前数据库 schema
 ├── seal init → migration.py: initialize()
 │   ├── [CHECK] S3 桶可用后再查数据库对象清单、历史升级前停止客户端与校验备份
 │   ├── [DB] schema.sql → 已登记0002–0011 → 追加0012；仅接受空旧内容库升级，不回填旧结果
@@ -71,6 +72,16 @@ resources.py: persist()
     ├── [DB] 全局事务锁保护稳定增量cursor；连续Version+result_ref（与原始Observation一致）
     ├── [DB] 复合FK保护Resource/Observation/Version归属；推进current_version_id
     └── [DB] next_check → recheck；current_resource_version / version_delta → 下游SQL取result_ref → MinIO读取CrawlResult
+
+[4] READ-ONLY RESULTS API
+api.py: application() → HTTP /results 或 /attachments/{id}
+├── [CHECK] api_security.py: Bearer摘要 → Caller → 登记入口唯一匹配 → Source许可
+├── [DB] result_query.py: Resource.current_version_id → Version.result_ref
+│   └── [PAGE] 首次成功版本水位 + C序Resource.id → 加密游标 → 同一快照续页
+├── [IO/CHECK] Objects.get() → 结果/原始附件读取、大小/超时上限、SHA256复算
+├── [OUTPUT] public_results.py: 白名单 → JSON数组 + Link下一页；坏归档整页报错
+└── [DOWNLOAD] 加密附件ID → 当前Source许可与Version归属 → 原始字节
+    └── 下游消费内容/下载地址；不启动采集、不新增结果存储
 ```
 
 ## 数据模型 ER 图
@@ -135,4 +146,87 @@ erDiagram
   text framework_version
   jsonb parser_config
  }
+```
+
+## API 对外接口
+
+SEAL 提供轻量只读 HTTP 内容服务（`seal serve`），供下游基于来源登记入口（`source_url`）查询最新成功抓取内容、抽取结构化数据及下载原始附件。服务仅消费已有 SQL 与 S3 归档对象，不触发实时采集，不产生额外数据副本。
+
+### 1. 服务启动与认证
+
+```bash
+# 启动结果服务（默认仅监听本地环回）
+seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
+```
+
+- **认证方式**：HTTP Bearer Token（`Authorization: Bearer <API_KEY>`）。
+- **权限模型**：服务端通过常数时间比对调用方 `key_sha256` 摘要，严格限定调用方可访问的 Source 白名单（如 `["dd-017"]`）。
+- **配置与安全**：服务配置详情参见[结果服务 Plan](docs/plans/results-api.md)。响应默认包含 `Cache-Control: no-store` 与 `X-Content-Type-Options: nosniff`。
+
+### 2. 接口定义
+
+#### 2.1 查询成功内容列表 (`GET /results`)
+
+按来源入口查询最新成功版本快照，支持游标分页。
+
+- **请求参数**（Query Params）：
+  | 参数 | 类型 | 必填 | 说明 |
+  | --- | --- | --- | --- |
+  | `source_url` | string | 是 | 来源登记入口 URL（严格匹配来源配置中的 `entry_urls`） |
+  | `limit` | int | 否 | 每页返回资源数，默认 `20`，范围 `1–100` |
+  | `cursor` | string | 否 | 分页游标，从上一页响应头 `Link` 中获取（Fernet 认证加密令牌，有效期 1 小时） |
+
+- **响应格式**：`application/json`，顶级为 JSON 数组。字段遵循严格白名单：
+  | 字段 | 类型 | 说明 |
+  | --- | --- | --- |
+  | `url` | string | 资源最终目标 URL |
+  | `markdown` | string | 提取的 Markdown 正文（无则为空字符串） |
+  | `metadata` | object | 元数据，包含 `title`、`author`、`description`、`keywords`（均为 `string \| null`） |
+  | `links` | object | `internal` 与 `external` 链接数组（每项含 `href`、`text`、`title`） |
+  | `media` | object | `images`、`videos`、`audios` 媒体数组（每项含 `src`、`alt`、`desc`、`type`、`format`、`width`） |
+  | `tables` | array | 表格数组（每项含 `headers`、`rows`、`caption`、`summary`） |
+  | `attachments` | array | 原始下载附件列表，每项含 `url`（绝对下载链接）、`name`（`null`）、`media_type`（`null`） |
+
+- **分页响应头**：
+  若存在下一页，响应头包含标准 `Link` 标头；最后一页无此标头：
+  ```http
+  Link: <http://127.0.0.1:8080/results?source_url=...&limit=20&cursor=...>; rel="next"
+  ```
+
+#### 2.2 下载原始附件 (`GET /attachments/{attachment_id}`)
+
+下载采集过程中获取的原始二进制附件（如 PDF、文档等）。
+
+- **路径参数**：`attachment_id`（由 `/results` 响应的 `attachments[].url` 路径中提供，为 Fernet 认证加密令牌，有效期 24 小时，绑定来源与版本）。
+- **请求头**：需携带与调用方相同的 `Authorization: Bearer <API_KEY>`。
+- **响应格式**：`application/octet-stream` 二进制流（响应头 `Content-Disposition: attachment; filename="attachment"`），下载时实时复算 SHA-256 校验。
+
+### 3. 错误响应与状态码
+
+错误响应统一为 JSON 对象：`{"error": "<error_code>"}`。
+
+| HTTP 状态码 | 错误代码 (`error`) | 触发场景 |
+| --- | --- | --- |
+| 400 | `invalid_parameters` / `invalid_cursor` | 参数缺失、格式非法、超界或游标篡改/过期 |
+| 401 | `unauthenticated` | 未提供 Bearer Token 或 Token 无效（附带 `WWW-Authenticate: Bearer`） |
+| 403 | `source_forbidden` | 调用方无权访问该来源 |
+| 404 | `source_not_found` / `attachment_not_found` / `not_found` | 来源未登记、附件令牌失效或路由不存在 |
+| 409 | `source_ambiguous` | 入口 URL 匹配到多个来源 |
+| 500 | `archive_corrupt` / `archive_invalid` / `archive_missing` / `archive_too_large` / `internal_error` | 归档对象损坏、字段不合法、对象缺失或超出大小限制 |
+| 503 | `database_unavailable` / `object_storage_unavailable` / `request_timeout` / `server_busy` | 数据库/S3 不可用、请求超时或并发工作线程已满 |
+
+### 4. 调用示例
+
+```bash
+# 1. 查询内容列表
+curl -s -G "http://127.0.0.1:8080/results" \
+  -H "Authorization: Bearer your-api-key" \
+  --data-urlencode "source_url=https://example.com/portal" \
+  --data-urlencode "limit=20" \
+  -D -
+
+# 2. 下载附件（使用返回的附件 URL）
+curl -s "http://127.0.0.1:8080/attachments/<encrypted_attachment_id>" \
+  -H "Authorization: Bearer your-api-key" \
+  -O -J
 ```
