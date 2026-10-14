@@ -10,7 +10,7 @@ import psycopg
 from aiohttp import web
 
 from . import result_query
-from .api_security import ApiError, Cursor, Settings, Tokens
+from .api_security import ApiError, Settings, Tokens
 from .core import SealError, public_url
 
 log = logging.getLogger(__name__)
@@ -18,10 +18,24 @@ SERVICE = web.AppKey("service", object)
 
 
 class Service:
-    def __init__(self, settings):
+    def __init__(self, settings, config_path=None):
         self.settings, self.tokens = settings, Tokens(settings)
+        self.config_path = config_path
         self.pool = ThreadPoolExecutor(max_workers=settings.workers, thread_name_prefix="seal-api")
         self.slots = asyncio.Semaphore(settings.workers)
+
+    def authenticate(self, authorization):
+        current = self.settings
+        if self.config_path:
+            try:
+                current = Settings.load(self.config_path)
+            except SealError:
+                raise ApiError(503, "invalid_api_config") from None
+            if current.model_dump(exclude={"callers"}) != self.settings.model_dump(
+                exclude={"callers"}
+            ):
+                raise ApiError(503, "invalid_api_config")
+        return current.authenticate(authorization)
 
     async def run(self, request, function, *args):
         request["waiting_for_slot"] = True
@@ -62,7 +76,7 @@ async def boundary(request, handler):
     error = None
     try:
         service = request.app[SERVICE]
-        request["caller"] = service.settings.authenticate(request.headers.get("Authorization"))
+        request["caller"] = service.authenticate(request.headers.get("Authorization"))
         async with asyncio.timeout(service.settings.request_timeout_seconds):
             response = await handler(request)
     except ApiError as exc:
@@ -120,7 +134,6 @@ async def results(request):
     except (ValueError, KeyError, SealError):
         raise ApiError(400, "invalid_parameters") from None
     service = request.app[SERVICE]
-    cursor = service.tokens.decode(query["cursor"], Cursor) if "cursor" in query else None
     deadline = time.monotonic() + service.settings.request_timeout_seconds
     body, link = await service.run(
         request,
@@ -130,7 +143,7 @@ async def results(request):
         request["caller"],
         source_url,
         limit,
-        cursor,
+        query.get("cursor"),
         deadline,
     )
     response = web.Response(body=body, content_type="application/json")
@@ -172,9 +185,9 @@ class ProtocolLog(logging.Filter):
         return True
 
 
-def application(settings):
+def application(settings, config_path=None):
     app = web.Application(middlewares=[boundary], client_max_size=1024)
-    app[SERVICE] = Service(settings)
+    app[SERVICE] = Service(settings, config_path)
     app.router.add_get("/sources", sources, name="sources", allow_head=False)
     app.router.add_get("/results", results, name="results", allow_head=False)
     app.router.add_get(
@@ -201,7 +214,7 @@ def serve(path, host, port):
     protocol_logger = logging.getLogger("seal.api.protocol")
     protocol_logger.addFilter(ProtocolLog())
     web.run_app(
-        application(settings),
+        application(settings, path),
         host=host,
         port=port,
         print=None,

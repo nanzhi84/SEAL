@@ -24,6 +24,19 @@ def parser():
     serve.add_argument("--config", type=Path, default=os.environ.get("SEAL_API_CONFIG"))
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8080)
+    snapshot = commands.add_parser("snapshot", help="Capture, inspect and manually publish content")
+    operations = snapshot.add_subparsers(dest="operation", required=True)
+    operations.add_parser("create", help="Freeze global successful data without publishing")
+    listing = operations.add_parser("list", help="List immutable captures")
+    inspect = operations.add_parser("inspect", help="Inspect frozen sources and version mappings")
+    inspect.add_argument("snapshot_id")
+    inspect.add_argument("--source-after", default="")
+    for paged in (listing, inspect):
+        paged.add_argument("--limit", type=int, default=20)
+        paged.add_argument("--after", default="")
+    operations.add_parser("publish", help="Manually publish or restore a capture").add_argument(
+        "snapshot_id"
+    )
     for mode in ("collect", "recheck"):
         command = commands.add_parser(mode, help="Online " + mode + " from a Source YAML")
         command.add_argument("source", type=Path)
@@ -44,6 +57,17 @@ def dispatch(args):
 
     if args.command == "init":
         return initialize(backup=args.backup, acknowledge=args.acknowledge_data_loss)
+    if args.command == "snapshot":
+        from . import snapshots
+
+        require_current()
+        if args.operation == "create":
+            return snapshots.create()
+        if args.operation == "list":
+            return snapshots.listing(args.limit, args.after)
+        if args.operation == "inspect":
+            return snapshots.inspect(args.snapshot_id, args.limit, args.after, args.source_after)
+        return snapshots.publish(args.snapshot_id)
     from .objects import Objects
 
     Objects().check()

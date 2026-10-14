@@ -110,7 +110,7 @@ class Cursor(Strict):
     purpose: str = Field(default="cursor", pattern="^cursor$")
     caller: str
     source: str
-    watermark: int = Field(ge=0)
+    snapshot: str
     after: str = Field(min_length=1, max_length=1000)
     issued_at: int = Field(ge=0)
 
@@ -118,6 +118,9 @@ class Cursor(Strict):
 class Attachment(Strict):
     purpose: str = Field(default="attachment", pattern="^attachment$")
     source: str
+    caller: str
+    snapshot: str
+    resource: str
     version: str
     index: int = Field(ge=0)
 

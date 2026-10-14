@@ -11,7 +11,8 @@ from .core import SealError, digest
 from .db import connect, dsn
 from .objects import Objects
 
-CURRENT = "0012_minimal_archive.sql"
+CURRENT = "0013_global_snapshots.sql"
+ARCHIVE_CURRENT = "0012_minimal_archive.sql"
 DELETED = {
     "seal_record",
     "seal_record_result",
@@ -160,7 +161,9 @@ def initialize(*, backup=None, acknowledge=False):
             not old
             and c.execute("SELECT to_regclass('seal.source') AS name").fetchone()["name"]
             is not None
-            and not c.execute("SELECT 1 FROM seal.migration WHERE name=%s", (CURRENT,)).fetchone()
+            and not c.execute(
+                "SELECT 1 FROM seal.migration WHERE name=%s", (ARCHIVE_CURRENT,)
+            ).fetchone()
         )
         if old or timeline_upgrade:
             content_tables = {

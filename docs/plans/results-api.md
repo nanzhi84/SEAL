@@ -5,6 +5,11 @@ lang: zh
 
 # 只读结果服务（Issue #22）
 
+本页保留 Issue #22 的历史设计与验收；2026-10-14 起，内容选择、分页、附件归属、
+实时撤权及升级/回滚合同以 [全局 Snapshot Plan](global-snapshots.md) 为准。
+API 现在只读人工发布的 Snapshot，无发布时503；本页历史验收命令针对旧提交
+`994c8ad`，当前版本复跑使用新 Plan 的 Issue #23 验收入口。
+
 目标与范围依据 [Issue #22](https://github.com/nanzhi84/SEAL/issues/22)。
 [同步可视化](../generated/results-api.html) 展示同一合同。
 仅消费已有 Source、Version 与 MinIO 对象，不启动采集、不增加结果副本、不迁移数据库。
@@ -197,8 +202,8 @@ from cryptography.fernet import Fernet
 root = Path("work/results-api")
 root.mkdir(parents=True, exist_ok=True, mode=0o700)
 key = secrets.token_urlsafe(32)
-config = {"public_base_url": "http://127.0.0.1:8080",+          "token_key": Fernet.generate_key().decode(),
-          "callers": [{"id": "local-consumer",+                       "key_sha256": hashlib.sha256(key.encode()).hexdigest(),
+config = {"public_base_url": "http://127.0.0.1:8080", "token_key": Fernet.generate_key().decode(),
+          "callers": [{"id": "local-consumer", "key_sha256": hashlib.sha256(key.encode()).hexdigest(),
                        "sources": ["dd-017"]}]}
 for name, body in (("config.local.json", json.dumps(config)),
                    ("headers.local.txt", "Authorization: Bearer " + key + "\n")):

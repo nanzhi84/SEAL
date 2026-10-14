@@ -1,5 +1,6 @@
 """Complete SDK results; only original downloaded files are externalized to CAS."""
 
+import json
 from pathlib import Path
 
 from pydantic import TypeAdapter
@@ -41,18 +42,29 @@ def serialize_result(result, *, attachment_refs=()):
     )
 
 
-def verify_result(objects, ref):
-    envelope = objects.json(ref)
+def verify_result(objects, ref, *, max_bytes=None, attachment_max_bytes=None, deadline=None):
+    try:
+        envelope = json.loads(objects.get(ref, max_bytes=max_bytes, deadline=deadline))
+    except (ValueError, TypeError):
+        raise SealError("crawl_result_invalid") from None
     if (
         not isinstance(envelope, dict)
         or not isinstance(envelope.get("result"), dict)
         or envelope.get("download_encoding") != "sha256-cas"
     ):
         raise SealError("crawl_result_invalid")
-    for key in envelope["result"].get("downloaded_files") or []:
-        objects.get(key)
-    for key in envelope.get("attachment_refs", []):
-        objects.get(key)
+    refs = envelope.get("attachment_refs")
+    downloads = envelope["result"].get("downloaded_files") or []
+    if (
+        not isinstance(refs, list)
+        or not isinstance(downloads, list)
+        or any(not isinstance(ref, str) for ref in refs)
+        or len(set(refs)) != len(refs)
+        or any(key not in refs for key in downloads)
+    ):
+        raise SealError("crawl_result_invalid")
+    for key in refs:
+        objects.get(key, max_bytes=attachment_max_bytes, deadline=deadline)
     return envelope
 
 
