@@ -363,3 +363,129 @@ cat artifacts/readme-demo/dd-017-results.json
 ```bash
 docker compose --env-file .env.local down
 ```
+
+## API 对外接口
+
+以下接口参考保留 main 的调用说明，并与本 Plan 的发布、分页和授权合同同步。初始化或升级后，须先显式 create → inspect → publish；服务不会自动发布。
+
+
+SEAL 提供轻量只读 HTTP 内容服务（`seal serve`），供下游发现获授权的来源入口（`GET /sources`）、基于快照冻结入口查询已发布的成功内容（`GET /results`）以及下载原始附件（`GET /attachments/{attachment_id}`）。服务仅消费已有 SQL 与 S3 归档对象，不触发实时采集，不产生额外数据副本。
+
+### 1. 服务启动与认证
+
+```bash
+# 启动结果服务（默认仅监听本地环回）
+seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
+```
+
+- **认证方式**：HTTP Bearer Token（`Authorization: Bearer <API_KEY>`）。
+- **权限模型**：服务端通过常数时间比对调用方 `key_sha256` 摘要，严格限定调用方可访问的 Source 白名单（如 `["dd-017"]`）。
+- **配置与安全**：服务配置详情参见[结果服务 Plan](results-api.md)。响应默认包含 `Cache-Control: no-store` 与 `X-Content-Type-Options: nosniff`。
+
+### 2. 接口定义
+
+#### 2.1 发现可用来源 (`GET /sources`)
+
+查询已发布 Snapshot 中当前调用方获授权且无入口歧义的来源列表，供下游获取合法的 `source_url` 参数。
+
+- **请求方式**：`GET /sources`
+- **请求参数**：无（不接受任何 Query 参数，传入参数将返回 `400 invalid_parameters`）。
+- **请求头**：携带 `Authorization: Bearer <API_KEY>`。
+- **响应格式**：`application/json`，顶级为 JSON 数组，按来源 `id`（C 字节序）升序排序：
+
+  | 字段         | 类型          | 说明                                                    |
+  | ------------ | ------------- | ------------------------------------------------------- |
+  | `id`         | string        | 来源稳定编号（如`dd-017`）                              |
+  | `entry_urls` | array[string] | 该快照冻结且无歧义的入口 URL 列表（按登记顺序去重） |
+
+- **响应示例**：
+
+  ```json
+  [
+    {
+      "id": "dd-017",
+      "entry_urls": ["https://www.court.gov.cn/shenpan/gengduo/77.html"]
+    }
+  ]
+  ```
+
+- **特性与边界**：
+  - 纯数据库只读查询，不产生网站访问或 S3 读取。
+  - 严格排除跨来源重复登记的歧义入口（避免下游请求 `/results` 时触发 `source_ambiguous`）。
+  - 已有发布快照时，若调用方未授权任何来源、来源未包含于快照或所有入口均存在歧义，返回空数组 `[]`。尚无发布快照则返回 `503 snapshot_not_published`。
+
+#### 2.2 查询成功内容列表 (`GET /results`)
+
+按已发布 Snapshot 的冻结来源入口查询固定成功 Version，支持游标分页；内部采集更新不会改变返回集合。
+
+- **请求参数**（Query Params）：
+
+  | 参数         | 类型   | 必填 | 说明                                                                        |
+  | ------------ | ------ | ---- | --------------------------------------------------------------------------- |
+  | `source_url` | string | 是   | 来源登记入口 URL（严格匹配所选 Snapshot 冻结的 `entry_urls`）                        |
+  | `limit`      | int    | 否   | 每页返回资源数，默认`20`，范围 `1–100`                                      |
+  | `cursor`     | string | 否   | 分页游标，从上一页响应头`Link` 中获取（Fernet 认证加密令牌，有效期 1 小时） |
+
+- **响应格式**：`application/json`，顶级为 JSON 数组。字段遵循严格白名单：
+
+  | 字段          | 类型   | 说明                                                                                            |
+  | ------------- | ------ | ----------------------------------------------------------------------------------------------- |
+  | `url`         | string | 快照冻结的 Resource URL                                                                                |
+  | `markdown`    | string | 提取的 Markdown 正文（无则为空字符串）                                                          |
+  | `metadata`    | object | 元数据，包含`title`、`author`、`description`、`keywords`（均为 `string \| null`）               |
+  | `links`       | object | `internal` 与 `external` 链接数组（每项含 `href`、`text`、`title`）                             |
+  | `media`       | object | `images`、`videos`、`audios` 媒体数组（每项含 `src`、`alt`、`desc`、`type`、`format`、`width`） |
+  | `tables`      | array  | 表格数组（每项含`headers`、`rows`、`caption`、`summary`）                                       |
+  | `attachments` | array  | 原始下载附件列表，每项含`url`（绝对下载链接）、`name`（`null`）、`media_type`（`null`）         |
+
+- **分页响应头**：
+  若存在下一页，响应头包含标准 `Link` 标头；最后一页无此标头：
+
+  ```http
+  Link: <http://127.0.0.1:8080/results?source_url=...&limit=20&cursor=...>; rel="next"
+  ```
+
+#### 2.3 下载原始附件 (`GET /attachments/{attachment_id}`)
+
+下载采集过程中获取的原始二进制附件（如 PDF、文档等）。
+
+- **路径参数**：`attachment_id`（由 `/results` 响应的 `attachments[].url` 路径中提供，为 Fernet 认证加密令牌，有效期 24 小时，绑定 Snapshot、调用方、来源、Resource、Version 与附件索引）。
+- **请求头**：需携带与调用方相同的 `Authorization: Bearer <API_KEY>`。
+- **响应格式**：`application/octet-stream` 二进制流（响应头 `Content-Disposition: attachment; filename="attachment"`），下载时实时复算 SHA-256 校验。
+
+### 3. 错误响应与状态码
+
+错误响应统一为 JSON 对象：`{"error": "<error_code>"}`。
+
+| HTTP 状态码 | 错误代码 (`error`)                                                                                 | 触发场景                                                            |
+| ----------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 400         | `invalid_parameters` / `invalid_cursor`                                                            | 参数缺失、格式非法、包含多余参数、超界或游标篡改/过期               |
+| 401         | `unauthenticated`                                                                                  | 未提供 Bearer Token 或 Token 无效（附带`WWW-Authenticate: Bearer`） |
+| 403         | `source_forbidden`                                                                                 | 调用方无权访问该来源                                                |
+| 404         | `source_not_found` / `attachment_not_found` / `not_found`                                          | 来源未登记、附件令牌失效或路由不存在                                |
+| 409         | `source_ambiguous`                                                                                 | 入口 URL 匹配到多个来源                                             |
+| 500         | `archive_corrupt` / `archive_invalid` / `archive_missing` / `archive_too_large` / `internal_error` | 归档对象损坏、字段不合法、对象缺失或超出大小限制                    |
+| 503         | `snapshot_not_published` / `invalid_api_config` / `database_unavailable` / `object_storage_unavailable` / `request_timeout` / `server_busy`          | 尚未发布、热配置无效、数据库/S3 不可用、请求超时或并发工作线程已满                        |
+
+旧游标和附件在有效期内跨发布及服务重启继续绑定原快照；每个请求重新读取当前调用许可，撤权立即生效。
+
+### 4. 调用示例
+
+```bash
+# 1. 发现可用来源及登记入口
+curl -s "http://127.0.0.1:8080/sources" \
+  -H "Authorization: Bearer your-api-key"
+
+# 2. 查询内容列表（使用上一步获取的 entry_urls 之一）
+curl -s -G "http://127.0.0.1:8080/results" \
+  -H "Authorization: Bearer your-api-key" \
+  --data-urlencode "source_url=https://example.com/portal" \
+  --data-urlencode "limit=20" \
+  -D -
+
+# 3. 下载附件（使用返回的附件 URL）
+curl -s "http://127.0.0.1:8080/attachments/<encrypted_attachment_id>" \
+  -H "Authorization: Bearer your-api-key" \
+  -O -J
+```
+
