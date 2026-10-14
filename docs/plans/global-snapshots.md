@@ -488,4 +488,3 @@ curl -s "http://127.0.0.1:8080/attachments/<encrypted_attachment_id>" \
   -H "Authorization: Bearer your-api-key" \
   -O -J
 ```
-
