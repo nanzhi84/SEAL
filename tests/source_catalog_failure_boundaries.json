@@ -1,0 +1,17 @@
+{
+  "scope": "Independent black-box GET /sources acceptance; frozen before test implementation",
+  "boundaries": [
+    "Authentication precedes parameter validation, including invalid Bearer and malformed/unknown parameters",
+    "Only persisted authorized sources appear; absent IDs and empty grants produce []",
+    "Exact public id and entry_urls fields, C byte ordering, ordered entry deduplication",
+    "Global ambiguity includes unauthorized sources; duplicates within one source remain unique",
+    "All ambiguous or absent entry lists omit source; mixed unique entries retain requestable entries",
+    "Discovery works with no successful content; selected populated/empty entries work through /results",
+    "Source entry changes reflected immediately; old entry absent, changed entry remains requestable",
+    "Read-only DB credentials, unchanged DB/S3 snapshots and no origin requests",
+    "Stopped MinIO does not prevent discovery; stopped DB yields bounded database_unavailable503",
+    "Complete catalog exceeding page_max_bytes fails archive_too_large500 without truncation",
+    "Real DB lock exercises timeout and configured worker busy limits; recovery releases slots",
+    "Every response has Cache-Control no-store and safe errors; artifacts omit credentials"
+  ]
+}

@@ -22,7 +22,13 @@
 </div>
 <div class="output"><strong>下游直接消费正文、链接、媒体、表格和下载地址。</strong><br>最近复查失败仍保留已有成功版本；“当前成功”不保证网站当前可访问。正文沿用原始 raw_markdown，导航和页脚可能仍在其中。</div>
 <h2>调用合同</h2>
-<pre>GET /results?source_url=&lt;登记入口 URL&gt;&amp;limit=20
+<p>先发现当前调用方可请求的来源：只列出已入库、已授权且入口唯一匹配的 Source。空来源仍列出，跨来源歧义入口排除；此列表不证明网站可访问或内容已采全。仅只读 SQL，不访问网站或 S3。</p>
+<pre>GET /sources
+Authorization: Bearer &lt;API_KEY&gt;
+
+[{ "id": "dd-017", "entry_urls": ["https://www.court.gov.cn/shenpan/gengduo/77.html"] }]
+
+GET /results?source_url=&lt;从 entry_urls 选择入口 URL&gt;&amp;limit=20
 Authorization: Bearer &lt;API_KEY&gt;
 
 200 application/json
@@ -34,6 +40,7 @@ Link: &lt;绝对下一页地址&gt;; rel="next"
 GET /attachments/&lt;不透明附件 ID&gt;
 Authorization: Bearer &lt;API_KEY&gt;</pre>
 <table><thead><tr><th>公开字段</th><th>白名单 / 类型</th></tr></thead><tbody>
+<tr><td>来源发现</td><td>仅 id、entry_urls；ID稳定排序、入口登记顺序去重；无查询参数。完整数组受页大小上限约束，超限明确报错，无静默截断。独立验收68 PASS / 0 FAIL。</td></tr>
 <tr><td>url / markdown</td><td>Resource URL / 原始 raw_markdown 字符串；无正文时为空字符串</td></tr>
 <tr><td>metadata</td><td>title、author、description、keywords：字符串或 null</td></tr>
 <tr><td>links</td><td>internal / external 数组；各项 href、text、title：字符串或 null</td></tr>
@@ -60,6 +67,9 @@ Authorization: Bearer &lt;API_KEY&gt;</pre>
 <tr><td>503</td><td>database_unavailable / object_storage_unavailable / request_timeout / server_busy</td></tr>
 </tbody></table>
 <h2>运行与验收</h2>
+<p>真实本地19源：来源列表19项，20入口全部PASS，87页覆盖7538个唯一资源；dd-102双入口各返回22项，总消费7560项。92 PASS / 0 FAIL，接口失败0，SQL/S3清单前后无变化。<a href="../../artifacts/real-sources-api-20261014-140952-29833a/sources.actual.json">实际来源列表</a> · <a href="../../artifacts/real-sources-api-20261014-140952-29833a/entries.json">逐入口回执</a>。响应已脱敏；复跑 <code>uv run --no-sync python tests/real_sources_api_e2e.py</code>，需要现有本地数据库/MinIO与.env.local。未重新采集网站。</p>
+<p>新增来源发现后的原结果/附件接口完整回归仍为161 PASS / 0 FAIL：<a href="../../artifacts/issue22-20261014-140439-7802f/summary.json">本次回归汇总</a>。最终产品哈希一致，隔离容器已清理。</p>
+<p>来源发现独立验收：68 PASS / 0 FAIL。覆盖发现→真实内容/空数组、权限隔离、入口歧义与规范化、登记变化、只读、S3停机不影响发现、DB停机恢复、超限与worker超时恢复。<a href="../../artifacts/issue22-20261014-141124-c84cd/summary.json">汇总</a> · <a href="../../artifacts/issue22-20261014-141124-c84cd/http.json">HTTP回执</a>。复跑：<code>uv run --no-sync python tests/source_catalog_e2e.py</code>，环境前提见唯一Plan。生产部署和外站未验证。</p>
 <pre>uv sync --frozen
 uv run --no-sync seal serve --config &lt;私有 JSON 文件&gt; --host 127.0.0.1 --port 8080</pre>
 <details><summary>部署前提与授权配置</summary><p>复用 SEAL_DATABASE_URL 与 SEAL_S3_*。私有配置包含 public_base_url、token_key、调用方 Key SHA-256 与明确的 sources 列表；密钥与配置不入库。部署使用只读 DB 与限定桶 S3 Get/List 权限，反向代理提供 HTTPS。配置轮换/撤权后重启，替换 token_key 会使旧令牌失效。</p></details>

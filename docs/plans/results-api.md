@@ -27,6 +27,82 @@ init、collect、recheck、worker 保持原合同。serve 不初始化或修改�
 
 ## HTTP 与内容合同
 
+### 可请求来源发现
+
+`GET /sources` 使用同一 Bearer Key，不接受查询参数，成功直接返回数组：
+
+```json
+[{"id":"dd-017","entry_urls":["https://www.court.gov.cn/shenpan/gengduo/77.html"]}]
+```
+
+数据流：认证 → 调用方许可 → 数据库 Source → 唯一可匹配入口 → 来源数组
+→ 调用方选择 entry_urls 中的 URL 请求 `/results`。
+仅返回已入库且调用方获授权的 Source，不扫描 sources/ 文件或来源地图。
+字段固定为 id、entry_urls，不暴露完整配置。无成功内容的来源仍可请求，结果可为 []；
+来源发现不证明网站当前可访问、归档健康或全站采集完成。
+跨 Source 重复登记的入口会使结果查询报 source_ambiguous，因此从可请求入口中排除；
+检查歧义包含未授权来源，但不返回其身份。入口全部歧义的 Source 不列出。
+Source 按 id 的 C 字节序排序，入口按登记顺序去重；入口沿用 SourceConfig 登记时的
+public_url 规范化（包括移除 fragment），与 `/results` 的入参规范化和精确匹配一致。
+无许可、许可 ID 未入库或无可请求
+入口均返回 []。发现与结果请求之间配置/权限可能变化，结果接口仍独立验证当前状态。
+
+查询层在同一 REPEATABLE READ、READ ONLY 事务完成许可过滤与入口歧义核对；
+HTTP 层复用既有认证、worker、超时与错误响应。无网站/DNS/S3读取、无采集副作用、
+不新增依赖或数据库迁移。列表完整返回，不静默截断；整体超过 page_max_bytes 报
+archive_too_large。所有响应 no-store；DB 故障为503 database_unavailable。
+任意查询参数400 invalid_parameters；认证先于参数，未认证401。
+
+本地发现命令（复用下文私有配置和认证头）：
+
+```sh
+curl --silent --show-error 'http://127.0.0.1:8080/sources' \
+  --header @work/results-api/headers.local.txt
+```
+
+新增验收：发现来源 → 选择登记入口 → 查询已有真实内容或空数组；验证权限隔离、
+未入库许可、歧义、顺序与字段白名单、配置变动、DB故障、无S3依赖、只读与大小上限。
+2026-10-14 独立端到端验收68 PASS / 0 FAIL；先前161 PASS仅证明原结果/附件合同。
+复跑命令与原接口验收使用同一 Docker/Python/镜像前提，随机创建隔离数据库、对象存储、
+真实 HTML/PDF 来源和调用凭据，不读取本地19源数据：
+
+```sh
+uv run --no-sync python tests/source_catalog_e2e.py
+```
+
+失败方式在实现测试前冻结于
+[来源发现边界](../../tests/source_catalog_failure_boundaries.json)。
+最终[断言](../../artifacts/issue22-20261014-141124-c84cd/assertions.json)、
+[HTTP回执](../../artifacts/issue22-20261014-141124-c84cd/http.json)、
+[环境与哈希](../../artifacts/issue22-20261014-141124-c84cd/environment.json)、
+[汇总](../../artifacts/issue22-20261014-141124-c84cd/summary.json)
+记录真实发现→内容查询、入口规范化、权限、歧义、登记变化、只读、S3停机、DB停机恢复、
+大小上限和单worker超时/排队/恢复。工件凭据扫描通过；生产部署与外站未验证。
+新增接口后原结果/附件合同完整复跑仍161 PASS / 0 FAIL：
+[回归汇总](../../artifacts/issue22-20261014-140439-7802f/summary.json)。
+两个最终运行的产品哈希与当前源码一致，临时容器已清理。
+
+2026-10-14 真实本地19源验收：`/sources` 返回19来源，20个登记入口全部可请求；
+`/results` 完整遍历87页，返回7560项，覆盖7538个唯一资源（dd-102的两个入口各返回
+同一来源22项）。每入口顺序、资源集合和数量与当前SQL成功资源一致，无接口失败，
+92 PASS / 0 FAIL。SQL业务表及S3对象清单前后哈希一致，源码起止哈希一致。
+使用现有本地seal账号，验收SQL连接默认只读；服务依赖自身只读事务合同，不宣称
+现有账号为最小权限账号。无初始化、迁移、采集或归档写入；临时服务和凭据已清理。
+
+```sh
+uv run --no-sync python tests/real_sources_api_e2e.py
+```
+
+前提：现有 `.env.local`、已采集的本地19源数据库及MinIO、冻结uv运行环境。
+测试固定19个稳定ID作为验收范围，入口及成功资源从当前数据库读取，不依赖旧运行工件。
+[真实汇总](../../artifacts/real-sources-api-20261014-140952-29833a/summary.json)、
+[逐入口回执](../../artifacts/real-sources-api-20261014-140952-29833a/entries.json)、
+[实际来源响应](../../artifacts/real-sources-api-20261014-140952-29833a/sources.actual.json)
+及各入口的 `*-page*.actual.json` 保存实际完整响应，临时令牌和检测到的邮箱、手机、
+身份证脱敏。返回60个附件引用，未单独下载附件；不证明网站当前可用或全站完整性。
+
+### 内容查询
+
 `GET /results?source_url=<登记入口>&limit=20&cursor=<不透明游标>`。
 成功响应直接为数组，每项固定包含 url、markdown、metadata、links、media、tables、
 attachments。认证先于查询；入口通过既有 public_url 规范化匹配 config.entry_urls，

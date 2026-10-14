@@ -92,6 +92,14 @@ async def boundary(request, handler):
     return response
 
 
+async def sources(request):
+    if request.query:
+        raise ApiError(400, "invalid_parameters")
+    service = request.app[SERVICE]
+    body = await service.run(request, result_query.sources, service.settings, request["caller"])
+    return web.Response(body=body, content_type="application/json")
+
+
 async def results(request):
     query = request.query
     try:
@@ -167,6 +175,7 @@ class ProtocolLog(logging.Filter):
 def application(settings):
     app = web.Application(middlewares=[boundary], client_max_size=1024)
     app[SERVICE] = Service(settings)
+    app.router.add_get("/sources", sources, name="sources", allow_head=False)
     app.router.add_get("/results", results, name="results", allow_head=False)
     app.router.add_get(
         "/attachments/{attachment_id}", attachment, name="attachment", allow_head=False

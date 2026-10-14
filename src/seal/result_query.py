@@ -10,6 +10,33 @@ from .objects import Objects
 from .public_results import envelope, project
 
 
+def sources(settings, caller):
+    """Advertise only authorized entries that the results endpoint can resolve uniquely."""
+    with connect() as c:
+        c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY")
+        rows = c.execute(
+            """SELECT s.id, jsonb_agg(e.url ORDER BY e.position) AS entry_urls
+            FROM seal.source s
+            CROSS JOIN LATERAL (
+                SELECT url, min(position) AS position
+                FROM jsonb_array_elements_text(s.config->'entry_urls')
+                    WITH ORDINALITY AS entries(url,position)
+                GROUP BY url
+            ) e
+            WHERE s.id = ANY(%s::text[]) AND NOT EXISTS (
+                SELECT 1 FROM seal.source other
+                WHERE other.id <> s.id AND other.config->'entry_urls' ? e.url
+            )
+            GROUP BY s.id ORDER BY s.id COLLATE "C"
+            """,
+            (caller.sources,),
+        ).fetchall()
+    body = canonical(rows)
+    if len(body) > settings.page_max_bytes:
+        raise SealError("archive_too_large")
+    return body
+
+
 def page_rows(source_url, caller, cursor, limit):
     with connect() as c:
         c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY")

@@ -2,7 +2,7 @@
 
 SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
-当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 操作采集，serve 提供按来源入口查询成功内容和下载附件的只读 API。旧 Recipe YAML 需显式迁移，采集合同见[当前 Plan](docs/plans/unified-document-pipeline.md)，接口与运行配置见[结果服务 Plan](docs/plans/results-api.md)。
+当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 init、collect、recheck、worker 操作采集，serve 提供来源发现、按来源入口查询成功内容和下载附件的只读 API。旧 Recipe YAML 需显式迁移，采集合同见[当前 Plan](docs/plans/unified-document-pipeline.md)，接口与运行配置见[结果服务 Plan](docs/plans/results-api.md)。
 
 ## 全链路执行图
 
@@ -74,9 +74,10 @@ resources.py: persist()
     └── [DB] next_check → recheck；current_resource_version / version_delta → 下游SQL取result_ref → MinIO读取CrawlResult
 
 [4] READ-ONLY RESULTS API
-api.py: application() → HTTP /results 或 /attachments/{id}
-├── [CHECK] api_security.py: Bearer摘要 → Caller → 登记入口唯一匹配 → Source许可
-├── [DB] result_query.py: Resource.current_version_id → Version.result_ref
+api.py: application() → HTTP /sources、/results 或 /attachments/{id}
+├── [CHECK] api_security.py: Bearer摘要 → Caller → Source许可；结果查询校验登记入口唯一匹配
+├── [DB] result_query.py: /sources → 获授权 Source 的唯一登记入口 → 下游选择 source_url
+├── [DB] result_query.py: /results → Resource.current_version_id → Version.result_ref
 │   └── [PAGE] 首次成功版本水位 + C序Resource.id → 加密游标 → 同一快照续页
 ├── [IO/CHECK] Objects.get() → 结果/原始附件读取、大小/超时上限、SHA256复算
 ├── [OUTPUT] public_results.py: 白名单 → JSON数组 + Link下一页；坏归档整页报错
@@ -150,7 +151,7 @@ erDiagram
 
 ## API 对外接口
 
-SEAL 提供轻量只读 HTTP 内容服务（`seal serve`），供下游基于来源登记入口（`source_url`）查询最新成功抓取内容、抽取结构化数据及下载原始附件。服务仅消费已有 SQL 与 S3 归档对象，不触发实时采集，不产生额外数据副本。
+SEAL 提供轻量只读 HTTP 内容服务（`seal serve`），供下游发现获授权的来源入口（`GET /sources`）、基于登记入口查询最新成功抓取内容（`GET /results`）以及下载原始附件（`GET /attachments/{attachment_id}`）。服务仅消费已有 SQL 与 S3 归档对象，不触发实时采集，不产生额外数据副本。
 
 ### 1. 服务启动与认证
 
@@ -165,7 +166,36 @@ seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
 
 ### 2. 接口定义
 
-#### 2.1 查询成功内容列表 (`GET /results`)
+#### 2.1 发现可用来源 (`GET /sources`)
+
+查询当前调用方获授权且无入口歧义的来源列表，供下游获取合法的 `source_url` 参数。
+
+- **请求方式**：`GET /sources`
+- **请求参数**：无（不接受任何 Query 参数，传入参数将返回 `400 invalid_parameters`）。
+- **请求头**：携带 `Authorization: Bearer <API_KEY>`。
+- **响应格式**：`application/json`，顶级为 JSON 数组，按来源 `id`（C 字节序）升序排序：
+  | 字段 | 类型 | 说明 |
+  | --- | --- | --- |
+  | `id` | string | 来源稳定编号（如 `dd-017`） |
+  | `entry_urls` | array[string] | 该来源下已登记且无歧义的入口 URL 列表（按登记顺序去重） |
+
+- **响应示例**：
+  ```json
+  [
+    {
+      "id": "dd-017",
+      "entry_urls": [
+        "https://www.court.gov.cn/shenpan/gengduo/77.html"
+      ]
+    }
+  ]
+  ```
+- **特性与边界**：
+  - 纯数据库只读查询，不产生网站访问或 S3 读取。
+  - 严格排除跨来源重复登记的歧义入口（避免下游请求 `/results` 时触发 `source_ambiguous`）。
+  - 若调用方未授权任何来源、来源尚未入库或所有入口均存在歧义，返回空数组 `[]`。
+
+#### 2.2 查询成功内容列表 (`GET /results`)
 
 按来源入口查询最新成功版本快照，支持游标分页。
 
@@ -193,7 +223,7 @@ seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
   Link: <http://127.0.0.1:8080/results?source_url=...&limit=20&cursor=...>; rel="next"
   ```
 
-#### 2.2 下载原始附件 (`GET /attachments/{attachment_id}`)
+#### 2.3 下载原始附件 (`GET /attachments/{attachment_id}`)
 
 下载采集过程中获取的原始二进制附件（如 PDF、文档等）。
 
@@ -207,7 +237,7 @@ seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
 
 | HTTP 状态码 | 错误代码 (`error`) | 触发场景 |
 | --- | --- | --- |
-| 400 | `invalid_parameters` / `invalid_cursor` | 参数缺失、格式非法、超界或游标篡改/过期 |
+| 400 | `invalid_parameters` / `invalid_cursor` | 参数缺失、格式非法、包含多余参数、超界或游标篡改/过期 |
 | 401 | `unauthenticated` | 未提供 Bearer Token 或 Token 无效（附带 `WWW-Authenticate: Bearer`） |
 | 403 | `source_forbidden` | 调用方无权访问该来源 |
 | 404 | `source_not_found` / `attachment_not_found` / `not_found` | 来源未登记、附件令牌失效或路由不存在 |
@@ -218,14 +248,18 @@ seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
 ### 4. 调用示例
 
 ```bash
-# 1. 查询内容列表
+# 1. 发现可用来源及登记入口
+curl -s "http://127.0.0.1:8080/sources" \
+  -H "Authorization: Bearer your-api-key"
+
+# 2. 查询内容列表（使用上一步获取的 entry_urls 之一）
 curl -s -G "http://127.0.0.1:8080/results" \
   -H "Authorization: Bearer your-api-key" \
   --data-urlencode "source_url=https://example.com/portal" \
   --data-urlencode "limit=20" \
   -D -
 
-# 2. 下载附件（使用返回的附件 URL）
+# 3. 下载附件（使用返回的附件 URL）
 curl -s "http://127.0.0.1:8080/attachments/<encrypted_attachment_id>" \
   -H "Authorization: Bearer your-api-key" \
   -O -J
