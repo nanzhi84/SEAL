@@ -1,0 +1,37 @@
+{
+  "contract": "https://github.com/nanzhi84/SEAL/issues/23",
+  "frozen_before_test_and_implementation_inspection": true,
+  "implementation_modules_imported": false,
+  "failure_modes": [
+    "init or upgrade creates or publishes snapshots implicitly; internal successful content leaks through no-publication HTTP requests",
+    "snapshot create changes API publication; create/publish copies S3 results or attachments",
+    "published snapshot source entries or fixed successful versions drift after collect, recheck failure, new resource or source config change",
+    "rollback cannot restore old source and version set or deletes internal newer versions",
+    "new request combines snapshots while publication changes; old cursor or attachment loses original snapshot membership",
+    "revoked permission still allows sources, results, historical cursor or attachment; caller or snapshot token substitution accepted",
+    "snapshot during active collection waits for whole run or includes uncommitted data; multi-query creation mixes pre/post commit mapping",
+    "concurrent publish loses ordering or audit chain; repeated publish creates false switch; invalid publish changes pointer",
+    "archive outage, missing/corrupt result or corrupt attachment silently falls back to internal newer version or exposes private error",
+    "empty snapshot, source with no successful version or ambiguous frozen entry lacks deterministic API behavior",
+    "upgrade modifies pre-existing rows or object bytes, reuses historical same-name snapshot incorrectly, or automatically publishes",
+    "API writes collection data; archived S3 bytes differ from returned attachment or SQL referenced result"
+  ],
+  "boundary_inputs": [
+    "new initialized empty DB; legacy initialized DB with real successful versions and old schema history",
+    "empty snapshot; populated A and B; unpublished B; rollback A; repeated A; unknown, malformed and concurrent publication IDs",
+    "real HTML index/deep article/PDF attachment; newly discovered page; unchanged and failed recheck",
+    "multiple source entry URLs sharing host; two sources with exact same normalized entry; source without successful resource",
+    "cursor issued before publish B, cursor from other caller, authenticated same-key payload with snapshot changed, expired payload",
+    "attachment issued before publish B and rollback A; wrong caller, snapshot, version or attachment association; expiry",
+    "active real collector with a blocked slow resource and already committed siblings",
+    "atomic SQL writer updates source configuration and all resource version pointers in one transaction while create runs",
+    "same SHA key altered bytes, deleted result object, unavailable S3, restored original object",
+    "read-only SQL role and S3 Get/List-only API credentials; private random keys and credential redaction"
+  ],
+  "acceptance_coverage": [
+    "1 init/upgrade/no publication", "2 create A/publish A", "3 internal drift/create B", "4 B/rollback A",
+    "5 historical pagination/attachments", "6 realtime permissions/token binding", "7 concurrency/invalid/faults",
+    "8 empty/never-successful/ambiguous/corrupt", "9 SQL/API/raw SHA/no copy/no write"
+  ],
+  "isolation": "New random PostgreSQL17 and MinIO containers, private loopback ports, root work/artifacts only, root minio never accessed"
+}

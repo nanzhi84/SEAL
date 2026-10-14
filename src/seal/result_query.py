@@ -1,4 +1,4 @@
-"""Read-only source selection and immutable successful-version pagination."""
+"""Read-only published snapshot selection and immutable capability pagination."""
 
 import time
 from urllib.parse import urlencode
@@ -10,26 +10,37 @@ from .objects import Objects
 from .public_results import envelope, project
 
 
+def published(c):
+    pointer = c.execute(
+        "SELECT published_snapshot_id FROM seal.publication WHERE singleton"
+    ).fetchone()
+    if pointer is None or pointer["published_snapshot_id"] is None:
+        raise ApiError(503, "snapshot_not_published")
+    return pointer["published_snapshot_id"]
+
+
 def sources(settings, caller):
-    """Advertise only authorized entries that the results endpoint can resolve uniquely."""
+    """Advertise authorized frozen entries that resolve uniquely within the snapshot."""
     with connect() as c:
         c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY")
+        snapshot = published(c)
         rows = c.execute(
-            """SELECT s.id, jsonb_agg(e.url ORDER BY e.position) AS entry_urls
-            FROM seal.source s
+            """SELECT s.source_id AS id, jsonb_agg(e.url ORDER BY e.position) AS entry_urls
+            FROM seal.snapshot_source s
             CROSS JOIN LATERAL (
                 SELECT url, min(position) AS position
-                FROM jsonb_array_elements_text(s.config->'entry_urls')
+                FROM jsonb_array_elements_text(s.entry_urls)
                     WITH ORDINALITY AS entries(url,position)
                 GROUP BY url
             ) e
-            WHERE s.id = ANY(%s::text[]) AND NOT EXISTS (
-                SELECT 1 FROM seal.source other
-                WHERE other.id <> s.id AND other.config->'entry_urls' ? e.url
+            WHERE s.snapshot_id=%s AND s.source_id = ANY(%s::text[]) AND NOT EXISTS (
+                SELECT 1 FROM seal.snapshot_source other
+                WHERE other.snapshot_id=s.snapshot_id AND other.source_id <> s.source_id
+                  AND other.entry_urls ? e.url
             )
-            GROUP BY s.id ORDER BY s.id COLLATE "C"
+            GROUP BY s.source_id ORDER BY s.source_id COLLATE "C"
             """,
-            (caller.sources,),
+            (snapshot, caller.sources),
         ).fetchall()
     body = canonical(rows)
     if len(body) > settings.page_max_bytes:
@@ -37,60 +48,55 @@ def sources(settings, caller):
     return body
 
 
-def page_rows(source_url, caller, cursor, limit):
+def page_rows(tokens, source_url, caller, cursor_value, limit):
     with connect() as c:
         c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY")
+        snapshot = published(c)
+        cursor = tokens.decode(cursor_value, Cursor) if cursor_value is not None else None
+        if cursor:
+            if (
+                cursor.caller != caller.id
+                or not c.execute(
+                    "SELECT 1 FROM seal.snapshot WHERE id=%s AND sealed", (cursor.snapshot,)
+                ).fetchone()
+            ):
+                raise ApiError(400, "invalid_cursor")
+            snapshot = cursor.snapshot
         matches = c.execute(
-            "SELECT id FROM seal.source WHERE config->'entry_urls' ? %s ORDER BY id LIMIT 2",
-            (source_url,),
+            """SELECT source_id FROM seal.snapshot_source
+            WHERE snapshot_id=%s AND entry_urls ? %s ORDER BY source_id LIMIT 2""",
+            (snapshot, source_url),
         ).fetchall()
         if not matches:
             raise ApiError(404, "source_not_found")
         if len(matches) != 1:
             raise ApiError(409, "source_ambiguous")
-        source_id = matches[0]["id"]
+        source_id = matches[0]["source_id"]
         caller.authorize(source_id)
-        if cursor and (cursor.source != source_id or cursor.caller != caller.id):
+        if cursor and cursor.source != source_id:
             raise ApiError(400, "invalid_cursor")
-        watermark = (
-            cursor.watermark
-            if cursor
-            else c.execute(
-                """SELECT coalesce(max(v.cursor),0) AS watermark FROM seal.version v
-                JOIN seal.resource r ON r.id=v.resource_id
-                JOIN seal.frontier f ON f.id=r.frontier_id WHERE f.source_id=%s""",
-                (source_id,),
-            ).fetchone()["watermark"]
-        )
-        if cursor:
-            query = """SELECT r.id AS resource_id,r.url,v.id AS version_id,v.result_ref
-                FROM seal.frontier f JOIN seal.resource r ON r.frontier_id=f.id
-                JOIN LATERAL (SELECT id,result_ref FROM seal.version
-                  WHERE resource_id=r.id AND cursor<=%s ORDER BY sequence DESC LIMIT 1) v ON true
-                WHERE f.source_id=%s AND r.id COLLATE "C">%s COLLATE "C"
-                ORDER BY r.id COLLATE "C" LIMIT %s"""
-            params = (watermark, source_id, cursor.after, limit + 1)
-        else:
-            query = """SELECT r.id AS resource_id,r.url,v.id AS version_id,v.result_ref
-                FROM seal.frontier f JOIN seal.resource r ON r.frontier_id=f.id
-                JOIN seal.version v ON v.id=r.current_version_id
-                WHERE f.source_id=%s ORDER BY r.id COLLATE "C" LIMIT %s"""
-            params = (source_id, limit + 1)
-        rows = c.execute(query, params).fetchall()
-    return source_id, watermark, rows
+        rows = c.execute(
+            """SELECT i.resource_id,i.url,i.version_id,v.result_ref
+            FROM seal.snapshot_item i JOIN seal.version v
+              ON v.id=i.version_id AND v.resource_id=i.resource_id
+            WHERE i.snapshot_id=%s AND i.source_id=%s
+              AND i.resource_id COLLATE "C">%s COLLATE "C"
+            ORDER BY i.resource_id COLLATE "C" LIMIT %s""",
+            (snapshot, source_id, cursor.after if cursor else "", limit + 1),
+        ).fetchall()
+    return source_id, snapshot, cursor, rows
 
 
-def results(settings, tokens, caller, source_url, limit, cursor, deadline):
-    source_id, watermark, rows = page_rows(source_url, caller, cursor, limit)
+def results(settings, tokens, caller, source_url, limit, cursor_value, deadline):
+    source_id, snapshot, cursor, rows = page_rows(tokens, source_url, caller, cursor_value, limit)
     objects, content, size = Objects(), [], 2
     for row in rows[:limit]:
         if time.monotonic() >= deadline:
             raise SealError("archive_read_timeout")
-        row["source_id"] = source_id
+        row.update(source_id=source_id, snapshot_id=snapshot, caller_id=caller.id)
         value = envelope(
             objects, row["result_ref"], max_bytes=settings.result_max_bytes, deadline=deadline
         )
-        # Do not advertise files that cannot be read and verified. Every response is complete.
         for ref in value["attachment_refs"]:
             objects.get(ref, max_bytes=settings.attachment_max_bytes, deadline=deadline)
         item = project(row, value, settings, tokens)
@@ -104,7 +110,7 @@ def results(settings, tokens, caller, source_url, limit, cursor, deadline):
             Cursor(
                 caller=caller.id,
                 source=source_id,
-                watermark=watermark,
+                snapshot=snapshot,
                 after=rows[limit - 1]["resource_id"],
                 issued_at=cursor.issued_at if cursor else int(time.time()),
             )
@@ -117,16 +123,19 @@ def results(settings, tokens, caller, source_url, limit, cursor, deadline):
     return canonical(content), link
 
 
-def attachment(settings, tokens, caller, value, deadline):
-    identity = tokens.decode(value, Attachment)
-    caller.authorize(identity.source)
+def attachment(settings, tokens, caller, token, deadline):
     with connect() as c:
-        c.execute("SET TRANSACTION READ ONLY")
+        c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY")
+        published(c)
+        identity = tokens.decode(token, Attachment)
+        if identity.caller != caller.id:
+            raise ApiError(404, "attachment_not_found")
+        caller.authorize(identity.source)
         row = c.execute(
-            """SELECT v.result_ref FROM seal.version v
-            JOIN seal.resource r ON r.id=v.resource_id JOIN seal.frontier f ON f.id=r.frontier_id
-            WHERE v.id=%s AND f.source_id=%s""",
-            (identity.version, identity.source),
+            """SELECT v.result_ref FROM seal.snapshot_item i JOIN seal.version v
+              ON v.id=i.version_id AND v.resource_id=i.resource_id
+            WHERE i.snapshot_id=%s AND i.source_id=%s AND i.resource_id=%s AND i.version_id=%s""",
+            (identity.snapshot, identity.source, identity.resource, identity.version),
         ).fetchone()
     if row is None:
         raise ApiError(404, "attachment_not_found")

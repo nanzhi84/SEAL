@@ -114,7 +114,14 @@ def project(row, value, settings, tokens):
                     "url": settings.public_base_url
                     + "/attachments/"
                     + tokens.encode(
-                        Attachment(source=row["source_id"], version=row["version_id"], index=i)
+                        Attachment(
+                            source=row["source_id"],
+                            version=row["version_id"],
+                            index=i,
+                            caller=row["caller_id"],
+                            snapshot=row["snapshot_id"],
+                            resource=row["resource_id"],
+                        )
                     ),
                     "name": None,
                     "media_type": None,

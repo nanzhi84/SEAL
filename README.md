@@ -2,19 +2,20 @@
 
 SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
-当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 `init`、`collect`、`recheck`、`worker` 操作采集，`serve` 提供来源发现、按来源入口查询成功内容和下载附件的只读 API。来源配置采用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，接口、认证配置与调用示例见[结果服务合同](docs/plans/results-api.md)。
+当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 `init`、`collect`、`recheck`、`worker` 操作采集，`snapshot create / inspect / publish` 控制全局人工发布；`serve` 从已发布 Snapshot 提供来源发现、成功内容和原始附件。来源配置采用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，接口、配置与全链路使用示例见[全局 Snapshot 合同](docs/plans/global-snapshots.md)。
 
 ## 全链路执行图
 
 ```text
 [0] ENTRY & DISPATCH
 cli.py: main() → dispatch(args)
-├── seal serve → api.py: serve() → 私有配置、S3桶与当前schema校验 → 进入阶段 [4]
-├── [CHECK] 非 init/serve 采集命令先校验 S3 桶与当前数据库 schema
+├── seal serve → api.py: serve() → 私有配置、S3桶与当前schema校验 → 进入阶段 [5]
+├── [CHECK] 采集命令校验 S3 桶与当前 schema；snapshot 命令校验 schema
 ├── seal init → migration.py: initialize()
 │   ├── [CHECK] S3 桶可用后再查数据库对象清单、历史升级前停止客户端与校验备份
-│   ├── [DB] migrations/schema.sql → 顺序执行未登记的0002–0012，校验已登记摘要；仅接受空旧内容库升级，不回填旧结果
-│   └── [DB] Procrastinate schema；对象桶由部署初始化，minio/ 仅服务管理
+│   ├── [DB] migrations/schema.sql → 顺序执行未登记的0002–0013，校验已登记摘要；旧归档升级仅接受空内容，0012→0013保留全部内容
+│   └── [DB] Procrastinate schema；对象桶由部署初始化；新/升级发布指针为空
+├── seal snapshot create / list / inspect / publish → snapshots.py → 进入阶段 [4]
 ├── seal worker [--once] → queue.py: worker()
 │   ├── recover_stalled() / recover_unqueued() → 任务心跳恢复与补入队
 │   └── [ASYNC] Procrastinate → crawl_job() → 进入阶段 [2]
@@ -76,17 +77,28 @@ resources.py: persist()
     ├── [DB] 复合FK保护Resource/Observation/Version归属；推进current_version_id
     └── [DB] next_check → recheck；current_resource_version / version_delta → 下游SQL取result_ref → MinIO读取CrawlResult
 
-[4] READ-ONLY RESULTS API
+[4] SNAPSHOT & MANUAL PUBLICATION
+snapshots.py: create() / listing() / inspect() / publish()
+├── create() → [DB] REPEATABLE READ事务冻结全局来源入口、Resource URL与当前成功Version
+│   ├── [DB] snapshot_source / snapshot_item复合FK验证来源、资源、版本归属
+│   └── [STATE] 统计核对后sealed；提交后快照和映射不可变；不改变发布指针
+├── listing() / inspect() → [DB] 只读快照统计、发布指针和有界分页映射
+└── publish() → verify() → [IO/CHECK] 原结果/附件读取并复算SHA256；不复制对象
+    ├── [DB] 唯一publication行锁 → 原子指针切换 + 不可变snapshot_publication记录
+    ├── [CHECK] 已发布当前ID幂等；无效快照/坏归档/故障失败保留原指针
+    └── [RETURN] 切换前后ID、顺序与时间；可切回任意旧Snapshot，内部新Version保留
+
+[5] READ-ONLY RESULTS API
 api.py: application() → HTTP /sources、/results 或 /attachments/{id}
-├── [CHECK] api_security.py: Bearer摘要 → Caller → Source许可；结果查询校验登记入口唯一匹配
-├── [DB] result_query.py: /sources → 获授权 Source 的唯一登记入口 → 下游选择 source_url
-├── [DB] result_query.py: /results → 首次页Resource.current_version_id → Version.result_ref
-│   └── [RETURN] 首次成功版本水位 + C序Resource.id → 加密游标
-│       └── 续页按水位选每个资源当时的最新Version；最近复查失败仍保留成功内容
+├── [CHECK] Service.authenticate() → 每请求重读私有callers → Bearer摘要与实时Source许可
+├── [DB] result_query.py: 同一只读事务读取一次published_snapshot_id；为空503 snapshot_not_published
+├── [DB] /sources → 获授权Snapshot来源的无歧义入口 → 下游选择source_url
+├── [DB] /results → Snapshot入口与固定snapshot_item → Version.result_ref
+│   └── [CHECK] 加密游标绑定Snapshot/Caller/Source/C序位置/首次时间；续页保持原快照及期限
 ├── [IO/CHECK] Objects.get() → 结果/原始附件读取、大小/超时上限、SHA256复算
 ├── [RETURN] public_results.py: 白名单 → JSON数组 + Link下一页；坏归档整页报错
-└── [IO] 加密附件ID → 当前Source许可与Version归属 → 原始字节
-    └── 下游消费内容/下载地址；不启动采集、不新增结果存储
+└── [CHECK/IO] 加密附件ID → 实时Caller许可 + Snapshot/Resource/Version成员资格 → 原始字节
+    └── 发布切换仍可读原快照；只读，不采集、不新增对象
 ```
 
 ## 数据模型 ER 图
@@ -101,6 +113,45 @@ erDiagram
  RESOURCE ||--o{ VERSION : versions
  OBSERVATION ||--o| VERSION : originates
  VERSION o|--o{ OBSERVATION : reused_by
+ SNAPSHOT ||--o{ SNAPSHOT_SOURCE : freezes
+ SOURCE ||--o{ SNAPSHOT_SOURCE : referenced_by
+ SNAPSHOT_SOURCE ||--o{ SNAPSHOT_ITEM : contains
+ RESOURCE ||--o{ SNAPSHOT_ITEM : frozen_resource
+ VERSION ||--o{ SNAPSHOT_ITEM : fixed_version
+ SNAPSHOT o|--o| PUBLICATION : published
+ SNAPSHOT ||--o{ SNAPSHOT_PUBLICATION : switch_target
+ SNAPSHOT {
+  text id PK
+  timestamptz created_at
+  boolean sealed
+  bigint source_count
+  bigint resource_count
+  bigint version_count
+ }
+ SNAPSHOT_SOURCE {
+  text snapshot_id PK,FK
+  text source_id PK,FK
+  text frontier_id FK
+  jsonb entry_urls "冻结登记入口"
+ }
+ SNAPSHOT_ITEM {
+  text snapshot_id PK,FK
+  text source_id FK
+  text frontier_id FK
+  text resource_id PK,FK
+  text version_id FK
+  text url "冻结Resource URL"
+ }
+ PUBLICATION {
+  boolean singleton PK
+  text published_snapshot_id FK "可空，只有人工切换"
+ }
+ SNAPSHOT_PUBLICATION {
+  bigint sequence PK
+  text before_snapshot_id FK
+  text after_snapshot_id FK
+  timestamptz published_at
+ }
  RESOURCE {
   text id PK
   text frontier_id FK
@@ -153,301 +204,4 @@ erDiagram
   text framework_version
   jsonb parser_config
  }
-```
-
-## API 对外接口
-
-SEAL 提供轻量只读 HTTP 内容服务（`seal serve`），供下游发现获授权的来源入口（`GET /sources`）、基于登记入口查询最新成功抓取内容（`GET /results`）以及下载原始附件（`GET /attachments/{attachment_id}`）。服务仅消费已有 SQL 与 S3 归档对象，不触发实时采集，不产生额外数据副本。
-
-### 1. 服务启动与认证
-
-```bash
-# 启动结果服务（默认仅监听本地环回）
-seal serve --config <api-config.json> --host 127.0.0.1 --port 8080
-```
-
-- **认证方式**：HTTP Bearer Token（`Authorization: Bearer <API_KEY>`）。
-- **权限模型**：服务端通过常数时间比对调用方 `key_sha256` 摘要，严格限定调用方可访问的 Source 白名单（如 `["dd-017"]`）。
-- **配置与安全**：服务配置详情参见[结果服务 Plan](docs/plans/results-api.md)。响应默认包含 `Cache-Control: no-store` 与 `X-Content-Type-Options: nosniff`。
-
-### 2. 接口定义
-
-#### 2.1 发现可用来源 (`GET /sources`)
-
-查询当前调用方获授权且无入口歧义的来源列表，供下游获取合法的 `source_url` 参数。
-
-- **请求方式**：`GET /sources`
-- **请求参数**：无（不接受任何 Query 参数，传入参数将返回 `400 invalid_parameters`）。
-- **请求头**：携带 `Authorization: Bearer <API_KEY>`。
-- **响应格式**：`application/json`，顶级为 JSON 数组，按来源 `id`（C 字节序）升序排序：
-
-  | 字段         | 类型          | 说明                                                    |
-  | ------------ | ------------- | ------------------------------------------------------- |
-  | `id`         | string        | 来源稳定编号（如`dd-017`）                              |
-  | `entry_urls` | array[string] | 该来源下已登记且无歧义的入口 URL 列表（按登记顺序去重） |
-
-- **响应示例**：
-
-  ```json
-  [
-    {
-      "id": "dd-017",
-      "entry_urls": ["https://www.court.gov.cn/shenpan/gengduo/77.html"]
-    }
-  ]
-  ```
-
-- **特性与边界**：
-  - 纯数据库只读查询，不产生网站访问或 S3 读取。
-  - 严格排除跨来源重复登记的歧义入口（避免下游请求 `/results` 时触发 `source_ambiguous`）。
-  - 若调用方未授权任何来源、来源尚未入库或所有入口均存在歧义，返回空数组 `[]`。
-
-#### 2.2 查询成功内容列表 (`GET /results`)
-
-按来源入口查询最新成功版本快照，支持游标分页。
-
-- **请求参数**（Query Params）：
-
-  | 参数         | 类型   | 必填 | 说明                                                                        |
-  | ------------ | ------ | ---- | --------------------------------------------------------------------------- |
-  | `source_url` | string | 是   | 来源登记入口 URL（严格匹配来源配置中的`entry_urls`）                        |
-  | `limit`      | int    | 否   | 每页返回资源数，默认`20`，范围 `1–100`                                      |
-  | `cursor`     | string | 否   | 分页游标，从上一页响应头`Link` 中获取（Fernet 认证加密令牌，有效期 1 小时） |
-
-- **响应格式**：`application/json`，顶级为 JSON 数组。字段遵循严格白名单：
-
-  | 字段          | 类型   | 说明                                                                                            |
-  | ------------- | ------ | ----------------------------------------------------------------------------------------------- |
-  | `url`         | string | 资源最终目标 URL                                                                                |
-  | `markdown`    | string | 提取的 Markdown 正文（无则为空字符串）                                                          |
-  | `metadata`    | object | 元数据，包含`title`、`author`、`description`、`keywords`（均为 `string \| null`）               |
-  | `links`       | object | `internal` 与 `external` 链接数组（每项含 `href`、`text`、`title`）                             |
-  | `media`       | object | `images`、`videos`、`audios` 媒体数组（每项含 `src`、`alt`、`desc`、`type`、`format`、`width`） |
-  | `tables`      | array  | 表格数组（每项含`headers`、`rows`、`caption`、`summary`）                                       |
-  | `attachments` | array  | 原始下载附件列表，每项含`url`（绝对下载链接）、`name`（`null`）、`media_type`（`null`）         |
-
-- **分页响应头**：
-  若存在下一页，响应头包含标准 `Link` 标头；最后一页无此标头：
-
-  ```http
-  Link: <http://127.0.0.1:8080/results?source_url=...&limit=20&cursor=...>; rel="next"
-  ```
-
-#### 2.3 下载原始附件 (`GET /attachments/{attachment_id}`)
-
-下载采集过程中获取的原始二进制附件（如 PDF、文档等）。
-
-- **路径参数**：`attachment_id`（由 `/results` 响应的 `attachments[].url` 路径中提供，为 Fernet 认证加密令牌，有效期 24 小时，绑定来源与版本）。
-- **请求头**：需携带与调用方相同的 `Authorization: Bearer <API_KEY>`。
-- **响应格式**：`application/octet-stream` 二进制流（响应头 `Content-Disposition: attachment; filename="attachment"`），下载时实时复算 SHA-256 校验。
-
-### 3. 错误响应与状态码
-
-错误响应统一为 JSON 对象：`{"error": "<error_code>"}`。
-
-| HTTP 状态码 | 错误代码 (`error`)                                                                                 | 触发场景                                                            |
-| ----------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| 400         | `invalid_parameters` / `invalid_cursor`                                                            | 参数缺失、格式非法、包含多余参数、超界或游标篡改/过期               |
-| 401         | `unauthenticated`                                                                                  | 未提供 Bearer Token 或 Token 无效（附带`WWW-Authenticate: Bearer`） |
-| 403         | `source_forbidden`                                                                                 | 调用方无权访问该来源                                                |
-| 404         | `source_not_found` / `attachment_not_found` / `not_found`                                          | 来源未登记、附件令牌失效或路由不存在                                |
-| 409         | `source_ambiguous`                                                                                 | 入口 URL 匹配到多个来源                                             |
-| 500         | `archive_corrupt` / `archive_invalid` / `archive_missing` / `archive_too_large` / `internal_error` | 归档对象损坏、字段不合法、对象缺失或超出大小限制                    |
-| 503         | `database_unavailable` / `object_storage_unavailable` / `request_timeout` / `server_busy`          | 数据库/S3 不可用、请求超时或并发工作线程已满                        |
-
-### 4. 调用示例
-
-```bash
-# 1. 发现可用来源及登记入口
-curl -s "http://127.0.0.1:8080/sources" \
-  -H "Authorization: Bearer your-api-key"
-
-# 2. 查询内容列表（使用上一步获取的 entry_urls 之一）
-curl -s -G "http://127.0.0.1:8080/results" \
-  -H "Authorization: Bearer your-api-key" \
-  --data-urlencode "source_url=https://example.com/portal" \
-  --data-urlencode "limit=20" \
-  -D -
-
-# 3. 下载附件（使用返回的附件 URL）
-curl -s "http://127.0.0.1:8080/attachments/<encrypted_attachment_id>" \
-  -H "Authorization: Bearer your-api-key" \
-  -O -J
-```
-
-## 运行示例：从公开来源采集到 API 查询
-
-以下示例在仓库根目录执行，演示从公开来源抓取、存储持久化到只读 API 查询的完整流程：
-
-```text
-sources/dd-xxx.yaml → seal collect (抓取与解析)
-  → PostgreSQL (元数据与版本) + MinIO (结果 JSON 与附件)
-  → seal serve (只读 API) → /sources 发现来源 → /results 查询内容
-```
-
-### 1. 选择验证来源
-
-选用 4 个采用轻量 HTTP 模式（无需浏览器环境）的已跑通来源作为示例：
-
-| Source / 来源地图                                                          | 公开入口                                                           | 配置文件                           | 历史成功资源数 |
-| :------------------------------------------------------------------------- | :----------------------------------------------------------------- | :--------------------------------- | -------------: |
-| [dd-017 · 最高法指导案例](docs/reference/尽职调查核验入口地图.md#dd-017)   | [指导案例](https://www.court.gov.cn/shenpan/gengduo/77.html)       | [dd-017.yaml](sources/dd-017.yaml) |            547 |
-| [dd-040 · 最高检公报](docs/reference/尽职调查核验入口地图.md#dd-040)       | [最高检公报](https://www.spp.gov.cn/spp/gjgb/index.shtml)          | [dd-040.yaml](sources/dd-040.yaml) |             31 |
-| [dd-041 · 最高检指导性案例](docs/reference/尽职调查核验入口地图.md#dd-041) | [指导性案例](https://www.spp.gov.cn/spp/jczdal/index.shtml)        | [dd-041.yaml](sources/dd-041.yaml) |             31 |
-| [dd-448 · 电影备案公示](docs/reference/尽职调查核验入口地图.md#dd-448)     | [电影备案立项公示](https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/) | [dd-448.yaml](sources/dd-448.yaml) |             16 |
-
-> 注：成功资源数为历史实测参考值，重跑结果受站点当前状态与配置预算影响。
-
-### 2. 准备本地存储与运行环境
-
-启动本地 PostgreSQL 与 MinIO 容器，并初始化数据库 schema：
-
-```bash
-uv sync --frozen
-uv run --no-sync python -m seal.local_storage
-
-# 导出数据库与 S3 配置
-set -a
-source .env.local
-set +a
-
-# 初始化 schema 并创建临时目录
-uv run --no-sync seal init
-mkdir -p work/readme-demo artifacts/readme-demo
-```
-
-> 注：对象读取统一走 S3 API，不要直接操作根目录 `minio/`。
-
-### 3. 执行采集与入库验证
-
-在前台执行采集任务，回执 JSON 保存至 `artifacts/readme-demo/`：
-
-```bash
-set -o pipefail
-uv run --no-sync seal collect sources/dd-017.yaml | tee artifacts/readme-demo/dd-017-run.json
-uv run --no-sync seal collect sources/dd-040.yaml | tee artifacts/readme-demo/dd-040-run.json
-uv run --no-sync seal collect sources/dd-041.yaml | tee artifacts/readme-demo/dd-041-run.json
-uv run --no-sync seal collect sources/dd-448.yaml | tee artifacts/readme-demo/dd-448-run.json
-```
-
-核验关系库状态，并通过 S3 API 真实拉取结果对象以验证连通性与 SHA-256 CAS：
-
-```bash
-uv run --no-sync python - <<'PY' | tee artifacts/readme-demo/storage-check.json
-import json
-from seal.db import connect
-from seal.objects import Objects
-
-ids = ["dd-017", "dd-040", "dd-041", "dd-448"]
-with connect() as conn:
-    conn.execute("SET TRANSACTION READ ONLY")
-    rows = conn.execute("""
-        SELECT s.id,
-          (SELECT status FROM seal.run WHERE source_id=s.id
-           ORDER BY created_at DESC LIMIT 1) AS latest_run_status,
-          (SELECT count(*) FROM seal.frontier f
-           JOIN seal.resource r ON r.frontier_id=f.id
-           WHERE f.source_id=s.id AND r.current_version_id IS NOT NULL)
-           AS successful_resources
-        FROM seal.source s WHERE s.id=ANY(%s) ORDER BY s.id
-    """, (ids,)).fetchall()
-    sample = conn.execute("""
-        SELECT r.url, v.result_ref FROM seal.frontier f
-        JOIN seal.resource r ON r.frontier_id=f.id
-        JOIN seal.version v ON v.id=r.current_version_id
-        WHERE f.source_id='dd-017' ORDER BY r.id LIMIT 1
-    """).fetchone()
-
-assert {row["id"] for row in rows} == set(ids), "source_not_registered"
-assert all(row["latest_run_status"] == "complete" for row in rows), "latest_run_not_complete"
-assert all(row["successful_resources"] > 0 for row in rows), "source_has_no_successful_content"
-assert sample is not None, "no_successful_version"
-
-# 通过 S3 API 读取对象并复算校验 SHA-256
-raw = Objects().get(sample["result_ref"])
-archive = json.loads(raw)
-assert isinstance(archive["result"], dict), "invalid_result_archive"
-print(json.dumps({"sources": rows, "archive_sample": {
-    "url": sample["url"], "result_ref": sample["result_ref"],
-    "bytes": len(raw), "archive_verified": True
-}}, ensure_ascii=False, indent=2))
-PY
-```
-
-### 4. 生成配置并启动 API 服务
-
-`seal serve` 是只读 HTTP 服务。生成测试授权配置与 Bearer 请求头后启动服务：
-
-```bash
-uv run --no-sync python - <<'PY'
-import hashlib, json, os, secrets
-from pathlib import Path
-from cryptography.fernet import Fernet
-
-root = Path("work/readme-demo")
-root.mkdir(parents=True, exist_ok=True)
-key = secrets.token_urlsafe(32)
-config = {
-    "public_base_url": "http://127.0.0.1:8090",
-    "token_key": Fernet.generate_key().decode(),
-    "callers": [{
-        "id": "demo",
-        "key_sha256": hashlib.sha256(key.encode()).hexdigest(),
-        "sources": ["dd-017", "dd-040", "dd-041", "dd-448"]
-    }]
-}
-for name, body in (
-    ("api-config.local.json", json.dumps(config, indent=2)),
-    ("headers.local.txt", "Authorization: Bearer " + key + "\n")
-):
-    path = root / name
-    with os.fdopen(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600), "w") as f:
-        f.write(body)
-    path.chmod(0o600)
-PY
-
-# 在当前终端启动服务（保持运行）
-uv run --no-sync seal serve \
-  --config work/readme-demo/api-config.local.json --host 127.0.0.1 --port 8090
-```
-
-### 5. 客户端查询与结果消费
-
-另开一个终端进入项目根目录，调用 API 查询可用来源及解析内容：
-
-```bash
-mkdir -p artifacts/readme-demo
-
-# 1. 发现已授权来源
-curl --fail-with-body --silent --show-error http://127.0.0.1:8090/sources \
-  --header @work/readme-demo/headers.local.txt \
-  --output artifacts/readme-demo/sources.json
-cat artifacts/readme-demo/sources.json
-
-# 2. 按来源入口 URL 查询最新成功内容（取前 5 条）
-query_source() {
-  curl --fail-with-body --silent --show-error --get http://127.0.0.1:8090/results \
-    --header @work/readme-demo/headers.local.txt \
-    --data-urlencode "source_url=$2" --data-urlencode 'limit=5' \
-    --dump-header "artifacts/readme-demo/$1-headers.txt" \
-    --output "artifacts/readme-demo/$1-results.json"
-}
-
-query_source dd-017 'https://www.court.gov.cn/shenpan/gengduo/77.html'
-query_source dd-040 'https://www.spp.gov.cn/spp/gjgb/index.shtml'
-query_source dd-041 'https://www.spp.gov.cn/spp/jczdal/index.shtml'
-query_source dd-448 'https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/'
-
-cat artifacts/readme-demo/dd-017-results.json
-```
-
-- `/sources` 返回已授权的来源 ID 及登记入口；
-- `/results` 返回规范化内容数组（包含 `markdown`、`metadata`、`attachments` 等），响应头 `Link` 包含下一页游标。
-
-#### 停止服务与清理
-
-在服务终端按 `Ctrl+C` 停止 API。停止本地存储容器（保留数据）：
-
-```bash
-docker compose --env-file .env.local down
 ```
