@@ -85,3 +85,32 @@ Snapshot → HTTP Results/attachments 验证 native、扫描、多语言、空�
 复用不含页面来源元数据的旧 Version；OCR 为 `crawl4ai_0_9_5_ocr_v1`。显式重采集才
 追加不可变 Version，不自动重解析；历史 Snapshot 不变。回滚代码与依赖锁即可停止未来 OCR。
 生产部署、负载、真实来源全量 OCR 及不可捕获退出由最终验收单独列出边界。
+
+## 本次独立验收
+
+2026-10-15，macOS / Python 3.12.13 / Crawl4AI 0.9.5 / pypdfium2 5.14.0 /
+Tesseract 5.5.3，真实 eng、chi_sim、vie 模型。四份最终报告的实现与依赖摘要一致，
+共 **365 PASS / 0 FAIL**；历史失败或源码漂移轮不计入本次结论。
+
+| 路径 | 断言 | 脱敏报告 |
+| --- | ---: | --- |
+| 真实多语言采集、页面来源、重定向多附件、Snapshot/API/原件回查 | 181 PASS | `artifacts/issue25-real-20261015-g/report.json` |
+| 真实旧代码采集升级、旧待执行 Run、旧 Snapshot 不变 | 17 PASS | `artifacts/issue25-upgrade-20261015-e/report.json` |
+| 坏输出、超时/预算、取消竞态、事件循环、强退派生进程、清理故障 | 150 PASS | `artifacts/issue25-faults-20261015-e/report.json` |
+| 两个 Source 独立 collect 共享上限、跨 Run 清理失败封闭、原生坏页 | 17 PASS | `artifacts/issue25-global-20261015-c/report.json` |
+
+在根目录重跑下列命令，每次用新的运行名。前提：`uv sync`、实际 Tesseract 和
+`work/ocr-tessdata/{eng,chi_sim,vie}.traineddata`，本机 PostgreSQL/MinIO 正常且私有
+`.env.local` 提供创建隔离数据库/桶的权限。使用合成公开 fixture，允许本地回环；
+报告记录引擎/模型/源码哈希、命令与环境前提，不保存凭据。故障引擎只证明边界，
+不替代第一项实际 OCR。脚本与数据均为本地验收工件，不入库。
+
+```bash
+uv run --no-sync python tests/issue25_e2e.py --name issue25-real-rerun
+uv run --no-sync python tests/issue25_upgrade.py --name issue25-upgrade-rerun
+uv run --no-sync python tests/issue25_faults.py --name issue25-faults-rerun
+uv run --no-sync python tests/issue25_global.py --name issue25-global-rerun
+```
+
+独立子代理审查最终实现无剩余必修项；Ruff、格式、seiso、diff 与 GitHub 静态 CI 通过。
+生产、公网来源全量采集、负载、跨主机分布式上限、SIGKILL/断电即时回收未验证。
