@@ -58,6 +58,17 @@ class CrawlConfig(Strict):
     wait_until: str = Field(default="domcontentloaded", pattern="^(commit|domcontentloaded|load)$")
 
 
+class OCRConfig(Strict):
+    languages: str = Field(
+        default="eng+chi_sim+vie", pattern=r"^[a-z_]+(\+[a-z_]+)*$", max_length=128
+    )
+    timeout_seconds: int = Field(default=180, ge=1, le=3600)
+    max_pages: int = Field(default=200, ge=1, le=10000)
+    dpi: int = Field(default=144, ge=72, le=300)
+    max_page_pixels: int = Field(default=20000000, ge=10000, le=100000000)
+    max_result_bytes: int = Field(default=16777216, ge=1024, le=67108864)
+
+
 class SourceConfig(Strict):
     id: str = Field(pattern=r"^dd-[0-9]{3,}$")
     entry_urls: list[str] = Field(min_length=1, max_length=1000)
@@ -74,6 +85,7 @@ class SourceConfig(Strict):
     delay: float = Field(default=0.1, ge=0.0, le=60.0)
     budget: Budget = Field(default_factory=Budget)
     crawl4ai: CrawlConfig = Field(default_factory=CrawlConfig)
+    ocr: OCRConfig = Field(default_factory=OCRConfig)
     blocked_patterns: list[str] = Field(default_factory=list, max_length=20)
 
     @field_validator("entry_urls")

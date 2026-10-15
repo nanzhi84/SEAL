@@ -5,6 +5,27 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / 无文字 PDF OCR 兜底（Issue #25）— 2026-10-15
+
+整份 PDF 无文字时以 PDFium + 多语言 Tesseract 顺序渲染识别；任意页有文字继续
+SDK 原生解析，接受混合 PDF 或仅页码有文字时正文可能缺失的边界。共用 SDK 的
+文字转 HTML、PDFPage/PDFProcessResult、scraper、CrawlResult 和既有 SQL/S3/API。
+公开 metadata.pdf 声明 native/ocr、每页一基页码与原始提取文字，空文字页保留，
+可结合原始附件回查；处理成功不代表识别准确或业务事实核验完成。
+
+每份 PDF 一个无 DB/S3 凭据的受控子进程，异步获取名额和等待，预检与原生提取
+也不阻塞事件循环。独立执行时限受采集剩余预算约束，输出、页数、像素有界；
+超时、取消和正常退出统一终止进程组、回收进程、清理目录后释放名额，清理失败
+停止接收新 PDF。同步信号标记和提交前事务闸门拒绝取消或预算后的迟到成功。
+
+新增 pypdfium2 Python 依赖，部署须安装 Tesseract 及配置的语言模型，默认
+eng+chi_sim+vie。Source ocr 配置随 Run 冻结；旧待执行 Run 缺字段时使用已记录的
+默认值，不改写旧 config_hash。无数据库迁移。native 来源合同变为
+`crawl4ai_0_9_5_native_pages_v1`，OCR 为 `crawl4ai_0_9_5_ocr_v1`；显式重采集可追加
+新表示 Version，旧 Snapshot 不变。同合同同输入复查仍 unchanged，不自动重解析。
+回滚程序与依赖锁即可停止后续 OCR；部署与验收边界见
+[唯一 Plan](docs/plans/pdf-ocr.md) 和 [同步可视化](docs/generated/pdf-ocr.html)。
+
 ## 未发布 / Crawl4AI 0.9.5 — 2026-10-15
 
 依赖从 0.9.4 固定升级至 0.9.5，接入上游 PR #2320 的 PDF 并行页码竞争修复，

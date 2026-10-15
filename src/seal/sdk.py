@@ -1,9 +1,7 @@
 """Crawl4AI fetching adapter: acquire bytes at the transport boundary, before decoding."""
 
 import contextvars
-import io
 import re
-import tempfile
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -13,14 +11,11 @@ from crawl4ai.antibot_detector import is_blocked
 from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy, AsyncPlaywrightCrawlerStrategy
 from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling.filters import URLFilter
-from crawl4ai.processors.pdf import PDFContentScrapingStrategy
-from lxml import html as lxml_html
-from pypdf import PdfReader
 
 from .core import SealError, digest
 from .network import Resolver
-from .objects import Objects, work_directory
-from .pdf_contract import PDF_TEXT_CONTRACT
+from .objects import Objects
+from .pdf_result import wrap
 from .resources import persist
 from .robots import Robots
 from .scope import guard
@@ -81,7 +76,8 @@ class Response(aiohttp.ClientResponse):
 
 
 class HttpAdapter(AsyncHTTPCrawlerStrategy):
-    def __init__(self, state, downloads):
+    def __init__(self, state, downloads, pdf=None):
+        self.pdf = pdf
         self.state = state
         self.config = state.config
         self.captures = {}
@@ -184,6 +180,18 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
                     # SDK treats even inline TXT/XHTML as downloads; they belong only
                     # in the complete result under the new textual storage contract.
                     response.downloaded_files = None
+                capture = self.captures[url]
+                mime = (
+                    next(
+                        (v for k, v in capture["headers"].items() if k.lower() == "content-type"),
+                        "",
+                    )
+                    .split(";")[0]
+                    .strip()
+                    .lower()
+                )
+                if mime == "application/pdf" and 200 <= capture["status"] < 300:
+                    capture["pdf_result"] = await self.pdf.prepare(capture)
             return response
         finally:
             request_context.reset(token)
@@ -203,50 +211,9 @@ class InputScraper(LXMLWebScrapingStrategy):
         if capture.get("error"):
             raise SealError(capture["error"])
         if mime == "application/pdf":
-            with tempfile.TemporaryDirectory(prefix="seal-pdf-", dir=work_directory()) as folder:
-                path = Path(folder) / "input.pdf"
-                path.write_bytes(capture["body"])
-                try:
-                    reader = PdfReader(io.BytesIO(capture["body"]))
-                    pages = len(reader.pages)
-                    if not pages or not any(page.extract_text().strip() for page in reader.pages):
-                        capture["error"] = "pdf_text_layer_required"
-                        raise SealError(capture["error"])
-                except SealError:
-                    raise
-                except Exception:
-                    capture["error"] = "pdf_invalid_or_encrypted"
-                    raise SealError(capture["error"]) from None
-                # The captured bytes are the exact same acquisition; never refetch.
-                scraper = PDFContentScrapingStrategy(
-                    extract_images=False,
-                    max_pdf_bytes=self.adapter.config["budget"]["response_bytes"],
-                    max_pdf_pages=pages,
-                )
-                result = scraper.scrap(str(path), "", **kwargs)
-                result.metadata["pdf_text_contract"] = PDF_TEXT_CONTRACT
-                if re.search(r"[\ud800-\udfff]", result.cleaned_html):
-                    # PDF font CMaps can contain invalid UTF-16 units. libxml silently
-                    # stops at one (354/1118 pages in the live source), and JSON UTF-8
-                    # cannot encode it. Join valid pairs; retain lone units literally
-                    # instead of dropping them or guessing a mathematical symbol.
-                    text = result.cleaned_html.encode("utf-16", "surrogatepass").decode(
-                        "utf-16", "surrogatepass"
-                    )
-                    lone = len(re.findall(r"[\ud800-\udfff]", text))
-                    result.cleaned_html = text.encode("utf-8", "backslashreplace").decode("utf-8")
-                    if lone:
-                        result.metadata["pdf_text_encoding"] = {
-                            "unpaired_code_units": lone,
-                            "representation": "literal_utf16_escape",
-                        }
-                extracted_pages = lxml_html.fromstring(result.cleaned_html).xpath(
-                    '//div[@class="pdf-page"]'
-                )
-                if len(extracted_pages) != pages:
-                    capture["error"] = "pdf_page_parse_failed"
-                    raise SealError(capture["error"])
-                return result
+            if "pdf_result" not in capture:
+                raise SealError("pdf_output_invalid")
+            return wrap(capture["pdf_result"], Path("input.pdf"), capture["archive_ref"], **kwargs)
         if mime not in ("text/html", "application/xhtml+xml", "text/plain"):
             raise SealError("unsupported_content_type")
         return super().scrap(url, html, **kwargs)

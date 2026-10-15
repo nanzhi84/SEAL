@@ -138,7 +138,9 @@ def stop_process(process):
     if process.poll() is None:
         os.killpg(process.pid, signal.SIGTERM)
         try:
-            process.wait(timeout=3)
+            # PDF processes own separate groups; allow their bounded group cleanup
+            # to finish before killing the crawl parent that is responsible for them.
+            process.wait(timeout=8)
         except subprocess.TimeoutExpired:
             os.killpg(process.pid, signal.SIGKILL)
             process.wait()

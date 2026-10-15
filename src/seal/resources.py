@@ -31,6 +31,7 @@ def persist(
     role="content",
     *,
     result_ref=None,
+    check_active=None,
 ):
     """One run/URL delivery commits once, even after checkpoint replay or worker takeover."""
     body_hash = capture.get("body_hash")
@@ -149,6 +150,10 @@ def persist(
         )
         if error:
             c.execute("UPDATE seal.run SET errors=errors || %s WHERE id=%s", (j([error]), run_id))
+        if check_active is not None:
+            # The process-local cancellation/budget fence runs after archive reads
+            # and SQL work, immediately before committing any successful delivery.
+            check_active()
         return oid
 
 

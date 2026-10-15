@@ -17,6 +17,33 @@ class Metadata(Content):
     author: str | None = None
     description: str | None = None
     keywords: str | None = None
+    pdf: "PDF | None" = None
+
+
+class PDFPage(Content):
+    page_number: int = Field(ge=1)
+    text: str
+
+
+class OCR(Content):
+    engine: str
+    version: str
+    config: "OCRSettings"
+
+
+class OCRSettings(Content):
+    languages: str
+    timeout_seconds: int
+    max_pages: int
+    dpi: int
+    max_page_pixels: int
+    max_result_bytes: int
+
+
+class PDF(Content):
+    method: str = Field(pattern="^(native|ocr)$")
+    pages: list[PDFPage]
+    ocr: OCR | None = None
 
 
 class Link(Content):
