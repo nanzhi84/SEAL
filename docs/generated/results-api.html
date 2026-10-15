@@ -57,7 +57,7 @@ Authorization: Bearer &lt;API_KEY&gt;</pre>
 </div>
 <div class="columns">
 <section><h2>附件原始字节</h2><p>Fernet 认证加密 ID 绑定来源、版本和附件位置，有效期24小时。下载重新验证当前来源许可、SQL归属、结果信封和对象哈希；旧版本附件仍可按令牌下载。</p><p>固定 <code>application/octet-stream</code> 和通用安全文件名；不推断类型、不物化磁盘副本。服务使用配置的公开基址，忽略 Host 和转发头。</p></section>
-<section><h2>有界资源</h2><p>默认4个工作线程，上限8；每次顺序读取对象，等候槽位1秒。HTTP默认30秒，上限60秒；取消后的实际线程仍占用槽位。同期限到达时按阶段返回 server_busy 或 request_timeout。</p><p>结果对象16 MiB、附件50 MiB、页64 MiB；超限明确报错。数据库连接5秒/语句15秒；S3连接3秒/读取10秒/最多2次，按块读取并关闭 Body。</p></section>
+<section><h2>有界资源</h2><p>默认4个工作线程，上限8；每次顺序读取对象，等候槽位1秒。HTTP默认30秒，上限60秒；取消后的实际线程仍占用槽位。同期限到达时按阶段返回 server_busy 或 request_timeout。</p><p>默认结果对象16 MiB、附件50 MiB、页64 MiB；附件可显式配置到128 MiB，超限明确报错。数据库连接5秒/语句15秒；S3连接3秒/读取10秒/最多2次，按块读取并关闭 Body。</p></section>
 </div>
 <h2>状态与错误</h2>
 <table><thead><tr><th>HTTP</th><th>业务含义 / 稳定代码</th></tr></thead><tbody>

@@ -66,6 +66,28 @@ def persist(
             if current and current["input_mode"] != input_mode:
                 raise SealError("input_mode_change_requires_new_source")
             new = current is None or current["body_hash"] != body_hash
+            contract = (envelope["result"].get("metadata") or {}).get("pdf_text_contract")
+            mime = (
+                next(
+                    (
+                        v
+                        for k, v in capture.get("headers", {}).items()
+                        if k.lower() == "content-type"
+                    ),
+                    "",
+                )
+                .split(";")[0]
+                .strip()
+                .lower()
+            )
+            if not new and contract and mime == "application/pdf":
+                previous = verify_result(Objects(), current["result_ref"])
+                previous_contract = (previous["result"].get("metadata") or {}).get(
+                    "pdf_text_contract"
+                )
+                # Corrected text is a new immutable representation of the same
+                # input. Runtime timestamps never participate in version identity.
+                new = contract != previous_contract
             version_id = uid() if new else current["id"]
             if not new:
                 outcome = "unchanged"

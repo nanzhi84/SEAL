@@ -33,7 +33,7 @@ Version.result_ref 与其原始 Observation 的指针相同。结果 JSON 为 re
 
 body_hash 与 archive_ref 不再等空，archive_ref 有值时必须等于同次输入的 body_hash。
 先读回校验结果和所有附件再提交引用。失败与 unsupported 不生成成功 Version；正文相同
-但本轮结果变化时 Observation 保存本轮结果、Version 保留原始结果；A→B→A 仍追加三版。
+但本轮结果变化时 Observation 保存本轮结果、Version 保留原始结果（显式 PDF 文字合同改变除外）；A→B→A 仍追加三版。
 单 Run/资源交付幂等，跨 Run 新观察。完整结果不双写关系库；Run 的状态、统计、错误及
 冻结配置留 PostgreSQL，不再写 manifest 对象或在 CLI 返回 manifest_id。
 
@@ -210,13 +210,14 @@ checkpoint 恢复的重复交付不追加版本。不同 Run 每次形成新 Obs
 | 输入情况 | 结果 |
 | --- | --- |
 | 首次有效内容且解析成功 | Observation + V1，推进资源指针 |
-| 解析成功且响应等于当前成功版本 | 新 Observation，outcome=unchanged，关联旧版本 |
+| 解析成功且响应及 PDF 文字合同等于当前成功版本 | 新 Observation，outcome=unchanged，关联旧版本 |
 | 响应变化且解析成功 | 新 Observation + 连续 Version，推进指针 |
 | 响应变化但解析失败或不支持 | 保存实际返回结果及已有附件，失败 Observation 不推进；下次新 Run 重试 |
 | 网络错误、403/429、登录/挑战页 | 保存失败/blocked 结果，不生成内容版本；SDK 未返回时 result_ref 可空 |
 | 仅更新解析配置或框架 | 正文相同则仍关联旧版本，不追加内容增量 |
+| 显式 PDF 文字合同改变且解析成功 | 同原件追加不可变 Version，旧 Snapshot 不变；见 [ADR 0005](../adr/0005-pdf-text-representation.md) |
 
-比较基准始终是当前成功 Version 的正文。A→B→A 为 V1→V2→V3，CAS 可复用 A。
+比较基准是当前成功 Version 的输入正文与显式 PDF 文字合同。A→B→A 为 V1→V2→V3，CAS 可复用 A。
 版本时间是发现变化时间；不推定网站修改时间。有效资源逐个事务提交，即便本轮其他 URL
 失败也保留已提交结果；Run.complete 仅表示本轮有界处理无错误，whole-site 始终 UNKNOWN。
 阻拦检测组合 SDK 结果与密码输入、验证码标记、登录/挑战标题和配置规则；无证据时不宣称

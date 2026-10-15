@@ -226,7 +226,7 @@ async def run(context):
                     state.save()
 
             try:
-                if context["mode"] == "recheck":
+                if context["mode"] == "recheck" or cfg["crawl4ai"]["max_depth"] == 0:
                     remaining = [
                         s["url"]
                         for s in context["seeds"]

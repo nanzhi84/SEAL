@@ -1,0 +1,77 @@
+{
+  "scope": "dd-492 real ASP.NET historical lists and PDF text-layer collection",
+  "failure_boundaries": [
+    "Next page returns page one again or duplicate doc IDs",
+    "Pagination claim has no original HTML and actual POST event target/argument evidence",
+    "Default execution silently stops at a sample page/PDF limit",
+    "Remote PDF bytes differ from S3 archived SHA-256 object",
+    "Successful PDF text is truncated at SDK default page limit",
+    "Blank or image-only PDF incorrectly creates a successful version or invokes OCR",
+    "Resuming the same state re-fetches/re-collects already successful PDF URLs",
+    "Failed PDF is counted as success or exhaustion is reported after transient failure"
+  ],
+  "bounded_acceptance": {
+    "pages": 10,
+    "pdfs": "all PDF links in the ten pages and document detail HTML",
+    "minimum_real_text_pdfs": 3
+  },
+  "isolation": "Fresh PostgreSQL database; unique test state/work directories; S3 API access only; credentials omitted from artifacts",
+  "long_pdf_boundary": {
+    "sdk_default_max_pages": 2000,
+    "fixture_pages": 2001,
+    "assertion": "Every independently generated page marker, including final page, must survive actual CLI/SQL/S3 result reconstruction"
+  },
+  "invalid_text_encoding_boundary": {
+    "source_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/10/129-vbhn-bxd.signed.pdf",
+    "original_sha256": "957aed910051536ad4747a2eb36c33e408c8a9fe8dff264c54a91a8439e5f0b0",
+    "actual_pages": 1118,
+    "failure_modes": [
+      "Unpaired UTF16 units silently stop HTML after page354",
+      "Invalid JSON/UTF8 result after surrogate normalization",
+      "Unpaired original units discarded or guessed into mathematical symbols",
+      "Encoding degradation hidden without metadata warning",
+      "Parser retry re-downloads successes or no-text documents",
+      "Encoding repair changes original PDF bytes"
+    ],
+    "expected": "All 1118 text pages; reversible literal unpaired code-unit escapes; explicit warning; semantics of invalid symbols remain unknown"
+  },
+  "verbatim_contract_reparse_boundary": {
+    "contract": "verbatim_v1",
+    "failure_modes": [
+      "Numbered-heading formatter drops numeric values or range punctuation",
+      "Corrective reparse fetches previously no-text/network-failed URLs",
+      "Existing immutable Version/result object is mutated",
+      "Same original bytes and new text contract do not create a new current Version",
+      "New current Version points to a different original hash",
+      "Repeating the same text contract adds another Version",
+      "Corrective transfer failure falsely completes the correction subset"
+    ],
+    "assertions": [
+      "Preserve 165 < R ≤ 185 170, 3.3.2.5.4, 4.1/4.2, 12.000-430.000",
+      "Old Version rows and result hashes unchanged",
+      "Each eligible successful PDF has one corrected current Version and verbatim_v1 metadata",
+      "Zero new Observations for previous 11 network and 240 no-text URLs",
+      "Repeat same contract creates no additional Versions"
+    ]
+  },
+  "source_identity_boundary": {
+    "failure_modes": [
+      "Final source entry_urls retain the last PDF batch instead of official portal",
+      "Restoring Source config overwrites another actor config or active collection",
+      "Run frozen PDF config is mutated when Source identity is restored",
+      "Ordinary resume creates an extra Run or new deliveries",
+      "Ordinary resume refetches moving public lists or rewrites frozen enumeration evidence"
+    ],
+    "expected": "seal.source entry_urls exactly official portal; historical batch Run configs preserve PDF sets; unchanged resume creates zero Runs/Observations/Versions and leaves frozen enumeration hashes unchanged"
+  },
+  "corrective_network_retry_boundary": {
+    "failure_modes": [
+      "Correction retry selects original 11 exhausted network URLs or 240 no-text URLs",
+      "Latest network failure from the corrective 299 subset is silently treated as old successful contract",
+      "Correction attempts are unbounded or reset across state resume",
+      "Correction success mutates historical Version or original PDF hash",
+      "Normal resume starts another corrective/network run after limits exhausted"
+    ],
+    "expected": "Only network_failed from the original299 reparse subset, at most two additional corrective retries, separate from original network counters; failures explicit and old Versions not presented as new contract"
+  }
+}

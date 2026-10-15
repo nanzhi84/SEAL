@@ -144,18 +144,21 @@ root minio/。当前测试源码入库，运行数据和工件不入库；复跑
 | 异常保护 | 无效ID、对象损坏/缺失与S3停机发布失败，原指针和日志不变；API坏对象报错且不回退内部版本 |
 | 无采集/对象副作用 | 创建/发布无S3副本；HTTP全业务表与对象清单前后相同；队列Worker新增成功Version但不创建/发布快照 |
 
-最终工件根目录为 `artifacts/issue23-20261014-150910-8244e0/`：
-[汇总](../../artifacts/issue23-20261014-150910-8244e0/summary.json)、
-[独立审计](../../artifacts/issue23-20261014-150910-8244e0/audit.json)、
-[全部断言](../../artifacts/issue23-20261014-150910-8244e0/assertions.json)、
-[命令回执](../../artifacts/issue23-20261014-150910-8244e0/commands.json)、
-[环境与文件哈希](../../artifacts/issue23-20261014-150910-8244e0/environment.json)、
-[最终SQL映射](../../artifacts/issue23-20261014-150910-8244e0/final-sql-mappings.json)、
-[并发创建](../../artifacts/issue23-20261014-150910-8244e0/consistent-concurrent-create.json)、
-[发布中HTTP对照](../../artifacts/issue23-20261014-150910-8244e0/http-during-publication.json)、
-[发布记录](../../artifacts/issue23-20261014-150910-8244e0/publication-records.json)、
-[升级](../../artifacts/issue23-20261014-150910-8244e0/upgrade.json)、
-[队列Worker](../../artifacts/issue23-20261014-150910-8244e0/queued-worker.json)。
+历史验收记录的工件根目录为 `artifacts/issue23-20261014-150910-8244e0/`。
+2026-10-15 核对时，该目录及以下文件在当前工作区均不存在，因此保留文件清单供追溯，
+不再提供失效链接；下述历史结果和哈希未在本次重新核验。工件属于不入库的临时产物，
+按上方命令复跑会生成新运行目录，不能重建原运行证据或冒充原哈希：
+汇总（`summary.json`）、
+独立审计（`audit.json`）、
+全部断言（`assertions.json`）、
+命令回执（`commands.json`）、
+环境与文件哈希（`environment.json`）、
+最终SQL映射（`final-sql-mappings.json`）、
+并发创建（`consistent-concurrent-create.json`）、
+发布中HTTP对照（`http-during-publication.json`）、
+发布记录（`publication-records.json`）、
+升级（`upgrade.json`）、
+队列Worker（`queued-worker.json`）。
 各 `sql-api-*.json` 保存固定版本、完整公开内容及附件SHA对照。
 
 28个源码、13个迁移、13个测试/辅助输入的受测哈希与最终工作区相同；凭据和不透明
@@ -488,3 +491,5 @@ curl -s "http://127.0.0.1:8080/attachments/<encrypted_attachment_id>" \
   -H "Authorization: Bearer your-api-key" \
   -O -J
 ```
+
+采集附件可配置上限扩大至 128 MiB 后，发布时原件验证使用相同上限；API 默认 50 MiB 保持不变，大附件需显式配置更大预算。真实用例与验证见 [dd-492 Plan](dd-492-pdf-harvest.md)。

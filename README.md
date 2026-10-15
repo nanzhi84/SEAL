@@ -1,6 +1,6 @@
 # SEAL
 
-SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
+SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入或显式 PDF 文字合同变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
 当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 `init`、`collect`、`recheck`、`worker` 操作采集，`snapshot create / inspect / publish` 控制全局人工发布；`serve` 从已发布 Snapshot 提供来源发现、成功内容和原始附件。来源配置采用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，接口、配置与全链路使用示例见[全局 Snapshot 合同](docs/plans/global-snapshots.md)。
 
@@ -71,8 +71,8 @@ resources.py: persist()
 ├── [DB/IO] Observation.result_ref → 本次成功/失败SDK结果CAS；同事务关联
 ├── [CHECK] 失败、登录或挑战 → 保留实际SDK结果和已取得附件；不生成内容版本
 ├── [CHECK] 返回结果前中断/异常 → checkpoint或失败Observation，result_ref可空，不伪造结果
-├── [CHECK] 解析成功且输入body_hash等于当前成功版本 → Observation关联旧Version
-└── [CHECK] 首次解析成功或输入body_hash变化且解析成功
+├── [CHECK] 解析成功且输入body_hash与PDF文字合同等于当前成功版本 → Observation关联旧Version
+└── [CHECK] 首次解析成功或输入body_hash/PDF文字合同变化且解析成功
     ├── [DB] 全局事务锁保护稳定增量cursor；连续Version+result_ref（与原始Observation一致）
     ├── [DB] 复合FK保护Resource/Observation/Version归属；推进current_version_id
     └── [DB] next_check → recheck；current_resource_version / version_delta → 下游SQL取result_ref → MinIO读取CrawlResult

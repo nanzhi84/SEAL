@@ -5,6 +5,34 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / Crawl4AI 0.9.5 — 2026-10-15
+
+依赖从 0.9.4 固定升级至 0.9.5，接入上游 PR #2320 的 PDF 并行页码竞争修复，
+SEAL 文字层 processor 同步改为显式接收页码，恢复 SDK 原生页级并行，移除顺序处理覆写；
+现有正文合同保留，接受 SDK 逐页重建 reader，不实施 reader 复用优化。无数据库迁移；回滚须同时还原依赖锁与接口适配。
+独立验收：2001 页 CLI 14/14 PASS，SDK 并行 25 页重复 6 次 PASS；补充 CLI 23/27 PASS，
+4 个 PDF 注解链接丢失在升级前 0.9.4 基线完全复现，属既有 scraping 层限制，未在本次修复；由 [SEAL #26](https://github.com/nanzhi84/SEAL/issues/26)
+跟踪用户提交的 [Crawl4AI #2374](https://github.com/unclecode/crawl4ai/issues/2374)。上述 2001 页为恢复并行前验收。
+恢复原生并行后 fresh CLI 验收 37 PASS、4 个既有上游链接失败；覆盖 20 页正文/页序、重复版本、
+空白/损坏与 S3 哈希，不声称性能或超过 2000 页验收。
+
+## 未发布 / dd-492 历史文献 PDF 采集 — 2026-10-14
+
+登记越南政府文献门户 `dd-492`，用户授权该来源关闭 robots，并恢复官方 PDF 附件范围。
+新增来源专用 ASP.NET 分页发现和可恢复的分批采集入口；列表/详情发现原文只作为临时
+验收证据，不另写 MinIO HTML，不伪造 CrawlResult。PDF 原件、完整 SDK 结果与版本引用
+继续走现有 SQL/S3 合同。默认遍历到历史末页，本次按用户要求只验收十个列表页全部 PDF。
+
+深度 0 的多入口采集复用 SDK 有界并发。PDF 按实际页面数处理，避免默认页数上限
+截断；原始文字层保留数字、章节编号与范围，显式文字合同改变生成新不可变版本，旧 Snapshot 不变。
+无文字层、损坏/加密与 SDK 漏页明确失败，不使用 OCR。真实附件超过50MiB，
+Source/发布验证/API可配置原件上限统一128MiB，Source默认10MiB、API默认50MiB保留。
+该来源最终显式配置128MiB/300秒；HTTP读取遵守Source总超时，去除SDK隐式30秒读限制。
+旧验收state继续使用冻结配置；汇总区分最新原件归档、正文错误及预算/网络失败。无迁移或新依赖。
+当前验收范围、命令、断点与故障行为见[唯一 Plan](docs/plans/dd-492-pdf-harvest.md)
+及[同步可视化](docs/generated/dd-492-pdf-harvest.html)；结果以实际工件为准。
+回滚来源配置和新增脚本即可撤销采集方式，不删除已有 SQL/S3 归档。
+
 ## 未发布 / 全局不可变 Snapshot 与手动发布（Issue #23）— 2026-10-14
 
 新增 `seal snapshot create / list / inspect / publish`。创建在数据库一致性事务冻结

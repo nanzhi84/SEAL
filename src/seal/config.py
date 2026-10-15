@@ -5,7 +5,7 @@ from urllib.parse import urlsplit
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
-from .core import SealError, check_address, public_url
+from .core import MAX_ORIGINAL_BYTES, SealError, check_address, public_url
 from .scope import paths_for, valid_prefix
 
 
@@ -46,7 +46,7 @@ class Strict(BaseModel):
 class Budget(Strict):
     requests: int = Field(default=100, ge=1, le=10000)
     seconds: int = Field(default=120, ge=1, le=3600)
-    response_bytes: int = Field(default=10485760, ge=1024, le=52428800)
+    response_bytes: int = Field(default=10485760, ge=1024, le=MAX_ORIGINAL_BYTES)
 
 
 class CrawlConfig(Strict):

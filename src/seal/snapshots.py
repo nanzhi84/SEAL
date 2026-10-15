@@ -5,7 +5,7 @@ import time
 from uuid import UUID
 
 from .archive import verify_result
-from .core import SealError, uid
+from .core import MAX_ORIGINAL_BYTES, SealError, uid
 from .db import connect, one
 from .objects import Objects
 
@@ -152,7 +152,7 @@ def verify(snapshot_id):
                     objects,
                     row["result_ref"],
                     max_bytes=64 * 1024 * 1024,
-                    attachment_max_bytes=50 * 1024 * 1024,
+                    attachment_max_bytes=MAX_ORIGINAL_BYTES,
                     deadline=time.monotonic() + 60,
                 )
             after = rows[-1]["resource_id"]

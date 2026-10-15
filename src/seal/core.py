@@ -9,6 +9,8 @@ from pathlib import Path
 from urllib.parse import unquote_plus, urlsplit, urlunsplit
 from uuid import uuid4
 
+MAX_ORIGINAL_BYTES = 128 * 1024 * 1024
+
 
 class SealError(Exception):
     def __init__(self, code):

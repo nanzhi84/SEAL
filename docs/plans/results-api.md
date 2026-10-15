@@ -179,7 +179,7 @@ API 响应 Cache-Control: no-store，使用配置的 public_base_url，不信任
 ```
 
 默认值如上，workers 1–8，超时1–60秒。
-result_max_bytes 范围1024–67108864，attachment_max_bytes 范围1024–52428800，
+result_max_bytes 范围1024–67108864，attachment_max_bytes 范围1024–134217728（默认仍为52428800），
 page_max_bytes 范围1024–134217728，均为整数，超出配置范围拒绝启动。
 Key 应为至少32字节随机值；配置只保存摘要，HTTP 常数时间匹配摘要，禁止通配来源授权。
 配置和密钥不入库、不打印；轮换/撤权需要

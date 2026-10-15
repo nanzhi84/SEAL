@@ -28,7 +28,7 @@ body{font:17px/1.75 system-ui;background:#f3f6fa;color:#183044;max-width:1140px;
 <tr><td>失败 / unsupported / blocked</td><td>保存真实返回的失败结果和已取得附件</td><td>不推进当前成功版本</td></tr>
 <tr><td>SDK 返回结果前中断或异常</td><td>不造结果；检查点或原 Run.report 保留未交付文件；若形成失败观察，attachment_refs 持久保留全部已取得文件，result_ref 可空</td><td>不生成版本</td></tr>
 <tr><td>policy 请求</td><td>记录检查证据，无 CrawlResult、无独立政策正文对象</td><td>不生成版本</td></tr></tbody></table>
-<p>只比较当前成功 Version 的输入指纹与模式。A → B → A 仍为 V1 → V2 → V3；JSON 相同可复用对象。时间是发现变化时间，不推定网站修改时间。</p></section>
+<p>比较当前成功 Version 的输入指纹与模式；PDF 显式文字合同改变也追加不可变 Version，旧 Snapshot 不变。A → B → A 仍为 V1 → V2 → V3；JSON 相同可复用对象。时间是发现变化时间，不推定网站修改时间。</p></section>
 <section><h2>同次输入、发现与故障恢复</h2><div class="grid">
 <div class="box"><b>同次解析</b><p>HTTP 在字符解码前计算指纹；PDF 的同次 bytes 暂存到 work，交给 SDK PDF scraper，不再次请求。unsupported 附件仍归档完整文件。</p></div>
 <div class="box"><b>发现与复查</b><p>collect 每轮重访入口并重建 visited；recheck 按到期已知资源复查，即便已从导航消失。robots/范围/网络预算保持。</p></div>

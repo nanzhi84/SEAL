@@ -1,0 +1,15 @@
+{
+  "declared_before_implementation": true,
+  "contract": "Explicit configurable 128MiB cap; Source default10MiB and API default50MiB unchanged; no schema migration",
+  "failure_modes": [
+    "A legal64MiB original with text is rejected under explicit128MiB Source budget",
+    "Original SHA, extracted text, or successful Version does not match",
+    "snapshot create/publish reject an accepted large PDF or mutate its original",
+    "Explicit128MiB API truncates or rejects an archived64MiB attachment",
+    "Default API cap silently increases beyond50MiB",
+    "Anonymous or cross-source caller downloads the large attachment",
+    "Source/API configuration larger than128MiB is accepted",
+    "Real large PDF is claimed archived from body_hash while archive_ref is null",
+    "Budget change triggers recollection of548 already accepted originals"
+  ]
+}

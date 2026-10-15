@@ -12,7 +12,7 @@ from urllib.parse import urlsplit
 from cryptography.fernet import Fernet, InvalidToken
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
-from .core import SealError, canonical
+from .core import MAX_ORIGINAL_BYTES, SealError, canonical
 
 
 class ApiError(Exception):
@@ -51,7 +51,7 @@ class Settings(Strict):
     workers: int = Field(default=4, ge=1, le=8)
     request_timeout_seconds: int = Field(default=30, ge=1, le=60)
     result_max_bytes: int = Field(default=16777216, ge=1024, le=67108864)
-    attachment_max_bytes: int = Field(default=52428800, ge=1024, le=52428800)
+    attachment_max_bytes: int = Field(default=52428800, ge=1024, le=MAX_ORIGINAL_BYTES)
     page_max_bytes: int = Field(default=67108864, ge=1024, le=134217728)
 
     @field_validator("public_base_url")
