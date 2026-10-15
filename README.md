@@ -2,7 +2,7 @@
 
 SEAL 以 Crawl4AI 采集来源并维护 URL 资源版本库。每个 Source 拥有独立 Frontier，输入或显式 PDF 文字合同变化且目标有效、解析成功时追加不可变 Version；私有 MinIO 仅保存完整 CrawlResult JSON 与原始下载附件，PostgreSQL 保存来源、运行、资源版本和对象引用。下游通过 result_ref 读取并重建本轮结果，文本原始 HTTP 字节不再独立归档。
 
-当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 `init`、`collect`、`recheck`、`worker` 操作采集，`snapshot create / inspect / publish` 控制全局人工发布；`serve` 从已发布 Snapshot 提供来源发现、成功内容和原始附件。来源配置采用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，接口、配置与全链路使用示例见[全局 Snapshot 合同](docs/plans/global-snapshots.md)。
+当前支持 HTML/TXT、文本层 PDF 与动态 DOM；使用 `init`、`collect`、`recheck`、`worker` 操作采集，`snapshot create / inspect / publish` 控制全局人工发布；`serve` 从已发布 Snapshot 提供来源发现、成功内容和原始附件。来源配置采用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，接口与配置设计详见[全局 Snapshot 合同](docs/plans/global-snapshots.md)。
 
 ## 全链路执行图
 
@@ -204,4 +204,196 @@ erDiagram
   text framework_version
   jsonb parser_config
  }
+```
+
+## 运行示例：从公开来源采集到 API 查询
+
+以下示例在仓库根目录执行，演示从公开来源抓取、存储持久化、人工发布到只读 API 查询的完整流程：
+
+```text
+sources/dd-xxx.yaml → seal collect (抓取与解析)
+  → PostgreSQL (元数据与版本) + MinIO (结果 JSON 与附件)
+  → seal snapshot create → inspect → publish (人工发布全局集合)
+  → seal serve (只读 API) → /sources 发现来源 → /results 查询内容
+```
+
+### 1. 选择验证来源
+
+选用 4 个采用轻量 HTTP 模式（无需浏览器环境）的已跑通来源作为示例：
+
+| Source / 来源地图                                                          | 公开入口                                                           | 配置文件                           | 历史成功资源数 |
+| :------------------------------------------------------------------------- | :----------------------------------------------------------------- | :--------------------------------- | -------------: |
+| [dd-017 · 最高法指导案例](docs/reference/尽职调查核验入口地图.md#dd-017)   | [指导案例](https://www.court.gov.cn/shenpan/gengduo/77.html)       | [dd-017.yaml](sources/dd-017.yaml) |            547 |
+| [dd-040 · 最高检公报](docs/reference/尽职调查核验入口地图.md#dd-040)       | [最高检公报](https://www.spp.gov.cn/spp/gjgb/index.shtml)          | [dd-040.yaml](sources/dd-040.yaml) |             31 |
+| [dd-041 · 最高检指导性案例](docs/reference/尽职调查核验入口地图.md#dd-041) | [指导性案例](https://www.spp.gov.cn/spp/jczdal/index.shtml)        | [dd-041.yaml](sources/dd-041.yaml) |             31 |
+| [dd-448 · 电影备案公示](docs/reference/尽职调查核验入口地图.md#dd-448)     | [电影备案立项公示](https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/) | [dd-448.yaml](sources/dd-448.yaml) |             16 |
+
+> 注：成功资源数为历史实测参考值，重跑结果受站点当前状态与配置预算影响。
+
+### 2. 准备本地存储与运行环境
+
+启动本地 PostgreSQL 与 MinIO 容器，并初始化数据库 schema：
+
+```bash
+uv sync --frozen
+uv run --no-sync python -m seal.local_storage
+
+# 导出数据库与 S3 配置
+set -a
+source .env.local
+set +a
+
+# 初始化 schema 并创建临时目录
+uv run --no-sync seal init
+mkdir -p work/readme-demo artifacts/readme-demo
+```
+
+> 注：对象读取统一走 S3 API，不要直接操作根目录 `minio/`。
+
+### 3. 执行采集与入库验证
+
+在前台执行采集任务，回执 JSON 保存至 `artifacts/readme-demo/`：
+
+```bash
+set -o pipefail
+uv run --no-sync seal collect sources/dd-017.yaml | tee artifacts/readme-demo/dd-017-run.json
+uv run --no-sync seal collect sources/dd-040.yaml | tee artifacts/readme-demo/dd-040-run.json
+uv run --no-sync seal collect sources/dd-041.yaml | tee artifacts/readme-demo/dd-041-run.json
+uv run --no-sync seal collect sources/dd-448.yaml | tee artifacts/readme-demo/dd-448-run.json
+```
+
+核验关系库状态，并通过 S3 API 真实拉取结果对象以验证连通性与 SHA-256 CAS：
+
+```bash
+uv run --no-sync python - <<'PY' | tee artifacts/readme-demo/storage-check.json
+import json
+from seal.db import connect
+from seal.objects import Objects
+
+ids = ["dd-017", "dd-040", "dd-041", "dd-448"]
+with connect() as conn:
+    conn.execute("SET TRANSACTION READ ONLY")
+    rows = conn.execute("""
+        SELECT s.id,
+          (SELECT status FROM seal.run WHERE source_id=s.id
+           ORDER BY created_at DESC LIMIT 1) AS latest_run_status,
+          (SELECT count(*) FROM seal.frontier f
+           JOIN seal.resource r ON r.frontier_id=f.id
+           WHERE f.source_id=s.id AND r.current_version_id IS NOT NULL)
+           AS successful_resources
+        FROM seal.source s WHERE s.id=ANY(%s) ORDER BY s.id
+    """, (ids,)).fetchall()
+    sample = conn.execute("""
+        SELECT r.url, v.result_ref FROM seal.frontier f
+        JOIN seal.resource r ON r.frontier_id=f.id
+        JOIN seal.version v ON v.id=r.current_version_id
+        WHERE f.source_id='dd-017' ORDER BY r.id LIMIT 1
+    """).fetchone()
+
+assert {row["id"] for row in rows} == set(ids), "source_not_registered"
+assert all(row["latest_run_status"] == "complete" for row in rows), "latest_run_not_complete"
+assert all(row["successful_resources"] > 0 for row in rows), "source_has_no_successful_content"
+assert sample is not None, "no_successful_version"
+
+# 通过 S3 API 读取对象并复算校验 SHA-256
+raw = Objects().get(sample["result_ref"])
+archive = json.loads(raw)
+assert isinstance(archive["result"], dict), "invalid_result_archive"
+print(json.dumps({"sources": rows, "archive_sample": {
+    "url": sample["url"], "result_ref": sample["result_ref"],
+    "bytes": len(raw), "archive_verified": True
+}}, ensure_ascii=False, indent=2))
+PY
+```
+
+### 4. 创建、核对和手动发布
+
+完成采集与存储核验后冻结全局集合；create 不影响对外内容。inspect 分页核对来源、资源和固定 Version，操作者自行判断内容是否适合发布。尚无发布指针时 API 返回 503。
+
+```bash
+uv run --no-sync seal snapshot create | tee artifacts/readme-demo/snapshot.json
+demo_snapshot_id=$(uv run --no-sync python -c 'import json; print(json.load(open("artifacts/readme-demo/snapshot.json"))["snapshot_id"])')
+uv run --no-sync seal snapshot inspect "$demo_snapshot_id" --limit 100
+# 按 next_after / source_next_after 继续核对剩余映射，再显式发布
+uv run --no-sync seal snapshot publish "$demo_snapshot_id"
+```
+
+再次采集或创建快照不会改变对外集合；必须再次 publish 才更新。回切使用同一 publish 命令传入旧 Snapshot ID。内部成功资源数、complete 与存储核验不代表全站覆盖或业务质量。
+
+### 5. 生成配置并启动 API 服务
+
+`seal serve` 是只读 HTTP 服务。生成测试授权配置与 Bearer 请求头后启动服务：
+
+```bash
+uv run --no-sync python - <<'PY'
+import hashlib, json, os, secrets
+from pathlib import Path
+from cryptography.fernet import Fernet
+
+root = Path("work/readme-demo")
+root.mkdir(parents=True, exist_ok=True)
+key = secrets.token_urlsafe(32)
+config = {
+    "public_base_url": "http://127.0.0.1:8090",
+    "token_key": Fernet.generate_key().decode(),
+    "callers": [{
+        "id": "demo",
+        "key_sha256": hashlib.sha256(key.encode()).hexdigest(),
+        "sources": ["dd-017", "dd-040", "dd-041", "dd-448"]
+    }]
+}
+for name, body in (
+    ("api-config.local.json", json.dumps(config, indent=2)),
+    ("headers.local.txt", "Authorization: Bearer " + key + "\n")
+):
+    path = root / name
+    with os.fdopen(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600), "w") as f:
+        f.write(body)
+    path.chmod(0o600)
+PY
+
+# 在当前终端启动服务（保持运行）
+uv run --no-sync seal serve \
+  --config work/readme-demo/api-config.local.json --host 127.0.0.1 --port 8090
+```
+
+### 6. 客户端查询与结果消费
+
+另开一个终端进入项目根目录，调用 API 查询可用来源及解析内容：
+
+```bash
+mkdir -p artifacts/readme-demo
+
+# 1. 发现已发布且获授权的来源
+curl --fail-with-body --silent --show-error http://127.0.0.1:8090/sources \
+  --header @work/readme-demo/headers.local.txt \
+  --output artifacts/readme-demo/sources.json
+cat artifacts/readme-demo/sources.json
+
+# 2. 按来源入口 URL 查询已发布 Snapshot 的固定成功内容（取前 5 条）
+query_source() {
+  curl --fail-with-body --silent --show-error --get http://127.0.0.1:8090/results \
+    --header @work/readme-demo/headers.local.txt \
+    --data-urlencode "source_url=$2" --data-urlencode 'limit=5' \
+    --dump-header "artifacts/readme-demo/$1-headers.txt" \
+    --output "artifacts/readme-demo/$1-results.json"
+}
+
+query_source dd-017 'https://www.court.gov.cn/shenpan/gengduo/77.html'
+query_source dd-040 'https://www.spp.gov.cn/spp/gjgb/index.shtml'
+query_source dd-041 'https://www.spp.gov.cn/spp/jczdal/index.shtml'
+query_source dd-448 'https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/'
+
+cat artifacts/readme-demo/dd-017-results.json
+```
+
+- `/sources` 返回快照内获当前授权的来源 ID 及冻结入口；
+- `/results` 返回规范化内容数组（包含 `markdown`、`metadata`、`attachments` 等），响应头 `Link` 包含下一页游标。
+
+#### 停止服务与清理
+
+在服务终端按 `Ctrl+C` 停止 API。停止本地存储容器（保留数据）：
+
+```bash
+docker compose --env-file .env.local down
 ```

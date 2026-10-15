@@ -41,5 +41,5 @@
 ## 文档内容
 
 - 演示采用总分结构：先画链路与产物流向，再按节点说明输入、命令、实际结果、输出及下游用途；区分历史与本次验收，明确范围和未验证项。
-- `README.md` 保持简洁：开头介绍 SEAL 定位与简洁功能，主体仅包含遵循 [Canonical Execution Map 规范](docs/reference/canonical-execution-map.md) 的全链路执行图与数据模型 ER 图两张图，不记录更新日志或具体 PR 验收细节。
+- `README.md` 保持简洁，包含 4 个 section（开头介绍、全链路执行图、数据模型 ER 图与运行示例）。遵循规范：开头介绍 SEAL 定位与简洁功能；主体包含遵循 [Canonical Execution Map 规范](docs/reference/canonical-execution-map.md) 的全链路执行图与数据模型 ER 图两张图，不记录更新日志或具体 PR 验收细节；运行示例提供从环境准备、公开来源采集、存储核验、快照发布到 API 查询消费的端到端最小闭环，所有命令与验证逻辑保持可独立复现。
 - `CHANGELOG.md` 集中记录版本发布、能力演进、数据库迁移与升级兼容性说明。
