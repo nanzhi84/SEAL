@@ -44,6 +44,7 @@ class PDF(Content):
     method: str = Field(pattern="^(native|ocr)$")
     pages: list[PDFPage]
     ocr: OCR | None = None
+    original_attachment_index: int | None = Field(default=None, ge=0)
 
 
 class Link(Content):
@@ -124,6 +125,11 @@ def project(row, value, settings, tokens):
         if not isinstance(markdown, str):
             raise ValueError
         metadata = result.get("metadata")
+        public_metadata = Metadata.model_validate({} if metadata is None else metadata).model_dump()
+        if public_metadata["pdf"] is not None:
+            public_metadata["pdf"]["original_attachment_index"] = value["attachment_refs"].index(
+                metadata["pdf"]["original_ref"]
+            )
         links = result.get("links")
         media = result.get("media")
         tables = result.get("tables")
@@ -132,7 +138,7 @@ def project(row, value, settings, tokens):
         return {
             "url": row["url"],
             "markdown": markdown,
-            "metadata": Metadata.model_validate({} if metadata is None else metadata).model_dump(),
+            "metadata": public_metadata,
             "links": Links.model_validate({} if links is None else links).model_dump(),
             "media": Media.model_validate({} if media is None else media).model_dump(),
             "tables": [Table.model_validate(t).model_dump() for t in tables or []],

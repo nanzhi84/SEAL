@@ -28,8 +28,10 @@ native 复用 SDK processor 的逐页提取；OCR 由 PDFium 顺序渲染、Tess
 worker 和本地引擎，不承诺恶意替换 worker 后仍能验证其自报预检值。
 
 `metadata.pdf` 包含 `method: native|ocr`、`pages: [{page_number, text}]`，页码一基，
-空页保留。OCR 另记录引擎版本、语言和实际资源配置。同一结果的 attachments 提供
-原始 PDF 回查；原始 `body_hash` 不变。不承诺识别准确性、表格或正文完整性。
+空页保留。OCR 另记录引擎版本、语言和实际资源配置。
+`original_attachment_index` 指向同一结果 attachments 中的原始 PDF，即使重定向链
+保留多个附件也能回查；不公开 CAS 键。原始 `body_hash` 不变。不承诺识别准确性、
+表格或正文完整性。
 
 Source 新增 `ocr`，随 Run config 冻结：languages=`eng+chi_sim+vie`、timeout_seconds=180、
 max_pages=200（OCR 分支）、dpi=144、max_page_pixels=20000000、max_result_bytes=16777216
@@ -53,6 +55,9 @@ macOS 可用 `brew install tesseract`，Linux 可用发行版的 `tesseract-ocr`
 启动、预检、模型、渲染、识别、校验；等待名额消耗采集预算。page_timeout 只限制
 网络获取，SDK 0.9.5 在 adapter 返回后调用同步 scrap，没有包围解析的 page_timeout。
 父进程在 adapter 的异步阶段准备结果，scrap 只包装已验证页面。
+本地解释器用 Popen 启动，在首次挂起前获得 PID 所有权，避免已启动但 spawn future
+未返回的取消竞态；冻结配置以只读 stdin 文件传入，stdout 通过异步管道读取，进程
+以异步 poll 等待。同步部分只有本地解释器启动，不等待模型加载或 PDF/OCR 处理。
 
 超时、取消、预算到期、退出共用清理：停止接收 → TERM 进程组 → 有界等待 → KILL
 进程组 → 回收直接子进程并确认组内无运行进程 → 删除目录 → 释放名额。清理不受

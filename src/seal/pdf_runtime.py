@@ -5,6 +5,7 @@ import json
 import os
 import shutil
 import signal
+import subprocess
 import sys
 import tempfile
 import time
@@ -39,7 +40,13 @@ def group_exists(pid):
         return False
 
 
-async def stop_group(process):
+async def wait_process(process):
+    while process.poll() is None:
+        await asyncio.sleep(0.02)
+    return process.wait()  # Already exited; this only reaps it.
+
+
+async def stop_group(process, reader):
     # A leader that has already exited can still have live descendants.
     for sig, seconds in ((signal.SIGTERM, GRACE_SECONDS), (signal.SIGKILL, KILL_SECONDS)):
         try:
@@ -48,13 +55,13 @@ async def stop_group(process):
             pass
         deadline = time.monotonic() + seconds
         while time.monotonic() < deadline:
-            if process.returncode is not None and not group_exists(process.pid):
-                await process.wait()
-                if process.stdout:
+            if process.poll() is not None and not group_exists(process.pid):
+                process.wait()
+                if reader is not None:
                     # Drain only fixed-size chunks after all group writers exited;
                     # EOF closes the pipe transport without retaining late output.
                     async with asyncio.timeout(KILL_SECONDS):
-                        while await process.stdout.read(65536):
+                        while await reader.read(65536):
                             pass
                 return
             await asyncio.sleep(0.02)
@@ -85,7 +92,7 @@ class PDFRuntime:
     async def prepare(self, capture):
         task = asyncio.current_task()
         self.tasks.add(task)
-        slot, folder, spawn = None, None, None
+        slot, folder, process, reader, transport = None, None, None, None, None
         cancelled = False
         try:
             self.check()
@@ -102,6 +109,7 @@ class PDFRuntime:
             deadline = min(execution_deadline, self.budget_deadline)
             folder = Path(tempfile.mkdtemp(prefix="seal-pdf-", dir=work_directory()))
             (folder / "input.pdf").write_bytes(capture["body"])
+            (folder / "config.json").write_text(json.dumps(cfg))
             env = {
                 k: os.environ[k]
                 for k in ("PATH", "LANG", "LC_ALL", "TESSDATA_PREFIX")
@@ -110,25 +118,27 @@ class PDFRuntime:
             env["OMP_THREAD_LIMIT"] = "1"
             async with asyncio.timeout_at(deadline):
                 self.check()
-                spawn = asyncio.create_task(
-                    asyncio.create_subprocess_exec(
-                        sys.executable,
-                        "-m",
-                        "seal.pdf_worker",
+                # Popen assigns PID ownership before the next suspension. An
+                # async spawn future can time out after creating an unowned child.
+                # Only local interpreter startup is synchronous; all PDF work and
+                # process/pipe waiting remain asynchronous and cancellable.
+                with (folder / "config.json").open("rb") as config_file:
+                    process = subprocess.Popen(
+                        [sys.executable, "-m", "seal.pdf_worker"],
                         cwd=folder,
                         env=env,
-                        stdin=asyncio.subprocess.PIPE,
-                        stdout=asyncio.subprocess.PIPE,
-                        stderr=asyncio.subprocess.DEVNULL,
+                        stdin=config_file,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.DEVNULL,
                         start_new_session=True,
                     )
+                self.check()
+                reader = asyncio.StreamReader()
+                transport, _ = await asyncio.get_running_loop().connect_read_pipe(
+                    lambda: asyncio.StreamReaderProtocol(reader), process.stdout
                 )
-                process = await asyncio.shield(spawn)
-                process.stdin.write(json.dumps(cfg).encode())
-                await process.stdin.drain()
-                process.stdin.close()
                 try:
-                    header = await process.stdout.readuntil(b"\n")
+                    header = await reader.readuntil(b"\n")
                     if len(header) > 1024:
                         raise ValueError
                     header = json.loads(header)
@@ -148,7 +158,11 @@ class PDFRuntime:
                     ):
                         raise ValueError
                 except asyncio.IncompleteReadError:
-                    code = "pdf_ocr_failed" if await process.wait() != 0 else "pdf_output_invalid"
+                    code = (
+                        "pdf_ocr_failed"
+                        if await wait_process(process) != 0
+                        else "pdf_output_invalid"
+                    )
                     raise SealError(code) from None
                 except (
                     ValueError,
@@ -157,11 +171,11 @@ class PDFRuntime:
                 ):
                     raise SealError("pdf_output_invalid") from None
                 output = bytearray()
-                while chunk := await process.stdout.read(65536):
+                while chunk := await reader.read(65536):
                     output.extend(chunk)
                     if len(output) > cfg["max_result_bytes"]:
                         raise SealError("pdf_output_too_large")
-                if await process.wait() != 0:
+                if await wait_process(process) != 0:
                     raise SealError("pdf_ocr_failed")
                 try:
                     value = json.loads(output)
@@ -201,19 +215,11 @@ class PDFRuntime:
         finally:
 
             async def cleanup():
-                if spawn is not None:
-                    try:
-                        process = await spawn
-                    except OSError:
-                        process = None
-                    if process is not None:
-                        await stop_group(process)
-                        if process.stdin:
-                            process.stdin.close()
-                            try:
-                                await process.stdin.wait_closed()
-                            except (BrokenPipeError, ConnectionResetError):
-                                pass
+                if process is not None:
+                    await stop_group(process, reader if transport is not None else None)
+                    if transport is not None:
+                        transport.close()
+                    process.stdout.close()
                 if folder is not None:
                     shutil.rmtree(folder)
 
