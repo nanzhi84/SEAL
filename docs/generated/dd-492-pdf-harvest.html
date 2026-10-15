@@ -8,7 +8,7 @@
 <div class="node"><b>2. 文书详情</b>核对每页所有详情，发现该文书的全部 PDF 链接。按 URL 去重，使用 SQLite 保存断点。</div>
 <div class="node"><b>3. 分批采集</b>每批最多 100 个 PDF，复用 seal collect。并发 8、深度 0、128 MiB 单响应上限、300 秒超时。</div>
 <div class="node"><b>4. 原件归档</b>S3 平铺 SHA-256 原件；完整 CrawlResult 单独保存。SQL 记录 Observation 与 Version 引用。</div>
-<div class="node"><b>5. 全文字层解析</b>SDK 0.9.5 原生页级并行，已移除 SEAL 顺序处理覆写；接受逐页创建 reader，不做复用优化。按 PDF 实际页面数解析，保留原文字层章节、数值与范围，不运行 OCR。无文字层、损坏/加密、漏页明确报错。注解链接丢失跟踪：<a href="https://github.com/nanzhi84/SEAL/issues/26">SEAL #26</a> → <a href="https://github.com/unclecode/crawl4ai/issues/2374">上游 #2374</a>。恢复原生并行后独立 CLI 验收 37 PASS、4 个已知上游链接失败（20 页及空白/损坏/归档）；未验证性能或超过 2000 页。此前 2001 页验收属于顺序处理历史结果。</div>
+<div class="node"><b>5. 全文字层解析</b>SDK 0.9.5 原生页级并行，已移除 SEAL 顺序处理覆写；接受逐页创建 reader，不做复用优化。按 PDF 实际页面数解析，使用 SDK 原生文字转换，业务清洗交给下游，不运行 OCR。合同 crawl4ai_0_9_5_native_v1；从旧合同切换新增不可变 Version，历史 Snapshot 不变。接受原生编号、范围和空白的有损转换，原 PDF 仍归档。下列验收为本次文字变更前的历史证据。无文字层、损坏/加密、漏页明确报错。注解链接丢失跟踪：<a href="https://github.com/nanzhi84/SEAL/issues/26">SEAL #26</a> → <a href="https://github.com/unclecode/crawl4ai/issues/2374">上游 #2374</a>。恢复原生并行后独立 CLI 验收 37 PASS、4 个已知上游链接失败（20 页及空白/损坏/归档）；未验证性能或超过 2000 页。此前 2001 页验收属于顺序处理历史结果。</div>
 <div class="node"><b>6. 逐份核验</b>下载字节、S3 哈希、正文和页数对照。汇总成功、失败和待处理；普通重跑不重复成功下载；显式文字合同纠正追加不可变 Version，旧 Snapshot 保留。</div>
 </div>
 <div class="note"><b>本次只跑十个列表页的全部 PDF。</b>这不是历史全量完成。附件 robots 返回 403；用户已授权该来源关闭 robots。普通 collect 不会提交历史分页，须使用 <code>python -m seal.vietnam_documents</code>。全历史只有到达末页且逐份处理状态核对后才能报告完成。</div>

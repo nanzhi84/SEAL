@@ -85,7 +85,7 @@ def persist(
                 previous_contract = (previous["result"].get("metadata") or {}).get(
                     "pdf_text_contract"
                 )
-                # Corrected text is a new immutable representation of the same
+                # A changed text contract is a new immutable representation of the same
                 # input. Runtime timestamps never participate in version identity.
                 new = contract != previous_contract
             version_id = uid() if new else current["id"]

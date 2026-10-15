@@ -1,7 +1,6 @@
 """Crawl4AI fetching adapter: acquire bytes at the transport boundary, before decoding."""
 
 import contextvars
-import html as html_escape
 import io
 import re
 import tempfile
@@ -15,7 +14,6 @@ from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy, AsyncPlayw
 from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling.filters import URLFilter
 from crawl4ai.processors.pdf import PDFContentScrapingStrategy
-from crawl4ai.processors.pdf.processor import NaivePDFProcessorStrategy, PDFPage
 from lxml import html as lxml_html
 from pypdf import PdfReader
 
@@ -28,19 +26,6 @@ from .robots import Robots
 from .scope import guard
 
 request_context = contextvars.ContextVar("seal_request", default=None)
-
-
-class TextLayerPDFProcessor(NaivePDFProcessorStrategy):
-    """Preserve legal numbers and ranges instead of guessing heading/list syntax."""
-
-    def _process_page(self, page, image_dir, page_number):
-        text = page.extract_text()
-        return PDFPage(
-            page_number=page_number,
-            raw_text=text,
-            html="<pre>" + html_escape.escape(text) + "</pre>",
-            links=self._extract_links(page),
-        )
 
 
 class RunConfig(CrawlerRunConfig):
@@ -238,7 +223,6 @@ class InputScraper(LXMLWebScrapingStrategy):
                     max_pdf_bytes=self.adapter.config["budget"]["response_bytes"],
                     max_pdf_pages=pages,
                 )
-                scraper.pdf_processor = TextLayerPDFProcessor(extract_images=False, max_pages=pages)
                 result = scraper.scrap(str(path), "", **kwargs)
                 result.metadata["pdf_text_contract"] = PDF_TEXT_CONTRACT
                 if re.search(r"[\ud800-\udfff]", result.cleaned_html):

@@ -9,12 +9,17 @@ lang: zh
 
 依赖从 0.9.4 固定升级至 0.9.5，接入上游 PR #2320 的 PDF 并行页码竞争修复，
 SEAL 文字层 processor 同步改为显式接收页码，恢复 SDK 原生页级并行，移除顺序处理覆写；
-现有正文合同保留，接受 SDK 逐页重建 reader，不实施 reader 复用优化。无数据库迁移；回滚须同时还原依赖锁与接口适配。
+随后恢复 SDK 原生文字转换，移除单页 `<pre>` 覆写，业务清洗由下游负责。
+合同更新为 `crawl4ai_0_9_5_native_v1`，同输入切换合同新增不可变 Version，旧 Snapshot 不变。
+接受 SDK 逐页重建 reader，不实施 reader 复用优化。无数据库迁移；回滚须同时还原依赖锁与接口适配。
 独立验收：2001 页 CLI 14/14 PASS，SDK 并行 25 页重复 6 次 PASS；补充 CLI 23/27 PASS，
 4 个 PDF 注解链接丢失在升级前 0.9.4 基线完全复现，属既有 scraping 层限制，未在本次修复；由 [SEAL #26](https://github.com/nanzhi84/SEAL/issues/26)
 跟踪用户提交的 [Crawl4AI #2374](https://github.com/unclecode/crawl4ai/issues/2374)。上述 2001 页为恢复并行前验收。
 恢复原生并行后 fresh CLI 验收 37 PASS、4 个既有上游链接失败；覆盖 20 页正文/页序、重复版本、
 空白/损坏与 S3 哈希，不声称性能或超过 2000 页验收。
+
+恢复原生文字转换独立验收 36/36 PASS：五页最终 HTML/Markdown、合同切换版本、重复采集、
+空白/损坏与原件归档；2001 页运行取消，该边界及生产未验证。
 
 ## 未发布 / dd-492 历史文献 PDF 采集 — 2026-10-14
 

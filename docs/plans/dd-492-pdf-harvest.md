@@ -30,7 +30,7 @@ flowchart LR
 - `robots: false`：仅该 Source 的显式选择，不改变其他来源默认策略。
 - 并发 8、延迟 0、每批最多 100 PDF、请求预算 10000、时间预算 3600 秒、单响应最多 128 MiB、单页请求超时 300 秒。Source 默认仍为 10 MiB，只有该来源显式调高。
 - 批次冻结同一个 `dd-492` ID 的 PDF 入口配置，使用 HTTP、深度 0，避免 PDF 内部超链接扩大范围。选定范围处理结束后恢复 Source 的登记门户入口；旧 Run 保留批次配置。Source 行锁下核对当前配置属于本 state 且当前代际没有非终结 Run，外部改配置或在途工作报错，不能覆盖。
-- SDK 已升级至 0.9.5，接入上游 #2320 的显式页码传参修复；页调度恢复 SDK 原生 process_batch 并行，不再覆写为顺序处理；接受 SDK 逐页重建 reader 的现状，不实施 reader 复用（不同 PDF 仍按配置并发），页正文用原始文字层 `<pre>` 保留章节编号、数值与范围。SDK 的标题/列表猜测会删掉真实数值（例如 `165 < R ≤ 185 170`），不能用于法律正文。PDF 策略处理实际全部页面，禁止使用 SDK 默认页数上限悄悄截断；没有文字层记录 `pdf_text_layer_required`，损坏或加密记录 `pdf_invalid_or_encrypted`，SDK 漏页记录 `pdf_page_parse_failed`。失败原件已取得时仍归档。
+- SDK 已升级至 0.9.5，接入上游 #2320 的显式页码传参修复；页调度恢复 SDK 原生 process_batch 并行，不再覆写为顺序处理；接受 SDK 逐页重建 reader 的现状，不实施 reader 复用（不同 PDF 仍按配置并发），页正文恢复 SDK 原生转换，接受其标题、空白与连字符规则，业务清洗交给下游。PDF 策略处理实际全部页面，禁止使用 SDK 默认页数上限悄悄截断；没有文字层记录 `pdf_text_layer_required`，损坏或加密记录 `pdf_invalid_or_encrypted`，SDK 漏页记录 `pdf_page_parse_failed`。失败原件已取得时仍归档。
 
 执行前需要已同步 Python 环境、可用 PostgreSQL 当前 schema、可用 S3 桶和 `.env.local`。本次验收使用独立数据库，不能在默认业务库执行 `seal init` 作为验收准备。
 
@@ -78,7 +78,7 @@ fresh 子 agent 先声明失败边界，再独立编写并执行根目录 `tests
 
 ## 文字合同纠正
 
-PDF 声明稳定 `pdf_text_contract=verbatim_v1`；保留原始文字层和逐页边界。原件无效 UTF-16 字体映射先合并合法代理对，孤立码元保留成显式转义并记录数量，不猜测符号。合同变化时同原件追加新不可变 Version，旧 Snapshot 不变；同合同复查不因时间戳新增版本。取舍见 [ADR 0005](../adr/0005-pdf-text-representation.md)。
+PDF 当前声明 `pdf_text_contract=crawl4ai_0_9_5_native_v1`，采用 SDK 原生文字转换和逐页边界；`verbatim_v1` 为历史合同。原件无效 UTF-16 字体映射先合并合法代理对，孤立码元保留成显式转义并记录数量，不猜测符号。合同变化时同原件追加新不可变 Version，旧 Snapshot 不变；同合同复查不因时间戳新增版本。取舍见 [ADR 0005](../adr/0005-pdf-text-representation.md)。
 
 已成功但使用旧格式化器的文件可显式 `--reparse-successful`，每个 URL/文字合同仅一次，与网络失败追加两次的上限独立；保留原件哈希并发布新的内部当前版本，不能隐含发布 Snapshot。该动作仅纠正原成功集合，不重抓无文字层或原网络失败集合。纠正重下载中的网络失败可用 `--retry-reparse-network`，每个 URL/合同最多追加两次、并发 2，单独计数并核对开始时间；不消耗或突破原网络失败集合的两次上限。
 
@@ -135,3 +135,10 @@ uv run --no-sync python tests/pdf_upgrade_acceptance.py
 ```
 
 第二条因已知 URI 问题退出 1。未验证线上来源、超过 2000 页、性能或实际并行度；继承的个别断言名称提及 2000 页，本次实际仅为 20 页，不能据此声称长文验收。
+
+
+## 2026-10-15 恢复 SDK 原生文字转换
+
+按用户决定移除单页转换覆写，直接使用 SDK 原生 processor，页面 HTML 汇总后生成 CrawlResult Markdown。接受标题推断、空白合并和连字符清理的有损行为，业务清洗由下游负责，原 PDF 仍归档。新合同 `crawl4ai_0_9_5_native_v1` 与旧合同不同，同输入重采新增不可变 Version，同合同重复采集保持 unchanged；历史 Snapshot 不变。无数据库迁移，不自动发布，回滚须同步回退处理器和合同标识。前述验收均为本次文字转换变更前的历史证据。
+
+独立验收：`uv run --no-sync python tests/pdf_native_contract_acceptance.py --skip-long`，36/36 PASS。本地 HTTP fixture、隔离 PostgreSQL 数据库和独立 S3 桶，环境沿用 uv.lock 与本地服务；五页最终 HTML/Markdown 与 SDK 原生输出一致，旧合同切换新增 Version、旧版本不变、重复 unchanged，空白/损坏失败和原件归档通过。证据：`artifacts/dd-492-pdf-acceptance/20261015_152207/summary.json`。2001 页运行取消，证据 `artifacts/dd-492-pdf-acceptance/20261015_152012/cancellation.json`，该边界 UNVERIFIED；未验证公开源重采、生产部署与 OCR。
