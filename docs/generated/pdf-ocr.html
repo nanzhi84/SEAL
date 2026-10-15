@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>SEAL PDF OCR</title><style>body{max-width:1000px;margin:60px auto;padding:0 24px;background:#f6f7f8;color:#20252b;font:17px/1.8 system-ui}h1{font-size:34px}.flow{border-left:3px solid #29685a;padding-left:24px}small{color:#58636f}a{color:#29685a}code{background:#e7ecea;padding:2px 5px}</style>
+<h1>整份无文字 PDF OCR</h1><p><a href="../plans/pdf-ocr.md">唯一 Plan 与完整合同</a> · <a href="https://github.com/nanzhi84/SEAL/issues/25">Issue #25</a></p>
+<div class="flow"><p>① HTTP 下载一次 → 原始 bytes / SHA-256 → MinIO CAS</p><p>② 异步等待同主机共享工作目录的 flock 名额（跨 Run 最多 4）→ 每份 PDF 一个隔离子进程</p><p>③ 子进程预检：任意页有文字 → native；整份无文字 → PDFium + 多语言 Tesseract</p><p>④ 每页文字 → 共用 SDK HTML → 页数、页码、格式与大小校验</p><p>⑤ PDFPage / PDFProcessResult → 既有 scraper → CrawlResult / Markdown</p><p>⑥ 既有结果归档 → Observation / Version → Snapshot → Results API / 原件附件</p></div>
+<h2>可回查的页面</h2><p><code>metadata.pdf.method</code> 标明 native / ocr，<code>pages</code> 保留一基页码和空文字页；原件由 attachments 回查。</p>
+<h2>有界执行</h2><p>执行期限取 OCR 独立时限与采集剩余预算较早值。超时、取消、退出统一终止进程组、回收进程、删除目录，最后释放名额。清理失败封闭管理器，拒绝迟到结果。</p>
+<h2>范围</h2><p>混合 PDF 和仅页码有文字的扫描件仍走 native，正文可能缺失。无准确率或版式质量门槛；不新增业务表、队列、逐页分流或自动重解析。</p>
+<h2>本次验收：365 PASS / 0 FAIL</h2><p>真实多语言采集到 Results API 181 项；旧代码与待执行 Run 升级 17 项；故障、取消与进程回收 150 项；跨 Run 共享上限与故障封闭 17 项。四份最终报告验证源码及依赖哈希一致。独立代码审查无剩余必修项。</p>
+<small>macOS / Python 3.12.13 / Tesseract 5.5.3。部署安装 Tesseract 及配置语言数据。生产、公网全量、负载、跨主机分布式上限及不可捕获退出未验证。命令与工件路径见唯一 Plan。</small></html>

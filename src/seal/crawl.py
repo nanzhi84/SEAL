@@ -18,6 +18,7 @@ from .archive import serialize_result
 from .core import SealError
 from .db import connect, j, record_error
 from .objects import Objects, work_directory
+from .pdf_runtime import PDFRuntime
 from .resources import delivered, persist, save_checkpoint
 from .runs import run_context
 from .sdk import (
@@ -80,6 +81,12 @@ class State:
         if not policy and not subrequest:
             self.mark_inflight(url)
         self.save()
+
+    def check_delivery(self):
+        if self.cancelled:
+            raise SealError("interrupted")
+        if time.monotonic() >= self.started + self.config["budget"]["seconds"]:
+            raise SealError("crawl_time_budget_exceeded")
 
     async def checkpoint_changed(self, sdk):
         # SDK 0.9.4 omits the unfinished current level. Its visited set already contains
@@ -165,13 +172,22 @@ def outcome(result, capture, config):
 
 async def run(context):
     state = State(context)
+    pdf = PDFRuntime(state)
     loop = asyncio.get_running_loop()
+
+    def cancel(signum, frame):
+        state.cancelled = True
+        # Wake a selector currently waiting on a silent OCR child as well.
+        loop.call_soon_threadsafe(pdf.cancel)
+
     for sig in (signal.SIGTERM, signal.SIGINT):
-        loop.add_signal_handler(sig, setattr, state, "cancelled", True)
+        # SDK packaging and S3/SQL calls are synchronous. Set the commit fence at
+        # signal delivery, without waiting for the event loop to run a callback.
+        signal.signal(sig, cancel)
     cfg = state.config
     with tempfile.TemporaryDirectory(prefix="seal-download-", dir=work_directory()) as folder:
         adapter = (HttpAdapter if cfg["crawl4ai"]["mode"] == "http" else BrowserAdapter)(
-            state, Path(folder)
+            state, Path(folder), **({"pdf": pdf} if cfg["crawl4ai"]["mode"] == "http" else {})
         )
 
         async def short_content_fallback(url):
@@ -203,13 +219,21 @@ async def run(context):
 
             async def consume(iterator):
                 async for result in iterator:
+                    if state.cancelled:
+                        raise SealError("interrupted")
                     capture = adapter.captures.get(result.url, {})
+                    if time.monotonic() >= state.started + cfg["budget"]["seconds"]:
+                        capture["error"] = "crawl_time_budget_exceeded"
                     kind, error = outcome(result, capture, cfg)
                     acquired = state.checkpoint["acquired"].get(result.url, {})
                     data = serialize_result(
                         result, attachment_refs=acquired.get("attachment_refs", [])
                     )
                     result_ref = Objects().put_json(data)
+                    if state.cancelled:
+                        raise SealError("interrupted")
+                    if time.monotonic() >= state.started + cfg["budget"]["seconds"]:
+                        kind, error = "parse_failed", "crawl_time_budget_exceeded"
                     persist(
                         state.run_id,
                         state.epoch,
@@ -220,6 +244,7 @@ async def run(context):
                         kind,
                         error,
                         result_ref=result_ref,
+                        check_active=state.check_delivery if kind == "parsed" else None,
                     )
                     adapter.captures.pop(result.url, None)
                     state.checkpoint["acquired"].pop(result.url, None)
@@ -267,8 +292,16 @@ async def run(context):
                         state.save()
             except SealError as exc:
                 state.add_error(exc.code)
+            except asyncio.CancelledError:
+                if not state.cancelled:
+                    raise
             except Exception as exc:
                 state.add_error("sdk_execution_failed:" + type(exc).__name__)
+            finally:
+                try:
+                    await pdf.close()
+                except SealError as exc:
+                    state.add_error(exc.code)
             if not state.cancelled:
                 # An iterator-level exception can prevent an SDK result being returned.
                 # Record real captured evidence only; never synthesize a CrawlResult.

@@ -11,3 +11,11 @@
 ## 2026-10-15 决策更新
 
 用户选择恢复 SDK 原生文字转换，将业务清洗交给下游。移除 `<pre>` 单页覆写，当前合同为 `crawl4ai_0_9_5_native_v1`；接受 SDK 标题、空白与连字符转换可能改写内容的取舍，原件可用于重新解析。上文 `verbatim_v1` 为历史决策。合同变化新增不可变 Version、旧 Snapshot 不变的机制继续有效；回滚须同步改变处理器与合同标识。
+
+## 2026-10-15 OCR 与页面来源
+
+[OCR Plan](../plans/pdf-ocr.md) 为 native/OCR 都增加一基页码和原始页面文字来源。
+native 文字转换仍复用 SDK，但合同更新为 `crawl4ai_0_9_5_native_pages_v1`，OCR 为
+`crawl4ai_0_9_5_ocr_v1`。否则同输入重查会继续复用缺少页面来源的旧 Version，
+Results API 无法履行新增来源合同。仅显式成功采集触发既有版本机制，不自动重解析，
+不因 OCR 模型或配置改变自动替换结果；旧 Version 与 Snapshot 保持不可变。
