@@ -18,6 +18,7 @@ from .archive import serialize_result
 from .core import SealError
 from .db import connect, j, record_error
 from .objects import Objects, work_directory
+from .parsing import require_runtime
 from .pdf_runtime import PDFRuntime
 from .resources import delivered, persist, save_checkpoint
 from .runs import run_context
@@ -171,6 +172,16 @@ def outcome(result, capture, config):
 
 
 async def run(context):
+    try:
+        require_runtime(context["config"], context["parser_manifest"])
+    except SealError as exc:
+        record_error(context["id"], context["attempt_epoch"], exc.code)
+        with connect() as c:
+            c.execute(
+                "UPDATE seal.run SET status='finishing' WHERE id=%s AND attempt_epoch=%s AND status='running'",
+                (context["id"], context["attempt_epoch"]),
+            )
+        return
     state = State(context)
     pdf = PDFRuntime(state)
     loop = asyncio.get_running_loop()

@@ -9,6 +9,7 @@ from datetime import datetime, timedelta, timezone
 
 from .core import SealError, digest, uid
 from .db import connect, j, locked_run, one
+from .parsing import manifest, require_runtime
 from .run_state import TERMINAL_STATES, eligibility_error, exhaustion_error
 
 
@@ -31,7 +32,7 @@ def create_run(source_id, mode, connection):
     c.execute("UPDATE seal.source SET run_seq=%s WHERE id=%s", (seq, source_id))
     c.execute(
         """INSERT INTO seal.run(id,source_id,mode,generation,run_seq,deadline,seeds,
-      recheck_plan,config,config_hash) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+      recheck_plan,config,config_hash,parser_manifest) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
         (
             identity,
             source_id,
@@ -43,6 +44,7 @@ def create_run(source_id, mode, connection):
             j(plan) if plan is not None else None,
             j(config),
             digest(config),
+            j(manifest(config)),
         ),
     )
     return identity
@@ -71,6 +73,18 @@ def begin_attempt(run_id):
             raise SealError("historical_run_not_resumable")
         if digest(run["config"]) != run["config_hash"]:
             raise SealError("config_snapshot_corrupt")
+        if run["parser_manifest"] is None:
+            if run["attempt_epoch"]:
+                end_run(c, source, run, "failed", "legacy_run_parser_unknown_requires_new_run")
+                return None
+            frozen = manifest(run["config"])
+            c.execute("UPDATE seal.run SET parser_manifest=%s WHERE id=%s", (j(frozen), run_id))
+        else:
+            try:
+                require_runtime(run["config"], run["parser_manifest"])
+            except SealError as exc:
+                end_run(c, source, run, "failed", exc.code)
+                return None
         c.execute("UPDATE seal.source SET write_seq=%s WHERE id=%s", (run["run_seq"], source["id"]))
         f = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s FOR UPDATE", (source["id"],))
         if f["run_id"] != run_id:
@@ -114,6 +128,7 @@ def run_receipt(c, run):
         "run_id": run["id"],
         "source_id": run["source_id"],
         "config_hash": run["config_hash"],
+        "parser_manifest": run["parser_manifest"],
         "mode": run["mode"],
         "status": run["status"],
         "attempt_epoch": run["attempt_epoch"],

@@ -8,6 +8,7 @@ from lxml import html as lxml_html
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from .core import SealError
+from .parsing import OCR_TEXT_CONTRACT
 from .pdf_contract import PDF_TEXT_CONTRACT
 
 
@@ -114,7 +115,7 @@ def wrap(output, path, archive_ref, **kwargs):
     scraper.pdf_processor = PreparedProcessor(output)
     result = scraper.scrap(str(path), "", **kwargs)
     result.metadata["pdf_text_contract"] = (
-        PDF_TEXT_CONTRACT if output.method == "native" else "crawl4ai_0_9_5_ocr_v1"
+        PDF_TEXT_CONTRACT if output.method == "native" else OCR_TEXT_CONTRACT
     )
     result.metadata["pdf"] = {
         "method": output.method,

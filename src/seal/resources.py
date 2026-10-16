@@ -1,11 +1,10 @@
 """Source-local URL identity and immutable, transactional response timelines."""
 
-from importlib.metadata import version
-
 from .archive import verify_result
-from .core import SealError, public_url, uid
+from .core import SealError, digest, public_url, uid
 from .db import connect, fenced, j, locked_run, one
 from .objects import Objects
+from .parsing import effective, input_identity, version_identity
 
 
 def resource(c, frontier_id, url, role="content"):
@@ -39,6 +38,7 @@ def persist(
     files = set(capture.get("attachment_refs", []))
     if archive_ref:
         files.add(archive_ref)
+    envelope = None
     if result_ref:
         envelope = verify_result(Objects(), result_ref)
         files.update(envelope.get("attachment_refs", []))
@@ -59,6 +59,10 @@ def persist(
         current = c.execute(
             "SELECT * FROM seal.version WHERE id=%s", (r["current_version_id"],)
         ).fetchone()
+        parser_config = effective(run["parser_manifest"], capture, envelope)
+        parser_fingerprint = digest(parser_config)
+        version_fingerprint = None
+        change_reason = "failed" if error else outcome
         version_id = None
         new = False
         if outcome == "parsed":
@@ -66,37 +70,36 @@ def persist(
                 raise SealError("parsed_response_evidence_required")
             if current and current["input_mode"] != input_mode:
                 raise SealError("input_mode_change_requires_new_source")
-            new = current is None or current["body_hash"] != body_hash
-            contract = (envelope["result"].get("metadata") or {}).get("pdf_text_contract")
-            mime = (
-                next(
-                    (
-                        v
-                        for k, v in capture.get("headers", {}).items()
-                        if k.lower() == "content-type"
-                    ),
-                    "",
+            source_input = input_identity(body_hash, input_mode, envelope)
+            version_fingerprint = version_identity(source_input, parser_fingerprint)
+            new = current is None or current["version_fingerprint"] != version_fingerprint
+            if current is None:
+                change_reason = "first_success"
+            elif current["version_fingerprint"] is None:
+                change_reason = "legacy_transition"
+            else:
+                source_changed = current["version_fingerprint"] != version_identity(
+                    source_input, current["parser_fingerprint"]
                 )
-                .split(";")[0]
-                .strip()
-                .lower()
-            )
-            if not new and contract and mime == "application/pdf":
-                previous = verify_result(Objects(), current["result_ref"])
-                previous_contract = (previous["result"].get("metadata") or {}).get(
-                    "pdf_text_contract"
+                parser_changed = current["parser_fingerprint"] != parser_fingerprint
+                change_reason = (
+                    "both_changed"
+                    if source_changed and parser_changed
+                    else "source_changed"
+                    if source_changed
+                    else "parser_changed"
+                    if parser_changed
+                    else "unchanged"
                 )
-                # A changed text contract is a new immutable representation of the same
-                # input. Runtime timestamps never participate in version identity.
-                new = contract != previous_contract
             version_id = uid() if new else current["id"]
             if not new:
                 outcome = "unchanged"
         oid = uid()
         c.execute(
             """INSERT INTO seal.observation(id,resource_id,run_id,attempt_epoch,delivery_key,
-          url,actual_url,status,body_hash,archive_ref,result_ref,input_mode,outcome,error,version_id,attachment_refs)
-          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+          url,actual_url,status,body_hash,archive_ref,result_ref,input_mode,outcome,error,version_id,attachment_refs,
+          parser_fingerprint,change_reason)
+          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
             (
                 oid,
                 r["id"],
@@ -114,6 +117,8 @@ def persist(
                 error,
                 version_id,
                 sorted(files),
+                parser_fingerprint,
+                change_reason,
             ),
         )
         if new:
@@ -122,7 +127,8 @@ def persist(
             c.execute("SELECT pg_advisory_xact_lock(72032102)")
             c.execute(
                 """INSERT INTO seal.version(id,resource_id,sequence,observation_id,body_hash,
-              input_mode,result_ref,framework_version,parser_config) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+              input_mode,result_ref,framework_version,parser_config,parser_fingerprint,version_fingerprint)
+              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                 (
                     version_id,
                     r["id"],
@@ -131,8 +137,10 @@ def persist(
                     body_hash,
                     input_mode,
                     result_ref,
-                    version("crawl4ai"),
-                    j(run["config"]["crawl4ai"]),
+                    parser_config["framework_version"],
+                    j(parser_config),
+                    parser_fingerprint,
+                    version_fingerprint,
                 ),
             )
             c.execute(

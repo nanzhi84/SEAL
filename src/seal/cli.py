@@ -26,7 +26,10 @@ def parser():
     serve.add_argument("--port", type=int, default=8080)
     snapshot = commands.add_parser("snapshot", help="Capture, inspect and manually publish content")
     operations = snapshot.add_subparsers(dest="operation", required=True)
-    operations.add_parser("create", help="Freeze global successful data without publishing")
+    create = operations.add_parser(
+        "create", help="Freeze global successful data without publishing"
+    )
+    create.add_argument("--version-overrides", type=Path)
     listing = operations.add_parser("list", help="List immutable captures")
     inspect = operations.add_parser("inspect", help="Inspect frozen sources and version mappings")
     inspect.add_argument("snapshot_id")
@@ -62,7 +65,9 @@ def dispatch(args):
 
         require_current()
         if args.operation == "create":
-            return snapshots.create()
+            from .snapshot_overrides import load
+
+            return snapshots.create(load(args.version_overrides) if args.version_overrides else [])
         if args.operation == "list":
             return snapshots.listing(args.limit, args.after)
         if args.operation == "inspect":
