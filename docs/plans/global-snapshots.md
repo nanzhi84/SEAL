@@ -26,6 +26,68 @@ collect / recheck / worker → Observation → Version → Resource.current_vers
 init、升级、采集、复查、worker、serve 均不创建或发布快照。
 本次不提供删除、对象 GC、自动发布、逐来源发布或质量审核。
 
+## Issue #28：双指纹与历史版本覆盖设计
+
+本次需求来自 [Issue #28](https://github.com/nanzhi84/SEAL/issues/28)。以下为目标合同，
+验收结果在本 Plan 末尾记录；不把 Issue #23 的历史通过数计入本次。
+
+职责与依赖保持 `configuration / runs → parsing → resources`，以及独立的
+`CLI → snapshot overrides 边界 → snapshots → SQL / archive`；采集不依赖快照。
+`parsing` 负责纯身份计算及本机解析运行时清单，`resources` 独占事务内升版判断，
+CLI 读取有界 JSON 并校验重复键、UUID 和重复资源，snapshots 在一致视图校验归属并一次插入最终映射。
+
+来源输入保持既有 `body_hash`：HTTP 是响应原始字节，rendered_dom 是实际交给解析器的
+UTF-8 DOM，二者均不是结果 JSON 哈希；PDF/下载原件的 body_hash 同时是 archive_ref。
+现有采集不下载 HTML 链接指向的附件，也不把浏览器子资源独立交给解析器；PDF 原件就是
+解析输入。若 SDK 结果有额外下载输入，确定性摘要同时纳入 envelope 中去重排序的附件
+CAS 引用，剔除与 body_hash 相同的主原件，防止漏掉独立附件。HTML/TXT 同时纳入实际解码
+并提交给解析器的输入文字摘要及实际解析基地址，避免原字节相同但响应字符集或基地址
+改变时漏升版；TXT 先安全转义
+并包装为 pre 文档，解决 SDK 将普通文本误判为缺少 body 的阻断。保持 body_hash 与原文对象
+键的既有区别，不新增同义来源列。
+
+新 Run 在创建前冻结解析器清单；重试及 crawl 子进程启动校验当前清单，漂移明确失败，
+不得混用部署前后的解析器。清单包含 Crawl4AI、相关解析依赖、显式 SEAL 适配语义修订、
+输出合同、PDF native/OCR text contract、OCR 引擎及已配置语言模型身份。
+仅有效输出参数参与当前 Observation 指纹：HTML 的 css_selector / word_count_threshold，
+DOM 的 wait_until，PDF 的相关文字合同及 OCR languages / dpi。调度深度、周期、并发、
+延迟、超时和安全预算不参与。显式适配语义修订须在改变解析输出的实现修改时更新。
+失败观测仍保留 run 清单、parser_fingerprint 与 error 阶段；未成功不产生版本。
+
+版本指纹以 canonical JSON（sort_keys、无空格、UTF-8、禁止 NaN）的 SHA-256 计算，
+载荷含算法版本、具名来源摘要和 parser_fingerprint；仅与当前 Version 比较，
+A→B→A 保留三次演进。即使 Markdown 相同，只要来源或解析器指纹变化就升版。
+去掉 PDF 独立判定分支，PDF 文字合同直接进入同一解析器指纹。
+Observation / Version / current pointer 仍由同一事务、Resource 锁和 Run fence 保护，
+delivery_key、sequence 和全局 cursor 提交锁保持原合同。
+
+追加迁移0014：Run.parser_manifest、Observation.parser_fingerprint / change_reason，
+Version.parser_fingerprint / version_fingerprint；Version.parser_config 保存有效解析清单，
+framework_version 来自冻结清单。历史字段保持 NULL，表示 legacy/unknown，不伪造身份；
+下一次成功观测仅产生一次 legacy_transition，随后稳定观测 unchanged。
+历史 Run 尚未尝试可在首次启动冻结清单；已经尝试但缺身份的旧 Run 明确失败，须新建 Run。
+唯一约束 `version(observation_id)` 添加前检查冲突，发现冲突报告并停止，不删除证据。
+历史 Snapshot 与公开 HTTP 白名单不变，新增字段仅内部 SQL/运行回执可见。
+
+```sh
+seal snapshot create --version-overrides work/snapshot-overrides.json
+```
+
+配置仅接受 `{"overrides":[{"resource_id":"<uuid>","version_id":"<uuid>"}]}`。
+最多10000条、文件最多2 MiB；重复JSON键、额外字段、非规范UUID、重复resource_id拒绝。
+内部 create 接受规范化列表并再次校验。无覆盖沿用默认最新成功版本；覆盖只替换指定
+资源，所有 Source 仍由同一 REPEATABLE READ 视图冻结。先校验 Resource、Version、
+归属及选定结果/附件可读性，再一次 INSERT 最终映射并 sealed；任何失败回滚，不留下草稿。
+不 UPDATE 默认映射，不放松 guard，不改变 current_version_id 或 publication。
+
+升级执行 `seal init`；生产升级先停 worker / serve 并按运维要求备份。
+日常隔离库不要求额外备份。回滚可保留0014追加列及约束，但旧程序不能保证解析器升版
+合同，须暂停采集；旧 sealed Snapshot 仍可按原有只读路径消费与显式发布。
+
+验收先列失败边界，由 fresh 子 agent 在 tests/ 独立编写端到端测试，使用隔离数据库、
+对象存储与可控来源，覆盖 issue 全部矩阵、升级、重试、并发、错误原子性及实际 API 内容。
+运行数据及无敏感工件分别放 work/ 与 artifacts/；CI 继续只做静态检查。
+
 ## 数据与事务合同
 
 追加 `0013_global_snapshots.sql`，不更改历史 SQL。

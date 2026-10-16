@@ -2,6 +2,7 @@
 
 import contextvars
 import re
+from html import escape
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -190,6 +191,14 @@ class HttpAdapter(AsyncHTTPCrawlerStrategy):
                     .strip()
                     .lower()
                 )
+                if mime == "text/plain":
+                    # The SDK HTML blocker rejects literal TXT without a body tag.
+                    # Preserve decoded text, including markup-looking characters,
+                    # as inert preformatted input to the ordinary parser pipeline.
+                    response.html = (
+                        "<html><body><pre>" + escape(response.html) + "</pre></body></html>"
+                    )
+                    capture["html"] = response.html
                 if mime == "application/pdf" and 200 <= capture["status"] < 300:
                     capture["pdf_result"] = await self.pdf.prepare(capture)
             return response
@@ -303,6 +312,6 @@ async def recover_short_content(adapter, url):
     blocked, reason = is_blocked(200, html)
     if not blocked or not reason.startswith(("Structural: minimal_text", "Near-empty content")):
         return ""
-    if not re.search(r"<(?:p|h[1-6]|main)\b", html, re.I):
+    if not re.search(r"<(?:p|h[1-6]|main|pre)\b", html, re.I):
         return ""
     return html

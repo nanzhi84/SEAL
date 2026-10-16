@@ -77,14 +77,14 @@ uv run --no-sync python tests/source_catalog_e2e.py
 
 失败方式在实现测试前冻结于
 [来源发现边界](../../tests/source_catalog_failure_boundaries.json)。
-最终[断言](../../artifacts/issue22-20261014-141124-c84cd/assertions.json)、
-[HTTP回执](../../artifacts/issue22-20261014-141124-c84cd/http.json)、
-[环境与哈希](../../artifacts/issue22-20261014-141124-c84cd/environment.json)、
-[汇总](../../artifacts/issue22-20261014-141124-c84cd/summary.json)
+最终断言（`artifacts/issue22-20261014-141124-c84cd/assertions.json`，历史工件未随检出提供）、
+HTTP回执（`artifacts/issue22-20261014-141124-c84cd/http.json`，历史工件未随检出提供）、
+环境与哈希（`artifacts/issue22-20261014-141124-c84cd/environment.json`，历史工件未随检出提供）、
+汇总（`artifacts/issue22-20261014-141124-c84cd/summary.json`，历史工件未随检出提供）
 记录真实发现→内容查询、入口规范化、权限、歧义、登记变化、只读、S3停机、DB停机恢复、
 大小上限和单worker超时/排队/恢复。工件凭据扫描通过；生产部署与外站未验证。
 新增接口后原结果/附件合同完整复跑仍161 PASS / 0 FAIL：
-[回归汇总](../../artifacts/issue22-20261014-140439-7802f/summary.json)。
+回归汇总（`artifacts/issue22-20261014-140439-7802f/summary.json`，历史工件未随检出提供）。
 两个最终运行的产品哈希与当前源码一致，临时容器已清理。
 
 2026-10-14 真实本地19源验收：`/sources` 返回19来源，20个登记入口全部可请求；
@@ -100,9 +100,9 @@ uv run --no-sync python tests/real_sources_api_e2e.py
 
 前提：现有 `.env.local`、已采集的本地19源数据库及MinIO、冻结uv运行环境。
 测试固定19个稳定ID作为验收范围，入口及成功资源从当前数据库读取，不依赖旧运行工件。
-[真实汇总](../../artifacts/real-sources-api-20261014-140952-29833a/summary.json)、
-[逐入口回执](../../artifacts/real-sources-api-20261014-140952-29833a/entries.json)、
-[实际来源响应](../../artifacts/real-sources-api-20261014-140952-29833a/sources.actual.json)
+真实汇总（`artifacts/real-sources-api-20261014-140952-29833a/summary.json`，历史工件未随检出提供）、
+逐入口回执（`artifacts/real-sources-api-20261014-140952-29833a/entries.json`，历史工件未随检出提供）、
+实际来源响应（`artifacts/real-sources-api-20261014-140952-29833a/sources.actual.json`，历史工件未随检出提供）
 及各入口的 `*-page*.actual.json` 保存实际完整响应，临时令牌和检测到的邮箱、手机、
 身份证脱敏。返回60个附件引用，未单独下载附件；不证明网站当前可用或全站完整性。
 
@@ -277,24 +277,24 @@ minio/mc@sha256:a7fe349ef4bd8521fb8497f55c6042871b2ae640607cf99d9bede5e9bdf11727
 镜像。测试自动创建随机端口、凭据和合成HTML/PDF/SQL/S3数据，不读取现有本地库/桶。
 
 最终工件：
-[独立审计](../../artifacts/issue22-20261014-113746-46619/independent-acceptance-audit.json)、
-[断言](../../artifacts/issue22-20261014-113746-46619/assertions.json)、
-[HTTP回执](../../artifacts/issue22-20261014-113746-46619/http.json)、
-[环境与代码哈希](../../artifacts/issue22-20261014-113746-46619/environment.json)、
-[原生SDK结果](../../artifacts/issue22-20261014-113746-46619/native-sdk-index.json)、
-[只读前后快照](../../artifacts/issue22-20261014-113746-46619/readonly-snapshots.json)。
+独立审计（`artifacts/issue22-20261014-113746-46619/independent-acceptance-audit.json`，历史工件未随检出提供）、
+断言（`artifacts/issue22-20261014-113746-46619/assertions.json`，历史工件未随检出提供）、
+HTTP回执（`artifacts/issue22-20261014-113746-46619/http.json`，历史工件未随检出提供）、
+环境与代码哈希（`artifacts/issue22-20261014-113746-46619/environment.json`，历史工件未随检出提供）、
+原生SDK结果（`artifacts/issue22-20261014-113746-46619/native-sdk-index.json`，历史工件未随检出提供）、
+只读前后快照（`artifacts/issue22-20261014-113746-46619/readonly-snapshots.json`，历史工件未随检出提供）。
 复跑会在根work/和artifacts/创建新的独立运行名。
 
 最终命令已在一个全新本地checkout再次运行；启动前无work/、artifacts/、.env、.venv，
 独立 `uv sync --frozen` 后执行同一验收入口，结果仍161 PASS / 0 FAIL。
-[启动前状态](../../artifacts/issue22-20261014-113746-46619/fresh-checkout-before-run.json)
+启动前状态（`artifacts/issue22-20261014-113746-46619/fresh-checkout-before-run.json`，历史工件未随检出提供）
 与审计记录了原始运行位置及镜像回主仓库的工件位置。测试自动创建临时根目录，不依赖
 任何历史artifacts文件；稳定清单、历史冻结清单与运行工件的SHA相同。
 
 测试发现并修复了HTTP/排队期限同时到达时的错误码竞态：实际阶段决定server_busy或
 request_timeout。真实S3慢体、一个worker及三个竞争请求严格复测通过；
 实际后端并发最大1，后台结束后槽位正常释放。此前产品失败工件保留在
-[第三轮断言](../../artifacts/issue22-20261014-113018-adcea/assertions.json)；
+第三轮断言（`artifacts/issue22-20261014-113018-adcea/assertions.json`，历史工件未随检出提供）；
 前两轮夹具故障也保留，未改写历史失败结论。
 
 已验证入口/深度HTML/PDF、版本变化与unchanged/失败保留旧内容、105→107资源期间

@@ -6,12 +6,13 @@ from pathlib import Path
 
 from psycopg import pq, sql
 from psycopg.conninfo import conninfo_to_dict
+from psycopg.errors import RaiseException
 
 from .core import SealError, digest
 from .db import connect, dsn
 from .objects import Objects
 
-CURRENT = "0013_global_snapshots.sql"
+CURRENT = "0014_version_fingerprints.sql"
 ARCHIVE_CURRENT = "0012_minimal_archive.sql"
 DELETED = {
     "seal_record",
@@ -250,7 +251,14 @@ def initialize(*, backup=None, acknowledge=False):
                 c.execute(
                     "CREATE TEMP TABLE result_refs (observation_id text PRIMARY KEY, ref text NOT NULL) ON COMMIT DROP"
                 )
-            c.execute(path.read_text())
+            try:
+                c.execute(path.read_text())
+            except RaiseException as exc:
+                if path.name == "0014_version_fingerprints.sql" and (
+                    exc.diag.message_primary or ""
+                ).startswith("version_observation_conflict:"):
+                    raise SealError("version_observation_conflict") from None
+                raise
             if path.name == "0009_document_only.sql":
                 ledger = "seal.migration"
             c.execute(

@@ -5,6 +5,25 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / 双指纹升版与快照版本覆盖（Issue #28）— 2026-10-16
+
+新 Run 冻结解析器清单，重试及采集子进程启动拒绝解析器漂移；来源输入与有效解析语义
+的具名 canonical JSON SHA-256 统一决定新 Version，取代 PDF 特判。相同输出但语义
+改变仍升版，A→B→A 保留演进；并发、周期和预算噪声不参与。Observation 保存变化原因。
+来源摘要同时涵盖实际解码输入，识别相同字节的字符集变化；普通 TXT 安全转义包装后进入
+既有解析链路，修复 SDK 缺少 body 标签误拦截，原始字节摘要保持不变。
+
+`seal snapshot create --version-overrides <json>` 在全局一致视图为指定 Resource 选择
+历史成功 Version，校验归属和覆盖归档后一次写入最终映射；任何无效配置/对象整体回滚。
+未指定资源仍取最新成功版本；覆盖不修改当前指针或自动发布，既有只读 API 字段不变。
+
+追加0014，保留表名和历史来源事实：旧指纹为 NULL/unknown，下一次成功观测一次过渡。
+添加 Version 创建者唯一约束前发现历史冲突即停止，不删除证据。旧未尝试 Run 可首次
+冻结；已尝试且无清单的旧 Run 须重新创建。生产升级先停服务和 worker，执行 seal init；
+回滚可保留新增列和约束，但应暂停旧程序采集以免丢失解析器升版语义。历史 sealed
+Snapshot 继续可读和显式发布。合同、验收及限制见[唯一 Plan](docs/plans/global-snapshots.md)
+与[同步可视化](docs/generated/global-snapshots.html)。
+
 ## 未发布 / 无文字 PDF OCR 兜底（Issue #25）— 2026-10-15
 
 整份 PDF 无文字时以 PDFium + 多语言 Tesseract 顺序渲染识别；任意页有文字继续

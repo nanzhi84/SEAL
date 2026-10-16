@@ -6,8 +6,9 @@ from uuid import UUID
 
 from .archive import verify_result
 from .core import MAX_ORIGINAL_BYTES, SealError, uid
-from .db import connect, one
+from .db import connect, j, one
 from .objects import Objects
+from .snapshot_overrides import normalize
 
 OUTPUT_MAX_BYTES = 8 * 1024 * 1024
 
@@ -42,7 +43,8 @@ def published(c):
     ]
 
 
-def create():
+def create(overrides=None):
+    overrides = normalize([] if overrides is None else overrides)
     snapshot_id = uid()
     with connect() as c:
         c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ")
@@ -53,14 +55,42 @@ def create():
             FROM seal.source s JOIN seal.frontier f ON f.source_id=s.id""",
             (snapshot_id,),
         )
+        # Validate the complete override list against this same MVCC view before
+        # inserting mappings. Never UPDATE immutable snapshot_item rows.
+        selected = c.execute(
+            """SELECT o.resource_id,o.version_id,v.result_ref,
+              r.id IS NOT NULL AS resource_exists,
+              v.id IS NOT NULL AND v.resource_id=r.id AS version_matches,
+              s.source_id IS NOT NULL AS source_matches
+            FROM jsonb_to_recordset(%s::jsonb) AS o(resource_id text,version_id text)
+            LEFT JOIN seal.resource r ON r.id=o.resource_id
+            LEFT JOIN seal.version v ON v.id=o.version_id
+            LEFT JOIN seal.snapshot_source s ON s.snapshot_id=%s AND s.frontier_id=r.frontier_id""",
+            (j(overrides), snapshot_id),
+        ).fetchall()
+        deadline = time.monotonic() + 60
+        objects = Objects() if selected else None
+        for item in selected:
+            if not all(item[k] for k in ("resource_exists", "version_matches", "source_matches")):
+                raise SealError("invalid_override_version")
+            verify_result(
+                objects,
+                item["result_ref"],
+                max_bytes=64 * 1024 * 1024,
+                attachment_max_bytes=MAX_ORIGINAL_BYTES,
+                deadline=deadline,
+            )
         c.execute(
             """INSERT INTO seal.snapshot_item
             (snapshot_id,source_id,frontier_id,resource_id,version_id,url)
             SELECT s.snapshot_id,s.source_id,s.frontier_id,r.id,v.id,r.url
             FROM seal.snapshot_source s JOIN seal.resource r ON r.frontier_id=s.frontier_id
-            JOIN seal.version v ON v.id=r.current_version_id AND v.resource_id=r.id
+            LEFT JOIN jsonb_to_recordset(%s::jsonb) AS o(resource_id text,version_id text)
+              ON o.resource_id=r.id
+            JOIN seal.version v ON v.id=COALESCE(o.version_id,r.current_version_id)
+              AND v.resource_id=r.id
             WHERE s.snapshot_id=%s""",
-            (snapshot_id,),
+            (j(overrides), snapshot_id),
         )
         row = c.execute(
             """UPDATE seal.snapshot SET sealed=true,
