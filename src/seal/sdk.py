@@ -13,6 +13,7 @@ from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy, AsyncPlayw
 from crawl4ai.content_scraping_strategy import LXMLWebScrapingStrategy
 from crawl4ai.deep_crawling.filters import URLFilter
 
+from .browser_runtime import adapter as browser_adapter
 from .core import SealError, digest
 from .network import Resolver
 from .objects import Objects
@@ -244,7 +245,8 @@ class BrowserAdapter(AsyncPlaywrightCrawlerStrategy):
                 ignore_https_errors=False,
                 user_agent=self.config["user_agent"],
                 accept_downloads=False,
-            )
+            ),
+            browser_adapter=browser_adapter(),
         )
         self.set_hook("on_page_context_created", self.page_created)
 

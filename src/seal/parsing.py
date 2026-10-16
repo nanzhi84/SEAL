@@ -59,9 +59,8 @@ def ocr_runtime(languages):
 
 def manifest(config):
     crawl = config["crawl4ai"]
-    ocr = OCRConfig.model_validate(config.get("ocr", {})).model_dump()
-    return {
-        "algorithm": "seal.parser-manifest.v1",
+    result = {
+        "algorithm": "seal.parser-manifest.v2",
         "adapter_contract": ADAPTER_CONTRACT,
         "output_contract": OUTPUT_CONTRACT,
         "framework_version": package("crawl4ai"),
@@ -71,21 +70,33 @@ def manifest(config):
             "css_selector": crawl["css_selector"],
         },
         "input_mode": crawl["mode"],
-        "dom": {"wait_until": crawl["wait_until"], "playwright": package("playwright")},
-        "pdf": {
+    }
+    if crawl["mode"] == "rendered_dom":
+        from .browser_runtime import identity
+
+        result["dom"] = {"wait_until": crawl["wait_until"], "runtime": identity()}
+    else:
+        ocr = OCRConfig.model_validate(config.get("ocr", {})).model_dump()
+        result["pdf"] = {
             "native_contract": PDF_TEXT_CONTRACT,
             "ocr_contract": OCR_TEXT_CONTRACT,
             "pypdf": package("pypdf"),
             "pypdfium2": package("pypdfium2"),
             "ocr": {k: ocr[k] for k in ("languages", "dpi")},
             "runtime": ocr_runtime(ocr["languages"]),
-        },
-    }
+        }
+    return result
 
 
 def require_runtime(config, frozen):
-    if frozen is None or frozen != manifest(config):
+    current = manifest(config)
+    if frozen is None or frozen != current:
         raise SealError("parser_runtime_changed_requires_new_run")
+    if (
+        current["input_mode"] == "rendered_dom"
+        and current["dom"]["runtime"]["status"] != "available"
+    ):
+        raise SealError("browser_runtime_unavailable")
 
 
 def effective(frozen, capture, envelope=None):
@@ -101,9 +112,6 @@ def effective(frozen, capture, envelope=None):
             "input_mode",
         )
     }
-    selected["html"] = frozen["html"]
-    if frozen["input_mode"] == "rendered_dom":
-        selected["dom"] = frozen["dom"]
     metadata = (envelope or {}).get("result", {}).get("metadata") or {}
     mime = (
         next((v for k, v in capture.get("headers", {}).items() if k.lower() == "content-type"), "")
@@ -111,7 +119,9 @@ def effective(frozen, capture, envelope=None):
         .strip()
         .lower()
     )
-    if mime == "application/pdf" or metadata.get("pdf_text_contract"):
+    if frozen["input_mode"] == "http" and (
+        mime == "application/pdf" or metadata.get("pdf_text_contract")
+    ):
         pdf = frozen["pdf"]
         selected["pdf"] = {
             "pypdf": pdf["pypdf"],
@@ -119,6 +129,10 @@ def effective(frozen, capture, envelope=None):
         }
         if (metadata.get("pdf") or {}).get("method") == "ocr":
             selected["pdf"].update({k: pdf[k] for k in ("pypdfium2", "ocr", "runtime")})
+    else:
+        selected["html"] = frozen["html"]
+        if frozen["input_mode"] == "rendered_dom":
+            selected["dom"] = frozen["dom"]
     return selected
 
 

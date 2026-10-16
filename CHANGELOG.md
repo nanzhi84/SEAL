@@ -5,6 +5,19 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / 解析指纹语义修正（PR #29 审查）— 2026-10-16
+
+rendered_dom 清单记录实际 Playwright 驱动及 Chromium headless-shell revision、版本和
+安装内容 SHA-256，不再只记录 Python Playwright 版本；实际安装变化后旧 Run 重试失败，
+新成功观察才产生新版本。保持现有普通 Playwright 执行后端；旧文档中的 Patchright 是
+安装命令，未使用的包变化不参与语义。HTTP/PDF 不探测浏览器，也不受其安装状态影响。
+
+PDF 有效清单排除 HTML 专用配置和依赖；同 Source 的 HTML 仍按有效配置变化升版。
+PDF text contract 和真实 OCR dpi 等语义继续参与。清单算法升级为v2，旧冻结Run不被
+改写且重试明确拒绝，新观察允许一次身份过渡；历史快照保持可读，无新数据库迁移。
+合同与验收见[唯一 Plan](docs/plans/global-snapshots.md) 和
+[同步可视化](docs/generated/global-snapshots.html)。
+
 ## 未发布 / 双指纹升版与快照版本覆盖（Issue #28）— 2026-10-16
 
 新 Run 冻结解析器清单，重试及采集子进程启动拒绝解析器漂移；来源输入与有效解析语义

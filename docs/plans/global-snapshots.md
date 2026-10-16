@@ -89,6 +89,31 @@ seal snapshot create --version-overrides work/snapshot-overrides.json
 对象存储与可控来源，覆盖 issue 全部矩阵、升级、重试、并发、错误原子性及实际 API 内容。
 运行数据及无敏感工件分别放 work/ 与 artifacts/；CI 继续只做静态检查。
 
+### PR #29 两项 P2 的修复合同（2026-10-16）
+
+审查来源：[实际浏览器运行时身份](https://github.com/nanzhi84/SEAL/pull/29#discussion_r4290732956)
+及 [PDF 排除 HTML 配置](https://github.com/nanzhi84/SEAL/pull/29#discussion_r4290732964)。
+本段是本次修复目标，后文122项为此前历史结果，不代表这两项已被覆盖。
+
+当前锁定 Crawl4AI 0.9.5 的普通 BrowserAdapter 实际选择 PlaywrightAdapter，
+`use_undetected=false`，由 Playwright 启动 headless Chromium；Patchright 是旧安装
+命令使用的工具，不是当前执行驱动。保持现有执行后端，显式复用同一驱动选择；清单应
+冻结实际驱动包身份及实际 headless-shell 安装的 revision / 内容身份，不能只记录Python
+Playwright版本，也不能把未使用的Patchright升级当作渲染语义。安装位置变化不应升版，
+同一revision原位替换有效运行时必须可检出；运行时缺失或探测失败保留失败证据，不能提交
+新的成功版本。探测应有界，不启动用户浏览器，不在数据库/工件中保存私有环境或凭据。
+
+只在 rendered_dom Run 探测浏览器并参与该输入模式的指纹及重试检查；HTTP/PDF 不读取
+或依赖浏览器安装。PDF Observation 的有效指纹仅保留通用合同和PDF/native/OCR相关
+语义，排除 HTML 的 css_selector / word_count_threshold 及 HTML 解析依赖；同一HTTP
+Source 内HTML观察仍对其有效配置变化升版。原有 PDF text contract / OCR dpi 等实际
+语义变化仍升版。清单算法更新应可识别；既有冻结Run不静默改写，应明确拒绝旧语义重试，
+历史Version与Snapshot保持原样，下次新成功观察允许一次清单过渡，无额外数据库迁移。
+
+fresh 子agent先独立按业务目标复现两个缺口，再验收修复；隔离浏览器安装/部署副本位于
+work/，不改用户全局浏览器或真实数据。修复PR必须等connector完成对最终head的审查，
+处理全部反馈后才能合并，Ruff CI成功不能替代这一条件。
+
 ### Issue #28 最终独立验收（2026-10-16）
 
 主 agent 实现与 fresh 验收分离，最终 **122 PASS / 0 FAIL**：
