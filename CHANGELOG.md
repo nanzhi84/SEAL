@@ -18,6 +18,11 @@ PDF text contract 和真实 OCR dpi 等语义继续参与。清单算法升级�
 合同与验收见[唯一 Plan](docs/plans/global-snapshots.md) 和
 [同步可视化](docs/generated/global-snapshots.html)。
 
+fresh独立验收在冻结旧版复现7项预期失败，完全相同40项测试在修复版全绿；原有109项
+业务与13项真实OCR全部复跑，合计162 PASS / 0 FAIL。源码/测试/依赖及工件哈希稳定，
+敏感扫描0匹配。浏览器A/B为隔离安装中的launcher身份变化并exec真实引擎，不代表第二个
+Chromium发行版验收；生产和跨平台未验证。最终head须等connector审查完成并处理反馈。
+
 ## 未发布 / 双指纹升版与快照版本覆盖（Issue #28）— 2026-10-16
 
 新 Run 冻结解析器清单，重试及采集子进程启动拒绝解析器漂移；来源输入与有效解析语义
