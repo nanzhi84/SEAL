@@ -89,6 +89,83 @@ seal snapshot create --version-overrides work/snapshot-overrides.json
 对象存储与可控来源，覆盖 issue 全部矩阵、升级、重试、并发、错误原子性及实际 API 内容。
 运行数据及无敏感工件分别放 work/ 与 artifacts/；CI 继续只做静态检查。
 
+### PR #29 两项 P2 的修复合同（2026-10-16）
+
+审查来源：[实际浏览器运行时身份](https://github.com/nanzhi84/SEAL/pull/29#discussion_r4290732956)
+及 [PDF 排除 HTML 配置](https://github.com/nanzhi84/SEAL/pull/29#discussion_r4290732964)。
+本段是本次修复目标，后文122项为此前历史结果，不代表这两项已被覆盖。
+
+当前锁定 Crawl4AI 0.9.5 的普通 BrowserAdapter 实际选择 PlaywrightAdapter，
+`use_undetected=false`，由 Playwright 启动 headless Chromium；Patchright 是旧安装
+命令使用的工具，不是当前执行驱动。保持现有执行后端，显式复用同一驱动选择；清单应
+冻结实际驱动包身份及实际 headless-shell 安装的 revision / 内容身份，不能只记录Python
+Playwright版本，也不能把未使用的Patchright升级当作渲染语义。安装位置变化不应升版，
+同一revision原位替换有效运行时必须可检出；运行时缺失或探测失败保留失败证据，不能提交
+新的成功版本。探测应有界，不启动用户浏览器，不在数据库/工件中保存私有环境或凭据。
+
+只在 rendered_dom Run 探测浏览器并参与该输入模式的指纹及重试检查；HTTP/PDF 不读取
+或依赖浏览器安装。PDF Observation 的有效指纹仅保留通用合同和PDF/native/OCR相关
+语义，排除 HTML 的 css_selector / word_count_threshold 及 HTML 解析依赖；同一HTTP
+Source 内HTML观察仍对其有效配置变化升版。原有 PDF text contract / OCR dpi 等实际
+语义变化仍升版。清单算法更新应可识别；既有冻结Run不静默改写，应明确拒绝旧语义重试，
+历史Version与Snapshot保持原样，下次新成功观察允许一次清单过渡，无额外数据库迁移。
+
+fresh 子agent先独立按业务目标复现两个缺口，再验收修复；隔离浏览器安装/部署副本位于
+work/，不改用户全局浏览器或真实数据。修复PR必须等connector完成对最终head的审查，
+处理全部反馈后才能合并，Ruff CI成功不能替代这一条件。
+
+#### 两项 P2 的独立验收（2026-10-16，PR #30）
+
+fresh 子agent只依据Issue #28和两条审查目标独立编写业务用例，未接收实现设计；
+基线从 `git archive 1e17b21 src` 冻结。同一测试字节哈希在旧版 **33/40 PASS**，
+7个预期失败完整复现：安装身份变化不升版/无追溯/重试静默切换，以及两个HTML参数分别
+导致native和真实OCR PDF伪升版。基础设施错误为NULL，不把预期失败算作修复通过。
+
+修复版 **40/40 PASS**；既有主流程96、legacy升级9、历史冲突4、真实OCR13全部重跑
+通过，共 **162 PASS / 0 FAIL**。新用例额外验证：未选Patchright包变化无影响，所选
+Playwright包变化可追溯；浏览器包/安装变化不污染混合HTTP/PDF Source；HTML仍按配置
+升版，真实PDF text/OCR dpi仍升版；缺失浏览器不推进成功指针。
+
+真实启动证据确认 Playwright 1.63.0 的 Node driver 启动headless-shell revision1243 /
+Chromium153.0.8010.12。A/B变更只在work/安装副本替换启动launcher身份，再exec真实
+Chromium，原引擎版本相同；这验证安装身份漂移，不声称已测试第二个Chromium发行版。
+全局浏览器未修改；每组独立PostgreSQL17/MinIO临时容器与bucket，容器已清理。
+新测试复用既有隔离工具，运行前提与上次相同，额外要求本次实测的macOS/APFS clone
+`cp -cR`及Arial字体；Linux/Windows复跑和生产性能未验收。
+
+```sh
+uv sync --frozen
+uv run --no-sync python -m playwright install chromium
+uv run --no-sync python tests/runtime_review_acceptance.py
+uv run --no-sync python tests/issue28_acceptance.py
+uv run --no-sync python tests/ocr_version_fingerprints.py
+```
+
+重现旧版缺口：先将 `git archive 1e17b21 src` 解包到
+`work/runtime-review-baseline-src/`，再为新测试添加
+`--source-root work/runtime-review-baseline-src --label baseline`。
+该命令预期非零退出并报告上述7项失败；其余回归命令预期成功。
+
+工件临时生成、不入库；新检出按命令重新生成，不依赖旧工件存在：
+
+- `artifacts/runtime-review-verdict/suite.json`：162项汇总、源码/测试/依赖及全部工件哈希。
+- `artifacts/runtime-review-baseline-frozen-20261016T062734-266354/`：冻结旧版40项与7项失败。
+- `artifacts/runtime-review-fixed-20261016T062748-7b4cc7/`：40项修复断言、真实进程父驱动、
+  安装A/B、CLI回执、Run/Version与混合PDF/native/OCR证据。
+- `artifacts/issue28-20261016T062748-8de22f/suite.json` 及对应legacy目录：109项回归。
+- `artifacts/issue28-ocr-20261016T062748-bacb28/`：13项真实OCR回归。
+
+所有最终运行源码与测试稳定。受测src/含迁移的集合SHA-256（既有Issue28算法）为
+`f499ddacaba87bcd9a44e6dbdd83b6367879c5dfc520c3817cbd9c11b64f6743`；
+新用例的相对src目录算法及各文件哈希见suite.json。主agent复算源码、测试、锁及全部
+索引工件一致，并重跑敏感扫描：63文件、24个私有随机凭据及能力令牌/凭据模式0匹配。
+后续提交只补入同版测试与本验收记录，不改变受测实现。
+
+本地src Ruff/format、seiso、diff检查通过，无新增依赖环。
+[修复PR #30](https://github.com/nanzhi84/SEAL/pull/30) 的最终head connector审查完成且无
+未处理问题后才能合并，实际审查结论以该PR原始记录为准；此前PR #29的122项历史结果
+不能代替本次审查。生产部署/业务库升级、第二个浏览器发行版与生产负载未验证。
+
 ### Issue #28 最终独立验收（2026-10-16）
 
 主 agent 实现与 fresh 验收分离，最终 **122 PASS / 0 FAIL**：
