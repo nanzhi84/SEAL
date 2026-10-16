@@ -24,6 +24,11 @@ lang: zh
 Snapshot 继续可读和显式发布。合同、验收及限制见[唯一 Plan](docs/plans/global-snapshots.md)
 与[同步可视化](docs/generated/global-snapshots.html)。
 
+fresh 独立终验122 PASS / 0 FAIL：主套件96、legacy升级9、历史冲突4、真实OCR13；
+涵盖真实采集、指纹矩阵、重试、并发、历史覆盖、API正文/分页/附件。源代码/测试/依赖哈希
+稳定，工件凭据与能力令牌扫描0匹配；静态检查与架构审查无剩余阻塞项。未执行生产部署
+或业务库升级，真实站点全量、多语言OCR切换、跨主机与断电回收未验证。
+
 ## 未发布 / 无文字 PDF OCR 兜底（Issue #25）— 2026-10-15
 
 整份 PDF 无文字时以 PDFium + 多语言 Tesseract 顺序渲染识别；任意页有文字继续

@@ -9,7 +9,8 @@ lang: zh
 [唯一可视化](../generated/global-snapshots.html) 随本计划更新。
 本合同替换 [结果服务 Plan](results-api.md) 的内部当前版本、水位分页与重启撤权行为；
 HTTP 路由、认证、字段白名单、归档检查和资源限制继续沿用。
-当前状态：实现完成，fresh 独立端到端验收411 PASS / 0 FAIL；未部署生产。
+当前状态：Issue #23 历史验收411 PASS / 0 FAIL；Issue #28 实现完成，
+fresh 独立端到端验收122 PASS / 0 FAIL（2026-10-16），均未部署生产。
 
 ## 目标、职责与数据流
 
@@ -87,6 +88,58 @@ seal snapshot create --version-overrides work/snapshot-overrides.json
 验收先列失败边界，由 fresh 子 agent 在 tests/ 独立编写端到端测试，使用隔离数据库、
 对象存储与可控来源，覆盖 issue 全部矩阵、升级、重试、并发、错误原子性及实际 API 内容。
 运行数据及无敏感工件分别放 work/ 与 artifacts/；CI 继续只做静态检查。
+
+### Issue #28 最终独立验收（2026-10-16）
+
+主 agent 实现与 fresh 验收分离，最终 **122 PASS / 0 FAIL**：
+
+| 运行组 | 通过数 | 实际覆盖 |
+| --- | ---: | --- |
+| 主套件 | 96 | 首次/不变/来源/解析器/两者变化、同值输出、运行噪声、A→B→A；真实 HTTP/TXT/DOM/PDF、字符集与解析基地址、附件输入；失败事务回滚、固定清单重试、全局 cursor；多来源快照、历史覆盖、无效配置/归档原子失败、并发冻结、真实 API 正文/分页/附件 |
+| legacy 升级 | 9 | 真实基线采集后升级0014，保留来源事实与历史快照，NULL身份一次过渡，旧快照仍可消费和发布 |
+| 历史创建者冲突 | 4 | 同 Observation 的冲突历史明确报错、全部事实与 schema 原样保留，不删证据 |
+| 真实扫描 PDF OCR | 13 | 无文字层输入经 Tesseract 真实识别；144→192 DPI 产生新指纹/版本，稳定及超时/预算噪声不反复升版；实际快照/API 消费 |
+
+复跑前提：Python 3.12（实测3.12.13）、Docker、PostgreSQL 17 镜像与兼容客户端工具、
+可用 Tesseract 及 eng 模型（实测5.5.3），允许安装 Crawl4AI Chromium。MinIO 使用仓库
+`seal-minio:RELEASE.2025-10-15T17-29-55Z` 镜像，不存在时测试自动按 compose 构建。
+legacy 测试从 Git 读取 `ba9db3a2c006d26b16d04f1262508a4045500d07` 的真实源码，
+浅克隆须先获取该 Git 对象。全部来源均为合成数据及环回 HTTP，容器使用 tmpfs、随机端口
+与私有随机凭据，独立 bucket；测试清理容器，不连接现有业务库或根目录 MinIO 数据。
+
+```sh
+uv sync --frozen
+uv run --no-sync patchright install chromium
+uv run --no-sync python tests/issue28_acceptance.py
+uv run --no-sync python tests/ocr_version_fingerprints.py
+```
+
+主套件命令自动追加 legacy 成功/冲突两组运行；OCR 单独运行，避免将没有执行的
+分支算作验收。每次复跑生成新的 work/ 和 artifacts/ 运行目录，历史证据不能冒充新结果。
+
+本次工件（临时生成、不入库）如下，保留路径和哈希供本机核对；新检出须复跑生成：
+
+- `artifacts/issue28-20261016T033720-087944/suite.json`：主套件和两组升级的109项汇总。
+- 同目录 `environment.json`、`commands.json`、`assertions.json`、`matrix.json`、
+  `snapshots.json`、`consumption.json`、`concurrency.json`、
+  `incremental-cursor-consumption.json`、`retries.json`、`storage-atomicity.json`：
+  命令、环境、清单、Observation/Version/Snapshot ID 与真实内容消费对照。
+- `artifacts/issue28-legacy-20261016T033845-d7301b/` 与
+  `artifacts/issue28-legacy-conflict-20261016T033852-c7a15a/`：历史迁移事实与失败证据。
+- `artifacts/issue28-ocr-20261016T033858-dda4cc/ocr-evidence.json` 及 `result.json`：
+  真扫描件、引擎/语言模型身份、两版完整结果及13项断言。
+- 主目录 `final-sensitive-evidence-audit.json`：105个历史及最终工件、18个已知私有随机
+  凭据精确扫描与能力令牌/凭据模式均0匹配。附件能力令牌已脱敏，正文和SHA保留。
+
+全部最终运行 `source_stable=true`、`tests_and_dependencies_stable=true`。
+受测源码提交 `5c0876e038a4d344fadcfaeb786e08fbd997534b`，src/含迁移的集合SHA-256为
+`fcf006efb8400350dbd6abf87b0d1b28d29bbcac63ded2a9c8de5aa4b974241a`。
+各脚本、pyproject与uv.lock哈希保存在环境工件，主 agent 现场复算一致；后续仅提交这些
+既有测试与验收文档，不改受测源码。独立验收未发现阻塞合并项；架构检查没有新增环，
+原有 completion/runs 延迟导入关系保留；Ruff、格式、seiso与diff检查通过，临时容器已清理。
+
+未验证：生产部署/业务库升级、真实站点全量、真实生产负载、多语言 OCR 切换、跨主机并发
+与断电回收。隔离验收不构成全站覆盖或业务事实质量认证。
 
 ## 数据与事务合同
 
