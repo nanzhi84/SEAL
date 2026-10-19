@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEAL · 从原始获取到统一文件交付</title>
+  <style>
+    :root{color-scheme:light;--ink:#182c34;--muted:#50666f;--line:#d6e1e3;--paper:#f4f7f5;--teal:#087366;--blue:#245da0;--amber:#89500b}
+    *{box-sizing:border-box}html{scroll-padding-top:24px}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    main{max-width:1260px;margin:auto;padding:42px 32px 72px}a{color:var(--blue);text-underline-offset:4px}
+    a:focus-visible,summary:focus-visible{outline:3px solid var(--teal);outline-offset:5px}
+    .eyebrow{font-size:12px;font-weight:750;letter-spacing:.16em;color:var(--teal);text-transform:uppercase}
+    h1{font-size:clamp(30px,4.5vw,52px);line-height:1.2;letter-spacing:-.04em;margin:16px 0 22px;max-width:920px}
+    h2{font-size:25px;line-height:1.35;margin:0 0 15px;letter-spacing:-.02em}h3{font-size:17px;line-height:1.5;margin:0 0 9px}
+    p{margin:0 0 14px}.lead{font-size:19px;max-width:900px;color:var(--muted)}
+    .meta,.nav,.tags{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px}.meta{font-size:13px;color:var(--muted);margin-top:24px}
+    .badge{display:inline-block;padding:4px 11px;border-radius:6px;background:#fff0d6;color:var(--amber);font-weight:650}
+    .nav{margin:28px 0 0;padding:16px 0;border-top:1px solid var(--line);font-size:14px}
+    section{margin-top:48px}.section-head{display:flex;gap:20px;justify-content:space-between;align-items:baseline}
+    .caption{font-size:14px;color:var(--muted)}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}
+    .stages{list-style:none;padding:0;margin:20px 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .stages li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;position:relative;min-height:145px}
+    .step{font:700 12px/1.4 ui-monospace,monospace;color:var(--teal);display:block;margin-bottom:10px}
+    .stages p{font-size:14px;color:var(--muted);margin:0}.stages li:last-child{background:#e7f3ef;border-color:#9bcbbb}
+    .outputs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .output{border-left:3px solid var(--teal);padding:10px 13px;background:#eaf2ef;font-size:14px}
+    .output strong{display:block}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    code{font-size:.87em;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}
+    pre{margin:14px 0 0;padding:20px;overflow:auto;background:#102d32;color:#deefeb;border-radius:8px;font:14px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .state{padding:16px;background:#eef5f3;border-radius:8px;color:#15574e;font-weight:650}
+    .note{padding:15px 18px;background:#fff3df;border-left:3px solid #c18030;border-radius:3px;font-size:14px}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
+    table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:14px 17px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+    th{background:#e9efec;font-weight:700;white-space:nowrap}tr:last-child td{border-bottom:0}td:first-child{font-weight:650;min-width:155px}
+    .table-wrap.wide table{min-width:650px}.rules{padding-left:20px;margin:8px 0 0}.rules li{padding:4px 0}
+    details{margin-top:14px;border-top:1px solid var(--line);padding-top:13px}summary{cursor:pointer;font-weight:650;color:var(--blue)}
+    details p{margin-top:12px;font-size:14px}.milestone{font-size:12px;font-weight:750;color:var(--teal);margin-bottom:8px}
+    .footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+    @media(max-width:950px){.stages,.outputs{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+    @media(max-width:540px){main{padding:28px 18px 48px}.stages,.outputs{grid-template-columns:1fr}.stages li{min-height:0}.section-head{display:block}.nav{gap:10px 18px}.card{padding:18px}section{margin-top:34px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">SEAL / Source adapters &amp; delivery</div>
+    <h1>一次受控获取，<br>走到一份可核验的完整交付。</h1>
+    <p class="lead">把外部原始字节获取与业务文档解析解耦。每份文档由固定版本连接到 Excel、Markdown 和原件，所有来源遵循同一条链路。</p>
+    <div class="meta">
+      <span class="badge">设计合同 · 实施与业务验收未开始</span>
+      <span>2026-10-19 · 本地开发阶段</span>
+      <a href="../plans/source-adapters-delivery.md">打开唯一 Plan</a>
+    </div>
+    <nav class="nav" aria-label="页面章节">
+      <a href="#flow">全链路</a><a href="#acquisition">获取边界</a><a href="#contracts">数据合同</a>
+      <a href="#delivery">文件交付</a><a href="#implementation">实施单元</a><a href="#acceptance">验收条件</a>
+    </nav>
+  </header>
+
+  <section id="flow">
+    <div class="section-head"><h2>统一主链：从来源到文件包</h2><span class="caption">按 01 → 08 执行；API 与导出共用读取边界。</span></div>
+    <ol class="stages">
+      <li><span class="step">01 / PLAN</span><h3>冻结来源与运行</h3><p>Adapter、稳定身份、解析合同与预算；生成请求和文档目标。</p></li>
+      <li><span class="step">02 / ACQUIRE</span><h3>受控 Acquisition</h3><p>HTTP 或 DOM 获取；执行范围、robots、限流、取消和请求预算。</p></li>
+      <li><span class="step">03 / ARCHIVE</span><h3>原文进入 CAS</h3><p>完整字节归档并读回校验，再提交数据库获取事实。</p></li>
+      <li><span class="step">04 / PARSE</span><h3>组装文档输入</h3><p>0..N 个候选；真实定位、输入角色与后续任务全部可追溯。</p></li>
+      <li><span class="step">05 / NORMALIZE</span><h3>统一文档与 Markdown</h3><p>seal.document.v1；冻结正文与转换合同，计算具名指纹。</p></li>
+      <li><span class="step">06 / COMMIT</span><h3>不可变内容提交</h3><p>事务与 attempt fence 保护 Observation、Version 及当前指针。</p></li>
+      <li><span class="step">07 / SNAPSHOT</span><h3>封存固定版本</h3><p>冻结来源、Resource → Version 及覆盖描述，校验引用闭包。</p></li>
+      <li><span class="step">08 / EXPORT</span><h3>独立导出与本地核验</h3><p>只读指定 Snapshot；完成所有文件与关系校验后原子交付。</p></li>
+    </ol>
+    <div class="outputs">
+      <div class="output"><strong>metadata.xlsx</strong>一份工作簿，documents + files</div>
+      <div class="output"><strong>Markdown</strong>每个文档版本一个固定正文</div>
+      <div class="output"><strong>原始正文及附件</strong>共享原件去重，关系与定位保留</div>
+      <div class="output"><strong>manifest.json</strong>范围、计数、版本、文件哈希</div>
+    </div>
+  </section>
+
+  <section id="acquisition">
+    <h2>Acquisition 管获取，文档目标管交付</h2>
+    <div class="two">
+      <article class="card">
+        <h3>一次受控的外部原始数据获取动作</h3>
+        <p>绝大多数对应 HTTP 请求。同 URL 两次实际获取保留两条事实；同字节复用 CAS。DOM 保存实际渲染输入，并明确区别于 HTTP 响应字节。</p>
+        <p class="state"><code>planned → running → archived / failed / cancelled / abandoned</code></p>
+        <p class="caption">archived 表示原文完整、哈希已校验且数据库引用已提交；HTTP 错误页归档不代表解析成功。终态不可原位修改，重试产生新动作。</p>
+      </article>
+      <article class="card">
+        <h3>分别确认三个完成点</h3>
+        <ol class="rules"><li>原文已归档。</li><li>本页产生的请求及文档目标已持久登记。</li><li>各文档已形成成功或明确失败交付。</li></ol>
+        <p class="caption">分页水位在后续工作可恢复后推进。批量提交一半退出，接管读取原文并补齐余下目标；失效 attempt 不能写入。</p>
+        <details><summary>查看恢复边界</summary><p>请求队列和文档目标分别持久管理；checkpoint 保存有界水位、活动引用及带版本 adapter_state。重复获取证据追加关联，不修改已提交 Observation、inputs_ref 或 Version。</p></details>
+      </article>
+    </div>
+  </section>
+
+  <section id="contracts">
+    <h2>四个核心合同，一套读取解释</h2>
+    <div class="table-wrap wide"><table>
+      <thead><tr><th>合同</th><th>固定内容</th><th>保证</th></tr></thead>
+      <tbody>
+        <tr><td>Resource</td><td><code>frontier_id + namespace + external_key</code>；public_url 可空，重检有独立 locator。</td><td>身份不依赖标题、文件名或展示 URL。</td></tr>
+        <tr><td>seal.inputs.v1</td><td>真实 acquisition_id、archive_ref、角色、定位、解码与基地址等解析上下文。</td><td>一输入多文档、多输入一文档均可复算。</td></tr>
+        <tr><td>seal.document.v1</td><td>元数据、具名日期、非空 content.markdown、类型化文件与 lineage；原输出格式与转换合同明确。</td><td>所有新结果唯一格式；纯文本诚实转 Markdown，导出不再解析。</td></tr>
+        <tr><td>seal.delivery.v1</td><td>固定 Snapshot、来源范围、覆盖摘要、导出版本、载荷路径、字节数和 SHA-256。</td><td>文件包可搬移、可断网校验、可重复生成。</td></tr>
+      </tbody>
+    </table></div>
+    <details>
+      <summary>查看版本与幂等语义</summary>
+      <p><code>version_fingerprint = digest(input_fingerprint + parser_fingerprint)</code>，实际计算使用带算法版本的具名 canonical JSON。文档切片、相关外层字段、输入角色、顺序与有效解析参数都参与身份。与当前 Version 比较，A→B→A 保留三次演进。</p>
+      <p>content_hash 比较规范业务内容；共享批量原件的全量哈希和定位属于血缘，不能让无变化的单篇文档误升版。同输入同解析器却异业务输出属于冲突。同轮规范交付保持幂等，后续获取证据追加记录，禁止原地合并已提交输入清单。</p>
+    </details>
+  </section>
+
+  <section id="delivery">
+    <h2>文件交付：一个工作簿连接全部正文和原件</h2>
+    <div class="two">
+      <article class="card">
+        <h3>固定目录</h3>
+        <pre>delivery/
+├── metadata.xlsx
+├── markdown/
+│   └── &lt;resource_id&gt;/&lt;version_id&gt;.md
+├── originals/
+│   └── &lt;sha256&gt;.&lt;ext&gt;
+└── manifest.json</pre>
+        <p class="caption" style="margin-top:14px">相对路径、稳定 ID 与哈希命名。Snapshot 封存后可直接导出，无需先 publish；导出不会改变 API 发布指针。</p>
+      </article>
+      <article class="card">
+        <h3>工作簿两张表</h3>
+        <p><strong>documents：</strong>一个 Resource / Version 一行，包含来源与文档身份、标题、类型、语言、机构、具名日期、URL、Markdown 路径及摘要、原件数与交付状态。</p>
+        <p><strong>files：</strong>一个文档与原文件关系一行，包含角色、原文件名、包内路径、媒体类型、字节数、SHA-256、来源地址及真实定位。</p>
+        <p class="caption">同一批量 JSON/XML 可供多篇文档共享；一篇文档可关联多个 PDF 和附表。原件不重复保存，文档关系与定位不丢失。</p>
+      </article>
+    </div>
+    <div class="three" style="margin-top:18px">
+      <article class="card"><h3>内容完整</h3><p>每条成功记录恰有一个非空 Markdown，至少关联一份正文原件或 source_response；必需附件全部取得。派生文件不能冒充原件。</p></article>
+      <article class="card"><h3>结果可复现</h3><p>正文在 Version 中固定。导出器冻结版本、排序和工作簿时间属性，同快照同范围同运行时得到相同载荷。</p></article>
+      <article class="card"><h3>完成有证据</h3><p>暂存生成 → 打开工作簿对账 → 校验全部文件 → 写 manifest → 原子交付。缺件或取消不产生完整目录。</p></article>
+    </div>
+    <details><summary>查看 manifest 和范围边界</summary><p>manifest 列出工作簿、Markdown 与原件的路径、大小及哈希；自身哈希在外部回执，避免循环。覆盖摘要随 Snapshot 冻结，未知分母标 UNKNOWN。文件包完成不能代表全来源覆盖。工作簿容量超限明确失败，禁止截断或增加第二份 Excel。</p></details>
+  </section>
+
+  <section id="implementation">
+    <h2>同步切换新链路，再接入异构来源</h2>
+    <p class="note">本地开发直接采用新合同，不设计历史回填与双格式兼容。schema、写入、公开投影和读取查询必须属于同一个可运行切换单元。</p>
+    <div class="table-wrap wide"><table>
+      <thead><tr><th>阶段</th><th>必须完成</th><th>可核验输出</th></tr></thead>
+      <tbody>
+        <tr><td>01 · 新主链</td><td>Acquisition、统一文档、新 schema；同步修改 <code>resources.py</code>、<code>public_results.py</code>、<code>result_query.py</code>，并调整 Snapshot、SDK/PDF 及 Run。</td><td>独立新环境 collect → CAS → Version → Snapshot → API。</td></tr>
+        <tr><td>02 · 文件导出</td><td>独立 export CLI、两张工作表、文件物化、本地校验、幂等与失败原子性。</td><td>真实 delivery 包及断网 verify 回执。</td></tr>
+        <tr><td>03 · 原生来源</td><td>Vietnam Adapter 收编外部 SQLite 编排；接入一个真实 API/XML 来源，配置遵循唯一入口地图。</td><td>多输入、多文档、共享原件与对应文件交付。</td></tr>
+        <tr><td>04 · 重检与恢复</td><td>批量重检、冻结输入重解析、崩溃接管、冲突和覆盖报告。</td><td>中断后补齐、不重复、不污染固定快照。</td></tr>
+      </tbody>
+    </table></div>
+    <details><summary>查看待实现的目标命令</summary><pre>seal collect sources/dd-492.yaml
+seal snapshot create
+seal export --snapshot &lt;snapshot-id&gt; --source dd-492 \
+  --output artifacts/&lt;运行名&gt;/delivery
+seal export verify artifacts/&lt;运行名&gt;/delivery</pre><p>以上新 export 命令尚不可执行。verify 仅依赖本地文件包；来源过滤与导出范围写入 manifest。</p></details>
+  </section>
+
+  <section id="acceptance">
+    <h2>验收面向最终可见结果</h2>
+    <div class="two">
+      <article class="card"><h3>对应与完整性</h3><ul class="rules"><li>Excel 行、Markdown、原件、文件关系与 manifest 全量对账。</li><li>无 URL、同名、多附件、共享响应与不同来源相同编号均可区分。</li><li>HTML/TXT、原生 PDF、OCR PDF 与批量 JSON/XML 均保持来源诚实。</li><li>搬移包并断网，路径仍有效，字节与哈希一致。</li></ul></article>
+      <article class="card"><h3>状态与故障行为</h3><ul class="rules"><li>批量提交一半退出，接管后补齐，失效 attempt 无法继续写入。</li><li>列表重排不制造版本；真实输入变化与非确定性输出可检出。</li><li>导出 A 时采集或发布 B，A 的内容与原件保持固定。</li><li>缺件、损坏、取消、超限不生成完整交付目录。</li></ul></article>
+    </div>
+    <p class="caption" style="margin-top:18px">实现阶段由 fresh 子 agent 先定义失败边界，再独立执行真实 CLI 端到端验收；证据包含命令、环境前提、断言、SQL/CAS 对账、源码及测试哈希、交付包和验证回执。当前业务验收尚未运行。</p>
+  </section>
+
+  <footer class="footer">
+    <p>本页是设计可视化，唯一合同见 <a href="../plans/source-adapters-delivery.md">Plan</a>。现有 <a href="../plans/global-snapshots.md">Snapshot</a> 的固定版本与显式发布原则继续沿用。新代码、schema 与真实文件交付尚未实施。</p>
+  </footer>
+</main>
+</body>
+</html>
