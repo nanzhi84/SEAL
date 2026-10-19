@@ -1,0 +1,17 @@
+{
+  "scope": "Five fixed dd-492 historical pdf_text_layer_required failures, real official downloads, local vie-only OCR, no accuracy assessment",
+  "boundaries": [
+    {"id": "isolation", "failure": "Historical database, publication pointer, source configuration or bucket is changed", "expected": "Only a fresh database, fresh bucket and work-local source/API settings are written"},
+    {"id": "fixed_selection", "failure": "A slow, large, native or failed sample is silently replaced", "expected": "Exactly the five preselected official URLs remain in the evidence, including failures"},
+    {"id": "source_network", "failure": "Official download, redirect, TLS, timeout, response cap or scope rejection", "expected": "Preserve CLI/Observation failure; no claimed OCR or successful API content for failed input"},
+    {"id": "changed_original", "failure": "Live original SHA-256 differs from historical archive_ref", "expected": "Report byte mismatch explicitly; do not equate it with the historical document"},
+    {"id": "native_branch", "failure": "Any pypdf page has extractable native text", "expected": "Keep true native method and report that this sample did not exercise OCR; never force the branch"},
+    {"id": "render", "failure": "Invalid/encrypted PDF, page/pixel limit or renderer failure", "expected": "Stable PDF failure and no successful Version"},
+    {"id": "recognition", "failure": "Missing local vie model, OCR subprocess error, timeout or empty whole-document output", "expected": "Stable recognition failure and no successful Version; no cloud calls"},
+    {"id": "page_contract", "failure": "Missing/reordered original page, dropped empty-text page or invented blank-page status", "expected": "Exactly original page numbers 1..N retained with text strings and explicit empty-text positions"},
+    {"id": "archive", "failure": "Original/CrawlResult CAS hash mismatch, absent original attachment, empty Markdown/HTML or missing successful Version", "expected": "Fail the corresponding stored-content assertion and preserve diagnostic references"},
+    {"id": "api", "failure": "Snapshot publication, authentication, Results body/page metadata or original attachment download fails", "expected": "Fail the API stage; compare API page text and Markdown against archived CrawlResult and original bytes against historical SHA-256"},
+    {"id": "cleanup", "failure": "Owned API/OCR process or temporary PDF directory remains after acceptance", "expected": "Stop owned processes, release temporary resources, retain isolated database and bucket for user recheck"},
+    {"id": "evidence", "failure": "Bearer, attachment capabilities or private service credentials enter artifacts", "expected": "Artifacts contain redacted API attachments and public content only; secrets stay mode-0600 under work"}
+  ]
+}

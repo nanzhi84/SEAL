@@ -208,27 +208,30 @@ erDiagram
 
 ## 运行示例：从公开来源采集到 API 查询
 
-以下示例在仓库根目录执行，演示从公开来源抓取、存储持久化、人工发布到只读 API 查询的完整流程：
+以下示例在仓库根目录执行，演示 HTML 与 PDF 从公开来源采集、存储核验、人工发布到 API 回查的完整流程。PDF 同时覆盖文字层提取和本地 OCR：
 
 ```text
-sources/dd-xxx.yaml → seal collect (抓取与解析)
-  → PostgreSQL (元数据与版本) + MinIO (结果 JSON 与附件)
+sources/dd-xxx.yaml → seal collect
+  ├─ HTML → 正文解析
+  └─ PDF → 任意页有文字：native；整份无文字：本地 OCR
+  → CrawlResult → PostgreSQL (元数据与版本) + MinIO (结果 JSON 与原件)
   → seal snapshot create → inspect → publish (人工发布全局集合)
   → seal serve (只读 API) → /sources 发现来源 → /results 查询内容
 ```
 
 ### 1. 选择验证来源
 
-选用 4 个采用轻量 HTTP 模式（无需浏览器环境）的已跑通来源作为示例：
+示例使用 HTTP 模式，无需浏览器；dd-492 固定采集两份 PDF，不遍历门户历史分页。
 
-| Source / 来源地图                                                          | 公开入口                                                           | 配置文件                           | 历史成功资源数 |
-| :------------------------------------------------------------------------- | :----------------------------------------------------------------- | :--------------------------------- | -------------: |
-| [dd-017 · 最高法指导案例](docs/reference/尽职调查核验入口地图.md#dd-017)   | [指导案例](https://www.court.gov.cn/shenpan/gengduo/77.html)       | [dd-017.yaml](sources/dd-017.yaml) |            547 |
-| [dd-040 · 最高检公报](docs/reference/尽职调查核验入口地图.md#dd-040)       | [最高检公报](https://www.spp.gov.cn/spp/gjgb/index.shtml)          | [dd-040.yaml](sources/dd-040.yaml) |             31 |
-| [dd-041 · 最高检指导性案例](docs/reference/尽职调查核验入口地图.md#dd-041) | [指导性案例](https://www.spp.gov.cn/spp/jczdal/index.shtml)        | [dd-041.yaml](sources/dd-041.yaml) |             31 |
-| [dd-448 · 电影备案公示](docs/reference/尽职调查核验入口地图.md#dd-448)     | [电影备案立项公示](https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/) | [dd-448.yaml](sources/dd-448.yaml) |             16 |
+| Source / 来源地图 | 公开入口 | 配置文件 | 示例内容 |
+| --- | --- | --- | --- |
+| [dd-017 · 最高法指导案例](docs/reference/尽职调查核验入口地图.md#dd-017) | [指导案例](https://www.court.gov.cn/shenpan/gengduo/77.html) | [dd-017.yaml](sources/dd-017.yaml) | HTML |
+| [dd-040 · 最高检公报](docs/reference/尽职调查核验入口地图.md#dd-040) | [最高检公报](https://www.spp.gov.cn/spp/gjgb/index.shtml) | [dd-040.yaml](sources/dd-040.yaml) | HTML |
+| [dd-041 · 最高检指导性案例](docs/reference/尽职调查核验入口地图.md#dd-041) | [指导性案例](https://www.spp.gov.cn/spp/jczdal/index.shtml) | [dd-041.yaml](sources/dd-041.yaml) | HTML |
+| [dd-448 · 电影备案公示](docs/reference/尽职调查核验入口地图.md#dd-448) | [电影备案立项公示](https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/) | [dd-448.yaml](sources/dd-448.yaml) | HTML |
+| [dd-492 · 越南政府文献](docs/reference/尽职调查核验入口地图.md#dd-492) | [文献门户](https://vanban.chinhphu.vn/) | [dd-492.yaml](sources/dd-492.yaml) | 文字层 PDF + 扫描 PDF |
 
-> 注：成功资源数为历史实测参考值，重跑结果受站点当前状态与配置预算影响。
+PDF 样本为官方附件 `07-ttcp.signed.pdf`（文字层，预期 `native`）和 `140-vbhn-vpqh.signed.pdf`（扫描件，预期 `ocr`），完整 URL 在下一步配置。任意一页有可提取文字就走 native，混合 PDF 不逐页补 OCR；处理成功不表示识别准确性或业务事实核验完成。
 
 ### 2. 准备本地存储与运行环境
 
@@ -250,6 +253,42 @@ mkdir -p work/readme-demo artifacts/readme-demo
 
 > 注：对象读取统一走 S3 API，不要直接操作根目录 `minio/`。
 
+安装本地 Tesseract（macOS：`brew install tesseract`；Debian/Ubuntu：`sudo apt-get install tesseract-ocr`），下载本例使用的单个越南语 LSTM 模型，再生成 dd-492 的有界示例配置：
+
+```bash
+mkdir -p work/readme-demo/tessdata
+curl --fail --location --silent --show-error \
+  https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/main/vie.traineddata \
+  --output work/readme-demo/tessdata/vie.traineddata
+export TESSDATA_PREFIX="$PWD/work/readme-demo/tessdata"
+tesseract --list-langs
+shasum -a 256 "$TESSDATA_PREFIX/vie.traineddata" > artifacts/readme-demo/ocr-model.sha256
+
+uv run --no-sync python - <<'PY'
+import json
+from pathlib import Path
+import yaml
+
+root = Path("work/readme-demo")
+samples = {
+    "native": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/10/07-ttcp.signed.pdf",
+    "ocr": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2026/10/140-vbhn-vpqh.signed.pdf"
+}
+config = yaml.safe_load(Path("sources/dd-492.yaml").read_text())
+config.update({
+    "entry_urls": list(samples.values()), "concurrency": 2,
+    "scope": "越南政府公开附件的两份固定 PDF；验证原生文字提取与本地越南语 OCR。",
+    "budget": {"requests": 10, "seconds": 1200, "response_bytes": 134217728},
+    "crawl4ai": {"mode": "http", "max_depth": 0, "page_timeout_ms": 300000},
+    "ocr": {**config["ocr"], "languages": "vie", "timeout_seconds": 600}
+})
+(root / "dd-492.yaml").write_text(yaml.safe_dump(config, allow_unicode=True))
+(root / "dd-492-samples.json").write_text(json.dumps(samples, indent=2))
+PY
+```
+
+配置保留 `id: dd-492` 和既有域名/路径边界，只将本轮入口限定为两份 PDF；根来源配置不变。全历史分页见 [dd-492 采集说明](docs/plans/dd-492-pdf-harvest.md)，OCR 资源与超时配置见 [OCR 合同](docs/plans/pdf-ocr.md)。
+
 ### 3. 执行采集与入库验证
 
 在前台执行采集任务，回执 JSON 保存至 `artifacts/readme-demo/`：
@@ -260,38 +299,55 @@ uv run --no-sync seal collect sources/dd-017.yaml | tee artifacts/readme-demo/dd
 uv run --no-sync seal collect sources/dd-040.yaml | tee artifacts/readme-demo/dd-040-run.json
 uv run --no-sync seal collect sources/dd-041.yaml | tee artifacts/readme-demo/dd-041-run.json
 uv run --no-sync seal collect sources/dd-448.yaml | tee artifacts/readme-demo/dd-448-run.json
+uv run --no-sync seal collect work/readme-demo/dd-492.yaml | tee artifacts/readme-demo/dd-492-run.json
 ```
 
 核验关系库状态，并通过 S3 API 真实拉取结果对象以验证连通性与 SHA-256 CAS：
 
 ```bash
 uv run --no-sync python - <<'PY' | tee artifacts/readme-demo/storage-check.json
-import json
+import io, json
+from pathlib import Path
+from pypdf import PdfReader
 from seal.db import connect
 from seal.objects import Objects
 
-ids = ["dd-017", "dd-040", "dd-041", "dd-448"]
+ids = ["dd-017", "dd-040", "dd-041", "dd-448", "dd-492"]
+receipts = {source_id: json.loads(Path(
+    f"artifacts/readme-demo/{source_id}-run.json"
+).read_text()) for source_id in ids}
+assert all(r["source_id"] == s and r["status"] == "complete"
+           for s, r in receipts.items()), "collect_receipt_not_complete"
+run_ids = [receipts[s]["run_id"] for s in ids]
+pdf_samples = json.loads(Path("work/readme-demo/dd-492-samples.json").read_text())
 with connect() as conn:
     conn.execute("SET TRANSACTION READ ONLY")
     rows = conn.execute("""
-        SELECT s.id,
-          (SELECT status FROM seal.run WHERE source_id=s.id
-           ORDER BY created_at DESC LIMIT 1) AS latest_run_status,
-          (SELECT count(*) FROM seal.frontier f
-           JOIN seal.resource r ON r.frontier_id=f.id
-           WHERE f.source_id=s.id AND r.current_version_id IS NOT NULL)
+        SELECT s.id,run.id AS run_id,run.status AS run_status,
+          (SELECT count(*) FROM seal.observation o
+           WHERE o.run_id=run.id AND o.version_id IS NOT NULL)
            AS successful_resources
-        FROM seal.source s WHERE s.id=ANY(%s) ORDER BY s.id
-    """, (ids,)).fetchall()
+        FROM seal.source s JOIN seal.run run ON run.source_id=s.id
+        WHERE run.id=ANY(%s) ORDER BY s.id
+    """, (run_ids,)).fetchall()
     sample = conn.execute("""
         SELECT r.url, v.result_ref FROM seal.frontier f
         JOIN seal.resource r ON r.frontier_id=f.id
         JOIN seal.version v ON v.id=r.current_version_id
-        WHERE f.source_id='dd-017' ORDER BY r.id LIMIT 1
-    """).fetchone()
+        JOIN seal.observation o ON o.resource_id=r.id AND o.version_id=v.id
+        WHERE f.source_id='dd-017' AND o.run_id=%s ORDER BY r.id LIMIT 1
+    """, (receipts["dd-017"]["run_id"],)).fetchone()
+    pdf_rows = conn.execute("""
+        SELECT r.url,v.result_ref,o.body_hash,o.archive_ref
+        FROM seal.frontier f JOIN seal.resource r ON r.frontier_id=f.id
+        JOIN seal.version v ON v.id=r.current_version_id
+        JOIN seal.observation o ON o.resource_id=r.id AND o.version_id=v.id
+        WHERE f.source_id='dd-492' AND o.run_id=%s AND r.url=ANY(%s)
+    """, (receipts["dd-492"]["run_id"], list(pdf_samples.values()))).fetchall()
 
 assert {row["id"] for row in rows} == set(ids), "source_not_registered"
-assert all(row["latest_run_status"] == "complete" for row in rows), "latest_run_not_complete"
+assert all(row["run_id"] == receipts[row["id"]]["run_id"] and row["run_status"] == "complete"
+           for row in rows), "collect_run_not_complete"
 assert all(row["successful_resources"] > 0 for row in rows), "source_has_no_successful_content"
 assert sample is not None, "no_successful_version"
 
@@ -299,7 +355,19 @@ assert sample is not None, "no_successful_version"
 raw = Objects().get(sample["result_ref"])
 archive = json.loads(raw)
 assert isinstance(archive["result"], dict), "invalid_result_archive"
-print(json.dumps({"sources": rows, "archive_sample": {
+assert {row["url"] for row in pdf_rows} == set(pdf_samples.values()), "pdf_sample_missing"
+pdf_checks = []
+for row in pdf_rows:
+    result = json.loads(Objects().get(row["result_ref"]))["result"]
+    pdf = result["metadata"]["pdf"]
+    expected = next(method for method, url in pdf_samples.items() if url == row["url"])
+    assert pdf["method"] == expected, "unexpected_pdf_method"
+    assert row["body_hash"] == row["archive_ref"] == pdf["original_ref"]
+    original = Objects().get(row["archive_ref"])  # S3 读取时复算原件 SHA-256
+    pages = len(PdfReader(io.BytesIO(original)).pages)
+    assert pages > 0 and [p["page_number"] for p in pdf["pages"]] == list(range(1, pages + 1))
+    pdf_checks.append({**row, "method": pdf["method"], "pages": pages})
+print(json.dumps({"sources": rows, "pdf_samples": pdf_checks, "archive_sample": {
     "url": sample["url"], "result_ref": sample["result_ref"],
     "bytes": len(raw), "archive_verified": True
 }}, ensure_ascii=False, indent=2))
@@ -336,10 +404,12 @@ key = secrets.token_urlsafe(32)
 config = {
     "public_base_url": "http://127.0.0.1:8090",
     "token_key": Fernet.generate_key().decode(),
+    "attachment_max_bytes": 134217728,
+    "request_timeout_seconds": 60,
     "callers": [{
         "id": "demo",
         "key_sha256": hashlib.sha256(key.encode()).hexdigest(),
-        "sources": ["dd-017", "dd-040", "dd-041", "dd-448"]
+        "sources": ["dd-017", "dd-040", "dd-041", "dd-448", "dd-492"]
     }]
 }
 for name, body in (
@@ -386,6 +456,58 @@ query_source dd-448 'https://www.chinafilm.gov.cn/xxgk/gsxx/dybalx/'
 
 cat artifacts/readme-demo/dd-017-results.json
 ```
+
+dd-492 的 `source_url` 使用上面配置的 PDF 入口（也可从 `/sources` 发现），不是门户首页。它定位整个 Source，响应可能包含该来源的其他成功资源；下面跟随分页并按 `url` 找到两份样本，再验证正文、页码和原件：
+
+```bash
+uv run --no-sync python - <<'PY'
+import hashlib, json, re
+from pathlib import Path
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+
+work, out = Path("work/readme-demo"), Path("artifacts/readme-demo")
+samples = json.loads((work / "dd-492-samples.json").read_text())
+stored = json.loads((out / "storage-check.json").read_text())["pdf_samples"]
+expected_hash = {row["url"]: row["archive_ref"] for row in stored}
+expected_pages = {row["url"]: row["pages"] for row in stored}
+authorization = (work / "headers.local.txt").read_text().strip().split(": ", 1)[1]
+def get(url):
+    return urlopen(Request(url, headers={"Authorization": authorization}), timeout=60)
+
+url = "http://127.0.0.1:8090/results?" + urlencode({
+    "source_url": samples["native"], "limit": 100
+})
+found = {}
+while url:
+    with get(url) as response:
+        items = json.load(response)
+        link = response.headers.get("Link", "")
+    found.update({item["url"]: item for item in items if item["url"] in samples.values()})
+    if len(found) == len(samples):
+        break
+    following = re.search(r'<([^>]+)>; rel="next"', link)
+    url = following.group(1) if following else None
+assert set(found) == set(samples.values()), "published_pdf_sample_missing"
+
+for method, source_url in samples.items():
+    item = found[source_url]
+    pdf = item["metadata"]["pdf"]
+    assert pdf["method"] == method and item["markdown"].strip()
+    assert [p["page_number"] for p in pdf["pages"]] == list(range(1, expected_pages[source_url] + 1))
+    assert all(isinstance(p["text"], str) for p in pdf["pages"])
+    with get(item["attachments"][pdf["original_attachment_index"]]["url"]) as response:
+        original = response.read()
+    assert hashlib.sha256(original).hexdigest() == expected_hash[source_url]
+    (out / f"dd-492-{method}.pdf").write_bytes(original)
+    (out / f"dd-492-{method}.md").write_text(item["markdown"])
+    (out / f"dd-492-{method}-pages.json").write_text(json.dumps(pdf, ensure_ascii=False, indent=2))
+    print(json.dumps({"url": source_url, "method": method, "pages": len(pdf["pages"]),
+                      "original_sha256_verified": True}, ensure_ascii=False))
+PY
+```
+
+输出分别标明 `native` / `ocr` 和原始页数；`dd-492-*-pages.json` 保留一基页码及每页文字（含空文字页），同名 `.md` 是 API 正文，`.pdf` 是从附件接口取回并校验过的原件。采集或分支断言失败时先核对回执与网站当前文件，不把旧成功结果当作本次成功；示例不保证公开站点始终可用。
 
 - `/sources` 返回快照内获当前授权的来源 ID 及冻结入口；
 - `/results` 返回规范化内容数组（包含 `markdown`、`metadata`、`attachments` 等），响应头 `Link` 包含下一页游标。

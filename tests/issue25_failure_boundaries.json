@@ -1,0 +1,30 @@
+{
+  "issue": "https://github.com/nanzhi84/SEAL/issues/25",
+  "contract": "whole-document OCR fallback after the existing any(nonempty native text) decision",
+  "written_before_test_implementation": true,
+  "cases": [
+    {"id":"native","input":"3-page native PDF with one empty middle page","expected":"native, no OCR invocation; all original 1-based page numbers and empty result retained"},
+    {"id":"scan","input":"image-only multilingual 3-page PDF with empty middle page","expected":"actual OCR, all pages processed in original order, document nonempty, empty page result retained without blank classification"},
+    {"id":"mixed","input":"native first page plus scanned image second page","expected":"native for whole document; scanned body is an accepted missing-content boundary"},
+    {"id":"page_number_only","input":"scan with extractable page number","expected":"native; no OCR; missing scanned body is explicitly reported as an accepted boundary"},
+    {"id":"all_empty","input":"all pages empty after actual OCR","expected":"stable no-text failure, no successful Version"},
+    {"id":"corrupt","input":"malformed PDF","expected":"pdf_invalid_or_encrypted, no OCR, no successful Version"},
+    {"id":"encrypted","input":"password-protected PDF","expected":"pdf_invalid_or_encrypted, no OCR, no successful Version"},
+    {"id":"zero_pages","input":"valid PDF container with no pages","expected":"explicit zero-page failure, no OCR, no successful Version"},
+    {"id":"single_acquisition","input":"server counts PDF GETs and returns the exact fixture bytes","expected":"one GET per URL; archived original and attachment API SHA256 equal source bytes"},
+    {"id":"output_validation","input":"zero-exit child returning malformed JSON, oversized output, wrong count/index, missing page, page error, all-empty text","expected":"failure, no partial or successful Version, bounded output capture"},
+    {"id":"process_failure","input":"controlled child exits nonzero or emits stdout/stderr flood","expected":"stable process/output failure, no retry, no Version, bounded evidence"},
+    {"id":"independent_deadline","input":"OCR completes after page_timeout but before OCR total and collection budget","expected":"success; page_timeout does not cut off admitted OCR"},
+    {"id":"ocr_timeout","input":"child and descendant ignore TERM past independent total deadline","expected":"deadline includes launch and validation, process group force-killed and reaped, workdir removed, no Version"},
+    {"id":"collection_budget","input":"OCR deadline exceeds remaining collection budget","expected":"earliest monotonic deadline wins; no late Version"},
+    {"id":"concurrency","input":"more than four independent PDF OCR jobs in one run","expected":"peak OCR children <=4, event loop remains responsive, waiting consumes collection budget"},
+    {"id":"waiting_cancel","input":"cancel while waiting for admission","expected":"no additional child starts after cancellation or exhausted budget"},
+    {"id":"running_cancel","input":"cancel while OCR and descendant run","expected":"cancel propagates; process group reaped; cleanup cannot be interrupted; no late Version"},
+    {"id":"shutdown","input":"capturable normal application exit while OCR runs","expected":"same bounded process-group cleanup path; no successful Version"},
+    {"id":"cancel_result_race","input":"child output and cancellation become ready together","expected":"cancel/deadline rejects late result and successful Version"},
+    {"id":"launch_cancel_race","input":"cancellation during process creation","expected":"owned process group cleaned and reaped; no orphan or Version"},
+    {"id":"cleanup_failure","input":"exit/reap or workdir cleanup cannot be confirmed","expected":"explicit failure, fail-closed admission, no early release or deletion of in-use directory"},
+    {"id":"isolation","input":"child environment and filesystem observations","expected":"PDF and frozen config only; no database/S3 credential inheritance; temporary files under root work"},
+    {"id":"unobservable_force_death","input":"parent SIGKILL, machine power loss, container runtime guarantees","expected":"outside instantaneous-cleanup promise; clearly marked UNVERIFIED"}
+  ]
+}

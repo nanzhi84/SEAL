@@ -1,0 +1,13 @@
+{
+  "goal": "Source selects its single-language fast OCR and DPI; scanned PDF reaches final CrawlResult",
+  "failure_boundaries": [
+    "Any source omits explicit OCR language/DPI or belongs to the wrong language group",
+    "Traditional Chinese or English isolated complete Source cannot load",
+    "Real scanned input contains native text and silently avoids OCR",
+    "Effective runtime metadata does not match Source OCR settings",
+    "Actual local traineddata bytes differ from tessdata_fast pinned model",
+    "Final CrawlResult drops PDF page, OCR text, cleaned HTML or Markdown",
+    "Cross-language reuse leaks settings between sequential Sources"
+  ],
+  "scope": "No DB, S3, network fetching, production services, OCR quality score or all-source live crawl"
+}

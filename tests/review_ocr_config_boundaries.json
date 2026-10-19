@@ -1,0 +1,16 @@
+{
+  "goal": "Independent review of Source OCR configuration, frozen Runs and README PDF consumption",
+  "declared_before_test": true,
+  "failure_boundaries": [
+    "Any of the 20 Sources or example omits the approved language or explicit 96 DPI",
+    "A genuine image-only page avoids the isolated OCR worker or loses anchors, page text, HTML or Markdown",
+    "A README derived configuration silently replaces 96 DPI with a historical default",
+    "A missing irrelevant OCR model blocks native PDF or HTML processing",
+    "Updating Source YAML mutates an already frozen Run configuration, hash or parser manifest",
+    "A historical Run without OCR configuration no longer resolves historical defaults without mutation",
+    "README storage checks accept old successful Versions after all current PDF observations fail",
+    "The documented API settings, result metadata, pagination or attachment hash contract disagrees with actual interfaces"
+  ],
+  "isolation": "Only fresh temporary PostgreSQL database and S3 bucket; public one-page retained inputs served over authorized loopback; credentials never included in artifacts",
+  "unverified": ["Current public website availability and unbounded full-site harvesting", "Production state", "Corpus-wide OCR accuracy"]
+}

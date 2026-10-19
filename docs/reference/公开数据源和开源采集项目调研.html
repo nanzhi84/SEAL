@@ -1,0 +1,2618 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>全球法律与财税公共数据源及开源采集项目调研</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --text: #172033;
+      --muted: #5b667a;
+      --line: #dce2ea;
+      --line-strong: #c7d0dc;
+      --accent: #165dff;
+      --accent-soft: #eef4ff;
+      --accent-dark: #0f3fa8;
+      --warning: #8a5a00;
+      --shadow: 0 10px 30px rgba(30, 50, 80, .08);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
+      line-height: 1.78;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-dark); text-decoration: underline; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      color: #fff;
+      background: rgba(18, 31, 54, .96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(255,255,255,.08);
+    }
+    .topbar-title { font-size: 15px; font-weight: 650; letter-spacing: .02em; }
+    .topbar-meta { font-size: 12px; color: #c9d3e2; }
+
+    .layout {
+      width: min(1580px, calc(100% - 36px));
+      margin: 26px auto 64px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 26px;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 106px);
+      overflow: auto;
+      padding: 18px 14px 20px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      scrollbar-width: thin;
+    }
+    .toc-title {
+      padding: 0 10px 10px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .12em;
+    }
+    .toc-link {
+      display: block;
+      margin: 2px 0;
+      padding: 6px 10px;
+      border-radius: 7px;
+      color: #445069;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .toc-link:hover { background: var(--accent-soft); text-decoration: none; }
+    .toc-link.active { color: var(--accent-dark); background: var(--accent-soft); font-weight: 650; }
+    .toc-link.level-2 { padding-left: 20px; }
+    .toc-link.level-3 { padding-left: 34px; font-size: 12px; color: #687388; }
+
+    article {
+      min-width: 0;
+      padding: 48px clamp(28px, 5vw, 76px) 64px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    h1, h2, h3 {
+      color: #13213a;
+      line-height: 1.35;
+      scroll-margin-top: 74px;
+      text-wrap: balance;
+    }
+    h1 {
+      margin: 2.8em 0 .8em;
+      padding-bottom: .42em;
+      border-bottom: 2px solid #d9e2f0;
+      font-size: clamp(25px, 3.2vw, 36px);
+      letter-spacing: -.02em;
+    }
+    article > h1:first-child {
+      margin-top: 0;
+      padding-bottom: .55em;
+      border-bottom: 3px solid var(--accent);
+      font-size: clamp(30px, 4vw, 46px);
+    }
+    h2 { margin: 2.2em 0 .7em; font-size: clamp(21px, 2.3vw, 28px); }
+    h3 { margin: 1.8em 0 .55em; font-size: 19px; }
+    p { margin: .8em 0; }
+    strong { color: #0f2548; }
+    code {
+      padding: .14em .4em;
+      color: #9b2c2c;
+      background: #f6f1f1;
+      border: 1px solid #eadede;
+      border-radius: 5px;
+      font-family: "Cascadia Code", Consolas, monospace;
+      font-size: .9em;
+    }
+    pre { overflow: auto; padding: 18px; background: #111827; color: #e5e7eb; border-radius: 10px; }
+    pre code { padding: 0; color: inherit; background: transparent; border: 0; }
+    blockquote {
+      margin: 1.2em 0 1.6em;
+      padding: 15px 18px;
+      color: #42516a;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+    }
+    blockquote p { margin: .3em 0; }
+    ul, ol { padding-left: 1.45em; }
+    li { margin: .35em 0; }
+    hr { margin: 3em 0; border: 0; border-top: 1px solid var(--line); }
+
+    .table-scroll {
+      margin: 1.3em 0 2em;
+      overflow-x: auto;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      background: #fff;
+      scrollbar-width: thin;
+    }
+    table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; line-height: 1.55; }
+    th, td {
+      min-width: 130px;
+      padding: 11px 12px;
+      vertical-align: top;
+      text-align: left;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow-wrap: anywhere;
+    }
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      color: #1f3150;
+      background: #edf2f8;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: 0; }
+    th:last-child, td:last-child { border-right: 0; }
+    tbody tr:nth-child(even) td { background: #fafbfd; }
+    tbody tr:hover td { background: #f2f7ff; }
+
+    .back-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 8px 24px rgba(22, 93, 255, .28);
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .doc-footer { margin-top: 52px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 1050px) {
+      .layout { grid-template-columns: 1fr; width: min(100% - 24px, 960px); margin-top: 14px; }
+      .toc { position: static; max-height: 320px; }
+      article { padding: 34px clamp(18px, 4vw, 42px) 50px; }
+      .topbar-meta { display: none; }
+    }
+    @media (max-width: 620px) {
+      .topbar { padding: 0 14px; }
+      .topbar-title { max-width: 90vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .layout { width: calc(100% - 14px); }
+      article { padding: 25px 16px 42px; border-radius: 10px; }
+      th, td { min-width: 118px; padding: 9px 10px; }
+      .back-top { right: 12px; bottom: 12px; }
+    }
+    @media print {
+      @page { size: A4 landscape; margin: 12mm; }
+      body { background: #fff; font-size: 10pt; }
+      .topbar, .toc, .back-top { display: none !important; }
+      .layout { display: block; width: 100%; margin: 0; }
+      article { padding: 0; border: 0; box-shadow: none; }
+      h1, h2, h3 { break-after: avoid; }
+      .table-scroll { overflow: visible; break-inside: auto; }
+      table { font-size: 7.5pt; }
+      th { position: static; }
+      tr { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-title">全球法律与财税公共数据源及开源采集项目调研</div>
+    <div class="topbar-meta">阅读版 · 核验日期 2026-10-17</div>
+  </header>
+  <div class="layout">
+    <aside class="toc" aria-label="文档目录">
+      <div class="toc-title">目录</div>
+      <a class="toc-link level-1" href="#调研结论-先读">调研结论（先读）</a>
+<a class="toc-link level-1" href="#一-调研背景与目标">一、调研背景与目标</a>
+<a class="toc-link level-2" href="#1-1-调研背景">1.1 调研背景</a>
+<a class="toc-link level-2" href="#1-2-调研目标">1.2 调研目标</a>
+<a class="toc-link level-2" href="#1-3-调研范围">1.3 调研范围</a>
+<a class="toc-link level-1" href="#二-公共数据采集渠道分类">二、公共数据采集渠道分类</a>
+<a class="toc-link level-2" href="#2-1-官方法律与财税数据源">2.1 官方法律与财税数据源</a>
+<a class="toc-link level-2" href="#2-2-第三方法律数据平台与商业法律数据库">2.2 第三方法律数据平台与商业法律数据库</a>
+<a class="toc-link level-3" href="#2-2-1-与官方数据源的关系">2.2.1 与官方数据源的关系</a>
+<a class="toc-link level-3" href="#2-2-2-跨法域及垂直领域商业数据平台">2.2.2 跨法域及垂直领域商业数据平台</a>
+<a class="toc-link level-3" href="#2-2-3-公益与开放聚合平台的可采集边界">2.2.3 公益与开放聚合平台的可采集边界</a>
+<a class="toc-link level-3" href="#2-2-4-各法域代表性商业法律数据库">2.2.4 各法域代表性商业法律数据库</a>
+<a class="toc-link level-3" href="#2-2-5-商业财税数据库">2.2.5 商业财税数据库</a>
+<a class="toc-link level-3" href="#2-2-6-商业数据采购验收条件">2.2.6 商业数据采购验收条件</a>
+<a class="toc-link level-2" href="#2-3-开放法律与财税数据集">2.3 开放法律与财税数据集</a>
+<a class="toc-link level-2" href="#2-4-开源法律与财税采集工具">2.4 开源法律与财税采集工具</a>
+<a class="toc-link level-1" href="#三-全球法律与财税数据源清单">三、全球法律与财税数据源清单</a>
+<a class="toc-link level-2" href="#3-0-逐法域覆盖与实际采集结论">3.0 逐法域覆盖与实际采集结论</a>
+<a class="toc-link level-2" href="#3-1-亚洲">3.1 亚洲</a>
+<a class="toc-link level-2" href="#3-2-欧洲">3.2 欧洲</a>
+<a class="toc-link level-2" href="#3-3-北美">3.3 北美</a>
+<a class="toc-link level-2" href="#3-4-大洋洲">3.4 大洋洲</a>
+<a class="toc-link level-2" href="#3-5-其他法域-国际组织及跨国渠道">3.5 其他法域、国际组织及跨国渠道</a>
+<a class="toc-link level-1" href="#四-重点开源采集项目调研">四、重点开源采集项目调研</a>
+<a class="toc-link level-2" href="#4-1-经确认的开源采集项目清单">4.1 经确认的开源采集项目清单</a>
+<a class="toc-link level-3" href="#采集覆盖结论">采集覆盖结论</a>
+<a class="toc-link level-2" href="#4-2-不是采集器-但可在采集链路中复用的项目">4.2 不是采集器、但可在采集链路中复用的项目</a>
+<a class="toc-link level-2" href="#4-3-项目筛选与数据获取方案">4.3 项目筛选与数据获取方案</a>
+<a class="toc-link level-3" href="#4-3-1-推荐顺序">4.3.1 推荐顺序</a>
+<a class="toc-link level-3" href="#4-3-2-首批应建设的采集组合">4.3.2 首批应建设的采集组合</a>
+<a class="toc-link level-3" href="#4-3-3-每个数据源必须建立的获取底账">4.3.3 每个数据源必须建立的获取底账</a>
+<a class="toc-link level-3" href="#4-3-4-持续更新和验收">4.3.4 持续更新和验收</a>
+<a class="toc-link level-1" href="#附录-a-本轮开源项目实际核验记录">附录 A：本轮开源项目实际核验记录</a>
+<a class="toc-link level-1" href="#附录-b-关键证据入口">附录 B：关键证据入口</a>
+    </aside>
+    <main>
+      <article id="document">
+        <h1 id="全球法律与财税公共数据源及开源采集项目调研" tabindex="-1">全球法律与财税公共数据源及开源采集项目调研</h1>
+<blockquote>
+<p>核验日期：2026-10-17（Asia/Shanghai）<br />
+核心问题：<strong>数据从哪里获取、用什么方式获取、能否持续更新、哪些开源采集代码值得借鉴。</strong><br />
+判断原则：公开可访问，不等于允许自动采集；允许内部使用，不等于允许全文展示、下载或再分发；采集器代码开源，不等于其上游数据可商用。</p>
+</blockquote>
+<h1 id="调研结论-先读" tabindex="-1">调研结论（先读）</h1>
+<ul>
+<li><strong>数据怎么获取：</strong> 优先使用政府、法院和税务机关提供的接口或整批下载文件；没有下载渠道的，再从官方网站定期采集；官方资料仍有缺口时，再向商业平台购买允许长期保存和使用的数据。</li>
+<li><strong>目前可以直接获取：</strong> 台湾、日本、欧盟、英国、德国、西班牙、瑞士、美国、加拿大和澳大利亚可通过程序读取官方数据。</li>
+<li><strong>目前还不能稳定获取：</strong> 中国及多数亚洲法域仍以网页查询为主；中国裁判文书网、越南法规和裁判网站、印度及泰国部分司法或公报网站存在验证码、访问限制或许可要求，需要另行申请接口、数据文件或书面授权。</li>
+<li><strong>开源项目能做什么：</strong> 目前没有一个开源项目可以直接、完整地采集全球法律数据。Laws.Africa CLI 需要先购买数据服务；Juriscraper、oldp-ingestor、Open States、OpenCaseLaw 和 World Wide Law 可节省部分开发工作，但必须逐个网站测试后才能使用。在github和Hugging Face有部分法域的法律数据，但是覆盖和时效性无法保障，可以选择部分用来初始化数据。</li>
+<li><strong>商业数据库怎么用：</strong> 在数据建设初期无法覆盖所需数据范围时，通过商业数据库来提升必要数据的覆盖度。</li>
+<li><strong>本报告的覆盖范围：</strong> 已经检查既定重点和扩展法域，但还没有逐一覆盖美国各州、加拿大各省、澳大利亚各州、德国和瑞士的地方层级，以及非洲所有国家。</li>
+<li><strong>阅读指引：</strong> 可重点查看 1.3、2.2、2.3、3.0、4.1章节</li>
+</ul>
+<h1 id="一-调研背景与目标" tabindex="-1">一、调研背景与目标</h1>
+<h2 id="1-1-调研背景" tabindex="-1">1.1 调研背景</h2>
+<p>建设全球法律与财税数据库，首先要解决的不是检索或生成能力，而是能否持续取得权威、完整、可追溯的原始数据。全球法律与财税资料分散在官方 API、批量数据包、政府网站、法院门户、税务机关解释库、第三方平台和开放数据集中；不同渠道在覆盖范围、更新频率、访问限制和商业使用权上差异明显。</p>
+<p>因此，需要同时建立两张清单：一张说明“可以从哪些数据源获取什么数据”，另一张说明“哪些开源采集项目的适配器、增量机制和输出模型可以复用”。</p>
+<h2 id="1-2-调研目标" tabindex="-1">1.2 调研目标</h2>
+<ul>
+<li>建立全球法律与财税数据源清单，明确法域、数据类型、获取方式、更新机制和当前可接入程度；</li>
+<li>建立经过代码核查或本地测试的开源采集项目清单，具体说明其真实采集对象、适配器范围、全量/增量能力和输出；</li>
+<li>识别自动采集、商业使用、持久存储、全文展示、下载和再分发的许可边界；</li>
+<li>形成以数据获取为中心的接入顺序和持续更新方法，为全球法律与财税数据库建设提供可执行的来源底账。</li>
+</ul>
+<h2 id="1-3-调研范围" tabindex="-1">1.3 调研范围</h2>
+<p><strong>重点法域：</strong> 中国大陆、台湾、越南、马来西亚、印度尼西亚、澳大利亚、日本、新加坡、欧盟、英国、美国、加拿大。</p>
+<p><strong>扩展法域：</strong> 韩国、泰国、菲律宾、印度、新西兰、德国、法国、西班牙、瑞士、非洲多法域及国际组织。</p>
+<p><strong>数据类型：</strong> 法律法规、行政规章、司法解释、裁判文书、官方公报、财税政策、税务裁定与解释、法律修订、历史版本、废止替代和引用关系。</p>
+<p>“当前可用性”统一使用四种结论：</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>结论</th>
+<th>判定标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可直接采集</strong></td>
+<td>已取得机器可读样本或确认公开 bulk，可直接进入接入开发</td>
+</tr>
+<tr>
+<td><strong>需适配验证</strong></td>
+<td>官方入口可用，但仍需申请 key、编写网页适配器或验证全量/增量边界</td>
+</tr>
+<tr>
+<td><strong>采集受阻</strong></td>
+<td>实测出现 WAF、验证码、403、DNS 失败、超时或其他自动访问障碍</td>
+</tr>
+<tr>
+<td><strong>仅人工或授权</strong></td>
+<td>条款、付费或书面许可要求不允许将公开检索等同于批量建库</td>
+</tr>
+</tbody>
+</table></div>
+<p>技术上能够下载，不代表允许商用、长期保存或再分发；这两类结论在各数据源行中分别说明。</p>
+<h1 id="二-公共数据采集渠道分类" tabindex="-1">二、公共数据采集渠道分类</h1>
+<h2 id="2-1-官方法律与财税数据源" tabindex="-1">2.1 官方法律与财税数据源</h2>
+<p>官方来源是主数据源，应按以下优先顺序接入：</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>渠道</th>
+<th>适用场景</th>
+<th>获取与更新方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>官方批量下载</td>
+<td>首次回填、周期全量对账</td>
+<td>XML/JSON/ZIP/CSV 数据包；保存包版本、发布时间和校验和</td>
+</tr>
+<tr>
+<td>2</td>
+<td>官方 API</td>
+<td>日常增量、版本查询、精确回补</td>
+<td>按游标、更新时间、发布日期或标识符增量；保留请求和响应证据</td>
+</tr>
+<tr>
+<td>3</td>
+<td>官方 RSS/Atom/公报目录</td>
+<td>新增发现和变更监测</td>
+<td>订阅增量后回到官方详情页或附件取原件</td>
+</tr>
+<tr>
+<td>4</td>
+<td>官方公开网站</td>
+<td>无 API/批量渠道时补齐</td>
+<td>低频、限速、条件请求；不绕过登录、验证码、WAF 或访问控制</td>
+</tr>
+<tr>
+<td>5</td>
+<td>官方人工申请/授权</td>
+<td>批量能力未公开但价值高</td>
+<td>申请数据接口、数据包或书面许可，明确缓存和再分发范围</td>
+</tr>
+</tbody>
+</table></div>
+<p>法律法规、判例和财税解释应分开采集。法规关注公布、生效、修订和失效；判例还要处理更正、撤回、密封和重新匿名化；税务解释需记录税种、适用事实、适用期间以及被替代或撤销状态。</p>
+<h2 id="2-2-第三方法律数据平台与商业法律数据库" tabindex="-1">2.2 第三方法律数据平台与商业法律数据库</h2>
+<p>“第三方平台”是指不是法律、裁判或税务解释原始发布机关的平台；“商业法律数据库”是其中以付费订阅、出版社内容或编辑增值服务为主的一类。两者有交叉，但不是同一个分类维度。同一品牌可以同时提供网页订阅和另行签约的 API/data feed；必须按“具体产品 + 合同权利”判定能否用于建库。</p>
+<h3 id="2-2-1-与官方数据源的关系" tabindex="-1">2.2.1 与官方数据源的关系</h3>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>主要产品形态</th>
+<th>对自建数据库的价值</th>
+<th>默认权利判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>官方原始源</td>
+<td>政府/法院 API、bulk、公报、官方网站</td>
+<td>权威原文、版本和公布时间基线</td>
+<td>优先作为主数据源；仍需核对开放许可、网站条款和个人信息限制</td>
+</tr>
+<tr>
+<td>公益/开放聚合平台</td>
+<td>免费检索、有限 API、开放数据集</td>
+<td>来源发现、历史回填、跨库 QA，以及部分平台的批量数据</td>
+<td>免费访问不等于允许系统性下载；必须看平台条款和子来源权利</td>
+</tr>
+<tr>
+<td>商业数据交付服务</td>
+<td>合同 API、bulk、replication、feed、MCP</td>
+<td>补齐难获取法域、结构化字段、引证关系、翻译和更新监测</td>
+<td>只有合同明确允许自动获取、持久存储和目标用途时，才是可用的采购型数据源</td>
+</tr>
+<tr>
+<td>商业订阅检索库</td>
+<td>按席位/模块订阅的检索网页</td>
+<td>编辑摘要、有效性、修订沿革、citator、授权 law reports、翻译和评论</td>
+<td>默认仅供授权用户研究；不得将账号交给采集器，也不得重建可替代原产品的数据库</td>
+</tr>
+</tbody>
+</table></div>
+<p>官方源承担原文与版本基线；商业库主要承担覆盖缺口、引证与有效性判断、英文翻译、二次文献和质量核验。只有另行采购数据交付协议后，商业库才能成为自建库的上游数据源。</p>
+<h3 id="2-2-2-跨法域及垂直领域商业数据平台" tabindex="-1">2.2.2 跨法域及垂直领域商业数据平台</h3>
+<p>本节只保留不能合理归入单一国家商业法律数据库、且主营跨法域数据交付或垂直监管情报的产品。API、bulk、feed、MCP 是<strong>交付方式</strong>，不是平台类别：威科先行 MCP、Nexis Data+、vLex API、Indian Kanoon API、Docket Alarm API、UniCourt Enterprise API 和 Laws.Africa Content API 分别并回 2.2.4 的中国、跨国、印度、美国和非洲行，在“机器接入”字段说明其可获取性；CourtListener 和 Open Law Data Thailand 按其公益/开放属性归入 2.2.3。</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>平台/产品</th>
+<th>覆盖与交付能力</th>
+<th>收费/访问模式</th>
+<th>建库使用判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://legaldatahunter.com/" target="_blank" rel="noopener noreferrer">Legal Data Hunter</a></td>
+<td>多法域法律检索、全文、引用及 API/MCP</td>
+<td>商业服务，采集程序有对应的开源项目</td>
+<td>可做来源发现和授权补数；批量、持久存储、索引/embedding、训练和客户展示必须明示授权</td>
+</tr>
+<tr>
+<td><a href="https://fiscalnote.com/" target="_blank" rel="noopener noreferrer">FiscalNote PolicyNote</a></td>
+<td>美国国会、50 州及多国立法/监管监测，支持 API/MCP 与工作流集成</td>
+<td>企业订阅/数据合同</td>
+<td>适合变动发现和监管情报，不替代官方法律原文</td>
+</tr>
+<tr>
+<td><a href="https://www.compliance.ai/api/" target="_blank" rel="noopener noreferrer">Compliance.ai / Archer Evolv API</a></td>
+<td>美国联邦/州及部分英国、加拿大、欧盟金融监管变动；REST/RSS</td>
+<td>企业 API 合同</td>
+<td>适合金融监管事件归一化和提醒，不是通用法律全文库</td>
+</tr>
+<tr>
+<td><a href="https://www.enhesa.com/faq" target="_blank" rel="noopener noreferrer">Enhesa</a></td>
+<td>全球 EHS、化学品、产品合规和可持续监管；支持集成/API/MCP</td>
+<td>企业合同</td>
+<td>适合企业合规义务库，不宜当作通用法律全文主源</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-2-3-公益与开放聚合平台的可采集边界" tabindex="-1">2.2.3 公益与开放聚合平台的可采集边界</h3>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>平台</th>
+<th>覆盖</th>
+<th>可用方式</th>
+<th>不应做的推定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.courtlistener.com/" target="_blank" rel="noopener noreferrer">CourtListener</a></td>
+<td>美国判例、docket、RECAP 和引用图</td>
+<td>公共检索、低配额 API；另有会员/商业 API、bulk、replication、webhooks 和 MCP</td>
+<td>非营利平台不等于所有机器访问均免费；企业内部工具、营收产品和大规模复制仍按会员规则或商业协议处理</td>
+</tr>
+<tr>
+<td><a href="https://www.canlii.org/" target="_blank" rel="noopener noreferrer">CanLII</a></td>
+<td>加拿大联邦、省/地区法规、判例和二次材料</td>
+<td>免费检索、深链、人工研究；大规模获取回到原始机关或授权渠道</td>
+<td>2026 条款明确指向原始源/授权渠道，不能因免费访问而镜像全站</td>
+</tr>
+<tr>
+<td><a href="https://www.bailii.org/" target="_blank" rel="noopener noreferrer">BAILII</a></td>
+<td>英国、爱尔兰及部分欧洲判例/法规</td>
+<td>检索、深链和合理数量的个人使用</td>
+<td>FAQ 明确无 API 且不允许 bulk；不可作为自动化主采集源</td>
+</tr>
+<tr>
+<td><a href="https://www.austlii.edu.au/" target="_blank" rel="noopener noreferrer">AustLII</a> / <a href="https://www.nzlii.org/" target="_blank" rel="noopener noreferrer">NZLII</a></td>
+<td>澳大利亚、新西兰判例、法规及其他法律资料</td>
+<td>公共检索、深链和合作研究</td>
+<td>网页可读不等于允许机器批量复制；优先连接各官方法规/法院源</td>
+</tr>
+<tr>
+<td><a href="http://www.worldlii.org/" target="_blank" rel="noopener noreferrer">WorldLII</a> / <a href="http://www.asianlii.org/" target="_blank" rel="noopener noreferrer">AsianLII</a></td>
+<td>跨法域联合检索和索引</td>
+<td>来源发现、覆盖调研和深链</td>
+<td>联合检索覆盖不等于一致的下载权或完整历史覆盖</td>
+</tr>
+<tr>
+<td><a href="https://africanlii.org/en/" target="_blank" rel="noopener noreferrer">AfricanLII</a></td>
+<td>非洲多法域法规、裁判和子 LII 网络</td>
+<td>免费检索和深链；商业交付另评估 Laws.Africa</td>
+<td>公益网站与 Laws.Africa Content API 是不同产品，不得混用权利判断</td>
+</tr>
+<tr>
+<td><a href="https://www.openlawdatathailand.org/" target="_blank" rel="noopener noreferrer">Open Law Data Thailand</a></td>
+<td>泰国法律/公报历史资料</td>
+<td>JSONL、PDF、ZIP 开放下载；项目标注 CC BY-SA 4.0 并自述 24 小时更新</td>
+<td>开放项目不当然拥有全部上游公报权利；正式采用前核对来源链及 ShareAlike 对派生数据库的影响</td>
+</tr>
+<tr>
+<td><a href="https://case.law/" target="_blank" rel="noopener noreferrer">Caselaw Access Project</a></td>
+<td>美国历史判例，约 600 万级</td>
+<td>CC0 判例数据/元数据和批量回填</td>
+<td>它是历史数据集，不是全美法院当日增量源</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-2-4-各法域代表性商业法律数据库" tabindex="-1">2.2.4 各法域代表性商业法律数据库</h3>
+<p>下表是“采购与核验候选目录”，不是“可抓取网站目录”。除非“机器接入”明确写有合同 API/bulk/feed，否则均按“仅订阅研究、禁止自动采集”处理。</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>法域</th>
+<th>代表数据库</th>
+<th>主要内容/增值</th>
+<th>机器接入与自建库定位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>跨国/全球</td>
+<td><a href="https://legal.thomsonreuters.com/en/products/westlaw-precision" target="_blank" rel="noopener noreferrer">Westlaw</a>、<a href="https://www.lexisnexis.com/en-us/products/lexis-plus.page" target="_blank" rel="noopener noreferrer">Lexis+</a> / <a href="https://dev.lexisnexis.com/" target="_blank" rel="noopener noreferrer">Nexis Data+</a>、<a href="https://vlex.com/" target="_blank" rel="noopener noreferrer">vLex</a> / <a href="https://developer.vlex.com/" target="_blank" rel="noopener noreferrer">Developer Portal</a>、<a href="https://pro.bloomberglaw.com/products/legal-research-and-software/legal-research/" target="_blank" rel="noopener noreferrer">Bloomberg Law</a>、<a href="https://heinonline.com/" target="_blank" rel="noopener noreferrer">HeinOnline</a></td>
+<td>多法域原始法、law reports、citator、翻译、期刊和实务内容</td>
+<td>网页订阅默认非数据许可；Nexis Data+ 提供 API/feed/bulk，vLex 提供 API 产品，但内容范围、持久化、展示和再分发均以单独合同为准。用于覆盖基准、引证/二次文献和 QA</td>
+</tr>
+<tr>
+<td>中国大陆</td>
+<td><a href="https://mall.pkulaw.com/" target="_blank" rel="noopener noreferrer">北大法宝</a>、<a href="https://products.wkinfo.com.cn/" target="_blank" rel="noopener noreferrer">威科先行</a> / <a href="https://mcp.wkinfo.com.cn/" target="_blank" rel="noopener noreferrer">威科先行 MCP</a>、<a href="https://www.lexisnexis.com/en-hk/products-and-services/online-solution/lexis-china" target="_blank" rel="noopener noreferrer">Lexis China</a></td>
+<td>法规、案例/裁判、行政执法、期刊、中英文和法财税实务</td>
+<td>威科 MCP 已公开法规检索、案例检索和引用识别工具，是威科先行的机器接入产品，不是独立平台类别；试用/按调用/企业方案不当然授予全文归档、向量化或对客展示权。其他 feed/API 需商务确认</td>
+</tr>
+<tr>
+<td>台湾</td>
+<td><a href="https://www.lawbank.com.tw/" target="_blank" rel="noopener noreferrer">法源法律网</a>、<a href="https://www.lawdata.com.tw/" target="_blank" rel="noopener noreferrer">月旦知识库</a></td>
+<td>法规、解释、裁判、函释、期刊和论著</td>
+<td>未见公开 bulk/API；法源禁止未经书面同意下载/重制/散布。用于二次文献和 QA</td>
+</tr>
+<tr>
+<td>越南</td>
+<td><a href="https://luatvietnam.vn/landingpage.html" target="_blank" rel="noopener noreferrer">LuatVietnam</a>、<a href="https://thuvienphapluat.vn/en/goidichvutvpl.aspx" target="_blank" rel="noopener noreferrer">Thư Viện Pháp Luật</a></td>
+<td>法律文件、效力/修订、合并文本、实务资料和英译</td>
+<td>付费会员；未见公开 API/bulk 或再分发权。用于官方源缺口核验、效力和翻译采购</td>
+</tr>
+<tr>
+<td>马来西亚</td>
+<td><a href="https://www.cljlaw.com/?page=product" target="_blank" rel="noopener noreferrer">CLJLaw</a>、<a href="https://www.lexisnexis.com/en-my" target="_blank" rel="noopener noreferrer">LexisNexis Malaysia</a>、Westlaw Malaysia</td>
+<td>联邦/州立法、已报告/未报告案例、Malaysian Tax Cases、文章与 citator</td>
+<td>指定用户订阅；未见当地公开 bulk/API。用于判例补齐、税案和 QA</td>
+</tr>
+<tr>
+<td>印度尼西亚</td>
+<td><a href="https://www.hukumonline.com/produk/id/" target="_blank" rel="noopener noreferrer">Hukumonline Pro</a></td>
+<td>法规、法院裁判、效力/历史/关联、合并文本和双语分析</td>
+<td>商业订阅；未见允许全文归档的公开 API。用于法规关系、英译和官方源 QA</td>
+</tr>
+<tr>
+<td>日本</td>
+<td><a href="https://www.tkc.jp/law/lawlibrary/" target="_blank" rel="noopener noreferrer">TKC Law Library / LEX/DB</a>、<a href="https://www.daiichihoki.co.jp/weblist/" target="_blank" rel="noopener noreferrer">D1-Law</a>、<a href="https://www.westlawjapan.com/" target="_blank" rel="noopener noreferrer">Westlaw Japan</a></td>
+<td>明治期以来判例、法规、税务裁决、文献和出版内容</td>
+<td>主要为订阅，API/bulk 需商务核实。用于历史判例、要旨、税务资料和引证</td>
+</tr>
+<tr>
+<td>韩国</td>
+<td><a href="https://www.thomsonreuters.co.kr/ko/products-services/lawnb.html" target="_blank" rel="noopener noreferrer">LAWnB</a>、<a href="https://lbox.kr/" target="_blank" rel="noopener noreferrer">LBOX</a>、<a href="https://bigcase.ai/" target="_blank" rel="noopener noreferrer">BigCase</a></td>
+<td>法规、判例、论文、专家注释和 AI 检索</td>
+<td>订阅/免费分层，下载额度不是再分发权。law.go.kr API 是法规主源；商业库补判例/分类</td>
+</tr>
+<tr>
+<td>新加坡</td>
+<td><a href="https://www.lawnet.sg/lawnet/web/lawnet/home" target="_blank" rel="noopener noreferrer">LawNet</a>、<a href="https://www.lexisnexis.com/en-sg/products/lexis-plus" target="_blank" rel="noopener noreferrer">Lexis+ Singapore</a>、<a href="https://www.westlawasia.com/features" target="_blank" rel="noopener noreferrer">Westlaw Asia</a></td>
+<td>本地法规、判例、law reports、CaseAnalysis、评论和实务指引</td>
+<td>订阅检索；未见可供自建库持久归档的公开 bulk。用于 citator、授权报告和 QA</td>
+</tr>
+<tr>
+<td>印度</td>
+<td><a href="https://www.scconline.com/?login=true" target="_blank" rel="noopener noreferrer">SCC Online</a>、<a href="https://manupatra.com/reg/Membership.aspx" target="_blank" rel="noopener noreferrer">Manupatra</a>、<a href="https://indiankanoon.org/" target="_blank" rel="noopener noreferrer">Indian Kanoon</a> / <a href="https://api.indiankanoon.org/" target="_blank" rel="noopener noreferrer">API</a></td>
+<td>SCC/Manupatra 为出版社型综合库；Indian Kanoon 为法规和法院文书聚合平台并提供按请求计费 API</td>
+<td>SCC/Manupatra 为订阅；Indian Kanoon 的开发赠额和经审核非商业额度不等于免费商业 API。机器获取优先谈 API/单独许可，不采集订阅页</td>
+</tr>
+<tr>
+<td>泰国</td>
+<td>尚未核验到提供合同 API/bulk 的主流本地综合商业库</td>
+<td>可向区域 Lexis/Westlaw/vLex 询价英译/专题内容</td>
+<td>不强行填充未核实产品。主线用 Royal Gazette、Council of State、Revenue Department 和 Open Law Data Thailand</td>
+</tr>
+<tr>
+<td>菲律宾</td>
+<td><a href="https://cdasia.com/" target="_blank" rel="noopener noreferrer">CD Asia</a></td>
+<td>法律、最高法院判决、总统文件；税务库含 BIR/DOF、税收协定和税务法院资料</td>
+<td>订阅式 Classic/Premium，未见公开 API/bulk。用于税务/历史法律补缺和 QA</td>
+</tr>
+<tr>
+<td>澳大利亚</td>
+<td><a href="https://www.thomsonreuters.com.au/en-au/products/westlaw.html" target="_blank" rel="noopener noreferrer">Westlaw Australia</a>、<a href="https://www.lexisnexis.com/en-au/products/lexis-plus" target="_blank" rel="noopener noreferrer">Lexis+ Australia</a>、<a href="https://www.wolterskluwer.com/en-au/solutions/cch-iknowconnect" target="_blank" rel="noopener noreferrer">CCH iKnowConnect</a>、<a href="https://jade.io/" target="_blank" rel="noopener noreferrer">JADE</a></td>
+<td>判例/law reports、法规、CaseBase/KeyCite、评论和税务实务</td>
+<td>主要为订阅，企业 API 另询。用于引证状态、授权报告和税务编辑层</td>
+</tr>
+<tr>
+<td>新西兰</td>
+<td><a href="https://nz.thomsonreuters.com/westlaw/plan-options.aspx" target="_blank" rel="noopener noreferrer">Westlaw New Zealand</a>、<a href="https://www.lexisnexis.com/en-nz/products/lexis-plus" target="_blank" rel="noopener noreferrer">Lexis+ New Zealand</a>、CCH iKnowConnect</td>
+<td>判例、法规、CaseBase/KeyCite、The Laws of New Zealand、评论和税务</td>
+<td>按席位/内容包订阅，数据交付另询。官方 Legislation API 是法规主源</td>
+</tr>
+<tr>
+<td>欧盟跨境</td>
+<td>vLex、Westlaw、Lexis+、<a href="https://kluwerlawonline.com/" target="_blank" rel="noopener noreferrer">Kluwer Law Online</a>、HeinOnline</td>
+<td>跨国检索、出版社期刊/评论、英译和国际法</td>
+<td>订阅为主；只有单独 API/内容许可可供机器获取。EUR-Lex/CELLAR 仍为欧盟原文基线</td>
+</tr>
+<tr>
+<td>德国</td>
+<td><a href="https://beck-online.de/" target="_blank" rel="noopener noreferrer">beck-online</a>、<a href="https://www.juris.de/jportal/nav/index.jsp" target="_blank" rel="noopener noreferrer">juris</a></td>
+<td>德国/欧盟法规、判例、注释、期刊和出版模块</td>
+<td>付费模块；beck-online 限制 TDM；交付需单独合同。用于注释、引证和 QA</td>
+</tr>
+<tr>
+<td>法国</td>
+<td><a href="https://www.dalloz.fr/" target="_blank" rel="noopener noreferrer">Dalloz</a>、<a href="https://www.lexisnexis.com/fr-fr/produits/lexis-360-intelligence" target="_blank" rel="noopener noreferrer">Lexis 360 Intelligence</a>、<a href="https://boutique.lamy-liaisons.fr/produits/bases-de-donnees-juridiques.html" target="_blank" rel="noopener noreferrer">Lamyline</a></td>
+<td>法典、判例、期刊、百科、注释和表单</td>
+<td>订阅库；Lexis 360 等禁止系统性提取。用于编辑注释、引证和 QA</td>
+</tr>
+<tr>
+<td>西班牙</td>
+<td><a href="https://www.aranzadilaley.es/productos/bases-de-datos-juridicas" target="_blank" rel="noopener noreferrer">Aranzadi LA LEY</a>、<a href="https://vlex.es/" target="_blank" rel="noopener noreferrer">vLex Spain</a></td>
+<td>官方法规/判例加作者评论、实务表格、关系网络和 AI</td>
+<td>订阅为主，vLex API/内容权另签。原文优先 BOE/CENDOJ</td>
+</tr>
+<tr>
+<td>瑞士</td>
+<td><a href="https://www.swisslex.ch/" target="_blank" rel="noopener noreferrer">Swisslex</a>、<a href="https://www.weblaw.ch/" target="_blank" rel="noopener noreferrer">Weblaw</a></td>
+<td>瑞士联邦/州法规、判例、期刊、评论和多语种检索</td>
+<td>订阅为主；未取得单独数据许可时不做批量归档。法规原文回到 Fedlex，裁判回到联邦及州法院官网</td>
+</tr>
+<tr>
+<td>英国</td>
+<td><a href="https://legalsolutions.thomsonreuters.co.uk/en/products-services/westlaw-uk.html" target="_blank" rel="noopener noreferrer">Westlaw UK</a>、<a href="https://www.lexisnexis.co.uk/legal/lexis-plus.html" target="_blank" rel="noopener noreferrer">Lexis+ UK</a>、Practical Law、Lawtel、vLex、<a href="https://www.iclr.co.uk/products/iclr-online/" target="_blank" rel="noopener noreferrer">ICLR Online</a></td>
+<td>综合研究、实务知识、current awareness、law reports 和 citator</td>
+<td>网页订阅非建库权；Westlaw 禁止建档案/可检索替代库。原文用 legislation.gov.uk/Find Case Law</td>
+</tr>
+<tr>
+<td>美国</td>
+<td>Westlaw Precision、Lexis+、Bloomberg Law、vLex/Fastcase、HeinOnline、<a href="https://www.docketalarm.com/api/v1/" target="_blank" rel="noopener noreferrer">Docket Alarm</a>、<a href="https://github.com/UniCourt/enterprise-api-py-sdk" target="_blank" rel="noopener noreferrer">UniCourt Enterprise API</a></td>
+<td>联邦/州判例法规、docket、reporters、citator、历史政府出版物和期刊</td>
+<td>综合库是订阅；Docket Alarm API 统一接入数百个美国法院并支持 docket/PDF/监测，UniCourt Enterprise API 提供结构化法院数据，二者均按商业合同确认覆盖、PACER 费用和再分发。公益替代/补充为 CourtListener，官方底层为 PACER/法院</td>
+</tr>
+<tr>
+<td>加拿大</td>
+<td><a href="https://www.thomsonreuters.ca/en/products/westlaw-canada.html" target="_blank" rel="noopener noreferrer">Westlaw Canada</a>、<a href="https://www.lexisnexis.com/en-ca/products/lexis-plus" target="_blank" rel="noopener noreferrer">Lexis+ Canada</a>、vLex Canada</td>
+<td>Canadian Abridgment、CED、QuickCITE/Halsbury’s、判例、法规和评论</td>
+<td>订阅为主，未取得数据许可时不批量归档。原文回到 Justice Laws、省级源和法院</td>
+</tr>
+<tr>
+<td>非洲/南非</td>
+<td><a href="https://laws.africa/" target="_blank" rel="noopener noreferrer">Laws.Africa</a> / <a href="https://laws.africa/platform/content/" target="_blank" rel="noopener noreferrer">Content API</a>、<a href="https://juta.co.za/" target="_blank" rel="noopener noreferrer">Juta Law</a>、<a href="https://store.lexisnexis.com/en-za/subscription" target="_blank" rel="noopener noreferrer">Lexis+ South Africa</a>、<a href="https://legalai.sabinet.co.za/" target="_blank" rel="noopener noreferrer">Sabinet Legal</a></td>
+<td>非洲多国法规及历史版本；南非法规、公报、判例、law reports、税案和期刊</td>
+<td>Laws.Africa Content API 明确面向本地数据库/出版/离线处理，提供 AKN XML、HTML、PDF、生命周期元数据和 webhook，并按国家/用途授权；其他主要为订阅，机器交付另询。用于授权法规、出版物和 QA</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-2-5-商业财税数据库" tabindex="-1">2.2.5 商业财税数据库</h3>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>产品</th>
+<th>核心覆盖</th>
+<th>数据获取判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibfd.org/tax-research-platform-v2" target="_blank" rel="noopener noreferrer">IBFD Tax Research Platform</a> / IBFD APIs</td>
+<td>各国税制、税收协定、原始资料、历史版本、税表、案例摘要和专家分析</td>
+<td>跨境税收的重点采购候选；应采购 API/Content Solution，不采集订阅页</td>
+</tr>
+<tr>
+<td><a href="https://tax.thomsonreuters.com/en/brands" target="_blank" rel="noopener noreferrer">Thomson Reuters Checkpoint</a> / Checkpoint Search API</td>
+<td>税法、会计标准、评论、国际税和转让定价</td>
+<td>普通订阅与 Search API 分开；内容包、缓存和展示权必须写入合同</td>
+</tr>
+<tr>
+<td><a href="https://pro.bloombergtax.com/" target="_blank" rel="noopener noreferrer">Bloomberg Tax</a></td>
+<td>美国联邦/州税、国际税、转让定价、新闻和实务分析</td>
+<td>订阅研究库；不应把 Bloomberg Data License 理解为 Bloomberg Tax 全库许可</td>
+</tr>
+<tr>
+<td><a href="https://www.wolterskluwer.com/en/solutions/cch-answerconnect-us" target="_blank" rel="noopener noreferrer">CCH AnswerConnect</a> / CCH iKnowConnect</td>
+<td>美国及亚太税务、会计、法律实务内容</td>
+<td>订阅为主；如需归一化税率/规则数据应询价单独交付许可</td>
+</tr>
+<tr>
+<td><a href="https://info.taxnotes.com/global" target="_blank" rel="noopener noreferrer">Tax Notes Global</a></td>
+<td>国际税务新闻、法规变动和专家评论</td>
+<td>用于 current awareness/事件发现；原文回到官方源，文章需出版授权</td>
+</tr>
+<tr>
+<td><a href="https://orbitax.com/solutions/tax-research-and-compliance" target="_blank" rel="noopener noreferrer">Orbitax</a></td>
+<td>全球税制、税率、协定、国别研究和合规工具</td>
+<td>适合评估结构化税务数据采购；需确认 API、历史版本和对外展示权</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-2-6-商业数据采购验收条件" tabindex="-1">2.2.6 商业数据采购验收条件</h3>
+<p>对任何商业平台，只有在 Order Form/数据许可中对下列事项作出肯定约定，才可标记为“可用于自建库”：</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>验收项</th>
+<th>必须明确的内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自动访问</td>
+<td>是否允许 API 客户端、无人值守批处理、全量回填和增量同步</td>
+</tr>
+<tr>
+<td>持久化</td>
+<td>允许临时缓存还是长期保存；能否建立全文索引、向量索引和派生字段</td>
+</tr>
+<tr>
+<td>展示/再分发</td>
+<td>内部检索、关联公司共享、客户产品的元数据/片段/全文/PDF 展示分别是否允许</td>
+</tr>
+<tr>
+<td>AI/派生数据</td>
+<td>RAG/embedding、摘要、统计分析、模型训练/微调及派生结果所有权</td>
+</tr>
+<tr>
+<td>更新/删除</td>
+<td>更新频率、增量游标、更正/撤回/重新匿名化通知和补发机制</td>
+</tr>
+<tr>
+<td>退出机制</td>
+<td>合同终止后原文、索引、备份、派生字段和引用链接哪些可保留、哪些必须删除</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="2-3-开放法律与财税数据集" tabindex="-1">2.3 开放法律与财税数据集</h2>
+<p>开放数据集适合历史回填、模型评测和字段设计，但不能代替现行法持续更新。下表的数据量和更新时间核验日为 <strong>2026-10-17</strong>。数据量优先采用发布方公布的记录数；发布方未给出稳定总量时，只记录可复核的集合数、目录数或文件规模，不用搜索结果数推算。更新时间区分“内容截止日”“数据文件/仓库更新时间”和“计划更新频率”，三者不能互相替代。每条入库记录仍需保留原始来源、数据集版本或 commit、获取时间、内容哈希和子来源许可证。</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据集</th>
+<th>覆盖</th>
+<th>数据量（核验口径）</th>
+<th>数据更新时间/更新机制</th>
+<th>获取方式</th>
+<th>使用判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://data.gov.tw/dataset/18289" target="_blank" rel="noopener noreferrer">台湾中文法规 XML</a> / <a href="https://data.gov.tw/dataset/18290" target="_blank" rel="noopener noreferrer">中文命令 XML</a></td>
+<td>台湾中央法规、命令、沿革和条文</td>
+<td>当前 XML 精确记录数未公布；可用的官方历史参照为 2022 年合计 <strong>10,855</strong>（宪法 9、法律 1,252、命令 9,594，含废止），不能当作 2026 当前总量</td>
+<td>两项均标称<strong>每月</strong>更新；目录元数据分别更新于 <strong>2026-06-05 14:29</strong> 和 <strong>2025-09-08 11:24</strong>。元数据日期不等于 XML 内容截止日</td>
+<td>ZIP/XML 批量</td>
+<td>政府资料开放授权条款第 1 版；适合正式回填和周期对账。生产接入应保存每次 ZIP 时间戳、记录数和哈希</td>
+</tr>
+<tr>
+<td><a href="https://www.govinfo.gov/bulkdata/" target="_blank" rel="noopener noreferrer">GovInfo Bulk Data</a></td>
+<td>美国联邦政府出版物、法规和立法资料</td>
+<td>顶层 <strong>16 个 collection 目录</strong>；官方未发布跨 collection 文档总数或总字节数</td>
+<td>按集合持续更新；核验时 Bills、Bill Status、Bill Summaries、Federal Register 等目录均显示 <strong>2026-10-17</strong> 修改。目录时间不等于所有内容的统一截止日</td>
+<td>按集合下载 XML/文本/ZIP/附件</td>
+<td>适合正式回填；规模和新鲜度应按 collection 分别统计，仍需识别包内第三方版权内容</td>
+</tr>
+<tr>
+<td><a href="https://github.com/justicecanada/laws-lois-xml" target="_blank" rel="noopener noreferrer">Justice Laws XML</a></td>
+<td>加拿大联邦合并 Acts/Regulations，英法双语</td>
+<td>官方仓库英语 Acts <strong>971</strong>、Regulations <strong>4,897</strong>，合计 <strong>5,868 个 XML 文件</strong>；法语镜像同量，两语共 <strong>11,736 个文件</strong>。这是文件数，不等于 5,868 部现行法规范</td>
+<td><a href="https://laws.justice.gc.ca/eng/FAQ/" target="_blank" rel="noopener noreferrer">官方 FAQ</a>称一般<strong>每两周</strong>更新；开放政府数据集记录更新于 <strong>2026-07-31</strong>，官方 GitHub 仓库最近 push 为 <strong>2026-10-15 18:08 UTC</strong></td>
+<td>GitHub/XML 批量</td>
+<td>适合正式回填；按 OGL–Canada 和 Federal Law Order 标示来源与非官方性；固定 commit 后分别统计英法文件</td>
+</tr>
+<tr>
+<td><a href="https://lil.law.harvard.edu/our-work/caselaw-access-project/" target="_blank" rel="noopener noreferrer">Caselaw Access Project</a></td>
+<td>美国历史判例，内容年代约 1658–2018</td>
+<td>发布方称<strong>超过 670 万件案件、超过 4,000 万页</strong></td>
+<td><strong>静态历史语料</strong>；搜索数据内容截至 <strong>2018-06</strong>。2024-03 转为静态/bulk 保留并收缩原搜索和 API，代码仓库于 <strong>2024-10-16</strong> 归档</td>
+<td>历史 bulk/单案下载</td>
+<td>判例数据和元数据按 CC0 开放；适合历史补数，不可替代 CourtListener、法院官网或授权 docket feed</td>
+</tr>
+<tr>
+<td><a href="https://huggingface.co/datasets/isaacus/open-australian-legal-corpus" target="_blank" rel="noopener noreferrer">Open Australian Legal Corpus</a></td>
+<td>澳大利亚部分法规和判例</td>
+<td>Hugging Face API 为 <strong>232,560 条</strong>；数据卡正文仍为 <strong>229,122 篇文本、约 14 亿 tokens、超过 6,000 万行</strong>，两个记录数尚未同步</td>
+<td>文书日期字段最大值为 <strong>2024-09-13</strong>；最后明确的全库刷新为 <strong>2025-03-10（v7.1.0）</strong>；仓库 <code>lastModified</code> 为 <strong>2026-03-07 03:23 UTC</strong>，后者可能只是卡片或元数据修改</td>
+<td>JSONL/Parquet 数据集</td>
+<td>子来源许可混合；适合样本与历史回填。正式使用前应固定 revision、重算行数并逐 source 清权</td>
+</tr>
+<tr>
+<td><a href="https://huggingface.co/datasets/joelniklaus/Multi_Legal_Pile" target="_blank" rel="noopener noreferrer">Multi Legal Pile</a></td>
+<td>24 种语言、17 个法域、5 类法律文本</td>
+<td>数据卡总计 <strong>57,305,071 个文档、81,214,262,514 词</strong>；论文标称 <strong>689 GB</strong>。数据卡总计大小另为 1,297,609 MB，官方未充分解释体积口径差异</td>
+<td><strong>静态研究语料</strong>；未公布统一内容截止日，也未承诺持续增量；仓库 <code>lastModified</code> 为 <strong>2024-01-12 08:50 UTC</strong></td>
+<td>JSONL.xz / Hugging Face 下载</td>
+<td>外层许可为 CC BY-NC-SA 4.0，且子集许可混合；不适合作为商业数据库的无条件原文主源</td>
+</tr>
+</tbody>
+</table></div>
+<p>数据量不一致不是可以直接取较大值的问题。OALC 应在固定 revision 后重算实际行数并与数据卡解释差异；Multi Legal Pile 的文档数、词数和不同 GB/MB 规模来自不同统计口径，不能自行换算成一个“精确总量”。对台湾 XML、GovInfo 和 Justice Laws 这类动态源，首次全量下载时应生成自己的“文件数、记录数、解压字节数、内容截止日、哈希”基线，此后每次增量更新同口径复算。</p>
+<h2 id="2-4-开源法律与财税采集工具" tabindex="-1">2.4 开源法律与财税采集工具</h2>
+<p>本报告将开源项目分成四类，只有第一类进入“采集项目”清单：</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>判定标准</th>
+<th>代表项目</th>
+<th>本报告处理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>真正采集项目</td>
+<td>代码中存在具体来源适配器，能枚举、请求并输出来源数据</td>
+<td>legal-sources、Juriscraper、oldp-ingestor、Open States Scrapers、OpenCaseLaw</td>
+<td>逐项目核对适配器、增量、输出和运行证据</td>
+</tr>
+<tr>
+<td>数据访问 CLI/SDK</td>
+<td>调用既有 API，负责分页、批量下载、重试和落盘</td>
+<td>Laws.Africa CLI</td>
+<td>作为授权 API 的获取客户端，不夸大为开放爬虫</td>
+</tr>
+<tr>
+<td>解析/结构化工具</td>
+<td>对已取得的 HTML/PDF/XML 做结构化</td>
+<td>Bluebell、Cobalt、Slaw/Centralia 类工具</td>
+<td>单列为采集后处理，不计入采集覆盖</td>
+</tr>
+<tr>
+<td>平台/规则引擎</td>
+<td>管理、检索、编辑、引用分析或规则计算</td>
+<td>Indigo、OLDP、CourtListener、OpenFisca</td>
+<td>可借鉴数据模型与工作流，但不当作采集器</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="三-全球法律与财税数据源清单" tabindex="-1">三、全球法律与财税数据源清单</h1>
+<p>以下清单坚持“一行一个数据源或一个明确的数据产品”。“数据规模”只有在官方给出稳定口径时才记录数量；否则写明动态或未公布，避免用不可靠估算误导容量规划。</p>
+<p>每个法域必须逐项核查正式公报、现行及历史法规、普通裁判文书、判例/司法解释、财税监管解释和修订引用关系；未找到的类型直接标明“尚未确认”，不能用法规网站代替案例网站，也不能写成已经完整覆盖。</p>
+<p>本轮复核增加一项法域完整性门槛：不能因为已经找到法规数据库或政府文件门户，就判定该法域的官方渠道已经覆盖。每个法域至少要分别核查 <strong>正式公布载体（Gazette/Journal/Register）</strong>、<strong>合并/现行法与历史版本库</strong>、<strong>司法裁判源</strong>、<strong>税务/监管解释源</strong>，并说明它们之间的权威关系。此前漏列越南电子公报的直接原因，就是来源发现偏重 API、结构化数据库和合并文本，没有把“正式公布载体”设为逐国必查项；同类缺口也出现在中国大陆、台湾、日本、韩国、新加坡、印度、英国、新西兰和南非。</p>
+<p>LDH / World Wide Law 可用于发现候选网站和复用适配器，但不能代替官方核验：例如其 <code>VN/CongBao</code> 适配器帮助定位了越南电子公报，而日本官报、韩国电子官报、新加坡 e-Gazette、新西兰 Gazette 等仍需从各国官方发布体系反向补齐。</p>
+<p>越南需要明确区分四类官方来源：<code>vbpl.vn</code> 是国家法律规范性文件数据库，<code>congbao.chinhphu.vn</code> 是电子公报，<code>congbobanan.toaan.gov.vn</code> 是普通裁判文书/决定公布门户，<code>anle.toaan.gov.vn</code> 是最高人民法院选定公布的判例门户。法规库不能替代案例库，判例门户也不是全部裁判文书库。旧入口 <code>vbpl.moj.gov.vn</code> 于 2026-10-17 经公共 DNS 查询已无解析记录，报告不再把它列为生产入口。</p>
+<h2 id="3-0-逐法域覆盖与实际采集结论" tabindex="-1">3.0 逐法域覆盖与实际采集结论</h2>
+<p>下表按同一口径复核本报告全部重点和扩展法域。每个法域至少核对合并法规/正式公报、裁判和财税三条线；“可直接采集”只用于公开 API、bulk 或已取得机器可读响应的来源。</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>法域</th>
+<th>法规与正式公布</th>
+<th>裁判与案例</th>
+<th>财税政策与争议</th>
+<th>建库结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中国大陆</td>
+<td>国家法律法规数据库、国务院公报、国家规章库、国家行政法规库：<strong>需适配验证</strong></td>
+<td>中国裁判文书网：<strong>采集受阻</strong>；人民法院案例库：<strong>需适配验证</strong>，但不是裁判全集</td>
+<td>税务总局政策法规库、财政部：<strong>需适配验证</strong></td>
+<td>没有公开 bulk 主线；先做低频网页适配和授权沟通</td>
+</tr>
+<tr>
+<td>台湾</td>
+<td>全国法规资料库 Open API 与 18289/18290 XML：<strong>可直接采集</strong>；行政院公报：<strong>需适配验证</strong></td>
+<td>司法院开放平台：<strong>需适配验证</strong>，裁判 API 需账号、Token 且限定服务时段</td>
+<td>财政部主管法规：<strong>需适配验证</strong></td>
+<td>法规 bulk 可作为首批主源；司法删除/覆盖规则必须同步实现</td>
+</tr>
+<tr>
+<td>日本</td>
+<td>e-Gov API/XML bulk：<strong>可直接采集</strong>；官报：<strong>仅人工或授权</strong></td>
+<td>裁判例检索：<strong>需适配验证</strong></td>
+<td>国税厅、国税不服审判所：<strong>需适配验证</strong></td>
+<td>e-Gov 为法规主线；官报和裁判另建受控链路</td>
+</tr>
+<tr>
+<td>韩国</td>
+<td>国家法令 Open API：<strong>需适配验证</strong>（申请 key）；电子官报：<strong>需适配验证</strong></td>
+<td>法院综合法律信息/司法信息公开：<strong>需适配验证</strong></td>
+<td>税务法令信息系统：<strong>需适配验证</strong></td>
+<td>先完成 key 申请及法院全文/导出 PoC</td>
+</tr>
+<tr>
+<td>越南</td>
+<td>VBPL：<strong>采集受阻</strong>；政府文件门户、电子公报：<strong>需适配验证</strong></td>
+<td>普通裁判门户：<strong>仅人工或授权</strong>；判例门户：<strong>采集受阻</strong></td>
+<td>税务总局：<strong>需适配验证</strong></td>
+<td>生产主线先用电子公报；VBPL 和裁判必须另做访问/授权方案</td>
+</tr>
+<tr>
+<td>马来西亚</td>
+<td>Malaysia Federal Legislation：<strong>需适配验证</strong>，已含 Acts、P.U.(A)、P.U.(B)</td>
+<td>司法判决门户：<strong>采集受阻</strong>（本轮公共 DNS 解析失败）</td>
+<td>HASiL Public Rulings：<strong>需适配验证</strong></td>
+<td>法规可做 PoC；判例暂不能列为稳定生产源</td>
+</tr>
+<tr>
+<td>印度尼西亚</td>
+<td>BPK 法规库：<strong>需适配验证</strong>；peraturan.go.id/JDIH：<strong>采集受阻</strong>或待本地复测</td>
+<td>最高法院裁判目录：<strong>采集受阻</strong>（WAF 返回 Access Denied）</td>
+<td>财政部 JDIH、税务总局、税务法院：<strong>需适配验证</strong></td>
+<td>BPK 可先做元数据与附件 PoC；裁判需官方合作或授权</td>
+</tr>
+<tr>
+<td>新加坡</td>
+<td>SSO：<strong>采集受阻</strong>；电子公报：<strong>需适配验证</strong></td>
+<td>SG Courts Judgments：<strong>需适配验证</strong>，本轮可见 16,152 条及 2026-10-16 新裁判</td>
+<td>IRAS e-Tax Guides：<strong>需适配验证</strong></td>
+<td>公报、裁判和税务入口可用；SSO 自动访问需单独解决</td>
+</tr>
+<tr>
+<td>印度</td>
+<td>India Code：<strong>需适配验证</strong>；eGazette：<strong>采集受阻</strong></td>
+<td>eCourts 与 ITAT：<strong>采集受阻</strong>（验证码/会话）</td>
+<td>Income Tax India：<strong>需适配验证</strong></td>
+<td>不绕过验证码；法规和税务先做网页适配，裁判寻求接口/授权</td>
+</tr>
+<tr>
+<td>泰国</td>
+<td>Royal Gazette：<strong>采集受阻</strong>（Cloudflare）；Council of State：<strong>需适配验证</strong></td>
+<td>最高法院判例入口尚未取得样本：<strong>采集受阻</strong></td>
+<td>Revenue Department：<strong>需适配验证</strong></td>
+<td>官方司法源仍是缺口；Open Law Data Thailand 只能作第三方 bulk 补充</td>
+</tr>
+<tr>
+<td>菲律宾</td>
+<td>Official Gazette：<strong>采集受阻</strong>（Cloudflare）</td>
+<td>Supreme Court E-Library：<strong>采集受阻</strong>；Court of Tax Appeals：<strong>需适配验证</strong></td>
+<td>BIR Issuances：<strong>需适配验证</strong></td>
+<td>先以官方深链和低频回填为主，不能宣称已具备全量自动采集</td>
+</tr>
+<tr>
+<td>欧盟</td>
+<td>EUR-Lex/CELLAR/data dumps：<strong>可直接采集</strong>；网页检索有 robot check</td>
+<td>CJEU/ECLI 资料可经 EUR-Lex/CELLAR 获取：<strong>可直接采集</strong></td>
+<td>TEDB、TARIC：<strong>需适配验证</strong></td>
+<td>以 CELLAR/dump 做全量，Webservice/标识符做增量和关系补齐</td>
+</tr>
+<tr>
+<td>英国</td>
+<td>legislation.gov.uk XML/RDF/Atom：<strong>可直接采集</strong>；The Gazette：<strong>需适配验证</strong></td>
+<td>Find Case Law：<strong>仅人工或授权</strong>（计算分析/批量索引需许可）</td>
+<td>GOV.UK Content API/HMRC：<strong>可直接采集</strong></td>
+<td>成文法和税务可直接接入；判例先取得相应用途许可</td>
+</tr>
+<tr>
+<td>德国</td>
+<td>Gesetze im Internet XML：<strong>可直接采集</strong>；Bundesgesetzblatt：<strong>采集受阻</strong>（自动请求 403，浏览器可访问）</td>
+<td>Rechtsprechung im Internet、BFH：<strong>需适配验证</strong></td>
+<td>BMF-Schreiben：<strong>需适配验证</strong></td>
+<td>合并法可直接建库；正式公报、裁判和税务另建适配器</td>
+</tr>
+<tr>
+<td>法国</td>
+<td>Légifrance bulk/PISTE：<strong>需适配验证</strong>（注册/Cloudflare）</td>
+<td>Judilibre：<strong>需适配验证</strong>（PISTE Token）</td>
+<td>BOFiP：<strong>需适配验证</strong></td>
+<td>数据开放条件清楚，但上线前需完成账号、配额和样本验证</td>
+</tr>
+<tr>
+<td>西班牙</td>
+<td>BOE REST API：<strong>可直接采集</strong></td>
+<td>CENDOJ：<strong>采集受阻</strong>（403/验证码/批量控制）</td>
+<td>TEAC/DYCTEA：<strong>需适配验证</strong></td>
+<td>公报和合并法可直接接入；判例不得按普通网页源处理</td>
+</tr>
+<tr>
+<td>瑞士</td>
+<td>Fedlex SPARQL/XML/AKN：<strong>可直接采集</strong></td>
+<td>联邦最高法院：<strong>采集受阻</strong>（本轮未取得稳定响应）</td>
+<td>ESTV：<strong>需适配验证</strong></td>
+<td>Fedlex 为法规主线；裁判和税务需分别验证多语种、分页和下载</td>
+</tr>
+<tr>
+<td>美国</td>
+<td>GovInfo bulk、eCFR、Federal Register、U.S. Code XML：<strong>可直接采集</strong></td>
+<td>CourtListener：低配额试用，生产/商业 <strong>仅授权</strong>；PACER：<strong>仅付费授权</strong></td>
+<td>IRS IRB、Tax Court：<strong>需适配验证</strong></td>
+<td>联邦立法监管最成熟；法院数据须组合官方、公益和商业授权渠道</td>
+</tr>
+<tr>
+<td>加拿大</td>
+<td>Justice Laws 官方 GitHub/XML：<strong>可直接采集</strong>；Canada Gazette：<strong>需适配验证</strong></td>
+<td>最高法院判决：<strong>需适配验证</strong></td>
+<td>CRA Folios：<strong>需适配验证</strong></td>
+<td>联邦法规可直接回填；司法需再补 Federal Courts，省区需逐一扩展</td>
+</tr>
+<tr>
+<td>澳大利亚</td>
+<td>Federal Register of Legislation 公共 REST API：<strong>可直接采集</strong></td>
+<td>High Court、Federal Court：<strong>需适配验证</strong>；AustLII 仅作补充</td>
+<td>ATO Legal Database：<strong>采集受阻</strong>（自动请求 403）</td>
+<td>联邦法规主线成熟；法院和税务按官方站点分别接入</td>
+</tr>
+<tr>
+<td>新西兰</td>
+<td>Legislation API：<strong>需适配验证</strong>（申请 key）；Gazette：<strong>需适配验证</strong></td>
+<td>Judicial Decisions Online/Courts of NZ：<strong>需适配验证</strong></td>
+<td>Tax Technical：<strong>需适配验证</strong></td>
+<td>法规 API 可优先 PoC；裁判需处理禁令、匿名化和再发布限制</td>
+</tr>
+<tr>
+<td>南非及非洲</td>
+<td>南非 Government Notices/GPW：<strong>需适配验证</strong>；其他非洲国家缺少统一官方入口</td>
+<td>南非法院官网：<strong>需适配验证</strong>；SAFLII/AfricanLII：<strong>仅人工或授权</strong></td>
+<td>SARS：<strong>需适配验证</strong>；Laws.Africa：签约后 <strong>可直接采集</strong></td>
+<td>南非先建国家级链路；其他国家以 Laws.Africa 合同 API 加官方回查</td>
+</tr>
+</tbody>
+</table></div>
+<p>**覆盖边界：**美国各州、加拿大各省区、澳大利亚各州/领地、德国各州和瑞士各州目前只完成联邦层或样板源核验，不能表述为“全国次国家层已覆盖”。后续需另建逐州/省来源清单和覆盖率。</p>
+<h2 id="3-1-亚洲" tabindex="-1">3.1 亚洲</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据源名称与地址</th>
+<th>国家及覆盖范围</th>
+<th>数据规模（2026-10-17）</th>
+<th>获取方式</th>
+<th>更新机制</th>
+<th>数据许可</th>
+<th>商业可用性</th>
+<th>当前可用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://flk.npc.gov.cn/" target="_blank" rel="noopener noreferrer">国家法律法规数据库</a></td>
+<td>中国大陆；法律、行政法规、监察法规、地方性法规、司法解释</td>
+<td>动态；站点分类统计随时变化</td>
+<td>官方网页、PDF/正文</td>
+<td>按公布、修改、废止巡检</td>
+<td>未见统一开放批量许可</td>
+<td>可内部索引和深链；全文商业再分发需另核</td>
+<td>**需适配验证：**浏览器可访问，普通自动请求返回 403；无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://www.gov.cn/gongbao/" target="_blank" rel="noopener noreferrer">国务院公报</a></td>
+<td>中国大陆；行政法规、国务院决定/命令及重要部门规章的正式公布和标准文本</td>
+<td>自 1954 年起的历史目录及后续各期，动态</td>
+<td>年/期目录、HTML 单篇、整期 PDF</td>
+<td>按年、期号、公布日期和文号增量</td>
+<td>未见整库开放许可；法规范文本与网页编排/附件权利分开处理</td>
+<td>可作为公布证据和内部索引源；全文产品另核</td>
+<td>**需适配验证：**浏览器实测可打开 2026 年公报目录和正文；无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://www.gov.cn/zhengce/xxgk/gjgzk/index.htm" target="_blank" rel="noopener noreferrer">国家规章库</a></td>
+<td>中国大陆；现行有效部门规章和地方政府规章</td>
+<td>动态</td>
+<td>官方网页、单件正文/附件</td>
+<td>按制定机关、规章号、公布和修改日期巡检</td>
+<td>未见统一开放批量许可</td>
+<td>可作规章层主源；全文产品另核</td>
+<td>**需适配验证：**入口可访问，未见公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://xzfg.moj.gov.cn/" target="_blank" rel="noopener noreferrer">国家行政法规库</a></td>
+<td>中国大陆；行政法规正式版本、沿革及文字版/图片版</td>
+<td>官方页面当前显示现行有效行政法规约 606 部</td>
+<td>官方网页、单件下载</td>
+<td>按法规标识、公布/修改/废止日期增量</td>
+<td>未见统一开放批量许可</td>
+<td>可作行政法规正式版本补强</td>
+<td>**需适配验证：**可单件获取，尚未证明可全量枚举</td>
+</tr>
+<tr>
+<td><a href="https://wenshu.court.gov.cn/" target="_blank" rel="noopener noreferrer">中国裁判文书网</a></td>
+<td>中国大陆；公开裁判文书</td>
+<td>动态；不采用页面累计数作完整性承诺</td>
+<td>登录/动态网页</td>
+<td>新增、撤回、更正、匿名化对账</td>
+<td>自动化与再利用边界未明确</td>
+<td>不建议高频或绕过控制；先申请授权/接口</td>
+<td>**采集受阻：**登录、动态访问和风控使其不适合作为未经授权的生产主源</td>
+</tr>
+<tr>
+<td><a href="https://rmfyalk.court.gov.cn/" target="_blank" rel="noopener noreferrer">人民法院案例库</a></td>
+<td>中国大陆；指导性案例和最高人民法院审核入库的参考案例</td>
+<td>2025-07 官方披露 5,040 件；动态增长</td>
+<td>官方网页</td>
+<td>按入库、更新和退出状态巡检</td>
+<td>未见统一批量许可</td>
+<td>适合案例要旨和裁判规则补充，不是普通裁判全集</td>
+<td>**需适配验证：**先验证分页、全文和更新边界</td>
+</tr>
+<tr>
+<td><a href="https://fgk.chinatax.gov.cn/" target="_blank" rel="noopener noreferrer">国家税务总局政策法规库</a></td>
+<td>中国大陆；税收政策、法规、公告和解释</td>
+<td>未公布稳定总量</td>
+<td>HTML、附件</td>
+<td>按文号、发布日期、有效状态和哈希增量</td>
+<td>未见统一批量许可</td>
+<td>元数据、深链和内部使用优先；对外全文另核</td>
+<td>**需适配验证：**页面和 2026 年文件可访问，无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://www.mof.gov.cn/zhengwuxinxi/zhengcefabu/" target="_blank" rel="noopener noreferrer">财政部政策发布</a></td>
+<td>中国大陆；财政、会计、税收政策及解读</td>
+<td>未公布稳定总量</td>
+<td>HTML、PDF/附件</td>
+<td>目录巡检、文号去重、附件哈希</td>
+<td>未见统一批量许可</td>
+<td>同上，不能从公开访问直接推导再分发权</td>
+<td><strong>需适配验证</strong></td>
+</tr>
+<tr>
+<td><a href="https://law.moj.gov.tw/" target="_blank" rel="noopener noreferrer">全国法规资料库</a></td>
+<td>台湾；中央法规、命令、沿革、条文及跨法规检索</td>
+<td>动态</td>
+<td>官方检索站、<a href="https://law.moj.gov.tw/api/swagger/index.html" target="_blank" rel="noopener noreferrer">Open API</a></td>
+<td>以法规异动、沿革和版本时间点更新</td>
+<td>政府资料开放授权条款及个别内容例外</td>
+<td>可条件商用；须署名并保存来源时点</td>
+<td>**可直接采集：**Open API 文档已实测可打开；批量回填仍优先 18289/18290</td>
+</tr>
+<tr>
+<td><a href="https://gazette.nat.gov.tw/egFront/" target="_blank" rel="noopener noreferrer">行政院公报资讯网</a> / <a href="https://gazette.nat.gov.tw/old/OpenData/latest.jsp" target="_blank" rel="noopener noreferrer">Open Data 最新包</a></td>
+<td>台湾；中央机关每日刊载的法规命令、预告、行政规则、处分和公告</td>
+<td>动态，按每日期次持续增长</td>
+<td>HTML/PDF、期次目录、官方压缩包</td>
+<td>按出刊日、卷期、机关和公报编号增量</td>
+<td>开放包和页面许可需保存快照，第三方附件例外</td>
+<td>可作为正式刊载和预告源；商业再利用逐对象核验</td>
+<td>**需适配验证：**网页可访问；直接下载包在本轮外部环境超时，投产前验证连续下载和包结构</td>
+</tr>
+<tr>
+<td><a href="https://data.gov.tw/dataset/18289" target="_blank" rel="noopener noreferrer">全国法规资料库 XML</a></td>
+<td>台湾；中央法规、沿革、条文</td>
+<td>数据集动态</td>
+<td>ZIP/XML 批量</td>
+<td>资源时间戳和周期全量差分</td>
+<td>政府资料开放授权条款第 1 版</td>
+<td>可商用，须署名并保留例外</td>
+<td>**可直接采集：**官方公开 ZIP/XML bulk，每月更新</td>
+</tr>
+<tr>
+<td><a href="https://data.gov.tw/dataset/18290" target="_blank" rel="noopener noreferrer">全国法规资料库命令 XML</a></td>
+<td>台湾；中央命令、沿革、条文</td>
+<td>数据集动态</td>
+<td>ZIP/XML 批量</td>
+<td>资源时间戳和周期全量差分</td>
+<td>政府资料开放授权条款第 1 版</td>
+<td>可商用，须署名并保留例外</td>
+<td>**可直接采集：**官方公开 ZIP/XML bulk，每月更新</td>
+</tr>
+<tr>
+<td><a href="https://opendata.judicial.gov.tw/api/" target="_blank" rel="noopener noreferrer">司法院资料开放平台</a></td>
+<td>台湾；裁判及司法开放资料</td>
+<td>平台项目动态</td>
+<td>Token API/数据集</td>
+<td>按异动清单同步新增、覆盖和移除</td>
+<td>逐数据集条款</td>
+<td>可条件商用；删除、匿名化和个人信息规则前置</td>
+<td>**需适配验证：**裁判 API 需账号/Token，仅每日 00:00—06:00 服务；必须实现覆盖和删除同步</td>
+</tr>
+<tr>
+<td><a href="https://law-out.mof.gov.tw/" target="_blank" rel="noopener noreferrer">财政部主管法规查询系统</a></td>
+<td>台湾；财政与税务主管法规</td>
+<td>未公布稳定总量</td>
+<td>HTML、附件</td>
+<td>修正、废止、沿革巡检</td>
+<td>页面标示政府资料开放授权条款，附件仍需逐项核对</td>
+<td>可条件商用</td>
+<td>**需适配验证：**适合作为财政税务专题补充源，需验证稳定枚举和附件下载</td>
+</tr>
+<tr>
+<td><a href="https://laws.e-gov.go.jp/" target="_blank" rel="noopener noreferrer">e-Gov 法令搜索/API</a></td>
+<td>日本；法律、政令、省令、规则、现行和历史文本</td>
+<td>动态</td>
+<td>API v1/v2、XML/Schema、全量及近三个月按日更新 bulk</td>
+<td>法令更新、版本时间点和修订类型</td>
+<td>日本公共数据利用规则 1.0</td>
+<td>通常可商用，重要说明及第三方材料例外</td>
+<td>**可直接采集：**API 和 XML bulk 地址已核验</td>
+</tr>
+<tr>
+<td><a href="https://www.kanpo.go.jp/" target="_blank" rel="noopener noreferrer">日本官报</a></td>
+<td>日本；法律、政令、告示、政府采购及其他依法刊载事项</td>
+<td>近 90 日完整内容免费；1947 年起关键词检索由付费服务提供</td>
+<td>工作日发布的本纸/号外/政府采购 PDF；免费站无全文检索</td>
+<td>通常工作日 08:30 发布，按日期和号数归档</td>
+<td>官网页面适用公共数据利用规则及例外；明确限制搜索机器人/爬虫造成负荷</td>
+<td>公开访问不等于可持续自动抓取；个人事项和历史付费范围需隔离</td>
+<td>**仅人工或授权：**免费窗口有限且禁止造成负荷的机器人访问；历史检索需付费，不列为常规爬虫源</td>
+</tr>
+<tr>
+<td><a href="https://www.courts.go.jp/app/hanrei_jp/search1" target="_blank" rel="noopener noreferrer">日本裁判所裁判例检索</a></td>
+<td>日本；最高裁及下级法院公开裁判</td>
+<td>动态</td>
+<td>网页、PDF</td>
+<td>按法院、日期、案号巡检</td>
+<td>未见统一批量许可</td>
+<td>内部索引/深链优先；全文产品另核</td>
+<td>**需适配验证：**入口可访问，无公开 bulk/API；需验证分页、下载、变更与权利边界</td>
+</tr>
+<tr>
+<td><a href="https://www.nta.go.jp/law/" target="_blank" rel="noopener noreferrer">日本国税厅法令等</a></td>
+<td>日本；税法、通达、质疑应答案例、事前照会回答</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按栏目、发布日期、替代状态</td>
+<td>政府网站利用规则并受个别材料例外约束</td>
+<td>可条件商用；须标示来源与时点</td>
+<td>**需适配验证：**页面可访问，无公开统一 bulk</td>
+</tr>
+<tr>
+<td><a href="https://www.kfs.go.jp/service/index.html" target="_blank" rel="noopener noreferrer">国税不服审判所公表裁决事例</a></td>
+<td>日本；税务不服审查裁决</td>
+<td>1992 年以来；已更新至 2026 年第一季度</td>
+<td>网页、裁决全文</td>
+<td>通常按季度发布</td>
+<td>政府资料利用规则及个别材料例外</td>
+<td>可条件使用；须区分裁决与国税厅行政解释</td>
+<td>**需适配验证：**可枚举页面，无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://open.law.go.kr/LSO/openApi/guideList.do" target="_blank" rel="noopener noreferrer">韩国国家法令信息 Open API</a></td>
+<td>韩国；法令、沿革、行政规则、自治法规、判例和解释</td>
+<td>接口目录动态；本轮浏览器可见 191 类 API 指南</td>
+<td>申请 key 的 API/LOD</td>
+<td>变更、历史和删除接口</td>
+<td>按开放接口申请与条款</td>
+<td>可条件商用；认证、配额和再利用范围前置</td>
+<td>**需适配验证：**官方 API 文档可访问，取得 key 后做样本和配额验证</td>
+</tr>
+<tr>
+<td><a href="https://gwanbo.go.kr/main.do" target="_blank" rel="noopener noreferrer">韩国电子官报</a></td>
+<td>韩国；中央/地方机关、法院等发布的公告、告示、训令和专题事项</td>
+<td>官方首页核验时显示自 1948 年累计 548,548 个文档；动态</td>
+<td>按日/期间/期号/主题检索、整期 PDF</td>
+<td>按官报日期和期号持续发布</td>
+<td>电子官报本身按官方版权政策可不经许可利用；其他站内内容按 KOGL 类型并须注明来源</td>
+<td>通常可商用；仍需处理个人信息和对象级例外</td>
+<td>**需适配验证：**页面可访问，优先验证按日枚举、整期 PDF 和元数据解析</td>
+</tr>
+<tr>
+<td><a href="https://lx.scourt.go.kr/" target="_blank" rel="noopener noreferrer">韩国法院综合法律信息 / 法고을 LX</a></td>
+<td>韩国；最高法院、下级法院和部分专题裁判资料</td>
+<td>动态；不是所有裁判全集</td>
+<td>网页检索、部分结果导出</td>
+<td>按法院、案号、日期和公开状态巡检</td>
+<td>未见统一批量许可</td>
+<td>内部索引和官方深链优先</td>
+<td>**需适配验证：**先测全文下载、分页、Excel 导出和匿名化变更</td>
+</tr>
+<tr>
+<td><a href="https://txsi.hometax.go.kr/" target="_blank" rel="noopener noreferrer">韩国国家税务法令信息系统</a></td>
+<td>韩国；税法、解释和裁决相关资料</td>
+<td>动态</td>
+<td>官方网页</td>
+<td>按发布日期、税种和效力巡检</td>
+<td>未见统一批量许可</td>
+<td>元数据和内部索引优先</td>
+<td>**需适配验证：**尚未取得稳定自动化样本</td>
+</tr>
+<tr>
+<td><a href="https://vbpl.vn/" target="_blank" rel="noopener noreferrer">越南国家法律规范性文件数据库（VBPL）</a></td>
+<td>越南；中央及 63 个地方规范性文件、合并文本、效力与关联关系</td>
+<td>动态；官方介绍称由 22 个中央部委/机关库及 63 个地方库组成；2026-10-17 浏览器实测可见 2026 年文件</td>
+<td>浏览器可检索全文、PDF 和下载入口；未发现公开 API/bulk；普通自动请求返回 403</td>
+<td>站点持续更新，但分页、全量边界、增量游标及修改/删除机制均未实测</td>
+<td>未见统一开放数据或商业批量许可</td>
+<td>可人工检索；自动批量存储和全文再分发均须进一步确认</td>
+<td>**采集受阻：**浏览器可访问，但自动请求返回 403，当前不列入生产采集；旧域名 <code>vbpl.moj.gov.vn</code> 已无公共 DNS 解析</td>
+</tr>
+<tr>
+<td><a href="https://vanban.chinhphu.vn/" target="_blank" rel="noopener noreferrer">越南政府法律文件门户</a></td>
+<td>越南；政府、总理及部委文件</td>
+<td>2026-10-17 页面显示 99,592 条并有当月文件；数量动态</td>
+<td>网页、附件</td>
+<td>按发布日期、文号和机关增量</td>
+<td>未见统一批量许可</td>
+<td>可作为官方原件源，商业再分发另核</td>
+<td>**需适配验证：**列表和附件可访问，无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://congbao.chinhphu.vn/" target="_blank" rel="noopener noreferrer">越南电子公报（Công Báo）</a></td>
+<td>越南；政府办公厅出版的中央官方公报，含法律、法令、决议、决定、通知、合并文本及其他依法刊载文件</td>
+<td>动态；2026-10-17 首页已更新至第 555 号，不用分页数反推稳定总量</td>
+<td>HTML 列表/详情、高级检索、按期公报、PDF、DOC/DOCX；无公开 API/bulk</td>
+<td>按公报期次、公布日、机关和文号增量，并保存更正/附件哈希</td>
+<td>页面要求转载注明 <code>congbao.chinhphu.vn</code>；未核验到统一开放数据许可证</td>
+<td>可作权威公布和内部索引源；全文商业再分发、批量抓取及个人信息处理另核</td>
+<td>**需适配验证：**页面实测可访问；LDH <code>VN/CongBao</code> 可作 PoC 起点，但需验证历史完整性和两轮增量</td>
+</tr>
+<tr>
+<td><a href="https://congbobanan.toaan.gov.vn/" target="_blank" rel="noopener noreferrer">越南法院裁判文书与决定公布门户</a></td>
+<td>越南；最高人民法院体系公开的刑事、民事、行政、婚姻家庭、商事、劳动等裁判文书和决定</td>
+<td><a href="https://baochinhphu.vn/gan-2-trieu-ban-an-quyet-dinh-duoc-cong-bo-tren-cong-thong-tin-dien-tu-nganh-toa-an-102260128153545772.htm" target="_blank" rel="noopener noreferrer">越南政府新闻网 2026-01 报道</a>称已公开近 200 万份；站内可检索到 2026 年裁判，数量动态增长</td>
+<td>网页检索、详情页和 PDF 下载；无公开 API/bulk</td>
+<td>按法院、案件类型、审级、案号、裁判日和公布日增量，并同步更正、撤回和匿名化变化</td>
+<td>官网明确要求任何形式转载、再发布其信息或数据须取得最高人民法院书面同意</td>
+<td><strong>未经书面许可，不可将全文批量采集后商用或再分发</strong>；只宜先做元数据、深链和授权申请</td>
+<td>**仅人工或授权：**本轮外部访问超时；即使技术可抓，也必须先取得最高人民法院书面许可</td>
+</tr>
+<tr>
+<td><a href="https://anle.toaan.gov.vn/" target="_blank" rel="noopener noreferrer">越南最高人民法院判例门户（Án lệ）</a></td>
+<td>越南；经最高人民法院审判委员会选定、首席大法官公布的判例，以及候选/草案和研究资料；不是普通裁判文书全集</td>
+<td><a href="https://vnlawfirm.vn/van-ban/quyet-dinh-162-qd-ca-nam-2026-ve-viec-cong-bo-an-le/" target="_blank" rel="noopener noreferrer">第 162/QĐ-CA 号决定</a>于 2026-05-29 又公布 8 个判例，编号已至 90/2026/AL</td>
+<td>官方网页、全文/PDF；无公开 API/bulk</td>
+<td>按判例编号、公布决定、通过日、适用日及废止/替代状态增量</td>
+<td>未核验到开放批量再利用许可；门户及附件权利需逐项确认</td>
+<td>可做判例目录、法律要点和官方深链；对外全文库须先核许可</td>
+<td>**采集受阻：**本轮外部访问超时；先保留候选源，完成本地连续访问与许可核验后再升级</td>
+</tr>
+<tr>
+<td><a href="https://www.gdt.gov.vn/" target="_blank" rel="noopener noreferrer">越南税务总局</a></td>
+<td>越南；税务通知、政策答复、行政文件</td>
+<td>动态</td>
+<td>网页、附件</td>
+<td>栏目巡检和文号去重</td>
+<td>未见统一批量许可</td>
+<td>内部使用与深链优先</td>
+<td>**需适配验证：**未发现公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://lom.agc.gov.my/" target="_blank" rel="noopener noreferrer">Malaysia Federal Legislation</a></td>
+<td>马来西亚；Principal/Amendment Acts、P.U.(A) 和 P.U.(B) 从属立法</td>
+<td>动态；本轮可见 2026-10-16 最新项目</td>
+<td>网页、PDF</td>
+<td>按法案/公报编号、公布日和修订关系巡检</td>
+<td>未见统一开放批量许可</td>
+<td>内部索引/深链优先</td>
+<td>**需适配验证：**当前入口可访问；未证明存在完整整期 Gazette bulk</td>
+</tr>
+<tr>
+<td><a href="https://judgments.kehakiman.gov.my/" target="_blank" rel="noopener noreferrer">马来西亚司法判决门户</a></td>
+<td>马来西亚；公开法院判决</td>
+<td>动态</td>
+<td>网页、PDF</td>
+<td>按法院、日期和案号巡检</td>
+<td>未见统一批量许可</td>
+<td>不宜默认全文商业再分发</td>
+<td>**采集受阻：**2026-10-17 本地浏览器返回 <code>ERR_NAME_NOT_RESOLVED</code></td>
+</tr>
+<tr>
+<td><a href="https://www.hasil.gov.my/en/legislation/public-rulings/" target="_blank" rel="noopener noreferrer">HASiL Public Rulings</a></td>
+<td>马来西亚；所得税公共裁定及撤销/替代文件</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按裁定编号、发布日期和替代状态</td>
+<td>逐文件/网站条款</td>
+<td>内部使用与引用较稳妥，全文产品另核</td>
+<td>**需适配验证：**税务重点源，无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://peraturan.bpk.go.id/" target="_blank" rel="noopener noreferrer">BPK 法规库</a></td>
+<td>印度尼西亚；中央与地方法规、关联状态</td>
+<td>动态</td>
+<td>HTML、附件</td>
+<td>发布、修改、废止和关联关系巡检</td>
+<td>未见统一批量许可</td>
+<td>元数据和官方链接优先</td>
+<td>**需适配验证：**页面实测可访问，无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://peraturan.go.id/" target="_blank" rel="noopener noreferrer">peraturan.go.id 国家法规数据库</a> / <a href="https://jdih.setneg.go.id/" target="_blank" rel="noopener noreferrer">国务秘书处 JDIH</a></td>
+<td>印度尼西亚；法规及 <code>Lembaran Negara (LN)</code>、<code>Tambahan LN (TLN)</code>、<code>Berita Negara (BN)</code> 公布编号和官方 PDF</td>
+<td>动态</td>
+<td>网页检索、详情、PDF</td>
+<td>按制定日、生效日、LN/TLN/BN 编号和状态巡检</td>
+<td>未见统一批量许可</td>
+<td>可用于公布编号、原件和 BPK 状态关系交叉核验；再分发另核</td>
+<td>**采集受阻：**本轮未取得稳定自动响应；尚未证明存在统一按期次 Gazette bulk</td>
+</tr>
+<tr>
+<td><a href="https://jdih.kemenkeu.go.id/" target="_blank" rel="noopener noreferrer">财政部 JDIH</a></td>
+<td>印度尼西亚；财政与税务规范</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按文号、主题和状态增量</td>
+<td>未见统一批量许可</td>
+<td>内部索引/深链优先</td>
+<td>**需适配验证：**财税重点候选源，需实测分页、附件和修订状态</td>
+</tr>
+<tr>
+<td><a href="https://putusan3.mahkamahagung.go.id/" target="_blank" rel="noopener noreferrer">印尼最高法院裁判目录</a></td>
+<td>印度尼西亚；全国法院裁判</td>
+<td>站点为百万级，动态</td>
+<td>网页、附件</td>
+<td>上传、更正、撤回和匿名化巡检</td>
+<td>未见统一批量许可</td>
+<td>受控采集；隐私和删除传播前置</td>
+<td>**采集受阻：**2026-10-17 浏览器实测返回 Access Denied/WAF</td>
+</tr>
+<tr>
+<td><a href="https://www.pajak.go.id/id/peraturan" target="_blank" rel="noopener noreferrer">印尼税务总局法规栏目</a></td>
+<td>印度尼西亚；税务法规、通告和解释</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按税种、文号和发布日期增量</td>
+<td>未见统一批量许可</td>
+<td>内部使用/深链优先</td>
+<td>**需适配验证：**页面实测可访问</td>
+</tr>
+<tr>
+<td><a href="https://setpp.kemenkeu.go.id/" target="_blank" rel="noopener noreferrer">印度尼西亚税务法院秘书处</a></td>
+<td>印度尼西亚；税务法院裁决清单、全文和摘要</td>
+<td>动态</td>
+<td>客户端渲染网页、文件下载</td>
+<td>按案号、裁决日和公布日增量</td>
+<td>未见统一批量许可</td>
+<td>可作税务争议补充，全文再利用另核</td>
+<td>**需适配验证：**先验证列表枚举、下载和更新边界</td>
+</tr>
+<tr>
+<td><a href="https://sso.agc.gov.sg/" target="_blank" rel="noopener noreferrer">Singapore Statutes Online</a></td>
+<td>新加坡；现行、废止、未生效法律和历史文本</td>
+<td>动态</td>
+<td>网页、PDF</td>
+<td>版本日期和修订状态</td>
+<td>受站点条款及政府资料条件约束</td>
+<td>可条件使用；机器采集和再分发需审查</td>
+<td>**采集受阻：**普通自动请求 403，本地浏览器未取得可解析正文</td>
+</tr>
+<tr>
+<td><a href="https://www.egazette.gov.sg/" target="_blank" rel="noopener noreferrer">Republic of Singapore Government Gazette</a></td>
+<td>新加坡；Acts、Bills、subsidiary legislation、政府和法定通知；1998-09 至今在线</td>
+<td>动态；2026-10-16 页面显示当年 3,498 条项目</td>
+<td>按日期/类别/子类别检索和单项下载</td>
+<td>按刊载日期持续更新</td>
+<td>条款允许按条件复制，并允许非滥用、非侵入且不规避安全措施的自动提取；须署名、提示核对最新版且不得暗示背书</td>
+<td>可条件商用和自动提取；个人信息、准确性及限速义务前置</td>
+<td>**需适配验证：**页面和当年数据可访问，适合做限速 PoC；与 SSO 合并文本互补</td>
+</tr>
+<tr>
+<td><a href="https://www.elitigation.sg/gdviewer/" target="_blank" rel="noopener noreferrer">Singapore Courts Judgments</a></td>
+<td>新加坡；法院判决和裁定</td>
+<td>2026-10-17 页面显示 16,152 条，并有 2026-10-16 新裁判</td>
+<td>网页、PDF</td>
+<td>按中性引证、法院和日期增量</td>
+<td>未见统一批量许可</td>
+<td>内部索引/深链优先</td>
+<td>**需适配验证：**页面和分页可访问，无公开 API/bulk</td>
+</tr>
+<tr>
+<td><a href="https://www.iras.gov.sg/quick-links/e-tax-guides" target="_blank" rel="noopener noreferrer">IRAS e-Tax Guides</a></td>
+<td>新加坡；税务指南、解释和实践说明</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按税种、发布日期、修订/替代增量</td>
+<td>网站与文件条款</td>
+<td>可条件使用；指南不等同法条</td>
+<td>**需适配验证：**页面可访问；需验证文档列表、替代关系和附件许可</td>
+</tr>
+<tr>
+<td><a href="https://www.indiacode.nic.in/" target="_blank" rel="noopener noreferrer">India Code</a></td>
+<td>印度；中央法律、规则、通知</td>
+<td>动态</td>
+<td>网页、PDF</td>
+<td>修订和公布巡检</td>
+<td>批量与再利用条件需逐项核对</td>
+<td>内部索引/深链优先</td>
+<td>**需适配验证：**核验日处于站点迁移状态，恢复后再做覆盖率和稳定性测试</td>
+</tr>
+<tr>
+<td><a href="https://egazette.gov.in/" target="_blank" rel="noopener noreferrer">eGazette of India</a></td>
+<td>印度；中央及部分邦的普通/特刊公报、法律、法案和通知</td>
+<td>动态；2015-10-01 起官方称转为纯电子发布</td>
+<td>Gazette ID、部门、主题、发布日期和 PDF；会话化网页/ASP.NET 表单</td>
+<td>按发布日期、Gazette ID、部门和普通/特刊增量</td>
+<td>官方声明 Controller of Publications 为版权保管人；免费下载不等于商业再分发许可</td>
+<td>可作权威原件和内部索引；全文产品先清权</td>
+<td>**采集受阻：**本轮浏览器导航超时；需专项表单和历史完整性验证</td>
+</tr>
+<tr>
+<td><a href="https://judgments.ecourts.gov.in/" target="_blank" rel="noopener noreferrer">eCourts Judgments</a></td>
+<td>印度；法院判决</td>
+<td>动态</td>
+<td>网页、PDF，部分流程有验证码</td>
+<td>按法院、案号、日期更新</td>
+<td>批量条款未明确</td>
+<td>不绕过验证码；优先寻求接口/授权</td>
+<td>**采集受阻：**页面可达但部分流程有验证码</td>
+</tr>
+<tr>
+<td><a href="https://itat.gov.in/" target="_blank" rel="noopener noreferrer">Income Tax Appellate Tribunal</a></td>
+<td>印度；所得税上诉法庭裁决</td>
+<td>动态</td>
+<td>Tribunal Orders 搜索、部分专题栏目</td>
+<td>按案号、法庭和裁决日</td>
+<td>未见开放 bulk 许可</td>
+<td>可作税务争议来源；不得绕过验证码</td>
+<td>**采集受阻：**完整裁决检索要求验证码</td>
+</tr>
+<tr>
+<td><a href="https://incometaxindia.gov.in/pages/communications/index.aspx" target="_blank" rel="noopener noreferrer">CBDT / Income Tax India</a></td>
+<td>印度；直接税通知、通函和解释</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按文号、发布日期和税种增量</td>
+<td>逐页面/文件核验</td>
+<td>内部索引/深链优先</td>
+<td>**需适配验证：**税务重点源，需验证跨栏目枚举和附件链接稳定性</td>
+</tr>
+<tr>
+<td><a href="https://ratchakitcha.soc.go.th/" target="_blank" rel="noopener noreferrer">Thailand Royal Gazette</a></td>
+<td>泰国；正式公报、法律、法令和公告</td>
+<td>动态</td>
+<td>网页、PDF</td>
+<td>按公报期次和发布日期增量</td>
+<td>未见统一开放批量许可</td>
+<td>官方原件可作依据；批量和再分发另核</td>
+<td>**采集受阻：**2026-10-17 浏览器进入 Cloudflare 验证页</td>
+</tr>
+<tr>
+<td><a href="https://www.krisdika.go.th/" target="_blank" rel="noopener noreferrer">Office of the Council of State</a></td>
+<td>泰国；法律法规查询与法制资料</td>
+<td>动态</td>
+<td>网页、附件</td>
+<td>按法规标识和修改状态巡检</td>
+<td>未见统一批量许可</td>
+<td>内部索引/深链优先</td>
+<td>**需适配验证：**尚未确认稳定枚举入口，不能作为已可自动采集源</td>
+</tr>
+<tr>
+<td><a href="https://www.rd.go.th/" target="_blank" rel="noopener noreferrer">Thailand Revenue Department</a></td>
+<td>泰国；税法、部门公告、裁定和税务指南</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按税种、文号和发布日期增量</td>
+<td>泰文原件与英文翻译权利不同；英文 Revenue Code 页面明确限制商业传播</td>
+<td>泰文官方资料逐项核验；英文翻译不得默认用于商业再发布</td>
+<td>**需适配验证：**税务重点源，需按文件区分泰文原件和英文翻译权利</td>
+</tr>
+<tr>
+<td><a href="https://deka.supremecourt.or.th/" target="_blank" rel="noopener noreferrer">泰国最高法院判例入口</a></td>
+<td>泰国；最高法院判例/裁判检索</td>
+<td>覆盖和总量尚未核实</td>
+<td>官方网页</td>
+<td>待验证</td>
+<td>未见统一批量许可</td>
+<td>只列候选，不作为生产源</td>
+<td>**采集受阻：**本轮连接超时，尚未取得样本</td>
+</tr>
+<tr>
+<td><a href="https://www.officialgazette.gov.ph/" target="_blank" rel="noopener noreferrer">菲律宾 Official Gazette</a></td>
+<td>菲律宾；法律、行政命令、公告</td>
+<td>动态</td>
+<td>网页、PDF</td>
+<td>按公报和发布日期增量</td>
+<td>未见统一批量许可</td>
+<td>官方文本可作为依据，网站再利用另核</td>
+<td>**采集受阻：**2026-10-17 浏览器进入 Cloudflare 验证页</td>
+</tr>
+<tr>
+<td><a href="https://elibrary.judiciary.gov.ph/" target="_blank" rel="noopener noreferrer">菲律宾 Supreme Court E-Library</a></td>
+<td>菲律宾；判例、法律和司法资料</td>
+<td>动态</td>
+<td>网页</td>
+<td>按日期、案号和文书类型增量</td>
+<td>未见统一批量许可</td>
+<td>内部索引/深链优先</td>
+<td>**采集受阻：**本轮未取得稳定响应</td>
+</tr>
+<tr>
+<td><a href="https://www.bir.gov.ph/index.php/legal-matters.html" target="_blank" rel="noopener noreferrer">菲律宾 BIR Issuances</a></td>
+<td>菲律宾；税务规章、备忘录、裁定</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按文号、类别、发布日期增量</td>
+<td>未见统一批量许可</td>
+<td>内部使用和引用优先</td>
+<td><strong>需适配验证</strong></td>
+</tr>
+<tr>
+<td><a href="https://cta.judiciary.gov.ph/" target="_blank" rel="noopener noreferrer">菲律宾 Court of Tax Appeals</a></td>
+<td>菲律宾；税务上诉法院近期裁决和文件</td>
+<td>动态；截至 2026-10 持续发布</td>
+<td>按案号检索、网页和文件下载</td>
+<td>按案号、裁决日和公布日增量</td>
+<td>未见统一批量许可</td>
+<td>税务争议数据内部索引优先</td>
+<td>**需适配验证：**先验证全量枚举和文件下载稳定性</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-2-欧洲" tabindex="-1">3.2 欧洲</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据源名称与地址</th>
+<th>国家及覆盖范围</th>
+<th>数据规模（2026-10-17）</th>
+<th>获取方式</th>
+<th>更新机制</th>
+<th>数据许可</th>
+<th>商业可用性</th>
+<th>当前可用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://eur-lex.europa.eu/content/help/data-reuse/webservice.html" target="_blank" rel="noopener noreferrer">EUR-Lex Webservice / Official Journal</a></td>
+<td>欧盟；条约、立法、判例、预备文件及 OJ L/C 官方期刊</td>
+<td>动态</td>
+<td>SOAP Webservice、CELEX、<a href="https://eur-lex.europa.eu/oj/direct-access.html" target="_blank" rel="noopener noreferrer">OJ daily view</a>、PDF/XML</td>
+<td>工作日通常每日发布；按 CELEX、OJ 编号、日期和修改信息增量</td>
+<td>欧盟文件再利用规则，第三方内容和个人数据例外</td>
+<td>可条件商用</td>
+<td>**可直接采集：**有官方接口和稳定标识；2013-07-01 起电子 OJ 具有真实性，2023-10-01 起逐项发布</td>
+</tr>
+<tr>
+<td><a href="https://op.europa.eu/en/web/cellar/cellar-data/metadata/knowledge-graph" target="_blank" rel="noopener noreferrer">CELLAR</a></td>
+<td>欧盟；出版局内容仓储、元数据和知识图谱</td>
+<td>超大规模动态库</td>
+<td>REST、SPARQL、数据包</td>
+<td>修改时间、标识符和数据包</td>
+<td>元数据多为 CC0，内容许可按对象</td>
+<td>可条件商用；必须保留对象级权利</td>
+<td>**可直接采集：**作为欧盟内容和关系元数据主线接入</td>
+</tr>
+<tr>
+<td><a href="https://op.europa.eu/en/web/cellar/data-dumps" target="_blank" rel="noopener noreferrer">EU Data Dumps</a></td>
+<td>欧盟；CELLAR/EUR-Lex 批量导出</td>
+<td>按数据包</td>
+<td>批量下载</td>
+<td>周期发布和包级校验</td>
+<td>同 CELLAR 对象级权利</td>
+<td>可条件商用</td>
+<td>**可直接采集：**适合全量回填和定期对账</td>
+</tr>
+<tr>
+<td><a href="https://ec.europa.eu/taxation_customs/tedb/" target="_blank" rel="noopener noreferrer">Taxes in Europe Database</a> / <a href="https://taxation-customs.ec.europa.eu/customs-4/calculation-customs-duties/customs-tariff/eu-customs-tariff-taric_en" target="_blank" rel="noopener noreferrer">TARIC</a></td>
+<td>欧盟及成员国；税种结构、税率信息和欧盟综合关税措施</td>
+<td>动态</td>
+<td>网页检索、下载或欧委会接口</td>
+<td>按税种、成员国、适用日和关税措施更新</td>
+<td>欧委会再利用规则及数据集例外</td>
+<td>可条件商用；不能替代成员国正式税法</td>
+<td>**需适配验证：**作为跨国税制和关税补充层，不作为法律原文唯一来源</td>
+</tr>
+<tr>
+<td><a href="https://www.legislation.gov.uk/developer" target="_blank" rel="noopener noreferrer">legislation.gov.uk API</a></td>
+<td>英国；四法域成文法、修订和时间点文本</td>
+<td>动态</td>
+<td>XML/HTML/RDF/Atom</td>
+<td>point-in-time、修订和 feed</td>
+<td>Open Government Licence v3</td>
+<td>可商用，须署名并标示非官方副本</td>
+<td>**可直接采集：**已取得官方 XML 样本，适合作为英国成文法主线</td>
+</tr>
+<tr>
+<td><a href="https://www.thegazette.co.uk/" target="_blank" rel="noopener noreferrer">The Gazette</a></td>
+<td>英国；London、Edinburgh、Belfast Gazette 的破产、公司、任命、荣誉及其他法定通知/公共记录</td>
+<td>动态；覆盖 450+ 法定通知类型</td>
+<td>全文/类型/日期/地域检索、XML（1998 后）、导出、RSS；自动 data feed 为付费服务</td>
+<td>按 notice date、notice code 和 Gazette edition 增量</td>
+<td>一般内容适用 OGL，但个人数据不在 OGL 授权内；另有商业 data feed 条款</td>
+<td>可用于通知发现和条件再利用；不能无差别长期再发布个人破产/遗产数据</td>
+<td>**需适配验证：**它不是成文法库；免费接口与付费 data feed 的边界须先确认</td>
+</tr>
+<tr>
+<td><a href="https://caselaw.nationalarchives.gov.uk/" target="_blank" rel="noopener noreferrer">Find Case Law</a></td>
+<td>英国；高级法院等公开判决</td>
+<td>持续扩展</td>
+<td>网页、XML/下载</td>
+<td>发布、更正和覆盖扩展</td>
+<td>Open Justice Licence</td>
+<td>普通再利用可行；计算分析、批量索引等需单独许可</td>
+<td>**仅人工或授权：**建搜索库、计算分析或批量索引前先取得相应用途许可</td>
+</tr>
+<tr>
+<td><a href="https://content-api.publishing.service.gov.uk/" target="_blank" rel="noopener noreferrer">GOV.UK Content API</a></td>
+<td>英国；包括 HMRC Manuals 在内的 GOV.UK 内容</td>
+<td>动态</td>
+<td>无认证 JSON API</td>
+<td>内容更新时间和链接图增量</td>
+<td>OGL v3，第三方附件例外</td>
+<td>可商用；注意限流与历史版本不足</td>
+<td>**可直接采集：**实测可返回 JSON；公开限额 10 请求/秒，适合作为 HMRC 内容发现主线</td>
+</tr>
+<tr>
+<td><a href="https://www.gov.uk/government/collections/hmrc-manuals" target="_blank" rel="noopener noreferrer">HMRC Manuals</a></td>
+<td>英国；税务技术手册和解释</td>
+<td>动态</td>
+<td>通过 Content API/HTML</td>
+<td>更新时间巡检和本地版本留存</td>
+<td>OGL v3，个别内容例外</td>
+<td>可商用但不等同法律；必须记录适用期间</td>
+<td>**可直接采集：**通过 Content API 获取，另保留页面版本和适用期间</td>
+</tr>
+<tr>
+<td><a href="https://www.gesetze-im-internet.de/" target="_blank" rel="noopener noreferrer">Gesetze im Internet</a></td>
+<td>德国；现行联邦法律</td>
+<td>动态</td>
+<td>XML ZIP、HTML</td>
+<td>数据包和页面更新时间</td>
+<td>官方德文法律文本可广泛再用</td>
+<td>可商用；翻译和第三方材料另核</td>
+<td>**可直接采集：**每部法律提供 XML ZIP，可做全量和定期更新</td>
+</tr>
+<tr>
+<td><a href="https://www.recht.bund.de/" target="_blank" rel="noopener noreferrer">Bundesgesetzblatt</a></td>
+<td>德国；联邦法律公报和正式公布本</td>
+<td>动态</td>
+<td>PDF、HTML、ELI/RSS</td>
+<td>按公报期次和发布日期</td>
+<td>官方文本为主，站点材料需区分</td>
+<td>可条件商用</td>
+<td>**采集受阻：**浏览器可访问，普通自动请求返回 403；作为正式公布源保留，需合法稳定接口</td>
+</tr>
+<tr>
+<td><a href="https://www.rechtsprechung-im-internet.de/" target="_blank" rel="noopener noreferrer">Rechtsprechung im Internet</a></td>
+<td>德国；部分联邦法院自 2010 年起公开裁判</td>
+<td>动态；官方说明每日更新</td>
+<td>网页、文档</td>
+<td>按法院、日期、案号巡检</td>
+<td>官方内容可免费再利用，个别材料另核</td>
+<td>可条件使用</td>
+<td>**需适配验证：**页面可访问，可借鉴 oldp-ingestor provider；需做覆盖率和删除对账</td>
+</tr>
+<tr>
+<td><a href="https://www.bundesfinanzministerium.de/Web/DE/Service/Publikationen/BMF_Schreiben/bmf_schreiben.html" target="_blank" rel="noopener noreferrer">BMF-Schreiben</a></td>
+<td>德国；联邦财政部税务行政函件</td>
+<td>动态</td>
+<td>HTML/PDF</td>
+<td>按发布日期、税种、替代/废止状态增量</td>
+<td>联邦网站使用条款及附件例外</td>
+<td>可条件使用；行政函件不等同法律</td>
+<td>**需适配验证：**德国税务解释重点源，需解析附件和被替代关系</td>
+</tr>
+<tr>
+<td><a href="https://www.bundesfinanzhof.de/de/entscheidung/entscheidungen-online/" target="_blank" rel="noopener noreferrer">Bundesfinanzhof Entscheidungen</a></td>
+<td>德国；联邦财政法院税务裁判</td>
+<td>动态</td>
+<td>网页、全文/PDF</td>
+<td>按案号、裁判日、公布日增量</td>
+<td>判决原文及网站条款分别核验</td>
+<td>可条件使用</td>
+<td>**需适配验证：**补足税务裁判，不能由一般联邦裁判库替代</td>
+</tr>
+<tr>
+<td><a href="https://www.legifrance.gouv.fr/contenu/pied-de-page/open-data-et-api" target="_blank" rel="noopener noreferrer">Légifrance Open Data/API</a></td>
+<td>法国；JORF 官方公报、LEGI/CODE、判例和历史版本</td>
+<td>动态</td>
+<td>PISTE API（<code>lastNJo</code> → <code>jorfCont</code> → <code>jorf</code>）、批量 XML、JORF 签名 PDF</td>
+<td>全量/增量数据包、版本关系和公报日次</td>
+<td>Licence Ouverte 2.0</td>
+<td>可商用，须署名并处理个人数据</td>
+<td>**需适配验证：**官方 API/bulk 明确，但需完成 PISTE 注册和凭据实测；仅签名 JORF PDF 是正式可对抗版本</td>
+</tr>
+<tr>
+<td><a href="https://www.data.gouv.fr/dataservices/api-judilibre" target="_blank" rel="noopener noreferrer">Judilibre API</a></td>
+<td>法国；假名化司法裁判、ECLI 和元数据</td>
+<td>动态扩展</td>
+<td>PISTE 注册、REST/JSON</td>
+<td>发布和变更信息增量</td>
+<td>Licence Ouverte 2.0 加司法数据条款</td>
+<td>可条件商用；配额和假名化义务前置</td>
+<td>**需适配验证：**免费注册后使用 Token；需实测配额、分页和更正传播</td>
+</tr>
+<tr>
+<td><a href="https://bofip.impots.gouv.fr/" target="_blank" rel="noopener noreferrer">BOFiP-Impôts</a></td>
+<td>法国；税务行政解释和历史版本</td>
+<td>动态；核验日可见 2026 年更新</td>
+<td>HTML/下载</td>
+<td>按标识、版本日、撤回/替代关系</td>
+<td>需按 DGFIP/站点开放数据条件核验</td>
+<td>可条件使用</td>
+<td>**需适配验证：**页面可访问，需验证历史版本、下载和对象级许可</td>
+</tr>
+<tr>
+<td><a href="https://www.boe.es/datosabiertos/" target="_blank" rel="noopener noreferrer">BOE Open Data</a></td>
+<td>西班牙；公报、合并法规、ELI 和修订关系</td>
+<td>动态</td>
+<td>REST/XML</td>
+<td>每日更新</td>
+<td>BOE 开放再利用条件</td>
+<td>可商用；合并文本须标示仅供参考</td>
+<td>**可直接采集：**官方 API 文档和 XML 样本已确认</td>
+</tr>
+<tr>
+<td><a href="https://www.poderjudicial.es/search/" target="_blank" rel="noopener noreferrer">CENDOJ</a></td>
+<td>西班牙；司法判决公开检索</td>
+<td>动态</td>
+<td>网页检索、文档下载</td>
+<td>按法院、案号和裁判日更新</td>
+<td>司法数据和站点批量使用限制</td>
+<td>未授权不做全文镜像</td>
+<td>**采集受阻：**存在 403、验证码和批量控制；优先寻求官方合作或授权</td>
+</tr>
+<tr>
+<td><a href="https://serviciostelematicosext.hacienda.gob.es/TEAC/DYCTEA/" target="_blank" rel="noopener noreferrer">TEAC / DYCTEA</a></td>
+<td>西班牙；中央经济行政法院税务裁决</td>
+<td>动态</td>
+<td>网页检索、决议全文</td>
+<td>按决议日、税种和案号增量</td>
+<td>财政部网站条件及个人数据例外</td>
+<td>可条件使用</td>
+<td>**需适配验证：**西班牙税务行政裁决重点源，需实测查询和下载</td>
+</tr>
+<tr>
+<td><a href="https://www.fedlex.admin.ch/" target="_blank" rel="noopener noreferrer">Fedlex</a></td>
+<td>瑞士联邦；法律、公报、条约、历史文本</td>
+<td>动态</td>
+<td>SPARQL、XML/AKN、网页</td>
+<td>按 SR/ELI、版本和公报增量</td>
+<td>瑞士官方资料使用条件，逐对象核验</td>
+<td>可条件商用</td>
+<td>**可直接采集：**官方结构化接口明确；OpenCaseLaw 另有可借鉴实现</td>
+</tr>
+<tr>
+<td><a href="https://www.bger.ch/ext/eurospider/live/de/php/aza/http/index.php?lang=de" target="_blank" rel="noopener noreferrer">瑞士联邦最高法院判例</a></td>
+<td>瑞士；联邦最高法院公开裁判</td>
+<td>动态</td>
+<td>网页检索、全文</td>
+<td>按日期、案号和语种增量</td>
+<td>判决与网站内容权利分别核验</td>
+<td>可条件使用</td>
+<td>**采集受阻：**本轮未取得稳定响应；不能仅凭第三方采集器宣称官方源可用</td>
+</tr>
+<tr>
+<td><a href="https://www.estv.admin.ch/estv/en/home.html" target="_blank" rel="noopener noreferrer">ESTV 税务资料</a></td>
+<td>瑞士联邦；直接税、增值税、预提税等法规解释和通知</td>
+<td>动态</td>
+<td>HTML/PDF/下载</td>
+<td>按税种、发布日期和版本增量</td>
+<td>联邦网站和文件使用条件</td>
+<td>可条件使用</td>
+<td>**需适配验证：**多语种栏目和附件结构需分别测试</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-3-北美" tabindex="-1">3.3 北美</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据源名称与地址</th>
+<th>国家及覆盖范围</th>
+<th>数据规模（2026-10-17）</th>
+<th>获取方式</th>
+<th>更新机制</th>
+<th>数据许可</th>
+<th>商业可用性</th>
+<th>当前可用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.govinfo.gov/developers" target="_blank" rel="noopener noreferrer">GovInfo API</a></td>
+<td>美国联邦；法案、法典、公报、国会和政府出版物</td>
+<td>按 collection 动态</td>
+<td>API key、JSON/文档下载</td>
+<td>lastModified、日期和集合增量</td>
+<td>联邦原始政府作品通常公有领域，第三方内容例外</td>
+<td>通常可商用，须区分第三方内容</td>
+<td>**需适配验证：**官方接口明确，但需申请 key 并完成配额、分页和下载实测</td>
+</tr>
+<tr>
+<td><a href="https://www.govinfo.gov/bulkdata" target="_blank" rel="noopener noreferrer">GovInfo Bulk Data</a></td>
+<td>美国联邦；可批量的政府出版物集合</td>
+<td>按 collection；核验日目录已有 2026-10-17 更新</td>
+<td>XML/文本/ZIP 批量</td>
+<td>目录和文件修改时间</td>
+<td>同上</td>
+<td>通常可商用</td>
+<td>**可直接采集：**无需把 API key 作为全量回填前提，优先用于 bulk 回填</td>
+</tr>
+<tr>
+<td><a href="https://www.ecfr.gov/developers/documentation/api/v1" target="_blank" rel="noopener noreferrer">eCFR API</a></td>
+<td>美国；现行和历史 CFR</td>
+<td>动态</td>
+<td>REST/JSON/XML</td>
+<td>标题、日期和变更增量</td>
+<td>美国联邦政府作品原则，第三方例外</td>
+<td>通常可商用；副本不得冒充官方</td>
+<td>**可直接采集：**实际 JSON 端点已返回数据，可作为联邦行政法规主线</td>
+</tr>
+<tr>
+<td><a href="https://www.federalregister.gov/developers/documentation/api/v1" target="_blank" rel="noopener noreferrer">Federal Register API</a> / <a href="https://www.govinfo.gov/app/collection/FR" target="_blank" rel="noopener noreferrer">GovInfo FR collection</a></td>
+<td>美国；规则、拟议规则、通知和总统文件</td>
+<td>动态；API 样本含 2026-10-16 文件</td>
+<td>REST/JSON 用于发现，GovInfo 提供官方 PDF/XML/包</td>
+<td>按发布日期、机构、更新时间和 GovInfo package 交叉对账</td>
+<td>联邦政府作品原则，附件例外</td>
+<td>通常可商用</td>
+<td>**可直接采集：**API 做发现，GovInfo 做官方文件包与完整性校验</td>
+</tr>
+<tr>
+<td><a href="https://uscode.house.gov/download.html" target="_blank" rel="noopener noreferrer">U.S. Code XML</a></td>
+<td>美国；美国法典及版本</td>
+<td>按标题/发布点；核验日 current through Public Law 119-121（2026-10-09）</td>
+<td>USLM/XML、XHTML、PDF 批量</td>
+<td>release point 和分类更新</td>
+<td>联邦官方文本通常公有领域</td>
+<td>通常可商用</td>
+<td>**可直接采集：**修正了旧失效入口，可按标题和 release point 回填</td>
+</tr>
+<tr>
+<td><a href="https://api.congress.gov/" target="_blank" rel="noopener noreferrer">Congress.gov API</a></td>
+<td>美国；法案、修正案、投票、委员会和立法过程</td>
+<td>按届次动态</td>
+<td>API key、REST/JSON</td>
+<td>按 updateDate 增量</td>
+<td>联邦政府数据为主，具体资源另核</td>
+<td>通常可商用</td>
+<td>**需适配验证：**申请 key 后验证配额、历史覆盖和对象关系</td>
+</tr>
+<tr>
+<td><a href="https://www.irs.gov/irb" target="_blank" rel="noopener noreferrer">IRS Internal Revenue Bulletin</a></td>
+<td>美国；Revenue Rulings、Procedures、Notices、Announcements</td>
+<td>动态</td>
+<td>HTML/PDF</td>
+<td>按 IRB 期次和撤销/替代关系</td>
+<td>联邦政府作品原则，编排/附件例外</td>
+<td>通常可商用；须记录适用时点</td>
+<td>**需适配验证：**税务重点源，需解析期次并维护撤销/替代关系</td>
+</tr>
+<tr>
+<td><a href="https://www.ustaxcourt.gov/opinions.html" target="_blank" rel="noopener noreferrer">U.S. Tax Court Opinions</a></td>
+<td>美国；税务法院意见和命令</td>
+<td>动态</td>
+<td>网页检索、PDF</td>
+<td>按案号、意见类型和发布日期增量</td>
+<td>联邦司法文件及站点材料需分别判断</td>
+<td>通常可内部使用，第三方附件例外</td>
+<td>**需适配验证：**补足联邦税务裁判，不由 CourtListener 完整性假设替代</td>
+</tr>
+<tr>
+<td><a href="https://pacer.uscourts.gov/" target="_blank" rel="noopener noreferrer">PACER</a></td>
+<td>美国联邦法院；案件 docket 和文件</td>
+<td>超大规模动态库</td>
+<td>账户、付费接口/网页</td>
+<td>docket 事件持续更新</td>
+<td>受 PACER 条款、费用和文件权利约束</td>
+<td>需账户及合规方案；不能假定可再分发全部文件</td>
+<td>**仅人工或授权：**需要账户、付费和合规方案；Juriscraper 只提供部分解析器</td>
+</tr>
+<tr>
+<td><a href="https://www.courtlistener.com/api/" target="_blank" rel="noopener noreferrer">CourtListener API/Downloads</a></td>
+<td>美国；判例、docket、RECAP、引用关系</td>
+<td>动态/批量快照</td>
+<td>免费低配额 REST API、会员 API、商业协议、bulk/replication</td>
+<td>API 更新和周期快照</td>
+<td>数据集与文件权利不完全一致</td>
+<td>公共检索和低配额试用可免费；截至核验日默认 API 限额为 5 次/分钟、50 次/小时、125 次/日；商业产品或企业内部工具须洽商业协议</td>
+<td>**仅人工或授权：**可免费试用，不是免费生产建库渠道；生产或商用按协议接入</td>
+</tr>
+<tr>
+<td><a href="https://open.canada.ca/data/en/dataset/2f4bb174-b2e7-4fb2-a7a1-a313507acbc6" target="_blank" rel="noopener noreferrer">Justice Laws XML</a></td>
+<td>加拿大联邦；Acts/Regulations，英法双语</td>
+<td>全部联邦 Acts/Regulations；动态</td>
+<td>官方 GitHub/XML 批量</td>
+<td>约每两周合并更新</td>
+<td>OGL–Canada / Federal Law Order</td>
+<td>可商用，须署名、准确和非官方标示</td>
+<td>**可直接采集：**官方确认提供全量 XML，可作为加拿大联邦法规主线</td>
+</tr>
+<tr>
+<td><a href="https://gazette.gc.ca/" target="_blank" rel="noopener noreferrer">Canada Gazette</a></td>
+<td>加拿大；Part I 拟议规章/通知、Part II 正式规章、Part III 法律</td>
+<td>动态</td>
+<td>HTML/PDF/RSS</td>
+<td>Part I 通常每周六、Part II 隔周周三、Part III 按法案汇编；按期号增量</td>
+<td>加拿大政府开放许可，逐内容核验</td>
+<td>可条件商用</td>
+<td>**需适配验证：**保存 Part、期次和官方版本说明，验证 RSS 与历史回填</td>
+</tr>
+<tr>
+<td><a href="https://scc-csc.ca/judgments-jugements/" target="_blank" rel="noopener noreferrer">Supreme Court of Canada Judgments</a></td>
+<td>加拿大；最高法院判决及案件信息</td>
+<td>动态</td>
+<td>官方检索、HTML/PDF</td>
+<td>按案号、判决日和修订增量</td>
+<td>判决文本、翻译和附件权利分别核验</td>
+<td>可条件使用</td>
+<td>**需适配验证：**修正旧失效链接；需验证双语文本、分页和更正</td>
+</tr>
+<tr>
+<td><a href="https://www.canada.ca/en/revenue-agency/services/tax/technical-information/income-tax/income-tax-folios-index.html" target="_blank" rel="noopener noreferrer">CRA Income Tax Folios</a></td>
+<td>加拿大；所得税解释与技术指引</td>
+<td>动态</td>
+<td>HTML/PDF</td>
+<td>按 folio 更新时间和替代状态</td>
+<td>加拿大政府内容许可，例外另核</td>
+<td>可条件商用；不等同立法</td>
+<td>**需适配验证：**税务重点源，需维护更新时间和替代关系</td>
+</tr>
+<tr>
+<td><a href="https://www.bclaws.gov.bc.ca/" target="_blank" rel="noopener noreferrer">BC Laws</a></td>
+<td>加拿大不列颠哥伦比亚省；法规及历史</td>
+<td>动态</td>
+<td>CiviX XML/HTML</td>
+<td>版本和发布日期增量</td>
+<td>省级条款</td>
+<td>可条件商用；不得套用联邦许可</td>
+<td>**需适配验证：**作为省级扩展样板，需另核省级许可和接口稳定性</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-4-大洋洲" tabindex="-1">3.4 大洋洲</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据源名称与地址</th>
+<th>国家及覆盖范围</th>
+<th>数据规模（2026-10-17）</th>
+<th>获取方式</th>
+<th>更新机制</th>
+<th>数据许可</th>
+<th>商业可用性</th>
+<th>当前可用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.legislation.gov.au/" target="_blank" rel="noopener noreferrer">Australian Federal Register of Legislation</a> / <a href="https://www.legislation.gov.au/gazettes" target="_blank" rel="noopener noreferrer">Gazettes</a></td>
+<td>澳大利亚联邦；Acts、立法文书、汇编、历史版本及 Gazette notices</td>
+<td>动态；Gazette 1901—2012 为历史整期 PDF，2012-10 起为单条可检索通知</td>
+<td>无需 key 的 REST/OpenAPI、JSON/XML/PDF、Gazette 子资源</td>
+<td>live API、版本、修改信息及 Gazette notice 日期增量</td>
+<td>主要内容 CC BY 4.0，标识、专题公报和第三方材料例外</td>
+<td>可商用，须署名并过滤例外</td>
+<td>**可直接采集：**官方明确公共 API 可供大规模再利用；法规与 Gazette 同平台接入</td>
+</tr>
+<tr>
+<td><a href="https://eresources.hcourt.gov.au/" target="_blank" rel="noopener noreferrer">High Court of Australia Judgments</a> / <a href="https://www.fedcourt.gov.au/digital-law-library/judgments" target="_blank" rel="noopener noreferrer">Federal Court Judgments</a></td>
+<td>澳大利亚联邦；高等法院和联邦法院判决</td>
+<td>高院核验日检索显示 1,676 条并有 2026-10-14 新裁判；联邦法院动态</td>
+<td>官方检索、HTML/PDF</td>
+<td>按法院、案号、判决日和更正增量</td>
+<td>判决及网站材料权利分别核验</td>
+<td>可条件使用</td>
+<td>**需适配验证：**法院入口和近期样本已确认，需完成分页、原件下载和更正测试</td>
+</tr>
+<tr>
+<td><a href="https://www.ato.gov.au/law/" target="_blank" rel="noopener noreferrer">ATO Legal Database</a></td>
+<td>澳大利亚；税务裁定、决定、指南和相关材料</td>
+<td>动态</td>
+<td>网页、附件</td>
+<td>版本、撤销和替代状态</td>
+<td>不应套用 Federal Register 的 CC BY；逐内容核验</td>
+<td>内部索引优先，全文产品待清权</td>
+<td>**采集受阻：**本轮普通自动请求返回 403；税务重点源但不能列为已可生产采集</td>
+</tr>
+<tr>
+<td><a href="https://www.austlii.edu.au/" target="_blank" rel="noopener noreferrer">AustLII</a></td>
+<td>澳大利亚及周边；法规、判例和期刊</td>
+<td>动态</td>
+<td>网页/RSS/合作</td>
+<td>持续收录</td>
+<td>平台和子来源条件不统一</td>
+<td>未授权时不建议批量镜像</td>
+<td>**仅人工或授权：**作为发现与缺口补充，不替代澳大利亚官方法院和法规源</td>
+</tr>
+<tr>
+<td><a href="https://api.legislation.govt.nz/docs/" target="_blank" rel="noopener noreferrer">New Zealand Legislation API</a></td>
+<td>新西兰；Acts、Bills、次级立法、版本和文档</td>
+<td>动态</td>
+<td>API key、REST v0、XML/PDF/HTML</td>
+<td>版本日期和资源更新</td>
+<td>立法文本适用法定无版权规则，第三方材料例外</td>
+<td>可条件商用；Beta、配额和覆盖完整性前置</td>
+<td>**需适配验证：**需申请 key；当前 v0、日限 10,000 请求，先做覆盖和配额 PoC</td>
+</tr>
+<tr>
+<td><a href="https://gazette.govt.nz/" target="_blank" rel="noopener noreferrer">New Zealand Gazette</a></td>
+<td>新西兰；依法公告、次级立法通知、公司/破产、土地和任命等官方记录</td>
+<td>2000 年起单条可检索；2000—2017 有整期 PDF</td>
+<td>高级检索、notice number、法案/日期过滤、RSS、档案 PDF</td>
+<td>RSS 做新增发现，按 notice number/日期增量，档案 PDF 回填</td>
+<td>Crown copyright；未核验到覆盖整站的开放商业许可，且包含个人/破产信息</td>
+<td>内部索引和深链优先；商业再发布及保留期限另核</td>
+<td>**需适配验证：**页面可访问；与 Legislation API 的法规文本角色互补</td>
+</tr>
+<tr>
+<td><a href="https://www.courtsofnz.govt.nz/judgments/" target="_blank" rel="noopener noreferrer">New Zealand Courts / Judicial Decisions Online</a></td>
+<td>新西兰；最高法院全部判决、上诉法院 2003 年起、高等法院 2005 年起等公开裁判</td>
+<td>按官方公布范围动态</td>
+<td>官方检索、HTML/PDF</td>
+<td>按法院、案号和判决日增量</td>
+<td>判决发布限制、匿名化与个案禁令需遵守</td>
+<td>可条件使用</td>
+<td>**需适配验证：**入口和覆盖说明已确认，需实测搜索、下载和撤回传播</td>
+</tr>
+<tr>
+<td><a href="https://www.taxtechnical.ird.govt.nz/" target="_blank" rel="noopener noreferrer">New Zealand Tax Technical</a></td>
+<td>新西兰；税务裁定、解释、决定和技术资料</td>
+<td>动态</td>
+<td>HTML、PDF</td>
+<td>按文书类型、发布日期和替代状态</td>
+<td>新西兰政府资料条件及个别文件例外</td>
+<td>可条件使用；须标示时点</td>
+<td>**需适配验证：**页面可访问，需维护替代/撤回和适用期间</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-5-其他法域-国际组织及跨国渠道" tabindex="-1">3.5 其他法域、国际组织及跨国渠道</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>数据源名称与地址</th>
+<th>国家及覆盖范围</th>
+<th>数据规模（2026-10-17）</th>
+<th>获取方式</th>
+<th>更新机制</th>
+<th>数据许可</th>
+<th>商业可用性</th>
+<th>当前可用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://africanlii.org/en/" target="_blank" rel="noopener noreferrer">AfricanLII</a></td>
+<td>非洲多法域；法规、判例和区域材料</td>
+<td>动态</td>
+<td>公共检索、合作</td>
+<td>持续收录</td>
+<td>使用条款限制 scraping/bulk</td>
+<td>无授权不做整站镜像</td>
+<td>**仅人工或授权：**适合作为发现和合作入口，不是默认可批量镜像的数据源</td>
+</tr>
+<tr>
+<td><a href="https://www.gov.za/documents/notices" target="_blank" rel="noopener noreferrer">South African Government Notices</a> / <a href="https://www.gpwonline.co.za/" target="_blank" rel="noopener noreferrer">Government Printing Works</a></td>
+<td>南非；法规、公报通知、公告、文告及 Gazette PDF</td>
+<td>动态</td>
+<td>按日期/类别/Gazette 编号分页、PDF；GPW 为出版机构</td>
+<td>按 Gazette 编号、发布日期和通知类型增量</td>
+<td>未核验到适用于整库的开放再分发许可；含土地、牌照、纪律和个人事项</td>
+<td>可作南非官方原件与元数据源；批量、个人信息和再发布另核</td>
+<td>**需适配验证：**GPW 浏览器可访问；应单列，AfricanLII/Laws.Africa 不能替代国家级一手公报</td>
+</tr>
+<tr>
+<td><a href="https://www.judiciary.org.za/index.php/judgements" target="_blank" rel="noopener noreferrer">South African Judiciary / Justice</a></td>
+<td>南非；宪法法院、最高上诉法院和其他法院公开判决及司法资料</td>
+<td>动态</td>
+<td>官方栏目、HTML/PDF</td>
+<td>按法院、案号和裁判日增量</td>
+<td>判决、个人信息和网站材料权利分别核验</td>
+<td>可条件使用</td>
+<td>**需适配验证：**作为南非法院一手源，需逐法院确认覆盖、分页和下载稳定性</td>
+</tr>
+<tr>
+<td><a href="https://www.sars.gov.za/legal-counsel/" target="_blank" rel="noopener noreferrer">SARS Legal Counsel</a></td>
+<td>南非；税法、解释性说明、裁定和税务判决入口</td>
+<td>动态</td>
+<td>HTML/PDF</td>
+<td>按文书类型、税种、发布日期和替代关系增量</td>
+<td>SARS 网站和文件使用条件</td>
+<td>可条件使用</td>
+<td>**需适配验证：**南非财税主源，需区分法律、解释、binding rulings 与判决</td>
+</tr>
+<tr>
+<td><a href="https://laws.africa/platform/content/" target="_blank" rel="noopener noreferrer">Laws.Africa Content API</a></td>
+<td>非洲多国；法规、历史版本和 AKN</td>
+<td>按合同国家包</td>
+<td>商业 API</td>
+<td>合同 SLA、更新时间和部分 webhook</td>
+<td>商业合同</td>
+<td>可按合同商用；不得推定可转售原始库</td>
+<td>**仅人工或授权：**签订相应数据合同后可自动采集；未签约不能作为生产数据源</td>
+</tr>
+<tr>
+<td><a href="https://www.wipo.int/wipolex/" target="_blank" rel="noopener noreferrer">WIPO Lex</a></td>
+<td>约 200 个法域；知识产权法律、条约和判决</td>
+<td>官方称 5 万以上记录</td>
+<td>网页检索</td>
+<td>按 WIPO 集合更新</td>
+<td>原始法、翻译和数据库内容分别核验</td>
+<td>专题补充可用；不建议当综合全量源</td>
+<td>**需适配验证：**仅作知识产权专题补充，需分别标注原始法和 WIPO 数据库权利</td>
+</tr>
+<tr>
+<td><a href="https://www.icj-cij.org/list-of-all-cases" target="_blank" rel="noopener noreferrer">ICJ Cases</a></td>
+<td>国际法院；案件、判决、命令和书状</td>
+<td>动态</td>
+<td>网页、PDF</td>
+<td>按案件事件</td>
+<td>未见统一批量商用许可</td>
+<td>案件元数据与深链优先</td>
+<td>**需适配验证：**先做案件目录和官方深链；全文产品另核许可</td>
+</tr>
+<tr>
+<td><a href="https://treaties.un.org/" target="_blank" rel="noopener noreferrer">UN Treaty Collection</a></td>
+<td>联合国条约文本和缔约状态</td>
+<td>动态</td>
+<td>网页、PDF/TIFF</td>
+<td>状态更新</td>
+<td>使用协议限制较强</td>
+<td>缓存、OCR 和再分发前需书面确认</td>
+<td>**仅人工或授权：**不把公开检索等同于可批量缓存、OCR 和再分发</td>
+</tr>
+<tr>
+<td><a href="https://investmentpolicy.unctad.org/" target="_blank" rel="noopener noreferrer">UNCTAD Investment Policy Hub</a></td>
+<td>投资法、IIA、ISDS 和统计</td>
+<td>动态</td>
+<td>网页、部分下载</td>
+<td>分阶段更新</td>
+<td>通用条款和下载许可需确认</td>
+<td>指标、标识和深链优先</td>
+<td>**需适配验证：**先采元数据、标识和官方深链，全文下载逐项核权</td>
+</tr>
+<tr>
+<td><a href="https://www.oecd.org/en/data/insights/data-explainers/2024/09/api.html" target="_blank" rel="noopener noreferrer">OECD Data Explorer / SDMX</a></td>
+<td>跨国税率、税收收入和税负统计</td>
+<td>按 dataflow</td>
+<td>SDMX API</td>
+<td>数据流版本和更新时间</td>
+<td>OECD 条款，逐数据流核验例外</td>
+<td>可条件商用；统计不能替代法律结论</td>
+<td>**可直接采集：**作为统计层使用；不替代税法、税率生效文件和官方解释</td>
+</tr>
+<tr>
+<td><a href="https://legaldatahunter.com/" target="_blank" rel="noopener noreferrer">Legal Data Hunter</a></td>
+<td>商业服务自述覆盖 230+ 法域</td>
+<td>官网与仓库口径不同，不合并</td>
+<td>Search API/MCP/订单授权</td>
+<td>合同 SLA 和来源限制通知</td>
+<td>API/MCP 条款及 Order Form</td>
+<td>全文、bulk、持久索引、训练、客户产品均需明示授权</td>
+<td>**仅人工或授权：**商业补充渠道；只有合同明确允许的国家、字段、用途和留存方式才能进入生产库</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="四-重点开源采集项目调研" tabindex="-1">四、重点开源采集项目调研</h1>
+<h2 id="4-1-经确认的开源采集项目清单" tabindex="-1">4.1 经确认的开源采集项目清单</h2>
+<p>下表只保留具有明确数据获取代码的项目。覆盖、能力和实测均采用短结论。</p>
+<p>**许可证读法：**MIT、BSD、CC0、GPL 和 AGPL 都允许商业使用，但义务不同。MIT/BSD 通常只要求保留版权和许可声明；GPL-3.0 在分发衍生程序时要求同许可证开放对应源代码；AGPL-3.0 还覆盖修改版的网络服务。代码许可证只授权代码，不自动授权所采集的法规、判例、附件或数据库内容。</p>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>项目名称与地址</th>
+<th>类型与技术栈</th>
+<th>已确认的采集覆盖</th>
+<th>具体采集能力</th>
+<th>全量/增量与输出</th>
+<th>维护与实测（2026-10-17）</th>
+<th>License / 数据权利</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/worldwidelaw/legal-sources" target="_blank" rel="noopener noreferrer">World Wide Law / legal-sources</a></td>
+<td>多法域适配器库；Python</td>
+<td>项目自报 960+ 脚本、110+ 国家；已确认目录和适配器契约，未逐源验证</td>
+<td>API、bulk、网页适配器；共享重试、限速、缓存、去重</td>
+<td><code>fetch_all</code> / <code>fetch_updates</code>；统一 JSONL；删除/更正无统一保障</td>
+<td>代码已审；未完成整仓运行</td>
+<td>**可商用，但公开网络服务的修改版须按 AGPL 提供源码；闭源服务需另购商业许可。**数据权利另核</td>
+</tr>
+<tr>
+<td><a href="https://github.com/worldwidelaw/legal-sources/tree/main/sources/VN/CongBao" target="_blank" rel="noopener noreferrer">World Wide Law：VN/CongBao</a></td>
+<td>越南公报采集器；Python</td>
+<td>越南电子公报；项目称约 2.5 万件；已核验 41 条样本</td>
+<td>分页枚举，下载 DOCX/PDF，抽取正文和公报元数据</td>
+<td>支持全量；增量最多回扫 200 页；无删除/更正对账</td>
+<td><code>b0a19be</code>，2026-09-12；代码和样本已核，未连接源站运行</td>
+<td><strong>可商用，但受 AGPL 网络服务开源义务约束；公报批量使用权仍需确认。</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/freelawproject/juriscraper" target="_blank" rel="noopener noreferrer">Juriscraper</a></td>
+<td>美国法院解析库；Python</td>
+<td>联邦上诉法院、州最高法院等；273 个 opinion、27 个口头辩论、24 个 PACER 模块</td>
+<td>解析法院 RSS/HTML/API，提取案件元数据和原文链接</td>
+<td>只负责发现/解析；不含调度、存储、原件保全和删除同步</td>
+<td><code>d905709</code>，2026-10-15，v4.0.1；编译通过，测试未完成</td>
+<td><strong>允许闭源商用，须保留 BSD-2-Clause 声明；法院和 PACER 数据权利另核。</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/openlegaldata/oldp-ingestor" target="_blank" rel="noopener noreferrer">oldp-ingestor</a></td>
+<td>德国/EU provider CLI；Python 3.12+</td>
+<td>德国联邦、多个州/法院及 EUR-Lex</td>
+<td>枚举、日期过滤、ECLI/案号查询、PDF/网页解析；写 OLDP API 或 JSON</td>
+<td>多数 provider 支持日期区间；删除处理不统一</td>
+<td><code>d2e9f01</code>，2026-09-23，v0.1.11；618 通过、53 跳过、3 个 Windows 编码失败</td>
+<td><strong>允许闭源商用，须保留 MIT 声明；源站数据权利另核。</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/unitedstates/congress" target="_blank" rel="noopener noreferrer">unitedstates/congress</a></td>
+<td>美国国会采集 CLI；Python</td>
+<td>法案、修正案、投票、提名、委员会、GovInfo、Statutes</td>
+<td>下载 XML/PDF/text/MODS，生成 JSON</td>
+<td>按届次/日期/对象回填；部分任务可增量；旧 THOMAS 任务失效</td>
+<td><code>8184bcb</code>，2025-10-05；编译通过，未连接源站运行</td>
+<td><strong>代码可自由商用，无开源义务（CC0）；第三方附件权利另核。</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/isaacus-dev/open-australian-legal-corpus-creator" target="_blank" rel="noopener noreferrer">Open Australian Legal Corpus Creator</a></td>
+<td>澳大利亚专项采集器；Python/OCR</td>
+<td>9 个联邦及州级法规/判例来源</td>
+<td>下载 HTML/PDF，正文抽取、OCR、并发和 checkpoint</td>
+<td>全量/重跑输出 JSONL；未证明删除和修订同步</td>
+<td><code>dbdb9e3</code>，2025-05-26，v3.1.2；编译通过，未连接源站运行</td>
+<td><strong>允许闭源商用，须保留 MIT 声明；使用者必须自行取得源站授权。</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/openstates/openstates-scrapers" target="_blank" rel="noopener noreferrer">Open States Scrapers</a></td>
+<td>美国州立法采集库；Python/Scrapy</td>
+<td>美国各州、DC 和部分领地；法案、议员、委员会、会议</td>
+<td>每法域独立 scraper；依赖 Open States 数据模型和更新管线</td>
+<td>按 session/对象更新；删除和源站稳定性逐州不同</td>
+<td><code>68588fa</code>，2026-10-16；编译通过，未装完整栈、未连接州站</td>
+<td>**允许商用；分发衍生程序须按 GPL-3.0 提供源码，内部运行不因网络访问触发开源。**数据权利另核</td>
+</tr>
+<tr>
+<td><a href="https://github.com/jonashertner/opencaselaw" target="_blank" rel="noopener noreferrer">OpenCaseLaw</a></td>
+<td>瑞士法律采集流水线；Python</td>
+<td>联邦法院、26 州法院、FINMA/WEKO、Fedlex；项目称 45 个 scraper</td>
+<td>专源采集、checkpoint、去重、SQLite/Parquet/manifest</td>
+<td>增量 JSONL + 每周重建；删除/修订传播未实测</td>
+<td><code>24a1cf0</code>，2026-10-17，v0.10.0；编译通过，未连接源站运行</td>
+<td><strong>允许闭源商用，须保留 MIT 声明；各源和派生数据权利另核。</strong></td>
+</tr>
+<tr>
+<td><a href="https://github.com/laws-africa/lawsafrica-cli" target="_blank" rel="noopener noreferrer">Laws.Africa CLI</a></td>
+<td>授权 API 客户端；Python</td>
+<td>Laws.Africa 合同授权的国家和地区</td>
+<td>下载 AKN XML、HTML、PDF、元数据、历史版本和生效信息</td>
+<td>支持时间过滤、批量、断点续传、重取和 manifest</td>
+<td><code>cbf1fd2</code>，2026-08-20；59 项测试通过，未用真实 key</td>
+<td><strong>CLI 可闭源商用（MIT）；法律数据必须另签套餐/订单，未签约不能商业建库。</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="采集覆盖结论" tabindex="-1">采集覆盖结论</h3>
+<ul>
+<li>**可直接采用：**Laws.Africa CLI，但必须先取得与目标用途匹配的数据合同。</li>
+<li>**可条件采用：**Juriscraper、oldp-ingestor、Open States、OpenCaseLaw，以及通过 live test 的单个 World Wide Law 适配器。</li>
+<li>**只建议借鉴：**OALC Creator 的 OCR/checkpoint，以及 <code>unitedstates/congress</code> 中已被官方 API 替代的任务。</li>
+<li>**World Wide Law 的正确用法：**可以用其适配器采集法律文件并存入自建库；建议按目标来源逐个部署和验收，不要未经验证就一次性启用全部脚本。项目样本及 <code>status: complete</code> 只证明适配器达到仓库的代码/样本验收口径，不证明当前仍可访问、历史数据完整、增量与删除可靠，也不证明源站允许商业再分发。</li>
+</ul>
+<h2 id="4-2-不是采集器-但可在采集链路中复用的项目" tabindex="-1">4.2 不是采集器、但可在采集链路中复用的项目</h2>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>正确类型</th>
+<th>能力</th>
+<th>不应如何描述</th>
+<th>建议用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/laws-africa/bluebell" target="_blank" rel="noopener noreferrer">Bluebell</a></td>
+<td>Parser</td>
+<td>将法律文本解析/转换为 Akoma Ntoso</td>
+<td>不是网页采集器，不提供全球来源覆盖</td>
+<td>对已获取法规做 AKN 结构化 PoC</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/openlegaldata/oldp" target="_blank" rel="noopener noreferrer">Open Legal Data Platform</a></td>
+<td>Legal data platform</td>
+<td>判例/法律管理、检索、API、引用关系</td>
+<td>平台本身不等于采集器；采集由 oldp-ingestor 等完成</td>
+<td>借鉴数据模型、搜索和审核界面</td>
+</tr>
+<tr>
+<td><a href="https://github.com/freelawproject/courtlistener" target="_blank" rel="noopener noreferrer">CourtListener</a></td>
+<td>Data platform</td>
+<td>美国判例、docket、RECAP、引用图、API 和批量数据</td>
+<td>平台范围不能等同 Juriscraper 的实际法院 adapter 范围；开源平台代码也不等于其托管 API、bulk 和数据复制服务无限免费</td>
+<td>作为免费低配额数据源、生产调用样板和平台架构参考；商业建库需另谈协议</td>
+</tr>
+<tr>
+<td><a href="https://github.com/openfisca/openfisca-core" target="_blank" rel="noopener noreferrer">OpenFisca Core</a></td>
+<td>Rules-as-code engine</td>
+<td>按日期参数执行税收和福利规则模拟</td>
+<td>不是财税政策采集器，也不是法律事实源</td>
+<td>在法规数据稳定后用于税负试算；规则必须链接到正式依据</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="4-3-项目筛选与数据获取方案" tabindex="-1">4.3 项目筛选与数据获取方案</h2>
+<h3 id="4-3-1-推荐顺序" tabindex="-1">4.3.1 推荐顺序</h3>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>建议采用内容</th>
+<th>原因</th>
+<th>进入下一阶段的门槛</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一层：直接接入</td>
+<td>台湾 XML、e-Gov、EUR-Lex/CELLAR、legislation.gov.uk、法国开放数据、GovInfo/eCFR/Federal Register、Justice Laws、澳大利亚 Register</td>
+<td>官方、结构化、适合全量与增量，是最稳定的数据底座</td>
+<td>每源取得真实样本，完成字段映射、许可快照和一次全量/增量演练</td>
+</tr>
+<tr>
+<td>第二层：复用专项采集器</td>
+<td>Juriscraper、Open States、oldp-ingestor provider、OpenCaseLaw 模式</td>
+<td>已有明确来源 adapter，可显著降低法院/州站开发成本</td>
+<td>固定 commit；逐 adapter 连接真实源并完成至少两轮增量及删除/更正验证</td>
+</tr>
+<tr>
+<td>第三层：借鉴适配器</td>
+<td>World Wide Law、OALC Creator、unitedstates/congress</td>
+<td>覆盖广或专项能力强，但来源状态和维护质量不一致</td>
+<td>逐 adapter 做许可证、样本、限速、字段完整性、修改/删除测试</td>
+</tr>
+<tr>
+<td>第四层：商业数据交付</td>
+<td>CourtListener 免费低配额层用于 PoC；LDH、Laws.Africa、Indian Kanoon、Nexis Data+、vLex API、威科 MCP、Docket Alarm/UniCourt、IBFD API 用于补缺或增值</td>
+<td>只采购可交付 API/bulk/feed 和明确内容权的产品；商业检索订阅另用于 QA/编辑研究</td>
+<td>合同明确自动访问、持久存储、全文展示、索引/embedding、派生数据、再分发和到期处置</td>
+</tr>
+<tr>
+<td>第五层：解析与管理</td>
+<td>Bluebell/Cobalt、Indigo/OLDP、OpenFisca</td>
+<td>处理已经合法取得的数据</td>
+<td>不得被用于证明数据获取权或来源覆盖</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4-3-2-首批应建设的采集组合" tabindex="-1">4.3.2 首批应建设的采集组合</h3>
+<ol>
+<li>**官方批量/API 骨架：**先用“可直接采集”的官方来源打通全量回填、增量同步、原件保全和版本关系。首批覆盖欧盟、英国、美国、加拿大、澳大利亚、日本、台湾、法国、西班牙和瑞士；其余法域按 3.0 表中的结论分别做适配、授权或受阻处置。</li>
+<li>**官方公报证据层：**单独接入越南、台湾、新加坡、韩国、中国国务院、新西兰和南非公报；印度做表单型适配，日本按站点限制采用授权/受控下载，马来西亚保持候选。每条法规尽可能绑定公报名称、期号、公布日、页码/notice number 和官方 PDF 哈希，不用合并法网页覆盖公布本。</li>
+<li>**重点亚洲网页适配器：**中国国家法律法规数据库、国家税务总局、印尼 BPK/JDIH/DGT、马来西亚 LOM/HASiL、新加坡 SSO/IRAS 分别做专项适配和验证。越南 VBPL 因自动请求返回 403，当前不进入生产采集清单；优先使用越南电子公报及其他已验证官方来源。每个站点独立限速、失败隔离和条款记录，不建立“万能爬虫”。</li>
+<li>**判例专项链路：**美国从 Juriscraper/CourtListener/PACER 分层获取；台湾使用司法院开放 API；法国使用 Judilibre；其他无 API 法域仅在条款允许时低频采集并实现撤回/匿名化同步。</li>
+<li>**财税专项链路：**财税法律、行政解释、公共裁定、FAQ/指南分层保存；所有解释文件记录税种、文号、适用期、撤回/替代关系和依据法，不把指南状态提升为法律。</li>
+<li>**商业渠道分两类管理：**LDH、Laws.Africa、Nexis Data+、vLex API、Docket Alarm/UniCourt、IBFD API 等只有在取得数据交付权后才能进入采集清单；Westlaw、Lexis+、北大法宝、CLJLaw、SCC Online 等普通订阅默认只进入人工研究和 QA 清单。合同权利要落实为系统级的下载、保留、展示和删除策略。</li>
+</ol>
+<h3 id="4-3-3-每个数据源必须建立的获取底账" tabindex="-1">4.3.3 每个数据源必须建立的获取底账</h3>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>字段组</th>
+<th>必填内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>来源身份</td>
+<td>法域、数据类型、权威层级、官方/第三方、入口 URL</td>
+</tr>
+<tr>
+<td>获取方式</td>
+<td>API/bulk/web/授权、认证方式、配额、限速、费用、robots/条款证据</td>
+</tr>
+<tr>
+<td>覆盖边界</td>
+<td>起止年份、法院/机关清单、文书类型、语言、历史版本、附件范围</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>增量机制</td>
+<td>游标、发布日期、更新频率、最后成功水位</td>
+</tr>
+<tr>
+<td>变更机制</td>
+<td>修订、替代、失效、撤回、删除</td>
+</tr>
+<tr>
+<td>输出契约</td>
+<td>原始响应、正文、附件、获取时间、source ID、哈希</td>
+</tr>
+<tr>
+<td>使用权限</td>
+<td>内部索引、摘要、全文展示、下载、API、再分发分别是否允许</td>
+</tr>
+<tr>
+<td>运行证据</td>
+<td>文档ID、失败率、最后成功时间</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4-3-4-持续更新和验收" tabindex="-1">4.3.4 持续更新和验收</h3>
+<ul>
+<li>全量包/API 用于首次回填；之后按官方游标或修改时间增量，并保留重叠窗口；</li>
+<li>网页源采用低频条件请求、缓存、重试退避和熔断，不绕过访问控制；</li>
+<li>每周或每月按来源做总量、ID 集合和哈希对账，发现长期无新增时报警而不是默认为“无新法”；</li>
+<li>记录“法律有效时间”和“系统获知时间”双时态，确保能回放任意日期的有效文本；</li>
+<li>上线前必须取得真实数据样本；</li>
+<li>验收不只看“抓到数据”，还要检查覆盖分母、重复率、缺失率、版本链、附件成功率和许可用途是否匹配。</li>
+</ul>
+<hr />
+<h1 id="附录-a-本轮开源项目实际核验记录" tabindex="-1">附录 A：本轮开源项目实际核验记录</h1>
+<div class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>固定版本/日期</th>
+<th>本地动作</th>
+<th>结果</th>
+<th>当前结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Laws.Africa CLI</td>
+<td><code>cbf1fd2</code>，2026-08-20</td>
+<td>editable install；运行完整本地 tests</td>
+<td>34 tests、25 subtests 全部通过；未调用真实付费 API</td>
+<td>测试通过；签约和真实 API 待验</td>
+</tr>
+<tr>
+<td>oldp-ingestor</td>
+<td><code>d2e9f01</code>，2026-09-23</td>
+<td>editable install；运行完整 pytest</td>
+<td>618 passed、53 skipped、3 failed；失败为 Windows 默认编码导致 <code>§/ä</code> 断言差异</td>
+<td>基本通过；须在 Linux 做 provider 实测</td>
+</tr>
+<tr>
+<td>Juriscraper</td>
+<td><code>d905709</code>，2026-10-15</td>
+<td>代码与模块盘点；compileall；尝试安装依赖</td>
+<td>编译通过；依赖下载未在合理时间内完成，未运行测试</td>
+<td>仅代码确认，未可投产</td>
+</tr>
+<tr>
+<td>Open States Scrapers</td>
+<td><code>68588fa</code>，2026-10-16</td>
+<td>adapter 目录盘点；compileall</td>
+<td>编译通过；未安装 openstates-core、未运行真实州站</td>
+<td>仅代码确认，未可投产</td>
+</tr>
+<tr>
+<td>OpenCaseLaw</td>
+<td><code>24a1cf0</code>，2026-10-17</td>
+<td>scraper/状态/输出路径核查；compileall</td>
+<td>编译通过；未运行真实瑞士站点或下载数据集</td>
+<td>仅代码确认，未可投产</td>
+</tr>
+<tr>
+<td>unitedstates/congress</td>
+<td><code>8184bcb</code>，2025-10-05</td>
+<td>task 代码盘点；compileall</td>
+<td>编译通过，出现旧正则转义 warning；未运行真实任务</td>
+<td>仅借鉴有效任务</td>
+</tr>
+<tr>
+<td>OALC Creator</td>
+<td><code>dbdb9e3</code>，2025-05-26</td>
+<td>9 个 scraper 代码盘点；compileall</td>
+<td>编译通过；未运行真实源</td>
+<td>仅借鉴 OCR/checkpoint</td>
+</tr>
+<tr>
+<td>World Wide Law / legal-sources</td>
+<td>仓库当前 HEAD（核验日）</td>
+<td>manifest、runner、adapter 契约与税务 source 盘点</td>
+<td>代码层面确认；Windows 文件名兼容导致未完成本地运行</td>
+<td>逐适配器实测后决定</td>
+</tr>
+</tbody>
+</table></div>
+<p>本轮没有使用账户、API key 或规避措施访问受限站点，也没有完成真实源全量、两轮增量或持续稳定性测试。因此，报告对项目的最高结论是“进入 PoC”而非“生产可用”。</p>
+<h1 id="附录-b-关键证据入口" tabindex="-1">附录 B：关键证据入口</h1>
+<ul>
+<li><a href="https://legaldatahunter.com/api-mcp-terms" target="_blank" rel="noopener noreferrer">LDH API/MCP Terms</a>、<a href="https://github.com/worldwidelaw/legal-sources" target="_blank" rel="noopener noreferrer">World Wide Law / legal-sources</a></li>
+<li><a href="https://api.indiankanoon.org/pricing/" target="_blank" rel="noopener noreferrer">Indian Kanoon API Pricing</a>、<a href="https://api.indiankanoon.org/terms/" target="_blank" rel="noopener noreferrer">Indian Kanoon API Terms</a>、<a href="https://wiki.free.law/c/courtlistener/help/api/rest/v4/api-usage" target="_blank" rel="noopener noreferrer">CourtListener API Usage</a>、<a href="https://free.law/membership/allowed-api-usage/" target="_blank" rel="noopener noreferrer">CourtListener Membership API Restrictions</a></li>
+<li><a href="https://www.canlii.org/info/terms.html" target="_blank" rel="noopener noreferrer">CanLII Terms</a>、<a href="https://www.bailii.org/bailii/copyright.html" target="_blank" rel="noopener noreferrer">BAILII Terms/FAQ</a>、<a href="https://case.law/terms/" target="_blank" rel="noopener noreferrer">Caselaw Access Project Terms</a>、<a href="https://www.openlawdatathailand.org/" target="_blank" rel="noopener noreferrer">Open Law Data Thailand</a></li>
+<li><a href="https://lil.law.harvard.edu/our-work/caselaw-access-project/" target="_blank" rel="noopener noreferrer">Caselaw Access Project 规模与覆盖</a>、<a href="https://lil.law.harvard.edu/blog/2024/03/26/transitions-for-the-caselaw-access-project/" target="_blank" rel="noopener noreferrer">CAP 2024 转型公告</a>、<a href="https://huggingface.co/datasets/isaacus/open-australian-legal-corpus" target="_blank" rel="noopener noreferrer">OALC 数据卡</a>、<a href="https://huggingface.co/datasets/isaacus/open-australian-legal-corpus/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">OALC Changelog</a>、<a href="https://huggingface.co/datasets/joelniklaus/Multi_Legal_Pile" target="_blank" rel="noopener noreferrer">Multi Legal Pile 数据卡</a>、<a href="https://aclanthology.org/2024.acl-long.805/" target="_blank" rel="noopener noreferrer">Multi Legal Pile 论文</a></li>
+<li><a href="https://dev.lexisnexis.com/" target="_blank" rel="noopener noreferrer">Nexis Data+/Developer Portal</a>、<a href="https://www.lexisnexis.com/en-us/products/lexis-api.page" target="_blank" rel="noopener noreferrer">Lexis APIs</a>、<a href="https://developer.vlex.com/" target="_blank" rel="noopener noreferrer">vLex Developer Portal</a>、<a href="https://vlex.com/terms" target="_blank" rel="noopener noreferrer">vLex Terms</a></li>
+<li><a href="https://store.legal.thomsonreuters.com/law-products/_ui/common/webResources/subscriber-agreement.pdf" target="_blank" rel="noopener noreferrer">Westlaw Subscriber Agreement</a>、<a href="https://developerportal.thomsonreuters.com/content-apis" target="_blank" rel="noopener noreferrer">Thomson Reuters Content APIs</a>、<a href="https://developerportal.thomsonreuters.com/checkpoint-search-api-v2" target="_blank" rel="noopener noreferrer">Checkpoint Search API</a></li>
+<li><a href="https://www.docketalarm.com/api/v1/" target="_blank" rel="noopener noreferrer">Docket Alarm API</a>、<a href="https://github.com/UniCourt/enterprise-api-py-sdk" target="_blank" rel="noopener noreferrer">UniCourt Enterprise API SDK</a>、<a href="https://fiscalnote.com/" target="_blank" rel="noopener noreferrer">FiscalNote</a>、<a href="https://www.compliance.ai/api/" target="_blank" rel="noopener noreferrer">Compliance.ai API</a>、<a href="https://www.enhesa.com/faq" target="_blank" rel="noopener noreferrer">Enhesa FAQ</a></li>
+<li><a href="https://mcp.wkinfo.com.cn/" target="_blank" rel="noopener noreferrer">威科先行 MCP</a>、<a href="https://mall.pkulaw.com/" target="_blank" rel="noopener noreferrer">北大法宝</a>、<a href="https://www.lawbank.com.tw/member/readme_Mem.aspx?PID=PL000217" target="_blank" rel="noopener noreferrer">法源法律网使用规范</a></li>
+<li><a href="https://luatvietnam.vn/landingpage.html" target="_blank" rel="noopener noreferrer">LuatVietnam</a>、<a href="https://thuvienphapluat.vn/en/goidichvutvpl.aspx" target="_blank" rel="noopener noreferrer">Thư Viện Pháp Luật</a>、<a href="https://www.cljlaw.com/?page=product" target="_blank" rel="noopener noreferrer">CLJLaw</a>、<a href="https://www.hukumonline.com/produk/id/" target="_blank" rel="noopener noreferrer">Hukumonline Pro</a></li>
+<li><a href="https://www.tkc.jp/law/lawlibrary/" target="_blank" rel="noopener noreferrer">TKC Law Library</a>、<a href="https://www.thomsonreuters.co.kr/ko/products-services/lawnb.html" target="_blank" rel="noopener noreferrer">LAWnB</a>、<a href="https://www.lexisnexis.com/en-sg/products/lexis-plus" target="_blank" rel="noopener noreferrer">Lexis+ Singapore</a>、<a href="https://www.scconline.com/?login=true" target="_blank" rel="noopener noreferrer">SCC Online</a>、<a href="https://cdasia.com/" target="_blank" rel="noopener noreferrer">CD Asia</a></li>
+<li><a href="https://nz.thomsonreuters.com/westlaw/plan-options.aspx" target="_blank" rel="noopener noreferrer">Westlaw New Zealand</a>、<a href="https://www.lexisnexis.com/en-nz/products/lexis-plus" target="_blank" rel="noopener noreferrer">Lexis+ New Zealand</a>、<a href="https://beck-online.de/" target="_blank" rel="noopener noreferrer">beck-online</a>、<a href="https://www.dalloz.fr/" target="_blank" rel="noopener noreferrer">Dalloz</a></li>
+<li><a href="https://www.ibfd.org/tax-research-platform-v2" target="_blank" rel="noopener noreferrer">IBFD Tax Research Platform</a>、<a href="https://pro.bloombergtax.com/" target="_blank" rel="noopener noreferrer">Bloomberg Tax</a>、<a href="https://www.wolterskluwer.com/en/solutions/cch-answerconnect-us" target="_blank" rel="noopener noreferrer">CCH AnswerConnect</a>、<a href="https://orbitax.com/solutions/tax-research-and-compliance" target="_blank" rel="noopener noreferrer">Orbitax</a></li>
+<li><a href="https://eur-lex.europa.eu/content/help/data-reuse/webservice.html" target="_blank" rel="noopener noreferrer">EUR-Lex Webservice</a>、<a href="https://op.europa.eu/en/web/cellar/cellar-data/metadata/knowledge-graph" target="_blank" rel="noopener noreferrer">CELLAR</a></li>
+<li><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener noreferrer">UK OGL v3</a>、<a href="https://caselaw.nationalarchives.gov.uk/terms-of-use" target="_blank" rel="noopener noreferrer">Find Case Law Terms</a>、<a href="https://content-api.publishing.service.gov.uk/" target="_blank" rel="noopener noreferrer">GOV.UK Content API</a></li>
+<li><a href="https://www.legifrance.gouv.fr/contenu/pied-de-page/open-data-et-api" target="_blank" rel="noopener noreferrer">Légifrance Open Data/API</a>、<a href="https://www.data.gouv.fr/dataservices/api-judilibre" target="_blank" rel="noopener noreferrer">Judilibre API</a></li>
+<li><a href="https://www.govinfo.gov/developers" target="_blank" rel="noopener noreferrer">GovInfo Developer Hub</a>、<a href="https://www.govinfo.gov/bulkdata/" target="_blank" rel="noopener noreferrer">GovInfo Bulk Data</a>、<a href="https://www.ecfr.gov/developers/documentation/api/v1" target="_blank" rel="noopener noreferrer">eCFR API</a>、<a href="https://www.federalregister.gov/developers/documentation/api/v1" target="_blank" rel="noopener noreferrer">Federal Register API</a></li>
+<li><a href="https://github.com/justicecanada/laws-lois-xml" target="_blank" rel="noopener noreferrer">Justice Laws XML GitHub</a>、<a href="https://laws.justice.gc.ca/eng/FAQ/" target="_blank" rel="noopener noreferrer">Justice Laws FAQ</a>、<a href="https://open.canada.ca/en/open-government-licence-canada" target="_blank" rel="noopener noreferrer">Canada OGL</a></li>
+<li><a href="https://www.legislation.gov.au/help-and-resources/using-the-legislation-register/data-share-and-reuse" target="_blank" rel="noopener noreferrer">Australian Register data reuse</a>、<a href="https://www.legislation.govt.nz/learn-more/legislation-data/api-terms-of-use/" target="_blank" rel="noopener noreferrer">New Zealand API terms</a></li>
+<li><a href="https://law.moj.gov.tw/" target="_blank" rel="noopener noreferrer">台湾全国法规资料库</a>、<a href="https://law.moj.gov.tw/api/swagger/index.html" target="_blank" rel="noopener noreferrer">Open API</a>、<a href="https://data.gov.tw/dataset/18289" target="_blank" rel="noopener noreferrer">法规 XML</a>、<a href="https://data.gov.tw/dataset/18290" target="_blank" rel="noopener noreferrer">命令 XML</a>、<a href="https://gazette.nat.gov.tw/egFront/" target="_blank" rel="noopener noreferrer">行政院公报</a>、<a href="https://opendata.judicial.gov.tw/api/" target="_blank" rel="noopener noreferrer">司法院开放 API</a></li>
+<li><a href="https://congbao.chinhphu.vn/" target="_blank" rel="noopener noreferrer">越南电子公报</a>、<a href="https://vbpl.vn/Pages/gioi-thieu.aspx" target="_blank" rel="noopener noreferrer">VBPL 官方介绍</a>、<a href="https://congbobanan.toaan.gov.vn/" target="_blank" rel="noopener noreferrer">越南法院裁判文书公布门户</a>、<a href="https://anle.toaan.gov.vn/" target="_blank" rel="noopener noreferrer">越南判例门户</a>、<a href="https://github.com/worldwidelaw/legal-sources/tree/main/sources/VN/CongBao" target="_blank" rel="noopener noreferrer">LDH VN/CongBao 适配器</a></li>
+<li><a href="https://www.gov.cn/gongbao/" target="_blank" rel="noopener noreferrer">中国国务院公报</a>、<a href="https://laws.e-gov.go.jp/" target="_blank" rel="noopener noreferrer">日本 e-Gov</a>、<a href="https://www.kanpo.go.jp/" target="_blank" rel="noopener noreferrer">日本官报</a>、<a href="https://open.law.go.kr/LSO/openApi/guideList.do" target="_blank" rel="noopener noreferrer">韩国 Open API</a>、<a href="https://gwanbo.go.kr/main.do" target="_blank" rel="noopener noreferrer">韩国电子官报</a></li>
+<li><a href="https://sso.agc.gov.sg/" target="_blank" rel="noopener noreferrer">新加坡 SSO</a>、<a href="https://www.egazette.gov.sg/" target="_blank" rel="noopener noreferrer">新加坡 e-Gazette</a>、<a href="https://egazette.gov.in/" target="_blank" rel="noopener noreferrer">印度 eGazette</a>、<a href="https://peraturan.go.id/" target="_blank" rel="noopener noreferrer">印尼 peraturan.go.id</a></li>
+<li><a href="https://www.thegazette.co.uk/" target="_blank" rel="noopener noreferrer">The Gazette</a>、<a href="https://gazette.govt.nz/" target="_blank" rel="noopener noreferrer">New Zealand Gazette</a>、<a href="https://www.gov.za/documents/notices" target="_blank" rel="noopener noreferrer">South African Government Notices</a>、<a href="https://www.legislation.gov.au/gazettes" target="_blank" rel="noopener noreferrer">Australian Federal Register—Gazettes</a></li>
+<li><a href="https://laws.africa/platform/content/" target="_blank" rel="noopener noreferrer">Laws.Africa Content API</a>、<a href="https://africanlii.org/en/terms-of-use/" target="_blank" rel="noopener noreferrer">AfricanLII Terms</a>、<a href="https://treaties.un.org/pages/Overview.aspx?path=overview/usageAgreement/page1_en.xml" target="_blank" rel="noopener noreferrer">UN Treaty Usage Agreement</a></li>
+</ul>
+
+        <div class="doc-footer">本文件由 Markdown 源文档生成。外部链接将在新窗口打开。</div>
+      </article>
+    </main>
+  </div>
+  <button class="back-top" type="button" aria-label="返回顶部" title="返回顶部">↑</button>
+  <script>
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    const sections = tocLinks
+      .map(link => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+      .filter(Boolean);
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (!visible.length) return;
+      const id = visible[0].target.id;
+      tocLinks.forEach(link => link.classList.toggle('active', decodeURIComponent(link.hash.slice(1)) === id));
+    }, { rootMargin: '-70px 0px -72% 0px', threshold: [0, 1] });
+    sections.forEach(section => observer.observe(section));
+    document.querySelector('.back-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>

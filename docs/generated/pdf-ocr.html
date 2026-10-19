@@ -3,7 +3,12 @@
 <h1>整份无文字 PDF OCR</h1><p><a href="../plans/pdf-ocr.md">唯一 Plan 与完整合同</a> · <a href="https://github.com/nanzhi84/SEAL/issues/25">Issue #25</a></p>
 <div class="flow"><p>① HTTP 下载一次 → 原始 bytes / SHA-256 → MinIO CAS</p><p>② 异步等待同主机共享工作目录的 flock 名额（跨 Run 最多 4）→ 每份 PDF 一个隔离子进程</p><p>③ 子进程预检：任意页有文字 → native；整份无文字 → PDFium + 多语言 Tesseract</p><p>④ 每页文字 → 共用 SDK HTML → 页数、页码、格式与大小校验</p><p>⑤ PDFPage / PDFProcessResult → 既有 scraper → CrawlResult / Markdown</p><p>⑥ 既有结果归档 → Observation / Version → Snapshot → Results API / 原件附件</p></div>
 <h2>可回查的页面</h2><p><code>metadata.pdf.method</code> 标明 native / ocr，<code>pages</code> 保留一基页码和空文字页；原件由 attachments 回查。</p>
+<h2>按来源选择 OCR</h2><p>来源 YAML 的 <code>ocr.languages</code> 与 <code>ocr.dpi</code> → 新 Run 冻结 → PDF worker → CrawlResult OCR 元数据。部署统一安装官方 <code>tessdata_fast</code>，模型哈希参与解析指纹。</p>
+<ul><li>简中 chi_sim：96 DPI（现有 19 个大陆入口）</li><li>繁中 chi_tra：96 DPI（新来源按需选择）</li><li>英语 eng：96 DPI（新来源按需选择）</li><li>越南语 vie：96 DPI（dd-492）</li></ul><p>已有 Run 保留冻结配置；不自动检测文档语言。混排另测。速度优先选择四语各自最快的已复测前沿点，均为 fast / 96 DPI；依据 <a href="../plans/paddle-ocr-pareto.md">Paddle 对比实验</a> 的固定区域 CER 与逐页三次计时中位数。不代表全文或语言总体最优。部署命令与权重 SHA-256 见唯一 Plan。</p>
+<p>2026-10-19 速度配置独立验收：76/76 PASS。20 个来源及模板、四语真实扫描页经 Source → worker → 最终 CrawlResult，核验 96 DPI、模型哈希、正文、页码、HTML/Markdown。工件与复跑命令见唯一 Plan；越南原件远端重下载哈希变化，本次使用已验证哈希的持久原件。未覆盖 DB/S3、Results API 和全站采集。</p>
+<p>2026-10-19 工作区审查合计 105/105 PASS：另加隔离 DB/S3、Snapshot、鉴权分页 API、附件哈希与冻结 Run 共 29 项。README 验证使用本地 fixture 和公开扫描切页；不证明当前官方 URL 或生产可用。命令、前提与证据见唯一 Plan。</p>
+<p>历史 2026-10-16 来源配置独立验收：61 PASS（原 DPI，不是本次 96 DPI 验收）。20 个来源配置与四语言真实扫描件 → 隔离 OCR → 最终 CrawlResult 的正文、页码及实际配置均核验；不含 DB、S3、网络采集和全站验证。复跑命令与工件见唯一 Plan。</p>
 <h2>有界执行</h2><p>执行期限取 OCR 独立时限与采集剩余预算较早值。超时、取消、退出统一终止进程组、回收进程、删除目录，最后释放名额。清理失败封闭管理器，拒绝迟到结果。</p>
 <h2>范围</h2><p>混合 PDF 和仅页码有文字的扫描件仍走 native，正文可能缺失。无准确率或版式质量门槛；不新增业务表、队列、逐页分流或自动重解析。</p>
-<h2>本次验收：365 PASS / 0 FAIL</h2><p>真实多语言采集到 Results API 181 项；旧代码与待执行 Run 升级 17 项；故障、取消与进程回收 150 项；跨 Run 共享上限与故障封闭 17 项。四份最终报告验证源码及依赖哈希一致。独立代码审查无剩余必修项。</p>
+<h2>历史 OCR 功能验收（2026-10-15）：365 PASS / 0 FAIL</h2><p>真实多语言采集到 Results API 181 项；旧代码与待执行 Run 升级 17 项；故障、取消与进程回收 150 项；跨 Run 共享上限与故障封闭 17 项。四份最终报告验证源码及依赖哈希一致。独立代码审查无剩余必修项。</p>
 <small>macOS / Python 3.12.13 / Tesseract 5.5.3。部署安装 Tesseract 及配置语言数据。生产、公网全量、负载、跨主机分布式上限及不可捕获退出未验证。命令与工件路径见唯一 Plan。</small></html>

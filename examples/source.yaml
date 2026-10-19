@@ -17,3 +17,8 @@ crawl4ai:
   max_depth: 3
   page_timeout_ms: 30000
   word_count_threshold: 1
+# 按来源正文语言选一组，权重统一使用官方 tessdata_fast；混排需独立校准。
+# 简中 chi_sim: 96 DPI；繁中 chi_tra: 96 DPI；英语 eng: 96 DPI；越南语 vie: 96 DPI。
+ocr:
+  languages: chi_sim
+  dpi: 96

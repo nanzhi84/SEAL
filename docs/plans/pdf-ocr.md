@@ -46,7 +46,80 @@ macOS 可用 `brew install tesseract`，Linux 可用发行版的 `tesseract-ocr`
 [官方说明](https://tesseract-ocr.github.io/tessdoc/Installation.html) 安装语言数据。
 `SEAL_TESSERACT` 可指定受信任的本地可执行文件，`TESSDATA_PREFIX` 指定语言目录；
 这些属于部署配置，不接受来源输入。缺少任意配置语言明确失败，不静默降级。
-升级前缺少 ocr 的待执行/重试 Run 使用上述默认值，不改写原始 config_hash，
+
+### 按来源选择 OCR（2026-10-19，速度优先）
+
+当前来源与新来源模板显式配置 `ocr.languages` / `ocr.dpi`，不依靠上述历史多语言默认值：
+
+| 来源正文语言 | languages | dpi | 部署权重 |
+| --- | --- | --- | --- |
+| 简中 | chi_sim | 96 | tessdata_fast |
+| 繁中 | chi_tra | 96 | tessdata_fast |
+| 英语 | eng | 96 | tessdata_fast |
+| 越南语 | vie | 96 | tessdata_fast |
+
+现有 19 个大陆入口配置简中，越南入口 [dd-492](../reference/尽职调查核验入口地图.md#dd-492)
+配置越南语；尚无繁中、英语 Source，不新增占位来源。混排来源的语言组合需另行校准。
+来源配置 → Run 冻结配置 → PDF worker 的语言及 DPI → CrawlResult OCR 元数据，沿用现有
+链路；`fast` 是运行环境加载的权重系列，不是新的来源字段。模型内容哈希参与解析指纹。
+更改配置仅作用于新 Run；已有 Run 不读取后来修改的 YAML，历史 Run 不被重写。
+
+本机已在 Tesseract 默认目录和既有 `work/ocr-tessdata` 安装四种 fast 权重。新环境安装：
+
+```sh
+mkdir -p work/ocr-tessdata
+for language in chi_sim chi_tra eng vie; do
+  curl --fail --location --retry 2 \
+    "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/main/$language.traineddata" \
+    --output "work/ocr-tessdata/$language.traineddata"
+done
+export TESSDATA_PREFIX="$PWD/work/ocr-tessdata"
+tesseract --list-langs
+```
+
+显式设置 `TESSDATA_PREFIX` 时，启动采集器与队列 worker 的环境必须一致。为复现本次选择，
+下载后逐项核对 SHA-256（上游更新时不可静默视作同一模型）：
+
+| 模型 | SHA-256 |
+| --- | --- |
+| chi_sim | a5fcb6f0db1e1d6d8522f39db4e848f05984669172e584e8d76b6b3141e1f730 |
+| chi_tra | 529c5b5797d64b126065cd55f2bb4c7fd7b15790798091b1ff259941a829330b |
+| eng | 7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2 |
+| vie | 79df64caf7bcfb2a27df5042ecb6121e196eada34da774956995747636d5bfa1 |
+
+本次按速度优先选择 [Paddle 与 Tesseract 对比实验](paddle-ocr-pareto.md) 中四语各自最快的
+已复测前沿点，均为 `tessdata_fast` / 96 DPI。四页逐页三次计时中位数之和分别为简中
+3.02 秒、繁中 4.06 秒、英语 2.10 秒、越南语 2.76 秒；固定区域 CER 分别为
+2.451%、8.734%、0.536%、0.626%。简中 tiny / 120 DPI 为 4.61 秒、0% CER，
+准确率更高但更慢，因此本次不选择。结果仅适用于本机有限扫描样本，不代表全文或语言总体；
+混排另测。旧的 2026-10-16 验收记录如下，不能作为本次 96 DPI 的验收证明。
+
+2026-10-19 速度配置独立验收：`uv run --no-sync python tests/speed_ocr_acceptance.py`，
+76/76 PASS。20 个来源及模板核对、四语真实扫描页经 Source → 隔离 worker → InputScraper →
+最终 CrawlResult，核验 96 DPI、fast 模型 SHA、正文锚点、页码与 HTML/Markdown。
+前提：项目 uv 依赖、Tesseract 与四语固定 fast 权重、实验保留且 SHA 匹配的公开原件；
+原件清单及下载 URL 位于 `experiments/paddle-ocr-pareto/config/documents.json`。
+工件为 `artifacts/speed-ocr-20261019/report.json`、`inputs.json`、四语 `*-crawlresult.json`。
+本次越南原件远端重下载 SHA 与固定输入不符，使用实验持久原件通过验收；
+`recovery-limitations.json` 保留该恢复限制，不能声称当前 URL 可重新下载相同字节。
+未验证 DB/S3、Results API、全站采集或全文准确率；旧 Run 未访问数据库验收。
+
+2026-10-19 工作区审查另行完成 105/105 断言（上述四语路径 76 项，加隔离存储与
+README 合同 29 项）。复跑入口 `uv run --no-sync python tests/review_ocr_readme_acceptance.py`，
+需 Docker、本机 fast 权重和上述持久原件；脚本启动并清理独立 PostgreSQL/MinIO，
+使用本地公开 fixture 与扫描切页，覆盖 collect → DB/S3 → Snapshot → 鉴权分页 API →
+原件哈希，并验证精确回执 Run、失败本轮拒绝旧成功及 unchanged 合法复用、历史冻结
+配置不变。报告 `artifacts/review-20261019-config/review-summary.json` 与
+`readme-contract/report.json`；不证明当前官方 URL 可下载、全量采集或生产可用。
+
+历史 2026-10-16 配置验收（固定旧 DPI，不作为当前入口）：
+`uv run --no-sync python tests/source_ocr_config_acceptance.py`，
+61 项断言通过；依赖本机四个 fast 模型和保留于 `artifacts/` 的真实扫描 PDF 输入。
+报告 `artifacts/source-ocr-config-20261016/report.json`、同目录 Source 快照与各语言最终
+CrawlResult 支持复核输入哈希、正文、页码、HTML、Markdown 及 OCR 配置。入口为 Source
+加载 → 隔离 PDF worker → InputScraper → CrawlResult，未经过 DB、S3、网络采集或全站采集。
+
+升级前缺少 ocr 的待执行/重试 Run 使用历史默认值（`eng+chi_sim+vie`、144 DPI），不改写原始 config_hash，
 实际执行配置仍记录于结果元数据；不读取后来变更的 Source 配置。
 
 ## 生命周期与失败
@@ -86,7 +159,7 @@ Snapshot → HTTP Results/attachments 验证 native、扫描、多语言、空�
 追加不可变 Version，不自动重解析；历史 Snapshot 不变。回滚代码与依赖锁即可停止未来 OCR。
 生产部署、负载、真实来源全量 OCR 及不可捕获退出由最终验收单独列出边界。
 
-## 本次独立验收
+## 历史 OCR 功能独立验收（2026-10-15）
 
 2026-10-15，macOS / Python 3.12.13 / Crawl4AI 0.9.5 / pypdfium2 5.14.0 /
 Tesseract 5.5.3，真实 eng、chi_sim、vie 模型。四份最终报告的实现与依赖摘要一致，
@@ -103,7 +176,7 @@ Tesseract 5.5.3，真实 eng、chi_sim、vie 模型。四份最终报告的实�
 `work/ocr-tessdata/{eng,chi_sim,vie}.traineddata`，本机 PostgreSQL/MinIO 正常且私有
 `.env.local` 提供创建隔离数据库/桶的权限。使用合成公开 fixture，允许本地回环；
 报告记录引擎/模型/源码哈希、命令与环境前提，不保存凭据。故障引擎只证明边界，
-不替代第一项实际 OCR。脚本与数据均为本地验收工件，不入库。
+不替代第一项实际 OCR。测试脚本位于 `tests/`，运行数据与生成工件不入库。
 
 ```bash
 uv run --no-sync python tests/issue25_e2e.py --name issue25-real-rerun

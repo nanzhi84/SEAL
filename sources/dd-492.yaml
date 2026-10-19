@@ -1,6 +1,6 @@
 # 来源地图：docs/reference/尽职调查核验入口地图.md#dd-492
 # 用户授权激进采集：忽略 robots，保留 TLS、公开地址、域名与路径边界。
-# 无正文文字层记录 pdf_text_layer_required；只有数字签章元数据不算正文。
+# 整份无文字层 PDF 使用越南语 fast OCR（96 DPI）；有文字层保留 native 路径。
 # 分页 runner 对网络失败自动最多追加两次复验（并发 2），不重抓成功或无文字层。
 # 普通 collect 可采首页可发现链接；全历史须执行 seal.vietnam_documents 提交分页表单。
 # 十个列表页试采：uv run --no-sync python -m seal.vietnam_documents sources/dd-492.yaml --max-pages 10 --state work/dd-492-ten-pages --artifacts artifacts/dd-492-ten-pages
@@ -14,7 +14,7 @@ host_path_scopes:
   vanban.chinhphu.vn: [/]
   datafiles.chinhphu.vn: [/cpp/files/vbpq/]
 archive_approved: true
-scope: 越南政府文献门户公开历史列表、文书详情及 vbpq 路径 PDF 原件与完整文字层；保留官方来源署名。全历史通过 ASP.NET 分页发现并分批采集，10 页测试不代表全量；无文字层或损坏 PDF 明确报错，不使用 OCR。
+scope: 越南政府文献门户公开历史列表、文书详情及 vbpq 路径 PDF 原件与正文；保留官方来源署名。全历史通过 ASP.NET 分页发现并分批采集，10 页测试不代表全量；整份无文字层使用越南语 fast OCR（96 DPI），损坏或 OCR 失败明确报错。
 robots: false
 recheck_seconds: 86400
 concurrency: 8
@@ -28,3 +28,6 @@ crawl4ai:
   max_depth: 3
   page_timeout_ms: 300000
   word_count_threshold: 1
+ocr:
+  languages: vie
+  dpi: 96

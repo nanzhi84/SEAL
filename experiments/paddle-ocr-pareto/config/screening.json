@@ -1,0 +1,9 @@
+{
+  "coarse_dpis": [96, 144, 300],
+  "refinement_neighbors": {"96": [120], "144": [120, 200], "300": [240]},
+  "time_guard_ratio": 1.25,
+  "confirmation_repeats": 3,
+  "page_timeout_seconds": 300,
+  "selection": "Coarse 1-pass at 96/144/300; promote nominal Pareto points and points within 25% speed margin of domination; test adjacent DPI for promoted model-language configurations; confirm candidates with 3 repeats per page; repeat promotion until every frontier point is confirmed",
+  "limitations": "Empirical frontier over evaluated grid; screened dominated points may have only one repeat. No confidence interval or guarantee about untested DPI/model combinations."
+}

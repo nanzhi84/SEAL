@@ -5,6 +5,21 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / OCR 速度优先前沿 — 2026-10-19
+
+依据 [Paddle OCR 对比实验](docs/plans/paddle-ocr-pareto.md)，现有 19 个大陆 Source 与
+越南 dd-492 均改为各自语言的 `tessdata_fast` / 96 DPI；新来源模板的四语建议同步为 96 DPI。
+这是本次有限样本中最快的已复测前沿点，接受其准确率取舍。仅新 Run 生效，历史冻结 Run
+及缺省配置保持原参数；无引擎、依赖或数据库变更。
+
+## 未发布 / 按来源配置 OCR — 2026-10-16
+
+现有 19 个大陆 Source 显式使用 `chi_sim` / 120 DPI，越南 dd-492 使用 `vie` / 144 DPI。
+新来源模板记录繁中 `chi_tra` / 144 DPI、英语 `eng` / 120 DPI；四种语言统一采用
+官方 `tessdata_fast` 权重，部署步骤与哈希见 [PDF OCR Plan](docs/plans/pdf-ocr.md)。
+沿用来源配置、Run 冻结与模型哈希指纹链路，无新增字段或数据库迁移；历史 Run 不改写，
+缺省 OCR 配置保持兼容，配置更新需新建 Run 才生效。参数来自有限扫描样本，混排另行验证。
+
 ## 未发布 / 解析指纹语义修正（PR #29 审查）— 2026-10-16
 
 rendered_dom 清单记录实际 Playwright 驱动及 Chromium headless-shell revision、版本和

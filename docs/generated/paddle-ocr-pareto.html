@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><title>多语言 OCR 选型</title>
+<style>body{font:17px system-ui;max-width:960px;margin:40px auto;padding:24px;color:#263342}li{margin:18px 0}code{background:#f0f4f8;padding:3px}</style>
+<h1>PaddleOCR 与 tessdata_fast</h1><p><a href="../plans/paddle-ocr-pareto.md">唯一 Plan 与比较合同</a></p>
+<ol><li>公开扫描 PDF → 固定页号和人工核对矩形真值 → 冻结输入哈希</li>
+<li>96 / 144 / 300 DPI粗筛 → 候选及相邻DPI 120 / 200 / 240 → 同图整页识别</li>
+<li>Tesseract fast + PP-OCRv6 tiny / small / medium → 单线程 CPU；最终前沿三次重复，粗筛点可单次</li>
+<li>原始结构输出 → 固定几何选区 → 字符加权 CER；逐页耗时中位数求和</li>
+<li>同语言二维非支配比较 → 图表、原始工件、独立验收</li></ol>
+<p>四语言各4页12区域；Paddle冷启动单列，主比较为常驻模型与逐页Tesseract CLI。
+不改正式采集链路。用户选择先粗筛，未测配置单列；只报告已评估网格的经验前沿。
+有限区域误差不是全文准确率，运行结果见实验工件。</p>
+<p>恢复执行先核对运行时、二进制及冻结文件；模型缺失先失败。配置参数显式传入引擎，
+失败、部分完成、未测分别记录，离线发布也要求前沿全部完成三次复测。
+审查前计时保留原 manifest 与匹配源码快照，当前源码需新运行名；隔离验证与复现限制见唯一 Plan。</p></html>
