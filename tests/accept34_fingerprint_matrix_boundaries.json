@@ -1,0 +1,32 @@
+{
+  "goal": "issue34 observable fingerprints follow actual decoding, URL resolution, selected metadata, and declared volume order",
+  "cases": [
+    {
+      "id": "charset",
+      "control": "identical HTTP entity bytes and request URL; UTF-8 versus Windows-1252 Content-Type charset",
+      "failure": "a successfully decoded different text is silently unchanged",
+      "assert": "same stable Resource and parser; changed input fingerprint and new Version when declared decoding changes text"
+    },
+    {
+      "id": "base",
+      "control": "same entry URL redirects to base-a versus base-b; final entity bytes identical and contain a relative link; no link discovery",
+      "failure": "actual document base is omitted from semantic input",
+      "assert": "Resource identity stays entry URL; actual final base change produces new Version/input fingerprint, stable parser"
+    },
+    {
+      "id": "outer-date",
+      "control": "article content XPath stays byte-identical; published_at XPath selects external date span; only selected date changes",
+      "failure": "selected external date is ignored or parser is spuriously changed",
+      "assertion": "selected date changes projected publication date and Version while Markdown stays fixed; whole HTML is a business original, so unselected HTML-byte changes may legitimately create versions"
+    },
+    {
+      "id": "volumes",
+      "control": "two unchanged distinct PDF originals; link DOM order changes without labels, then Part 1/Part 2 labels explicitly swap",
+      "failure": "DOM order churns Version or declared file order swap is ignored",
+      "assert": "DOM reorder unchanged; declared contiguous volume order changes Version and reverses file_hash to file_order mapping"
+    }
+  ],
+  "immutability": "prior Version/Observation rows, Snapshot A coverage/results and every authorized files byte stream remain fixed after B",
+  "isolation": "fresh database/bucket for each child case, controlled HTTP origin, actual CLI and API only, no src reads or writes",
+  "scope": "API-only; cancelled issue32 capability excluded"
+}
