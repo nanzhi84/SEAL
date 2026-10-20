@@ -8,6 +8,7 @@ from .core import SealError, uid
 from .db import connect, j, one
 from .document import verify_document
 from .objects import Objects
+from .public_results import snapshot_rows
 from .snapshot_overrides import normalize
 
 OUTPUT_MAX_BYTES = 8 * 1024 * 1024
@@ -121,13 +122,21 @@ def create(overrides=None):
             WHERE s.snapshot_id=%s""",
             (j(overrides), snapshot_id),
         )
-        rows = c.execute(
-            """SELECT i.source_id,d.markdown_hash,d.markdown_file,d.original_ref,d.original_file,
-            d.original_media_type FROM seal.snapshot_item i
-            JOIN seal.delivery_row d ON d.version_id=i.version_id WHERE i.snapshot_id=%s
-            ORDER BY i.source_id COLLATE "C",i.resource_id COLLATE "C",d.row_number""",
+        documents = c.execute(
+            """SELECT DISTINCT v.result_ref FROM seal.snapshot_item i
+            JOIN seal.version v ON v.id=i.version_id WHERE i.snapshot_id=%s""",
             (snapshot_id,),
         ).fetchall()
+        for item in documents:
+            verify_document(objects, item["result_ref"], deadline=deadline)
+        rows, after = [], ("", "", 0)
+        while True:
+            page = snapshot_rows(c, snapshot_id, [s["id"] for s in sources], after)
+            rows.extend(page)
+            if len(page) < 1000:
+                break
+            last = page[-1]
+            after = (last["source_id"], last["resource_id"], last["row_number"])
         files = {}
         for row in rows:
             entries = [
@@ -148,7 +157,7 @@ def create(overrides=None):
         for (source_id, sha, kind), (media_type, name) in files.items():
             # Reference closure: every downloadable object must exist before sealing.
             if sha not in sizes:
-                sizes[sha] = objects.head(sha)
+                sizes[sha] = len(objects.get(sha, deadline=deadline))
             c.execute(
                 """INSERT INTO seal.snapshot_file(snapshot_id,source_id,sha256,kind,media_type,
                 file_name,byte_size) VALUES(%s,%s,%s,%s,%s,%s,%s)""",

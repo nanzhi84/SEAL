@@ -6,6 +6,7 @@ before the terminal state (with archive_ref) is committed.
 """
 
 import asyncio
+import os
 import re
 import time
 from email.message import Message
@@ -63,8 +64,11 @@ class Budget:
         self.started = time.monotonic()
         self.deadline = deadline
         self.cancelled = False
+        self.parent_pid = os.getppid()
 
     def active(self):
+        if os.getppid() != self.parent_pid:
+            raise SealError("interrupted")
         if self.cancelled:
             raise SealError("interrupted")
         if time.monotonic() - self.started > self.config["budget"]["seconds"]:
@@ -199,6 +203,7 @@ class Transport:
                 ) as response:
                     body = bytearray()
                     async for chunk in response.content.iter_chunked(65536):
+                        self.budget.active()
                         body.extend(chunk)
                         if len(body) > limit:
                             return self.recorder.finish(
@@ -221,8 +226,10 @@ class Transport:
                 identity, "failed", outcome="network_failed", error="network_failed"
             )
         data = bytes(body)
+        self.budget.active()
         ref = self.objects.put(data)
         self.objects.get(ref)  # Read back before any database reference is committed.
+        self.budget.active()
         mime_type, charset = media(headers)
         outcome = (
             "ok" if 200 <= status < 300 else "redirect" if status in REDIRECTS else "http_error"

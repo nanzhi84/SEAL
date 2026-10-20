@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from .core import SealError
+from .markdown import html_to_markdown, text_to_markdown
 from .office_runtime import OFFICE_KINDS, extract_office, unpack_zip
 from .pdf_scan import extract_pdf
 from .quality import text_check
@@ -27,6 +28,19 @@ def worst(routes):
 
 
 def extract(path, kind, job, depth=0):
+    if kind in {"txt", "html"}:
+        try:
+            text = path.read_text(encoding="utf-8-sig")
+        except UnicodeError:
+            raise SealError("zip_text_encoding_invalid") from None
+        markdown = html_to_markdown(text, "") if kind == "html" else text_to_markdown(text)
+        return (
+            markdown,
+            {"kind": kind},
+            text_check(markdown, job["profile"]),
+            ["markdown", "quality"],
+            [],
+        )
     if kind == "pdf":
         markdown, info, report, parsers = extract_pdf(path, job["ocr"], job["profile"])
         return markdown, info, report, parsers, []

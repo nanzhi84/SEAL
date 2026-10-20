@@ -53,6 +53,16 @@ def create_run(source_id, mode, connection):
 def end_run(c, source, run, status, reason):
     from .progress import terminal_report
 
+    c.execute(
+        """UPDATE seal.acquisition SET state=%s,outcome=%s,error=%s,
+        acquired_at=clock_timestamp() WHERE run_id=%s AND state='running'""",
+        (
+            "cancelled" if reason == "interrupted" else "abandoned",
+            "cancelled" if reason == "interrupted" else "abandoned",
+            reason or "attempt_ended",
+            run["id"],
+        ),
+    )
     report = terminal_report(c, run, status, reason)
     c.execute(
         "UPDATE seal.run SET status=%s,completed_at=now(),errors=%s,report=%s WHERE id=%s",
@@ -88,6 +98,10 @@ def begin_attempt(run_id):
         c.execute("UPDATE seal.source SET write_seq=%s WHERE id=%s", (run["run_seq"], source["id"]))
         f = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s FOR UPDATE", (source["id"],))
         if f["run_id"] != run_id:
+            if f["run_id"]:
+                previous = one(c, "SELECT * FROM seal.run WHERE id=%s FOR UPDATE", (f["run_id"],))
+                if previous["status"] not in TERMINAL_STATES:
+                    end_run(c, source, previous, "failed", "run_superseded")
             # A new Run is never a resume: its tasks and checkpoint start empty. The
             # previous Run keeps its own persistent tasks and acquisition facts.
             c.execute(
@@ -169,7 +183,7 @@ def _execute_attempt(run_id, owner, progress, cancel_event=None):
     sdk_work = work_directory() / "sdk" / run_id / str(epoch)
     sdk_work.mkdir(parents=True, exist_ok=True, mode=0o700)
     process = subprocess.Popen(
-        [sys.executable, "-m", "seal.runtime", run_id, str(epoch), str(os.getpid())],
+        [sys.executable, "-m", "seal.runtime_process", run_id, str(epoch), str(os.getpid())],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         start_new_session=True,
@@ -236,6 +250,9 @@ def execute_run(run_id, progress=None, cancel_event=None):
                     raise SealError("frontier_already_executing")
                 acquired.append(key)
             owner.commit()
+            # Advisory locks belong to this session; heartbeat probes must not keep
+            # an idle SQL transaction open while the child performs external I/O.
+            owner.autocommit = True
             while True:
                 result = _execute_attempt(run_id, owner, progress, cancel_event)
                 if result["status"] != "retryable" or (

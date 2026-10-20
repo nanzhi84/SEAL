@@ -3,7 +3,7 @@
 import re
 import unicodedata
 
-MARKDOWN_CONTRACT = "seal.markdown.v1"
+MARKDOWN_CONTRACT = "seal.markdown.v2"
 _ESCAPE = re.compile(r"([\\`*_\[\]<>|])")
 _LINE_START = re.compile(r"^(\s*)([#>+\-=]|\d+[.)])(?=\s|$)", re.M)
 
@@ -24,7 +24,10 @@ def text_to_markdown(value):
     text = "\n".join(lines)
     text = re.sub(r"\n{3,}", "\n\n", text).strip()
     text = _ESCAPE.sub(r"\\\1", text)
-    text = _LINE_START.sub(lambda m: m[1] + "\\" + m[2], text)
+    text = _LINE_START.sub(
+        lambda m: m[1] + (m[2][:-1] + "\\" + m[2][-1] if m[2][0].isdigit() else "\\" + m[2]),
+        text,
+    )
     # Hard line breaks inside a paragraph are retained explicitly.
     text = re.sub(r"(?<!\n)\n(?!\n)", "  \n", text)
     return text + "\n" if text else ""

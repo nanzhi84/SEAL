@@ -5,18 +5,29 @@ Both the API and ``seal export`` read through this module; neither calls the oth
 
 from .document import COLUMNS, row_values
 
-ROW_QUERY = """SELECT i.source_id,i.resource_id,i.version_id,d.* FROM seal.snapshot_item i
+ROW_QUERY = """WITH base AS (
+SELECT i.source_id,i.resource_id,d.*,
+CASE WHEN d.volume_order IS NULL THEN left(d.markdown_file,-3)
+ELSE regexp_replace(left(d.markdown_file,-3),'_[0-9]+$','') END AS name_stem
+FROM seal.snapshot_item i
 JOIN seal.delivery_row d ON d.version_id=i.version_id
-WHERE i.snapshot_id=%(snapshot)s AND i.source_id = ANY(%(sources)s)
-AND (i.source_id COLLATE "C", i.resource_id COLLATE "C", d.row_number)
+WHERE i.snapshot_id=%(snapshot)s), named AS (
+SELECT *,row_number() OVER (PARTITION BY markdown_file
+ORDER BY source_id COLLATE "C",resource_id COLLATE "C",row_number) AS name_rank,
+row_number() OVER (PARTITION BY name_stem
+ORDER BY source_id COLLATE "C",resource_id COLLATE "C",row_number) AS stem_rank,
+max(COALESCE(volume_order,0)) OVER (PARTITION BY name_stem) AS reserved_volume
+FROM base)
+SELECT * FROM named WHERE source_id = ANY(%(sources)s)
+AND (source_id COLLATE "C", resource_id COLLATE "C", row_number)
     > (%(source_after)s COLLATE "C", %(resource_after)s COLLATE "C", %(row_after)s)
-ORDER BY i.source_id COLLATE "C", i.resource_id COLLATE "C", d.row_number
+ORDER BY source_id COLLATE "C", resource_id COLLATE "C", row_number
 LIMIT %(limit)s"""
 
 
 def snapshot_rows(c, snapshot_id, sources, after=("", "", 0), limit=1000):
     """Stable row order: source_id, resource_id, row_number (C collation)."""
-    return c.execute(
+    rows = c.execute(
         ROW_QUERY,
         {
             "snapshot": snapshot_id,
@@ -27,6 +38,13 @@ def snapshot_rows(c, snapshot_id, sources, after=("", "", 0), limit=1000):
             "limit": limit,
         },
     ).fetchall()
+    for row in rows:
+        if row["name_rank"] > 1:
+            stem = row["name_stem"] + "_%02d" % (row["reserved_volume"] + row["stem_rank"])
+            row["markdown_file"] = stem + ".md"
+            if row["original_file"]:
+                row["original_file"] = stem + "." + row["original_file"].rsplit(".", 1)[1]
+    return rows
 
 
 def project(row):

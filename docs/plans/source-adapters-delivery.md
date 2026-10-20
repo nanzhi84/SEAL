@@ -323,7 +323,7 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 | `adapter` | `web` | `web`（通用网页）；`vietnam_law`、`federal_register` 属阶段 3 |
 | `adapter_options` | `{}` | 由 Adapter 校验的来源专用参数 |
 | `budget.requests` / `seconds` / `response_bytes` | 100 / 120 / 10 MiB | 真实外部请求数（含 robots、每个重定向跳、每次重试）、单次尝试时间、单响应字节上限 |
-| `budget.documents` | 10000 | 每个 Run 可登记的文档目标上限；超出部分记为 `document_budget_exceeded` 截断 |
+| `budget.documents` | 10000 | 每个 Run 接受处理的文档目标上限；超出目标持久记为 skipped / `document_budget_exceeded` 以保留覆盖缺口，已接受目标继续取得必需输入 |
 | `fetch.mode` | `http` | `http` 归档 HTTP 响应实体字节；`rendered_dom` 归档渲染后 DOM UTF-8 |
 | `fetch.max_depth` / `page_timeout_ms` / `wait_until` | 3 / 30000 / `domcontentloaded` | 链接发现深度（仅 collect）与单请求超时 |
 | `fetch.retries` / `retry_backoff_seconds` | 2 / 0.5 | 网络失败与 5xx 的有界重试，每次重试是关联前次的独立 Acquisition |
@@ -354,6 +354,10 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 | `seal.snapshot*` / `seal.publication` | 固定版本映射、冻结覆盖描述（`snapshot_source.coverage`）、可下载文件闭包（`snapshot_file`）与显式发布指针 |
 
 `change_reason` 取 `first_success`、`source_changed`、`parser_changed`、`both_changed`（离线重解析为 `parser_recomputed`）。版本指纹相同而 `content_hash` 不同记为 `nondeterministic_parser_output` 失败观察与冲突记录；同轮同键而三指纹不同记为 `delivery_key_conflict`，均不覆盖已有结果。Web Adapter 的资源身份为 `identity_namespace=url`、`external_key=` 规范化请求 URL；`来源记录号` 为 `{source_id, namespace, external_key}` 的具名 SHA-256。`采集时间` 取该行原件 Acquisition 的完成时间，按 UTC 输出。
+
+`seal.inputs.v1` 保留完整 `locator` 供审计，并冻结 Adapter 输入选择供后续离线重解析。输入指纹使用 `semantic_locator`（未指定时等于真实 locator）与文档切片哈希：稳定文档选择器参与语义，列表数组位置与分页游标只保留在血缘中。同身份的后续候选继续进入三指纹重放校验，不能仅因已存在目标而跳过冲突。
+
+Snapshot 封存前读回并复算每个 unified document、输入清单、清单内原件和交付文件的 SHA-256；存在但损坏的对象同样阻止封存。外部获取期间仅保留 Source 会话锁，SQL 心跳使用自动提交，不持有空闲事务。
 
 ### 命令与 API
 
@@ -394,7 +398,7 @@ delivery/
 
 ### 2. Markdown、原件命名与完整性
 
-- 每行交付记录在 `markdown/` 下恰有一个对应的 `.md` 文件（命名规则：单文件或独立附件为 `<安全化资料名称>_<文件哈希前8位>.md`；连续分卷为 `<安全化资料名称>_<文件哈希前8位>_<两位序号>.md`）。
+- 每行交付记录在 `markdown/` 下恰有一个对应的 `.md` 文件。无碰撞时，单文件或独立附件为 `<安全化资料名称>_<文件哈希前8位>.md`，连续分卷为 `<安全化资料名称>_<文件哈希前8位>_<两位序号>.md`。同基名碰撞时，先按完整 Snapshot 的 `source_id / resource_id / row_number` 排序，保留首次出现的自然名字，其余使用未占用的数字后缀；预留自然卷序，消歧数字不改变 `文件顺序`。API、分页、授权筛选与子集导出消费相同投影，不各自重编文件名。原始文件跟随对应 Markdown 的文件名词干；同一哈希可被多行引用，下载响应在获授权引用中稳定选择一个规范文件名。
 - 有原始文件时，在 `originals/` 下输出对应原件（`<安全化资料名称>_<文件哈希前8位>[_<两位序号>].<ext>`，文件字节 SHA-256 必须等于该行 `文件哈希`）；无独立原件（仅接口响应切片生成正文）时，`原始文件` 留空，该行 `文件哈希` 等于 `.md` 文件的 SHA-256，不伪造所谓“官方 PDF/HTML 原件”。
 - 发现列表、验证码页面或登录壳不能充当正文原件。扩展名来自已校验媒体类型与真实容器探测，不能盲信来源 URL 后缀。
 - Source 必需正文附件尚未取得、必需输入解析失败、未通过 `quality_check` 或连续分卷顺序无法确定时，不形成可交付成功版本。
@@ -461,7 +465,16 @@ seal export verify artifacts/<运行名>/delivery
 | Snapshot A 导出期间采集或发布 B | A 的 `metadata.xlsx`、`.md` 与原件固定不变，不混入 B；导出不改变 API 的 `published_snapshot_id` |
 | 移动包并断网 `seal export verify` | 包内相对路径有效，16 列 `metadata.xlsx`、`markdown/`、`originals/` 与 `manifest.json` 全量对账通过 |
 
-当前结果：已完成参考模板与解析脚本归档至 `docs/reference/`，完成设计合同与远程 Issues 重构；未修改 `src/seal/` 业务代码，未运行上述业务验收。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2–4 仍由各自依赖分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+
+复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。两个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
+
+```sh
+uv run --no-sync python tests/issue31_acceptance.py
+uv run --no-sync python tests/issue31_supplement.py
+```
+
+本次工件为 `artifacts/issue31-20261020T070105Z/`、`artifacts/issue31-supplement-20261020T070105Z/` 与 `artifacts/issue31-final-audit.json`，包含实际命令、环境、331 + 76 条断言、SQL/CAS/API 逐字节核对与源码/测试哈希；敏感扫描零命中。源码组合 SHA-256 为 `8631772355764dc0ad71424a2e424df387c2ab48e8adbe2e91333d45d1e9f453`，工件不入库且可由以上命令重新生成。
 
 ## 相关设计与合同替代范围
 

@@ -9,13 +9,14 @@ from pathlib import Path
 
 from .core import SealError, digest
 from .markdown import MARKDOWN_CONTRACT
-from .office_runtime import OFFICE_CONTRACT, TCVN3_CONTRACT, libreoffice_identity
+from .office_runtime import OFFICE_CONTRACT, libreoffice_identity
+from .office_text import TCVN3_CONTRACT
 from .pdf_scan import INK_THRESHOLD, PDF_CONTRACT, SCAN_INK_RATIO, SCAN_TEXT_CHARS
 from .quality import QUALITY_CONTRACT
 
 MANIFEST_ALGORITHM = "seal.parser-manifest.v3"
-FINGERPRINT_ALGORITHM = "seal.fingerprint.v1"
-ZIP_CONTRACT = "seal.zip.v1"
+FINGERPRINT_ALGORITHM = "seal.fingerprint.v2"
+ZIP_CONTRACT = "seal.zip.v2"
 ALWAYS = ("algorithm", "adapter", "fetch", "markdown")
 
 

@@ -7,80 +7,20 @@ the same transaction that completes their parent request, before any watermark m
 """
 
 import asyncio
-import os
-import signal
-import sys
-import threading
-import time
 
+from .adapter_context import Context, adapter_error
 from .adapters import load
-from .core import SealError, digest, uid
+from .core import SealError, uid
 from .db import connect, fenced, j, locked_run, record_error
 from .document import build
 from .objects import Objects
-from .parsing import require_runtime
-from .pdf_runtime import run_extraction
-from .quality import text_check
 from .resources import commit, fail, save_checkpoint
-from .runs import run_context
+from .runtime_registration import register
 from .transport import Budget, Recorder, Transport, request_key
 
 CHECKPOINT_SCHEMA = "seal.checkpoint.v1"
-ADAPTER_STATE_SCHEMA = 1
-
-
-def adapter_error(exc, prefix):
-    """Stable error code; source-specific or unexpected failures never crash the Run."""
-    if isinstance(exc, SealError):
-        if exc.code in {
-            "interrupted",
-            "crawl_time_budget_exceeded",
-            "stale_attempt",
-            "inactive_attempt",
-            "run_not_started",
-            "deadline_exceeded",
-        }:
-            raise exc
-        return exc.code
-    return prefix + ":" + type(exc).__name__
-
-
-def target_key(target):
-    identity = target.get("identity") or {}
-    if identity.get("namespace") and identity.get("external_key"):
-        return digest(
-            {"namespace": identity["namespace"], "external_key": identity["external_key"]}
-        )
-    return digest({"inputs": [request_key(item["request"]) for item in target["inputs"]]})
-
-
-class Context:
-    """The only capabilities an Adapter receives: archived reads and bounded extraction."""
-
-    def __init__(self, runtime):
-        self.runtime = runtime
-        self.config = runtime.config
-        self.objects = Objects()
-
-    def read(self, acquisition):
-        if acquisition.get("state") != "archived":
-            raise SealError("input_not_archived")
-        return self.objects.get(acquisition["archive_ref"])
-
-    def store(self, data):
-        ref = self.objects.put(data)
-        self.objects.get(ref)
-        return ref
-
-    def extract(self, data, kind):
-        return run_extraction(data, kind, self.config, active=self.runtime.budget.active)
-
-    def text_quality(self, markdown):
-        language = str(self.config["metadata"].get("language") or "")
-        return text_check(markdown, "vi" if language.startswith("vi") else "generic")
-
-    def follow_links(self, task):
-        return self.runtime.mode == "collect" and task["depth"] < self.config["fetch"]["max_depth"]
+# A document target cap skips extra targets without starving accepted targets of inputs.
+STOPPING = {"request_budget_exceeded", "crawl_time_budget_exceeded"}
 
 
 class Runtime:
@@ -95,6 +35,10 @@ class Runtime:
             used = c.execute(
                 "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s", (self.run_id,)
             ).fetchone()["n"]
+            capped = c.execute(
+                "SELECT 1 FROM seal.task WHERE run_id=%s AND error='document_budget_exceeded' LIMIT 1",
+                (self.run_id,),
+            ).fetchone()
         self.budget = Budget(self.config, used, context["deadline"])
         self.recorder = Recorder(self.run_id, self.epoch, context["source_id"])
         self.transport = Transport(self.config, self.budget, self.recorder)
@@ -105,7 +49,8 @@ class Runtime:
             self.browser = Browser(self.config, self.budget, self.recorder, self.transport)
         self.adapter = load(self.config["adapter"])(self.config)
         self.ctx = Context(self)
-        self.truncated = None
+        plan = context.get("recheck_plan") or context.get("reparse_plan") or {}
+        self.truncated = "document_budget_exceeded" if capped or plan.get("truncated") else None
 
     # ---- persistence -------------------------------------------------------------------
 
@@ -133,108 +78,6 @@ class Runtime:
             "SELECT id FROM seal.task WHERE run_id=%s AND kind='request' AND key=%s",
             (self.run_id, key),
         ).fetchone()["id"]
-
-    def register(self, result, parent=None, depth=0):
-        """Persist follow-up requests/targets and complete the parent in one transaction."""
-
-        def apply(c):
-            for request in result.get("requests", []):
-                self.insert_request(c, request, request.get("depth", depth))
-            for target in result.get("targets", []):
-                key = target_key(target)
-                count = c.execute(
-                    "SELECT count(*) AS n FROM seal.task WHERE run_id=%s AND kind='target'",
-                    (self.run_id,),
-                ).fetchone()["n"]
-                exists = c.execute(
-                    """SELECT * FROM seal.task WHERE run_id=%s AND kind='target' AND key=%s
-                    FOR UPDATE""",
-                    (self.run_id, key),
-                ).fetchone()
-                if exists:
-                    if exists["state"] == "pending":
-                        self.amend(c, exists, target, depth)
-                    continue
-                state = "pending"
-                if count >= self.config["budget"]["documents"]:
-                    state = "skipped"
-                payload = {
-                    "identity": target.get("identity"),
-                    "context": target.get("context") or {},
-                    "inputs": [
-                        {
-                            **{k: v for k, v in item.items() if k != "request"},
-                            "request_key": request_key(item["request"]),
-                        }
-                        for item in target["inputs"]
-                    ],
-                }
-                target_id = uid()
-                c.execute(
-                    """INSERT INTO seal.task(id,run_id,kind,key,payload,state,error)
-                    VALUES(%s,%s,'target',%s,%s,%s,%s)""",
-                    (
-                        target_id,
-                        self.run_id,
-                        key,
-                        j(payload),
-                        state,
-                        "document_budget_exceeded" if state == "skipped" else None,
-                    ),
-                )
-                if state == "skipped":
-                    self.truncated = "document_budget_exceeded"
-                    continue
-                for position, item in enumerate(target["inputs"]):
-                    request_id = self.insert_request(
-                        c, item["request"], item["request"].get("depth", depth)
-                    )
-                    c.execute(
-                        """INSERT INTO seal.task_input(target_id,request_id,position)
-                        VALUES(%s,%s,%s) ON CONFLICT DO NOTHING""",
-                        (target_id, request_id, position),
-                    )
-            if parent is not None:
-                c.execute(
-                    """UPDATE seal.task SET state='done',attempt_epoch=%s,
-                    updated_at=clock_timestamp() WHERE id=%s""",
-                    (self.epoch, parent),
-                )
-            if "state" in result:
-                self.checkpoint["adapter_state"] = {
-                    "schema": ADAPTER_STATE_SCHEMA,
-                    **(result["state"] or {}),
-                }
-
-        self.write(apply)
-
-    def amend(self, c, row, target, depth):
-        """A not-yet-delivered target gains newly discovered required inputs."""
-        payload = row["payload"]
-        known = {item["request_key"] for item in payload["inputs"]}
-        added = False
-        for item in target["inputs"]:
-            key = request_key(item["request"])
-            if key in known:
-                continue
-            request_id = self.insert_request(
-                c, item["request"], item["request"].get("depth", depth)
-            )
-            c.execute(
-                """INSERT INTO seal.task_input(target_id,request_id,position) VALUES(%s,%s,%s)
-                ON CONFLICT DO NOTHING""",
-                (row["id"], request_id, len(payload["inputs"])),
-            )
-            payload["inputs"].append(
-                {**{k: v for k, v in item.items() if k != "request"}, "request_key": key}
-            )
-            known.add(key)
-            added = True
-        if added:
-            c.execute(
-                "UPDATE seal.task SET payload=%s,updated_at=clock_timestamp() WHERE id=%s",
-                (j(payload), row["id"]),
-            )
 
     def mark_request(self, task_id, state, acquisition_id=None, error=None):
         self.write(
@@ -280,7 +123,7 @@ class Runtime:
             result = self.adapter.plan_recheck(resources, state)
         else:
             result = self.adapter.plan(state)
-        self.register(result)
+        register(self, result)
         self.save(planned=True)
 
     async def fetch(self, task):
@@ -316,10 +159,11 @@ class Runtime:
                 record_error(self.run_id, self.epoch, result.code)
             elif isinstance(result, BaseException):
                 raise result
-            elif result["state"] == "archived":
+            elif result["state"] == "archived" and result["outcome"] == "ok":
                 self.mark_request(task["id"], "archived", result["id"])
             else:
                 self.mark_request(task["id"], "failed", result["id"], result["error"])
+                record_error(self.run_id, self.epoch, result["error"] or "request_failed")
                 if result["state"] == "cancelled":
                     raise SealError("interrupted")
         return True
@@ -346,7 +190,7 @@ class Runtime:
                 )
                 record_error(self.run_id, self.epoch, code)
                 continue
-            self.register(result, parent=task["id"], depth=task["depth"] + 1)
+            register(self, result, parent=task["id"], depth=task["depth"] + 1)
         return bool(tasks)
 
     def ready_targets(self):
@@ -394,6 +238,14 @@ class Runtime:
             candidates = self.adapter.build(self.ctx, target["payload"], inputs)
             if len(candidates) != 1:
                 raise SealError("target_must_build_one_document")
+            # Freeze adapter selection so a later offline Run can replay verified inputs.
+            candidates[0]["adapter_inputs"] = [
+                {
+                    **{k: v for k, v in item.items() if k not in ("task", "acquisition")},
+                    "acquisition_id": item["acquisition"]["id"],
+                }
+                for item in inputs
+            ]
             built = build(
                 Objects(),
                 source_id=self.run["source_id"],
@@ -429,7 +281,7 @@ class Runtime:
 
     def close_unfinished(self):
         """Targets that can no longer complete are reported, not invented as failures."""
-        reason = self.truncated or "inputs_unavailable"
+        reason = self.truncated if self.truncated in STOPPING else "inputs_unavailable"
         self.write(
             lambda c: c.execute(
                 """UPDATE seal.task SET state='skipped',error=%s,attempt_epoch=%s,
@@ -481,7 +333,7 @@ class Runtime:
                 self.budget.active()
                 progressed = self.parse_archived()
                 progressed |= self.deliver_ready()
-                if self.truncated:
+                if self.truncated in STOPPING:
                     break
                 fetched = await self.fetch_batch()
                 if not (progressed or fetched):
@@ -490,6 +342,9 @@ class Runtime:
             self.deliver_ready()
             self.close_unfinished()
             self.save(watermark=self.watermark())
+        except asyncio.CancelledError:
+            finish_reason = "interrupted"
+            record_error(self.run_id, self.epoch, "interrupted")
         except SealError as exc:
             if exc.code in {"stale_attempt", "inactive_attempt", "run_not_started"}:
                 raise
@@ -525,42 +380,3 @@ class Runtime:
                 (self.run_id,),
             ).fetchone()
         return row["seq"] or 0
-
-
-def watch_parent(parent):
-    while True:
-        if os.getppid() != parent:
-            os.killpg(os.getpgrp(), signal.SIGKILL)
-        time.sleep(0.2)
-
-
-async def run(context):
-    try:
-        require_runtime(context["config"], context["parser_manifest"])
-    except SealError as exc:
-        record_error(context["id"], context["attempt_epoch"], exc.code)
-        with connect() as c:
-            c.execute(
-                """UPDATE seal.run SET status='finishing' WHERE id=%s AND attempt_epoch=%s
-                AND status='running'""",
-                (context["id"], context["attempt_epoch"]),
-            )
-        return
-    runtime = Runtime(context)
-
-    def cancel(signum, frame):
-        runtime.budget.cancelled = True
-
-    for sig in (signal.SIGTERM, signal.SIGINT):
-        signal.signal(sig, cancel)
-    await runtime.execute()
-
-
-def main():
-    run_id, epoch, parent = sys.argv[1:]
-    threading.Thread(target=watch_parent, args=(int(parent),), daemon=True).start()
-    asyncio.run(run(run_context(run_id, int(epoch))))
-
-
-if __name__ == "__main__":
-    main()

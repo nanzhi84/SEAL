@@ -169,6 +169,7 @@ def normalize_inputs(candidate, acquisitions):
                 "archive_ref": sha(item["archive_ref"], "invalid_input_archive_ref"),
                 "role": item["role"],
                 "locator": locator,
+                "semantic_locator": item.get("semantic_locator") or locator,
                 "slice_hash": sha(item.get("slice_hash") or item["archive_ref"], "invalid_slice"),
                 "charset": item.get("charset"),
                 "base_url": item.get("base_url"),
@@ -233,9 +234,12 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
             sha(original.get("ref"), "invalid_original_ref")
             if original.get("kind") not in EXTENSIONS:
                 raise SealError("invalid_original_kind")
-        source = inputs[item["input"]] if isinstance(item.get("input"), int) else None
+        position = item.get("input")
+        source = inputs[position] if type(position) is int and 0 <= position < len(inputs) else None
         if source is None:
             raise SealError("deliverable_input_required")
+        if original and original["ref"] != source["archive_ref"]:
+            raise SealError("deliverable_original_input_mismatch")
         title = text(item.get("title"), "title") or metadata["title"]
         if item["role"] == "independent_attachment" and not text(item.get("title"), "title"):
             raise SealError("attachment_title_missing")
@@ -327,7 +331,7 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
                 k: item[k]
                 for k in (
                     "role",
-                    "locator",
+                    "semantic_locator",
                     "slice_hash",
                     "charset",
                     "base_url",
@@ -375,6 +379,7 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
         "run_id": run_id,
         "document": {"namespace": namespace, "external_key": external_key},
         "inputs": inputs,
+        "adapter_inputs": candidate.get("adapter_inputs") or [],
     }
     inputs_ref = objects.put_json(manifest_doc)
     acquired = max(item["acquired_at"] for item in inputs)
@@ -448,7 +453,20 @@ def verify_document(objects, result_ref, *, max_bytes=None, deadline=None):
         if item.get("original_file_ref"):
             objects.get(sha(item["original_file_ref"], "document_invalid"), deadline=deadline)
     lineage = value.get("lineage") or {}
-    objects.get(sha(lineage.get("inputs_ref"), "document_invalid"), deadline=deadline)
+    manifest_raw = objects.get(
+        sha(lineage.get("inputs_ref"), "document_invalid"), deadline=deadline
+    )
+    try:
+        manifest = json.loads(manifest_raw)
+        if not isinstance(manifest, dict) or manifest.get("schema") != INPUTS_SCHEMA:
+            raise ValueError
+        inputs = manifest["inputs"]
+        if not isinstance(inputs, list) or not inputs:
+            raise ValueError
+        for item in inputs:
+            objects.get(sha(item.get("archive_ref"), "document_invalid"), deadline=deadline)
+    except (KeyError, TypeError, ValueError, AttributeError):
+        raise SealError("document_invalid") from None
     return value
 
 

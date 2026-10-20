@@ -67,6 +67,8 @@ def run_extraction(data, kind, config, *, active=None):
             if k in os.environ
         }
         env["OMP_THREAD_LIMIT"] = "1"
+        # Select this checkout without forwarding ambient PYTHONPATH or storage credentials.
+        env["PYTHONPATH"] = str(Path(__file__).resolve().parents[1])
         output_path = folder / "result.json"
         with (folder / "job.json").open("w") as handle:
             json.dump(job, handle)
