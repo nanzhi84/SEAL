@@ -60,7 +60,7 @@ def ocr_runtime(languages):
 
 
 def manifest(config):
-    from .adapters import contract
+    from .adapters import contract, semantic_options
 
     fetch = {"mode": config["fetch"]["mode"]}
     if fetch["mode"] == "rendered_dom":
@@ -83,7 +83,9 @@ def manifest(config):
             "contract": contract(config["adapter"]),
             "rules": digest(
                 {
-                    "adapter_options": config["adapter_options"],
+                    "adapter_options": semantic_options(
+                        config["adapter"], config["adapter_options"]
+                    ),
                     "documents": config["documents"],
                     "metadata": config["metadata"],
                 }

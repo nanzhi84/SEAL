@@ -131,6 +131,7 @@ def xml_to_markdown(data):
 
 class Adapter(Base):
     CONTRACT = "seal.adapter.federal-register.v1"
+    PLANNING_OPTIONS = ("per_page", "max_pages", "conditions")
 
     @staticmethod
     def validate_options(options):
