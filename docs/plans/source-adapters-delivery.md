@@ -5,7 +5,7 @@ lang: zh
 
 # 原生 Source Adapter 与统一文件交付
 
-状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3 已实现并按 API 范围复验，阶段 4 已实现并按 API 范围独立复验，2026-10-20。
+状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3 已实现，阶段 4 已实现并完成独立验收，2026-10-20。
 本轮以本地开发为前提，直接采用新数据与结果合同，不设计历史数据迁移、双格式读取或兼容 shim。
 设计基线为 `85a36b5`；未标注已实现的模块、字段和命令仍为待实现设计。
 [唯一可视化](../generated/source-adapters-delivery.html)随本计划同步更新。
@@ -66,7 +66,7 @@ Acquisition 是一次受控的外部原始数据获取动作。绝大多数对�
 首期支持 `http` 与 `rendered_dom` 获取种类，不实现通用传输插件框架。
 HTTP 保存传输层交付的完整响应实体字节，位于字符解码及内容清洗之前；
 记录内容解压等表示规则，不宣称保存 TLS、分块传输或压缩前的逐字节网络流。
-DOM 保存实际交给解析器的渲染后 UTF-8 字节，明确其表示种类，不称其为原始 HTTP 响应。
+DOM 保存实际交给解析器的渲染后 UTF-8 字节，明确其表示种类，不称其为原始 HTTP 响应。浏览器主响应、脚本与每个重定向 hop 均通过共享 Transport 独立归档 HTTP 原件，再交给 Chromium；HTTP 获取元数据关联对应的 rendered Acquisition。DOM 是附加表示，不重复计入真实 HTTP 请求预算。预算、必需子请求 HTTP 错误或字节超限阻止部分正文提交，失败请求不报告枚举完整。
 PDF、HTML、TXT、JSON、XML、DOC、DOCX、RTF、XLS、XLSX、ZIP 等所有实际参与解析的输入均须完整归档并读回校验。
 
 ### 获取记录与状态机
@@ -386,7 +386,9 @@ PYTHONPATH=src uv run --no-sync python tests/issue33_blind_scope.py
 PYTHONPATH=src uv run --no-sync python tests/issue33_blind_final.py
 ```
 
-API 范围独立复验中：保留真实越南 3 篇、Federal Register 2 篇，以及多输入/多文档、真实定位、重排与范围稳定、质量失败等受控场景。验收仅读取 SQL、CAS 和两个 API；取消前文件包测试不计入结果。工件写入 `artifacts/issue33-api-blind/`，最终统计在复验结束后填写。
+最终 API 范围独立验收：19/19 受控断言、4/4 重复/范围稳定场景通过；重新采集真实越南 3 篇与 Federal Register 2 篇（含真实越南语扫描 OCR）。受控 6 行、真实 5 行全部 16 列逐字段与 SQL 对账，两侧各 10 个文件 API 字节与 CAS/SHA-256 全量一致；共享原件真实定位可解析，73 个 Acquisition 原件哈希通过，敏感扫描零命中。
+
+工件 `artifacts/issue33-api-blind/final-summary.json`、`controlled/`、`real/`、`scope/` 保存实际命令、隔离前提、SQL/CAS/API 与定位证据。源码首尾 SHA-256 为 `a716071c665d120ae80483457d0f6f8c533ca07b3ee68dd77e522aa8f3aec492`。Federal Register 两篇目标成功但 Run 因仍有下一页而以 `page_limit_exceeded` 失败；越南仅选择 3 篇且其余目标按预算跳过，分页与目标缺口随 Snapshot 保留 incomplete / UNKNOWN。受控完整正文不代表官方列表有全文；不宣称全历史覆盖、法律准确性或 OCR 字符准确率。
 
 ## 阶段 4 实现合同（#34）
 
@@ -450,16 +452,17 @@ seal snapshot publish <snapshot-id>
 | 解析器 / OCR / TCVN3 升级与离线重解析 | 零来源网络，新版本可解释；同输入同解析器异输出明确失败 |
 | 固定 Snapshot A 翻页期间采集或发布 B | A 的游标与版本固定，不混入 B；新请求读取新发布快照 |
 
-当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消；阶段 3 的 API 范围验收见其实现合同，阶段 4 由后续依赖分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景 + 渲染预算/获取事实 5 场景，共 455 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3 已实现，阶段 4 已实现并完成独立验收。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
 
-复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。两个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
+复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。三个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
 
 ```sh
 uv run --no-sync python tests/issue31_acceptance.py
 uv run --no-sync python tests/issue31_supplement.py
+uv run --no-sync python tests/issue31_browser_budget.py --run final-cdp
 ```
 
-本次工件为 `artifacts/issue31-20261020T070105Z/`、`artifacts/issue31-supplement-20261020T070105Z/` 与 `artifacts/issue31-final-audit.json`，包含实际命令、环境、331 + 76 条断言、SQL/CAS/API 逐字节核对与源码/测试哈希；敏感扫描零命中。源码组合 SHA-256 为 `8631772355764dc0ad71424a2e424df387c2ab48e8adbe2e91333d45d1e9f453`，工件不入库且可由以上命令重新生成。
+本次工件为 `artifacts/issue31-20261020T073942Z/`、`artifacts/issue31-supplement-20261020T073942Z/` 与 `artifacts/issue31-browser-budget/final-cdp/`，包含实际命令、环境、331 + 76 + 48 条断言、SQL/CAS/API 逐字节核对与源码/测试哈希；敏感扫描零命中。源码组合 SHA-256 为 `44813ae149ac508a85833832f54a217643b3c40560586bd2a35cf119158ad83b`，工件不入库且可由以上命令重新生成。
 
 ## 相关设计与合同替代范围
 

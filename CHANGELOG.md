@@ -11,18 +11,17 @@ lang: zh
 
 失败报告区分网络、必需输入、质量、解析、取消、枚举未完与预算截断；未知全站分母保留 UNKNOWN。三个崩溃点、失效进程 fencing、冲突与快照 A/B 的 API 范围独立验收正在复跑，命令和证据集中在唯一 Plan。
 
-## 未发布 / 取消本地文件包导出（#32）— 2026-10-20
-
-按[用户最终决策](https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052)，取消整个 #32 导出能力并撤回 PR #36。后续来源、重检与恢复直接使用 16 列结果和文件 API，不包含导出模块、CLI、工作簿物化、包 manifest 或离线包校验。保留通用 Office/XLSX 输入解析。
-
 ## 未发布 / 越南与 Federal Register 原生来源（#33）— 2026-10-20
 
 新增原生 `vietnam_law` 与 `federal_register` Adapter：dd-492 的 POST 分页、详情及
 Office/PDF/OCR 多输入由同一 Runtime 承担，移除 SQLite 与独立批次 runner；新增地图入口
 及 `sources/dd-499.yaml`。分页范围参数不再污染解析器指纹；真实定位与稳定语义选择器分离，
 JSON 完整正文启用质量门禁，未完成枚举冻结为 incomplete / UNKNOWN。旧越南采集 Plan
-与图示明确标为历史方案，当前运行合同集中于唯一 Plan 的阶段 3。真实来源与受控场景正在按 API 范围独立复验；取消前文件包验收不计入结果。范围截断明确保留 incomplete / UNKNOWN，不能解释为全历史覆盖。
+与图示明确标为历史方案，当前运行合同集中于唯一 Plan 的阶段 3。独立 API 验收真实 5 篇、19 受控断言与 4 稳定场景通过，16 列、全部文件字节、定位与 73 个原件哈希对账；敏感扫描零命中。范围截断明确保留 incomplete / UNKNOWN，不能解释为全历史覆盖。
 
+## 未发布 / 取消本地文件包导出（#32）— 2026-10-20
+
+按[用户最终决策](https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052)，取消整个 #32 导出能力并撤回 PR #36。后续来源、重检与恢复直接使用 16 列结果和文件 API，不包含导出模块、CLI、工作簿物化、包 manifest 或离线包校验。保留通用 Office/XLSX 输入解析。
 
 ## 未发布 / 原生 Source Adapter 与 16 列双接口（#31）— 2026-10-20
 
@@ -40,8 +39,9 @@ robots、重定向跳与重试）独立记录并先归档 CAS、读回校验，�
 `result_max_bytes` / `attachment_max_bytes`。新增依赖 `python-docx`、`openpyxl`、`xlrd`；
 `.doc` 与 RTF 兜底需要 LibreOffice。合同见[唯一 Plan](docs/plans/source-adapters-delivery.md#阶段-1-实现合同31)。
 
-独立新环境验收 78 场景 / 407 条断言全部通过，涵盖双引擎 OCR、Office/TCVN3/ZIP、
+独立新环境验收 83 场景 / 455 条断言全部通过，涵盖双引擎 OCR、Office/TCVN3/ZIP、
 16 列 API 字节、完整 CAS 闭包、取消/接管及无长事务；复跑命令与工件哈希见唯一 Plan。
+浏览器主响应、脚本和逐跳重定向均独立归档并执行真实 HTTP 预算；DOM 附加表示不重复计数，子请求失败不交付部分正文。
 未执行业务库升级或生产发布。
 
 ## 未发布 / OCR 速度优先前沿 — 2026-10-19
