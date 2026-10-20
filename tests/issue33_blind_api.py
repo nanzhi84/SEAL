@@ -39,6 +39,8 @@ def sql_value(row, field):
     value = row[field]
     if value is None:
         return ''
+    if field == 'volume_order':
+        return str(value)
     if field == 'acquired_at':
         return value.astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
     if field in {'published_at', 'effective_at', 'expired_at'}:
