@@ -42,6 +42,16 @@ def parser():
     operations.add_parser("publish", help="Manually publish or restore a capture").add_argument(
         "snapshot_id"
     )
+    export = commands.add_parser(
+        "export", help="Export a sealed Snapshot as metadata.xlsx, Markdown, originals, manifest"
+    )
+    export.add_argument("--snapshot")
+    export.add_argument("--source", action="append", default=[])
+    export.add_argument("--output", type=Path)
+    export_ops = export.add_subparsers(dest="operation", required=False)
+    export_ops.add_parser("verify", help="Verify a local package offline").add_argument(
+        "directory", type=Path
+    )
     for mode in ("collect", "recheck"):
         command = commands.add_parser(mode, help="Online " + mode + " from a Source YAML")
         command.add_argument("source", type=Path)
@@ -58,6 +68,20 @@ def dispatch(args):
         from .api import serve
 
         return serve(args.config, args.host, args.port)
+    if args.command == "export":
+        from . import export
+
+        if args.operation == "verify":
+            # Offline: the local package only, never SQL or S3.
+            if args.snapshot or args.source or args.output:
+                raise SealError("invalid_arguments")
+            return export.verify_package(args.directory)
+        if not args.snapshot or not args.output:
+            raise SealError("invalid_arguments")
+        from .migration import require_current
+
+        require_current()
+        return export.export(args.snapshot, args.source, args.output)
     from .migration import initialize, require_current
 
     if args.command == "init":
