@@ -63,6 +63,15 @@ class Browser:
                 if browser_request["url"].startswith(("data:", "blob:", "about:")):
                     await session.send("Fetch.continueRequest", {"requestId": request_id})
                     return
+                method = browser_request["method"]
+                if method not in {"GET", "HEAD", "OPTIONS"}:
+                    # Script actions have no Adapter declaration of query idempotence.
+                    # Such queries must be planned explicitly through Transport.acquire.
+                    raise SealError(
+                        "post_replay_semantics_required"
+                        if method == "POST"
+                        else "browser_method_not_supported"
+                    )
                 target = guard(self.config, browser_request["url"])
                 await self.transport.robots.check(target, self.transport.fetch_policy)
                 entries = browser_request.get("postDataEntries")
