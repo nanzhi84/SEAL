@@ -52,10 +52,10 @@ def test_rows_single_file(lab):
     row = single_row(lab, "dd-033", fx.base + "/detail/single")
     lab.check("single 文件顺序 empty", row["volume_order"] is None, row)
     lab.check("single 来源详情页 is detail URL", row["detail_url"] == fx.base + "/detail/single", row["detail_url"])
-    lab.check("single original is the detail HTML", row["file_hash"] == sha256(fx.routes["/detail/single"][2]), row["file_hash"])
+    lab.check("single original is the detail HTML", row["original_hash"] == sha256(fx.routes["/detail/single"][2]), row["original_hash"])
     lab.check("single 资料名称", row["title"] == "Single Notice Page", row["title"])
-    lab.check("single file names", row["markdown_file"] == f"Single Notice Page_{row['file_hash'][:8]}.md"
-              and row["original_file"] == f"Single Notice Page_{row['file_hash'][:8]}.html", [row["markdown_file"], row["original_file"]])
+    lab.check("single file names", row["markdown_file"] == f"Single Notice Page_{row['markdown_hash'][:8]}.md"
+              and row["original_file"] == f"Single Notice Page_{row['original_hash'][:8]}.html", [row["markdown_file"], row["original_file"]])
     lab.check("来源记录号 is 64 lowercase hex", re.fullmatch(r"[0-9a-f]{64}", row["source_record_hash"] or "") is not None, row["source_record_hash"])
 
 
@@ -66,14 +66,14 @@ def test_rows_consecutive_volumes(lab):
     lab.check("two volume rows", len(rows) == 2, {"rows": rows, "fail": failure_evidence(lab, "dd-033", fx.base + "/detail/volumes") if len(rows) != 2 else None})
     by_order = {r["volume_order"]: r for r in rows}
     lab.check("文件顺序 = 1, 2", sorted(by_order) == [1, 2], list(by_order))
-    lab.check("volume 1 is Phần 1 file (label order, not page order)", by_order[1]["file_hash"] == sha256(c.b["vol1.pdf"]), by_order[1]["file_hash"])
-    lab.check("volume 2 is Phần 2 file", by_order[2]["file_hash"] == sha256(c.b["vol2.pdf"]), by_order[2]["file_hash"])
+    lab.check("volume 1 is Phần 1 file (label order, not page order)", by_order[1]["original_hash"] == sha256(c.b["vol1.pdf"]), by_order[1]["original_hash"])
+    lab.check("volume 2 is Phần 2 file", by_order[2]["original_hash"] == sha256(c.b["vol2.pdf"]), by_order[2]["original_hash"])
     lab.check("volumes share 资料名称", by_order[1]["title"] == by_order[2]["title"] == "Consolidated Code", [r["title"] for r in rows])
     lab.check("volumes share 来源记录号", by_order[1]["source_record_hash"] == by_order[2]["source_record_hash"], [r["source_record_hash"] for r in rows])
     for n in (1, 2):
         r = by_order[n]
-        lab.check(f"volume {n} 解析后文件 <资料名称>_<hash8>_0{n}.md", r["markdown_file"] == f"Consolidated Code_{r['file_hash'][:8]}_0{n}.md", r["markdown_file"])
-        lab.check(f"volume {n} 原始文件 <资料名称>_<hash8>_0{n}.pdf", r["original_file"] == f"Consolidated Code_{r['file_hash'][:8]}_0{n}.pdf", r["original_file"])
+        lab.check(f"volume {n} 解析后文件 <资料名称>_<hash8>_0{n}.md", r["markdown_file"] == f"Consolidated Code_{r['markdown_hash'][:8]}_0{n}.md", r["markdown_file"])
+        lab.check(f"volume {n} 原始文件 <资料名称>_<hash8>_0{n}.pdf", r["original_file"] == f"Consolidated Code_{r['original_hash'][:8]}_0{n}.pdf", r["original_file"])
         text = "VOLUME ONE CONTENT" if n == 1 else "VOLUME TWO CONTENT"
         lab.check(f"volume {n} markdown is its own file", text in md(lab, r["markdown_hash"]), r["markdown_hash"])
 
@@ -83,7 +83,7 @@ def test_rows_independent_attachments(lab):
     fx, c = S["fx_struct"], S["content"]
     rows = rows_for(lab, "dd-033", fx.base + "/detail/attach")
     lab.check("two attachment rows", len(rows) == 2, {"rows": rows, "fail": failure_evidence(lab, "dd-033", fx.base + "/detail/attach") if len(rows) != 2 else None})
-    by_hash = {r["file_hash"]: r for r in rows}
+    by_hash = {r["original_hash"]: r for r in rows}
     main, appendix = by_hash.get(sha256(c.b["main.docx"])), by_hash.get(sha256(c.b["appendix.xlsx"]))
     lab.check("main and appendix originals both delivered", main is not None and appendix is not None, list(by_hash))
     lab.check("main row 资料名称 = document title", main["title"] == "Decree on Data Management", main["title"])
@@ -91,8 +91,8 @@ def test_rows_independent_attachments(lab):
     lab.check("文件顺序 empty on both", main["volume_order"] is None and appendix["volume_order"] is None, [main["volume_order"], appendix["volume_order"]])
     lab.check("shared 来源记录号", main["source_record_hash"] == appendix["source_record_hash"], [main["source_record_hash"], appendix["source_record_hash"]])
     lab.check("shared 来源详情页", main["detail_url"] == appendix["detail_url"] == fx.base + "/detail/attach", [main["detail_url"], appendix["detail_url"]])
-    lab.check("attachment file names", appendix["markdown_file"] == f"Appendix table_{appendix['file_hash'][:8]}.md"
-              and appendix["original_file"] == f"Appendix table_{appendix['file_hash'][:8]}.xlsx", [appendix["markdown_file"], appendix["original_file"]])
+    lab.check("attachment file names", appendix["markdown_file"] == f"Appendix table_{appendix['markdown_hash'][:8]}.md"
+              and appendix["original_file"] == f"Appendix table_{appendix['original_hash'][:8]}.xlsx", [appendix["markdown_file"], appendix["original_file"]])
     lab.check("main markdown is docx text", "Main decision text adopted by the council." in md(lab, main["markdown_hash"]), main["markdown_hash"])
     lab.check("appendix markdown is xlsx table", "appendix row content" in md(lab, appendix["markdown_hash"]), appendix["markdown_hash"])
     expected = {"document_number": "12/2024/NĐ-CP", "issuer": "Chính phủ", "published_at": "2024-03-15", "effective_at": "2024-05-01",
@@ -148,8 +148,8 @@ def test_identity_same_named_originals(lab):
     a, b = a[0], b[0]
     lab.check("distinct resources", a["rid"] != b["rid"], [a["rid"], b["rid"]])
     lab.check("distinct 来源记录号", a["source_record_hash"] != b["source_record_hash"], [a["source_record_hash"], b["source_record_hash"]])
-    lab.check("each row keeps its own original", a["file_hash"] == sha256(c.b["report-a.pdf"]) and b["file_hash"] == sha256(c.b["report-b.pdf"]),
-              [a["file_hash"], b["file_hash"]])
+    lab.check("each row keeps its own original", a["original_hash"] == sha256(c.b["report-a.pdf"]) and b["original_hash"] == sha256(c.b["report-b.pdf"]),
+              [a["original_hash"], b["original_hash"]])
     lab.check("distinct 解析后文件 names", a["markdown_file"] != b["markdown_file"], [a["markdown_file"], b["markdown_file"]])
 
 

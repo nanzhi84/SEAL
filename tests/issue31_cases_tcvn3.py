@@ -38,7 +38,7 @@ def _tcvn3_checks(lab, path, label, data):
 
 
 def _tcvn3_assertions(lab, label, row, body, data, TCVN3_UNICODE_HEAD):
-    lab.check(f"{label} 文件哈希 is served original", row["file_hash"] == sha256(data), row["file_hash"])
+    lab.check(f"{label} original_hash is served original", row["original_hash"] == sha256(data), row["original_hash"])
     safe_head = [h for h in TCVN3_UNICODE_HEAD if "Ò" not in h]
     missing_head = [h for h in safe_head if h not in body]
     lab.check(f"{label} already-Unicode header/date lines preserved", not missing_head, {"missing": missing_head, "md": body[:800]})

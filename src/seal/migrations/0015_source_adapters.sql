@@ -15,7 +15,7 @@ DROP TABLE seal.snapshot_publication, seal.publication, seal.snapshot_item, seal
  seal.snapshot, seal.observation, seal.version, seal.resource, seal.discovery,
  seal.document_emission, seal.document_reference, seal.document_version, seal.revision,
  seal.document, seal.fetch_observation CASCADE;
-ALTER TABLE seal.run DROP COLUMN binding_id, DROP COLUMN namespace, DROP COLUMN inputs;
+ALTER TABLE seal.run DROP COLUMN binding_id, DROP COLUMN namespace, DROP COLUMN inputs, DROP COLUMN seeds;
 ALTER TABLE seal.source DROP COLUMN binding_id;
 DROP TABLE seal.binding, seal.recipe_version CASCADE;
 DROP FUNCTION IF EXISTS seal.snapshot_mapping_guard() CASCADE;
@@ -198,7 +198,7 @@ ALTER TABLE seal.resource ADD CONSTRAINT resource_current_version_fk
  FOREIGN KEY (current_version_id, id) REFERENCES seal.version(id, resource_id)
  DEFERRABLE INITIALLY DEFERRED;
 
--- One row per delivered Markdown file and physical file (法规案例元数据上传模板, 16 columns).
+-- One row per delivered Markdown file and optional original file.
 CREATE TABLE seal.delivery_row (
  version_id text NOT NULL REFERENCES seal.version(id),
  row_number int NOT NULL CHECK (row_number > 0),
@@ -206,7 +206,6 @@ CREATE TABLE seal.delivery_row (
  markdown_file text NOT NULL CHECK (markdown_file ~ '\.md$'),
  document_type text NOT NULL CHECK (document_type IN
   ('法律法规','政策文件','案例','行业标准','通知公告','财务报告','会计准则','税务资料','其他')),
- file_hash text NOT NULL CHECK (seal.sha256_text(file_hash)),
  acquired_at timestamptz NOT NULL,
  original_file text,
  volume_order int CHECK (volume_order IS NULL OR volume_order > 0),
@@ -220,17 +219,15 @@ CREATE TABLE seal.delivery_row (
  detail_url text,
  source_record_hash text NOT NULL CHECK (seal.sha256_text(source_record_hash)),
  markdown_hash text NOT NULL CHECK (seal.sha256_text(markdown_hash)),
- original_ref text CHECK (original_ref IS NULL OR seal.sha256_text(original_ref)),
+ original_hash text CHECK (original_hash IS NULL OR seal.sha256_text(original_hash)),
  original_media_type text,
  role text NOT NULL CHECK (role IN ('primary','volume','independent_attachment')),
  locator jsonb NOT NULL,
  PRIMARY KEY (version_id, row_number),
- CHECK ((original_ref IS NULL) = (original_file IS NULL)),
- CHECK (original_ref IS NULL OR file_hash = original_ref),
- CHECK (original_ref IS NOT NULL OR file_hash = markdown_hash),
+ CHECK ((original_hash IS NULL) = (original_file IS NULL)),
  CHECK ((role = 'volume') = (volume_order IS NOT NULL))
 );
-CREATE INDEX delivery_row_file ON seal.delivery_row(file_hash);
+CREATE INDEX delivery_row_original ON seal.delivery_row(original_hash) WHERE original_hash IS NOT NULL;
 CREATE INDEX delivery_row_markdown ON seal.delivery_row(markdown_hash);
 CREATE TRIGGER delivery_row_immutable BEFORE UPDATE OR DELETE ON seal.delivery_row
  FOR EACH ROW EXECUTE FUNCTION seal.reject_mutation();
@@ -265,7 +262,7 @@ CREATE TABLE seal.snapshot_item (
  FOREIGN KEY (resource_id, frontier_id) REFERENCES seal.resource(id, frontier_id),
  FOREIGN KEY (version_id, resource_id) REFERENCES seal.version(id, resource_id)
 );
-CREATE INDEX snapshot_item_source ON seal.snapshot_item(snapshot_id, source_id, resource_id);
+CREATE INDEX snapshot_item_source ON seal.snapshot_item(snapshot_id, source_id COLLATE "C", resource_id COLLATE "C");
 -- Closure of downloadable bytes (originals and Markdown) per authorized Source.
 CREATE TABLE seal.snapshot_file (
  snapshot_id text NOT NULL,

@@ -154,7 +154,7 @@ def test_corrupt_markdown_object_blocks_snapshot(lab):
 def test_missing_original_object_blocks_snapshot(lab):
     """Missing original object: snapshot refuses to seal; API not 200."""
     row = _target_row(lab)
-    digest = row["file_hash"]
+    digest = row["original_hash"]
     original = lab.s3_get(digest)
     lab.s3.delete_object(Bucket=lab.bucket, Key=digest)
     try:

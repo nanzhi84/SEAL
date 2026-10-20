@@ -214,10 +214,10 @@ def commit(run_id, epoch, built, *, target_id=None, check_active=None):
             for row in built["rows"]:
                 c.execute(
                     """INSERT INTO seal.delivery_row(version_id,row_number,title,markdown_file,
-                    document_type,file_hash,acquired_at,original_file,volume_order,
+                    document_type,acquired_at,original_file,volume_order,
                     document_number,issuer,published_at,effective_at,expired_at,status,
-                    source_name,detail_url,source_record_hash,markdown_hash,original_ref,
-                    original_media_type,role,locator) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,
+                    source_name,detail_url,source_record_hash,markdown_hash,original_hash,
+                    original_media_type,role,locator) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,
                     %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                     (
                         version_id,
@@ -225,7 +225,6 @@ def commit(run_id, epoch, built, *, target_id=None, check_active=None):
                         row["title"],
                         row["markdown_file"],
                         row["document_type"],
-                        row["file_hash"],
                         row["acquired_at"] + "+00:00",
                         row["original_file"],
                         row["volume_order"],
@@ -239,7 +238,7 @@ def commit(run_id, epoch, built, *, target_id=None, check_active=None):
                         row["detail_url"],
                         row["source_record_hash"],
                         row["markdown_hash"],
-                        row["original_ref"],
+                        row["original_hash"],
                         row["original_media_type"],
                         row["role"],
                         j(row["locator"]),

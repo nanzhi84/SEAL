@@ -77,6 +77,8 @@ def results(settings, tokens, caller, source_id, limit, cursor_value):
         ensure_ascii=False,
         separators=(",", ":"),
     ).encode()
+    if len(body) > settings.page_max_bytes:
+        raise SealError("archive_too_large")
     return body, link
 
 

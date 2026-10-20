@@ -16,6 +16,7 @@ import urllib.error
 import urllib.request
 import uuid
 from contextlib import closing
+from pathlib import Path
 
 from .core import SealError
 from .markdown import normalized, text_to_markdown
@@ -138,7 +139,7 @@ def tesseract_pages(path, numbers, cfg, deadline):
                 pixels = math.ceil(width * scale) * math.ceil(height * scale)
                 if pixels > cfg["max_page_pixels"] or pixels <= 0:
                     raise SealError("pdf_ocr_pixel_limit_exceeded")
-                image = "page.png"
+                image = str(Path(path).with_name(f"page-{number}.png"))
                 with closing(page.render(scale=scale)) as bitmap:
                     bitmap.to_pil().save(image)
             try:
@@ -193,8 +194,10 @@ def br_request(url, payload=None, timeout=60):
     return value["data"]
 
 
-def br_ocr(path, cfg, deadline):
+def br_ocr(path, cfg, deadline, page_count=0):
     """br-ocr-v1: /file_parse submit, /status/{uuid} poll, /result/{uuid} fetch."""
+    if page_count > cfg["max_pages"]:
+        raise SealError("pdf_ocr_page_limit_exceeded")
     base = (os.environ.get("SEAL_BR_OCR_URL") or "").rstrip("/")
     if not base.startswith(("http://", "https://")):
         raise SealError("br_ocr_url_required")
@@ -217,18 +220,27 @@ def br_ocr(path, cfg, deadline):
             "extra": None,
             "priority": 1,
         },
+        timeout=max(1.0, min(60.0, deadline - time.monotonic())),
     )
     task_uuid = submitted.get("task_uuid")
     if not isinstance(task_uuid, str) or not task_uuid or "/" in task_uuid:
         raise SealError("br_ocr_invalid_response")
     while time.monotonic() < deadline:
         time.sleep(cfg["poll_seconds"])
-        status = br_request(base + "/status/" + task_uuid)
+        status = br_request(
+            base + "/status/" + task_uuid,
+            timeout=max(1.0, min(60.0, deadline - time.monotonic())),
+        )
         state = status.get("task_status")
         if state == "SUCCESS":
-            result = br_request(base + "/result/" + task_uuid)
+            result = br_request(
+                base + "/result/" + task_uuid,
+                timeout=max(1.0, min(60.0, deadline - time.monotonic())),
+            )
             if not isinstance(result.get("whole_text_md"), str):
                 raise SealError("br_ocr_invalid_response")
+            if len(result["whole_text_md"].encode("utf-8")) > cfg["max_result_bytes"]:
+                raise SealError("pdf_output_too_large")
             return result
         if state in {"FAILED", "ERROR", "CANCELLED", "CANCELED"}:
             raise SealError("br_ocr_failed")
@@ -254,7 +266,9 @@ def extract_pdf(path, ocr, profile):
     if not scans:
         texts = {i + 1: t for i, t in enumerate(native)}
         markdown = "\n".join(text_to_markdown(t) for t in native if t.strip())
-        report = quality_check(analysis, {"page_parse_json": page_blocks(texts)}, profile)
+        report = quality_check(
+            analysis, {"page_parse_json": page_blocks(texts), "whole_text_md": markdown}, profile
+        )
     elif ocr["engine"] == "tesseract":
         recognized, engine = tesseract_pages(path, scans, ocr, deadline)
         texts = {
@@ -268,7 +282,7 @@ def extract_pdf(path, ocr, profile):
         )
         parsers.append("ocr")
     else:
-        result = br_ocr(path, ocr, deadline)
+        result = br_ocr(path, ocr, deadline, page_count=len(native))
         markdown = normalized(result["whole_text_md"])
         info.update(method="ocr", ocr={"engine": "br-ocr-v1", "model": ocr["model"]})
         report = quality_check(analysis, result, profile)

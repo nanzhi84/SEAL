@@ -1,3 +1,8 @@
+---
+kind: plan
+lang: zh
+---
+
 # dd-492 越南政府文献 PDF 采集
 
 > 历史方案：SQLite 批次 runner 已在 #33 移除。当前运行入口、Office/PDF/OCR 及覆盖合同见[统一 Plan 的阶段 3](source-adapters-delivery.md#阶段-3-实现合同33)。以下命令与验收数据仅保留历史上下文，不能用于运行当前版本。

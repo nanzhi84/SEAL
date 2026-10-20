@@ -21,8 +21,8 @@ def test_snapshot_create_and_publish(lab):
     files = {r["sha256"]: r for r in lab.q("SELECT * FROM seal.snapshot_file WHERE snapshot_id=%s", (sid,))}
     rows = lab.q("""SELECT dr.*, si.source_id, v.inputs_ref, v.result_ref FROM seal.snapshot_item si JOIN seal.delivery_row dr ON dr.version_id=si.version_id
                     JOIN seal.version v ON v.id=si.version_id WHERE si.snapshot_id=%s""", (sid,))
-    expected = {r["file_hash"] for r in rows} | {r["markdown_hash"] for r in rows}
-    lab.check("snapshot_file closure == {文件哈希} ∪ {markdown_hash}", set(files) == expected,
+    expected = {r["original_hash"] for r in rows if r["original_hash"]} | {r["markdown_hash"] for r in rows}
+    lab.check("snapshot_file closure == {original_hash} ∪ {markdown_hash}", set(files) == expected,
               {"extra": sorted(set(files) - expected)[:5], "missing": sorted(expected - set(files))[:5]})
     internal = {r["inputs_ref"] for r in rows} | {r["result_ref"] for r in rows}
     lab.check("closure excludes inputs manifests / unified documents", not (internal & set(files)), sorted(internal & set(files))[:5])
@@ -55,7 +55,7 @@ def test_api_authentication(lab):
     r1, r2 = api.get("/results"), api.get("/results", raw_auth="Bearer wrong-token-value")
     lab.check("missing token 401", r1.status_code == 401, [r1.status_code, r1.text[:200]])
     lab.check("wrong token 401", r2.status_code == 401, [r2.status_code, r2.text[:200]])
-    r3 = api.get("/files/" + S["snap1_rows"][0]["file_hash"])
+    r3 = api.get("/files/" + S["snap1_rows"][0]["original_hash"])
     lab.check("/files without token not served", r3.status_code in (401, 404), r3.status_code)
 
 
@@ -68,7 +68,7 @@ def _norm(value):
 
 
 def test_api_results_16_columns(lab):
-    """GET /results returns exactly the 16 template columns + hash/ids, equal to SQL rows."""
+    """GET /results returns the 15 Chinese business columns + original_hash/markdown_hash/ids, equal to SQL rows."""
     api = S["api"]
     items, pages, snap = api.all_results("all")
     S["api_items"] = items  # Retain successful response evidence if a later assertion fails.
@@ -78,9 +78,9 @@ def test_api_results_16_columns(lab):
     bad_keys = []
     for it in items:
         keys = list(it.keys())
-        if keys[:16] != HEADERS16 or not EXTRA_KEYS <= set(keys):
+        if keys[:len(HEADERS16)] != HEADERS16 or not EXTRA_KEYS <= set(keys) or "文件哈希" in it:
             bad_keys.append(keys)
-    lab.check("each item: 16 Chinese keys in template order + markdown_hash/source_id/resource_id/version_id", not bad_keys, bad_keys[:2])
+    lab.check("each item: 15 Chinese keys in template order + original_hash/markdown_hash/source_id/resource_id/version_id (no 文件哈希)", not bad_keys, bad_keys[:2])
     sql = {(str(r["version_id"]), r["row_number"]): r for r in S["snap1_rows"]}
     mismatch = []
     for it in items:
@@ -88,9 +88,10 @@ def test_api_results_16_columns(lab):
         if r is None:
             mismatch.append({"missing_sql": it["version_id"]})
             continue
-        pairs = {"资料名称": r["title"], "资料类型": r["document_type"], "文件哈希": r["file_hash"],
+        pairs = {"资料名称": r["title"], "资料类型": r["document_type"], "original_hash": r["original_hash"],
                  "文号/案号": r["document_number"], "发布机构": r["issuer"], "状态": r["status"],
-                 "来源名称": r["source_name"], "来源详情页": r["detail_url"], "来源记录号": r["source_record_hash"], "markdown_hash": r["markdown_hash"]}
+                 "来源名称": r["source_name"], "来源详情页": r["detail_url"], "来源记录号": r["source_record_hash"], "markdown_hash": r["markdown_hash"],
+                 "解析后文件": r["markdown_file"], "原始文件": r["original_file"]}
         for k, v in pairs.items():
             if (it[k] or "") != (v or ""):
                 mismatch.append({"key": k, "api": it[k], "sql": v})
@@ -106,32 +107,18 @@ def test_api_results_16_columns(lab):
             mismatch.append({"key": "采集时间", "api": it["采集时间"], "sql": want_time})
         if it["source_id"] != r["source_id"]:
             mismatch.append({"key": "source_id", "api": it["source_id"], "sql": r["source_id"]})
-        # Frozen snapshot naming resolves collisions without mutating Version rows.
-        for api_key, sql_key in (("解析后文件", "markdown_file"), ("原始文件", "original_file")):
-            base = r[sql_key]
-            actual = it[api_key]
-            if not base:
-                valid = actual in ("", None)
-            elif r["volume_order"] is not None:
-                valid = actual == base  # Natural volume numbers retain priority.
-            else:
-                stem, extension = base.rsplit(".", 1)
-                valid = re.fullmatch(re.escape(stem) + r"(?:_[0-9]+)?\." + re.escape(extension), actual) is not None
-            if not valid:
-                mismatch.append({"key": api_key, "api": actual, "base": base, "volume_order": r["volume_order"]})
-        if it["原始文件"] and it["解析后文件"].rsplit(".", 1)[0] != it["原始文件"].rsplit(".", 1)[0]:
-            mismatch.append({"key": "paired file stems", "markdown": it["解析后文件"], "original": it["原始文件"]})
-    lab.check("API business fields equal SQL rows; snapshot names preserve canonical stems/extensions/volume order", not mismatch, mismatch[:10])
+    lab.check("API business fields equal SQL rows directly", not mismatch, mismatch[:10])
     fmt_bad = [it for it in items if not re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}", it["采集时间"])
-               or not re.fullmatch(r"[0-9a-f]{64}", it["文件哈希"]) or not re.fullmatch(r"[0-9a-f]{64}", it["markdown_hash"])
+               or (it["original_hash"] is not None and not re.fullmatch(r"[0-9a-f]{64}", it["original_hash"]))
+               or not re.fullmatch(r"[0-9a-f]{64}", it["markdown_hash"])
                or it["资料类型"] not in {"法律法规", "政策文件", "案例", "行业标准", "通知公告", "财务报告", "会计准则", "税务资料", "其他"}
                or not it["解析后文件"].endswith(".md")]
     lab.check("format: 采集时间 YYYY-MM-DD HH:MM:SS, 64-hex hashes, controlled 资料类型, .md names", not fmt_bad, fmt_bad[:3])
-    names = [it["解析后文件"] for it in items]
-    lab.check("解析后文件 unique in snapshot", len(names) == len(set(names)), [n for n in names if names.count(n) > 1][:5])
-    originals = [it["原始文件"] for it in items if it["原始文件"]]
-    lab.check("原始文件 unique in snapshot", len(originals) == len(set(originals)), [n for n in originals if originals.count(n) > 1][:5])
-    missing_vals = [it for it in items if "" in (it["资料名称"], it["解析后文件"], it["资料类型"], it["文件哈希"], it["采集时间"])]
+    names = [(it["source_id"], it["解析后文件"]) for it in items]
+    lab.check("解析后文件 unique per source in snapshot", len(names) == len(set(names)), [n for n in names if names.count(n) > 1][:5])
+    originals = [(it["source_id"], it["原始文件"]) for it in items if it["原始文件"]]
+    lab.check("原始文件 unique per source in snapshot", len(originals) == len(set(originals)), [n for n in originals if originals.count(n) > 1][:5])
+    missing_vals = [it for it in items if "" in (it["资料名称"], it["解析后文件"], it["资料类型"], it["markdown_hash"], it["采集时间"])]
     lab.check("required columns non-empty", not missing_vals, missing_vals[:3])
     S["api_items"] = items
 
@@ -178,15 +165,19 @@ def test_api_pagination_and_cursor(lab):
 
 
 def test_api_files_bytes(lab):
-    """GET /files/{文件哈希|markdown_hash} returns exact bytes with proper headers."""
+    """GET /files/{original_hash|markdown_hash} returns exact bytes with proper headers."""
     api = S["api"]
     problems, comparisons = [], []
     allowed_names = {}
     for item in S["api_items"]:
         allowed_names.setdefault(item["markdown_hash"], set()).add(item["解析后文件"])
-        allowed_names.setdefault(item["文件哈希"], set()).add(item["原始文件"] or item["解析后文件"])
+        if item["original_hash"]:
+            allowed_names.setdefault(item["original_hash"], set()).add(item["原始文件"] or item["解析后文件"])
     for it in S["api_items"]:
-        for kind, digest in (("original", it["文件哈希"]), ("markdown", it["markdown_hash"])):
+        pairs = [("markdown", it["markdown_hash"])]
+        if it["original_hash"]:
+            pairs.insert(0, ("original", it["original_hash"]))
+        for kind, digest in pairs:
             r = api.get("/files/" + digest, "all")
             got = sha256(r.content) if r.status_code == 200 else None
             cas = sha256(lab.s3_get(digest))
@@ -205,7 +196,7 @@ def test_api_files_bytes(lab):
             if "filename*=" not in disp or not any(quote(name, safe="") in disp for name in names):
                 problems.append({"disposition": disp, "allowed_names": sorted(names)})
     lab.save("evidence/files-byte-comparison.json", comparisons)
-    lab.check("every 文件哈希 / markdown_hash downloads byte-exact with ETag/Length/Type/Disposition", not problems, problems[:6])
+    lab.check("every original_hash / markdown_hash downloads byte-exact with ETag/Length/Type/Disposition", not problems, problems[:6])
     # spot-check against fixture bytes
     native = S["content"].b["native.pdf"]
     r = api.get("/files/" + sha256(native), "all")
@@ -218,10 +209,10 @@ def test_api_files_forbidden(lab):
     rows = S["snap1_rows"]
     other = next(r for r in rows if r["source_id"] == "dd-017")
     out = {}
-    out["other_source_original"] = api.get("/files/" + other["file_hash"], "limited").status_code
+    out["other_source_original"] = api.get("/files/" + other["original_hash"], "limited").status_code
     out["other_source_markdown"] = api.get("/files/" + other["markdown_hash"], "limited").status_code
     mine = next(r for r in rows if r["source_id"] == "dd-033")
-    out["own_source_original"] = api.get("/files/" + mine["file_hash"], "limited").status_code
+    out["own_source_original"] = api.get("/files/" + mine["original_hash"], "limited").status_code
     out["inputs_manifest"] = api.get("/files/" + mine["inputs_ref"], "all").status_code
     out["unified_document"] = api.get("/files/" + mine["result_ref"], "all").status_code
     out["listing_page"] = api.get("/files/" + S["listing_hash"], "all").status_code
@@ -231,7 +222,7 @@ def test_api_files_forbidden(lab):
     amb = sha256(S["content"].b["amb2.pdf"])
     out["blocked_volume_original"] = api.get("/files/" + amb, "all").status_code
     out["random_hash"] = api.get("/files/" + hashlib.sha256(b"nothing").hexdigest(), "all").status_code
-    out["uppercase_hash"] = api.get("/files/" + mine["file_hash"].upper(), "all").status_code
+    out["uppercase_hash"] = api.get("/files/" + mine["original_hash"].upper(), "all").status_code
     lab.save("evidence/api-files-forbidden.json", out)
     expected_404 = {k: v for k, v in out.items() if k != "own_source_original" and v != 404}
     lab.check("authorised own-source file served", out["own_source_original"] == 200, out)

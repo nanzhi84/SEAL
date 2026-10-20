@@ -9,6 +9,7 @@ import asyncio
 import os
 import re
 import time
+from datetime import datetime, timezone
 from email.message import Message
 from urllib.parse import urljoin, urlsplit
 
@@ -23,6 +24,15 @@ from .scope import guard
 
 REDIRECTS = {301, 302, 303, 307, 308}
 RETRYABLE = {"network_failed", "http_5xx", "timeout"}
+FATAL_ERRORS = {
+    "interrupted",
+    "stale_attempt",
+    "inactive_attempt",
+    "run_not_started",
+    "request_budget_exceeded",
+    "crawl_time_budget_exceeded",
+    "deadline_exceeded",
+}
 BLOCKERS = (
     r'<input\b[^>]*type=["\']?password',
     r"cf-chl-|g-recaptcha|hcaptcha",
@@ -62,7 +72,7 @@ class Budget:
         self.config = config
         self.used = used
         self.started = time.monotonic()
-        self.deadline = deadline
+        self.deadline = datetime.fromisoformat(deadline) if isinstance(deadline, str) else deadline
         self.cancelled = False
         self.parent_pid = os.getppid()
 
@@ -73,6 +83,8 @@ class Budget:
             raise SealError("interrupted")
         if time.monotonic() - self.started > self.config["budget"]["seconds"]:
             raise SealError("crawl_time_budget_exceeded")
+        if self.deadline is not None and datetime.now(timezone.utc) > self.deadline:
+            raise SealError("deadline_exceeded")
 
     def request(self):
         self.active()
@@ -179,13 +191,21 @@ class Transport:
         location = acquisition.get("location")
         if acquisition["state"] == "archived" and acquisition["outcome"] == "redirect" and location:
             # Only operator-approved exact robots destinations; never widens content scope.
-            target = public_url(urljoin(url, location))
+            try:
+                target = public_url(urljoin(url, location))
+            except SealError:
+                raise SealError("robots_unavailable") from None
             if target in self.config["robots_redirect_urls"]:
-                guard(self.config, target, policy=True)
+                try:
+                    guard(self.config, target, policy=True)
+                except SealError:
+                    raise SealError("robots_unavailable") from None
                 acquisition = await self.exchange(
                     target, "GET", None, key, "policy", {}, acquisition["id"], "redirect"
                 )
         if acquisition["state"] != "archived":
+            if acquisition.get("error") in FATAL_ERRORS or acquisition["state"] == "cancelled":
+                raise SealError(acquisition.get("error") or "interrupted")
             raise SealError("robots_unavailable")
         return acquisition["http_status"], self.objects.get(acquisition["archive_ref"])
 
@@ -215,7 +235,14 @@ class Transport:
                                 actual_url=str(response.url),
                             )
                     status, headers, actual = response.status, response.headers, str(response.url)
+            data = bytes(body)
+            self.budget.active()
+            ref = self.objects.put(data)
+            self.objects.get(ref)  # Read back before any database reference is committed.
+            self.budget.active()
         except SealError as exc:
+            if exc.code in {"stale_attempt", "inactive_attempt", "run_not_started"}:
+                raise
             state = "cancelled" if exc.code == "interrupted" else "failed"
             return self.recorder.finish(identity, state, outcome="blocked", error=exc.code)
         except asyncio.CancelledError:
@@ -225,11 +252,6 @@ class Transport:
             return self.recorder.finish(
                 identity, "failed", outcome="network_failed", error="network_failed"
             )
-        data = bytes(body)
-        self.budget.active()
-        ref = self.objects.put(data)
-        self.objects.get(ref)  # Read back before any database reference is committed.
-        self.budget.active()
         mime_type, charset = media(headers)
         outcome = (
             "ok" if 200 <= status < 300 else "redirect" if status in REDIRECTS else "http_error"
@@ -281,6 +303,8 @@ class Transport:
                     current = guard(self.config, target)
                     await self.robots.check(current, self.fetch_policy)
                 except SealError as exc:
+                    if exc.code in FATAL_ERRORS:
+                        raise
                     row = dict(row, outcome="blocked", error=exc.code)
                     break
                 parent, relation = row["id"], "redirect"

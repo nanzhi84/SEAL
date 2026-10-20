@@ -172,9 +172,11 @@ def test_cas_integrity_formats(lab):
             bad.append({"url": acq["request_url"], "sha": sha256(data), "body_hash": acq["body_hash"]})
     lab.check("archived acquisitions verified against CAS", not bad, bad[:10])
     bad = []
-    for row in lab.q("SELECT dr.markdown_hash, dr.file_hash, dr.original_ref, v.result_ref, v.inputs_ref FROM seal.delivery_row dr JOIN seal.version v ON v.id=dr.version_id"):
-        for key in ("markdown_hash", "file_hash", "result_ref", "inputs_ref"):
+    for row in lab.q("SELECT dr.markdown_hash, dr.original_hash, v.result_ref, v.inputs_ref FROM seal.delivery_row dr JOIN seal.version v ON v.id=dr.version_id"):
+        for key in ("markdown_hash", "original_hash", "result_ref", "inputs_ref"):
             digest = row[key]
+            if digest is None:
+                continue
             try:
                 data = lab.s3_get(digest)
                 if sha256(data) != digest:

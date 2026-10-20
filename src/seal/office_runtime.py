@@ -5,6 +5,7 @@ materialized from verified CAS objects; LibreOffice runs headless in an isolated
 its own process group and a bounded timeout. Windows COM fallbacks are not supported.
 """
 
+import codecs
 import io
 import os
 import re
@@ -53,18 +54,26 @@ def detect(data, hint=""):
         if "Workbook".encode("utf-16-le") in data or "Book".encode("utf-16-le") in data:
             return "xls"
         return "unknown"
-    stripped = data[:2048].lstrip(b"\xef\xbb\xbf \t\r\n")
+    stripped = data[:4096].lstrip(b"\xef\xbb\xbf \t\r\n")
     if stripped.startswith(b"{\\rtf"):
         return "rtf"
-    lowered = stripped[:512].lower()
-    if lowered.startswith((b"<!doctype html", b"<html")) or b"<html" in lowered:
+    lowered = re.sub(rb"^(?:<!--.*?-->\s*)+", b"", stripped[:2048], flags=re.S).lower()
+    if (
+        lowered.startswith((b"<!doctype html", b"<html", b"<head", b"<body"))
+        or b"<html" in lowered
+        or b"<body" in lowered
+        or (hint == "html" and lowered.startswith(b"<") and not lowered.startswith(b"<?xml"))
+    ):
         return "html"
     if lowered.startswith(b"<?xml") or lowered.startswith(b"<"):
         return "xml"
     if lowered.startswith((b"{", b"[")):
         return "json"
+    sample = data[:65536]
+    if b"\x00" in sample:
+        return "unknown"
     try:
-        data[:65536].decode("utf-8")
+        codecs.getincrementaldecoder("utf-8")().decode(sample, final=len(data) <= len(sample))
         return "txt"
     except UnicodeDecodeError:
         return hint if hint in {"txt", "html"} else "unknown"
@@ -112,7 +121,11 @@ def libreoffice_identity():
     if not executable:
         return {"status": "unavailable"}
     try:
-        code, output = bounded_run([executable, "--headless", "--version"], 60)
+        with tempfile.TemporaryDirectory(prefix="seal-office-id-") as temp:
+            profile = (Path(temp) / "profile").as_uri()
+            code, output = bounded_run(
+                [executable, "-env:UserInstallation=" + profile, "--headless", "--version"], 60
+            )
         if code != 0:
             raise ValueError
         version = output.decode("utf-8", errors="replace").strip().splitlines()[0][:200]
@@ -292,11 +305,18 @@ def unpack_zip(path, folder, max_bytes):
                 raise SealError("zip_member_limit_exceeded")
             if sum(i.file_size for i in infos) > max_bytes:
                 raise SealError("zip_expanded_size_exceeded")
+            total = 0
             for index, info in enumerate(sorted(infos, key=lambda i: i.filename)):
                 name = safe_member(info.filename)
                 if name is None:
                     raise SealError("zip_member_path_invalid")
-                data = archive.read(info)
+                if name.startswith("__MACOSX/") or Path(name).name.startswith("._"):
+                    continue
+                with archive.open(info) as stream:
+                    data = stream.read(max_bytes - total + 1)
+                total += len(data)
+                if total > max_bytes:
+                    raise SealError("zip_expanded_size_exceeded")
                 kind = detect(data)
                 if kind not in ZIP_MEMBER_KINDS and kind != "zip":
                     continue
