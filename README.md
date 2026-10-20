@@ -375,6 +375,15 @@ PY
 
 `items` 每项含 16 列中文键与 `markdown_hash`；`文件哈希` 取回 PDF 原件，`markdown_hash` 取回解析后 `.md`，字节 SHA-256 均与哈希一致。旧 `/sources`、`/attachments/*` 返回 404。示例依赖公开站点可用性，处理成功不代表识别准确或业务事实已核验。
 
+### 6. 从封存快照导出文件包
+
+```bash
+uv run --no-sync seal export --snapshot "$snapshot_id" --output artifacts/readme-demo/delivery
+uv run --no-sync seal export verify artifacts/readme-demo/delivery
+```
+
+导出只读指定 Snapshot 与 CAS，无需先发布。包内含 16 列 `metadata.xlsx`、`markdown/`、`originals/` 和 `manifest.json`；整个目录搬移后仍可断网 verify。重复导出同一包返回 `unchanged`，不同包不会覆盖已有目录。
+
 #### 停止服务与清理
 
 在服务终端按 `Ctrl+C` 停止 API；停止本地存储容器（保留数据）：

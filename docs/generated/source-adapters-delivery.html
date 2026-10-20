@@ -49,7 +49,7 @@
     <h1>一次受控获取，<br>走到 16 列规范表与 SHA-256 直取交付。</h1>
     <p class="lead">将外部原始字节获取与业务解析解耦；把 Office/TCVN3 提取与 PDF 逐页扫描 OCR 质量门禁收编入 <code>src/seal/</code>；对下游仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>，并与离线 16 列 <code>metadata.xlsx</code> 导出严格同源。</p>
     <div class="meta">
-      <span class="badge">阶段 1（#31）已实现 · 阶段 2–4 为设计合同</span>
+      <span class="badge">阶段 1–2 已实现 · 阶段 3–4 为设计合同</span>
       <span>2026-10-20 · 本地开发阶段</span>
       <a href="../plans/source-adapters-delivery.md">打开唯一 Plan</a>
       <a href="../reference/%E6%B3%95%E8%A7%84%E6%A1%88%E4%BE%8B%E5%85%83%E6%95%B0%E6%8D%AE%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF.xlsx">16 列元数据模板</a>
@@ -159,12 +159,12 @@
       <thead><tr><th>阶段 / Issue</th><th>必须完成</th><th>可核验输出</th><th>状态</th></tr></thead>
       <tbody>
         <tr><td>01 · <code>#31</code> 新主链与精简 API</td><td>Acquisition、<code>seal.inputs.v1</code>、<code>seal.document.v1</code>；将 <code>office_text_extract.py</code> 与 <code>production_document_parse.py</code> 核心逻辑重构入 <code>src/seal/</code>；16 列投影；仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>。</td><td>独立新环境 collect → CAS → Version → Snapshot → <code>GET /results</code> &amp; <code>GET /files/{sha256}</code>。</td><td>已实现 · fresh 验收 78 场景 / 407 断言全部通过</td></tr>
-        <tr><td>02 · <code>#32</code> 16 列文件导出</td><td>独立 <code>seal export</code> 与 <code>seal export verify</code>；16 列 <code>metadata.xlsx</code>、单文件/连续分卷/独立附件物化、<code>manifest.json</code>、幂等与失败原子性。</td><td>真实 delivery 包及断网 verify 回执。</td><td>设计</td></tr>
+        <tr><td>02 · <code>#32</code> 16 列文件导出</td><td>独立 <code>seal export</code> 与 <code>seal export verify</code>；16 列 <code>metadata.xlsx</code>、单文件/连续分卷/独立附件物化、<code>manifest.json</code>、幂等与失败原子性。</td><td>真实 delivery 包及断网 verify 回执。</td><td>已实现，独立验收中</td></tr>
         <tr><td>03 · <code>#33</code> 原生来源收编</td><td><code>VietnamLawAdapter</code>（<code>dd-492</code>）取代外部 SQLite 并验证 TCVN3/扫描 PDF/多卷附件；接入一个真实 API/XML 来源并登记入口地图。</td><td>多输入、多文档、分卷/附件在 API 与 <code>seal export</code> 端到端通过。</td><td>设计</td></tr>
         <tr><td>04 · <code>#34</code> 重检与恢复</td><td><code>recheck_locator</code> 批量重检、零网络离线重解析（OCR/TCVN3/解析器升级）、三完成点崩溃接管、冲突与覆盖报告。</td><td>中断后补齐、不重复、不污染固定快照。</td><td>设计</td></tr>
       </tbody>
     </table></div>
-    <details><summary>查看目标 CLI 与 API 命令（collect / snapshot / serve 已实现，export 属阶段 2）</summary><pre>seal collect sources/dd-492.yaml
+    <details><summary>查看目标 CLI 与 API 命令（collect / snapshot / serve / export 已实现）</summary><pre>seal collect sources/dd-492.yaml
 seal snapshot create
 seal snapshot publish &lt;snapshot-id&gt;
 seal export --snapshot &lt;snapshot-id&gt; --source dd-492 \

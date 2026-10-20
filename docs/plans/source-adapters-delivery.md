@@ -376,6 +376,20 @@ API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`r
 - `GET /results?source_id=dd-xxx&limit=50&cursor=...`：返回 `{"snapshot_id", "items", "next_cursor"}`，并在有下一页时附 `Link: <...>; rel="next"`。`items` 按 `source_id`、`resource_id`、行号稳定排序，每项依模板顺序含 16 列中文键（缺失值为空串），另含 `source_id`、`resource_id`、`version_id`、`row_number`、`markdown_hash`。`limit` 为 1–100；未授权的 `source_id` 返回 `403`；游标绑定调用方、来源过滤与快照，翻页期间固定在起始快照，篡改或换用返回 `400 invalid_cursor`；未发布返回 `503 snapshot_not_published`。
 - `GET /files/{sha256}`：哈希须属于当前发布快照中调用方授权来源的文件闭包（行原件 `文件哈希` 或 `markdown_hash`），否则 `404 file_not_found`。响应字节经 CAS 校验，带真实 `Content-Type`（Markdown 为 `text/markdown; charset=utf-8`）、`Content-Length`、`ETag: "<sha256>"` 和 RFC 5987 `Content-Disposition`（规范文件名）。
 
+## 阶段 2 实现合同（#32）
+
+`seal export --snapshot <id> [--source dd-xxx] --output <dir>` 只读已封存 Snapshot 与 CAS，无需 publish；`--source` 可重复，省略导出全部来源。共用 `public_results.snapshot_rows`，包含完整快照分配的规范文件名。工作簿保留模板第 1 行表头、第 2 行字段说明，从第 3 行写入 16 列文本；外部公式样式字符串保留为文本，真正公式单元格在 verify 中拒绝。
+
+同参数导出固定核心属性时间、ZIP 成员排序与时间戳；每个载荷和 manifest 逐字节稳定，已有相同包返回 `status=unchanged`。先在 work 临时目录生成、重新打开 Excel 核对行和文件、写 manifest、离线 verify，再原子移动。异包、坏件、缺件、取消或工作表容量超限明确失败，不覆盖已有包。范围、覆盖与来源标识来自固定 Snapshot，不读当前 Run 补写历史结论。
+
+`seal export verify <dir>` 仅访问移动后的本地目录：核对 16 列、文本类型、必填项、枚举、合法日期时间、分卷、行级血缘与计数、路径、字节数及 SHA-256，不连接 SQL/S3；这是包内一致性校验，不是来源事实或法律效力认证。
+
+独立端到端复跑命令如下。先为隔离本地 PostgreSQL/S3 配置 `SEAL_DATABASE_URL`、`SEAL_S3_ENDPOINT`、`SEAL_S3_ACCESS_KEY`、`SEAL_S3_SECRET_KEY` 与可选 region；账号须有创建测试数据库与桶权限。脚本每轮创建随机数据库/桶，原始业务库不写入，运行数据和证据放 work / artifacts。
+
+```sh
+PYTHONPATH=src uv run --no-sync python tests/issue32_e2e.py
+```
+
 ## 文件交付合同（`seal export`）
 
 ```text

@@ -5,6 +5,13 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / 固定快照文件包（#32）— 2026-10-20
+
+新增只读 `seal export` 与移动包断网 `seal export verify`：16 列模板工作簿、固定
+Markdown/原件字节和行级血缘 manifest，与双接口共用快照投影。工作簿与载荷字节
+确定、重复导出幂等；缺件、损坏、取消和异包冲突原子拒绝，verify 拒绝公式与不一致计数。
+不采集、不重解析、不变更发布指针。合同与复跑命令见唯一 Plan。
+
 ## 未发布 / 原生 Source Adapter 与 16 列双接口（#31）— 2026-10-20
 
 以受控 Acquisition 与原生 Adapter Runtime 取代 Crawl4AI 深度遍历：每次真实外部请求（含
