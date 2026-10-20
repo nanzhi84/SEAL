@@ -5,17 +5,16 @@ lang: zh
 
 # 原生 Source Adapter 与统一文件交付
 
-状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 2–4 仍为设计合同，2026-10-20。
+状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3、4 由后续分支交付，2026-10-20。
 本轮以本地开发为前提，直接采用新数据与结果合同，不设计历史数据迁移、双格式读取或兼容 shim。
 设计基线为 `85a36b5`；未标注已实现的模块、字段和命令仍为待实现设计。
 [唯一可视化](../generated/source-adapters-delivery.html)随本计划同步更新。
 
+用户于 2026-10-20 [取消整个 #32 本地文件包导出能力](https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052)。#32 按 not planned 关闭，PR #36 撤回；不交付导出 CLI、工作簿/文件包物化、包 manifest 或离线包校验。#33、#34 直接依赖下述主链与两个 API。Office/XLSX 原件解析及模板定义的 16 列模型继续保留。
+
 ## 目标与完整数据流
 
-下游通过两条对齐的消费面取得同一份固定 `Snapshot` 的交付结果：
-1. **离线文件交付包（`seal export`）**：产出严格遵循 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 16 列规范的 `metadata.xlsx`、对应的解析后 Markdown 正文（`<资料名称>_<文件哈希前8位>[_<序号>].md`）、原始文件（`<资料名称>_<文件哈希前8位>[_<序号>].<ext>`）以及机器可校验的 `manifest.json`。
-2. **精简授权 API（仅 2 个下游接口）**：删除现有的 `GET /sources`、旧 `GET /results` 与 `GET /attachments/{attachment_id}` 三个接口，对下游仅暴露 `GET /results`（返回 16 列规范关系表投影及文件哈希寻址元数据）与 `GET /files/{sha256}`（基于 64 位 SHA-256 直接寻址下载原件或解析后 `.md` 文件）两个接口。
-
+下游通过授权 API 取得固定 `Snapshot` 的结果：`GET /results` 返回与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 对齐的 16 列关系投影与文件哈希，`GET /files/{sha256}` 返回原件或解析后 Markdown 的已归档字节。
 同时，将 [office_text_extract.py](../reference/office_text_extract.py)（Office/压缩容器探测、结构化直提、越南语 TCVN3 历史字体恢复与法律条文层级归一）与 [production_document_parse.py](../reference/production_document_parse.py)（逐页墨迹扫描件判定、`tesseract`/`br-ocr-v1` 双引擎版面 OCR 与客观质量门禁 `quality_check`）的核心逻辑重构并入 `src/seal/` 主链。
 成功入库、Snapshot 封存与完整文件交付分别记录结果。一个业务文档可以使用多个外部输入（如列表页 + 详情页 + 多个分卷或附件），一个外部响应也可以产生多个业务文档或分卷交付行。
 
@@ -29,11 +28,7 @@ flowchart LR
   F --> G[不可变 Observation 与 Version]
   G --> H[固定 Snapshot 封存与 16 列关系投影]
   H --> I[统一结果读取边界]
-  I --> J[独立导出模块 seal export]
   I --> K[精简授权 API]
-  J --> L[16 列 metadata.xlsx]
-  J --> M[解析后 Markdown 与原始文件]
-  J --> N[manifest.json 与交付回执]
   K --> O[GET /results 16 列投影查询]
   K --> P["GET /files/{sha256} 哈希寻址读取"]
 ```
@@ -55,11 +50,10 @@ flowchart LR
 | Snapshot | 已提交成功 Version | 在一致视图冻结来源及 Resource → Version 映射，校验引用闭包，封存后不可变 |
 | 统一结果读取与 16 列投影 | 固定 Version 与 result_ref | 校验唯一新格式及其对象闭包，生成与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 对齐的 16 列交付行与可寻址哈希集合 |
 | API（`GET /results`、`GET /files/{sha256}`） | `published_snapshot_id`、调用方授权 | 仅暴露 16 列结果分页查询与 64 位 SHA-256 文件直取两个接口 |
-| Export（`seal export`） | 显式 Snapshot、来源范围、输出目录 | 只读物化 16 列 `metadata.xlsx`、重命名后的 `.md` 与原件、以及 `manifest.json`，不触发采集或解析 |
 
 依赖为 `configuration / runs → runtime → adapters / acquisition → extraction / quality / document / resources`，
-以及 `snapshots / API / export → 统一结果读取与 16 列投影 → CAS`。采集模块不依赖导出与 API；
-导出与 API 互不调用对方 HTTP 接口。来源逻辑复用已有 HTTP、PDF/OCR 和范围控制能力，
+以及 `snapshots / API → 统一结果读取与 16 列投影 → CAS`。采集模块不依赖 API；
+来源逻辑复用已有 HTTP、PDF/OCR 和范围控制能力，
 移除被替代的内部运行路径与旧接口。
 
 ## Acquisition：受控外部原始数据获取
@@ -85,7 +79,7 @@ PDF、HTML、TXT、JSON、XML、DOC、DOCX、RTF、XLS、XLSX、ZIP 等所有实
 | 状态 | state、HTTP status / 获取 outcome、结构化错误码、started_at、acquired_at |
 
 `request_key` 绑定方法、规范请求定位、影响响应的非敏感参数摘要及角色；不是只按 URL 去重。
-需要会话的 Cookie、凭据、令牌和敏感表单载荷只进入受控运行内存，不写入记录或导出。
+需要会话的 Cookie、凭据、令牌和敏感表单载荷只进入受控运行内存，不写入记录、日志或响应。
 重定向、重试等实际外部请求需要独立事实与关联，不混淆为一次从未发生过的响应。
 未完整取得的字节不得填入表示完整原件的 archive_ref。
 
@@ -180,7 +174,7 @@ public_url 是可空展示地址；重检通过独立 locator，不以展示 URL
 
 新结果只写入并读取 `seal.document.v1`，Version.result_ref 指向该对象。
 不保留 CrawlResult 双格式兼容分支；原始 CrawlResult 可选存入诊断引用，
-不参与下游公开模型，也不作为导出读取的必要前提。
+不参与下游公开模型，也不作为公开读取的必要前提。
 
 | 统一文档字段 | 合同 |
 |---|---|
@@ -197,8 +191,7 @@ public_url 是可空展示地址；重检通过独立 locator，不以展示 URL
 
 Adapter 产出纯文本时，由统一归一化边界执行固定的 Markdown 转换，保留文字、换行与段落，
 转义影响呈现的元字符，不猜测标题或列表结构；转换合同进入 `parser_fingerprint`。
-每个可交付单元的 Markdown 正文固定以 UTF-8 字节写入 CAS，使 `GET /files/{sha256}` 与离线 `seal export` 读取完全相同的字节流，
-导出器不再次解析原文、不重新清洗正文、不依赖当前最新版转换器重生成旧 Version 正文。
+每个可交付单元的 Markdown 正文固定以 UTF-8 字节写入 CAS，`GET /files/{sha256}` 只读已封存字节，不依赖当前转换器重生成旧 Version 正文。
 
 输入清单采用 `seal.inputs.v1`，每项记录 `acquisition_id`、`archive_ref`、`role`、
 实际 `locator` 与影响解析的上下文。定位支持真实 JSON Pointer、带命名空间的 XML 路径、
@@ -252,7 +245,7 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 
 ### 1. 16 列规范模型（严格对齐 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx)）
 
-无论是 `GET /results` 返回的记录还是 `seal export` 产出的 `metadata.xlsx`，均采用与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 完全一致的 16 列业务契约及行拆分规则：
+`GET /results` 返回的记录采用与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 完全一致的 16 列业务契约及行拆分规则：
 
 - **行粒度**：**一行对应一个解析后 `.md` 文件 + 一个物理文件哈希（`文件哈希`）**。
   - **单文件资料**：占 1 行，`文件顺序` 留空。
@@ -287,7 +280,7 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
    - **查询参数**：支持 `source_id`（可选，过滤单个已授权来源）、`limit`（默认 `50`，最大 `100`）、`cursor`（基于交付行稳定序的游标分页）。
    - **响应结构**：`items` 数组每项對應上述 16 列规范字段（同时提供 `source_id`、`resource_id`、`version_id` 与解析后 Markdown 的 64 位 SHA-256 `markdown_hash`，以便下游分别用 `文件哈希` 和 `markdown_hash` 调用 `GET /files/{sha256}` 下载原始文件与解析后 `.md` 文件）。
 2. **`GET /files/{sha256}`**：
-   - **路径参数**：`{sha256}` 为 64 位小写十六进制 SHA-256（可以是 `GET /results` / `metadata.xlsx` 中的 `文件哈希`，也可以是解析后 `.md` 的 `markdown_hash`）。
+   - **路径参数**：`{sha256}` 为 64 位小写十六进制 SHA-256（可以是 `GET /results` 中的 `文件哈希`，也可以是解析后 `.md` 的 `markdown_hash`）。
    - **授权与快照闭包校验**：校验调用方 Bearer token，并确认该 `sha256` 属于当前 `published_snapshot_id` 下该调用方已授权来源的可交付文件集合（严禁通过任意 CAS 哈希越权读取未发布、未授权或内部 `inputs_ref` 诊断对象；未命中一律返回 `404 Not Found`）。
    - **响应**：从 CAS 校验并流式返回文件字节，设置真实的 `Content-Type`、`Content-Length`、`ETag: "<sha256>"` 与规范文件名的 `Content-Disposition`。
 
@@ -302,7 +295,6 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 | `archive.py` / `document` 边界 | 唯一结果与输入清单校验器；校验引用的每个原件与每个交付 `.md` 对象完整存在 |
 | `configuration.py` / `runs.py` / `recheck.py` | 冻结 Adapter、Office/OCR/质量参数、队列与重检计划；取消 `input_mode` 绑定整条资源时间线的旧假设 |
 | `snapshots.py` | 只读新模型并验证对象闭包（含原件与 `.md` 哈希），固定版本集合、16 列投影与来源覆盖描述 |
-| 独立 `export.py` 模块 / CLI | 显式 Snapshot 读取、16 列 `metadata.xlsx` 和文件物化、包校验、原子完成回执 |
 
 ## 阶段 1 实现合同（#31）
 
@@ -376,77 +368,39 @@ API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`r
 - `GET /results?source_id=dd-xxx&limit=50&cursor=...`：返回 `{"snapshot_id", "items", "next_cursor"}`，并在有下一页时附 `Link: <...>; rel="next"`。`items` 按 `source_id`、`resource_id`、行号稳定排序，每项依模板顺序含 16 列中文键（缺失值为空串），另含 `source_id`、`resource_id`、`version_id`、`row_number`、`markdown_hash`。`limit` 为 1–100；未授权的 `source_id` 返回 `403`；游标绑定调用方、来源过滤与快照，翻页期间固定在起始快照，篡改或换用返回 `400 invalid_cursor`；未发布返回 `503 snapshot_not_published`。
 - `GET /files/{sha256}`：哈希须属于当前发布快照中调用方授权来源的文件闭包（行原件 `文件哈希` 或 `markdown_hash`），否则 `404 file_not_found`。响应字节经 CAS 校验，带真实 `Content-Type`（Markdown 为 `text/markdown; charset=utf-8`）、`Content-Length`、`ETag: "<sha256>"` 和 RFC 5987 `Content-Disposition`（规范文件名）。
 
-## 文件交付合同（`seal export`）
+## API 文件命名与完整性
 
-```text
-delivery/
-├── metadata.xlsx
-├── markdown/<资料名称>_<文件哈希前8位>[_<序号>].md
-├── originals/<资料名称>_<文件哈希前8位>[_<序号>].<ext>
-└── manifest.json
-```
+每行对应一个非空 Markdown。单文件或独立附件使用 `<安全化资料名称>_<文件哈希前8位>.md`，连续分卷追加两位卷序。命名先按完整 Snapshot 的 `source_id / resource_id / row_number` 排序分配，碰撞时使用未占用的数字后缀并预留自然卷序；分页、授权筛选复用同一命名，不重新编号。原件跟随对应 Markdown 词干；同一哈希被多行引用时，下载响应在获授权引用中稳定选择一个规范文件名。
 
-导出由本地显式 CLI 读取指定封存 `Snapshot`，无需先 `publish`；它不改变 API 的 `published_snapshot_id`，也不通过 HTTP 接口反向拉取。
-路径相对于包根目录，不含绝对工作区路径或 CAS 凭据。
-
-### 1. `metadata.xlsx`
-
-- 工作簿严格遵循 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 的 16 列结构与表头（`资料名称`、`解析后文件`、`资料类型`、`文件哈希`、`采集时间`、`原始文件`、`文件顺序`、`文号/案号`、`发布机构`、`发布日期`、`生效日期`、`失效日期`、`状态`、`来源名称`、`来源详情页`、`来源记录号`）。
-- 表中 `解析后文件` 列精确对应 `markdown/` 目录下的文件名；`原始文件` 列非空时精确对应 `originals/` 目录下的文件名。
-- 官方文号、前导零编码、64 位哈希和来源文字一律按文本单元格写入；缺失值留空，日期与时间严格遵守 `YYYY-MM-DD` 与 `YYYY-MM-DD HH:MM:SS` 格式，外部字符串绝不作为 Excel 公式执行（防范公式注入）。
-- 超过单元格或工作表容量时明确失败，不能截断。全量正文保存在 `markdown/` 下的 `.md` 文件，不塞进 Excel 单元格。
-
-### 2. Markdown、原件命名与完整性
-
-- 每行交付记录在 `markdown/` 下恰有一个对应的 `.md` 文件。无碰撞时，单文件或独立附件为 `<安全化资料名称>_<文件哈希前8位>.md`，连续分卷为 `<安全化资料名称>_<文件哈希前8位>_<两位序号>.md`。同基名碰撞时，先按完整 Snapshot 的 `source_id / resource_id / row_number` 排序，保留首次出现的自然名字，其余使用未占用的数字后缀；预留自然卷序，消歧数字不改变 `文件顺序`。API、分页、授权筛选与子集导出消费相同投影，不各自重编文件名。原始文件跟随对应 Markdown 的文件名词干；同一哈希可被多行引用，下载响应在获授权引用中稳定选择一个规范文件名。
-- 有原始文件时，在 `originals/` 下输出对应原件（`<安全化资料名称>_<文件哈希前8位>[_<两位序号>].<ext>`，文件字节 SHA-256 必须等于该行 `文件哈希`）；无独立原件（仅接口响应切片生成正文）时，`原始文件` 留空，该行 `文件哈希` 等于 `.md` 文件的 SHA-256，不伪造所谓“官方 PDF/HTML 原件”。
-- 发现列表、验证码页面或登录壳不能充当正文原件。扩展名来自已校验媒体类型与真实容器探测，不能盲信来源 URL 后缀。
-- Source 必需正文附件尚未取得、必需输入解析失败、未通过 `quality_check` 或连续分卷顺序无法确定时，不形成可交付成功版本。
-
-### 3. `manifest.json`、校验与完成语义
-
-`manifest.json` 使用 `seal.delivery.v1`，包含：
-- `snapshot_id`、显式 `source` 范围、导出合同与运行时版本；
-- 文档数、16 列交付行数、`markdown/` 文件数、`originals/` 文件数；
-- 每条 16 列交付行的技术血缘映射（行号、`source_id`、`resource_id`、`version_id`、`来源记录号`、`解析后文件` 路径与 `markdown_hash`、`原始文件` 路径与 `文件哈希`、文件角色、`volume_order`、在 `inputs_ref` 中的真实 `locator`）；
-- 包内所有载荷文件（`metadata.xlsx`、全部 `.md`、全部原件）的相对路径、字节数与 64 位 SHA-256；
-- 来源覆盖摘要与已知缺口（随 Snapshot 冻结，未知分母标 `UNKNOWN`）。
-
-导出先在同一文件系统的 `work/` 暂存目录生成，核对 16 列必填项、受控枚举、日期格式、分卷连续性、文件对应、字节数和 SHA-256，所有载荷都通过后写 `manifest.json` 并原子移动至最终目录。
-单文件缺失、损坏、超限或取消时退出失败，不发布可被误认为完整的 `delivery` 目录。已存在的最终目录只允许完全一致时返回幂等回执，否则报冲突，不覆盖已有包。
+有独立原件时 `文件哈希` 为原件 SHA-256；只有接口响应切片生成的正文时，`原始文件` 留空，`文件哈希` 等于 Markdown SHA-256，不伪造官方原件。扩展名来自真实容器和已校验媒体类型。必需输入缺失、质量不合格或卷序不明均阻止形成成功版本。
 
 ## 实施顺序与目标命令
 
 | 阶段 | 对应 Issue | 可运行交付单元 | 完成条件 |
 |---|---|---|---|
 | 1 | `#31` | 新合同、Office/PDF/OCR 重构与双接口 API | 新 schema、Acquisition、输入清单、`office_text_extract.py` 与 `production_document_parse.py` 核心逻辑并入 `src/seal/`、16 列关系投影、删除旧 3 接口并切换为 `GET /results` + `GET /files/{sha256}` |
-| 2 | `#32` | 独立文件导出（`seal export`） | 固定 Snapshot → 16 列 `metadata.xlsx`（对齐上传模板）、重命名 `.md` 与原件、`manifest.json`；离线 `verify`、分卷/附件拆分、幂等和失败原子性通过 |
-| 3 | `#33` | 来源原生收编（`dd-492` + API/XML 来源） | `VietnamLawAdapter` 取代外部 SQLite 编排并验证 TCVN3/扫描 PDF/多附件分卷；再用一个真实 API/XML 来源验证多输入与单响应多文档，端到端通过 API 与 `seal export` |
+| 2 | `#32` | 已取消 | 用户取消整个本地文件包导出能力；不进入后续 PR |
+| 3 | `#33` | 来源原生收编（`dd-492` + API/XML 来源） | `VietnamLawAdapter` 取代外部 SQLite 编排并验证 TCVN3/扫描 PDF/多附件分卷；再用一个真实 API/XML 来源验证多输入与单响应多文档，端到端通过两个 API |
 | 4 | `#34` | 批量重检、零网络重解析与崩溃恢复 | `recheck_locator` 批量重检、零网络离线重解析（如 OCR/TCVN3/解析器升级）、三完成点半程崩溃接管、同轮重放与冲突、预算截断和覆盖报告通过 |
 
 新来源先在[唯一入口地图](../reference/尽职调查核验入口地图.md)登记稳定 ID，再写配置运行。
 已登记的 [dd-492](../reference/尽职调查核验入口地图.md#dd-492) 继续使用原 ID。
 
-以下为目标 CLI 与 API 合同，当前尚不可执行：
+当前基础命令如下；来源专用配置在阶段 3 交付：
 
 ```sh
 seal collect sources/dd-492.yaml
 seal snapshot create
 seal snapshot publish <snapshot-id>
-# 离线导出 16 列 metadata.xlsx + markdown/ + originals/ + manifest.json
-seal export --snapshot <snapshot-id> --source dd-492 --output artifacts/<运行名>/delivery
-seal export verify artifacts/<运行名>/delivery
 # 下游 API 仅暴露两个接口：
 # GET /results?source_id=dd-492&limit=50
 # GET /files/<64位sha256>
 ```
 
-`--source` 可重复；省略时选择快照全部来源，范围写入 `manifest.json`。
-`export verify` 只读本地包，重新打开 `metadata.xlsx` 核对 16 列表头、必填项、枚举、分卷顺序、`.md` 与原件文件名及 64 位 SHA-256，不访问 SQL/S3。
 
 ## 验收要求与当前证据
 
-本轮仅固化设计并重构远程 Issues，由主 agent 检查 diff、文档链接及 `seiso check`。
+主 agent 检查 diff、文档链接并运行 `seiso check`。
 实质实现由完全 fresh 子 agent 仅依据以下业务目标先定义失败方式，再在根目录 `tests/`
 独立编写并运行端到端验收；使用独立 PostgreSQL / S3 环境、可控 HTTP 来源及真实 CLI。
 测试代码不以实现内部结构为断言，CI 只做静态检查。
@@ -455,17 +409,16 @@ seal export verify artifacts/<运行名>/delivery
 |---|---|
 | HTML / TXT / Office（DOC/DOCX/RTF/XLS/ZIP） / 越南语 TCVN3 | 原文进入 CAS，伪装容器正确识别，TCVN3 混合编码逐行恢复不伤 Unicode 抬头，法律章节标题层级正确 |
 | 原生 PDF / 混合扫描 PDF / 双引擎 OCR 与 `quality_check` | 逐页墨迹比识别“仅签章含文字”的扫描页；`tesseract` / `br-ocr-v1` 路由与 15 项客观质量原因可核验，低质坏页不静默算作成功 |
-| 16 列 `metadata.xlsx` 单文件 / 连续分卷 / 同源独立附件 | 16 列与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 完全一致；连续分卷共享 `资料名称` 与 `来源记录号` 且 `文件顺序 = 1, 2...`；独立附件各自成行且 `文件顺序` 为空；顺序不明阻止装配 |
+| 16 列 API 行：单文件 / 连续分卷 / 同源独立附件 | 16 列与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 完全一致；连续分卷共享 `资料名称` 与 `来源记录号` 且 `文件顺序 = 1, 2...`；独立附件各自成行且 `文件顺序` 为空；顺序不明阻止装配 |
 | 精简 API（仅 `GET /results` 与 `GET /files/{sha256}`） | 旧 `/sources`、`/attachments/{id}` 已移除（返回 404）；`GET /results` 返回 16 列投影与哈希；`GET /files/{sha256}` 凭 `文件哈希` 或 `markdown_hash` 直接取回原件或 `.md`，未授权或非当前发布快照哈希返回 404 |
-| 单 XML / JSON 响应产生多文档 | 16 列结果表无漏项无重复，各文档 `来源记录号` 与内容哈希独立，`manifest.json` 保留共享原件真实 `locator` |
+| 单 XML / JSON 响应产生多文档 | 16 列结果表无漏项无重复，各文档 `来源记录号` 与内容哈希独立，输入清单保留共享原件真实 `locator` |
 | 列表重排 / 无关项变化 | 当前文档语义输入不变不升版；日期、编码、基地址、分卷顺序等真实依赖变化可检出 |
 | 归档后 / 提交半程 / 推进游标前崩溃 | 接管补齐剩余目标，失效进程不能写入，不改既有不可变结果 |
 | 同轮重复与同键冲突 | 真正重放幂等；新获取证据可追溯；异内容失败而不覆盖 |
 | 解析器 / OCR / TCVN3 升级与离线重解析 | 零来源网络，新版本可解释；同输入同解析器异输出明确失败 |
-| Snapshot A 导出期间采集或发布 B | A 的 `metadata.xlsx`、`.md` 与原件固定不变，不混入 B；导出不改变 API 的 `published_snapshot_id` |
-| 移动包并断网 `seal export verify` | 包内相对路径有效，16 列 `metadata.xlsx`、`markdown/`、`originals/` 与 `manifest.json` 全量对账通过 |
+| 固定 Snapshot A 翻页期间采集或发布 B | A 的游标与版本固定，不混入 B；新请求读取新发布快照 |
 
-当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2–4 仍由各自依赖分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3、4 由后续分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
 
 复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。两个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
 
@@ -478,7 +431,7 @@ uv run --no-sync python tests/issue31_supplement.py
 
 ## 相关设计与合同替代范围
 
-实现后，本 Plan 的新原文归档、Office/PDF/OCR 质量门禁、统一结果、16 列关系投影、双接口 API（`GET /results`、`GET /files/{sha256}`）和导出合同替代
+实现后，本 Plan 的新原文归档、Office/PDF/OCR 质量门禁、统一结果、16 列关系投影、双接口 API（`GET /results`、`GET /files/{sha256}`）合同替代
 [现有 CrawlResult 主链](unified-document-pipeline.md)对应部分，
 [全局 Snapshot](global-snapshots.md)的固定版本与显式发布原则继续沿用，
 并新增固定覆盖描述与统一读取校验。

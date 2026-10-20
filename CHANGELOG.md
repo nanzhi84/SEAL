@@ -5,6 +5,10 @@ lang: zh
 
 # 版本记录
 
+## 未发布 / 取消本地文件包导出（#32）— 2026-10-20
+
+按[用户最终决策](https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052)，取消整个 #32 导出能力并撤回 PR #36。后续来源、重检与恢复直接使用 16 列结果和文件 API，不包含导出模块、CLI、工作簿物化、包 manifest 或离线包校验。保留通用 Office/XLSX 输入解析。
+
 ## 未发布 / 原生 Source Adapter 与 16 列双接口（#31）— 2026-10-20
 
 以受控 Acquisition 与原生 Adapter Runtime 取代 Crawl4AI 深度遍历：每次真实外部请求（含
