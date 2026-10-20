@@ -25,8 +25,9 @@ robots、重定向跳与重试）独立记录并先归档 CAS、读回校验，�
 `result_max_bytes` / `attachment_max_bytes`。新增依赖 `python-docx`、`openpyxl`、`xlrd`；
 `.doc` 与 RTF 兜底需要 LibreOffice。合同见[唯一 Plan](docs/plans/source-adapters-delivery.md#阶段-1-实现合同31)。
 
-独立新环境验收 78 场景 / 407 条断言全部通过，涵盖双引擎 OCR、Office/TCVN3/ZIP、
+独立新环境验收 83 场景 / 455 条断言全部通过，涵盖双引擎 OCR、Office/TCVN3/ZIP、
 16 列 API 字节、完整 CAS 闭包、取消/接管及无长事务；复跑命令与工件哈希见唯一 Plan。
+浏览器主响应、脚本和逐跳重定向均独立归档并执行真实 HTTP 预算；DOM 附加表示不重复计数，子请求失败不交付部分正文。
 未执行业务库升级或生产发布。
 
 ## 未发布 / OCR 速度优先前沿 — 2026-10-19

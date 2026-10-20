@@ -66,7 +66,7 @@ Acquisition 是一次受控的外部原始数据获取动作。绝大多数对�
 首期支持 `http` 与 `rendered_dom` 获取种类，不实现通用传输插件框架。
 HTTP 保存传输层交付的完整响应实体字节，位于字符解码及内容清洗之前；
 记录内容解压等表示规则，不宣称保存 TLS、分块传输或压缩前的逐字节网络流。
-DOM 保存实际交给解析器的渲染后 UTF-8 字节，明确其表示种类，不称其为原始 HTTP 响应。
+DOM 保存实际交给解析器的渲染后 UTF-8 字节，明确其表示种类，不称其为原始 HTTP 响应。浏览器主响应、脚本与每个重定向 hop 均通过共享 Transport 独立归档 HTTP 原件，再交给 Chromium；HTTP 获取元数据关联对应的 rendered Acquisition。DOM 是附加表示，不重复计入真实 HTTP 请求预算。预算、必需子请求 HTTP 错误或字节超限阻止部分正文提交，失败请求不报告枚举完整。
 PDF、HTML、TXT、JSON、XML、DOC、DOCX、RTF、XLS、XLSX、ZIP 等所有实际参与解析的输入均须完整归档并读回校验。
 
 ### 获取记录与状态机
@@ -418,16 +418,17 @@ seal snapshot publish <snapshot-id>
 | 解析器 / OCR / TCVN3 升级与离线重解析 | 零来源网络，新版本可解释；同输入同解析器异输出明确失败 |
 | 固定 Snapshot A 翻页期间采集或发布 B | A 的游标与版本固定，不混入 B；新请求读取新发布快照 |
 
-当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3、4 由后续分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景 + 渲染预算/获取事实 5 场景，共 455 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3、4 由后续分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
 
-复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。两个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
+复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。三个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
 
 ```sh
 uv run --no-sync python tests/issue31_acceptance.py
 uv run --no-sync python tests/issue31_supplement.py
+uv run --no-sync python tests/issue31_browser_budget.py --run final-cdp
 ```
 
-本次工件为 `artifacts/issue31-20261020T070105Z/`、`artifacts/issue31-supplement-20261020T070105Z/` 与 `artifacts/issue31-final-audit.json`，包含实际命令、环境、331 + 76 条断言、SQL/CAS/API 逐字节核对与源码/测试哈希；敏感扫描零命中。源码组合 SHA-256 为 `8631772355764dc0ad71424a2e424df387c2ab48e8adbe2e91333d45d1e9f453`，工件不入库且可由以上命令重新生成。
+本次工件为 `artifacts/issue31-20261020T073942Z/`、`artifacts/issue31-supplement-20261020T073942Z/` 与 `artifacts/issue31-browser-budget/final-cdp/`，包含实际命令、环境、331 + 76 + 48 条断言、SQL/CAS/API 逐字节核对与源码/测试哈希；敏感扫描零命中。源码组合 SHA-256 为 `44813ae149ac508a85833832f54a217643b3c40560586bd2a35cf119158ad83b`，工件不入库且可由以上命令重新生成。
 
 ## 相关设计与合同替代范围
 
