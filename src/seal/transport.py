@@ -189,7 +189,7 @@ class Transport:
             raise SealError("robots_unavailable")
         return acquisition["http_status"], self.objects.get(acquisition["archive_ref"])
 
-    async def exchange(self, url, method, form, key, role, meta, parent, relation):
+    async def exchange(self, url, method, form, key, role, meta, parent, relation, *, headers=None):
         """Exactly one real HTTP request and one Acquisition fact."""
         self.budget.request()
         identity = self.recorder.start(key, "http", role, method, url, meta, parent, relation)
@@ -199,7 +199,7 @@ class Transport:
                 await self.paced()
                 self.budget.active()
                 async with self.session.request(
-                    method, url, data=form, allow_redirects=False
+                    method, url, data=form, headers=headers, allow_redirects=False
                 ) as response:
                     body = bytearray()
                     async for chunk in response.content.iter_chunked(65536):
@@ -249,6 +249,7 @@ class Transport:
             archive_ref=ref,
         )
         row["location"] = headers.get("Location")
+        row["headers"] = dict(headers)
         return row
 
     async def acquire(self, request):

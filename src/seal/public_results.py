@@ -1,6 +1,6 @@
 """Unified read boundary: a fixed Snapshot's 16-column rows and downloadable file closure.
 
-Both the API and ``seal export`` read through this module; neither calls the other.
+The API reads fixed rows and authorized file references through this boundary.
 """
 
 from .document import COLUMNS, row_values

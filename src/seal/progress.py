@@ -44,7 +44,8 @@ def snapshot(c, run):
         (run["id"],),
     ).fetchone()
     requests = c.execute(
-        "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s", (run["id"],)
+        "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s AND acquisition_kind='http'",
+        (run["id"],),
     ).fetchone()["n"]
     current = c.execute(
         """SELECT payload->>'url' AS url FROM seal.task WHERE run_id=%s AND kind='request'

@@ -1,14 +1,15 @@
-"""rendered_dom acquisition: dedicated headless browser, scoped and budgeted subrequests.
+"""Rendered DOM acquisition; all browser HTTP inputs use the controlled transport.
 
-The archived representation is the rendered DOM UTF-8 handed to the parser, never claimed
-to be an original HTTP response.
+Raw main responses, redirects and subresources have independent HTTP Acquisition facts.
+The rendered UTF-8 DOM is an additional representation, not an extra network request.
 """
 
 import asyncio
+import hashlib
 
 from .core import SealError
 from .scope import guard
-from .transport import request_key
+from .transport import REDIRECTS, request_key
 
 
 class Browser:
@@ -21,7 +22,6 @@ class Browser:
         )
         self.playwright = None
         self.browser = None
-        self.errors = []
 
     async def start(self):
         if self.browser is None:
@@ -40,57 +40,115 @@ class Browser:
         await self.start()
         await self.transport.start()
         url = guard(self.config, request["url"])
-        await self.transport.robots.check(url, self.transport.fetch_policy)
-        self.budget.request()
+        self.budget.active()
         key = request_key(request)
         identity = self.recorder.start(
             key, "rendered_dom", "content", "GET", url, {"role": request.get("role", "page")}
         )
         context = await self.browser.new_context(
-            user_agent=self.config["user_agent"], accept_downloads=False, ignore_https_errors=False
+            user_agent=self.config["user_agent"],
+            accept_downloads=False,
+            ignore_https_errors=False,
+            service_workers="block",
         )
+        errors, facts, pending = [], {}, set()
+
+        async def route_input(route):
+            current = asyncio.current_task()
+            pending.add(current)
+            browser_request = route.request
+            try:
+                target = guard(self.config, browser_request.url)
+                await self.transport.robots.check(target, self.transport.fetch_policy)
+                body = browser_request.post_data_buffer
+                raw_key = request_key(
+                    {
+                        "url": target,
+                        "method": browser_request.method,
+                        "role": "browser_http",
+                        "form": {"body_hash": hashlib.sha256(body).hexdigest()} if body else None,
+                    }
+                )
+                previous = facts.get(browser_request.redirected_from)
+                row = await self.transport.exchange(
+                    target,
+                    browser_request.method,
+                    body,
+                    raw_key,
+                    "content",
+                    {
+                        "rendered_acquisition_id": identity,
+                        "resource_type": browser_request.resource_type,
+                    },
+                    previous,
+                    "redirect" if previous else None,
+                    headers={
+                        name: value
+                        for name, value in (await browser_request.all_headers()).items()
+                        if name.lower()
+                        not in {"accept-encoding", "host", "connection", "content-length"}
+                    },
+                )
+                facts[browser_request] = row["id"]
+                if row["state"] != "archived":
+                    raise SealError(row["error"] or "network_failed")
+                if row["outcome"] not in {"ok", "redirect"}:
+                    raise SealError(row["error"] or "network_failed")
+                # Transport archives decoded HTTP entity bytes. Chromium must not decode
+                # them again; preserve semantic headers, including redirects and cookies.
+                headers = {
+                    name: value
+                    for name, value in row["headers"].items()
+                    if name.lower()
+                    not in {"content-encoding", "content-length", "transfer-encoding", "connection"}
+                }
+                await route.fulfill(
+                    status=row["http_status"],
+                    headers=headers,
+                    body=self.transport.objects.get(row["archive_ref"]),
+                )
+            except SealError as exc:
+                errors.append(exc.code)
+                await route.abort("blockedbyclient")
+            except asyncio.CancelledError:
+                errors.append("interrupted")
+                raise
+            except Exception:
+                errors.append("network_failed")
+                await route.abort("failed")
+            finally:
+                pending.discard(current)
+
         try:
+            await context.route("**/*", route_input)
             page = await context.new_page()
-            session = await context.new_cdp_session(page)
-
-            async def paused(event):
-                request_id = event["requestId"]
-                target = event["request"]["url"]
-                try:
-                    if not target.startswith("data:"):
-                        guard(self.config, target)
-                        await self.transport.robots.check(target, self.transport.fetch_policy)
-                        if target != url:
-                            self.budget.request()
-                    await session.send("Fetch.continueRequest", {"requestId": request_id})
-                except SealError as exc:
-                    self.errors.append(exc.code)
-                    await session.send(
-                        "Fetch.failRequest",
-                        {"requestId": request_id, "errorReason": "BlockedByClient"},
-                    )
-
-            session.on("Fetch.requestPaused", lambda event: asyncio.ensure_future(paused(event)))
-            await session.send(
-                "Fetch.enable", {"patterns": [{"urlPattern": "*", "requestStage": "Request"}]}
-            )
             response = await page.goto(
                 url,
                 wait_until=self.config["fetch"]["wait_until"],
                 timeout=self.config["fetch"]["page_timeout_ms"],
             )
+            while pending:
+                self.budget.active()
+                await asyncio.gather(*tuple(pending))
+            self.budget.active()
+            if errors:
+                raise SealError(errors[0])
             html = await page.content()
             status = response.status if response else None
             actual = page.url
-        except SealError as exc:
-            return self.recorder.finish(identity, "failed", outcome="blocked", error=exc.code)
         except asyncio.CancelledError:
             self.recorder.finish(identity, "cancelled", outcome="cancelled", error="interrupted")
             raise
-        except Exception:
-            return self.recorder.finish(
-                identity, "failed", outcome="network_failed", error="network_failed"
+        except Exception as exc:
+            code = (
+                exc.code
+                if isinstance(exc, SealError)
+                else (errors[0] if errors else "network_failed")
             )
+            if code in {"stale_attempt", "inactive_attempt"}:
+                raise SealError(code) from exc
+            state = "cancelled" if code == "interrupted" else "failed"
+            return self.recorder.finish(identity, state, outcome="blocked", error=code)
         finally:
             await context.close()
         data = html.encode("utf-8")
@@ -98,9 +156,11 @@ class Browser:
             return self.recorder.finish(
                 identity, "failed", outcome="blocked", error="response_byte_budget_exceeded"
             )
+        self.budget.active()
         ref = self.transport.objects.put(data)
         self.transport.objects.get(ref)
-        ok = status is not None and 200 <= status < 300
+        self.budget.active()
+        ok = status is not None and 200 <= status < 300 and status not in REDIRECTS
         return self.recorder.finish(
             identity,
             "archived",

@@ -33,7 +33,8 @@ class Runtime:
         self.checkpoint = context["checkpoint"] or {}
         with connect() as c:
             used = c.execute(
-                "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s", (self.run_id,)
+                "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s AND acquisition_kind='http'",
+                (self.run_id,),
             ).fetchone()["n"]
             capped = c.execute(
                 "SELECT 1 FROM seal.task WHERE run_id=%s AND error='document_budget_exceeded' LIMIT 1",
@@ -164,6 +165,8 @@ class Runtime:
             else:
                 self.mark_request(task["id"], "failed", result["id"], result["error"])
                 record_error(self.run_id, self.epoch, result["error"] or "request_failed")
+                if result["error"] in STOPPING:
+                    self.truncated = result["error"]
                 if result["state"] == "cancelled":
                     raise SealError("interrupted")
         return True
@@ -302,13 +305,19 @@ class Runtime:
                 (self.run_id,),
             ).fetchall()
             requests = c.execute(
-                "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s", (self.run_id,)
+                "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s AND acquisition_kind='http'",
+                (self.run_id,),
             ).fetchone()["n"]
         counts = {"request": {}, "target": {}}
         for row in tasks:
             counts[row["kind"]][row["state"]] = row["n"]
         pending = counts["request"].get("pending", 0)
-        complete = finish_reason == "finished" and not self.truncated and not pending
+        complete = (
+            finish_reason == "finished"
+            and not self.truncated
+            and not pending
+            and not counts["request"].get("failed", 0)
+        )
         return {
             "adapter": self.config["adapter"],
             "finish_reason": finish_reason,
