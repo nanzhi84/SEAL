@@ -4,7 +4,8 @@ import io
 import re
 import zipfile
 from datetime import datetime, timezone
-from xml.etree import ElementTree
+
+from lxml import etree
 
 from .core import SealError
 from .document import COLUMNS
@@ -70,14 +71,14 @@ def deterministic_zip(data):
             if info.filename == "docProps/core.xml":
                 # openpyxl replaces modified during save, after Workbook properties
                 # were frozen. Normalize the serialized field rather than process time.
-                root = ElementTree.fromstring(content)
+                root = etree.fromstring(content)
                 for node in root:
                     if node.tag in {
                         "{http://purl.org/dc/terms/}created",
                         "{http://purl.org/dc/terms/}modified",
                     }:
                         node.text = "2000-01-01T00:00:00Z"
-                content = ElementTree.tostring(root, encoding="utf-8")
+                content = etree.tostring(root, encoding="utf-8")
             target.writestr(entry, content)
     return output.getvalue()
 
