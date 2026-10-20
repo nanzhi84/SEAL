@@ -9,6 +9,17 @@ lang: zh
 
 按[用户最终决策](https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052)，取消整个 #32 导出能力并撤回 PR #36。后续来源、重检与恢复直接使用 16 列结果和文件 API，不包含导出模块、CLI、工作簿物化、包 manifest 或离线包校验。保留通用 Office/XLSX 输入解析。
 
+## 未发布 / 越南与 Federal Register 原生来源（#33）— 2026-10-20
+
+新增原生 `vietnam_law` 与 `federal_register` Adapter：dd-492 的 POST 分页、详情及
+Office/PDF/OCR 多输入由同一 Runtime 承担，移除 SQLite 与独立批次 runner；新增地图入口
+及 `sources/dd-499.yaml`。分页范围参数不再污染解析器指纹；真实定位与稳定语义选择器分离，
+JSON 完整正文启用质量门禁，未完成枚举冻结为 incomplete / UNKNOWN。旧越南采集 Plan
+与图示明确标为历史方案，当前运行合同集中于唯一 Plan 的阶段 3。fresh 验收真实 5 篇
+（含 9 页越南语 OCR）、19 受控断言及 4 场景补验通过；两接口与文件包/断网校验同源，
+范围截断明确保留 incomplete / UNKNOWN，不能解释为全历史覆盖。
+
+
 ## 未发布 / 原生 Source Adapter 与 16 列双接口（#31）— 2026-10-20
 
 以受控 Acquisition 与原生 Adapter Runtime 取代 Crawl4AI 深度遍历：每次真实外部请求（含

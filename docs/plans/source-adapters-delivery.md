@@ -66,7 +66,7 @@ Acquisition 是一次受控的外部原始数据获取动作。绝大多数对�
 首期支持 `http` 与 `rendered_dom` 获取种类，不实现通用传输插件框架。
 HTTP 保存传输层交付的完整响应实体字节，位于字符解码及内容清洗之前；
 记录内容解压等表示规则，不宣称保存 TLS、分块传输或压缩前的逐字节网络流。
-DOM 保存实际交给解析器的渲染后 UTF-8 字节，明确其表示种类，不称其为原始 HTTP 响应。浏览器主响应、脚本与每个重定向 hop 均通过共享 Transport 独立归档 HTTP 原件，再交给 Chromium；HTTP 获取元数据关联对应的 rendered Acquisition。DOM 是附加表示，不重复计入真实 HTTP 请求预算。预算、必需子请求 HTTP 错误或字节超限阻止部分正文提交，失败请求不报告枚举完整。
+DOM 保存实际交给解析器的渲染后 UTF-8 字节，明确其表示种类，不称其为原始 HTTP 响应。
 PDF、HTML、TXT、JSON、XML、DOC、DOCX、RTF、XLS、XLSX、ZIP 等所有实际参与解析的输入均须完整归档并读回校验。
 
 ### 获取记录与状态机
@@ -105,7 +105,7 @@ planned → running → archived
 请求、重定向、分页、robots 获取和重试全部计入冻结请求数与时间预算；
 同时执行公开地址、域名与路径范围、robots、单响应字节数、并发、延迟和取消控制。
 Source 显式配置的 robots 策略继续生效。重试有次数、退避和总预算上限，
-可重放 POST 必须由 Adapter 明确声明其查询幂等语义。渲染页面脚本只允许 GET/HEAD/OPTIONS；其未声明的 POST 以 `post_replay_semantics_required` 拒绝，其他不安全方法明确拒绝，不允许接管时重发来源动作。来源需要查询 POST 时由原生 Adapter 显式规划并走 HTTP 获取路径。
+可重放 POST 必须由 Adapter 明确声明其查询幂等语义。
 JSON/XML 是否可处理由 Adapter 能力决定，增加 MIME 白名单本身不代表完成解析支持。
 
 ## 文档解析、Office/TCVN3 提取与 PDF/OCR 质量门禁（重构入 `src/seal/`）
@@ -317,7 +317,7 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 | `budget.requests` / `seconds` / `response_bytes` | 100 / 120 / 10 MiB | 真实外部请求数（含 robots、每个重定向跳、每次重试）、单次尝试时间、单响应字节上限 |
 | `budget.documents` | 10000 | 每个 Run 接受处理的文档目标上限；超出目标持久记为 skipped / `document_budget_exceeded` 以保留覆盖缺口，已接受目标继续取得必需输入 |
 | `fetch.mode` | `http` | `http` 归档 HTTP 响应实体字节；`rendered_dom` 归档渲染后 DOM UTF-8 |
-| `fetch.max_depth` / `page_timeout_ms` / `wait_until` | 3 / 30000 / `domcontentloaded` | 链接发现深度（仅 collect）与单请求超时；`wait_until` 为 `commit` / `domcontentloaded` / `load` |
+| `fetch.max_depth` / `page_timeout_ms` / `wait_until` | 3 / 30000 / `domcontentloaded` | 链接发现深度（仅 collect）与单请求超时 |
 | `fetch.retries` / `retry_backoff_seconds` | 2 / 0.5 | 网络失败与 5xx 的有界重试，每次重试是关联前次的独立 Acquisition |
 | `metadata.source_name` / `document_type` / `language` / `jurisdiction` | 空 / `其他` / 空 / 空 | 16 列 `来源名称`、`资料类型`（受控枚举）；`language` 以 `vi` 开头时启用越南语质量规则 |
 | `documents.detail_url_patterns` | `[]` | 正则（匹配完整 URL）。为空时每个范围内响应各为一份单文件资料；非空时仅匹配页为资料，其余页只做导航 |
@@ -367,6 +367,26 @@ API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`r
 
 - `GET /results?source_id=dd-xxx&limit=50&cursor=...`：返回 `{"snapshot_id", "items", "next_cursor"}`，并在有下一页时附 `Link: <...>; rel="next"`。`items` 按 `source_id`、`resource_id`、行号稳定排序，每项依模板顺序含 16 列中文键（缺失值为空串），另含 `source_id`、`resource_id`、`version_id`、`row_number`、`markdown_hash`。`limit` 为 1–100；未授权的 `source_id` 返回 `403`；游标绑定调用方、来源过滤与快照，翻页期间固定在起始快照，篡改或换用返回 `400 invalid_cursor`；未发布返回 `503 snapshot_not_published`。
 - `GET /files/{sha256}`：哈希须属于当前发布快照中调用方授权来源的文件闭包（行原件 `文件哈希` 或 `markdown_hash`），否则 `404 file_not_found`。响应字节经 CAS 校验，带真实 `Content-Type`（Markdown 为 `text/markdown; charset=utf-8`）、`Content-Length`、`ETag: "<sha256>"` 和 RFC 5987 `Content-Disposition`（规范文件名）。
+
+## 阶段 3 实现合同（#33）
+
+`VietnamLawAdapter` 收编 [dd-492](../reference/尽职调查核验入口地图.md#dd-492)：列表 GET / ASP.NET DoPostBack POST、详情、原件与多附件全部经 Acquisition；请求、目标、Adapter 页序及截断由持久任务和 Frontier checkpoint 管理。移除 `seal.vietnam_discovery` / `seal.vietnam_documents` 及其 SQLite 编排路径，当前入口只使用 `seal collect` / `--enqueue` + `seal worker`。
+
+[dd-499](../reference/尽职调查核验入口地图.md#dd-499) 登记官方 Federal Register API 入口。JSON 列表元数据保留真实 JSON Pointer，单篇官方 XML 生成完整 Markdown，官方 PDF 作为原件；无官方 PDF 明确失败，不将目录摘要作为全文。单响应多篇完整正文、无展示 URL / 无独立原件的合同，由受控 `listing_body_field` 完整正文夹具补齐，不宣称官方列表提供全文。
+
+两个 Adapter 的 `max_pages` 达限且仍有下一页时持久报告 `page_limit_exceeded`，快照冻结 incomplete / UNKNOWN。`per_page`、`max_pages`、查询条件只决定规划范围，不进入解析器指纹；字段映射等解析语义仍入指纹。逐文档切片哈希和稳定语义选择器避免重排/无关文档变化误升版，真实 locator 始终保留。重复候选使用合法 SHA-256 任务键继续检查同轮输入/内容冲突。JSON 片段正文同样必须通过质量门禁。
+
+复跑需阶段 2 的隔离 PostgreSQL/S3 管理环境，加 LibreOffice、Tesseract `vie` 模型及公开站点网络；每轮自行建新数据库/桶，真实来源范围由测试冻结配置明确限制。
+
+```sh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py controlled --fresh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py real --fresh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_final.py
+```
+
+最终 fresh 验收：19/19 受控断言、真实越南 3 篇 + Federal Register 2 篇全部交付（包含一篇 9 页真实 Tesseract/vie OCR），以及重复候选和仅分页/条件变化的 4 场景补验均通过。真实 5 行与受控 6 行完成 SQL/API/Excel 全 16 列、所有文件字节及 JSON Pointer/XML XPath 对账，移动包的 socket 禁网 verify 通过。
+
+工件 `artifacts/issue33-blind/final-summary.json` 与 `scope/` 记录源码/测试哈希、73 个受控/真实 Acquisition 原文哈希核对和零敏感命中；源码树 SHA-256 为 `37f49830e1fd11845c849fc65d2054d4c045b9ba7ccba2b5f73096a6d43a29e6`。dd-499 的有界采集因仍有下一页而 exit 1 / `page_limit_exceeded`，两篇目标本身成功交付；越南的目标截断与未完整枚举同样在 Snapshot/manifest 保留。未验证全站历史或任意 Office/OCR 文档准确率。
 
 ## API 文件命名与完整性
 
@@ -418,18 +438,16 @@ seal snapshot publish <snapshot-id>
 | 解析器 / OCR / TCVN3 升级与离线重解析 | 零来源网络，新版本可解释；同输入同解析器异输出明确失败 |
 | 固定 Snapshot A 翻页期间采集或发布 B | A 的游标与版本固定，不混入 B；新请求读取新发布快照 |
 
-当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景 + 渲染预算/获取事实 5 场景 + 请求方法 2 场景，共 491 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3、4 由后续分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消；阶段 3 的 API 范围验收见其实现合同，阶段 4 由后续依赖分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
 
-复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。四个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
+复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。两个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
 
 ```sh
 uv run --no-sync python tests/issue31_acceptance.py
 uv run --no-sync python tests/issue31_supplement.py
-uv run --no-sync python tests/issue31_browser_budget.py --run final-methods
-uv run --no-sync python tests/issue31_browser_methods.py --run final
 ```
 
-本次工件为 `artifacts/issue31-20261020T074909Z/`、`artifacts/issue31-supplement-20261020T074909Z/` 与 `artifacts/issue31-browser-budget/final-methods/` 与 `artifacts/issue31-browser-methods/final/`，包含实际命令、环境、331 + 76 + 48 + 36 条断言、SQL/CAS/API 逐字节核对与源码/测试哈希；敏感扫描零命中。源码组合 SHA-256 为 `09a682a04579efd02577574a7a53ff7926b3c5551543d1cc0b5011c8283195e4`，工件不入库且可由以上命令重新生成。
+本次工件为 `artifacts/issue31-20261020T070105Z/`、`artifacts/issue31-supplement-20261020T070105Z/` 与 `artifacts/issue31-final-audit.json`，包含实际命令、环境、331 + 76 条断言、SQL/CAS/API 逐字节核对与源码/测试哈希；敏感扫描零命中。源码组合 SHA-256 为 `8631772355764dc0ad71424a2e424df387c2ab48e8adbe2e91333d45d1e9f453`，工件不入库且可由以上命令重新生成。
 
 ## 相关设计与合同替代范围
 

@@ -1,0 +1,26 @@
+{
+  "issue": 33,
+  "created_before_implementation_inspection": true,
+  "business_scope": "Bounded real dd-492 and dd-499, shared acquisition through Snapshot/API/export and moved offline verify",
+  "positive_contracts": [
+    "real dd-492 POST pagination persists checkpoint and yields complete legal document body from original inputs",
+    "real dd-499 official stable identity and JSON/XML locator survives API and 16-column export",
+    "controlled shared response yields multiple independent complete documents with per-document inputs",
+    "one document has ordered volumes 1..n and independent attachment exported separately",
+    "reordered/repeated discovery preserves resource identity and source_record_id",
+    "unrelated document mutation in shared input does not create an unchanged document Version",
+    "document without independent original remains deliverable when valid archived body is its source",
+    "absence of public_url does not prevent CAS/API/export bytes",
+    "moving export package offline preserves verify success"
+  ],
+  "failure_boundaries": [
+    "required attachment unavailable -> explicit failure and no partial success delivery",
+    "body fails objective quality threshold -> explicit failure and no gibberish success",
+    "ambiguous volume ordering -> explicit failure",
+    "source structure changes or lacks legal full text -> explicit failure",
+    "out-of-scope URL/challenge page -> explicit failure",
+    "tampered/missing exported file -> offline verify failure",
+    "API/CAS/export bytes differ from recorded SHA-256 -> failure"
+  ],
+  "reporting_contract": "selected scope; discovered/original-acquired/parsed/quality-passed/deliverable counts; failures; full-history denominator UNKNOWN; no credentials or personal data in artifacts"
+}
