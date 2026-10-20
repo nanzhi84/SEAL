@@ -23,16 +23,21 @@ def create_run(source_id, mode, connection):
     config = source["config"]
     identity = uid()
     seeds = [{"url": url} for url in config["entry_urls"]]
-    plan = None
+    plan = reparse_plan = None
     if mode == "recheck":
         from .recheck import plan_recheck
 
         seeds, plan = plan_recheck(c, source, config)
+    elif mode == "reparse":
+        from .reparse import plan_reparse
+
+        seeds, reparse_plan = [], plan_reparse(c, source, config)
     seq = source["run_seq"] + 1
     c.execute("UPDATE seal.source SET run_seq=%s WHERE id=%s", (seq, source_id))
     c.execute(
         """INSERT INTO seal.run(id,source_id,mode,generation,run_seq,deadline,seeds,
-      recheck_plan,config,config_hash,parser_manifest) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+      recheck_plan,reparse_plan,config,config_hash,parser_manifest)
+      VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
         (
             identity,
             source_id,
@@ -42,6 +47,7 @@ def create_run(source_id, mode, connection):
             datetime.now(timezone.utc) + timedelta(seconds=config["budget"]["seconds"] * 3 + 120),
             j(seeds),
             j(plan) if plan is not None else None,
+            j(reparse_plan) if reparse_plan is not None else None,
             j(config),
             digest(config),
             j(manifest(config)),

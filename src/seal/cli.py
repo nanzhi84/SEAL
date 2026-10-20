@@ -42,8 +42,13 @@ def parser():
     operations.add_parser("publish", help="Manually publish or restore a capture").add_argument(
         "snapshot_id"
     )
-    for mode in ("collect", "recheck"):
-        command = commands.add_parser(mode, help="Online " + mode + " from a Source YAML")
+    for mode in ("collect", "recheck", "reparse"):
+        command = commands.add_parser(
+            mode,
+            help="Offline reparse of frozen archived inputs (no source network)"
+            if mode == "reparse"
+            else "Online " + mode + " from a Source YAML",
+        )
         command.add_argument("source", type=Path)
         command.add_argument("--enqueue", action="store_true")
         command.add_argument("--no-progress", action="store_true")

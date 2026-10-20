@@ -238,23 +238,45 @@ class Adapter(Base):
         }
 
     def plan_recheck(self, resources, state):
+        """Due documents are merged into batch requests; each still gets its own Observation.
+
+        The request budget counts real batch requests, so more due Resources than requests
+        can be rechecked. Identity comes from the frozen recheck_locator, never public_url.
+        """
         targets = []
+        size = self.options.get("per_page", 20)
+        numbers = []
         for resource in resources:
             locator = resource["recheck_locator"]
-            if not locator.get("url") or locator.get("role") != "record":
+            if locator.get("role") != "record" or not locator.get("document_number"):
                 raise SealError("recheck_locator_unsupported")
-            request = {"url": locator["url"], "role": "record", "depth": 0}
-            targets.append(
-                {
-                    "identity": {
-                        "namespace": resource["namespace"],
-                        "external_key": resource["external_key"],
-                        "public_url": resource["public_url"],
-                        "recheck_locator": locator,
-                    },
-                    "inputs": [{"request": request, "role": "listing", "pointer": ""}],
-                }
-            )
+            numbers.append((locator["document_number"], resource))
+        for start in range(0, len(numbers), size):
+            chunk = numbers[start : start + size]
+            batch = ",".join(sorted(number for number, _ in chunk))
+            request = {
+                "url": self.api_url("/documents/" + batch + ".json", self.fields()),
+                "role": "batch",
+                "depth": 0,
+            }
+            for number, resource in chunk:
+                targets.append(
+                    {
+                        "identity": {
+                            "namespace": resource["namespace"],
+                            "external_key": resource["external_key"],
+                            "public_url": resource["public_url"],
+                            "recheck_locator": resource["recheck_locator"],
+                        },
+                        "inputs": [
+                            {
+                                "request": request,
+                                "role": "listing",
+                                "select": {"document_number": number},
+                            }
+                        ],
+                    }
+                )
         return {"requests": [], "targets": targets, "state": state}
 
     def load_json(self, ctx, acquisition):
@@ -266,7 +288,7 @@ class Adapter(Base):
     def parse(self, ctx, task, acquisition):
         request = task["payload"]
         role = request.get("role")
-        if acquisition["outcome"] != "ok" or role not in {"listing", "record"}:
+        if acquisition["outcome"] != "ok" or role not in {"listing", "record", "batch"}:
             return {"requests": [], "targets": []}
         value = self.load_json(ctx, acquisition)
         request = {k: request[k] for k in ("url", "role") if k in request} | {
@@ -276,6 +298,21 @@ class Adapter(Base):
             if not isinstance(value, dict):
                 raise SealError("api_structure_changed")
             return {"requests": [], "targets": [self.target(value, request, None)]}
+        if role == "batch":
+            # Batch recheck response: each document gains its body inputs; selection is by
+            # document_number, never by position in the shared response.
+            results = value.get("results") if isinstance(value, dict) else None
+            if results is None and isinstance(value, dict) and value.get("document_number"):
+                return {"requests": [], "targets": [self.target(value, request, None)]}
+            if not isinstance(results, list):
+                raise SealError("api_structure_changed")
+            targets = []
+            for item in results:
+                target = self.target(item, request, None)
+                target["inputs"][0].pop("pointer")
+                target["inputs"][0]["select"] = {"document_number": item["document_number"]}
+                targets.append(target)
+            return {"requests": [], "targets": targets}
         results = value.get("results") if isinstance(value, dict) else None
         if not isinstance(results, list):
             raise SealError("api_structure_changed")
@@ -306,7 +343,26 @@ class Adapter(Base):
     def build(self, ctx, target, inputs):
         by_role = {item["role"]: item for item in inputs}
         listing = by_role["listing"]
-        document = pointer(self.load_json(ctx, listing["acquisition"]), listing.get("pointer", ""))
+        response = self.load_json(ctx, listing["acquisition"])
+        if listing.get("select"):
+            wanted = listing["select"]["document_number"]
+            results = response.get("results") if isinstance(response, dict) else None
+            if (
+                results is None
+                and isinstance(response, dict)
+                and response.get("document_number") == wanted
+            ):
+                results = [response]
+                response = {"results": results}
+            matches = [
+                i
+                for i, item in enumerate(results or [])
+                if isinstance(item, dict) and item.get("document_number") == wanted
+            ]
+            if len(matches) != 1:
+                raise SealError("document_missing_from_batch")
+            listing = dict(listing, pointer="/results/" + str(matches[0]))
+        document = pointer(response, listing.get("pointer", ""))
         if not isinstance(document, dict):
             raise SealError("api_structure_changed")
         number = target["identity"]["external_key"]

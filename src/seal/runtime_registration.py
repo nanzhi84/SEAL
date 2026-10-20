@@ -33,6 +33,7 @@ def register(self, result, parent=None, depth=0):
             payload = {
                 "identity": target.get("identity"),
                 "context": target.get("context") or {},
+                "frozen": target.get("frozen"),
                 "inputs": [
                     {
                         **{k: v for k, v in item.items() if k != "request"},

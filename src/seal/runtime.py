@@ -23,6 +23,33 @@ CHECKPOINT_SCHEMA = "seal.checkpoint.v1"
 STOPPING = {"request_budget_exceeded", "crawl_time_budget_exceeded"}
 
 
+def failure_category(error):
+    """Separately reported causes: never folded into one generic failure count."""
+    code = error.removeprefix("required_input_failed:")
+    if code in {"interrupted", "attempt_superseded"}:
+        return "cancelled"
+    if code in {
+        "request_budget_exceeded",
+        "crawl_time_budget_exceeded",
+        "document_budget_exceeded",
+    }:
+        return "budget_truncated"
+    if code in {"network_failed", "redirect_limit_exceeded"} or code.startswith("robots"):
+        return "network_failed"
+    if code.startswith("quality_check_failed"):
+        return "quality_check_failed"
+    if error.startswith("required_input_failed:") or code in {
+        "document_original_missing",
+        "document_body_missing",
+        "document_deliverables_required",
+        "document_missing_from_batch",
+    }:
+        return "required_input_missing"
+    if code == "inputs_unavailable":
+        return "enumeration_incomplete"
+    return "parse_failed"
+
+
 class Runtime:
     def __init__(self, context):
         self.run = context
@@ -124,12 +151,46 @@ class Runtime:
         if self.mode == "recheck":
             resources = (self.run.get("recheck_plan") or {}).get("resources", [])
             result = self.adapter.plan_recheck(resources, state)
+        elif self.mode == "reparse":
+            result = {"requests": [], "targets": self.frozen_targets(), "state": state}
         else:
             result = self.adapter.plan(state)
         register(self, result)
         self.save(planned=True)
 
+    def frozen_targets(self):
+        """Offline reparse: each current Version's archived adapter inputs, verified in CAS."""
+        objects, targets = Objects(), []
+        for resource in (self.run.get("reparse_plan") or {}).get("resources", []):
+            manifest = objects.json(resource["inputs_ref"])
+            frozen = manifest.get("adapter_inputs")
+            if (
+                manifest.get("schema") != "seal.inputs.v1"
+                or not isinstance(frozen, list)
+                or not frozen
+            ):
+                raise SealError("reparse_inputs_unavailable")
+            targets.append(
+                {
+                    "identity": {
+                        "namespace": resource["namespace"],
+                        "external_key": resource["external_key"],
+                        "public_url": resource["public_url"],
+                        "recheck_locator": resource["recheck_locator"],
+                    },
+                    "inputs": [],
+                    "frozen": {
+                        "inputs": frozen,
+                        "inputs_ref": resource["inputs_ref"],
+                        "version_id": resource["version_id"],
+                    },
+                }
+            )
+        return targets
+
     async def fetch(self, task):
+        if self.mode == "reparse":
+            raise SealError("network_disabled_in_reparse")
         request = task["payload"]
         previous = self.reuse(task["key"])
         if previous:
@@ -218,8 +279,27 @@ class Runtime:
     def deliver(self, target):
         identity = target["payload"].get("identity")
         inputs, acquisitions = [], {}
+        frozen = target["payload"].get("frozen")
+        if frozen:
+            for item in frozen["inputs"]:
+                acquisition = self.acquisition(item.get("acquisition_id"))
+                if (
+                    acquisition is None
+                    or acquisition["source_id"] != self.run["source_id"]
+                    or (acquisition["state"] != "archived" or acquisition["outcome"] != "ok")
+                ):
+                    return fail(
+                        self.run_id,
+                        self.epoch,
+                        identity,
+                        "reparse_input_unavailable",
+                        target_id=target["id"],
+                    )
+                acquisitions[acquisition["id"]] = acquisition
+                meta = {k: v for k, v in item.items() if k != "acquisition_id"}
+                inputs.append({**meta, "task": None, "acquisition": acquisition})
         rows = {row["key"]: row for row in self.target_inputs(target)}
-        for meta in target["payload"]["inputs"]:
+        for meta in [] if frozen else target["payload"]["inputs"]:
             row = rows[meta["request_key"]]
             acquisition = self.acquisition(row["acquisition_id"]) if row["acquisition_id"] else None
             if (
@@ -251,6 +331,12 @@ class Runtime:
                 }
                 for item in inputs
             ]
+            if frozen:
+                candidates[0]["input_reuse"] = {
+                    "mode": "reparse",
+                    "frozen_inputs_ref": frozen["inputs_ref"],
+                    "previous_version_id": frozen["version_id"],
+                }
             built = build(
                 Objects(),
                 source_id=self.run["source_id"],
@@ -313,6 +399,16 @@ class Runtime:
         counts = {"request": {}, "target": {}}
         for row in tasks:
             counts[row["kind"]][row["state"]] = row["n"]
+        with connect() as c:
+            errors = c.execute(
+                """SELECT kind,error,count(*) AS n FROM seal.task WHERE run_id=%s
+                AND error IS NOT NULL GROUP BY kind,error""",
+                (self.run_id,),
+            ).fetchall()
+        failures = {}
+        for row in errors:
+            category = failure_category(row["error"])
+            failures[category] = failures.get(category, 0) + row["n"]
         pending = counts["request"].get("pending", 0)
         complete = (
             finish_reason == "finished"
@@ -328,6 +424,7 @@ class Runtime:
             "targets": counts["target"],
             "observations": {r["outcome"]: r["n"] for r in outcomes},
             "truncated": self.truncated,
+            "failures": dict(sorted(failures.items())),
             "coverage": {
                 "selected_scope_enumeration": "complete" if complete else "incomplete",
                 "site_population": "UNKNOWN",
