@@ -16,42 +16,12 @@ from .document import build
 from .objects import Objects
 from .resources import commit, fail, save_checkpoint
 from .runtime_registration import register
+from .runtime_report import build_report
 from .transport import Budget, Recorder, Transport, request_key
 
 CHECKPOINT_SCHEMA = "seal.checkpoint.v1"
 # A document target cap skips extra targets without starving accepted targets of inputs.
 STOPPING = {"request_budget_exceeded", "crawl_time_budget_exceeded"}
-
-
-def failure_category(error):
-    """Separately reported causes: never folded into one generic failure count."""
-    code = error.removeprefix("required_input_failed:")
-    if code in {"interrupted", "attempt_superseded"}:
-        return "cancelled"
-    if code in {
-        "request_budget_exceeded",
-        "crawl_time_budget_exceeded",
-        "document_budget_exceeded",
-    }:
-        return "budget_truncated"
-    if error.startswith("required_input_failed:"):
-        return "required_input_missing"
-    if code in {"network_failed", "redirect_limit_exceeded"} or code.startswith(
-        ("robots", "http_")
-    ):
-        return "network_failed"
-    if code.startswith("quality_check_failed"):
-        return "quality_check_failed"
-    if code in {
-        "document_original_missing",
-        "document_body_missing",
-        "document_deliverables_required",
-        "document_missing_from_batch",
-    }:
-        return "required_input_missing"
-    if code in {"inputs_unavailable", "page_limit_exceeded"}:
-        return "enumeration_incomplete"
-    return "parse_failed"
 
 
 class Runtime:
@@ -385,66 +355,6 @@ class Runtime:
             )
         )
 
-    def report(self, finish_reason):
-        with connect() as c:
-            tasks = c.execute(
-                """SELECT kind,state,count(*) AS n FROM seal.task WHERE run_id=%s
-                GROUP BY kind,state""",
-                (self.run_id,),
-            ).fetchall()
-            outcomes = c.execute(
-                "SELECT outcome,count(*) AS n FROM seal.observation WHERE run_id=%s GROUP BY outcome",
-                (self.run_id,),
-            ).fetchall()
-            requests = c.execute(
-                "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s AND acquisition_kind='http'",
-                (self.run_id,),
-            ).fetchone()["n"]
-        counts = {"request": {}, "target": {}}
-        for row in tasks:
-            counts[row["kind"]][row["state"]] = row["n"]
-        with connect() as c:
-            errors = c.execute(
-                """SELECT kind,error,count(*) AS n FROM seal.task WHERE run_id=%s
-                AND error IS NOT NULL GROUP BY kind,error""",
-                (self.run_id,),
-            ).fetchall()
-        failures = {}
-        for row in errors:
-            category = failure_category(row["error"])
-            failures[category] = failures.get(category, 0) + row["n"]
-        if finish_reason == "interrupted":
-            failures["cancelled"] = max(1, failures.get("cancelled", 0))
-        if self.truncated:
-            category = failure_category(self.truncated)
-            failures[category] = max(1, failures.get(category, 0))
-        pending = counts["request"].get("pending", 0)
-        complete = (
-            finish_reason == "finished"
-            and not self.truncated
-            and not pending
-            and not counts["request"].get("failed", 0)
-        )
-        return {
-            "adapter": self.config["adapter"],
-            "finish_reason": finish_reason,
-            "external_requests": requests,
-            "request_tasks": counts["request"],
-            "targets": counts["target"],
-            "observations": {r["outcome"]: r["n"] for r in outcomes},
-            "truncated": self.truncated,
-            "failures": dict(sorted(failures.items())),
-            "coverage": {
-                "selected_scope_enumeration": "complete" if complete else "incomplete",
-                "site_population": "UNKNOWN",
-                "unknown_coverage": True,
-                "known_gaps": sorted(
-                    {value for value in (self.truncated, self.checkpoint.get("truncated")) if value}
-                ),
-                "absence_semantics": "unobserved_is_unknown_never_deleted",
-            },
-        }
-
     async def execute(self):
         finish_reason = "finished"
         try:
@@ -482,7 +392,9 @@ class Runtime:
             await self.transport.close()
             if self.browser is not None:
                 await self.browser.close()
-        report = self.report(finish_reason)
+        report = build_report(
+            self.run_id, self.config["adapter"], self.checkpoint, self.truncated, finish_reason
+        )
         if self.truncated and self.truncated != "document_budget_exceeded":
             record_error(self.run_id, self.epoch, self.truncated)
         with connect() as c:
