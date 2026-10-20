@@ -1,0 +1,26 @@
+{
+  "contract": "GitHub issue #32 and docs/plans/source-adapters-delivery.md",
+  "defined_before_test_implementation": true,
+  "failures": [
+    "Export requires publish or HTTP result service, or triggers acquisition/parse",
+    "Workbook differs from exact 16-column contract, required/enumerated/date/text cell rules",
+    "Single file has volume order, continuous volumes miss 1..N, independent attachments lose individual titles",
+    "Names, bytes, size or SHA-256 differ between metadata, manifest, CAS and authorized API",
+    "Manifest lacks real lineage locator, frozen coverage, explicit sources or accurate counts",
+    "API pointer or SQL/CAS facts mutate during explicit Snapshot export",
+    "Snapshot A export mixes in B after collect/publish B",
+    "Repeated same-parameter exports differ byte-for-byte, or same destination is overwritten",
+    "Missing/corrupt CAS objects, unknown source, cancellation or capacity excess publish a final directory",
+    "Offline moved verify accesses SQL/S3, accepts corrupt/missing/unlisted payload or unsafe paths",
+    "Workbook formula injection executes or leading-zero official codes are changed",
+    "Unreliable volume sequence is guessed instead of refused",
+    "Package reveals absolute workspace paths or private storage credentials"
+  ],
+  "fixture_boundaries": {
+    "positive": "Real seal init/collect/snapshot/export/publish/serve CLIs against isolated PostgreSQL and S3 with loopback HTTP HTML/DOCX fixture",
+    "negative_storage": "Deliberately corrupt/delete only objects in acceptance-owned bucket, restore after each case",
+    "no_original": "Requires a real CLI producer of body slices; only web adapter is documented for stage 1, so record explicitly if unavailable",
+    "capacity": "Exercise cell-capacity excess via oversized source title; do not seed implementation internals",
+    "cancellation": "Pause an acceptance-owned S3 read with an HTTP proxy and terminate export before completion"
+  }
+}
