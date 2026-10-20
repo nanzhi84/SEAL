@@ -13,7 +13,7 @@ from urllib.parse import unquote, urljoin, urlsplit, urlunsplit
 
 from lxml import etree, html
 
-from ..core import SealError, public_url
+from ..core import SealError, canonical, digest, public_url
 from ..markdown import html_to_markdown, text_to_markdown
 from ..office_runtime import detect
 from ..scope import guard
@@ -99,7 +99,7 @@ def field_value(tree, text, rule):
 
 
 class Adapter(Base):
-    CONTRACT = "seal.adapter.web.v1"
+    CONTRACT = "seal.adapter.web.v2"
 
     def __init__(self, config):
         super().__init__(config)
@@ -338,6 +338,19 @@ class Adapter(Base):
             add(data, kind, acquisition, 0, "primary", None)
         else:
             candidate_inputs[0]["role"] = "context"
+            # This page is provenance, rather than a delivered original. Only selected
+            # metadata and the labeled file relationships participate in the document.
+            # Preserve the complete response/locator in lineage, but ignore DOM order.
+            candidate_inputs[0]["slice_hash"] = digest(
+                {
+                    "title": title,
+                    "fields": values,
+                    "files": sorted(
+                        ({k: f[k] for k in ("url", "title", "order")} for f in files),
+                        key=canonical,
+                    ),
+                }
+            )
         for f in volumes:
             candidate_inputs.append(self.input_for(f, "volume", f["order"]))
             add(

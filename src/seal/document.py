@@ -383,6 +383,7 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
         "document": {"namespace": namespace, "external_key": external_key},
         "inputs": inputs,
         "adapter_inputs": candidate.get("adapter_inputs") or [],
+        "input_reuse": candidate.get("input_reuse"),
     }
     inputs_ref = objects.put_json(manifest_doc)
     acquired = max(item["acquired_at"] for item in inputs)

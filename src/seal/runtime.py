@@ -16,6 +16,7 @@ from .document import build
 from .objects import Objects
 from .resources import commit, fail, save_checkpoint
 from .runtime_registration import register
+from .runtime_report import build_report
 from .transport import Budget, Recorder, Transport, request_key
 
 CHECKPOINT_SCHEMA = "seal.checkpoint.v1"
@@ -124,12 +125,46 @@ class Runtime:
         if self.mode == "recheck":
             resources = (self.run.get("recheck_plan") or {}).get("resources", [])
             result = self.adapter.plan_recheck(resources, state)
+        elif self.mode == "reparse":
+            result = {"requests": [], "targets": self.frozen_targets(), "state": state}
         else:
             result = self.adapter.plan(state)
         register(self, result)
         self.save(planned=True)
 
+    def frozen_targets(self):
+        """Offline reparse: each current Version's archived adapter inputs, verified in CAS."""
+        objects, targets = Objects(), []
+        for resource in (self.run.get("reparse_plan") or {}).get("resources", []):
+            manifest = objects.json(resource["inputs_ref"])
+            frozen = manifest.get("adapter_inputs")
+            if (
+                manifest.get("schema") != "seal.inputs.v1"
+                or not isinstance(frozen, list)
+                or not frozen
+            ):
+                raise SealError("reparse_inputs_unavailable")
+            targets.append(
+                {
+                    "identity": {
+                        "namespace": resource["namespace"],
+                        "external_key": resource["external_key"],
+                        "public_url": resource["public_url"],
+                        "recheck_locator": resource["recheck_locator"],
+                    },
+                    "inputs": [],
+                    "frozen": {
+                        "inputs": frozen,
+                        "inputs_ref": resource["inputs_ref"],
+                        "version_id": resource["version_id"],
+                    },
+                }
+            )
+        return targets
+
     async def fetch(self, task):
+        if self.mode == "reparse":
+            raise SealError("network_disabled_in_reparse")
         request = task["payload"]
         previous = self.reuse(task["key"])
         if previous:
@@ -156,7 +191,13 @@ class Runtime:
                 if result.code in {"request_budget_exceeded", "crawl_time_budget_exceeded"}:
                     self.truncated = result.code
                     continue
-                if result.code in {"interrupted", "stale_attempt", "inactive_attempt"}:
+                if result.code in {
+                    "interrupted",
+                    "stale_attempt",
+                    "inactive_attempt",
+                    "run_not_started",
+                    "deadline_exceeded",
+                }:
                     raise result
                 self.mark_request(task["id"], "failed", error=result.code)
                 record_error(self.run_id, self.epoch, result.code)
@@ -218,8 +259,27 @@ class Runtime:
     def deliver(self, target):
         identity = target["payload"].get("identity")
         inputs, acquisitions = [], {}
+        frozen = target["payload"].get("frozen")
+        if frozen:
+            for item in frozen["inputs"]:
+                acquisition = self.acquisition(item.get("acquisition_id"))
+                if (
+                    acquisition is None
+                    or acquisition["source_id"] != self.run["source_id"]
+                    or (acquisition["state"] != "archived" or acquisition["outcome"] != "ok")
+                ):
+                    return fail(
+                        self.run_id,
+                        self.epoch,
+                        identity,
+                        "reparse_input_unavailable",
+                        target_id=target["id"],
+                    )
+                acquisitions[acquisition["id"]] = acquisition
+                meta = {k: v for k, v in item.items() if k != "acquisition_id"}
+                inputs.append({**meta, "task": None, "acquisition": acquisition})
         rows = {row["key"]: row for row in self.target_inputs(target)}
-        for meta in target["payload"]["inputs"]:
+        for meta in [] if frozen else target["payload"]["inputs"]:
             row = rows[meta["request_key"]]
             acquisition = self.acquisition(row["acquisition_id"]) if row["acquisition_id"] else None
             if (
@@ -251,6 +311,12 @@ class Runtime:
                 }
                 for item in inputs
             ]
+            if frozen:
+                candidates[0]["input_reuse"] = {
+                    "mode": "reparse",
+                    "frozen_inputs_ref": frozen["inputs_ref"],
+                    "previous_version_id": frozen["version_id"],
+                }
             built = build(
                 Objects(),
                 source_id=self.run["source_id"],
@@ -261,7 +327,14 @@ class Runtime:
             )
         except (SealError, Exception) as exc:
             code = adapter_error(exc, "adapter_build_failed")
-            if code in {"interrupted", "crawl_time_budget_exceeded", "stale_attempt"}:
+            if code in {
+                "interrupted",
+                "crawl_time_budget_exceeded",
+                "deadline_exceeded",
+                "stale_attempt",
+                "inactive_attempt",
+                "run_not_started",
+            }:
                 raise
             return fail(
                 self.run_id,
@@ -294,50 +367,6 @@ class Runtime:
                 (reason, self.epoch, self.run_id),
             )
         )
-
-    def report(self, finish_reason):
-        with connect() as c:
-            tasks = c.execute(
-                """SELECT kind,state,count(*) AS n FROM seal.task WHERE run_id=%s
-                GROUP BY kind,state""",
-                (self.run_id,),
-            ).fetchall()
-            outcomes = c.execute(
-                "SELECT outcome,count(*) AS n FROM seal.observation WHERE run_id=%s GROUP BY outcome",
-                (self.run_id,),
-            ).fetchall()
-            requests = c.execute(
-                "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s AND acquisition_kind='http'",
-                (self.run_id,),
-            ).fetchone()["n"]
-        counts = {"request": {}, "target": {}}
-        for row in tasks:
-            counts[row["kind"]][row["state"]] = row["n"]
-        pending = counts["request"].get("pending", 0)
-        complete = (
-            finish_reason == "finished"
-            and not self.truncated
-            and not pending
-            and not counts["request"].get("failed", 0)
-        )
-        return {
-            "adapter": self.config["adapter"],
-            "finish_reason": finish_reason,
-            "external_requests": requests,
-            "request_tasks": counts["request"],
-            "targets": counts["target"],
-            "observations": {r["outcome"]: r["n"] for r in outcomes},
-            "truncated": self.truncated,
-            "coverage": {
-                "selected_scope_enumeration": "complete" if complete else "incomplete",
-                "site_population": "UNKNOWN",
-                "unknown_coverage": True,
-                "known_gaps": sorted(
-                    {value for value in (self.truncated, self.checkpoint.get("truncated")) if value}
-                ),
-                "absence_semantics": "unobserved_is_unknown_never_deleted",
-            },
-        }
 
     async def execute(self):
         finish_reason = "finished"
@@ -384,7 +413,9 @@ class Runtime:
             await self.transport.close()
             if self.browser is not None:
                 await self.browser.close()
-        report = self.report(finish_reason)
+        report = build_report(
+            self.run_id, self.config["adapter"], self.checkpoint, self.truncated, finish_reason
+        )
         if self.truncated and self.truncated != "document_budget_exceeded":
             record_error(self.run_id, self.epoch, self.truncated)
         with connect() as c:

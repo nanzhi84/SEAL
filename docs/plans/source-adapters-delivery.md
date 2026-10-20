@@ -5,7 +5,7 @@ lang: zh
 
 # 原生 Source Adapter 与统一文件交付
 
-状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3 已实现，阶段 4 由后续分支交付，2026-10-20。
+状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3 已实现，阶段 4 已实现并完成独立验收，2026-10-20。
 本轮以本地开发为前提，直接采用新数据与结果合同，不设计历史数据迁移、双格式读取或兼容 shim。
 设计基线为 `85a36b5`；未标注已实现的模块、字段和命令仍为待实现设计。
 [唯一可视化](../generated/source-adapters-delivery.html)随本计划同步更新。
@@ -389,6 +389,27 @@ PYTHONPATH=src uv run --no-sync python tests/issue33_blind_final.py
 
 工件 `artifacts/issue33-api-blind/final-summary.json`、`controlled/`、`real/`、`scope/` 保存实际命令、隔离前提、SQL/CAS/API 与定位证据。源码首尾 SHA-256 为 `b72eefeb0c8b295a85610c92be0ac2bdfb628185140d48ad822d246873183aa2`。Federal Register 两篇目标成功但 Run 因仍有下一页而以 `page_limit_exceeded` 失败；越南仅选择 3 篇且其余目标按预算跳过，分页与目标缺口随 Snapshot 保留 incomplete / UNKNOWN。受控完整正文不代表官方列表有全文；不宣称全历史覆盖、法律准确性或 OCR 字符准确率。
 
+## 阶段 4 实现合同（#34）
+
+`seal recheck` 在创建 Run 时冻结到期 Resource、稳定身份与 `recheck_locator`。Federal Register 按 `adapter_options.per_page` 合并查询；预算分别限制实际 HTTP 请求和文档目标，单篇尾批支持官方裸对象响应，不编造 `/results/0` 定位。每篇目标独立形成成功、未变或失败观察；批量响应遗漏目标明确失败。
+
+新增 `seal reparse sources/dd-xxx.yaml [--enqueue] [--no-progress]`：只选择同来源当前成功 Version，冻结其 `inputs_ref`、原 Version 与 Adapter 输入。新 Run 使用当前冻结解析器，逐个校验旧 Acquisition 与 CAS，完全禁止来源获取；复用事实写入 `input_reuse`，不伪造新 Acquisition。解析器/OCR/TCVN3 参数变化后的新版本标记 `parser_recomputed`；同输入同解析器异内容仍以冲突失败，不能覆盖成功结果。文档预算截断明确保留缺口。
+
+上下文详情页只参与元数据与已声明文件关系时，指纹取实际选中的标题、字段和文件 URL/名称/卷序，忽略 DOM 排列；原件全文和实际 locator 仍完整保存。若 HTML 本身就是交付原件，其实际字节变化仍属于来源变化。Web/Vietnam Adapter 合同升级为 v2，不能将上述两种情况混为一谈。
+
+Run 报告 `failures` 分开计数：`network_failed`、`required_input_missing`、`quality_check_failed`、`parse_failed`、`cancelled`、`enumeration_incomplete`、`budget_truncated`。请求、文档和观察计数保持各自含义；正常退出、空增量或达到预算不能代表全站完整覆盖。Snapshot 冻结覆盖结论与已知缺口，全站分母未知时保持 `UNKNOWN`。
+
+最终 API 独立验收：主套件 437/437、四类指纹矩阵 221/221，共 658 条断言通过。测试实际覆盖三个崩溃点的 SIGKILL/worker 接管、失效进程恢复后 fencing、同轮重放/冲突、来源停服后零来源网络重解析、单篇尾批与空增量、各类失败、固定 A 游标跨 B 发布及坏 CAS 拒绝。16 列与所有授权文件逐字节核对 CAS、SHA-256、长度、ETag 和媒体类型。
+
+前提：安装当前 Python 依赖；调用者显式传入独立 PostgreSQL/S3 管理环境，具备 CREATE DATABASE / CreateBucket 权限；Tesseract `eng`、LibreOffice、测试用 macOS Arial 字体。每案例自行新建数据库与桶，不读取业务环境。所有源码/测试首尾逐文件一致；测试清单 SHA-256 为 `62734d43a1f656b8eda9912c26796e91b0a4d4f70ab33cd7cd5103a992706ff5`，Python/SQL 源码清单 SHA-256 为 `5f96d0e84f2e1d54d2580acdcab3b3e0370a6dbe31d06ee680cd7651b2466042`。全部 tracked 源码清单为 `2c6db309ca1ee5d11a0d444c5ff34c481813132e9d941ba4f2e41048b16b2f99`。
+
+```sh
+PYTHONPATH=src uv run --no-sync python tests/accept34_suite.py
+PYTHONPATH=src uv run --no-sync python tests/accept34_fingerprint_matrix.py
+```
+
+工件 `artifacts/accept34/suite-20261020T074752/` 含完整命令、环境前提、逐项断言、源码/测试固定证明和 442 文件零敏感命中报告；四类矩阵位于 `artifacts/accept34/20261020T074753_8e90b2/matrix-report.json`，真实进程恢复位于 `artifacts/accept34/20261020T074753_1fda1b/`。本轮只使用 API 对账，已取消的文件包能力未执行或计入结论；没有验证生产故障恢复、全历史覆盖或任意文档准确率。
+
 ## API 文件命名与完整性
 
 每行对应一个非空 Markdown。单文件或独立附件使用 `<安全化资料名称>_<markdown_hash前8位>.md`（有独立原件时原件名为 `<安全化资料名称>_<original_hash前8位>.<ext>`），连续分卷追加两位卷序（`_01`、`_02`…）。`/results` 直接按索引分页返回持久化的 `markdown_file` 与 `original_file`，不执行全局窗口重命名；同一哈希被多行引用时，下载响应在获授权引用中稳定选择一个规范文件名。
@@ -439,7 +460,7 @@ seal snapshot publish <snapshot-id>
 | 解析器 / OCR / TCVN3 升级与离线重解析 | 零来源网络，新版本可解释；同输入同解析器异输出明确失败 |
 | 固定 Snapshot A 翻页期间采集或发布 B | A 的游标与版本固定，不混入 B；新请求读取新发布快照 |
 
-当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景 + 渲染预算/获取事实 5 场景 + 请求方法 2 场景，共 491 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3 已实现，阶段 4 由后续分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景 + 渲染预算/获取事实 5 场景 + 请求方法 2 场景，共 491 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3 已实现，阶段 4 已实现并完成独立验收。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
 
 复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。四个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
 

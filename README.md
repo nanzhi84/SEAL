@@ -2,7 +2,7 @@
 
 SEAL 以原生 Source Adapter 采集公开法规与政务来源：受控 Acquisition 先把每个实际参与解析的外部原始字节（HTML、渲染 DOM、TXT、PDF、DOC/DOCX/RTF、XLS/XLSX、ZIP）完整归档到私有 S3 CAS 并读回校验，再在短事务内以 attempt fencing 提交数据库事实。内置 Office 结构化直提、越南语 TCVN3 历史字体逐行恢复、PDF 逐页墨迹扫描判定、`tesseract` / `br-ocr-v1` 双引擎 OCR 与客观质量门禁，统一产出 `seal.document.v1` 与不可变 Version，并投影为对齐[法规案例元数据上传模板](docs/reference/法规案例元数据上传模板.xlsx)的 15 列业务字段及 `original_hash` / `markdown_hash` 交付行。
 
-命令：`init`、`collect`、`recheck`、`worker` 负责采集，`snapshot create / list / inspect / publish` 冻结并人工发布全局集合，`serve` 只对下游暴露 `GET /results`（15 列业务字段 + `original_hash` / `markdown_hash`）与 `GET /files/{sha256}`（原件或解析后 `.md` 直取）。来源使用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，配置与数据合同见[唯一 Plan](docs/plans/source-adapters-delivery.md)。
+命令：`init`、`collect`、`recheck`、`reparse`、`worker` 负责采集与离线重解析，`snapshot create / list / inspect / publish` 冻结并人工发布全局集合，`serve` 只对下游暴露 `GET /results`（15 列业务字段 + `original_hash` / `markdown_hash`）与 `GET /files/{sha256}`（原件或解析后 `.md` 直取）。来源使用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，配置与数据合同见[唯一 Plan](docs/plans/source-adapters-delivery.md)。
 
 ## 全链路执行图
 
@@ -20,7 +20,7 @@ cli.py: main() → dispatch(args)
 ├── seal worker [--once] → queue.py: worker()
 │   ├── recover_stalled() / recover_unqueued() → 心跳恢复与补入队
 │   └── [ASYNC] Procrastinate → crawl_job() → runs.py: execute_run() → 进入阶段 [2]
-└── seal collect / recheck source.yaml → configuration.py: prepare_run() → 进入阶段 [1]
+└── seal collect / recheck / reparse source.yaml → configuration.py: prepare_run() → 进入阶段 [1]
 
 [1] PREPARE
 configuration.py: prepare_run()
@@ -28,9 +28,9 @@ configuration.py: prepare_run()
 │   └── [CHECK] 拒绝旧 recipe / crawl4ai 键；归档许可、公开地址、域名与路径范围；adapters: validate_options()
 ├── [DB] Source 行锁 → 配置变化时 generation+1 与 control decision → Source 唯一 Frontier
 ├── runs.py: create_run()
-│   ├── [CHECK] 暂停/冷却；recheck → recheck.py: plan_recheck() 冻结到期 Resource（身份、public_url、recheck_locator、当前 Version）
+│   ├── [CHECK] 暂停/冷却；recheck → recheck.py: plan_recheck() 冻结到期 Resource；reparse → reparse.py: plan_reparse() 冻结当前 Version 归档输入
 │   ├── parsing.py: manifest() → [CONFIG] 冻结 Adapter 合同/规则摘要、Markdown、Office/LibreOffice、TCVN3、ZIP、PDF 阈值、OCR 引擎与模型、quality 路由
-│   └── [DB] Run 不可变 config/config_hash/parser_manifest/recheck_plan/deadline
+│   └── [DB] Run 不可变 config/config_hash/parser_manifest/recheck_plan/reparse_plan/deadline
 └── [CHECK] --enqueue → queue.py: enqueue() 事务内入队；否则 progress.py: ProgressPanel → 进入阶段 [2]
 
 [2] EXECUTE
@@ -53,7 +53,7 @@ runs.py: execute_run()
 [3] ADAPTER RUNTIME
 runtime.py: Runtime.execute()
 ├── plan() → [CHECK] checkpoint.planned
-│   ├── collect → Adapter.plan()；recheck → Adapter.plan_recheck(冻结 Resource)，按已知身份预登记目标
+│   ├── collect → Adapter.plan()；recheck → Adapter.plan_recheck(冻结 Resource)；reparse → frozen_targets() 离线复用 CAS 输入
 │   └── register() → [DB] 请求任务、文档目标与 task_input 同事务登记 → save() checkpoint
 ├── [LOOP] 直到无可解析、无可交付、无待取请求或预算截断
 │   ├── parse_archived() → Adapter.parse(ctx, task, acquisition) 读 CAS 原文
@@ -75,7 +75,7 @@ runtime.py: Runtime.execute()
 │       └── [STATE] 请求任务 archived / failed；预算耗尽记 truncated
 ├── close_unfinished() → 无法完成的目标 skipped（预算截断或输入不可得），不伪造失败或成功
 ├── save(watermark) → [DB] frontier.checkpoint：schema、planned、adapter_state、watermark
-└── report() → [STATE] status=finishing；请求/目标/观察计数、truncated、coverage（site_population=UNKNOWN）
+└── runtime_report.py: build_report() → [STATE] status=finishing；请求/目标/观察计数、failures、truncated、coverage（site_population=UNKNOWN）
 
 [4] EXTRACTION & QUALITY
 pdf_runtime.py: run_extraction(bytes, kind) → pdf_slots.py 主机级 4 槽

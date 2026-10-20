@@ -1,0 +1,68 @@
+{
+  "contract": "issue-34-api-only-user-decision",
+  "source_network": "controllable localhost HTTP fixture; source server stopped for reparse",
+  "isolation": "fresh PostgreSQL database and S3 bucket per invocation",
+  "boundaries": [
+    {
+      "id": "batch-request-budget",
+      "failure": "due-resource count is mistaken for HTTP request count",
+      "assertion": "three or more due Resources rechecked using fewer real external requests, singleton final batch succeeds, request and document budgets remain separate"
+    },
+    {
+      "id": "nullable-public-url",
+      "failure": "resource without public_url cannot be rechecked or projected",
+      "assertion": "stable namespace/external_key and recheck_locator suffice; metadata URL is nullable"
+    },
+    {
+      "id": "frozen-reparse",
+      "failure": "reparse performs source request, mutates old Run parser, fabricates Acquisition, or fails to recompute Version",
+      "assertion": "new explicit Run freezes CAS inputs and parser; zero source network/new Acquisition; old Run/Version/Snapshot fixed; new Version explained and readable through results/files"
+    },
+    {
+      "id": "crash-archived",
+      "failure": "CAS originals are archived but undiscovered targets are lost on takeover",
+      "assertion": "worker resumes from archived originals and registers every target exactly once"
+    },
+    {
+      "id": "crash-partial-targets",
+      "failure": "partially delivered batch or volume creates omissions or duplicate Versions",
+      "assertion": "takeover skips completed targets and completes remaining targets"
+    },
+    {
+      "id": "crash-before-checkpoint",
+      "failure": "successful targets repeat when checkpoint was not advanced",
+      "assertion": "replay is idempotent; checkpoint advances once"
+    },
+    {
+      "id": "attempt-fencing",
+      "failure": "expired attempt writes acquisitions, targets, deliveries, or cursor",
+      "assertion": "stale owner writes rejected after takeover"
+    },
+    {
+      "id": "replay-conflicts",
+      "failure": "same delivery key accepts changed inputs/parser/content or same inputs/parser produce different business output",
+      "assertion": "repeat is idempotent, associations may append, conflicts explicit and immutable successful lineage preserved"
+    },
+    {
+      "id": "per-document-stability",
+      "failure": "shared batch reorder or irrelevant sibling changes churn single document Version",
+      "assertion": "unrelated changes stable; relevant encoding/base/date/volume/required-attachment changes have correct version behavior"
+    },
+    {
+      "id": "coverage",
+      "failure": "cancellation, request budget, network, parse/quality, missing required attachments, incomplete enumeration are conflated",
+      "assertion": "coverage identifies each class, unknown denominator remains UNKNOWN, Snapshot freezes conclusions"
+    },
+    {
+      "id": "snapshot-isolation",
+      "failure": "current Run, cancelled/failed acquisition, B publication, or corrupt CAS contaminates fixed A",
+      "assertion": "A cursor stays fixed while B is published; A rows/coverage/files remain immutable; corrupt CAS is refused by files API"
+    },
+    {
+      "id": "api-reconciliation",
+      "failure": "results projections or downloadable bytes disagree with the selected immutable Snapshot",
+      "assertion": "exact 16 business keys per item reconcile with Snapshot delivery rows; every authorized file closure hash is fetched through files API and byte-matches CAS, Content-Length and ETag; no cancelled capability is invoked"
+    }
+  ],
+  "scope": "API-only after user cancelled all issue32 delivery capability; cancelled scenarios are excluded from outcomes"
+}
