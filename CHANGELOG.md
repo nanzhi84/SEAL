@@ -9,7 +9,7 @@ lang: zh
 
 新增 `seal reparse`，冻结当前成功版本的已归档输入并禁止来源网络；复用 Acquisition、记录输入复用与 `parser_recomputed`。Federal Register 到期文档批量重检，兼容单篇尾批；文档与真实请求预算分别计数。上下文详情页按所选字段及声明卷序计算指纹，忽略 DOM 排列；实际交付的 HTML 原件仍按真实字节变化升版。Web/Vietnam 合同为 v2。
 
-失败报告区分网络、必需输入、质量、解析、取消、枚举未完与预算截断；未知全站分母保留 UNKNOWN。三个崩溃点、失效进程 fencing、冲突与快照 A/B 的 API 范围独立验收正在复跑，命令和证据集中在唯一 Plan。
+失败报告区分网络、必需输入、质量、解析、取消、枚举未完与预算截断；未知全站分母保留 UNKNOWN。三个崩溃点、失效进程 fencing、冲突与快照 A/B 的 API 独立验收 658/658 断言通过；源码/测试固定、442 文件秘密扫描零命中。命令和证据集中在唯一 Plan。
 
 ## 未发布 / 越南与 Federal Register 原生来源（#33）— 2026-10-20
 
@@ -39,9 +39,9 @@ robots、重定向跳与重试）独立记录并先归档 CAS、读回校验，�
 `result_max_bytes` / `attachment_max_bytes`。新增依赖 `python-docx`、`openpyxl`、`xlrd`；
 `.doc` 与 RTF 兜底需要 LibreOffice。合同见[唯一 Plan](docs/plans/source-adapters-delivery.md#阶段-1-实现合同31)。
 
-独立新环境验收 83 场景 / 455 条断言全部通过，涵盖双引擎 OCR、Office/TCVN3/ZIP、
+独立新环境验收 85 场景 / 491 条断言全部通过，涵盖双引擎 OCR、Office/TCVN3/ZIP、
 16 列 API 字节、完整 CAS 闭包、取消/接管及无长事务；复跑命令与工件哈希见唯一 Plan。
-浏览器主响应、脚本和逐跳重定向均独立归档并执行真实 HTTP 预算；DOM 附加表示不重复计数，子请求失败不交付部分正文。
+浏览器主响应、脚本和逐跳重定向均独立归档并执行真实 HTTP 预算；DOM 附加表示不重复计数，子请求失败不交付部分正文；脚本未声明 POST/不安全方法直接拒绝，查询 POST 仍由 Adapter 明确规划。
 未执行业务库升级或生产发布。
 
 ## 未发布 / OCR 速度优先前沿 — 2026-10-19
