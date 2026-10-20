@@ -12,7 +12,7 @@ from .core import SealError, digest
 from .db import connect, dsn
 from .objects import Objects
 
-CURRENT = "0014_version_fingerprints.sql"
+CURRENT = "0015_source_adapters.sql"
 ARCHIVE_CURRENT = "0012_minimal_archive.sql"
 DELETED = {
     "seal_record",
@@ -254,10 +254,13 @@ def initialize(*, backup=None, acknowledge=False):
             try:
                 c.execute(path.read_text())
             except RaiseException as exc:
-                if path.name == "0014_version_fingerprints.sql" and (
-                    exc.diag.message_primary or ""
-                ).startswith("version_observation_conflict:"):
+                message = exc.diag.message_primary or ""
+                if path.name == "0014_version_fingerprints.sql" and message.startswith(
+                    "version_observation_conflict:"
+                ):
                     raise SealError("version_observation_conflict") from None
+                if message == "source_adapter_contract_requires_new_database":
+                    raise SealError(message) from None
                 raise
             if path.name == "0009_document_only.sql":
                 ledger = "seal.migration"
@@ -286,7 +289,7 @@ def initialize(*, backup=None, acknowledge=False):
           WHERE r.oid=to_regclass('procrastinate_jobs')""").fetchone()["name"]
     return {
         "status": "initialized",
-        "schema": "resource-timeline",
+        "schema": "source-adapters",
         "applied": applied,
         "backup": saved,
         "before": before,

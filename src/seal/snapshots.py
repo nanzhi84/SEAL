@@ -4,13 +4,15 @@ import json
 import time
 from uuid import UUID
 
-from .archive import verify_result
-from .core import MAX_ORIGINAL_BYTES, SealError, uid
+from .core import SealError, uid
 from .db import connect, j, one
+from .document import verify_document
 from .objects import Objects
+from .public_results import snapshot_rows
 from .snapshot_overrides import normalize
 
 OUTPUT_MAX_BYTES = 8 * 1024 * 1024
+MARKDOWN_MEDIA_TYPE = "text/markdown; charset=utf-8"
 
 
 def identity(value):
@@ -43,20 +45,56 @@ def published(c):
     ]
 
 
+def coverage(c, source_id):
+    """Frozen coverage description; an unknown denominator is reported as UNKNOWN."""
+    run = c.execute(
+        """SELECT id,mode,status,report,completed_at FROM seal.run WHERE source_id=%s
+        AND status IN ('complete','failed') ORDER BY completed_at DESC NULLS LAST LIMIT 1""",
+        (source_id,),
+    ).fetchone()
+    if run is None:
+        return {"latest_run_id": None, "site_population": "UNKNOWN", "known_gaps": ["never_run"]}
+    report = run["report"] or {}
+    counts = report.get("counts") or {}
+    gaps = sorted(
+        {
+            *(report.get("errors") or []),
+            *([report["truncated"]] if report.get("truncated") else []),
+        }
+    )
+    return {
+        "latest_run_id": run["id"],
+        "mode": run["mode"],
+        "status": run["status"],
+        "completed_at": run["completed_at"].isoformat() if run["completed_at"] else None,
+        "selected_scope_enumeration": (report.get("coverage") or {}).get(
+            "selected_scope_enumeration", "incomplete"
+        ),
+        "site_population": "UNKNOWN",
+        "counts": {k: counts.get(k) for k in sorted(counts)},
+        "targets": report.get("targets") or {},
+        "known_gaps": gaps[:200],
+    }
+
+
 def create(overrides=None):
     overrides = normalize([] if overrides is None else overrides)
     snapshot_id = uid()
+    objects = Objects()
     with connect() as c:
         c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ")
         c.execute("INSERT INTO seal.snapshot(id) VALUES(%s)", (snapshot_id,))
-        c.execute(
-            """INSERT INTO seal.snapshot_source(snapshot_id,source_id,frontier_id,entry_urls)
-            SELECT %s,s.id,f.id,s.config->'entry_urls'
-            FROM seal.source s JOIN seal.frontier f ON f.source_id=s.id""",
-            (snapshot_id,),
-        )
+        sources = c.execute(
+            "SELECT s.id,f.id AS frontier_id FROM seal.source s JOIN seal.frontier f ON f.source_id=s.id"
+        ).fetchall()
+        for source in sources:
+            c.execute(
+                """INSERT INTO seal.snapshot_source(snapshot_id,source_id,frontier_id,coverage)
+                VALUES(%s,%s,%s,%s)""",
+                (snapshot_id, source["id"], source["frontier_id"], j(coverage(c, source["id"]))),
+            )
         # Validate the complete override list against this same MVCC view before
-        # inserting mappings. Never UPDATE immutable snapshot_item rows.
+        # inserting mappings. Never UPDATE immutable snapshot rows.
         selected = c.execute(
             """SELECT o.resource_id,o.version_id,v.result_ref,
               r.id IS NOT NULL AS resource_exists,
@@ -69,21 +107,14 @@ def create(overrides=None):
             (j(overrides), snapshot_id),
         ).fetchall()
         deadline = time.monotonic() + 60
-        objects = Objects() if selected else None
+        sizes = {}
         for item in selected:
             if not all(item[k] for k in ("resource_exists", "version_matches", "source_matches")):
                 raise SealError("invalid_override_version")
-            verify_result(
-                objects,
-                item["result_ref"],
-                max_bytes=64 * 1024 * 1024,
-                attachment_max_bytes=MAX_ORIGINAL_BYTES,
-                deadline=deadline,
-            )
+            verify_document(objects, item["result_ref"], deadline=deadline, sizes=sizes)
         c.execute(
-            """INSERT INTO seal.snapshot_item
-            (snapshot_id,source_id,frontier_id,resource_id,version_id,url)
-            SELECT s.snapshot_id,s.source_id,s.frontier_id,r.id,v.id,r.url
+            """INSERT INTO seal.snapshot_item(snapshot_id,source_id,frontier_id,resource_id,version_id)
+            SELECT s.snapshot_id,s.source_id,s.frontier_id,r.id,v.id
             FROM seal.snapshot_source s JOIN seal.resource r ON r.frontier_id=s.frontier_id
             LEFT JOIN jsonb_to_recordset(%s::jsonb) AS o(resource_id text,version_id text)
               ON o.resource_id=r.id
@@ -92,14 +123,57 @@ def create(overrides=None):
             WHERE s.snapshot_id=%s""",
             (j(overrides), snapshot_id),
         )
+        documents = c.execute(
+            """SELECT DISTINCT v.result_ref FROM seal.snapshot_item i
+            JOIN seal.version v ON v.id=i.version_id WHERE i.snapshot_id=%s""",
+            (snapshot_id,),
+        ).fetchall()
+        for item in documents:
+            verify_document(objects, item["result_ref"], deadline=deadline, sizes=sizes)
+        rows, after = [], ("", "", 0)
+        while True:
+            page = snapshot_rows(c, snapshot_id, [s["id"] for s in sources], after)
+            rows.extend(page)
+            if len(page) < 1000:
+                break
+            last = page[-1]
+            after = (last["source_id"], last["resource_id"], last["row_number"])
+        files = {}
+        for row in rows:
+            entries = [
+                (row["markdown_hash"], "markdown", MARKDOWN_MEDIA_TYPE, row["markdown_file"])
+            ]
+            if row["original_hash"]:
+                entries.append(
+                    (
+                        row["original_hash"],
+                        "original",
+                        row["original_media_type"],
+                        row["original_file"],
+                    )
+                )
+            for sha, kind, media_type, name in entries:
+                files.setdefault((row["source_id"], sha, kind), (media_type, name))
+        for (source_id, sha, kind), (media_type, name) in files.items():
+            # Reference closure: every downloadable object must exist before sealing.
+            if sha not in sizes:
+                sizes[sha] = len(objects.get(sha, deadline=deadline))
+            c.execute(
+                """INSERT INTO seal.snapshot_file(snapshot_id,source_id,sha256,kind,media_type,
+                file_name,byte_size) VALUES(%s,%s,%s,%s,%s,%s,%s)""",
+                (snapshot_id, source_id, sha, kind, media_type, name, sizes[sha]),
+            )
         row = c.execute(
             """UPDATE seal.snapshot SET sealed=true,
             source_count=(SELECT count(*) FROM seal.snapshot_source WHERE snapshot_id=%s),
             resource_count=(SELECT count(*) FROM seal.snapshot_item WHERE snapshot_id=%s),
             version_count=(SELECT count(DISTINCT version_id) FROM seal.snapshot_item
-                           WHERE snapshot_id=%s)
+                           WHERE snapshot_id=%s),
+            row_count=(SELECT count(*) FROM seal.snapshot_item i JOIN seal.delivery_row d
+                       ON d.version_id=i.version_id WHERE i.snapshot_id=%s),
+            file_count=(SELECT count(*) FROM seal.snapshot_file WHERE snapshot_id=%s)
             WHERE id=%s RETURNING *""",
-            (snapshot_id,) * 4,
+            (snapshot_id,) * 6,
         ).fetchone()
         pointer = published(c)
     return dict(row, snapshot_id=snapshot_id, published_snapshot_id=pointer)
@@ -136,13 +210,13 @@ def inspect(snapshot_id, limit=20, after="", source_after=""):
         c.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY")
         row = header(c, snapshot_id)
         items = c.execute(
-            """SELECT source_id,resource_id,version_id,url FROM seal.snapshot_item
+            """SELECT source_id,resource_id,version_id FROM seal.snapshot_item
             WHERE snapshot_id=%s AND resource_id COLLATE "C">%s COLLATE "C"
             ORDER BY resource_id COLLATE "C" LIMIT %s""",
             (snapshot_id, after, limit + 1),
         ).fetchall()
         sources = c.execute(
-            """SELECT source_id,entry_urls FROM seal.snapshot_source
+            """SELECT source_id,coverage FROM seal.snapshot_source
             WHERE snapshot_id=%s AND source_id COLLATE "C">%s COLLATE "C"
             ORDER BY source_id COLLATE "C" LIMIT %s""",
             (snapshot_id, source_after, limit + 1),
@@ -162,8 +236,8 @@ def inspect(snapshot_id, limit=20, after="", source_after=""):
 
 
 def verify(snapshot_id):
-    """Bounded batches, read existing archives only; never certify business quality."""
-    objects, after = Objects(), ""
+    """Read every frozen document and downloadable file; never certify business quality."""
+    objects, after, sizes = Objects(), "", {}
     with connect() as c:
         c.execute("SET TRANSACTION READ ONLY")
         header(c, snapshot_id)
@@ -176,16 +250,17 @@ def verify(snapshot_id):
                 (snapshot_id, after),
             ).fetchall()
             if not rows:
-                return
+                break
             for row in rows:
-                verify_result(
-                    objects,
-                    row["result_ref"],
-                    max_bytes=64 * 1024 * 1024,
-                    attachment_max_bytes=MAX_ORIGINAL_BYTES,
-                    deadline=time.monotonic() + 60,
+                verify_document(
+                    objects, row["result_ref"], deadline=time.monotonic() + 120, sizes=sizes
                 )
             after = rows[-1]["resource_id"]
+        for row in c.execute(
+            "SELECT DISTINCT sha256 FROM seal.snapshot_file WHERE snapshot_id=%s", (snapshot_id,)
+        ).fetchall():
+            if row["sha256"] not in sizes:
+                objects.get(row["sha256"], deadline=time.monotonic() + 120)
 
 
 def publish(snapshot_id):

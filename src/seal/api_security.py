@@ -1,11 +1,10 @@
-"""Private caller configuration and authenticated, opaque API capabilities."""
+"""Private caller configuration and authenticated, opaque pagination cursors."""
 
 import base64
 import binascii
 import hashlib
 import hmac
 import json
-import time
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -49,9 +48,8 @@ class Settings(Strict):
     token_key: str
     callers: list[Caller] = Field(min_length=1, max_length=1000)
     workers: int = Field(default=4, ge=1, le=8)
-    request_timeout_seconds: int = Field(default=30, ge=1, le=60)
-    result_max_bytes: int = Field(default=16777216, ge=1024, le=67108864)
-    attachment_max_bytes: int = Field(default=52428800, ge=1024, le=MAX_ORIGINAL_BYTES)
+    request_timeout_seconds: int = Field(default=30, ge=1, le=120)
+    file_max_bytes: int = Field(default=134217728, ge=1024, le=MAX_ORIGINAL_BYTES)
     page_max_bytes: int = Field(default=67108864, ge=1024, le=134217728)
 
     @field_validator("public_base_url")
@@ -107,7 +105,7 @@ class Settings(Strict):
 
 
 class Cursor(Strict):
-    purpose: str = Field(default="cursor", pattern="^cursor$")
+    purpose: str = Field(default="results-cursor", pattern="^results-cursor$")
     caller: str
     source: str
     snapshot: str
@@ -115,26 +113,17 @@ class Cursor(Strict):
     issued_at: int = Field(ge=0)
 
 
-class Attachment(Strict):
-    purpose: str = Field(default="attachment", pattern="^attachment$")
-    source: str
-    caller: str
-    snapshot: str
-    resource: str
-    version: str
-    index: int = Field(ge=0)
-
-
 class Tokens:
     def __init__(self, settings):
         self.cipher = Fernet(settings.token_key)
 
     def encode(self, payload):
-        issued_at = payload.issued_at if isinstance(payload, Cursor) else int(time.time())
-        return self.cipher.encrypt_at_time(canonical(payload.model_dump()), issued_at).decode()
+        return self.cipher.encrypt_at_time(
+            canonical(payload.model_dump()), payload.issued_at
+        ).decode()
 
-    def decode(self, value, model):
-        status, code = (400, "invalid_cursor") if model is Cursor else (404, "attachment_not_found")
+    def decode(self, value, model=Cursor):
+        status, code = 400, "invalid_cursor"
         try:
             if not value or len(value) > 4096:
                 raise ValueError
@@ -144,11 +133,9 @@ class Tokens:
                 != encoded
             ):
                 raise ValueError
-            raw = self.cipher.decrypt(encoded, ttl=3600 if model is Cursor else 86400)
+            raw = self.cipher.decrypt(encoded, ttl=3600)
             payload = model.model_validate(json.loads(raw))
-            if isinstance(payload, Cursor) and payload.issued_at != self.cipher.extract_timestamp(
-                value.encode("ascii")
-            ):
+            if payload.issued_at != self.cipher.extract_timestamp(value.encode("ascii")):
                 raise ValueError
             return payload
         except (InvalidToken, UnicodeError, ValueError, ValidationError, binascii.Error):

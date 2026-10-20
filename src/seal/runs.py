@@ -22,17 +22,16 @@ def create_run(source_id, mode, connection):
         raise SealError("source_cooling_down")
     config = source["config"]
     identity = uid()
-    seeds = [{"url": url} for url in config["entry_urls"]]
     plan = None
     if mode == "recheck":
         from .recheck import plan_recheck
 
-        seeds, plan = plan_recheck(c, source, config)
+        plan = plan_recheck(c, source, config)
     seq = source["run_seq"] + 1
     c.execute("UPDATE seal.source SET run_seq=%s WHERE id=%s", (seq, source_id))
     c.execute(
-        """INSERT INTO seal.run(id,source_id,mode,generation,run_seq,deadline,seeds,
-      recheck_plan,config,config_hash,parser_manifest) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+        """INSERT INTO seal.run(id,source_id,mode,generation,run_seq,deadline,
+      recheck_plan,config,config_hash,parser_manifest) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
         (
             identity,
             source_id,
@@ -40,7 +39,6 @@ def create_run(source_id, mode, connection):
             source["generation"],
             seq,
             datetime.now(timezone.utc) + timedelta(seconds=config["budget"]["seconds"] * 3 + 120),
-            j(seeds),
             j(plan) if plan is not None else None,
             j(config),
             digest(config),
@@ -51,9 +49,19 @@ def create_run(source_id, mode, connection):
 
 
 def end_run(c, source, run, status, reason):
-    from .manifest import terminal_report
+    from .progress import terminal_report
 
-    report = terminal_report(c, source, run, status, reason)
+    c.execute(
+        """UPDATE seal.acquisition SET state=%s,outcome=%s,error=%s,
+        acquired_at=clock_timestamp() WHERE run_id=%s AND state='running'""",
+        (
+            "cancelled" if reason == "interrupted" else "abandoned",
+            "cancelled" if reason == "interrupted" else "abandoned",
+            reason or "attempt_ended",
+            run["id"],
+        ),
+    )
+    report = terminal_report(c, run, status, reason)
     c.execute(
         "UPDATE seal.run SET status=%s,completed_at=now(),errors=%s,report=%s WHERE id=%s",
         (status, j(report["errors"]), j(report), run["id"]),
@@ -89,22 +97,21 @@ def begin_attempt(run_id):
         f = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s FOR UPDATE", (source["id"],))
         if f["run_id"] != run_id:
             if f["run_id"]:
-                from .manifest import pending_inputs
-
-                # A new collect is a new Run, not a resume. Before replacing the
-                # Source checkpoint, retain the previous Run's unreturned input
-                # evidence (including verified file references) in its own report.
-                pending = pending_inputs(
-                    c, f["run_id"], f["checkpoint"].get("acquired", {}), verify=True
-                )
-                c.execute(
-                    "UPDATE seal.run SET report=(report-'undelivered_inputs') || %s WHERE id=%s",
-                    (j({"undelivered_inputs": pending} if pending else {}), f["run_id"]),
-                )
+                previous = one(c, "SELECT * FROM seal.run WHERE id=%s FOR UPDATE", (f["run_id"],))
+                if previous["status"] not in TERMINAL_STATES:
+                    end_run(c, source, previous, "failed", "run_superseded")
+            # A new Run is never a resume: its tasks and checkpoint start empty. The
+            # previous Run keeps its own persistent tasks and acquisition facts.
             c.execute(
                 "UPDATE seal.frontier SET run_id=%s,checkpoint='{}',updated_at=now() WHERE id=%s",
                 (run_id, f["id"]),
             )
+        # A taken-over attempt may not finish its own running acquisitions.
+        c.execute(
+            """UPDATE seal.acquisition SET state='abandoned',acquired_at=clock_timestamp(),
+            outcome='abandoned',error='attempt_superseded' WHERE run_id=%s AND state='running'""",
+            (run_id,),
+        )
         c.execute(
             "UPDATE seal.run SET attempt_epoch=attempt_epoch+1,status='running',errors=(SELECT COALESCE(jsonb_agg(value),'[]'::jsonb) FROM jsonb_array_elements(errors) WHERE value #>> '{}' NOT IN ('interrupted','child_process_failed')) WHERE id=%s",
             (run_id,),
@@ -124,7 +131,7 @@ def run_receipt(c, run):
 
     counts = snapshot(c, run).counts
     return {
-        "contract": "seal.receipt.v3",
+        "contract": "seal.receipt.v4",
         "run_id": run["id"],
         "source_id": run["source_id"],
         "config_hash": run["config_hash"],
@@ -138,7 +145,7 @@ def run_receipt(c, run):
         "report": run["report"],
         "summary": {
             "counts": counts,
-            "counts_basis": "run; resumed deliveries deduplicated",
+            "counts_basis": "run tasks, acquisitions and deliveries; resumed deliveries deduplicated",
             "terminal": run["status"] in TERMINAL_STATES,
         },
     }
@@ -169,12 +176,12 @@ def _execute_attempt(run_id, owner, progress, cancel_event=None):
     if epoch is None:
         return receipt(run_id)
     context = run_context(run_id, epoch)
-    # SDK database/log paths are captured at import time. Give the child its own
-    # work directory before loading crawl4ai, rather than its home-directory cache.
+    # Crawl4AI's Markdown generator captures database/log paths at import time.
+    # Give the child its own work directory rather than a home-directory cache.
     sdk_work = work_directory() / "sdk" / run_id / str(epoch)
     sdk_work.mkdir(parents=True, exist_ok=True, mode=0o700)
     process = subprocess.Popen(
-        [sys.executable, "-m", "seal.crawl", run_id, str(epoch), str(os.getpid())],
+        [sys.executable, "-m", "seal.runtime_process", run_id, str(epoch), str(os.getpid())],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         start_new_session=True,
@@ -241,6 +248,9 @@ def execute_run(run_id, progress=None, cancel_event=None):
                     raise SealError("frontier_already_executing")
                 acquired.append(key)
             owner.commit()
+            # Advisory locks belong to this session; heartbeat probes must not keep
+            # an idle SQL transaction open while the child performs external I/O.
+            owner.autocommit = True
             while True:
                 result = _execute_attempt(run_id, owner, progress, cancel_event)
                 if result["status"] != "retryable" or (

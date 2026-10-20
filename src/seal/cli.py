@@ -3,7 +3,9 @@
 import argparse
 import json
 import os
+import signal
 import sys
+import threading
 from pathlib import Path
 
 from .core import SealError
@@ -88,20 +90,18 @@ def dispatch(args):
     run_id = prepare_run(args.source, args.command, enqueue=args.enqueue)
     if args.enqueue:
         return receipt(run_id)
+    cancelled = threading.Event()
+    handlers = {sig: signal.getsignal(sig) for sig in (signal.SIGINT, signal.SIGTERM)}
+    for sig in handlers:
+        signal.signal(sig, lambda *_: cancelled.set())
     with ProgressPanel(not args.no_progress) as panel:
         try:
-            result = execute_run(run_id, progress=panel)
-        except KeyboardInterrupt:
-            from .db import connect, j, locked_run
-
-            with connect() as c:
-                _, run = locked_run(c, run_id)
-                if run["status"] in {"running", "finishing"}:
-                    c.execute(
-                        "UPDATE seal.run SET status='retryable',errors=errors || %s WHERE id=%s",
-                        (j(["interrupted"]), run_id),
-                    )
-            result = dict(receipt(run_id), error="interrupted")
+            result = execute_run(run_id, progress=panel, cancel_event=cancelled)
+        finally:
+            for sig, handler in handlers.items():
+                signal.signal(sig, handler)
+        if cancelled.is_set():
+            result = dict(result, error="interrupted", cancelled=True)
         panel.update(run_id, final=True)
         return result
 

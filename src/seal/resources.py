@@ -1,168 +1,308 @@
-"""Source-local URL identity and immutable, transactional response timelines."""
+"""Stable document identity and immutable, transactional Observation/Version timelines."""
 
-from .archive import verify_result
-from .core import SealError, digest, public_url, uid
+from .core import SealError, uid
 from .db import connect, fenced, j, locked_run, one
-from .objects import Objects
-from .parsing import effective, input_identity, version_identity
+
+FINGERPRINTS = ("input_fingerprint", "parser_fingerprint", "content_hash")
 
 
-def resource(c, frontier_id, url, role="content"):
-    url = public_url(url)
+def resource(c, frontier_id, namespace, external_key, public_url, recheck_locator):
+    if not namespace or not external_key:
+        raise SealError("document_identity_required")
     c.execute(
-        "INSERT INTO seal.resource(id,frontier_id,url,role) VALUES(%s,%s,%s,%s) ON CONFLICT(frontier_id,url) DO NOTHING",
-        (uid(), frontier_id, url, role),
+        """INSERT INTO seal.resource(id,frontier_id,identity_namespace,external_key,public_url,
+        recheck_locator) VALUES(%s,%s,%s,%s,%s,%s)
+        ON CONFLICT(frontier_id,identity_namespace,external_key) DO NOTHING""",
+        (uid(), frontier_id, namespace, external_key, public_url, j(recheck_locator)),
     )
-    return one(
+    row = one(
         c,
-        "SELECT * FROM seal.resource WHERE frontier_id=%s AND url=%s FOR UPDATE",
-        (frontier_id, url),
+        """SELECT * FROM seal.resource WHERE frontier_id=%s AND identity_namespace=%s
+        AND external_key=%s FOR UPDATE""",
+        (frontier_id, namespace, external_key),
+    )
+    if row["public_url"] != public_url or row["recheck_locator"] != recheck_locator:
+        c.execute(
+            "UPDATE seal.resource SET public_url=%s,recheck_locator=%s WHERE id=%s",
+            (public_url, j(recheck_locator), row["id"]),
+        )
+    return row
+
+
+def check_acquisitions(c, source, run, ids):
+    rows = c.execute(
+        "SELECT id,source_id,run_id,state FROM seal.acquisition WHERE id=ANY(%s)", (ids,)
+    ).fetchall()
+    if len(rows) != len(set(ids)):
+        raise SealError("input_acquisition_missing")
+    for row in rows:
+        if row["source_id"] != source["id"] or row["state"] != "archived":
+            raise SealError("input_acquisition_not_owned")
+        # Normal collection only uses this Run's inputs. Offline reparse explicitly
+        # freezes the same Source's existing input set (seal.run.reparse_plan).
+        if run["mode"] != "reparse" and row["run_id"] != run["id"]:
+            raise SealError("input_acquisition_not_owned")
+
+
+def finish_target(c, target_id, state, observation_id=None, error=None, epoch=None):
+    if target_id:
+        c.execute(
+            """UPDATE seal.task SET state=%s,observation_id=%s,error=%s,attempt_epoch=%s,
+            updated_at=clock_timestamp() WHERE id=%s AND kind='target'""",
+            (state, observation_id, error, epoch, target_id),
+        )
+
+
+def evidence(c, observation_id, ids, relation):
+    for acquisition_id in sorted(set(ids)):
+        c.execute(
+            """INSERT INTO seal.observation_evidence(observation_id,acquisition_id,relation)
+            VALUES(%s,%s,%s) ON CONFLICT DO NOTHING""",
+            (observation_id, acquisition_id, relation),
+        )
+
+
+def conflict(c, run_id, epoch, resource_id, reason, existing, attempted):
+    c.execute(
+        """INSERT INTO seal.delivery_conflict(id,run_id,resource_id,attempt_epoch,reason,
+        existing_observation_id,attempted) VALUES(%s,%s,%s,%s,%s,%s,%s)""",
+        (uid(), run_id, resource_id, epoch, reason, existing, j(attempted)),
+    )
+    c.execute("UPDATE seal.run SET errors=errors || %s WHERE id=%s", (j([reason]), run_id))
+
+
+def schedule(c, run, resource_id, outcome, success):
+    interval = (
+        run["config"]["recheck_seconds"] if success else min(60, run["config"]["recheck_seconds"])
+    )
+    c.execute(
+        """UPDATE seal.resource SET last_checked_at=now(),last_outcome=%s,
+        next_check=now()+(%s * interval '1 second') WHERE id=%s""",
+        (outcome, interval, resource_id),
     )
 
 
-def persist(
-    run_id,
-    epoch,
-    url,
-    capture,
-    outcome,
-    error=None,
-    role="content",
-    *,
-    result_ref=None,
-    check_active=None,
-):
-    """One run/URL delivery commits once, even after checkpoint replay or worker takeover."""
-    body_hash = capture.get("body_hash")
-    archive_ref = capture.get("archive_ref")
-    files = set(capture.get("attachment_refs", []))
-    if archive_ref:
-        files.add(archive_ref)
-    envelope = None
-    if result_ref:
-        envelope = verify_result(Objects(), result_ref)
-        files.update(envelope.get("attachment_refs", []))
-    for ref in files:
-        Objects().get(ref)  # Original attachments, never a textual input fingerprint.
+def commit(run_id, epoch, built, *, target_id=None, check_active=None):
+    """One run/resource delivery commits once; replay checks input, parser and content."""
     with connect() as c:
         source, run = locked_run(c, run_id)
         fenced(source, run, epoch)
         frontier = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s", (source["id"],))
-        r = resource(c, frontier["id"], url, role)
+        check_acquisitions(c, source, run, built["acquisition_ids"])
+        r = resource(
+            c,
+            frontier["id"],
+            built["namespace"],
+            built["external_key"],
+            built["public_url"],
+            built["recheck_locator"],
+        )
+        attempted = {k: built[k] for k in (*FINGERPRINTS, "version_fingerprint", "result_ref")}
         key = run_id + ":" + r["id"]
         existing = c.execute(
-            "SELECT id FROM seal.observation WHERE delivery_key=%s", (key,)
+            "SELECT * FROM seal.observation WHERE delivery_key=%s", (key,)
         ).fetchone()
         if existing:
-            return existing["id"]
-        input_mode = capture.get("input_mode", run["config"]["crawl4ai"]["mode"])
+            if existing["outcome"] != "failed" and all(
+                existing[k] == built[k] for k in FINGERPRINTS
+            ):
+                evidence(c, existing["id"], built["acquisition_ids"], "replay")
+                finish_target(c, target_id, "done", existing["id"], None, epoch)
+                if check_active is not None:
+                    check_active()
+                return {
+                    "status": "replayed",
+                    "observation_id": existing["id"],
+                    "resource_id": r["id"],
+                }
+            conflict(c, run_id, epoch, r["id"], "delivery_key_conflict", existing["id"], attempted)
+            finish_target(c, target_id, "failed", existing["id"], "delivery_key_conflict", epoch)
+            return {"status": "conflict", "observation_id": existing["id"], "resource_id": r["id"]}
         current = c.execute(
             "SELECT * FROM seal.version WHERE id=%s", (r["current_version_id"],)
         ).fetchone()
-        parser_config = effective(run["parser_manifest"], capture, envelope)
-        parser_fingerprint = digest(parser_config)
-        version_fingerprint = None
-        change_reason = "failed" if error else outcome
-        version_id = None
-        new = False
-        if outcome == "parsed":
-            if not body_hash or not result_ref:
-                raise SealError("parsed_response_evidence_required")
-            if current and current["input_mode"] != input_mode:
-                raise SealError("input_mode_change_requires_new_source")
-            source_input = input_identity(body_hash, input_mode, envelope)
-            version_fingerprint = version_identity(source_input, parser_fingerprint)
-            new = current is None or current["version_fingerprint"] != version_fingerprint
-            if current is None:
-                change_reason = "first_success"
-            elif current["version_fingerprint"] is None:
-                change_reason = "legacy_transition"
-            else:
-                source_changed = current["version_fingerprint"] != version_identity(
-                    source_input, current["parser_fingerprint"]
+        oid = uid()
+        if current and current["version_fingerprint"] == built["version_fingerprint"]:
+            if current["content_hash"] != built["content_hash"]:
+                # Same input and parser, different business content: never overwrite.
+                c.execute(
+                    """INSERT INTO seal.observation(id,resource_id,run_id,attempt_epoch,
+                    delivery_key,outcome,change_reason,error,inputs_ref,input_fingerprint,
+                    parser_fingerprint,version_fingerprint,content_hash)
+                    VALUES(%s,%s,%s,%s,%s,'failed','nondeterministic','nondeterministic_parser_output',
+                    %s,%s,%s,%s,%s)""",
+                    (
+                        oid,
+                        r["id"],
+                        run_id,
+                        epoch,
+                        key,
+                        built["inputs_ref"],
+                        built["input_fingerprint"],
+                        built["parser_fingerprint"],
+                        built["version_fingerprint"],
+                        built["content_hash"],
+                    ),
                 )
-                parser_changed = current["parser_fingerprint"] != parser_fingerprint
-                change_reason = (
+                evidence(c, oid, built["acquisition_ids"], "input")
+                conflict(
+                    c, run_id, epoch, r["id"], "nondeterministic_parser_output", None, attempted
+                )
+                schedule(c, run, r["id"], "failed", False)
+                finish_target(c, target_id, "failed", oid, "nondeterministic_parser_output", epoch)
+                return {"status": "conflict", "observation_id": oid, "resource_id": r["id"]}
+            outcome, reason, version_id = "unchanged", "unchanged", current["id"]
+        else:
+            if current is None:
+                outcome, reason = "created", "first_success"
+            else:
+                outcome = "changed"
+                source_changed = current["input_fingerprint"] != built["input_fingerprint"]
+                parser_changed = current["parser_fingerprint"] != built["parser_fingerprint"]
+                reason = (
                     "both_changed"
                     if source_changed and parser_changed
                     else "source_changed"
                     if source_changed
+                    else "parser_recomputed"
+                    if run["mode"] == "reparse"
                     else "parser_changed"
-                    if parser_changed
-                    else "unchanged"
                 )
-            version_id = uid() if new else current["id"]
-            if not new:
-                outcome = "unchanged"
-        oid = uid()
+            version_id = uid()
         c.execute(
             """INSERT INTO seal.observation(id,resource_id,run_id,attempt_epoch,delivery_key,
-          url,actual_url,status,body_hash,archive_ref,result_ref,input_mode,outcome,error,version_id,attachment_refs,
-          parser_fingerprint,change_reason)
-          VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+            outcome,change_reason,inputs_ref,result_ref,input_fingerprint,parser_fingerprint,
+            version_fingerprint,content_hash,version_id)
+            VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
             (
                 oid,
                 r["id"],
                 run_id,
                 epoch,
                 key,
-                r["url"],
-                capture.get("actual_url"),
-                capture.get("status"),
-                body_hash,
-                archive_ref,
-                result_ref,
-                input_mode,
                 outcome,
-                error,
+                reason,
+                built["inputs_ref"],
+                built["result_ref"],
+                built["input_fingerprint"],
+                built["parser_fingerprint"],
+                built["version_fingerprint"],
+                built["content_hash"],
                 version_id,
-                sorted(files),
-                parser_fingerprint,
-                change_reason,
             ),
         )
-        if new:
-            # Serialize cursor allocation through COMMIT. A downstream cursor can never skip
-            # an earlier uncommitted version from a different Source.
-            c.execute("SELECT pg_advisory_xact_lock(72032102)")
+        if outcome != "unchanged":
             c.execute(
-                """INSERT INTO seal.version(id,resource_id,sequence,observation_id,body_hash,
-              input_mode,result_ref,framework_version,parser_config,parser_fingerprint,version_fingerprint)
-              VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                """INSERT INTO seal.version(id,resource_id,sequence,observation_id,result_ref,
+                inputs_ref,input_fingerprint,parser_fingerprint,version_fingerprint,content_hash,
+                parser_config,change_reason) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
                 (
                     version_id,
                     r["id"],
                     current["sequence"] + 1 if current else 1,
                     oid,
-                    body_hash,
-                    input_mode,
-                    result_ref,
-                    parser_config["framework_version"],
-                    j(parser_config),
-                    parser_fingerprint,
-                    version_fingerprint,
+                    built["result_ref"],
+                    built["inputs_ref"],
+                    built["input_fingerprint"],
+                    built["parser_fingerprint"],
+                    built["version_fingerprint"],
+                    built["content_hash"],
+                    j(built["parser_config"]),
+                    reason,
                 ),
             )
+            for row in built["rows"]:
+                c.execute(
+                    """INSERT INTO seal.delivery_row(version_id,row_number,title,markdown_file,
+                    document_type,acquired_at,original_file,volume_order,
+                    document_number,issuer,published_at,effective_at,expired_at,status,
+                    source_name,detail_url,source_record_hash,markdown_hash,original_hash,
+                    original_media_type,role,locator) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,
+                    %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+                    (
+                        version_id,
+                        row["row_number"],
+                        row["title"],
+                        row["markdown_file"],
+                        row["document_type"],
+                        row["acquired_at"] + "+00:00",
+                        row["original_file"],
+                        row["volume_order"],
+                        row["document_number"],
+                        row["issuer"],
+                        row["published_at"],
+                        row["effective_at"],
+                        row["expired_at"],
+                        row["status"],
+                        row["source_name"],
+                        row["detail_url"],
+                        row["source_record_hash"],
+                        row["markdown_hash"],
+                        row["original_hash"],
+                        row["original_media_type"],
+                        row["role"],
+                        j(row["locator"]),
+                    ),
+                )
             c.execute(
                 "UPDATE seal.resource SET current_version_id=%s WHERE id=%s", (version_id, r["id"])
             )
-        interval = (
-            run["config"]["recheck_seconds"]
-            if version_id
-            else min(60, run["config"]["recheck_seconds"])
-        )
-        c.execute(
-            """UPDATE seal.resource SET last_checked_at=now(),last_outcome=%s,
-          next_check=now()+(%s * interval '1 second') WHERE id=%s""",
-            (outcome, interval, r["id"]),
-        )
-        if error:
-            c.execute("UPDATE seal.run SET errors=errors || %s WHERE id=%s", (j([error]), run_id))
+        evidence(c, oid, built["acquisition_ids"], "input")
+        schedule(c, run, r["id"], outcome, True)
+        finish_target(c, target_id, "done", oid, None, epoch)
         if check_active is not None:
-            # The process-local cancellation/budget fence runs after archive reads
-            # and SQL work, immediately before committing any successful delivery.
+            # Process-local cancellation/budget fence immediately before COMMIT.
             check_active()
-        return oid
+        return {
+            "status": outcome,
+            "observation_id": oid,
+            "resource_id": r["id"],
+            "version_id": version_id,
+        }
+
+
+def fail(run_id, epoch, identity, error, *, acquisition_ids=(), target_id=None):
+    """Record a failed delivery; never overwrites an existing success or current Version."""
+    with connect() as c:
+        source, run = locked_run(c, run_id)
+        fenced(source, run, epoch)
+        observation_id = None
+        if identity and identity.get("namespace") and identity.get("external_key"):
+            frontier = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s", (source["id"],))
+            r = resource(
+                c,
+                frontier["id"],
+                identity["namespace"],
+                identity["external_key"],
+                identity.get("public_url"),
+                identity.get("recheck_locator") or {"url": identity.get("public_url")},
+            )
+            key = run_id + ":" + r["id"]
+            existing = c.execute(
+                "SELECT id FROM seal.observation WHERE delivery_key=%s", (key,)
+            ).fetchone()
+            if existing:
+                observation_id = existing["id"]
+            else:
+                observation_id = uid()
+                c.execute(
+                    """INSERT INTO seal.observation(id,resource_id,run_id,attempt_epoch,
+                    delivery_key,outcome,change_reason,error) VALUES(%s,%s,%s,%s,%s,'failed',
+                    'failed',%s)""",
+                    (observation_id, r["id"], run_id, epoch, key, error),
+                )
+                ids = [
+                    row["id"]
+                    for row in c.execute(
+                        "SELECT id FROM seal.acquisition WHERE id=ANY(%s) AND source_id=%s",
+                        (list(acquisition_ids), source["id"]),
+                    )
+                ]
+                evidence(c, observation_id, ids, "input")
+                schedule(c, run, r["id"], "failed", False)
+        c.execute("UPDATE seal.run SET errors=errors || %s WHERE id=%s", (j([error]), run_id))
+        finish_target(c, target_id, "failed", observation_id, error, epoch)
+        return observation_id
 
 
 def save_checkpoint(run_id, epoch, checkpoint):
@@ -173,11 +313,3 @@ def save_checkpoint(run_id, epoch, checkpoint):
             "UPDATE seal.frontier SET checkpoint=%s,updated_at=now() WHERE source_id=%s AND run_id=%s",
             (j(checkpoint), source["id"], run_id),
         )
-
-
-def delivered(run_id):
-    with connect() as c:
-        return {
-            r["url"]
-            for r in c.execute("SELECT url FROM seal.observation WHERE run_id=%s", (run_id,))
-        }

@@ -24,27 +24,35 @@ class ProgressSnapshot:
 
 
 def snapshot(c, run):
-    counts = c.execute(
-        """SELECT count(*) FILTER(WHERE r.role='content') AS fetched,
-      count(*) FILTER(WHERE r.role='content') AS processed,
-      count(*) FILTER(WHERE r.role='content' AND o.version_id IS NOT NULL) AS resources,
-      count(*) FILTER(WHERE r.role='content' AND o.version_id IS NULL) AS failed,
-      count(*) FILTER(WHERE o.outcome='unchanged') AS unchanged,
-      count(*) FILTER(WHERE o.outcome='parsed') AS updated
-      FROM seal.observation o JOIN seal.resource r ON r.id=o.resource_id WHERE o.run_id=%s""",
+    tasks = c.execute(
+        """SELECT count(*) FILTER(WHERE kind='request') AS discovered,
+        count(*) FILTER(WHERE kind='request' AND state IN ('archived','done')) AS fetched,
+        count(*) FILTER(WHERE kind='request' AND state='pending') AS pending,
+        count(*) FILTER(WHERE kind='request' AND state='failed') AS request_failed,
+        count(*) FILTER(WHERE kind='target') AS targets,
+        count(*) FILTER(WHERE kind='target' AND state IN ('done','failed','skipped')) AS processed,
+        count(*) FILTER(WHERE kind='target' AND state='skipped') AS skipped
+        FROM seal.task WHERE run_id=%s""",
         (run["id"],),
     ).fetchone()
-    frontier = c.execute(
-        "SELECT checkpoint FROM seal.frontier WHERE source_id=%s AND run_id=%s",
-        (run["source_id"], run["id"]),
+    outcomes = c.execute(
+        """SELECT count(*) FILTER(WHERE version_id IS NOT NULL) AS resources,
+        count(*) FILTER(WHERE outcome='failed') AS failed,
+        count(*) FILTER(WHERE outcome='unchanged') AS unchanged,
+        count(*) FILTER(WHERE outcome IN ('created','changed')) AS updated
+        FROM seal.observation WHERE run_id=%s""",
+        (run["id"],),
     ).fetchone()
-    pending = frontier["checkpoint"].get("inflight", []) if frontier else []
-    counts.update(
-        discovered=counts["fetched"] + len(pending),
-        pending=len(pending),
-        active=len(pending),
-        resources=counts["resources"],
-    )
+    requests = c.execute(
+        "SELECT count(*) AS n FROM seal.acquisition WHERE run_id=%s AND acquisition_kind='http'",
+        (run["id"],),
+    ).fetchone()["n"]
+    current = c.execute(
+        """SELECT payload->>'url' AS url FROM seal.task WHERE run_id=%s AND kind='request'
+        AND state='pending' ORDER BY seq LIMIT 1""",
+        (run["id"],),
+    ).fetchone()
+    counts = dict(tasks, **outcomes, external_requests=requests, active=tasks["pending"])
     return ProgressSnapshot(
         run["id"],
         run["source_id"],
@@ -52,8 +60,23 @@ def snapshot(c, run):
         run["status"],
         run["created_at"].isoformat(),
         counts,
-        safe_url(pending[-1])[:160] if pending else None,
+        safe_url(current["url"])[:160] if current and current["url"] else None,
     )
+
+
+def terminal_report(c, run, status, reason):
+    errors = sorted(set(run["errors"]) | ({reason} if reason else set()))
+    report = dict(run["report"], errors=errors, counts=snapshot(c, run).counts)
+    report.setdefault(
+        "coverage",
+        {
+            "selected_scope_enumeration": "incomplete",
+            "site_population": "UNKNOWN",
+            "unknown_coverage": True,
+            "absence_semantics": "unobserved_is_unknown_never_deleted",
+        },
+    )
+    return report
 
 
 class ProgressPanel:
@@ -115,10 +138,10 @@ class ProgressPanel:
             table.add_row(
                 Text(f"Unchanged {counts['unchanged']:,}"), Text(f"Updated {counts['updated']:,}")
             )
-        total, done = counts["discovered"], counts["processed"]
+        total, done = counts["targets"], counts["processed"]
         filled = int(16 * done / total) if total else 0
         table.add_row(
-            Text("Known URL progress"),
+            Text("Document targets"),
             Text("[" + "█" * filled + "░" * (16 - filled) + "]"),
             Text(f"{done} / {total}"),
         )

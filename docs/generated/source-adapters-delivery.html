@@ -47,9 +47,9 @@
   <header>
     <div class="eyebrow">SEAL / Source adapters, parsing &amp; 16-column delivery</div>
     <h1>一次受控获取，<br>走到 16 列规范表与 SHA-256 直取交付。</h1>
-    <p class="lead">将外部原始字节获取与业务解析解耦；把 Office/TCVN3 提取与 PDF 逐页扫描 OCR 质量门禁收编入 <code>src/seal/</code>；对下游仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>，并与离线 16 列 <code>metadata.xlsx</code> 导出严格同源。</p>
+    <p class="lead">将外部原始字节获取与业务解析解耦；把 Office/TCVN3 提取与 PDF 逐页扫描 OCR 质量门禁收编入 <code>src/seal/</code>；对下游仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>，返回 16 列元数据及已归档原件与 Markdown。</p>
     <div class="meta">
-      <span class="badge">设计合同 · 实施与业务验收未开始</span>
+      <span class="badge">阶段 1（#31）已实现 · 阶段 2 已取消 · 阶段 3–4 待交付</span>
       <span>2026-10-20 · 本地开发阶段</span>
       <a href="../plans/source-adapters-delivery.md">打开唯一 Plan</a>
       <a href="../reference/%E6%B3%95%E8%A7%84%E6%A1%88%E4%BE%8B%E5%85%83%E6%95%B0%E6%8D%AE%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF.xlsx">16 列元数据模板</a>
@@ -61,7 +61,7 @@
   </header>
 
   <section id="flow">
-    <div class="section-head"><h2>统一主链：从来源到双消费面</h2><span class="caption">按 01 → 08 执行；精简 API 与离线导出共用 16 列关系投影与 CAS 哈希闭包。</span></div>
+    <div class="section-head"><h2>统一主链：从来源到 API 消费</h2><span class="caption">按 01 → 08 执行；精简 API 读取固定 16 列关系投影与 CAS 哈希闭包。</span></div>
     <ol class="stages">
       <li><span class="step">01 / PLAN</span><h3>冻结来源与运行</h3><p>Adapter、稳定身份、Office/OCR 解析合同与预算；生成请求和文档目标。</p></li>
       <li><span class="step">02 / ACQUIRE</span><h3>受控 Acquisition</h3><p>HTTP 或 DOM 获取；执行范围、robots、限流、取消和请求预算。</p></li>
@@ -70,10 +70,10 @@
       <li><span class="step">05 / QUALITY &amp; NORMALIZE</span><h3>质量门禁与统一文档</h3><p><code>quality_check</code> 15 项原因核验；生成 <code>seal.document.v1</code> 与固定 Markdown CAS 对象。</p></li>
       <li><span class="step">06 / COMMIT</span><h3>不可变内容提交</h3><p>事务与 attempt fence 保护 Observation、Version、16 列投影及当前指针。</p></li>
       <li><span class="step">07 / SNAPSHOT</span><h3>封存固定版本</h3><p>冻结来源、Resource → Version、16 列投影行及可下载 SHA-256 闭包。</p></li>
-      <li><span class="step">08 / API &amp; EXPORT</span><h3>双消费面一致交付</h3><p><code>GET /results</code> + <code>GET /files/{sha256}</code> 与 <code>seal export</code> 离线包完全同源。</p></li>
+      <li><span class="step">08 / API</span><h3>授权读取固定结果</h3><p><code>GET /results</code> 查询 16 列；<code>GET /files/{sha256}</code> 读取已归档字节。</p></li>
     </ol>
     <div class="outputs">
-      <div class="output"><strong>16 列 metadata.xlsx</strong>严格对齐法规案例元数据上传模板</div>
+      <div class="output"><strong>16 列 API 结果</strong>严格对齐法规案例元数据上传模板</div>
       <div class="output"><strong>解析后 Markdown</strong><code>&lt;资料名称&gt;_&lt;哈希前8位&gt;[_&lt;序号&gt;].md</code></div>
       <div class="output"><strong>原始文件与分卷</strong>单文件、连续分卷（<code>文件顺序</code>）、独立附件</div>
       <div class="output"><strong>精简 API（仅 2 个接口）</strong><code>GET /results</code> + <code>GET /files/{sha256}</code></div>
@@ -108,10 +108,10 @@
     <div class="table-wrap wide"><table>
       <thead><tr><th>合同 / 接口</th><th>固定内容</th><th>保证</th></tr></thead>
       <tbody>
-        <tr><td>Resource &amp; <code>seal.inputs.v1</code></td><td><code>frontier_id + namespace + external_key</code>；真实 <code>acquisition_id</code>、<code>archive_ref</code>、角色与定位。</td><td>一输入多文档、多输入（主页面 + 多卷 PDF）一文档均可复算。</td></tr>
-        <tr><td><code>seal.document.v1</code></td><td>16 列元数据映射、具名日期、1..N 个交付单元（含 <code>markdown_ref</code>、<code>original_file_ref</code>、<code>volume_order</code>）及 <code>quality_check</code> 报告。</td><td>所有新结果唯一格式；正文与分卷在入库时固定存入 CAS，导出不再重解析。</td></tr>
-        <tr><td><code>GET /results</code></td><td>删除旧 <code>GET /sources</code>、旧 <code>GET /results</code>、<code>GET /attachments/{attachment_id}</code>；新 <code>GET /results</code> 直接返回已发布 Snapshot 的 16 列规范投影行及 <code>markdown_hash</code>。</td><td>下游 API 字段与离线 <code>metadata.xlsx</code> 16 列完全对齐。</td></tr>
-        <tr><td><code>GET /files/{sha256}</code></td><td>凭 64 位 SHA-256（<code>文件哈希</code> 或 <code>markdown_hash</code>）直取原始文件或解析后 <code>.md</code> 文件。</td><td>无时效令牌；严格校验调用方授权来源与当前已发布 Snapshot 成员闭包，越权或内部对象一律返回 404。</td></tr>
+        <tr><td>Resource &amp; <code>seal.inputs.v1</code></td><td><code>frontier_id + namespace + external_key</code>；真实 <code>acquisition_id</code>、<code>archive_ref</code>、角色、真实定位、稳定语义选择器与冻结 Adapter 输入。</td><td>一输入多文档、多输入一文档均可复算；封存读回完整 CAS 闭包，缺件或损坏拒绝。</td></tr>
+        <tr><td><code>seal.document.v1</code></td><td>16 列元数据映射、具名日期、1..N 个交付单元（含 <code>markdown_ref</code>、<code>original_file_ref</code>、<code>volume_order</code>）及 <code>quality_check</code> 报告。</td><td>所有新结果唯一格式；正文与分卷在入库时固定存入 CAS，读取不再重解析。</td></tr>
+        <tr><td><code>GET /results</code></td><td>删除旧 <code>GET /sources</code>、旧 <code>GET /results</code>、<code>GET /attachments/{attachment_id}</code>；新 <code>GET /results</code> 直接按索引分页返回已发布 Snapshot 的 15 列中文规范字段及 <code>original_hash</code>、<code>markdown_hash</code>。</td><td>移除中文 <code>文件哈希</code> 字段，统一暴露 <code>original_hash</code>（无原件为 <code>null</code>）与 <code>markdown_hash</code>。</td></tr>
+        <tr><td><code>GET /files/{sha256}</code></td><td>凭 64 位 SHA-256（<code>original_hash</code> 或 <code>markdown_hash</code>）直取原始文件或解析后 <code>.md</code> 文件。</td><td>无时效令牌；严格校验调用方授权来源与当前已发布 Snapshot 成员闭包，越权或内部对象一律返回 404。</td></tr>
       </tbody>
     </table></div>
     <details>
@@ -125,19 +125,13 @@
     <h2>16 列文件交付：严格对齐《法规案例元数据上传模板》</h2>
     <div class="two">
       <article class="card">
-        <h3>固定目录与重命名规则</h3>
-        <pre>delivery/
-├── metadata.xlsx
-├── markdown/
-│   └── &lt;资料名称&gt;_&lt;文件哈希前8位&gt;[_&lt;序号&gt;].md
-├── originals/
-│   └── &lt;资料名称&gt;_&lt;文件哈希前8位&gt;[_&lt;序号&gt;].&lt;ext&gt;
-└── manifest.json</pre>
-        <p class="caption" style="margin-top:14px"><code>metadata.xlsx</code> 中的 <code>解析后文件</code> 与 <code>原始文件</code> 列精确对应 <code>markdown/</code> 与 <code>originals/</code> 下的文件名；所有 64 位哈希均可直接用于 <code>GET /files/{sha256}</code>。</p>
+        <h3>固定结果与下载命名</h3>
+        <p><code>GET /results</code> 返回 15 列中文业务行、<code>resource_id</code>、<code>version_id</code>、<code>original_hash</code> 和 <code>markdown_hash</code>。</p>
+        <p><code>GET /files/{sha256}</code> 校验授权与已发布快照文件闭包，返回原件或 Markdown；直接按索引分页读取，不执行全局消歧窗口查询。</p>
       </article>
       <article class="card">
-        <h3>16 列结构与三类拆分规则</h3>
-        <p><strong>16 列固定表头：</strong><code>资料名称</code>、<code>解析后文件</code>、<code>资料类型</code>、<code>文件哈希</code>、<code>采集时间</code>、<code>原始文件</code>、<code>文件顺序</code>、<code>文号/案号</code>、<code>发布机构</code>、<code>发布日期</code>、<code>生效日期</code>、<code>失效日期</code>、<code>状态</code>、<code>来源名称</code>、<code>来源详情页</code>、<code>来源记录号</code>。</p>
+        <h3>15 列业务结构与三类拆分规则</h3>
+        <p><strong>15 列中文表头：</strong><code>资料名称</code>、<code>解析后文件</code>、<code>资料类型</code>、<code>采集时间</code>、<code>原始文件</code>、<code>文件顺序</code>、<code>文号/案号</code>、<code>发布机构</code>、<code>发布日期</code>、<code>生效日期</code>、<code>失效日期</code>、<code>状态</code>、<code>来源名称</code>、<code>来源详情页</code>、<code>来源记录号</code>（另含 <code>original_hash</code>、<code>markdown_hash</code>）。</p>
         <ul class="rules">
           <li><strong>单文件资料：</strong>1 行，<code>文件顺序</code> 留空。</li>
           <li><strong>同一资料连续分卷：</strong>拆分为多行，重复填写相同的 <code>资料名称</code> 与 <code>来源记录号</code>，<code>文件顺序</code> 依次填 <code>1</code>、<code>2</code>…；顺序不明时阻止装配。</li>
@@ -146,30 +140,27 @@
       </article>
     </div>
     <div class="three" style="margin-top:18px">
-      <article class="card"><h3>内容完整</h3><p>每行恰有一个非空 <code>.md</code>；有原件时 <code>文件哈希</code> 为原件 SHA-256，无独立原件时为 <code>.md</code> SHA-256。必需附件缺失或未过 <code>quality_check</code> 不形成成功版本。</p></article>
-      <article class="card"><h3>结果可复现</h3><p><code>.md</code> 字节在 Version 提交时写入 CAS。导出器只读固定 Snapshot，冻结排序与工作簿属性，重复导出载荷一致。</p></article>
-      <article class="card"><h3>manifest 对账</h3><p><code>manifest.json</code>（<code>seal.delivery.v1</code>）记录每行对应的 <code>resource_id</code>、<code>version_id</code>、<code>markdown_hash</code>、<code>文件哈希</code>、<code>locator</code> 及覆盖摘要。</p></article>
+      <article class="card"><h3>内容完整</h3><p>每行恰有一个非空 <code>.md</code>（<code>markdown_hash</code>）；有原件时 <code>original_hash</code> 为原件 SHA-256，无独立原件时为 <code>null</code>。必需附件缺失或未过 <code>quality_check</code> 不形成成功版本。</p></article>
+      <article class="card"><h3>结果可复现</h3><p>Markdown 在 Version 提交时写入 CAS；API 只读固定 Snapshot 的已归档字节，游标绑定起始快照。</p></article>
+      <article class="card"><h3>引用可核验</h3><p>输入清单保留真实 Acquisition 与 locator；Snapshot 封存前读回并校验全部输入、原件与 Markdown。</p></article>
     </div>
   </section>
 
   <section id="implementation">
-    <h2>四个阶段 Issues（#31 – #34）演进路线</h2>
+    <h2>实施路线与已取消范围（#31 – #34）</h2>
     <p class="note">本地开发直接采用新合同，不设计历史回填与双格式兼容。删除旧 <code>GET /sources</code>、旧 <code>GET /results</code>、<code>GET /attachments/{attachment_id}</code>，统一切换至 16 列投影与 SHA-256 文件直取。</p>
     <div class="table-wrap wide"><table>
-      <thead><tr><th>阶段 / Issue</th><th>必须完成</th><th>可核验输出</th></tr></thead>
+      <thead><tr><th>阶段 / Issue</th><th>必须完成</th><th>可核验输出</th><th>状态</th></tr></thead>
       <tbody>
-        <tr><td>01 · <code>#31</code> 新主链与精简 API</td><td>Acquisition、<code>seal.inputs.v1</code>、<code>seal.document.v1</code>；将 <code>office_text_extract.py</code> 与 <code>production_document_parse.py</code> 核心逻辑重构入 <code>src/seal/</code>；16 列投影；仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>。</td><td>独立新环境 collect → CAS → Version → Snapshot → <code>GET /results</code> &amp; <code>GET /files/{sha256}</code>。</td></tr>
-        <tr><td>02 · <code>#32</code> 16 列文件导出</td><td>独立 <code>seal export</code> 与 <code>seal export verify</code>；16 列 <code>metadata.xlsx</code>、单文件/连续分卷/独立附件物化、<code>manifest.json</code>、幂等与失败原子性。</td><td>真实 delivery 包及断网 verify 回执。</td></tr>
-        <tr><td>03 · <code>#33</code> 原生来源收编</td><td><code>VietnamLawAdapter</code>（<code>dd-492</code>）取代外部 SQLite 并验证 TCVN3/扫描 PDF/多卷附件；接入一个真实 API/XML 来源并登记入口地图。</td><td>多输入、多文档、分卷/附件在 API 与 <code>seal export</code> 端到端通过。</td></tr>
-        <tr><td>04 · <code>#34</code> 重检与恢复</td><td><code>recheck_locator</code> 批量重检、零网络离线重解析（OCR/TCVN3/解析器升级）、三完成点崩溃接管、冲突与覆盖报告。</td><td>中断后补齐、不重复、不污染固定快照。</td></tr>
+        <tr><td>01 · <code>#31</code> 新主链与精简 API</td><td>Acquisition、<code>seal.inputs.v1</code>、<code>seal.document.v1</code>；将 <code>office_text_extract.py</code> 与 <code>production_document_parse.py</code> 核心逻辑重构入 <code>src/seal/</code>；16 列投影；仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>。</td><td>独立新环境 collect → CAS → Version → Snapshot → <code>GET /results</code> &amp; <code>GET /files/{sha256}</code>。</td><td>已实现 · fresh 验收 85 场景 / 491 断言全部通过</td></tr>
+        <tr><td>02 · <code>#32</code> 本地导出</td><td>用户于 2026-10-20 取消整个导出能力；PR #36 撤回。</td><td><a href="https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052">用户最终决策</a></td><td>not planned · 已关闭</td></tr>
+        <tr><td>03 · <code>#33</code> 原生来源收编</td><td><code>VietnamLawAdapter</code>（<code>dd-492</code>）取代外部 SQLite 并验证 TCVN3/扫描 PDF/多卷附件；接入一个真实 API/XML 来源并登记入口地图。</td><td>多输入、多文档、分卷/附件经两个 API 端到端核验。</td><td>设计</td></tr>
+        <tr><td>04 · <code>#34</code> 重检与恢复</td><td><code>recheck_locator</code> 批量重检、零网络离线重解析（OCR/TCVN3/解析器升级）、三完成点崩溃接管、冲突与覆盖报告。</td><td>中断后补齐、不重复、不污染固定快照。</td><td>设计</td></tr>
       </tbody>
     </table></div>
-    <details><summary>查看待实现的目标 CLI 与 API 命令</summary><pre>seal collect sources/dd-492.yaml
+    <details><summary>查看目标 CLI 与 API 命令（collect / snapshot / serve）</summary><pre>seal collect sources/dd-492.yaml
 seal snapshot create
 seal snapshot publish &lt;snapshot-id&gt;
-seal export --snapshot &lt;snapshot-id&gt; --source dd-492 \
-  --output artifacts/&lt;运行名&gt;/delivery
-seal export verify artifacts/&lt;运行名&gt;/delivery
 
 # 下游 API 仅暴露两个接口：
 curl -H "Authorization: Bearer &lt;token&gt;" "http://127.0.0.1:8000/results?source_id=dd-492"
@@ -179,13 +170,13 @@ curl -H "Authorization: Bearer &lt;token&gt;" "http://127.0.0.1:8000/files/&lt;6
   <section id="acceptance">
     <h2>验收面向最终可见结果</h2>
     <div class="two">
-      <article class="card"><h3>对应与完整性</h3><ul class="rules"><li>16 列 <code>metadata.xlsx</code>、<code>markdown/</code>、<code>originals/</code>、<code>manifest.json</code> 与 <code>GET /results</code>、<code>GET /files/{sha256}</code> 全量对账。</li><li>单文件、连续分卷（<code>文件顺序 = 1, 2...</code>）与同源独立附件拆分准确，顺序不明阻止装配。</li><li>Office 伪装容器、TCVN3 混合编码、混合扫描 PDF 与双引擎 OCR 质量门禁全部可验证。</li><li>搬移包并断网执行 <code>seal export verify</code>，相对路径与 SHA-256 全部通过。</li></ul></article>
-      <article class="card"><h3>状态与故障行为</h3><ul class="rules"><li>旧 <code>/sources</code>、<code>/attachments/{id}</code> 彻底移除；未授权或非已发布快照的 SHA-256 请求一律返回 404。</li><li>批量提交一半退出，接管后补齐，失效 attempt 无法继续写入。</li><li>列表重排不制造假版本；解析器/OCR 升级支持零网络离线重解析。</li><li>缺件、损坏、取消、超限不生成完整交付目录。</li></ul></article>
+      <article class="card"><h3>对应与完整性</h3><ul class="rules"><li><code>GET /results</code> 的 16 列、原件与 Markdown 哈希通过 <code>GET /files/{sha256}</code> 逐字节对账。</li><li>单文件、连续分卷（<code>文件顺序 = 1, 2...</code>）与同源独立附件拆分准确，顺序不明阻止装配。</li><li>Office 伪装容器、TCVN3 混合编码、混合扫描 PDF 与双引擎 OCR 质量门禁全部可验证。</li></ul></article>
+      <article class="card"><h3>状态与故障行为</h3><ul class="rules"><li>旧 <code>/sources</code>、<code>/attachments/{id}</code> 彻底移除；未授权或非已发布快照的 SHA-256 请求一律返回 404。</li><li>批量提交一半退出，接管后补齐，失效 attempt 无法继续写入。</li><li>列表重排不制造假版本；解析器/OCR 升级支持零网络离线重解析。</li><li>缺件、损坏、取消、超限不能伪装为成功版本或完整覆盖。</li></ul></article>
     </div>
   </section>
 
   <footer class="footer">
-    <p>本页是设计可视化，唯一合同见 <a href="../plans/source-adapters-delivery.md">Plan</a>。参考文件见 <a href="../reference/%E6%B3%95%E8%A7%84%E6%A1%88%E4%BE%8B%E5%85%83%E6%95%B0%E6%8D%AE%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF.xlsx">法规案例元数据上传模板.xlsx</a>、<a href="../reference/office_text_extract.py">office_text_extract.py</a> 与 <a href="../reference/production_document_parse.py">production_document_parse.py</a>。</p>
+    <p>本页是设计与实施进度可视化，唯一合同见 <a href="../plans/source-adapters-delivery.md">Plan</a>。参考文件见 <a href="../reference/%E6%B3%95%E8%A7%84%E6%A1%88%E4%BE%8B%E5%85%83%E6%95%B0%E6%8D%AE%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF.xlsx">法规案例元数据上传模板.xlsx</a>、<a href="../reference/office_text_extract.py">office_text_extract.py</a> 与 <a href="../reference/production_document_parse.py">production_document_parse.py</a>。</p>
   </footer>
 </main>
 </body>

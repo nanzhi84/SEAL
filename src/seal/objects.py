@@ -13,7 +13,7 @@ import boto3
 from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
 
-from .core import SealError, atomic_write, canonical, digest
+from .core import SealError, canonical, digest
 
 
 @cache
@@ -131,10 +131,11 @@ class Objects:
                         if len(data) > max_bytes:
                             raise SealError("archive_too_large")
                     body = bytes(data)
+                    data.clear()
             finally:
                 stream.close()
         except ClientError as exc:
-            if max_bytes is not None and exc.response.get("Error", {}).get("Code") == "NoSuchKey":
+            if exc.response.get("Error", {}).get("Code") in {"404", "NoSuchKey", "NotFound"}:
                 raise SealError("archive_missing") from None
             raise SealError("archive_unreadable") from None
         except (BotoCoreError, OSError):
@@ -142,13 +143,6 @@ class Objects:
         if digest(body) != key:
             raise SealError("archive_corrupt")
         return body
-
-    def materialize(self, key, directory=None):
-        body = self.get(key)
-        root = Path(directory) if directory is not None else work_directory() / "downloads"
-        path = root / key
-        atomic_write(path, body)
-        return path.resolve()
 
     def put_json(self, value):
         return self.put(canonical(value))
