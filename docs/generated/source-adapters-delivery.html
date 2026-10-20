@@ -49,7 +49,7 @@
     <h1>一次受控获取，<br>走到 16 列规范表与 SHA-256 直取交付。</h1>
     <p class="lead">将外部原始字节获取与业务解析解耦；把 Office/TCVN3 提取与 PDF 逐页扫描 OCR 质量门禁收编入 <code>src/seal/</code>；对下游仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>，返回 16 列元数据及已归档原件与 Markdown。</p>
     <div class="meta">
-      <span class="badge">阶段 1–3 已实现 · 阶段 4 为设计合同</span>
+      <span class="badge">阶段 1、3 已实现 · 阶段 2 已取消 · 阶段 3 API 复验中 · 阶段 4 待交付</span>
       <span>2026-10-20 · 本地开发阶段</span>
       <a href="../plans/source-adapters-delivery.md">打开唯一 Plan</a>
       <a href="../reference/%E6%B3%95%E8%A7%84%E6%A1%88%E4%BE%8B%E5%85%83%E6%95%B0%E6%8D%AE%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF.xlsx">16 列元数据模板</a>
@@ -154,7 +154,7 @@
       <tbody>
         <tr><td>01 · <code>#31</code> 新主链与精简 API</td><td>Acquisition、<code>seal.inputs.v1</code>、<code>seal.document.v1</code>；将 <code>office_text_extract.py</code> 与 <code>production_document_parse.py</code> 核心逻辑重构入 <code>src/seal/</code>；16 列投影；仅暴露 <code>GET /results</code> 与 <code>GET /files/{sha256}</code>。</td><td>独立新环境 collect → CAS → Version → Snapshot → <code>GET /results</code> &amp; <code>GET /files/{sha256}</code>。</td><td>已实现 · fresh 验收 85 场景 / 491 断言全部通过</td></tr>
         <tr><td>02 · <code>#32</code> 本地导出</td><td>用户于 2026-10-20 取消整个导出能力；PR #36 撤回。</td><td><a href="https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052">用户最终决策</a></td><td>not planned · 已关闭</td></tr>
-        <tr><td>03 · <code>#33</code> 原生来源收编</td><td><code>VietnamLawAdapter</code>（<code>dd-492</code>）取代外部 SQLite 并验证 TCVN3/扫描 PDF/多卷附件；接入一个真实 API/XML 来源并登记入口地图。</td><td>多输入、多文档、分卷/附件经两个 API 端到端核验。</td><td>已实现 · 真实 5 篇 + 19 受控断言 + 4 补验场景</td></tr>
+        <tr><td>03 · <code>#33</code> 原生来源收编</td><td><code>VietnamLawAdapter</code>（<code>dd-492</code>）取代外部 SQLite 并验证 TCVN3/扫描 PDF/多卷附件；接入一个真实 API/XML 来源并登记入口地图。</td><td>多输入、多文档、分卷/附件经两个 API 端到端核验。</td><td>已实现 · API 范围独立复验中</td></tr>
         <tr><td>04 · <code>#34</code> 重检与恢复</td><td><code>recheck_locator</code> 批量重检、零网络离线重解析（OCR/TCVN3/解析器升级）、三完成点崩溃接管、冲突与覆盖报告。</td><td>中断后补齐、不重复、不污染固定快照。</td><td>设计</td></tr>
       </tbody>
     </table></div>

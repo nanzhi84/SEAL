@@ -5,7 +5,7 @@ lang: zh
 
 # 原生 Source Adapter 与统一文件交付
 
-状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3、4 由后续分支交付，2026-10-20。
+状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3 已实现并按 API 范围复验，阶段 4 由后续分支交付，2026-10-20。
 本轮以本地开发为前提，直接采用新数据与结果合同，不设计历史数据迁移、双格式读取或兼容 shim。
 设计基线为 `85a36b5`；未标注已实现的模块、字段和命令仍为待实现设计。
 [唯一可视化](../generated/source-adapters-delivery.html)随本计划同步更新。
@@ -376,17 +376,17 @@ API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`r
 
 两个 Adapter 的 `max_pages` 达限且仍有下一页时持久报告 `page_limit_exceeded`，快照冻结 incomplete / UNKNOWN。`per_page`、`max_pages`、查询条件只决定规划范围，不进入解析器指纹；字段映射等解析语义仍入指纹。逐文档切片哈希和稳定语义选择器避免重排/无关文档变化误升版，真实 locator 始终保留。重复候选使用合法 SHA-256 任务键继续检查同轮输入/内容冲突。JSON 片段正文同样必须通过质量门禁。
 
-复跑需阶段 2 的隔离 PostgreSQL/S3 管理环境，加 LibreOffice、Tesseract `vie` 模型及公开站点网络；每轮自行建新数据库/桶，真实来源范围由测试冻结配置明确限制。
+复跑需调用者显式提供隔离 PostgreSQL/S3 管理环境，加 LibreOffice、Tesseract `vie` 模型及公开站点网络；每轮自行建新数据库/桶，真实来源范围由测试冻结配置明确限制。调用者传入 `SEAL_DATABASE_URL`、`SEAL_S3_ENDPOINT`、`SEAL_S3_ACCESS_KEY`、`SEAL_S3_SECRET_KEY`，模型不在默认路径时传入 `TESSDATA_PREFIX`；也可用 `SEAL_TEST_ENV_FILE` 显式选择环境文件。测试使用启动它的 Python 解释器，不读取个人默认环境文件。
 
 ```sh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py prepare
 PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py controlled --fresh
 PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py real --fresh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_scope.py
 PYTHONPATH=src uv run --no-sync python tests/issue33_blind_final.py
 ```
 
-最终 fresh 验收：19/19 受控断言、真实越南 3 篇 + Federal Register 2 篇全部交付（包含一篇 9 页真实 Tesseract/vie OCR），以及重复候选和仅分页/条件变化的 4 场景补验均通过。真实 5 行与受控 6 行完成 SQL/API/Excel 全 16 列、所有文件字节及 JSON Pointer/XML XPath 对账，移动包的 socket 禁网 verify 通过。
-
-工件 `artifacts/issue33-blind/final-summary.json` 与 `scope/` 记录源码/测试哈希、73 个受控/真实 Acquisition 原文哈希核对和零敏感命中；源码树 SHA-256 为 `37f49830e1fd11845c849fc65d2054d4c045b9ba7ccba2b5f73096a6d43a29e6`。dd-499 的有界采集因仍有下一页而 exit 1 / `page_limit_exceeded`，两篇目标本身成功交付；越南的目标截断与未完整枚举同样在 Snapshot/manifest 保留。未验证全站历史或任意 Office/OCR 文档准确率。
+API 范围独立复验中：保留真实越南 3 篇、Federal Register 2 篇，以及多输入/多文档、真实定位、重排与范围稳定、质量失败等受控场景。验收仅读取 SQL、CAS 和两个 API；取消前文件包测试不计入结果。工件写入 `artifacts/issue33-api-blind/`，最终统计在复验结束后填写。
 
 ## API 文件命名与完整性
 
