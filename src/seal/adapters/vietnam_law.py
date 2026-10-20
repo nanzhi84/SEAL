@@ -80,7 +80,7 @@ def docid(url):
 
 
 class Adapter(WebAdapter):
-    CONTRACT = "seal.adapter.vietnam-law.v1"
+    CONTRACT = "seal.adapter.vietnam-law.v2"
     PLANNING_OPTIONS = ("max_pages",)
 
     @staticmethod
