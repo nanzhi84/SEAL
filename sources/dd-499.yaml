@@ -1,0 +1,42 @@
+# 来源地图：docs/reference/尽职调查核验入口地图.md#dd-499
+# 美国联邦公报官方 API：JSON 列表单响应产生多份文档（JSON Pointer 定位），每篇取 full_text XML
+# 生成 Markdown，GPO PDF 作为原件。仅复用公开端点与字段映射思想，不引入外部 runner 或去重状态。
+# 有界试采：每页 per_page 篇、max_pages 页；样本不代表全历史覆盖。
+id: dd-499
+adapter: federal_register
+adapter_options:
+  per_page: 5
+  max_pages: 1
+  conditions:
+    type: [RULE]
+entry_urls:
+- https://www.federalregister.gov/api/v1
+allowed_hosts:
+- www.federalregister.gov
+- www.govinfo.gov
+host_path_scopes:
+  www.federalregister.gov: [/api/v1, /documents/full_text/xml]
+  www.govinfo.gov: [/content/pkg]
+archive_approved: true
+scope: 美国联邦公报（Federal Register）公开 API 的最终规则文档：列表元数据、full_text XML 正文与 GPO PDF 原件；保留官方来源署名，有界样本不代表全量。
+robots: true
+recheck_seconds: 604800
+concurrency: 2
+delay: 0.5
+budget:
+  requests: 200
+  seconds: 1800
+  response_bytes: 134217728
+  documents: 100
+fetch:
+  mode: http
+  max_depth: 1
+  page_timeout_ms: 120000
+metadata:
+  source_name: Federal Register (federalregister.gov)
+  document_type: 法律法规
+  language: en
+  jurisdiction: US
+ocr:
+  languages: eng
+  dpi: 96
