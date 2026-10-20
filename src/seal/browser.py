@@ -5,6 +5,7 @@ The rendered UTF-8 DOM is an additional representation, not an extra network req
 """
 
 import asyncio
+import base64
 import hashlib
 
 from .core import SealError
@@ -53,43 +54,49 @@ class Browser:
         )
         errors, facts, pending = [], {}, set()
 
-        async def route_input(route):
+        async def route_input(event):
             current = asyncio.current_task()
             pending.add(current)
-            browser_request = route.request
+            request_id = event["requestId"]
+            browser_request = event["request"]
             try:
-                target = guard(self.config, browser_request.url)
+                target = guard(self.config, browser_request["url"])
                 await self.transport.robots.check(target, self.transport.fetch_policy)
-                body = browser_request.post_data_buffer
+                entries = browser_request.get("postDataEntries")
+                body = (
+                    b"".join(base64.b64decode(entry["bytes"]) for entry in entries)
+                    if entries
+                    else browser_request.get("postData", "").encode("utf-8") or None
+                )
                 raw_key = request_key(
                     {
                         "url": target,
-                        "method": browser_request.method,
+                        "method": browser_request["method"],
                         "role": "browser_http",
                         "form": {"body_hash": hashlib.sha256(body).hexdigest()} if body else None,
                     }
                 )
-                previous = facts.get(browser_request.redirected_from)
+                previous = facts.get(event.get("redirectedRequestId"))
                 row = await self.transport.exchange(
                     target,
-                    browser_request.method,
+                    browser_request["method"],
                     body,
                     raw_key,
                     "content",
                     {
                         "rendered_acquisition_id": identity,
-                        "resource_type": browser_request.resource_type,
+                        "resource_type": event["resourceType"],
                     },
                     previous,
                     "redirect" if previous else None,
                     headers={
                         name: value
-                        for name, value in (await browser_request.all_headers()).items()
+                        for name, value in browser_request.get("headers", {}).items()
                         if name.lower()
                         not in {"accept-encoding", "host", "connection", "content-length"}
                     },
                 )
-                facts[browser_request] = row["id"]
+                facts[request_id] = row["id"]
                 if row["state"] != "archived":
                     raise SealError(row["error"] or "network_failed")
                 if row["outcome"] not in {"ok", "redirect"}:
@@ -102,26 +109,47 @@ class Browser:
                     if name.lower()
                     not in {"content-encoding", "content-length", "transfer-encoding", "connection"}
                 }
-                await route.fulfill(
-                    status=row["http_status"],
-                    headers=headers,
-                    body=self.transport.objects.get(row["archive_ref"]),
+                await session.send(
+                    "Fetch.fulfillRequest",
+                    {
+                        "requestId": request_id,
+                        "responseCode": row["http_status"],
+                        "responseHeaders": [
+                            {"name": name, "value": value} for name, value in headers.items()
+                        ],
+                        "body": base64.b64encode(
+                            self.transport.objects.get(row["archive_ref"])
+                        ).decode("ascii"),
+                    },
                 )
             except SealError as exc:
                 errors.append(exc.code)
-                await route.abort("blockedbyclient")
+                await session.send(
+                    "Fetch.failRequest", {"requestId": request_id, "errorReason": "BlockedByClient"}
+                )
             except asyncio.CancelledError:
                 errors.append("interrupted")
                 raise
             except Exception:
                 errors.append("network_failed")
-                await route.abort("failed")
+                await session.send(
+                    "Fetch.failRequest", {"requestId": request_id, "errorReason": "Failed"}
+                )
             finally:
                 pending.discard(current)
 
         try:
-            await context.route("**/*", route_input)
             page = await context.new_page()
+            session = await context.new_cdp_session(page)
+            # Fetch.requestPaused reports every redirect hop. Playwright route handlers
+            # only see the first hop, allowing later scripts to escape acquisition.
+            # https://github.com/ChromeDevTools/devtools-protocol/blob/master/json/browser_protocol.json
+            session.on(
+                "Fetch.requestPaused", lambda event: asyncio.ensure_future(route_input(event))
+            )
+            await session.send(
+                "Fetch.enable", {"patterns": [{"urlPattern": "*", "requestStage": "Request"}]}
+            )
             response = await page.goto(
                 url,
                 wait_until=self.config["fetch"]["wait_until"],
