@@ -28,6 +28,12 @@ def contract(name):
     return load(name).CONTRACT
 
 
+def semantic_options(name, options):
+    """Only parsing semantics enter the parser fingerprint; pagination selects scope."""
+    planning = load(name).PLANNING_OPTIONS
+    return {key: value for key, value in options.items() if key not in planning}
+
+
 def validate_options(name, options):
     adapter = load(name)
     try:
@@ -40,6 +46,7 @@ class Base:
     """Shared defaults; subclasses define CONTRACT and the parsing rules."""
 
     CONTRACT = "seal.adapter.base.v1"
+    PLANNING_OPTIONS = ()
 
     def __init__(self, config):
         self.config = config

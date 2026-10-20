@@ -1,0 +1,37 @@
+{
+  "issue": 33,
+  "created_before_implementation_inspection": true,
+  "scope_revision": "API-only after cancellation of issue 32",
+  "environment_preconditions": [
+    "Use the interpreter that starts the test (sys.executable), with project dependencies installed.",
+    "Caller supplies SEAL_DATABASE_URL and SEAL_S3_ENDPOINT/ACCESS_KEY/SECRET_KEY; test needs isolated CREATE DATABASE/CreateBucket permissions.",
+    "Caller supplies TESSDATA_PREFIX when OCR models are outside the Tesseract default search path.",
+    "Optional SEAL_TEST_ENV_FILE explicitly selects a POSIX shell environment file; no personal file is loaded by default.",
+    "Real source reachability is required; loopback is permitted only for isolated controlled fixtures."
+  ],
+  "business_scope": "Bounded real dd-492 and dd-499, shared acquisition through Snapshot and API-only consumption",
+  "positive_contracts": [
+    "real dd-492 POST pagination persists checkpoint and yields complete legal document body from original inputs",
+    "real dd-499 official stable identity and JSON/XML locator survives the 16-column API projection",
+    "controlled shared response yields multiple independent complete documents with per-document inputs",
+    "one document has ordered volumes 1..n and independently named attachment API rows",
+    "reordered/repeated discovery preserves resource identity and source_record_id",
+    "unrelated document mutation in shared input does not create an unchanged document Version",
+    "document without independent original remains consumable when valid archived body is its source",
+    "absence of public_url does not prevent CAS and API bytes",
+    "all 16 API fields reconcile with SQL; every Markdown/original API byte equals CAS and its SHA-256",
+    "planning-only pagination/conditions changes preserve document versions and fingerprints",
+    "duplicate candidates persist valid task keys and deliver once; enqueue/worker completes the persisted run"
+  ],
+  "failure_boundaries": [
+    "required attachment unavailable -> explicit failure and no partial success delivery",
+    "body fails objective quality threshold -> explicit failure and no gibberish success",
+    "ambiguous volume ordering -> explicit failure",
+    "source structure changes or lacks legal full text -> explicit failure",
+    "out-of-scope URL/challenge page -> explicit failure",
+    "remaining next_page after page cap -> explicit known_gap and incomplete enumeration",
+    "API/SQL fields or API/CAS bytes differ from their recorded identity -> failure",
+    "JSON Pointer/XML XPath does not resolve to archived original input -> failure"
+  ],
+  "reporting_contract": "selected scope; discovered/original-acquired/parsed/quality-passed/API-consumable counts; failures; full-history denominator UNKNOWN; no credentials or personal data in artifacts"
+}

@@ -5,7 +5,7 @@ lang: zh
 
 # 原生 Source Adapter 与统一文件交付
 
-状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3、4 由后续分支交付，2026-10-20。
+状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 3 已实现，阶段 4 由后续分支交付，2026-10-20。
 本轮以本地开发为前提，直接采用新数据与结果合同，不设计历史数据迁移、双格式读取或兼容 shim。
 设计基线为 `85a36b5`；未标注已实现的模块、字段和命令仍为待实现设计。
 [唯一可视化](../generated/source-adapters-delivery.html)随本计划同步更新。
@@ -367,6 +367,28 @@ API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`r
 - `GET /results?source_id=dd-xxx&limit=50&cursor=...`：返回 `{"snapshot_id", "items", "next_cursor"}`，并在有下一页时附 `Link: <...>; rel="next"`。`items` 按 `source_id`、`resource_id`、行号索引直接稳定分页，每项依模板顺序含 15 列中文键（缺失值为空串），另含 `source_id`、`resource_id`、`version_id`、`row_number`、`original_hash`（无独立原件时为 `null`）、`markdown_hash`。`limit` 为 1–100；未授权的 `source_id` 返回 `403`；游标绑定调用方、来源过滤与快照，翻页期间固定在起始快照，篡改或换用返回 `400 invalid_cursor`；未发布返回 `503 snapshot_not_published`。
 - `GET /files/{sha256}`：哈希须属于当前发布快照中调用方授权来源的文件闭包（行原件 `original_hash` 或 `markdown_hash`），否则 `404 file_not_found`。响应字节经 CAS 校验，带真实 `Content-Type`（Markdown 为 `text/markdown; charset=utf-8`）、`Content-Length`、`ETag: "<sha256>"` 和 RFC 5987 `Content-Disposition`（规范文件名）。
 
+## 阶段 3 实现合同（#33）
+
+`VietnamLawAdapter` 收编 [dd-492](../reference/尽职调查核验入口地图.md#dd-492)：列表 GET / ASP.NET DoPostBack POST、详情、原件与多附件全部经 Acquisition；请求、目标、Adapter 页序及截断由持久任务和 Frontier checkpoint 管理。移除 `seal.vietnam_discovery` / `seal.vietnam_documents` 及其 SQLite 编排路径，当前入口只使用 `seal collect` / `--enqueue` + `seal worker`。
+
+[dd-499](../reference/尽职调查核验入口地图.md#dd-499) 登记官方 Federal Register API 入口。JSON 列表元数据保留真实 JSON Pointer，单篇官方 XML 生成完整 Markdown，官方 PDF 作为原件；无官方 PDF 明确失败，不将目录摘要作为全文。单响应多篇完整正文、无展示 URL / 无独立原件的合同，由受控 `listing_body_field` 完整正文夹具补齐，不宣称官方列表提供全文。
+
+两个 Adapter 的 `max_pages` 达限且仍有下一页时持久报告 `page_limit_exceeded`，快照冻结 incomplete / UNKNOWN。`per_page`、`max_pages`、查询条件只决定规划范围，不进入解析器指纹；字段映射等解析语义仍入指纹。逐文档切片哈希和稳定语义选择器避免重排/无关文档变化误升版，真实 locator 始终保留。重复候选使用合法 SHA-256 任务键继续检查同轮输入/内容冲突。JSON 片段正文同样必须通过质量门禁。
+
+复跑需调用者显式提供隔离 PostgreSQL/S3 管理环境，加 LibreOffice、Tesseract `vie` 模型及公开站点网络；每轮自行建新数据库/桶，真实来源范围由测试冻结配置明确限制。调用者传入 `SEAL_DATABASE_URL`、`SEAL_S3_ENDPOINT`、`SEAL_S3_ACCESS_KEY`、`SEAL_S3_SECRET_KEY`，模型不在默认路径时传入 `TESSDATA_PREFIX`；也可用 `SEAL_TEST_ENV_FILE` 显式选择环境文件。测试使用启动它的 Python 解释器，不读取个人默认环境文件。
+
+```sh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py prepare
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py controlled --fresh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_acceptance.py real --fresh
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_scope.py
+PYTHONPATH=src uv run --no-sync python tests/issue33_blind_final.py
+```
+
+最终 API 范围独立验收：19/19 受控断言、4/4 重复/范围稳定场景通过；重新采集真实越南 3 篇与 Federal Register 2 篇（含真实越南语扫描 OCR）。受控 6 行、真实 5 行全部 16 列逐字段与 SQL 对账，两侧各 10 个文件 API 字节与 CAS/SHA-256 全量一致；共享原件真实定位可解析，73 个 Acquisition 原件哈希通过，敏感扫描零命中。
+
+工件 `artifacts/issue33-api-blind/final-summary.json`、`controlled/`、`real/`、`scope/` 保存实际命令、隔离前提、SQL/CAS/API 与定位证据。源码首尾 SHA-256 为 `b72eefeb0c8b295a85610c92be0ac2bdfb628185140d48ad822d246873183aa2`。Federal Register 两篇目标成功但 Run 因仍有下一页而以 `page_limit_exceeded` 失败；越南仅选择 3 篇且其余目标按预算跳过，分页与目标缺口随 Snapshot 保留 incomplete / UNKNOWN。受控完整正文不代表官方列表有全文；不宣称全历史覆盖、法律准确性或 OCR 字符准确率。
+
 ## API 文件命名与完整性
 
 每行对应一个非空 Markdown。单文件或独立附件使用 `<安全化资料名称>_<markdown_hash前8位>.md`（有独立原件时原件名为 `<安全化资料名称>_<original_hash前8位>.<ext>`），连续分卷追加两位卷序（`_01`、`_02`…）。`/results` 直接按索引分页返回持久化的 `markdown_file` 与 `original_file`，不执行全局窗口重命名；同一哈希被多行引用时，下载响应在获授权引用中稳定选择一个规范文件名。
@@ -417,7 +439,7 @@ seal snapshot publish <snapshot-id>
 | 解析器 / OCR / TCVN3 升级与离线重解析 | 零来源网络，新版本可解释；同输入同解析器异输出明确失败 |
 | 固定 Snapshot A 翻页期间采集或发布 B | A 的游标与版本固定，不混入 B；新请求读取新发布快照 |
 
-当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景 + 渲染预算/获取事实 5 场景 + 请求方法 2 场景，共 491 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3、4 由后续分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景 + 渲染预算/获取事实 5 场景 + 请求方法 2 场景，共 491 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已取消，阶段 3 已实现，阶段 4 由后续分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
 
 复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。四个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
 

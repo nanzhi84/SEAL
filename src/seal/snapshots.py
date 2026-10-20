@@ -59,6 +59,7 @@ def coverage(c, source_id):
     gaps = sorted(
         {
             *(report.get("errors") or []),
+            *((report.get("coverage") or {}).get("known_gaps") or []),
             *([report["truncated"]] if report.get("truncated") else []),
         }
     )

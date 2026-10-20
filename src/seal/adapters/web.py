@@ -199,20 +199,12 @@ class Adapter(Base):
         base = acquisition["actual_url"] or acquisition["request_url"]
         return html_to_markdown("<html><body>" + fragment + "</body></html>", base)
 
-    def build(self, ctx, target, inputs):
-        detail, attachments = inputs[0], inputs[1:]
-        acquisition = detail["acquisition"]
-        data = ctx.read(acquisition)
-        kind = detect(data, "html" if acquisition["mime_type"] == "text/html" else "")
-        if kind in TEXT_KINDS and blocked(data, self.config):
-            # Challenge pages, login shells and listings never become document originals.
-            raise SealError("target_content_blocked")
-        meta = dict(self.config["metadata"])
+    def detail_values(self, data, kind, acquisition, url):
+        """Declared field rules on the archived detail input; subclasses map source tables."""
         fields = self.config["documents"]["fields"]
         values = {}
-        url = acquisition["actual_url"] or acquisition["request_url"]
         if kind == "html":
-            tree, text, encoding = parse_html(data, acquisition["charset"])
+            tree, _, encoding = parse_html(data, acquisition["charset"])
             for name, rule in fields.items():
                 values[name] = field_value(tree, tree.text_content(), rule)
             h1 = next(
@@ -232,12 +224,23 @@ class Adapter(Base):
                 None,
             )
             title = values.get("title") or h1 or page_title
-        else:
-            encoding = acquisition["charset"]
-            for name, rule in fields.items():
-                if rule.get("value") is not None:
-                    values[name] = rule["value"]
-            title = values.get("title") or file_name(url)
+            return values, title, encoding
+        for name, rule in fields.items():
+            if rule.get("value") is not None:
+                values[name] = rule["value"]
+        return values, values.get("title") or file_name(url), acquisition["charset"]
+
+    def build(self, ctx, target, inputs):
+        detail, attachments = inputs[0], inputs[1:]
+        acquisition = detail["acquisition"]
+        data = ctx.read(acquisition)
+        kind = detect(data, "html" if acquisition["mime_type"] == "text/html" else "")
+        if kind in TEXT_KINDS and blocked(data, self.config):
+            # Challenge pages, login shells and listings never become document originals.
+            raise SealError("target_content_blocked")
+        meta = dict(self.config["metadata"])
+        url = acquisition["actual_url"] or acquisition["request_url"]
+        values, title, encoding = self.detail_values(data, kind, acquisition, url)
         candidate_inputs = [
             {
                 "acquisition_id": acquisition["id"],

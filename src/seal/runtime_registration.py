@@ -12,6 +12,9 @@ def register(self, result, parent=None, depth=0):
     """Persist follow-up requests/targets and complete the parent in one transaction."""
 
     def apply(c):
+        if result.get("truncated"):
+            self.truncated = result["truncated"]
+            self.checkpoint["truncated"] = self.truncated
         for request in result.get("requests", []):
             self.insert_request(c, request, request.get("depth", depth))
         for target in result.get("targets", []):
@@ -100,7 +103,13 @@ def register(self, result, parent=None, depth=0):
                 """UPDATE seal.frontier SET checkpoint=checkpoint || %s,updated_at=now()
                 WHERE source_id=%s AND run_id=%s""",
                 (
-                    j({"adapter_state": self.checkpoint["adapter_state"]}),
+                    j(
+                        {
+                            k: self.checkpoint[k]
+                            for k in ("adapter_state", "truncated")
+                            if k in self.checkpoint
+                        }
+                    ),
                     self.run["source_id"],
                     self.run_id,
                 ),
