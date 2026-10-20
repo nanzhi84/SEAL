@@ -1,17 +1,18 @@
-"""Bounded, read-only HTTP content service over existing SQL and S3 evidence."""
+"""Bounded, read-only HTTP service: GET /results and GET /files/{sha256} only."""
 
 import asyncio
 import logging
 import time
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
+from urllib.parse import quote
 
 import psycopg
 from aiohttp import web
 
 from . import result_query
 from .api_security import ApiError, Settings, Tokens
-from .core import SealError, public_url
+from .core import SealError
 
 log = logging.getLogger(__name__)
 SERVICE = web.AppKey("service", object)
@@ -76,7 +77,12 @@ async def boundary(request, handler):
     error = None
     try:
         service = request.app[SERVICE]
-        request["caller"] = service.authenticate(request.headers.get("Authorization"))
+        missing = request.match_info.http_exception
+        if missing is not None:
+            # Removed and unknown routes are absent for every caller.
+            raise missing
+        if route != "healthz":
+            request["caller"] = service.authenticate(request.headers.get("Authorization"))
         async with asyncio.timeout(service.settings.request_timeout_seconds):
             response = await handler(request)
     except ApiError as exc:
@@ -101,50 +107,46 @@ async def boundary(request, handler):
         if error.status == 401:
             response.headers["WWW-Authenticate"] = "Bearer"
         log.warning("route=%s status=%s code=%s", route, error.status, error.code)
-    response.headers["Cache-Control"] = "no-store"
-    response.headers["X-Content-Type-Options"] = "nosniff"
+    if not response.prepared:
+        response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Content-Type-Options"] = "nosniff"
     return response
 
 
-async def sources(request):
+async def healthz(request):
     if request.query:
         raise ApiError(400, "invalid_parameters")
-    service = request.app[SERVICE]
-    body = await service.run(request, result_query.sources, service.settings, request["caller"])
-    return web.Response(body=body, content_type="application/json")
+    return web.json_response({"status": "ok"})
 
 
 async def results(request):
     query = request.query
     try:
-        if set(query) - {"source_url", "limit", "cursor"} or any(
+        if set(query) - {"source_id", "limit", "cursor"} or any(
             len(query.getall(key)) != 1 for key in query
         ):
             raise ValueError
-        source_url = query["source_url"]
-        if not source_url or len(source_url) > 8192:
+        source_id = query.get("source_id")
+        if source_id is not None and (len(source_id) > 32 or not source_id.startswith("dd-")):
             raise ValueError
-        source_url = public_url(source_url)
-        value = query.get("limit", "20")
+        value = query.get("limit", "50")
         if not value.isascii() or not value.isdigit() or len(value) > 3:
             raise ValueError
         limit = int(value)
         if not 1 <= limit <= 100:
             raise ValueError
-    except (ValueError, KeyError, SealError):
+    except (ValueError, KeyError):
         raise ApiError(400, "invalid_parameters") from None
     service = request.app[SERVICE]
-    deadline = time.monotonic() + service.settings.request_timeout_seconds
     body, link = await service.run(
         request,
         result_query.results,
         service.settings,
         service.tokens,
         request["caller"],
-        source_url,
+        source_id,
         limit,
         query.get("cursor"),
-        deadline,
     )
     response = web.Response(body=body, content_type="application/json")
     if link:
@@ -152,24 +154,38 @@ async def results(request):
     return response
 
 
-async def attachment(request):
+def disposition(name):
+    fallback = "".join(ch if 32 <= ord(ch) < 127 and ch not in '"\\;' else "_" for ch in name)
+    return "attachment; filename=\"%s\"; filename*=UTF-8''%s" % (fallback, quote(name, safe=""))
+
+
+async def files(request):
     if request.query:
         raise ApiError(400, "invalid_parameters")
     service = request.app[SERVICE]
-    body = await service.run(
+    entry, body = await service.run(
         request,
-        result_query.attachment,
+        result_query.file,
         service.settings,
-        service.tokens,
         request["caller"],
-        request.match_info["attachment_id"],
+        request.match_info["sha256"],
         time.monotonic() + service.settings.request_timeout_seconds,
     )
-    return web.Response(
-        body=body,
-        content_type="application/octet-stream",
-        headers={"Content-Disposition": 'attachment; filename="attachment"'},
+    response = web.StreamResponse(
+        headers={
+            "Content-Type": entry["media_type"],
+            "Content-Length": str(len(body)),
+            "ETag": '"' + entry["sha256"] + '"',
+            "Content-Disposition": disposition(entry["file_name"]),
+            "Cache-Control": "no-store",
+            "X-Content-Type-Options": "nosniff",
+        }
     )
+    await response.prepare(request)
+    for offset in range(0, len(body), 1048576):
+        await response.write(body[offset : offset + 1048576])
+    await response.write_eof()
+    return response
 
 
 async def cleanup(app):
@@ -188,11 +204,9 @@ class ProtocolLog(logging.Filter):
 def application(settings, config_path=None):
     app = web.Application(middlewares=[boundary], client_max_size=1024)
     app[SERVICE] = Service(settings, config_path)
-    app.router.add_get("/sources", sources, name="sources", allow_head=False)
+    app.router.add_get("/healthz", healthz, name="healthz", allow_head=False)
     app.router.add_get("/results", results, name="results", allow_head=False)
-    app.router.add_get(
-        "/attachments/{attachment_id}", attachment, name="attachment", allow_head=False
-    )
+    app.router.add_get("/files/{sha256}", files, name="files", allow_head=False)
     app.on_cleanup.append(cleanup)
     return app
 

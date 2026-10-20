@@ -1,8 +1,8 @@
-"""Four host-local PDF slots shared by all Runs using one SEAL work directory."""
+"""Four host-local extraction slots shared by all Runs using one SEAL work directory."""
 
-import asyncio
 import fcntl
 import os
+import time
 
 from .core import SealError
 from .objects import work_directory
@@ -15,26 +15,33 @@ class PDFSlots:
 
     def check(self):
         if (self.folder / "blocked").exists():
-            raise SealError("pdf_cleanup_failed")
+            raise SealError("extraction_cleanup_failed")
 
-    async def acquire(self, check_active):
+    def try_acquire(self):
+        for index in range(4):
+            slot = os.open(self.folder / str(index), os.O_CREAT | os.O_RDWR, 0o600)
+            try:
+                fcntl.flock(slot, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                os.close(slot)
+            except BaseException:
+                os.close(slot)
+                raise
+            else:
+                return slot
+        return None
+
+    def acquire_blocking(self, active=None):
         while True:
             self.check()
-            check_active()
-            for index in range(4):
-                slot = os.open(self.folder / str(index), os.O_CREAT | os.O_RDWR, 0o600)
-                try:
-                    fcntl.flock(slot, fcntl.LOCK_EX | fcntl.LOCK_NB)
-                except BlockingIOError:
-                    os.close(slot)
-                except BaseException:
-                    os.close(slot)
-                    raise
-                else:
-                    return slot
-            await asyncio.sleep(0.05)
+            if active is not None:
+                active()
+            slot = self.try_acquire()
+            if slot is not None:
+                return slot
+            time.sleep(0.05)
 
     def block(self):
-        # No PDF content, credentials or local input paths enter this marker.
+        # No document content, credentials or local input paths enter this marker.
         marker = os.open(self.folder / "blocked", os.O_CREAT | os.O_WRONLY, 0o600)
         os.close(marker)

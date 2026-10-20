@@ -1,12 +1,43 @@
 """Closed Source configuration; historical Recipe YAML requires explicit migration."""
 
+import re
 from urllib.parse import urlsplit
 
 import yaml
+from lxml import etree
 from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
 from .core import MAX_ORIGINAL_BYTES, SealError, check_address, public_url
 from .scope import paths_for, valid_prefix
+
+DOCUMENT_TYPES = (
+    "法律法规",
+    "政策文件",
+    "案例",
+    "行业标准",
+    "通知公告",
+    "财务报告",
+    "会计准则",
+    "税务资料",
+    "其他",
+)
+FIELD_NAMES = (
+    "title",
+    "document_number",
+    "issuer",
+    "status",
+    "published_at",
+    "effective_at",
+    "expired_at",
+)
+QUALITY_ROUTES = (
+    "accept",
+    "accept_ocr",
+    "accept_with_warning",
+    "vision_reparse_pages",
+    "legacy_font_encoding_recovery",
+)
+ADAPTERS = ("web", "vietnam_law", "federal_register")
 
 
 class UniqueLoader(yaml.SafeLoader):
@@ -34,9 +65,31 @@ def load_file(path):
             raise SealError("invalid_source_config")
         if "recipe" in value:
             raise SealError("legacy_recipe_config_requires_migration")
+        if "crawl4ai" in value:
+            raise SealError("legacy_crawl4ai_config_requires_migration")
         return SourceConfig.model_validate(value)
     except (yaml.YAMLError, ValidationError, OSError):
         raise SealError("invalid_source_config") from None
+
+
+def regex(value):
+    if value is None:
+        return value
+    try:
+        re.compile(value)
+    except re.error:
+        raise ValueError("invalid_regex") from None
+    return value
+
+
+def xpath(value):
+    if value is None:
+        return value
+    try:
+        etree.XPath(value)
+    except etree.XPathError:
+        raise ValueError("invalid_xpath") from None
+    return value
 
 
 class Strict(BaseModel):
@@ -44,33 +97,130 @@ class Strict(BaseModel):
 
 
 class Budget(Strict):
-    requests: int = Field(default=100, ge=1, le=10000)
-    seconds: int = Field(default=120, ge=1, le=3600)
+    requests: int = Field(default=100, ge=1, le=100000)
+    seconds: int = Field(default=120, ge=1, le=86400)
     response_bytes: int = Field(default=10485760, ge=1024, le=MAX_ORIGINAL_BYTES)
+    documents: int = Field(default=10000, ge=1, le=1000000)
 
 
-class CrawlConfig(Strict):
+class FetchConfig(Strict):
     mode: str = Field(default="http", pattern="^(http|rendered_dom)$")
     max_depth: int = Field(default=3, ge=0, le=100)
-    page_timeout_ms: int = Field(default=30000, ge=100, le=300000)
-    word_count_threshold: int = Field(default=1, ge=0, le=10000)
-    css_selector: str | None = Field(default=None, max_length=1000)
+    page_timeout_ms: int = Field(default=30000, ge=100, le=600000)
     wait_until: str = Field(default="domcontentloaded", pattern="^(commit|domcontentloaded|load)$")
+    retries: int = Field(default=2, ge=0, le=5)
+    retry_backoff_seconds: float = Field(default=0.5, ge=0.0, le=60.0)
+
+
+class FieldRule(Strict):
+    """Declarative field mapping on the archived detail HTML; never inferred."""
+
+    xpath: str | None = Field(default=None, max_length=1000)
+    regex: str | None = Field(default=None, max_length=1000)
+    date_format: str | None = Field(default=None, max_length=64)
+    value: str | None = Field(default=None, max_length=2000)
+
+    @field_validator("xpath")
+    @classmethod
+    def valid_xpath(cls, value):
+        return xpath(value)
+
+    @field_validator("regex")
+    @classmethod
+    def valid_regex(cls, value):
+        return regex(value)
+
+    @model_validator(mode="after")
+    def one_source(self):
+        if self.value is not None and (self.xpath or self.regex):
+            raise ValueError("constant_field_rule_is_exclusive")
+        if self.value is None and not (self.xpath or self.regex):
+            raise ValueError("empty_field_rule")
+        return self
+
+
+class DocumentRules(Strict):
+    detail_url_patterns: list[str] = Field(default_factory=list, max_length=50)
+    attachment_url_pattern: str = r"(?i)\.(?:pdf|docx?|rtf|xlsx?|zip)(?:$|[?#])"
+    volume_pattern: str | None = Field(
+        default=r"(?i)(?:phần|quyển|tập|part|vol\.?|volume|卷|第)\s*0*([1-9][0-9]{0,2})\b",
+        max_length=500,
+    )
+    attachment_title: str = Field(default="link_text", pattern="^(link_text|file_name)$")
+    detail_body: str = Field(default="auto", pattern="^(auto|always|never)$")
+    content_xpath: str | None = Field(default=None, max_length=1000)
+    fields: dict[str, FieldRule] = Field(default_factory=dict)
+
+    @field_validator("detail_url_patterns")
+    @classmethod
+    def valid_patterns(cls, values):
+        return [regex(v) for v in values]
+
+    @field_validator("attachment_url_pattern", "volume_pattern")
+    @classmethod
+    def valid_pattern(cls, value):
+        return regex(value)
+
+    @field_validator("content_xpath")
+    @classmethod
+    def valid_content(cls, value):
+        return xpath(value)
+
+    @field_validator("fields")
+    @classmethod
+    def known_fields(cls, value):
+        if set(value) - set(FIELD_NAMES):
+            raise ValueError("unknown_document_field")
+        return value
+
+
+class MetadataDefaults(Strict):
+    source_name: str | None = Field(default=None, max_length=500)
+    document_type: str = Field(default="其他")
+    language: str | None = Field(default=None, max_length=32)
+    jurisdiction: str | None = Field(default=None, max_length=32)
+
+    @field_validator("document_type")
+    @classmethod
+    def controlled(cls, value):
+        if value not in DOCUMENT_TYPES:
+            raise ValueError("invalid_document_type")
+        return value
 
 
 class OCRConfig(Strict):
+    engine: str = Field(default="tesseract", pattern="^(tesseract|br-ocr-v1)$")
     languages: str = Field(
         default="eng+chi_sim+vie", pattern=r"^[a-z_]+(\+[a-z_]+)*$", max_length=128
     )
+    model: str = Field(default="br-ocr-v1", pattern=r"^[A-Za-z0-9._-]{1,64}$")
     timeout_seconds: int = Field(default=180, ge=1, le=3600)
+    poll_seconds: float = Field(default=1.0, ge=0.05, le=30.0)
     max_pages: int = Field(default=200, ge=1, le=10000)
     dpi: int = Field(default=144, ge=72, le=300)
     max_page_pixels: int = Field(default=20000000, ge=10000, le=100000000)
     max_result_bytes: int = Field(default=16777216, ge=1024, le=67108864)
 
 
+class ParserConfig(Strict):
+    office_text_policy: str = Field(default="prefer", pattern="^(prefer|off)$")
+    libreoffice_timeout_seconds: int = Field(default=120, ge=5, le=1800)
+    quality_accept_routes: list[str] = Field(
+        default_factory=lambda: ["accept", "accept_ocr", "accept_with_warning"], min_length=1
+    )
+
+    @field_validator("quality_accept_routes")
+    @classmethod
+    def routes(cls, values):
+        if set(values) - set(QUALITY_ROUTES) or len(set(values)) != len(values):
+            raise ValueError("invalid_quality_route")
+        return sorted(values)
+
+
 class SourceConfig(Strict):
     id: str = Field(pattern=r"^dd-[0-9]{3,}$")
+    adapter: str = Field(default="web")
+    adapter_options: dict = Field(default_factory=dict)
     entry_urls: list[str] = Field(min_length=1, max_length=1000)
     allowed_hosts: list[str] = Field(min_length=1)
     allowed_path_prefixes: list[str] = Field(default_factory=lambda: ["/"], min_length=1)
@@ -79,14 +229,24 @@ class SourceConfig(Strict):
     scope: str = Field(min_length=5, max_length=2000)
     robots: bool = True
     robots_redirect_urls: list[str] = Field(default_factory=list, max_length=20)
-    user_agent: str = Field(default="SEAL/0.3 (+authorized archival crawler)", max_length=256)
+    user_agent: str = Field(default="SEAL/0.4 (+authorized archival crawler)", max_length=256)
     recheck_seconds: int = Field(default=86400, ge=0, le=31536000)
     concurrency: int = Field(default=2, ge=1, le=8)
     delay: float = Field(default=0.1, ge=0.0, le=60.0)
     budget: Budget = Field(default_factory=Budget)
-    crawl4ai: CrawlConfig = Field(default_factory=CrawlConfig)
+    fetch: FetchConfig = Field(default_factory=FetchConfig)
+    metadata: MetadataDefaults = Field(default_factory=MetadataDefaults)
+    documents: DocumentRules = Field(default_factory=DocumentRules)
     ocr: OCRConfig = Field(default_factory=OCRConfig)
+    parser: ParserConfig = Field(default_factory=ParserConfig)
     blocked_patterns: list[str] = Field(default_factory=list, max_length=20)
+
+    @field_validator("adapter")
+    @classmethod
+    def known_adapter(cls, value):
+        if value not in ADAPTERS:
+            raise ValueError("unknown_adapter")
+        return value
 
     @field_validator("entry_urls")
     @classmethod
@@ -100,6 +260,11 @@ class SourceConfig(Strict):
         for url in urls:
             check_address(urlsplit(url).hostname)
         return urls
+
+    @field_validator("blocked_patterns")
+    @classmethod
+    def blockers(cls, values):
+        return [regex(v) for v in values]
 
     @model_validator(mode="after")
     def boundaries(self):
@@ -121,4 +286,7 @@ class SourceConfig(Strict):
             parsed = urlsplit(url)
             if not paths_for(self.model_dump(), parsed.hostname, parsed.path):
                 raise SealError("source_out_of_scope")
+        from .adapters import validate_options
+
+        validate_options(self.adapter, self.adapter_options)
         return self

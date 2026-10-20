@@ -1,4 +1,5 @@
 id: dd-017 # 替换为来源地图中对应入口的稳定 ID
+adapter: web # web（通用网页）；dd-492 使用 vietnam_law
 entry_urls: [https://example.org/]
 allowed_hosts: [example.org]
 allowed_path_prefixes: [/]
@@ -9,16 +10,36 @@ robots_redirect_urls: [] # 仅 robots 获取可访问的精确跳转 URL；不�
 recheck_seconds: 86400
 concurrency: 2
 budget:
-  requests: 100
+  requests: 100 # 真实外部请求（含 robots、重定向、重试）
   seconds: 120
   response_bytes: 10485760
-crawl4ai:
-  mode: http # 原始 HTTP 正文；动态页面使用 rendered_dom，时间线禁止跨模式比较
+  documents: 10000 # 文档目标上限，与请求预算分别控制
+fetch:
+  mode: http # 原始 HTTP 响应实体；动态页面使用 rendered_dom（归档渲染后 DOM UTF-8）
   max_depth: 3
   page_timeout_ms: 30000
-  word_count_threshold: 1
+  retries: 2 # 网络失败与 5xx 的有界重试；每次重试是独立 Acquisition
+# 16 列默认值：资料类型受控枚举 法律法规/政策文件/案例/行业标准/通知公告/财务报告/会计准则/税务资料/其他
+metadata:
+  source_name: 示例机构网站
+  document_type: 其他
+  language: zh # vi 启用越南语质量门禁（TCVN3 乱码、签章块等）
+# 不设 detail_url_patterns 时，每个范围内响应是一个单文件资料；设置后仅详情页成为资料，
+# 其附件链接（attachment_url_pattern）成为必需输入：≥2 个命中 volume_pattern 的附件为连续分卷，
+# 其余为同源独立附件；分卷序号重复或无法判定时阻止装配。
+documents:
+  detail_url_patterns: []
+  # fields:
+  #   title: {xpath: "//h1"}
+  #   document_number: {xpath: "//td[@class='num']", regex: '([0-9]+/[0-9]{4}/[A-Z-]+)'}
+  #   published_at: {xpath: "//td[@class='date']", date_format: '%d/%m/%Y'}
+parser:
+  office_text_policy: prefer # DOCX/RTF 结构化直提优先，LibreOffice 兜底
+  quality_accept_routes: [accept, accept_ocr, accept_with_warning]
 # 按来源正文语言选一组，权重统一使用官方 tessdata_fast；混排需独立校准。
 # 简中 chi_sim: 96 DPI；繁中 chi_tra: 96 DPI；英语 eng: 96 DPI；越南语 vie: 96 DPI。
+# engine: br-ocr-v1 时服务地址取自环境变量 SEAL_BR_OCR_URL。
 ocr:
+  engine: tesseract
   languages: chi_sim
   dpi: 96

@@ -51,9 +51,9 @@ def create_run(source_id, mode, connection):
 
 
 def end_run(c, source, run, status, reason):
-    from .manifest import terminal_report
+    from .progress import terminal_report
 
-    report = terminal_report(c, source, run, status, reason)
+    report = terminal_report(c, run, status, reason)
     c.execute(
         "UPDATE seal.run SET status=%s,completed_at=now(),errors=%s,report=%s WHERE id=%s",
         (status, j(report["errors"]), j(report), run["id"]),
@@ -88,23 +88,18 @@ def begin_attempt(run_id):
         c.execute("UPDATE seal.source SET write_seq=%s WHERE id=%s", (run["run_seq"], source["id"]))
         f = one(c, "SELECT * FROM seal.frontier WHERE source_id=%s FOR UPDATE", (source["id"],))
         if f["run_id"] != run_id:
-            if f["run_id"]:
-                from .manifest import pending_inputs
-
-                # A new collect is a new Run, not a resume. Before replacing the
-                # Source checkpoint, retain the previous Run's unreturned input
-                # evidence (including verified file references) in its own report.
-                pending = pending_inputs(
-                    c, f["run_id"], f["checkpoint"].get("acquired", {}), verify=True
-                )
-                c.execute(
-                    "UPDATE seal.run SET report=(report-'undelivered_inputs') || %s WHERE id=%s",
-                    (j({"undelivered_inputs": pending} if pending else {}), f["run_id"]),
-                )
+            # A new Run is never a resume: its tasks and checkpoint start empty. The
+            # previous Run keeps its own persistent tasks and acquisition facts.
             c.execute(
                 "UPDATE seal.frontier SET run_id=%s,checkpoint='{}',updated_at=now() WHERE id=%s",
                 (run_id, f["id"]),
             )
+        # A taken-over attempt may not finish its own running acquisitions.
+        c.execute(
+            """UPDATE seal.acquisition SET state='abandoned',acquired_at=clock_timestamp(),
+            outcome='abandoned',error='attempt_superseded' WHERE run_id=%s AND state='running'""",
+            (run_id,),
+        )
         c.execute(
             "UPDATE seal.run SET attempt_epoch=attempt_epoch+1,status='running',errors=(SELECT COALESCE(jsonb_agg(value),'[]'::jsonb) FROM jsonb_array_elements(errors) WHERE value #>> '{}' NOT IN ('interrupted','child_process_failed')) WHERE id=%s",
             (run_id,),
@@ -124,7 +119,7 @@ def run_receipt(c, run):
 
     counts = snapshot(c, run).counts
     return {
-        "contract": "seal.receipt.v3",
+        "contract": "seal.receipt.v4",
         "run_id": run["id"],
         "source_id": run["source_id"],
         "config_hash": run["config_hash"],
@@ -138,7 +133,7 @@ def run_receipt(c, run):
         "report": run["report"],
         "summary": {
             "counts": counts,
-            "counts_basis": "run; resumed deliveries deduplicated",
+            "counts_basis": "run tasks, acquisitions and deliveries; resumed deliveries deduplicated",
             "terminal": run["status"] in TERMINAL_STATES,
         },
     }
@@ -169,12 +164,12 @@ def _execute_attempt(run_id, owner, progress, cancel_event=None):
     if epoch is None:
         return receipt(run_id)
     context = run_context(run_id, epoch)
-    # SDK database/log paths are captured at import time. Give the child its own
-    # work directory before loading crawl4ai, rather than its home-directory cache.
+    # Crawl4AI's Markdown generator captures database/log paths at import time.
+    # Give the child its own work directory rather than a home-directory cache.
     sdk_work = work_directory() / "sdk" / run_id / str(epoch)
     sdk_work.mkdir(parents=True, exist_ok=True, mode=0o700)
     process = subprocess.Popen(
-        [sys.executable, "-m", "seal.crawl", run_id, str(epoch), str(os.getpid())],
+        [sys.executable, "-m", "seal.runtime", run_id, str(epoch), str(os.getpid())],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         start_new_session=True,

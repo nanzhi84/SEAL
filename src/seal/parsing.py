@@ -1,4 +1,4 @@
-"""Frozen parser semantics and deterministic identity, independent of persistence."""
+"""Frozen parser semantics and deterministic identities, independent of persistence."""
 
 import os
 import re
@@ -7,15 +7,16 @@ import subprocess
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
-from .config import OCRConfig
 from .core import SealError, digest
-from .pdf_contract import PDF_TEXT_CONTRACT
+from .markdown import MARKDOWN_CONTRACT
+from .office_runtime import OFFICE_CONTRACT, TCVN3_CONTRACT, libreoffice_identity
+from .pdf_scan import INK_THRESHOLD, PDF_CONTRACT, SCAN_INK_RATIO, SCAN_TEXT_CHARS
+from .quality import QUALITY_CONTRACT
 
-# Bump when SEAL changes parsing, normalization or output semantics. Runtime-only
-# scheduling and observability changes do not change this explicit revision.
-ADAPTER_CONTRACT = "seal.parser.v2"
-OUTPUT_CONTRACT = "seal.crawl-result.sha256-cas.v1"
-OCR_TEXT_CONTRACT = "crawl4ai_0_9_5_ocr_v1"
+MANIFEST_ALGORITHM = "seal.parser-manifest.v3"
+FINGERPRINT_ALGORITHM = "seal.fingerprint.v1"
+ZIP_CONTRACT = "seal.zip.v1"
+ALWAYS = ("algorithm", "adapter", "fetch", "markdown")
 
 
 def package(name):
@@ -33,7 +34,7 @@ def ocr_runtime(languages):
 
         def probe(option):
             result = subprocess.run(
-                [executable, option], capture_output=True, timeout=3, check=True
+                [executable, option], capture_output=True, timeout=5, check=True
             )
             if len(result.stdout) > 65536:
                 raise ValueError
@@ -58,105 +59,85 @@ def ocr_runtime(languages):
 
 
 def manifest(config):
-    crawl = config["crawl4ai"]
-    result = {
-        "algorithm": "seal.parser-manifest.v2",
-        "adapter_contract": ADAPTER_CONTRACT,
-        "output_contract": OUTPUT_CONTRACT,
-        "framework_version": package("crawl4ai"),
-        "html": {
-            "dependencies": {name: package(name) for name in ("lxml", "beautifulsoup4", "chardet")},
-            "word_count_threshold": crawl["word_count_threshold"],
-            "css_selector": crawl["css_selector"],
-        },
-        "input_mode": crawl["mode"],
-    }
-    if crawl["mode"] == "rendered_dom":
+    from .adapters import contract
+
+    fetch = {"mode": config["fetch"]["mode"]}
+    if fetch["mode"] == "rendered_dom":
         from .browser_runtime import identity
 
-        result["dom"] = {"wait_until": crawl["wait_until"], "runtime": identity()}
+        fetch.update(wait_until=config["fetch"]["wait_until"], runtime=identity())
+    ocr = config["ocr"]
+    engine = {"engine": ocr["engine"], "contract": "seal.ocr.v1"}
+    if ocr["engine"] == "tesseract":
+        engine.update(
+            languages=ocr["languages"], dpi=ocr["dpi"], runtime=ocr_runtime(ocr["languages"])
+        )
     else:
-        ocr = OCRConfig.model_validate(config.get("ocr", {})).model_dump()
-        result["pdf"] = {
-            "native_contract": PDF_TEXT_CONTRACT,
-            "ocr_contract": OCR_TEXT_CONTRACT,
-            "pypdf": package("pypdf"),
+        engine.update(model=ocr["model"])
+    language = str(config["metadata"].get("language") or "")
+    return {
+        "algorithm": MANIFEST_ALGORITHM,
+        "adapter": {
+            "name": config["adapter"],
+            "contract": contract(config["adapter"]),
+            "rules": digest(
+                {
+                    "adapter_options": config["adapter_options"],
+                    "documents": config["documents"],
+                    "metadata": config["metadata"],
+                }
+            ),
+        },
+        "fetch": fetch,
+        "markdown": {
+            "contract": MARKDOWN_CONTRACT,
+            "crawl4ai": package("crawl4ai"),
+            "lxml": package("lxml"),
+        },
+        "office": {
+            "contract": OFFICE_CONTRACT,
+            "policy": config["parser"]["office_text_policy"],
+            "python-docx": package("python-docx"),
+            "openpyxl": package("openpyxl"),
+            "xlrd": package("xlrd"),
+            "libreoffice": libreoffice_identity(),
+        },
+        "tcvn3": {"contract": TCVN3_CONTRACT},
+        "zip": {"contract": ZIP_CONTRACT},
+        "pdf": {
+            "contract": PDF_CONTRACT,
             "pypdfium2": package("pypdfium2"),
-            "ocr": {k: ocr[k] for k in ("languages", "dpi")},
-            "runtime": ocr_runtime(ocr["languages"]),
-        }
-    return result
+            "thresholds": {
+                "native_text_chars_lt": SCAN_TEXT_CHARS,
+                "ink_ratio_gt": SCAN_INK_RATIO,
+                "ink_gray_lt": INK_THRESHOLD,
+            },
+        },
+        "ocr": engine,
+        "quality": {
+            "contract": QUALITY_CONTRACT,
+            "accept_routes": config["parser"]["quality_accept_routes"],
+            "profile": "vi" if language.startswith("vi") else "generic",
+        },
+    }
 
 
 def require_runtime(config, frozen):
     current = manifest(config)
     if frozen is None or frozen != current:
         raise SealError("parser_runtime_changed_requires_new_run")
-    if (
-        current["input_mode"] == "rendered_dom"
-        and current["dom"]["runtime"]["status"] != "available"
+    if current["fetch"]["mode"] == "rendered_dom" and current["fetch"]["runtime"]["status"] != (
+        "available"
     ):
         raise SealError("browser_runtime_unavailable")
 
 
-def effective(frozen, capture, envelope=None):
+def effective(frozen, used):
+    """The frozen manifest subset that actually produced this document."""
     if frozen is None:
         raise SealError("parser_manifest_required")
-    selected = {
-        k: frozen[k]
-        for k in (
-            "algorithm",
-            "adapter_contract",
-            "output_contract",
-            "framework_version",
-            "input_mode",
-        )
-    }
-    metadata = (envelope or {}).get("result", {}).get("metadata") or {}
-    mime = (
-        next((v for k, v in capture.get("headers", {}).items() if k.lower() == "content-type"), "")
-        .split(";")[0]
-        .strip()
-        .lower()
-    )
-    if frozen["input_mode"] == "http" and (
-        mime == "application/pdf" or metadata.get("pdf_text_contract")
-    ):
-        pdf = frozen["pdf"]
-        selected["pdf"] = {
-            "pypdf": pdf["pypdf"],
-            "text_contract": metadata.get("pdf_text_contract", pdf["native_contract"]),
-        }
-        if (metadata.get("pdf") or {}).get("method") == "ocr":
-            selected["pdf"].update({k: pdf[k] for k in ("pypdfium2", "ocr", "runtime")})
-    else:
-        selected["html"] = frozen["html"]
-        if frozen["input_mode"] == "rendered_dom":
-            selected["dom"] = frozen["dom"]
-    return selected
+    return {k: frozen[k] for k in frozen if k in ALWAYS or k in set(used)}
 
 
-def input_identity(body_hash, input_mode, envelope):
-    # Preserve body_hash semantics and include independent downloaded input files.
-    result = envelope["result"]
-    identity = {
-        "body_hash": body_hash,
-        "input_mode": input_mode,
-        "attachment_refs": sorted(set(envelope["attachment_refs"]) - {body_hash}),
-    }
-    if not (result.get("metadata") or {}).get("pdf_text_contract"):
-        # Raw response bytes alone miss charset changes. This is the actual input
-        # text supplied to the parser, not a digest of generated result JSON.
-        identity["parser_input_hash"] = digest((result.get("html") or "").encode("utf-8"))
-        identity["base_url"] = result.get("redirected_url") or result.get("url")
-    return identity
-
-
-def version_identity(source_input, parser_fingerprint):
-    return digest(
-        {
-            "algorithm": "seal.version-fingerprint.v1",
-            "source_input": source_input,
-            "parser_fingerprint": parser_fingerprint,
-        }
-    )
+def fingerprint(kind, value):
+    return digest({"algorithm": FINGERPRINT_ALGORITHM, "kind": kind, "value": value})

@@ -143,6 +143,19 @@ class Objects:
             raise SealError("archive_corrupt")
         return body
 
+    def head(self, key):
+        """Existence and size of a CAS object (snapshot closure); content verified on read."""
+        self.key(key)
+        try:
+            response = self.client.head_object(Bucket=self.bucket, Key=key)
+        except ClientError as exc:
+            if exc.response.get("Error", {}).get("Code") in {"404", "NoSuchKey", "NotFound"}:
+                raise SealError("archive_missing") from None
+            raise SealError("archive_unreadable") from None
+        except (BotoCoreError, OSError):
+            raise SealError("archive_unreadable") from None
+        return response["ContentLength"]
+
     def materialize(self, key, directory=None):
         body = self.get(key)
         root = Path(directory) if directory is not None else work_directory() / "downloads"

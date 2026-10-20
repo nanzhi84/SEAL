@@ -5,9 +5,9 @@ lang: zh
 
 # 原生 Source Adapter 与统一文件交付
 
-状态：设计合同，2026-10-20；代码实现与业务验收尚未开始。
+状态：阶段 1（[#31](https://github.com/nanzhi84/SEAL/issues/31)）已实现，见[阶段 1 实现合同](#阶段-1-实现合同31)；阶段 2–4 仍为设计合同，2026-10-20。
 本轮以本地开发为前提，直接采用新数据与结果合同，不设计历史数据迁移、双格式读取或兼容 shim。
-当前代码基线为 `85a36b5`；本文中的新模块、字段和命令均为待实现设计。
+设计基线为 `85a36b5`；未标注已实现的模块、字段和命令仍为待实现设计。
 [唯一可视化](../generated/source-adapters-delivery.html)随本计划同步更新。
 
 ## 目标与完整数据流
@@ -303,6 +303,74 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 | `configuration.py` / `runs.py` / `recheck.py` | 冻结 Adapter、Office/OCR/质量参数、队列与重检计划；取消 `input_mode` 绑定整条资源时间线的旧假设 |
 | `snapshots.py` | 只读新模型并验证对象闭包（含原件与 `.md` 哈希），固定版本集合、16 列投影与来源覆盖描述 |
 | 独立 `export.py` 模块 / CLI | 显式 Snapshot 读取、16 列 `metadata.xlsx` 和文件物化、包校验、原子完成回执 |
+
+## 阶段 1 实现合同（#31）
+
+本节记录阶段 1 已落地的可执行合同；与上文设计冲突时以本节为准。
+
+### 运行环境与初始化
+
+- 新合同由迁移 `0015_source_adapters.sql` 建立；它只接受空的新数据库（`seal.source`、`seal.run`、`seal.resource`、`seal.snapshot` 均无记录），否则 `seal init` 以 `source_adapter_contract_requires_new_database` 拒绝，绝不改写既有内容。
+- 依赖新增 `python-docx`、`openpyxl`、`xlrd`；`.doc` 与 RTF 兜底需要可执行的 LibreOffice（`soffice`，可用 `SEAL_SOFFICE` 指定路径），缺失时相关文档以 `libreoffice_unavailable` 明确失败。扫描页 OCR 使用本机 `tesseract`（可用 `SEAL_TESSERACT`）或 `br-ocr-v1`（服务根地址取自 `SEAL_BR_OCR_URL`，如 `http://host:7555/api/v1`）。
+- 隔离验收可设 `SEAL_ALLOW_LOOPBACK=1` 采集 `127.0.0.1` 来源；正式来源仍拒绝非公网地址。
+
+### Source 配置（`sources/dd-xxx.yaml`）
+
+保留既有 `id`、`entry_urls`、`allowed_hosts`、`allowed_path_prefixes`、`host_path_scopes`、`archive_approved`、`scope`、`robots`、`robots_redirect_urls`、`user_agent`、`recheck_seconds`、`concurrency`、`delay`、`blocked_patterns`；旧 `crawl4ai:` 键以 `legacy_crawl4ai_config_requires_migration` 拒绝。新增或改名字段：
+
+| 字段 | 默认 | 语义 |
+|---|---|---|
+| `adapter` | `web` | `web`（通用网页）；`vietnam_law`、`federal_register` 属阶段 3 |
+| `adapter_options` | `{}` | 由 Adapter 校验的来源专用参数 |
+| `budget.requests` / `seconds` / `response_bytes` | 100 / 120 / 10 MiB | 真实外部请求数（含 robots、每个重定向跳、每次重试）、单次尝试时间、单响应字节上限 |
+| `budget.documents` | 10000 | 每个 Run 可登记的文档目标上限；超出部分记为 `document_budget_exceeded` 截断 |
+| `fetch.mode` | `http` | `http` 归档 HTTP 响应实体字节；`rendered_dom` 归档渲染后 DOM UTF-8 |
+| `fetch.max_depth` / `page_timeout_ms` / `wait_until` | 3 / 30000 / `domcontentloaded` | 链接发现深度（仅 collect）与单请求超时 |
+| `fetch.retries` / `retry_backoff_seconds` | 2 / 0.5 | 网络失败与 5xx 的有界重试，每次重试是关联前次的独立 Acquisition |
+| `metadata.source_name` / `document_type` / `language` / `jurisdiction` | 空 / `其他` / 空 / 空 | 16 列 `来源名称`、`资料类型`（受控枚举）；`language` 以 `vi` 开头时启用越南语质量规则 |
+| `documents.detail_url_patterns` | `[]` | 正则（匹配完整 URL）。为空时每个范围内响应各为一份单文件资料；非空时仅匹配页为资料，其余页只做导航 |
+| `documents.attachment_url_pattern` | PDF/DOC/DOCX/RTF/XLS/XLSX/ZIP 后缀 | 详情页中作为必需输入的附件链接（仅当 `detail_url_patterns` 非空时生效） |
+| `documents.volume_pattern` | 匹配 `Phần/Quyển/Tập/Part/Vol/卷/第 N` | 依次作用于链接文字与文件名；≥2 个附件命中时成为连续分卷（`文件顺序`），序号重复或不连续即 `volume_order_ambiguous` |
+| `documents.attachment_title` | `link_text` | 独立附件 `资料名称` 取链接文字（为空时取文件名）或 `file_name` |
+| `documents.detail_body` | `auto` | `auto`：无附件时详情页本身为单文件原件；`always`：详情页总为主文件；`never`：仅附件 |
+| `documents.content_xpath` | 空 | HTML 正文区域 XPath；为空取 `<body>` |
+| `documents.fields.<名>` | 空 | `title`、`document_number`、`issuer`、`status`、`published_at`、`effective_at`、`expired_at` 的声明式规则：`xpath`（取首个命中文本）、`regex`（取 `value` 命名组或第 1 组）、`date_format`（`strptime`，输出 `YYYY-MM-DD`）或常量 `value`；未命中留空，不推断 |
+| `parser.office_text_policy` | `prefer` | `prefer` 结构化直提优先；`off` 直接走 LibreOffice |
+| `parser.libreoffice_timeout_seconds` | 120 | 单次 LibreOffice 转换超时（独立 profile、独立进程组） |
+| `parser.quality_accept_routes` | `accept`、`accept_ocr`、`accept_with_warning` | 允许形成成功版本的 `quality_check` 路由；其余以 `quality_check_failed:<route>` 失败 |
+| `ocr.engine` | `tesseract` | `tesseract` 或 `br-ocr-v1`；另有 `languages`、`dpi`、`model`、`timeout_seconds`、`poll_seconds`、`max_pages`、`max_page_pixels`、`max_result_bytes` |
+
+资料标题缺省依次取 `fields.title`、页面首个 `<h1>`、`<title>`（非 HTML 取文件名）。分卷与附件规则：≥2 个分卷时详情页只作 `context` 输入；无分卷时，`detail_body=auto` 且有附件则首个附件为主文件、其余为独立附件。每个附件都是必需输入：任一附件获取失败、类型不支持、解析或质量门禁失败，该资料整体失败，不提交部分成功。
+
+### 数据库与不可变事实
+
+| 表 | 职责 |
+|---|---|
+| `seal.acquisition` | 每次真实外部请求一条：`request_key`、`acquisition_kind`（`http`/`rendered_dom`）、`role`（`content`/`policy`）、`parent_acquisition_id` + `parent_relation`（`redirect`/`retry`）、表示信息、`state`（`running → archived/failed/cancelled/abandoned`）；终态由触发器禁止修改，接管时旧 attempt 的 `running` 记为 `abandoned` |
+| `seal.task` / `seal.task_input` | 请求任务（`pending → archived → done`/`failed`）与文档目标（`pending → done/failed/skipped`）及其输入；后续请求与目标在完成父请求的同一事务内登记 |
+| `seal.resource` | `frontier_id + identity_namespace + external_key`（非空），可空 `public_url`，独立 `recheck_locator` |
+| `seal.observation` / `seal.observation_evidence` / `seal.delivery_conflict` | 每 `run_id + resource_id` 一次交付（`created`/`changed`/`unchanged`/`failed`），追加的获取证据与同键冲突记录；全部只追加 |
+| `seal.version` / `seal.delivery_row` | 不可变版本（四重指纹、`result_ref`、`inputs_ref`、`change_reason`）及其 16 列交付行 |
+| `seal.snapshot*` / `seal.publication` | 固定版本映射、冻结覆盖描述（`snapshot_source.coverage`）、可下载文件闭包（`snapshot_file`）与显式发布指针 |
+
+`change_reason` 取 `first_success`、`source_changed`、`parser_changed`、`both_changed`（离线重解析为 `parser_recomputed`）。版本指纹相同而 `content_hash` 不同记为 `nondeterministic_parser_output` 失败观察与冲突记录；同轮同键而三指纹不同记为 `delivery_key_conflict`，均不覆盖已有结果。Web Adapter 的资源身份为 `identity_namespace=url`、`external_key=` 规范化请求 URL；`来源记录号` 为 `{source_id, namespace, external_key}` 的具名 SHA-256。`采集时间` 取该行原件 Acquisition 的完成时间，按 UTC 输出。
+
+### 命令与 API
+
+```sh
+seal init
+seal collect sources/dd-xxx.yaml [--enqueue] [--no-progress]
+seal recheck sources/dd-xxx.yaml          # 冻结到期 Resource 的 recheck_locator 重检
+seal worker [--once]
+seal snapshot create [--version-overrides overrides.json]
+seal snapshot list | inspect <id> | publish <id>
+seal serve --config api.json
+```
+
+API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`request_timeout_seconds`、`page_max_bytes` 之外以 `file_max_bytes`（默认 128 MiB）取代 `result_max_bytes` / `attachment_max_bytes`。除不鉴权的 `GET /healthz` 外，仅有两个接口；其他路径（含 `/sources`、`/attachments/*`）对任何调用方都返回 `404`：
+
+- `GET /results?source_id=dd-xxx&limit=50&cursor=...`：返回 `{"snapshot_id", "items", "next_cursor"}`，并在有下一页时附 `Link: <...>; rel="next"`。`items` 按 `source_id`、`resource_id`、行号稳定排序，每项依模板顺序含 16 列中文键（缺失值为空串），另含 `source_id`、`resource_id`、`version_id`、`row_number`、`markdown_hash`。`limit` 为 1–100；未授权的 `source_id` 返回 `403`；游标绑定调用方、来源过滤与快照，翻页期间固定在起始快照，篡改或换用返回 `400 invalid_cursor`；未发布返回 `503 snapshot_not_published`。
+- `GET /files/{sha256}`：哈希须属于当前发布快照中调用方授权来源的文件闭包（行原件 `文件哈希` 或 `markdown_hash`），否则 `404 file_not_found`。响应字节经 CAS 校验，带真实 `Content-Type`（Markdown 为 `text/markdown; charset=utf-8`）、`Content-Length`、`ETag: "<sha256>"` 和 RFC 5987 `Content-Disposition`（规范文件名）。
 
 ## 文件交付合同（`seal export`）
 
