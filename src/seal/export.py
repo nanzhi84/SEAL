@@ -71,6 +71,10 @@ def check_rows(rows):
             raise SealError("metadata_hash_invalid")
         if not MOMENT.fullmatch(row["采集时间"]):
             raise SealError("metadata_time_invalid")
+        try:
+            datetime.strptime(row["采集时间"], "%Y-%m-%d %H:%M:%S")
+        except ValueError:
+            raise SealError("metadata_time_invalid") from None
         for column in ("发布日期", "生效日期", "失效日期"):
             if row[column]:
                 if not DAY.fullmatch(row[column]):
@@ -174,6 +178,10 @@ def verify_package(directory):
         or counts.get("rows") != len(rows)
         or counts.get("markdown_files") != len({r["解析后文件"] for r in rows})
         or counts.get("original_files") != len({r["原始文件"] for r in rows if r["原始文件"]})
+        or counts.get("documents")
+        != len({(r.get("source_id"), r.get("resource_id")) for r in lineage})
+        or manifest.get("columns") != list(COLUMNS)
+        or manifest.get("data_start_row") != DATA_START
     ):
         raise SealError("delivery_manifest_mismatch")
     for number, (row, item) in enumerate(zip(rows, lineage, strict=True), DATA_START):
@@ -217,6 +225,13 @@ def collect_rows(snapshot_id, sources):
         selected = sorted(set(sources)) if sources else sorted(frozen)
         if not selected or any(s not in frozen for s in selected):
             raise SealError("export_source_not_in_snapshot")
+        count = c.execute(
+            """SELECT count(*) FROM seal.snapshot_item i JOIN seal.delivery_row d
+            ON d.version_id=i.version_id WHERE i.snapshot_id=%s AND i.source_id=ANY(%s)""",
+            (snapshot_id, selected),
+        ).fetchone()["count"]
+        if count > MAX_ROWS:
+            raise SealError("metadata_capacity_exceeded")
         rows, after = [], ("", "", 0)
         while True:
             page = snapshot_rows(c, snapshot_id, selected, after, 1000)
