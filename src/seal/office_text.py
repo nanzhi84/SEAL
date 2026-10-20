@@ -192,8 +192,18 @@ def extract_rtf_plain_text(raw):
                 if value < 0:
                     value += 65536
                 if not stack[-1]:
-                    output.append(chr(value))
-                pending_skip = unicode_skip
+                    ch = chr(value) if 0 <= value <= 0x10FFFF else "\ufffd"
+                    if (
+                        0xDC00 <= value <= 0xDFFF
+                        and output
+                        and len(output[-1]) == 1
+                        and 0xD800 <= ord(output[-1]) <= 0xDBFF
+                    ):
+                        high = ord(output.pop())
+                        output.append(chr(0x10000 + ((high - 0xD800) << 10) + (value - 0xDC00)))
+                    else:
+                        output.append(ch)
+                    pending_skip = unicode_skip
             elif not stack[-1] and lower in RTF_CONTROL_TEXT:
                 output.append(RTF_CONTROL_TEXT[lower])
             continue
@@ -205,7 +215,8 @@ def extract_rtf_plain_text(raw):
                 pending_skip -= consumed
             if not stack[-1]:
                 output.append(chunk)
-    value = compact("".join(output))
+    cleaned = ["\ufffd" if len(c) == 1 and 0xD800 <= ord(c) <= 0xDFFF else c for c in output]
+    value = compact("".join(cleaned))
     if len(value) < 8:
         raise SealError("rtf_direct_text_unusable")
     return value + "\n"

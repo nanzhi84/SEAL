@@ -10,7 +10,7 @@ def plan_recheck(c, source, config):
         (source["id"], config["budget"]["documents"] + 1),
     ).fetchall()
     selected = rows[: config["budget"]["documents"]]
-    return [], {
+    return {
         "selection": "due_resources",
         "resource_count": len(selected),
         "truncated": len(rows) > len(selected),

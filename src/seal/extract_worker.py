@@ -5,7 +5,11 @@ parent because third-party tools can echo document text or local paths.
 """
 
 import json
+import os
+import signal
 import sys
+import threading
+import time
 from pathlib import Path
 
 from .core import SealError
@@ -83,7 +87,20 @@ def extract(path, kind, job, depth=0):
     raise SealError("unsupported_document_type")
 
 
+def watch_parent(parent_pid):
+    while True:
+        if os.getppid() != parent_pid:
+            try:
+                os.kill(os.getpid(), signal.SIGTERM)
+            except OSError:
+                pass
+            return
+        time.sleep(0.1)
+
+
 def main():
+    signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(SystemExit(143)))
+    threading.Thread(target=watch_parent, args=(os.getppid(),), daemon=True).start()
     job = json.loads(sys.stdin.read())
     try:
         markdown, info, report, parsers, members = extract(Path(job["path"]), job["kind"], job)

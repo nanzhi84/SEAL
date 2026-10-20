@@ -27,6 +27,7 @@ def failure_category(error):
         "document_body_missing",
         "document_deliverables_required",
         "document_missing_from_batch",
+        "reparse_input_unavailable",
     }:
         return "required_input_missing"
     if code in {"inputs_unavailable", "page_limit_exceeded"}:

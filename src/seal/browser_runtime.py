@@ -17,14 +17,6 @@ BROWSER = "chromium-headless-shell"
 INSTALL_MARKERS = {"INSTALLATION_COMPLETE", "DEPENDENCIES_VALIDATED"}
 
 
-def adapter():
-    # Keep the execution driver and identity probe coupled. Crawl4AI's ordinary
-    # adapter uses Playwright; Patchright is only used by its UndetectedAdapter.
-    from crawl4ai.browser_adapter import PlaywrightAdapter
-
-    return PlaywrightAdapter()
-
-
 def bundle_identity(root, deadline):
     entries = []
     executable = False

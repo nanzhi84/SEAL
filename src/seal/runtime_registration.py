@@ -20,9 +20,10 @@ def register(self, result, parent=None, depth=0):
         for target in result.get("targets", []):
             key = target_key(target)
             count = c.execute(
-                """SELECT count(DISTINCT (payload#>>'{identity,namespace}',
-                payload#>>'{identity,external_key}')) AS n FROM seal.task
-                WHERE run_id=%s AND kind='target'""",
+                """SELECT count(DISTINCT (
+                    COALESCE(payload #>> '{identity,namespace}', key),
+                    COALESCE(payload #>> '{identity,external_key}', key)
+                )) AS n FROM seal.task WHERE run_id=%s AND kind='target'""",
                 (self.run_id,),
             ).fetchone()["n"]
             exists = c.execute(

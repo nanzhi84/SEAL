@@ -238,7 +238,7 @@ def child(case):
         if case == "volumes":
 
             def mapping(rr):
-                return {int(r["文件顺序"]): r["文件哈希"] for r in rr}
+                return {int(r["文件顺序"]): r["original_hash"] for r in rr}
 
             am, bm = mapping(a_rows), mapping(b_rows)
             t.check(

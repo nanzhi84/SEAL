@@ -110,7 +110,7 @@ JSON/XML 是否可处理由 Adapter 能力决定，增加 MIME 白名单本身�
 
 ## 文档解析、Office/TCVN3 提取与 PDF/OCR 质量门禁（重构入 `src/seal/`）
 
-将参考脚本 [office_text_extract.py](../reference/office_text_extract.py) 与 [production_document_parse.py](../reference/production_document_parse.py) 的核心逻辑重构并入 `src/seal/`，所有解析器统一通过 `Objects.materialize(archive_ref)` 从已归档的 CAS 对象读取输入，严禁在解析阶段直接读取未归档内存或重发外部网络请求：
+将参考脚本 [office_text_extract.py](../reference/office_text_extract.py) 与 [production_document_parse.py](../reference/production_document_parse.py) 的核心逻辑重构并入 `src/seal/`，所有解析器统一通过 `Objects.get(archive_ref)` 从已归档的 CAS 对象读取输入，严禁在解析阶段直接读取未归档内存或重发外部网络请求：
 
 ### 1. Office、伪装容器与越南语历史字体提取（源自 `office_text_extract.py`）
 
@@ -182,7 +182,7 @@ public_url 是可空展示地址；重检通过独立 locator，不以展示 URL
 | metadata | `title`（`资料名称`）、`document_type`（受控枚举映射至 `资料类型`）、`document_number`（`文号/案号`）、`issuer`（`发布机构`）、`status`（`状态`）、`source_name`（`来源名称`）、`language`、`jurisdiction`；不推断填补未知值 |
 | dates | `published_at`（`发布日期`）、`effective_at`（`生效日期`）、`expired_at`（`失效日期`）、`acquired_at`（`采集时间`）等具名日期；来源更新日不能冒充发布日 |
 | content.markdown | 主文档或单文件候选必需的非空规范 Markdown 正文；它的 UTF-8 字节同步存入 CAS 并记录 64 位 `markdown_hash` |
-| deliverables | 1..N 个交付单元（对应 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 的每一行）：含单文件、同一资料连续分卷（`volume_order = 1, 2...`）或同源独立附件，每项绑定各自的 `markdown_ref`（64 位 SHA-256）、`original_file_ref`（可空，64 位 SHA-256）、`file_hash`（`文件哈希`）、规范化文件名与质量报告 |
+| deliverables | 1..N 个交付单元（对应 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 的每一行）：含单文件、同一资料连续分卷（`volume_order = 1, 2...`）或同源独立附件，每项绑定各自的 `markdown_ref`（64 位 SHA-256）、`original_file_ref`（可空，64 位 SHA-256）、规范化文件名与质量报告 |
 | extraction | 原解析输出格式 `text` / `markdown`、实际 Adapter / Office / OCR parser 身份、TCVN3 恢复标记、`quality_check` 报告及 Markdown 转换合同 |
 | tables / links / media | 经类型与边界校验的结构化内容，保持真实来源语义 |
 | files | `ref`、`role`（`primary` / `volume` / `independent_attachment` / `source_response` / `derived`）、`original_name`、`media_type`、`byte_size`、`source_url`、`volume_order`、实际 `locator` |
@@ -241,35 +241,34 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 开发 schema 直接采用新合同，删除单响应外键及被替代的内部路径；不做存量回填、旧封装读取
 或迁移过渡字段。已有 SQL 及 S3 内容不会因编写方案而被删除；实施验证使用独立新建环境。
 
-## 16 列交付模型与精简 API（仅保留 `GET /results` 与 `GET /files/{sha256}`）
+## 交付模型与精简 API（仅保留 `GET /results` 与 `GET /files/{sha256}`）
 
-### 1. 16 列规范模型（严格对齐 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx)）
+### 1. 交付行规范模型（对齐 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx)）
 
-`GET /results` 返回的记录采用与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 完全一致的 16 列业务契约及行拆分规则：
+`GET /results` 返回的记录在移除中文 `文件哈希` 列后保留 15 列中文业务字段，并统一暴露 `original_hash`（对应原件 SHA-256，无独立原件时为 `null`）与 `markdown_hash`（对应解析后的 Markdown SHA-256）：
 
-- **行粒度**：**一行对应一个解析后 `.md` 文件 + 一个物理文件哈希（`文件哈希`）**。
+- **行粒度**：**一行对应一个解析后 `.md` 文件（`markdown_hash`）+ 一个可选原件（`original_hash`）**。
   - **单文件资料**：占 1 行，`文件顺序` 留空。
-  - **同一资料的连续分卷（如某部法律的正文卷 1、卷 2）**：拆分为多行，重复填写相同的 `资料名称` 与 `来源记录号`，`文件顺序` 依次填 `1`、`2`…，每行对应各自的 `解析后文件`（`<资料名称>_<文件哈希前8位>_01.md`）、`原始文件`（`<资料名称>_<文件哈希前8位>_01.<ext>`）与 `文件哈希`。若多卷顺序无法可靠判定，阻止装配并报错，禁止按返回顺序猜测卷序。
-  - **同来源下的独立附件（如配套通知、修订说明、独立附表）**：拆分为独立行，填写各自的 `资料名称`、`解析后文件`、`原始文件` 与 `文件哈希`，`文件顺序` 留空，共享同一 `来源记录号` 与 `来源详情页`。
+  - **同一资料的连续分卷（如某部法律的正文卷 1、卷 2）**：拆分为多行，重复填写相同的 `资料名称` 与 `来源记录号`，`文件顺序` 依次填 `1`、`2`…，每行对应各自的 `解析后文件`（`<资料名称>_<markdown_hash前8位>_01.md`）、`原始文件`（`<资料名称>_<original_hash前8位>_01.<ext>`）、`original_hash` 与 `markdown_hash`。若多卷顺序无法可靠判定，阻止装配并报错，禁止按返回顺序猜测卷序。
+  - **同来源下的独立附件（如配套通知、修订说明、独立附表）**：拆分为独立行，填写各自的 `资料名称`、`解析后文件`、`原始文件`、`original_hash` 与 `markdown_hash`，`文件顺序` 留空，共享同一 `来源记录号` 与 `来源详情页`。
 
 | 列序 | 字段名称 | 是否必填 | 规范语义与格式 |
 |---|---|---|---|
 | 1 | `资料名称` | 必填 | 资料正式名称或来源标题；连续分卷重复填写相同名称，独立附件填写各自名称 |
-| 2 | `解析后文件` | 必填 | 实际交付的 Markdown 文件名并保留 `.md`（统一按 `<资料名称>_<文件哈希前8位>[_<序号>].md` 重命名，批次内唯一） |
+| 2 | `解析后文件` | 必填 | 实际交付的 Markdown 文件名并保留 `.md`（按 `<资料名称>_<markdown_hash前8位>[_<卷序>].md` 命名） |
 | 3 | `资料类型` | 必填 | 受控枚举：`法律法规`、`政策文件`、`案例`、`行业标准`、`通知公告`、`财务报告`、`会计准则`、`税务资料`、`其他` |
-| 4 | `文件哈希` | 必填 | 当前行对应单个文件在 CAS/OSS 中的完整 64 位小写十六进制 SHA-256（有原件填原件 SHA-256；无独立原件填 `.md` 的 SHA-256） |
-| 5 | `采集时间` | 必填 | 实际采集时间，固定格式 `YYYY-MM-DD HH:MM:SS` |
-| 6 | `原始文件` | 可选 | 有原件时填写重命名后的原始文件名并保留扩展名（`<资料名称>_<文件哈希前8位>[_<序号>].<ext>`）；无独立原件留空，不编造 |
-| 7 | `文件顺序` | 可选 | 仅用于同一 `资料名称` 同一版本的连续分卷，填写正整数 `1`、`2`…；单文件或独立附件留空 |
-| 8 | `文号/案号` | 可选 | 按资料类型填写官方文号、案号、标准号或报告编号；无则留空 |
-| 9 | `发布机构` | 可选 | 制定机关、发布机构、裁判法院或报告出具机构的正式名称 |
-| 10 | `发布日期` | 可选 | 正式公布、发布或裁判日期，格式 `YYYY-MM-DD`；来源更新日不得冒充发布日 |
-| 11 | `生效日期` | 可选 | 明确施行、生效或适用起始日期，格式 `YYYY-MM-DD`；不适用留空 |
-| 12 | `失效日期` | 可选 | 来源明确记载的失效或终止日期，格式 `YYYY-MM-DD`；未记载留空 |
-| 13 | `状态` | 可选 | 来源明确记载的效力状态（如 `有效`、`已废止`、`失效` 等）；未记载留空 |
-| 14 | `来源名称` | 可选 | 实际取得资料或元数据的官方数据库、机构网站名称 |
-| 15 | `来源详情页` | 可选 | 可核验的原始发布详情页完整 URL，优先官方来源，不填搜索结果页；无独立详情页留空 |
-| 16 | `来源记录号` | 可选 | 来源记录稳定标识的 64 位小写十六进制 SHA-256（同一来源详情页下可包含多份不同名称资料或多个连续分卷） |
+| 4 | `采集时间` | 必填 | 实际采集时间，固定格式 `YYYY-MM-DD HH:MM:SS` |
+| 5 | `原始文件` | 可选 | 有原件时填写重命名后的原始文件名并保留扩展名（`<资料名称>_<original_hash前8位>[_<卷序>].<ext>`）；无独立原件留空，不编造 |
+| 6 | `文件顺序` | 可选 | 仅用于同一 `资料名称` 同一版本的连续分卷，填写正整数 `1`、`2`…；单文件或独立附件留空 |
+| 7 | `文号/案号` | 可选 | 按资料类型填写官方文号、案号、标准号或报告编号；无则留空 |
+| 8 | `发布机构` | 可选 | 制定机关、发布机构、裁判法院或报告出具机构的正式名称 |
+| 9 | `发布日期` | 可选 | 正式公布、发布或裁判日期，格式 `YYYY-MM-DD`；来源更新日不得冒充发布日 |
+| 10 | `生效日期` | 可选 | 明确施行、生效或适用起始日期，格式 `YYYY-MM-DD`；不适用留空 |
+| 11 | `失效日期` | 可选 | 来源明确记载的失效或终止日期，格式 `YYYY-MM-DD`；未记载留空 |
+| 12 | `状态` | 可选 | 来源明确记载的效力状态（如 `有效`、`已废止`、`失效` 等）；未记载留空 |
+| 13 | `来源名称` | 可选 | 实际取得资料或元数据的官方数据库、机构网站名称 |
+| 14 | `来源详情页` | 可选 | 可核验的原始发布详情页完整 URL，优先官方来源，不填搜索结果页；无独立详情页留空 |
+| 15 | `来源记录号` | 可选 | 来源记录稳定标识的 64 位小写十六进制 SHA-256（同一来源详情页下可包含多份不同名称资料或多个连续分卷） |
 
 ### 2. 删除旧接口，仅暴露 `GET /results` 与 `GET /files/{sha256}`
 
@@ -277,10 +276,10 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 
 1. **`GET /results`**：
    - **鉴权与快照**：要求有效的调用方 Bearer token；仅读取当前已发布 `Snapshot`（`published_snapshot_id`）内调用方已授权 `source_id` 集合的数据。未发布快照时返回 `503 Service Unavailable`。
-   - **查询参数**：支持 `source_id`（可选，过滤单个已授权来源）、`limit`（默认 `50`，最大 `100`）、`cursor`（基于交付行稳定序的游标分页）。
-   - **响应结构**：`items` 数组每项對應上述 16 列规范字段（同时提供 `source_id`、`resource_id`、`version_id` 与解析后 Markdown 的 64 位 SHA-256 `markdown_hash`，以便下游分别用 `文件哈希` 和 `markdown_hash` 调用 `GET /files/{sha256}` 下载原始文件与解析后 `.md` 文件）。
+   - **查询参数**：支持 `source_id`（可选，过滤单个已授权来源）、`limit`（默认 `50`，最大 `100`）、`cursor`（基于交付行稳定序直接按索引分页，无全局窗口消歧）。
+   - **响应结构**：`items` 数组每项对应上述 15 列中文规范字段，同时提供 `source_id`、`resource_id`、`version_id`、`row_number`、`original_hash`（原件 64 位 SHA-256，无独立原件时为 `null`）与 `markdown_hash`（解析后 Markdown 的 64 位 SHA-256），以便下游调用 `GET /files/{sha256}` 下载原始文件与解析后 `.md` 文件。
 2. **`GET /files/{sha256}`**：
-   - **路径参数**：`{sha256}` 为 64 位小写十六进制 SHA-256（可以是 `GET /results` 中的 `文件哈希`，也可以是解析后 `.md` 的 `markdown_hash`）。
+   - **路径参数**：`{sha256}` 为 64 位小写十六进制 SHA-256（可以是 `GET /results` 中的非空 `original_hash`，也可以是解析后 `.md` 的 `markdown_hash`）。
    - **授权与快照闭包校验**：校验调用方 Bearer token，并确认该 `sha256` 属于当前 `published_snapshot_id` 下该调用方已授权来源的可交付文件集合（严禁通过任意 CAS 哈希越权读取未发布、未授权或内部 `inputs_ref` 诊断对象；未命中一律返回 `404 Not Found`）。
    - **响应**：从 CAS 校验并流式返回文件字节，设置真实的 `Content-Type`、`Content-Length`、`ETag: "<sha256>"` 与规范文件名的 `Content-Disposition`。
 
@@ -288,13 +287,13 @@ Snapshot 固定 Resource / Version、16 列关系投影行与可下载文件 SHA
 
 | 模块 | 实施要求 |
 |---|---|
-| `resources.py` | 接收稳定身份、输入清单和统一文档；移除 URL-only 写入与单响应版本假设；同步维护 16 列交付投影与可下载文件哈希闭包 |
+| `resources.py` | 接收稳定身份、输入清单和统一文档；移除 URL-only 写入与单响应版本假设；同步维护交付投影与可下载文件哈希闭包 |
 | `office_runtime.py` / `pdf_runtime.py` / `parsing.py` | 将 [office_text_extract.py](../reference/office_text_extract.py) 与 [production_document_parse.py](../reference/production_document_parse.py) 核心逻辑重构入 `src/seal/`；统一从 CAS 物化输入，执行容器探测、TCVN3 恢复、逐页扫描判定、`tesseract`/`br-ocr-v1` OCR 与 `quality_check` |
-| `public_results.py` | 校验 `seal.document.v1`，生成 16 列规范投影行与可公开访问的 `{文件哈希, markdown_hash}` 集合 |
+| `public_results.py` | 直接按索引分页查询 `snapshot_item ⋈ delivery_row`，输出 15 列中文业务字段及 `original_hash`、`markdown_hash` |
 | `result_query.py` / `api.py` | 删除 `GET /sources`、旧 `GET /results`、`GET /attachments/{attachment_id}` 及 `attachment_id` 编解码；仅实现新 `GET /results` 与 `GET /files/{sha256}` |
 | `archive.py` / `document` 边界 | 唯一结果与输入清单校验器；校验引用的每个原件与每个交付 `.md` 对象完整存在 |
 | `configuration.py` / `runs.py` / `recheck.py` | 冻结 Adapter、Office/OCR/质量参数、队列与重检计划；取消 `input_mode` 绑定整条资源时间线的旧假设 |
-| `snapshots.py` | 只读新模型并验证对象闭包（含原件与 `.md` 哈希），固定版本集合、16 列投影与来源覆盖描述 |
+| `snapshots.py` | 只读新模型并验证对象闭包（含原件与 `.md` 哈希），固定版本集合、交付行投影与来源覆盖描述 |
 
 ## 阶段 1 实现合同（#31）
 
@@ -365,8 +364,8 @@ seal serve --config api.json
 
 API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`request_timeout_seconds`、`page_max_bytes` 之外以 `file_max_bytes`（默认 128 MiB）取代 `result_max_bytes` / `attachment_max_bytes`。除不鉴权的 `GET /healthz` 外，仅有两个接口；其他路径（含 `/sources`、`/attachments/*`）对任何调用方都返回 `404`：
 
-- `GET /results?source_id=dd-xxx&limit=50&cursor=...`：返回 `{"snapshot_id", "items", "next_cursor"}`，并在有下一页时附 `Link: <...>; rel="next"`。`items` 按 `source_id`、`resource_id`、行号稳定排序，每项依模板顺序含 16 列中文键（缺失值为空串），另含 `source_id`、`resource_id`、`version_id`、`row_number`、`markdown_hash`。`limit` 为 1–100；未授权的 `source_id` 返回 `403`；游标绑定调用方、来源过滤与快照，翻页期间固定在起始快照，篡改或换用返回 `400 invalid_cursor`；未发布返回 `503 snapshot_not_published`。
-- `GET /files/{sha256}`：哈希须属于当前发布快照中调用方授权来源的文件闭包（行原件 `文件哈希` 或 `markdown_hash`），否则 `404 file_not_found`。响应字节经 CAS 校验，带真实 `Content-Type`（Markdown 为 `text/markdown; charset=utf-8`）、`Content-Length`、`ETag: "<sha256>"` 和 RFC 5987 `Content-Disposition`（规范文件名）。
+- `GET /results?source_id=dd-xxx&limit=50&cursor=...`：返回 `{"snapshot_id", "items", "next_cursor"}`，并在有下一页时附 `Link: <...>; rel="next"`。`items` 按 `source_id`、`resource_id`、行号索引直接稳定分页，每项依模板顺序含 15 列中文键（缺失值为空串），另含 `source_id`、`resource_id`、`version_id`、`row_number`、`original_hash`（无独立原件时为 `null`）、`markdown_hash`。`limit` 为 1–100；未授权的 `source_id` 返回 `403`；游标绑定调用方、来源过滤与快照，翻页期间固定在起始快照，篡改或换用返回 `400 invalid_cursor`；未发布返回 `503 snapshot_not_published`。
+- `GET /files/{sha256}`：哈希须属于当前发布快照中调用方授权来源的文件闭包（行原件 `original_hash` 或 `markdown_hash`），否则 `404 file_not_found`。响应字节经 CAS 校验，带真实 `Content-Type`（Markdown 为 `text/markdown; charset=utf-8`）、`Content-Length`、`ETag: "<sha256>"` 和 RFC 5987 `Content-Disposition`（规范文件名）。
 
 ## 阶段 3 实现合同（#33）
 
@@ -413,9 +412,9 @@ PYTHONPATH=src uv run --no-sync python tests/accept34_fingerprint_matrix.py
 
 ## API 文件命名与完整性
 
-每行对应一个非空 Markdown。单文件或独立附件使用 `<安全化资料名称>_<文件哈希前8位>.md`，连续分卷追加两位卷序。命名先按完整 Snapshot 的 `source_id / resource_id / row_number` 排序分配，碰撞时使用未占用的数字后缀并预留自然卷序；分页、授权筛选复用同一命名，不重新编号。原件跟随对应 Markdown 词干；同一哈希被多行引用时，下载响应在获授权引用中稳定选择一个规范文件名。
+每行对应一个非空 Markdown。单文件或独立附件使用 `<安全化资料名称>_<markdown_hash前8位>.md`（有独立原件时原件名为 `<安全化资料名称>_<original_hash前8位>.<ext>`），连续分卷追加两位卷序（`_01`、`_02`…）。`/results` 直接按索引分页返回持久化的 `markdown_file` 与 `original_file`，不执行全局窗口重命名；同一哈希被多行引用时，下载响应在获授权引用中稳定选择一个规范文件名。
 
-有独立原件时 `文件哈希` 为原件 SHA-256；只有接口响应切片生成的正文时，`原始文件` 留空，`文件哈希` 等于 Markdown SHA-256，不伪造官方原件。扩展名来自真实容器和已校验媒体类型。必需输入缺失、质量不合格或卷序不明均阻止形成成功版本。
+有独立原件时 `original_hash` 为原件 SHA-256；只有接口响应切片生成的正文时，`原始文件` 留空，`original_hash` 为 `null`，不伪造官方原件。扩展名来自真实容器和已校验媒体类型。必需输入缺失、质量不合格或卷序不明均阻止形成成功版本。
 
 ## 实施顺序与目标命令
 
@@ -453,7 +452,7 @@ seal snapshot publish <snapshot-id>
 | HTML / TXT / Office（DOC/DOCX/RTF/XLS/ZIP） / 越南语 TCVN3 | 原文进入 CAS，伪装容器正确识别，TCVN3 混合编码逐行恢复不伤 Unicode 抬头，法律章节标题层级正确 |
 | 原生 PDF / 混合扫描 PDF / 双引擎 OCR 与 `quality_check` | 逐页墨迹比识别“仅签章含文字”的扫描页；`tesseract` / `br-ocr-v1` 路由与 15 项客观质量原因可核验，低质坏页不静默算作成功 |
 | 16 列 API 行：单文件 / 连续分卷 / 同源独立附件 | 16 列与 [法规案例元数据上传模板](../reference/法规案例元数据上传模板.xlsx) 完全一致；连续分卷共享 `资料名称` 与 `来源记录号` 且 `文件顺序 = 1, 2...`；独立附件各自成行且 `文件顺序` 为空；顺序不明阻止装配 |
-| 精简 API（仅 `GET /results` 与 `GET /files/{sha256}`） | 旧 `/sources`、`/attachments/{id}` 已移除（返回 404）；`GET /results` 返回 16 列投影与哈希；`GET /files/{sha256}` 凭 `文件哈希` 或 `markdown_hash` 直接取回原件或 `.md`，未授权或非当前发布快照哈希返回 404 |
+| 精简 API（仅 `GET /results` 与 `GET /files/{sha256}`） | 旧 `/sources`、`/attachments/{id}` 已移除（返回 404）；`GET /results` 返回 15 列中文业务字段与 `original_hash` / `markdown_hash`；`GET /files/{sha256}` 凭 `original_hash` 或 `markdown_hash` 直接取回原件或 `.md`，未授权或非当前发布快照哈希返回 404 |
 | 单 XML / JSON 响应产生多文档 | 16 列结果表无漏项无重复，各文档 `来源记录号` 与内容哈希独立，输入清单保留共享原件真实 `locator` |
 | 列表重排 / 无关项变化 | 当前文档语义输入不变不升版；日期、编码、基地址、分卷顺序等真实依赖变化可检出 |
 | 归档后 / 提交半程 / 推进游标前崩溃 | 接管补齐剩余目标，失效进程不能写入，不改既有不可变结果 |

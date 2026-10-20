@@ -153,8 +153,8 @@ def main():
             "Snapshot A API records and file bytes fixed after failures/cancellation",
             after_failures == frozen,
         )
-        row = t.query("SELECT file_hash FROM seal.delivery_row LIMIT 1")[0]
-        sha = row["file_hash"]
+        row = t.query("SELECT original_hash, markdown_hash FROM seal.delivery_row LIMIT 1")[0]
+        sha = row["original_hash"] or row["markdown_hash"]
         s3 = t.s3client()
         original = s3.get_object(Bucket=t.ENV["SEAL_S3_BUCKET"], Key=sha)["Body"].read()
         try:

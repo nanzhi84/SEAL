@@ -26,7 +26,7 @@ def test_scan_signature_page_ocr_tesseract(lab):
     row = single_row(lab, "dd-040", fx.base + "/scan/mixed.pdf")
     body = md(lab, row["markdown_hash"])
     lab.save("evidence/mixed-tesseract.md", body)
-    lab.check("mixed pdf 文件哈希 is original", row["file_hash"] == sha256(S["content"].b["mixed.pdf"]), row["file_hash"])
+    lab.check("mixed pdf original_hash is original", row["original_hash"] == sha256(S["content"].b["mixed.pdf"]), row["original_hash"])
     lab.check("native page text present", MIXED_NATIVE_LINES[0][:40] in body, body[:800])
     upper = body.upper()
     found = [l for l in SCAN_LINES[1:] if l in upper]

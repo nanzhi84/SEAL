@@ -110,7 +110,7 @@ class Runtime:
         with connect() as c:
             return c.execute(
                 """SELECT * FROM seal.acquisition WHERE run_id=%s AND request_key=%s
-                AND role='content' AND state='archived' AND outcome<>'redirect'
+                AND role='content' AND state='archived' AND outcome='ok'
                 ORDER BY acquired_at DESC LIMIT 1""",
                 (self.run_id, key),
             ).fetchone()
@@ -191,7 +191,13 @@ class Runtime:
                 if result.code in {"request_budget_exceeded", "crawl_time_budget_exceeded"}:
                     self.truncated = result.code
                     continue
-                if result.code in {"interrupted", "stale_attempt", "inactive_attempt"}:
+                if result.code in {
+                    "interrupted",
+                    "stale_attempt",
+                    "inactive_attempt",
+                    "run_not_started",
+                    "deadline_exceeded",
+                }:
                     raise result
                 self.mark_request(task["id"], "failed", error=result.code)
                 record_error(self.run_id, self.epoch, result.code)
@@ -199,13 +205,13 @@ class Runtime:
                 raise result
             elif result["state"] == "archived" and result["outcome"] == "ok":
                 self.mark_request(task["id"], "archived", result["id"])
+            elif result["state"] == "cancelled" or result["error"] == "interrupted":
+                raise SealError("interrupted")
+            elif result["error"] in STOPPING:
+                self.truncated = result["error"]
             else:
                 self.mark_request(task["id"], "failed", result["id"], result["error"])
                 record_error(self.run_id, self.epoch, result["error"] or "request_failed")
-                if result["error"] in STOPPING:
-                    self.truncated = result["error"]
-                if result["state"] == "cancelled":
-                    raise SealError("interrupted")
         return True
 
     def parse_archived(self):
@@ -321,7 +327,14 @@ class Runtime:
             )
         except (SealError, Exception) as exc:
             code = adapter_error(exc, "adapter_build_failed")
-            if code in {"interrupted", "crawl_time_budget_exceeded", "stale_attempt"}:
+            if code in {
+                "interrupted",
+                "crawl_time_budget_exceeded",
+                "deadline_exceeded",
+                "stale_attempt",
+                "inactive_attempt",
+                "run_not_started",
+            }:
                 raise
             return fail(
                 self.run_id,
@@ -376,7 +389,15 @@ class Runtime:
             finish_reason = "interrupted"
             record_error(self.run_id, self.epoch, "interrupted")
         except SealError as exc:
-            if exc.code in {"stale_attempt", "inactive_attempt", "run_not_started"}:
+            if exc.code in {
+                "stale_attempt",
+                "inactive_attempt",
+                "run_not_started",
+                "deadline_exceeded",
+                "source_paused",
+                "source_retired",
+                "source_superseded",
+            }:
                 raise
             finish_reason = "interrupted" if exc.code == "interrupted" else "stopped"
             if exc.code == "crawl_time_budget_exceeded":

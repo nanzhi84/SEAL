@@ -19,7 +19,6 @@ API_HEADERS = [
     "资料名称",
     "解析后文件",
     "资料类型",
-    "文件哈希",
     "采集时间",
     "原始文件",
     "文件顺序",
@@ -37,7 +36,6 @@ API_COLUMNS = [
     "title",
     "markdown_file",
     "document_type",
-    "file_hash",
     "acquired_at",
     "original_file",
     "volume_order",
@@ -194,7 +192,10 @@ def api(t, sid, label="api", after_first_page=None, check_files=True):
         )
 
         def canonical(row):
-            return tuple(normalized(row.get(k)) for k in API_HEADERS)
+            return tuple(normalized(row.get(k)) for k in API_HEADERS) + (
+                row.get("original_hash"),
+                row.get("markdown_hash"),
+            )
 
         expected_rows = [
             {
@@ -202,6 +203,8 @@ def api(t, sid, label="api", after_first_page=None, check_files=True):
                 "resource_id": row["resource_id"],
                 "version_id": row["version_id"],
                 "row_number": row["row_number"],
+                "original_hash": row["original_hash"],
+                "markdown_hash": row["markdown_hash"],
             }
             for row in expected
         ]
@@ -221,7 +224,9 @@ def api(t, sid, label="api", after_first_page=None, check_files=True):
                 "SELECT sha256,byte_size,media_type FROM seal.snapshot_file WHERE snapshot_id=%s AND source_id=%s ORDER BY sha256",
                 (sid, t.SOURCE),
             )
-            hashes = {r["文件哈希"] for r in items} | {r["markdown_hash"] for r in items}
+            hashes = {r["original_hash"] for r in items if r["original_hash"]} | {
+                r["markdown_hash"] for r in items
+            }
             t.check(
                 label + " API records cover every authorized Snapshot file",
                 hashes == {r["sha256"] for r in closure},
