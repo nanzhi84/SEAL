@@ -249,7 +249,7 @@ class Transport:
             archive_ref=ref,
         )
         row["location"] = headers.get("Location")
-        row["headers"] = dict(headers)
+        row["headers"] = list(headers.items())
         return row
 
     async def acquire(self, request):

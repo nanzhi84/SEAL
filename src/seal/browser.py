@@ -60,6 +60,9 @@ class Browser:
             request_id = event["requestId"]
             browser_request = event["request"]
             try:
+                if browser_request["url"].startswith(("data:", "blob:", "about:")):
+                    await session.send("Fetch.continueRequest", {"requestId": request_id})
+                    return
                 target = guard(self.config, browser_request["url"])
                 await self.transport.robots.check(target, self.transport.fetch_policy)
                 entries = browser_request.get("postDataEntries")
@@ -103,20 +106,18 @@ class Browser:
                     raise SealError(row["error"] or "network_failed")
                 # Transport archives decoded HTTP entity bytes. Chromium must not decode
                 # them again; preserve semantic headers, including redirects and cookies.
-                headers = {
-                    name: value
-                    for name, value in row["headers"].items()
+                headers = [
+                    {"name": name, "value": value}
+                    for name, value in row["headers"]
                     if name.lower()
                     not in {"content-encoding", "content-length", "transfer-encoding", "connection"}
-                }
+                ]
                 await session.send(
                     "Fetch.fulfillRequest",
                     {
                         "requestId": request_id,
                         "responseCode": row["http_status"],
-                        "responseHeaders": [
-                            {"name": name, "value": value} for name, value in headers.items()
-                        ],
+                        "responseHeaders": headers,
                         "body": base64.b64encode(
                             self.transport.objects.get(row["archive_ref"])
                         ).decode("ascii"),
