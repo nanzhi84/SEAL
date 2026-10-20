@@ -294,6 +294,7 @@ class Adapter(Base):
         return {
             "requests": follow,
             "targets": targets,
+            "truncated": "page_limit_exceeded" if following and not follow else None,
             "state": {
                 "listing_pages": page,
                 "count": value.get("count"),
@@ -334,13 +335,16 @@ class Adapter(Base):
             body = document.get(body_field)
             if not isinstance(body, str) or len(body.strip()) < 20:
                 raise SealError("document_body_missing")
+            quality = ctx.text_quality(body)
+            if quality["recommended_route"] not in self.config["parser"]["quality_accept_routes"]:
+                raise SealError("quality_check_failed:" + quality["recommended_route"])
             deliverables.append(
                 {
                     "role": "primary",
                     "markdown": text_to_markdown(body),
                     "input": 0,
                     "original": None,
-                    "quality": ctx.text_quality(body),
+                    "quality": quality,
                     "extraction": {"kind": "json_slice", "field": body_field},
                 }
             )

@@ -51,7 +51,9 @@ class Runtime:
         self.adapter = load(self.config["adapter"])(self.config)
         self.ctx = Context(self)
         plan = context.get("recheck_plan") or context.get("reparse_plan") or {}
-        self.truncated = "document_budget_exceeded" if capped or plan.get("truncated") else None
+        self.truncated = self.checkpoint.get("truncated") or (
+            "document_budget_exceeded" if capped or plan.get("truncated") else None
+        )
 
     # ---- persistence -------------------------------------------------------------------
 
@@ -330,6 +332,9 @@ class Runtime:
                 "selected_scope_enumeration": "complete" if complete else "incomplete",
                 "site_population": "UNKNOWN",
                 "unknown_coverage": True,
+                "known_gaps": sorted(
+                    {value for value in (self.truncated, self.checkpoint.get("truncated")) if value}
+                ),
                 "absence_semantics": "unobserved_is_unknown_never_deleted",
             },
         }

@@ -158,6 +158,8 @@ class Adapter(WebAdapter):
                 "targets": [self.target(detail) for detail in page["details"]],
                 "state": {"last_listing_page": page["number"], "last_page": page["next"] is None},
             }
+            if page["next"] is not None and page["number"] >= self.max_pages:
+                result["truncated"] = "page_limit_exceeded"
             if page["next"] is not None and page["number"] < self.max_pages:
                 target, argument = page["next"]
                 guard(self.config, page["action"])
