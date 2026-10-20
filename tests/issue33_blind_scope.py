@@ -12,7 +12,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import yaml
 
-from issue33_blind_acceptance import ART, ROOT, WORK, cli, query, setup
+from issue33_blind_acceptance import ART, ROOT, WORK, cli, query, reproduction_command, setup
 
 
 def main():
@@ -82,7 +82,7 @@ def main():
         server.server_close()
     report = {'status': 'PASS', 'checks': checks,
               'test_sha256': hashlib.sha256((ROOT / 'tests/issue33_blind_scope.py').read_bytes()).hexdigest(),
-              'command': 'PYTHONPATH=/Users/yoryon/SEAL-pr3/src /Users/yoryon/SEAL/.venv/bin/python tests/issue33_blind_scope.py'}
+              'command': reproduction_command('issue33_blind_scope.py')}
     (ART / phase / 'assertions.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
     print(json.dumps({'status': 'PASS', 'scenarios': len(checks), 'stable_versions': True}, ensure_ascii=False))
 

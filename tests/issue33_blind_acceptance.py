@@ -1,6 +1,12 @@
-"""Fresh issue #33 CLI acceptance. Secrets remain in process environment/work only."""
+"""Fresh issue #33 API-only acceptance.
+
+Preconditions: caller supplies PostgreSQL/S3 connection settings with isolated database/bucket
+creation rights; project dependencies are installed in this interpreter. OCR uses caller
+TESSDATA_PREFIX or the engine default. SEAL_TEST_ENV_FILE optionally names a POSIX shell file.
+Secrets remain in process environment/work only. No personal environment file is implicit.
+"""
 from __future__ import annotations
-import argparse, hashlib, json, os, shutil, subprocess, sys, time
+import argparse, hashlib, json, os, shlex, shutil, subprocess, sys, time, uuid
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 import boto3, psycopg, yaml
@@ -8,23 +14,37 @@ from psycopg import sql
 from psycopg.rows import dict_row
 
 ROOT = Path(__file__).resolve().parents[1]
-PYTHON = Path('/Users/yoryon/SEAL/.venv/bin/python')
-WORK = ROOT / 'work/issue33-blind'
-ART = ROOT / 'artifacts/issue33-blind'
+PYTHON = sys.executable
+WORK = ROOT / 'work/issue33-api-blind'
+ART = ROOT / 'artifacts/issue33-api-blind'
 
 def load_env():
-    raw = subprocess.run(['zsh','-c','set -a; source /Users/yoryon/SEAL/work/dev/env.sh; env -0'], capture_output=True, check=True).stdout
     env = dict(os.environ)
-    env.update(dict(s.decode().split('=',1) for s in raw.split(b'\0') if b'=' in s))
-    env.update(PYTHONPATH=str(ROOT/'src'), SEAL_ALLOW_LOOPBACK='1', TESSDATA_PREFIX='/Users/yoryon/SEAL/work/ocr-tessdata')
+    if filename := env.get("SEAL_TEST_ENV_FILE"):
+        path = Path(filename).expanduser().resolve(strict=True)
+        raw = subprocess.run(
+            ["/bin/sh", "-c", 'set -a; . "$1"; env -0', "seal-test-env", str(path)],
+            capture_output=True, check=True, env=env,
+        ).stdout
+        env.update(dict(s.decode().split("=", 1) for s in raw.split(b"\0") if b"=" in s))
+    required = ("SEAL_DATABASE_URL", "SEAL_S3_ENDPOINT", "SEAL_S3_ACCESS_KEY", "SEAL_S3_SECRET_KEY")
+    missing = [key for key in required if not env.get(key)]
+    if missing:
+        raise RuntimeError("missing_test_environment:" + ",".join(missing))
+    env.update(PYTHONPATH=str(ROOT / "src"), SEAL_ALLOW_LOOPBACK="1")
     return env
 
+
+def reproduction_command(script, *args):
+    return shlex.join([sys.executable, str(ROOT / "tests" / script), *args])
+
 def setup(phase):
+    WORK.mkdir(parents=True,exist_ok=True)
     env=load_env(); state=WORK/f'{phase}-state.json'
     if state.exists():
         cfg=json.loads(state.read_text())
     else:
-        suffix=str(int(time.time()))
+        suffix=uuid.uuid4().hex[:12]
         cfg={'database':f'seal_accept33_{phase}_{suffix}', 'bucket':f'seal-accept33-{phase}-{suffix}'}
         p=urlsplit(env['SEAL_DATABASE_URL'])
         admin=urlunsplit((p.scheme,p.netloc,'/postgres',p.query,p.fragment))
@@ -44,7 +64,7 @@ def cli(env, args, label, phase, timeout=1800):
     out=ART/phase/f'{label}.json'
     try: data=json.loads(r.stdout)
     except Exception: data={'stdout':r.stdout}
-    record={'argv':['python','-m','seal',*args],'returncode':r.returncode,'elapsed_seconds':round(time.monotonic()-start,3),'result':data,'stderr_tail':r.stderr[-3000:]}
+    record={'argv':cmd,'returncode':r.returncode,'elapsed_seconds':round(time.monotonic()-start,3),'result':data,'stderr_tail':r.stderr[-3000:]}
     out.write_text(json.dumps(record,ensure_ascii=False,indent=2))
     print(json.dumps({'label':label,'returncode':r.returncode,'status':data.get('status'),'error':data.get('error'),'run_id':data.get('run_id')},ensure_ascii=False),flush=True)
     return data,r.returncode
@@ -81,23 +101,28 @@ def audit_sql(env,phase,label):
     return result
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('mode',choices=['real','audit-real','controlled','deliver-real','deliver-controlled']);p.add_argument('--fresh',action='store_true');args=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('mode',choices=['prepare','real','audit-real','controlled','consume-real','consume-controlled']);p.add_argument('--fresh',action='store_true');args=p.parse_args()
+    if args.mode=='prepare':
+        from issue33_blind_api import source_hashes
+        ART.mkdir(parents=True,exist_ok=True)
+        (ART/'frozen-source-hashes-start.json').write_text(json.dumps(source_hashes(),indent=2))
+        return
     if args.fresh:
-        phase='controlled' if args.mode in ['controlled','deliver-controlled'] else 'real'
+        phase='controlled' if args.mode in ['controlled','consume-controlled'] else 'real'
         (WORK/f'{phase}-state.json').unlink(missing_ok=True)
     if args.mode=='controlled':
         return controlled()
-    if args.mode=='deliver-controlled':
-        return delivery(setup('controlled'),'controlled')
+    if args.mode=='consume-controlled':
+        return api_consumption(setup('controlled'),'controlled')
     env=setup('real')
-    if args.mode=='deliver-real':
-        return delivery(env,'real')
+    if args.mode=='consume-real':
+        return api_consumption(env,'real')
     if args.mode=='real':
         cli(env,['init'],'init','real');freeze_configs()
         for sid in ('dd-492','dd-499'):
             cli(env,['collect',str(WORK/'real'/f'{sid}.yaml'),'--no-progress'],f'{sid}-collect','real')
         audit_sql(env,'real','after-collect')
-        return delivery(env,'real')
+        return api_consumption(env,'real')
     else: audit_sql(env,'real','after-collect')
 
 
@@ -177,104 +202,14 @@ def controlled():
         audit_sql(env,phase,'after-controlled')
         (ART/phase/'assertions.json').write_text(json.dumps(checks,ensure_ascii=False,indent=2,default=str))
         print(json.dumps(checks,ensure_ascii=False,default=str),flush=True)
-        delivery(env,phase)
+        api_consumption(env,phase)
         assert all(c['passed'] for c in checks), 'business_assertion_failed; see assertions.json'
     finally:fixture.close()
 
-def delivery(env,phase):
-    import urllib.request
-    from cryptography.fernet import Fernet
-    from openpyxl import load_workbook
-    snapshot,rc=cli(env,['snapshot','create'],'snapshot-create',phase);assert rc==0,snapshot
-    sid=snapshot['snapshot_id'];_,rc=cli(env,['snapshot','publish',sid],'snapshot-publish',phase);assert rc==0
-    _,rc=cli(env,['snapshot','inspect',sid,'--limit','100'],'snapshot-inspect',phase);assert rc==0
-    port=19333 if phase=='real' else 19334
-    token=os.urandom(24).hex()
-    config={'public_base_url':f'http://127.0.0.1:{port}','token_key':Fernet.generate_key().decode(),'callers':[{'id':'accept33','key_sha256':hashlib.sha256(token.encode()).hexdigest(),'sources':['dd-492','dd-499']}], 'workers':2}
-    apipath=WORK/phase/'api-private.json';apipath.write_text(json.dumps(config));apipath.chmod(0o600)
-    process=subprocess.Popen([str(PYTHON),'-m','seal','serve','--config',str(apipath),'--port',str(port)],cwd=ROOT,env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-    checked=[];results={};api_files={}
-    def request(path):
-        req=urllib.request.Request(f'http://127.0.0.1:{port}'+path,headers={'Authorization':'Bearer '+token})
-        with urllib.request.urlopen(req,timeout=30) as res:return res.read(),dict(res.headers)
-    try:
-        for _ in range(60):
-            try:request('/healthz');break
-            except Exception:time.sleep(0.1)
-        for source in ['dd-492','dd-499']:
-            raw,_=request('/results?source_id='+source+'&limit=100');items=json.loads(raw);results[source]=items
-            assert items['snapshot_id']==sid
-            for row in items['items']:
-                for key in ['文件哈希','markdown_hash']:
-                    h=row[key]
-                    if h not in api_files:
-                        body,headers=request('/files/'+h)
-                        assert hashlib.sha256(body).hexdigest()==h
-                        assert body==object_bytes(env,h)
-                        api_files[h]={'bytes':len(body),'content_type':headers.get('Content-Type'),'sha256':h}
-                checked.append({'source_id':source,'resource_id':row['resource_id'],'version_id':row['version_id'],'row_number':row['row_number'],'file_hash':row['文件哈希'],'markdown_hash':row['markdown_hash'],'source_record_hash':row['来源记录号']})
-    finally:
-        process.terminate();process.wait(timeout=20)
-    (ART/phase/'api-results.json').write_text(json.dumps(results,ensure_ascii=False,indent=2));(ART/phase/'api-files.json').write_text(json.dumps(api_files,ensure_ascii=False,indent=2))
-    out=ART/phase/'delivery'
-    if out.exists():shutil.rmtree(out)
-    exported,rc=cli(env,['export','--snapshot',sid,'--output',str(out)],'export',phase);assert rc==0,exported
-    rows=list(load_workbook(out/'metadata.xlsx',read_only=True,data_only=True).active.values)
-    assert len(rows[0])==16
-    manifest=json.loads((out/'manifest.json').read_text())
-    data_rows=rows[manifest['data_start_row']-1:]
-    assert len(data_rows)==len(checked),('row_count',len(data_rows),len(checked))
-    flat=[r for data in results.values() for r in data['items']]
-    for mr in manifest['rows']:
-        match=next(r for r in flat if r['resource_id']==mr['resource_id'] and r['version_id']==mr['version_id'] and r['markdown_hash']==mr['markdown_hash'])
-        values=rows[mr['row']-1]
-        for col,value in zip(rows[0],values):
-            assert ('' if value is None else value)==match[col],('API_workbook_cell',mr['row'],col,value,match[col])
-    for file in manifest['files']:
-        assert hashlib.sha256((out/file['path']).read_bytes()).hexdigest()==file['sha256']
-        if file['path'].startswith(('markdown/','originals/')):
-            assert (out/file['path']).read_bytes()==object_bytes(env,file['sha256'])
-    sqlrows=query(env,'SELECT d.*,r.external_key FROM seal.delivery_row d JOIN seal.version v ON v.id=d.version_id JOIN seal.resource r ON r.id=v.resource_id JOIN seal.snapshot_item si ON si.version_id=v.id WHERE si.snapshot_id=%s ORDER BY d.version_id,d.row_number',(sid,))
-    for r in sqlrows:
-        assert any(x['version_id']==r['version_id'] and x['row_number']==r['row_number'] and x['file_hash']==r['file_hash'] and x['markdown_hash']==r['markdown_hash'] for x in checked),('SQL_API_row',r)
-    refs=[]
-    lineage_checks=[]
-    for v in query(env,'SELECT id,result_ref,inputs_ref FROM seal.version ORDER BY id'):
-        for kind in ['result_ref','inputs_ref']:
-            body=object_bytes(env,v[kind]);obj=json.loads(body)
-            dest=ART/phase/'cas'/f'{v[kind]}.json';dest.parent.mkdir(exist_ok=True);dest.write_bytes(body)
-            refs.append({'version_id':v['id'],'kind':kind,'sha256':v[kind],'schema':obj.get('schema')})
-            if kind=='inputs_ref':
-                for inp in obj['inputs']:
-                    original=object_bytes(env,inp['archive_ref'])
-                    loc=inp['locator']
-                    if 'json_pointer' in loc:
-                        leaf=json.loads(original)
-                        for token in loc['json_pointer'].strip('/').split('/') if loc['json_pointer'] else []:
-                            token=token.replace('~1','/').replace('~0','~')
-                            leaf=leaf[int(token)] if isinstance(leaf,list) else leaf[token]
-                        assert leaf['document_number']==obj['document']['external_key']
-                    if 'xpath' in loc:
-                        from lxml import etree
-                        assert etree.fromstring(original).xpath(loc['xpath'])
-                    lineage_checks.append({'version_id':v['id'],'archive_ref':inp['archive_ref'],'locator':loc,'resolved':True})
-    moved=ART/phase/'moved-offline-delivery'
-    if moved.exists():shutil.rmtree(moved)
-    shutil.move(out,moved)
-    block=WORK/'offline-block';block.mkdir(exist_ok=True)
-    (block/'sitecustomize.py').write_text('import socket\ndef denied(*args, **kwargs):\n    raise RuntimeError("network_disabled_for_offline_verify")\nsocket.socket.connect = denied\nsocket.socket.connect_ex = denied\n')
-    offline={k:v for k,v in env.items() if not k.startswith(('SEAL_DATABASE','SEAL_S3'))}
-    offline['PYTHONPATH']=str(block)+os.pathsep+str(ROOT/'src')
-    verified,rc=cli(offline,['export','verify',str(moved)],'moved-offline-verify',phase);assert rc==0,verified
-    source_hashes={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ROOT/'src/seal').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}
-    (ART/phase/'source-hashes.json').write_text(json.dumps(source_hashes,indent=2))
-    reports={}
-    for source in ['dd-492','dd-499']:
-        current=query(env,'SELECT r.external_key,v.result_ref FROM seal.resource r JOIN seal.frontier f ON f.id=r.frontier_id JOIN seal.version v ON v.id=r.current_version_id WHERE f.source_id=%s',(source,))
-        docs=[json.loads(object_bytes(env,r['result_ref'])) for r in current]
-        reports[source]={'current_deliverable_documents':len(docs),'delivery_rows':sum(len(d['deliverables']) for d in docs),'original_acquired_documents':sum(any(x['original_file_ref'] for x in d['deliverables']) for d in docs),'quality_passed_documents':sum(all(x['quality_report'].get('recommended_route') in ['accept','accept_ocr','accept_with_warning'] for x in d['deliverables']) for d in docs),'full_history_denominator':'UNKNOWN','extraction_methods':sorted({str(x.get('method') or x.get('extractor') or x.get('kind')) for d in docs for x in d['extraction']['deliverables']})}
-    report={'snapshot_id':sid,'API_CAS_SHA256_equal':True,'SQL_API_rows_equal':True,'workbook_headers':rows[0],'workbook_rows':len(data_rows),'api_rows':len(checked),'manifest_schema':manifest.get('schema'),'snapshot_coverage':manifest.get('coverage'),'references':refs,'lineage_checks':lineage_checks,'moved_offline_verify':verified,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'test_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'full_history_coverage':'UNKNOWN','source_summary':reports,'source_tree_sha256':hashlib.sha256(json.dumps(source_hashes,sort_keys=True).encode()).hexdigest(),'fixture_test_sha256':hashlib.sha256((ROOT/'tests/issue33_blind_fixture.py').read_bytes()).hexdigest()}
-    (ART/phase/'delivery-reconciliation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2,default=str))
-    print(json.dumps({'phase':phase,'rows':len(checked),'offline_verify':rc}),flush=True)
+def api_consumption(env, phase):
+    from issue33_blind_api import consume
+    return consume(env, phase)
 
-if __name__=='__main__':main()
+
+if __name__ == "__main__":
+    main()
