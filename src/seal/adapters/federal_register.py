@@ -303,7 +303,7 @@ class Adapter(Base):
             # document_number, never by position in the shared response.
             results = value.get("results") if isinstance(value, dict) else None
             if results is None and isinstance(value, dict) and value.get("document_number"):
-                return {"requests": [], "targets": [self.target(value, request, None)]}
+                results = [value]
             if not isinstance(results, list):
                 raise SealError("api_structure_changed")
             targets = []
@@ -346,22 +346,18 @@ class Adapter(Base):
         response = self.load_json(ctx, listing["acquisition"])
         if listing.get("select"):
             wanted = listing["select"]["document_number"]
-            results = response.get("results") if isinstance(response, dict) else None
-            if (
-                results is None
-                and isinstance(response, dict)
-                and response.get("document_number") == wanted
-            ):
-                results = [response]
-                response = {"results": results}
-            matches = [
-                i
-                for i, item in enumerate(results or [])
-                if isinstance(item, dict) and item.get("document_number") == wanted
-            ]
-            if len(matches) != 1:
-                raise SealError("document_missing_from_batch")
-            listing = dict(listing, pointer="/results/" + str(matches[0]))
+            if isinstance(response, dict) and response.get("document_number") == wanted:
+                listing = dict(listing, pointer="")
+            else:
+                results = response.get("results") if isinstance(response, dict) else None
+                matches = [
+                    i
+                    for i, item in enumerate(results or [])
+                    if isinstance(item, dict) and item.get("document_number") == wanted
+                ]
+                if len(matches) != 1:
+                    raise SealError("document_missing_from_batch")
+                listing = dict(listing, pointer="/results/" + str(matches[0]))
         document = pointer(response, listing.get("pointer", ""))
         if not isinstance(document, dict):
             raise SealError("api_structure_changed")

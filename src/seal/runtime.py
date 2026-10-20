@@ -34,18 +34,22 @@ def failure_category(error):
         "document_budget_exceeded",
     }:
         return "budget_truncated"
-    if code in {"network_failed", "redirect_limit_exceeded"} or code.startswith("robots"):
+    if error.startswith("required_input_failed:"):
+        return "required_input_missing"
+    if code in {"network_failed", "redirect_limit_exceeded"} or code.startswith(
+        ("robots", "http_")
+    ):
         return "network_failed"
     if code.startswith("quality_check_failed"):
         return "quality_check_failed"
-    if error.startswith("required_input_failed:") or code in {
+    if code in {
         "document_original_missing",
         "document_body_missing",
         "document_deliverables_required",
         "document_missing_from_batch",
     }:
         return "required_input_missing"
-    if code == "inputs_unavailable":
+    if code in {"inputs_unavailable", "page_limit_exceeded"}:
         return "enumeration_incomplete"
     return "parse_failed"
 
@@ -409,6 +413,11 @@ class Runtime:
         for row in errors:
             category = failure_category(row["error"])
             failures[category] = failures.get(category, 0) + row["n"]
+        if finish_reason == "interrupted":
+            failures["cancelled"] = max(1, failures.get("cancelled", 0))
+        if self.truncated:
+            category = failure_category(self.truncated)
+            failures[category] = max(1, failures.get(category, 0))
         pending = counts["request"].get("pending", 0)
         complete = (
             finish_reason == "finished"
