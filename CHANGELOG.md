@@ -7,21 +7,21 @@ lang: zh
 
 ## 未发布 / 取消本地文件包导出（#32）— 2026-10-20
 
-按[用户最终决策](https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052)，取消整个 #32 导出能力并撤回 PR #36。后续来源、重检与恢复直接使用 16 列结果和文件 API，不包含导出模块、CLI、工作簿物化、包 manifest 或离线包校验。保留通用 Office/XLSX 输入解析。
+按[用户最终决策](https://github.com/nanzhi84/SEAL/issues/32#issuecomment-6285651052)，取消整个 #32 导出能力并撤回 PR #36。后续来源、重检与恢复直接使用 `/results` 结果和 `/files/{sha256}` 文件 API，不包含导出模块、CLI、工作簿物化、包 manifest 或离线包校验。保留通用 Office/XLSX 输入解析。
 
-## 未发布 / 原生 Source Adapter 与 16 列双接口（#31）— 2026-10-20
+## 未发布 / 原生 Source Adapter 与双接口交付（#31）— 2026-10-20
 
 以受控 Acquisition 与原生 Adapter Runtime 取代 Crawl4AI 深度遍历：每次真实外部请求（含
 robots、重定向跳与重试）独立记录并先归档 CAS、读回校验，再以短 fenced 事务提交；请求任务与
 文档目标持久登记，区分“原文已归档 / 目标已登记 / 已形成交付”。Office/TCVN3 与 PDF 逐页
 扫描判定、`tesseract` / `br-ocr-v1` OCR 和 `quality_check` 门禁并入 `src/seal/`，统一产出
-`seal.inputs.v1` / `seal.document.v1`、四重指纹 Version 与 16 列 `delivery_row`。
+`seal.inputs.v1` / `seal.document.v1`、四重指纹 Version 与 `delivery_row`。
 
 **破坏性变更**：迁移 `0015_source_adapters.sql` 只接受空的新数据库（已有内容需新建环境，
 不做回填或兼容读取）；Source YAML 的 `crawl4ai:` 改为 `fetch:` 并新增 `adapter`、
 `metadata`、`documents`、`parser`、`ocr.engine` 等字段（仓库内来源配置已同步）；API 删除
 `/sources`、旧 `/results`（按 `source_url`）与 `/attachments/{id}`，改为 `GET /results`
-（16 列 + `markdown_hash`）与 `GET /files/{sha256}`；API 配置以 `file_max_bytes` 取代
+（15 列中文业务字段 + `original_hash` + `markdown_hash`，按索引直接分页）与 `GET /files/{sha256}`；API 配置以 `file_max_bytes` 取代
 `result_max_bytes` / `attachment_max_bytes`。新增依赖 `python-docx`、`openpyxl`、`xlrd`；
 `.doc` 与 RTF 兜底需要 LibreOffice。合同见[唯一 Plan](docs/plans/source-adapters-delivery.md#阶段-1-实现合同31)。
 

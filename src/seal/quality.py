@@ -86,7 +86,7 @@ def quality_check(analysis, result, profile="generic"):
     garbled_ratio = garbled / max(len(markdown), 1)
     document_reasons = []
     expected = len(analysis.get("pages", []))
-    if raw_indices and expected and (min(raw_indices) not in {0, 1} or max(raw_indices) > expected):
+    if raw_indices and expected and (min(raw_indices) not in {0, 1} or max(by_page) > expected):
         document_reasons.append("page_number_mapping_unreliable")
     if garbled >= 8 and garbled_ratio >= 0.002:
         document_reasons.append("legacy_vietnamese_font_encoding_suspect")

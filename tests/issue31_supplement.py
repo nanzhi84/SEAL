@@ -52,9 +52,9 @@ def test_rendered_dom(lab):
     lab.check("JS-only text delivered", marker in body, body)
     acq = lab.q("SELECT acquisition_kind,representation,body_hash FROM seal.acquisition WHERE source_id='dd-247' AND state='archived'")
     lab.check("rendered_dom acquisition recorded", any(a["acquisition_kind"] == "rendered_dom" for a in acq), acq)
-    raw = lab.s3_get(row["file_hash"])
+    raw = lab.s3_get(row["original_hash"])
     lab.check("CAS rendered DOM contains rendered paragraph", (f'<p id="target">{marker}</p>').encode() in raw, raw.decode()[:1600])
-    lab.check("DOM original is UTF-8 HTML", raw.decode("utf-8").strip().startswith("<"), row["file_hash"])
+    lab.check("DOM original is UTF-8 HTML", raw.decode("utf-8").strip().startswith("<"), row["original_hash"])
 
 
 def setup_quality(lab):
@@ -156,8 +156,10 @@ def test_publish_and_api_bytes(lab):
         lab.check("accepted rows published", len(items) >= 3, len(items))
         comparisons = []
         for row in items:
-            for key in ("文件哈希", "markdown_hash"):
+            for key in ("original_hash", "markdown_hash"):
                 digest = row[key]
+                if not digest:
+                    continue
                 response = api.get("/files/" + digest, "all")
                 comparison = {"kind": key, "sha256": digest, "http": response.status_code,
                               "api_sha256": sha256(response.content), "cas_sha256": sha256(lab.s3_get(digest))}

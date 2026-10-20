@@ -110,8 +110,8 @@
       <tbody>
         <tr><td>Resource &amp; <code>seal.inputs.v1</code></td><td><code>frontier_id + namespace + external_key</code>；真实 <code>acquisition_id</code>、<code>archive_ref</code>、角色、真实定位、稳定语义选择器与冻结 Adapter 输入。</td><td>一输入多文档、多输入一文档均可复算；封存读回完整 CAS 闭包，缺件或损坏拒绝。</td></tr>
         <tr><td><code>seal.document.v1</code></td><td>16 列元数据映射、具名日期、1..N 个交付单元（含 <code>markdown_ref</code>、<code>original_file_ref</code>、<code>volume_order</code>）及 <code>quality_check</code> 报告。</td><td>所有新结果唯一格式；正文与分卷在入库时固定存入 CAS，读取不再重解析。</td></tr>
-        <tr><td><code>GET /results</code></td><td>删除旧 <code>GET /sources</code>、旧 <code>GET /results</code>、<code>GET /attachments/{attachment_id}</code>；新 <code>GET /results</code> 直接返回已发布 Snapshot 的 16 列规范投影行及 <code>markdown_hash</code>。</td><td>API 字段与模板定义的 16 列完全对齐。</td></tr>
-        <tr><td><code>GET /files/{sha256}</code></td><td>凭 64 位 SHA-256（<code>文件哈希</code> 或 <code>markdown_hash</code>）直取原始文件或解析后 <code>.md</code> 文件。</td><td>无时效令牌；严格校验调用方授权来源与当前已发布 Snapshot 成员闭包，越权或内部对象一律返回 404。</td></tr>
+        <tr><td><code>GET /results</code></td><td>删除旧 <code>GET /sources</code>、旧 <code>GET /results</code>、<code>GET /attachments/{attachment_id}</code>；新 <code>GET /results</code> 直接按索引分页返回已发布 Snapshot 的 15 列中文规范字段及 <code>original_hash</code>、<code>markdown_hash</code>。</td><td>移除中文 <code>文件哈希</code> 字段，统一暴露 <code>original_hash</code>（无原件为 <code>null</code>）与 <code>markdown_hash</code>。</td></tr>
+        <tr><td><code>GET /files/{sha256}</code></td><td>凭 64 位 SHA-256（<code>original_hash</code> 或 <code>markdown_hash</code>）直取原始文件或解析后 <code>.md</code> 文件。</td><td>无时效令牌；严格校验调用方授权来源与当前已发布 Snapshot 成员闭包，越权或内部对象一律返回 404。</td></tr>
       </tbody>
     </table></div>
     <details>
@@ -126,12 +126,12 @@
     <div class="two">
       <article class="card">
         <h3>固定结果与下载命名</h3>
-        <p><code>GET /results</code> 返回 16 列关系行、<code>resource_id</code>、<code>version_id</code> 和 <code>markdown_hash</code>。</p>
-        <p><code>GET /files/{sha256}</code> 校验授权与已发布快照文件闭包，返回原件或 Markdown；规范文件名由完整快照统一分配，分页不重新编号。</p>
+        <p><code>GET /results</code> 返回 15 列中文业务行、<code>resource_id</code>、<code>version_id</code>、<code>original_hash</code> 和 <code>markdown_hash</code>。</p>
+        <p><code>GET /files/{sha256}</code> 校验授权与已发布快照文件闭包，返回原件或 Markdown；直接按索引分页读取，不执行全局消歧窗口查询。</p>
       </article>
       <article class="card">
-        <h3>16 列结构与三类拆分规则</h3>
-        <p><strong>16 列固定表头：</strong><code>资料名称</code>、<code>解析后文件</code>、<code>资料类型</code>、<code>文件哈希</code>、<code>采集时间</code>、<code>原始文件</code>、<code>文件顺序</code>、<code>文号/案号</code>、<code>发布机构</code>、<code>发布日期</code>、<code>生效日期</code>、<code>失效日期</code>、<code>状态</code>、<code>来源名称</code>、<code>来源详情页</code>、<code>来源记录号</code>。</p>
+        <h3>15 列业务结构与三类拆分规则</h3>
+        <p><strong>15 列中文表头：</strong><code>资料名称</code>、<code>解析后文件</code>、<code>资料类型</code>、<code>采集时间</code>、<code>原始文件</code>、<code>文件顺序</code>、<code>文号/案号</code>、<code>发布机构</code>、<code>发布日期</code>、<code>生效日期</code>、<code>失效日期</code>、<code>状态</code>、<code>来源名称</code>、<code>来源详情页</code>、<code>来源记录号</code>（另含 <code>original_hash</code>、<code>markdown_hash</code>）。</p>
         <ul class="rules">
           <li><strong>单文件资料：</strong>1 行，<code>文件顺序</code> 留空。</li>
           <li><strong>同一资料连续分卷：</strong>拆分为多行，重复填写相同的 <code>资料名称</code> 与 <code>来源记录号</code>，<code>文件顺序</code> 依次填 <code>1</code>、<code>2</code>…；顺序不明时阻止装配。</li>
@@ -140,7 +140,7 @@
       </article>
     </div>
     <div class="three" style="margin-top:18px">
-      <article class="card"><h3>内容完整</h3><p>每行恰有一个非空 <code>.md</code>；有原件时 <code>文件哈希</code> 为原件 SHA-256，无独立原件时为 <code>.md</code> SHA-256。必需附件缺失或未过 <code>quality_check</code> 不形成成功版本。</p></article>
+      <article class="card"><h3>内容完整</h3><p>每行恰有一个非空 <code>.md</code>（<code>markdown_hash</code>）；有原件时 <code>original_hash</code> 为原件 SHA-256，无独立原件时为 <code>null</code>。必需附件缺失或未过 <code>quality_check</code> 不形成成功版本。</p></article>
       <article class="card"><h3>结果可复现</h3><p>Markdown 在 Version 提交时写入 CAS；API 只读固定 Snapshot 的已归档字节，游标绑定起始快照。</p></article>
       <article class="card"><h3>引用可核验</h3><p>输入清单保留真实 Acquisition 与 locator；Snapshot 封存前读回并校验全部输入、原件与 Markdown。</p></article>
     </div>

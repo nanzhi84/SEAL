@@ -17,8 +17,10 @@ def register(self, result, parent=None, depth=0):
         for target in result.get("targets", []):
             key = target_key(target)
             count = c.execute(
-                """SELECT count(*) AS n FROM seal.task WHERE run_id=%s AND kind='target'
-                AND key NOT LIKE 'replay:%%'""",
+                """SELECT count(DISTINCT (
+                    COALESCE(payload #>> '{identity,namespace}', key),
+                    COALESCE(payload #>> '{identity,external_key}', key)
+                )) AS n FROM seal.task WHERE run_id=%s AND kind='target'""",
                 (self.run_id,),
             ).fetchone()["n"]
             exists = c.execute(
@@ -47,7 +49,9 @@ def register(self, result, parent=None, depth=0):
                     continue
                 # A later occurrence is a separate candidate, even for the same identity.
                 # Delivery validates all three fingerprints against the immutable fact.
-                key = "replay:" + digest({"target": key, "payload": payload})
+                key = digest(
+                    {"algorithm": "seal.delivery-task-replay.v1", "target": key, "payload": payload}
+                )
                 if c.execute(
                     "SELECT 1 FROM seal.task WHERE run_id=%s AND kind='target' AND key=%s",
                     (self.run_id, key),

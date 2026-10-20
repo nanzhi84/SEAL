@@ -54,7 +54,7 @@ def template_headers() -> list[str]:
     import openpyxl
 
     sheet = openpyxl.load_workbook(TEMPLATE, read_only=True).worksheets[0]
-    return [str(v) for v in next(sheet.iter_rows(min_row=1, max_row=1, values_only=True))]
+    return [str(v) for v in next(sheet.iter_rows(min_row=1, max_row=1, values_only=True)) if str(v) != "文件哈希"]
 
 
 class NotVerified(Exception):

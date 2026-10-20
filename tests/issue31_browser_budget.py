@@ -83,7 +83,7 @@ def facts(lab, sid, fx, result=None, receipt=None):
 
 def no_partial(lab, data, reason):
     lab.check(reason + ": no successful Version", not data["versions"], data["versions"])
-    lab.check(reason + ": no delivery row", not data["rows"], [{"file_hash": r["file_hash"]} for r in data["rows"]])
+    lab.check(reason + ": no delivery row", not data["rows"], [{"original_hash": r["original_hash"]} for r in data["rows"]])
     lab.check(reason + ": no complete run", data["runs"] and all(r["status"] != "complete" for r in data["runs"]), data["runs"])
     failed = [a for a in data["acquisitions"] if a["state"] in {"failed", "cancelled", "abandoned"} and (a["error"] or a["outcome"])]
     errors = any(r["errors"] for r in data["runs"])
@@ -141,8 +141,8 @@ def snapshot_api(lab, sid, row):
         items, _, published = api.all_results("browser", source_id=sid)
         lab.save("evidence/api-results.json", {"snapshot_id": published, "items": items})
         lab.check("published API includes exactly the successful browser row", len(items) == 1 and
-                  items[0]["文件哈希"] == row["file_hash"] and str(published) == str(snapshot_id), items)
-        for name, digest in (("original", row["file_hash"]), ("markdown", row["markdown_hash"])):
+                  items[0]["original_hash"] == row["original_hash"] and str(published) == str(snapshot_id), items)
+        for name, digest in (("original", row["original_hash"]), ("markdown", row["markdown_hash"])):
             response = api.get("/files/" + digest, "browser")
             cas = lab.s3_get(digest)
             lab.check(name + ": API bytes equal CAS and recorded SHA-256", response.status_code == 200 and
@@ -167,16 +167,16 @@ def test_real_browser_inputs_and_published_bytes(lab):
             lab.check("exactly one successful browser delivery", len(data["rows"]) == 1, data["rows"])
             if len(data["rows"]) == 1:
                 row = data["rows"][0]
-                raw, markdown = lab.s3_get(row["file_hash"]), lab.s3_get(row["markdown_hash"])
+                raw, markdown = lab.s3_get(row["original_hash"]), lab.s3_get(row["markdown_hash"])
                 dom = raw.decode("utf-8")
                 lab.check("both external scripts changed delivered Markdown", all(m in markdown.decode("utf-8") for m in MARKERS),
                           markdown.decode("utf-8")[-2000:])
                 lab.check("rendered DOM is complete UTF-8 HTML with both necessary clauses", dom.rstrip().endswith("</html>") and
                           STATIC in dom and all(m in dom for m in MARKERS) and "\ufffd" not in dom, dom[-1500:])
                 derived = [a for a in data["acquisitions"] if a["acquisition_kind"] == "rendered_dom"]
-                lab.check("rendered DOM is a separate derived input", derived and any(a["body_hash"] == row["file_hash"] for a in derived)
-                          and row["file_hash"] != sha256(fx.routes["/document"][2]), derived)
-                lab.check("rendered DOM original CAS hashes correctly", sha256(raw) == row["file_hash"], row["file_hash"])
+                lab.check("rendered DOM is a separate derived input", derived and any(a["body_hash"] == row["original_hash"] for a in derived)
+                          and row["original_hash"] != sha256(fx.routes["/document"][2]), derived)
+                lab.check("rendered DOM original CAS hashes correctly", sha256(raw) == row["original_hash"], row["original_hash"])
                 snapshot_api(lab, sid, row)
     finally:
         fx.close()

@@ -107,10 +107,11 @@ def create(overrides=None):
             (j(overrides), snapshot_id),
         ).fetchall()
         deadline = time.monotonic() + 60
+        sizes = {}
         for item in selected:
             if not all(item[k] for k in ("resource_exists", "version_matches", "source_matches")):
                 raise SealError("invalid_override_version")
-            verify_document(objects, item["result_ref"], deadline=deadline)
+            verify_document(objects, item["result_ref"], deadline=deadline, sizes=sizes)
         c.execute(
             """INSERT INTO seal.snapshot_item(snapshot_id,source_id,frontier_id,resource_id,version_id)
             SELECT s.snapshot_id,s.source_id,s.frontier_id,r.id,v.id
@@ -128,7 +129,7 @@ def create(overrides=None):
             (snapshot_id,),
         ).fetchall()
         for item in documents:
-            verify_document(objects, item["result_ref"], deadline=deadline)
+            verify_document(objects, item["result_ref"], deadline=deadline, sizes=sizes)
         rows, after = [], ("", "", 0)
         while True:
             page = snapshot_rows(c, snapshot_id, [s["id"] for s in sources], after)
@@ -142,10 +143,10 @@ def create(overrides=None):
             entries = [
                 (row["markdown_hash"], "markdown", MARKDOWN_MEDIA_TYPE, row["markdown_file"])
             ]
-            if row["original_ref"]:
+            if row["original_hash"]:
                 entries.append(
                     (
-                        row["original_ref"],
+                        row["original_hash"],
                         "original",
                         row["original_media_type"],
                         row["original_file"],
@@ -153,7 +154,6 @@ def create(overrides=None):
                 )
             for sha, kind, media_type, name in entries:
                 files.setdefault((row["source_id"], sha, kind), (media_type, name))
-        sizes = {}
         for (source_id, sha, kind), (media_type, name) in files.items():
             # Reference closure: every downloadable object must exist before sealing.
             if sha not in sizes:
@@ -237,7 +237,7 @@ def inspect(snapshot_id, limit=20, after="", source_after=""):
 
 def verify(snapshot_id):
     """Read every frozen document and downloadable file; never certify business quality."""
-    objects, after = Objects(), ""
+    objects, after, sizes = Objects(), "", {}
     with connect() as c:
         c.execute("SET TRANSACTION READ ONLY")
         header(c, snapshot_id)
@@ -252,12 +252,15 @@ def verify(snapshot_id):
             if not rows:
                 break
             for row in rows:
-                verify_document(objects, row["result_ref"], deadline=time.monotonic() + 120)
+                verify_document(
+                    objects, row["result_ref"], deadline=time.monotonic() + 120, sizes=sizes
+                )
             after = rows[-1]["resource_id"]
         for row in c.execute(
             "SELECT DISTINCT sha256 FROM seal.snapshot_file WHERE snapshot_id=%s", (snapshot_id,)
         ).fetchall():
-            objects.get(row["sha256"])
+            if row["sha256"] not in sizes:
+                objects.get(row["sha256"], deadline=time.monotonic() + 120)
 
 
 def publish(snapshot_id):

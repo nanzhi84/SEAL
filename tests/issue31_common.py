@@ -26,7 +26,7 @@ from issue31_support import (  # noqa: E402
 )
 
 HEADERS16 = template_headers()
-EXTRA_KEYS = {"source_id", "resource_id", "version_id", "markdown_hash"}
+EXTRA_KEYS = {"source_id", "resource_id", "version_id", "original_hash", "markdown_hash"}
 S = {}  # shared state between ordered tests
 
 FORMAT_FILES = {
@@ -115,9 +115,9 @@ def single_row(lab, source_id, url):
 
 def check_file_row(lab, row, fixture_bytes, text_parts, ext=None, label=""):
     lab.check(f"{label} 文件顺序 empty for single file", row["volume_order"] is None, row["volume_order"])
-    lab.check(f"{label} 文件哈希 equals SHA-256 of served original", row["file_hash"] == sha256(fixture_bytes),
-              {"file_hash": row["file_hash"], "expected": sha256(fixture_bytes)})
-    cas = lab.s3_get(row["file_hash"])
+    lab.check(f"{label} original_hash equals SHA-256 of served original", row["original_hash"] == sha256(fixture_bytes),
+              {"original_hash": row["original_hash"], "expected": sha256(fixture_bytes)})
+    cas = lab.s3_get(row["original_hash"])
     lab.check(f"{label} original CAS bytes identical to served bytes", cas == fixture_bytes, len(cas))
     body = md(lab, row["markdown_hash"])
     lab.check(f"{label} markdown CAS object hashes to markdown_hash",
@@ -125,10 +125,10 @@ def check_file_row(lab, row, fixture_bytes, text_parts, ext=None, label=""):
     missing = [p for p in text_parts if p not in body]
     lab.check(f"{label} markdown keeps source text", not missing, {"missing": missing, "markdown": body[:1500]})
     title = row["title"]
-    lab.check(f"{label} 解析后文件 follows <资料名称>_<hash8>.md", row["markdown_file"] == f"{title}_{row['file_hash'][:8]}.md",
+    lab.check(f"{label} 解析后文件 follows <资料名称>_<hash8>.md", row["markdown_file"] == f"{title}_{row['markdown_hash'][:8]}.md",
               row["markdown_file"])
     if ext:
-        lab.check(f"{label} 原始文件 named <资料名称>_<hash8>.{ext}", row["original_file"] == f"{title}_{row['file_hash'][:8]}.{ext}",
+        lab.check(f"{label} 原始文件 named <资料名称>_<hash8>.{ext}", row["original_file"] == f"{title}_{row['original_hash'][:8]}.{ext}",
                   row["original_file"])
     return body
 

@@ -20,7 +20,6 @@ COLUMNS = (
     "资料名称",
     "解析后文件",
     "资料类型",
-    "文件哈希",
     "采集时间",
     "原始文件",
     "文件顺序",
@@ -93,10 +92,14 @@ def safe_name(title):
     return value.rstrip(" ._") or "document"
 
 
-def file_names(title, file_hash, extension, volume_order):
+def file_names(title, markdown_hash, original_hash, extension, volume_order):
     suffix = "_%02d" % volume_order if volume_order else ""
-    stem = safe_name(title) + "_" + file_hash[:8] + suffix
-    return stem + ".md", (stem + "." + extension) if extension else None
+    base = safe_name(title)
+    markdown_file = f"{base}_{markdown_hash[:8]}{suffix}.md"
+    original_file = (
+        f"{base}_{original_hash[:8]}{suffix}.{extension}" if original_hash and extension else None
+    )
+    return markdown_file, original_file
 
 
 def text(value, field):
@@ -185,7 +188,7 @@ def normalize_inputs(candidate, acquisitions):
 
 def check_volumes(deliverables):
     volumes = [d for d in deliverables if d["role"] == "volume"]
-    if any(d.get("volume_order") is None for d in volumes):
+    if any(type(d.get("volume_order")) is not int for d in volumes):
         raise SealError("volume_order_ambiguous")
     orders = sorted(d["volume_order"] for d in volumes)
     if orders != list(range(1, len(orders) + 1)):
@@ -219,6 +222,9 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
         key=lambda d: (
             DELIVERABLE_ROLES.index(d["role"]),
             d.get("volume_order") or 0,
+            text(d.get("title"), "title") or "",
+            (d.get("original") or {}).get("ref") or "",
+            normalized(d.get("markdown") or ""),
         ),
     )
     deliverables, rows, files, names = [], [], [], set()
@@ -243,10 +249,10 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
         title = text(item.get("title"), "title") or metadata["title"]
         if item["role"] == "independent_attachment" and not text(item.get("title"), "title"):
             raise SealError("attachment_title_missing")
-        file_hash = original["ref"] if original else markdown_ref
+        original_hash = original["ref"] if original else None
         extension, media_type = EXTENSIONS[original["kind"]] if original else (None, None)
         markdown_file, original_file = file_names(
-            title, file_hash, extension, item.get("volume_order")
+            title, markdown_ref, original_hash, extension, item.get("volume_order")
         )
         if markdown_file in names:
             raise SealError("duplicate_deliverable_file")
@@ -267,8 +273,7 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
             "title": title,
             "volume_order": item.get("volume_order"),
             "markdown_ref": markdown_ref,
-            "original_file_ref": original["ref"] if original else None,
-            "file_hash": file_hash,
+            "original_file_ref": original_hash,
             "file_name": original_file,
             "markdown_file_name": markdown_file,
             "media_type": media_type,
@@ -299,7 +304,6 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
                 "title": title,
                 "markdown_file": markdown_file,
                 "document_type": metadata["document_type"],
-                "file_hash": file_hash,
                 "acquired_at": source["acquired_at"],
                 "original_file": original_file,
                 "volume_order": item.get("volume_order"),
@@ -313,7 +317,7 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
                 "detail_url": candidate.get("public_url"),
                 "source_record_hash": record,
                 "markdown_hash": markdown_ref,
-                "original_ref": original["ref"] if original else None,
+                "original_hash": original_hash,
                 "original_media_type": media_type,
                 "role": item["role"],
                 "locator": source["locator"],
@@ -361,7 +365,6 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
                     "volume_order",
                     "markdown_ref",
                     "original_file_ref",
-                    "file_hash",
                     "metadata",
                 )
             }
@@ -435,28 +438,35 @@ def build(objects, *, source_id, run_id, manifest, candidate, acquisitions):
     }
 
 
-def verify_document(objects, result_ref, *, max_bytes=None, deadline=None):
+def verify_document(objects, result_ref, *, max_bytes=None, deadline=None, sizes=None):
     """Read-side validator: unified document plus its complete object closure."""
     try:
         import json
 
         value = json.loads(objects.get(result_ref, max_bytes=max_bytes, deadline=deadline))
-    except (ValueError, TypeError):
-        raise SealError("document_invalid") from None
-    if not isinstance(value, dict) or value.get("schema") != DOCUMENT_SCHEMA:
-        raise SealError("document_invalid")
-    deliverables = value.get("deliverables")
-    if not isinstance(deliverables, list) or not deliverables:
-        raise SealError("document_invalid")
-    for item in deliverables:
-        objects.get(sha(item.get("markdown_ref"), "document_invalid"), deadline=deadline)
-        if item.get("original_file_ref"):
-            objects.get(sha(item["original_file_ref"], "document_invalid"), deadline=deadline)
-    lineage = value.get("lineage") or {}
-    manifest_raw = objects.get(
-        sha(lineage.get("inputs_ref"), "document_invalid"), deadline=deadline
-    )
-    try:
+        if not isinstance(value, dict) or value.get("schema") != DOCUMENT_SCHEMA:
+            raise ValueError
+        deliverables = value.get("deliverables")
+        if not isinstance(deliverables, list) or not deliverables:
+            raise ValueError
+        for item in deliverables:
+            if not isinstance(item, dict):
+                raise ValueError
+            md_sha = sha(item.get("markdown_ref"), "document_invalid")
+            md_bytes = objects.get(md_sha, deadline=deadline)
+            if sizes is not None:
+                sizes[md_sha] = len(md_bytes)
+            if item.get("original_file_ref"):
+                orig_sha = sha(item["original_file_ref"], "document_invalid")
+                orig_bytes = objects.get(orig_sha, deadline=deadline)
+                if sizes is not None:
+                    sizes[orig_sha] = len(orig_bytes)
+        lineage = value.get("lineage") or {}
+        if not isinstance(lineage, dict):
+            raise ValueError
+        manifest_raw = objects.get(
+            sha(lineage.get("inputs_ref"), "document_invalid"), deadline=deadline
+        )
         manifest = json.loads(manifest_raw)
         if not isinstance(manifest, dict) or manifest.get("schema") != INPUTS_SCHEMA:
             raise ValueError
@@ -464,6 +474,8 @@ def verify_document(objects, result_ref, *, max_bytes=None, deadline=None):
         if not isinstance(inputs, list) or not inputs:
             raise ValueError
         for item in inputs:
+            if not isinstance(item, dict):
+                raise ValueError
             objects.get(sha(item.get("archive_ref"), "document_invalid"), deadline=deadline)
     except (KeyError, TypeError, ValueError, AttributeError):
         raise SealError("document_invalid") from None
@@ -471,7 +483,7 @@ def verify_document(objects, result_ref, *, max_bytes=None, deadline=None):
 
 
 def row_values(row):
-    """One delivery row as the 16 template columns (strings; missing values empty)."""
+    """One delivery row as the template columns (strings; missing values empty)."""
 
     def day(value):
         if value is None:
@@ -482,7 +494,6 @@ def row_values(row):
         "资料名称": row["title"],
         "解析后文件": row["markdown_file"],
         "资料类型": row["document_type"],
-        "文件哈希": row["file_hash"],
         "采集时间": timestamp(row["acquired_at"]),
         "原始文件": row["original_file"] or "",
         "文件顺序": str(row["volume_order"]) if row["volume_order"] else "",

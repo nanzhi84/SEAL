@@ -2,6 +2,7 @@
 
 import asyncio
 import logging
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
@@ -38,7 +39,7 @@ class Service:
                 raise ApiError(503, "invalid_api_config")
         return current.authenticate(authorization)
 
-    async def run(self, request, function, *args):
+    async def run(self, request, function, *args, hold_slot=False):
         request["waiting_for_slot"] = True
         try:
             await asyncio.wait_for(self.slots.acquire(), timeout=1)
@@ -53,12 +54,18 @@ class Service:
 
         # A cancelled HTTP coroutine must not free capacity while its thread still runs.
         def finished(value):
-            self.slots.release()
+            if not hold_slot:
+                self.slots.release()
             if not value.cancelled():
                 value.exception()  # Consume failures even after a disconnected/timed-out caller.
 
         future.add_done_callback(finished)
-        return await asyncio.shield(future)
+        try:
+            return await asyncio.shield(future)
+        except BaseException:
+            if hold_slot:
+                future.add_done_callback(lambda _: self.slots.release())
+            raise
 
 
 def storage_error(exc):
@@ -127,7 +134,9 @@ async def results(request):
         ):
             raise ValueError
         source_id = query.get("source_id")
-        if source_id is not None and (len(source_id) > 32 or not source_id.startswith("dd-")):
+        if source_id is not None and (
+            len(source_id) > 32 or not re.fullmatch(r"dd-[0-9]{3,}", source_id)
+        ):
             raise ValueError
         value = query.get("limit", "50")
         if not value.isascii() or not value.isdigit() or len(value) > 3:
@@ -170,22 +179,26 @@ async def files(request):
         request["caller"],
         request.match_info["sha256"],
         time.monotonic() + service.settings.request_timeout_seconds,
+        hold_slot=True,
     )
-    response = web.StreamResponse(
-        headers={
-            "Content-Type": entry["media_type"],
-            "Content-Length": str(len(body)),
-            "ETag": '"' + entry["sha256"] + '"',
-            "Content-Disposition": disposition(entry["file_name"]),
-            "Cache-Control": "no-store",
-            "X-Content-Type-Options": "nosniff",
-        }
-    )
-    await response.prepare(request)
-    for offset in range(0, len(body), 1048576):
-        await response.write(body[offset : offset + 1048576])
-    await response.write_eof()
-    return response
+    try:
+        response = web.StreamResponse(
+            headers={
+                "Content-Type": entry["media_type"],
+                "Content-Length": str(len(body)),
+                "ETag": '"' + entry["sha256"] + '"',
+                "Content-Disposition": disposition(entry["file_name"]),
+                "Cache-Control": "no-store",
+                "X-Content-Type-Options": "nosniff",
+            }
+        )
+        await response.prepare(request)
+        for offset in range(0, len(body), 1048576):
+            await response.write(body[offset : offset + 1048576])
+        await response.write_eof()
+        return response
+    finally:
+        service.slots.release()
 
 
 async def cleanup(app):

@@ -71,7 +71,7 @@ def test_version_real_change_and_unpublished_hash(lab):
     S["snap2"] = receipt.get("snapshot_id")
     r = api.get("/files/" + new["markdown_hash"], "all")
     lab.check("hash of sealed-but-unpublished version is 404", r.status_code == 404, r.status_code)
-    r = api.get("/files/" + new["file_hash"], "all")
+    r = api.get("/files/" + new["original_hash"], "all")
     lab.check("original of unpublished version is 404", r.status_code == 404, r.status_code)
     items, _, snap = api.all_results("all", source_id="dd-050")
     lab.check("/results still serves published snapshot #1", str(snap) == str(S["snap1"]) and new["markdown_hash"] not in {i["markdown_hash"] for i in items}, snap)

@@ -71,10 +71,17 @@ def field_value(tree, text, rule):
     value = text
     if rule.get("xpath"):
         found = tree.xpath(rule["xpath"])
-        if not found:
+        if isinstance(found, list):
+            if not found:
+                return None
+            first = found[0]
+            value = first if isinstance(first, str) else first.text_content()
+        elif isinstance(found, str):
+            value = found
+        elif found is None or isinstance(found, bool):
             return None
-        first = found[0]
-        value = first if isinstance(first, str) else first.text_content()
+        else:
+            value = str(found)
     if value is None:
         return None
     value = re.sub(r"\s+", " ", str(value)).strip()
@@ -135,7 +142,7 @@ class Adapter(Base):
                     if self.details and detail:
                         text = re.sub(r"\s+", " ", anchor.text_content()).strip()
                         attachments.append({"url": link, "text": text})
-                    elif not self.details and ctx.follow_links(task):
+                    elif (not self.details or self.is_detail(link)) and ctx.follow_links(task):
                         requests.append({"url": link, "role": "page", "depth": task["depth"] + 1})
                 elif ctx.follow_links(task):
                     requests.append({"url": link, "role": "page", "depth": task["depth"] + 1})
@@ -208,14 +215,23 @@ class Adapter(Base):
             tree, text, encoding = parse_html(data, acquisition["charset"])
             for name, rule in fields.items():
                 values[name] = field_value(tree, tree.text_content(), rule)
-            title = values.get("title") or next(
+            h1 = next(
                 (
-                    re.sub(r"\s+", " ", t).strip()
-                    for t in tree.xpath("//h1//text()|//title/text()")
-                    if t.strip()
+                    re.sub(r"\s+", " ", node.text_content()).strip()
+                    for node in tree.xpath("//h1")
+                    if re.sub(r"\s+", " ", node.text_content()).strip()
                 ),
                 None,
             )
+            page_title = next(
+                (
+                    re.sub(r"\s+", " ", node.text_content()).strip()
+                    for node in tree.xpath("//title")
+                    if re.sub(r"\s+", " ", node.text_content()).strip()
+                ),
+                None,
+            )
+            title = values.get("title") or h1 or page_title
         else:
             encoding = acquisition["charset"]
             for name, rule in fields.items():

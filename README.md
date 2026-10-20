@@ -1,8 +1,8 @@
 # SEAL
 
-SEAL 以原生 Source Adapter 采集公开法规与政务来源：受控 Acquisition 先把每个实际参与解析的外部原始字节（HTML、渲染 DOM、TXT、PDF、DOC/DOCX/RTF、XLS/XLSX、ZIP）完整归档到私有 S3 CAS 并读回校验，再在短事务内以 attempt fencing 提交数据库事实。内置 Office 结构化直提、越南语 TCVN3 历史字体逐行恢复、PDF 逐页墨迹扫描判定、`tesseract` / `br-ocr-v1` 双引擎 OCR 与客观质量门禁，统一产出 `seal.document.v1` 与不可变 Version，并投影为严格对齐[法规案例元数据上传模板](docs/reference/法规案例元数据上传模板.xlsx)的 16 列交付行。
+SEAL 以原生 Source Adapter 采集公开法规与政务来源：受控 Acquisition 先把每个实际参与解析的外部原始字节（HTML、渲染 DOM、TXT、PDF、DOC/DOCX/RTF、XLS/XLSX、ZIP）完整归档到私有 S3 CAS 并读回校验，再在短事务内以 attempt fencing 提交数据库事实。内置 Office 结构化直提、越南语 TCVN3 历史字体逐行恢复、PDF 逐页墨迹扫描判定、`tesseract` / `br-ocr-v1` 双引擎 OCR 与客观质量门禁，统一产出 `seal.document.v1` 与不可变 Version，并投影为对齐[法规案例元数据上传模板](docs/reference/法规案例元数据上传模板.xlsx)的 15 列业务字段及 `original_hash` / `markdown_hash` 交付行。
 
-命令：`init`、`collect`、`recheck`、`worker` 负责采集，`snapshot create / list / inspect / publish` 冻结并人工发布全局集合，`serve` 只对下游暴露 `GET /results`（16 列投影）与 `GET /files/{sha256}`（原件或解析后 `.md` 直取）。来源使用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，配置与数据合同见[唯一 Plan](docs/plans/source-adapters-delivery.md)。
+命令：`init`、`collect`、`recheck`、`worker` 负责采集，`snapshot create / list / inspect / publish` 冻结并人工发布全局集合，`serve` 只对下游暴露 `GET /results`（15 列业务字段 + `original_hash` / `markdown_hash`）与 `GET /files/{sha256}`（原件或解析后 `.md` 直取）。来源使用[地图稳定编号](docs/reference/尽职调查核验入口地图.md)，配置与数据合同见[唯一 Plan](docs/plans/source-adapters-delivery.md)。
 
 ## 全链路执行图
 
@@ -42,7 +42,7 @@ runs.py: execute_run()
 │   ├── [STATE] attempt_epoch+1、status=running
 │   └── [SPAWN] 独立进程组 python -m seal.runtime run_id epoch；Markdown 生成器缓存隔离到 work 目录
 ├── [PARALLEL]
-│   ├── CHILD: runtime.py: run() → Runtime.execute() → 进入阶段 [3]
+│   ├── CHILD: runtime_process.py: run() → Runtime.execute() → 进入阶段 [3]
 │   └── PARENT: 轮询 owner 连接、generation/epoch/暂停/时间预算；TTY 只读进度
 ├── [CLEANUP] stop_process() → SIGTERM / 有界等待 / SIGKILL
 ├── [ERROR] Ctrl+C 或 Worker cancel_event → 子进程停止，Run=retryable；旧 epoch 写入被 fenced() 拒绝
@@ -63,7 +63,7 @@ runtime.py: Runtime.execute()
 │   ├── deliver_ready() → 输入全部 done/failed/skipped 的目标 → deliver()
 │   │   ├── [CHECK] 任一必需输入非 archived/ok → resources.py: fail() 失败交付
 │   │   ├── Adapter.build() → Context.read() / Context.extract() → 进入阶段 [4]
-│   │   ├── document.py: build() → [IO] .md / seal.inputs.v1 / seal.document.v1 写入 CAS 并读回 → 四重指纹与 16 列行
+│   │   ├── document.py: build() → [IO] .md / seal.inputs.v1 / seal.document.v1 写入 CAS 并读回 → 四重指纹与交付行
 │   │   └── resources.py: commit() → [DB] Source → Run → Resource 锁与 fence → Observation / Version / delivery_row / 目标 done
 │   └── fetch_batch() → 按 seq 取并发数个 pending 请求
 │       ├── reuse() 同 request_key 已归档的最终响应 → 直接复用，不重复外部请求
@@ -99,7 +99,7 @@ pdf_runtime.py: run_extraction(bytes, kind) → pdf_slots.py 主机级 4 槽
 snapshots.py: create() / listing() / inspect() / publish()
 ├── create() → [DB] REPEATABLE READ 冻结全部 Source、当前（或覆盖）Version
 │   ├── coverage() → 最近终态 Run 的计数、截断与已知缺口；未知分母 UNKNOWN
-│   ├── [IO/CHECK] snapshot_file 闭包：每行原件与 .md 经 Objects.head() 确认存在，缺失则不能封存
+│   ├── [IO/CHECK] snapshot_file 闭包：每个 Version 的 seal.document.v1、输入清单、原件与 .md 经 Objects.get() 读回校验 SHA-256，缺失或损坏则不能封存
 │   └── [STATE] 计数触发器核对后 sealed；映射不可变；不改变发布指针
 ├── listing() / inspect() → [DB] 只读统计、覆盖描述与有界分页映射
 └── publish() → verify() → [IO/CHECK] 全部 seal.document.v1 闭包与可下载文件读取复算 SHA-256
@@ -111,8 +111,8 @@ api.py: application() → boundary middleware
 ├── [CHECK] Service.authenticate() → 每请求重读私有 callers → Bearer 摘要与 Source 许可
 ├── GET /results → result_query.py: results()
 │   ├── [DB] 同一只读事务读取 published_snapshot_id；为空 503；source_id 未授权 403
-│   ├── public_results.py: snapshot_rows() → snapshot_item ⋈ delivery_row，按 source_id/resource_id/行号 C 序
-│   └── [RETURN] {snapshot_id, items(16 列 + source_id/resource_id/version_id/row_number/markdown_hash), next_cursor} + Link；游标绑定调用方/来源/快照
+│   ├── public_results.py: snapshot_rows() → snapshot_item ⋈ delivery_row，按索引直接分页（source_id/resource_id/行号 C 序）
+│   └── [RETURN] {snapshot_id, items(15 列中文键 + source_id/resource_id/version_id/row_number/original_hash/markdown_hash), next_cursor} + Link；游标绑定调用方/来源/快照
 └── GET /files/{sha256} → result_query.py: file()
     ├── [DB] public_results.py: file_entry() → 当前快照 snapshot_file ∩ 调用方授权来源，否则 404
     └── [IO/RETURN] Objects.get() 复算 SHA-256 → 真实 Content-Type、Content-Length、ETag、RFC 5987 文件名
@@ -208,7 +208,7 @@ erDiagram
   int row_number PK
   text title "资料名称"
   text markdown_file "解析后文件"
-  text file_hash "文件哈希"
+  text original_hash "原件 SHA-256，可空"
   text original_file "原始文件，可空"
   int volume_order "文件顺序"
   text source_record_hash "来源记录号"
@@ -224,10 +224,10 @@ erDiagram
 
 ## 运行示例：从公开来源采集到 API 查询
 
-以下命令在仓库根目录执行，演示公开 HTML 与 PDF（文字层 + 扫描件 OCR）从采集、存储核验、人工发布到 API 取回 16 列结果与文件的最小闭环：
+以下命令在仓库根目录执行，演示公开 HTML 与 PDF（文字层 + 扫描件 OCR）从采集、存储核验、人工发布到 API 取回结果与文件的最小闭环：
 
 ```text
-sources/dd-xxx.yaml → seal collect → Acquisition/CAS → 提取与 quality_check → seal.document.v1 → Version + 16 列行
+sources/dd-xxx.yaml → seal collect → Acquisition/CAS → 提取与 quality_check → seal.document.v1 → Version + delivery_row
   → seal snapshot create → inspect → publish → seal serve → GET /results → GET /files/{sha256}
 ```
 
@@ -280,7 +280,7 @@ uv run --no-sync seal collect sources/dd-017.yaml --no-progress | tee artifacts/
 uv run --no-sync seal collect work/readme-demo/dd-492.yaml --no-progress | tee artifacts/readme-demo/dd-492-run.json
 ```
 
-回执 `report` 区分真实外部请求数、请求任务与文档目标状态、观察结果及 `coverage`；`site_population` 恒为 `UNKNOWN`，有界样本不代表全站覆盖。下面通过 SQL 与 S3 API 核对 Acquisition、16 列行与 CAS：
+回执 `report` 区分真实外部请求数、请求任务与文档目标状态、观察结果及 `coverage`；`site_population` 恒为 `UNKNOWN`，有界样本不代表全站覆盖。下面通过 SQL 与 S3 API 核对 Acquisition、交付行与 CAS：
 
 ```bash
 uv run --no-sync python - <<'PY' | tee artifacts/readme-demo/storage-check.json
@@ -294,7 +294,7 @@ runs = {s: json.loads(Path(f"artifacts/readme-demo/{s}-run.json").read_text())["
 with connect() as c:
     c.execute("SET TRANSACTION READ ONLY")
     rows = c.execute("""
-        SELECT o.run_id,d.title,d.file_hash,d.markdown_hash,d.original_file,d.role,v.result_ref
+        SELECT o.run_id,d.title,d.original_hash,d.markdown_hash,d.original_file,d.role,v.result_ref
         FROM seal.observation o JOIN seal.version v ON v.id=o.version_id
         JOIN seal.delivery_row d ON d.version_id=v.id
         WHERE o.run_id=ANY(%s) ORDER BY o.run_id,d.title""", (list(runs.values()),)).fetchall()
@@ -303,7 +303,9 @@ with connect() as c:
 assert {r["run_id"] for r in rows} == set(runs.values()), "source_without_delivery"
 objects = Objects()
 for row in rows:  # S3 读取时复算 SHA-256
-    objects.get(row["file_hash"]); objects.get(row["markdown_hash"])
+    if row["original_hash"]:
+        objects.get(row["original_hash"])
+    objects.get(row["markdown_hash"])
     assert json.loads(objects.get(row["result_ref"]))["schema"] == "seal.document.v1"
 print(json.dumps({"acquisitions": acquisitions, "rows": len(rows),
                   "sample": rows[:3]}, ensure_ascii=False, indent=2, default=str))
@@ -342,7 +344,7 @@ PY
 uv run --no-sync seal serve --config work/readme-demo/api-config.local.json --host 127.0.0.1 --port 8090
 ```
 
-### 5. 客户端查询 16 列结果并按哈希取文件
+### 5. 客户端查询结果并按哈希取文件
 
 另开终端：
 
@@ -362,18 +364,20 @@ auth = (work / "headers.local.txt").read_text().strip().split(": ", 1)[1]
 items = json.loads((out / "dd-492-results.json").read_text())["items"]
 assert len(items) == 2 and all(i["资料类型"] and i["采集时间"] for i in items)
 for item in items:
-    for column, digest in (("原始文件", item["文件哈希"]), ("解析后文件", item["markdown_hash"])):
+    for column, digest in (("原始文件", item["original_hash"]), ("解析后文件", item["markdown_hash"])):
+        if not digest:
+            continue
         with urlopen(Request("http://127.0.0.1:8090/files/" + digest,
                              headers={"Authorization": auth}), timeout=60) as response:
             body = response.read()
         assert hashlib.sha256(body).hexdigest() == digest
         (out / item[column]).write_bytes(body)
-    print(json.dumps({k: item[k] for k in ("资料名称", "解析后文件", "原始文件", "文件哈希")},
+    print(json.dumps({k: item[k] for k in ("资料名称", "解析后文件", "原始文件", "original_hash", "markdown_hash")},
                      ensure_ascii=False))
 PY
 ```
 
-`items` 每项含 16 列中文键与 `markdown_hash`；`文件哈希` 取回 PDF 原件，`markdown_hash` 取回解析后 `.md`，字节 SHA-256 均与哈希一致。旧 `/sources`、`/attachments/*` 返回 404。示例依赖公开站点可用性，处理成功不代表识别准确或业务事实已核验。
+`items` 每项含 15 列中文业务键及 `original_hash`（无独立原件时为 `null`）与 `markdown_hash`；`original_hash` 取回 PDF 原件，`markdown_hash` 取回解析后 `.md`，字节 SHA-256 均与哈希一致。旧 `/sources`、`/attachments/*` 返回 404。示例依赖公开站点可用性，处理成功不代表识别准确或业务事实已核验。
 
 #### 停止服务与清理
 

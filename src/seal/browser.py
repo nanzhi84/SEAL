@@ -6,6 +6,7 @@ The rendered UTF-8 DOM is an additional representation, not an extra network req
 
 import asyncio
 import base64
+import contextlib
 import hashlib
 
 from .core import SealError
@@ -21,15 +22,20 @@ class Browser:
             recorder,
             transport,
         )
+        self.lock = asyncio.Lock()
         self.playwright = None
         self.browser = None
 
     async def start(self):
-        if self.browser is None:
-            from playwright.async_api import async_playwright
+        async with self.lock:
+            if self.browser is None:
+                from playwright.async_api import async_playwright
 
-            self.playwright = await async_playwright().start()
-            self.browser = await self.playwright.chromium.launch(headless=True)
+                self.playwright = await async_playwright().start()
+                self.browser = await self.playwright.chromium.launch(
+                    headless=True,
+                    args=["--host-resolver-rules=MAP * ~NOTFOUND"],
+                )
 
     async def close(self):
         if self.browser is not None:
@@ -46,12 +52,7 @@ class Browser:
         identity = self.recorder.start(
             key, "rendered_dom", "content", "GET", url, {"role": request.get("role", "page")}
         )
-        context = await self.browser.new_context(
-            user_agent=self.config["user_agent"],
-            accept_downloads=False,
-            ignore_https_errors=False,
-            service_workers="block",
-        )
+        context = None
         errors, facts, pending = [], {}, set()
 
         async def route_input(event):
@@ -134,21 +135,30 @@ class Browser:
                 )
             except SealError as exc:
                 errors.append(exc.code)
-                await session.send(
-                    "Fetch.failRequest", {"requestId": request_id, "errorReason": "BlockedByClient"}
-                )
+                with contextlib.suppress(Exception):
+                    await session.send(
+                        "Fetch.failRequest",
+                        {"requestId": request_id, "errorReason": "BlockedByClient"},
+                    )
             except asyncio.CancelledError:
                 errors.append("interrupted")
                 raise
             except Exception:
                 errors.append("network_failed")
-                await session.send(
-                    "Fetch.failRequest", {"requestId": request_id, "errorReason": "Failed"}
-                )
+                with contextlib.suppress(Exception):
+                    await session.send(
+                        "Fetch.failRequest", {"requestId": request_id, "errorReason": "Failed"}
+                    )
             finally:
                 pending.discard(current)
 
         try:
+            context = await self.browser.new_context(
+                user_agent=self.config["user_agent"],
+                accept_downloads=False,
+                ignore_https_errors=False,
+                service_workers="block",
+            )
             page = await context.new_page()
             session = await context.new_cdp_session(page)
             # Fetch.requestPaused reports every redirect hop. Playwright route handlers
@@ -174,6 +184,15 @@ class Browser:
             html = await page.content()
             status = response.status if response else None
             actual = page.url
+            data = html.encode("utf-8")
+            if len(data) > self.config["budget"]["response_bytes"]:
+                return self.recorder.finish(
+                    identity, "failed", outcome="blocked", error="response_byte_budget_exceeded"
+                )
+            self.budget.active()
+            ref = self.transport.objects.put(data)
+            self.transport.objects.get(ref)
+            self.budget.active()
         except asyncio.CancelledError:
             self.recorder.finish(identity, "cancelled", outcome="cancelled", error="interrupted")
             raise
@@ -183,21 +202,18 @@ class Browser:
                 if isinstance(exc, SealError)
                 else (errors[0] if errors else "network_failed")
             )
-            if code in {"stale_attempt", "inactive_attempt"}:
+            if code in {"stale_attempt", "inactive_attempt", "run_not_started"}:
                 raise SealError(code) from exc
             state = "cancelled" if code == "interrupted" else "failed"
             return self.recorder.finish(identity, state, outcome="blocked", error=code)
         finally:
-            await context.close()
-        data = html.encode("utf-8")
-        if len(data) > self.config["budget"]["response_bytes"]:
-            return self.recorder.finish(
-                identity, "failed", outcome="blocked", error="response_byte_budget_exceeded"
-            )
-        self.budget.active()
-        ref = self.transport.objects.put(data)
-        self.transport.objects.get(ref)
-        self.budget.active()
+            for task in tuple(pending):
+                task.cancel()
+            if pending:
+                await asyncio.gather(*tuple(pending), return_exceptions=True)
+            if context is not None:
+                with contextlib.suppress(Exception):
+                    await context.close()
         ok = status is not None and 200 <= status < 300 and status not in REDIRECTS
         return self.recorder.finish(
             identity,
