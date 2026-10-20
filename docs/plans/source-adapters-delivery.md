@@ -390,6 +390,8 @@ API 配置在原有 `public_base_url`、`token_key`、`callers`、`workers`、`r
 PYTHONPATH=src uv run --no-sync python tests/issue32_e2e.py
 ```
 
+最终独立验收 144/144 条断言通过。工件 `artifacts/issue32-20261020150446-890ce2/` 含 API/包内字节、并发 A/B、幂等、取消/坏件/缺件、socket 禁网启动证明、同名跨来源子集稳定性与敏感扫描（零命中）。源码首尾 SHA-256 为 `f4ba6adf38fd5b1f4d2925c503b8cfc8cea051edfda5f7b08a44d7abd81c1512`。本阶段真实 exporter 容量上限路径未跑到；空 URL / 无独立原件正向链在阶段 3 覆盖，不计为本次通过项。
+
 ## 文件交付合同（`seal export`）
 
 ```text
@@ -479,7 +481,7 @@ seal export verify artifacts/<运行名>/delivery
 | Snapshot A 导出期间采集或发布 B | A 的 `metadata.xlsx`、`.md` 与原件固定不变，不混入 B；导出不改变 API 的 `published_snapshot_id` |
 | 移动包并断网 `seal export verify` | 包内相对路径有效，16 列 `metadata.xlsx`、`markdown/`、`originals/` 与 `manifest.json` 全量对账通过 |
 
-当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2–4 仍由各自依赖分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
+当前分支阶段 1 独立验收已通过：核心 56 场景 + 补充 22 场景，共 407 条断言全部通过。覆盖真实 CLI、HTTP/渲染 DOM、Office/TCVN3/ZIP、双引擎 PDF/OCR、SQL/CAS、Snapshot 与双接口字节、失败/信号取消/失效接管、外部等待无长事务；无展示 URL 的原生来源正向链路在阶段 3 验收。阶段 2 已在本分支交付，阶段 3–4 由后续依赖分支交付。上述结果不代表全站覆盖、生产升级或 OCR 全文准确率。
 
 复跑前提：`uv sync --frozen`，Docker 中存在 `postgres:17-alpine` 与项目 MinIO 镜像 `seal-minio:RELEASE.2025-10-15T17-29-55Z`，安装 LibreOffice、Tesseract 的 `eng/vie` 模型及 Crawl4AI 浏览器。两个脚本自行创建和销毁随机端口、随机凭据的隔离容器，不读取业务数据库。
 

@@ -108,7 +108,7 @@ def offline_faults(lab,package):
     lab.cli('export','verify',target,ok=False); lab.check('verify refuses missing payload',True)
     target=fixture('extra-file'); (target/'extra.txt').write_text('not in manifest')
     lab.cli('export','verify',target,ok=False); lab.check('verify refuses unlisted payload',True)
-    for name,col,value in [('invalid-enum',3,'INVALID_TYPE'),('formula-cell',9,'=1+1'),('bad-date',10,'2026-13-80')]:
+    for name,col,value in [('invalid-enum',3,'INVALID_TYPE'),('formula-cell',9,'=1+1'),('bad-date',10,'2026-13-80'),('bad-time',5,'2026-10-20 25:61:99')]:
         target=fixture(name); book=load_workbook(target/'metadata.xlsx'); book.active.cell(3,col,value); book.save(target/'metadata.xlsx')
         manifest=json.loads((target/'manifest.json').read_text())
         for item in manifest['files']:
@@ -116,6 +116,10 @@ def offline_faults(lab,package):
         (target/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False))
         receipt=lab.cli('export','verify',target,ok=None)
         lab.check('verify semantic refusal '+name,receipt.returncode!=0,{'receipt':receipt.stdout},fatal=False)
+    target=fixture('bad-document-count'); manifest=json.loads((target/'manifest.json').read_text()); manifest['counts']['documents']+=1
+    (target/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False))
+    receipt=lab.cli('export','verify',target,ok=None)
+    lab.check('verify refuses incorrect manifest document count',receipt.returncode!=0,{'receipt':receipt.stdout},fatal=False)
     target=fixture('unsafe-manifest'); manifest=json.loads((target/'manifest.json').read_text()); manifest['files'][0]['path']='../escape.md'
     (target/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False)); lab.cli('export','verify',target,ok=False)
     lab.check('verify refuses traversal manifest path',True)
@@ -145,3 +149,24 @@ def source_scopes(lab):
     lab.cli('export','--snapshot',snap,'--source','dd-040','--source','dd-017','--output',multi)
     manifest=json.loads((multi/'manifest.json').read_text())
     lab.check('multiple sources are sorted and complete',manifest['sources']==['dd-017','dd-040'] and {row['source_id'] for row in manifest['rows']}=={'dd-017','dd-040'})
+
+
+def collision_subsets(lab):
+    # A real second source deliberately delivers the same title and physical bytes.
+    lab.cli('collect',lab.config('/detail/single','colliding-source',title='单件法规',source='dd-041'),'--no-progress')
+    snap=lab.snapshot(); whole=lab.out/'collision-whole'
+    lab.cli('export','--snapshot',snap,'--output',whole)
+    full=json.loads((whole/'manifest.json').read_text())
+    whole_rows=load_workbook(whole/'metadata.xlsx',read_only=True).active
+    titles=[r[0] for r in list(whole_rows.values)[2:]]
+    lab.check('collision fixture contains two distinct same-title records',titles.count('单件法规')==2)
+    lab.check('whole snapshot names are batch-unique',len({row['markdown_file'] for row in full['rows']})==len(full['rows']) and len({row['original_file'] for row in full['rows']})==len(full['rows']))
+    for source in ('dd-017','dd-041'):
+        subset=lab.out/('collision-subset-'+source)
+        lab.cli('export','--snapshot',snap,'--source',source,'--output',subset)
+        partial=json.loads((subset/'manifest.json').read_text())
+        identity=lambda row:(row['source_id'],row['resource_id'],row['version_id'],row['role'],row['volume_order'])
+        expected={identity(row):(row['markdown_file'],row['original_file']) for row in full['rows'] if row['source_id']==source}
+        actual={identity(row):(row['markdown_file'],row['original_file']) for row in partial['rows']}
+        lab.check('source subset preserves whole-snapshot collision names '+source,expected==actual)
+        lab.check('source subset preserves all collision payload bytes '+source,all((whole/row[k]).read_bytes()==(subset/row[k]).read_bytes() for row in partial['rows'] for k in ('markdown_file','original_file')))

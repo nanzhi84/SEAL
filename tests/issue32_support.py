@@ -1,6 +1,6 @@
 """Independent issue #32 CLI acceptance infrastructure; never imports seal internals."""
 from __future__ import annotations
-import hashlib, io, json, os, secrets, socket, subprocess, sys, threading, time
+import hashlib, io, json, os, secrets, socket, subprocess, sys, threading, time, zipfile
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -25,9 +25,15 @@ def docx(text):
 
 class Lab:
     def __init__(self):
+        required=('SEAL_DATABASE_URL','SEAL_S3_ENDPOINT','SEAL_S3_ACCESS_KEY','SEAL_S3_SECRET_KEY')
+        missing=[key for key in required if not os.environ.get(key)]
+        if missing: raise RuntimeError('Missing acceptance environment variables: '+', '.join(missing))
         self.name='issue32-'+time.strftime('%Y%m%d%H%M%S')+'-'+secrets.token_hex(3)
         self.work=ROOT/'work'/self.name; self.out=ROOT/'artifacts'/self.name
         self.work.mkdir(parents=True); self.out.mkdir(parents=True)
+        self.head_before=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+        self.source_before={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in sorted((ROOT/'src').rglob('*')) if p.is_file() and '__pycache__' not in p.parts}
+        (self.out/'source-before.json').write_text(json.dumps(self.source_before,indent=2))
         self.env=os.environ.copy(); self.env['PYTHONPATH']=str(ROOT/'src')
         self.env['SEAL_ALLOW_LOOPBACK']='1'; self.env['SEAL_WORK_DIR']=str(self.work/'runtime')
         old=conninfo_to_dict(self.env['SEAL_DATABASE_URL']); self.db='accept32_'+secrets.token_hex(7)
@@ -117,7 +123,22 @@ class Lab:
             except subprocess.TimeoutExpired: proc.kill()
         self.http.shutdown()
         hashes={str(p.relative_to(ROOT)):sha(p.read_bytes()) for folder in ('src','tests') for p in sorted((ROOT/folder).rglob('*')) if p.is_file() and '__pycache__' not in p.parts}
+        source_after={key:value for key,value in hashes.items() if key.startswith('src/')}
+        (self.out/'source-after.json').write_text(json.dumps(source_after,indent=2))
+        self.check('source hashes unchanged throughout acceptance',self.source_before==source_after,fatal=False)
         (self.out/'source-test-hashes.json').write_text(json.dumps(hashes,indent=2,ensure_ascii=False))
-        report={'run':self.name,'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checks':self.checks,'error':error,'fixture_requests':self.requests,'tests_sha256':{k:v for k,v in hashes.items() if k.startswith('tests/issue32_')},'environment':{'python':sys.version.split()[0],'database':'isolated acceptance-owned PostgreSQL database','objects':'isolated acceptance-owned S3 bucket','inputs':'loopback HTTP HTML and generated DOCX','secret_values_recorded':False}}
+        private=[os.environ.get(key,'').encode() for key in ('SEAL_DATABASE_URL','SEAL_S3_ACCESS_KEY','SEAL_S3_SECRET_KEY')]
+        if hasattr(self,'token'): private.append(self.token.encode())
+        hits=[]
+        for file in self.out.rglob('*'):
+            if not file.is_file(): continue
+            chunks=[file.read_bytes()]
+            if file.suffix in ('.xlsx','.docx'):
+                with zipfile.ZipFile(file) as archive: chunks.extend(archive.read(name) for name in archive.namelist())
+            if any(value and value in chunk for value in private for chunk in chunks): hits.append(str(file.relative_to(self.out)))
+        scan={'scanned_private_database_dsn_storage_credentials_api_bearer':True,'included_decompressed_office_payloads':True,'hits':hits}
+        (self.out/'secret-scan.json').write_text(json.dumps(scan,indent=2))
+        self.check('artifact secret scan including Office XML is clean',not hits,fatal=False)
+        report={'run':self.name,'head_before':self.head_before,'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_tree_sha256_before':sha(json.dumps(self.source_before,sort_keys=True).encode()),'source_tree_sha256_after':sha(json.dumps(source_after,sort_keys=True).encode()),'checks':self.checks,'error':error,'fixture_requests':self.requests,'tests_sha256':{k:v for k,v in hashes.items() if k.startswith('tests/issue32_')},'environment':{'python':sys.version.split()[0],'database':'isolated acceptance-owned PostgreSQL database; CREATE DATABASE permission required','objects':'isolated acceptance-owned S3 bucket; create/get/put/delete/list required','required_variables':['SEAL_DATABASE_URL','SEAL_S3_ENDPOINT','SEAL_S3_ACCESS_KEY','SEAL_S3_SECRET_KEY'],'optional_variables':{'SEAL_S3_REGION':'default us-east-1'},'harness_sets':['PYTHONPATH=<worktree>/src','SEAL_ALLOW_LOOPBACK=1','SEAL_S3_BUCKET=<fresh isolated bucket>','SEAL_WORK_DIR=<run-owned work>/runtime'],'inputs':'loopback HTTP HTML and generated DOCX','secret_values_recorded':False}}
         (self.out/'report.json').write_text(json.dumps(report,indent=2,ensure_ascii=False))
         print(json.dumps({'artifacts':str(self.out),'checks':len(self.checks),'passed':sum(c['passed'] for c in self.checks),'error':error},ensure_ascii=False))

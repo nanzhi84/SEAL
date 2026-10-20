@@ -4,7 +4,7 @@ import json, re, shutil, sys
 from pathlib import Path
 from openpyxl import load_workbook
 from issue32_support import HEADERS, Lab, sha
-from issue32_faults import audit_manifest, concurrent_b, storage_faults, offline_faults, capacity, source_scopes
+from issue32_faults import audit_manifest, concurrent_b, storage_faults, offline_faults, capacity, source_scopes, collision_subsets
 
 lab=Lab()
 try:
@@ -81,11 +81,12 @@ try:
     offline_faults(lab,package)
     capacity(lab)
     source_scopes(lab)
+    collision_subsets(lab)
     # Package-only leak scan; do not put credential values into report.
     forbidden=[str(lab.work).encode(),str(Path.cwd()).encode(),lab.env['SEAL_S3_ACCESS_KEY'].encode(),lab.env['SEAL_S3_SECRET_KEY'].encode()]
     lab.check('delivery has no workspace path or private storage credentials',not any(value and value in p.read_bytes() for value in forbidden for p in package.rglob('*') if p.is_file()))
-    (lab.out/'unverified.json').write_text(json.dumps({'real_export_scenarios_not_reached':['No independent original / no detail URL: stage1 web producer always archives a response and has a URL','Excel capacity: Source config rejects 32768-character title before collection; exporter capacity boundary not reached'],'not_claimed':'These are not counted as passed end-to-end exporter scenarios'},indent=2))
-    (lab.out/'reproduce.txt').write_text('Prerequisites: Python 3.12 shared .venv, local PostgreSQL with CREATE DATABASE and isolated S3 bucket permissions.\nsource /Users/yoryon/SEAL/work/dev/env.sh\nPYTHONPATH=src /Users/yoryon/SEAL/.venv/bin/python tests/issue32_e2e.py\nFixtures and private API config stay in acceptance work/.\n')
+    (lab.out/'unverified.json').write_text(json.dumps({'real_export_scenarios_not_reached':['No independent original / no detail URL: deferred to issue33 real producer acceptance','Excel capacity: Source config rejects 32768-character title before collection; exporter capacity boundary not reached'],'not_claimed':'These are not counted as passed end-to-end exporter scenarios'},indent=2))
+    (lab.out/'reproduce.txt').write_text('Prerequisites: Python 3.12 shared .venv, local PostgreSQL with CREATE DATABASE and isolated S3 bucket create/get/put/delete/list permissions.\nRequired variables: SEAL_DATABASE_URL, SEAL_S3_ENDPOINT, SEAL_S3_ACCESS_KEY, SEAL_S3_SECRET_KEY. Optional: SEAL_S3_REGION (default us-east-1).\ncd /Users/yoryon/SEAL-pr2\nsource /Users/yoryon/SEAL/work/dev/env.sh\nPYTHONPATH=src /Users/yoryon/SEAL/.venv/bin/python tests/issue32_e2e.py\nHarness creates fresh database/bucket, sets SEAL_ALLOW_LOOPBACK=1 and a run-owned SEAL_WORK_DIR. Fixtures and private API config stay in acceptance work/.\n')
     lab.finish()
     if any(not c['passed'] for c in lab.checks): sys.exit(1)
 except Exception as exc:
